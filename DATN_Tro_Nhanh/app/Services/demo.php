@@ -4,7 +4,6 @@
 namespace App\Services;
 // 1 file là 1 model 
 use App\Models\User;
-
 class demo
 {
     // viết các hàm lấy giá trị của bản đó 
