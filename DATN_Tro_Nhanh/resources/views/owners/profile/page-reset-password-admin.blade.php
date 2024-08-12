@@ -9,8 +9,8 @@
                 <p class="mb-1">Dịch vụ khách hàng rất quan trọng, do đó, khách hàng phải chịu trách nhiệm. Cần có hy vọng
                 </p>
             </div> --}}
-            <form class="d-flex justify-content-center align-items-center">
-                <div class="col-lg-6 card ">
+            <form>
+                <div class="col-lg-12 card">
                     <div class="card-body px-6 pt-6 pb-5">
                         <h3 class="card-title mb-0 text-heading text-center fs-22 lh-15">ĐỔI MẬT KHẨU</h3>
                         {{-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit
@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-center flex-wrap">
-                        <button class="btn btn-lg btn-primary ml-4 mb-3">Cập nhật mật khẩu</button>
+                        <button class="btn btn-lg btn-primary ml-4 mb-3">Cập nhật</button>
                     </div>
                 </div>
             </form>
