@@ -5,8 +5,9 @@
             <div class="container container-xxl">
                 <nav class="navbar navbar-expand-xl px-0 w-100">
                     <a class="navbar-brand mr-7" href="index.html">
-                        <img src="images/logo.png" alt="HomeID" class="d-none d-xl-inline-block">
-                        <img src="images/logo-white.png" alt="HomeID" class="d-inline-block d-xl-none">
+                        <img src="{{ asset('assets/images/logo.png') }}" alt="HomeID" class="d-none d-xl-inline-block">
+                        <img src="{{ asset('assets/images/logo-white.png') }}" alt="HomeID"
+                            class="d-inline-block d-xl-none">
                     </a>
                     <div class="d-flex d-xl-none ml-auto">
                         <a class="d-block mr-4 position-relative text-white p-2" href="#">
@@ -118,8 +119,8 @@
                                                 <a class="dropdown-item" href="listing-full-width-grid-3.html">
                                                     Full width grid 3
                                                 </a>
-                                                <a class="dropdown-item" href="listing-grid-with-left-filter.html">
-                                                    Grid with left filter
+                                                <a class="dropdown-item" href="{{ route('room.room-listing') }}">
+                                                    Danh sách trọ
                                                 </a>
                                                 <a class="dropdown-item" href="listing-grid-with-right-filter.html">
                                                     Grid with right filter
@@ -137,8 +138,8 @@
                                                     Map style
                                                 </h4>
                                                 <!-- List -->
-                                                <a class="dropdown-item" href="listing-half-map-list-layout-1.html">
-                                                    Half map list layout 1
+                                                <a class="dropdown-item" href="{{ route('room.room-map-listing') }}">
+                                                    Bản đồ trọ
                                                 </a>
                                                 <a class="dropdown-item" href="listing-half-map-list-layout-2.html">
                                                     Half map list layout 2
@@ -511,7 +512,8 @@
                                 <li class="nav-item ml-auto w-100 w-sm-auto">
                                     <a class="btn btn-primary btn-lg" href="dashboard-add-new-property.html">
                                         Add listing
-                                        <img src="images/add-listing-icon.png" alt="Add listing" class="ml-1">
+                                        <img src="{{ asset('assets/images/add-listing-icon.png') }}" alt="Add listing"
+                                            class="ml-1">
                                     </a>
                                 </li>
                             </ul>
@@ -549,12 +551,14 @@
                                 <a class="btn btn-lg text-heading border bg-hover-primary border-hover-primary hover-white d-none d-lg-block"
                                     href="dashboard-add-new-property.html">
                                     Add listing
-                                    <img src="images/add-listing-icon-primary.png" alt="Add listing" class="ml-1">
+                                    <img src="{{ asset('assets/images/add-listing-icon-primary.png') }}"
+                                        alt="Add listing" class="ml-1">
                                 </a>
                                 <a class="btn btn-primary btn-lg d-block d-lg-none"
                                     href="dashboard-add-new-property.html">
                                     Add listing
-                                    <img src="images/add-listing-icon.png" alt="Add listing" class="ml-1">
+                                    <img src="{{ asset('assets/images/add-listing-icon.png') }}" alt="Add listing"
+                                        class="ml-1">
                                 </a>
                             </li>
                         </ul>
