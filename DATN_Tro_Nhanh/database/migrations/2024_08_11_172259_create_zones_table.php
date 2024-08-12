@@ -13,6 +13,19 @@ return new class extends Migration
     {
         Schema::create('zones', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->text('description');
+            $table->integer('room_number');
+            $table->string('address');
+            $table->string('village');
+            $table->string('district');
+            $table->string('province');
+            $table->string('longitude');
+            $table->string('latitude');
+            $table->integer('total_rooms');
+            $table->boolean('status')->default(1);
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

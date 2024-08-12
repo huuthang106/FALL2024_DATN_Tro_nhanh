@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
+            $table->string('filename');
+            $table->boolean('status')->default(1);
+            $table->foreignId('room_id')->nullable()->constrained('rooms')->onDelete('cascade');
+            $table->foreignId('registrationlist_id')->nullable()->constrained('registration_lists')->onDelete('cascade');
+            $table->foreignId('blog_id')->nullable()->constrained('blogs')->onDelete('cascade');
+            $table->foreignId('resident_id')->nullable()->constrained('residents')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

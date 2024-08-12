@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('residents', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('room_id')->constrained('rooms')->onDelete('cascade');
+            $table->foreignId('zone_id')->constrained('zones')->onDelete('cascade');
+            $table->boolean('status')->default(1);
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

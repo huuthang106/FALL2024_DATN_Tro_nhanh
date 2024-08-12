@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('price_lists', function (Blueprint $table) {
             $table->id();
+            $table->float('price');
+            $table->text('description');
+            $table->integer('duration_day');
+            $table->boolean('status')->default(1);
+            $table->string('location_name');
+            $table->softDeletes();            
             $table->timestamps();
         });
     }

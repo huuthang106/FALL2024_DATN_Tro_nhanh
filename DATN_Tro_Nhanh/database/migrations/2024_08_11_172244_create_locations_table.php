@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->boolean('status')->default(1);
+            $table->dateTime('end_date');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

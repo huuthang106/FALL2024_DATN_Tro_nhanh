@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('watchlists', function (Blueprint $table) {
             $table->id();
+            $table->boolean('status')->default(1);
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('follower')->constrained('users')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

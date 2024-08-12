@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->float('added_funds')->nullable();
+            $table->float('amount_withdrawn')->nullable();
+            $table->float('balance');
+            $table->text('description');
+            $table->boolean('status')->default(1);
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
