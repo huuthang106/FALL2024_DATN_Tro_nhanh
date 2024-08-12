@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Room;
 
 class RoomClientController extends Controller
 {
@@ -16,5 +17,9 @@ class RoomClientController extends Controller
     public function indexRoomMap()
     {
         return view('client.show.listing-half-map-list-layout-1');
+    }
+    public function page_detail()
+    {
+        return view('client.show.single-propety');
     }
 }

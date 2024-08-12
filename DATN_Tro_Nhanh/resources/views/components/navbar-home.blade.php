@@ -130,32 +130,8 @@
                                                         Single Property
                                                     </h4>
                                                     <!-- List -->
-                                                    <a class="dropdown-item" href="single-property-1.html">
-                                                        Single Property 1
-                                                    </a>
-                                                    <a class="dropdown-item" href="single-property-2.html">
-                                                        Single Property 2
-                                                    </a>
-                                                    <a class="dropdown-item" href="single-property-3.html">
-                                                        Single Property 3
-                                                    </a>
-                                                    <a class="dropdown-item" href="single-property-4.html">
-                                                        Single Property 4
-                                                    </a>
-                                                    <a class="dropdown-item" href="single-property-5.html">
-                                                        Single Property 5
-                                                    </a>
-                                                    <a class="dropdown-item" href="single-property-6.html">
-                                                        Single Property 6
-                                                    </a>
-                                                    <a class="dropdown-item" href="single-property-7.html">
-                                                        Single Property 7
-                                                    </a>
-                                                    <a class="dropdown-item" href="single-property-8.html">
-                                                        Single Property 8
-                                                    </a>
-                                                    <a class="dropdown-item" href="single-property-9.html">
-                                                        Single Property 9
+                                                    <a class="dropdown-item" href="{{ route('client.detail-room') }}">
+                                                        Xem chi tiết
                                                     </a>
                                                 </div>
                                             </div>
