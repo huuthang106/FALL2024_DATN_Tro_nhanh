@@ -149,8 +149,8 @@
                                         aria-labelledby="navbar-item-dashboard">
                                         <li class="dropdown-item">
                                             <a id="navbar-link-dashboard" class="dropdown-link"
-                                                href="dashboard.html">
-                                                Dashboard
+                                                href="{{ route('client.dashboard') }}">
+                                                Trang quản lí
                                             </a>
                                         </li>
                                         <li class="dropdown-item">

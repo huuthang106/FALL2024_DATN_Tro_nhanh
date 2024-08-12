@@ -149,8 +149,9 @@
                                 </a>
                                 <ul class="dropdown-menu pt-3 pb-0 pb-xl-3" aria-labelledby="navbar-item-dashboard">
                                     <li class="dropdown-item">
-                                        <a id="navbar-link-dashboard" class="dropdown-link" href="dashboard.html">
-                                            Dashboard
+                                        <a id="navbar-link-dashboard" class="dropdown-link"
+                                            href="{{ route('client.dashboard') }}">
+                                            Trang quản lí
                                         </a>
                                     </li>
                                     <li class="dropdown-item">
