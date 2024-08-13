@@ -6,11 +6,12 @@
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
     <meta name="generator" content="Jekyll">
-    <title>Home 08 - HomeID</title>
+    <title>Listing Grid With Left Filter - HomeID</title>
     <!-- Google fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
       rel="stylesheet">
     <!-- Vendors CSS -->
+  
     <link rel="stylesheet" href="vendors/fontawesome-pro-5/css/all.css">
     <link rel="stylesheet" href="vendors/bootstrap-select/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="vendors/slick/slick.min.css">
@@ -30,12 +31,12 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">
     <meta name="twitter:creator" content="@">
-    <meta name="twitter:title" content="Home 08">
+    <meta name="twitter:title" content="Listing Grid With Left Filter">
     <meta name="twitter:description" content="Real Estate Html Template">
     <meta name="twitter:image" content="images/homeid-social-logo.png">
     <!-- Facebook -->
-    <meta property="og:url" content="home-08.html">
-    <meta property="og:title" content="Home 08">
+    <meta property="og:url" content="listing-grid-with-left-filter.html">
+    <meta property="og:title" content="Listing Grid With Left Filter">
     <meta property="og:description" content="Real Estate Html Template">
     <meta property="og:type" content="website">
     <meta property="og:image" content="images/homeid-social.png">
@@ -124,7 +125,7 @@
                         Home 07
                       </a>
                     </li>
-                    <li class="dropdown-item active">
+                    <li class="dropdown-item">
                       <a id="navbar-link-home-08"
                    class="dropdown-link"
                    href="home-08.html" >
@@ -627,1473 +628,1160 @@
       </div>
     </header>
     <main id="content">
-      <section class="bg-secondary">
+      <section class="pb-8 page-title shadow">
         <div class="container">
-          <form class="property-search d-none d-lg-block">
-            <div class="row align-items-lg-center" id="accordion-2">
-              <div class="col-xl-2 col-lg-3 col-md-4">
-                <div class="property-search-status-tab d-flex flex-row">
-                  <input class="search-field" type="hidden" name="status" value="for-rent"
-                               data-default-value="">
-                  <button type="button" data-value="for-rent"
-                                class="btn shadow-none btn-active-primary text-white rounded-0 hover-white text-uppercase h-lg-80 border-right-0 border-top-0 border-bottom-0 border-left border-white-opacity-03 active flex-md-1">
-                    Rent
-                  </button>
-                  <button type="button" data-value="for-sale"
-                                class="btn shadow-none btn-active-primary text-white rounded-0 hover-white text-uppercase h-lg-80 border-left-0 border-top-0 border-bottom-0 border-right border-white-opacity-03 flex-md-1">
-                    Sale
-                  </button>
-                </div>
-              </div>
-              <div class="col-xl-8 col-lg-7 d-md-flex">
-                <select class="form-control shadow-none form-control-lg selectpicker rounded-right-md-0 rounded-md-top-left-0 rounded-lg-top-left flex-md-1 mt-3 mt-md-0"
-                            title="All Types" data-style="btn-lg py-2 h-52 border-right bg-white" id="type-1"
-                            name="type">
-                  <option>Condominium</option>
-                  <option>Single-Family Home</option>
-                  <option>Townhouse</option>
-                  <option>Multi-Family Home</option>
-                </select>
-                <div class="form-group mb-0 position-relative flex-md-3 mt-3 mt-md-0">
-                  <input type="text"
-                               class="form-control form-control-lg border-0 shadow-none rounded-left-md-0 pr-8 bg-white placeholder-muted"
-                               id="key-word-1" name="key-word"
-                               placeholder="Enter an address, neighbourhood...">
-                  <button type="submit"
-                                class="btn position-absolute pos-fixed-right-center p-0 text-heading fs-20 mr-4 shadow-none">
-                    <i class="far fa-search"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="col-lg-2">
-                <a href="#advanced-search-filters-2"
-                       class="icon-primary btn advanced-search w-100 shadow-none text-white text-left rounded-0 fs-14 font-weight-600 position-relative collapsed px-0 d-flex align-items-center"
-                       data-toggle="collapse" data-target="#advanced-search-filters-2" aria-expanded="true"
-                       aria-controls="advanced-search-filters-2">
-                  Advanced Search
-                </a>
-              </div>
-              <div id="advanced-search-filters-2" class="col-12 pb-6 pt-lg-2 collapse" data-parent="#accordion-2">
-                <div class="row mx-n2">
-                  <div class="col-sm-6 col-md-4 pt-4 px-2">
-                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
-                                    name="bedroom"
-                                    title="Bedrooms" data-style="btn-lg py-2 h-52 bg-white">
-                      <option>All Bedrooms</option>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                      <option>6</option>
-                      <option>7</option>
-                      <option>8</option>
-                      <option>9</option>
-                      <option>10</option>
-                    </select>
-                  </div>
-                  <div class="col-sm-6 col-md-4 pt-4 px-2">
-                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
-                                    name="bathrooms"
-                                    title="Bathrooms" data-style="btn-lg py-2 h-52 bg-white">
-                      <option>All Bathrooms</option>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                      <option>6</option>
-                      <option>7</option>
-                      <option>8</option>
-                      <option>9</option>
-                      <option>10</option>
-                    </select>
-                  </div>
-                  <div class="col-sm-6 col-md-4 pt-4 px-2">
-                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
-                                    title="All Cities" data-style="btn-lg py-2 h-52 bg-white" name="city">
-                      <option>All Cities</option>
-                      <option>New York</option>
-                      <option>Los Angeles</option>
-                      <option>Chicago</option>
-                      <option>Houston</option>
-                      <option>San Diego</option>
-                      <option>Las Vegas</option>
-                      <option>Las Vegas</option>
-                      <option>Atlanta</option>
-                    </select>
-                  </div>
-                  <div class="col-sm-6 col-md-4 pt-4 px-2">
-                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
-                                    name="areas"
-                                    title="All Areas" data-style="btn-lg py-2 h-52 bg-white">
-                      <option>All Areas</option>
-                      <option>Albany Park</option>
-                      <option>Altgeld Gardens</option>
-                      <option>Andersonville</option>
-                      <option>Beverly</option>
-                      <option>Brickel</option>
-                      <option>Central City</option>
-                      <option>Coconut Grove</option>
-                    </select>
-                  </div>
-                  <div class="col-sm-6 col-md-4 pt-4 px-2">
-                    <input type="text"
-                                   class="form-control form-control-lg border-0 shadow-none bg-white"
-                                   placeholder="Property ID" name="property-id">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 col-lg-5 pt-6 slider-range slider-range-primary">
-                    <label for="price-2" class="mb-4 text-white">Price Range</label>
-                    <div data-slider="true"
-                                 data-slider-options='{"min":0,"max":1000000,"values":[100000,700000],"type":"currency"}'></div>
-                    <div class="text-center mt-2">
-                      <input id="price-2" type="text" readonly
-                                       class="border-0 amount text-center text-white bg-transparent font-weight-500"
-                                       name="price">
-                    </div>
-                  </div>
-                  <div class="col-md-6 col-lg-5 pt-6 slider-range slider-range-primary offset-lg-1">
-                    <label for="area-size-2" class="mb-4 text-white">Area Size</label>
-                    <div data-slider="true"
-                                 data-slider-options='{"min":0,"max":15000,"values":[0,12000],"type":"currency"}'></div>
-                    <div class="text-center mt-2">
-                      <input id="area-size-2" type="text" readonly
-                                       class="border-0 amount text-center text-white bg-transparent font-weight-500"
-                                       name="area">
-                    </div>
-                  </div>
-                  <div class="col-12 pt-4 pb-2">
-                    <a class="lh-17 d-inline-block other-feature collapsed" data-toggle="collapse"
-                               href="#other-feature-2"
-                               role="button"
-                               aria-expanded="false" aria-controls="other-feature-2">
-                      <span class="fs-15 text-white font-weight-500 hover-primary">Other Features</span>
-                    </a>
-                  </div>
-                  <div class="collapse row mx-0 w-100" id="other-feature-2">
-                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="check1-2" name="feature[]">
-                        <label class="custom-control-label text-white" for="check1-2">Air
-                          Conditioning</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="check2-2" name="feature[]">
-                        <label class="custom-control-label text-white" for="check2-2">Laundry</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="check4-2" name="feature[]">
-                        <label class="custom-control-label text-white" for="check4-2">Washer</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="check5-2" name="feature[]">
-                        <label class="custom-control-label text-white" for="check5-2">Barbeque</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="check6-2" name="feature[]">
-                        <label class="custom-control-label text-white" for="check6-2">Lawn</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="check7-2" name="feature[]">
-                        <label class="custom-control-label text-white" for="check7-2">Sauna</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="check8-2" name="feature[]">
-                        <label class="custom-control-label text-white" for="check8-2">WiFi</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="check9-2" name="feature[]">
-                        <label class="custom-control-label text-white" for="check9-2">Dryer</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="check10-2" name="feature[]">
-                        <label class="custom-control-label text-white" for="check10-2">Microwave</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="check11-2" name="feature[]">
-                        <label class="custom-control-label text-white" for="check11-2">Swimming
-                          Pool</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="check12-2" name="feature[]">
-                        <label class="custom-control-label text-white" for="check12-2">Window
-                          Coverings</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="check13-2" name="feature[]">
-                        <label class="custom-control-label text-white" for="check13-2">Gym</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="check14-2" name="feature[]">
-                        <label class="custom-control-label text-white" for="check14-2">Outdoor
-                          Shower</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="check15-2" name="feature[]">
-                        <label class="custom-control-label text-white" for="check15-2">TV Cable</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="check16-2" name="feature[]">
-                        <label class="custom-control-label text-white"
-                                           for="check16-2">Refrigerator</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
-          <form class="property-search property-search-mobile d-lg-none py-6">
-            <div class="row align-items-lg-center" id="accordion-2-mobile">
-              <div class="col-12">
-                <div class="form-group mb-0 position-relative">
-                  <a href="#advanced-search-filters-2-mobile"
-                           class="icon-primary btn advanced-search shadow-none pr-3 pl-0 d-flex align-items-center position-absolute pos-fixed-left-center py-0 h-100 border-right collapsed"
-                           data-toggle="collapse" data-target="#advanced-search-filters-2-mobile"
-                           aria-expanded="true"
-                           aria-controls="advanced-search-filters-2-mobile">
-                  </a>
-                  <input type="text"
-                               class="form-control form-control-lg border-0 shadow-none pr-9 pl-11 bg-white placeholder-muted"
-                               name="key-word"
-                               placeholder="Search...">
-                  <button type="submit"
-                                class="btn position-absolute pos-fixed-right-center p-0 text-heading fs-20 px-3 shadow-none h-100 border-left bg-white">
-                    <i class="far fa-search"></i>
-                  </button>
-                </div>
-              </div>
-              <div id="advanced-search-filters-2-mobile" class="col-12 pt-2 collapse"
-                     data-parent="#accordion-2-mobile">
-                <div class="row mx-n2">
-                  <div class="col-sm-6 pt-4 px-2">
-                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
-                                    title="All status" data-style="btn-lg py-2 h-52 bg-white" name="type">
-                      <option>All status</option>
-                      <option>For Rent</option>
-                      <option>For Sale</option>
-                    </select>
-                  </div>
-                  <div class="col-sm-6 pt-4 px-2">
-                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
-                                    title="All Types" data-style="btn-lg py-2 h-52 bg-white" name="type">
-                      <option>Condominium</option>
-                      <option>Single-Family Home</option>
-                      <option>Townhouse</option>
-                      <option>Multi-Family Home</option>
-                    </select>
-                  </div>
-                  <div class="col-sm-6 pt-4 px-2">
-                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
-                                    name="bedroom"
-                                    title="Bedrooms" data-style="btn-lg py-2 h-52 bg-white">
-                      <option>All Bedrooms</option>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                      <option>6</option>
-                      <option>7</option>
-                      <option>8</option>
-                      <option>9</option>
-                      <option>10</option>
-                    </select>
-                  </div>
-                  <div class="col-sm-6 pt-4 px-2">
-                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
-                                    name="bathrooms"
-                                    title="Bathrooms" data-style="btn-lg py-2 h-52 bg-white">
-                      <option>All Bathrooms</option>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                      <option>6</option>
-                      <option>7</option>
-                      <option>8</option>
-                      <option>9</option>
-                      <option>10</option>
-                    </select>
-                  </div>
-                  <div class="col-sm-6 pt-4 px-2">
-                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
-                                    title="All Cities" data-style="btn-lg py-2 h-52 bg-white" name="city">
-                      <option>All Cities</option>
-                      <option>New York</option>
-                      <option>Los Angeles</option>
-                      <option>Chicago</option>
-                      <option>Houston</option>
-                      <option>San Diego</option>
-                      <option>Las Vegas</option>
-                      <option>Las Vegas</option>
-                      <option>Atlanta</option>
-                    </select>
-                  </div>
-                  <div class="col-sm-6 pt-4 px-2">
-                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
-                                    name="areas"
-                                    title="All Areas" data-style="btn-lg py-2 h-52 bg-white">
-                      <option>All Areas</option>
-                      <option>Albany Park</option>
-                      <option>Altgeld Gardens</option>
-                      <option>Andersonville</option>
-                      <option>Beverly</option>
-                      <option>Brickel</option>
-                      <option>Central City</option>
-                      <option>Coconut Grove</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 pt-6 slider-range slider-range-primary">
-                    <label for="price-2-mobile" class="mb-4 text-white">Price Range</label>
-                    <div data-slider="true"
-                                 data-slider-options='{"min":0,"max":1000000,"values":[100000,700000],"type":"currency"}'></div>
-                    <div class="text-center mt-2">
-                      <input id="price-2-mobile" type="text" readonly
-                                       class="border-0 amount text-center text-white bg-transparent font-weight-500"
-                                       name="price">
-                    </div>
-                  </div>
-                  <div class="col-md-6 pt-6 slider-range slider-range-primary">
-                    <label for="area-size-2-mobile" class="mb-4 text-white">Area Size</label>
-                    <div data-slider="true"
-                                 data-slider-options='{"min":0,"max":15000,"values":[0,12000],"type":"sqrt"}'></div>
-                    <div class="text-center mt-2">
-                      <input id="area-size-2-mobile" type="text" readonly
-                                       class="border-0 amount text-center text-white bg-transparent font-weight-500"
-                                       name="area">
-                    </div>
-                  </div>
-                  <div class="col-12 pt-4 pb-2">
-                    <a class="lh-17 d-inline-block other-feature collapsed" data-toggle="collapse"
-                               href="#other-feature-2-mobile"
-                               role="button"
-                               aria-expanded="false" aria-controls="other-feature-2-mobile">
-                      <span class="fs-15 text-white font-weight-500 hover-primary">Other Features</span>
-                    </a>
-                  </div>
-                  <div class="collapse row mx-0 w-100" id="other-feature-2-mobile">
-                    <div class="col-sm-6 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input"
-                                           id="check1-2-mobile" name="feature[]">
-                        <label class="custom-control-label text-white" for="check1-2-mobile">Air
-                          Conditioning</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input"
-                                           id="check2-2-mobile" name="feature[]">
-                        <label class="custom-control-label text-white" for="check2-2-mobile">Laundry</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input"
-                                           id="check4-2-mobile" name="feature[]">
-                        <label class="custom-control-label text-white" for="check4-2-mobile">Washer</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input"
-                                           id="check5-2-mobile" name="feature[]">
-                        <label class="custom-control-label text-white"
-                                           for="check5-2-mobile">Barbeque</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input"
-                                           id="check6-2-mobile" name="feature[]">
-                        <label class="custom-control-label text-white" for="check6-2-mobile">Lawn</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input"
-                                           id="check7-2-mobile" name="feature[]">
-                        <label class="custom-control-label text-white" for="check7-2-mobile">Sauna</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input"
-                                           id="check8-2-mobile" name="feature[]">
-                        <label class="custom-control-label text-white" for="check8-2-mobile">WiFi</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input"
-                                           id="check9-2-mobile" name="feature[]">
-                        <label class="custom-control-label text-white" for="check9-2-mobile">Dryer</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input"
-                                           id="check10-2-mobile" name="feature[]">
-                        <label class="custom-control-label text-white"
-                                           for="check10-2-mobile">Microwave</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input"
-                                           id="check11-2-mobile" name="feature[]">
-                        <label class="custom-control-label text-white" for="check11-2-mobile">Swimming
-                          Pool</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input"
-                                           id="check12-2-mobile" name="feature[]">
-                        <label class="custom-control-label text-white" for="check12-2-mobile">Window
-                          Coverings</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input"
-                                           id="check13-2-mobile" name="feature[]">
-                        <label class="custom-control-label text-white" for="check13-2-mobile">Gym</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input"
-                                           id="check14-2-mobile" name="feature[]">
-                        <label class="custom-control-label text-white" for="check14-2-mobile">Outdoor
-                          Shower</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input"
-                                           id="check15-2-mobile" name="feature[]">
-                        <label class="custom-control-label text-white" for="check15-2-mobile">TV
-                          Cable</label>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 py-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input"
-                                           id="check16-2-mobile" name="feature[]">
-                        <label class="custom-control-label text-white"
-                                           for="check16-2-mobile">Refrigerator</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb pt-6 pt-lg-2 lh-15 pb-5">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Listing</li>
+            </ol>
+            <h1 class="fs-30 lh-1 mb-0 text-heading font-weight-600">Listing Grid With Left Filter</h1>
+          </nav>
         </div>
       </section>
-      <section class="py-15 text-center bg-cover"
-         style="background-image: url('images/bg-home-8.jpg')">
+      <section class="pt-8 pb-11">
         <div class="container">
-          <div data-animate="fadeInDown">
-            <p class="text-white letter-spacing-34 fs-15 text-uppercase lh-186 mb-0 pt-1">let us find your home</p>
-            <h2 class="fs-md-42 text-white pt-5">
-              We have the most Listing in
-              <span class="fs-md-52 font-weight-bold text-white pt-2 d-block">Los Angeles</span>
-            </h2>
-            <img class="mxw-180 d-block mx-auto mt-4 mb-1" src="images/line-01.png" alt="">
-          </div>
-          <a href="listing-full-width-list.html" class="btn btn-primary btn-lg mt-10 mb-4"
-       data-animate="fadeInUp">Find out more<i
-            class="far fa-long-arrow-right ml-1"></i>
-          </a>
-        </div>
-      </section>
-      <section class="pt-10 pb-9">
-        <div class="container">
-          <h2 class="text-dark text-center lh-1625">
-            What Can We Help You Find?</h2>
-          <span class="heading-divider mx-auto"></span>
-          <div class="row info-box-4 mt-7">
-            <div class="col-lg-4 mb-6 mb-lg-0">
-              <div class="card border-0 bg-transparent shadow-xs-2 shadow-hover-lg-1 pl-8 pr-6 py-5"
-                     data-animate="fadeInUp">
-                <div class="card-img-top d-flex align-items-end justify-content-center">
-                  <img src="images/group-16.png"
-                             alt="Buy a new home">
-                </div>
-                <div class="card-body px-0 pt-6 pb-0">
-                  <a href="single-property-1.html"
-                           class="text-decoration-none d-flex align-items-center justify-content-center"><h4
-                                class="card-title fs-20 lh-1625 text-dark mb-1">Buy a new home</h4>
-                    <span class="d-none d-sm-flex align-items-center ml-2 text-primary fs-42 lh-1"><svg
-                                    class="icon icon-long-arrow"><use xlink:href="#icon-long-arrow"></use></svg></span>
-                  </a>
-                  <p class="card-text text-center">
-                    Lorem ipsum dolor sit amet, consec tetur cing elit. Suspe ndisse suscipit
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 mb-6 mb-lg-0">
-              <div class="card border-0 bg-transparent shadow-xs-2 shadow-hover-lg-1 pl-8 pr-6 py-5"
-                     data-animate="fadeInUp">
-                <div class="card-img-top d-flex align-items-end justify-content-center">
-                  <img src="images/group-17.png"
-                             alt="Sell a home">
-                </div>
-                <div class="card-body px-0 pt-6 pb-0">
-                  <a href="single-property-1.html"
-                           class="text-decoration-none d-flex align-items-center justify-content-center"><h4
-                                class="card-title fs-20 lh-1625 text-dark mb-1">Sell a home</h4>
-                    <span class="d-none d-sm-flex align-items-center ml-2 text-primary fs-42 lh-1"><svg
-                                    class="icon icon-long-arrow"><use xlink:href="#icon-long-arrow"></use></svg></span>
-                  </a>
-                  <p class="card-text text-center">
-                    Lorem ipsum dolor sit amet, consec tetur cing elit. Suspe ndisse suscipit
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 mb-6 mb-lg-0">
-              <div class="card border-0 bg-transparent shadow-xs-2 shadow-hover-lg-1 pl-8 pr-6 py-5"
-                     data-animate="fadeInUp">
-                <div class="card-img-top d-flex align-items-end justify-content-center">
-                  <img src="images/group-21.png"
-                             alt="Rent a home">
-                </div>
-                <div class="card-body px-0 pt-6 pb-0">
-                  <a href="single-property-1.html"
-                           class="text-decoration-none d-flex align-items-center justify-content-center"><h4
-                                class="card-title fs-20 lh-1625 text-dark mb-1">Rent a home</h4>
-                    <span class="d-none d-sm-flex align-items-center ml-2 text-primary fs-42 lh-1"><svg
-                                    class="icon icon-long-arrow"><use xlink:href="#icon-long-arrow"></use></svg></span>
-                  </a>
-                  <p class="card-text text-center">
-                    Lorem ipsum dolor sit amet, consec tetur cing elit. Suspe ndisse suscipit
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="mb-6">
-        <div class="container">
-          <h2 class="text-dark text-center lh-1625">
-            Featured Neighborhoods
-          </h2>
-          <span class="heading-divider mx-auto mb-7"></span>
           <div class="row">
-            <div class="col-lg-6">
-              <div class="row flex-md-row flex-column">
-                <div class="col-md-6 mb-6">
-                  <div class="card border-0 text-white bg-overlay hover-zoom-in" data-animate="zoomIn">
-                    <img src="images/properties-city-15.jpg" class="card-img" alt="New York">
-                    <div class="card-img-overlay d-flex justify-content-end flex-column p-4">
-                      <h2 class="mb-0 fs-20 lh-182"><a href="listing-full-width-list.html" class="text-white">New York</a></h2>
-                      <p class="fs-13 font-weight-500 letter-spacing-087 mb-0">FROM<span
-                                        class="ml-2 fs-15 font-weight-bold">$540.000 - $900.000</span>
-                      </p>
+            <div class="col-lg-4 order-2 order-lg-1 primary-sidebar sidebar-sticky" id="sidebar">
+              <div class="primary-sidebar-inner">
+                <div class="card mb-4">
+                  <div class="card-body px-6 py-4">
+                    <h4 class="card-title fs-16 lh-2 text-dark mb-3">Find your home</h4>
+                    <form>
+                      <div class="form-group">
+                        <label for="key-word" class="sr-only">Key Word</label>
+                        <input type="text" class="form-control form-control-lg border-0 shadow-none"
+									       id="key-word"
+									       placeholder="Enter keyword...">
+                      </div>
+                      <div class="form-group">
+                        <label for="location" class="sr-only">Location</label>
+                        <select class="form-control border-0 shadow-none form-control-lg selectpicker"
+									        title="Location" data-style="btn-lg py-2 h-52" id="location">
+                          <option>Austin</option>
+                          <option>Boston</option>
+                          <option>Chicago</option>
+                          <option>Denver</option>
+                          <option>Los Angeles</option>
+                          <option>New York</option>
+                          <option>San Francisco</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="type" class="sr-only">Type</label>
+                        <select class="form-control border-0 shadow-none form-control-lg selectpicker"
+									        title="All Types" data-style="btn-lg py-2 h-52" id="type">
+                          <option>Apartment</option>
+                          <option>Condo</option>
+                          <option>Lot</option>
+                          <option>Multi Family Home</option>
+                          <option>Office</option>
+                          <option>Shop</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="status" class="sr-only">Status</label>
+                        <select class="form-control border-0 shadow-none form-control-lg selectpicker"
+									        title="All Status" data-style="btn-lg py-2 h-52" id="status">
+                          <option>For Rent</option>
+                          <option>For Sale</option>
+                        </select>
+                      </div>
+                      <div class="form-row mb-4">
+                        <div class="col">
+                          <label for="bed" class="sr-only">Beds</label>
+                          <select class="form-control border-0 shadow-none form-control-lg selectpicker"
+										        title="Beds" data-style="btn-lg py-2 h-52" id="bed">
+                            <option>3</option>
+                            <option>4</option>
+                          </select>
+                        </div>
+                        <div class="col">
+                          <label for="baths" class="sr-only">Baths</label>
+                          <select class="form-control border-0 shadow-none form-control-lg selectpicker"
+										        title="Baths" data-style="btn-lg py-2 h-52" id="baths">
+                            <option>3</option>
+                            <option>4</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group slider-range slider-range-secondary">
+                        <label for="price" class="mb-4 text-gray-light">Price Range</label>
+                        <div data-slider="true"
+									     data-slider-options='{"min":0,"max":8000000,"values":[1000000,5000000],"type":"currency"}'></div>
+                        <div class="text-center mt-2">
+                          <input id="price" type="text" readonly
+										       class="border-0 amount text-center text-body font-weight-500">
+                        </div>
+                      </div>
+                      <div class="form-group slider-range slider-range-secondary">
+                        <label for="area-size" class="mb-4 text-gray-light">Area Size</label>
+                        <div data-slider="true"
+									     data-slider-options='{"min":0,"max":15000,"values":[50,15000],"type":"sqrt"}'></div>
+                        <div class="text-center mt-2">
+                          <input id="area-size" type="text" readonly
+										       class="border-0 amount text-center text-body font-weight-500">
+                        </div>
+                      </div>
+                      <a class="lh-17 d-inline-block" data-toggle="collapse" href="#other-feature"
+								   role="button"
+								   aria-expanded="false" aria-controls="other-feature">
+                        <span class="text-primary d-inline-block mr-1"><i
+											class="far fa-plus-square"></i></span>
+                        <span class="fs-15 text-heading font-weight-500 hover-primary">Other Features</span>
+                      </a>
+                      <div class="collapse" id="other-feature">
+                        <div class="card card-body border-0 px-0 pb-0 pt-3">
+                          <ul class="list-group list-group-no-border">
+                            <li class="list-group-item px-0 pt-0 pb-2">
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="check1">
+                                <label class="custom-control-label" for="check1">Air
+                                  Conditioning</label>
+                              </div>
+                            </li>
+                            <li class="list-group-item px-0 pt-0 pb-2">
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="check2">
+                                <label class="custom-control-label" for="check2">Laundry</label>
+                              </div>
+                            </li>
+                            <li class="list-group-item px-0 pt-0 pb-2">
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="check3">
+                                <label class="custom-control-label"
+													       for="check3">Refrigerator</label>
+                              </div>
+                            </li>
+                            <li class="list-group-item px-0 pt-0 pb-2">
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="check4">
+                                <label class="custom-control-label" for="check4">Washer</label>
+                              </div>
+                            </li>
+                            <li class="list-group-item px-0 pt-0 pb-2">
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="check5">
+                                <label class="custom-control-label" for="check5">Barbeque</label>
+                              </div>
+                            </li>
+                            <li class="list-group-item px-0 pt-0 pb-2">
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="check6">
+                                <label class="custom-control-label" for="check6">Lawn</label>
+                              </div>
+                            </li>
+                            <li class="list-group-item px-0 pt-0 pb-2">
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="check7">
+                                <label class="custom-control-label" for="check7">Sauna</label>
+                              </div>
+                            </li>
+                            <li class="list-group-item px-0 pt-0 pb-2">
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="check8">
+                                <label class="custom-control-label" for="check8">WiFi</label>
+                              </div>
+                            </li>
+                            <li class="list-group-item px-0 pt-0 pb-2">
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="check9">
+                                <label class="custom-control-label" for="check9">Dryer</label>
+                              </div>
+                            </li>
+                            <li class="list-group-item px-0 pt-0 pb-2">
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="check10">
+                                <label class="custom-control-label" for="check10">Microwave</label>
+                              </div>
+                            </li>
+                            <li class="list-group-item px-0 pt-0 pb-2">
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="check11">
+                                <label class="custom-control-label" for="check11">Swimming
+                                  Pool</label>
+                              </div>
+                            </li>
+                            <li class="list-group-item px-0 pt-0 pb-2">
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="check12">
+                                <label class="custom-control-label" for="check12">Window
+                                  Coverings</label>
+                              </div>
+                            </li>
+                            <li class="list-group-item px-0 pt-0 pb-2">
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="check13">
+                                <label class="custom-control-label" for="check13">Gym</label>
+                              </div>
+                            </li>
+                            <li class="list-group-item px-0 pt-0 pb-2">
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="check14">
+                                <label class="custom-control-label" for="check14">Outdoor
+                                  Shower</label>
+                              </div>
+                            </li>
+                            <li class="list-group-item px-0 pt-0 pb-2">
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="check15">
+                                <label class="custom-control-label" for="check15">TV Cable</label>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-primary btn-lg btn-block shadow-none mt-4">Search
+                      </button>
+                    </form>
+                  </div>
+                </div>
+                <div class="card property-widget mb-4">
+                  <div class="card-body px-6 pt-5 pb-6">
+                    <h4 class="card-title fs-16 lh-2 text-dark mb-3">Featured Properties</h4>
+                    <div class="slick-slider mx-0"
+							     data-slick-options='{"slidesToShow": 1, "autoplay":true}'>
+                      <div class="box px-0">
+                        <div class="card border-0">
+                          <img src="images/feature-property-01.jpg" class="card-img" alt="Villa on Hollywood
+													Boulevard">
+                          <div class="card-img-overlay d-flex flex-column bg-gradient-3 rounded-lg">
+                            <div class="d-flex mb-auto">
+                              <a href="#" class="mr-1 badge badge-orange">featured</a>
+                              <a href="#" class="badge badge-indigo">for Rent</a>
+                            </div>
+                            <div class="px-2 pb-2">
+                              <a href="single-property-1.html" class="text-white"><h5
+														class="card-title fs-16 lh-2 mb-0">Villa on Hollywood
+                                  Boulevard</h5>
+                              </a>
+                              <p class="card-text text-gray-light mb-0 font-weight-500">1421 San
+                                Predro
+                                St, Los Angeles</p>
+                              <p class="text-white mb-0"><span
+														class="fs-17 font-weight-bold">$2500 </span>/month
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="box px-0">
+                        <div class="card border-0">
+                          <img src="images/feature-property-01.jpg" class="card-img" alt="Villa on Hollywood
+													Boulevard">
+                          <div class="card-img-overlay d-flex flex-column bg-gradient-3 rounded-lg">
+                            <div class="d-flex mb-auto">
+                              <a href="#" class="mr-1 badge badge-orange">featured</a>
+                              <a href="#" class="badge badge-indigo">for Rent</a>
+                            </div>
+                            <div class="px-2 pb-2">
+                              <a href="single-property-1.html" class="text-white"><h5
+														class="card-title fs-16 lh-2 mb-0">Villa on Hollywood
+                                  Boulevard</h5>
+                              </a>
+                              <p class="card-text text-gray-light mb-0 font-weight-500">1421 San
+                                Predro
+                                St, Los Angeles</p>
+                              <p class="text-white mb-0"><span
+														class="fs-17 font-weight-bold">$2500 </span>/month
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="box px-0">
+                        <div class="card border-0">
+                          <img src="images/feature-property-01.jpg" class="card-img" alt="Villa on Hollywood
+													Boulevard">
+                          <div class="card-img-overlay d-flex flex-column bg-gradient-3 rounded-lg">
+                            <div class="d-flex mb-auto">
+                              <a href="#" class="mr-1 badge badge-orange">featured</a>
+                              <a href="#" class="badge badge-indigo">for Rent</a>
+                            </div>
+                            <div class="px-2 pb-2">
+                              <a href="single-property-1.html" class="text-white"><h5
+														class="card-title fs-16 lh-2 mb-0">Villa on Hollywood
+                                  Boulevard</h5>
+                              </a>
+                              <p class="card-text text-gray-light mb-0 font-weight-500">1421 San
+                                Predro
+                                St, Los Angeles</p>
+                              <p class="text-white mb-0"><span
+														class="fs-17 font-weight-bold">$2500 </span>/month
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-6 mb-6">
-                  <div class="card border-0 text-white bg-overlay hover-zoom-in" data-animate="zoomIn">
-                    <img src="images/properties-city-16.jpg" class="card-img" alt="New York">
-                    <div class="card-img-overlay d-flex justify-content-end flex-column p-4">
-                      <h2 class="mb-0 fs-20 lh-182"><a href="listing-full-width-list.html" class="text-white">Los Angeles</a></h2>
-                      <p class="fs-13 font-weight-500 letter-spacing-087 mb-0">FROM<span
-                                        class="ml-2 fs-15 font-weight-bold">$340.000 - $600.000</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-6">
-                  <div class="card border-0 text-white bg-overlay hover-zoom-in" data-animate="zoomIn">
-                    <img src="images/properties-city-17.jpg" class="card-img" alt="New York">
-                    <div class="card-img-overlay d-flex justify-content-end flex-column p-4">
-                      <h2 class="mb-0 fs-20 lh-182"><a href="listing-full-width-list.html" class="text-white">Chicago</a></h2>
-                      <p class="fs-13 font-weight-500 letter-spacing-087 mb-0">FROM<span
-                                        class="ml-2 fs-15 font-weight-bold">$310.000 - $700.000</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-6">
-                  <div class="card border-0 text-white bg-overlay hover-zoom-in" data-animate="zoomIn">
-                    <img src="images/properties-city-18.jpg" class="card-img" alt="New York">
-                    <div class="card-img-overlay d-flex justify-content-end flex-column p-4">
-                      <h2 class="mb-0 fs-20 lh-182"><a href="listing-full-width-list.html" class="text-white">Las Vegas</a></h2>
-                      <p class="fs-13 font-weight-500 letter-spacing-087 mb-0">FROM<span
-                                        class="ml-2 fs-15 font-weight-bold">$150.000 - $700.000</span>
-                      </p>
-                    </div>
+                <div class="card">
+                  <div class="card-body px-6 py-4">
+                    <h4 class="card-title fs-16 lh-2 text-dark mb-3">Latest Posts</h4>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item px-0 pt-0 pb-3">
+                        <div class="media">
+                          <div class="position-relative mr-3">
+                            <a href="blog-details-1.html"
+											   class="d-block w-100px rounded pt-11 bg-img-cover-center"
+											   style="background-image: url('images/post-02.jpg')">
+                            </a>
+                            <a href="blog-grid-with-sidebar.html"
+											   class="badge text-white bg-dark-opacity-04 m-1 fs-13 font-weight-500 bg-hover-primary hover-white position-absolute pos-fixed-top">
+                              creative
+                            </a>
+                          </div>
+                          <div class="media-body">
+                            <h4 class="fs-14 lh-186 mb-1">
+                              <a href="blog-details-1.html"
+												   class="text-dark hover-primary">
+                                Retail banks wake up to digital lending this year
+                              </a>
+                            </h4>
+                            <div class="text-gray-light">
+                              Dec 16, 2018
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="list-group-item px-0 pt-2 pb-3">
+                        <div class="media">
+                          <div class="position-relative mr-3">
+                            <a href="blog-details-1.html"
+											   class="d-block w-100px rounded pt-11 bg-img-cover-center"
+											   style="background-image: url('images/post-04.jpg')">
+                            </a>
+                            <a href="blog-grid-with-sidebar.html"
+											   class="badge text-white bg-dark-opacity-04 m-1 fs-13 font-weight-500 bg-hover-primary hover-white position-absolute pos-fixed-top">
+                              rental
+                            </a>
+                          </div>
+                          <div class="media-body">
+                            <h4 class="fs-14 lh-186 mb-1">
+                              <a href="blog-details-1.html"
+												   class="text-dark hover-primary">
+                                Within the construction industry as their overdraft
+                              </a>
+                            </h4>
+                            <div class="text-gray-light">
+                              Dec 16, 2018
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="list-group-item px-0 pt-2">
+                        <div class="media">
+                          <div class="position-relative mr-3">
+                            <a href="blog-details-1.html"
+											   class="d-block w-100px rounded pt-11 bg-img-cover-center"
+											   style="background-image: url('images/post-07.jpg')">
+                            </a>
+                            <a href="blog-grid-with-sidebar.html"
+											   class="badge text-white bg-dark-opacity-04 m-1 fs-13 font-weight-500 bg-hover-primary hover-white position-absolute pos-fixed-top">
+                              rental
+                            </a>
+                          </div>
+                          <div class="media-body">
+                            <h4 class="fs-14 lh-186 mb-1">
+                              <a href="blog-details-1.html"
+												   class="text-dark hover-primary">
+                                Future Office Buildings: Intelligent by Design
+                              </a>
+                            </h4>
+                            <div class="text-gray-light">
+                              Dec 16, 2018
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-lg-6">
-              <div class="card text-white bg-overlay hover-zoom-in" data-animate="zoomIn">
-                <img src="images/properties-city-14.jpg" class="card-img" alt="New York">
-                <div class="card-img-overlay d-flex justify-content-end flex-column p-4">
-                  <h2 class="card-title mb-0 fs-20 lh-182"><a href="listing-full-width-list.html" class="text-white">Atlanta</a>
+            <div class="col-lg-8 mb-8 mb-lg-0 order-1 order-lg-2">
+              <div class="row align-items-sm-center mb-6">
+                <div class="col-md-6">
+                  <h2 class="fs-15 text-dark mb-0">We found <span class="text-primary">45</span> properties
+                    available for
+                    you
                   </h2>
-                  <p class="card-text fs-13 font-weight-500 letter-spacing-087 mb-0">FROM<span
-                                class="ml-2 fs-15 font-weight-bold">$250.000 - $900.000</span>
-                  </p>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="bg-gray-02 pt-9 pb-10">
-        <div class="container container-xxl">
-          <h2 class="text-center text-dark line-height-base">
-            HomeID Exclusives
-          </h2>
-          <span class="heading-divider mx-auto mb-6"></span>
-          <div class="slick-slider slick-dots-mt-0"
-             data-slick-options='{"slidesToShow": 4, "autoplay":true,"dots":true,"arrows":false,"responsive":[{"breakpoint": 1600,"settings": {"slidesToShow":3}},{"breakpoint": 992,"settings": {"slidesToShow":2}},{"breakpoint": 768,"settings": {"slidesToShow": 2,"autoplay":true}},{"breakpoint": 576,"settings": {"slidesToShow": 1,"autoplay":true}}]}'>
-            <div class="box pt-2 pb-4" data-animate="fadeInUp">
-              <div class="card shadow-hover-xs-2">
-                <div class="card-header bg-transparent px-4 pt-4 pb-3 card-img">
-                  <h2 class="fs-16 lh-2 mb-0"><a href="single-property-1.html"
-                                                       class="text-dark hover-primary">Home in Metric Way</a></h2>
-                  <p class="font-weight-500 text-gray-light mb-3">1421 San Pedro St, Los Angeles</p>
-                  <div class="hover-change-image bg-hover-overlay rounded-lg">
-                    <img src="images/properties-grid-31.jpg"
-                                 alt="Home in Metric Way">
-                    <div class="card-img-overlay d-flex flex-column">
-                      <div><span class="badge badge-orange">Featured</span></div>
-                      <div class="mt-auto d-flex hover-image">
-                        <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
-                          <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Images">
-                            <a href="#" class="text-white hover-primary">
-                              <i class="far fa-images"></i><span class="pl-1">9</span>
-                            </a>
-                          </li>
-                          <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
-                            <a href="#" class="text-white hover-primary">
-                              <i class="far fa-play-circle"></i><span class="pl-1">2</span>
-                            </a>
-                          </li>
-                        </ul>
-                        <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
-                          <li class="list-inline-item mr-3 h-32" data-toggle="tooltip" title="Wishlist">
-                            <a href="#" class="text-white fs-20 hover-primary">
-                              <i class="far fa-heart"></i>
-                            </a>
-                          </li>
-                          <li class="list-inline-item mr-3 h-32" data-toggle="tooltip" title="Compare">
-                            <a href="#" class="text-white fs-20 hover-primary">
-                              <i class="fas fa-exchange-alt"></i>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
+                <div class="col-md-6 mt-6 mt-md-0">
+                  <div class="d-flex justify-content-md-end align-items-center">
+                    <div class="input-group border rounded input-group-lg w-auto bg-white mr-3">
+                      <label class="input-group-text bg-transparent border-0 text-uppercase letter-spacing-093 pr-1 pl-3"
+								       for="inputGroupSelect01"><i
+										class="fas fa-align-left fs-16 pr-2"></i>Sortby:</label>
+                      <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby"
+								        data-style="bg-transparent border-0 font-weight-600 btn-lg pl-0 pr-3"
+								        id="inputGroupSelect01" name="sortby">
+                        <option selected>Top Selling</option>
+                        <option value="1">Most Viewed</option>
+                        <option value="2">Price(low to high)</option>
+                        <option value="3">Price(high to low)</option>
+                      </select>
+                    </div>
+                    <div class="d-none d-md-block">
+                      <a class="fs-sm-18 text-dark opacity-2" href="listing-with-left-filter.html">
+                        <i class="fas fa-list"></i>
+                      </a>
+                      <a class="fs-sm-18 text-dark ml-5" href="#">
+                        <i class="fa fa-th-large"></i>
+                      </a>
                     </div>
                   </div>
-                  <div class="d-flex justify-content-between align-items-center pt-3">
-                    <p class="fs-17 font-weight-bold text-heading mb-0 lh-1">$1.250.000</p>
-                    <span class="badge badge-primary">For Sale</span>
-                  </div>
-                </div>
-                <div class="card-body py-2">
-                  <p class="mb-0">Lorem ipsum dolor sit amet, sectetur cing elit uspe ndisse suscorem ipsum dolor sitorem sit amet, sectetur cing elit uspe ndisse suscorem ipsum dolor sitorem</p>
-                </div>
-                <div class="card-footer bg-transparent pt-3 pb-4 pb-3">
-                  <ul class="list-inline d-flex justify-content-between mb-0 flex-wrap">
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-bedroom fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-bedroom"></use>
-                      </svg>
-                      3 Br
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-shower fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-shower"></use>
-                      </svg>
-                      3 Ba
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-square fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-square"></use>
-                      </svg>
-                      2300 Sq.Ft
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-Garage fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-Garage"></use>
-                      </svg>
-                      1 Gr
-                    </li>
-                  </ul>
                 </div>
               </div>
-            </div>
-            <div class="box pt-2 pb-4" data-animate="fadeInUp">
-              <div class="card shadow-hover-xs-2">
-                <div class="card-header bg-transparent px-4 pt-4 pb-3 card-img">
-                  <h2 class="fs-16 lh-2 mb-0"><a href="single-property-1.html"
-                                                       class="text-dark hover-primary">Home in Metric Way</a></h2>
-                  <p class="font-weight-500 text-gray-light mb-3">1421 San Pedro St, Los Angeles</p>
-                  <div class="hover-change-image bg-hover-overlay rounded-lg">
-                    <img src="images/properties-grid-32.jpg"
-                                 alt="Home in Metric Way">
-                    <div class="card-img-overlay d-flex flex-column">
-                      <div class="mt-auto d-flex hover-image">
-                        <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
-                          <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Images">
-                            <a href="#" class="text-white hover-primary">
-                              <i class="far fa-images"></i><span class="pl-1">9</span>
-                            </a>
-                          </li>
-                          <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
-                            <a href="#" class="text-white hover-primary">
-                              <i class="far fa-play-circle"></i><span class="pl-1">2</span>
-                            </a>
-                          </li>
-                        </ul>
-                        <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
-                          <li class="list-inline-item mr-3 h-32" data-toggle="tooltip" title="Wishlist">
-                            <a href="#" class="text-white fs-20 hover-primary">
-                              <i class="far fa-heart"></i>
-                            </a>
-                          </li>
-                          <li class="list-inline-item mr-3 h-32" data-toggle="tooltip" title="Compare">
-                            <a href="#" class="text-white fs-20 hover-primary">
-                              <i class="fas fa-exchange-alt"></i>
-                            </a>
-                          </li>
-                        </ul>
+              <div class="row">
+                <div class="col-md-6 mb-6">
+                  <div class="card border-0" data-animate="fadeInUp">
+                    <div class="position-relative hover-change-image bg-hover-overlay rounded-lg card-img">
+                      <img src="images/properties-grid-35.jpg"
+								     alt="Home in Metric Way">
+                      <div class="card-img-overlay d-flex flex-column">
+                        <div><span class="badge badge-primary">For Sale</span></div>
+                        <div class="mt-auto d-flex hover-image">
+                          <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
+                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Images">
+                              <a href="#" class="text-white hover-primary">
+                                <i class="far fa-images"></i><span class="pl-1">9</span>
+                              </a>
+                            </li>
+                            <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
+                              <a href="#" class="text-white hover-primary">
+                                <i class="far fa-play-circle"></i><span class="pl-1">2</span>
+                              </a>
+                            </li>
+                          </ul>
+                          <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
+                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+											    title="Wishlist">
+                              <a href="#" class="text-white fs-20 hover-primary">
+                                <i class="far fa-heart"></i>
+                              </a>
+                            </li>
+                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+											    title="Compare">
+                              <a href="#" class="text-white fs-20 hover-primary">
+                                <i class="fas fa-exchange-alt"></i>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="d-flex justify-content-between align-items-center pt-3">
-                    <p class="fs-17 font-weight-bold text-heading mb-0 lh-1">$1.250.000</p>
-                    <span class="badge badge-primary">For Sale</span>
-                  </div>
-                </div>
-                <div class="card-body py-2">
-                  <p class="mb-0">Lorem ipsum dolor sit amet, sectetur cing elit uspe ndisse suscorem ipsum dolor sitorem sit amet, sectetur cing elit uspe ndisse suscorem ipsum dolor sitorem</p>
-                </div>
-                <div class="card-footer bg-transparent pt-3 pb-4 pb-3">
-                  <ul class="list-inline d-flex justify-content-between mb-0 flex-wrap">
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-bedroom fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-bedroom"></use>
-                      </svg>
-                      3 Br
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-shower fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-shower"></use>
-                      </svg>
-                      3 Ba
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-square fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-square"></use>
-                      </svg>
-                      2300 Sq.Ft
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-Garage fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-Garage"></use>
-                      </svg>
-                      1 Gr
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="box pt-2 pb-4" data-animate="fadeInUp">
-              <div class="card shadow-hover-xs-2">
-                <div class="card-header bg-transparent px-4 pt-4 pb-3 card-img">
-                  <h2 class="fs-16 lh-2 mb-0"><a href="single-property-1.html"
-                                                       class="text-dark hover-primary">Home in Metric Way</a></h2>
-                  <p class="font-weight-500 text-gray-light mb-3">1421 San Pedro St, Los Angeles</p>
-                  <div class="hover-change-image bg-hover-overlay rounded-lg">
-                    <img src="images/properties-grid-33.jpg"
-                                 alt="Home in Metric Way">
-                    <div class="card-img-overlay d-flex flex-column">
-                      <div><span class="badge badge-orange">Featured</span></div>
-                      <div class="mt-auto d-flex hover-image">
-                        <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
-                          <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Images">
-                            <a href="#" class="text-white hover-primary">
-                              <i class="far fa-images"></i><span class="pl-1">9</span>
-                            </a>
-                          </li>
-                          <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
-                            <a href="#" class="text-white hover-primary">
-                              <i class="far fa-play-circle"></i><span class="pl-1">2</span>
-                            </a>
-                          </li>
-                        </ul>
-                        <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
-                          <li class="list-inline-item mr-3 h-32" data-toggle="tooltip" title="Wishlist">
-                            <a href="#" class="text-white fs-20 hover-primary">
-                              <i class="far fa-heart"></i>
-                            </a>
-                          </li>
-                          <li class="list-inline-item mr-3 h-32" data-toggle="tooltip" title="Compare">
-                            <a href="#" class="text-white fs-20 hover-primary">
-                              <i class="fas fa-exchange-alt"></i>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
+                    <div class="card-body pt-3 px-0 pb-1">
+                      <h2 class="fs-16 mb-1"><a href="single-property-1.html"
+								                          class="text-dark hover-primary">Home in Metric Way</a>
+                      </h2>
+                      <p class="font-weight-500 text-gray-light mb-0">1421 San Pedro St, Los Angeles</p>
+                      <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">
+                        $1.250.000
+                      </p>
+                    </div>
+                    <div class="card-footer bg-transparent px-0 pb-0 pt-2">
+                      <ul class="list-inline mb-0">
+                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+									    data-toggle="tooltip" title="3 Bedroom">
+                          <svg class="icon icon-bedroom fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-bedroom"></use>
+                          </svg>
+                          3 Br
+                        </li>
+                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+									    data-toggle="tooltip" title="3 Bathrooms">
+                          <svg class="icon icon-shower fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-shower"></use>
+                          </svg>
+                          3 Ba
+                        </li>
+                        <li class="list-inline-item text-gray font-weight-500 fs-13" data-toggle="tooltip"
+									    title="Size">
+                          <svg class="icon icon-square fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-square"></use>
+                          </svg>
+                          2300 Sq.Ft
+                        </li>
+                      </ul>
                     </div>
                   </div>
-                  <div class="d-flex justify-content-between align-items-center pt-3">
-                    <p class="fs-17 font-weight-bold text-heading mb-0 lh-1">$5.700<span
-                                    class="text-gray-light font-weight-500 fs-14"> / year</span></p>
-                    <span class="badge badge-indigo">For Rent</span>
-                  </div>
                 </div>
-                <div class="card-body py-2">
-                  <p class="mb-0">Lorem ipsum dolor sit amet, sectetur cing elit uspe ndisse suscorem ipsum dolor sitorem sit amet, sectetur cing elit uspe ndisse suscorem ipsum dolor sitorem</p>
-                </div>
-                <div class="card-footer bg-transparent pt-3 pb-4 pb-3">
-                  <ul class="list-inline d-flex justify-content-between mb-0 flex-wrap">
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-bedroom fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-bedroom"></use>
-                      </svg>
-                      3 Br
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-shower fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-shower"></use>
-                      </svg>
-                      3 Ba
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-square fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-square"></use>
-                      </svg>
-                      2300 Sq.Ft
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-Garage fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-Garage"></use>
-                      </svg>
-                      1 Gr
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="box pt-2 pb-4" data-animate="fadeInUp">
-              <div class="card shadow-hover-xs-2">
-                <div class="card-header bg-transparent px-4 pt-4 pb-3 card-img">
-                  <h2 class="fs-16 lh-2 mb-0"><a href="single-property-1.html"
-                                                       class="text-dark hover-primary">Home in Metric Way</a></h2>
-                  <p class="font-weight-500 text-gray-light mb-3">1421 San Pedro St, Los Angeles</p>
-                  <div class="hover-change-image bg-hover-overlay rounded-lg">
-                    <img src="images/properties-grid-34.jpg"
-                                 alt="Home in Metric Way">
-                    <div class="card-img-overlay d-flex flex-column">
-                      <div><span class="badge badge-orange">Featured</span></div>
-                      <div class="mt-auto d-flex hover-image">
-                        <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
-                          <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Images">
-                            <a href="#" class="text-white hover-primary">
-                              <i class="far fa-images"></i><span class="pl-1">9</span>
-                            </a>
-                          </li>
-                          <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
-                            <a href="#" class="text-white hover-primary">
-                              <i class="far fa-play-circle"></i><span class="pl-1">2</span>
-                            </a>
-                          </li>
-                        </ul>
-                        <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
-                          <li class="list-inline-item mr-3 h-32" data-toggle="tooltip" title="Wishlist">
-                            <a href="#" class="text-white fs-20 hover-primary">
-                              <i class="far fa-heart"></i>
-                            </a>
-                          </li>
-                          <li class="list-inline-item mr-3 h-32" data-toggle="tooltip" title="Compare">
-                            <a href="#" class="text-white fs-20 hover-primary">
-                              <i class="fas fa-exchange-alt"></i>
-                            </a>
-                          </li>
-                        </ul>
+                <div class="col-md-6 mb-6">
+                  <div class="card border-0" data-animate="fadeInUp">
+                    <div class="position-relative hover-change-image bg-hover-overlay rounded-lg card-img">
+                      <img src="images/properties-grid-36.jpg"
+								     alt="Home in Metric Way">
+                      <div class="card-img-overlay d-flex flex-column">
+                        <div><span class="badge badge-indigo">for Rent</span></div>
+                        <div class="mt-auto d-flex hover-image">
+                          <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
+                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Images">
+                              <a href="#" class="text-white hover-primary">
+                                <i class="far fa-images"></i><span class="pl-1">9</span>
+                              </a>
+                            </li>
+                            <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
+                              <a href="#" class="text-white hover-primary">
+                                <i class="far fa-play-circle"></i><span class="pl-1">2</span>
+                              </a>
+                            </li>
+                          </ul>
+                          <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
+                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+											    title="Wishlist">
+                              <a href="#" class="text-white fs-20 hover-primary">
+                                <i class="far fa-heart"></i>
+                              </a>
+                            </li>
+                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+											    title="Compare">
+                              <a href="#" class="text-white fs-20 hover-primary">
+                                <i class="fas fa-exchange-alt"></i>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="d-flex justify-content-between align-items-center pt-3">
-                    <p class="fs-17 font-weight-bold text-heading mb-0 lh-1">$5.700<span
-                                    class="text-gray-light font-weight-500 fs-14"> / year</span></p>
-                    <span class="badge badge-indigo">For Rent</span>
-                  </div>
-                </div>
-                <div class="card-body py-2">
-                  <p class="mb-0">Lorem ipsum dolor sit amet, sectetur cing elit uspe ndisse suscorem ipsum dolor sitorem sit amet, sectetur cing elit uspe ndisse suscorem ipsum dolor sitorem</p>
-                </div>
-                <div class="card-footer bg-transparent pt-3 pb-4 pb-3">
-                  <ul class="list-inline d-flex justify-content-between mb-0 flex-wrap">
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-bedroom fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-bedroom"></use>
-                      </svg>
-                      3 Br
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-shower fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-shower"></use>
-                      </svg>
-                      3 Ba
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-square fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-square"></use>
-                      </svg>
-                      2300 Sq.Ft
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-Garage fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-Garage"></use>
-                      </svg>
-                      1 Gr
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="box pt-2 pb-4" data-animate="fadeInUp">
-              <div class="card shadow-hover-xs-2">
-                <div class="card-header bg-transparent px-4 pt-4 pb-3 card-img">
-                  <h2 class="fs-16 lh-2 mb-0"><a href="single-property-1.html"
-                                                       class="text-dark hover-primary">Home in Metric Way</a></h2>
-                  <p class="font-weight-500 text-gray-light mb-3">1421 San Pedro St, Los Angeles</p>
-                  <div class="hover-change-image bg-hover-overlay rounded-lg">
-                    <img src="images/properties-grid-32.jpg"
-                                 alt="Home in Metric Way">
-                    <div class="card-img-overlay d-flex flex-column">
-                      <div class="mt-auto d-flex hover-image">
-                        <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
-                          <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Images">
-                            <a href="#" class="text-white hover-primary">
-                              <i class="far fa-images"></i><span class="pl-1">9</span>
-                            </a>
-                          </li>
-                          <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
-                            <a href="#" class="text-white hover-primary">
-                              <i class="far fa-play-circle"></i><span class="pl-1">2</span>
-                            </a>
-                          </li>
-                        </ul>
-                        <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
-                          <li class="list-inline-item mr-3 h-32" data-toggle="tooltip" title="Wishlist">
-                            <a href="#" class="text-white fs-20 hover-primary">
-                              <i class="far fa-heart"></i>
-                            </a>
-                          </li>
-                          <li class="list-inline-item mr-3 h-32" data-toggle="tooltip" title="Compare">
-                            <a href="#" class="text-white fs-20 hover-primary">
-                              <i class="fas fa-exchange-alt"></i>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
+                    <div class="card-body pt-3 px-0 pb-1">
+                      <h2 class="fs-16 mb-1"><a href="single-property-1.html"
+								                          class="text-dark hover-primary">Villa on Hollywood Boulevard</a>
+                      </h2>
+                      <p class="font-weight-500 text-gray-light mb-0">1421 San Pedro St, Los Angeles</p>
+                      <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">
+                        $550
+                        <span class="fs-14 font-weight-500 text-gray-light"> /month</span>
+                      </p>
+                    </div>
+                    <div class="card-footer bg-transparent px-0 pb-0 pt-2">
+                      <ul class="list-inline mb-0">
+                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+									    data-toggle="tooltip" title="3 Bedroom">
+                          <svg class="icon icon-bedroom fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-bedroom"></use>
+                          </svg>
+                          3 Br
+                        </li>
+                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+									    data-toggle="tooltip" title="3 Bathrooms">
+                          <svg class="icon icon-shower fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-shower"></use>
+                          </svg>
+                          3 Ba
+                        </li>
+                        <li class="list-inline-item text-gray font-weight-500 fs-13" data-toggle="tooltip"
+									    title="Size">
+                          <svg class="icon icon-square fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-square"></use>
+                          </svg>
+                          2300 Sq.Ft
+                        </li>
+                      </ul>
                     </div>
                   </div>
-                  <div class="d-flex justify-content-between align-items-center pt-3">
-                    <p class="fs-17 font-weight-bold text-heading mb-0 lh-1">$1.250.000</p>
-                    <span class="badge badge-primary">For Sale</span>
-                  </div>
                 </div>
-                <div class="card-body py-2">
-                  <p class="mb-0">Lorem ipsum dolor sit amet, sectetur cing elit uspe ndisse suscorem ipsum dolor sitorem sit amet, sectetur cing elit uspe ndisse suscorem ipsum dolor sitorem</p>
-                </div>
-                <div class="card-footer bg-transparent pt-3 pb-4 pb-3">
-                  <ul class="list-inline d-flex justify-content-between mb-0 flex-wrap">
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-bedroom fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-bedroom"></use>
-                      </svg>
-                      3 Br
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-shower fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-shower"></use>
-                      </svg>
-                      3 Ba
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-square fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-square"></use>
-                      </svg>
-                      2300 Sq.Ft
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-Garage fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-Garage"></use>
-                      </svg>
-                      1 Gr
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="box pt-2 pb-4" data-animate="fadeInUp">
-              <div class="card shadow-hover-xs-2">
-                <div class="card-header bg-transparent px-4 pt-4 pb-3 card-img">
-                  <h2 class="fs-16 lh-2 mb-0"><a href="single-property-1.html"
-                                                       class="text-dark hover-primary">Home in Metric Way</a></h2>
-                  <p class="font-weight-500 text-gray-light mb-3">1421 San Pedro St, Los Angeles</p>
-                  <div class="hover-change-image bg-hover-overlay rounded-lg">
-                    <img src="images/properties-grid-33.jpg"
-                                 alt="Home in Metric Way">
-                    <div class="card-img-overlay d-flex flex-column">
-                      <div><span class="badge badge-orange">Featured</span></div>
-                      <div class="mt-auto d-flex hover-image">
-                        <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
-                          <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Images">
-                            <a href="#" class="text-white hover-primary">
-                              <i class="far fa-images"></i><span class="pl-1">9</span>
-                            </a>
-                          </li>
-                          <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
-                            <a href="#" class="text-white hover-primary">
-                              <i class="far fa-play-circle"></i><span class="pl-1">2</span>
-                            </a>
-                          </li>
-                        </ul>
-                        <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
-                          <li class="list-inline-item mr-3 h-32" data-toggle="tooltip" title="Wishlist">
-                            <a href="#" class="text-white fs-20 hover-primary">
-                              <i class="far fa-heart"></i>
-                            </a>
-                          </li>
-                          <li class="list-inline-item mr-3 h-32" data-toggle="tooltip" title="Compare">
-                            <a href="#" class="text-white fs-20 hover-primary">
-                              <i class="fas fa-exchange-alt"></i>
-                            </a>
-                          </li>
-                        </ul>
+                <div class="col-md-6 mb-6">
+                  <div class="card border-0" data-animate="fadeInUp">
+                    <div class="position-relative hover-change-image bg-hover-overlay rounded-lg card-img">
+                      <img src="images/properties-grid-37.jpg"
+								     alt="Home in Metric Way">
+                      <div class="card-img-overlay d-flex flex-column">
+                        <div><span class="badge badge-primary">For Sale</span></div>
+                        <div class="mt-auto d-flex hover-image">
+                          <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
+                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Images">
+                              <a href="#" class="text-white hover-primary">
+                                <i class="far fa-images"></i><span class="pl-1">9</span>
+                              </a>
+                            </li>
+                            <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
+                              <a href="#" class="text-white hover-primary">
+                                <i class="far fa-play-circle"></i><span class="pl-1">2</span>
+                              </a>
+                            </li>
+                          </ul>
+                          <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
+                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+											    title="Wishlist">
+                              <a href="#" class="text-white fs-20 hover-primary">
+                                <i class="far fa-heart"></i>
+                              </a>
+                            </li>
+                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+											    title="Compare">
+                              <a href="#" class="text-white fs-20 hover-primary">
+                                <i class="fas fa-exchange-alt"></i>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="d-flex justify-content-between align-items-center pt-3">
-                    <p class="fs-17 font-weight-bold text-heading mb-0 lh-1">$5.700<span
-                                    class="text-gray-light font-weight-500 fs-14"> / year</span></p>
-                    <span class="badge badge-indigo">For Rent</span>
-                  </div>
-                </div>
-                <div class="card-body py-2">
-                  <p class="mb-0">Lorem ipsum dolor sit amet, sectetur cing elit uspe ndisse suscorem ipsum dolor sitorem sit amet, sectetur cing elit uspe ndisse suscorem ipsum dolor sitorem</p>
-                </div>
-                <div class="card-footer bg-transparent pt-3 pb-4 pb-3">
-                  <ul class="list-inline d-flex justify-content-between mb-0 flex-wrap">
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-bedroom fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-bedroom"></use>
-                      </svg>
-                      3 Br
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-shower fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-shower"></use>
-                      </svg>
-                      3 Ba
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-square fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-square"></use>
-                      </svg>
-                      2300 Sq.Ft
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-Garage fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-Garage"></use>
-                      </svg>
-                      1 Gr
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="box pt-2 pb-4" data-animate="fadeInUp">
-              <div class="card shadow-hover-xs-2">
-                <div class="card-header bg-transparent px-4 pt-4 pb-3 card-img">
-                  <h2 class="fs-16 lh-2 mb-0"><a href="single-property-1.html"
-                                                       class="text-dark hover-primary">Home in Metric Way</a></h2>
-                  <p class="font-weight-500 text-gray-light mb-3">1421 San Pedro St, Los Angeles</p>
-                  <div class="hover-change-image bg-hover-overlay rounded-lg">
-                    <img src="images/properties-grid-34.jpg"
-                                 alt="Home in Metric Way">
-                    <div class="card-img-overlay d-flex flex-column">
-                      <div><span class="badge badge-orange">Featured</span></div>
-                      <div class="mt-auto d-flex hover-image">
-                        <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
-                          <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Images">
-                            <a href="#" class="text-white hover-primary">
-                              <i class="far fa-images"></i><span class="pl-1">9</span>
-                            </a>
-                          </li>
-                          <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
-                            <a href="#" class="text-white hover-primary">
-                              <i class="far fa-play-circle"></i><span class="pl-1">2</span>
-                            </a>
-                          </li>
-                        </ul>
-                        <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
-                          <li class="list-inline-item mr-3 h-32" data-toggle="tooltip" title="Wishlist">
-                            <a href="#" class="text-white fs-20 hover-primary">
-                              <i class="far fa-heart"></i>
-                            </a>
-                          </li>
-                          <li class="list-inline-item mr-3 h-32" data-toggle="tooltip" title="Compare">
-                            <a href="#" class="text-white fs-20 hover-primary">
-                              <i class="fas fa-exchange-alt"></i>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
+                    <div class="card-body pt-3 px-0 pb-1">
+                      <h2 class="fs-16 mb-1"><a href="single-property-1.html"
+								                          class="text-dark hover-primary">Affordable Urban House</a>
+                      </h2>
+                      <p class="font-weight-500 text-gray-light mb-0">1421 San Pedro St, Los Angeles</p>
+                      <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">
+                        $1.250.000
+                      </p>
+                    </div>
+                    <div class="card-footer bg-transparent px-0 pb-0 pt-2">
+                      <ul class="list-inline mb-0">
+                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+									    data-toggle="tooltip" title="3 Bedroom">
+                          <svg class="icon icon-bedroom fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-bedroom"></use>
+                          </svg>
+                          3 Br
+                        </li>
+                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+									    data-toggle="tooltip" title="3 Bathrooms">
+                          <svg class="icon icon-shower fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-shower"></use>
+                          </svg>
+                          3 Ba
+                        </li>
+                        <li class="list-inline-item text-gray font-weight-500 fs-13" data-toggle="tooltip"
+									    title="Size">
+                          <svg class="icon icon-square fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-square"></use>
+                          </svg>
+                          2300 Sq.Ft
+                        </li>
+                      </ul>
                     </div>
                   </div>
-                  <div class="d-flex justify-content-between align-items-center pt-3">
-                    <p class="fs-17 font-weight-bold text-heading mb-0 lh-1">$5.700<span
-                                    class="text-gray-light font-weight-500 fs-14"> / year</span></p>
-                    <span class="badge badge-indigo">For Rent</span>
+                </div>
+                <div class="col-md-6 mb-6">
+                  <div class="card border-0" data-animate="fadeInUp">
+                    <div class="position-relative hover-change-image bg-hover-overlay rounded-lg card-img">
+                      <img src="images/properties-grid-73.jpg"
+								     alt="Home in Metric Way">
+                      <div class="card-img-overlay d-flex flex-column">
+                        <div><span class="badge badge-primary">For Sale</span></div>
+                        <div class="mt-auto d-flex hover-image">
+                          <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
+                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Images">
+                              <a href="#" class="text-white hover-primary">
+                                <i class="far fa-images"></i><span class="pl-1">9</span>
+                              </a>
+                            </li>
+                            <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
+                              <a href="#" class="text-white hover-primary">
+                                <i class="far fa-play-circle"></i><span class="pl-1">2</span>
+                              </a>
+                            </li>
+                          </ul>
+                          <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
+                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+											    title="Wishlist">
+                              <a href="#" class="text-white fs-20 hover-primary">
+                                <i class="far fa-heart"></i>
+                              </a>
+                            </li>
+                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+											    title="Compare">
+                              <a href="#" class="text-white fs-20 hover-primary">
+                                <i class="fas fa-exchange-alt"></i>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body pt-3 px-0 pb-1">
+                      <h2 class="fs-16 mb-1"><a href="single-property-1.html"
+								                          class="text-dark hover-primary">Explore Old Barcelona</a>
+                      </h2>
+                      <p class="font-weight-500 text-gray-light mb-0">1421 San Pedro St, Los Angeles</p>
+                      <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">
+                        $1.250.000
+                      </p>
+                    </div>
+                    <div class="card-footer bg-transparent px-0 pb-0 pt-2">
+                      <ul class="list-inline mb-0">
+                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+									    data-toggle="tooltip" title="3 Bedroom">
+                          <svg class="icon icon-bedroom fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-bedroom"></use>
+                          </svg>
+                          3 Br
+                        </li>
+                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+									    data-toggle="tooltip" title="3 Bathrooms">
+                          <svg class="icon icon-shower fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-shower"></use>
+                          </svg>
+                          3 Ba
+                        </li>
+                        <li class="list-inline-item text-gray font-weight-500 fs-13" data-toggle="tooltip"
+									    title="Size">
+                          <svg class="icon icon-square fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-square"></use>
+                          </svg>
+                          2300 Sq.Ft
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
-                <div class="card-body py-2">
-                  <p class="mb-0">Lorem ipsum dolor sit amet, sectetur cing elit uspe ndisse suscorem ipsum dolor sitorem sit amet, sectetur cing elit uspe ndisse suscorem ipsum dolor sitorem</p>
+                <div class="col-md-6 mb-6">
+                  <div class="card border-0" data-animate="fadeInUp">
+                    <div class="position-relative hover-change-image bg-hover-overlay rounded-lg card-img">
+                      <img src="images/properties-grid-67.jpg"
+								     alt="Home in Metric Way">
+                      <div class="card-img-overlay d-flex flex-column">
+                        <div><span class="badge badge-primary">For Sale</span></div>
+                        <div class="mt-auto d-flex hover-image">
+                          <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
+                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Images">
+                              <a href="#" class="text-white hover-primary">
+                                <i class="far fa-images"></i><span class="pl-1">9</span>
+                              </a>
+                            </li>
+                            <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
+                              <a href="#" class="text-white hover-primary">
+                                <i class="far fa-play-circle"></i><span class="pl-1">2</span>
+                              </a>
+                            </li>
+                          </ul>
+                          <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
+                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+											    title="Wishlist">
+                              <a href="#" class="text-white fs-20 hover-primary">
+                                <i class="far fa-heart"></i>
+                              </a>
+                            </li>
+                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+											    title="Compare">
+                              <a href="#" class="text-white fs-20 hover-primary">
+                                <i class="fas fa-exchange-alt"></i>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body pt-3 px-0 pb-1">
+                      <h2 class="fs-16 mb-1"><a href="single-property-1.html"
+								                          class="text-dark hover-primary">Home in Metric Way</a>
+                      </h2>
+                      <p class="font-weight-500 text-gray-light mb-0">1421 San Pedro St, Los Angeles</p>
+                      <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">
+                        $1.250.000
+                      </p>
+                    </div>
+                    <div class="card-footer bg-transparent px-0 pb-0 pt-2">
+                      <ul class="list-inline mb-0">
+                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+									    data-toggle="tooltip" title="3 Bedroom">
+                          <svg class="icon icon-bedroom fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-bedroom"></use>
+                          </svg>
+                          3 Br
+                        </li>
+                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+									    data-toggle="tooltip" title="3 Bathrooms">
+                          <svg class="icon icon-shower fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-shower"></use>
+                          </svg>
+                          3 Ba
+                        </li>
+                        <li class="list-inline-item text-gray font-weight-500 fs-13" data-toggle="tooltip"
+									    title="Size">
+                          <svg class="icon icon-square fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-square"></use>
+                          </svg>
+                          2300 Sq.Ft
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-                <div class="card-footer bg-transparent pt-3 pb-4 pb-3">
-                  <ul class="list-inline d-flex justify-content-between mb-0 flex-wrap">
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-bedroom fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-bedroom"></use>
-                      </svg>
-                      3 Br
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-shower fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-shower"></use>
-                      </svg>
-                      3 Ba
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-square fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-square"></use>
-                      </svg>
-                      2300 Sq.Ft
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center">
-                      <svg class="icon icon-Garage fs-18 text-primary mr-1">
-                        <use xlink:href="#icon-Garage"></use>
-                      </svg>
-                      1 Gr
-                    </li>
-                  </ul>
+                <div class="col-md-6 mb-6">
+                  <div class="card border-0" data-animate="fadeInUp">
+                    <div class="position-relative hover-change-image bg-hover-overlay rounded-lg card-img">
+                      <img src="images/properties-grid-68.jpg"
+								     alt="Home in Metric Way">
+                      <div class="card-img-overlay d-flex flex-column">
+                        <div><span class="badge badge-indigo">for Rent</span></div>
+                        <div class="mt-auto d-flex hover-image">
+                          <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
+                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Images">
+                              <a href="#" class="text-white hover-primary">
+                                <i class="far fa-images"></i><span class="pl-1">9</span>
+                              </a>
+                            </li>
+                            <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
+                              <a href="#" class="text-white hover-primary">
+                                <i class="far fa-play-circle"></i><span class="pl-1">2</span>
+                              </a>
+                            </li>
+                          </ul>
+                          <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
+                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+											    title="Wishlist">
+                              <a href="#" class="text-white fs-20 hover-primary">
+                                <i class="far fa-heart"></i>
+                              </a>
+                            </li>
+                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+											    title="Compare">
+                              <a href="#" class="text-white fs-20 hover-primary">
+                                <i class="fas fa-exchange-alt"></i>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body pt-3 px-0 pb-1">
+                      <h2 class="fs-16 mb-1"><a href="single-property-1.html"
+								                          class="text-dark hover-primary">Garden Gingerbread House</a>
+                      </h2>
+                      <p class="font-weight-500 text-gray-light mb-0">1421 San Pedro St, Los Angeles</p>
+                      <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">
+                        $550
+                        <span class="fs-14 font-weight-500 text-gray-light"> /month</span>
+                      </p>
+                    </div>
+                    <div class="card-footer bg-transparent px-0 pb-0 pt-2">
+                      <ul class="list-inline mb-0">
+                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+									    data-toggle="tooltip" title="3 Bedroom">
+                          <svg class="icon icon-bedroom fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-bedroom"></use>
+                          </svg>
+                          3 Br
+                        </li>
+                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+									    data-toggle="tooltip" title="3 Bathrooms">
+                          <svg class="icon icon-shower fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-shower"></use>
+                          </svg>
+                          3 Ba
+                        </li>
+                        <li class="list-inline-item text-gray font-weight-500 fs-13" data-toggle="tooltip"
+									    title="Size">
+                          <svg class="icon icon-square fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-square"></use>
+                          </svg>
+                          2300 Sq.Ft
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-6">
+                  <div class="card border-0" data-animate="fadeInUp">
+                    <div class="position-relative hover-change-image bg-hover-overlay rounded-lg card-img">
+                      <img src="images/properties-grid-69.jpg"
+								     alt="Home in Metric Way">
+                      <div class="card-img-overlay d-flex flex-column">
+                        <div><span class="badge badge-primary">For Sale</span></div>
+                        <div class="mt-auto d-flex hover-image">
+                          <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
+                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Images">
+                              <a href="#" class="text-white hover-primary">
+                                <i class="far fa-images"></i><span class="pl-1">9</span>
+                              </a>
+                            </li>
+                            <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
+                              <a href="#" class="text-white hover-primary">
+                                <i class="far fa-play-circle"></i><span class="pl-1">2</span>
+                              </a>
+                            </li>
+                          </ul>
+                          <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
+                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+											    title="Wishlist">
+                              <a href="#" class="text-white fs-20 hover-primary">
+                                <i class="far fa-heart"></i>
+                              </a>
+                            </li>
+                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+											    title="Compare">
+                              <a href="#" class="text-white fs-20 hover-primary">
+                                <i class="fas fa-exchange-alt"></i>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body pt-3 px-0 pb-1">
+                      <h2 class="fs-16 mb-1"><a href="single-property-1.html"
+								                          class="text-dark hover-primary">Home in Metric Way</a>
+                      </h2>
+                      <p class="font-weight-500 text-gray-light mb-0">1421 San Pedro St, Los Angeles</p>
+                      <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">
+                        $1.250.000
+                      </p>
+                    </div>
+                    <div class="card-footer bg-transparent px-0 pb-0 pt-2">
+                      <ul class="list-inline mb-0">
+                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+									    data-toggle="tooltip" title="3 Bedroom">
+                          <svg class="icon icon-bedroom fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-bedroom"></use>
+                          </svg>
+                          3 Br
+                        </li>
+                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+									    data-toggle="tooltip" title="3 Bathrooms">
+                          <svg class="icon icon-shower fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-shower"></use>
+                          </svg>
+                          3 Ba
+                        </li>
+                        <li class="list-inline-item text-gray font-weight-500 fs-13" data-toggle="tooltip"
+									    title="Size">
+                          <svg class="icon icon-square fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-square"></use>
+                          </svg>
+                          2300 Sq.Ft
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-6">
+                  <div class="card border-0" data-animate="fadeInUp">
+                    <div class="position-relative hover-change-image bg-hover-overlay rounded-lg card-img">
+                      <img src="images/properties-grid-70.jpg"
+								     alt="Home in Metric Way">
+                      <div class="card-img-overlay d-flex flex-column">
+                        <div><span class="badge badge-indigo">for Rent</span></div>
+                        <div class="mt-auto d-flex hover-image">
+                          <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
+                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Images">
+                              <a href="#" class="text-white hover-primary">
+                                <i class="far fa-images"></i><span class="pl-1">9</span>
+                              </a>
+                            </li>
+                            <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
+                              <a href="#" class="text-white hover-primary">
+                                <i class="far fa-play-circle"></i><span class="pl-1">2</span>
+                              </a>
+                            </li>
+                          </ul>
+                          <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
+                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+											    title="Wishlist">
+                              <a href="#" class="text-white fs-20 hover-primary">
+                                <i class="far fa-heart"></i>
+                              </a>
+                            </li>
+                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+											    title="Compare">
+                              <a href="#" class="text-white fs-20 hover-primary">
+                                <i class="fas fa-exchange-alt"></i>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body pt-3 px-0 pb-1">
+                      <h2 class="fs-16 mb-1"><a href="single-property-1.html"
+								                          class="text-dark hover-primary">Home in Metric Way</a>
+                      </h2>
+                      <p class="font-weight-500 text-gray-light mb-0">1421 San Pedro St, Los Angeles</p>
+                      <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">
+                        $550
+                        <span class="fs-14 font-weight-500 text-gray-light"> /month</span>
+                      </p>
+                    </div>
+                    <div class="card-footer bg-transparent px-0 pb-0 pt-2">
+                      <ul class="list-inline mb-0">
+                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+									    data-toggle="tooltip" title="3 Bedroom">
+                          <svg class="icon icon-bedroom fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-bedroom"></use>
+                          </svg>
+                          3 Br
+                        </li>
+                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+									    data-toggle="tooltip" title="3 Bathrooms">
+                          <svg class="icon icon-shower fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-shower"></use>
+                          </svg>
+                          3 Ba
+                        </li>
+                        <li class="list-inline-item text-gray font-weight-500 fs-13" data-toggle="tooltip"
+									    title="Size">
+                          <svg class="icon icon-square fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-square"></use>
+                          </svg>
+                          2300 Sq.Ft
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-6">
+                  <div class="card border-0" data-animate="fadeInUp">
+                    <div class="position-relative hover-change-image bg-hover-overlay rounded-lg card-img">
+                      <img src="images/properties-grid-71.jpg"
+								     alt="Home in Metric Way">
+                      <div class="card-img-overlay d-flex flex-column">
+                        <div><span class="badge badge-primary">For Sale</span></div>
+                        <div class="mt-auto d-flex hover-image">
+                          <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
+                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Images">
+                              <a href="#" class="text-white hover-primary">
+                                <i class="far fa-images"></i><span class="pl-1">9</span>
+                              </a>
+                            </li>
+                            <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
+                              <a href="#" class="text-white hover-primary">
+                                <i class="far fa-play-circle"></i><span class="pl-1">2</span>
+                              </a>
+                            </li>
+                          </ul>
+                          <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
+                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+											    title="Wishlist">
+                              <a href="#" class="text-white fs-20 hover-primary">
+                                <i class="far fa-heart"></i>
+                              </a>
+                            </li>
+                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+											    title="Compare">
+                              <a href="#" class="text-white fs-20 hover-primary">
+                                <i class="fas fa-exchange-alt"></i>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body pt-3 px-0 pb-1">
+                      <h2 class="fs-16 mb-1"><a href="single-property-1.html"
+								                          class="text-dark hover-primary">Home in Metric Way</a>
+                      </h2>
+                      <p class="font-weight-500 text-gray-light mb-0">1421 San Pedro St, Los Angeles</p>
+                      <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">
+                        $1.250.000
+                      </p>
+                    </div>
+                    <div class="card-footer bg-transparent px-0 pb-0 pt-2">
+                      <ul class="list-inline mb-0">
+                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+									    data-toggle="tooltip" title="3 Bedroom">
+                          <svg class="icon icon-bedroom fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-bedroom"></use>
+                          </svg>
+                          3 Br
+                        </li>
+                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+									    data-toggle="tooltip" title="3 Bathrooms">
+                          <svg class="icon icon-shower fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-shower"></use>
+                          </svg>
+                          3 Ba
+                        </li>
+                        <li class="list-inline-item text-gray font-weight-500 fs-13" data-toggle="tooltip"
+									    title="Size">
+                          <svg class="icon icon-square fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-square"></use>
+                          </svg>
+                          2300 Sq.Ft
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-6">
+                  <div class="card border-0" data-animate="fadeInUp">
+                    <div class="position-relative hover-change-image bg-hover-overlay rounded-lg card-img">
+                      <img src="images/properties-grid-72.jpg"
+								     alt="Home in Metric Way">
+                      <div class="card-img-overlay d-flex flex-column">
+                        <div><span class="badge badge-primary">For Sale</span></div>
+                        <div class="mt-auto d-flex hover-image">
+                          <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
+                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Images">
+                              <a href="#" class="text-white hover-primary">
+                                <i class="far fa-images"></i><span class="pl-1">9</span>
+                              </a>
+                            </li>
+                            <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
+                              <a href="#" class="text-white hover-primary">
+                                <i class="far fa-play-circle"></i><span class="pl-1">2</span>
+                              </a>
+                            </li>
+                          </ul>
+                          <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
+                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+											    title="Wishlist">
+                              <a href="#" class="text-white fs-20 hover-primary">
+                                <i class="far fa-heart"></i>
+                              </a>
+                            </li>
+                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+											    title="Compare">
+                              <a href="#" class="text-white fs-20 hover-primary">
+                                <i class="fas fa-exchange-alt"></i>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body pt-3 px-0 pb-1">
+                      <h2 class="fs-16 mb-1"><a href="single-property-1.html"
+								                          class="text-dark hover-primary">Home in Metric Way</a>
+                      </h2>
+                      <p class="font-weight-500 text-gray-light mb-0">1421 San Pedro St, Los Angeles</p>
+                      <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">
+                        $1.250.000
+                      </p>
+                    </div>
+                    <div class="card-footer bg-transparent px-0 pb-0 pt-2">
+                      <ul class="list-inline mb-0">
+                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+									    data-toggle="tooltip" title="3 Bedroom">
+                          <svg class="icon icon-bedroom fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-bedroom"></use>
+                          </svg>
+                          3 Br
+                        </li>
+                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+									    data-toggle="tooltip" title="3 Bathrooms">
+                          <svg class="icon icon-shower fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-shower"></use>
+                          </svg>
+                          3 Ba
+                        </li>
+                        <li class="list-inline-item text-gray font-weight-500 fs-13" data-toggle="tooltip"
+									    title="Size">
+                          <svg class="icon icon-square fs-18 text-primary mr-1">
+                            <use xlink:href="#icon-square"></use>
+                          </svg>
+                          2300 Sq.Ft
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="pt-10 pb-7">
-        <div class="container">
-          <h2 class="text-heading text-center">Services Offered</h2>
-          <span class="heading-divider mx-auto mb-2"></span>
-          <div class="slick-slider arrow-haft-inner mx-0"
-             data-slick-options='{"slidesToShow": 4, "autoplay":true,"dots":false,"responsive":[{"breakpoint": 1200,"settings": {"slidesToShow":3,"arrows":false,"dots":true}},{"breakpoint": 992,"settings": {"slidesToShow":2,"arrows":false}},{"breakpoint": 768,"settings": {"slidesToShow": 2,"arrows":false,"autoplay":true}},{"breakpoint": 576,"settings": {"arrows":false,"slidesToShow": 1}}]}'>
-            <div class="box px-0 py-6" data-animate="fadeInUp">
-              <div class="card border-0 py-7 px-4 shadow-hover-3 bg-transparent bg-hover-white">
-                <div class="d-flex justify-content-center card-img-top">
-                  <img src="images/house.png" alt="Property Management">
-                </div>
-                <div class="card-body px-0 pt-5 pb-0 text-center">
-                  <h4 class="card-title fs-16 lh-13 text-dark mb-2 px-10">Property Management</h4>
-                  <p class="card-text text-body px-8">Suspe ndisse suscipit sagittis leo sit met condim entum</p>
-                </div>
-              </div>
-            </div>
-            <div class="box px-0 py-6" data-animate="fadeInUp">
-              <div class="card border-0 py-7 px-4 shadow-hover-3 bg-transparent bg-hover-white">
-                <div class="d-flex justify-content-center card-img-top">
-                  <img src="images/mortgage.png" alt="Mortgage Service">
-                </div>
-                <div class="card-body px-0 pt-5 pb-0 text-center">
-                  <h4 class="card-title fs-16 lh-13 text-dark mb-2 px-10">Mortgage Service</h4>
-                  <p class="card-text text-body px-8">Suspe ndisse suscipit sagittis leo sit met condim entum</p>
-                </div>
-              </div>
-            </div>
-            <div class="box px-0 py-6" data-animate="fadeInUp">
-              <div class="card border-0 py-7 px-4 shadow-hover-3 bg-transparent bg-hover-white">
-                <div class="d-flex justify-content-center card-img-top">
-                  <img src="images/clipboard.png" alt="Consulting Service">
-                </div>
-                <div class="card-body px-0 pt-5 pb-0 text-center">
-                  <h4 class="card-title fs-16 lh-13 text-dark mb-2 px-10">Consulting Service</h4>
-                  <p class="card-text text-body px-8">Suspe ndisse suscipit sagittis leo sit met condim entum</p>
-                </div>
-              </div>
-            </div>
-            <div class="box px-0 py-6" data-animate="fadeInUp">
-              <div class="card border-0 py-7 px-4 shadow-hover-3 bg-transparent bg-hover-white">
-                <div class="d-flex justify-content-center card-img-top">
-                  <img src="images/building.png" alt="Recover Asset Value">
-                </div>
-                <div class="card-body px-0 pt-5 pb-0 text-center">
-                  <h4 class="card-title fs-16 lh-13 text-dark mb-2 px-10">Recover Asset Value</h4>
-                  <p class="card-text text-body px-8">Suspe ndisse suscipit sagittis leo sit met condim entum</p>
-                </div>
-              </div>
-            </div>
-            <div class="box px-0 py-6" data-animate="fadeInUp">
-              <div class="card border-0 py-7 px-4 shadow-hover-3 bg-transparent bg-hover-white">
-                <div class="d-flex justify-content-center card-img-top">
-                  <img src="images/house.png" alt="Property Management">
-                </div>
-                <div class="card-body px-0 pt-5 pb-0 text-center">
-                  <h4 class="card-title fs-16 lh-13 text-dark mb-2 px-10">Property Management</h4>
-                  <p class="card-text text-body px-8">Suspe ndisse suscipit sagittis leo sit met condim entum</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="bg-gray-02 pt-10 pb-10">
-        <div class="container">
-          <p class="text-primary letter-spacing-263 text-uppercase lh-186 text-center mb-0">new & articles</p>
-          <h2 class="text-center lh-1625 text-dark pb-1">
-            Check Out Recent News & Articles
-          </h2>
-          <div class="mx-n2">
-            <div class="slick-slider mt-6 mx-n1 slick-dots-mt-0"
-                 data-slick-options='{"slidesToShow": 3, "autoplay":false,"arrows":false,"dots":true,"infinite": true,"responsive":[{"breakpoint": 992,"settings": {"slidesToShow":2}},{"breakpoint": 768,"settings": {"slidesToShow": 2,"autoplay":true}},{"breakpoint": 576,"settings": {"slidesToShow": 1,"arrows":false,"dots":true,"autoplay":true}}]}'>
-              <div class="item py-4" data-animate="fadeInUp">
-                <div class="card border-0 shadow-xxs-3">
-                  <div class="position-relative d-flex align-items-end card-img-top">
-                    <a href="blog-details-1.html" class="hover-shine">
-                      <img src="images/post-05.jpg"
-                                     alt="The Interior Design The Hall On str. Filimonovo">
-                    </a>
-                    <a href="#"
-                               class="badge pos-fixed-bottom text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white mx-2 my-4 position-absolute">
-                      Creative
-                    </a>
-                  </div>
-                  <div class="card-body px-5 pt-3 pb-5">
-                    <p class="mb-1 fs-13">Dec 16, 2020</p>
-                    <h3 class="fs-18 text-heading lh-194 mb-1">
-                      <a href="blog-details-1.html" class="text-heading hover-primary">The Interior Design The Hall On str. Filimonovo</a>
-                    </h3>
-                    <p class="mb-3">Lorem ipsum dolor sit amet, consectetur cing elit. Suspe ndisse suscipit sagittis leo sit met condimentum estibulum issim</p>
-                    <a class="text-heading font-weight-500" href="blog-details-1.html">Learn more <i
-                                    class="far fa-long-arrow-right text-primary ml-1"></i></a>
-                  </div>
-                </div>
-              </div>
-              <div class="item py-4" data-animate="fadeInUp">
-                <div class="card border-0 shadow-xxs-3">
-                  <div class="position-relative d-flex align-items-end card-img-top">
-                    <a href="blog-details-1.html" class="hover-shine">
-                      <img src="images/post-06.jpg"
-                                     alt="Ten Benefits Of Rentals That May Change Your Perspective">
-                    </a>
-                    <a href="#"
-                               class="badge pos-fixed-bottom text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white mx-2 my-4 position-absolute">
-                      Rentals
-                    </a>
-                  </div>
-                  <div class="card-body px-5 pt-3 pb-5">
-                    <p class="mb-1 fs-13">Dec 16, 2020</p>
-                    <h3 class="fs-18 text-heading lh-194 mb-1">
-                      <a href="blog-details-1.html" class="text-heading hover-primary">Ten Benefits Of Rentals That May Change Your Perspective</a>
-                    </h3>
-                    <p class="mb-3">Lorem ipsum dolor sit amet, consectetur cing elit. Suspe ndisse suscipit sagittis leo sit met condimentum estibulum issim</p>
-                    <a class="text-heading font-weight-500" href="blog-details-1.html">Learn more <i
-                                    class="far fa-long-arrow-right text-primary ml-1"></i></a>
-                  </div>
-                </div>
-              </div>
-              <div class="item py-4" data-animate="fadeInUp">
-                <div class="card border-0 shadow-xxs-3">
-                  <div class="position-relative d-flex align-items-end card-img-top">
-                    <a href="blog-details-1.html" class="hover-shine">
-                      <img src="images/post-07.jpg"
-                                     alt="Future Office Buldings Intelligent by Design">
-                    </a>
-                    <a href="#"
-                               class="badge pos-fixed-bottom text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white mx-2 my-4 position-absolute">
-                      Rentals
-                    </a>
-                  </div>
-                  <div class="card-body px-5 pt-3 pb-5">
-                    <p class="mb-1 fs-13">Dec 16, 2020</p>
-                    <h3 class="fs-18 text-heading lh-194 mb-1">
-                      <a href="blog-details-1.html" class="text-heading hover-primary">Future Office Buldings Intelligent by Design</a>
-                    </h3>
-                    <p class="mb-3">Lorem ipsum dolor sit amet, consectetur cing elit. Suspe ndisse suscipit sagittis leo sit met condimentum estibulum issim</p>
-                    <a class="text-heading font-weight-500" href="blog-details-1.html">Learn more <i
-                                    class="far fa-long-arrow-right text-primary ml-1"></i></a>
-                  </div>
-                </div>
-              </div>
-              <div class="item py-4" data-animate="fadeInUp">
-                <div class="card border-0 shadow-xxs-3">
-                  <div class="position-relative d-flex align-items-end card-img-top">
-                    <a href="blog-details-1.html" class="hover-shine">
-                      <img src="images/post-05.jpg"
-                                     alt="The Interior Design The Hall On str. Filimonovo">
-                    </a>
-                    <a href="#"
-                               class="badge pos-fixed-bottom text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white mx-2 my-4 position-absolute">
-                      Creative
-                    </a>
-                  </div>
-                  <div class="card-body px-5 pt-3 pb-5">
-                    <p class="mb-1 fs-13">Dec 16, 2020</p>
-                    <h3 class="fs-18 text-heading lh-194 mb-1">
-                      <a href="blog-details-1.html" class="text-heading hover-primary">The Interior Design The Hall On str. Filimonovo</a>
-                    </h3>
-                    <p class="mb-3">Lorem ipsum dolor sit amet, consectetur cing elit. Suspe ndisse suscipit sagittis leo sit met condimentum estibulum issim</p>
-                    <a class="text-heading font-weight-500" href="blog-details-1.html">Learn more <i
-                                    class="far fa-long-arrow-right text-primary ml-1"></i></a>
-                  </div>
-                </div>
-              </div>
-              <div class="item py-4" data-animate="fadeInUp">
-                <div class="card border-0 shadow-xxs-3">
-                  <div class="position-relative d-flex align-items-end card-img-top">
-                    <a href="blog-details-1.html" class="hover-shine">
-                      <img src="images/post-06.jpg"
-                                     alt="Ten Benefits Of Rentals That May Change Your Perspective">
-                    </a>
-                    <a href="#"
-                               class="badge pos-fixed-bottom text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white mx-2 my-4 position-absolute">
-                      Rentals
-                    </a>
-                  </div>
-                  <div class="card-body px-5 pt-3 pb-5">
-                    <p class="mb-1 fs-13">Dec 16, 2020</p>
-                    <h3 class="fs-18 text-heading lh-194 mb-1">
-                      <a href="blog-details-1.html" class="text-heading hover-primary">Ten Benefits Of Rentals That May Change Your Perspective</a>
-                    </h3>
-                    <p class="mb-3">Lorem ipsum dolor sit amet, consectetur cing elit. Suspe ndisse suscipit sagittis leo sit met condimentum estibulum issim</p>
-                    <a class="text-heading font-weight-500" href="blog-details-1.html">Learn more <i
-                                    class="far fa-long-arrow-right text-primary ml-1"></i></a>
-                  </div>
-                </div>
-              </div>
-              <div class="item py-4" data-animate="fadeInUp">
-                <div class="card border-0 shadow-xxs-3">
-                  <div class="position-relative d-flex align-items-end card-img-top">
-                    <a href="blog-details-1.html" class="hover-shine">
-                      <img src="images/post-07.jpg"
-                                     alt="Future Office Buldings Intelligent by Design">
-                    </a>
-                    <a href="#"
-                               class="badge pos-fixed-bottom text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white mx-2 my-4 position-absolute">
-                      Rentals
-                    </a>
-                  </div>
-                  <div class="card-body px-5 pt-3 pb-5">
-                    <p class="mb-1 fs-13">Dec 16, 2020</p>
-                    <h3 class="fs-18 text-heading lh-194 mb-1">
-                      <a href="blog-details-1.html" class="text-heading hover-primary">Future Office Buldings Intelligent by Design</a>
-                    </h3>
-                    <p class="mb-3">Lorem ipsum dolor sit amet, consectetur cing elit. Suspe ndisse suscipit sagittis leo sit met condimentum estibulum issim</p>
-                    <a class="text-heading font-weight-500" href="blog-details-1.html">Learn more <i
-                                    class="far fa-long-arrow-right text-primary ml-1"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="py-lg-11 pt-8 pb-lg-10 position-relative bg-cover"
-         style="background-image: url('images/bg-contact-form-01.jpg')">
-        <div class="container">
-          <div class="row">
-            <div class="col-xl-5 col-lg-6">
-              <h2 class="text-white fs-32 lh-163 mb-6">Send us a message</h2>
-              <form>
-                <div class="form row">
-                  <div class="col-md-6 pr-md-2">
-                    <input type="text" name="name"
-                               class="form-control form-control-lg border-0 shadow-none bg-gray-03 placeholder-muted"
-                               placeholder="Name">
-                  </div>
-                  <div class="col-md-6 pl-md-2 pt-md-0 pt-4">
-                    <input type="email" name="email"
-                               class="form-control form-control-lg border-0 shadow-none bg-gray-03 placeholder-muted"
-                               placeholder="Email">
-                  </div>
-                  <div class="col-12 pt-4">
-                    <textarea class="form-control border-0 shadow-none bg-gray-03 placeholder-muted h-145"
-                                      id="exampleFormControlTextarea1" placeholder="Messenger"></textarea>
-                  </div>
-                  <div class="col-12 pt-6">
-                    <button type="submit" class="btn btn-primary font-weight-600 btn-lg">
-                      Send message
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="col-lg-6 offset-xl-1 custom-lg-map-height-full pr-lg-0 pt-8 pt-lg-0">
-              <div class="h-lg-full">
-                <div class="position-relative h-lg-full">
-                  <div id="map" class="mapbox-gl h-lg-full mx-n3 mx-lg-0 map-point-animate"
-                         data-mapbox-access-token="pk.eyJ1IjoiZHVvbmdsaCIsImEiOiJjanJnNHQ4czExMzhyNDVwdWo5bW13ZmtnIn0.f1bmXQsS6o4bzFFJc8RCcQ"
-                         data-mapbox-options='{"center":[-73.9927227, 40.6741035],"setLngLat":[-73.9927227, 40.6741035]}'
-                         data-mapbox-marker='[{"position":[-73.9927227, 40.6741035],"className":"marker","backgroundImage":"images/googlle-market-01.png","backgroundRepeat":"no-repeat","width":"30px","height":"40px"}]'>
-                  </div>
-                  <div class="mb-0 p-3 bg-white shadow rounded-lg position-absolute pos-fixed-bottom mb-4 ml-4 mb-lg-8 ml-lg-9 lh-17">
-                    <h4 class="fs-18 text-dark">Visit our office at</h4>
-                    <p>62 Gresham St, Victoria Park <br/>
-                       WA 6100, Australia</p>
-                  </div>
-                </div>
-              </div>
+              <nav class="pt-4">
+                <ul class="pagination rounded-active justify-content-center mb-0">
+                  <li class="page-item"><a class="page-link" href="#"><i class="far fa-angle-double-left"></i></a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item d-none d-sm-block"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">...</li>
+                  <li class="page-item"><a class="page-link" href="#">6</a></li>
+                  <li class="page-item"><a class="page-link" href="#"><i
+								class="far fa-angle-double-right"></i></a></li>
+                </ul>
+              </nav>
             </div>
           </div>
         </div>
@@ -2137,86 +1825,99 @@
         </div>
       </div>
     </main>
-    <footer class="pt-8 pb-6 footer text-gray-light">
+    <footer class="bg-dark pt-8 pb-6 footer text-muted">
       <div class="container">
         <div class="row">
           <div class="col-md-6 col-lg-4 mb-6 mb-md-0">
             <a class="d-block mb-2" href="#">
-              <img src="images/logo.png" alt="HomeID">
+              <img src="images/logo-white-primary.png" alt="HomeID">
             </a>
             <div class="lh-26 font-weight-500">
               <p class="mb-0">58 Howard Street #2 San Francisco</p>
-              <a class="d-block text-gray-light hover-primary" href="mailto:contact@homeid.com">contact@homeid.com</a>
-              <a class="d-block text-gray-light font-weight-bold hover-primary fs-15"
+              <a class="d-block text-muted hover-white" href="mailto:contact@homeid.com">contact@homeid.com</a>
+              <a class="d-block text-lighter font-weight-bold fs-15 hover-white"
                        href="tel:(+68)122109876">(+68)1221
                 09876</a>
-              <a class="d-block text-gray-light hover-primary" href="www.homeid.com">www.homeid.com</a>
+              <a class="d-block text-muted hover-white" href=".">www.homeid.com</a>
             </div>
           </div>
           <div class="col-md-6 col-lg-2 mb-6 mb-md-0">
-            <h4 class="text-heading fs-16 my-4 font-weight-500">Popular Searches</h4>
+            <h4 class="text-white fs-16 my-4 font-weight-500">Popular Searches</h4>
             <ul class="list-group list-group-flush list-group-no-border">
               <li class="list-group-item bg-transparent p-0">
-                <a href="#" class="text-gray-light hover-primary lh-26 font-weight-500">Apartment for
-                  Rent</a>
+                <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Apartment for Rent</a>
               </li>
               <li class="list-group-item bg-transparent p-0">
-                <a href="#" class="text-gray-light hover-primary lh-26 font-weight-500">Apartment Low to
+                <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Apartment Low to
                   hide</a>
               </li>
               <li class="list-group-item bg-transparent p-0">
-                <a href="#" class="text-gray-light hover-primary lh-26 font-weight-500">Offices for
-                  Buy</a>
+                <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Offices for Buy</a>
               </li>
               <li class="list-group-item bg-transparent p-0">
-                <a href="#" class="text-gray-light hover-primary lh-26 font-weight-500">Offices for
-                  Rent</a>
+                <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Offices for Rent</a>
               </li>
             </ul>
           </div>
           <div class="col-md-6 col-lg-2 mb-6 mb-md-0">
-            <h4 class="text-heading fs-16 my-4 font-weight-500">Quick links</h4>
+            <h4 class="text-white fs-16 my-4 font-weight-500">Quick links</h4>
             <ul class="list-group list-group-flush list-group-no-border">
               <li class="list-group-item bg-transparent p-0">
-                <a href="#" class="text-gray-light hover-primary lh-26 font-weight-500">Terms of Use</a>
+                <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Terms of Use</a>
               </li>
               <li class="list-group-item bg-transparent p-0">
-                <a href="#" class="text-gray-light hover-primary lh-26 font-weight-500">Privacy
-                  Policy</a>
+                <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Privacy Policy</a>
               </li>
               <li class="list-group-item bg-transparent p-0">
-                <a href="#" class="text-gray-light hover-primary lh-26 font-weight-500">Contact
-                  Support</a>
+                <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Contact Support</a>
               </li>
               <li class="list-group-item bg-transparent p-0">
-                <a href="#" class="text-gray-light hover-primary lh-26 font-weight-500">Careers</a>
+                <a href="#" class="text-muted lh-26 hover-white font-weight-500">Careers</a>
               </li>
             </ul>
           </div>
           <div class="col-md-6 col-lg-4 mb-6 mb-md-0">
-            <h4 class="text-heading fs-16 my-4 font-weight-500">Sign Up for Our Newsletter</h4>
+            <h4 class="text-white fs-16 my-4 font-weight-500">Sign Up for Our Newsletter</h4>
             <p class="font-weight-500 text-muted lh-184">Lorem ipsum dolor sit amet, consecte tur cing elit.
               Suspe ndisse suscipit sagittis </p>
             <form>
               <div class="input-group input-group-lg mb-6">
-                <input type="email" required name="email" class="form-control shadow-none border-0 z-index-1" placeholder="Your email">
+                <input type="text" name="email" required class="form-control bg-white shadow-none border-0 z-index-1" placeholder="Your email">
                 <div class="input-group-append">
-                  <button class="btn btn-primary" type="button">Subscribe</button>
+                  <button class="btn btn-primary" type="submit">Subscribe</button>
                 </div>
               </div>
             </form>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item mr-0">
+                <a href="#" class="text-white opacity-3 fs-25 px-4 opacity-hover-10"><i
+                                class="fab fa-twitter"></i></a>
+              </li>
+              <li class="list-inline-item mr-0">
+                <a href="#" class="text-white opacity-3 fs-25 px-4 opacity-hover-10"><i
+                                class="fab fa-facebook-f"></i></a>
+              </li>
+              <li class="list-inline-item mr-0">
+                <a href="#" class="text-white opacity-3 fs-25 px-4 opacity-hover-10"><i
+                                class="fab fa-skype"></i></a>
+              </li>
+              <li class="list-inline-item mr-0">
+                <a href="#" class="text-white opacity-3 fs-25 px-4 opacity-hover-10"><i
+                                class="fab fa-linkedin-in"></i></a>
+              </li>
+            </ul>
           </div>
         </div>
         <div class="mt-0 mt-md-10 row">
           <ul class="list-inline mb-0 col-md-6 mr-auto">
             <li class="list-inline-item mr-6">
-              <a href="#" class="text-gray-light hover-primary lh-26 font-weight-500">Terms of Use</a>
+              <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Terms of Use</a>
             </li>
             <li class="list-inline-item">
-              <a href="#" class="text-gray-light hover-primary lh-26 font-weight-500">Privacy Policy</a>
+              <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Privacy Policy</a>
             </li>
           </ul>
-          <p class="col-md-auto mt-4 mt-md-0">
+          <p class="col-md-auto mb-0 text-muted">
             © 2020 homeID. All Rights Reserved
           </p>
         </div>

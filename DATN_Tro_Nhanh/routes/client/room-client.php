@@ -17,3 +17,6 @@ Route::group(['prefix' => '', 'as' => 'client.'], function () {
     Route::get('/xem-chi-tiet', [RoomClientController::class, 'page_detail'])->name('detail-room');
 
 });
+use App\Http\Controllers\Client\HomeClientController;
+
+Route::get('/', [HomeClientController::class, 'index'])->name('home');

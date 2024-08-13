@@ -24,51 +24,19 @@
                         <ul class="navbar-nav hover-menu main-menu px-0 mx-xl-n4">
                             <li id="navbar-item-home" aria-haspopup="true" aria-expanded="false"
                                 class="nav-item dropdown py-2 py-xl-5 px-0 px-xl-4">
-                                <a class="nav-link dropdown-toggle p-0" href="index.html" data-toggle="dropdown">
+                                {{-- <a class="nav-link dropdown-toggle p-0" href="{{ route('home') }}" data-toggle="dropdown">
                                     Home
                                     <span class="caret"></span>
-                                </a>
+                                </a> --}}
+                                
                                 <ul class="dropdown-menu pt-3 pb-0 pb-xl-3" aria-labelledby="navbar-item-home">
                                     <li class="dropdown-item">
-                                        <a id="navbar-link-home-01" class="dropdown-link" href="home-01.html">
+                                        <a id="navbar-link-home-01" class="dropdown-link" href="{{ route('home') }}">
                                             Home 01
                                         </a>
+                                        
                                     </li>
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-home-02" class="dropdown-link" href="home-02.html">
-                                            Home 02
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-home-03" class="dropdown-link" href="home-03.html">
-                                            Home 03
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-home-04" class="dropdown-link" href="home-04.html">
-                                            Home 04
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-home-05" class="dropdown-link" href="home-05.html">
-                                            Home 05
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-home-06" class="dropdown-link" href="home-06.html">
-                                            Home 06
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-home-07" class="dropdown-link" href="home-07.html">
-                                            Home 07
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-home-08" class="dropdown-link" href="home-08.html">
-                                            Home 08
-                                        </a>
-                                    </li>
+                                   
                                 </ul>
                             </li>
                             <li id="navbar-item-listing" aria-haspopup="true" aria-expanded="false"
