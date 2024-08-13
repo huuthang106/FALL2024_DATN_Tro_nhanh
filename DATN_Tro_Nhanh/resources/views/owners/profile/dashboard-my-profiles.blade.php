@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('titleAdmin', 'Thông Tin Tài Khoản | TRỌ NHANH')
-@section('contentAdmin')
+@section('titleOwner', 'Thông Tin Tài Khoản | TRỌ NHANH')
+@section('contentOwner')
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
             <div class="mb-6">
@@ -181,7 +181,7 @@
         </div>
     </main>
 @endsection
-@push('styleAdmin')
+@push('styleOwner')
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Real Estate Html Template">
@@ -225,7 +225,7 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
 @endpush
-@push('scriptAdmin')
+@push('scriptOwner')
     <!-- Vendors scripts -->
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.js') }}"></script>

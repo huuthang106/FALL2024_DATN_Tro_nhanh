@@ -9,18 +9,18 @@
     {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
 
     {{-- CSS --}}
-    @stack('styleAdmin')
+    @stack('styleOwner')
 </head>
 
 <body>
     <div class="wrapper dashboard-wrapper">
         <div class="d-flex flex-wrap flex-xl-nowrap">
-            <x-navbar-admin />
-            @yield('contentAdmin')
+            <x-navbar-owner />
+            @yield('contentOwner')
         </div>
     </div>
 </body>
 {{-- Scription --}}
-@stack('scriptAdmin')
+@stack('scriptOwner')
 
 </html>
