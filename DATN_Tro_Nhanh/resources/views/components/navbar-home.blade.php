@@ -29,7 +29,7 @@
                                     </a>
                                     <ul class="dropdown-menu pt-3 pb-0 pb-xl-3" aria-labelledby="navbar-item-home">
                                         <li class="dropdown-item active">
-                                            <a id="navbar-link-home-01" class="dropdown-link" href="home-01.html">
+                                            <a id="navbar-link-home-01" class="dropdown-link" href="">
                                                 Home 01
                                             </a>
                                         </li>
