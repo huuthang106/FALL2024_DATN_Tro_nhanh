@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class NotificationOwnersController extends Controller
 {
-    //
+    public function index()
+    {
+        return view('client.show.notification');
+    }
 }
