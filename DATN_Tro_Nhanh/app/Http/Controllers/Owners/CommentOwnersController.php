@@ -8,4 +8,7 @@ use Illuminate\Http\Request;
 class CommentOwnersController extends Controller
 {
     //
+    public function index(){
+        return view('dashboard-reviews');
+    }
 }

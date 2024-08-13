@@ -12,6 +12,8 @@ class RoomOwnersController extends Controller
     {
         return view('owners.create.add-new-property');
     }
+    public function index()
+    {
+        return view('dashboard-my-properties');
+    }
 }
-
- 

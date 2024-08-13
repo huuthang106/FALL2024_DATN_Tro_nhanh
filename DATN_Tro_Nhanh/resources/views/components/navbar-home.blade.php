@@ -108,15 +108,16 @@
                                             </a>
                                         </li>
                                         <li class="dropdown-item">
-                                            <a id="navbar-link-my-properties" class="dropdown-link"
-                                                href="dashboard-my-properties.html">
-                                                My Properties
+                                            <a id="navbar-link-my-properties" class="dropdown-link" href="{{ route('owners.properties') }}">
+                                                Căn Hộ
                                             </a>
                                         </li>
+                                        
+                                        
                                         <li class="dropdown-item">
                                             <a id="navbar-link-my-favorites" class="dropdown-link"
-                                                href="dashboard-my-favorites.html">
-                                                My Favorites
+                                            href="{{ route('owners.favorites') }}">
+                                             Yêu Thích
                                             </a>
                                         </li>
                                         <li class="dropdown-item">
@@ -126,11 +127,11 @@
                                             </a>
                                         </li>
                                         <li class="dropdown-item">
-                                            <a id="navbar-link-reviews" class="dropdown-link"
-                                                href="dashboard-reviews.html">
-                                                Reviews
+                                            <a id="navbar-link-my-favorites" class="dropdown-link" href="{{ route('owners.danhgia') }}">
+                                                Đánh giá
                                             </a>
                                         </li>
+                                        
                                         <li class="dropdown-item">
                                             <a id="navbar-link-my-package" class="dropdown-link"
                                                 href="dashboard-my-packages.html">

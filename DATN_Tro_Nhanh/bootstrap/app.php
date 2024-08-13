@@ -60,7 +60,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 'user-client.php',
                 'watchlist-client.php',
                 'zone-client.php',
-             
+                'home-client.php'
 
             ];
             $ownersRoute = [

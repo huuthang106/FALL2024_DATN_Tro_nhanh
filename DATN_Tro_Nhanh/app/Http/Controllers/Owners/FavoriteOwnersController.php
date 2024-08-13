@@ -8,4 +8,7 @@ use Illuminate\Http\Request;
 class FavoriteOwnersController extends Controller
 {
     //
+    public function index(){
+        return view('dashboard-my-favorites');
+    }
 }
