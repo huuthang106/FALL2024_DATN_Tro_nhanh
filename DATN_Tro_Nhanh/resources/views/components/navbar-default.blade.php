@@ -110,26 +110,8 @@
                                                     Grid view
                                                 </h4>
                                                 <!-- List -->
-                                                <a class="dropdown-item" href="listing-full-width-grid-1.html">
-                                                    Full width grid 1
-                                                </a>
-                                                <a class="dropdown-item" href="listing-full-width-grid-2.html">
-                                                    Full width grid 2
-                                                </a>
-                                                <a class="dropdown-item" href="listing-full-width-grid-3.html">
-                                                    Full width grid 3
-                                                </a>
                                                 <a class="dropdown-item" href="{{ route('room.room-listing') }}">
                                                     Danh sách trọ
-                                                </a>
-                                                <a class="dropdown-item" href="listing-grid-with-right-filter.html">
-                                                    Grid with right filter
-                                                </a>
-                                                <a class="dropdown-item" href="listing-grid-with-left-sidebar.html">
-                                                    Grid with left sidebar
-                                                </a>
-                                                <a class="dropdown-item" href="listing-grid-with-right-sidebar.html">
-                                                    Grid with right sidebar
                                                 </a>
                                             </div>
                                             <div class="col-xl-3">
@@ -140,24 +122,6 @@
                                                 <!-- List -->
                                                 <a class="dropdown-item" href="{{ route('room.room-map-listing') }}">
                                                     Bản đồ trọ
-                                                </a>
-                                                <a class="dropdown-item" href="listing-half-map-list-layout-2.html">
-                                                    Half map list layout 2
-                                                </a>
-                                                <a class="dropdown-item" href="listing-half-map-grid-layout-1.html">
-                                                    Half map grid layout 1
-                                                </a>
-                                                <a class="dropdown-item" href="listing-half-map-grid-layout-2.html">
-                                                    Half map grid layout 2
-                                                </a>
-                                                <a class="dropdown-item" href="listing-full-map-1.html">
-                                                    Full map 1
-                                                </a>
-                                                <a class="dropdown-item" href="listing-full-map-2.html">
-                                                    Full map 2
-                                                </a>
-                                                <a class="dropdown-item" href="listing-full-map-with-sidebar.html">
-                                                    Full Map with sidebar
                                                 </a>
                                             </div>
                                             <div class="col-xl-3">
