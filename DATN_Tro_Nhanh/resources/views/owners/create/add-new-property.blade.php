@@ -1,60 +1,7 @@
-@extends('layouts.app')
-@section('titleUs', 'Trang chủ trọ nhanh')
-@section('contentAdmin')
-    <div class="wrapper dashboard-wrapper">
-        <div class="d-flex flex-wrap flex-xl-nowrap">
-            <div class="page-content">
-                <header class="main-header shadow-none shadow-lg-xs-1 bg-white position-relative d-none d-xl-block">
-                    <div class="container-fluid">
-                        <nav class="navbar navbar-light py-0 row no-gutters px-3 px-lg-0">
-                            <div class="col-md-4 px-0 px-md-6 order-1 order-md-0">
-                                <form>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend mr-0">
-                                            <button class="btn border-0 shadow-none fs-20 text-muted p-0" type="submit"><i
-                                                    class="far fa-search"></i></button>
-                                        </div>
-                                        <input type="text" class="form-control border-0 bg-transparent shadow-none"
-                                            placeholder="Tìm kiếm...." name="search">
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-md-6 d-flex flex-wrap justify-content-md-end order-0 order-md-1">
-                                <div class="dropdown border-md-right border-0 py-3 text-right">
-                                    <a href="#"
-                                        class="dropdown-toggle text-heading pr-3 pr-sm-6 d-flex align-items-center justify-content-end"
-                                        data-toggle="dropdown">
-                                        <div class="mr-4 w-48px">
-                                            <img src="{{ asset('assets/images/testimonial-5.jpg') }}" alt="Ronald Hunter"
-                                                class="rounded-circle">
-                                        </div>
-                                        <div class="fs-13 font-weight-500 lh-1">
-                                            Ronald Hunter
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right w-100">
-                                        <a class="dropdown-item" href="dashboard-my-profiles.html">Hồ sơ của tôi</a>
-                                        <a class="dropdown-item" href="#">Đăng xuất</a>
-                                    </div>
-                                </div>
-                                <div
-                                    class="dropdown no-caret py-3 px-3 px-sm-6 d-flex align-items-center justify-content-end notice">
-                                    <a href="#" class="dropdown-toggle text-heading fs-20 font-weight-500 lh-1"
-                                        data-toggle="dropdown">
-                                        <i class="far fa-bell"></i>
-                                        <span
-                                            class="badge badge-primary badge-circle badge-absolute font-weight-bold fs-13">1</span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#">Hoạt động</a>
-                                        <a class="dropdown-item" href="#">Một hàng động khác</a>
-                                        <a class="dropdown-item" href="#">Có điều gì khác ở đây</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </nav>
-                    </div>
-                </header>
+@extends('layouts.owner')
+@section('titleOwners', 'Trang chủ trọ nhanh')
+@section('contentOwners')
+
                 <main id="content" class="bg-gray-01">
                     <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 my-profile">
                         <div class="mb-6">
@@ -1295,10 +1242,7 @@
                                                                         class="fal fa-long-arrow-left"></i></span>Phía
                                                                 trước
                                                             </a>
-                                                            <button class="btn btn-lg btn-primary next-button mb-3">Tiếp
-                                                                theo
-                                                                <span class="d-inline-block ml-2 fs-16"><i
-                                                                        class="fal fa-long-arrow-right"></i></span>
+                                                            <button class="btn btn-lg btn-primary mb-3" type="submit">Gửi
                                                             </button>
                                                         </div>
                                                     </div>
@@ -1982,7 +1926,7 @@
         </defs>
     </svg>
 @endsection
-@push('styleAdmin')
+@push('styleOwners')
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Real Estate Html Template">
@@ -2026,7 +1970,7 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
 @endpush
-@push('scriptAdmin')
+@push('scriptOwners')
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/bootstrap/bootstrap.bundle.js') }}"></script>
@@ -2044,4 +1988,5 @@
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
+    
 @endpush

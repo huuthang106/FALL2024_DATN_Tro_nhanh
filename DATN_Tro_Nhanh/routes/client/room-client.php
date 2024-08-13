@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Client\RoomClientController;
 
-Route::group(['prefix' => 'danh-sach-phong-tro', 'as' => 'room.'], function () {
+Route::group(['prefix' => 'danh-sach-phong-tro', 'as' => 'client.'], function () {
     Route::get('/', [RoomClientController::class, 'indexRoom'])->name('room-listing');
     Route::get('ban-do-tro', [RoomClientController::class, 'indexRoomMap'])->name('room-map-listing');
 });
@@ -13,8 +13,7 @@ Route::group(['prefix' => 'danh-sach-phong-tro', 'as' => 'room.'], function () {
 
 //Nguyen Thai Toan 
 
-Route::group(['prefix' => 'client', 'as' => 'client.'], function () {
+Route::group(['prefix' => '', 'as' => 'client.'], function () {
     Route::get('/xem-chi-tiet', [RoomClientController::class, 'page_detail'])->name('detail-room');
-    Route::get('/them-khu-tro', [RoomClientController::class, 'page_add_rooms'])->name('add-room');
-    Route::get('/them-hoa-don', [RoomClientController::class, 'page_add_invoice'])->name('add-invoice');
+
 });

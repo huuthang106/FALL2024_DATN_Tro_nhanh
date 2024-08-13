@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-xl navbar-light d-block px-0 header-sticky dashboard-nav py-0">
         <div class="sticky-area shadow-xs-1 py-3">
             <div class="d-flex px-3 px-xl-6 w-100">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="">
                     <img src="{{ asset('assets/images/logo.png') }}" alt="HomeID">
                 </a>
                 <div class="ml-auto d-flex align-items-center ">
@@ -62,7 +62,7 @@
                         <h5 class="fs-13 letter-spacing-087 text-muted mb-3 text-uppercase px-3">Main</h5>
                         <ul class="list-group list-group-no-border rounded-lg">
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="dashboard.html" class="text-heading lh-1 sidebar-link">
+                                <a href="{{route('profile.dashboard')}}" class="text-heading lh-1 sidebar-link">
                                     <span class="sidebar-item-icon d-inline-block mr-3 fs-20"><i
                                             class="fal fa-cog"></i></span>
                                     <span class="sidebar-item-text">Dashboard</span>
@@ -75,12 +75,12 @@
                             Listings</h5>
                         <ul class="list-group list-group-no-border rounded-lg">
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="dashboard-add-new-property.html" class="text-heading lh-1 sidebar-link">
+                                <a href="{{route('owner.add-room')}}" class="text-heading lh-1 sidebar-link">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20 fs-20">
                                         <svg class="icon icon-add-new">
                                             <use xlink:href="#icon-add-new"></use>
                                         </svg></span>
-                                    <span class="sidebar-item-text">Add new</span>
+                                    <span class="sidebar-item-text">Thêm  trọ</span>
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
@@ -152,20 +152,20 @@
                                 <ul class="list-group list-group-flush list-group-no-border">
                                     <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                         <a class="text-heading lh-1 sidebar-link"
-                                            href="{{ route('invoice.invoice-listing') }}">Danh sách hóa đơn</a>
+                                            href="{{ route('owner.invoice-listing') }}">Danh sách hóa đơn</a>
                                     </li>
                                     <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                         <a class="text-heading lh-1 sidebar-link"
-                                            href="{{ route('invoice.invoice-create') }}">Thêm mới
+                                            href="{{ route('owner.invoice-create') }}">Thêm mới
                                             hóa đơn</a>
                                     </li>
                                     <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                         <a class="text-heading lh-1 sidebar-link"
-                                            href="{{ route('invoice.invoice-edit') }}">Chỉnh sửa hóa đơn</a>
+                                            href="{{ route('owner.invoice-edit') }}">Chỉnh sửa hóa đơn</a>
                                     </li>
                                     <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                         <a class="text-heading lh-1 sidebar-link"
-                                            href="{{ route('invoice.invoice-preview') }}">Xem trước hóa đơn</a>
+                                            href="{{ route('owner.invoice-preview') }}">Xem trước hóa đơn</a>
                                     </li>
                                 </ul>
                             </div>
@@ -262,7 +262,7 @@
                                 class="badge badge-primary badge-circle badge-absolute font-weight-bold fs-13">1</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#">Thao tác</a>
+                            <a class="dropdown-item" href="{{route('owners.notification-owners')}}">danh sách thông báo</a>
                             <a class="dropdown-item" href="#">Thao tác khác</a>
                             <a class="dropdown-item" href="#">Tùy chọn khác</a>
                         </div>

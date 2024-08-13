@@ -1,6 +1,6 @@
 @extends('layouts.owner')
 @section('titleOwner', 'Trang chủ trọ nhanh')
-@section('contentOwner')
+@section('contentOwners')
 <main id="content" class="bg-gray-01">
     <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
       <div class="mb-6">

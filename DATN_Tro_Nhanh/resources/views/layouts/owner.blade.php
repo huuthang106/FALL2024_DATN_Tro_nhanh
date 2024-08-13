@@ -15,7 +15,7 @@
             <!--begin::Aside-->
             <x-navbar-Owner />
             <!--end::Header-->
-            @yield('contentOwner')
+            @yield('contentOwners')
 </body>
 @stack('scriptOwners')
 

@@ -8,4 +8,8 @@ use Illuminate\Http\Request;
 class PaymentOwnersController extends Controller
 {
     //
+    public function page_add_invoice()
+    {
+        return view('owners.create.add-new-invoice');
+    }
 }

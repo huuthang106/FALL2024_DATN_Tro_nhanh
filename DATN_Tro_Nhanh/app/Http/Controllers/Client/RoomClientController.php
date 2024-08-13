@@ -23,13 +23,5 @@ class RoomClientController extends Controller
         return view('client.show.single-propety');
     }
 
-    public function page_add_rooms()
-    {
-        return view('client.create.add-new-property');
-    }
-
-    public function page_add_invoice()
-    {
-        return view('client.create.add-new-invoice');
-    }
+   
 }

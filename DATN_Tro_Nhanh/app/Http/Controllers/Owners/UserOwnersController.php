@@ -17,4 +17,8 @@ class UserOwnersController extends Controller
     {
         return view('owners.profile.page-reset-password-admin');
     }
+    public function page_dashboard()
+    {
+        return view('owners.show.dashboard');
+    }
 }

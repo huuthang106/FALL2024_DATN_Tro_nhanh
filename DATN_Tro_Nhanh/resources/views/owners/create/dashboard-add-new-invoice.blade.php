@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('titleOwner', 'Xem trước hóa đơn | TRỌ NHANH')
-@section('contentOwner')
+@section('contentOwners')
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 add-new-invoice">
             <div class="row">
@@ -421,7 +421,7 @@
                                                 class="btn btn-primary btn-send btn-block btn-lg">Gửi hóa đơn</a>
                                         </div>
                                         <div class="mb-3">
-                                            <a href="{{ route('invoice.invoice-preview') }}"
+                                            <a href="{{ route('owner.invoice-preview') }}"
                                                 class="btn btn-secondary btn-preview btn-block btn-lg">Xem trước</a>
                                         </div>
                                         <div>

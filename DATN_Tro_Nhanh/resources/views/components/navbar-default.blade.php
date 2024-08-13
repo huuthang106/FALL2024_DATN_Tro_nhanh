@@ -81,36 +81,14 @@
                                     aria-labelledby="navbar-item-listing">
                                     <div class="dropdown-body">
                                         <div class="row no-gutters">
-                                            <div class="col-xl-3">
-                                                <!-- Heading -->
-                                                <h4 class="dropdown-header text-dark fs-16 mb-2">
-                                                    List view
-                                                </h4>
-                                                <!-- List -->
-                                                <a class="dropdown-item" href="listing-full-width-list.html">
-                                                    Full width list
-                                                </a>
-                                                <a class="dropdown-item" href="listing-with-left-filter.html">
-                                                    List with left filter
-                                                </a>
-                                                <a class="dropdown-item" href="listing-with-right-filter.html">
-                                                    List with right filter
-                                                </a>
-                                                <a class="dropdown-item" href="listing-with-left-sidebar.html">
-                                                    List with left sidebar
-                                                </a>
-                                                <!-- List -->
-                                                <a class="dropdown-item" href="listing-with-right-sidebar.html">
-                                                    List with right sidebar
-                                                </a>
-                                            </div>
+                                        
                                             <div class="col-xl-3">
                                                 <!-- Heading -->
                                                 <h4 class="dropdown-header text-dark fs-16 mb-2">
                                                     Grid view
                                                 </h4>
                                                 <!-- List -->
-                                                <a class="dropdown-item" href="{{ route('room.room-listing') }}">
+                                                <a class="dropdown-item" href="{{ route('client.room-listing') }}">
                                                     Danh sách trọ
                                                 </a>
                                             </div>
@@ -120,7 +98,7 @@
                                                     Map style
                                                 </h4>
                                                 <!-- List -->
-                                                <a class="dropdown-item" href="{{ route('room.room-map-listing') }}">
+                                                <a class="dropdown-item" href="{{ route('client.room-map-listing') }}">
                                                     Bản đồ trọ
                                                 </a>
                                             </div>
@@ -150,7 +128,7 @@
                                 <ul class="dropdown-menu pt-3 pb-0 pb-xl-3" aria-labelledby="navbar-item-dashboard">
                                     <li class="dropdown-item">
                                         <a id="navbar-link-dashboard" class="dropdown-link"
-                                            href="{{ route('client.dashboard') }}">
+                                            href="{{ route('profile.dashboard') }}">
                                             Trang quản lí
                                         </a>
                                     </li>

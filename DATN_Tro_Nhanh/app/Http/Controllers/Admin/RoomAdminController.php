@@ -9,6 +9,6 @@ class RoomAdminController extends Controller
 {
     //
     public function index(){
-        return view('admincp.demo8.dist.index');
+        return view('admincp.show.index');
     }
 }
