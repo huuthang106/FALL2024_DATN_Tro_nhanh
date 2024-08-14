@@ -542,9 +542,10 @@
                                             <ul class="dropdown-menu dropdown-submenu pt-3 pb-0 pb-xl-3"
                                                 aria-labelledby="navbar-link-news">
                                                 <li class="dropdown-item">
-                                                    <a class="dropdown-link" href="blog-classic.html">Blog classic</a>
+                                                    <a class="dropdown-link"
+                                                        href="{{ route('client.client-blog') }}">Blog</a>
                                                 </li>
-                                                <li class="dropdown-item">
+                                                {{-- <li class="dropdown-item">
                                                     <a class="dropdown-link" href="blog-grid.html">Blog grid</a>
                                                 </li>
                                                 <li class="dropdown-item">
@@ -562,7 +563,7 @@
                                                 <li class="dropdown-item">
                                                     <a class="dropdown-link" href="blog-details-2.html">Blog details
                                                         2</a>
-                                                </li>
+                                                </li> --}}
                                             </ul>
                                         </li>
                                         <li class="dropdown-item">

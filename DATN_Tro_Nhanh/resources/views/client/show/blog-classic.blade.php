@@ -1,128 +1,643 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-    @stack('styleUs')
-    <!-- Fonts -->
-
-
-</head>
-
-<body>
-    @if (Request::is('/'))
-        <x-navbar-home />
-    @else
-        <x-navbar-default />
-    @endif
-    @yield('contentUs')
-    <footer class="bg-dark pt-8 pb-6 footer text-muted">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-lg-4 mb-6 mb-md-0">
-                    <a class="d-block mb-2" href="#">
-                        <img src="{{ asset('assets/images/logo-white-primary.png') }}" alt="HomeID">
-                    </a>
-                    <div class="lh-26 font-weight-500">
-                        <p class="mb-0">Trường cao đẳng FPT Polytechnic Cần Thơ</p>
-                        <a class="d-block text-muted hover-white"
-                            href="mailto:contact@homeid.com">contact@homeid.com</a>
-                        <a class="d-block text-lighter font-weight-bold fs-15 hover-white" href="#">(+68)1221
-                            09876</a>
-                        <a class="d-block text-muted hover-white" href=".">www.tronhanh.com</a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-2 mb-6 mb-md-0">
-                    <h4 class="text-white fs-16 my-4 font-weight-500">Tìm Kiếm Phổ Biến
-                    </h4>
-                    <ul class="list-group list-group-flush list-group-no-border">
-                        <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Căn hộ cho thuê</a>
-                        </li>
-                        <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Căn hộ thấp</a>
-                        </li>
-                        <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Căn họ để mua</a>
-                        </li>
-                        <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Phòng trọ cho
-                                thuê</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-6 col-lg-2 mb-6 mb-md-0">
-                    <h4 class="text-white fs-16 my-4 font-weight-500">Liên Kết Nhanh</h4>
-                    <ul class="list-group list-group-flush list-group-no-border">
-                        <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Điều khoản sử
-                                dụng</a>
-                        </li>
-                        <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Chính sách bảo
-                                mật</a>
-                        </li>
-                        <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Liên hệ hỗ trợ</a>
-                        </li>
-                        <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 hover-white font-weight-500">Nghề nghiệp</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-6 col-lg-4 mb-6 mb-md-0">
-                    <h4 class="text-white fs-16 my-4 font-weight-500">Đăng ký nhận bản tin của chúng tôi</h4>
-                    <p class="font-weight-500 text-muted lh-184">Điều quan trọng là khách hàng là khách hàng, khách hàng
-                        phải nhất quán. Mong nhận được những mũi tên </p>
-                    <form>
-                        <div class="input-group input-group-lg mb-6">
-                            <input type="text" name="email" required
-                                class="form-control bg-white shadow-none border-0 z-index-1" placeholder="Email...">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit">Đăng Ký</button>
+@extends('layouts.main')
+@section('titleUs', 'Blog | TRỌ NHANH')
+@section('contentUs')
+    <main id="content">
+        <section class="pt-2 pb-13 page-title bg-img-cover-center bg-white-overlay"
+            style="background-image: url('{{ asset('assets/images/bg-title.jpg') }}');">
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0 p-0">
+                        <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Blog</li>
+                    </ol>
+                </nav>
+                <h1 class="fs-30 lh-15 mb-0 text-heading font-weight-500 text-center pt-10" data-animate="fadeInDown">
+                    Bài Viết Thú Vị Được Cập Nhật Hàng Ngày</h1>
+            </div>
+        </section>
+        <section class="pt-11 pb-13">
+            <div class="container">
+                <div class="row ml-xl-0 mr-xl-n6">
+                    <div class="col-lg-8 mb-8 mb-lg-0 pr-xl-6 pl-xl-0">
+                        <div class="card border-0 pb-6 mb-6 border-bottom">
+                            <div class="position-relative d-flex align-items-end card-img-top">
+                                <a href="{{ route('client.client-blog-detail') }}" class="hover-shine d-block">
+                                    <img src="{{ asset('assets/images/post-11.jpg') }}"
+                                        alt="Ten Benefits Of Rentals That May Change Your Perspective">
+                                </a>
+                                <a href="#"
+                                    class="badge text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white m-2 position-absolute letter-spacing-1 pos-fixed-bottom">
+                                    Cho Thuê
+                                </a>
+                            </div>
+                            <div class="card-body p-0">
+                                <ul class="list-inline mt-4">
+                                    <li class="list-inline-item mr-4"><img class="mr-1"
+                                            src="{{ asset('assets/images/author-01.jpg') }}" alt="D. Warren"> Nguyễn Văn A
+                                    </li>
+                                    <li class="list-inline-item mr-4"><i class="far fa-calendar mr-1"></i> 16, Tháng 12,
+                                        2024
+                                    </li>
+                                    <li class="list-inline-item mr-4"><i class="far fa-eye mr-1"></i> 149 Lượt xem
+                                    </li>
+                                </ul>
+                                <h3 class="fs-md-32 text-heading lh-141 mb-3">
+                                    <a href="{{ route('client.client-blog-detail') }}"
+                                        class="text-heading hover-primary">Nhà Siêu Cấp Vip
+                                        Pro</a>
+                                </h3>
+                                <p class="mb-4 lh-214">Nhà rộng rãi, thoáng mát, thiết kế hiện đại. Gần trường học, chợ, và
+                                    các tiện ích công cộng. Khu dân cư yên tĩnh, an ninh tốt, phù hợp cho gia đình sinh
+                                    sống...
+                                </p>
+                            </div>
+                            <div class="card-footer bg-transparent p-0 border-0">
+                                <a href="{{ route('client.client-blog-detail') }}"
+                                    class="btn text-heading border btn-lg shadow-none btn-outline-light border-hover-light">Xem
+                                    thêm <i class="far fa-long-arrow-right text-primary ml-1"></i></a>
+                                <a href="{{ route('client.client-blog-detail') }}"
+                                    class="btn text-heading btn-lg w-52px px-2 border shadow-none btn-outline-light border-hover-light rounded-circle ml-auto float-right"><i
+                                        class="fad fa-share-alt text-primary"></i></a>
                             </div>
                         </div>
-                    </form>
-                    <ul class="list-inline mb-0">
-                        <li class="list-inline-item mr-0">
-                            <a href="#" class="text-white opacity-3 fs-25 px-4 opacity-hover-10"><i
-                                    class="fab fa-twitter"></i></a>
-                        </li>
-                        <li class="list-inline-item mr-0">
-                            <a href="#" class="text-white opacity-3 fs-25 px-4 opacity-hover-10"><i
-                                    class="fab fa-facebook-f"></i></a>
-                        </li>
-                        <li class="list-inline-item mr-0">
-                            <a href="#" class="text-white opacity-3 fs-25 px-4 opacity-hover-10"><i
-                                    class="fab fa-skype"></i></a>
-                        </li>
-                        <li class="list-inline-item mr-0">
-                            <a href="#" class="text-white opacity-3 fs-25 px-4 opacity-hover-10"><i
-                                    class="fab fa-linkedin-in"></i></a>
-                        </li>
-                    </ul>
+                        <div class="card border-0 pb-6 mb-6 border-bottom">
+                            <div
+                                class="position-relative bg-gray-04 px-3 px-md-12 d-flex justify-content-center z-index-1 pt-4">
+                                <div class="position-absolute pos-fixed-center fs-200 lh-1 z-index-2 text-lighter">
+                                    <svg class="icon icon-quote">
+                                        <use xlink:href="#icon-quote"></use>
+                                    </svg>
+                                </div>
+                                <div class="position-relative z-index-3 pt-9 pb-7">
+                                    <p class="fs-22 text-heading lh-182 mb-6 text-center">Chúng tôi đang thực hiện sứ mệnh
+                                        xây dựng một tương lai tốt đẹp hơn, nơi công nghệ tạo ra những công việc tốt cho tất
+                                        cả mọi người.</p>
+                                    <p class="text-dark fs-13 lh-1 text-center mb-1 font-weight-bold">Văn Z<span
+                                            class="text-gray fs-12 lh-26 font-weight-normal d-inline-block ml-2">/ Thiết kế
+                                            Web</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <ul class="list-inline mt-4">
+                                    <li class="list-inline-item mr-4"><img class="mr-1"
+                                            src="{{ asset('assets/images/author-01.jpg') }}" alt="D. Warren"> Văn A
+                                    </li>
+                                    <li class="list-inline-item mr-4"><i class="far fa-calendar mr-1"></i> 16, Tháng 12,
+                                        2024
+                                    </li>
+                                    <li class="list-inline-item mr-4"><i class="far fa-eye mr-1"></i> 149 Lượt xem
+                                    </li>
+                                </ul>
+                                <h3 class="fs-md-32 text-heading lh-141 mb-3">
+                                    <a href="blog-details-1.html" class="text-heading hover-primary">Nhà Siêu Cấp Vip
+                                        Pro</a>
+                                </h3>
+                                <p class="mb-4 lh-214">Nhà rộng rãi, thoáng mát, thiết kế hiện đại. Gần trường học, chợ, và
+                                    các tiện ích công cộng. Khu dân cư yên tĩnh, an ninh tốt, phù hợp cho gia đình sinh
+                                    sống...</p>
+                            </div>
+                            <div class="card-footer bg-transparent p-0 border-0">
+                                <a href="blog-details-1.html"
+                                    class="btn text-heading border btn-lg shadow-none btn-outline-light border-hover-light">Xem
+                                    thêm<i class="far fa-long-arrow-right text-primary ml-1"></i></a>
+                                <a href="#"
+                                    class="btn text-heading btn-lg w-52px px-2 border shadow-none btn-outline-light border-hover-light rounded-circle ml-auto float-right"><i
+                                        class="fad fa-share-alt text-primary"></i></a>
+                            </div>
+                        </div>
+                        <div class="card border-0 pb-6 mb-6 border-bottom">
+                            <div class="position-relative d-flex align-items-end card-img-top">
+                                <a href="blog-details-1.html" class="hover-shine d-block">
+                                    <img src="{{ asset('assets/images/post-12.jpg') }}"
+                                        alt="Ten Benefits Of Rentals That May Change Your Perspective">
+                                </a>
+                            </div>
+                            <div class="card-body p-0">
+                                <ul class="list-inline mt-4">
+                                    <li class="list-inline-item mr-4"><img class="mr-1"
+                                            src="{{ asset('assets/images/author-01.jpg') }}" alt="D. Warren"> Văn A
+                                    </li>
+                                    <li class="list-inline-item mr-4"><i class="far fa-calendar mr-1"></i> 16, Tháng 12,
+                                        2024
+                                    </li>
+                                    <li class="list-inline-item mr-4"><i class="far fa-eye mr-1"></i> 149 Lượt xem
+                                    </li>
+                                </ul>
+                                <h3 class="fs-md-32 text-heading lh-141 mb-3">
+                                    <a href="blog-details-1.html" class="text-heading hover-primary">Nhà Siêu Cấp Vip
+                                        Pro</a>
+                                </h3>
+                                <p class="mb-4 lh-214">Nhà rộng rãi, thoáng mát, thiết kế hiện đại. Gần trường học, chợ, và
+                                    các tiện ích công cộng. Khu dân cư yên tĩnh, an ninh tốt, phù hợp cho gia đình sinh
+                                    sống...</p>
+                            </div>
+                            <div class="card-footer bg-transparent p-0 border-0">
+                                <a href="blog-details-1.html"
+                                    class="btn text-heading border btn-lg shadow-none btn-outline-light border-hover-light">Xem
+                                    thêm <i class="far fa-long-arrow-right text-primary ml-1"></i></a>
+                                <a href="#"
+                                    class="btn text-heading btn-lg w-52px px-2 border shadow-none btn-outline-light border-hover-light rounded-circle ml-auto float-right"><i
+                                        class="fad fa-share-alt text-primary"></i></a>
+                            </div>
+                        </div>
+                        <div class="card border-0 pb-6 mb-6 border-bottom">
+                            <div class="position-relative d-flex flex-column card-img-top">
+                                <div class="hover-shine d-block">
+                                    <img src="{{ asset('assets/images/post-13.jpg') }}" alt="Nhà Siêu Cấp Vip Pro">
+                                    <a href="https://www.youtube.com/watch?v=ZcZHva1NYSE"
+                                        class="d-inline-block m-auto position-absolute pos-fixed-center"
+                                        data-gtf-mfp="true" data-mfp-options='{"type":"iframe"}'>
+                                        <span
+                                            class="text-primary bg-white w-78px h-78 rounded-circle position-relative play-animation d-flex align-items-center justify-content-center">
+                                            <i class="fas fa-play"></i>
+                                        </span>
+                                    </a>
+                                    <a href="#"
+                                        class="badge text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white m-2 position-absolute letter-spacing-1 pos-fixed-bottom">
+                                        Cho Thuê
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <ul class="list-inline mt-4">
+                                    <li class="list-inline-item mr-4"><img class="mr-1"
+                                            src="{{ asset('assets/images/author-01.jpg') }}" alt="D. Warren"> Văn A
+                                    </li>
+                                    <li class="list-inline-item mr-4"><i class="far fa-calendar mr-1"></i> 16, Tháng 12,
+                                        2024
+                                    </li>
+                                    <li class="list-inline-item mr-4"><i class="far fa-eye mr-1"></i> 149 Lượt xem
+                                    </li>
+                                </ul>
+                                <h3 class="fs-md-32 text-heading lh-141 mb-3">
+                                    <a href="blog-details-1.html" class="text-heading hover-primary">Nhà Siêu Cấp Vip
+                                        Pro</a>
+                                </h3>
+                                <p class="mb-4 lh-214">Nhà rộng rãi, thoáng mát, thiết kế hiện đại. Gần trường học, chợ, và
+                                    các tiện ích công cộng. Khu dân cư yên tĩnh, an ninh tốt, phù hợp cho gia đình sinh
+                                    sống...</p>
+                            </div>
+                            <div class="card-footer bg-transparent p-0 border-0">
+                                <a href="blog-details-1.html"
+                                    class="btn text-heading border btn-lg shadow-none btn-outline-light border-hover-light">Xem
+                                    thêm <i class="far fa-long-arrow-right text-primary ml-1"></i></a>
+                                <a href="#"
+                                    class="btn text-heading btn-lg w-52px px-2 border shadow-none btn-outline-light border-hover-light rounded-circle ml-auto float-right"><i
+                                        class="fad fa-share-alt text-primary"></i></a>
+                            </div>
+                        </div>
+                        <div class="card border-0 pb-6 mb-6 border-bottom">
+                            <div class="position-relative d-flex align-items-end card-img-top">
+                                <a href="blog-details-1.html" class="hover-shine d-block">
+                                    <img src="{{ asset('assets/images/post-14.jpg') }}"
+                                        alt="Ten Benefits Of Rentals That May Change Your Perspective">
+                                </a>
+                                <a href="#"
+                                    class="badge text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white m-2 position-absolute letter-spacing-1 pos-fixed-bottom">
+                                    Cho Thuê
+                                </a>
+                            </div>
+                            <div class="card-body p-0">
+                                <ul class="list-inline mt-4">
+                                    <li class="list-inline-item mr-4"><img class="mr-1"
+                                            src="{{ asset('assets/images/author-01.jpg') }}" alt="D. Warren"> Văn A
+                                    </li>
+                                    <li class="list-inline-item mr-4"><i class="far fa-calendar mr-1"></i>16, Tháng 12,
+                                        2024
+                                    </li>
+                                    <li class="list-inline-item mr-4"><i class="far fa-eye mr-1"></i> 149 Lượt xem
+                                    </li>
+                                </ul>
+                                <h3 class="fs-md-32 text-heading lh-141 mb-3">
+                                    <a href="blog-details-1.html" class="text-heading hover-primary">Nhà Siêu Cấp Vip
+                                        Pro</a>
+                                </h3>
+                                <p class="mb-4 lh-214">Nhà rộng rãi, thoáng mát, thiết kế hiện đại. Gần trường học, chợ, và
+                                    các tiện ích công cộng. Khu dân cư yên tĩnh, an ninh tốt, phù hợp cho gia đình sinh
+                                    sống...</p>
+                            </div>
+                            <div class="card-footer bg-transparent p-0 border-0">
+                                <a href="blog-details-1.html"
+                                    class="btn text-heading border btn-lg shadow-none btn-outline-light border-hover-light">Xem
+                                    thêm <i class="far fa-long-arrow-right text-primary ml-1"></i></a>
+                                <a href="#"
+                                    class="btn text-heading btn-lg w-52px px-2 border shadow-none btn-outline-light border-hover-light rounded-circle ml-auto float-right"><i
+                                        class="fad fa-share-alt text-primary"></i></a>
+                            </div>
+                        </div>
+                        <nav class="pt-4">
+                            <ul class="pagination rounded-active justify-content-center">
+                                <li class="page-item"><a class="page-link" href="#"><i
+                                            class="far fa-angle-double-left"></i></a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item d-none d-sm-block"><a class="page-link" href="#">3</a>
+                                </li>
+                                <li class="page-item">...</li>
+                                <li class="page-item"><a class="page-link" href="#">6</a></li>
+                                <li class="page-item"><a class="page-link" href="#"><i
+                                            class="far fa-angle-double-right"></i></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-lg-4 pl-xl-6 pr-xl-0 primary-sidebar sidebar-sticky" id="sidebar">
+                        <div class="primary-sidebar-inner">
+                            <div class="card mb-4">
+                                <div class="card-body px-6 pt-5 pb-6">
+                                    <h4 class="card-title fs-16 lh-2 text-dark mb-3">Loại</h4>
+                                    <form>
+                                        <div class="position-relative">
+                                            <input type="text" id="search02"
+                                                class="form-control form-control-lg border-0 shadow-none"
+                                                placeholder="Tìm kiếm" name="search">
+                                            <div class="position-absolute pos-fixed-center-right">
+                                                <button type="submit" class="btn fs-15 text-dark shadow-none"><i
+                                                        class="fal fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="card mb-4">
+                                <div class="card-body px-6 pt-5 pb-6">
+                                    <h4 class="card-title fs-16 lh-2 text-dark mb-3">Loại</h4>
+                                    <ul class="list-group list-group-no-border">
+                                        <li class="list-group-item p-0">
+                                            <a href="listing-with-left-sidebar.html"
+                                                class="d-flex text-body hover-primary">
+                                                <span class="lh-29">Sáng tạo</span>
+                                                <span class="d-block ml-auto">13</span>
+                                            </a>
+                                        </li>
+                                        <li class="list-group-item p-0">
+                                            <a href="listing-with-left-sidebar.html"
+                                                class="d-flex text-body hover-primary">
+                                                <span class="lh-29">Cho thuê</span>
+                                                <span class="d-block ml-auto">21</span>
+                                            </a>
+                                        </li>
+                                        <li class="list-group-item p-0">
+                                            <a href="listing-with-left-sidebar.html"
+                                                class="d-flex text-body hover-primary">
+                                                <span class="lh-29">Hình ảnh</span>
+                                                <span class="d-block ml-auto">17</span>
+                                            </a>
+                                        </li>
+                                        <li class="list-group-item p-0">
+                                            <a href="listing-with-left-sidebar.html"
+                                                class="d-flex text-body hover-primary">
+                                                <span class="lh-29">Tin mới</span>
+                                                <span class="d-block ml-auto">4</span>
+                                            </a>
+                                        </li>
+                                        <li class="list-group-item p-0">
+                                            <a href="listing-with-left-sidebar.html"
+                                                class="d-flex text-body hover-primary">
+                                                <span class="lh-29">Phòng trọ</span>
+                                                <span class="d-block ml-auto">27</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card mb-4">
+                                <div class="card-body px-6 pt-5 pb-6">
+                                    <h4 class="card-title fs-16 lh-2 text-dark mb-3">Bài viết mới nhất</h4>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item px-0 pt-0 pb-3">
+                                            <div class="media">
+                                                <div class="position-relative mr-3">
+                                                    <a href="blog-details-1.html"
+                                                        class="d-block w-100px rounded pt-11 bg-img-cover-center"
+                                                        style="background-image: url('{{ asset('assets/images/post-02.jpg') }}')">
+                                                    </a>
+                                                    <a href="blog-grid-with-sidebar.html"
+                                                        class="badge text-white bg-dark-opacity-04 m-1 fs-13 font-weight-500 bg-hover-primary hover-white position-absolute pos-fixed-top">
+                                                        Sáng tạo
+                                                    </a>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h4 class="fs-14 lh-186 mb-1">
+                                                        <a href="blog-details-1.html" class="text-dark hover-primary">
+                                                            Nhà Siêu Cấp Vip
+                                                            Pro
+                                                        </a>
+                                                    </h4>
+                                                    <div class="text-gray-light">
+                                                        16, Tháng 12,
+                                                        2024
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item px-0 pt-2 pb-3">
+                                            <div class="media">
+                                                <div class="position-relative mr-3">
+                                                    <a href="blog-details-1.html"
+                                                        class="d-block w-100px rounded pt-11 bg-img-cover-center"
+                                                        style="background-image: url('{{ asset('assets/images/post-04.jpg') }}')">
+                                                    </a>
+                                                    <a href="blog-grid-with-sidebar.html"
+                                                        class="badge text-white bg-dark-opacity-04 m-1 fs-13 font-weight-500 bg-hover-primary hover-white position-absolute pos-fixed-top">
+                                                        Cho Thuê
+                                                    </a>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h4 class="fs-14 lh-186 mb-1">
+                                                        <a href="blog-details-1.html" class="text-dark hover-primary">
+                                                            Nhà Siêu Cấp Vip
+                                                            Pro
+                                                        </a>
+                                                    </h4>
+                                                    <div class="text-gray-light">
+                                                        16, Tháng 12,
+                                                        2024
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item px-0 pt-2 pb-0">
+                                            <div class="media">
+                                                <div class="position-relative mr-3">
+                                                    <a href="blog-details-1.html"
+                                                        class="d-block w-100px rounded pt-11 bg-img-cover-center"
+                                                        style="background-image: url('{{ asset('assets/images/post-07.jpg') }}')">
+                                                    </a>
+                                                    <a href="blog-grid-with-sidebar.html"
+                                                        class="badge text-white bg-dark-opacity-04 m-1 fs-13 font-weight-500 bg-hover-primary hover-white position-absolute pos-fixed-top">
+                                                        Cho Thuê
+                                                    </a>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h4 class="fs-14 lh-186 mb-1">
+                                                        <a href="blog-details-1.html" class="text-dark hover-primary">
+                                                            Nhà Siêu Cấp Vip
+                                                            Pro
+                                                        </a>
+                                                    </h4>
+                                                    <div class="text-gray-light">
+                                                        16, Tháng 12,
+                                                        2024
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card mb-4">
+                                <div class="card-body px-6 pt-5 pb-6">
+                                    <h4 class="card-title fs-16 lh-2 text-dark mb-3">Tải xuống tài liệu</h4>
+                                    <img src="{{ asset('assets/images/download-brochure.png') }}"
+                                        alt="Tải xuống tài liệu">
+                                    <div class="text-center mt-10 mb-2">
+                                        <a href="#"
+                                            class="btn btn-lg bg-gray-01 bg-hover-accent btn-block text-heading">Tải
+                                            ngay<span class="text-primary d-inline-block ml-2"><i
+                                                    class="far fa-arrow-circle-down"></i></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mb-4">
+                                <div class="card-body px-6 py-5">
+                                    <h4 class="card-title fs-16 lh-2 text-dark mb-3">Tags phổ biến</h4>
+                                    <ul class="list-inline mb-0">
+                                        <li class="list-inline-item mb-2">
+                                            <a href="#"
+                                                class="px-2 py-1 d-block fs-13 lh-17 bg-gray-03 text-muted hover-white bg-hover-primary rounded">nhà
+                                                thiết kế</a>
+                                        </li>
+                                        <li class="list-inline-item mb-2">
+                                            <a href="#"
+                                                class="px-2 py-1 d-block fs-13 lh-17 bg-gray-03 text-muted hover-white bg-hover-primary rounded">mô
+                                                hình mẫu</a>
+                                        </li>
+                                        <li class="list-inline-item mb-2">
+                                            <a href="#"
+                                                class="px-2 py-1 d-block fs-13 lh-17 bg-gray-03 text-muted hover-white bg-hover-primary rounded">mẫu
+                                                giao diện</a>
+                                        </li>
+                                        <li class="list-inline-item mb-2">
+                                            <a href="#"
+                                                class="px-2 py-1 d-block fs-13 lh-17 bg-gray-03 text-muted hover-white bg-hover-primary rounded">Bảo
+                                                mật CNTT</a>
+                                        </li>
+                                        <li class="list-inline-item mb-2">
+                                            <a href="#"
+                                                class="px-2 py-1 d-block fs-13 lh-17 bg-gray-03 text-muted hover-white bg-hover-primary rounded">Dịch
+                                                vụ CNTT</a>
+                                        </li>
+                                        <li class="list-inline-item mb-2">
+                                            <a href="#"
+                                                class="px-2 py-1 d-block fs-13 lh-17 bg-gray-03 text-muted hover-white bg-hover-primary rounded">kinh
+                                                doanh</a>
+                                        </li>
+                                        <li class="list-inline-item mb-2">
+                                            <a href="#"
+                                                class="px-2 py-1 d-block fs-13 lh-17 bg-gray-03 text-muted hover-white bg-hover-primary rounded">video</a>
+                                        </li>
+                                        <li class="list-inline-item mb-2">
+                                            <a href="#"
+                                                class="px-2 py-1 d-block fs-13 lh-17 bg-gray-03 text-muted hover-white bg-hover-primary rounded">giao
+                                                diện wordpress</a>
+                                        </li>
+                                        <li class="list-inline-item mb-2">
+                                            <a href="#"
+                                                class="px-2 py-1 d-block fs-13 lh-17 bg-gray-03 text-muted hover-white bg-hover-primary rounded">bản
+                                                phác thảo</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="mt-0 mt-md-10 row">
-                <ul class="list-inline mb-0 col-md-6 mr-auto">
-                    <li class="list-inline-item mr-6">
-                        <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Điều khoản sử dụng</a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Chính sách bảo mật</a>
-                    </li>
-                </ul>
-                <p class="col-md-auto mb-0 text-muted">
-                    © 2024 TroNhanh.
-                    Mọi quyền được bảo lưu
-                </p>
+        </section>
+    </main>
+
+    {{-- Modal Login - Register --}}
+    <div class="modal fade login-register login-register-modal" id="login-register-modal" tabindex="-1" role="dialog"
+        aria-labelledby="login-register-modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0 p-0">
+                    <div class="nav nav-tabs row w-100 no-gutters" id="myTab" role="tablist">
+                        <a class="nav-item col-sm-3 ml-0 nav-link pr-6 py-4 pl-9 active fs-18" id="login-tab"
+                            data-toggle="tab" href="#login" role="tab" aria-controls="login"
+                            aria-selected="true">Login</a>
+                        <a class="nav-item col-sm-3 ml-0 nav-link py-4 px-6 fs-18" id="register-tab" data-toggle="tab"
+                            href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
+                        <div class="nav-item col-sm-6 ml-0 d-flex align-items-center justify-content-end">
+                            <button type="button" class="close m-0 fs-23" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body p-4 py-sm-7 px-sm-8">
+                    <div class="tab-content shadow-none p-0" id="myTabContent">
+                        <div class="tab-pane fade show active" id="login" role="tabpanel"
+                            aria-labelledby="login-tab">
+                            <form class="form">
+                                <div class="form-group mb-4">
+                                    <label for="username" class="sr-only">Username</label>
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-prepend ">
+                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18"
+                                                id="inputGroup-sizing-lg">
+                                                <i class="far fa-user"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control border-0 shadow-none fs-13"
+                                            id="username" name="username" required placeholder="Username / Your email">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="password" class="sr-only">Password</label>
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-prepend ">
+                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
+                                                <i class="far fa-lock"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control border-0 shadow-none fs-13"
+                                            id="password" name="password" required placeholder="Password">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text bg-gray-01 border-0 text-body fs-18">
+                                                <i class="far fa-eye-slash"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex mb-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="remember-me"
+                                            name="remember-me">
+                                        <label class="form-check-label" for="remember-me">
+                                            Remember me
+                                        </label>
+                                    </div>
+                                    <a href="password-recovery.html" class="d-inline-block ml-auto text-orange fs-15">
+                                        Lost password?
+                                    </a>
+                                </div>
+                                <div class="d-flex p-2 border re-capchar align-items-center mb-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="verify"
+                                            name="verify">
+                                        <label class="form-check-label" for="verify">
+                                            I'm not a robot
+                                        </label>
+                                    </div>
+                                    <a href="#" class="d-inline-block ml-auto">
+                                        <img src="images/re-captcha.png" alt="Re-capcha">
+                                    </a>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Log in</button>
+                            </form>
+                            <div class="divider text-center my-2">
+                                <span class="px-4 bg-white lh-17 text">
+                                    or continue with
+                                </span>
+                            </div>
+                            <div class="row no-gutters mx-n2">
+                                <div class="col-4 px-2 mb-4">
+                                    <a href="#" class="btn btn-lg btn-block facebook text-white px-0">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                </div>
+                                <div class="col-4 px-2 mb-4">
+                                    <a href="#" class="btn btn-lg btn-block google px-0">
+                                        <img src="images/google.png" alt="Google">
+                                    </a>
+                                </div>
+                                <div class="col-4 px-2 mb-4">
+                                    <a href="#" class="btn btn-lg btn-block twitter text-white px-0">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                            <form class="form">
+                                <div class="form-group mb-4">
+                                    <label for="full-name" class="sr-only">Full name</label>
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-prepend ">
+                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
+                                                <i class="far fa-address-card"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control border-0 shadow-none fs-13"
+                                            id="full-name" name="full-name" required placeholder="Full name">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="username01" class="sr-only">Username</label>
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-prepend ">
+                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
+                                                <i class="far fa-user"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control border-0 shadow-none fs-13"
+                                            id="username01" name="username01" required
+                                            placeholder="Username / Your email">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="password01" class="sr-only">Password</label>
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-prepend ">
+                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
+                                                <i class="far fa-lock"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control border-0 shadow-none fs-13"
+                                            id="password01" name="password01" required placeholder="Password">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text bg-gray-01 border-0 text-body fs-18">
+                                                <i class="far fa-eye-slash"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <p class="form-text">Minimum 8 characters with 1 number and 1 letter</p>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Sign up</button>
+                            </form>
+                            <div class="divider text-center my-2">
+                                <span class="px-4 bg-white lh-17 text">
+                                    or continue with
+                                </span>
+                            </div>
+                            <div class="row no-gutters mx-n2">
+                                <div class="col-4 px-2 mb-4">
+                                    <a href="#" class="btn btn-lg btn-block facebook text-white px-0">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                </div>
+                                <div class="col-4 px-2 mb-4">
+                                    <a href="#" class="btn btn-lg btn-block google px-0">
+                                        <img src="images/google.png" alt="Google">
+                                    </a>
+                                </div>
+                                <div class="col-4 px-2 mb-4">
+                                    <a href="#" class="btn btn-lg btn-block twitter text-white px-0">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="mt-2">By creating an account, you agree to HomeID
+                                <a class="text-heading" href="#"><u>Terms of Use</u> </a> and
+                                <a class="text-heading" href="#"><u>Privacy Policy</u></a>.
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </footer>
+    </div>
+    {{-- SVG gì đó của template --}}
     <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1"
         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
@@ -612,12 +1127,72 @@
             </symbol>
         </defs>
     </svg>
+    {{-- Nút quay lại đầu trang --}}
     <div class="position-fixed pos-fixed-bottom-right p-6 z-index-10">
         <a href="#"
             class="gtf-back-to-top bg-white text-primary hover-white bg-hover-primary shadow p-0 w-52px h-52 rounded-circle fs-20 d-flex align-items-center justify-content-center"
             title="Back To Top"><i class="fal fa-arrow-up"></i></a>
     </div>
-</body>
-@stack('scriptUs')
-
-</html>
+@endsection
+@push('styleUs')
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Real Estate Html Template">
+    <meta name="author" content="">
+    <meta name="generator" content="Jekyll">
+    <title>Blog | TRỌ NHANH</title>
+    <!-- Google fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/slick/slick.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/magnific-popup/magnific-popup.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/chartjs/Chart.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dropzone/css/dropzone.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
+    <!-- Themes core CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
+    <!-- Favicons -->
+    <link rel="icon" href="{{asset('assets/images/favicon.ico')}}">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="Home 01">
+    <meta name="twitter:description" content="Real Estate Html Template">
+    <meta name="twitter:image" content="images/homeid-social-logo.png">
+    <!-- Facebook -->
+    <meta property="og:url" content="home-01.html">
+    <meta property="og:title" content="Home 01">
+    <meta property="og:description" content="Real Estate Html Template">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="images/homeid-social.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+@endpush
+@push('scriptUs')
+    <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/bootstrap/bootstrap.bundle.js') }}"></script>
+    <script src="{{ asset('assets/vendors/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/slick/slick.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/waypoints/jquery.waypoints.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/counter/countUp.js') }}"></script>
+    <script src="{{ asset('assets/vendors/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/chartjs/Chart.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/dropzone/js/dropzone.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/hc-sticky/hc-sticky.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/jparallax/TweenMax.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
+    <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
+    <!-- Theme scripts -->
+    <script src="{{ asset('assets/js/theme.js') }}"></script>
+@endpush
