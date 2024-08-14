@@ -12,7 +12,8 @@
                     <form class="property-search py-lg-0 z-index-2 position-relative d-none d-lg-block">
                         <div class="row no-gutters">
                             <div class="col-md-5 col-lg-4 col-xl-3">
-                                <input class="search-field" type="hidden" name="status" value="for-sale" data-default-value="">
+                                <input class="search-field" type="hidden" name="status" value="for-sale"
+                                    data-default-value="">
                                 <ul class="nav nav-pills property-search-status-tab">
                                     <li class="nav-item bg-secondary rounded-top" role="presentation">
                                         <a href="#" role="tab" aria-selected="true"
@@ -41,7 +42,9 @@
                             <div class="row align-items-center" id="accordion-4">
                                 <div class="col-md-6 col-lg-3 col-xl-3 pt-6 pt-lg-0 order-1">
                                     <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Loại nhà</label>
-                                    <select class="form-control selectpicker bg-transparent border-bottom rounded-0 border-color-input" title="Chọn" data-style="p-0 h-24 lh-17 text-dark" name="type">
+                                    <select
+                                        class="form-control selectpicker bg-transparent border-bottom rounded-0 border-color-input"
+                                        title="Chọn" data-style="p-0 h-24 lh-17 text-dark" name="type">
                                         <option>Căn hộ</option>
                                         <option>Nhà đơn lập</option>
                                         <option>Nhà liên kế</option>
@@ -51,25 +54,37 @@
                                 <div class="col-md-6 col-lg-4 col-xl-5 pt-6 pt-lg-0 order-2">
                                     <label class="text-uppercase font-weight-500 letter-spacing-093">Tìm kiếm</label>
                                     <div class="position-relative">
-                                        <input type="text" name="search" class="form-control bg-transparent shadow-none border-top-0 border-right-0 border-left-0 border-bottom rounded-0 h-24 lh-17 pl-0 pr-4 font-weight-600 border-color-input placeholder-muted" placeholder="Tìm kiếm...">
-                                        <i class="far fa-search position-absolute pos-fixed-right-center pr-0 fs-18 mt-n3"></i>
+                                        <input type="text" name="search"
+                                            class="form-control bg-transparent shadow-none border-top-0 border-right-0 border-left-0 border-bottom rounded-0 h-24 lh-17 pl-0 pr-4 font-weight-600 border-color-input placeholder-muted"
+                                            placeholder="Tìm kiếm...">
+                                        <i
+                                            class="far fa-search position-absolute pos-fixed-right-center pr-0 fs-18 mt-n3"></i>
                                     </div>
                                 </div>
                                 <div class="col-sm pr-lg-0 pt-6 pt-lg-0 order-3">
-                                    <a href="#advanced-search-filters-4" class="btn advanced-search btn-accent h-lg-100 w-100 shadow-none text-secondary rounded-0 fs-14 fs-sm-16 font-weight-600 text-left d-flex align-items-center collapsed" data-toggle="collapse" data-target="#advanced-search-filters-4" aria-expanded="true" aria-controls="advanced-search-filters-4">
+                                    <a href="#advanced-search-filters-4"
+                                        class="btn advanced-search btn-accent h-lg-100 w-100 shadow-none text-secondary rounded-0 fs-14 fs-sm-16 font-weight-600 text-left d-flex align-items-center collapsed"
+                                        data-toggle="collapse" data-target="#advanced-search-filters-4" aria-expanded="true"
+                                        aria-controls="advanced-search-filters-4">
                                         Tìm kiếm nâng cao
                                     </a>
                                 </div>
                                 <div class="col-sm pt-6 pt-lg-0 order-sm-4 order-5">
-                                    <button type="submit" class="btn btn-primary shadow-none fs-16 font-weight-600 w-100 py-lg-2 lh-213">
+                                    <button type="submit"
+                                        class="btn btn-primary shadow-none fs-16 font-weight-600 w-100 py-lg-2 lh-213">
                                         Tìm kiếm
                                     </button>
                                 </div>
-                                <div id="advanced-search-filters-4" class="col-12 pt-4 pb-sm-4 order-sm-5 order-4 collapse" data-parent="#accordion-4">
+                                <div id="advanced-search-filters-4" class="col-12 pt-4 pb-sm-4 order-sm-5 order-4 collapse"
+                                    data-parent="#accordion-4">
                                     <div class="row">
                                         <div class="col-sm-6 col-lg-3 pt-6">
-                                            <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Phòng ngủ</label>
-                                            <select class="form-control selectpicker bg-transparent border-bottom rounded-0 border-color-input" name="bedroom" title="Tất cả phòng ngủ" data-style="p-0 h-24 lh-17 text-dark">
+                                            <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Phòng
+                                                ngủ</label>
+                                            <select
+                                                class="form-control selectpicker bg-transparent border-bottom rounded-0 border-color-input"
+                                                name="bedroom" title="Tất cả phòng ngủ"
+                                                data-style="p-0 h-24 lh-17 text-dark">
                                                 <option>Tất cả phòng ngủ</option>
                                                 <option>1</option>
                                                 <option>2</option>
@@ -84,8 +99,12 @@
                                             </select>
                                         </div>
                                         <div class="col-sm-6 col-lg-3 pt-6">
-                                            <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Phòng tắm</label>
-                                            <select class="form-control selectpicker bg-transparent border-bottom rounded-0 border-color-input" title="Tất cả phòng tắm" data-style="p-0 h-24 lh-17 text-dark" name="bathroom">
+                                            <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Phòng
+                                                tắm</label>
+                                            <select
+                                                class="form-control selectpicker bg-transparent border-bottom rounded-0 border-color-input"
+                                                title="Tất cả phòng tắm" data-style="p-0 h-24 lh-17 text-dark"
+                                                name="bathroom">
                                                 <option>Tất cả phòng tắm</option>
                                                 <option>1</option>
                                                 <option>2</option>
@@ -100,8 +119,12 @@
                                             </select>
                                         </div>
                                         <div class="col-sm-6 col-lg-3 pt-6">
-                                            <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Tất cả thành phố</label>
-                                            <select class="form-control selectpicker bg-transparent border-bottom rounded-0 border-color-input" name="city" title="Tất cả thành phố" data-style="p-0 h-24 lh-17 text-dark">
+                                            <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Tất cả
+                                                thành phố</label>
+                                            <select
+                                                class="form-control selectpicker bg-transparent border-bottom rounded-0 border-color-input"
+                                                name="city" title="Tất cả thành phố"
+                                                data-style="p-0 h-24 lh-17 text-dark">
                                                 <option>Tất cả thành phố</option>
                                                 <option>New York</option>
                                                 <option>Los Angeles</option>
@@ -113,8 +136,11 @@
                                             </select>
                                         </div>
                                         <div class="col-sm-6 col-lg-3 pt-6">
-                                            <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Tất cả khu vực</label>
-                                            <select class="form-control selectpicker bg-transparent border-bottom rounded-0 border-color-input" name="areas" title="Tất cả khu vực" data-style="p-0 h-24 lh-17 text-dark">
+                                            <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Tất cả khu
+                                                vực</label>
+                                            <select
+                                                class="form-control selectpicker bg-transparent border-bottom rounded-0 border-color-input"
+                                                name="areas" title="Tất cả khu vực" data-style="p-0 h-24 lh-17 text-dark">
                                                 <option>Tất cả khu vực</option>
                                                 <option>Albany Park</option>
                                                 <option>Altgeld Gardens</option>
@@ -129,279 +155,291 @@
                                     <div class="row pt-2">
                                         <div class="col-md-6 col-lg-4 pt-6 slider-range slider-range-secondary">
                                             <label for="price-1-4" class="mb-4 text-gray-light">Khoảng giá</label>
-                                            <div data-slider="true" data-slider-options='{"min":0,"max":1000000,"values":[100000,700000],"type":"currency"}'></div>
+                                            <div data-slider="true"
+                                                data-slider-options='{"min":0,"max":1000000,"values":[100000,700000],"type":"currency"}'>
+                                            </div>
                                             <div class="text-center mt-2">
-                                                <input id="price-1-4" type="text" readonly name="price" class="border-0 amount text-center text-body font-weight-500 bg-transparent">
+                                                <input id="price-1-4" type="text" readonly name="price"
+                                                    class="border-0 amount text-center text-body font-weight-500 bg-transparent">
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-lg-4 pt-6 slider-range slider-range-secondary">
                                             <label for="area-size-4" class="mb-4 text-gray-light">Diện tích</label>
-                                            <div data-slider="true" data-slider-options='{"min":0,"max":15000,"values":[0,13000],"type":"currency"}'></div>
+                                            <div data-slider="true"
+                                                data-slider-options='{"min":0,"max":15000,"values":[0,13000],"type":"currency"}'>
+                                            </div>
                                             <div class="text-center mt-2">
-                                                <input id="area-size-4" type="text" readonly name="area" class="border-0 amount text-center text-body font-weight-500 bg-transparent">
+                                                <input id="area-size-4" type="text" readonly name="area"
+                                                    class="border-0 amount text-center text-body font-weight-500 bg-transparent">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-lg-3 pt-6">
-                                            <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Mã bất động sản</label>
-                                            <input type="text" name="property_id" class="form-control bg-transparent shadow-none border-top-0 border-right-0 border-left-0 border-bottom rounded-0 h-24 lh-17 pl-0 pr-4 font-weight-600 border-color-input placeholder-muted" placeholder="Nhập mã bất động sản...">
+                                            <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Mã bất
+                                                động sản</label>
+                                            <input type="text" name="property_id"
+                                                class="form-control bg-transparent shadow-none border-top-0 border-right-0 border-left-0 border-bottom rounded-0 h-24 lh-17 pl-0 pr-4 font-weight-600 border-color-input placeholder-muted"
+                                                placeholder="Nhập mã bất động sản...">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </form>
-                    
+
                     <form
-                    class="property-search property-search-mobile d-lg-none z-index-2 position-relative bg-white rounded mx-md-10">
-                    <div class="row align-items-lg-center" id="accordion-4-mobile">
-                        <div class="col-12">
-                            <div class="form-group mb-0 position-relative">
-                                <a href="#advanced-search-filters-4-mobile"
-                                    class="text-secondary btn advanced-search shadow-none pr-3 pl-0 d-flex align-items-center position-absolute pos-fixed-left-center py-0 h-100 border-right collapsed"
-                                    data-toggle="collapse" data-target="#advanced-search-filters-4-mobile"
-                                    aria-expanded="true" aria-controls="advanced-search-filters-4-mobile">
-                                </a>
-                                <input type="text"
-                                    class="form-control form-control-lg border shadow-none pr-9 pl-11 bg-white placeholder-muted"
-                                    name="key-word" placeholder="Tìm kiếm...">
-                                <button type="submit"
-                                    class="btn position-absolute pos-fixed-right-center p-0 text-heading fs-20 px-3 shadow-none h-100 border-left">
-                                    <i class="far fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div id="advanced-search-filters-4-mobile" class="col-12 pt-2 px-7 collapse"
-                            data-parent="#accordion-4-mobile">
-                            <div class="row mx-n2">
-                                <div class="col-sm-6 pt-4 px-2">
-                                    <select
-                                        class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
-                                        title="Chọn" data-style="btn-lg py-2 h-52 bg-transparent" name="type">
-                                        <option>Tất cả trạng thái</option>
-                                        <option>Cho thuê</option>
-                                        <option>Bán</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-6 pt-4 px-2">
-                                    <select
-                                        class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
-                                        title="Tất cả loại" data-style="btn-lg py-2 h-52 bg-transparent"
-                                        name="type">
-                                        <option>Căn hộ</option>
-                                        <option>Nhà đơn lập</option>
-                                        <option>Nhà liên kế</option>
-                                        <option>Nhà nhiều tầng</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-6 pt-4 px-2">
-                                    <select
-                                        class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
-                                        name="bedroom" title="Phòng ngủ" data-style="btn-lg py-2 h-52 bg-transparent">
-                                        <option>Tất cả phòng ngủ</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
-                                        <option>10</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-6 pt-4 px-2">
-                                    <select
-                                        class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
-                                        name="bathrooms" title="Phòng tắm"
-                                        data-style="btn-lg py-2 h-52 bg-transparent">
-                                        <option>Tất cả phòng tắm</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
-                                        <option>10</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-6 pt-4 px-2">
-                                    <select
-                                        class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
-                                        title="Tất cả thành phố" data-style="btn-lg py-2 h-52 bg-transparent"
-                                        name="city">
-                                        <option>Tất cả thành phố</option>
-                                        <option>New York</option>
-                                        <option>Los Angeles</option>
-                                        <option>Chicago</option>
-                                        <option>Houston</option>
-                                        <option>San Diego</option>
-                                        <option>Las Vegas</option>
-                                        <option>Atlanta</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-6 pt-4 px-2">
-                                    <select
-                                        class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
-                                        name="areas" title="Tất cả khu vực"
-                                        data-style="btn-lg py-2 h-52 bg-transparent">
-                                        <option>Tất cả khu vực</option>
-                                        <option>Albany Park</option>
-                                        <option>Altgeld Gardens</option>
-                                        <option>Andersonville</option>
-                                        <option>Beverly</option>
-                                        <option>Brickel</option>
-                                        <option>Central City</option>
-                                        <option>Coconut Grove</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 pt-6 slider-range slider-range-secondary">
-                                    <label for="price-4-mobile" class="mb-4 text-white">Khoảng giá</label>
-                                    <div data-slider="true"
-                                        data-slider-options='{"min":0,"max":1000000,"values":[100000,700000],"type":"currency"}'>
-                                    </div>
-                                    <div class="text-center mt-2">
-                                        <input id="price-4-mobile" type="text" readonly
-                                            class="border-0 amount text-center bg-transparent font-weight-500"
-                                            name="price">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 pt-6 slider-range slider-range-secondary">
-                                    <label for="area-size-4-mobile" class="mb-4">Diện tích</label>
-                                    <div data-slider="true"
-                                        data-slider-options='{"min":0,"max":15000,"values":[0,12000],"type":"sqrt"}'>
-                                    </div>
-                                    <div class="text-center mt-2">
-                                        <input id="area-size-4-mobile" type="text" readonly
-                                            class="border-0 amount text-center bg-transparent font-weight-500"
-                                            name="area">
-                                    </div>
-                                </div>
-                                <div class="col-12 pt-4 pb-2">
-                                    <a class="lh-17 d-inline-block other-feature collapsed" data-toggle="collapse"
-                                        href="#other-feature-4-mobile" role="button" aria-expanded="false"
-                                        aria-controls="other-feature-4-mobile">
-                                        <span class="fs-15 font-weight-500 hover-primary">Các tính năng khác</span>
+                        class="property-search property-search-mobile d-lg-none z-index-2 position-relative bg-white rounded mx-md-10">
+                        <div class="row align-items-lg-center" id="accordion-4-mobile">
+                            <div class="col-12">
+                                <div class="form-group mb-0 position-relative">
+                                    <a href="#advanced-search-filters-4-mobile"
+                                        class="text-secondary btn advanced-search shadow-none pr-3 pl-0 d-flex align-items-center position-absolute pos-fixed-left-center py-0 h-100 border-right collapsed"
+                                        data-toggle="collapse" data-target="#advanced-search-filters-4-mobile"
+                                        aria-expanded="true" aria-controls="advanced-search-filters-4-mobile">
                                     </a>
+                                    <input type="text"
+                                        class="form-control form-control-lg border shadow-none pr-9 pl-11 bg-white placeholder-muted"
+                                        name="key-word" placeholder="Tìm kiếm...">
+                                    <button type="submit"
+                                        class="btn position-absolute pos-fixed-right-center p-0 text-heading fs-20 px-3 shadow-none h-100 border-left">
+                                        <i class="far fa-search"></i>
+                                    </button>
                                 </div>
-                                <div class="collapse row mx-0 w-100" id="other-feature-4-mobile">
-                                    <div class="col-sm-6 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="features[]"
-                                                id="check1-4-mobile">
-                                            <label class="custom-control-label" for="check1-4-mobile">Điều hòa</label>
+                            </div>
+                            <div id="advanced-search-filters-4-mobile" class="col-12 pt-2 px-7 collapse"
+                                data-parent="#accordion-4-mobile">
+                                <div class="row mx-n2">
+                                    <div class="col-sm-6 pt-4 px-2">
+                                        <select
+                                            class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
+                                            title="Chọn" data-style="btn-lg py-2 h-52 bg-transparent" name="type">
+                                            <option>Tất cả trạng thái</option>
+                                            <option>Cho thuê</option>
+                                            <option>Bán</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6 pt-4 px-2">
+                                        <select
+                                            class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
+                                            title="Tất cả loại" data-style="btn-lg py-2 h-52 bg-transparent"
+                                            name="type">
+                                            <option>Căn hộ</option>
+                                            <option>Nhà đơn lập</option>
+                                            <option>Nhà liên kế</option>
+                                            <option>Nhà nhiều tầng</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6 pt-4 px-2">
+                                        <select
+                                            class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
+                                            name="bedroom" title="Phòng ngủ"
+                                            data-style="btn-lg py-2 h-52 bg-transparent">
+                                            <option>Tất cả phòng ngủ</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>7</option>
+                                            <option>8</option>
+                                            <option>9</option>
+                                            <option>10</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6 pt-4 px-2">
+                                        <select
+                                            class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
+                                            name="bathrooms" title="Phòng tắm"
+                                            data-style="btn-lg py-2 h-52 bg-transparent">
+                                            <option>Tất cả phòng tắm</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>7</option>
+                                            <option>8</option>
+                                            <option>9</option>
+                                            <option>10</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6 pt-4 px-2">
+                                        <select
+                                            class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
+                                            title="Tất cả thành phố" data-style="btn-lg py-2 h-52 bg-transparent"
+                                            name="city">
+                                            <option>Tất cả thành phố</option>
+                                            <option>New York</option>
+                                            <option>Los Angeles</option>
+                                            <option>Chicago</option>
+                                            <option>Houston</option>
+                                            <option>San Diego</option>
+                                            <option>Las Vegas</option>
+                                            <option>Atlanta</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6 pt-4 px-2">
+                                        <select
+                                            class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
+                                            name="areas" title="Tất cả khu vực"
+                                            data-style="btn-lg py-2 h-52 bg-transparent">
+                                            <option>Tất cả khu vực</option>
+                                            <option>Albany Park</option>
+                                            <option>Altgeld Gardens</option>
+                                            <option>Andersonville</option>
+                                            <option>Beverly</option>
+                                            <option>Brickel</option>
+                                            <option>Central City</option>
+                                            <option>Coconut Grove</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 pt-6 slider-range slider-range-secondary">
+                                        <label for="price-4-mobile" class="mb-4 text-white">Khoảng giá</label>
+                                        <div data-slider="true"
+                                            data-slider-options='{"min":0,"max":1000000,"values":[100000,700000],"type":"currency"}'>
+                                        </div>
+                                        <div class="text-center mt-2">
+                                            <input id="price-4-mobile" type="text" readonly
+                                                class="border-0 amount text-center bg-transparent font-weight-500"
+                                                name="price">
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="features[]"
-                                                id="check2-4-mobile">
-                                            <label class="custom-control-label" for="check2-4-mobile">Giặt ủi</label>
+                                    <div class="col-md-6 pt-6 slider-range slider-range-secondary">
+                                        <label for="area-size-4-mobile" class="mb-4">Diện tích</label>
+                                        <div data-slider="true"
+                                            data-slider-options='{"min":0,"max":15000,"values":[0,12000],"type":"sqrt"}'>
+                                        </div>
+                                        <div class="text-center mt-2">
+                                            <input id="area-size-4-mobile" type="text" readonly
+                                                class="border-0 amount text-center bg-transparent font-weight-500"
+                                                name="area">
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="features[]"
-                                                id="check4-4-mobile">
-                                            <label class="custom-control-label" for="check4-4-mobile">Máy giặt</label>
-                                        </div>
+                                    <div class="col-12 pt-4 pb-2">
+                                        <a class="lh-17 d-inline-block other-feature collapsed" data-toggle="collapse"
+                                            href="#other-feature-4-mobile" role="button" aria-expanded="false"
+                                            aria-controls="other-feature-4-mobile">
+                                            <span class="fs-15 font-weight-500 hover-primary">Các tính năng khác</span>
+                                        </a>
                                     </div>
-                                    <div class="col-sm-6 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="features[]"
-                                                id="check5-4-mobile">
-                                            <label class="custom-control-label" for="check5-4-mobile">BBQ</label>
+                                    <div class="collapse row mx-0 w-100" id="other-feature-4-mobile">
+                                        <div class="col-sm-6 py-2">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="features[]"
+                                                    id="check1-4-mobile">
+                                                <label class="custom-control-label" for="check1-4-mobile">Điều hòa</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="features[]"
-                                                id="check6-4-mobile">
-                                            <label class="custom-control-label" for="check6-4-mobile">Sân vườn</label>
+                                        <div class="col-sm-6 py-2">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="features[]"
+                                                    id="check2-4-mobile">
+                                                <label class="custom-control-label" for="check2-4-mobile">Giặt ủi</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="features[]"
-                                                id="check7-4-mobile">
-                                            <label class="custom-control-label" for="check7-4-mobile">Xông hơi</label>
+                                        <div class="col-sm-6 py-2">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="features[]"
+                                                    id="check4-4-mobile">
+                                                <label class="custom-control-label" for="check4-4-mobile">Máy giặt</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="features[]"
-                                                id="check8-4-mobile">
-                                            <label class="custom-control-label" for="check8-4-mobile">WiFi</label>
+                                        <div class="col-sm-6 py-2">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="features[]"
+                                                    id="check5-4-mobile">
+                                                <label class="custom-control-label" for="check5-4-mobile">BBQ</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="features[]"
-                                                id="check9-4-mobile">
-                                            <label class="custom-control-label" for="check9-4-mobile">Sấy khô</label>
+                                        <div class="col-sm-6 py-2">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="features[]"
+                                                    id="check6-4-mobile">
+                                                <label class="custom-control-label" for="check6-4-mobile">Sân vườn</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="features[]"
-                                                id="check10-4-mobile">
-                                            <label class="custom-control-label" for="check10-4-mobile">Lò vi sóng</label>
+                                        <div class="col-sm-6 py-2">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="features[]"
+                                                    id="check7-4-mobile">
+                                                <label class="custom-control-label" for="check7-4-mobile">Xông hơi</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="features[]"
-                                                id="check11-4-mobile">
-                                            <label class="custom-control-label" for="check11-4-mobile">Hồ bơi</label>
+                                        <div class="col-sm-6 py-2">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="features[]"
+                                                    id="check8-4-mobile">
+                                                <label class="custom-control-label" for="check8-4-mobile">WiFi</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="features[]"
-                                                id="check12-4-mobile">
-                                            <label class="custom-control-label" for="check12-4-mobile">Rèm cửa</label>
+                                        <div class="col-sm-6 py-2">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="features[]"
+                                                    id="check9-4-mobile">
+                                                <label class="custom-control-label" for="check9-4-mobile">Sấy khô</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="features[]"
-                                                id="check13-4-mobile">
-                                            <label class="custom-control-label" for="check13-4-mobile">Phòng gym</label>
+                                        <div class="col-sm-6 py-2">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="features[]"
+                                                    id="check10-4-mobile">
+                                                <label class="custom-control-label" for="check10-4-mobile">Lò vi
+                                                    sóng</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="features[]"
-                                                id="check14-4-mobile">
-                                            <label class="custom-control-label" for="check14-4-mobile">Vòi sen ngoài trời</label>
+                                        <div class="col-sm-6 py-2">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="features[]"
+                                                    id="check11-4-mobile">
+                                                <label class="custom-control-label" for="check11-4-mobile">Hồ bơi</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="features[]"
-                                                id="check15-4-mobile">
-                                            <label class="custom-control-label" for="check15-4-mobile">Cáp TV</label>
+                                        <div class="col-sm-6 py-2">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="features[]"
+                                                    id="check12-4-mobile">
+                                                <label class="custom-control-label" for="check12-4-mobile">Rèm cửa</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="features[]"
-                                                id="check16-4-mobile">
-                                            <label class="custom-control-label"
-                                                for="check16-4-mobile">Tủ lạnh</label>
+                                        <div class="col-sm-6 py-2">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="features[]"
+                                                    id="check13-4-mobile">
+                                                <label class="custom-control-label" for="check13-4-mobile">Phòng
+                                                    gym</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 py-2">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="features[]"
+                                                    id="check14-4-mobile">
+                                                <label class="custom-control-label" for="check14-4-mobile">Vòi sen ngoài
+                                                    trời</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 py-2">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="features[]"
+                                                    id="check15-4-mobile">
+                                                <label class="custom-control-label" for="check15-4-mobile">Cáp TV</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 py-2">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="features[]"
+                                                    id="check16-4-mobile">
+                                                <label class="custom-control-label" for="check16-4-mobile">Tủ lạnh</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </form>
-                
+                    </form>
+
                 </div>
             </div>
         </section>
@@ -1212,7 +1250,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
 
                 </div>
             </div>
@@ -1525,7 +1563,8 @@
                     </a>
                     <div class="lh-26 font-weight-500">
                         <p class="mb-0">58 Howard Street #2 San Francisco</p>
-                        <a class="d-block text-muted hover-white" href="mailto:contact@homeid.com">contact@homeid.com</a>
+                        <a class="d-block text-muted hover-white"
+                            href="mailto:contact@homeid.com">contact@homeid.com</a>
                         <a class="d-block text-lighter font-weight-bold fs-15 hover-white"
                             href="tel:(+68)122109876">(+68)1221 09876</a>
                         <a class="d-block text-muted hover-white" href=".">www.homeid.com</a>
@@ -1544,7 +1583,8 @@
                             <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Văn phòng để mua</a>
                         </li>
                         <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Văn phòng cho thuê</a>
+                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Văn phòng cho
+                                thuê</a>
                         </li>
                     </ul>
                 </div>
@@ -1552,10 +1592,12 @@
                     <h4 class="text-white fs-16 my-4 font-weight-500">Liên kết nhanh</h4>
                     <ul class="list-group list-group-flush list-group-no-border">
                         <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Điều khoản sử dụng</a>
+                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Điều khoản sử
+                                dụng</a>
                         </li>
                         <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Chính sách bảo mật</a>
+                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Chính sách bảo
+                                mật</a>
                         </li>
                         <li class="list-group-item bg-transparent p-0">
                             <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Hỗ trợ liên hệ</a>
@@ -1615,379 +1657,8 @@
         </div>
     </footer>
 
-    <!-- Vendors scripts -->
-    <script src="vendors/jquery.min.js"></script>
-    <script src="vendors/jquery-ui/jquery-ui.min.js"></script>
-    <script src="vendors/bootstrap/bootstrap.bundle.js"></script>
-    <script src="vendors/bootstrap-select/js/bootstrap-select.min.js"></script>
-    <script src="vendors/slick/slick.min.js"></script>
-    <script src="vendors/waypoints/jquery.waypoints.min.js"></script>
-    <script src="vendors/counter/countUp.js"></script>
-    <script src="vendors/magnific-popup/jquery.magnific-popup.min.js"></script>
-    <script src="vendors/chartjs/Chart.min.js"></script>
-    <script src="vendors/dropzone/js/dropzone.min.js"></script>
-    <script src="vendors/timepicker/bootstrap-timepicker.min.js"></script>
-    <script src="vendors/hc-sticky/hc-sticky.min.js"></script>
-    <script src="vendors/jparallax/TweenMax.min.js"></script>
-    <script src="vendors/mapbox-gl/mapbox-gl.js"></script>
-    <script src="vendors/dataTables/jquery.dataTables.min.js"></script>
-    <!-- Theme scripts -->
-    <script src="js/theme.js"></script>
-    <div class="modal fade login-register login-register-modal" id="login-register-modal" tabindex="-1"
-        role="dialog" aria-labelledby="login-register-modal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
-            <div class="modal-content">
-                <div class="modal-header border-0 p-0">
-                    <div class="nav nav-tabs row w-100 no-gutters" id="myTab" role="tablist">
-                        <a class="nav-item col-sm-3 ml-0 nav-link pr-6 py-4 pl-9 active fs-18" id="login-tab"
-                            data-toggle="tab" href="#login" role="tab" aria-controls="login"
-                            aria-selected="true">Đăng nhập</a>
-                        <a class="nav-item col-sm-3 ml-0 nav-link py-4 px-6 fs-18" id="register-tab" data-toggle="tab"
-                            href="#register" role="tab" aria-controls="register" aria-selected="false">Đăng
-                            ký</a>
-                        <div class="nav-item col-sm-6 ml-0 d-flex align-items-center justify-content-end">
-                            <button type="button" class="close m-0 fs-23" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-body p-4 py-sm-7 px-sm-8">
-                    <div class="tab-content shadow-none p-0" id="myTabContent">
-                        <div class="tab-pane fade show active" id="login" role="tabpanel"
-                            aria-labelledby="login-tab">
-                            <form class="form">
-                                <div class="form-group mb-4">
-                                    <label for="username" class="sr-only">Tên đăng nhập</label>
-                                    <div class="input-group input-group-lg">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18"
-                                                id="inputGroup-sizing-lg">
-                                                <i class="far fa-user"></i>
-                                            </span>
-                                        </div>
-                                        <input type="text" class="form-control border-0 shadow-none fs-13"
-                                            id="username" name="username" required
-                                            placeholder="Tên đăng nhập / Email của bạn">
-                                    </div>
-                                </div>
-                                <div class="form-group mb-4">
-                                    <label for="password" class="sr-only">Mật khẩu</label>
-                                    <div class="input-group input-group-lg">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                                                <i class="far fa-lock"></i>
-                                            </span>
-                                        </div>
-                                        <input type="password" class="form-control border-0 shadow-none fs-13"
-                                            id="password" name="password" required placeholder="Mật khẩu">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text bg-gray-01 border-0 text-body fs-18">
-                                                <i class="far fa-eye-slash"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex mb-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value=""
-                                            id="remember-me" name="remember-me">
-                                        <label class="form-check-label" for="remember-me">
-                                            Nhớ mật khẩu
-                                        </label>
-                                    </div>
-                                    <a href="password-recovery.html" class="d-inline-block ml-auto text-orange fs-15">
-                                        Quên mật khẩu?
-                                    </a>
-                                </div>
-                                <div class="d-flex p-2 border re-capchar align-items-center mb-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value=""
-                                            id="verify" name="verify">
-                                        <label class="form-check-label" for="verify">
-                                            Tôi không phải là robot
-                                        </label>
-                                    </div>
-                                    <a href="#" class="d-inline-block ml-auto">
-                                        <img src="images/re-captcha.png" alt="Re-capcha">
-                                    </a>
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng nhập</button>
-                            </form>
-                            <div class="divider text-center my-2">
-                                <span class="px-4 bg-white lh-17 text">
-                                    hoặc tiếp tục với
-                                </span>
-                            </div>
-                            <div class="row no-gutters mx-n2">
-                                <div class="col-4 px-2 mb-4">
-                                    <a href="#" class="btn btn-lg btn-block facebook text-white px-0">
-                                        <i class="fab fa-facebook-f"></i>
-                                    </a>
-                                </div>
-                                <div class="col-4 px-2 mb-4">
-                                    <a href="#" class="btn btn-lg btn-block google px-0">
-                                        <img src="images/google.png" alt="Google">
-                                    </a>
-                                </div>
-                                <div class="col-4 px-2 mb-4">
-                                    <a href="#" class="btn btn-lg btn-block twitter text-white px-0">
-                                        <i class="fab fa-twitter"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                            <form class="form">
-                                <div class="form-group mb-4">
-                                    <label for="full-name" class="sr-only">Họ và tên</label>
-                                    <div class="input-group input-group-lg">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                                                <i class="far fa-address-card"></i>
-                                            </span>
-                                        </div>
-                                        <input type="text" class="form-control border-0 shadow-none fs-13"
-                                            id="full-name" name="full-name" required placeholder="Họ và tên">
-                                    </div>
-                                </div>
-                                <div class="form-group mb-4">
-                                    <label for="username01" class="sr-only">Tên đăng nhập</label>
-                                    <div class="input-group input-group-lg">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                                                <i class="far fa-user"></i>
-                                            </span>
-                                        </div>
-                                        <input type="text" class="form-control border-0 shadow-none fs-13"
-                                            id="username01" name="username01" required
-                                            placeholder="Tên đăng nhập / Email của bạn">
-                                    </div>
-                                </div>
-                                <div class="form-group mb-4">
-                                    <label for="password01" class="sr-only">Mật khẩu</label>
-                                    <div class="input-group input-group-lg">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                                                <i class="far fa-lock"></i>
-                                            </span>
-                                        </div>
-                                        <input type="password" class="form-control border-0 shadow-none fs-13"
-                                            id="password01" name="password01" required placeholder="Mật khẩu">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text bg-gray-01 border-0 text-body fs-18">
-                                                <i class="far fa-eye-slash"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <p class="form-text">Tối thiểu 8 ký tự, bao gồm 1 số và 1 chữ cái</p>
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng ký</button>
-                            </form>
-                            <div class="divider text-center my-2">
-                                <span class="px-4 bg-white lh-17 text">
-                                    hoặc tiếp tục với
-                                </span>
-                            </div>
-                            <div class="row no-gutters mx-n2">
-                                <div class="col-4 px-2 mb-4">
-                                    <a href="#" class="btn btn-lg btn-block facebook text-white px-0">
-                                        <i class="fab fa-facebook-f"></i>
-                                    </a>
-                                </div>
-                                <div class="col-4 px-2 mb-4">
-                                    <a href="#" class="btn btn-lg btn-block google px-0">
-                                        <img src="images/google.png" alt="Google">
-                                    </a>
-                                </div>
-                                <div class="col-4 px-2 mb-4">
-                                    <a href="#" class="btn btn-lg btn-block twitter text-white px-0">
-                                        <i class="fab fa-twitter"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="mt-2">Bằng cách tạo tài khoản, bạn đồng ý với <a class="text-heading"
-                                    href="#"><u>Các điều khoản sử dụng</u></a> và <a class="text-heading"
-                                    href="#"><u>Chính sách bảo mật</u></a> của HomeID.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade login-register login-register-modal" id="login-register-modal" tabindex="-1" role="dialog"
-    aria-labelledby="login-register-modal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
-      <div class="modal-content">
-        <div class="modal-header border-0 p-0">
-          <div class="nav nav-tabs row w-100 no-gutters" id="myTab" role="tablist">
-            <a class="nav-item col-sm-3 ml-0 nav-link pr-6 py-4 pl-9 active fs-18" id="login-tab" data-toggle="tab"
-              href="#login" role="tab" aria-controls="login" aria-selected="true">Login</a>
-            <a class="nav-item col-sm-3 ml-0 nav-link py-4 px-6 fs-18" id="register-tab" data-toggle="tab"
-              href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
-            <div class="nav-item col-sm-6 ml-0 d-flex align-items-center justify-content-end">
-              <button type="button" class="close m-0 fs-23" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="modal-body p-4 py-sm-7 px-sm-8">
-          <div class="tab-content shadow-none p-0" id="myTabContent">
-            <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
-              <form class="form">
-                <div class="form-group mb-4">
-                  <label for="username" class="sr-only">Username</label>
-                  <div class="input-group input-group-lg">
-                    <div class="input-group-prepend ">
-                      <span class="input-group-text bg-gray-01 border-0 text-muted fs-18" id="inputGroup-sizing-lg">
-                        <i class="far fa-user"></i></span>
-                    </div>
-                    <input type="text" class="form-control border-0 shadow-none fs-13" id="username" name="username"
-                      required placeholder="Username / Your email">
-                  </div>
-                </div>
-                <div class="form-group mb-4">
-                  <label for="password" class="sr-only">Password</label>
-                  <div class="input-group input-group-lg">
-                    <div class="input-group-prepend ">
-                      <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                        <i class="far fa-lock"></i>
-                      </span>
-                    </div>
-                    <input type="text" class="form-control border-0 shadow-none fs-13" id="password" name="password"
-                      required placeholder="Password">
-                    <div class="input-group-append">
-                      <span class="input-group-text bg-gray-01 border-0 text-body fs-18">
-                        <i class="far fa-eye-slash"></i>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex mb-4">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="remember-me" name="remember-me">
-                    <label class="form-check-label" for="remember-me">
-                      Remember me
-                    </label>
-                  </div>
-                  <a href="password-recovery.html" class="d-inline-block ml-auto text-orange fs-15">
-                    Lost password?
-                  </a>
-                </div>
-                <div class="d-flex p-2 border re-capchar align-items-center mb-4">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="verify" name="verify">
-                    <label class="form-check-label" for="verify">
-                      I'm not a robot
-                    </label>
-                  </div>
-                  <a href="#" class="d-inline-block ml-auto">
-                    <img src="images/re-captcha.png" alt="Re-capcha">
-                  </a>
-                </div>
-                <button type="submit" class="btn btn-primary btn-lg btn-block">Log in</button>
-              </form>
-              <div class="divider text-center my-2">
-                <span class="px-4 bg-white lh-17 text">
-                  or continue with
-                </span>
-              </div>
-              <div class="row no-gutters mx-n2">
-                <div class="col-4 px-2 mb-4">
-                  <a href="#" class="btn btn-lg btn-block facebook text-white px-0">
-                    <i class="fab fa-facebook-f"></i>
-                  </a>
-                </div>
-                <div class="col-4 px-2 mb-4">
-                  <a href="#" class="btn btn-lg btn-block google px-0">
-                    <img src="images/google.png" alt="Google">
-                  </a>
-                </div>
-                <div class="col-4 px-2 mb-4">
-                  <a href="#" class="btn btn-lg btn-block twitter text-white px-0">
-                    <i class="fab fa-twitter"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-              <form class="form">
-                <div class="form-group mb-4">
-                  <label for="full-name" class="sr-only">Full name</label>
-                  <div class="input-group input-group-lg">
-                    <div class="input-group-prepend ">
-                      <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                        <i class="far fa-address-card"></i></span>
-                    </div>
-                    <input type="text" class="form-control border-0 shadow-none fs-13" id="full-name" name="full-name"
-                      required placeholder="Full name">
-                  </div>
-                </div>
-                <div class="form-group mb-4">
-                  <label for="username01" class="sr-only">Username</label>
-                  <div class="input-group input-group-lg">
-                    <div class="input-group-prepend ">
-                      <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                        <i class="far fa-user"></i></span>
-                    </div>
-                    <input type="text" class="form-control border-0 shadow-none fs-13" id="username01" name="username01"
-                      required placeholder="Username / Your email">
-                  </div>
-                </div>
-                <div class="form-group mb-4">
-                  <label for="password01" class="sr-only">Password</label>
-                  <div class="input-group input-group-lg">
-                    <div class="input-group-prepend ">
-                      <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                        <i class="far fa-lock"></i>
-                      </span>
-                    </div>
-                    <input type="text" class="form-control border-0 shadow-none fs-13" id="password01" name="password01"
-                      required placeholder="Password">
-                    <div class="input-group-append">
-                      <span class="input-group-text bg-gray-01 border-0 text-body fs-18">
-                        <i class="far fa-eye-slash"></i>
-                      </span>
-                    </div>
-                  </div>
-                  <p class="form-text">Minimum 8 characters with 1 number and 1 letter</p>
-                </div>
-                <button type="submit" class="btn btn-primary btn-lg btn-block">Sign up</button>
-              </form>
-              <div class="divider text-center my-2">
-                <span class="px-4 bg-white lh-17 text">
-                  or continue with
-                </span>
-              </div>
-              <div class="row no-gutters mx-n2">
-                <div class="col-4 px-2 mb-4">
-                  <a href="#" class="btn btn-lg btn-block facebook text-white px-0">
-                    <i class="fab fa-facebook-f"></i>
-                  </a>
-                </div>
-                <div class="col-4 px-2 mb-4">
-                  <a href="#" class="btn btn-lg btn-block google px-0">
-                    <img src="images/google.png" alt="Google">
-                  </a>
-                </div>
-                <div class="col-4 px-2 mb-4">
-                  <a href="#" class="btn btn-lg btn-block twitter text-white px-0">
-                    <i class="fab fa-twitter"></i>
-                  </a>
-                </div>
-              </div>
-              <div class="mt-2">By creating an account, you agree to HomeID
-                <a class="text-heading" href="#"><u>Terms of Use</u> </a> and
-                <a class="text-heading" href="#"><u>Privacy Policy</u></a>.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
+
     <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1"
         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
@@ -2481,67 +2152,67 @@
             class="gtf-back-to-top bg-white text-primary hover-white bg-hover-primary shadow p-0 w-52px h-52 rounded-circle fs-20 d-flex align-items-center justify-content-center"
             title="Back To Top"><i class="fal fa-arrow-up"></i></a>
     </div>
-    @endsection
-    @push('styleUs')
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="Real Estate Html Template">
-        <meta name="author" content="">
-        <meta name="generator" content="Jekyll">
-        <title>Home 01 - HomeID</title>
-        <!-- Google fonts -->
-        <link
-            href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
-            rel="stylesheet">
-        <!-- Vendors CSS -->
-        <link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/vendors/slick/slick.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/vendors/magnific-popup/magnific-popup.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/vendors/chartjs/Chart.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/vendors/dropzone/css/dropzone.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/vendors/animate.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
-        <!-- Themes core CSS -->
-        <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
-        <!-- Favicons -->
-        <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
-        <!-- Twitter -->
-        <meta name="twitter:card" content="summary">
-        <meta name="twitter:site" content="@">
-        <meta name="twitter:creator" content="@">
-        <meta name="twitter:title" content="Home 01">
-        <meta name="twitter:description" content="Real Estate Html Template">
-        <meta name="twitter:image" content="{{ asset('assets/images/homeid-social-logo.png') }}">
-        <!-- Facebook -->
-        <meta property="og:url" content="{{ url('home-01.html') }}">
-        <meta property="og:title" content="Home 01">
-        <meta property="og:description" content="Real Estate Html Template">
-        <meta property="og:type" content="website">
-        <meta property="og:image" content="{{ asset('assets/images/homeid-social.png') }}">
-        <meta property="og:image:type" content="image/png">
-        <meta property="og:image:width" content="1200">
-        <meta property="og:image:height" content="630">
-    @endpush
-    @push('scriptUs')
-        <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/bootstrap/bootstrap.bundle.js') }}"></script>
-        <script src="{{ asset('assets/vendors/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/slick/slick.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/waypoints/jquery.waypoints.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/counter/countUp.js') }}"></script>
-        <script src="{{ asset('assets/vendors/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/chartjs/Chart.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/dropzone/js/dropzone.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/hc-sticky/hc-sticky.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/jparallax/TweenMax.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
-        <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
-        <!-- Theme scripts -->
-        <script src="{{ asset('assets/js/theme.js') }}"></script>
-    @endpush
+@endsection
+@push('styleUs')
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Real Estate Html Template">
+    <meta name="author" content="">
+    <meta name="generator" content="Jekyll">
+    <title>Home 01 - HomeID</title>
+    <!-- Google fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/slick/slick.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/magnific-popup/magnific-popup.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/chartjs/Chart.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dropzone/css/dropzone.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
+    <!-- Themes core CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
+    <!-- Favicons -->
+    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="Home 01">
+    <meta name="twitter:description" content="Real Estate Html Template">
+    <meta name="twitter:image" content="{{ asset('assets/images/homeid-social-logo.png') }}">
+    <!-- Facebook -->
+    <meta property="og:url" content="{{ url('home-01.html') }}">
+    <meta property="og:title" content="Home 01">
+    <meta property="og:description" content="Real Estate Html Template">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ asset('assets/images/homeid-social.png') }}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+@endpush
+@push('scriptUs')
+    <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/bootstrap/bootstrap.bundle.js') }}"></script>
+    <script src="{{ asset('assets/vendors/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/slick/slick.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/waypoints/jquery.waypoints.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/counter/countUp.js') }}"></script>
+    <script src="{{ asset('assets/vendors/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/chartjs/Chart.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/dropzone/js/dropzone.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/hc-sticky/hc-sticky.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/jparallax/TweenMax.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
+    <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
+    <!-- Theme scripts -->
+    <script src="{{ asset('assets/js/theme.js') }}"></script>
+@endpush

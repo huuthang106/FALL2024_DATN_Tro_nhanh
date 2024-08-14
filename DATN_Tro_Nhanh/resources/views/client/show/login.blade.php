@@ -9,7 +9,7 @@
                   <div class="card border-0 shadow-xxs-2 mb-6">
                       <div class="card-body px-8 py-6">
                           <h2 class="card-title fs-30 font-weight-600 text-dark lh-16 mb-2 text-center">Đăng Nhập</h2>
-                          <p class="mb-4 text-center">Đã có tài khoản? <a href="#" class="text-heading hover-primary"><u>Đăng nhập</u></a></p>
+                          <p class="mb-4 text-center">Chưa có tài khoản? <a href="{{route('client.register')}}" class="text-heading hover-primary"><u>Đăng ký</u></a></p>
                           <form class="form">
                               <div class="form-group mb-4">
                                   <label for="username-1">Email</label>
