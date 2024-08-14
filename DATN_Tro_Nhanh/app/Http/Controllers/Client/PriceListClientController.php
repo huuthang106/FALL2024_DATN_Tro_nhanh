@@ -8,4 +8,7 @@ use Illuminate\Http\Request;
 class PriceListClientController extends Controller
 {
     //
+    public function index(){
+        return view('client.show.packages');
+    }
 }
