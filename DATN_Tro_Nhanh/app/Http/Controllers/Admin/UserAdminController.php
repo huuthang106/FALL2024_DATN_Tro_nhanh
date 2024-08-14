@@ -16,4 +16,8 @@ class UserAdminController extends Controller
     {
         return view('admincp.show.settings');
     }
+    public function private_chat()
+    {
+        return view('admincp.show.private');
+    }
 }

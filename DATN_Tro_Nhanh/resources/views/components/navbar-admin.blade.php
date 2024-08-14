@@ -2317,7 +2317,7 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion">
                         <div class="menu-item">
-                            <a class="menu-link" href="../../demo8/dist/apps/chat/private.html">
+                            <a class="menu-link" href="{{route('admin.private-chat')}}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
