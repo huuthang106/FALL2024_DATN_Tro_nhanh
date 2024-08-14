@@ -1355,7 +1355,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="../../demo8/dist/account/settings.html">
+                            <a class="menu-link" href="{{route('admin.admin.setting-profile')}}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>

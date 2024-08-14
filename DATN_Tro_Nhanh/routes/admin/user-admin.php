@@ -6,5 +6,6 @@ use App\Http\Controllers\Admin\UserAdminController;
 
 Route::prefix('thong-tin-tai-khoan')->name('admin.')->group(function () {
     Route::get('/',[UserAdminController::class,'index'])->name('profile');
+    Route::get('/setting-profile',[UserAdminController::class,'setting_profile'])->name('setting-profile');
 });
 
