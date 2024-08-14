@@ -299,15 +299,14 @@
                                             </a>
                                         </li>
                                         <li class="dropdown-item">
-                                            <a id="navbar-link-checkout" class="dropdown-link"
-                                                href="checkout-complete-1.html">
-                                                Checkout
+                                            <a id="navbar-link-checkout" class="dropdown-link" href="{{ route('client.payment') }}">
+                                                Thanh Toán
                                             </a>
+                                            
                                         </li>
                                         <li class="dropdown-item">
-                                            <a id="navbar-link-payment-completed" class="dropdown-link"
-                                                href="checkout-complete-2.html">
-                                                Payment Completed
+                                            <a id="navbar-link-checkout" class="dropdown-link" href="{{ route('client.payment-sucessful') }}">
+                                                Thanh toán thành công
                                             </a>
                                         </li>
                                         <li class="dropdown-item">
@@ -317,8 +316,8 @@
                                             </a>
                                         </li>
                                         <li class="dropdown-item">
-                                            <a id="navbar-link-packages" class="dropdown-link" href="packages.html">
-                                                Packages
+                                            <a id="navbar-link-checkout" class="dropdown-link" href="{{ route('client.package') }}">
+                                               Các Gói
                                             </a>
                                         </li>
                                     </ul>
