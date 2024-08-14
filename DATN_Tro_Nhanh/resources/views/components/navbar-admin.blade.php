@@ -64,7 +64,7 @@
                             <!--end::Menu separator-->
                             <!--begin::Menu item-->
                             <div class="menu-item px-5">
-                                <a href="../../demo8/dist/account/overview.html" class="menu-link px-5">My Profile</a>
+                                <a href="{{route('admin.admin.profile')}}" class="menu-link px-5">My Profile</a>
                             </div>
                             <!--end::Menu item-->
                             <!--begin::Menu item-->
@@ -960,7 +960,7 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link active" href="../../demo8/dist/index.html">
+                    <a class="menu-link " href="{{route('admin.admin')}}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -2475,7 +2475,7 @@
                         </li>
                         <!--end::Item-->
                         <!--begin::Item-->
-                        <li class="breadcrumb-item text-dark">Thống kê</li>
+                        <li class="breadcrumb-item text-dark">@yield('linkAdmin')</li>
                         <!--end::Item-->
                     </ul>
                     <!--end::Breadcrumb-->
