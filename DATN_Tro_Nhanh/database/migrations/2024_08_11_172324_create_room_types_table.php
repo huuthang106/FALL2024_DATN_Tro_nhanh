@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description');
             $table->integer('max_people');
             $table->float('area');
+            $table->string('slug')->nullable()->unique();
             $table->boolean('status')->default(1);
             $table->softDeletes();
             $table->timestamps();

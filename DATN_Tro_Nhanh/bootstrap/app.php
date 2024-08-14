@@ -95,7 +95,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
             ];
             foreach ($adminRoute as $route) {
-                Route::middleware('web')->prefix('')->name('admin.')->group(base_path("routes/admin/{$route}"));
+                Route::middleware('web')->prefix('admin')->name('admin.')->group(base_path("routes/admin/{$route}"));
             }
             foreach ($userRoute as $route) {
                 Route::middleware('web')->prefix('')->group(base_path("routes/client/{$route}"));

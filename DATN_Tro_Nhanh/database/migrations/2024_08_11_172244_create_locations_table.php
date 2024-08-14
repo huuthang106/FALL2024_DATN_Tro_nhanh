@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->boolean('status')->default(1);
+            $table->string('slug')->nullable()->unique();
             $table->dateTime('end_date');
             $table->softDeletes();
             $table->timestamps();

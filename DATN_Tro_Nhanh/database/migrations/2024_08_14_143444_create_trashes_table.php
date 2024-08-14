@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('favourites', function (Blueprint $table) {
+        Schema::create('trashes', function (Blueprint $table) {
             $table->id();
-            $table->string('slug')->nullable()->unique();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('room_id')->constrained('rooms')->onDelete('cascade');
-            $table->softDeletes();
+            $table->unsignedBigInteger('trashable_id');
+            $table->string('trashable_type');
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
+        
     }
 
     /**
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('favourites');
+        Schema::dropIfExists('trashes');
     }
 };

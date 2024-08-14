@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->boolean('role')->default(1);
             $table->string('balanca')->nullable();
+            $table->string('slug')->nullable()->unique();
             $table->longText('token');
             $table->boolean('status')->default(1);
             $table->string('image')->nullable();
