@@ -1,5 +1,5 @@
 @extends('layouts.owner')
-@section('titleOwner', 'Hóa đơn | TRỌ NHANH')
+@section('titleOwners', 'Hóa đơn | TRỌ NHANH')
 @section('contentOwners')
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">

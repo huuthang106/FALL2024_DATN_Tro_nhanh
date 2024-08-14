@@ -1742,109 +1742,6 @@
             </div>
         </div>
     </main>
-    <footer class="bg-dark pt-8 pb-6 footer text-muted">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-lg-4 mb-6 mb-md-0">
-                    <a class="d-block mb-2" href="#">
-                        <img src="{{ asset('assets/images/logo-white-primary.png') }}" alt="HomeID">
-                    </a>
-                    <div class="lh-26 font-weight-500">
-                        <p class="mb-0">TP. Cần Thơ</p>
-                        <a class="d-block text-muted hover-white"
-                            href="mailto:contact@homeid.com">tronhanh@gmail.com</a>
-                        <a class="d-block text-lighter font-weight-bold fs-15 hover-white"
-                            href="tel:(+68)122109876">(+84)1221
-                            09876</a>
-                        <a class="d-block text-muted hover-white" href=".">www.tronhanh.com</a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-2 mb-6 mb-md-0">
-                    <h4 class="text-white fs-16 my-4 font-weight-500">Tìm Kiếm Phổ Biến
-                    </h4>
-                    <ul class="list-group list-group-flush list-group-no-border">
-                        <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Căn hộ cho thuê</a>
-                        </li>
-                        <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Căn hộ thấp</a>
-                        </li>
-                        <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Căn họ để mua</a>
-                        </li>
-                        <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Phòng trọ cho
-                                thuê</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-6 col-lg-2 mb-6 mb-md-0">
-                    <h4 class="text-white fs-16 my-4 font-weight-500">Liên Kết Nhanh</h4>
-                    <ul class="list-group list-group-flush list-group-no-border">
-                        <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Điều khoản sử
-                                dụng</a>
-                        </li>
-                        <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Chính sách bảo
-                                mật</a>
-                        </li>
-                        <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Liên hệ hỗ trợ</a>
-                        </li>
-                        <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 hover-white font-weight-500">Nghề nghiệp</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-6 col-lg-4 mb-6 mb-md-0">
-                    <h4 class="text-white fs-16 my-4 font-weight-500">Đăng ký nhận bản tin của chúng tôi</h4>
-                    <p class="font-weight-500 text-muted lh-184">Điều quan trọng là khách hàng là khách hàng, khách hàng
-                        phải nhất quán. Mong nhận được những mũi tên </p>
-                    <form>
-                        <div class="input-group input-group-lg mb-6">
-                            <input type="text" name="email" required
-                                class="form-control bg-white shadow-none border-0 z-index-1" placeholder="Email...">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit">Đăng Ký</button>
-                            </div>
-                        </div>
-                    </form>
-                    <ul class="list-inline mb-0">
-                        <li class="list-inline-item mr-0">
-                            <a href="#" class="text-white opacity-3 fs-25 px-4 opacity-hover-10"><i
-                                    class="fab fa-twitter"></i></a>
-                        </li>
-                        <li class="list-inline-item mr-0">
-                            <a href="#" class="text-white opacity-3 fs-25 px-4 opacity-hover-10"><i
-                                    class="fab fa-facebook-f"></i></a>
-                        </li>
-                        <li class="list-inline-item mr-0">
-                            <a href="#" class="text-white opacity-3 fs-25 px-4 opacity-hover-10"><i
-                                    class="fab fa-skype"></i></a>
-                        </li>
-                        <li class="list-inline-item mr-0">
-                            <a href="#" class="text-white opacity-3 fs-25 px-4 opacity-hover-10"><i
-                                    class="fab fa-linkedin-in"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="mt-0 mt-md-10 row">
-                <ul class="list-inline mb-0 col-md-6 mr-auto">
-                    <li class="list-inline-item mr-6">
-                        <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Điều Khoản Sử Dụng</a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Chính Sách Bảo Mật</a>
-                    </li>
-                </ul>
-                <p class="col-md-auto mb-0 text-muted">
-                    © 2024 TroNhanh. Mọi Quyền Được Bảo Lưu
-                </p>
-            </div>
-        </div>
-    </footer>
     <div class="modal fade login-register login-register-modal" id="login-register-modal" tabindex="-1"
         role="dialog" aria-labelledby="login-register-modal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
@@ -2526,7 +2423,7 @@
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
     <meta name="generator" content="Jekyll">
-    <title>Listing Half Map List Layout-1 - HomeID</title>
+    <title>Bản Đồ Trọ | TRỌ NHANH</title>
     <!-- Google fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
