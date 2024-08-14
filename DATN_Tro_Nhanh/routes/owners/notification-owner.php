@@ -6,7 +6,7 @@ use App\Http\Controllers\Owners\NotificationOwnersController;
 
 //Nguyen Thai Toan 
 
-Route::group(['prefix' => 'owners', 'as' => 'owners.'], function () {
+Route::group(['prefix' => 'quan-ly-tai-khoan', 'as' => 'owners.'], function () {
     Route::get('/thong-bao', [NotificationOwnersController::class, 'index'])->name('notification-owners');
   
 });
