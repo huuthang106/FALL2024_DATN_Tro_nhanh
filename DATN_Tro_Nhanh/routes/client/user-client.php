@@ -11,3 +11,9 @@ Route::group(['prefix' => '', 'as' => 'client.'], function () {
 
    
 });
+
+
+Route::group(['prefix' => 'nguoi-dang-tin', 'as' => 'client.'], function () {
+    Route::get('/', [UserClientController::class, 'indexAgent'])->name('client-agent');
+    Route::get('chi-tiet', [UserClientController::class, 'agentDetail'])->name('client-agent-detail');
+});

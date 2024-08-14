@@ -566,34 +566,10 @@
                                         </ul>
                                     </li>
                                     <li class="dropdown-item dropdown dropright">
-                                        <a id="navbar-link-agent" class="dropdown-link dropdown-toggle"
-                                            href="#" data-toggle="dropdown">
-                                            Agent
+                                        <a id="navbar-link-agent" class="dropdown-link"
+                                            href="{{ route('client.client-agent') }}">
+                                            Người đăng tin
                                         </a>
-                                        <ul class="dropdown-menu dropdown-submenu pt-3 pb-0 pb-xl-3"
-                                            aria-labelledby="navbar-link-agent">
-                                            <li class="dropdown-item">
-                                                <a class="dropdown-link" href="agents-grid-1.html">Agents grid 1</a>
-                                            </li>
-                                            <li class="dropdown-item">
-                                                <a class="dropdown-link" href="agents-grid-2.html">Agents grid 2</a>
-                                            </li>
-                                            <li class="dropdown-item">
-                                                <a class="dropdown-link" href="agents-grid-with-sidebar.html">Agents
-                                                    grid with sidebar</a>
-                                            </li>
-                                            <li class="dropdown-item">
-                                                <a class="dropdown-link" href="agents-list.html">Agents list</a>
-                                            </li>
-                                            <li class="dropdown-item">
-                                                <a class="dropdown-link" href="agent-details-1.html">Agent detais
-                                                    1</a>
-                                            </li>
-                                            <li class="dropdown-item">
-                                                <a class="dropdown-link" href="agent-details-2.html">Agent detais
-                                                    2</a>
-                                            </li>
-                                        </ul>
                                     </li>
                                     <li class="dropdown-item dropdown dropright">
                                         <a id="navbar-link-agency" class="dropdown-link dropdown-toggle"
@@ -737,8 +713,8 @@
                                 <li class="nav-item ml-auto w-100 w-sm-auto">
                                     <a class="btn btn-primary btn-lg" href="dashboard-add-new-property.html">
                                         Add listing
-                                        <img src="{{ asset('assets/images/add-listing-icon.png') }}" alt="Add listing"
-                                            class="ml-1">
+                                        <img src="{{ asset('assets/images/add-listing-icon.png') }}"
+                                            alt="Add listing" class="ml-1">
                                     </a>
                                 </li>
                             </ul>
