@@ -385,7 +385,7 @@
                     </div>
                     <div class="collapse navbar-collapse mt-3 mt-xl-0 flex-grow-0" id="primaryMenu05">
                         <ul class="navbar-nav hover-menu main-menu px-0 mx-xl-n4">
-                     
+
                             <li id="navbar-item-listing" aria-haspopup="true" aria-expanded="false"
                                 class="nav-item dropdown py-2 py-xl-5 px-0 px-xl-4">
                                 <a class="nav-link dropdown-toggle p-0" href="listing.html" data-toggle="dropdown">
@@ -472,8 +472,7 @@
                                         </a>
                                     </li>
                                     <li class="dropdown-item">
-                                        <a id="navbar-link-reviews" class="dropdown-link"
-                                            href="dashboard-reviews.html">
+                                        <a id="navbar-link-reviews" class="dropdown-link" href="dashboard-reviews.html">
                                             Reviews
                                         </a>
                                     </li>
@@ -540,8 +539,9 @@
                                         </ul>
                                     </li>
                                     <li class="dropdown-item">
-                                        <a id="navbar-link-about-us" class="dropdown-link" href="about-us.html">
-                                            About us
+                                        <a id="navbar-link-about-us" class="dropdown-link"
+                                            href="{{ route('client-about') }}">
+                                            Về chúng tôi
                                         </a>
                                     </li>
                                     <li class="dropdown-item dropdown dropright">

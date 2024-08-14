@@ -461,8 +461,7 @@
                                         Dashboard
                                         <span class="caret"></span>
                                     </a>
-                                    <ul class="dropdown-menu pt-3 pb-0 pb-xl-3"
-                                        aria-labelledby="navbar-item-dashboard">
+                                    <ul class="dropdown-menu pt-3 pb-0 pb-xl-3" aria-labelledby="navbar-item-dashboard">
                                         <li class="dropdown-item">
                                             <a id="navbar-link-dashboard" class="dropdown-link"
                                                 href="{{ route('profile.dashboard') }}">
@@ -567,8 +566,9 @@
                                             </ul>
                                         </li>
                                         <li class="dropdown-item">
-                                            <a id="navbar-link-about-us" class="dropdown-link" href="about-us.html">
-                                                About us
+                                            <a id="navbar-link-about-us" class="dropdown-link"
+                                                href="{{ route('client-about') }}">
+                                                Về chúng tôi
                                             </a>
                                         </li>
                                         <li class="dropdown-item dropdown dropright">
