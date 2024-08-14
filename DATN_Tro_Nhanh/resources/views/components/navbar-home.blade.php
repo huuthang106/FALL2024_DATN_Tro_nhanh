@@ -572,20 +572,10 @@
                                             </a>
                                         </li>
                                         <li class="dropdown-item dropdown dropright">
-                                            <a id="navbar-link-service" class="dropdown-link dropdown-toggle"
-                                                href="#" data-toggle="dropdown">
-                                                Service
+                                            <a id="navbar-link-service" class="dropdown-link"
+                                                href="{{ route('client-service') }}">
+                                                Dịch vụ
                                             </a>
-                                            <ul class="dropdown-menu dropdown-submenu pt-3 pb-0 pb-xl-3"
-                                                aria-labelledby="navbar-link-service">
-                                                <li class="dropdown-item">
-                                                    <a class="dropdown-link" href="services.html">Services</a>
-                                                </li>
-                                                <li class="dropdown-item">
-                                                    <a class="dropdown-link"
-                                                        href="services-with-sidebar.html">Services with sidebar</a>
-                                                </li>
-                                            </ul>
                                         </li>
                                         <li class="dropdown-item dropdown dropright">
                                             <a id="navbar-link-contact-us" class="dropdown-link dropdown-toggle"

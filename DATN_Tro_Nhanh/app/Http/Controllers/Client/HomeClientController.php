@@ -16,4 +16,9 @@ class HomeClientController extends Controller
     {
         return view('client.show.about-us');
     }
+    // Giao diện Dịch Vụ
+    public function showService()
+    {
+        return view('client.show.services');
+    }
 }
