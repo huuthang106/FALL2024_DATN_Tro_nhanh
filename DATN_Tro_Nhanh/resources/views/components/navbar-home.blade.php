@@ -7,9 +7,9 @@
                 <div class="d-flex align-items-center">
                     <nav class="navbar navbar-expand-xl bg-transparent px-0 w-100 w-xl-auto">
                         <a class="navbar-brand mr-7" href="index.html">
-                            <img src="{{ asset('images/logo-white.png') }}" alt="HomeID" class="normal-logo">
+                            <img src="{{ asset('assets/images/logo-white.png') }}" alt="HomeID" class="normal-logo">
 
-                            <img src="images/logo.png" alt="HomeID" class="sticky-logo">
+                            <img src=""{{ asset('assets/images/logo.png')}}" alt="HomeID" class="sticky-logo">
                         </a>
                         <a class="d-block d-xl-none ml-auto mr-4 position-relative text-white p-2" href="#">
                             <i class="fal fa-heart fs-large-4"></i>

@@ -1,5 +1,5 @@
-@extends('layouts.app')
-@section('titleOwner', 'Đổi Mật Khẩu | TRỌ NHANH')
+@extends('layouts.owner')
+@section('titleOwners', 'Đổi Mật Khẩu | TRỌ NHANH')
 @section('contentOwners')
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
@@ -42,7 +42,7 @@
         </div>
     </main>
 @endsection
-@push('styleOwner')
+@push('styleOwners')
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Real Estate Html Template">
@@ -86,7 +86,7 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
 @endpush
-@push('scriptOwner')
+@push('scriptOwners')
     <!-- Vendors scripts -->
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.js') }}"></script>

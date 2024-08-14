@@ -75,7 +75,7 @@
                             Listings</h5>
                         <ul class="list-group list-group-no-border rounded-lg">
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{route('owner.add-room')}}" class="text-heading lh-1 sidebar-link">
+                                <a href="{{route('owners.add-room')}}" class="text-heading lh-1 sidebar-link">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20 fs-20">
                                         <svg class="icon icon-add-new">
                                             <use xlink:href="#icon-add-new"></use>
@@ -84,27 +84,27 @@
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="dashboard-my-properties.html"
+                                <a href="{{route('owners.properties')}}"
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-my-properties">
                                             <use xlink:href="#icon-my-properties"></use>
                                         </svg>
                                     </span>
-                                    <span class="sidebar-item-text">My Properties</span>
+                                    <span class="sidebar-item-text">Danh sách trọ</span>
                                     <span
                                         class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">29</span>
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="dashboard-my-favorites.html"
+                                <a href="{{Route('owners.favorites')}}"
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-heart">
                                             <use xlink:href="#icon-heart"></use>
                                         </svg>
                                     </span>
-                                    <span class="sidebar-item-text">My Favorites</span>
+                                    <span class="sidebar-item-text">Yêu thích</span>
                                     <span
                                         class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">5</span>
                                 </a>
@@ -123,14 +123,14 @@
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="dashboard-reviews.html"
+                                <a href="{{route('owners.danhgia')}}"
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-review">
                                             <use xlink:href="#icon-review"></use>
                                         </svg>
                                     </span>
-                                    <span class="sidebar-item-text">Reviews</span>
+                                    <span class="sidebar-item-text">Đánh giá</span>
                                     <span
                                         class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">29</span>
                                 </a>
@@ -152,20 +152,20 @@
                                 <ul class="list-group list-group-flush list-group-no-border">
                                     <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                         <a class="text-heading lh-1 sidebar-link"
-                                            href="{{ route('owner.invoice-listing') }}">Danh sách hóa đơn</a>
+                                            href="{{ route('owners.invoice-listing') }}">Danh sách hóa đơn</a>
                                     </li>
                                     <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                         <a class="text-heading lh-1 sidebar-link"
-                                            href="{{ route('owner.invoice-create') }}">Thêm mới
+                                            href="{{ route('owners.invoice-create') }}">Thêm mới
                                             hóa đơn</a>
                                     </li>
                                     <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                         <a class="text-heading lh-1 sidebar-link"
-                                            href="{{ route('owner.invoice-edit') }}">Chỉnh sửa hóa đơn</a>
+                                            href="{{ route('owners.invoice-edit') }}">Chỉnh sửa hóa đơn</a>
                                     </li>
                                     <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                         <a class="text-heading lh-1 sidebar-link"
-                                            href="{{ route('owner.invoice-preview') }}">Xem trước hóa đơn</a>
+                                            href="{{ route('owners.invoice-preview') }}">Xem trước hóa đơn</a>
                                     </li>
                                 </ul>
                             </div>

@@ -14,6 +14,6 @@ class RoomOwnersController extends Controller
     }
     public function index()
     {
-        return view('dashboard-my-properties');
+        return view('owners.show.dashboard-my-properties');
     }
 }

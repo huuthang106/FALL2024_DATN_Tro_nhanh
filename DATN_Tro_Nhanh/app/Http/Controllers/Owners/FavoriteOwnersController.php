@@ -9,6 +9,6 @@ class FavoriteOwnersController extends Controller
 {
     //
     public function index(){
-        return view('dashboard-my-favorites');
+        return view('owners.show.dashboard-my-favorites');
     }
 }

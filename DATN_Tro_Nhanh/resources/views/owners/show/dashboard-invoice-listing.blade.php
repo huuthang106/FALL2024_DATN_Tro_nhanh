@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.owner')
 @section('titleOwner', 'Hóa đơn | TRỌ NHANH')
 @section('contentOwners')
     <main id="content" class="bg-gray-01">
@@ -321,7 +321,7 @@
     </main>
 @endsection
 
-@push('styleOwner')
+@push('styleOwners')
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Real Estate Html Template">
@@ -365,7 +365,7 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
 @endpush
-@push('scriptOwner')
+@push('scriptOwners')
     <!-- Vendors scripts -->
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.js') }}"></script>

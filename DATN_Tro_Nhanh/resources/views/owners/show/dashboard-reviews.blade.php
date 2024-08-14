@@ -1,4 +1,4 @@
-@extends('layouts.owners')
+@extends('layouts.owner')
 @section('titleOwners', 'Trang chủ trọ nhanh')
 @section('contentOwners')
 

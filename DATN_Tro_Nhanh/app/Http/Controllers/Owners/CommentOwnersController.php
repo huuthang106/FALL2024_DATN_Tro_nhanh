@@ -9,6 +9,6 @@ class CommentOwnersController extends Controller
 {
     //
     public function index(){
-        return view('dashboard-reviews');
+        return view('owners.show.dashboard-reviews');
     }
 }
