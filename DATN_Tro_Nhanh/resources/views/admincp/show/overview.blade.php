@@ -349,7 +349,7 @@
                                 <!--begin::Nav item-->
                                 <li class="nav-item">
                                     <a class="nav-link text-active-primary me-6"
-                                        href="../../demo8/dist/account/settings.html">Chỉnh sửa</a>
+                                        href="{{route('admin.admin.setting-profile')}}">Chỉnh sửa</a>
                                 </li>
                                 <!--end::Nav item-->
                                 <!--begin::Nav item-->
