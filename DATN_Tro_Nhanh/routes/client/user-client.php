@@ -17,3 +17,6 @@ Route::group(['prefix' => 'nguoi-dang-tin', 'as' => 'client.'], function () {
     Route::get('/', [UserClientController::class, 'indexAgent'])->name('client-agent');
     Route::get('chi-tiet', [UserClientController::class, 'agentDetail'])->name('client-agent-detail');
 });
+
+Route::get('/auth/google', [UserClientController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/google/callback', [UserClientController::class, 'handleGoogleCallback']);

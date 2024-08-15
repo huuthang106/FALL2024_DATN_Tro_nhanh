@@ -93,9 +93,9 @@
                                         <i class="fab fa-facebook-f"></i>
                                     </a>
                                 </div>
-                                <div class="col-4 px-2 mb-4">
-                                    <a href="#" class="btn btn-lg btn-block google px-0">
-                                        <img src="images/google.png" alt="Google">
+                                <div class="col-4 px-2 mb-5">
+                                    <a href="{{ route('auth.google') }}" class="btn btn-lg btn-block google px-0">
+                                        <img src="{{ asset('assets/images/google.png') }}" alt="Google">
                                     </a>
                                 </div>
                                 <div class="col-4 px-2 mb-4">
@@ -344,10 +344,11 @@
                                     </a>
                                 </div>
                                 <div class="col-4 px-2 mb-4">
-                                    <a href="#" class="btn btn-lg btn-block google px-0">
+                                    <a href="{{ route('auth.google') }}" class="btn btn-lg btn-block google px-0">
                                         <img src="{{asset('assets/images/google.png')}}" alt="Google">
                                     </a>
                                 </div>
+                                
                                 <div class="col-4 px-2 mb-4">
                                     <a href="#" class="btn btn-lg btn-block twitter text-white px-0">
                                         <i class="fab fa-twitter"></i>
