@@ -23,6 +23,18 @@ class CreateBlogRequest extends FormRequest
     {
         return [
             //
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'title.required' => 'Tiêu đề là bắt buộc.',
+            'title.string' => 'Tiêu đề phải là một chuỗi văn bản.',
+            'title.max' => 'Tiêu đề không được vượt quá 255 ký tự.',
+            'description.required' => 'Mô tả là bắt buộc.',
+            'description.string' => 'Mô tả phải là một chuỗi văn bản.',
         ];
     }
 }

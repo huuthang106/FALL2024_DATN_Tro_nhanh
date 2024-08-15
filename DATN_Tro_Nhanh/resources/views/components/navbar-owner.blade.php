@@ -84,6 +84,15 @@
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                <a href="{{route('owners.blog')}}" class="text-heading lh-1 sidebar-link">
+                                    <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20 fs-20">
+                                        <svg class="icon icon-add-new">
+                                            <use xlink:href="#icon-add-new"></use>
+                                        </svg></span>
+                                    <span class="sidebar-item-text">Thêm  blog</span>
+                                </a>
+                            </li>
+                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                 <a href="{{route('owners.properties')}}"
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">

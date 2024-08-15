@@ -8,7 +8,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('client.client-blog') }}">Blog</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('client.client-blog-detail',$blog->slug) }}">Blog</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Chi tiết Blog</li>
                     </ol>
                 </nav>
@@ -30,21 +30,18 @@
                         </div>
                         <ul class="list-inline mt-4">
                             <li class="list-inline-item mr-4"><img class="mr-1"
-                                    src="{{ asset('assets/images/author-01.jpg') }}" alt="Văn A">
-                                Văn A
+                                    src="{{ asset('assets/images/author-01.jpg') }}" alt="  {{$blog->user->name}}">
+                                    {{$blog->user->name}}
                             </li>
                             <li class="list-inline-item mr-4"><i class="far fa-calendar mr-1"></i>30, Tháng 12, 2024</li>
                             <li class="list-inline-item mr-4"><i class="far fa-eye mr-1"></i> 149 Lượt xem</li>
                         </ul>
                         <h3 class="fs-md-32 text-heading lh-141 mb-2">
-                            Nhà Siêu Cấp Vip
-                            Pro
+                          {{$blog->title}}
                         </h3>
                         <div class="lh-214 mb-9">
-                            <p>Nhà rộng rãi, thoáng mát, thiết kế hiện đại. Gần trường học, chợ, và
-                                các tiện ích công cộng. Khu dân cư yên tĩnh, an ninh tốt, phù hợp cho gia đình sinh
-                                sống...</p>
-                            <p
+                            <p>{{$blog->description}}</p>
+                            {{-- <p
                                 class="ml-8 pl-4 fs-16 text-heading font-weight-500 lh-2 border-left border-4x border-primary mxw-521 my-6">
                                 GrandHome là công ty bất động sản giúp mọi người sống một cách chu đáo và đẹp đẽ hơn. Chúng
                                 tôi tin vào thiết kế như một động lực mạnh mẽ cho những điều tốt đẹp.</p>
@@ -62,7 +59,7 @@
                                 Nhà rộng rãi, thoáng mát, thiết kế hiện đại. Gần trường học, chợ, và
                                 các tiện ích công cộng. Khu dân cư yên tĩnh, an ninh tốt, phù hợp cho gia đình sinh
                                 sống...
-                            </p>
+                            </p> --}}
                         </div>
                         <div class="row pb-7 mb-6 border-bottom">
                             <div class="col-sm-6 d-flex">

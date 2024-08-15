@@ -19,214 +19,50 @@
             <div class="container">
                 <div class="row ml-xl-0 mr-xl-n6">
                     <div class="col-lg-8 mb-8 mb-lg-0 pr-xl-6 pl-xl-0">
-                        <div class="card border-0 pb-6 mb-6 border-bottom">
-                            <div class="position-relative d-flex align-items-end card-img-top">
-                                <a href="{{ route('client.client-blog-detail') }}" class="hover-shine d-block">
-                                    <img src="{{ asset('assets/images/post-11.jpg') }}"
-                                        alt="Ten Benefits Of Rentals That May Change Your Perspective">
-                                </a>
-                                <a href="#"
-                                    class="badge text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white m-2 position-absolute letter-spacing-1 pos-fixed-bottom">
-                                    Cho Thuê
-                                </a>
-                            </div>
-                            <div class="card-body p-0">
-                                <ul class="list-inline mt-4">
-                                    <li class="list-inline-item mr-4"><img class="mr-1"
-                                            src="{{ asset('assets/images/author-01.jpg') }}" alt="D. Warren"> Nguyễn Văn A
-                                    </li>
-                                    <li class="list-inline-item mr-4"><i class="far fa-calendar mr-1"></i> 16, Tháng 12,
-                                        2024
-                                    </li>
-                                    <li class="list-inline-item mr-4"><i class="far fa-eye mr-1"></i> 149 Lượt xem
-                                    </li>
-                                </ul>
-                                <h3 class="fs-md-32 text-heading lh-141 mb-3">
-                                    <a href="{{ route('client.client-blog-detail') }}"
-                                        class="text-heading hover-primary">Nhà Siêu Cấp Vip
-                                        Pro</a>
-                                </h3>
-                                <p class="mb-4 lh-214">Nhà rộng rãi, thoáng mát, thiết kế hiện đại. Gần trường học, chợ, và
-                                    các tiện ích công cộng. Khu dân cư yên tĩnh, an ninh tốt, phù hợp cho gia đình sinh
-                                    sống...
-                                </p>
-                            </div>
-                            <div class="card-footer bg-transparent p-0 border-0">
-                                <a href="{{ route('client.client-blog-detail') }}"
-                                    class="btn text-heading border btn-lg shadow-none btn-outline-light border-hover-light">Xem
-                                    thêm <i class="far fa-long-arrow-right text-primary ml-1"></i></a>
-                                <a href="{{ route('client.client-blog-detail') }}"
-                                    class="btn text-heading btn-lg w-52px px-2 border shadow-none btn-outline-light border-hover-light rounded-circle ml-auto float-right"><i
-                                        class="fad fa-share-alt text-primary"></i></a>
-                            </div>
-                        </div>
-                        <div class="card border-0 pb-6 mb-6 border-bottom">
-                            <div
-                                class="position-relative bg-gray-04 px-3 px-md-12 d-flex justify-content-center z-index-1 pt-4">
-                                <div class="position-absolute pos-fixed-center fs-200 lh-1 z-index-2 text-lighter">
-                                    <svg class="icon icon-quote">
-                                        <use xlink:href="#icon-quote"></use>
-                                    </svg>
-                                </div>
-                                <div class="position-relative z-index-3 pt-9 pb-7">
-                                    <p class="fs-22 text-heading lh-182 mb-6 text-center">Chúng tôi đang thực hiện sứ mệnh
-                                        xây dựng một tương lai tốt đẹp hơn, nơi công nghệ tạo ra những công việc tốt cho tất
-                                        cả mọi người.</p>
-                                    <p class="text-dark fs-13 lh-1 text-center mb-1 font-weight-bold">Văn Z<span
-                                            class="text-gray fs-12 lh-26 font-weight-normal d-inline-block ml-2">/ Thiết kế
-                                            Web</span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="card-body p-0">
-                                <ul class="list-inline mt-4">
-                                    <li class="list-inline-item mr-4"><img class="mr-1"
-                                            src="{{ asset('assets/images/author-01.jpg') }}" alt="D. Warren"> Văn A
-                                    </li>
-                                    <li class="list-inline-item mr-4"><i class="far fa-calendar mr-1"></i> 16, Tháng 12,
-                                        2024
-                                    </li>
-                                    <li class="list-inline-item mr-4"><i class="far fa-eye mr-1"></i> 149 Lượt xem
-                                    </li>
-                                </ul>
-                                <h3 class="fs-md-32 text-heading lh-141 mb-3">
-                                    <a href="blog-details-1.html" class="text-heading hover-primary">Nhà Siêu Cấp Vip
-                                        Pro</a>
-                                </h3>
-                                <p class="mb-4 lh-214">Nhà rộng rãi, thoáng mát, thiết kế hiện đại. Gần trường học, chợ, và
-                                    các tiện ích công cộng. Khu dân cư yên tĩnh, an ninh tốt, phù hợp cho gia đình sinh
-                                    sống...</p>
-                            </div>
-                            <div class="card-footer bg-transparent p-0 border-0">
-                                <a href="blog-details-1.html"
-                                    class="btn text-heading border btn-lg shadow-none btn-outline-light border-hover-light">Xem
-                                    thêm<i class="far fa-long-arrow-right text-primary ml-1"></i></a>
-                                <a href="#"
-                                    class="btn text-heading btn-lg w-52px px-2 border shadow-none btn-outline-light border-hover-light rounded-circle ml-auto float-right"><i
-                                        class="fad fa-share-alt text-primary"></i></a>
-                            </div>
-                        </div>
-                        <div class="card border-0 pb-6 mb-6 border-bottom">
-                            <div class="position-relative d-flex align-items-end card-img-top">
-                                <a href="blog-details-1.html" class="hover-shine d-block">
-                                    <img src="{{ asset('assets/images/post-12.jpg') }}"
-                                        alt="Ten Benefits Of Rentals That May Change Your Perspective">
-                                </a>
-                            </div>
-                            <div class="card-body p-0">
-                                <ul class="list-inline mt-4">
-                                    <li class="list-inline-item mr-4"><img class="mr-1"
-                                            src="{{ asset('assets/images/author-01.jpg') }}" alt="D. Warren"> Văn A
-                                    </li>
-                                    <li class="list-inline-item mr-4"><i class="far fa-calendar mr-1"></i> 16, Tháng 12,
-                                        2024
-                                    </li>
-                                    <li class="list-inline-item mr-4"><i class="far fa-eye mr-1"></i> 149 Lượt xem
-                                    </li>
-                                </ul>
-                                <h3 class="fs-md-32 text-heading lh-141 mb-3">
-                                    <a href="blog-details-1.html" class="text-heading hover-primary">Nhà Siêu Cấp Vip
-                                        Pro</a>
-                                </h3>
-                                <p class="mb-4 lh-214">Nhà rộng rãi, thoáng mát, thiết kế hiện đại. Gần trường học, chợ, và
-                                    các tiện ích công cộng. Khu dân cư yên tĩnh, an ninh tốt, phù hợp cho gia đình sinh
-                                    sống...</p>
-                            </div>
-                            <div class="card-footer bg-transparent p-0 border-0">
-                                <a href="blog-details-1.html"
-                                    class="btn text-heading border btn-lg shadow-none btn-outline-light border-hover-light">Xem
-                                    thêm <i class="far fa-long-arrow-right text-primary ml-1"></i></a>
-                                <a href="#"
-                                    class="btn text-heading btn-lg w-52px px-2 border shadow-none btn-outline-light border-hover-light rounded-circle ml-auto float-right"><i
-                                        class="fad fa-share-alt text-primary"></i></a>
-                            </div>
-                        </div>
-                        <div class="card border-0 pb-6 mb-6 border-bottom">
-                            <div class="position-relative d-flex flex-column card-img-top">
-                                <div class="hover-shine d-block">
-                                    <img src="{{ asset('assets/images/post-13.jpg') }}" alt="Nhà Siêu Cấp Vip Pro">
-                                    <a href="https://www.youtube.com/watch?v=ZcZHva1NYSE"
-                                        class="d-inline-block m-auto position-absolute pos-fixed-center"
-                                        data-gtf-mfp="true" data-mfp-options='{"type":"iframe"}'>
-                                        <span
-                                            class="text-primary bg-white w-78px h-78 rounded-circle position-relative play-animation d-flex align-items-center justify-content-center">
-                                            <i class="fas fa-play"></i>
-                                        </span>
+                        @foreach ($blogs as $blog)
+                            <div class="card border-0 pb-6 mb-6 border-bottom">
+                                <div class="position-relative d-flex align-items-end card-img-top">
+                                    <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
+                                        class="hover-shine d-block">
+                                        <img src="{{ asset('assets/images/post-11.jpg') }}"
+                                            alt="Ten Benefits Of Rentals That May Change Your Perspective">
                                     </a>
                                     <a href="#"
                                         class="badge text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white m-2 position-absolute letter-spacing-1 pos-fixed-bottom">
                                         Cho Thuê
                                     </a>
                                 </div>
+                                <div class="card-body p-0">
+                                    <ul class="list-inline mt-4">
+                                        <li class="list-inline-item mr-4"><img class="mr-1"
+                                                src="{{ asset('assets/images/author-01.jpg') }}" alt="D. Warren">
+                                            {{ $blog->user->name }}
+                                        </li>
+                                        <li class="list-inline-item mr-4"><i class="far fa-calendar mr-1"></i> 16, Tháng 12,
+                                            2024
+                                        </li>
+                                        <li class="list-inline-item mr-4"><i class="far fa-eye mr-1"></i> 149 Lượt xem
+                                        </li>
+                                    </ul>
+                                    <h3 class="fs-md-32 text-heading lh-141 mb-3">
+                                        <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
+                                            class="text-heading hover-primary">{{ $blog->title }}</a>
+                                    </h3>
+                                    <p class="mb-4 lh-214">{{ $blog->description }}
+                                    </p>
+                                </div>
+                                <div class="card-footer bg-transparent p-0 border-0">
+                                    <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
+                                        class="btn text-heading border btn-lg shadow-none btn-outline-light border-hover-light">Xem
+                                        thêm <i class="far fa-long-arrow-right text-primary ml-1"></i></a>
+                                    <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
+                                        class="btn text-heading btn-lg w-52px px-2 border shadow-none btn-outline-light border-hover-light rounded-circle ml-auto float-right"><i
+                                            class="fad fa-share-alt text-primary"></i></a>
+                                </div>
                             </div>
-                            <div class="card-body p-0">
-                                <ul class="list-inline mt-4">
-                                    <li class="list-inline-item mr-4"><img class="mr-1"
-                                            src="{{ asset('assets/images/author-01.jpg') }}" alt="D. Warren"> Văn A
-                                    </li>
-                                    <li class="list-inline-item mr-4"><i class="far fa-calendar mr-1"></i> 16, Tháng 12,
-                                        2024
-                                    </li>
-                                    <li class="list-inline-item mr-4"><i class="far fa-eye mr-1"></i> 149 Lượt xem
-                                    </li>
-                                </ul>
-                                <h3 class="fs-md-32 text-heading lh-141 mb-3">
-                                    <a href="blog-details-1.html" class="text-heading hover-primary">Nhà Siêu Cấp Vip
-                                        Pro</a>
-                                </h3>
-                                <p class="mb-4 lh-214">Nhà rộng rãi, thoáng mát, thiết kế hiện đại. Gần trường học, chợ, và
-                                    các tiện ích công cộng. Khu dân cư yên tĩnh, an ninh tốt, phù hợp cho gia đình sinh
-                                    sống...</p>
-                            </div>
-                            <div class="card-footer bg-transparent p-0 border-0">
-                                <a href="blog-details-1.html"
-                                    class="btn text-heading border btn-lg shadow-none btn-outline-light border-hover-light">Xem
-                                    thêm <i class="far fa-long-arrow-right text-primary ml-1"></i></a>
-                                <a href="#"
-                                    class="btn text-heading btn-lg w-52px px-2 border shadow-none btn-outline-light border-hover-light rounded-circle ml-auto float-right"><i
-                                        class="fad fa-share-alt text-primary"></i></a>
-                            </div>
-                        </div>
-                        <div class="card border-0 pb-6 mb-6 border-bottom">
-                            <div class="position-relative d-flex align-items-end card-img-top">
-                                <a href="blog-details-1.html" class="hover-shine d-block">
-                                    <img src="{{ asset('assets/images/post-14.jpg') }}"
-                                        alt="Ten Benefits Of Rentals That May Change Your Perspective">
-                                </a>
-                                <a href="#"
-                                    class="badge text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white m-2 position-absolute letter-spacing-1 pos-fixed-bottom">
-                                    Cho Thuê
-                                </a>
-                            </div>
-                            <div class="card-body p-0">
-                                <ul class="list-inline mt-4">
-                                    <li class="list-inline-item mr-4"><img class="mr-1"
-                                            src="{{ asset('assets/images/author-01.jpg') }}" alt="D. Warren"> Văn A
-                                    </li>
-                                    <li class="list-inline-item mr-4"><i class="far fa-calendar mr-1"></i>16, Tháng 12,
-                                        2024
-                                    </li>
-                                    <li class="list-inline-item mr-4"><i class="far fa-eye mr-1"></i> 149 Lượt xem
-                                    </li>
-                                </ul>
-                                <h3 class="fs-md-32 text-heading lh-141 mb-3">
-                                    <a href="blog-details-1.html" class="text-heading hover-primary">Nhà Siêu Cấp Vip
-                                        Pro</a>
-                                </h3>
-                                <p class="mb-4 lh-214">Nhà rộng rãi, thoáng mát, thiết kế hiện đại. Gần trường học, chợ, và
-                                    các tiện ích công cộng. Khu dân cư yên tĩnh, an ninh tốt, phù hợp cho gia đình sinh
-                                    sống...</p>
-                            </div>
-                            <div class="card-footer bg-transparent p-0 border-0">
-                                <a href="blog-details-1.html"
-                                    class="btn text-heading border btn-lg shadow-none btn-outline-light border-hover-light">Xem
-                                    thêm <i class="far fa-long-arrow-right text-primary ml-1"></i></a>
-                                <a href="#"
-                                    class="btn text-heading btn-lg w-52px px-2 border shadow-none btn-outline-light border-hover-light rounded-circle ml-auto float-right"><i
-                                        class="fad fa-share-alt text-primary"></i></a>
-                            </div>
-                        </div>
-                        <nav class="pt-4">
+                        @endforeach
+
+                        {{-- <nav class="pt-4">
                             <ul class="pagination rounded-active justify-content-center">
                                 <li class="page-item"><a class="page-link" href="#"><i
                                             class="far fa-angle-double-left"></i></a>
@@ -240,7 +76,51 @@
                                 <li class="page-item"><a class="page-link" href="#"><i
                                             class="far fa-angle-double-right"></i></a></li>
                             </ul>
+                        </nav> --}}
+                        <nav class="pt-4">
+                            <ul class="pagination rounded-active justify-content-center">
+                                {{-- Trang trước --}}
+                                <li class="page-item {{ $blogs->onFirstPage() ? 'disabled' : '' }}">
+                                    <a class="page-link" href="{{ $blogs->previousPageUrl() }}"><i
+                                            class="far fa-angle-double-left"></i></a>
+                                </li>
+
+                                {{-- Trang đầu tiên --}}
+                                @if ($blogs->currentPage() > 2)
+                                    <li class="page-item"><a class="page-link" href="{{ $blogs->url(1) }}">1</a></li>
+                                @endif
+
+                                {{-- Dấu ba chấm ở đầu nếu cần --}}
+                                @if ($blogs->currentPage() > 3)
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                @endif
+
+                                {{-- Hiển thị các trang xung quanh trang hiện tại --}}
+                                @for ($i = max(1, $blogs->currentPage() - 1); $i <= min($blogs->currentPage() + 1, $blogs->lastPage()); $i++)
+                                    <li class="page-item {{ $blogs->currentPage() == $i ? 'active' : '' }}">
+                                        <a class="page-link" href="{{ $blogs->url($i) }}">{{ $i }}</a>
+                                    </li>
+                                @endfor
+
+                                {{-- Dấu ba chấm ở cuối nếu cần --}}
+                                @if ($blogs->currentPage() < $blogs->lastPage() - 2)
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                @endif
+
+                                {{-- Trang cuối cùng --}}
+                                @if ($blogs->currentPage() < $blogs->lastPage() - 1)
+                                    <li class="page-item"><a class="page-link"
+                                            href="{{ $blogs->url($blogs->lastPage()) }}">{{ $blogs->lastPage() }}</a></li>
+                                @endif
+
+                                {{-- Trang tiếp theo --}}
+                                <li class="page-item {{ $blogs->currentPage() == $blogs->lastPage() ? 'disabled' : '' }}">
+                                    <a class="page-link" href="{{ $blogs->nextPageUrl() }}"><i
+                                            class="far fa-angle-double-right"></i></a>
+                                </li>
+                            </ul>
                         </nav>
+
                     </div>
                     <div class="col-lg-4 pl-xl-6 pr-xl-0 primary-sidebar sidebar-sticky" id="sidebar">
                         <div class="primary-sidebar-inner">
@@ -265,15 +145,13 @@
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Loại</h4>
                                     <ul class="list-group list-group-no-border">
                                         <li class="list-group-item p-0">
-                                            <a href="listing-with-left-sidebar.html"
-                                                class="d-flex text-body hover-primary">
+                                            <a href="listing-with-left-sidebar.html" class="d-flex text-body hover-primary">
                                                 <span class="lh-29">Sáng tạo</span>
                                                 <span class="d-block ml-auto">13</span>
                                             </a>
                                         </li>
                                         <li class="list-group-item p-0">
-                                            <a href="listing-with-left-sidebar.html"
-                                                class="d-flex text-body hover-primary">
+                                            <a href="listing-with-left-sidebar.html" class="d-flex text-body hover-primary">
                                                 <span class="lh-29">Cho thuê</span>
                                                 <span class="d-block ml-auto">21</span>
                                             </a>
@@ -1159,7 +1037,7 @@
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-    <link rel="icon" href="{{asset('assets/images/favicon.ico')}}">
+    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">
