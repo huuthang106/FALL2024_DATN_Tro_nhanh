@@ -22,11 +22,20 @@
                         @foreach ($blogs as $blog)
                             <div class="card border-0 pb-6 mb-6 border-bottom">
                                 <div class="position-relative d-flex align-items-end card-img-top">
-                                    <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
-                                        class="hover-shine d-block">
-                                        <img src="{{ asset('assets/images/post-11.jpg') }}"
-                                            alt="Ten Benefits Of Rentals That May Change Your Perspective">
-                                    </a>
+                                    @if ($blog->image)
+                                        <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
+                                            class="hover-shine d-block">
+                                            <img src="{{ asset('assets/images/', $blog->image->filename) }}"
+                                                alt="Ten Benefits Of Rentals That May Change Your Perspective">
+                                        </a>
+                                    @else
+                                        <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
+                                            class="hover-shine d-block">
+                                            <img src="{{ asset('assets/images/post-11.jpg') }}"
+                                                alt="Ten Benefits Of Rentals That May Change Your Perspective">
+                                        </a>
+                                    @endif
+
                                     <a href="#"
                                         class="badge text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white m-2 position-absolute letter-spacing-1 pos-fixed-bottom">
                                         Cho Thuê

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('phone', 13)->nullable();
             $table->string('address')->nullable();
             $table->boolean('role')->default(1);
-            $table->string('balanca')->nullable();
+            $table->string('balance')->nullable();
             $table->string('slug')->nullable()->unique();
             $table->longText('token');
             $table->boolean('status')->default(1);
