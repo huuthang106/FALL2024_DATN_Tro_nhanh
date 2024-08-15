@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Owners\UserOwnersController;
 
 // Route::get('danh-sach-hoa-don', [InvoiceAdminController::class, 'index'])->name('invoice-listing');
-Route::group(['prefix' => 'quan-ly-tai-khoan', 'as' => 'profile.'], function () {
+Route::group(['prefix' => '', 'as' => 'profile.'], function () {
     Route::get('/', [UserOwnersController::class, 'indexProfileAdmin'])->name('profile-admin-index');
     Route::get('doi-mat-khau', [UserOwnersController::class, 'indexResetPasswordAdmin'])->name('reset-password-admin-index');
     // Route::get('chinh-sua-hoa-don', [UserOwnersController::class, 'editInvoice'])->name('invoice-edit');
