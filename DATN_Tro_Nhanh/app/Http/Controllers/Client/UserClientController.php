@@ -14,7 +14,6 @@ use Illuminate\Validation\ValidationException;
 use App\Services\SocialAuthService;
 
 
-
 use App\Services\UserClientServices;
 
 class UserClientController extends Controller

@@ -84,7 +84,7 @@
             </div>
         </section>
     </main>
-
+@endsection
 
     @push('styleUs')
         <meta charset="utf-8">

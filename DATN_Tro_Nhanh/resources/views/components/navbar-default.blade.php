@@ -270,60 +270,7 @@
                                             Trang quản lí
                                         </a>
                                     </li>
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-add-new-property" class="dropdown-link"
-                                            href="dashboard-add-new-property.html">
-                                            Add New Property
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-my-properties" class="dropdown-link"
-                                            href="dashboard-my-properties.html">
-                                            My Properties
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-my-favorites" class="dropdown-link"
-                                            href="dashboard-my-favorites.html">
-                                            My Favorites
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-save-search" class="dropdown-link"
-                                            href="dashboard-save-search.html">
-                                            Save Search
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-reviews" class="dropdown-link"
-                                            href="dashboard-reviews.html">
-                                            Reviews
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-my-package" class="dropdown-link"
-                                            href="dashboard-my-packages.html">
-                                            My Package
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-my-profile" class="dropdown-link"
-                                            href="dashboard-my-profiles.html">
-                                            My Profile
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-signup-and-login" class="dropdown-link"
-                                            href="signup-and-login.html">
-                                            Signup and login
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-password-recovery" class="dropdown-link"
-                                            href="password-recovery.html">
-                                            Password Recovery
-                                        </a>
-                                    </li>
+
                                 </ul>
                             </li>
                             <li id="navbar-item-pages" aria-haspopup="true" aria-expanded="false"
@@ -537,42 +484,41 @@
                                     <a class="nav-link pl-3 pr-2" data-toggle="" href="{{ route('login') }}">Đăng
                                         nhập</a>
                                 </li> --}}
-                                <ul
-                                    class="navbar-nav flex-row ml-auto align-items-center justify-content-lg-end flex-wrap py-2">
-                                    @guest
-                                        <li class="nav-item">
-                                            <a class="nav-link pl-3 pr-2" href="{{ route('login') }}">Đăng nhập</a>
-                                        </li>
-                                    @else
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown"
-                                                role="button" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                &nbsp;Xin chào, {{ Auth::user()->name }}
+
+                                @guest
+                                    <li class="nav-item">
+                                        <a class="nav-link pl-3 pr-2" href="{{ route('login') }}">Đăng nhập</a>
+                                    </li>
+                                @else
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown"
+                                            role="button" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            &nbsp;Xin chào, {{ Auth::user()->name }}
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                            <a class="dropdown-item" href="#">Hồ sơ</a>
+                                            <a class="dropdown-item" href="#">Cài đặt</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                Đăng xuất
                                             </a>
-                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                                <a class="dropdown-item" href="#">Hồ sơ</a>
-                                                <a class="dropdown-item" href="#">Cài đặt</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                                    Đăng xuất
-                                                </a>
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                                    style="display: none;">
-                                                    @csrf
-                                                </form>
-                                            </div>
-                                        </li>
-                                    @endguest
-                                </ul>
-                                <li class="nav-item ml-auto w-100 w-sm-auto">
-                                    <a class="btn btn-primary btn-lg" href="dashboard-add-new-property.html">
-                                        Add listing
-                                        <img src="{{ asset('assets/images/add-listing-icon.png') }}"
-                                            alt="Add listing" class="ml-1">
-                                    </a>
-                                </li>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                style="display: none;">
+                                                @csrf
+                                            </form>
+                                        </div>
+                                    </li>
+                                @endguest
+                            </ul>
+                            <li class="nav-item ml-auto w-100 w-sm-auto">
+                                <a class="btn btn-primary btn-lg" href="dashboard-add-new-property.html">
+                                    Add listing
+                                    <img src="{{ asset('assets/images/add-listing-icon.png') }}" alt="Add listing"
+                                        class="ml-1">
+                                </a>
+                            </li>
                             </ul>
                         </div>
                     </div>
@@ -598,31 +544,41 @@
                                 <a class="nav-link pl-3 pr-2" data-toggle="" href="{{ route('login') }}">Đăng
                                     nhập</a>
                             </li> --}}
-                            <ul
-                                class="navbar-nav flex-row ml-auto align-items-center justify-content-lg-end flex-wrap py-2">
-                                <li class="nav-item ">
-                                    @if (Auth::check())
-                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+                            <li class="nav-item dropdown">
+                                @if (Auth::check())
+                                <a class="nav-link dropdown-toggle mr-md-2 pr-2 pl-0 pl-lg-2" href="#"
+                                id="bd-versions" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
                                         {{ Auth::user()->name }}
                                     </a>
-                                    <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                    {{-- <ul class="dropdown-menu" aria-labelledby="userDropdown">
                                         <li><a class="dropdown-item" href="#">Xem thông tin</a></li>
                                         <li>
                                             <a class="dropdown-item" href="{{ route('logout') }}"
-                                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                               Đăng xuất
+                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                Đăng xuất
                                             </a>
                                         </li>
-                                    </ul>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    </ul> --}}
+                                    <div class="dropdown-menu dropdown-sm dropdown-menu-end"
+                                        aria-labelledby="userDropdown">
+                                        <a class="dropdown-item" href="#">Xem thông tin</a>
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            Đăng xuất
+                                        </a>
+                                    </div>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        style="display: none;">
                                         @csrf
                                     </form>
                                 @else
-                                    <a class="nav-link pl-3 pr-2" data-toggle="modal" href="#login-register-modal">SIGN
+                                    <a class="nav-link pl-3 pr-2" data-toggle="modal"
+                                        href="#login-register-modal">SIGN
                                         IN</a>
-                                        @endif
-                                </li>
-                            </ul>
+                                @endif
+                            </li>
                             <li class="nav-item mr-auto mr-lg-6">
                                 <a class="nav-link px-2 position-relative" href="#">
                                     <i class="fal fa-heart fs-large-4"></i>
@@ -646,6 +602,7 @@
                         </ul>
                     </div>
                 </nav>
+
             </div>
         </div>
     </header>
