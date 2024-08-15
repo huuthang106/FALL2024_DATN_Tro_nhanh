@@ -24,9 +24,11 @@
                     <div class="tab-content shadow-none p-0" id="myTabContent">
                         <div class="tab-pane fade show active" id="login" role="tabpanel"
                             aria-labelledby="login-tab">
-                            <form class="form">
+                            <form class="form" method="POST" action="{{ route('client.login-user') }}">
+                                @csrf <!-- Thêm mã CSRF token -->
+
                                 <div class="form-group mb-4">
-                                    <label for="username" class="sr-only">Tên đăng nhập</label>
+                                    <label for="username" class="sr-only">Tên đăng nhập / Email</label>
                                     <div class="input-group input-group-lg">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text bg-gray-01 border-0 text-muted fs-18"
@@ -35,10 +37,11 @@
                                             </span>
                                         </div>
                                         <input type="text" class="form-control border-0 shadow-none fs-13"
-                                            id="username" name="username" required
+                                            id="username" name="email" required
                                             placeholder="Tên đăng nhập / Email của bạn">
                                     </div>
                                 </div>
+
                                 <div class="form-group mb-4">
                                     <label for="password" class="sr-only">Mật khẩu</label>
                                     <div class="input-group input-group-lg">
@@ -56,6 +59,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="d-flex mb-4">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="" id="remember-me"
@@ -68,20 +72,10 @@
                                         Quên mật khẩu?
                                     </a>
                                 </div>
-                                <div class="d-flex p-2 border re-capchar align-items-center mb-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="verify"
-                                            name="verify">
-                                        <label class="form-check-label" for="verify">
-                                            Tôi không phải là robot
-                                        </label>
-                                    </div>
-                                    <a href="#" class="d-inline-block ml-auto">
-                                        <img src="{{asset('assets/images/re-captcha.png')}}" alt="Re-capcha">
-                                    </a>
-                                </div>
+
                                 <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng nhập</button>
                             </form>
+
                             <div class="divider text-center my-2">
                                 <span class="px-4 bg-white lh-17 text">
                                     hoặc tiếp tục với
@@ -106,7 +100,9 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                            <form class="form">
+                            <form class="form" method="POST" action="{{ route('client.register-user') }}">
+                                @csrf <!-- Thêm mã CSRF token -->
+
                                 <div class="form-group mb-4">
                                     <label for="full-name" class="sr-only">Họ và tên</label>
                                     <div class="input-group input-group-lg">
@@ -116,9 +112,11 @@
                                             </span>
                                         </div>
                                         <input type="text" class="form-control border-0 shadow-none fs-13"
-                                            id="full-name" name="full-name" required placeholder="Họ và tên">
+                                            id="full-name" name="name" required placeholder="Họ và tên">
+                                        <!-- Chỉnh 'name' -->
                                     </div>
                                 </div>
+
                                 <div class="form-group mb-4">
                                     <label for="username01" class="sr-only">Tên đăng nhập</label>
                                     <div class="input-group input-group-lg">
@@ -128,10 +126,11 @@
                                             </span>
                                         </div>
                                         <input type="text" class="form-control border-0 shadow-none fs-13"
-                                            id="username01" name="username01" required
-                                            placeholder="Tên đăng nhập / Email của bạn">
+                                            id="username01" name="email" required
+                                            placeholder="Tên đăng nhập / Email của bạn"> <!-- Chỉnh 'name' -->
                                     </div>
                                 </div>
+
                                 <div class="form-group mb-4">
                                     <label for="password01" class="sr-only">Mật khẩu</label>
                                     <div class="input-group input-group-lg">
@@ -141,7 +140,8 @@
                                             </span>
                                         </div>
                                         <input type="password" class="form-control border-0 shadow-none fs-13"
-                                            id="password01" name="password01" required placeholder="Mật khẩu">
+                                            id="password01" name="password" required placeholder="Mật khẩu">
+                                        <!-- Chỉnh 'name' -->
                                         <div class="input-group-append">
                                             <span class="input-group-text bg-gray-01 border-0 text-body fs-18">
                                                 <i class="far fa-eye-slash"></i>
@@ -150,8 +150,10 @@
                                     </div>
                                     <p class="form-text">Tối thiểu 8 ký tự, bao gồm 1 số và 1 chữ cái</p>
                                 </div>
+
                                 <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng ký</button>
                             </form>
+
                             <div class="divider text-center my-2">
                                 <span class="px-4 bg-white lh-17 text">
                                     hoặc tiếp tục với
@@ -165,7 +167,7 @@
                                 </div>
                                 <div class="col-4 px-2 mb-4">
                                     <a href="#" class="btn btn-lg btn-block google px-0">
-                                        <img src="{{asset('assets/images/google.png')}}" alt="Google">
+                                        <img src="{{ asset('assets/images/google.png') }}" alt="Google">
                                     </a>
                                 </div>
                                 <div class="col-4 px-2 mb-4">
@@ -259,7 +261,7 @@
                                         </label>
                                     </div>
                                     <a href="#" class="d-inline-block ml-auto">
-                                        <img src="{{asset('assets/images/re-captcha.png')}}" alt="Re-capcha">
+                                        <img src="{{ asset('assets/images/re-captcha.png') }}" alt="Re-capcha">
                                     </a>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-lg btn-block">Log in</button>
@@ -277,7 +279,7 @@
                                 </div>
                                 <div class="col-4 px-2 mb-4">
                                     <a href="#" class="btn btn-lg btn-block google px-0">
-                                        <img src="{{asset('assets/images/google.png')}}" alt="Google">
+                                        <img src="{{ asset('assets/images/google.png') }}" alt="Google">
                                     </a>
                                 </div>
                                 <div class="col-4 px-2 mb-4">
@@ -345,10 +347,10 @@
                                 </div>
                                 <div class="col-4 px-2 mb-4">
                                     <a href="{{ route('auth.google') }}" class="btn btn-lg btn-block google px-0">
-                                        <img src="{{asset('assets/images/google.png')}}" alt="Google">
+                                        <img src="{{ asset('assets/images/google.png') }}" alt="Google">
                                     </a>
                                 </div>
-                                
+
                                 <div class="col-4 px-2 mb-4">
                                     <a href="#" class="btn btn-lg btn-block twitter text-white px-0">
                                         <i class="fab fa-twitter"></i>
@@ -447,7 +449,8 @@
                                                         Single Property
                                                     </h4>
                                                     <!-- List -->
-                                                    <a class="dropdown-item" href="{{ route('client.detail-room') }}">
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('client.detail-room') }}">
                                                         Xem chi tiết
                                                     </a>
                                                 </div>
@@ -462,7 +465,8 @@
                                         Dashboard
                                         <span class="caret"></span>
                                     </a>
-                                    <ul class="dropdown-menu pt-3 pb-0 pb-xl-3" aria-labelledby="navbar-item-dashboard">
+                                    <ul class="dropdown-menu pt-3 pb-0 pb-xl-3"
+                                        aria-labelledby="navbar-item-dashboard">
                                         <li class="dropdown-item">
                                             <a id="navbar-link-dashboard" class="dropdown-link"
                                                 href="{{ route('profile.dashboard') }}">
@@ -969,10 +973,19 @@
                                         </div>
                                     </li>
                                     <li class="divider"></li>
-                                    <li class="nav-item ">
-                                        <a class="nav-link pl-3 pr-2" data-toggle="modal"
-                                            href="{{ route('client.login') }}">SIGN IN</a>
+                                    <li class="nav-item">
+                                        @if(Auth::check())
+                                            <a class="nav-link pl-3 pr-3" data-toggle="modal" href="#user-profile-modal">
+                                                {{ Auth::user()->name }} <!-- Hiển thị tên người dùng -->
+                                            </a>
+                                        @else
+                                            <a class="nav-link pl-3 pr-3" data-toggle="modal" href="#login-register-modal">
+                                                SIGN IN
+                                            </a>
+                                        @endif
                                     </li>
+
+
                                     <li class="nav-item ml-auto w-100 w-sm-auto">
                                         <a class="btn btn-primary btn-lg" href="dashboard-add-new-property.html">
                                             Add listing
@@ -1002,9 +1015,28 @@
                                 </div>
                             </li>
                             <li class="divider"></li>
+                            &nbsp;  &nbsp;  &nbsp;
                             <li class="nav-item ">
+                                @if (Auth::check())
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ Auth::user()->name }}
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="#">Xem thông tin</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                           Đăng xuất
+                                        </a>
+                                    </li>
+                                </ul>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            @else
                                 <a class="nav-link pl-3 pr-2" data-toggle="modal" href="#login-register-modal">SIGN
                                     IN</a>
+                                    @endif
                             </li>
                             <li class="nav-item mr-auto mr-lg-6">
                                 <a class="nav-link px-2 position-relative" href="#">
@@ -1035,3 +1067,4 @@
         </div>
     </header>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

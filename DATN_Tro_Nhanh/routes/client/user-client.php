@@ -8,8 +8,9 @@ Route::group(['prefix' => '', 'as' => 'client.'], function () {
     Route::get('/dang-nhap', [UserClientController::class, 'login'])->name('login');
     Route::get('/dang-ki', [UserClientController::class, 'register'])->name('register');
     Route::get('/doi-mat-khau', [UserClientController::class, 'fogot'])->name('fogot-password');
-
-   
+    Route::post('/dangky', [UserClientController::class, 'register_user'])->name('register-user');
+    Route::post('/dangnhap', [UserClientController::class, 'login_user'])->name('login-user');
+    Route::post('/logout', [UserClientController::class, 'logout'])->name('logout');
 });
 
 
@@ -20,3 +21,5 @@ Route::group(['prefix' => 'nguoi-dang-tin', 'as' => 'client.'], function () {
 
 Route::get('/auth/google', [UserClientController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/google/callback', [UserClientController::class, 'handleGoogleCallback']);
+
+
