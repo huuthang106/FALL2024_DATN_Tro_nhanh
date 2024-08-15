@@ -22,10 +22,10 @@
                         @foreach ($blogs as $blog)
                             <div class="card border-0 pb-6 mb-6 border-bottom">
                                 <div class="position-relative d-flex align-items-end card-img-top">
-                                    @if ($blog->image)
+                                    @if ($blog->image->first())
                                         <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
                                             class="hover-shine d-block">
-                                            <img src="{{ asset('assets/images/', $blog->image->filename) }}"
+                                            <img src="{{ asset('assets/images/', $blog->image->image->first()-> filename) }}"
                                                 alt="Ten Benefits Of Rentals That May Change Your Perspective">
                                         </a>
                                     @else
