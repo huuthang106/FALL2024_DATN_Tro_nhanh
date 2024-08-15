@@ -185,7 +185,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade login-register login-register-modal" id="login-register-modal" tabindex="-1"
+    {{-- <div class="modal fade login-register login-register-modal" id="login-register-modal" tabindex="-1"
         role="dialog" aria-labelledby="login-register-modal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
             <div class="modal-content">
@@ -365,7 +365,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- Life is available only in the present moment. - Thich Nhat Hanh -->
     <header
         class="main-header position-absolute fixed-top m-0 navbar-dark header-sticky header-sticky-smart header-mobile-xl">
