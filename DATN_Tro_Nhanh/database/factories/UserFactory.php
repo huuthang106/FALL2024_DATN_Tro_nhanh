@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -12,10 +13,10 @@ use Illuminate\Support\Str;
 class UserFactory extends Factory
 {
     /**
-     * The current password being used by the factory.
+     * The name of the factory's corresponding model.
      */
-    protected static ?string $password;
-
+    protected $model = User::class;
+ 
     /**
      * Define the model's default state.
      *
@@ -24,10 +25,22 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'name' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => Hash::make('password'), // Mã hóa mật khẩu
+            'phone' => $this->faker->numerify('###########'), // Số điện thoại 13 ký tự
+            'address' => $this->faker->address(),
+            'role' => 1, // Đặt giá trị mặc định là 2
+            'balance' => $this->faker->randomFloat(2, 0, 10000), // Số dư ngẫu nhiên dưới dạng số thực
+            'slug' => Str::slug($this->faker->name()),
+            'token' => Str::random(60),
+            'status' => $this->faker->boolean(), // Trạng thái là boolean
+            'image' => $this->faker->imageUrl(),
+            'identification_number' => $this->faker->numerify('#########'), // Chuỗi số ngẫu nhiên
+            'provider' => null,
+            'provider_id' => null,
+            'provider_token' => null,
             'remember_token' => Str::random(10),
             'token' => null, 
         ];

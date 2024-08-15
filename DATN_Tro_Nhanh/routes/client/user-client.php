@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 //Controller Room
 use App\Http\Controllers\Client\UserClientController;
+use App\Services\UserClientServices;
 
 Route::group(['prefix' => '', 'as' => 'client.'], function () {
     // Route::get('/dang-nhap', [UserClientController::class, 'login'])->name('login');
@@ -13,10 +14,9 @@ Route::group(['prefix' => '', 'as' => 'client.'], function () {
     Route::post('/logout', [UserClientController::class, 'logout'])->name('logout');
 });
 
-
 Route::group(['prefix' => 'nguoi-dang-tin', 'as' => 'client.'], function () {
     Route::get('/', [UserClientController::class, 'indexAgent'])->name('client-agent');
-    Route::get('chi-tiet', [UserClientController::class, 'agentDetail'])->name('client-agent-detail');
+    Route::get('chi-tiet/{slug}', [UserClientController::class, 'agentDetail'])->name('client-agent-detail');
 });
 
 Route::get('/auth/google', [UserClientController::class, 'redirectToGoogle'])->name('auth.google');

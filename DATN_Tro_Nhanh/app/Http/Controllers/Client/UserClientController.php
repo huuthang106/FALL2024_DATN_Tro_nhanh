@@ -3,23 +3,27 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
-use App\Models\User;
+
 use Illuminate\Support\Facades\Auth;
 use App\Services\RegisterService;
 use App\Services\LoginService;
 use Illuminate\Validation\ValidationException;
 use App\Services\SocialAuthService;
 
+
+
+use App\Services\UserClientServices;
+
 class UserClientController extends Controller
 {
-    protected $registerService;
-    protected $loginService;
-    protected $socialAuthService;
+    protected $userClientServices;
 
-    public function __construct(RegisterService $registerService, LoginService $loginService, SocialAuthService $socialAuthService)
+    public function __construct(UserClientServices $userClientServices, RegisterService $registerService, LoginService $loginService, SocialAuthService $socialAuthService)
     {
+        $this->userClientServices = $userClientServices;
         $this->registerService = $registerService;
         $this->loginService = $loginService;
         $this->socialAuthService = $socialAuthService;
@@ -40,14 +44,22 @@ class UserClientController extends Controller
         return view('client.edit.password-recovery');
     }
 
+    // Giao diện Danh Sách Người Đăng Tin
     public function indexAgent()
     {
-        return view('client.show.agents-grid-2');
+        $users = $this->userClientServices->getUsersByRole(2);
+        return view('client.show.agents-grid-2', compact('users'));
     }
 
-    public function agentDetail()
+
+
+    public function agentDetail($slug)
     {
-        return view('client.show.agent-details-1');
+        $user = User::where('slug', $slug)->first();
+        if (!$user) {
+            abort(404, 'Người dùng không tìm thấy');
+        }
+        return view('client.show.agent-details-1', compact('user'));
     }
 
     public function redirectToGoogle()

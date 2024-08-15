@@ -121,9 +121,8 @@
             <div class="container">
                 <div class="row align-items-sm-center mb-8">
                     <div class="col-sm-6 mb-6 mb-sm-0">
-                        <h2 class="fs-15 text-dark mb-0">Chúng tôi đã tìm thấy <span class="text-primary">45</span> người
-                            đăng tin trọ cho bạn
-                        </h2>
+                        <span class="text-primary">{{ $users->total() }}</span> người đăng tin trọ cho bạn
+
                     </div>
                     <div class="col-sm-6">
                         <div class="d-flex justify-content-end align-items-center">
@@ -152,421 +151,118 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-6 col-lg-3 mb-6">
-                        <div class="card border-0 hover-change-image">
-                            <div class="position-relative card-img-top">
-                                <a href="{{ route('client.client-agent-detail') }}">
-                                    <img src="{{ asset('assets/images/agent-11.jpg') }}" alt="Diego Garcia">
-                                </a>
-                                <div
-                                    class="card-img-overlay bg-dark-opacity-06 hover-image d-flex flex-column rounded-lg p-4">
-                                    <div class="mt-auto">
-                                        <a href="tel:123-900-68668" class="text-white">
-                                            <span class="text-primary"><i class="fal fa-phone"></i></span>
-                                            <span class="d-inline-block ml-2">123 900 68668</span>
-                                        </a>
-                                        <a href="mailto:oliverbeddows@homeid.com"
-                                            class="d-block text-center text-white">vanadmin@gmail.com</a>
+                    @foreach ($users as $item)
+                        <div class="col-sm-6 col-lg-3 mb-6">
+                            <div class="card border-0 hover-change-image">
+                                <div class="position-relative card-img-top">
+                                    <a href="#">
+                                        @if ($item->image)
+                                            <img src="{{ asset('assets/images/' . $item->image) }}" alt="{{ $item->name }}">
+                                        @else
+                                            <img src="{{ asset('assets/images/agent-25.jpg') }}" alt="{{ $item->name }}">
+                                        @endif
+                                    </a>
+                                    
+                                    
+                                    <div
+                                        class="card-img-overlay bg-dark-opacity-06 hover-image d-flex flex-column rounded-lg p-4">
+                                        <div class="mt-auto">
+                                            <a href="tel:{{ $item->phone }}" class="text-white">
+                                                <span class="text-primary"><i class="fal fa-phone"></i></span>
+                                                <span class="d-inline-block ml-2">{{ $item->phone }}</span>
+                                            </a>
+                                            <a href="mailto:{{ $item->email }}"
+                                                class="d-block text-center text-white">{{ $item->email }}</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card-body pt-2 px-0">
-                                <a href="{{ route('client.client-agent-detail') }}"
-                                    class="card-title d-block fs-16 lh-214 text-dark font-weight-500 hover-primary mb-0">Người
-                                    Đăng Tin 01</a>
-                                <p class="mb-3 card-text">Người đăng tin từ <a href="#" class="text-body"><u>Trọ
-                                            Nhanh</u></a>
-                                </p>
-                                <ul class="list-inline text-gray-lighter m-0">
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-instagram"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-linkedin-in"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-3 mb-6">
-                        <div class="card border-0 hover-change-image">
-                            <div class="position-relative card-img-top">
-                                <a href="{{ route('client.client-agent-detail') }}">
-                                    <img src="{{ asset('assets/images/agent-23.jpg') }}" alt="Diego Garcia">
-                                </a>
-                                <div
-                                    class="card-img-overlay bg-dark-opacity-06 hover-image d-flex flex-column rounded-lg p-4">
-                                    <div class="mt-auto">
-                                        <a href="tel:123-900-68668" class="text-white">
-                                            <span class="text-primary"><i class="fal fa-phone"></i></span>
-                                            <span class="d-inline-block ml-2">123 900 68668</span>
-                                        </a>
-                                        <a href="mailto:oliverbeddows@homeid.com"
-                                            class="d-block text-center text-white">vanadmin@gmail.com</a>
-                                    </div>
+                                <div class="card-body pt-2 px-0">
+                                    <a href="{{ route('client.client-agent-detail', ['slug' => $item->slug]) }}"
+                                        class="card-title d-block fs-16 lh-214 text-dark font-weight-500 hover-primary mb-0">
+                                        {{ $item->name }}
+                                    </a>
+
+
+
+                                    <p class="mb-3 card-text">Người đăng tin từ <a href="#"
+                                            class="text-body"><u>Trọ Nhanh</u></a></p>
+                                    <ul class="list-inline text-gray-lighter m-0">
+                                        <li class="list-inline-item">
+                                            <a href="#"
+                                                class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary">
+                                                <i class="fab fa-twitter"></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a href="#"
+                                                class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary">
+                                                <i class="fab fa-facebook-f"></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a href="#"
+                                                class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary">
+                                                <i class="fab fa-instagram"></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a href="#"
+                                                class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary">
+                                                <i class="fab fa-linkedin-in"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                            <div class="card-body pt-2 px-0">
-                                <a href="{{ route('client.client-agent-detail') }}"
-                                    class="card-title d-block fs-16 lh-214 text-dark font-weight-500 hover-primary mb-0">Người
-                                    Đăng Tin 02</a>
-                                <p class="mb-3 card-text">Người đăng tin từ <a href="#" class="text-body"><u>Trọ
-                                            Nhanh</u></a>
-                                </p>
-                                <ul class="list-inline text-gray-lighter m-0">
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-instagram"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-linkedin-in"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-3 mb-6">
-                        <div class="card border-0 hover-change-image">
-                            <div class="position-relative card-img-top">
-                                <a href="{{ route('client.client-agent-detail') }}">
-                                    <img src="{{ asset('assets/images/agent-24.jpg') }}" alt="Diego Garcia">
-                                </a>
-                                <div
-                                    class="card-img-overlay bg-dark-opacity-06 hover-image d-flex flex-column rounded-lg p-4">
-                                    <div class="mt-auto">
-                                        <a href="tel:123-900-68668" class="text-white">
-                                            <span class="text-primary"><i class="fal fa-phone"></i></span>
-                                            <span class="d-inline-block ml-2">123 900 68668</span>
-                                        </a>
-                                        <a href="mailto:oliverbeddows@homeid.com"
-                                            class="d-block text-center text-white">vanadmin@gmail.com</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body pt-2 px-0">
-                                <a href="{{ route('client.client-agent-detail') }}"
-                                    class="card-title d-block fs-16 lh-214 text-dark font-weight-500 hover-primary mb-0">Người
-                                    Đăng Tin 03</a>
-                                <p class="mb-3 card-text">Người đăng tin từ <a href="#" class="text-body"><u>Trọ
-                                            Nhanh</u></a>
-                                </p>
-                                <ul class="list-inline text-gray-lighter m-0">
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-instagram"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-linkedin-in"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-3 mb-6">
-                        <div class="card border-0 hover-change-image">
-                            <div class="position-relative card-img-top">
-                                <a href="{{ route('client.client-agent-detail') }}">
-                                    <img src="{{ asset('assets/images/agent-25.jpg') }}" alt="Diego Garcia">
-                                </a>
-                                <div
-                                    class="card-img-overlay bg-dark-opacity-06 hover-image d-flex flex-column rounded-lg p-4">
-                                    <div class="mt-auto">
-                                        <a href="tel:123-900-68668" class="text-white">
-                                            <span class="text-primary"><i class="fal fa-phone"></i></span>
-                                            <span class="d-inline-block ml-2">123 900 68668</span>
-                                        </a>
-                                        <a href="mailto:oliverbeddows@homeid.com"
-                                            class="d-block text-center text-white">vanadmin@gmail.com</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body pt-2 px-0">
-                                <a href="{{ route('client.client-agent-detail') }}"
-                                    class="card-title d-block fs-16 lh-214 text-dark font-weight-500 hover-primary mb-0">Người
-                                    Đăng Tin 04</a>
-                                <p class="mb-3 card-text">Người đăng tin từ <a href="#" class="text-body"><u>Trọ
-                                            Nhanh</u></a>
-                                </p>
-                                <ul class="list-inline text-gray-lighter m-0">
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-instagram"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-linkedin-in"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-3 mb-6">
-                        <div class="card border-0 hover-change-image">
-                            <div class="position-relative card-img-top">
-                                <a href="{{ route('client.client-agent-detail') }}">
-                                    <img src="{{ asset('assets/images/agent-26.jpg') }}" alt="Diego Garcia">
-                                </a>
-                                <div
-                                    class="card-img-overlay bg-dark-opacity-06 hover-image d-flex flex-column rounded-lg p-4">
-                                    <div class="mt-auto">
-                                        <a href="tel:123-900-68668" class="text-white">
-                                            <span class="text-primary"><i class="fal fa-phone"></i></span>
-                                            <span class="d-inline-block ml-2">123 900 68668</span>
-                                        </a>
-                                        <a href="mailto:oliverbeddows@homeid.com"
-                                            class="d-block text-center text-white">vanadmin@gmail.com</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body pt-2 px-0">
-                                <a href="{{ route('client.client-agent-detail') }}"
-                                    class="card-title d-block fs-16 lh-214 text-dark font-weight-500 hover-primary mb-0">Người
-                                    Đăng Tin 05</a>
-                                <p class="mb-3 card-text">Người đăng tin từ <a href="#" class="text-body"><u>Trọ
-                                            Nhanh</u></a>
-                                </p>
-                                <ul class="list-inline text-gray-lighter m-0">
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-instagram"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-linkedin-in"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-3 mb-6">
-                        <div class="card border-0 hover-change-image">
-                            <div class="position-relative card-img-top">
-                                <a href="{{ route('client.client-agent-detail') }}">
-                                    <img src="{{ asset('assets/images/agent-27.jpg') }}" alt="Diego Garcia">
-                                </a>
-                                <div
-                                    class="card-img-overlay bg-dark-opacity-06 hover-image d-flex flex-column rounded-lg p-4">
-                                    <div class="mt-auto">
-                                        <a href="tel:123-900-68668" class="text-white">
-                                            <span class="text-primary"><i class="fal fa-phone"></i></span>
-                                            <span class="d-inline-block ml-2">123 900 68668</span>
-                                        </a>
-                                        <a href="mailto:oliverbeddows@homeid.com"
-                                            class="d-block text-center text-white">vanadmin@gmail.com</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body pt-2 px-0">
-                                <a href="{{ route('client.client-agent-detail') }}"
-                                    class="card-title d-block fs-16 lh-214 text-dark font-weight-500 hover-primary mb-0">Người
-                                    Đăng Tin 06</a>
-                                <p class="mb-3 card-text">Người đăng tin từ <a href="#" class="text-body"><u>Trọ
-                                            Nhanh</u></a>
-                                </p>
-                                <ul class="list-inline text-gray-lighter m-0">
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-instagram"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-linkedin-in"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-3 mb-6">
-                        <div class="card border-0 hover-change-image">
-                            <div class="position-relative card-img-top">
-                                <a href="{{ route('client.client-agent-detail') }}">
-                                    <img src="{{ asset('assets/images/agent-28.jpg') }}" alt="Diego Garcia">
-                                </a>
-                                <div
-                                    class="card-img-overlay bg-dark-opacity-06 hover-image d-flex flex-column rounded-lg p-4">
-                                    <div class="mt-auto">
-                                        <a href="tel:123-900-68668" class="text-white">
-                                            <span class="text-primary"><i class="fal fa-phone"></i></span>
-                                            <span class="d-inline-block ml-2">123 900 68668</span>
-                                        </a>
-                                        <a href="mailto:oliverbeddows@homeid.com"
-                                            class="d-block text-center text-white">vanadmin@gmail.com</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body pt-2 px-0">
-                                <a href="{{ route('client.client-agent-detail') }}"
-                                    class="card-title d-block fs-16 lh-214 text-dark font-weight-500 hover-primary mb-0">Người
-                                    Đăng Tin 07</a>
-                                <p class="mb-3 card-text">Người đăng tin từ <a href="#" class="text-body"><u>Trọ
-                                            Nhanh</u></a>
-                                </p>
-                                <ul class="list-inline text-gray-lighter m-0">
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-instagram"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-linkedin-in"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-3 mb-6">
-                        <div class="card border-0 hover-change-image">
-                            <div class="position-relative card-img-top">
-                                <a href="{{ route('client.client-agent-detail') }}">
-                                    <img src="{{ asset('assets/images/agent-29.jpg') }}" alt="Diego Garcia">
-                                </a>
-                                <div
-                                    class="card-img-overlay bg-dark-opacity-06 hover-image d-flex flex-column rounded-lg p-4">
-                                    <div class="mt-auto">
-                                        <a href="tel:123-900-68668" class="text-white">
-                                            <span class="text-primary"><i class="fal fa-phone"></i></span>
-                                            <span class="d-inline-block ml-2">123 900 68668</span>
-                                        </a>
-                                        <a href="mailto:oliverbeddows@homeid.com"
-                                            class="d-block text-center text-white">vanadmin@gmail.com</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body pt-2 px-0">
-                                <a href="{{ route('client.client-agent-detail') }}"
-                                    class="card-title d-block fs-16 lh-214 text-dark font-weight-500 hover-primary mb-0">Người
-                                    Đăng Tin 08</a>
-                                <p class="mb-3 card-text">Người đăng tin từ <a href="#" class="text-body"><u>Trọ
-                                            Nhanh</u></a>
-                                </p>
-                                <ul class="list-inline text-gray-lighter m-0">
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-instagram"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                class="fab fa-linkedin-in"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
+
+                
+
                 <nav class="mt-4">
                     <ul class="pagination rounded-active justify-content-center">
-                        <li class="page-item"><a class="page-link" href="#"><i
-                                    class="far fa-angle-double-left"></i></a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item d-none d-sm-block"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">...</li>
-                        <li class="page-item"><a class="page-link" href="#">6</a></li>
-                        <li class="page-item"><a class="page-link" href="#"><i
-                                    class="far fa-angle-double-right"></i></a></li>
+                        {{-- Previous Page Link --}}
+                        @if ($users->onFirstPage())
+                            <li class="page-item disabled">
+                                <span class="page-link"><i class="far fa-angle-double-left"></i></span>
+                            </li>
+                        @else
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $users->previousPageUrl() }}"><i
+                                        class="far fa-angle-double-left"></i></a>
+                            </li>
+                        @endif
+
+                        {{-- Pagination Elements --}}
+                        @foreach ($users->getUrlRange(1, $users->lastPage()) as $page => $url)
+                            @if ($page == $users->currentPage())
+                                <li class="page-item active">
+                                    <span class="page-link">{{ $page }}</span>
+                                </li>
+                            @else
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                </li>
+                            @endif
+                        @endforeach
+
+                        {{-- Next Page Link --}}
+                        @if ($users->hasMorePages())
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $users->nextPageUrl() }}"><i
+                                        class="far fa-angle-double-right"></i></a>
+                            </li>
+                        @else
+                            <li class="page-item disabled">
+                                <span class="page-link"><i class="far fa-angle-double-right"></i></span>
+                            </li>
+                        @endif
                     </ul>
                 </nav>
-                <div class="text-center mt-2">8-14 trên 45 Kết quả</div>
+
+                <div class="text-center mt-2"> {{ $users->firstItem() }}-{{ $users->lastItem() }} trên
+                    {{ $users->total() }} Kết quả</div>
             </div>
         </section>
         <section class="pt-12 pb-11 bg-overlay-secondary bg-img-cover-center"

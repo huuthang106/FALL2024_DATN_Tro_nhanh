@@ -17,84 +17,67 @@
             <div class="container pt-17">
                 <div class="row">
                     <div class="col-md-5">
-                        <img src="{{ asset('assets/images/agent-41.jpg') }}" class="card-img" alt="">
+                        <img src="{{ $user->image ? asset('assets/images/' . $user->image) : asset('assets/images/agent-25.jpg') }}" 
+                             class="card-img" 
+                             alt="{{ $user->name }}">
                     </div>
                     <div class="col-md-7">
                         <div class="pl-md-10 pr-md-8 py-7">
-                            <h2 class="fs-30 text-dark font-weight-600 lh-16 mb-0">Nguyễn Văn A</h2>
+                            <h2 class="fs-30 text-dark font-weight-600 lh-16 mb-0">{{ $user->name }}</h2>
                             <p class="fs-16 font-weight-500 lh-213 mb-4">Chủ trọ, người đăng tin cho thuê</p>
                             <p class="mb-1">Người đăng tin tại <a href="#" class="text-heading">Trọ Nhanh</a></p>
-                            <p class="mb-6">Nguyễn Thị Thu chuyên cho thuê phòng trọ tại các khu vực đông dân cư và gần
-                                trường đại học. Bà luôn đặt sự hài lòng của khách hàng lên hàng đầu và cam kết cung cấp dịch
-                                vụ cho thuê tốt nhất.</p>
+                            <p class="mb-6">{{ $user->address ?? 'Mô tả không có sẵn.' }}</p>
                             <hr class="mb-4">
                             <div class="row">
                                 <div class="col-sm-6 mb-4">
                                     <p class="mb-0">Số điện thoại</p>
-                                    <p class="text-heading font-weight-500 mb-0 lh-13">+84 0909 123 456</p>
-                                    <p class="text-heading font-weight-500 mb-0 lh-13">+84 0989 654 321</p>
+                                    <p class="text-heading font-weight-500 mb-0 lh-13">{{ $user->phone }}</p>
                                 </div>
                                 <div class="col-sm-6 mb-4">
                                     <p class="mb-0">Email</p>
-                                    <p class="text-heading font-weight-500 mb-0 lh-13">vana@gmail.com</p>
-                                </div>
-                                <div class="col-sm-6 mb-4">
-                                    <p class="mb-0">Ngôn ngữ</p>
-                                    <p class="text-heading font-weight-500 mb-0 lh-13">Tiếng Việt, Tiếng Anh</p>
-                                </div>
-                                <div class="col-sm-6 mb-4">
-                                    <p class="mb-0">Website</p>
-                                    <p class="text-heading font-weight-500 mb-0 lh-13">tronhanh.com</p>
+                                    <p class="text-heading font-weight-500 mb-0 lh-13">{{ $user->email }}</p>
                                 </div>
                             </div>
                             <hr class="mb-4">
                             <div class="row align-items-center">
                                 <div class="col-sm-6 mb-6 mb-sm-0">
                                     <ul class="list-inline mb-0">
-                                        <li class="list-inline-item fs-13 text-heading font-weight-500">4.8/5</li>
+                                        <li class="list-inline-item fs-13 text-heading font-weight-500">{{ $user->rating ?? 'Chưa có đánh giá' }}</li>
                                         <li class="list-inline-item fs-13 text-heading font-weight-500 mr-1">
                                             <ul class="list-inline mb-0">
-                                                <li class="list-inline-item mr-0">
-                                                    <span class="text-warning fs-12 lh-2"><i class="fas fa-star"></i></span>
-                                                </li>
-                                                <li class="list-inline-item mr-0">
-                                                    <span class="text-warning fs-12 lh-2"><i class="fas fa-star"></i></span>
-                                                </li>
-                                                <li class="list-inline-item mr-0">
-                                                    <span class="text-warning fs-12 lh-2"><i class="fas fa-star"></i></span>
-                                                </li>
-                                                <li class="list-inline-item mr-0">
-                                                    <span class="text-warning fs-12 lh-2"><i class="fas fa-star"></i></span>
-                                                </li>
-                                                <li class="list-inline-item mr-0">
-                                                    <span class="text-warning fs-12 lh-2"><i class="fas fa-star"></i></span>
-                                                </li>
+                                                @for ($i = 0; $i < 5; $i++)
+                                                    <li class="list-inline-item mr-0">
+                                                        <span class="text-warning fs-12 lh-2">
+                                                            <i class="fas fa-star"></i>
+                                                        </span>
+                                                    </li>
+                                                @endfor
                                             </ul>
                                         </li>
-                                        <li class="list-inline-item fs-13 text-gray-light">(67 đánh giá)</li>
+                                        <li class="list-inline-item fs-13 text-gray-light">({{ $user->reviews_count ?? 0 }} đánh giá)</li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-6">
                                     <ul class="list-inline text-gray-lighter m-0 p-0">
                                         <li class="list-inline-item mx-0 my-1">
-                                            <a href="#"
-                                                class="w-32px h-32 rounded bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                    class="fab fa-twitter"></i></a>
+                                            <a href="#" class="w-32px h-32 rounded bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary">
+                                                <i class="fab fa-twitter"></i>
+                                            </a>
                                         </li>
                                         <li class="list-inline-item mr-0 ml-2 my-1">
-                                            <a href="#"
-                                                class="w-32px h-32 rounded bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                    class="fab fa-facebook-f"></i></a>
+                                            <a href="#" class="w-32px h-32 rounded bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary">
+                                                <i class="fab fa-facebook-f"></i>
+                                            </a>
                                         </li>
                                         <li class="list-inline-item mr-0 ml-2 my-1">
-                                            <a href="#"
-                                                class="w-32px h-32 rounded bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                    class="fab fa-instagram"></i></a>
+                                            <a href="#" class="w-32px h-32 rounded bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary">
+                                                <i class="fab fa-instagram"></i>
+                                            </a>
                                         </li>
                                         <li class="list-inline-item mr-0 ml-2 my-1">
-                                            <a href="#"
-                                                class="w-32px h-32 rounded bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary"><i
-                                                    class="fab fa-linkedin-in"></i></a>
+                                            <a href="#" class="w-32px h-32 rounded bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary">
+                                                <i class="fab fa-linkedin-in"></i>
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -104,6 +87,11 @@
                 </div>
             </div>
         </section>
+        
+        
+        
+        
+   
         <section class="bg-gray-01 pt-9 pb-13">
             <div class="container">
                 <div class="row">
