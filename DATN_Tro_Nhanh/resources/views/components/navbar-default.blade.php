@@ -1,374 +1,375 @@
 <div>
+    <div class="modal fade login-register login-register-modal" id="login-register-modal" tabindex="-1" role="dialog"
+        aria-labelledby="login-register-modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0 p-0">
+                    <div class="nav nav-tabs row w-100 no-gutters" id="myTab" role="tablist">
+                        <a class="nav-item col-sm-4 ml-0 nav-link pr-6 py-4 pl-9 active fs-18" id="login-tab"
+                            data-toggle="tab" href="#login" role="tab" aria-controls="login"
+                            aria-selected="true">Đăng nhập</a>
+                        <a class="nav-item col-sm-3 ml-0 nav-link py-4 px-6 fs-18" id="register-tab" data-toggle="tab"
+                            href="#register" role="tab" aria-controls="register" aria-selected="false">Đăng
+                            ký</a>
+                        <div class="nav-item col-sm-5 ml-0 d-flex align-items-center justify-content-end">
+                            <button type="button" class="close m-0 fs-23" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body p-4 py-sm-7 px-sm-8">
+                    <div class="tab-content shadow-none p-0" id="myTabContent">
+                        <div class="tab-pane fade show active" id="login" role="tabpanel"
+                            aria-labelledby="login-tab">
+                            <form class="form">
+                                <div class="form-group mb-4">
+                                    <label for="username" class="sr-only">Tên đăng nhập</label>
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18"
+                                                id="inputGroup-sizing-lg">
+                                                <i class="far fa-user"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control border-0 shadow-none fs-13"
+                                            id="username" name="username" required
+                                            placeholder="Tên đăng nhập / Email của bạn">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="password" class="sr-only">Mật khẩu</label>
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
+                                                <i class="far fa-lock"></i>
+                                            </span>
+                                        </div>
+                                        <input type="password" class="form-control border-0 shadow-none fs-13"
+                                            id="password" name="password" required placeholder="Mật khẩu">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text bg-gray-01 border-0 text-body fs-18">
+                                                <i class="far fa-eye-slash"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex mb-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="remember-me"
+                                            name="remember-me">
+                                        <label class="form-check-label" for="remember-me">
+                                            Nhớ mật khẩu
+                                        </label>
+                                    </div>
+                                    <a href="password-recovery.html" class="d-inline-block ml-auto text-orange fs-15">
+                                        Quên mật khẩu?
+                                    </a>
+                                </div>
+                                <div class="d-flex p-2 border re-capchar align-items-center mb-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="verify"
+                                            name="verify">
+                                        <label class="form-check-label" for="verify">
+                                            Tôi không phải là robot
+                                        </label>
+                                    </div>
+                                    <a href="#" class="d-inline-block ml-auto">
+                                        <img src="{{ asset('assets/images/re-captcha.png') }}" alt="Re-capcha">
+                                    </a>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng nhập</button>
+                            </form>
+                            <div class="divider text-center my-2">
+                                <span class="px-4 bg-white lh-17 text">
+                                    hoặc tiếp tục với
+                                </span>
+                            </div>
+                            <div class="row no-gutters mx-n2">
+                                <div class="col-4 px-2 mb-4">
+                                    <a href="#" class="btn btn-lg btn-block facebook text-white px-0">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                </div>
+                                <div class="col-4 px-2 mb-4">
+                                    <a href="#" class="btn btn-lg btn-block google px-0">
+                                        <img src="{{ asset('assets/images/google.png') }}" alt="Google">
+                                    </a>
+                                </div>
+                                <div class="col-4 px-2 mb-4">
+                                    <a href="#" class="btn btn-lg btn-block twitter text-white px-0">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                            <form class="form">
+                                <div class="form-group mb-4">
+                                    <label for="full-name" class="sr-only">Họ và tên</label>
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
+                                                <i class="far fa-address-card"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control border-0 shadow-none fs-13"
+                                            id="full-name" name="full-name" required placeholder="Họ và tên">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="username01" class="sr-only">Tên đăng nhập</label>
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
+                                                <i class="far fa-user"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control border-0 shadow-none fs-13"
+                                            id="username01" name="username01" required
+                                            placeholder="Tên đăng nhập / Email của bạn">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="password01" class="sr-only">Mật khẩu</label>
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
+                                                <i class="far fa-lock"></i>
+                                            </span>
+                                        </div>
+                                        <input type="password" class="form-control border-0 shadow-none fs-13"
+                                            id="password01" name="password01" required placeholder="Mật khẩu">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text bg-gray-01 border-0 text-body fs-18">
+                                                <i class="far fa-eye-slash"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <p class="form-text">Tối thiểu 8 ký tự, bao gồm 1 số và 1 chữ cái</p>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng ký</button>
+                            </form>
+                            <div class="divider text-center my-2">
+                                <span class="px-4 bg-white lh-17 text">
+                                    hoặc tiếp tục với
+                                </span>
+                            </div>
+                            <div class="row no-gutters mx-n2">
+                                <div class="col-4 px-2 mb-4">
+                                    <a href="#" class="btn btn-lg btn-block facebook text-white px-0">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                </div>
+                                <div class="col-4 px-2 mb-4">
+                                    <a href="#" class="btn btn-lg btn-block google px-0">
+                                        <img src="{{ asset('assets/images/google.png') }}" alt="Google">
+                                    </a>
+                                </div>
+                                <div class="col-4 px-2 mb-4">
+                                    <a href="#" class="btn btn-lg btn-block twitter text-white px-0">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="mt-2">Bằng cách tạo tài khoản, bạn đồng ý với <a class="text-heading"
+                                    href="#"><u>Các điều khoản sử dụng</u></a> và <a class="text-heading"
+                                    href="#"><u>Chính sách bảo mật</u></a> của HomeID.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade login-register login-register-modal" id="login-register-modal" tabindex="-1"
-    role="dialog" aria-labelledby="login-register-modal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
-        <div class="modal-content">
-            <div class="modal-header border-0 p-0">
-                <div class="nav nav-tabs row w-100 no-gutters" id="myTab" role="tablist">
-                    <a class="nav-item col-sm-4 ml-0 nav-link pr-6 py-4 pl-9 active fs-18" id="login-tab"
-                        data-toggle="tab" href="#login" role="tab" aria-controls="login"
-                        aria-selected="true">Đăng nhập</a>
-                    <a class="nav-item col-sm-3 ml-0 nav-link py-4 px-6 fs-18" id="register-tab" data-toggle="tab"
-                        href="#register" role="tab" aria-controls="register" aria-selected="false">Đăng
-                        ký</a>
-                    <div class="nav-item col-sm-5 ml-0 d-flex align-items-center justify-content-end">
-                        <button type="button" class="close m-0 fs-23" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body p-4 py-sm-7 px-sm-8">
-                <div class="tab-content shadow-none p-0" id="myTabContent">
-                    <div class="tab-pane fade show active" id="login" role="tabpanel"
-                        aria-labelledby="login-tab">
-                        <form class="form">
-                            <div class="form-group mb-4">
-                                <label for="username" class="sr-only">Tên đăng nhập</label>
-                                <div class="input-group input-group-lg">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-gray-01 border-0 text-muted fs-18"
-                                            id="inputGroup-sizing-lg">
-                                            <i class="far fa-user"></i>
-                                        </span>
-                                    </div>
-                                    <input type="text" class="form-control border-0 shadow-none fs-13"
-                                        id="username" name="username" required
-                                        placeholder="Tên đăng nhập / Email của bạn">
-                                </div>
-                            </div>
-                            <div class="form-group mb-4">
-                                <label for="password" class="sr-only">Mật khẩu</label>
-                                <div class="input-group input-group-lg">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                                            <i class="far fa-lock"></i>
-                                        </span>
-                                    </div>
-                                    <input type="password" class="form-control border-0 shadow-none fs-13"
-                                        id="password" name="password" required placeholder="Mật khẩu">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text bg-gray-01 border-0 text-body fs-18">
-                                            <i class="far fa-eye-slash"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex mb-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value=""
-                                        id="remember-me" name="remember-me">
-                                    <label class="form-check-label" for="remember-me">
-                                        Nhớ mật khẩu
-                                    </label>
-                                </div>
-                                <a href="password-recovery.html" class="d-inline-block ml-auto text-orange fs-15">
-                                    Quên mật khẩu?
-                                </a>
-                            </div>
-                            <div class="d-flex p-2 border re-capchar align-items-center mb-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value=""
-                                        id="verify" name="verify">
-                                    <label class="form-check-label" for="verify">
-                                        Tôi không phải là robot
-                                    </label>
-                                </div>
-                                <a href="#" class="d-inline-block ml-auto">
-                                    <img src="{{asset('assets/images/re-captcha.png')}}" alt="Re-capcha">
-                                </a>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng nhập</button>
-                        </form>
-                        <div class="divider text-center my-2">
-                            <span class="px-4 bg-white lh-17 text">
-                                hoặc tiếp tục với
-                            </span>
-                        </div>
-                        <div class="row no-gutters mx-n2">
-                            <div class="col-4 px-2 mb-4">
-                                <a href="#" class="btn btn-lg btn-block facebook text-white px-0">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                            </div>
-                            <div class="col-4 px-2 mb-4">
-                                <a href="#" class="btn btn-lg btn-block google px-0">
-                                    <img src="{{asset('assets/images/google.png')}}" alt="Google">
-                                </a>
-                            </div>
-                            <div class="col-4 px-2 mb-4">
-                                <a href="#" class="btn btn-lg btn-block twitter text-white px-0">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                        <form class="form">
-                            <div class="form-group mb-4">
-                                <label for="full-name" class="sr-only">Họ và tên</label>
-                                <div class="input-group input-group-lg">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                                            <i class="far fa-address-card"></i>
-                                        </span>
-                                    </div>
-                                    <input type="text" class="form-control border-0 shadow-none fs-13"
-                                        id="full-name" name="full-name" required placeholder="Họ và tên">
-                                </div>
-                            </div>
-                            <div class="form-group mb-4">
-                                <label for="username01" class="sr-only">Tên đăng nhập</label>
-                                <div class="input-group input-group-lg">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                                            <i class="far fa-user"></i>
-                                        </span>
-                                    </div>
-                                    <input type="text" class="form-control border-0 shadow-none fs-13"
-                                        id="username01" name="username01" required
-                                        placeholder="Tên đăng nhập / Email của bạn">
-                                </div>
-                            </div>
-                            <div class="form-group mb-4">
-                                <label for="password01" class="sr-only">Mật khẩu</label>
-                                <div class="input-group input-group-lg">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                                            <i class="far fa-lock"></i>
-                                        </span>
-                                    </div>
-                                    <input type="password" class="form-control border-0 shadow-none fs-13"
-                                        id="password01" name="password01" required placeholder="Mật khẩu">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text bg-gray-01 border-0 text-body fs-18">
-                                            <i class="far fa-eye-slash"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <p class="form-text">Tối thiểu 8 ký tự, bao gồm 1 số và 1 chữ cái</p>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng ký</button>
-                        </form>
-                        <div class="divider text-center my-2">
-                            <span class="px-4 bg-white lh-17 text">
-                                hoặc tiếp tục với
-                            </span>
-                        </div>
-                        <div class="row no-gutters mx-n2">
-                            <div class="col-4 px-2 mb-4">
-                                <a href="#" class="btn btn-lg btn-block facebook text-white px-0">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                            </div>
-                            <div class="col-4 px-2 mb-4">
-                                <a href="#" class="btn btn-lg btn-block google px-0">
-                                    <img src="{{asset('assets/images/google.png')}}" alt="Google">
-                                </a>
-                            </div>
-                            <div class="col-4 px-2 mb-4">
-                                <a href="#" class="btn btn-lg btn-block twitter text-white px-0">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="mt-2">Bằng cách tạo tài khoản, bạn đồng ý với <a class="text-heading"
-                                href="#"><u>Các điều khoản sử dụng</u></a> và <a class="text-heading"
-                                href="#"><u>Chính sách bảo mật</u></a> của HomeID.
+        role="dialog" aria-labelledby="login-register-modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0 p-0">
+                    <div class="nav nav-tabs row w-100 no-gutters" id="myTab" role="tablist">
+                        <a class="nav-item col-sm-3 ml-0 nav-link pr-6 py-4 pl-9 active fs-18" id="login-tab"
+                            data-toggle="tab" href="#login" role="tab" aria-controls="login"
+                            aria-selected="true">Login</a>
+                        <a class="nav-item col-sm-3 ml-0 nav-link py-4 px-6 fs-18" id="register-tab"
+                            data-toggle="tab" href="#register" role="tab" aria-controls="register"
+                            aria-selected="false">Register</a>
+                        <div class="nav-item col-sm-6 ml-0 d-flex align-items-center justify-content-end">
+                            <button type="button" class="close m-0 fs-23" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade login-register login-register-modal" id="login-register-modal" tabindex="-1"
-    role="dialog" aria-labelledby="login-register-modal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
-        <div class="modal-content">
-            <div class="modal-header border-0 p-0">
-                <div class="nav nav-tabs row w-100 no-gutters" id="myTab" role="tablist">
-                    <a class="nav-item col-sm-3 ml-0 nav-link pr-6 py-4 pl-9 active fs-18" id="login-tab"
-                        data-toggle="tab" href="#login" role="tab" aria-controls="login"
-                        aria-selected="true">Login</a>
-                    <a class="nav-item col-sm-3 ml-0 nav-link py-4 px-6 fs-18" id="register-tab" data-toggle="tab"
-                        href="#register" role="tab" aria-controls="register"
-                        aria-selected="false">Register</a>
-                    <div class="nav-item col-sm-6 ml-0 d-flex align-items-center justify-content-end">
-                        <button type="button" class="close m-0 fs-23" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body p-4 py-sm-7 px-sm-8">
-                <div class="tab-content shadow-none p-0" id="myTabContent">
-                    <div class="tab-pane fade show active" id="login" role="tabpanel"
-                        aria-labelledby="login-tab">
-                        <form class="form">
-                            <div class="form-group mb-4">
-                                <label for="username" class="sr-only">Username</label>
-                                <div class="input-group input-group-lg">
-                                    <div class="input-group-prepend ">
-                                        <span class="input-group-text bg-gray-01 border-0 text-muted fs-18"
-                                            id="inputGroup-sizing-lg">
-                                            <i class="far fa-user"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control border-0 shadow-none fs-13"
-                                        id="username" name="username" required
-                                        placeholder="Username / Your email">
-                                </div>
-                            </div>
-                            <div class="form-group mb-4">
-                                <label for="password" class="sr-only">Password</label>
-                                <div class="input-group input-group-lg">
-                                    <div class="input-group-prepend ">
-                                        <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                                            <i class="far fa-lock"></i>
-                                        </span>
-                                    </div>
-                                    <input type="text" class="form-control border-0 shadow-none fs-13"
-                                        id="password" name="password" required placeholder="Password">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text bg-gray-01 border-0 text-body fs-18">
-                                            <i class="far fa-eye-slash"></i>
-                                        </span>
+                <div class="modal-body p-4 py-sm-7 px-sm-8">
+                    <div class="tab-content shadow-none p-0" id="myTabContent">
+                        <div class="tab-pane fade show active" id="login" role="tabpanel"
+                            aria-labelledby="login-tab">
+                            <form class="form">
+                                <div class="form-group mb-4">
+                                    <label for="username" class="sr-only">Username</label>
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-prepend ">
+                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18"
+                                                id="inputGroup-sizing-lg">
+                                                <i class="far fa-user"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control border-0 shadow-none fs-13"
+                                            id="username" name="username" required
+                                            placeholder="Username / Your email">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="d-flex mb-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value=""
-                                        id="remember-me" name="remember-me">
-                                    <label class="form-check-label" for="remember-me">
-                                        Remember me
-                                    </label>
+                                <div class="form-group mb-4">
+                                    <label for="password" class="sr-only">Password</label>
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-prepend ">
+                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
+                                                <i class="far fa-lock"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control border-0 shadow-none fs-13"
+                                            id="password" name="password" required placeholder="Password">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text bg-gray-01 border-0 text-body fs-18">
+                                                <i class="far fa-eye-slash"></i>
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <a href="password-recovery.html" class="d-inline-block ml-auto text-orange fs-15">
-                                    Lost password?
-                                </a>
-                            </div>
-                            <div class="d-flex p-2 border re-capchar align-items-center mb-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value=""
-                                        id="verify" name="verify">
-                                    <label class="form-check-label" for="verify">
-                                        I'm not a robot
-                                    </label>
+                                <div class="d-flex mb-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="remember-me" name="remember-me">
+                                        <label class="form-check-label" for="remember-me">
+                                            Remember me
+                                        </label>
+                                    </div>
+                                    <a href="password-recovery.html" class="d-inline-block ml-auto text-orange fs-15">
+                                        Lost password?
+                                    </a>
                                 </div>
-                                <a href="#" class="d-inline-block ml-auto">
-                                    <img src="{{asset('assets/images/re-captcha.png')}}" alt="Re-capcha">
-                                </a>
+                                <div class="d-flex p-2 border re-capchar align-items-center mb-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="verify" name="verify">
+                                        <label class="form-check-label" for="verify">
+                                            I'm not a robot
+                                        </label>
+                                    </div>
+                                    <a href="#" class="d-inline-block ml-auto">
+                                        <img src="{{ asset('assets/images/re-captcha.png') }}" alt="Re-capcha">
+                                    </a>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Log in</button>
+                            </form>
+                            <div class="divider text-center my-2">
+                                <span class="px-4 bg-white lh-17 text">
+                                    or continue with
+                                </span>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">Log in</button>
-                        </form>
-                        <div class="divider text-center my-2">
-                            <span class="px-4 bg-white lh-17 text">
-                                or continue with
-                            </span>
-                        </div>
-                        <div class="row no-gutters mx-n2">
-                            <div class="col-4 px-2 mb-4">
-                                <a href="#" class="btn btn-lg btn-block facebook text-white px-0">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                            </div>
-                            <div class="col-4 px-2 mb-4">
-                                <a href="#" class="btn btn-lg btn-block google px-0">
-                                    <img src="{{asset('assets/images/google.png')}}" alt="Google">
-                                </a>
-                            </div>
-                            <div class="col-4 px-2 mb-4">
-                                <a href="#" class="btn btn-lg btn-block twitter text-white px-0">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
+                            <div class="row no-gutters mx-n2">
+                                <div class="col-4 px-2 mb-4">
+                                    <a href="#" class="btn btn-lg btn-block facebook text-white px-0">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                </div>
+                                <div class="col-4 px-2 mb-4">
+                                    <a href="#" class="btn btn-lg btn-block google px-0">
+                                        <img src="{{ asset('assets/images/google.png') }}" alt="Google">
+                                    </a>
+                                </div>
+                                <div class="col-4 px-2 mb-4">
+                                    <a href="#" class="btn btn-lg btn-block twitter text-white px-0">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                        <form class="form">
-                            <div class="form-group mb-4">
-                                <label for="full-name" class="sr-only">Full name</label>
-                                <div class="input-group input-group-lg">
-                                    <div class="input-group-prepend ">
-                                        <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                                            <i class="far fa-address-card"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control border-0 shadow-none fs-13"
-                                        id="full-name" name="full-name" required placeholder="Full name">
-                                </div>
-                            </div>
-                            <div class="form-group mb-4">
-                                <label for="username01" class="sr-only">Username</label>
-                                <div class="input-group input-group-lg">
-                                    <div class="input-group-prepend ">
-                                        <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                                            <i class="far fa-user"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control border-0 shadow-none fs-13"
-                                        id="username01" name="username01" required
-                                        placeholder="Username / Your email">
-                                </div>
-                            </div>
-                            <div class="form-group mb-4">
-                                <label for="password01" class="sr-only">Password</label>
-                                <div class="input-group input-group-lg">
-                                    <div class="input-group-prepend ">
-                                        <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                                            <i class="far fa-lock"></i>
-                                        </span>
-                                    </div>
-                                    <input type="text" class="form-control border-0 shadow-none fs-13"
-                                        id="password01" name="password01" required placeholder="Password">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text bg-gray-01 border-0 text-body fs-18">
-                                            <i class="far fa-eye-slash"></i>
-                                        </span>
+                        <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                            <form class="form">
+                                <div class="form-group mb-4">
+                                    <label for="full-name" class="sr-only">Full name</label>
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-prepend ">
+                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
+                                                <i class="far fa-address-card"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control border-0 shadow-none fs-13"
+                                            id="full-name" name="full-name" required placeholder="Full name">
                                     </div>
                                 </div>
-                                <p class="form-text">Minimum 8 characters with 1 number and 1 letter</p>
+                                <div class="form-group mb-4">
+                                    <label for="username01" class="sr-only">Username</label>
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-prepend ">
+                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
+                                                <i class="far fa-user"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control border-0 shadow-none fs-13"
+                                            id="username01" name="username01" required
+                                            placeholder="Username / Your email">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="password01" class="sr-only">Password</label>
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-prepend ">
+                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
+                                                <i class="far fa-lock"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control border-0 shadow-none fs-13"
+                                            id="password01" name="password01" required placeholder="Password">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text bg-gray-01 border-0 text-body fs-18">
+                                                <i class="far fa-eye-slash"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <p class="form-text">Minimum 8 characters with 1 number and 1 letter</p>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Sign up</button>
+                            </form>
+                            <div class="divider text-center my-2">
+                                <span class="px-4 bg-white lh-17 text">
+                                    or continue with
+                                </span>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">Sign up</button>
-                        </form>
-                        <div class="divider text-center my-2">
-                            <span class="px-4 bg-white lh-17 text">
-                                or continue with
-                            </span>
-                        </div>
-                        <div class="row no-gutters mx-n2">
-                            <div class="col-4 px-2 mb-4">
-                                <a href="#" class="btn btn-lg btn-block facebook text-white px-0">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
+                            <div class="row no-gutters mx-n2">
+                                <div class="col-4 px-2 mb-4">
+                                    <a href="#" class="btn btn-lg btn-block facebook text-white px-0">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                </div>
+                                <div class="col-4 px-2 mb-4">
+                                    <a href="#" class="btn btn-lg btn-block google px-0">
+                                        <img src="{{ asset('assets/images/google.png') }}" alt="Google">
+                                    </a>
+                                </div>
+                                <div class="col-4 px-2 mb-4">
+                                    <a href="#" class="btn btn-lg btn-block twitter text-white px-0">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="col-4 px-2 mb-4">
-                                <a href="#" class="btn btn-lg btn-block google px-0">
-                                    <img src="{{asset('assets/images/google.png')}}" alt="Google">
-                                </a>
+                            <div class="mt-2">By creating an account, you agree to HomeID
+                                <a class="text-heading" href="#"><u>Terms of Use</u> </a> and
+                                <a class="text-heading" href="#"><u>Privacy Policy</u></a>.
                             </div>
-                            <div class="col-4 px-2 mb-4">
-                                <a href="#" class="btn btn-lg btn-block twitter text-white px-0">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="mt-2">By creating an account, you agree to HomeID
-                            <a class="text-heading" href="#"><u>Terms of Use</u> </a> and
-                            <a class="text-heading" href="#"><u>Privacy Policy</u></a>.
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
     <!-- Nothing worth having comes easy. - Theodore Roosevelt -->
     <header class="main-header navbar-light header-sticky header-sticky-smart header-mobile-xl">
         <div class="sticky-area">
             <div class="container container-xxl">
                 <nav class="navbar navbar-expand-xl px-0 w-100">
                     <a class="navbar-brand mr-7" href="index.html">
-                        <img src="{{ asset('assets/images/logo.png') }}" alt="HomeID" class="d-none d-xl-inline-block">
+                        <img src="{{ asset('assets/images/logo.png') }}" alt="HomeID"
+                            class="d-none d-xl-inline-block">
                         <img src="{{ asset('assets/images/logo-white.png') }}" alt="HomeID"
                             class="d-inline-block d-xl-none">
                     </a>
@@ -413,7 +414,8 @@
                                                     Map style
                                                 </h4>
                                                 <!-- List -->
-                                                <a class="dropdown-item" href="{{ route('client.room-map-listing') }}">
+                                                <a class="dropdown-item"
+                                                    href="{{ route('client.room-map-listing') }}">
                                                     Bản đồ trọ
                                                 </a>
                                             </div>
@@ -472,7 +474,8 @@
                                         </a>
                                     </li>
                                     <li class="dropdown-item">
-                                        <a id="navbar-link-reviews" class="dropdown-link" href="dashboard-reviews.html">
+                                        <a id="navbar-link-reviews" class="dropdown-link"
+                                            href="dashboard-reviews.html">
                                             Reviews
                                         </a>
                                     </li>
@@ -606,13 +609,15 @@
                                         </a>
                                     </li>
                                     <li class="dropdown-item">
-                                        <a id="navbar-link-checkout" class="dropdown-link" href="{{ route('client.payment') }}">
+                                        <a id="navbar-link-checkout" class="dropdown-link"
+                                            href="{{ route('client.payment') }}">
                                             Thanh Toán
                                         </a>
-                                        
+
                                     </li>
                                     <li class="dropdown-item">
-                                        <a id="navbar-link-checkout" class="dropdown-link" href="{{ route('client.payment-sucessful') }}">
+                                        <a id="navbar-link-checkout" class="dropdown-link"
+                                            href="{{ route('client.payment-sucessful') }}">
                                             Thanh toán thành công
                                         </a>
                                     </li>
@@ -707,10 +712,39 @@
                                         <a class="dropdown-item" href="#">JN</a>
                                     </div>
                                 </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link pl-3 pr-2" data-toggle="modal"
-                                        href="#login-register-modal">SIGN IN</a>
-                                </li>
+                                {{-- <li class="nav-item ">
+                                    <a class="nav-link pl-3 pr-2" data-toggle="" href="{{ route('login') }}">Đăng
+                                        nhập</a>
+                                </li> --}}
+                                <ul
+                                    class="navbar-nav flex-row ml-auto align-items-center justify-content-lg-end flex-wrap py-2">
+                                    @guest
+                                        <li class="nav-item">
+                                            <a class="nav-link pl-3 pr-2" href="{{ route('login') }}">Đăng nhập</a>
+                                        </li>
+                                    @else
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown"
+                                                role="button" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                &nbsp;Xin chào, {{ Auth::user()->name }}
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                                <a class="dropdown-item" href="#">Hồ sơ</a>
+                                                <a class="dropdown-item" href="#">Cài đặt</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                    Đăng xuất
+                                                </a>
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                    style="display: none;">
+                                                    @csrf
+                                                </form>
+                                            </div>
+                                        </li>
+                                    @endguest
+                                </ul>
                                 <li class="nav-item ml-auto w-100 w-sm-auto">
                                     <a class="btn btn-primary btn-lg" href="dashboard-add-new-property.html">
                                         Add listing
@@ -739,10 +773,35 @@
                                     <a class="dropdown-item" href="#">JN</a>
                                 </div>
                             </li>
-                            <li class="nav-item ">
-                                <a class="nav-link pl-3 pr-2" data-toggle="modal" href="#login-register-modal">SIGN
-                                    IN</a>
-                            </li>
+                            {{-- <li class="nav-item ">
+                                <a class="nav-link pl-3 pr-2" data-toggle="" href="{{ route('login') }}">Đăng
+                                    nhập</a>
+                            </li> --}}
+                            <ul
+                                class="navbar-nav flex-row ml-auto align-items-center justify-content-lg-end flex-wrap py-2">
+                                <li class="nav-item ">
+                                    @if (Auth::check())
+                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {{ Auth::user()->name }}
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                        <li><a class="dropdown-item" href="#">Xem thông tin</a></li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                               Đăng xuất
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                @else
+                                    <a class="nav-link pl-3 pr-2" data-toggle="modal" href="#login-register-modal">SIGN
+                                        IN</a>
+                                        @endif
+                                </li>
+                            </ul>
                             <li class="nav-item mr-auto mr-lg-6">
                                 <a class="nav-link px-2 position-relative" href="#">
                                     <i class="fal fa-heart fs-large-4"></i>

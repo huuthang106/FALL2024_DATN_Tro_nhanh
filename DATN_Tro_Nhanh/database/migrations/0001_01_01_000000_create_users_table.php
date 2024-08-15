@@ -22,7 +22,7 @@ return new class extends Migration
             $table->boolean('role')->default(1);
             $table->string('balance')->nullable();
             $table->string('slug')->nullable()->unique();
-            $table->longText('token');
+            $table->longText('token')->nullable();
             $table->boolean('status')->default(1);
             $table->string('image')->nullable();
             $table->string('identification_number')->nullable();
