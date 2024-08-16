@@ -62,7 +62,7 @@
                         <h5 class="fs-13 letter-spacing-087 text-muted mb-3 text-uppercase px-3">Main</h5>
                         <ul class="list-group list-group-no-border rounded-lg">
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{route('profile.dashboard')}}" class="text-heading lh-1 sidebar-link">
+                                <a href="{{route('owners.profile.dashboard')}}" class="text-heading lh-1 sidebar-link">
                                     <span class="sidebar-item-icon d-inline-block mr-3 fs-20"><i
                                             class="fal fa-cog"></i></span>
                                     <span class="sidebar-item-text">Dashboard</span>
@@ -198,7 +198,7 @@
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{ route('profile.profile-admin-index') }}"
+                                <a href="{{ route('owners.profile.profile-admin-index') }}"
                                     class="text-heading lh-1 sidebar-link">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-my-profile">
@@ -256,8 +256,8 @@
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right w-100">
-                            <a class="dropdown-item" href="{{ route('profile.profile-admin-index') }}">Thông tin</a>
-                            <a class="dropdown-item" href="{{ route('profile.reset-password-admin-index') }}">Đổi mật
+                            <a class="dropdown-item" href="{{ route('owners.profile.profile-admin-index') }}">Thông tin</a>
+                            <a class="dropdown-item" href="{{ route('owners.profile.reset-password-admin-index') }}">Đổi mật
                                 khẩu</a>
                             <a class="dropdown-item" href="#">Đăng xuất</a>
                         </div>

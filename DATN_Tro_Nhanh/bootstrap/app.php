@@ -99,10 +99,10 @@ return Application::configure(basePath: dirname(__DIR__))
                 Route::middleware('web')->prefix('admin')->name('admin.')->group(base_path("routes/admin/{$route}"));
             }
             foreach ($userRoute as $route) {
-                Route::middleware('web')->prefix('')->group(base_path("routes/client/{$route}"));
+                Route::middleware('web')->prefix('')->name('client.')->group(base_path("routes/client/{$route}"));
             }
             foreach ($ownersRoute as $route) {
-                Route::middleware('web')->prefix('quan-ly-tai-khoan')->group(base_path("routes/owners/{$route}"));
+                Route::middleware('web')->prefix('quan-ly-tai-khoan')->name('owners.')->group(base_path("routes/owners/{$route}"));
             }
             foreach ($webRoute as $route) {
                 Route::middleware('web')->prefix('')->group(base_path("routes/{$route}"));

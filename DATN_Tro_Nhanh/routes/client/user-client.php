@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client\UserClientController;
 use App\Services\UserClientServices;
 
-Route::group(['prefix' => '', 'as' => 'client.'], function () {
+Route::group(['prefix' => ''], function () {
     // Route::get('/dang-nhap', [UserClientController::class, 'login'])->name('login');
     // Route::get('/dang-ki', [UserClientController::class, 'register'])->name('register');
     Route::get('/doi-mat-khau', [UserClientController::class, 'fogot'])->name('fogot-password');
@@ -14,7 +14,7 @@ Route::group(['prefix' => '', 'as' => 'client.'], function () {
     Route::post('/logout', [UserClientController::class, 'logout'])->name('logout');
 });
 
-Route::group(['prefix' => 'nguoi-dang-tin', 'as' => 'client.'], function () {
+Route::group(['prefix' => 'nguoi-dang-tin'], function () {
     Route::get('/', [UserClientController::class, 'indexAgent'])->name('client-agent');
     Route::get('chi-tiet/{slug}', [UserClientController::class, 'agentDetail'])->name('client-agent-detail');
 });

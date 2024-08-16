@@ -85,7 +85,7 @@
                                     </a>
                                 </div>
                                 <div class="col-4 px-2 mb-5">
-                                    <a href="{{ route('auth.google') }}" class="btn btn-lg btn-block google px-0">
+                                    <a href="{{ route('client.auth.google') }}" class="btn btn-lg btn-block google px-0">
                                         <img src="{{ asset('assets/images/google.png') }}" alt="Google">
                                     </a>
                                 </div>
@@ -266,7 +266,7 @@
                                 <ul class="dropdown-menu pt-3 pb-0 pb-xl-3" aria-labelledby="navbar-item-dashboard">
                                     <li class="dropdown-item">
                                         <a id="navbar-link-dashboard" class="dropdown-link"
-                                            href="{{ route('profile.dashboard') }}">
+                                            href="{{ route('owners.profile.dashboard') }}">
                                             Trang quản lí
                                         </a>
                                     </li>
@@ -312,13 +312,13 @@
                                     </li>
                                     <li class="dropdown-item">
                                         <a id="navbar-link-about-us" class="dropdown-link"
-                                            href="{{ route('client-about') }}">
+                                            href="{{ route('client.client-about') }}">
                                             Về chúng tôi
                                         </a>
                                     </li>
                                     <li class="dropdown-item dropdown dropright">
                                         <a id="navbar-link-service" class="dropdown-link"
-                                            href="{{ route('client-service') }}">
+                                            href="{{ route('client.client-service') }}">
                                             Dịch vụ
                                         </a>
                                     </li>
