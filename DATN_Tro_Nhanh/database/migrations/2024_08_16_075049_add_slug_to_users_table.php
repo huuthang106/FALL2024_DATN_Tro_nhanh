@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('google_id')->unique()->nullable()->after('email');
+            $table->string('slug')->nullable()->unique(); // Thêm cột slug vào bảng users
         });
     }
 
@@ -21,6 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('google_id');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('slug'); // Xóa cột slug nếu rollback
+        });
     }
 };
+

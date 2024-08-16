@@ -5,6 +5,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Str;
 
 class RegisterService
 {
@@ -23,6 +24,7 @@ class RegisterService
         // Create user
         return $this->create($data);
     }
+
     /**
      * Validate the user registration data.
      *
@@ -42,6 +44,7 @@ class RegisterService
             throw new ValidationException($validator);
         }
     }
+
     /**
      * Create a new user instance.
      *
@@ -50,10 +53,16 @@ class RegisterService
      */
     protected function create(array $data): User
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        // Tạo slug từ name và id sau khi tạo user
+        $user->slug = Str::slug($user->name . '-' . $user->id);
+        $user->save();
+
+        return $user;
     }
 }

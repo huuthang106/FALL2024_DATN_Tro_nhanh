@@ -6,6 +6,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Str;
 
 class SocialAuthService
 {
@@ -30,11 +31,15 @@ class SocialAuthService
                         'google_id' => $google_user->getId(),
                         'password' => bcrypt('123456dummy'),
                     ]);
-                } else {
-                    $user->update([
-                        'google_id' => $google_user->getId(),
-                    ]);
                 }
+                $user->slug = Str::slug($google_user->getName() . '-' . $google_user->getId());
+                $user->save();
+            } else {
+                // Update existing user with google_id
+                $user->update([
+                    'google_id' => $google_user->getId(),
+                    'slug' => $user->slug ?: Str::slug($google_user->getName() . '-' . $google_user->getId()),
+                ]);
             }
 
             Auth::login($user);
