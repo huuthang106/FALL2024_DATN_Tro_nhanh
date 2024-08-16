@@ -21,8 +21,9 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->boolean('role')->default(1);
             $table->string('balance')->nullable();
-            $table->string('slug')->nullable()->unique();
+            $table->string('token')->nullable()->change(); 
             $table->longText('token')->nullable();
+            $table->string('google_id')->unique()->nullable()->after('email');
             $table->boolean('status')->default(1);
             $table->string('image')->nullable();
             $table->string('identification_number')->nullable();

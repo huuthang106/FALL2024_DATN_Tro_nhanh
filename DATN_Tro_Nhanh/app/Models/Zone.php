@@ -10,4 +10,5 @@ class Zone extends Model
 {
     use HasFactory;
     use SoftDeletes;
+   
 }

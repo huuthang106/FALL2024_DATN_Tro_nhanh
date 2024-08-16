@@ -13,7 +13,7 @@ Route::group(['prefix' => ''], function () {
     Route::get('them-moi-hoa-don', [IndexOwnersController::class, 'createInvoice'])->name('invoice-create');
     Route::get('xem-truoc-hoa-don', [IndexOwnersController::class, 'previewInvoice'])->name('invoice-preview');
     // thai toan 
-    Route::get('/them-khu-tro', [RoomOwnersController::class, 'page_add_rooms'])->name('add-room');
+    Route::get('/them-tro', [RoomOwnersController::class, 'page_add_rooms'])->name('add-room');
     // nhan
     Route::get('/can-ho', [RoomOwnersController::class, 'index'])->name('properties');
 });

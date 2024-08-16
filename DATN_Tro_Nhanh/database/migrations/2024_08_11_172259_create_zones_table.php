@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->integer('room_number');
             $table->string('address');
             $table->string('village');
             $table->string('district');
