@@ -31,6 +31,23 @@ class LoginRequest extends FormRequest
             'password' => ['required', 'string'],
         ];
     }
+
+    /**
+     * Customize the validation messages.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'Địa chỉ email là bắt buộc.',
+            'email.string' => 'Địa chỉ email phải là một chuỗi ký tự.',
+            'email.email' => 'Địa chỉ email không hợp lệ.',
+            'password.required' => 'Mật khẩu là bắt buộc.',
+            'password.string' => 'Mật khẩu phải là một chuỗi ký tự.',
+        ];
+    }
+
     /**
      * Attempt to authenticate the request's credentials.
      *
@@ -40,11 +57,20 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        $credentials = $this->only('email', 'password');
+        $user = \App\Models\User::where('email', $this->input('email'))->first();
+
+        if (!$user) {
+            throw ValidationException::withMessages([
+                'email' => 'Địa chỉ email không tồn tại.',
+            ]);
+        }
+
+        if (! Auth::attempt($credentials)) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'password' => 'Mật khẩu không đúng.',
             ]);
         }
 
@@ -79,6 +105,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('email')) . '|' . $this->ip());
+        return Str::transliterate(Str::lower($this->input('email')) . '|' . $this->ip());
     }
 }

@@ -15,7 +15,8 @@ use App\Services\SocialAuthService;
 
 
 use App\Services\UserClientServices;
-
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 class UserClientController extends Controller
 {
     protected $userClientServices;
@@ -76,35 +77,29 @@ class UserClientController extends Controller
         }
     }
 
-    public function register_user(Request $request)
+    public function register_user(RegisterRequest $request)
     {
         try {
             $user = $this->registerService->register($request->all());
             Auth::login($user);
-
-            return redirect()->route('home')->with('success', 'Registration successful!');
+    
+            return response()->json(['redirect' => route('home')]);
         } catch (ValidationException $e) {
-            return redirect()->back()->withErrors($e->errors())->withInput();
+            return response()->json(['errors' => $e->errors()], 422);
         }
     }
-    public function login_user(Request $request)
+    
+    public function login_user(LoginRequest $request)
     {
-        $credentials = $request->only('email', 'password');
-
-
         try {
-            $this->loginService->validateLogin($credentials);
-
-            if (Auth::attempt($credentials)) {
-                return redirect()->intended('/')->with('success', 'Login successful!');
-            } else {
-                return redirect()->back()->withErrors(['email' => 'Invalid credentials'])->withInput();
-            }
+            $request->authenticate();
+    
+            return response()->json(['redirect' => route('home')]);
         } catch (ValidationException $e) {
-            return redirect()->back()->withErrors($e->errors())->withInput();
+            return response()->json(['errors' => $e->errors()], 422);
         }
     }
-
+    
     public function logout()
     {
         Auth::logout();

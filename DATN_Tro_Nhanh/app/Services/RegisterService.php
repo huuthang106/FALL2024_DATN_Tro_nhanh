@@ -18,10 +18,7 @@ class RegisterService
      */
     public function register(array $data): User
     {
-        // Validate data
-        $this->validate($data);
-
-        // Create user
+        // Create user with validated data
         return $this->create($data);
     }
 

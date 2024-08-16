@@ -9,7 +9,7 @@
     
     @stack('styleUs')
     <!-- Fonts -->
-
+    <link href="{{ asset('assets/css/user.css') }}" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -620,4 +620,8 @@
 </body>
 @stack('scriptUs')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{ asset('assets/js/users.js') }}"></script>I
 </html>
