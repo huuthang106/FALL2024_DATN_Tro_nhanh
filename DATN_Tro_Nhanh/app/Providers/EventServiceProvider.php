@@ -3,14 +3,12 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as BaseEventServiceProvider;
-use Illuminate\Support\Facades\Event;
-use App\Events\ZoneCreate; // Thay đổi theo tên sự kiện của bạn
-use App\Listeners\SendZoneCreatedNotification; // Thay đổi theo tên listener của bạn
 use App\Events\ZoneCreated;
+use App\Listeners\SendZoneCreatedNotification;
 use App\Events\Admin\CategoryAdminEvent;
 use App\Listeners\Admin\HandleCategoryAdmin;
-// use Illuminate\Support\ServiceProvider;
-// use App\Events\Owners\RoomOwnersEvent;
+use App\Events\BlogCreated;
+use App\Listeners\SendBlogCreatedNotification;
 
 class EventServiceProvider extends BaseEventServiceProvider
 {
@@ -25,6 +23,9 @@ class EventServiceProvider extends BaseEventServiceProvider
         ],
         CategoryAdminEvent::class => [
             HandleCategoryAdmin::class,
+        ],
+        BlogCreated::class => [
+            SendBlogCreatedNotification::class,
         ],
         // RoomOwnersEvent::class => [
         //     HandleRoomOwner::class,

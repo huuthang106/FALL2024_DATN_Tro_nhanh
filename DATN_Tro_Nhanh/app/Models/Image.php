@@ -13,4 +13,8 @@ class Image extends Model
         'room_id',
         'filename',
     ];
+    public function blog()
+    {
+        return $this->belongsTo(Blog::class);
+    }
 }

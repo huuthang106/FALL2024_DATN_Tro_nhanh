@@ -4,49 +4,78 @@ namespace App\Services;
 
 use App\Models\Blog;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+ // Import lớp Blog
+use App\Models\Image;
 class BlogServices
 {
-    // viết các hàm lấy giá trị của bản đó \
-    public function create(array $data): bool
+
+    private function createSlug($title, $id)
+    {
+        // Tạo slug từ title
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9]+/', '', $title), '-'));
+
+        // Kết hợp với ID
+        $slug = $slug . $id;
+
+        return $slug;
+    }
+    public function create(array $data, $images = []): bool
     {
         try {
-            // Tạo đối tượng Blog mới
+            // Tạo blog mới
             $blog = new Blog();
-
-            // Gán giá trị cho các thuộc tính của blog
             $blog->title = $data['title'];
             $blog->description = $data['description'];
-
-            // Tạo slug từ title và ID
-            $blog->slug = Str::slug($data['title'] . '-' . $blog->id);
-
-            // Lưu đối tượng vào cơ sở dữ liệu
+            $blog->user_id = Auth::id();
             $blog->save();
+
+            // Tạo slug cho blog
+            $blogId = $blog->id; // Lấy ID tạm thời
+            $slug = $this->createSlug($data['title'], $blogId);
+            $blog->slug = $slug;
+            $blog->save();
+
+            // Xử lý tải ảnh
+            if ($images) {
+                foreach ($images as $image) {
+                    $path = $image->store('assets/images');
+
+                    $imageModel = new Image();
+                    $imageModel->filename = basename($path);
+                    $imageModel->blog_id = $blog->id;
+                    $imageModel->save();
+                }
+            }
 
             return true;
         } catch (\Exception $e) {
-            // Xử lý lỗi nếu có (có thể ghi log hoặc báo lỗi chi tiết hơn)
+            Log::error('Không thể tạo blog: ' . $e->getMessage());
             return false;
         }
     }
+
+
+    
+    
+    
+
+    
     public function getAllBlogs(int $perPage = 1)
     {
         try {
-            // Lấy tất cả các blog từ cơ sở dữ liệu và phân trang
             return Blog::where('status', 1)->paginate($perPage);
         } catch (\Exception $e) {
-            // Xử lý lỗi nếu có
+
             return null;
         }
     }
     public function getBlogBySlug(string $slug): ?Blog
     {
         try {
-            // Lấy blog dựa trên slug
             return Blog::where('slug', $slug)->first();
         } catch (\Exception $e) {
-            // Xử lý lỗi nếu có
             return null;
         }
     }

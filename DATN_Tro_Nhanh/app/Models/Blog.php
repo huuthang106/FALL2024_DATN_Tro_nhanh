@@ -10,6 +10,7 @@ class Blog extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    protected $fillable = ['title', 'description', 'slug'];
     public function user()
     {
         return $this->belongsTo(User::class);
