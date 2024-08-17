@@ -30,11 +30,11 @@ class ZoneOwnersController extends Controller
                 // Phát sự kiện ZoneCreated và truyền đối tượng Zone mới tạo
                 event(new ZoneCreated($zone));
 
-                return redirect()->route('owners.zone-start-post')->with('success', 'Zone đã được tạo thành công.');
+                return redirect()->route('owners.zone-post')->with('success', 'Zone đã được tạo thành công.');
             }
         }
 
 
-        return view('owners.create.add-new-zone');
+        return view('owners.zone-post');
     }
 }
