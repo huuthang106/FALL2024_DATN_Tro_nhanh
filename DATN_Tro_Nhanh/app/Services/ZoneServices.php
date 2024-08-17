@@ -3,10 +3,10 @@
 namespace App\Services;
 
 use App\Models\Zone;
+use Illuminate\Support\Facades\Storage;
 
 class ZoneServices
 {
-
     public function store($request)
     {
         if (auth()->check()) {
@@ -38,6 +38,12 @@ class ZoneServices
 
                 // Lưu lại đối tượng với slug mới
                 if ($zone->save()) {
+                    // Xử lý ảnh nếu có
+                    if ($request->hasFile('images')) {
+                        foreach ($request->file('images') as $image) {
+                            $this->storeImage($zone, $image);
+                        }
+                    }
                     return $zone; 
                 } else {
                     // Nếu không thể lưu slug, xóa đối tượng vừa thêm
@@ -60,13 +66,23 @@ class ZoneServices
      */
     protected function createSlug($string)
     {
-        // Loại bỏ dấu và chuyển thành chữ thường
         $slug = preg_replace('/[^a-z0-9]+/i', '-', trim($string));
         $slug = strtolower($slug);
-
-        // Loại bỏ các dấu gạch ngang dư thừa
         $slug = trim($slug, '-');
-
         return $slug;
+    }
+
+    /**
+     * Lưu ảnh
+     * 
+     * @param Zone $zone
+     * @param \Illuminate\Http\UploadedFile $image
+     * @return void
+     */
+    protected function storeImage(Zone $zone, $image)
+    {
+        $path = $image->store('zones', 'public');
+        // Giả sử bạn có mối quan hệ với bảng ảnh
+        $zone->images()->create(['path' => $path]);
     }
 }

@@ -1,33 +1,37 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Notifications;
 
-use App\Events\ZoneCreated;
+use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-use App\Models\Notification;
-class SendZoneCreatedNotification
+use Illuminate\Notifications\Messages\MailMessage;
+use App\Models\Zone;
+
+class SendZoneCreatedNotification extends Notification
 {
-    /**
-     * Create the event listener.
-     */
-    public function __construct()
+    use Queueable;
+
+    public $zone;
+
+    public function __construct(Zone $zone)
     {
-        //
+        $this->zone = $zone;
     }
 
-    /**
-     * Handle the event.
-     */
-    public function handle(ZoneCreated $event): void
+    public function via($notifiable)
     {
-        //
-        Notification::create([
-            'type' => 'Thêm khu trọ',
-            'data' => 'Bạn vừa thêm khu trọ thành công',
-            'status' => 1,
-            'zone_id' => $event->zone->id,
-            'user_id' => auth()->id(), // Lấy ID người dùng hiện tại
-        ]);
+        return ['mail'];
+    }
+
+    public function toMail($notifiable)
+    {
+        return (new MailMessage)
+                    ->line('Một khu trọ mới đã được tạo:')
+                    ->line('Tên: ' . $this->zone->name)
+                    ->line('Địa chỉ: ' . $this->zone->address)
+                    ->action('Xem chi tiết', url('/admin/khutro/' . $this->zone->id))
+                    ->line('Cảm ơn bạn đã sử dụng ứng dụng!');
     }
 }
+

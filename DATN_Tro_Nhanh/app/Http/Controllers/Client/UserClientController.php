@@ -20,7 +20,9 @@ use App\Http\Requests\Auth\RegisterRequest;
 class UserClientController extends Controller
 {
     protected $userClientServices;
-
+    protected $registerService;
+    protected $loginService;
+    protected $socialAuthService;
     public function __construct(UserClientServices $userClientServices, RegisterService $registerService, LoginService $loginService, SocialAuthService $socialAuthService)
     {
         $this->userClientServices = $userClientServices;
