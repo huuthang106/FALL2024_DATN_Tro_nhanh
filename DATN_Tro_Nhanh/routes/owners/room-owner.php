@@ -14,6 +14,8 @@ Route::group(['prefix' => ''], function () {
     Route::get('xem-truoc-hoa-don', [IndexOwnersController::class, 'previewInvoice'])->name('invoice-preview');
     // thai toan 
     Route::get('/them-tro', [RoomOwnersController::class, 'page_add_rooms'])->name('add-room');
+    Route::get('/them-khu-tro', [RoomOwnersController::class, 'page_add_rooms'])->name('add-room');
+    Route::post('/luu', [RoomOwnersController::class, 'store'])->name('store-room');
     // nhan
     Route::get('/can-ho', [RoomOwnersController::class, 'index'])->name('properties');
 });

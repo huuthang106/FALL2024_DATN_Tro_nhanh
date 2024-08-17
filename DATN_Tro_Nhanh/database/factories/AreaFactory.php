@@ -18,6 +18,9 @@ class AreaFactory extends Factory
     {
         return [
             //
+            'name' => $this->faker->city, // Tạo tên khu vực là tên thành phố ngẫu nhiên
+            'status' => $this->faker->boolean,
+            'deleted_at' => null, // Null vì sử dụng soft deletes
         ];
     }
 }

@@ -16,7 +16,7 @@ class UserFactory extends Factory
      * The name of the factory's corresponding model.
      */
     protected $model = User::class;
- 
+
     /**
      * Define the model's default state.
      *
@@ -32,7 +32,7 @@ class UserFactory extends Factory
             'phone' => $this->faker->numerify('###########'), // Số điện thoại 13 ký tự
             'address' => $this->faker->address(),
             'role' => 1, // Đặt giá trị mặc định là 2
-            'balance' => $this->faker->randomFloat(2, 0, 10000), // Số dư ngẫu nhiên dưới dạng số thực
+            'balanca' => $this->faker->randomFloat(2, 0, 10000), // Số dư ngẫu nhiên dưới dạng số thực
             'slug' => Str::slug($this->faker->name()),
             'token' => Str::random(60),
             'status' => $this->faker->boolean(), // Trạng thái là boolean
@@ -42,7 +42,7 @@ class UserFactory extends Factory
             'provider_id' => null,
             'provider_token' => null,
             'remember_token' => Str::random(10),
-            'token' => null, 
+            'token' => null,
         ];
     }
 
@@ -51,7 +51,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }

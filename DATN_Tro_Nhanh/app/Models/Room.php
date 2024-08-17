@@ -10,7 +10,6 @@ class Room extends Model
 {
     use HasFactory;
     use SoftDeletes;
-
     protected $fillable = [
         'title',
         'description',
@@ -20,13 +19,34 @@ class Room extends Model
         'quantity',
         'longitude',
         'latitude',
-        'view',
-        'slug',
-        'status',
-        'user_id',
-        'room_type_id',
+        'acreages_id',
+        'price_id',
         'category_id',
+        'area_id',
+        'location_id',
+        'zone_id',
+        'room_type_id',
+        'user_id',
+        'view',
+        'slug'
     ];
+
+    // Thiết lập mối quan hệ many-to-one với Category
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    // public function acreage()
+    // {
+    //     return $this->belongsTo(Acreage::class, 'acreages_id');
+    // }
+
+    public function price()
+    {
+        return $this->belongsTo(Price::class);
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -34,7 +54,10 @@ class Room extends Model
 
     public function acreage()
     {
-        return $this->belongsTo(Acreage::class);
+        return $this->belongsTo(Acreage::class);}
+    public function area()
+    {
+        return $this->belongsTo(Area::class);
     }
 
     public function location()
@@ -47,14 +70,16 @@ class Room extends Model
         return $this->belongsTo(Zone::class);
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 
-    public function room_type()
+
+    public function roomType()
     {
         return $this->belongsTo(RoomType::class);
+    }
+
+    public function tenant()
+    {
+        return $this->belongsTo(User::class, 'tenant_id');
     }
 
     public function images()

@@ -18,6 +18,9 @@ class PriceFactory extends Factory
     {
         return [
             //
+            'price_range' => $this->faker->randomElement(['0-1M', '1M-3M', '3M-5M', '5M+']), // Ví dụ các khoảng giá
+            'status' => $this->faker->boolean,
+            'deleted_at' => null, // Null vì soft deletes
         ];
     }
 }

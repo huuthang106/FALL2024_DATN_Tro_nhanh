@@ -1,6 +1,12 @@
 <?php
 // Bắt Lỗi Đăng Nhập
 return [
+    'and_more' => 'và thêm :count lỗi khác',
+    'custom' => [
+        'multiple' => [
+            'required' => 'Vui lòng kiểm tra lại các trường bị lỗi.',
+        ],
+    ],
     'required' => ' :attribute là bắt buộc.',
     'string' => ' :attribute phải là chuỗi ký tự.',
     'email' => ' :attribute phải là định dạng email hợp lệ.',

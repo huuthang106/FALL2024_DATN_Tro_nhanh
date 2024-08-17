@@ -115,7 +115,6 @@
                                         class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">29</span>
                                 </a>
                             </li>
-
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                 <a href="dashboard-save-search.html"
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center">

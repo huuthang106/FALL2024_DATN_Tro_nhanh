@@ -22,6 +22,7 @@ return new class extends Migration
             $table->boolean('role')->default(1);
             $table->string('balance')->nullable();
             $table->string('token')->nullable()->change(); 
+            $table->string('slug')->nullable()->unique();
             $table->longText('token')->nullable();
             $table->string('google_id')->unique()->nullable()->after('email');
             $table->boolean('status')->default(1);
@@ -52,7 +53,6 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('google_id')->nullable();
         });
-        
     }
 
     /**

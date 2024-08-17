@@ -1027,7 +1027,7 @@
                                         <p class="font-weight-500 text-gray-light mb-0">1421 San Pedro St, Los Angeles
                                         </p>
                                         <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                            $550
+                                            $550    
                                             <span class="fs-14 font-weight-500 text-gray-light"> /month</span>
                                         </p>
                                     </div>
