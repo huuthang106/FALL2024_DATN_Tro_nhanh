@@ -96,21 +96,25 @@ return Application::configure(basePath: dirname(__DIR__))
 
             ];
             foreach ($adminRoute as $route) {
-                Route::middleware('web')->prefix('admin')->name('admin.')->group(base_path("routes/admin/{$route}"));
+                Route::middleware(['web','admin_check_login'])->prefix('admin')->name('admin.')->group(base_path("routes/admin/{$route}"));
             }
             foreach ($userRoute as $route) {
                 Route::middleware('web')->prefix('')->name('client.')->group(base_path("routes/client/{$route}"));
             }
             foreach ($ownersRoute as $route) {
-                Route::middleware('web')->prefix('quan-ly-tai-khoan')->name('owners.')->group(base_path("routes/owners/{$route}"));
+                Route::middleware(['web','user_check_login'])->prefix('quan-ly-tai-khoan')->name('owners.')->group(base_path("routes/owners/{$route}"));
             }
             foreach ($webRoute as $route) {
                 Route::middleware('web')->prefix('')->group(base_path("routes/{$route}"));
             }
         },
-    )
+    )   
     ->withMiddleware(function (Middleware $middleware) {
         //
+        $middleware->alias([
+            'user_check_login' => '\App\Http\Middleware\UserAuthMiddleware',
+            'admin_check_login' => '\App\Http\Middleware\AdminLoginMiddleware',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

@@ -7,5 +7,5 @@ use App\Http\Controllers\Client\BlogClientController;
 // Controller Blog
 Route::group(['prefix' => 'blog'], function () {
     Route::get('/', [BlogClientController::class, 'indexBlog'])->name('client-blog');
-    Route::get('chi-tiet-blog/{slug}', [BlogClientController::class, 'blogDetail'])->name('client-blog-detail');
+    Route::get('{slug}', [BlogClientController::class, 'blogDetail'])->name('client-blog-detail');
 });

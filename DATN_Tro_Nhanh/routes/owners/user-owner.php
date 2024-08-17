@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Owners\UserOwnersController;
+use App\Http\Controllers\Auth\PasswordController;
 
 // Route::get('danh-sach-hoa-don', [InvoiceAdminController::class, 'index'])->name('invoice-listing');
 Route::group(['prefix' => '', 'as' => 'profile.'], function () {
@@ -13,5 +14,5 @@ Route::group(['prefix' => '', 'as' => 'profile.'], function () {
     // Route::get('xem-truoc-hoa-don', [UserOwnersController::class, 'previewInvoice'])->name('invoice-preview');
     //Nguyen Thai Toan 
     Route::get('/trang-quan-ly', [UserOwnersController::class, 'page_dashboard'])->name('dashboard');
-
+    Route::PUT('doi-mat-khau', [UserOwnersController::class, 'changePassword'])->name('reset-password-admin-index');
 });

@@ -1,5 +1,9 @@
 <div>
-
+    @php
+        if (Auth::check()) {
+            $role = auth()->user()->role;
+        }
+    @endphp
     {{-- form login --}}
     <div class="modal fade login-register login-register-modal" id="login-register-modal" tabindex="-1" role="dialog"
         aria-labelledby="login-register-modal" aria-hidden="true">
@@ -80,7 +84,8 @@
                                     </a>
                                 </div>
                                 <div class="col-4 px-2 mb-5">
-                                    <a href="{{ route('client.auth.google') }}" class="btn btn-lg btn-block google px-0">
+                                    <a href="{{ route('client.auth.google') }}"
+                                        class="btn btn-lg btn-block google px-0">
                                         <img src="{{ asset('assets/images/google.png') }}" alt="Google">
                                     </a>
                                 </div>
@@ -160,7 +165,8 @@
                                     </a>
                                 </div>
                                 <div class="col-4 px-2 mb-4">
-                                    <a href="{{ route('client.auth.google') }}" class="btn btn-lg btn-block google px-0">
+                                    <a href="{{ route('client.auth.google') }}"
+                                        class="btn btn-lg btn-block google px-0">
                                         <img src="{{ asset('assets/images/google.png') }}" alt="Google">
                                     </a>
                                 </div>
@@ -227,10 +233,10 @@
                                     class="nav-item dropdown py-2 py-xl-5 px-0 px-xl-4">
                                     <a class="nav-link dropdown-toggle p-0" href="listing.html"
                                         data-toggle="dropdown">
-                                        Listing
+                                        Hành dộng
                                         <span class="caret"></span>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-xxl dropdown-menu-listing px-0 py-3"
+                                    <div class="dropdown-menu dropdown-menu-xl dropdown-menu-listing px-0 py-3"
                                         aria-labelledby="navbar-item-listing">
                                         <div class="dropdown-body">
                                             <div class="row no-gutters">
@@ -238,26 +244,49 @@
                                                 <div class="col-xl-3">
                                                     <!-- Heading -->
                                                     <h4 class="dropdown-header text-dark fs-16 mb-2">
-                                                        Grid view
+                                                        Danh sách
                                                     </h4>
                                                     <!-- List -->
                                                     <a class="dropdown-item"
                                                         href="{{ route('client.room-listing') }}">
                                                         Danh sách trọ
                                                     </a>
-                                                </div>
-                                                <div class="col-xl-3">
-                                                    <!-- Heading -->
-                                                    <h4 class="dropdown-header text-dark fs-16 mb-2">
-                                                        Map style
-                                                    </h4>
-                                                    <!-- List -->
                                                     <a class="dropdown-item"
                                                         href="{{ route('client.room-map-listing') }}">
                                                         Bản đồ trọ
                                                     </a>
                                                 </div>
                                                 <div class="col-xl-3">
+                                                    <!-- Heading -->
+                                                    <h4 class="dropdown-header text-dark fs-16 mb-2">
+                                                        Liên quan
+                                                    </h4>
+                                                    <!-- List -->
+
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('client.client-agent') }}">
+                                                        Người đưa tin
+                                                    </a>
+
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('client.client-blog') }}">Blog</a>
+                                                </div>
+                                                <div class="col-xl-3">
+                                                    <!-- Heading -->
+                                                    <h4 class="dropdown-header text-dark fs-16 mb-2">
+                                                        Dịch vụ
+                                                    </h4>
+                                                    <!-- List -->
+
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('client.client-service') }}">
+                                                        Dịch vụ
+                                                    </a>
+
+                                                    <a class="dropdown-item" href="{{ route('client.package') }}">Các
+                                                        gói dịch vụ</a>
+                                                </div>
+                                                {{-- <div class="col-xl-3">
                                                     <!-- Heading -->
                                                     <h4 class="dropdown-header text-dark fs-16 mb-2">
                                                         Single Property
@@ -267,13 +296,13 @@
                                                         href="{{ route('client.detail-room') }}">
                                                         Xem chi tiết
                                                     </a>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                             <!-- / .row -->
                                         </div>
                                     </div>
                                 </li>
-                                <li id="navbar-item-dashboard" aria-haspopup="true" aria-expanded="false"
+                                {{-- <li id="navbar-item-dashboard" aria-haspopup="true" aria-expanded="false"
                                     class="nav-item dropdown py-2 py-xl-5 px-0 px-xl-4">
                                     <a class="nav-link dropdown-toggle p-0" href="#" data-toggle="dropdown">
                                         Dashboard
@@ -287,12 +316,7 @@
                                                 Trang quản lí
                                             </a>
                                         </li>
-                                        <li class="dropdown-item">
-                                            <a id="navbar-link-add-new-property" class="dropdown-link"
-                                                href="dashboard-add-new-property.html">
-                                                Add New Property
-                                            </a>
-                                        </li>
+
                                         <li class="dropdown-item">
                                             <a id="navbar-link-my-properties" class="dropdown-link"
                                                 href="{{ route('owners.properties') }}">
@@ -307,53 +331,17 @@
                                                 Yêu Thích
                                             </a>
                                         </li>
-                                        <li class="dropdown-item">
-                                            <a id="navbar-link-save-search" class="dropdown-link"
-                                                href="dashboard-save-search.html">
-                                                Save Search
-                                            </a>
-                                        </li>
-                                        <li class="dropdown-item">
-                                            <a id="navbar-link-my-favorites" class="dropdown-link"
-                                                href="{{ route('owners.danhgia') }}">
-                                                Đánh giá
-                                            </a>
-                                        </li>
 
-                                        <li class="dropdown-item">
-                                            <a id="navbar-link-my-package" class="dropdown-link"
-                                                href="dashboard-my-packages.html">
-                                                My Package
-                                            </a>
-                                        </li>
-                                        <li class="dropdown-item">
-                                            <a id="navbar-link-my-profile" class="dropdown-link"
-                                                href="dashboard-my-profiles.html">
-                                                My Profile
-                                            </a>
-                                        </li>
-                                        <li class="dropdown-item">
-                                            <a id="navbar-link-signup-and-login" class="dropdown-link"
-                                                href="signup-and-login.html">
-                                                Signup and login
-                                            </a>
-                                        </li>
-                                        <li class="dropdown-item">
-                                            <a id="navbar-link-password-recovery" class="dropdown-link"
-                                                href="password-recovery.html">
-                                                Password Recovery
-                                            </a>
-                                        </li>
                                     </ul>
-                                </li>
+                                </li> --}}
                                 <li id="navbar-item-pages" aria-haspopup="true" aria-expanded="false"
                                     class="nav-item dropdown py-2 py-xl-5 px-0 px-xl-4">
                                     <a class="nav-link dropdown-toggle p-0" href="#" data-toggle="dropdown">
-                                        Pages
+                                        Về chúng tôi
                                         <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu pt-3 pb-0 pb-xl-3" aria-labelledby="navbar-item-pages">
-                                        <li class="dropdown-item dropdown dropright">
+                                        {{-- <li class="dropdown-item dropdown dropright">
                                             <a id="navbar-link-news" class="dropdown-link dropdown-toggle"
                                                 href="#" data-toggle="dropdown">
                                                 News
@@ -364,27 +352,9 @@
                                                     <a class="dropdown-link"
                                                         href="{{ route('client.client-blog') }}">Blog</a>
                                                 </li>
-                                                {{-- <li class="dropdown-item">
-                                                    <a class="dropdown-link" href="blog-grid.html">Blog grid</a>
-                                                </li>
-                                                <li class="dropdown-item">
-                                                    <a class="dropdown-link" href="blog-grid-with-sidebar.html">Blog
-                                                        grid with sidebar</a>
-                                                </li>
-                                                <li class="dropdown-item">
-                                                    <a class="dropdown-link" href="blog-list-width-sidebar.html">Blog
-                                                        list with sidebar</a>
-                                                </li>
-                                                <li class="dropdown-item">
-                                                    <a class="dropdown-link" href="blog-details-1.html">Blog details
-                                                        1</a>
-                                                </li>
-                                                <li class="dropdown-item">
-                                                    <a class="dropdown-link" href="blog-details-2.html">Blog details
-                                                        2</a>
-                                                </li> --}}
+
                                             </ul>
-                                        </li>
+                                        </li> --}}
                                         <li class="dropdown-item">
                                             <a id="navbar-link-about-us" class="dropdown-link"
                                                 href="{{ route('client.client-about') }}">
@@ -397,55 +367,15 @@
                                                 Dịch vụ
                                             </a>
                                         </li>
-                                        <li class="dropdown-item dropdown dropright">
-                                            <a id="navbar-link-contact-us" class="dropdown-link dropdown-toggle"
-                                                href="#" data-toggle="dropdown">
-                                                Contact us
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-submenu pt-3 pb-0 pb-xl-3"
-                                                aria-labelledby="navbar-link-contact-us">
-                                                <li class="dropdown-item">
-                                                    <a class="dropdown-link" href="contact-us-1.html">Contact us 1</a>
-                                                </li>
-                                                <li class="dropdown-item">
-                                                    <a class="dropdown-link" href="contact-us-2.html">Contact us 2</a>
-                                                </li>
-                                            </ul>
-                                        </li>
+
                                         <li class="dropdown-item dropdown dropright">
                                             <a id="navbar-link-agent" class="dropdown-link"
                                                 href="{{ route('client.client-agent') }}">
                                                 Người đăng tin
                                             </a>
                                         </li>
-                                        <li class="dropdown-item dropdown dropright">
-                                            <a id="navbar-link-agency" class="dropdown-link dropdown-toggle"
-                                                href="#" data-toggle="dropdown">
-                                                Agency
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-submenu pt-3 pb-0 pb-xl-3"
-                                                aria-labelledby="navbar-link-agency">
-                                                <li class="dropdown-item">
-                                                    <a class="dropdown-link" href="agency-grid.html">Agency grid</a>
-                                                </li>
-                                                <li class="dropdown-item">
-                                                    <a class="dropdown-link" href="agency-list.html">Agency list</a>
-                                                </li>
-                                                <li class="dropdown-item">
-                                                    <a class="dropdown-link" href="agency-details-1.html">Agency
-                                                        details 1</a>
-                                                </li>
-                                                <li class="dropdown-item">
-                                                    <a class="dropdown-link" href="agency-details-2.html">Agency
-                                                        details 2</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown-item">
-                                            <a id="navbar-link-faqs" class="dropdown-link" href="faqs.html">
-                                                FAQs
-                                            </a>
-                                        </li>
+
+
                                         <li class="dropdown-item">
                                             <a id="navbar-link-page-404" class="dropdown-link" href="page-404.html">
                                                 Page 404
@@ -464,12 +394,7 @@
                                                 Thanh toán thành công
                                             </a>
                                         </li>
-                                        <li class="dropdown-item">
-                                            <a id="navbar-link-compare" class="dropdown-link"
-                                                href="compare-details.html">
-                                                Compare
-                                            </a>
-                                        </li>
+
                                         <li class="dropdown-item">
                                             <a id="navbar-link-checkout" class="dropdown-link"
                                                 href="{{ route('client.package') }}">
@@ -478,68 +403,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li id="navbar-item-docs" aria-haspopup="true" aria-expanded="false"
-                                    class="nav-item dropdown py-2 py-xl-5 px-0 px-xl-4">
-                                    <a class="nav-link dropdown-toggle p-0" href="#" data-toggle="dropdown">
-                                        Docs
-                                        <span class="caret"></span>
-                                    </a>
-                                    <div class="dropdown-menu px-0 pt-3 dropdown-menu-docs">
-                                        <div class="dropdown-body">
-                                            <a class="dropdown-item py-1"
-                                                href="docs/getting-started/dev-environment-setup.html">
-                                                <div class="media">
-                                                    <div class="fs-20 mr-3">
-                                                        <i class="fal fa-file-alt"></i>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <span class="d-block lh-15">Documentation</span>
-                                                        <small class="d-block">Kick-start customization</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <div class="dropdown-divider m-0"></div>
-                                            <a class="dropdown-item py-1" href="docs/content/typography.html">
-                                                <div class="media">
-                                                    <div class="fs-20 mr-3">
-                                                        <i class="fal fa-layer-group"></i>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <span class="d-block lh-15">UI Kit<span
-                                                                class="badge badge-danger ml-2">50+</span></span>
-                                                        <small class="d-block">Flexible components</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <div class="dropdown-divider m-0"></div>
-                                            <a class="dropdown-item py-1" href="docs/getting-started/changelog.html">
-                                                <div class="media">
-                                                    <div class="fs-20 mr-3">
-                                                        <i class="fal fa-edit"></i>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <span class="d-block lh-15">Changelog<span
-                                                                class="badge badge-success ml-2">v1.0.1</span></span>
-                                                        <small class="d-block">Regular updates</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <div class="dropdown-divider m-0"></div>
-                                            <a class="dropdown-item py-1" href="https://sp.g5plus.net/"
-                                                target="_blank">
-                                                <div class="media">
-                                                    <div class="fs-20 mr-3">
-                                                        <i class="fal fa-life-ring"></i>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <span class="d-block lh-15">Support</span>
-                                                        <small class="d-block">https://sp.g5plus.net/</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
+
                             </ul>
                             <div class="d-block d-xl-none">
                                 <div class="modal fade login-register login-register-modal" id="login-register-modal"
@@ -567,7 +431,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -591,24 +455,31 @@
                                     <li class="divider"></li>
                                     <li class="nav-item">
                                         @if (Auth::check())
-                                            <a class="nav-link pl-3 pr-3" data-toggle="modal" href="#user-profile-modal">
+                                            <a class="nav-link pl-3 pr-3" data-toggle="modal"
+                                                href="#user-profile-modal">
                                                 {{ Auth::user()->name }} <!-- Hiển thị tên người dùng -->
                                             </a>
                                         @else
-                                            <a class="nav-link pl-3 pr-3" data-toggle="modal" href="#login-register-modal">
+                                            <a class="nav-link pl-3 pr-3" data-toggle="modal"
+                                                href="#login-register-modal">
                                                 SIGN IN
                                             </a>
                                         @endif
                                     </li>
 
+                                    @if (Auth::check())
+                                        @if ($role != '1')
+                                            <li class="nav-item ml-auto w-100 w-sm-auto">
+                                                <a class="btn btn-primary btn-lg"
+                                                    href="{{ route('owners.add-room') }}">
+                                                    Cho thuê
+                                                    <img src="{{ asset('assets/images/add-listing-icon.png') }}"
+                                                        alt="Add listing" class="ml-1">
+                                                </a>
+                                            </li>
+                                        @endif
+                                    @endif
 
-                                    <li class="nav-item ml-auto w-100 w-sm-auto">
-                                        <a class="btn btn-primary btn-lg" href="dashboard-add-new-property.html">
-                                            Add listing
-                                            <img src="{{ asset('assets/images/add-listing-icon.png') }}"
-                                                alt="Add listing" class="ml-1">
-                                        </a>
-                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -641,15 +512,18 @@
                                         {{ Auth::user()->name }}
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                                        <li><a class="dropdown-item" href="#">Xem thông tin</a></li>
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('owners.profile.profile-admin-index') }}">Xem thông
+                                                tin</a></li>
                                         <li>
-                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                            <a class="dropdown-item" href="{{ route('client.logout') }}"
                                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                                 Đăng xuất
                                             </a>
                                         </li>
+
                                     </ul>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    <form id="logout-form" action="{{ route('client.logout') }}" method="POST"
                                         style="display: none;">
                                         @csrf
                                     </form>
@@ -665,22 +539,27 @@
                                     <span class="badge badge-primary badge-circle badge-absolute">1</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="btn btn-outline-light btn-lg text-white rounded-lg bg-hover-primary border-hover-primary hover-white d-none d-lg-block"
-                                    href="dashboard-add-new-property.html">
-                                    Add listing
-                                    <img src="{{ asset('assets/images/add-listing-icon.png') }}" alt="Add listing"
-                                        class="ml-1 normal-button-icon">
-                                    <img src="{{ asset('assets/images/add-listing-icon-primary.png') }}"
-                                        alt="Add listing" class="ml-1 sticky-button-icon">
-                                </a>
-                                <a class="btn btn-primary btn-lg d-block d-lg-none"
-                                    href="dashboard-add-new-property.html">
-                                    Add listing
-                                    <img src="{{ asset('assets/images/add-listing-icon.png') }}" alt="Add listing"
-                                        class="ml-1">
-                                </a>
-                            </li>
+                            @if (Auth::check())
+                                @if ($role != '1')
+                                    <li class="nav-item">
+
+                                        <a class="btn btn-outline-light btn-lg text-white rounded-lg bg-hover-primary border-hover-primary hover-white d-none d-lg-block"
+                                            href="{{ route('owners.add-room') }}">
+                                            Cho thuê
+                                            <img src="{{ asset('assets/images/add-listing-icon.png') }}"
+                                                alt="Add listing" class="ml-1 normal-button-icon">
+                                            <img src="{{ asset('assets/images/add-listing-icon-primary.png') }}"
+                                                alt="Add listing" class="ml-1 sticky-button-icon">
+                                        </a>
+                                        <a class="btn btn-primary btn-lg d-block d-lg-none"
+                                            href="{{ route('owners.add-room') }}">
+                                            Cho thuê
+                                            <img src="{{ asset('assets/images/add-listing-icon.png') }}"
+                                                alt="Add listing" class="ml-1">
+                                        </a>
+                                    </li>
+                                @endif
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -688,6 +567,3 @@
         </div>
     </header>
 </div>
-
-
-

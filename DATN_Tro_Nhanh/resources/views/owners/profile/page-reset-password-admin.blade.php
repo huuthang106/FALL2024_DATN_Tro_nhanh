@@ -9,28 +9,38 @@
                 <p class="mb-1">Dịch vụ khách hàng rất quan trọng, do đó, khách hàng phải chịu trách nhiệm. Cần có hy vọng
                 </p>
             </div> --}}
-            <form>
+            <form action="{{ route('owners.profile.reset-password-admin-index') }}" method="POST">
+                @csrf
+                @method('PUT')
                 <div class="col-lg-12 card">
                     <div class="card-body px-6 pt-6 pb-5">
                         <h3 class="card-title mb-0 text-heading text-center fs-22 lh-15">ĐỔI MẬT KHẨU</h3>
-                        {{-- <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                        </p> --}}
                         <hr>
                         <div class="form-group">
                             <label for="oldPassword" class="text-heading">Mật khẩu cũ</label>
-                            <input type="password" class="form-control form-control-lg border-0" id="oldPassword"
-                                name="oldPassword" placeholder="Nhập mật khẩu cũ...">
+                            <input type="password" class="form-control form-control-lg border-0 @error('current_password') is-invalid @enderror" 
+                                id="oldPassword" name="current_password" placeholder="Nhập mật khẩu cũ...">
+                                @error('current_password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                           
                         </div>
                         <div class="form-row mx-n4">
                             <div class="form-group col-md-6 col-lg-12 col-xxl-6 px-4">
                                 <label for="newPassword" class="text-heading">Mật khẩu mới</label>
-                                <input type="password" class="form-control form-control-lg border-0" id="newPassword"
-                                    name="newPassword" placeholder="Nhập mật khẩu mới...">
+                                <input type="password" class="form-control form-control-lg border-0 @error('password') is-invalid @enderror" 
+                                    id="newPassword" name="password" placeholder="Nhập mật khẩu mới...">
+                                @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group col-md-6 col-lg-12 col-xxl-6 px-4">
-                                <label for="confirmNewPassword" class="text-heading">Xác nhận mật khẩu</label>
-                                <input type="password" class="form-control form-control-lg border-0" id="confirmNewPassword"
-                                    name="confirmNewPassword" placeholder="Nhập xác nhận mật khẩu...">
+                                <label for="password_confirmation" class="text-heading">Xác nhận mật khẩu</label>
+                                <input type="password" class="form-control form-control-lg border-0 @error('password_confirmation') is-invalid @enderror" 
+                                    id="password_confirmation" name="password_confirmation" placeholder="Nhập xác nhận mật khẩu...">
+                                @error('password_confirmation')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -39,6 +49,7 @@
                     </div>
                 </div>
             </form>
+            
         </div>
     </main>
 @endsection

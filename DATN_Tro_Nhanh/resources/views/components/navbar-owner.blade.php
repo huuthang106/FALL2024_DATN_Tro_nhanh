@@ -62,7 +62,8 @@
                         <h5 class="fs-13 letter-spacing-087 text-muted mb-3 text-uppercase px-3">Main</h5>
                         <ul class="list-group list-group-no-border rounded-lg">
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{route('owners.profile.dashboard')}}" class="text-heading lh-1 sidebar-link">
+                                <a href="{{ route('owners.profile.dashboard') }}"
+                                    class="text-heading lh-1 sidebar-link">
                                     <span class="sidebar-item-icon d-inline-block mr-3 fs-20"><i
                                             class="fal fa-cog"></i></span>
                                     <span class="sidebar-item-text">Dashboard</span>
@@ -75,25 +76,25 @@
                             Listings</h5>
                         <ul class="list-group list-group-no-border rounded-lg">
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{route('owners.add-room')}}" class="text-heading lh-1 sidebar-link">
+                                <a href="{{ route('owners.add-room') }}" class="text-heading lh-1 sidebar-link">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20 fs-20">
                                         <svg class="icon icon-add-new">
                                             <use xlink:href="#icon-add-new"></use>
                                         </svg></span>
-                                    <span class="sidebar-item-text">Thêm  trọ</span>
+                                    <span class="sidebar-item-text">Thêm trọ</span>
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{route('owners.blog')}}" class="text-heading lh-1 sidebar-link">
+                                <a href="{{ route('owners.blog') }}" class="text-heading lh-1 sidebar-link">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20 fs-20">
                                         <svg class="icon icon-add-new">
                                             <use xlink:href="#icon-add-new"></use>
                                         </svg></span>
-                                    <span class="sidebar-item-text">Thêm  blog</span>
+                                    <span class="sidebar-item-text">Thêm blog</span>
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{route('owners.zone-post')}}" class="text-heading lh-1 sidebar-link">
+                                <a href="{{ route('owners.zone-post') }}" class="text-heading lh-1 sidebar-link">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20 fs-20">
                                         <svg class="icon icon-add-new">
                                             <use xlink:href="#icon-add-new"></use>
@@ -102,7 +103,7 @@
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{route('owners.properties')}}"
+                                <a href="{{ route('owners.properties') }}"
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-my-properties">
@@ -114,19 +115,7 @@
                                         class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">29</span>
                                 </a>
                             </li>
-                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{Route('owners.favorites')}}"
-                                    class="text-heading lh-1 sidebar-link d-flex align-items-center">
-                                    <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                        <svg class="icon icon-heart">
-                                            <use xlink:href="#icon-heart"></use>
-                                        </svg>
-                                    </span>
-                                    <span class="sidebar-item-text">Yêu thích</span>
-                                    <span
-                                        class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">5</span>
-                                </a>
-                            </li>
+
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                 <a href="dashboard-save-search.html"
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center">
@@ -141,7 +130,7 @@
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{route('owners.danhgia')}}"
+                                <a href="{{ route('owners.danhgia') }}"
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-review">
@@ -193,17 +182,16 @@
                         <h5 class="fs-13 letter-spacing-087 text-muted mb-3 text-uppercase px-3">QUẢN LÝ TÀI KHOẢN
                         </h5>
                         <ul class="list-group list-group-no-border rounded-lg">
+
+
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="dashboard-my-packages.html"
-                                    class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                <a href="{{ Route('owners.favorites') }}" class="text-heading lh-1 sidebar-link">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                        <svg class="icon icon-my-package">
-                                            <use xlink:href="#icon-my-package"></use>
+                                        <svg class="icon icon-heart">
+                                            <use xlink:href="#icon-heart"></use>
                                         </svg>
                                     </span>
-                                    <span class="sidebar-item-text">My Package</span>
-                                    <span
-                                        class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">5</span>
+                                    <span class="sidebar-item-text">Yêu thích</span>
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
@@ -218,7 +206,19 @@
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="#" class="text-heading lh-1 sidebar-link">
+                                <a href="{{ route('client.home') }}" class="text-heading lh-1 sidebar-link">
+                                    <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
+                                        <svg class="icon icon-my-profile">
+                                            <use xlink:href="#icon-my-profile"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="sidebar-item-text">Về trang chủ</span>
+                                </a>
+                            </li>
+
+                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                <a href="{{ route('client.logout') }}" class="text-heading lh-1 sidebar-link"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-log-out">
                                             <use xlink:href="#icon-log-out"></use>
@@ -226,6 +226,10 @@
                                     </span>
                                     <span class="sidebar-item-text">Đăng xuất</span>
                                 </a>
+                                <form id="logout-form" action="{{ route('client.logout') }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
                             </li>
                         </ul>
                     </li>
@@ -265,10 +269,15 @@
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right w-100">
-                            <a class="dropdown-item" href="{{ route('owners.profile.profile-admin-index') }}">Thông tin</a>
-                            <a class="dropdown-item" href="{{ route('owners.profile.reset-password-admin-index') }}">Đổi mật
+                            <a class="dropdown-item" href="{{ route('owners.profile.profile-admin-index') }}">Thông
+                                tin</a>
+                            <a class="dropdown-item"
+                                href="{{ route('owners.profile.reset-password-admin-index') }}">Đổi mật
                                 khẩu</a>
-                            <a class="dropdown-item" href="#">Đăng xuất</a>
+
+                            <a class="dropdown-item" href="#"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng
+                                xuất</a>
                         </div>
                     </div>
                     <div
@@ -280,7 +289,8 @@
                                 class="badge badge-primary badge-circle badge-absolute font-weight-bold fs-13">1</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="{{route('owners.notification-owners')}}">danh sách thông báo</a>
+                            <a class="dropdown-item" href="{{ route('owners.notification-owners') }}">danh sách thông
+                                báo</a>
                             <a class="dropdown-item" href="#">Thao tác khác</a>
                             <a class="dropdown-item" href="#">Tùy chọn khác</a>
                         </div>
