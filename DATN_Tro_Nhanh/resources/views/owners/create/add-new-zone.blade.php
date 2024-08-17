@@ -347,52 +347,7 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <style>
-        @import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
-
-.main-container {
-  width: 90%;
-  max-width: 350px;
-  margin: 50px auto;
-}
-.select-item {
-  width: 100%;
-  font-family: "Montserrat", sans-serif;
-  margin: 15px auto;
-  position: relative;
-}
-.select-item > label {
-  display: block;
-  font-size: 18px;
-}
-.select-item > select {
-  margin-top: 10px;
-  width: 100%;
-  font-family: "Montserrat", sans-serif;
-  font-size: 16px;
-  line-height: 36px;
-  height: 36px;
-  border-radius: 3px;
-  outline: none;
-  background: none;
-  box-shadow: none;
-  border: 1px solid rgb(175, 175, 175);
-}
-.select-item > span {
-  position: absolute;
-  width: 22px;
-  height: 22px;
-  right: 22px;
-  top: 38px;
-  display:none;
-  z-index: 5;
-}
-.select-item > span > img {
-  width: 100%;
-  height: 100%;
-}
-
-    </style>
+   
 @endpush
 @push('scriptOwners')
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>

@@ -23,8 +23,7 @@ return new class extends Migration
             $table->string('balance')->nullable();
             $table->string('token')->nullable()->change(); 
             $table->string('slug')->nullable()->unique();
-            $table->longText('token')->nullable();
-            $table->string('google_id')->unique()->nullable()->after('email');
+            $table->string('google_id')->unique()->nullable();
             $table->boolean('status')->default(1);
             $table->string('image')->nullable();
             $table->string('identification_number')->nullable();
@@ -50,9 +49,7 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('google_id')->nullable();
-        });
+    
     }
 
     /**
