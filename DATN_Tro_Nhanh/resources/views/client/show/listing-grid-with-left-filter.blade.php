@@ -398,94 +398,106 @@
                         </div>
                         <div class="row">
                             @foreach ($rooms as $room)
-                                <div class="col-md-6 mb-6">
-                                    <div class="card border-0" data-animate="fadeInUp">
-                                        <div
-                                            class="position-relative hover-change-image bg-hover-overlay rounded-lg card-img">
-                                            @if ($room->images->isNotEmpty())
-                                                @php
-                                                    // Get the first image
-                                                    $image = $room->images->first();
-                                                @endphp
-                                                <img src="{{ asset('assets/images/' . $image->filename) }}"
-                                                    alt="{{ $room->title }}">
-                                            @else
-                                                <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                                    alt="{{ $room->title }}">
-                                            @endif
-                                            <div class="card-img-overlay d-flex flex-column">
-                                                <div><span class="badge badge-primary">Cần Bán</span></div>
-                                                <div class="mt-auto d-flex hover-image">
-                                                    <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                        <li class="list-inline-item mr-2" data-toggle="tooltip"
-                                                            title="9 Images">
-                                                            <a href="#" class="text-white hover-primary">
-                                                                <i class="far fa-images"></i><span class="pl-1">9</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-inline-item" data-toggle="tooltip"
-                                                            title="2 Video">
-                                                            <a href="#" class="text-white hover-primary">
-                                                                <i class="far fa-play-circle"></i><span
-                                                                    class="pl-1">2</span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                    <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                        <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
-                                                            title="Wishlist">
-                                                            <a href="#" class="text-white fs-20 hover-primary">
-                                                                <i class="far fa-heart"></i>
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
-                                                            title="Compare">
-                                                            <a href="#" class="text-white fs-20 hover-primary">
-                                                                <i class="fas fa-exchange-alt"></i>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
+                               
+
+                                    <div class="col-md-6 mb-6">
+                                  
+                                        <div class="card border-0" data-animate="fadeInUp">
+                                            <div class="position-relative hover-change-image bg-hover-overlay rounded-lg card-img">
+                                                @if ($room->images->isNotEmpty())
+                                                    @php
+                                                        // Get the first image
+                                                        $image = $room->images->first();
+                                                    @endphp
+                                                          <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">     
+                                                    <img src="{{ asset('assets/images/' . $image->filename) }}"
+                                                        alt="{{ $room->title }}"> </a>
+                                                @else
+                                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">     
+                                                    <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                                        alt="{{ $room->title }}"> </a>
+                                                @endif
+                                                <div class="card-img-overlay d-flex flex-column">
+                                                    <div><span class="badge badge-primary">Cần Bán</span></div>
+                                                    <div class="mt-auto d-flex hover-image">
+                                                        <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
+                                                            <li class="list-inline-item mr-2" data-toggle="tooltip"
+                                                                title="9 Images">
+                                                                <a href="#" class="text-white hover-primary">
+                                                                    <i class="far fa-images"></i><span
+                                                                        class="pl-1">9</span>
+                                                                </a>
+                                                            </li>
+                                                            <li class="list-inline-item" data-toggle="tooltip"
+                                                                title="2 Video">
+                                                                <a href="#" class="text-white hover-primary">
+                                                                    <i class="far fa-play-circle"></i><span
+                                                                        class="pl-1">2</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                        <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
+                                                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+                                                                title="Wishlist">
+                                                                <a href="#" class="text-white fs-20 hover-primary">
+                                                                    <i class="far fa-heart"></i>
+                                                                </a>
+                                                            </li>
+                                                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+                                                                title="Compare">
+                                                                <a href="#" class="text-white fs-20 hover-primary">
+                                                                    <i class="fas fa-exchange-alt"></i>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <div class="card-body pt-3 px-0 pb-1">
+                                                <h2 class="fs-16 mb-1"><a
+                                                        href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
+                                                        class="text-dark hover-primary">{{ $room->title }}</a>
+                                                </h2>
+                                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"> 
+                                                <p class="font-weight-500 text-gray-light mb-0">{{ $room->address }}
+                                                </p>
+                                                </a>
+                                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"> 
+                                                <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">
+                                                    {{ $room->price }}VND
+                                                </p>
+                                                </a>
+                                            </div>
+                                            <div class="card-footer bg-transparent px-0 pb-0 pt-2">
+                                                <ul class="list-inline mb-0">
+                                                    <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+                                                        data-toggle="tooltip" title="3 Giường">
+                                                        <svg class="icon icon-bedroom fs-18 text-primary mr-1">
+                                                            <use xlink:href="#icon-bedroom"></use>
+                                                        </svg>
+                                                        3 Giường
+                                                    </li>
+                                                    <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+                                                        data-toggle="tooltip" title="3 Phòng tắm">
+                                                        <svg class="icon icon-shower fs-18 text-primary mr-1">
+                                                            <use xlink:href="#icon-shower"></use>
+                                                        </svg>
+                                                        3 Phòng tắm
+                                                    </li>
+                                                    <li class="list-inline-item text-gray font-weight-500 fs-13"
+                                                        data-toggle="tooltip" title="Mét vuông">
+                                                        <svg class="icon icon-square fs-18 text-primary mr-1">
+                                                            <use xlink:href="#icon-square"></use>
+                                                        </svg>
+                                                        200 m
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                        <div class="card-body pt-3 px-0 pb-1">
-                                            <h2 class="fs-16 mb-1"><a
-                                                    href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
-                                                    class="text-dark hover-primary">{{ $room->title }}</a>
-                                            </h2>
-                                            <p class="font-weight-500 text-gray-light mb-0">{{ $room->address }}
-                                            </p>
-                                            <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                {{ $room->price }}VND
-                                            </p>
-                                        </div>
-                                        <div class="card-footer bg-transparent px-0 pb-0 pt-2">
-                                            <ul class="list-inline mb-0">
-                                                <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                    data-toggle="tooltip" title="3 Giường">
-                                                    <svg class="icon icon-bedroom fs-18 text-primary mr-1">
-                                                        <use xlink:href="#icon-bedroom"></use>
-                                                    </svg>
-                                                    3 Giường
-                                                </li>
-                                                <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                    data-toggle="tooltip" title="3 Phòng tắm">
-                                                    <svg class="icon icon-shower fs-18 text-primary mr-1">
-                                                        <use xlink:href="#icon-shower"></use>
-                                                    </svg>
-                                                    3 Phòng tắm
-                                                </li>
-                                                <li class="list-inline-item text-gray font-weight-500 fs-13"
-                                                    data-toggle="tooltip" title="Mét vuông">
-                                                    <svg class="icon icon-square fs-18 text-primary mr-1">
-                                                        <use xlink:href="#icon-square"></use>
-                                                    </svg>
-                                                    200 m
-                                                </li>
-                                            </ul>
-                                        </div>
+                                  
+
                                     </div>
-                                </div>
+                           
                             @endforeach
                         </div>
                         <nav class="pt-4">
