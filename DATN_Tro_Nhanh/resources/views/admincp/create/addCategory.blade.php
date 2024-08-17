@@ -3,6 +3,7 @@
 @section('linkAdmin', 'Thêm loại')
 
 @section('contentAdmin')
+
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="post d-flex flex-column-fluid" id="kt_post">
             <div id="kt_content_container" class="container-xxl">
@@ -14,8 +15,10 @@
                             <h3 class="fw-bolder m-0">Thêm loại phòng</h3>
                         </div>
                     </div>
-                    <div id="kt_account_profile_details" class="collapse show">
-                        <form id="kt_account_profile_details_form" class="form">
+                    {{-- <div id="kt_account_profile_details" class="collapse show">
+                        <form id="kt_account_profile_details_form" class="form"
+                            action="{{ route('admin.store-category') }}" method="POST">
+                            @csrf
                             <div class="card-body border-top p-9">
                                 <!-- Name Input Group -->
                                 <div class="row mb-6">
@@ -42,11 +45,43 @@
                             <!-- Actions -->
                             <div class="card-footer d-flex justify-content-end py-6 px-9">
                                 <button type="reset" class="btn btn-light btn-active-light-primary me-2">Hủy</button>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Lưu</button>
+                            <button type="submit">s</button>
+                        </form>
+                    </div> --}}
+                    <div class="collapse show">
+                        <form class="form" action="{{ route('admin.store-category') }}" method="POST" id="demo">
+                            @csrf
+                            <div class="card-body border-top p-9">
+                                <!-- Name Input Group -->
+                                <div class="row mb-6">
+                                    <label class="col-lg-4 col-form-label fw-bold fs-6 required">Tên loại</label>
+                                    <div class="col-lg-8 fv-row">
+                                        <input type="text" name="name"
+                                            class="form-control form-control-lg form-control-solid"
+                                            placeholder="Nhập loại phòng trọ..." required />
+                                    </div>
+                                </div>
+
+                                <!-- Status Input Group -->
+                                <div class="row mb-6">
+                                    <label class="col-lg-4 col-form-label fw-bold fs-6 required">Trạng thái</label>
+                                    <div class="col-lg-8 fv-row">
+                                        <select name="status" class="form-select form-select-solid form-select-lg">
+                                            <option value="1">Kích hoạt</option>
+                                            <option value="0">Không kích hoạt</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="card-footer d-flex justify-content-end py-6 px-9">
+                                <button type="reset" class="btn btn-light btn-active-light-primary me-2">Hủy</button>
                                 <button type="submit" class="btn btn-primary">Lưu</button>
                             </div>
                         </form>
-
-
                     </div>
                 </div>
             </div>
@@ -155,4 +190,7 @@
     <script src="{{ asset('assets/js/custom/modals/upgrade-plan.js') }}"></script>
     <!--end::Page Custom Javascript-->
     <!--end::Javascript-->
+    {{-- Show - Alert --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('assets/js/alert/category-admin-alert.js') }}"></script>
 @endpush

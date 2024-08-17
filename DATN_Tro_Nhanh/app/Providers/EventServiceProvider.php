@@ -2,15 +2,20 @@
 
 namespace App\Providers;
 
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as BaseEventServiceProvider;
 use Illuminate\Support\Facades\Event;
 use App\Events\ZoneCreate; // Thay đổi theo tên sự kiện của bạn
 use App\Listeners\SendZoneCreatedNotification; // Thay đổi theo tên listener của bạn
 use App\Events\ZoneCreated;
-class EventServiceProvider extends ServiceProvider
+use App\Events\Admin\CategoryAdminEvent;
+use App\Listeners\Admin\HandleCategoryAdmin;
+// use Illuminate\Support\ServiceProvider;
+// use App\Events\Owners\RoomOwnersEvent;
+
+class EventServiceProvider extends BaseEventServiceProvider
 {
     /**
-     * Các ánh xạ sự kiện và listener của ứng dụng.
+     * The event listener mappings for the application.
      *
      * @var array
      */
@@ -18,15 +23,31 @@ class EventServiceProvider extends ServiceProvider
         ZoneCreated::class => [
             SendZoneCreatedNotification::class,
         ],
+        CategoryAdminEvent::class => [
+            HandleCategoryAdmin::class,
+        ],
+        // RoomOwnersEvent::class => [
+        //     HandleRoomOwner::class,
+        // ],
     ];
 
     /**
-     * Đăng ký bất kỳ sự kiện nào cho ứng dụng của bạn.
+     * Register any events for your application.
      *
      * @return void
      */
-    public function boot()
+    public function register(): void
     {
-        parent::boot();
+        // Các dịch vụ hoặc ràng buộc vào container dịch vụ của Laravel
+    }
+
+    /**
+     * Bootstrap any events for your application.
+     *
+     * @return void
+     */
+    public function boot(): void
+    {
+        // Đăng ký sự kiện hoặc thực hiện các hành động khác khi ứng dụng khởi động
     }
 }
