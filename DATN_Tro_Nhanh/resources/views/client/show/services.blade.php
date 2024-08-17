@@ -7,7 +7,7 @@
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb text-light mb-0">
-                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('client.home') }}">Trang chủ</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Dịch vụ</li>
                     </ol>
                 </nav>
@@ -179,7 +179,7 @@
                         </div>
                     </div>
                     <div class="form-group mb-6">
-                        <textarea class="form-control border-0" placeholder="Nội dung hỗ trọ..." name="message" rows="5"></textarea>
+                        <textarea class="form-control border-0" placeholder="Nội dung hỗ trợ..." name="message" rows="5"></textarea>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-lg btn-primary px-9">Gửi</button>

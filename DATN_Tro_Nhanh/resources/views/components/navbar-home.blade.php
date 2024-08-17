@@ -80,7 +80,7 @@
                                     </a>
                                 </div>
                                 <div class="col-4 px-2 mb-5">
-                                    <a href="{{ route('auth.google') }}" class="btn btn-lg btn-block google px-0">
+                                    <a href="{{ route('client.auth.google') }}" class="btn btn-lg btn-block google px-0">
                                         <img src="{{ asset('assets/images/google.png') }}" alt="Google">
                                     </a>
                                 </div>
@@ -160,7 +160,7 @@
                                     </a>
                                 </div>
                                 <div class="col-4 px-2 mb-4">
-                                    <a href="{{ route('auth.google') }}" class="btn btn-lg btn-block google px-0">
+                                    <a href="{{ route('client.auth.google') }}" class="btn btn-lg btn-block google px-0">
                                         <img src="{{ asset('assets/images/google.png') }}" alt="Google">
                                     </a>
                                 </div>
@@ -283,7 +283,7 @@
                                         aria-labelledby="navbar-item-dashboard">
                                         <li class="dropdown-item">
                                             <a id="navbar-link-dashboard" class="dropdown-link"
-                                                href="{{ route('profile.dashboard') }}">
+                                                href="{{ route('owners.profile.dashboard') }}">
                                                 Trang quản lí
                                             </a>
                                         </li>
@@ -387,13 +387,13 @@
                                         </li>
                                         <li class="dropdown-item">
                                             <a id="navbar-link-about-us" class="dropdown-link"
-                                                href="{{ route('client-about') }}">
+                                                href="{{ route('client.client-about') }}">
                                                 Về chúng tôi
                                             </a>
                                         </li>
                                         <li class="dropdown-item dropdown dropright">
                                             <a id="navbar-link-service" class="dropdown-link"
-                                                href="{{ route('client-service') }}">
+                                                href="{{ route('client.client-service') }}">
                                                 Dịch vụ
                                             </a>
                                         </li>
@@ -567,205 +567,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="modal-body p-4 py-sm-7 px-sm-8">
-                                                <div class="tab-content shadow-none p-0" id="myTabContent">
-                                                    <div class="tab-pane fade show active" id="login"
-                                                        role="tabpanel" aria-labelledby="login-tab">
-                                                        <form class="form">
-                                                            <div class="form-group mb-4">
-                                                                <label for="username" class="sr-only">Username</label>
-                                                                <div class="input-group input-group-lg">
-                                                                    <div class="input-group-prepend ">
-                                                                        <span
-                                                                            class="input-group-text bg-gray-01 border-0 text-muted fs-18"
-                                                                            id="inputGroup-sizing-lg">
-                                                                            <i class="far fa-user"></i></span>
-                                                                    </div>
-                                                                    <input type="text"
-                                                                        class="form-control border-0 shadow-none fs-13"
-                                                                        id="username" name="username" required
-                                                                        placeholder="Username / Your email">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group mb-4">
-                                                                <label for="password" class="sr-only">Password</label>
-                                                                <div class="input-group input-group-lg">
-                                                                    <div class="input-group-prepend ">
-                                                                        <span
-                                                                            class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                                                                            <i class="far fa-lock"></i>
-                                                                        </span>
-                                                                    </div>
-                                                                    <input type="text"
-                                                                        class="form-control border-0 shadow-none fs-13"
-                                                                        id="password" name="password" required
-                                                                        placeholder="Password">
-                                                                    <div class="input-group-append">
-                                                                        <span
-                                                                            class="input-group-text bg-gray-01 border-0 text-body fs-18">
-                                                                            <i class="far fa-eye-slash"></i>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="d-flex mb-4">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="checkbox"
-                                                                        value="" id="remember-me"
-                                                                        name="remember-me">
-                                                                    <label class="form-check-label" for="remember-me">
-                                                                        Remember me
-                                                                    </label>
-                                                                </div>
-                                                                <a href="password-recovery.html"
-                                                                    class="d-inline-block ml-auto text-orange fs-15">
-                                                                    Lost password?
-                                                                </a>
-                                                            </div>
-                                                            <div
-                                                                class="d-flex p-2 border re-capchar align-items-center mb-4">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="checkbox"
-                                                                        value="" id="verify" name="verify">
-                                                                    <label class="form-check-label" for="verify">
-                                                                        I'm not a robot
-                                                                    </label>
-                                                                </div>
-                                                                <a href="#" class="d-inline-block ml-auto">
-                                                                    <img src="{{ asset('assets/images/re-captcha.png') }}"
-                                                                        alt="Re-capcha">
-
-                                                                </a>
-                                                            </div>
-                                                            <button type="submit"
-                                                                class="btn btn-primary btn-lg btn-block">Log
-                                                                in</button>
-                                                        </form>
-                                                        <div class="divider text-center my-2">
-                                                            <span class="px-4 bg-white lh-17 text">
-                                                                or continue with
-                                                            </span>
-                                                        </div>
-                                                        <div class="row no-gutters mx-n2">
-                                                            <div class="col-4 px-2 mb-4">
-                                                                <a href="#"
-                                                                    class="btn btn-lg btn-block facebook text-white px-0">
-                                                                    <i class="fab fa-facebook-f"></i>
-                                                                </a>
-                                                            </div>
-                                                            <div class="col-4 px-2 mb-4">
-                                                                <a href="{{ route('auth.google') }}"
-                                                                    class="btn btn-lg btn-block google px-0">
-                                                                    <img src="{{ asset('assets/images/google.png') }}"
-                                                                        alt="Google">
-
-                                                                </a>
-                                                            </div>
-                                                            <div class="col-4 px-2 mb-4">
-                                                                <a href="#"
-                                                                    class="btn btn-lg btn-block twitter text-white px-0">
-                                                                    <i class="fab fa-twitter"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tab-pane fade" id="register" role="tabpanel"
-                                                        aria-labelledby="register-tab">
-                                                        <form class="form">
-                                                            <div class="form-group mb-4">
-                                                                <label for="full-name" class="sr-only">Full
-                                                                    name</label>
-                                                                <div class="input-group input-group-lg">
-                                                                    <div class="input-group-prepend ">
-                                                                        <span
-                                                                            class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                                                                            <i class="far fa-address-card"></i></span>
-                                                                    </div>
-                                                                    <input type="text"
-                                                                        class="form-control border-0 shadow-none fs-13"
-                                                                        id="full-name" name="full-name" required
-                                                                        placeholder="Full name">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group mb-4">
-                                                                <label for="username01"
-                                                                    class="sr-only">Username</label>
-                                                                <div class="input-group input-group-lg">
-                                                                    <div class="input-group-prepend ">
-                                                                        <span
-                                                                            class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                                                                            <i class="far fa-user"></i></span>
-                                                                    </div>
-                                                                    <input type="text"
-                                                                        class="form-control border-0 shadow-none fs-13"
-                                                                        id="username01" name="username01" required
-                                                                        placeholder="Username / Your email">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group mb-4">
-                                                                <label for="password01"
-                                                                    class="sr-only">Password</label>
-                                                                <div class="input-group input-group-lg">
-                                                                    <div class="input-group-prepend ">
-                                                                        <span
-                                                                            class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                                                                            <i class="far fa-lock"></i>
-                                                                        </span>
-                                                                    </div>
-                                                                    <input type="text"
-                                                                        class="form-control border-0 shadow-none fs-13"
-                                                                        id="password01" name="password01" required
-                                                                        placeholder="Password">
-                                                                    <div class="input-group-append">
-                                                                        <span
-                                                                            class="input-group-text bg-gray-01 border-0 text-body fs-18">
-                                                                            <i class="far fa-eye-slash"></i>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                                <p class="form-text">Minimum 8 characters with 1 number
-                                                                    and 1 letter</p>
-                                                            </div>
-                                                            <button type="submit"
-                                                                class="btn btn-primary btn-lg btn-block">Sign
-                                                                up</button>
-                                                        </form>
-                                                        <div class="divider text-center my-2">
-                                                            <span class="px-4 bg-white lh-17 text">
-                                                                or continue with
-                                                            </span>
-                                                        </div>
-                                                        <div class="row no-gutters mx-n2">
-                                                            <div class="col-4 px-2 mb-4">
-                                                                <a href="#"
-                                                                    class="btn btn-lg btn-block facebook text-white px-0">
-                                                                    <i class="fab fa-facebook-f"></i>
-                                                                </a>
-                                                            </div>
-                                                            <div class="col-4 px-2 mb-4">
-                                                                <a href="{{ route('auth.google') }}"
-                                                                    class="btn btn-lg btn-block google px-0">
-                                                                    <img src="{{ asset('assets/images/google.png') }}"
-                                                                        alt="Google">
-
-                                                                </a>
-                                                            </div>
-                                                            <div class="col-4 px-2 mb-4">
-                                                                <a href="#"
-                                                                    class="btn btn-lg btn-block twitter text-white px-0">
-                                                                    <i class="fab fa-twitter"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="mt-2">By creating an account, you agree to HomeID
-                                                            <a class="text-heading" href="#"><u>Terms of Use</u>
-                                                            </a> and
-                                                            <a class="text-heading" href="#"><u>Privacy
-                                                                    Policy</u></a>.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -787,7 +589,7 @@
                                         </div>
                                     </li>
                                     <li class="divider"></li>
-                                    {{-- <li class="nav-item">
+                                    <li class="nav-item">
                                         @if (Auth::check())
                                             <a class="nav-link pl-3 pr-3" data-toggle="modal" href="#user-profile-modal">
                                                 {{ Auth::user()->name }} <!-- Hiển thị tên người dùng -->
@@ -797,7 +599,7 @@
                                                 SIGN IN
                                             </a>
                                         @endif
-                                    </li> --}}
+                                    </li>
 
 
                                     <li class="nav-item ml-auto w-100 w-sm-auto">
