@@ -25,4 +25,10 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
+
+    protected $listen = [
+        \App\Events\RoomCreated::class => [
+            \App\Listeners\SendRoomCreatedNotification::class,
+        ],
+    ];
 }
