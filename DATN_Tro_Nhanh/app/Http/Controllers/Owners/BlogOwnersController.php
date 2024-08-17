@@ -11,6 +11,7 @@ use App\Models\Image; // Import lớp Image
 use App\Events\BlogCreated;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateBlogRequest;
+use App\Services\NotificationService;
 
 class BlogOwnersController extends Controller
 {
@@ -26,29 +27,27 @@ class BlogOwnersController extends Controller
         return view('owners.create.add-new-blog');
     }
     public function store(Request $request)
-{
-    // Xác thực dữ liệu nếu cần
-    $request->validate([
-        'title' => 'required|string|max:255',
-        'description' => 'required|string',
-        'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
+    {
+        // Xác thực dữ liệu
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        $data = $request->only(['title', 'description']);
+        $images = $request->file('images');
+        $success = $this->BlogService->create($data, $images);
+        if ($success) {
+            $blog = Blog::where('title', $data['title'])->where('user_id', Auth::id())->first();
+            if ($blog) {
+                event(new BlogCreated($blog));
+            }
 
-    $data = $request->only(['title', 'description']);
-    $images = $request->file('images'); 
-
-    $success = $this->BlogService->create($data, $images);
-    if ($success) {
-        $blog = Blog::where('title', $data['title'])->where('user_id', Auth::id())->first();
-        if ($blog) {
-            event(new BlogCreated($blog));
+            return redirect()->route('owners.blog')->with('success', 'Blog đã được tạo thành công!');
+        } else {
+            return redirect()->route('owners.blog')->with('error', 'Có lỗi xảy ra khi tạo blog.');
         }
-
-        return redirect()->route('owners.blog')->with('success', 'Blog đã được tạo thành công!');
-    } else {
-        return redirect()->route('owners.blog')->with('error', 'Có lỗi xảy ra khi tạo blog.');
     }
-}
 
     
     

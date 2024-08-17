@@ -8,15 +8,15 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
  // Import lớp Blog
 use App\Models\Image;
+use App\Models\Notification;
+use App\Services\NotificationService;
+
 class BlogServices
 {
 
     private function createSlug($title, $id)
     {
-        // Tạo slug từ title
         $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9]+/', '', $title), '-'));
-
-        // Kết hợp với ID
         $slug = $slug . $id;
 
         return $slug;
@@ -32,8 +32,7 @@ class BlogServices
             $blog->save();
 
             // Tạo slug cho blog
-            $blogId = $blog->id; // Lấy ID tạm thời
-            $slug = $this->createSlug($data['title'], $blogId);
+            $slug = $this->createSlug($data['title'], $blog->id);
             $blog->slug = $slug;
             $blog->save();
 
@@ -48,6 +47,7 @@ class BlogServices
                     $imageModel->save();
                 }
             }
+            Notification::send($blog->user_id, 'Blog mới đã được tạo thành công!');
 
             return true;
         } catch (\Exception $e) {
@@ -55,6 +55,7 @@ class BlogServices
             return false;
         }
     }
+    
 
 
     

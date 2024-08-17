@@ -18,4 +18,6 @@ Route::group(['prefix' => ''], function () {
     Route::post('/luu', [RoomOwnersController::class, 'store'])->name('store-room');
     // nhan
     Route::get('/can-ho', [RoomOwnersController::class, 'index'])->name('properties');
+    
+
 });
