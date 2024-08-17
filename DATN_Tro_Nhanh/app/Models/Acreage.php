@@ -9,4 +9,8 @@ class Acreage extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    public function room()
+    {
+        return $this->hasMany(Room::class, 'room_id');
+    }
 }

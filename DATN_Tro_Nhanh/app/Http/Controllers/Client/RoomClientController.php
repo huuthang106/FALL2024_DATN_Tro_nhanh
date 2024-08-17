@@ -5,9 +5,17 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Room;
+use App\Services\RoomClientServices;
 
 class RoomClientController extends Controller
 {
+    protected $roomClientService;
+
+    public function __construct(RoomClientServices $roomClientService)
+    {
+        $this->roomClientService = $roomClientService;
+    }
+
     //Hiển thị giao diện Danh sách phòng trọ
     public function indexRoom()
     {
@@ -23,5 +31,5 @@ class RoomClientController extends Controller
         return view('client.show.single-propety');
     }
 
-   
+
 }

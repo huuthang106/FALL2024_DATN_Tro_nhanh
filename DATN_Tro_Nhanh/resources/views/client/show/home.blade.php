@@ -461,392 +461,97 @@
                 </div>
                 <div class="slick-slider slick-dots-mt-0 custom-arrow-spacing-30"
                     data-slick-options='{"slidesToShow": 4, "autoplay":true,"dots":true,"responsive":[{"breakpoint": 1600,"settings": {"slidesToShow":3,"arrows":false}},{"breakpoint": 992,"settings": {"slidesToShow":2,"arrows":false}},{"breakpoint": 768,"settings": {"slidesToShow": 2,"arrows":false,"dots":true,"autoplay":true}},{"breakpoint": 576,"settings": {"slidesToShow": 1,"arrows":false,"dots":true,"autoplay":true}}]}'>
-                    <div class="box pb-7 pt-2">
-                        <div class="card shadow-hover-2" data-animate="zoomIn">
-                            <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                    alt="Nhà đô thị giá cả phải chăng">
-                                <div class="card-img-overlay p-2 d-flex flex-column">
-                                    <div>
-                                        <span class="badge mr-2 badge-orange">nổi bật</span>
-                                        <span class="badge mr-2 badge-primary">để bán</span>
+                    @foreach ($rooms as $room)
+                        <div class="box pb-7 pt-2">
+                            <div class="card shadow-hover-2" data-animate="zoomIn">
+                                <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
+                                    @if ($room->images->isNotEmpty())
+                                        @php
+                                            // Get the first image
+                                            $image = $room->images->first();
+                                        @endphp
+                                        <img src="{{ asset('assets/images/' . $image->filename) }}"
+                                            alt="{{ $room->title }}">
+                                    @else
+                                        <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                            alt="{{ $room->title }}">
+                                    @endif
+                                    <div class="card-img-overlay p-2 d-flex flex-column">
+                                        <div>
+                                            <span class="badge mr-2 badge-orange">nổi bật</span>
+                                            <span class="badge mr-2 badge-primary">để bán</span>
+                                        </div>
+                                        <ul class="list-inline mb-0 mt-auto hover-image">
+                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Hình ảnh">
+                                                <a href="#" class="text-white hover-primary">
+                                                    <i class="far fa-images"></i><span class="pl-1">9</span>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
+                                                <a href="#" class="text-white hover-primary">
+                                                    <i class="far fa-play-circle"></i><span class="pl-1">2</span>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <ul class="list-inline mb-0 mt-auto hover-image">
-                                        <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Hình ảnh">
-                                            <a href="#" class="text-white hover-primary">
-                                                <i class="far fa-images"></i><span class="pl-1">9</span>
-                                            </a>
+                                </div>
+                                <div class="card-body pt-3">
+                                    <h2 class="card-title fs-16 lh-2 mb-0"><a href="single-property-1.html"
+                                            class="text-dark hover-primary">{{ $room->title }}</a></h2>
+                                    <p class="card-text font-weight-500 text-gray-light mb-2">{{ $room->address }}
+                                    </p>
+                                    <ul class="list-inline d-flex mb-0 flex-wrap mr-n5">
+                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                            data-toggle="tooltip" title="3 Phòng ngủ">
+                                            <svg class="icon icon-bedroom fs-18 text-primary mr-1">
+                                                <use xlink:href="#icon-bedroom"></use>
+                                            </svg>
+                                            3 Phòng
                                         </li>
-                                        <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
-                                            <a href="#" class="text-white hover-primary">
-                                                <i class="far fa-play-circle"></i><span class="pl-1">2</span>
-                                            </a>
+                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                            data-toggle="tooltip" title="3 Phòng tắm">
+                                            <svg class="icon icon-shower fs-18 text-primary mr-1">
+                                                <use xlink:href="#icon-shower"></use>
+                                            </svg>
+                                            3 Phòng
+                                        </li>
+                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                            data-toggle="tooltip" title="Diện tích">
+                                            <svg class="icon icon-square fs-18 text-primary mr-1">
+                                                <use xlink:href="#icon-square"></use>
+                                            </svg>
+                                            200m
+                                        </li>
+                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                            data-toggle="tooltip" title="1 Gara">
+                                            <svg class="icon icon-Garage fs-18 text-primary mr-1">
+                                                <use xlink:href="#icon-Garage"></use>
+                                            </svg>
+                                            1 Gara
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div
+                                    class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
+                                    <p class="fs-17 font-weight-bold text-heading mb-0">{{ $room->price }}VND</p>
+                                    <ul class="list-inline mb-0">
+                                        <li class="list-inline-item">
+                                            <a href="#"
+                                                class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-secondary bg-accent border-accent"
+                                                data-toggle="tooltip" title="Danh sách yêu thích"><i
+                                                    class="fas fa-heart"></i></a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a href="#"
+                                                class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent"
+                                                data-toggle="tooltip" title="So sánh"><i
+                                                    class="fas fa-exchange-alt"></i></a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-                            <div class="card-body pt-3">
-                                <h2 class="card-title fs-16 lh-2 mb-0"><a href="single-property-1.html"
-                                        class="text-dark hover-primary">Nhà ở Metric Way</a></h2>
-                                <p class="card-text font-weight-500 text-gray-light mb-2">1421 San Pedro St, Los Angeles
-                                </p>
-                                <ul class="list-inline d-flex mb-0 flex-wrap mr-n5">
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="3 Phòng ngủ">
-                                        <svg class="icon icon-bedroom fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-bedroom"></use>
-                                        </svg>
-                                        3 Phòng
-                                    </li>
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="3 Phòng tắm">
-                                        <svg class="icon icon-shower fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-shower"></use>
-                                        </svg>
-                                        3 Phòng
-                                    </li>
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="Diện tích">
-                                        <svg class="icon icon-square fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-square"></use>
-                                        </svg>
-                                        2300 Sq.Ft
-                                    </li>
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="1 Gara">
-                                        <svg class="icon icon-Garage fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-Garage"></use>
-                                        </svg>
-                                        1 Gara
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
-                                <p class="fs-17 font-weight-bold text-heading mb-0">$1.250.000</p>
-                                <ul class="list-inline mb-0">
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-secondary bg-accent border-accent"
-                                            data-toggle="tooltip" title="Danh sách yêu thích"><i
-                                                class="fas fa-heart"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent"
-                                            data-toggle="tooltip" title="So sánh"><i class="fas fa-exchange-alt"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
-                    </div>
-                    <div class="box pb-7 pt-2">
-                        <div class="card shadow-hover-2" data-animate="zoomIn">
-                            <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                <img src="{{ asset('assets/images/properties-grid-02.jpg') }}"
-                                    alt="Nhà đô thị giá cả phải chăng">
-                                <div class="card-img-overlay p-2 d-flex flex-column">
-                                    <div>
-                                        <span class="badge mr-2 badge-primary">để bán</span>
-                                    </div>
-                                    <ul class="list-inline mb-0 mt-auto hover-image">
-                                        <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Hình ảnh">
-                                            <a href="#" class="text-white hover-primary">
-                                                <i class="far fa-images"></i><span class="pl-1">9</span>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
-                                            <a href="#" class="text-white hover-primary">
-                                                <i class="far fa-play-circle"></i><span class="pl-1">2</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card-body pt-3">
-                                <h2 class="card-title fs-16 lh-2 mb-0"><a href="single-property-1.html"
-                                        class="text-dark hover-primary">Nhà đô thị giá cả phải chăng</a></h2>
-                                <p class="card-text font-weight-500 text-gray-light mb-2">1421 San Pedro St, Los Angeles
-                                </p>
-                                <ul class="list-inline d-flex mb-0 flex-wrap mr-n5">
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="3 Phòng ngủ">
-                                        <svg class="icon icon-bedroom fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-bedroom"></use>
-                                        </svg>
-                                        3 Phòng
-                                    </li>
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="3 Phòng tắm">
-                                        <svg class="icon icon-shower fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-shower"></use>
-                                        </svg>
-                                        3 Phòng
-                                    </li>
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="Diện tích">
-                                        <svg class="icon icon-square fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-square"></use>
-                                        </svg>
-                                        2300 Sq.Ft
-                                    </li>
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="1 Gara">
-                                        <svg class="icon icon-Garage fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-Garage"></use>
-                                        </svg>
-                                        1 Gara
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
-                                <p class="fs-17 font-weight-bold text-heading mb-0">$1.250.000</p>
-                                <ul class="list-inline mb-0">
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-secondary bg-accent border-accent"
-                                            data-toggle="tooltip" title="Danh sách yêu thích"><i
-                                                class="fas fa-heart"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent"
-                                            data-toggle="tooltip" title="So sánh"><i class="fas fa-exchange-alt"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box pb-7 pt-2">
-                        <div class="card shadow-hover-2" data-animate="zoomIn">
-                            <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                <img src="{{ asset('assets/images/properties-grid-03.jpg') }}"
-                                    alt="Nhà đô thị giá cả phải chăng">
-                                <div class="card-img-overlay p-2 d-flex flex-column">
-                                    <div>
-                                        <span class="badge mr-2 badge-primary">để bán</span>
-                                    </div>
-                                    <ul class="list-inline mb-0 mt-auto hover-image">
-                                        <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Hình ảnh">
-                                            <a href="#" class="text-white hover-primary">
-                                                <i class="far fa-images"></i><span class="pl-1">9</span>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
-                                            <a href="#" class="text-white hover-primary">
-                                                <i class="far fa-play-circle"></i><span class="pl-1">2</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card-body pt-3">
-                                <h2 class="card-title fs-16 lh-2 mb-0"><a href="single-property-1.html"
-                                        class="text-dark hover-primary">Nhà đô thị giá cả phải chăng</a></h2>
-                                <p class="card-text font-weight-500 text-gray-light mb-2">1421 San Pedro St, Los Angeles
-                                </p>
-                                <ul class="list-inline d-flex mb-0 flex-wrap mr-n5">
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="3 Phòng ngủ">
-                                        <svg class="icon icon-bedroom fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-bedroom"></use>
-                                        </svg>
-                                        3 Phòng
-                                    </li>
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="3 Phòng tắm">
-                                        <svg class="icon icon-shower fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-shower"></use>
-                                        </svg>
-                                        3 Phòng
-                                    </li>
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="Diện tích">
-                                        <svg class="icon icon-square fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-square"></use>
-                                        </svg>
-                                        2300 Sq.Ft
-                                    </li>
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="1 Gara">
-                                        <svg class="icon icon-Garage fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-Garage"></use>
-                                        </svg>
-                                        1 Gara
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
-                                <p class="fs-17 font-weight-bold text-heading mb-0">$1.250.000</p>
-                                <ul class="list-inline mb-0">
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-secondary bg-accent border-accent"
-                                            data-toggle="tooltip" title="Danh sách yêu thích"><i
-                                                class="fas fa-heart"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent"
-                                            data-toggle="tooltip" title="So sánh"><i class="fas fa-exchange-alt"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box pb-7 pt-2">
-                        <div class="card shadow-hover-2" data-animate="zoomIn">
-                            <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                <img src="{{ asset('assets/images/properties-grid-04.jpg') }}"
-                                    alt="Nhà đô thị giá cả phải chăng">
-                                <div class="card-img-overlay p-2 d-flex flex-column">
-                                    <div>
-                                        <span class="badge mr-2 badge-primary">để bán</span>
-                                    </div>
-                                    <ul class="list-inline mb-0 mt-auto hover-image">
-                                        <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Hình ảnh">
-                                            <a href="#" class="text-white hover-primary">
-                                                <i class="far fa-images"></i><span class="pl-1">9</span>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
-                                            <a href="#" class="text-white hover-primary">
-                                                <i class="far fa-play-circle"></i><span class="pl-1">2</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card-body pt-3">
-                                <h2 class="card-title fs-16 lh-2 mb-0"><a href="single-property-1.html"
-                                        class="text-dark hover-primary">Nhà đô thị giá cả phải chăng</a></h2>
-                                <p class="card-text font-weight-500 text-gray-light mb-2">1421 San Pedro St, Los Angeles
-                                </p>
-                                <ul class="list-inline d-flex mb-0 flex-wrap mr-n5">
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="3 Phòng ngủ">
-                                        <svg class="icon icon-bedroom fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-bedroom"></use>
-                                        </svg>
-                                        3 Phòng
-                                    </li>
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="3 Phòng tắm">
-                                        <svg class="icon icon-shower fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-shower"></use>
-                                        </svg>
-                                        3 Phòng
-                                    </li>
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="Diện tích">
-                                        <svg class="icon icon-square fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-square"></use>
-                                        </svg>
-                                        2300 Sq.Ft
-                                    </li>
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="1 Gara">
-                                        <svg class="icon icon-Garage fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-Garage"></use>
-                                        </svg>
-                                        1 Gara
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
-                                <p class="fs-17 font-weight-bold text-heading mb-0">$1.250.000</p>
-                                <ul class="list-inline mb-0">
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-secondary bg-accent border-accent"
-                                            data-toggle="tooltip" title="Danh sách yêu thích"><i
-                                                class="fas fa-heart"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent"
-                                            data-toggle="tooltip" title="So sánh"><i class="fas fa-exchange-alt"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box pb-7 pt-2">
-                        <div class="card shadow-hover-2" data-animate="zoomIn">
-                            <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                <img src="{{ asset('assets/images/properties-grid-05.jpg') }}"
-                                    alt="Nhà đô thị giá cả phải chăng">
-                                <div class="card-img-overlay p-2 d-flex flex-column">
-                                    <div>
-                                        <span class="badge mr-2 badge-primary">để bán</span>
-                                    </div>
-                                    <ul class="list-inline mb-0 mt-auto hover-image">
-                                        <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Hình ảnh">
-                                            <a href="#" class="text-white hover-primary">
-                                                <i class="far fa-images"></i><span class="pl-1">9</span>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
-                                            <a href="#" class="text-white hover-primary">
-                                                <i class="far fa-play-circle"></i><span class="pl-1">2</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card-body pt-3">
-                                <h2 class="card-title fs-16 lh-2 mb-0"><a href="single-property-1.html"
-                                        class="text-dark hover-primary">Nhà đô thị giá cả phải chăng</a></h2>
-                                <p class="card-text font-weight-500 text-gray-light mb-2">1421 San Pedro St, Los Angeles
-                                </p>
-                                <ul class="list-inline d-flex mb-0 flex-wrap mr-n5">
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="3 Phòng ngủ">
-                                        <svg class="icon icon-bedroom fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-bedroom"></use>
-                                        </svg>
-                                        3 Phòng
-                                    </li>
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="3 Phòng tắm">
-                                        <svg class="icon icon-shower fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-shower"></use>
-                                        </svg>
-                                        3 Phòng
-                                    </li>
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="Diện tích">
-                                        <svg class="icon icon-square fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-square"></use>
-                                        </svg>
-                                        2300 Sq.Ft
-                                    </li>
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="1 Gara">
-                                        <svg class="icon icon-Garage fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-Garage"></use>
-                                        </svg>
-                                        1 Gara
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
-                                <p class="fs-17 font-weight-bold text-heading mb-0">$1.250.000</p>
-                                <ul class="list-inline mb-0">
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-secondary bg-accent border-accent"
-                                            data-toggle="tooltip" title="Danh sách yêu thích"><i
-                                                class="fas fa-heart"></i></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent"
-                                            data-toggle="tooltip" title="So sánh"><i class="fas fa-exchange-alt"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>
@@ -1554,11 +1259,11 @@
         </div>
 
     </main>
-  
 
 
 
-   
+
+
 @endsection
 @push('styleUs')
     <meta charset="utf-8">
