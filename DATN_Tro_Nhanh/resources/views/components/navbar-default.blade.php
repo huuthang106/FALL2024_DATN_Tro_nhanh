@@ -489,9 +489,9 @@
 
                             <li class="nav-item dropdown">
                                 @if (Auth::check())
-                                <a class="nav-link dropdown-toggle mr-md-2 pr-2 pl-0 pl-lg-2" href="#"
-                                id="bd-versions" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle mr-md-2 pr-2 pl-0 pl-lg-2" href="#"
+                                        id="bd-versions" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
                                         {{ Auth::user()->name }}
                                     </a>
                                     {{-- <ul class="dropdown-menu" aria-labelledby="userDropdown">

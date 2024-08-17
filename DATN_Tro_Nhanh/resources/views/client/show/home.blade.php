@@ -496,7 +496,8 @@
                                     </div>
                                 </div>
                                 <div class="card-body pt-3">
-                                    <h2 class="card-title fs-16 lh-2 mb-0"><a href="single-property-1.html"
+                                    <h2 class="card-title fs-16 lh-2 mb-0"><a
+                                            href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
                                             class="text-dark hover-primary">{{ $room->title }}</a></h2>
                                     <p class="card-text font-weight-500 text-gray-light mb-2">{{ $room->address }}
                                     </p>

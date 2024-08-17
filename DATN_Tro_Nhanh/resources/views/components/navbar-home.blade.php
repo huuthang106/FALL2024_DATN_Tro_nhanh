@@ -292,7 +292,7 @@
                                                         Single Property
                                                     </h4>
                                                     <!-- List -->
-                                                    <a class="dropdown-item"
+                                                    {{-- <a class="dropdown-item"
                                                         href="{{ route('client.detail-room') }}">
                                                         Xem chi tiết
                                                     </a>

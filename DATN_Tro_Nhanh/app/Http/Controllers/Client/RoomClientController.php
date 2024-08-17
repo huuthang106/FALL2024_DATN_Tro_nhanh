@@ -26,9 +26,10 @@ class RoomClientController extends Controller
     {
         return view('client.show.listing-half-map-list-layout-1');
     }
-    public function page_detail()
+    public function page_detail($slug)
     {
-        return view('client.show.single-propety');
+        $rooms = $this->roomClientService->getSlugRoom($slug);
+        return view('client.show.single-propety', ['rooms' => $rooms]);
     }
 
 

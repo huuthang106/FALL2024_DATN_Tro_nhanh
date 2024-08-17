@@ -110,7 +110,7 @@
                         <li class="breadcrumb-item letter-spacing-1">
                             <a href="listing-grid-with-left-filter.html">Danh sách</a>
                         </li>
-                        <li class="breadcrumb-item letter-spacing-1 active">Biệt thự trên Đại lộ Hollywood</li>
+                        <li class="breadcrumb-item letter-spacing-1 active">{{ $rooms->title }}</li>
                     </ol>
                 </nav>
             </div>
@@ -165,112 +165,36 @@
                                 </div>
                                 <div class="slick-slider slider-for-01 arrow-haft-inner mx-0"
                                     data-slick-options='{"slidesToShow": 1, "autoplay":false,"dots":false,"arrows":false,"asNavFor": ".slider-nav-01"}'>
-                                    <div class="box px-0">
-                                        <div class="item item-size-3-2">
-                                            <div class="card p-0 hover-change-image">
-                                                <a href="{{ asset('assets/images/single-property-lg-1.jpg') }}"
-                                                    class="card-img" data-gtf-mfp="true" data-gallery-id="04"
-                                                    style="background-image:url('{{ asset('assets/images/single-property-lg-1.jpg') }}')">
-                                                </a>
+                                    @foreach ($rooms->images as $image)
+                                        <div class="box px-0">
+                                            <div class="item item-size-3-2">
+                                                <div class="card p-0 hover-change-image">
+                                                    <a href="{{ asset('assets/images/' . $image->filename) }}"
+                                                        class="card-img" data-gtf-mfp="true" data-gallery-id="04"
+                                                        style="background-image:url('{{ asset('assets/images/' . $image->filename) }}')">
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="box px-0">
-                                        <div class="item item-size-3-2">
-                                            <div class="card p-0 hover-change-image">
-                                                <a href="{{ asset('assets/images/single-property-lg-4.jpg') }}"
-                                                    class="card-img" data-gtf-mfp="true" data-gallery-id="04"
-                                                    style="background-image:url('{{ asset('assets/images/single-property-lg-4.jpg') }}')">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="box px-0">
-                                        <div class="item item-size-3-2">
-                                            <div class="card p-0 hover-change-image">
-                                                <a href="{{ asset('assets/images/single-property-lg-3.jpg') }}"
-                                                    class="card-img" data-gtf-mfp="true" data-gallery-id="04"
-                                                    style="background-image:url('{{ asset('assets/images/single-property-lg-3.jpg') }}')">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="box px-0">
-                                        <div class="item item-size-3-2">
-                                            <div class="card p-0 hover-change-image">
-                                                <a href="{{ asset('assets/images/single-property-lg-2.jpg') }}"
-                                                    class="card-img" data-gtf-mfp="true" data-gallery-id="04"
-                                                    style="background-image:url('{{ asset('assets/images/single-property-lg-2.jpg') }}')">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="box px-0">
-                                        <div class="item item-size-3-2">
-                                            <div class="card p-0 hover-change-image">
-                                                <a href="{{ asset('assets/images/single-property-lg-9.jpg') }}"
-                                                    class="card-img" data-gtf-mfp="true" data-gallery-id="04"
-                                                    style="background-image:url('{{ asset('assets/images/single-property-lg-9.jpg') }}')">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="box px-0">
-                                        <div class="item item-size-3-2">
-                                            <div class="card p-0 hover-change-image">
-                                                <a href="{{ asset('assets/images/single-property-lg-10.jpg') }}"
-                                                    class="card-img" data-gtf-mfp="true" data-gallery-id="04"
-                                                    style="background-image:url('{{ asset('assets/images/single-property-lg-10.jpg') }}')">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                                 <div class="slick-slider slider-nav-01 mt-4 mx-n1 arrow-haft-inner"
                                     data-slick-options='{"slidesToShow": 5, "autoplay":false,"dots":false,"arrows":false,"asNavFor": ".slider-for-01","focusOnSelect": true,"responsive":[{"breakpoint": 768,"settings": {"slidesToShow": 4}},{"breakpoint": 576,"settings": {"slidesToShow": 2}}]}'>
-                                    <div class="box pb-6 px-0">
-                                        <div class="bg-hover-white p-1 shadow-hover-xs-3 h-100 rounded-lg">
-                                            <img src="{{ asset('assets/images/single-property-sm-7.jpg') }}"
-                                                alt="Gallery 01" class="h-100 w-100 rounded-lg">
+                                    @foreach ($rooms->images as $image)
+                                        <div class="box pb-6 px-0">
+                                            <div class="bg-hover-white p-1 shadow-hover-xs-3 h-100 rounded-lg">
+                                                <img src="{{ asset('assets/images/' . $image->filename) }}"
+                                                    alt="Gallery 01" class="h-100 w-100 rounded-lg">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="box pb-6 px-0">
-                                        <div class="bg-hover-white p-1 shadow-hover-xs-3 h-100 rounded-lg">
-                                            <img src="{{ asset('assets/images/single-property-sm-2.jpg') }}"
-                                                alt="Gallery 02" class="h-100 w-100 rounded-lg">
-                                        </div>
-                                    </div>
-                                    <div class="box pb-6 px-0">
-                                        <div class="bg-hover-white p-1 shadow-hover-xs-3 h-100 rounded-lg">
-                                            <img src="{{ asset('assets/images/single-property-sm-4.jpg') }}"
-                                                alt="Gallery 03" class="h-100 w-100 rounded-lg">
-                                        </div>
-                                    </div>
-                                    <div class="box pb-6 px-0">
-                                        <div class="bg-hover-white p-1 shadow-hover-xs-3 h-100 rounded-lg">
-                                            <img src="{{ asset('assets/images/single-property-sm-1.jpg') }}"
-                                                alt="Gallery 04" class="h-100 w-100 rounded-lg">
-                                        </div>
-                                    </div>
-                                    <div class="box pb-6 px-0">
-                                        <div class="bg-hover-white p-1 shadow-hover-xs-3 h-100 rounded-lg">
-                                            <img src="{{ asset('assets/images/single-property-9.jpg') }}"
-                                                alt="Gallery 05" class="h-100 w-100 rounded-lg">
-                                        </div>
-                                    </div>
-                                    <div class="box pb-6 px-0">
-                                        <div class="bg-hover-white p-1 shadow-hover-xs-3 h-100 rounded-lg">
-                                            <img src="{{ asset('assets/images/single-property-1.jpg') }}"
-                                                alt="Gallery 06" class="h-100 w-100 rounded-lg">
-                                        </div>
-                                    </div>
+                                    @endforeach
+
                                 </div>
                             </div>
                         </section>
                         <section class="pb-8 px-6 pt-5 bg-white rounded-lg">
                             <h4 class="fs-22 text-heading mb-3">Mô tả</h4>
-                            <p class="mb-0 lh-214">Phẩm giá có thể giúp ích cho bạn. Nibh mauris cursus mattis molestie a
-                                iaculis at erat pelentesque. Id interdum velit laoreet id donec ultrices tincidunt.</p>
+                            <p class="mb-0 lh-214">{{ $rooms->description }}</p>
                         </section>
                         <section class="mt-2 pb-3 px-6 pt-5 bg-white rounded-lg">
                             <h4 class="fs-22 text-heading mb-6">Sự kiện và tính năng</h4>
@@ -326,8 +250,8 @@
                                         </div>
                                         <div class="media-body">
                                             <h5 class="my-1 fs-14 text-uppercase letter-spacing-093 font-weight-normal">
-                                                SQFT</h5>
-                                            <p class="mb-0 fs-13 font-weight-bold text-heading">979.0</p>
+                                                Diện tích</h5>
+                                            <p class="mb-0 fs-13 font-weight-bold text-heading">200m</p>
                                         </div>
                                     </div>
                                 </div>
@@ -394,15 +318,15 @@
                             <div class="row">
                                 <dl class="col-sm-6 mb-0 d-flex">
                                     <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">ID thuộc tính</dt>
-                                    <dd>AD-2910</dd>
+                                    <dd>{{ $rooms->slug }}</dd>
                                 </dl>
                                 <dl class="col-sm-6 mb-0 d-flex">
                                     <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Giá</dt>
-                                    <dd>$890.000</dd>
+                                    <dd>{{ $rooms->price }}VND</dd>
                                 </dl>
                                 <dl class="col-sm-6 mb-0 d-flex">
                                     <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Loại thuộc tính</dt>
-                                    <dd>Căn hộ, quán bar, cafe, biệt thự</dd>
+                                    <dd>{{ $rooms->category->name }}</dd>
                                 </dl>
                                 <dl class="col-sm-6 mb-0 d-flex">
                                     <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Trạng thái thuộc tính</dt>
@@ -418,7 +342,7 @@
                                 </dl>
                                 <dl class="col-sm-6 mb-0 d-flex">
                                     <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Kích cỡ</dt>
-                                    <dd>900</dd>
+                                    <dd>200</dd>
                                 </dl>
                                 <dl class="col-sm-6 mb-0 d-flex">
                                     <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Phòng tắm</dt>
@@ -1426,8 +1350,8 @@
                                             </li>
                                             <li class="nav-item px-5 py-1">
                                                 <a class="nav-link bg-transparent shadow-none p-0 letter-spacing-1"
-                                                    id="monthly-tab" data-toggle="tab" href="#monthly"
-                                                    role="tab" aria-controls="monthly" aria-selected="false">Hàng
+                                                    id="monthly-tab" data-toggle="tab" href="#monthly" role="tab"
+                                                    aria-controls="monthly" aria-selected="false">Hàng
                                                     tháng</a>
                                             </li>
                                         </ul>
@@ -1767,12 +1691,11 @@
                                     <li class="list-inline-item badge badge-orange mr-2">Đặc sắc</li>
                                     <li class="list-inline-item badge badge-primary mr-3">Để bán</li>
                                 </ul>
-                                <h2 class="fs-22 text-heading pt-2">Biệt thự mang tên Archangel</h2>
-                                <p class="mb-2"><i class="fal fa-map-marker-alt mr-1"></i>398 Pete Pascale Pl, New
-                                    York</p>
+                                <h2 class="fs-22 text-heading pt-2">{{ $rooms->title }}</h2>
+                                <p class="mb-2"><i class="fal fa-map-marker-alt mr-1"></i>{{ $rooms->address }}</p>
                                 <div class="d-flex align-items-center">
-                                    <p class="fs-22 text-heading font-weight-bold mb-0 mr-6">$1.250.000</p>
-                                    <p class="mb-0">$9350/SqFt</p>
+                                    <p class="fs-22 text-heading font-weight-bold mb-0 mr-6">{{ $rooms->price }}VND</p>
+                                    <p class="mb-0">200m</p>
                                 </div>
                                 <div class="row mt-5">
                                     <div class="col-6 mb-3">
@@ -1810,7 +1733,7 @@
                                             </div>
                                             <div class="media-body">
                                                 <h5 class="fs-13 font-weight-normal mb-0">Diện tích</h5>
-                                                <p class="mb-0 fs-13 font-weight-bold text-dark">3.6k SqFt</p>
+                                                <p class="mb-0 fs-13 font-weight-bold text-dark">200m</p>
                                             </div>
                                         </div>
                                     </div>
@@ -1828,8 +1751,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <p class="mb-6 mt-1">Biệt thự có tên Archangel hiện đang được bán theo bản thiết kế tại
-                                    New Islington ở Úc</p>
+                                <p class="mb-6 mt-1">{{ $rooms->description }}</p>
                                 <div class="mr-xl-2">
                                     <a href="#"
                                         class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white">Lên

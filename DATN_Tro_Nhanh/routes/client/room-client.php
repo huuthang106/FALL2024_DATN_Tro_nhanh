@@ -14,7 +14,7 @@ Route::group(['prefix' => 'danh-sach-phong-tro'], function () {
 //Nguyen Thai Toan 
 
 Route::group(['prefix' => ''], function () {
-    Route::get('/xem-chi-tiet', [RoomClientController::class, 'page_detail'])->name('detail-room');
+    Route::get('/xem-chi-tiet/{slug}', [RoomClientController::class, 'page_detail'])->name('detail-room');
 
 });
 use App\Http\Controllers\Client\HomeClientController;
