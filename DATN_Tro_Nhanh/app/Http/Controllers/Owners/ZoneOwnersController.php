@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\ZoneServices;
 use App\Http\Requests\ZoneRequest;
-use Illuminate\Container\Attributes\Auth;
+use Illuminate\Support\Facades\Auth;
+
 use App\Events\ZoneCreated; // Import event
 class ZoneOwnersController extends Controller
 {
     //
+    protected $zoneServices;
     public function __construct(ZoneServices $zoneServices)
     {
         $this->zoneServices = $zoneServices;
@@ -36,5 +38,18 @@ class ZoneOwnersController extends Controller
 
 
         return view('owners.zone-post');
+    }
+
+    public function listZone(Request $request)
+    {
+        $user_id = Auth::id();
+        if (Auth::check() && Auth::user()->role != 1) {
+            $zones = $this->zoneServices->getMyZone($user_id);
+            // Xử lý yêu cầu không phải AJAX
+            return view('owners.show.dashbroard-my-zone', ['zones' => $zones]);
+        } else {
+            // Nếu người dùng không có quyền, chuyển hướng về trang chính
+            return redirect()->route('client.home');
+        }
     }
 }

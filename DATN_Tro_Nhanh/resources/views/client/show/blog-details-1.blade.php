@@ -22,8 +22,14 @@
                 <div class="row ml-xl-0 mr-xl-n6">
                     <div class="col-lg-8 mb-6 mb-lg-0 pr-xl-6 pl-xl-0">
                         <div class="position-relative">
+                            @if ($blog->image)
+                            <img class="rounded-lg d-block" src="{{ asset('assets/images/',$blog->image->filename) }}"
+                            alt="Retail banks wake up to digital lending this year">
+                            @else 
                             <img class="rounded-lg d-block" src="{{ asset('assets/images/post-11.jpg') }}"
-                                alt="Retail banks wake up to digital lending this year">
+                            alt="Retail banks wake up to digital lending this year">
+                            @endif
+                       
                             <a href="#"
                                 class="badge text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white m-2 position-absolute letter-spacing-1 pos-fixed-bottom">
                                 Cho Thuê

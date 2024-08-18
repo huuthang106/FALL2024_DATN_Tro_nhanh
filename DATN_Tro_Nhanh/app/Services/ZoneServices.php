@@ -71,6 +71,12 @@ class ZoneServices
         $slug = trim($slug, '-');
         return $slug;
     }
+    public function getMyZone($user_id){
+        $perPage = 10;
+        $zones = Zone::where('user_id', $user_id)->paginate($perPage);
+        return $zones;
+    }
+
 
     /**
      * Lưu ảnh
