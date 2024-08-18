@@ -1213,12 +1213,14 @@
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-title">Zone</span>
+                        <span class="menu-title">Loại</span>
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
                           
                             <a class="menu-link" href="{{ route('admin.danh-sach-khutro') }}">
+                            <a class="menu-link" href="{{ route('admin.list-category') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
