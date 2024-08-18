@@ -1,7 +1,7 @@
 <!-- It is quality rather than quantity that matters. - Lucius Annaeus Seneca -->
 <div class="db-sidebar bg-white">
     <nav class="navbar navbar-expand-xl navbar-light d-block px-0 header-sticky dashboard-nav py-0">
-        <div class="sticky-area shadow-xs-1 py-3">
+        <div class="sticky-area shadow-xs-1 py-3">  
             <div class="d-flex px-3 px-xl-6 w-100">
                 <a class="navbar-brand" href="">
                     <img src="{{ asset('assets/images/logo.png') }}" alt="HomeID">
@@ -71,16 +71,17 @@
                             </li>
                         </ul>
                     </li>
+                    @if(Auth::user()->role == 2)
                     <li class="list-group-item pt-6 pb-4">
-                        <h5 class="fs-13 letter-spacing-087 text-muted mb-3 text-uppercase px-3">Manage
-                            Listings</h5>
+                        <h5 class="fs-13 letter-spacing-087 text-muted mb-3 text-uppercase px-3">Manage Listings</h5>
                         <ul class="list-group list-group-no-border rounded-lg">
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                 <a href="{{ route('owners.add-room') }}" class="text-heading lh-1 sidebar-link">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20 fs-20">
                                         <svg class="icon icon-add-new">
                                             <use xlink:href="#icon-add-new"></use>
-                                        </svg></span>
+                                        </svg>
+                                    </span>
                                     <span class="sidebar-item-text">Thêm trọ</span>
                                 </a>
                             </li>
@@ -89,7 +90,8 @@
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20 fs-20">
                                         <svg class="icon icon-add-new">
                                             <use xlink:href="#icon-add-new"></use>
-                                        </svg></span>
+                                        </svg>
+                                    </span>
                                     <span class="sidebar-item-text">Thêm blog</span>
                                 </a>
                             </li>
@@ -98,99 +100,64 @@
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20 fs-20">
                                         <svg class="icon icon-add-new">
                                             <use xlink:href="#icon-add-new"></use>
-                                        </svg></span>
+                                        </svg>
+                                    </span>
                                     <span class="sidebar-item-text">Thêm khu trọ</span>
                                 </a>
                             </li>
                             
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{ route('owners.properties') }}"
-                                    class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                <a href="{{route('owners.properties')}}"
+                                   class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-my-properties">
                                             <use xlink:href="#icon-my-properties"></use>
                                         </svg>
                                     </span>
                                     <span class="sidebar-item-text">Danh sách trọ</span>
-                                    <span
-                                        class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">29</span>
+                                    <span class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">29</span>
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{ route('owners.zone-list') }}"
-                                    class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                <a href="{{Route('owners.favorites')}}"
+                                   class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-my-properties">
                                             <use xlink:href="#icon-my-properties"></use>
                                         </svg>
                                     </span>
-                                    <span class="sidebar-item-text">Danh sách khu trọ</span>
-                                    <span
-                                        class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">29</span>
+                                    <span class="sidebar-item-text">Yêu thích</span>
+                                    <span class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">5</span>
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                 <a href="dashboard-save-search.html"
-                                    class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                   class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-save-search">
                                             <use xlink:href="#icon-save-search"></use>
                                         </svg>
                                     </span>
                                     <span class="sidebar-item-text">Save Search</span>
-                                    <span
-                                        class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">5</span>
+                                    <span class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">5</span>
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{ route('owners.danhgia') }}"
-                                    class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                <a href="{{route('owners.danhgia')}}"
+                                   class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-review">
                                             <use xlink:href="#icon-review"></use>
                                         </svg>
                                     </span>
                                     <span class="sidebar-item-text">Đánh giá</span>
-                                    <span
-                                        class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">29</span>
-                                </a>
-                            </li>
-                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="#invoice_collapse"
-                                    class="text-heading lh-1 sidebar-link d-flex align-items-center"
-                                    data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
-                                    <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                        <i class="fal fa-file-invoice"></i>
-                                    </span>
-                                    <span class="sidebar-item-text">Hóa đơn</span>
-                                    <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
+                                    <span class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">29</span>
                                 </a>
                             </li>
                         </ul>
-                        <div class="collapse" id="invoice_collapse">
-                            <div class="card card-body border-0 bg-transparent py-0 pl-6">
-                                <ul class="list-group list-group-flush list-group-no-border">
-                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                        <a class="text-heading lh-1 sidebar-link"
-                                            href="{{ route('owners.invoice-listing') }}">Danh sách hóa đơn</a>
-                                    </li>
-                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                        <a class="text-heading lh-1 sidebar-link"
-                                            href="{{ route('owners.invoice-create') }}">Thêm mới
-                                            hóa đơn</a>
-                                    </li>
-                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                        <a class="text-heading lh-1 sidebar-link"
-                                            href="{{ route('owners.invoice-edit') }}">Chỉnh sửa hóa đơn</a>
-                                    </li>
-                                    <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                        <a class="text-heading lh-1 sidebar-link"
-                                            href="{{ route('owners.invoice-preview') }}">Xem trước hóa đơn</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
                     </li>
+                @endif
+                
                     <li class="list-group-item pt-6 pb-4">
                         <h5 class="fs-13 letter-spacing-087 text-muted mb-3 text-uppercase px-3">QUẢN LÝ TÀI KHOẢN
                         </h5>
