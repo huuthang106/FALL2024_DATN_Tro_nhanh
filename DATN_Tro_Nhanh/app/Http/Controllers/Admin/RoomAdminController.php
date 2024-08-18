@@ -24,6 +24,11 @@ class RoomAdminController extends Controller
         return view('admincp.show.index');
     }
 
+    public function show_room()
+    {
+        $rooms = $this->roomAdminService->showRoomWhere();
+        return view('admincp.show.showRoom', ['rooms' => $rooms]);
+    }
     public function add_room_show()
     {
         $data = $this->roomAdminService->getRoom();

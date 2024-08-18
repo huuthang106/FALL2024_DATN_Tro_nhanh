@@ -8,7 +8,8 @@
             <div id="kt_content_container" class="container-xxl">
                 <div class="card mb-5 mb-xl-10">
                     <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
-                        data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+                        data-bs-target="#kt_account_profile_details" aria-expanded="true"
+                        aria-controls="kt_account_profile_details">
                         <div class="card-title m-0">
                             <h3 class="fw-bolder m-0">Sửa phòng</h3>
                         </div>
@@ -19,7 +20,8 @@
                                 <div class="row mb-6">
                                     <label class="col-lg-4 col-form-label fw-bold fs-6 required">Tiêu đề</label>
                                     <div class="col-lg-8 fv-row">
-                                        <input type="text" name="title" class="form-control form-control-lg form-control-solid" placeholder="" />
+                                        <input type="text" name="title"
+                                            class="form-control form-control-lg form-control-solid" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="row mb-6">
@@ -31,49 +33,58 @@
                                 <div class="row mb-6">
                                     <label class="col-lg-4 col-form-label fw-bold fs-6 required">Giá</label>
                                     <div class="col-lg-8 fv-row">
-                                        <input type="number" name="price" class="form-control form-control-lg form-control-solid" placeholder="" />
+                                        <input type="number" name="price"
+                                            class="form-control form-control-lg form-control-solid" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="row mb-6">
                                     <label class="col-lg-4 col-form-label fw-bold fs-6 required">Số điện thoại</label>
                                     <div class="col-lg-8 fv-row">
-                                        <input type="tel" name="phone" class="form-control form-control-lg form-control-solid" placeholder="" maxlength="13" />
+                                        <input type="tel" name="phone"
+                                            class="form-control form-control-lg form-control-solid" placeholder=""
+                                            maxlength="13" />
                                     </div>
                                 </div>
                                 <div class="row mb-6">
                                     <label class="col-lg-4 col-form-label fw-bold fs-6 required">Địa chỉ</label>
                                     <div class="col-lg-8 fv-row">
-                                        <input type="text" name="address" class="form-control form-control-lg form-control-solid" placeholder="" />
+                                        <input type="text" name="address"
+                                            class="form-control form-control-lg form-control-solid" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="row mb-6">
                                     <label class="col-lg-4 col-form-label fw-bold fs-6 required">Số lượng</label>
                                     <div class="col-lg-8 fv-row">
-                                        <input type="number" name="quantity" class="form-control form-control-lg form-control-solid" placeholder="" />
+                                        <input type="number" name="quantity"
+                                            class="form-control form-control-lg form-control-solid" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="row mb-6">
                                     <label class="col-lg-4 col-form-label fw-bold fs-6 required">Kinh độ</label>
                                     <div class="col-lg-8 fv-row">
-                                        <input type="text" name="longitude" class="form-control form-control-lg form-control-solid" placeholder="" />
+                                        <input type="text" name="longitude"
+                                            class="form-control form-control-lg form-control-solid" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="row mb-6">
                                     <label class="col-lg-4 col-form-label fw-bold fs-6 required">Vĩ độ</label>
                                     <div class="col-lg-8 fv-row">
-                                        <input type="text" name="latitude" class="form-control form-control-lg form-control-solid" placeholder="" />
+                                        <input type="text" name="latitude"
+                                            class="form-control form-control-lg form-control-solid" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="row mb-6">
                                     <label class="col-lg-4 col-form-label fw-bold fs-6 required">View</label>
                                     <div class="col-lg-8 fv-row">
-                                        <input type="number" name="view" class="form-control form-control-lg form-control-solid" placeholder="" />
+                                        <input type="number" name="view"
+                                            class="form-control form-control-lg form-control-solid" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="row mb-6">
                                     <label class="col-lg-4 col-form-label fw-bold fs-6">Slug</label>
                                     <div class="col-lg-8 fv-row">
-                                        <input type="text" name="slug" class="form-control form-control-lg form-control-solid" placeholder="" />
+                                        <input type="text" name="slug"
+                                            class="form-control form-control-lg form-control-solid" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="row mb-6">
@@ -93,7 +104,7 @@
                         </form>
 
                     </div>
-                </div>             
+                </div>
             </div>
         </div>
         <!--end::Post-->

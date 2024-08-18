@@ -11,7 +11,7 @@ class RoomClientServices
     {
         try {
             // Lấy tất cả các blog từ cơ sở dữ liệu và phân trang
-            return Room::where('status', 1)->paginate($perPage);
+            $rooms = Room::where('status', 1)->paginate($perPage);
         } catch (\Exception $e) {
             // Xử lý lỗi nếu có
             return null;

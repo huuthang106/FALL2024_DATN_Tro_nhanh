@@ -15,7 +15,11 @@ use App\Models\Image;
 
 class RoomAdminService
 {
-
+    public function showRoomWhere()
+    {
+        $rooms = Room::orderBy('created_at', 'desc')->take(7)->get();
+        return $rooms;
+    }
     public function getRoom()
     {
         $rooms = Room::with(['category', 'acreage', 'location', 'zone', 'user', 'room_type'])->get();
