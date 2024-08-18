@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as BaseEventServiceProvider;
 use App\Events\ZoneCreated;
 use App\Listeners\SendZoneCreatedNotification;
+
 use App\Events\Admin\CategoryAdminEvent;
 use App\Listeners\Admin\HandleCategoryAdmin;
 use App\Events\BlogCreated;

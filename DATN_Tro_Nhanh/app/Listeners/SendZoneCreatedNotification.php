@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Notifications;
+namespace App\Listeners;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Notification as Notifications;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Models\Zone;
-
-class SendZoneCreatedNotification extends Notification
+use App\Events\ZoneCreated;
+use App\Models\Notification;
+use Illuminate\Support\Facades\Auth;
+class SendZoneCreatedNotification extends Notifications
 {
     use Queueable;
 
@@ -18,7 +20,21 @@ class SendZoneCreatedNotification extends Notification
     {
         $this->zone = $zone;
     }
+    public function handle(ZoneCreated $event): void
+    {
+        //
+        $user_id = Auth::id();
+        Notification::create([
+            'type' => 'Thêm khu trọ',
+            'data' => 'Bạn vừa thêm khu trọ thành công',
+            'status' => 1,
+            'zone_id' => $event->zone->id,
+            'user_id' => $user_id, // Lấy ID người dùng hiện tại
+        ]);
 
+
+
+    }
     public function via($notifiable)
     {
         return ['mail'];
