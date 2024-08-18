@@ -85,7 +85,7 @@ class UserClientController extends Controller
             $user = $this->registerService->register($request->all());
             Auth::login($user);
     
-            return response()->json(['redirect' => route('home')]);
+            return response()->json(['redirect' => route('client.home')]);
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);
         }
@@ -96,7 +96,7 @@ class UserClientController extends Controller
         try {
             $request->authenticate();
     
-            return response()->json(['redirect' => route('home')]);
+            return response()->json(['redirect' => route('client.home')]);
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);
         }
