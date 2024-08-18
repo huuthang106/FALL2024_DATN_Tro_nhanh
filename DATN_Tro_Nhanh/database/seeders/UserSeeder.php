@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
                 'phone' => '1234567890123',
                 'address' => '123 Main St',
                 'role' => 1,
-                'balanca' => '1000.00',
+                'balance' => '1000.00',
                 'slug' => Str::slug('John Doe'),
                 'token' => Str::random(60),
                 'status' => 1,

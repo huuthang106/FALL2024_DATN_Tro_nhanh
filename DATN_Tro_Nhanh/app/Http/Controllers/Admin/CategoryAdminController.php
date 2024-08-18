@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Events\Admin\CategoryAdminEvent;
 use Illuminate\Support\Facades\Log;
 use App\Services\CategoryAdminService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Exception;
 
 class CategoryAdminController extends Controller
 {
@@ -15,31 +15,61 @@ class CategoryAdminController extends Controller
     {
         $this->categoryService = $categoryService;
     }
-    public function index() {}
+    // Hàm để hiển thị danh sách categories
+    public function list(Request $request)
+    {
+        try {
+            // Lấy từ khóa tìm kiếm từ request
+            $query = $request->input('query', '');
 
+            // Lấy số mục trên mỗi trang từ request hoặc sử dụng giá trị mặc định
+            $perPage = $request->input('per_page', 10);
+
+            // Gọi service để tìm kiếm hoặc lấy tất cả nếu không có từ khóa tìm kiếm
+            $categories = $query
+                ? $this->categoryService->searchCategories($query, $perPage)
+                : $this->categoryService->getAllCategories($perPage);
+
+            // Trả về view với danh sách các danh mục
+            return view('admincp.show.list-category', compact('categories', 'query'));
+        } catch (Exception $e) {
+            return back()->withErrors('Đã xảy ra lỗi khi lấy danh sách loại.');
+        }
+    }
     public function create()
     {
         return view('admincp.create.addCategory');
     }
-
-    public function update()
+    // Hàm hiển thị Form Edit
+    public function edit($slug)
     {
-        return view('admincp.edit.updateCategory');
+        try {
+            $category = $this->categoryService->getCategoryById($slug);
+            return view('admincp.edit.updateCategory', compact('category'));
+        } catch (Exception $e) {
+            return back()->withErrors('Đã xảy ra lỗi khi lấy thông tin loại.');
+        }
     }
+    // Xử lý yêu cầu cập nhật
+    public function update(Request $request, $slug)
+    {
+        try {
+            // Xử lý cập nhật
+            $category = $this->categoryService->updateCategory($slug, $request->all());
 
+            return response()->json(['success' => true, 'data' => $category], 200);
+        } catch (Exception $e) {
+            // Ghi log lỗi và trả về phản hồi lỗi JSON
+            Log::error('Đã xảy ra lỗi khi lưu: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
     public function store(Request $request)
     {
         try {
-            // Gọi Service để xử lý
             $category = $this->categoryService->createCategory($request->all());
-
-            // Kích hoạt event sau khi category được thêm
-            event(new CategoryAdminEvent($category));
-
-            // Trả về phản hồi JSON thành công
             return response()->json(['success' => true, 'data' => $category], 200);
-        } catch (\Exception $e) {
-            // Ghi log lỗi và trả về phản hồi lỗi JSON
+        } catch (Exception $e) {
             Log::error('Đã xảy ra lỗi khi lưu: ' . $e->getMessage());
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }

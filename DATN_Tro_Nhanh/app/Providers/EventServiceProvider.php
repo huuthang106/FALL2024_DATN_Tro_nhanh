@@ -28,9 +28,9 @@ class EventServiceProvider extends BaseEventServiceProvider
         BlogCreated::class => [
             SendBlogCreatedNotification::class,
         ],
-        // RoomOwnersEvent::class => [
-        //     HandleRoomOwner::class,
-        // ],
+        CategoryAdminEvent::class => [
+            HandleCategoryAdmin::class,
+        ],
     ];
 
     /**

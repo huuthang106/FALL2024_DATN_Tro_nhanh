@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->boolean('role')->default(1);
             $table->string('balance')->nullable();
-            $table->string('token')->nullable()->change(); 
+            $table->string('token')->nullable();
             $table->string('slug')->nullable()->unique();
             $table->string('google_id')->unique()->nullable();
             $table->boolean('status')->default(1);
@@ -49,7 +49,6 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
-    
     }
 
     /**

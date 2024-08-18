@@ -46,18 +46,18 @@ class DatabaseSeeder extends Seeder
                 'user_id' => $userId,
             ]);
         }
-        RoomType::factory()->count(10)->create(); // Tạo 10 mẫu RoomType
-        Acreage::factory()->count(10)->create(); // Seed 10 dòng dữ liệu vào bảng acreages
-        Price::factory()->count(10)->create(); // Seed 10 dòng dữ liệu vào bảng prices
-        // Seed danh mục không có parent_id
-        Category::factory()->count(5)->create();
+        // RoomType::factory()->count(10)->create(); // Tạo 10 mẫu RoomType
+        // Acreage::factory()->count(10)->create(); // Seed 10 dòng dữ liệu vào bảng acreages
+        // Price::factory()->count(10)->create(); // Seed 10 dòng dữ liệu vào bảng prices
+        // // Seed danh mục không có parent_id
+        // Category::factory()->count(5)->create();
 
-        // Seed danh mục con (có parent_id)
-        Category::factory()->count(5)->create([
-            'parent_id' => Category::inRandomOrder()->first()->id,
-        ]);
-        Area::factory()->count(10)->create(); // Seed 10 dòng dữ liệu vào bảng areas
-        Location::factory()->count(10)->create(); // Seed 10 dòng dữ liệu vào bảng locations
-        Zone::factory()->count(10)->create(); // Seed 10 dòng dữ liệu vào bảng zones
+        // // Seed danh mục con (có parent_id)
+        // Category::factory()->count(5)->create([
+        //     'parent_id' => Category::inRandomOrder()->first()->id,
+        // ]);
+        // Area::factory()->count(10)->create(); // Seed 10 dòng dữ liệu vào bảng areas
+        // Location::factory()->count(10)->create(); // Seed 10 dòng dữ liệu vào bảng locations
+        // Zone::factory()->count(10)->create(); // Seed 10 dòng dữ liệu vào bảng zones
     }
 }

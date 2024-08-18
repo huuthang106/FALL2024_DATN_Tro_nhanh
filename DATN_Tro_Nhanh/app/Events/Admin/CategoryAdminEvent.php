@@ -19,9 +19,17 @@ class CategoryAdminEvent
      * Create a new event instance.
      */
     public $category;
-    public function __construct(Category $category)
+    public $type;
+    public $data;
+    public $status;
+    public $userId;
+    public function __construct($type, $data, $status, $userId)
     {
-        $this->category = $category;
+        // $this->category = $category;
+        $this->type = $type;
+        $this->data = $data;
+        $this->status = $status;
+        $this->userId = $userId;
     }
 
     /**
