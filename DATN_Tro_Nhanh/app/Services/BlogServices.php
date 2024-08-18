@@ -3,40 +3,40 @@
 namespace App\Services;
 
 use App\Models\Blog;
+use App\Models\Image;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
- // Import lớp Blog
-use App\Models\Image;
-use App\Models\Notification;
-use App\Services\NotificationService;
+use Illuminate\Http\Request;
+use App\Events\BlogCreated;
 
 class BlogServices
 {
-
     private function createSlug($title, $id)
     {
-        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9]+/', '', $title), '-'));
-        $slug = $slug . $id;
+        // Create a slug from the title
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9]+/', '-', $title), '-'));
+
+        // Append the ID
+        $slug = $slug . '-' . $id;
 
         return $slug;
     }
-    public function create(array $data, $images = []): bool
+
+    public function handleBlogCreation($request)
     {
         try {
-            // Tạo blog mới
+            $data = $request->validated();
+            $images = $request->file('images');
+
             $blog = new Blog();
             $blog->title = $data['title'];
             $blog->description = $data['description'];
             $blog->user_id = Auth::id();
             $blog->save();
-
-            // Tạo slug cho blog
             $slug = $this->createSlug($data['title'], $blog->id);
             $blog->slug = $slug;
             $blog->save();
-
-            // Xử lý tải ảnh
             if ($images) {
                 foreach ($images as $image) {
                     $path = $image->store('assets/images');
@@ -47,39 +47,52 @@ class BlogServices
                     $imageModel->save();
                 }
             }
-            Notification::send($blog->user_id, 'Blog mới đã được tạo thành công!');
+            event(new BlogCreated($blog));
 
-            return true;
+            return redirect()->route('owners.blog')->with('success', 'Blog đã được tạo thành công!');
         } catch (\Exception $e) {
             Log::error('Không thể tạo blog: ' . $e->getMessage());
-            return false;
+            return redirect()->route('owners.blog')->with('error', 'Có lỗi xảy ra khi tạo blog.');
         }
     }
-    
 
+    public function uploadImage(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            return $file->store('images', 'public'); // Store the file and return the path
+        }
 
-    
-    
-    
+        return null; 
+    }
 
-    
-    public function getAllBlogs(int $perPage = 1)
+    public function getAllBlogs(int $perPage = 10)
     {
         try {
             return Blog::where('status', 1)->paginate($perPage);
         } catch (\Exception $e) {
-
+            Log::error('Error fetching blogs: ' . $e->getMessage());
             return null;
         }
     }
+
     public function getBlogBySlug(string $slug): ?Blog
     {
         try {
             return Blog::where('slug', $slug)->first();
         } catch (\Exception $e) {
+            Log::error('Error fetching blog by slug: ' . $e->getMessage());
             return null;
         }
     }
 
-
+    public function getBlogByTitleAndUserId($title, $userId): ?Blog
+    {
+        try {
+            return Blog::where('title', $title)->where('user_id', $userId)->first();
+        } catch (\Exception $e) {
+            Log::error('Error fetching blog by title and user ID: ' . $e->getMessage());
+            return null;
+        }
+    }
 }

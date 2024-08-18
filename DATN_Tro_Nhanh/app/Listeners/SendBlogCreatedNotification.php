@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BlogCreatedMail;
+use Illuminate\Support\Facades\Log;
 
 class SendBlogCreatedNotification implements ShouldQueue
 {
@@ -20,7 +21,23 @@ class SendBlogCreatedNotification implements ShouldQueue
      */
     public function handle(BlogCreated $event)
     {
-        // Gửi email thông báo
-        Mail::to('tongchinhan76@gmail.com')->send(new BlogCreatedMail($event->blog));
+        try {
+            Mail::to($event->blog->user->email)->send(new BlogCreatedMail($event->blog));
+            Log::info('Blog được tạo thành công ' . $event->blog->title);
+        } catch (\Exception $e) {
+            Log::error('Blog được tạo không thành công : ' . $event->blog->title . ' - Error: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Handle a job failure.
+     *
+     * @param  BlogCreated  $event
+     * @param  \Exception  $exception
+     * @return void
+     */
+    public function failed(BlogCreated $event, $exception)
+    {
+        Log::error('Tạo blog không thành công ' . $event->blog->title . ' - Error: ' . $exception->getMessage());
     }
 }

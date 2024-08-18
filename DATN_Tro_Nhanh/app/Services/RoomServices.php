@@ -3,18 +3,26 @@
 namespace App\Services;
 
 use App\Models\Room;
-use Illuminate\Support\Str;
+use App\Models\Image;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
- // Import lớp Blog
-use App\Models\Image;
+use Illuminate\Support\Str;
 
-class BlogServices
+
+
+class RoomServices
 {
-
-   public function show(){
+   public function getAllRooms(int $perPage = 10)
+   {
+       try {
+           return Room::paginate($perPage);
+       } catch (\Exception $e) {
+           Log::error('Không thể lấy danh sách phòng: ' . $e->getMessage());
+           return null;
+       }
+   }
 
    }
 
 
-}
+

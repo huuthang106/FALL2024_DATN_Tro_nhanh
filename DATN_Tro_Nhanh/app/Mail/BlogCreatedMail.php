@@ -32,6 +32,11 @@ class BlogCreatedMail extends Mailable
     public function build()
     {
         return $this->view('emails.blog_created')
-                    ->subject('A new blog post has been created');
+            ->with([
+                'title' => $this->blog->title,
+
+
+                'description' => $this->blog->description,
+            ]);
     }
 }

@@ -71,7 +71,7 @@
                             </li>
                         </ul>
                     </li>
-                    @if(Auth::user()->role == 2)
+                    @if(Auth::user()->role !=1)
                     <li class="list-group-item pt-6 pb-4">
                         <h5 class="fs-13 letter-spacing-087 text-muted mb-3 text-uppercase px-3">Manage Listings</h5>
                         <ul class="list-group list-group-no-border rounded-lg">

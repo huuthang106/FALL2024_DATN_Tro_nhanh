@@ -13,7 +13,7 @@ class ZoneServices
             $zone = new Zone();
             $user_id = auth()->id();
 
-            // Gán các giá trị từ request vào các thuộc tính tương ứng
+          
             $zone->name = $request->input('name');
             $zone->description = $request->input('description');
             $zone->total_rooms = $request->input('total_rooms');
