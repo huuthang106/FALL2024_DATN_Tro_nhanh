@@ -119,6 +119,20 @@
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                <a href="{{route('owners.zone-list')}}"
+                                   class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                    <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
+                                        <svg class="icon icon-my-properties">
+                                            <use xlink:href="#icon-my-properties"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="sidebar-item-text">Danh sách khu trọ</span>
+                                    <span class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">29</span>
+                                </a>
+                            </li>
+
+                        
+                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                 <a href="{{Route('owners.favorites')}}"
                                    class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
