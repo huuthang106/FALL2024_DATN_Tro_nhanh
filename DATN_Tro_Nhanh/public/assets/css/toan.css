@@ -1,0 +1,19 @@
+.img-s {
+    width: 100px;
+    /* Điều chỉnh kích thước */
+    height: auto;
+    /* Để giữ tỷ lệ khung hình của ảnh */
+    object-fit: cover;
+    /* Để ảnh phù hợp với khung */
+}
+
+.min-w-125px {
+    min-width: 125px;
+    /* Đặt chiều rộng tối thiểu cho cột */
+    white-space: normal;
+    /* Cho phép văn bản xuống dòng */
+    overflow: hidden;
+    /* Ẩn nội dung tràn */
+    text-overflow: ellipsis;
+    /* Hiển thị dấu ba chấm nếu văn bản quá dài */
+}

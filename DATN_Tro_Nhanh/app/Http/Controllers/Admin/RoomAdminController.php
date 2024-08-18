@@ -9,6 +9,7 @@ use App\Http\Requests\CreateRoomRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use App\Events\RoomCreated;
+use App\Models\Notification;
 
 class RoomAdminController extends Controller
 {
@@ -38,21 +39,47 @@ class RoomAdminController extends Controller
         $locations = $data['locations'];
         $zones = $data['zones'];
         $users = $data['users'];
-        $roomTypes = $data['roomTypes'];
-        return view('admincp.create.addRoom', compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users', 'roomTypes'));
+        $room_types = $data['room_types'];
+        return view('admincp.create.addRoom', compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users', 'room_types'));
     }
     public function add_room(CreateRoomRequest $request)
     {
         if ($request->isMethod('post')) {
-            $room = $this->roomAdminService->create($request);
-            // Kích hoạt event
-            event(new RoomCreated($room));
-            return redirect()->route('admin.add-room-show')->with('success', 'Room đã được tạo thành công.');
+            try {
+                $room = $this->roomAdminService->create($request);
+                // Kích hoạt event
+                event(new RoomCreated($room));
+
+                // Redirect với thông báo thành công
+                return redirect()->route('admin.add-room-show')->with('success', 'Room đã được tạo thành công.');
+            } catch (\Exception $e) {
+                // Nếu có lỗi xảy ra, sửa thông báo
+                return redirect()->route('admin.add-room-show')->with('error', 'Đã xảy ra lỗi khi tạo Room.');
+            }
         }
-        return view('admincp.show.index');
     }
-    public function update_room()
+    public function update_room_show($slug)
     {
-        return view('admincp.edit.updateRoom');
+        $data = $this->roomAdminService->getSlugRoom($slug);
+        $rooms = $data['rooms'];
+        $categories = $data['categories'];
+        $acreages = $data['acreages'];
+        $locations = $data['locations'];
+        $zones = $data['zones'];
+        $users = $data['users'];
+        $room_types = $data['room_types'];
+        return view('admincp.edit.updateRoom', compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users', 'room_types'));
+    }
+    public function update_room(Request $request, $slug)
+    {
+        $result = $this->roomAdminService->update($request, $slug);
+
+        if ($result) {
+            // Cập nhật thành công, chuyển hướng hoặc thông báo
+            return redirect()->route('admin.show-room')->with('success', 'Room updated successfully.');
+        } else {
+            // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
+            return back()->with('error', 'Failed to update room.');
+        }
     }
 }

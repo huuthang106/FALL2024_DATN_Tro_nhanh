@@ -554,7 +554,7 @@
                                         </td>
                                         <!--end::Checkbox-->
                                         <!--begin::User=-->
-                                        <td class="d-flex align-items-center">
+                                        <td class="d-flex align-items-center min-w-125px">
                                             <!--begin:: Avatar -->
                                             <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                                 <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
@@ -578,7 +578,6 @@
                                             <div class="d-flex flex-column">
                                                 <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
                                                     class="text-gray-800 text-hover-primary mb-1">{{ $room->title }}</a>
-                                                <span>{{ $room->description }}</span>
                                             </div>
                                             <!--begin::User details-->
                                         </td>
@@ -617,7 +616,7 @@
                                                 data-kt-menu="true">
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="../../demo8/dist/apps/user-management/users/view.html"
+                                                    <a href="{{ route('admin.update-room-show', ['slug' => $room->slug]) }}"
                                                         class="menu-link px-3">Chỉnh sửa</a>
                                                 </div>
                                                 <!--end::Menu item-->

@@ -5,7 +5,8 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as BaseEventServiceProvider;
 use App\Events\ZoneCreated;
 use App\Listeners\SendZoneCreatedNotification;
-
+use App\Listeners\SendRoomCreatedNotification;
+use App\Events\RoomCreated;
 use App\Events\Admin\CategoryAdminEvent;
 use App\Listeners\Admin\HandleCategoryAdmin;
 use App\Events\BlogCreated;
@@ -30,6 +31,9 @@ class EventServiceProvider extends BaseEventServiceProvider
         ],
         CategoryAdminEvent::class => [
             HandleCategoryAdmin::class,
+        ],
+        RoomCreated::class => [
+            SendRoomCreatedNotification::class,
         ],
     ];
 

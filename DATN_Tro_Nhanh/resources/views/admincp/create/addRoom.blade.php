@@ -65,7 +65,6 @@
                                                     <div class="text-danger mt-3">{{ $message }}</div>
                                                 @enderror
                                             </div>
-
                                         </div>
                                         <div class="row mb-6">
                                             <label class="col-lg-4 col-form-label fw-bold fs-6 required">Địa chỉ</label>
@@ -77,7 +76,6 @@
                                                     <div class="text-danger mt-3">{{ $message }}</div>
                                                 @enderror
                                             </div>
-
                                         </div>
                                         <div class="row mb-6">
                                             <label class="col-lg-4 col-form-label fw-bold fs-6 required">Số lượng</label>
@@ -132,14 +130,12 @@
                                         <div class="row mb-6">
                                             <label class="col-lg-4 col-form-label fw-bold fs-6 required">Diện tích</label>
                                             <div class="col-lg-8 fv-row">
-                                                <select name="acreages_id"
-                                                    class="form-select form-select-solid form-select-lg">
-                                                    @foreach ($acreages as $acreage)
-                                                        <option value="{{ $acreage->id }}">
-                                                            {{ $acreage->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="text" name="acreage"
+                                                    class="form-control form-control-lg form-control-solid"
+                                                    placeholder="" />
+                                                @error('acreage')
+                                                    <div class="text-danger mt-3">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="row mb-6">
@@ -156,7 +152,7 @@
                                             </div>
                                         </div>
                                         <div class="row mb-6">
-                                            <label class="col-lg-4 col-form-label fw-bold fs-6 required">Vị trí</label>
+                                            <label class="col-lg-4 col-form-label fw-bold fs-6 required">Khu trọ</label>
                                             <div class="col-lg-8 fv-row">
                                                 <select name="zone_id"
                                                     class="form-select form-select-solid form-select-lg">
@@ -173,9 +169,9 @@
                                             <div class="col-lg-8 fv-row">
                                                 <select name="room_type_id"
                                                     class="form-select form-select-solid form-select-lg">
-                                                    @foreach ($roomTypes as $roomType)
-                                                        <option value="{{ $roomType->id }}">
-                                                            {{ $roomType->name }}
+                                                    @foreach ($room_types as $room_type)
+                                                        <option value="{{ $room_type->id }}">
+                                                            {{ $room_type->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>

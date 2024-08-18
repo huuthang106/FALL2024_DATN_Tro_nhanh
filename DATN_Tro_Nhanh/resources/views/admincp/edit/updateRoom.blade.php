@@ -15,85 +15,343 @@
                         </div>
                     </div>
                     <div id="kt_account_profile_details" class="collapse show">
-                        <form id="kt_account_profile_details_form" class="form">
+                        <form class="form" action="{{ route('admin.update-room', ['slug' => $rooms->slug]) }}"
+                            method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
                             <div class="card-body border-top p-9">
-                                <div class="row mb-6">
-                                    <label class="col-lg-4 col-form-label fw-bold fs-6 required">Tiêu đề</label>
-                                    <div class="col-lg-8 fv-row">
-                                        <input type="text" name="title"
-                                            class="form-control form-control-lg form-control-solid" placeholder="" />
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label fw-bold fs-6 required">Tiêu đề</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <input type="text" id="title" name="title"
+                                                    value="{{ $rooms->title }}"
+                                                    class="form-control form-control-lg form-control-solid"
+                                                    placeholder="" />
+                                                @error('title')
+                                                    <div class="text-danger mt-3">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label fw-bold fs-6 required">Mô tả</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <textarea name="description" class="form-control form-control-lg form-control-solid" placeholder="">{{ $rooms->description }}</textarea>
+                                                @error('description')
+                                                    <div class="text-danger mt-3">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                        </div>
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label fw-bold fs-6 required">Giá</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <input type="number" name="price" value="{{ $rooms->price }}"
+                                                    class="form-control form-control-lg form-control-solid"
+                                                    placeholder="" />
+                                                @error('price')
+                                                    <div class="text-danger mt-3">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                        </div>
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label fw-bold fs-6">Số điện
+                                                thoại</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <input type="tel" name="phone" value="{{ $rooms->phone }}"
+                                                    class="form-control form-control-lg form-control-solid" placeholder=""
+                                                    maxlength="13" />
+                                                @error('phone')
+                                                    <div class="text-danger mt-3">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                        </div>
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label fw-bold fs-6 required">Địa chỉ</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <input type="text" name="address" value="{{ $rooms->address }}"
+                                                    class="form-control form-control-lg form-control-solid"
+                                                    placeholder="" />
+                                                @error('address')
+                                                    <div class="text-danger mt-3">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                        </div>
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label fw-bold fs-6 required">Số lượng</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <input type="number" name="quantity" value="{{ $rooms->quantity }}"
+                                                    class="form-control form-control-lg form-control-solid"
+                                                    placeholder="" />
+                                                @error('quantity')
+                                                    <div class="text-danger mt-3">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                        </div>
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label fw-bold fs-6 required">View</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <input type="number" name="view" value="{{ $rooms->view }}"
+                                                    class="form-control form-control-lg form-control-solid"
+                                                    placeholder="" />
+                                                @error('view')
+                                                    <div class="text-danger mt-3">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                        </div>
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label fw-bold fs-6 required">Trạng thái</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <select name="status" class="form-select form-select-solid form-select-lg">
+                                                    <option value="1" {{ $rooms->status == 1 ? 'selected' : '' }}>Kích
+                                                        hoạt
+                                                    </option>
+                                                    <option value="0" {{ $rooms->status == 0 ? 'selected' : '' }}>
+                                                        Không
+                                                        kích
+                                                        hoạt</option>
+                                                </select>
+                                                @error('status')
+                                                    <div class="text-danger mt-3">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                        </div>
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label fw-bold fs-6 required">Loại phòng</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <select name="category_id"
+                                                    class="form-select form-select-solid form-select-lg">
+                                                    @foreach ($categories as $category)
+                                                        <option value="{{ $category->id }}"
+                                                            {{ $rooms->category_id == $category->id ? 'selected' : '' }}>
+                                                            {{ $category->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label fw-bold fs-6 required">Diện tích</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <input type="text" name="acreages" value="{{ $rooms->acreage }}"
+                                                    class="form-control form-control-lg form-control-solid"
+                                                    placeholder="" />
+                                                @error('acreages')
+                                                    <div class="text-danger mt-3">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label fw-bold fs-6 required">Khu vực</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <select name="location_id"
+                                                    class="form-select form-select-solid form-select-lg">
+                                                    @foreach ($locations as $location)
+                                                        <option value="{{ $location->id }}"
+                                                            {{ $rooms->location_id == $location->id ? 'selected' : '' }}>
+                                                            {{ $location->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label fw-bold fs-6 required">Vị trí</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <select name="zone_id"
+                                                    class="form-select form-select-solid form-select-lg">
+                                                    @foreach ($zones as $zone)
+                                                        <option value="{{ $zone->id }}"
+                                                            {{ $rooms->zone_id == $zone->id ? 'selected' : '' }}>
+                                                            {{ $zone->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label fw-bold fs-6">Loại dịch vụ phòng</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <select name="room_type_id"
+                                                    class="form-select form-select-solid form-select-lg">
+                                                    @foreach ($room_types as $room_type)
+                                                        <option value="{{ $room_type->id }}"
+                                                            {{ $rooms->room_type_id == $room_type->id ? 'selected' : '' }}>
+                                                            {{ $room_type->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row mb-6">
-                                    <label class="col-lg-4 col-form-label fw-bold fs-6 required">Mô tả</label>
-                                    <div class="col-lg-8 fv-row">
-                                        <textarea name="description" class="form-control form-control-lg form-control-solid" placeholder=""></textarea>
-                                    </div>
-                                </div>
-                                <div class="row mb-6">
-                                    <label class="col-lg-4 col-form-label fw-bold fs-6 required">Giá</label>
-                                    <div class="col-lg-8 fv-row">
-                                        <input type="number" name="price"
-                                            class="form-control form-control-lg form-control-solid" placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="row mb-6">
-                                    <label class="col-lg-4 col-form-label fw-bold fs-6 required">Số điện thoại</label>
-                                    <div class="col-lg-8 fv-row">
-                                        <input type="tel" name="phone"
-                                            class="form-control form-control-lg form-control-solid" placeholder=""
-                                            maxlength="13" />
-                                    </div>
-                                </div>
-                                <div class="row mb-6">
-                                    <label class="col-lg-4 col-form-label fw-bold fs-6 required">Địa chỉ</label>
-                                    <div class="col-lg-8 fv-row">
-                                        <input type="text" name="address"
-                                            class="form-control form-control-lg form-control-solid" placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="row mb-6">
-                                    <label class="col-lg-4 col-form-label fw-bold fs-6 required">Số lượng</label>
-                                    <div class="col-lg-8 fv-row">
-                                        <input type="number" name="quantity"
-                                            class="form-control form-control-lg form-control-solid" placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="row mb-6">
-                                    <label class="col-lg-4 col-form-label fw-bold fs-6 required">Kinh độ</label>
-                                    <div class="col-lg-8 fv-row">
-                                        <input type="text" name="longitude"
-                                            class="form-control form-control-lg form-control-solid" placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="row mb-6">
-                                    <label class="col-lg-4 col-form-label fw-bold fs-6 required">Vĩ độ</label>
-                                    <div class="col-lg-8 fv-row">
-                                        <input type="text" name="latitude"
-                                            class="form-control form-control-lg form-control-solid" placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="row mb-6">
-                                    <label class="col-lg-4 col-form-label fw-bold fs-6 required">View</label>
-                                    <div class="col-lg-8 fv-row">
-                                        <input type="number" name="view"
-                                            class="form-control form-control-lg form-control-solid" placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="row mb-6">
-                                    <label class="col-lg-4 col-form-label fw-bold fs-6">Slug</label>
-                                    <div class="col-lg-8 fv-row">
-                                        <input type="text" name="slug"
-                                            class="form-control form-control-lg form-control-solid" placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="row mb-6">
-                                    <label class="col-lg-4 col-form-label fw-bold fs-6 required">Trạng thái</label>
-                                    <div class="col-lg-8 fv-row">
-                                        <select name="status" class="form-select form-select-solid form-select-lg">
-                                            <option value="1">Kích hoạt</option>
-                                            <option value="0">Không kích hoạt</option>
-                                        </select>
+                                    <div class="col-6">
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label fw-bold fs-6 required">Tỉnh</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <select
+                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
+                                                    title="Lựa chọn" data-style="btn-lg py-2 h-52" id="city-province"
+                                                    name="province">
+                                                    <option>{{ $rooms->province }}</option>
+                                                    <option value='01'>&nbspThành phố Hà Nội</option>
+                                                    <option value='79'>&nbspThành phố Hồ Chí Minh</option>
+                                                    <option value='31'>&nbspThành phố Hải Phòng</option>
+                                                    <option value='48'>&nbspThành phố Đà Nẵng</option>
+                                                    <option value='92'>&nbspThành phố Cần Thơ</option>
+                                                    <option value='02'>&nbspTỉnh Hà Giang</option>
+                                                    <option value='04'>&nbspTỉnh Cao Bằng</option>
+                                                    <option value='06'>&nbspTỉnh Bắc Kạn</option>
+                                                    <option value='08'>&nbspTỉnh Tuyên Quang</option>
+                                                    <option value='10'>&nbspTỉnh Lào Cai</option>
+                                                    <option value='11'>&nbspTỉnh Điện Biên</option>
+                                                    <option value='12'>&nbspTỉnh Lai Châu</option>
+                                                    <option value='14'>&nbspTỉnh Sơn La</option>
+                                                    <option value='15'>&nbspTỉnh Yên Bái</option>
+                                                    <option value='17'>&nbspTỉnh Hoà Bình</option>
+                                                    <option value='19'>&nbspTỉnh Thái Nguyên</option>
+                                                    <option value='20'>&nbspTỉnh Lạng Sơn</option>
+                                                    <option value='22'>&nbspTỉnh Quảng Ninh</option>
+                                                    <option value='24'>&nbspTỉnh Bắc Giang</option>
+                                                    <option value='25'>&nbspTỉnh Phú Thọ</option>
+                                                    <option value='26'>&nbspTỉnh Vĩnh Phúc</option>
+                                                    <option value='27'>&nbspTỉnh Bắc Ninh</option>
+                                                    <option value='30'>&nbspTỉnh Hải Dương</option>
+                                                    <option value='33'>&nbspTỉnh Hưng Yên</option>
+                                                    <option value='34'>&nbspTỉnh Thái Bình</option>
+                                                    <option value='35'>&nbspTỉnh Hà Nam</option>
+                                                    <option value='36'>&nbspTỉnh Nam Định</option>
+                                                    <option value='37'>&nbspTỉnh Ninh Bình</option>
+                                                    <option value='38'>&nbspTỉnh Thanh Hóa</option>
+                                                    <option value='40'>&nbspTỉnh Nghệ An</option>
+                                                    <option value='42'>&nbspTỉnh Hà Tĩnh</option>
+                                                    <option value='44'>&nbspTỉnh Quảng Bình</option>
+                                                    <option value='45'>&nbspTỉnh Quảng Trị</option>
+                                                    <option value='46'>&nbspTỉnh Thừa Thiên Huế</option>
+                                                    <option value='49'>&nbspTỉnh Quảng Nam</option>
+                                                    <option value='51'>&nbspTỉnh Quảng Ngãi</option>
+                                                    <option value='52'>&nbspTỉnh Bình Định</option>
+                                                    <option value='54'>&nbspTỉnh Phú Yên</option>
+                                                    <option value='56'>&nbspTỉnh Khánh Hòa</option>
+                                                    <option value='58'>&nbspTỉnh Ninh Thuận</option>
+                                                    <option value='60'>&nbspTỉnh Bình Thuận</option>
+                                                    <option value='62'>&nbspTỉnh Kon Tum</option>
+                                                    <option value='64'>&nbspTỉnh Gia Lai</option>
+                                                    <option value='66'>&nbspTỉnh Đắk Lắk</option>
+                                                    <option value='67'>&nbspTỉnh Đắk Nông</option>
+                                                    <option value='68'>&nbspTỉnh Lâm Đồng</option>
+                                                    <option value='70'>&nbspTỉnh Bình Phước</option>
+                                                    <option value='72'>&nbspTỉnh Tây Ninh</option>
+                                                    <option value='74'>&nbspTỉnh Bình Dương</option>
+                                                    <option value='75'>&nbspTỉnh Đồng Nai</option>
+                                                    <option value='77'>&nbspTỉnh Bà Rịa - Vũng Tàu</option>
+                                                    <option value='80'>&nbspTỉnh Long An</option>
+                                                    <option value='82'>&nbspTỉnh Tiền Giang</option>
+                                                    <option value='83'>&nbspTỉnh Bến Tre</option>
+                                                    <option value='84'>&nbspTỉnh Trà Vinh</option>
+                                                    <option value='86'>&nbspTỉnh Vĩnh Long</option>
+                                                    <option value='87'>&nbspTỉnh Đồng Tháp</option>
+                                                    <option value='89'>&nbspTỉnh An Giang</option>
+                                                    <option value='91'>&nbspTỉnh Kiên Giang</option>
+                                                    <option value='93'>&nbspTỉnh Hậu Giang</option>
+                                                    <option value='94'>&nbspTỉnh Sóc Trăng</option>
+                                                    <option value='95'>&nbspTỉnh Bạc Liêu</option>
+                                                    <option value='96'>&nbspTỉnh Cà Mau</option>
+                                                    <!-- Thêm các tùy chọn khác ở đây -->
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label fw-bold fs-6 required">Huyện</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <select
+                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
+                                                    title="Lựa chọn" data-style="btn-lg py-2 h-52" id="district-town"
+                                                    name="district">
+                                                    <option>{{ $rooms->district }}</option>
+                                                    <option value='0'>{&nbsp;Chọn Quận/Huyện...}</option>
+                                                    <!-- Các tùy chọn khác sẽ được thêm vào qua JavaScript -->
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label fw-bold fs-6 required">Xã</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <select
+                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
+                                                    title="Lựa chọn" data-style="btn-lg py-2 h-52" id="ward-commune"
+                                                    name="village">
+                                                    <option>{{ $rooms->village }}</option>
+                                                    <option value='0'>&nbsp;Chọn Phường/Xã...</option>
+                                                    <!-- Các tùy chọn khác sẽ được thêm vào qua JavaScript -->
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div onload="initMap()">
+                                            <div class="row mb-6">
+                                                <h3 class="card-title mb-0 text-heading fs-22 lh-15">Đặt ghim
+                                                    niêm yết trên bản đồ</h3>
+                                                <p class="card-text mb-5">Lorem ipsum dolor sit amet,
+                                                    consectetur adipiscing elit</p>
+                                                <!-- Bản đồ -->
+                                                <div id="map" class="mb-6" style="height: 292px;">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-6">
+                                                <label class="col-lg-4 col-form-label fw-bold fs-6 required">Kinh
+                                                    độ</label>
+                                                <div class="col-lg-8 fv-row">
+                                                    <input type="text" id="longitude" name="longitude"
+                                                        value="{{ $rooms->longitude }}"
+                                                        class="form-control form-control-lg form-control-solid"
+                                                        placeholder="" />
+                                                    @error('logitude')
+                                                        <div class="text-danger mt-3">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                            </div>
+                                            <div class="row mb-6">
+                                                <label class="col-lg-4 col-form-label fw-bold fs-6 required">Vĩ độ</label>
+                                                <div class="col-lg-8 fv-row">
+                                                    <input type="text" id="latitude" name="latitude"
+                                                        value="{{ $rooms->latitude }}"
+                                                        class="form-control form-control-lg form-control-solid"
+                                                        placeholder="" />
+                                                    @error('latitude')
+                                                        <div class="text-danger mt-3">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label fw-bold fs-6 required">Hình ảnh</label>
+                                            <div class="col-lg-8 fv-row">
+                                                @if ($rooms->images->isNotEmpty())
+                                                    @foreach ($rooms->images as $image)
+                                                        <img src="{{ asset('assets/images/' . $image->filename) }}"
+                                                            class="img-s" alt="{{ $rooms->title }}">
+                                                    @endforeach
+                                                @else
+                                                    <p>No images available for this room.</p>
+                                                @endif
+                                                <div id="image-input-container mt-5">
+                                                    <input type="file" name="images[]"
+                                                        class="form-control form-control-lg form-control-solid mb-3"
+                                                        placeholder="" />
+                                                </div>
+                                                <button type="button" id="add-image-input"
+                                                    class="btn btn-primary float-end">
+                                                    Thêm ảnh
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -102,7 +360,6 @@
                                 <button type="submit" class="btn btn-primary">Lưu</button>
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>
@@ -189,6 +446,7 @@
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
+    <link rel="stylesheet" href="{{ asset('assets/css/toan.css') }}">
 @endpush
 
 @push('scriptsAdmin')
@@ -211,4 +469,9 @@
     <script src="{{ asset('assets/js/custom/modals/upgrade-plan.js') }}"></script>
     <!--end::Page Custom Javascript-->
     <!--end::Javascript-->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="{{ asset('assets/js/seclectmap.js') }}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC67NQzqFC2WplLzC_3PsL5gejG1_PZLDk"></script>
+    <script src="{{ asset('assets/js/mapapi-ntt.js') }}"></script>
+    <script src="{{ asset('assets/js/image-ntt.js') }}"></script>
 @endpush

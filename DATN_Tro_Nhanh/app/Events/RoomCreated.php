@@ -9,6 +9,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Room;
 
 class RoomCreated
 {
@@ -16,7 +17,7 @@ class RoomCreated
 
     public $room;
 
-    public function __construct($room)
+    public function __construct(Room $room)
     {
         $this->room = $room;
     }

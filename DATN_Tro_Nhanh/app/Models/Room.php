@@ -24,8 +24,8 @@ class Room extends Model
         'category_id',
         'area_id',
         'location_id',
-        'zone_id',
         'room_type_id',
+        'zone_id',
         'user_id',
         'view',
         'slug'
@@ -54,7 +54,8 @@ class Room extends Model
 
     public function acreage()
     {
-        return $this->belongsTo(Acreage::class);}
+        return $this->belongsTo(Acreage::class);
+    }
     public function area()
     {
         return $this->belongsTo(Area::class);
@@ -65,16 +66,14 @@ class Room extends Model
         return $this->belongsTo(Location::class);
     }
 
-    public function zone()
-    {
-        return $this->belongsTo(Zone::class);
-    }
-
-
-
     public function roomType()
     {
         return $this->belongsTo(RoomType::class);
+    }
+
+    public function zone()
+    {
+        return $this->belongsTo(Zone::class);
     }
 
     public function tenant()
