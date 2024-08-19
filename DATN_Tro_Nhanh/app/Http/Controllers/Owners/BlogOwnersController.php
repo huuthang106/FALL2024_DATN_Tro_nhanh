@@ -12,6 +12,7 @@ use App\Events\BlogCreated;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateBlogRequest;
 use App\Services\NotificationService;
+// use App\Events\BlogCreated;
 
 class BlogOwnersController extends Controller
 {
@@ -26,20 +27,79 @@ class BlogOwnersController extends Controller
     {
         return view('owners.create.add-new-blog');
     }
+    public function show()
+    {
+        $blogs = $this->BlogService->getAllBlogs();
+        return view('owners.show.dashboard-my-blog', compact('blogs'));
+    }
+    public function editBlog($slug)
+    {
+        try {
+            // Gọi phương thức editBlog từ service
+            $blog = $this->BlogService->editBlog($slug);
+
+            // Trả về view với biến blog
+            return view('owners.edit.edit-blog', compact('blog'));
+        } catch (\Exception $e) {
+            Log::error('Không thể lấy blog để chỉnh sửa: ' . $e->getMessage());
+            return redirect()->route('owners.sua-blog', $slug)->with('error', 'Có lỗi xảy ra khi lấy blog để chỉnh sửa.');
+        }
+    }
+
+    public function updateBlog(Request $request, $slug)
+    {
+        $result = $this->BlogService->updateBlog($request, $slug);
     
+     
+            return redirect()->route('owners.show-blog')->with('success', $result['message']);
+    
+    }
+    
+    
+    
+
+    // public function update(Request $request, $slug)
+    // {
+    //     $result = $this->BlogService->updateBlog($request, $slug);
+
+    //     if ($result['success']) {
+    //         return redirect()->route('owners.blog')->with('success', $result['message']);
+    //     } else {
+    //         return redirect()->route('owners.blog')->with('error', $result['message']);
+    //     }
+    // }
+
+
     public function store(CreateBlogRequest $request)
     {
-        return $this->BlogService->handleBlogCreation($request);
-    }
+        try {
+            // Gọi hàm xử lý blog trong BlogService
+            $blog = $this->BlogService->handleBlogCreation($request);
 
-    public function uploadImage(Request $request)
-    {
-        $path = $this->BlogService->uploadImage($request);
+            // Kích hoạt sự kiện BlogCreated
+            event(new BlogCreated($blog));
 
-        if ($path) {
-            return response()->json(['success' => true, 'path' => $path]);
+            return redirect()->route('owners.blog')->with('success', 'Blog đã được tạo thành công!');
+        } catch (\Exception $e) {
+            Log::error('Không thể tạo blog: ' . $e->getMessage());
+            return redirect()->route('owners.blog')->with('error', 'Có lỗi xảy ra khi tạo blog.');
         }
-
-        return response()->json(['success' => false, 'message' => 'No file uploaded.']);
     }
+
+    // public function uploadImage(Request $request)
+    // {
+    //     $path = $this->BlogService->uploadImage($request);
+
+    //     if ($path) {
+    //         return response()->json(['success' => true, 'path' => $path]);
+    //     }
+
+    //     return response()->json(['success' => false, 'message' => 'No file uploaded.']);
+    // }
+    // public function destroy($slug)
+    // {
+    //     // Gọi hàm xóa từ service
+    //     $deleted = $this->BlogService->deleteBlogBySlug($slug);
+    //     return view('owners.show.dashboard-my-blog');
+    // }
 }

@@ -14,11 +14,11 @@ use App\Models\Blog;
 class BlogCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $blog;
 
     /**
      * Create a new event instance.
      */
+    public $blog;
     public function __construct(Blog $blog)
     {
         $this->blog = $blog;

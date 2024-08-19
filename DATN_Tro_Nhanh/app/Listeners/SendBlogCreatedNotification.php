@@ -2,42 +2,33 @@
 
 namespace App\Listeners;
 
-use App\Events\BlogCreated;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\BlogCreatedMail;
-use Illuminate\Support\Facades\Log;
-
-class SendBlogCreatedNotification implements ShouldQueue
+use App\Events\BlogCreated;
+use App\Notifications\SendBlogCreatedNotification as BlogNotification;
+use App\Models\User;
+use App\Models\Notification;
+use Illuminate\Support\Facades\Auth;
+class SendBlogCreatedNotification
 {
-    use InteractsWithQueue;
-
     /**
-     * Handle the event.
-     *
-     * @param  BlogCreated  $event
-     * @return void
+     * Create the event listener.
      */
-    public function handle(BlogCreated $event)
+    public function __construct()
     {
-        try {
-            Mail::to($event->blog->user->email)->send(new BlogCreatedMail($event->blog));
-            Log::info('Blog được tạo thành công ' . $event->blog->title);
-        } catch (\Exception $e) {
-            Log::error('Blog được tạo không thành công : ' . $event->blog->title . ' - Error: ' . $e->getMessage());
-        }
+        //
     }
 
     /**
-     * Handle a job failure.
-     *
-     * @param  BlogCreated  $event
-     * @param  \Exception  $exception
-     * @return void
+     * Handle the event.
      */
-    public function failed(BlogCreated $event, $exception)
+    public function handle(BlogCreated $event): void
     {
-        Log::error('Tạo blog không thành công ' . $event->blog->title . ' - Error: ' . $exception->getMessage());
+        // Gửi thông báo với blog_id
+        Notification::send(
+            Auth::id(),  // ID người dùng hiện tại
+            $event->blog->id,  // Truyền blog_id vào
+            'Bạn vừa tạo một blog mới thành công'
+        );
     }
 }

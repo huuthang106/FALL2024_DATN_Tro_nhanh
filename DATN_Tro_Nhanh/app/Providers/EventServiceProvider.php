@@ -26,6 +26,7 @@ class EventServiceProvider extends BaseEventServiceProvider
         CategoryAdminEvent::class => [
             HandleCategoryAdmin::class,
         ],
+      
         BlogCreated::class => [
             SendBlogCreatedNotification::class,
         ],
@@ -54,6 +55,7 @@ class EventServiceProvider extends BaseEventServiceProvider
      */
     public function boot(): void
     {
-        // Đăng ký sự kiện hoặc thực hiện các hành động khác khi ứng dụng khởi động
+       
+        parent::boot(); // Đăng ký sự kiện hoặc thực hiện các hành động khác khi ứng dụng khởi động
     }
 }

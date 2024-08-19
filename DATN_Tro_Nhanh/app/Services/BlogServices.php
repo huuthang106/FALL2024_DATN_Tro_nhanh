@@ -9,19 +9,23 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Events\BlogCreated;
+use Illuminate\Support\Facades\DB;
 
 class BlogServices
 {
+
+
     private function createSlug($title, $id)
     {
-        // Create a slug from the title
-        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9]+/', '-', $title), '-'));
+        // Tạo slug từ tiêu đề với thư viện Str của Laravel
+        $slug = Str::slug($title, '-');
 
-        // Append the ID
+        // Thêm ID vào slug
         $slug = $slug . '-' . $id;
 
         return $slug;
     }
+
 
     public function handleBlogCreation($request)
     {
@@ -29,44 +33,118 @@ class BlogServices
             $data = $request->validated();
             $images = $request->file('images');
 
+            $userId = Auth::id();
+
+            if (!$userId) {
+                throw new \Exception("User not authenticated");
+            }
+
             $blog = new Blog();
             $blog->title = $data['title'];
             $blog->description = $data['description'];
-            $blog->user_id = Auth::id();
+            $blog->user_id = $userId;
             $blog->save();
+
+            // Tạo slug cho blog
             $slug = $this->createSlug($data['title'], $blog->id);
             $blog->slug = $slug;
             $blog->save();
+
+            // Xử lý tải ảnh
             if ($images) {
                 foreach ($images as $image) {
-                    $path = $image->store('assets/images');
+                    if ($image) {
+                        $timestamp = now()->format('YmdHis');
+                        $originalName = $image->getClientOriginalName();
+                        $extension = $image->getClientOriginalExtension();
+                        $filename = $slug . '-' . pathinfo($originalName, PATHINFO_FILENAME) . '.' . $extension;
 
-                    $imageModel = new Image();
-                    $imageModel->filename = basename($path);
-                    $imageModel->blog_id = $blog->id;
-                    $imageModel->save();
+                        $destinationPath = public_path('assets/images');
+                        // $destinationPath = $image->storeAs('assets/images', $filename);
+                        if (!is_dir($destinationPath)) {
+                            mkdir($destinationPath, 0755, true);
+                        }
+
+                        $image->move($destinationPath, $filename);
+
+                        $imageModel = new Image();
+                        $imageModel->filename = $filename;
+                        $imageModel->blog_id = $blog->id;
+                        $imageModel->save();
+                    }
                 }
             }
-            event(new BlogCreated($blog));
 
-            return redirect()->route('owners.blog')->with('success', 'Blog đã được tạo thành công!');
+            return $blog;
         } catch (\Exception $e) {
-            Log::error('Không thể tạo blog: ' . $e->getMessage());
-            return redirect()->route('owners.blog')->with('error', 'Có lỗi xảy ra khi tạo blog.');
+            // Ghi log lỗi chi tiết
+            Log::error('Lỗi khi xử lý tạo blog: ' . $e->getMessage());
+            throw $e; // Ném lại ngoại lệ để xử lý trong controller
         }
     }
 
-    public function uploadImage(Request $request)
+
+
+
+    public function editBlog($slug)
     {
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            return $file->store('images', 'public'); // Store the file and return the path
+
+        return Blog::where('slug', $slug)->firstOrFail();
+    }
+    public function updateBlog(Request $request, $slug)
+    {
+        DB::beginTransaction();
+
+        $blog = Blog::where('slug', $slug)->firstOrFail();
+
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $blog->title = $data['title'];
+        $blog->description = $data['description'];
+
+        // Cập nhật slug nếu tiêu đề thay đổi
+        if ($blog->isDirty('title')) {
+            $blog->slug = $this->createSlug($data['title'], $blog->id);
         }
 
-        return null; 
-    }
+        $blog->save();
 
-    public function getAllBlogs(int $perPage = 10)
+        // Xử lý ảnh
+        if ($request->hasFile('images')) {
+            // Xóa ảnh cũ
+            $oldImages = Image::where('blog_id', $blog->id)->get();
+            foreach ($oldImages as $oldImage) {
+                $oldImagePath = public_path('assets/images/' . $oldImage->filename);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+                $oldImage->delete();
+            }
+
+            foreach ($request->file('images') as $image) {
+                $originalName = $image->getClientOriginalName();
+                $extension = $image->getClientOriginalExtension();
+                $filename = $blog->slug . '-' . pathinfo($originalName, PATHINFO_FILENAME) . '-' . time() . '.' . $extension;
+
+                $destinationPath = public_path('assets/images');
+                $image->move($destinationPath, $filename);
+
+                $imageModel = new Image();
+                $imageModel->filename = $filename;
+                $imageModel->blog_id = $blog->id;
+                $imageModel->save();
+            }
+        }
+
+        DB::commit();
+
+        return $blog;
+    }
+    public function getAllBlogss(int $perPage = 10)
     {
         try {
             return Blog::where('status', 1)->paginate($perPage);
@@ -94,5 +172,25 @@ class BlogServices
             Log::error('Error fetching blog by title and user ID: ' . $e->getMessage());
             return null;
         }
+    }
+    public function getAllBlogs()
+    {
+        // Lấy tất cả các blog cùng với thông tin hình ảnh liên quan
+        $blogs = Blog::with('image')->paginate(10);
+
+        return $blogs;
+    }
+    public function deleteBlogBySlug($slug)
+    {
+        // Tìm blog theo slug
+        $blog = Blog::where('slug', $slug)->first();
+
+        // Kiểm tra nếu blog tồn tại
+        if (!$blog) {
+            return false;
+        }
+
+        // Xóa blog
+        return $blog->delete();
     }
 }

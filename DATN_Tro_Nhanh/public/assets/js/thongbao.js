@@ -17,7 +17,7 @@ document.getElementById('blogForm').addEventListener('submit', async function (e
         const result = await response.json();
 
         if (result.success) {
-            // Hiển thị thông báo thành công
+         
             toastr.success('Blog được tạo thành công!');
             setTimeout(() => {
                 // Chuyển hướng nếu cần

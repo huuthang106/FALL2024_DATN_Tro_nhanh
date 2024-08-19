@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone', 13)->nullable();
             $table->string('address')->nullable();
-            $table->boolean('role')->default(1);
+            $table->tinyInteger('role')->default(1);
             $table->string('balance')->nullable();
             $table->string('token')->nullable();
             $table->string('slug')->nullable()->unique();
@@ -30,11 +30,10 @@ return new class extends Migration
             $table->string('provider')->nullable();
             $table->string('provider_id')->nullable();
             $table->string('provider_token')->nullable();
-            $table->softDeletes();
+            $table->timestamp('deleted_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
-
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
