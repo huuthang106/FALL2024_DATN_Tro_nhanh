@@ -182,8 +182,7 @@
                                         <div class="row mb-6">
                                             <label class="col-lg-4 col-form-label fw-bold fs-6 required">Tỉnh</label>
                                             <div class="col-lg-8 fv-row">
-                                                <select
-                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
+                                                <select class="form-select form-select-lg form-select-solid selectpicker"
                                                     title="Lựa chọn" data-style="btn-lg py-2 h-52" id="city-province"
                                                     name="province">
                                                     <option value='0'>&nbsp;Chọn Tỉnh/Thành Phố...</option>

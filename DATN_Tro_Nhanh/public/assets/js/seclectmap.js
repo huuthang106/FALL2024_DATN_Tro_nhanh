@@ -1,102 +1,48 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Define API endpoints
-    const apiUrl = "https://vietnam-administrative-division-json-server-swart.vercel.app";
-    const apiEndpointDistrict = apiUrl + '/district/?idProvince=';
-    const apiEndpointCommune = apiUrl + '/commune/?idDistrict=';
+const apiUrl = "https://vietnam-administrative-division-json-server-swart.vercel.app";
+const apiEndpointDistrict = apiUrl + '/district/?idProvince=';
+const apiEndpointCommune = apiUrl + '/commune/?idDistrict=';
 
-    // Function to get districts based on the selected province
-    async function getDistrict(idProvince) {
-        const { data: districtList } = await axios.get(apiEndpointDistrict + idProvince);
-        return districtList;
-    }
+async function getDistrict(idProvince) {
+    const { data: districtList } = await axios.get(apiEndpointDistrict + idProvince);
+    return districtList
+}
 
-    // Function to get communes based on the selected district
-    async function getCommune(idDistrict) {
-        const { data: communeList } = await axios.get(apiEndpointCommune + idDistrict);
-        return communeList;
-    }
+async function getCommune(idDistrict) {
+    const { data: communeList } = await axios.get(apiEndpointCommune + idDistrict);
+    return communeList
+}
 
-    // Function to load zone data
-    async function loadZoneData(provinceId, districtId, communeId) {
-        try {
-            // Get districts based on the selected province
-            const { data: districts } = await axios.get(apiEndpointDistrict + provinceId);
-            let districtOptions = "<option value='0'>&nbsp;Chọn Quận/Huyện...</option>";
+document.querySelector('#city-province').addEventListener("change", async () => {// get district and town when changing city/province
 
-            districts.forEach(district => {
-                districtOptions += `<option value='${district.idDistrict}' ${district.idDistrict == districtId ? 'selected' : ''}>${district.name}</option>`;
-            });
-            const districtElement = $('#district-town');
-            districtElement.selectpicker('destroy');
-            districtElement.html(districtOptions);
-            districtElement.selectpicker('refresh'); // Ensure dropdown is refreshed
+    const idProvince = document.querySelector('#city-province').value;
+    let outputCommune = "<option value='0'>&nbspChọn Phường/Xã...</option>";
+    document.querySelector('#ward-commune').innerHTML = outputCommune;
+    const districtList = await getDistrict(idProvince) || [];
+    let outputDistrict = "<option value='0'>&nbspChọn Quận/Huyện...</option>";
+    for (let i = 0; i < districtList.length; i++) {
+        if (districtList[i].idProvince === idProvince) {
+            outputDistrict += `<option value='${districtList[i].idDistrict}'>&nbsp${districtList[i].name}</option>`;
 
-            // Get communes based on the selected district
-            if (districtId) {
-                const { data: communes } = await axios.get(apiEndpointCommune + districtId);
-                let communeOptions = "<option value='0'>&nbsp;Chọn Phường/Xã...</option>";
 
-                communes.forEach(commune => {
-                    communeOptions += `<option value='${commune.idCommune}' ${commune.idCommune == communeId ? 'selected' : ''}>${commune.name}</option>`;
-                });
-                const communeElement = $('#ward-commune');
-                communeElement.selectpicker('destroy');
-                communeElement.html(communeOptions);
-                communeElement.selectpicker('refresh'); // Ensure dropdown is refreshed
-            } else {
-                // Reset commune dropdown if no district is selected
-                const communeElement = $('#ward-commune');
-                communeElement.selectpicker('destroy');
-                communeElement.html("<option value='0'>&nbsp;Chọn Phường/Xã...</option>");
-                communeElement.selectpicker('refresh'); // Ensure dropdown is refreshed
-            }
-        } catch (error) {
-            console.error('Error loading zone data:', error);
         }
     }
+    document.querySelector('#district-town').innerHTML = outputDistrict;
 
-    // Event listener for page load
-    const { provinceId, districtId, communeId } = window.zoneData || {};
-    if (provinceId) {
-        loadZoneData(provinceId, districtId, communeId);
+    $('#district-town').selectpicker('refresh');
+})
+
+document.querySelector('#district-town').addEventListener("change", async () => {// get ward and commune when changing district/town
+
+    const idDistrict = document.querySelector('#district-town').value;
+    const communeList = await getCommune(idDistrict) || [];
+    let outputCommune = "<option value='0'>&nbspChọn Phường/Xã...</option>";
+    for (let i = 0; i < communeList.length; i++) {
+        if (communeList[i].idDistrict === idDistrict) {
+            outputCommune += `<option value='${communeList[i].idCommune}'>&nbsp${communeList[i].name}</option>`;
+            console.log('hi');
+        }
     }
+    document.querySelector('#ward-commune').innerHTML = outputCommune;
 
-    // Event listener for province change
-    $('#city-province').on('change', async () => {
-        const idProvince = $('#city-province').val();
-
-        // Clear commune options
-        $('#ward-commune').selectpicker('destroy');
-        $('#ward-commune').html("<option value='0'>&nbsp;Chọn Phường/Xã...</option>").selectpicker('refresh');
-
-        // Get districts based on the selected province
-        const districtList = await getDistrict(idProvince) || [];
-        let outputDistrict = "<option value='0'>&nbsp;Chọn Quận/Huyện...</option>";
-        districtList.forEach(district => {
-            outputDistrict += `<option value='${district.idDistrict}'>${district.name}</option>`;
-        });
-        const districtElement = $('#district-town');
-        districtElement.selectpicker('destroy');
-        districtElement.html(outputDistrict);
-        districtElement.selectpicker('refresh');
-
-        // Reset commune selection
-        $('#ward-commune').selectpicker('val', '0');
-    });
-
-    // Event listener for district change
-    $('#district-town').on('change', async () => {
-        const idDistrict = $('#district-town').val();
-
-        // Get communes based on the selected district
-        const communeList = await getCommune(idDistrict) || [];
-        let outputCommune = "<option value='0'>&nbsp;Chọn Phường/Xã...</option>";
-        communeList.forEach(commune => {
-            outputCommune += `<option value='${commune.idCommune}'>${commune.name}</option>`;
-        });
-        const communeElement = $('#ward-commune');
-        communeElement.selectpicker('destroy');
-        communeElement.html(outputCommune);
-        communeElement.selectpicker('refresh');
-    });
-});
+    $('#ward-commune').selectpicker('refresh');
+})
