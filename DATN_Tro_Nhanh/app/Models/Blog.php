@@ -16,7 +16,7 @@ class Blog extends Model
         return $this->belongsTo(User::class);
     }
     public function image(){
-        return $this->hasone(Image::class);
+        return $this->hasMany(Image::class, 'blog_id');
     }
     public function comments(){
         return $this->hasMany(Comment::class);
