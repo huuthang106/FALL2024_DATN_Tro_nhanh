@@ -17,6 +17,7 @@ use App\Services\SocialAuthService;
 use App\Services\UserClientServices;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+
 class UserClientController extends Controller
 {
     protected $userClientServices;
@@ -41,7 +42,7 @@ class UserClientController extends Controller
         return view('client.create.register');
     }
 
-    public function forgot()
+    public function recovery_password()
     {
         return view('client.edit.password-recovery');
     }
@@ -52,9 +53,6 @@ class UserClientController extends Controller
         $users = $this->userClientServices->getUsersByRole(2);
         return view('client.show.agents-grid-2', compact('users'));
     }
-
-
-
     public function agentDetail($slug)
     {
         $user = User::where('slug', $slug)->first();
@@ -90,7 +88,7 @@ class UserClientController extends Controller
             return response()->json(['errors' => $e->errors()], 422);
         }
     }
-    
+
     public function login_user(LoginRequest $request)
     {
         try {
@@ -101,17 +99,17 @@ class UserClientController extends Controller
             return response()->json(['errors' => $e->errors()], 422);
         }
     }
-    
+
     public function logout()
     {
         Auth::logout();
 
         // Invalidate the session
         request()->session()->invalidate();
-    
+
         // Regenerate the session token to prevent session fixation attacks
         request()->session()->regenerateToken();
-    
+
         // Chuyển hướng về trang chủ
         return redirect('/');
     }

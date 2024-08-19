@@ -3,10 +3,12 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client\HomeClientController;
+
 Route::fallback(function () {
     return redirect('/');
 });
 // // 
+
 // Route::get('/trang-chu', function () {
 //     return view('client.show.home');
 // })->middleware(['auth', 'verified'])->name('homes');
@@ -22,4 +24,4 @@ Route::fallback(function () {
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-// require __DIR__ . '/auth.php';
+require __DIR__ . '/auth.php';

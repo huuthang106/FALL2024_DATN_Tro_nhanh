@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\CustomPasswordResetController;
 
 Route::middleware('guest')->group(function () {
     Route::get('dang-ky', [RegisteredUserController::class, 'create'])
@@ -22,16 +23,19 @@ Route::middleware('guest')->group(function () {
 
     Route::post('dang-nhap', [AuthenticatedSessionController::class, 'store']);
 
-    Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
+    Route::get('quen-mat-khau', [PasswordResetLinkController::class, 'create'])
         ->name('password.request');
 
-    Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
+    // Route::post('quen-mat-khau', [PasswordResetLinkController::class, 'store'])
+    //     ->name('password.email');
+
+    Route::post('quen-mat-khau', [CustomPasswordResetController::class, 'store'])
         ->name('password.email');
 
-    Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
+    Route::get('dat-lai-mat-khau/{token}', [NewPasswordController::class, 'create'])
         ->name('password.reset');
 
-    Route::post('reset-password', [NewPasswordController::class, 'store'])
+    Route::post('dat-lai-mat-khau', [NewPasswordController::class, 'store'])
         ->name('password.store');
 });
 
