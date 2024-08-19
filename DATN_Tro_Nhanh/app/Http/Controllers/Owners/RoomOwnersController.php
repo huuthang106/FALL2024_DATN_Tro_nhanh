@@ -14,6 +14,7 @@ use App\Models\Location;
 use App\Models\Zone;
 use App\Models\RoomType;
 use Illuminate\Validation\ValidationException;
+use App\Events\Owners\RoomOwnersEvent;
 
 
 
@@ -56,25 +57,21 @@ class RoomOwnersController extends Controller
 
     public function store(RoomOwnersRequest $request)
     {
-        // try {
-        //     if ($request->isMethod('post')) {
-        //         $room = $this->roomOwnersService->create($request);
-        //         return response()->json([
-        //             'success' => true,
-        //             'message' => 'Phòng trọ đã được tạo thành công.',
-        //             'room' => $room
-        //         ], 201);
-        //     }
-        // } catch (Exception $e) {
-        //     return response()->json([
-        //         'success' => false,
-        //         'message' => 'Đã có lỗi xảy ra',
-        //         'error' => $e->getMessage()
-        //     ], 500);
-        // }
         try {
             if ($request->isMethod('post')) {
                 $room = $this->roomOwnersService->create($request);
+
+                // // Dispatch the event for room creation
+                // event(new RoomOwnersEvent(
+                //     $room, // Pass the created room object
+                //     'Đăng trọ', // Type
+                //     'Bạn vừa đăng trọ thành công.', // Data
+                //     1, // Status for success
+                //     auth()->id() // User ID
+                // ));
+                // Phát sự kiện RoomOwnersEvent và truyền đối tượng room mới tạo
+                event(new RoomOwnersEvent($room));
+
                 return response()->json([
                     'success' => true,
                     'message' => 'Phòng trọ đã được tạo thành công.',

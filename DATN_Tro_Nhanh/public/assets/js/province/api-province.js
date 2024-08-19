@@ -24,6 +24,7 @@ document.querySelector('#city-province').addEventListener("change", async () => 
         }
     }
     document.querySelector('#district-town').innerHTML = outputDistrict;
+    // $('#district-town').selectpicker('refresh');
 });
 
 document.querySelector('#district-town').addEventListener("change", async () => {
@@ -36,6 +37,7 @@ document.querySelector('#district-town').addEventListener("change", async () => 
         }
     }
     document.querySelector('#ward-commune').innerHTML = outputCommune;
+    // $('#ward-commune').selectpicker('refresh');
 });
 
 document.getElementById('city-province').addEventListener('change', updateAddress);

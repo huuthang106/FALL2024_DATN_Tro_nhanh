@@ -1,130 +1,4 @@
-// document.getElementById('add-room').addEventListener('submit', async function (e) {
-//     e.preventDefault();
-
-//     const form = e.target;
-//     const formData = new FormData(form);
-
-//     try {
-//         const response = await fetch('/quan-ly-tai-khoan/luu', {
-//             method: 'POST',
-//             body: formData,
-//             headers: {
-//                 'X-Requested-With': 'XMLHttpRequest',
-//             }
-//         });
-
-//         const result = await response.json();
-
-//         if (result.success) {
-//             // Hiển thị thông báo thành công
-//             toastr.success('Phòng trọ được tạo thành công!');
-//             setTimeout(() => {
-//                 window.location.href = '/can-ho';
-//             }, 1000); // Chờ 1 giây để thông báo hiển thị
-//         } else {
-//             // Hiển thị thông báo lỗi nếu có
-//             toastr.error(result.message || 'Đã xảy ra lỗi.');
-//         }
-//         console.log(result);
-
-//     } catch (error) {
-//         toastr.error('Lỗi mạng hoặc sự cố với máy chủ.');
-//     }
-// });
-// document.getElementById('add-room').addEventListener('submit', async function (e) {
-//     e.preventDefault();
-
-//     const form = e.target;
-//     const formData = new FormData(form);
-
-//     try {
-//         const response = await fetch('/quan-ly-tai-khoan/luu', {
-//             method: 'POST',
-//             body: formData,
-//             headers: {
-//                 'X-Requested-With': 'XMLHttpRequest',
-//                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-//             }
-//         });
-
-//         const result = await response.json();
-
-//         if (response.ok) {
-//             if (result.success) {
-//                 // Hiển thị thông báo thành công
-//                 toastr.success('Phòng trọ được tạo thành công!');
-//                 setTimeout(() => {
-//                     window.location.href = '/can-ho';
-//                 }, 1000); // Chờ 1 giây để thông báo hiển thị
-//             } else {
-//                 // Hiển thị thông báo lỗi nếu có
-//                 toastr.error(result.message || 'Đã xảy ra lỗi.');
-//             }
-//         } else {
-//             // Xử lý lỗi từ server (validation errors, etc.)
-//             if (result.errors) {
-//                 let errorMessages = 'Vui lòng kiểm tra lại các trường bị lỗi:\n';
-//                 for (const [key, messages] of Object.entries(result.errors)) {
-//                     errorMessages += `${messages.join(', ')}\n`;
-//                 }
-//                 toastr.error(errorMessages.trim() || 'Đã xảy ra lỗi.');
-//             } else {
-//                 toastr.error('Đã xảy ra lỗi không xác định.');
-//             }
-//         }
-
-//         console.log(result);
-
-//     } catch (error) {
-//         toastr.error('Lỗi mạng hoặc sự cố với máy chủ.');
-//         console.error('Error:', error);
-//     }
-// });
-// document.getElementById('add-room').addEventListener('submit', async function (e) {
-//     e.preventDefault();
-
-//     const form = e.target;
-//     const formData = new FormData(form);
-
-//     try {
-//         const response = await fetch('/quan-ly-tai-khoan/luu', {
-//             method: 'POST',
-//             body: formData,
-//             headers: {
-//                 'X-Requested-With': 'XMLHttpRequest',
-//                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-//             }
-//         });
-
-//         const result = await response.json();
-
-//         if (response.ok) {
-//             if (result.success) {
-//                 // Hiển thị thông báo thành công
-//                 toastr.success('Phòng trọ được tạo thành công!');
-//                 setTimeout(() => {
-//                     window.location.href = 'http://127.0.0.1:8000/quan-ly-tai-khoan/can-ho';
-//                 }, 1000); // Chờ 1 giây để thông báo hiển thị
-//             } else {
-//                 // Hiển thị thông báo lỗi nếu có
-//                 toastr.error(result.message || 'Đã xảy ra lỗi.');
-//             }
-//         } else {
-//             // Xử lý lỗi từ server (validation errors, etc.)
-//             if (result.errors) {
-//                 toastr.error('Vui lòng nhập đầy đủ thông tin.');
-//             } else {
-//                 toastr.error('Đã xảy ra lỗi không xác định.');
-//             }
-//         }
-
-//         // console.log(result);
-
-//     } catch (error) {
-//         toastr.error('Lỗi mạng hoặc sự cố với máy chủ.');
-//         console.error('Error:', error);
-//     }
-// });
+// Thông báo
 document.getElementById('add-room').addEventListener('submit', async function (e) {
     e.preventDefault();
 
@@ -150,29 +24,40 @@ document.getElementById('add-room').addEventListener('submit', async function (e
 
         if (result.success) {
             // Hiển thị thông báo thành công
-            toastr.success('Phòng trọ được tạo thành công!');
-            setTimeout(() => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công!',
+                text: 'Phòng trọ được tạo thành công!',
+                timer: 3000, // Thời gian hiển thị thông báo
+                showConfirmButton: true, // Hiển thị nút xác nhận
+                confirmButtonText: 'OK', // Văn bản của nút xác nhận
+                timerProgressBar: true, // Hiển thị thanh tiến độ
+            }).then(() => {
                 window.location.href = '/quan-ly-tai-khoan/can-ho';
-            }, 1000); // Chờ 1 giây để thông báo hiển thị
+            });
         } else {
             // Hiển thị thông báo lỗi nếu có
-            toastr.error(result.message || 'Đã xảy ra lỗi.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi!',
+                text: result.message || 'Đã xảy ra lỗi.',
+                confirmButtonText: 'OK', // Văn bản của nút xác nhận
+                timerProgressBar: true // Hiển thị thanh tiến độ
+            });
         }
         console.log(result);
 
     } catch (error) {
-        toastr.error('Lỗi mạng hoặc sự cố với máy chủ.');
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi mạng!',
+            text: 'Lỗi mạng hoặc sự cố với máy chủ.',
+            confirmButtonText: 'OK', // Văn bản của nút xác nhận
+            timerProgressBar: true // Hiển thị thanh tiến độ
+        });
     }
 });
 // Xem ảnh
-document.addEventListener('DOMContentLoaded', function () {
-    const fileInput = document.getElementById('fileInput');
-
-    // Đảm bảo sự kiện chỉ được đăng ký một lần
-    fileInput.removeEventListener('change', previewImages);
-    fileInput.addEventListener('change', previewImages);
-});
-
 function previewImages() {
     const preview = document.getElementById('imagePreview');
     const files = document.getElementById('fileInput').files;
@@ -222,6 +107,3 @@ function previewImages() {
         });
     }
 }
-
-
-

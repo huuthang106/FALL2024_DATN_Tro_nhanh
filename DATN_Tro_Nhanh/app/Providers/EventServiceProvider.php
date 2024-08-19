@@ -11,6 +11,8 @@ use App\Events\Admin\CategoryAdminEvent;
 use App\Listeners\Admin\HandleCategoryAdmin;
 use App\Events\BlogCreated;
 use App\Listeners\SendBlogCreatedNotification;
+use App\Events\Owners\RoomOwnersEvent;
+use App\Listeners\Owners\HandleRoomOwner;
 
 class EventServiceProvider extends BaseEventServiceProvider
 {
@@ -36,6 +38,9 @@ class EventServiceProvider extends BaseEventServiceProvider
         RoomCreated::class => [
             SendRoomCreatedNotification::class,
         ],
+        RoomOwnersEvent::class => [
+            HandleRoomOwner::class,
+        ]
     ];
 
     /**

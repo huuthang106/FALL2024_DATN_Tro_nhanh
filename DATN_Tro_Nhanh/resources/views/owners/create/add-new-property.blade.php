@@ -6,7 +6,6 @@
             <div class="mb-6">
                 <h2 class="mb-0 text-heading fs-22 lh-15">Thêm thuộc tính
                 </h2>
-                {{-- <p class="mb-1">Lorem ipsum dolor sit amet, consec tetur cing elit. Suspe ndisse suscipit</p> --}}
             </div>
             <div class="collapse-tabs new-property-step">
                 <ul class="nav nav-pills border py-2 px-3 mb-6 d-none d-md-flex mb-6" role="tablist">
@@ -26,17 +25,6 @@
                             id="location-tab" data-toggle="pill" data-number="3." href="#location" role="tab"
                             aria-controls="location" aria-selected="false"><span class="number">3.</span>Vị trí</a>
                     </li>
-                    {{-- <li class="nav-item col">
-                        <a class="nav-link bg-transparent shadow-none py-2 font-weight-500 text-center lh-214 d-block"
-                            id="detail-tab" data-toggle="pill" data-number="4." href="#detail" role="tab"
-                            aria-controls="detail" aria-selected="false"><span class="number">4.</span>
-                            Chi tiết</a>
-                    </li>
-                    <li class="nav-item col">
-                        <a class="nav-link bg-transparent shadow-none py-2 font-weight-500 text-center lh-214 d-block"
-                            id="amenities-tab" data-toggle="pill" data-number="5." href="#amenities" role="tab"
-                            aria-controls="amenities" aria-selected="false"><span class="number">5.</span>Tiện nghi</a>
-                    </li> --}}
                 </ul>
                 <div class="tab-content shadow-none p-0">
                     <form id="add-room" class="form" enctype="multipart/form-data"
@@ -81,19 +69,11 @@
                                                                 <textarea class="form-control border-0" rows="5" name="description" id="descriptions"></textarea>
                                                             </div>
                                                             <div class="form-group mt-1">
-                                                                <label for="acreages_id" class="text-heading">Diện tích
-                                                                    m²</label>
-                                                                <select
-                                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                                    title="Lựa chọn" data-style="btn-lg py-2 h-52"
-                                                                    id="acreages_id" name="acreages_id">
-                                                                    <option value="">Chọn diện tích</option>
-                                                                    @foreach ($acreages as $acreage)
-                                                                        <option value="{{ $acreage->id }}">
-                                                                            {{ $acreage->max_size }}
-                                                                        </option>
-                                                                    @endforeach
-                                                                </select>
+                                                                <label for="acreages" class="text-heading">Diện tích
+                                                                    m² <span class="text-muted">(Bắt buộc)</span></label>
+                                                                <input type="text"
+                                                                    class="form-control form-control-lg border-0"
+                                                                    id="acreage" name="acreage">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -103,8 +83,7 @@
                                                                 mục</h3>
                                                             <hr>
                                                             <div class="form-row mx-n2">
-                                                                <div
-                                                                    class="col-md-6 col-lg-12 col-xxl-6 px-2 mb-4 mb-md-0">
+                                                                <div class="col-md-6 col-lg-12 col-xxl-6 px-2 mb-4 mb-md-0">
                                                                     <div class="form-group mb-0">
                                                                         <label for="category_id" class="text-heading">Danh
                                                                             mục</label>
@@ -285,7 +264,7 @@
                                         data-parent="#collapse-tabs-accordion">
                                         <div class="card-body py-4 py-md-0 px-0">
                                             <div class="row">
-                                                <div class="col-lg-6">
+                                                {{-- <div class="col-lg-6">
                                                     <div class="card mb-6">
                                                         <div class="card-body p-6">
                                                             <h3 class="card-title mb-0 text-heading fs-22 lh-15">
@@ -320,6 +299,50 @@
                                                                 name="view" value="1">
                                                         </div>
                                                     </div>
+                                                </div> --}}
+                                                <div class="col-lg-6">
+                                                    <div class="card mb-6">
+                                                        <div class="card-body p-6">
+                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">
+                                                                Tải lên hình ảnh bất động sản của bạn
+                                                            </h3>
+                                                            <hr>
+                                                            <div class="dropzone upload-file text-center py-5"
+                                                                id="myDropzone">
+                                                                <div class="dz-default dz-message">
+                                                                    <span class="upload-icon lh-1 d-inline-block mb-4">
+                                                                        <i class="fal fa-cloud-upload-alt"></i>
+                                                                    </span>
+                                                                    <p class="text-heading fs-22 lh-15 mb-4">
+                                                                        Kéo và thả hình ảnh hoặc
+                                                                    </p>
+                                                                    {{-- <button class="btn btn-indigo px-7 mb-2"
+                                                                        type="button"
+                                                                        onclick="document.getElementById('fileInput').click();">
+                                                                        Chọn thư mục
+                                                                    </button> --}}
+                                                                    <button class="btn btn-indigo px-7 mb-2"
+                                                                        type="button"
+                                                                        onclick="document.getElementById('fileInput').click();">
+                                                                        Chọn thư mục
+                                                                    </button>
+                                                                    {{-- <input type="file" hidden id="fileInput" multiple
+                                                                        accept="image/jpeg, image/png" name="images[]"
+                                                                        onchange="previewImages();"> --}}
+                                                                    <input type="file" hidden id="fileInput" multiple
+                                                                        accept="image/jpeg, image/png" name="images[]"
+                                                                        onchange="previewImages();">
+                                                                    <p>Chọn 1 lúc nhiều ảnh</p>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Phần tử để hiển thị ảnh đã chọn trong form -->
+                                                            <div id="imagePreview" class="text-center mt-4"></div>
+                                                            <!-- Ẩn View -->
+                                                            <input type="hidden" class="form-control" id="view"
+                                                                name="view" value="1">
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                                 <div class="col-lg-6">
@@ -338,7 +361,8 @@
                                                                             class="form-control border-0 shadow-none form-control-lg selectpicker"
                                                                             data-style="btn-lg py-2 h-52" id="status"
                                                                             name="status">
-                                                                            <option value="0">Chưa kích hoạt</option>
+                                                                            <option value="0">Chưa kích hoạt
+                                                                            </option>
                                                                             <option value="1">Kích hoạt</option>
                                                                         </select>
                                                                     </div>
@@ -411,7 +435,8 @@
                                                 <div class="col-lg-6">
                                                     <div class="card mb-6">
                                                         <div class="card-body p-6">
-                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Địa chỉ
+                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Địa
+                                                                chỉ
                                                                 cho thuê</h3>
                                                             <hr>
                                                             <div class="form-row mx-n2">
@@ -425,129 +450,187 @@
                                                                                 class="form-control border-0 shadow-none">
                                                                                 <option value='0'>&nbsp;Chọn
                                                                                     Tỉnh/Thành Phố...</option>
-                                                                                <option value='01'>&nbspThành phố Hà
+                                                                                <option value='01'>&nbspThành phố
+                                                                                    Hà
                                                                                     Nội</option>
-                                                                                <option value='79'>&nbspThành phố Hồ
+                                                                                <option value='79'>&nbspThành phố
+                                                                                    Hồ
                                                                                     Chí Minh</option>
-                                                                                <option value='31'>&nbspThành phố Hải
+                                                                                <option value='31'>&nbspThành phố
+                                                                                    Hải
                                                                                     Phòng</option>
-                                                                                <option value='48'>&nbspThành phố Đà
+                                                                                <option value='48'>&nbspThành phố
+                                                                                    Đà
                                                                                     Nẵng</option>
-                                                                                <option value='92'>&nbspThành phố Cần
+                                                                                <option value='92'>&nbspThành phố
+                                                                                    Cần
                                                                                     Thơ</option>
-                                                                                <option value='02'>&nbspTỉnh Hà Giang
+                                                                                <option value='02'>&nbspTỉnh Hà
+                                                                                    Giang
                                                                                 </option>
-                                                                                <option value='04'>&nbspTỉnh Cao Bằng
+                                                                                <option value='04'>&nbspTỉnh Cao
+                                                                                    Bằng
                                                                                 </option>
-                                                                                <option value='06'>&nbspTỉnh Bắc Kạn
+                                                                                <option value='06'>&nbspTỉnh Bắc
+                                                                                    Kạn
                                                                                 </option>
                                                                                 <option value='08'>&nbspTỉnh Tuyên
                                                                                     Quang</option>
-                                                                                <option value='10'>&nbspTỉnh Lào Cai
+                                                                                <option value='10'>&nbspTỉnh Lào
+                                                                                    Cai
                                                                                 </option>
-                                                                                <option value='11'>&nbspTỉnh Điện Biên
+                                                                                <option value='11'>&nbspTỉnh Điện
+                                                                                    Biên
                                                                                 </option>
-                                                                                <option value='12'>&nbspTỉnh Lai Châu
+                                                                                <option value='12'>&nbspTỉnh Lai
+                                                                                    Châu
                                                                                 </option>
                                                                                 <option value='14'>&nbspTỉnh Sơn La
                                                                                 </option>
-                                                                                <option value='15'>&nbspTỉnh Yên Bái
+                                                                                <option value='15'>&nbspTỉnh Yên
+                                                                                    Bái
                                                                                 </option>
-                                                                                <option value='17'>&nbspTỉnh Hoà Bình
+                                                                                <option value='17'>&nbspTỉnh Hoà
+                                                                                    Bình
                                                                                 </option>
                                                                                 <option value='19'>&nbspTỉnh Thái
                                                                                     Nguyên</option>
-                                                                                <option value='20'>&nbspTỉnh Lạng Sơn
+                                                                                <option value='20'>&nbspTỉnh Lạng
+                                                                                    Sơn
                                                                                 </option>
-                                                                                <option value='22'>&nbspTỉnh Quảng Ninh
+                                                                                <option value='22'>&nbspTỉnh Quảng
+                                                                                    Ninh
                                                                                 </option>
-                                                                                <option value='24'>&nbspTỉnh Bắc Giang
+                                                                                <option value='24'>&nbspTỉnh Bắc
+                                                                                    Giang
                                                                                 </option>
-                                                                                <option value='25'>&nbspTỉnh Phú Thọ
+                                                                                <option value='25'>&nbspTỉnh Phú
+                                                                                    Thọ
                                                                                 </option>
-                                                                                <option value='26'>&nbspTỉnh Vĩnh Phúc
+                                                                                <option value='26'>&nbspTỉnh Vĩnh
+                                                                                    Phúc
                                                                                 </option>
-                                                                                <option value='27'>&nbspTỉnh Bắc Ninh
+                                                                                <option value='27'>&nbspTỉnh Bắc
+                                                                                    Ninh
                                                                                 </option>
-                                                                                <option value='30'>&nbspTỉnh Hải Dương
+                                                                                <option value='30'>&nbspTỉnh Hải
+                                                                                    Dương
                                                                                 </option>
-                                                                                <option value='33'>&nbspTỉnh Hưng Yên
+                                                                                <option value='33'>&nbspTỉnh Hưng
+                                                                                    Yên
                                                                                 </option>
-                                                                                <option value='34'>&nbspTỉnh Thái Bình
+                                                                                <option value='34'>&nbspTỉnh Thái
+                                                                                    Bình
                                                                                 </option>
                                                                                 <option value='35'>&nbspTỉnh Hà Nam
                                                                                 </option>
-                                                                                <option value='36'>&nbspTỉnh Nam Định
+                                                                                <option value='36'>&nbspTỉnh Nam
+                                                                                    Định
                                                                                 </option>
-                                                                                <option value='37'>&nbspTỉnh Ninh Bình
+                                                                                <option value='37'>&nbspTỉnh Ninh
+                                                                                    Bình
                                                                                 </option>
-                                                                                <option value='38'>&nbspTỉnh Thanh Hóa
+                                                                                <option value='38'>&nbspTỉnh Thanh
+                                                                                    Hóa
                                                                                 </option>
-                                                                                <option value='40'>&nbspTỉnh Nghệ An
+                                                                                <option value='40'>&nbspTỉnh Nghệ
+                                                                                    An
                                                                                 </option>
-                                                                                <option value='42'>&nbspTỉnh Hà Tĩnh
+                                                                                <option value='42'>&nbspTỉnh Hà
+                                                                                    Tĩnh
                                                                                 </option>
-                                                                                <option value='44'>&nbspTỉnh Quảng Bình
+                                                                                <option value='44'>&nbspTỉnh Quảng
+                                                                                    Bình
                                                                                 </option>
-                                                                                <option value='45'>&nbspTỉnh Quảng Trị
+                                                                                <option value='45'>&nbspTỉnh Quảng
+                                                                                    Trị
                                                                                 </option>
-                                                                                <option value='46'>&nbspTỉnh Thừa Thiên
+                                                                                <option value='46'>&nbspTỉnh Thừa
+                                                                                    Thiên
                                                                                     Huế</option>
-                                                                                <option value='49'>&nbspTỉnh Quảng Nam
+                                                                                <option value='49'>&nbspTỉnh Quảng
+                                                                                    Nam
                                                                                 </option>
-                                                                                <option value='51'>&nbspTỉnh Quảng Ngãi
+                                                                                <option value='51'>&nbspTỉnh Quảng
+                                                                                    Ngãi
                                                                                 </option>
-                                                                                <option value='52'>&nbspTỉnh Bình Định
+                                                                                <option value='52'>&nbspTỉnh Bình
+                                                                                    Định
                                                                                 </option>
-                                                                                <option value='54'>&nbspTỉnh Phú Yên
+                                                                                <option value='54'>&nbspTỉnh Phú
+                                                                                    Yên
                                                                                 </option>
-                                                                                <option value='56'>&nbspTỉnh Khánh Hòa
+                                                                                <option value='56'>&nbspTỉnh Khánh
+                                                                                    Hòa
                                                                                 </option>
-                                                                                <option value='58'>&nbspTỉnh Ninh Thuận
+                                                                                <option value='58'>&nbspTỉnh Ninh
+                                                                                    Thuận
                                                                                 </option>
-                                                                                <option value='60'>&nbspTỉnh Bình Thuận
+                                                                                <option value='60'>&nbspTỉnh Bình
+                                                                                    Thuận
                                                                                 </option>
-                                                                                <option value='62'>&nbspTỉnh Kon Tum
+                                                                                <option value='62'>&nbspTỉnh Kon
+                                                                                    Tum
                                                                                 </option>
-                                                                                <option value='64'>&nbspTỉnh Gia Lai
+                                                                                <option value='64'>&nbspTỉnh Gia
+                                                                                    Lai
                                                                                 </option>
-                                                                                <option value='66'>&nbspTỉnh Đắk Lắk
+                                                                                <option value='66'>&nbspTỉnh Đắk
+                                                                                    Lắk
                                                                                 </option>
-                                                                                <option value='67'>&nbspTỉnh Đắk Nông
+                                                                                <option value='67'>&nbspTỉnh Đắk
+                                                                                    Nông
                                                                                 </option>
-                                                                                <option value='68'>&nbspTỉnh Lâm Đồng
+                                                                                <option value='68'>&nbspTỉnh Lâm
+                                                                                    Đồng
                                                                                 </option>
-                                                                                <option value='70'>&nbspTỉnh Bình Phước
+                                                                                <option value='70'>&nbspTỉnh Bình
+                                                                                    Phước
                                                                                 </option>
-                                                                                <option value='72'>&nbspTỉnh Tây Ninh
+                                                                                <option value='72'>&nbspTỉnh Tây
+                                                                                    Ninh
                                                                                 </option>
-                                                                                <option value='74'>&nbspTỉnh Bình Dương
+                                                                                <option value='74'>&nbspTỉnh Bình
+                                                                                    Dương
                                                                                 </option>
-                                                                                <option value='75'>&nbspTỉnh Đồng Nai
+                                                                                <option value='75'>&nbspTỉnh Đồng
+                                                                                    Nai
                                                                                 </option>
-                                                                                <option value='77'>&nbspTỉnh Bà Rịa -
+                                                                                <option value='77'>&nbspTỉnh Bà Rịa
+                                                                                    -
                                                                                     Vũng Tàu</option>
-                                                                                <option value='80'>&nbspTỉnh Long An
+                                                                                <option value='80'>&nbspTỉnh Long
+                                                                                    An
                                                                                 </option>
-                                                                                <option value='82'>&nbspTỉnh Tiền Giang
+                                                                                <option value='82'>&nbspTỉnh Tiền
+                                                                                    Giang
                                                                                 </option>
-                                                                                <option value='83'>&nbspTỉnh Bến Tre
+                                                                                <option value='83'>&nbspTỉnh Bến
+                                                                                    Tre
                                                                                 </option>
-                                                                                <option value='84'>&nbspTỉnh Trà Vinh
+                                                                                <option value='84'>&nbspTỉnh Trà
+                                                                                    Vinh
                                                                                 </option>
-                                                                                <option value='86'>&nbspTỉnh Vĩnh Long
+                                                                                <option value='86'>&nbspTỉnh Vĩnh
+                                                                                    Long
                                                                                 </option>
-                                                                                <option value='87'>&nbspTỉnh Đồng Tháp
+                                                                                <option value='87'>&nbspTỉnh Đồng
+                                                                                    Tháp
                                                                                 </option>
-                                                                                <option value='89'>&nbspTỉnh An Giang
+                                                                                <option value='89'>&nbspTỉnh An
+                                                                                    Giang
                                                                                 </option>
-                                                                                <option value='91'>&nbspTỉnh Kiên Giang
+                                                                                <option value='91'>&nbspTỉnh Kiên
+                                                                                    Giang
                                                                                 </option>
-                                                                                <option value='93'>&nbspTỉnh Hậu Giang
+                                                                                <option value='93'>&nbspTỉnh Hậu
+                                                                                    Giang
                                                                                 </option>
-                                                                                <option value='94'>&nbspTỉnh Sóc Trăng
+                                                                                <option value='94'>&nbspTỉnh Sóc
+                                                                                    Trăng
                                                                                 </option>
-                                                                                <option value='95'>&nbspTỉnh Bạc Liêu
+                                                                                <option value='95'>&nbspTỉnh Bạc
+                                                                                    Liêu
                                                                                 </option>
                                                                                 <option value='96'>&nbspTỉnh Cà Mau
                                                                                 </option>
@@ -560,7 +643,8 @@
                                                                 <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
                                                                     <div class="form-group">
                                                                         <div class="select-item district-town-select">
-                                                                            <label for="district-town">Quận/Huyện :</label>
+                                                                            <label for="district-town">Quận/Huyện
+                                                                                :</label>
                                                                             <select
                                                                                 class="form-control border-0 shadow-none"
                                                                                 id="district-town">
@@ -573,7 +657,8 @@
                                                                 <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
                                                                     <div class="form-group">
                                                                         <div class="select-item ward-commune-select">
-                                                                            <label for="ward-commune">Xã/Phường :</label>
+                                                                            <label for="ward-commune">Xã/Phường
+                                                                                :</label>
                                                                             <select
                                                                                 class="form-control border-0 shadow-none"
                                                                                 id="ward-commune">
@@ -585,7 +670,8 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="address" class="text-heading">Địa chỉ chính
+                                                                <label for="address" class="text-heading">Địa chỉ
+                                                                    chính
                                                                     xác</label>
                                                                 <input type="text"
                                                                     class="form-control form-control-lg border-0"
@@ -611,7 +697,8 @@
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="zone" class="text-heading">Khu vực</label>
+                                                                <label for="zone" class="text-heading">Khu
+                                                                    vực</label>
                                                                 {{-- <input type="text"
                                                                     class="form-control form-control-lg border-0"
                                                                     id="zone" name="zone"> --}}
@@ -639,12 +726,6 @@
                                                         <div class="card-body p-6">
                                                             <h3 class="card-title mb-6 text-heading fs-22 lh-15">Bản đồ
                                                             </h3>
-                                                            {{-- <div id="map" class="mapbox-gl map-point-animate mb-6"
-                                                                style="height: 296px"
-                                                                data-mapbox-access-token="pk.eyJ1IjoiZHVvbmdsaCIsImEiOiJjanJnNHQ4czExMzhyNDVwdWo5bW13ZmtnIn0.f1bmXQsS6o4bzFFJc8RCcQ"
-                                                                data-mapbox-options='{"center":[-73.981566, 40.739011],"setLngLat":[-73.981566, 40.739011]}'
-                                                                data-mapbox-marker='[{"position":[-73.981566, 40.739011],"className":"marker","backgroundImage":"images/googlle-market-01.png","backgroundRepeat":"no-repeat","width":"32px","height":"40px"}]'>
-                                                            </div> --}}
                                                             <div id="map" class="mapbox-gl map-point-animate mb-6"
                                                                 style="height: 296px">
                                                             </div>
@@ -696,674 +777,13 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
-                            {{-- <div class="tab-pane tab-pane-parent fade px-0" id="detail" role="tabpanel"
-                                aria-labelledby="detail-tab">
-
-                                <div class="card bg-transparent border-0">
-                                    <div class="card-header d-block d-md-none bg-transparent px-0 py-1 border-bottom-0"
-                                        id="heading-detail">
-                                        <h5 class="mb-0">
-                                            <button class="btn btn-block collapse-parent collapsed border shadow-none"
-                                                data-toggle="collapse" data-number="4." data-target="#detail-collapse"
-                                                aria-expanded="true" aria-controls="detail-collapse">
-                                                <span class="number">4.</span>Chi tiết
-                                            </button>
-                                        </h5>
-                                    </div>
-                                    <div id="detail-collapse" class="collapse collapsible"
-                                        aria-labelledby="heading-detail" data-parent="#collapse-tabs-accordion">
-                                        <div class="card-body py-4 py-md-0 px-0">
-                                            <!-- Card for listing details -->
-                                            <div class="card mb-6">
-                                                <div class="card-body p-6">
-                                                    <h3 class="card-title mb-0 text-heading fs-22 lh-15">Chi tiết niêm yết
-                                                    </h3>
-                                                    <hr>
-                                                    <div class="row">
-                                                        <div class="col-lg-4">
-                                                            <div class="form-group">
-                                                                <label for="size-in-ft" class="text-heading">Diện tích m2
-                                                                    <span class="text-muted">(chỉ có số)</span></label>
-                                                                <input type="text"
-                                                                    class="form-control form-control-lg border-0"
-                                                                    id="size-in-ft" name="size-in-ft">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <div class="form-group">
-                                                                <label for="view" class="text-heading">Lượt
-                                                                    xem</label>
-                                                                <input type="text"
-                                                                    class="form-control form-control-lg border-0"
-                                                                    id="view" name="view">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <div class="form-group">
-                                                                <label for="room" class="text-heading">Phòng</label>
-                                                                <input type="text"
-                                                                    class="form-control form-control-lg border-0"
-                                                                    id="room" name="rooms">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-4">
-                                                            <div class="form-group">
-                                                                <label for="bedrooms" class="text-heading">Phòng
-                                                                    ngủ</label>
-                                                                <input type="text"
-                                                                    class="form-control form-control-lg border-0"
-                                                                    id="bedrooms" name="bedrooms">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <div class="form-group">
-                                                                <label for="bathrooms" class="text-heading">Phòng
-                                                                    tắm</label>
-                                                                <input type="text"
-                                                                    class="form-control form-control-lg border-0"
-                                                                    id="bathrooms" name="bathrooms">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <div class="form-group">
-                                                                <label for="customID" class="text-heading">ID tùy chỉnh
-                                                                    <span class="text-muted">(văn bản)</span></label>
-                                                                <input type="text"
-                                                                    class="form-control form-control-lg border-0"
-                                                                    id="customID" name="customID">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-4">
-                                                            <div class="form-group">
-                                                                <label for="garages" class="text-heading">Nhà để
-                                                                    xe</label>
-                                                                <input type="text"
-                                                                    class="form-control form-control-lg border-0"
-                                                                    id="garages" name="garages">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <div class="form-group">
-                                                                <label for="garage-size" class="text-heading">Kích thước
-                                                                    gara</label>
-                                                                <input type="text"
-                                                                    class="form-control form-control-lg border-0"
-                                                                    id="garage-size" name="garage-size">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <div class="form-group">
-                                                                <label for="year-built" class="text-heading">Năm xây dựng
-                                                                    <span class="text-muted">(số)</span></label>
-                                                                <input type="text"
-                                                                    class="form-control form-control-lg border-0"
-                                                                    id="year-built" name="year-built">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-4">
-                                                            <div class="form-group">
-                                                                <label for="available-from" class="text-heading">Có sẵn từ
-                                                                    <span class="text-muted">(ngày)</span></label>
-                                                                <input type="date"
-                                                                    class="form-control form-control-lg border-0"
-                                                                    id="available-from" name="available-from">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <div class="form-group">
-                                                                <label for="basement" class="text-heading">Tầng
-                                                                    hầm</label>
-                                                                <input type="text"
-                                                                    class="form-control form-control-lg border-0"
-                                                                    id="basement" name="basement">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <div class="form-group">
-                                                                <label for="extra-details" class="text-heading">Chi tiết
-                                                                    bổ sung</label>
-                                                                <input type="text"
-                                                                    class="form-control form-control-lg border-0"
-                                                                    id="extra-details" name="extra-details">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-4">
-                                                            <div class="form-group">
-                                                                <label for="roofing" class="text-heading">Mái nhà</label>
-                                                                <input type="text"
-                                                                    class="form-control form-control-lg border-0"
-                                                                    id="roofing" name="roofing">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <div class="form-group">
-                                                                <label for="exterior-material" class="text-heading">Vật
-                                                                    liệu bên ngoài</label>
-                                                                <input type="text"
-                                                                    class="form-control form-control-lg border-0"
-                                                                    id="exterior-material" name="exterior-material">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <div class="form-group">
-                                                                <label for="structure-type" class="text-heading">Kiểu cấu
-                                                                    trúc</label>
-                                                                <select
-                                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                                    title="Chọn" data-style="btn-lg py-2 h-52"
-                                                                    id="structure-type" name="structure-type">
-                                                                    <option>Cho thuê</option>
-                                                                    <option>Để bán</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-8">
-                                                            <div class="form-group">
-                                                                <label for="floors-no" class="text-heading">Số
-                                                                    tầng</label>
-                                                                <select
-                                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                                    title="Chọn" data-style="btn-lg py-2 h-52"
-                                                                    id="floors-no" name="floors-no">
-                                                                    <option>1</option>
-                                                                    <option>2</option>
-                                                                    <option>3</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-8">
-                                                            <div class="form-group mb-0">
-                                                                <label for="owner" class="text-heading">Chủ sở hữu/ Đại
-                                                                    lý không có thông tin (không hiển thị ở mặt
-                                                                    trước)</label>
-                                                                <textarea class="form-control border-0" id="owner" name="owner"></textarea>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Card for energy class -->
-                                            <div class="card mb-6">
-                                                <div class="card-body p-6">
-                                                    <h3 class="card-title mb-0 text-heading fs-22 lh-15">Chọn Lớp Năng
-                                                        Lượng</h3>
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group mb-lg-0">
-                                                                <label for="energy-class" class="text-heading">Lớp năng
-                                                                    lượng</label>
-                                                                <select
-                                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                                    title="Chọn" data-style="btn-lg py-2 h-52"
-                                                                    id="energy-class" name="energy-class">
-                                                                    <option>1</option>
-                                                                    <option>2</option>
-                                                                    <option>3</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group mb-lg-0">
-                                                                <label for="energy-index" class="text-heading">Chỉ số năng
-                                                                    lượng tính bằng kWh/m2a</label>
-                                                                <select
-                                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                                    title="Chọn" data-style="btn-lg py-2 h-52"
-                                                                    id="energy-index" name="energy-index">
-                                                                    <option>1</option>
-                                                                    <option>2</option>
-                                                                    <option>3</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex flex-wrap">
-                                                <a href="#"
-                                                    class="btn btn-lg bg-hover-white border rounded-lg mb-3 mr-auto prev-button">
-                                                    <span class="d-inline-block text-primary mr-2 fs-16"><i
-                                                            class="fal fa-long-arrow-left"></i></span>Phía trước
-                                                </a>
-                                                <button class="btn btn-lg btn-primary next-button mb-3">Tiếp theo <span
-                                                        class="d-inline-block ml-2 fs-16"><i
-                                                            class="fal fa-long-arrow-right"></i></span></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div> --}}
-
-                            {{-- <div class="tab-pane tab-pane-parent fade px-0" id="amenities" role="tabpanel"
-                                aria-labelledby="amenities-tab">
-
-                                <div class="card bg-transparent border-0">
-                                    <div class="card-header d-block d-md-none bg-transparent px-0 py-1 border-bottom-0"
-                                        id="heading-amenities">
-                                        <h5 class="mb-0">
-                                            <button class="btn btn-block collapse-parent collapsed border shadow-none"
-                                                data-toggle="collapse" data-number="5." data-target="#amenities-collapse"
-                                                aria-expanded="true" aria-controls="amenities-collapse">
-                                                <span class="number">5.</span>Tiện nghi
-                                            </button>
-                                        </h5>
-                                    </div>
-                                    <div id="amenities-collapse" class="collapse collapsible"
-                                        aria-labelledby="heading-amenities" data-parent="#collapse-tabs-accordion">
-                                        <div class="card-body py-4 py-md-0 px-0">
-                                            <div class="card mb-6">
-                                                <div class="card-body p-6">
-                                                    <h3 class="card-title mb-0 text-heading fs-22 lh-15">
-                                                        Chi tiết niêm yết</h3>
-                                                    <p class="card-text mb-5">Lorem ipsum dolor sit amet,
-                                                        consectetur
-                                                        adipiscing elit</p>
-                                                    <div class="row">
-                                                        <div class="col-sm-6 col-lg-3">
-                                                            <ul class="list-group list-group-no-border">
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="attic">
-                                                                        <label class="custom-control-label"
-                                                                            for="attic">Gác
-                                                                            xếp</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="basketball-court">
-                                                                        <label class="custom-control-label"
-                                                                            for="basketball-court">Sân bóng
-                                                                            rổ</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="doorman">
-                                                                        <label class="custom-control-label"
-                                                                            for="doorman">Người gác
-                                                                            cửa</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="front-yard">
-                                                                        <label class="custom-control-label"
-                                                                            for="front-yard">Sân trước</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="lake-view">
-                                                                        <label class="custom-control-label"
-                                                                            for="lake-view">Cảnh hồ</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="ocean-view">
-                                                                        <label class="custom-control-label"
-                                                                            for="ocean-view">Cảnh biển</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="private-space">
-                                                                        <label class="custom-control-label"
-                                                                            for="private-space">Không gian
-                                                                            riêng tư</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="sprinklers">
-                                                                        <label class="custom-control-label"
-                                                                            for="sprinklers">Máy phun
-                                                                            nước</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="wine-cellar">
-                                                                        <label class="custom-control-label"
-                                                                            for="wine-cellar">Hầm rượu</label>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="col-sm-6 col-lg-3">
-                                                            <ul class="list-group list-group-no-border">
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="attic">
-                                                                        <label class="custom-control-label"
-                                                                            for="attic">Gác
-                                                                            xếp</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="basketball-court">
-                                                                        <label class="custom-control-label"
-                                                                            for="basketball-court">Sân bóng
-                                                                            rổ</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="doorman">
-                                                                        <label class="custom-control-label"
-                                                                            for="doorman">Người gác
-                                                                            cửa</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="front-yard">
-                                                                        <label class="custom-control-label"
-                                                                            for="front-yard">Sân trước</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="lake-view">
-                                                                        <label class="custom-control-label"
-                                                                            for="lake-view">Cảnh hồ</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="ocean-view">
-                                                                        <label class="custom-control-label"
-                                                                            for="ocean-view">Cảnh biển</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="private-space">
-                                                                        <label class="custom-control-label"
-                                                                            for="private-space">Không gian
-                                                                            riêng tư</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="sprinklers">
-                                                                        <label class="custom-control-label"
-                                                                            for="sprinklers">Máy phun
-                                                                            nước</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="wine-cellar">
-                                                                        <label class="custom-control-label"
-                                                                            for="wine-cellar">Hầm rượu</label>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="col-sm-6 col-lg-3">
-                                                            <ul class="list-group list-group-no-border">
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="attic">
-                                                                        <label class="custom-control-label"
-                                                                            for="attic">Gác
-                                                                            xếp</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="basketball-court">
-                                                                        <label class="custom-control-label"
-                                                                            for="basketball-court">Sân bóng
-                                                                            rổ</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="doorman">
-                                                                        <label class="custom-control-label"
-                                                                            for="doorman">Người gác
-                                                                            cửa</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="front-yard">
-                                                                        <label class="custom-control-label"
-                                                                            for="front-yard">Sân trước</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="lake-view">
-                                                                        <label class="custom-control-label"
-                                                                            for="lake-view">Cảnh hồ</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="ocean-view">
-                                                                        <label class="custom-control-label"
-                                                                            for="ocean-view">Cảnh biển</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="private-space">
-                                                                        <label class="custom-control-label"
-                                                                            for="private-space">Không gian
-                                                                            riêng tư</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="sprinklers">
-                                                                        <label class="custom-control-label"
-                                                                            for="sprinklers">Máy phun
-                                                                            nước</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="wine-cellar">
-                                                                        <label class="custom-control-label"
-                                                                            for="wine-cellar">Hầm rượu</label>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="col-sm-6 col-lg-3">
-                                                            <ul class="list-group list-group-no-border">
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="attic">
-                                                                        <label class="custom-control-label"
-                                                                            for="attic">Gác
-                                                                            xếp</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="basketball-court">
-                                                                        <label class="custom-control-label"
-                                                                            for="basketball-court">Sân bóng
-                                                                            rổ</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="doorman">
-                                                                        <label class="custom-control-label"
-                                                                            for="doorman">Người gác
-                                                                            cửa</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="front-yard">
-                                                                        <label class="custom-control-label"
-                                                                            for="front-yard">Sân trước</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="lake-view">
-                                                                        <label class="custom-control-label"
-                                                                            for="lake-view">Cảnh hồ</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="ocean-view">
-                                                                        <label class="custom-control-label"
-                                                                            for="ocean-view">Cảnh biển</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="private-space">
-                                                                        <label class="custom-control-label"
-                                                                            for="private-space">Không gian
-                                                                            riêng tư</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="sprinklers">
-                                                                        <label class="custom-control-label"
-                                                                            for="sprinklers">Máy phun
-                                                                            nước</label>
-                                                                    </div>
-                                                                </li>
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="wine-cellar">
-                                                                        <label class="custom-control-label"
-                                                                            for="wine-cellar">Hầm rượu</label>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex flex-wrap">
-                                                <a href="#"
-                                                    class="btn btn-lg bg-hover-white border rounded-lg mb-3 mr-auto prev-button">
-                                                    <span class="d-inline-block text-primary mr-2 fs-16"><i
-                                                            class="fal fa-long-arrow-left"></i></span>Phía
-                                                    trước
-                                                </a>
-                                                <button class="btn btn-lg btn-primary mb-3" type="submit">Gửi
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div> --}}
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </main>
-    </div>
-    </div>
-    </div>
-
-
 @endsection
 @push('styleOwners')
     <meta charset="utf-8">
@@ -1371,7 +791,7 @@
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
     <meta name="generator" content="Jekyll">
-    <title>Add new property - HomeID</title>
+    <title>Đăng Trọ | TRỌ NHANH</title>
     <!-- Google fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
@@ -1391,7 +811,7 @@
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-    <link rel="icon" href="images/favicon.ico">
+    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
     {{-- Link Alert --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     {{-- Link Map --}}
@@ -1432,6 +852,7 @@
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
     {{-- Show - Alert --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="{{ asset('assets/js/alert/room-owners-alert.js') }}"></script>
