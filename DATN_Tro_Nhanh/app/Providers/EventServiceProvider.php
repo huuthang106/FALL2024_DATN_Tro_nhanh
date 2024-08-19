@@ -7,6 +7,8 @@ use App\Events\ZoneCreated;
 use App\Listeners\SendZoneCreatedNotification;
 use App\Listeners\SendRoomCreatedNotification;
 use App\Events\RoomCreated;
+use App\Events\Admin\ZoneUpdated;
+use App\Listeners\SendZoneUpdatedNotification;
 use App\Events\Admin\CategoryAdminEvent;
 use App\Listeners\Admin\HandleCategoryAdmin;
 use App\Events\BlogCreated;
@@ -24,6 +26,9 @@ class EventServiceProvider extends BaseEventServiceProvider
     protected $listen = [
         ZoneCreated::class => [
             SendZoneCreatedNotification::class,
+        ],
+        ZoneUpdated::class => [
+            SendZoneUpdatedNotification::class,
         ],
         CategoryAdminEvent::class => [
             HandleCategoryAdmin::class,
@@ -50,7 +55,7 @@ class EventServiceProvider extends BaseEventServiceProvider
      */
     public function register(): void
     {
-        // Các dịch vụ hoặc ràng buộc vào container dịch vụ của Laravel
+        //
     }
 
     /**

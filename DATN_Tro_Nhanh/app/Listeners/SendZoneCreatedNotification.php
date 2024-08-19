@@ -43,11 +43,11 @@ class SendZoneCreatedNotification extends Notifications
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Một khu trọ mới đã được tạo:')
-                    ->line('Tên: ' . $this->zone->name)
-                    ->line('Địa chỉ: ' . $this->zone->address)
-                    ->action('Xem chi tiết', url('/admin/khutro/' . $this->zone->id))
-                    ->line('Cảm ơn bạn đã sử dụng ứng dụng!');
+            ->line('Một khu trọ mới đã được tạo:')
+            ->line('Tên: ' . $this->zone->name)
+            ->line('Địa chỉ: ' . $this->zone->address)
+            ->action('Xem chi tiết', url('/admin/khutro/' . $this->zone->id))
+            ->line('Cảm ơn bạn đã sử dụng ứng dụng!');
     }
 }
 

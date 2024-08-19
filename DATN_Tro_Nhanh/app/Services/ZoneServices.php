@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Zone;
 use Illuminate\Support\Facades\Storage;
-
+use App\Events\Admin\ZoneUpdated;
 class ZoneServices
 {
     public function store($request)
@@ -45,7 +45,7 @@ class ZoneServices
                             $this->storeImage($zone, $image);
                         }
                     }
-                    return $zone; 
+                    return $zone;
                 } else {
                     // Nếu không thể lưu slug, xóa đối tượng vừa thêm
                     $zone->delete();
@@ -86,11 +86,39 @@ class ZoneServices
      * @param \Illuminate\Http\UploadedFile $image
      * @return void
      */
-    protected function storeImage(Zone $zone, $image)
+    // protected function storeImage(Zone $zone, $image)
+    // {
+    //     $path = $image->store('zones', 'public');
+    //     // Giả sử bạn có mối quan hệ với bảng ảnh
+    //     $zone->images()->create(['path' => $path]);
+    // }
+    public function getAllZones()
     {
-        $path = $image->store('zones', 'public');
-        // Giả sử bạn có mối quan hệ với bảng ảnh
-        $zone->images()->create(['path' => $path]);
+        return Zone::all();
+    }
+    public function findById($id)
+    {
+        return Zone::find($id);
+    }
+
+    // Phương thức để cập nhật khu trọ
+    public function update($request, $id)
+    {
+        // Tìm khu trọ theo ID
+        $zone = Zone::find($id);
+        
+        // Nếu khu trọ tồn tại, thực hiện cập nhật và kích hoạt sự kiện
+        if ($zone) {
+            $zone->update($request->all());
+
+            // Kích hoạt sự kiện
+            event(new ZoneUpdated($zone));
+           
+            return true;
+        }
+
+        // Trả về false nếu không tìm thấy khu trọ
+        return false;
     }
     public function getIdZone($slug){
         $zone = Zone::where('slug', $slug)->first();

@@ -11,4 +11,18 @@ class Zone extends Model
     use HasFactory;
     use SoftDeletes;
    
+    protected $fillable = [
+        'name',
+        'description',
+        'address',
+        'village',
+        'district',
+        'province',
+        'longitude',
+        'latitude',
+        'total_rooms',
+        'status',
+        'slug',
+        'user_id',
+    ];
 }

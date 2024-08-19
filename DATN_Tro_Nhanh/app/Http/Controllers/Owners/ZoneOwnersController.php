@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Events\ZoneCreated; // Import event
 class ZoneOwnersController extends Controller
-{
+{   
+    protected $zoneServices;
     //
     protected $zoneServices;
     public function __construct(ZoneServices $zoneServices)
