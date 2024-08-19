@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Function to load zone data
-    async function loadZoneData(provinceId, districtId, communeId) {
+    async function loadRoomData(provinceId, districtId, communeId) {
         try {
             // Get districts based on the selected province
             const { data: districts } = await axios.get(apiEndpointDistrict + provinceId);
@@ -27,9 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 districtOptions += `<option value='${district.idDistrict}' ${district.idDistrict == districtId ? 'selected' : ''}>${district.name}</option>`;
             });
             const districtElement = $('#district-town');
-            districtElement.selectpicker('destroy');
+
             districtElement.html(districtOptions);
-            districtElement.selectpicker('refresh'); // Ensure dropdown is refreshed
+
 
             // Get communes based on the selected district
             if (districtId) {
@@ -40,15 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     communeOptions += `<option value='${commune.idCommune}' ${commune.idCommune == communeId ? 'selected' : ''}>${commune.name}</option>`;
                 });
                 const communeElement = $('#ward-commune');
-                communeElement.selectpicker('destroy');
+
                 communeElement.html(communeOptions);
-                communeElement.selectpicker('refresh'); // Ensure dropdown is refreshed
+
             } else {
                 // Reset commune dropdown if no district is selected
                 const communeElement = $('#ward-commune');
-                communeElement.selectpicker('destroy');
                 communeElement.html("<option value='0'>&nbsp;Chọn Phường/Xã...</option>");
-                communeElement.selectpicker('refresh'); // Ensure dropdown is refreshed
+
             }
         } catch (error) {
             console.error('Error loading zone data:', error);
@@ -56,9 +55,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Event listener for page load
-    const { provinceId, districtId, communeId } = window.zoneData || {};
+    const { provinceId, districtId, communeId } = window.roomData || {};
     if (provinceId) {
-        loadZoneData(provinceId, districtId, communeId);
+        loadRoomData(provinceId, districtId, communeId);
     }
 
     // Event listener for province change
@@ -66,8 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const idProvince = $('#city-province').val();
 
         // Clear commune options
-        $('#ward-commune').selectpicker('destroy');
-        $('#ward-commune').html("<option value='0'>&nbsp;Chọn Phường/Xã...</option>").selectpicker('refresh');
 
         // Get districts based on the selected province
         const districtList = await getDistrict(idProvince) || [];
@@ -76,12 +73,10 @@ document.addEventListener('DOMContentLoaded', () => {
             outputDistrict += `<option value='${district.idDistrict}'>${district.name}</option>`;
         });
         const districtElement = $('#district-town');
-        districtElement.selectpicker('destroy');
         districtElement.html(outputDistrict);
-        districtElement.selectpicker('refresh');
+
 
         // Reset commune selection
-        $('#ward-commune').selectpicker('val', '0');
     });
 
     // Event listener for district change
@@ -95,8 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
             outputCommune += `<option value='${commune.idCommune}'>${commune.name}</option>`;
         });
         const communeElement = $('#ward-commune');
-        communeElement.selectpicker('destroy');
         communeElement.html(outputCommune);
-        communeElement.selectpicker('refresh');
     });
 });

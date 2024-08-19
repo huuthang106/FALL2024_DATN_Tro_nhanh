@@ -140,10 +140,10 @@
                                         <div class="row mb-6">
                                             <label class="col-lg-4 col-form-label fw-bold fs-6 required">Diện tích</label>
                                             <div class="col-lg-8 fv-row">
-                                                <input type="text" name="acreages" value="{{ $rooms->acreage }}"
+                                                <input type="text" name="acreage" value="{{ $rooms->acreage }}"
                                                     class="form-control form-control-lg form-control-solid"
                                                     placeholder="" />
-                                                @error('acreages')
+                                                @error('acreage')
                                                     <div class="text-danger mt-3">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -195,87 +195,270 @@
                                         <div class="row mb-6">
                                             <label class="col-lg-4 col-form-label fw-bold fs-6 required">Tỉnh</label>
                                             <div class="col-lg-8 fv-row">
-                                                <select
-                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                    title="Lựa chọn" data-style="btn-lg py-2 h-52" id="city-province"
-                                                    name="province">
-                                                    <option>{{ $rooms->province }}</option>
-                                                    <option value='01'>&nbspThành phố Hà Nội</option>
-                                                    <option value='79'>&nbspThành phố Hồ Chí Minh</option>
-                                                    <option value='31'>&nbspThành phố Hải Phòng</option>
-                                                    <option value='48'>&nbspThành phố Đà Nẵng</option>
-                                                    <option value='92'>&nbspThành phố Cần Thơ</option>
-                                                    <option value='02'>&nbspTỉnh Hà Giang</option>
-                                                    <option value='04'>&nbspTỉnh Cao Bằng</option>
-                                                    <option value='06'>&nbspTỉnh Bắc Kạn</option>
-                                                    <option value='08'>&nbspTỉnh Tuyên Quang</option>
-                                                    <option value='10'>&nbspTỉnh Lào Cai</option>
-                                                    <option value='11'>&nbspTỉnh Điện Biên</option>
-                                                    <option value='12'>&nbspTỉnh Lai Châu</option>
-                                                    <option value='14'>&nbspTỉnh Sơn La</option>
-                                                    <option value='15'>&nbspTỉnh Yên Bái</option>
-                                                    <option value='17'>&nbspTỉnh Hoà Bình</option>
-                                                    <option value='19'>&nbspTỉnh Thái Nguyên</option>
-                                                    <option value='20'>&nbspTỉnh Lạng Sơn</option>
-                                                    <option value='22'>&nbspTỉnh Quảng Ninh</option>
-                                                    <option value='24'>&nbspTỉnh Bắc Giang</option>
-                                                    <option value='25'>&nbspTỉnh Phú Thọ</option>
-                                                    <option value='26'>&nbspTỉnh Vĩnh Phúc</option>
-                                                    <option value='27'>&nbspTỉnh Bắc Ninh</option>
-                                                    <option value='30'>&nbspTỉnh Hải Dương</option>
-                                                    <option value='33'>&nbspTỉnh Hưng Yên</option>
-                                                    <option value='34'>&nbspTỉnh Thái Bình</option>
-                                                    <option value='35'>&nbspTỉnh Hà Nam</option>
-                                                    <option value='36'>&nbspTỉnh Nam Định</option>
-                                                    <option value='37'>&nbspTỉnh Ninh Bình</option>
-                                                    <option value='38'>&nbspTỉnh Thanh Hóa</option>
-                                                    <option value='40'>&nbspTỉnh Nghệ An</option>
-                                                    <option value='42'>&nbspTỉnh Hà Tĩnh</option>
-                                                    <option value='44'>&nbspTỉnh Quảng Bình</option>
-                                                    <option value='45'>&nbspTỉnh Quảng Trị</option>
-                                                    <option value='46'>&nbspTỉnh Thừa Thiên Huế</option>
-                                                    <option value='49'>&nbspTỉnh Quảng Nam</option>
-                                                    <option value='51'>&nbspTỉnh Quảng Ngãi</option>
-                                                    <option value='52'>&nbspTỉnh Bình Định</option>
-                                                    <option value='54'>&nbspTỉnh Phú Yên</option>
-                                                    <option value='56'>&nbspTỉnh Khánh Hòa</option>
-                                                    <option value='58'>&nbspTỉnh Ninh Thuận</option>
-                                                    <option value='60'>&nbspTỉnh Bình Thuận</option>
-                                                    <option value='62'>&nbspTỉnh Kon Tum</option>
-                                                    <option value='64'>&nbspTỉnh Gia Lai</option>
-                                                    <option value='66'>&nbspTỉnh Đắk Lắk</option>
-                                                    <option value='67'>&nbspTỉnh Đắk Nông</option>
-                                                    <option value='68'>&nbspTỉnh Lâm Đồng</option>
-                                                    <option value='70'>&nbspTỉnh Bình Phước</option>
-                                                    <option value='72'>&nbspTỉnh Tây Ninh</option>
-                                                    <option value='74'>&nbspTỉnh Bình Dương</option>
-                                                    <option value='75'>&nbspTỉnh Đồng Nai</option>
-                                                    <option value='77'>&nbspTỉnh Bà Rịa - Vũng Tàu</option>
-                                                    <option value='80'>&nbspTỉnh Long An</option>
-                                                    <option value='82'>&nbspTỉnh Tiền Giang</option>
-                                                    <option value='83'>&nbspTỉnh Bến Tre</option>
-                                                    <option value='84'>&nbspTỉnh Trà Vinh</option>
-                                                    <option value='86'>&nbspTỉnh Vĩnh Long</option>
-                                                    <option value='87'>&nbspTỉnh Đồng Tháp</option>
-                                                    <option value='89'>&nbspTỉnh An Giang</option>
-                                                    <option value='91'>&nbspTỉnh Kiên Giang</option>
-                                                    <option value='93'>&nbspTỉnh Hậu Giang</option>
-                                                    <option value='94'>&nbspTỉnh Sóc Trăng</option>
-                                                    <option value='95'>&nbspTỉnh Bạc Liêu</option>
-                                                    <option value='96'>&nbspTỉnh Cà Mau</option>
-                                                    <!-- Thêm các tùy chọn khác ở đây -->
+                                                <select class="form-select form-select-lg form-select-solid"
+                                                    id="city-province" name="province">
+                                                    <option value=''>Chọn Tỉnh/Thành Phố...</option>
+                                                    <option value='01'
+                                                        {{ old('province', $rooms->province) == '01' ? 'selected' : '' }}>
+                                                        Thành phố
+                                                        Hà Nội</option>
+                                                    <option value='79'
+                                                        {{ old('province', $rooms->province) == '79' ? 'selected' : '' }}>
+                                                        Thành phố
+                                                        Hồ Chí Minh</option>
+                                                    <option value='31'
+                                                        {{ old('province', $rooms->province) == '31' ? 'selected' : '' }}>
+                                                        Thành phố
+                                                        Hải Phòng</option>
+                                                    <option value='48'
+                                                        {{ old('province', $rooms->province) == '48' ? 'selected' : '' }}>
+                                                        Thành phố
+                                                        Đà Nẵng</option>
+                                                    <option value='92'
+                                                        {{ old('province', $rooms->province) == '92' ? 'selected' : '' }}>
+                                                        Thành phố
+                                                        Cần Thơ</option>
+                                                    <option value='02'
+                                                        {{ old('province', $rooms->province) == '02' ? 'selected' : '' }}>
+                                                        Tỉnh Hà
+                                                        Giang</option>
+                                                    <option value='04'
+                                                        {{ old('province', $rooms->province) == '04' ? 'selected' : '' }}>
+                                                        Tỉnh Cao
+                                                        Bằng</option>
+                                                    <option value='06'
+                                                        {{ old('province', $rooms->province) == '06' ? 'selected' : '' }}>
+                                                        Tỉnh Bắc
+                                                        Kạn</option>
+                                                    <option value='08'
+                                                        {{ old('province', $rooms->province) == '08' ? 'selected' : '' }}>
+                                                        Tỉnh Tuyên
+                                                        Quang</option>
+                                                    <option value='10'
+                                                        {{ old('province', $rooms->province) == '10' ? 'selected' : '' }}>
+                                                        Tỉnh Lào
+                                                        Cai</option>
+                                                    <option value='11'
+                                                        {{ old('province', $rooms->province) == '11' ? 'selected' : '' }}>
+                                                        Tỉnh Điện
+                                                        Biên</option>
+                                                    <option value='12'
+                                                        {{ old('province', $rooms->province) == '12' ? 'selected' : '' }}>
+                                                        Tỉnh Lai
+                                                        Châu</option>
+                                                    <option value='14'
+                                                        {{ old('province', $rooms->province) == '14' ? 'selected' : '' }}>
+                                                        Tỉnh Sơn
+                                                        La</option>
+                                                    <option value='15'
+                                                        {{ old('province', $rooms->province) == '15' ? 'selected' : '' }}>
+                                                        Tỉnh Yên
+                                                        Bái</option>
+                                                    <option value='17'
+                                                        {{ old('province', $rooms->province) == '17' ? 'selected' : '' }}>
+                                                        Tỉnh Hoà
+                                                        Bình</option>
+                                                    <option value='19'
+                                                        {{ old('province', $rooms->province) == '19' ? 'selected' : '' }}>
+                                                        Tỉnh Thái
+                                                        Nguyên</option>
+                                                    <option value='20'
+                                                        {{ old('province', $rooms->province) == '20' ? 'selected' : '' }}>
+                                                        Tỉnh Lạng
+                                                        Sơn</option>
+                                                    <option value='22'
+                                                        {{ old('province', $rooms->province) == '22' ? 'selected' : '' }}>
+                                                        Tỉnh Quảng
+                                                        Ninh</option>
+                                                    <option value='24'
+                                                        {{ old('province', $rooms->province) == '24' ? 'selected' : '' }}>
+                                                        Tỉnh Bắc
+                                                        Giang</option>
+                                                    <option value='25'
+                                                        {{ old('province', $rooms->province) == '25' ? 'selected' : '' }}>
+                                                        Tỉnh Phú
+                                                        Thọ</option>
+                                                    <option value='26'
+                                                        {{ old('province', $rooms->province) == '26' ? 'selected' : '' }}>
+                                                        Tỉnh Vĩnh
+                                                        Phúc</option>
+                                                    <option value='27'
+                                                        {{ old('province', $rooms->province) == '27' ? 'selected' : '' }}>
+                                                        Tỉnh Bắc
+                                                        Ninh</option>
+                                                    <option value='30'
+                                                        {{ old('province', $rooms->province) == '30' ? 'selected' : '' }}>
+                                                        Tỉnh Hải
+                                                        Dương</option>
+                                                    <option value='33'
+                                                        {{ old('province', $rooms->province) == '33' ? 'selected' : '' }}>
+                                                        Tỉnh Hưng
+                                                        Yên</option>
+                                                    <option value='34'
+                                                        {{ old('province', $rooms->province) == '34' ? 'selected' : '' }}>
+                                                        Tỉnh Thái
+                                                        Bình</option>
+                                                    <option value='35'
+                                                        {{ old('province', $rooms->province) == '35' ? 'selected' : '' }}>
+                                                        Tỉnh Hà
+                                                        Nam</option>
+                                                    <option value='36'
+                                                        {{ old('province', $rooms->province) == '36' ? 'selected' : '' }}>
+                                                        Tỉnh Nam
+                                                        Định</option>
+                                                    <option value='37'
+                                                        {{ old('province', $rooms->province) == '37' ? 'selected' : '' }}>
+                                                        Tỉnh Ninh
+                                                        Bình</option>
+                                                    <option value='38'
+                                                        {{ old('province', $rooms->province) == '38' ? 'selected' : '' }}>
+                                                        Tỉnh Thanh
+                                                        Hóa</option>
+                                                    <option value='40'
+                                                        {{ old('province', $rooms->province) == '40' ? 'selected' : '' }}>
+                                                        Tỉnh Nghệ
+                                                        An</option>
+                                                    <option value='42'
+                                                        {{ old('province', $rooms->province) == '42' ? 'selected' : '' }}>
+                                                        Tỉnh Hà
+                                                        Tĩnh</option>
+                                                    <option value='44'
+                                                        {{ old('province', $rooms->province) == '44' ? 'selected' : '' }}>
+                                                        Tỉnh Quảng
+                                                        Bình</option>
+                                                    <option value='45'
+                                                        {{ old('province', $rooms->province) == '45' ? 'selected' : '' }}>
+                                                        Tỉnh Quảng
+                                                        Trị</option>
+                                                    <option value='46'
+                                                        {{ old('province', $rooms->province) == '46' ? 'selected' : '' }}>
+                                                        Tỉnh Thừa
+                                                        Thiên Huế</option>
+                                                    <option value='49'
+                                                        {{ old('province', $rooms->province) == '49' ? 'selected' : '' }}>
+                                                        Tỉnh Quảng
+                                                        Nam</option>
+                                                    <option value='51'
+                                                        {{ old('province', $rooms->province) == '51' ? 'selected' : '' }}>
+                                                        Tỉnh Quảng
+                                                        Ngãi</option>
+                                                    <option value='52'
+                                                        {{ old('province', $rooms->province) == '52' ? 'selected' : '' }}>
+                                                        Tỉnh Bình
+                                                        Định</option>
+                                                    <option value='54'
+                                                        {{ old('province', $rooms->province) == '54' ? 'selected' : '' }}>
+                                                        Tỉnh Phú
+                                                        Yên</option>
+                                                    <option value='56'
+                                                        {{ old('province', $rooms->province) == '56' ? 'selected' : '' }}>
+                                                        Tỉnh Khánh
+                                                        Hòa</option>
+                                                    <option value='58'
+                                                        {{ old('province', $rooms->province) == '58' ? 'selected' : '' }}>
+                                                        Tỉnh Ninh
+                                                        Thuận</option>
+                                                    <option value='60'
+                                                        {{ old('province', $rooms->province) == '60' ? 'selected' : '' }}>
+                                                        Tỉnh Bình
+                                                        Thuận</option>
+                                                    <option value='62'
+                                                        {{ old('province', $rooms->province) == '62' ? 'selected' : '' }}>
+                                                        Tỉnh Kon
+                                                        Tum</option>
+                                                    <option value='64'
+                                                        {{ old('province', $rooms->province) == '64' ? 'selected' : '' }}>
+                                                        Tỉnh Gia
+                                                        Lai</option>
+                                                    <option value='66'
+                                                        {{ old('province', $rooms->province) == '66' ? 'selected' : '' }}>
+                                                        Tỉnh Đắk
+                                                        Lắk</option>
+                                                    <option value='67'
+                                                        {{ old('province', $rooms->province) == '67' ? 'selected' : '' }}>
+                                                        Tỉnh Đắk
+                                                        Nông</option>
+                                                    <option value='68'
+                                                        {{ old('province', $rooms->province) == '68' ? 'selected' : '' }}>
+                                                        Tỉnh Lâm
+                                                        Đồng</option>
+                                                    <option value='70'
+                                                        {{ old('province', $rooms->province) == '70' ? 'selected' : '' }}>
+                                                        Tỉnh Bình
+                                                        Phước</option>
+                                                    <option value='72'
+                                                        {{ old('province', $rooms->province) == '72' ? 'selected' : '' }}>
+                                                        Tỉnh Tây
+                                                        Ninh</option>
+                                                    <option value='74'
+                                                        {{ old('province', $rooms->province) == '74' ? 'selected' : '' }}>
+                                                        Tỉnh Bình
+                                                        Dương</option>
+                                                    <option value='75'
+                                                        {{ old('province', $rooms->province) == '75' ? 'selected' : '' }}>
+                                                        Tỉnh Đồng
+                                                        Nai</option>
+                                                    <option value='77'
+                                                        {{ old('province', $rooms->province) == '77' ? 'selected' : '' }}>
+                                                        Tỉnh Bà
+                                                        Rịa - Vũng Tàu</option>
+                                                    <option value='80'
+                                                        {{ old('province', $rooms->province) == '80' ? 'selected' : '' }}>
+                                                        Tỉnh Long
+                                                        An</option>
+                                                    <option value='82'
+                                                        {{ old('province', $rooms->province) == '82' ? 'selected' : '' }}>
+                                                        Tỉnh Tiền
+                                                        Giang</option>
+                                                    <option value='83'
+                                                        {{ old('province', $rooms->province) == '83' ? 'selected' : '' }}>
+                                                        Tỉnh Bến
+                                                        Tre</option>
+                                                    <option value='84'
+                                                        {{ old('province', $rooms->province) == '84' ? 'selected' : '' }}>
+                                                        Tỉnh Trà
+                                                        Vinh</option>
+                                                    <option value='86'
+                                                        {{ old('province', $rooms->province) == '86' ? 'selected' : '' }}>
+                                                        Tỉnh Vĩnh
+                                                        Long</option>
+                                                    <option value='87'
+                                                        {{ old('province', $rooms->province) == '87' ? 'selected' : '' }}>
+                                                        Tỉnh Đồng
+                                                        Tháp</option>
+                                                    <option value='89'
+                                                        {{ old('province', $rooms->province) == '89' ? 'selected' : '' }}>
+                                                        Tỉnh An
+                                                        Giang</option>
+                                                    <option value='91'
+                                                        {{ old('province', $rooms->province) == '91' ? 'selected' : '' }}>
+                                                        Tỉnh Kiên
+                                                        Giang</option>
+                                                    <option value='93'
+                                                        {{ old('province', $rooms->province) == '93' ? 'selected' : '' }}>
+                                                        Tỉnh Hậu
+                                                        Giang</option>
+                                                    <option value='94'
+                                                        {{ old('province', $rooms->province) == '94' ? 'selected' : '' }}>
+                                                        Tỉnh Sóc
+                                                        Trăng</option>
+                                                    <option value='95'
+                                                        {{ old('province', $rooms->province) == '95' ? 'selected' : '' }}>
+                                                        Tỉnh Bạc
+                                                        Liêu</option>
+                                                    <option value='96'
+                                                        {{ old('province', $rooms->province) == '96' ? 'selected' : '' }}>
+                                                        Tỉnh Cà
+                                                        Mau</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="row mb-6">
                                             <label class="col-lg-4 col-form-label fw-bold fs-6 required">Huyện</label>
                                             <div class="col-lg-8 fv-row">
-                                                <select
-                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
+                                                <select class="form-select form-select-lg form-select-solid"
                                                     title="Lựa chọn" data-style="btn-lg py-2 h-52" id="district-town"
                                                     name="district">
-                                                    <option>{{ $rooms->district }}</option>
-                                                    <option value='0'>{&nbsp;Chọn Quận/Huyện...}</option>
                                                     <!-- Các tùy chọn khác sẽ được thêm vào qua JavaScript -->
                                                 </select>
                                             </div>
@@ -283,12 +466,9 @@
                                         <div class="row mb-6">
                                             <label class="col-lg-4 col-form-label fw-bold fs-6 required">Xã</label>
                                             <div class="col-lg-8 fv-row">
-                                                <select
-                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
+                                                <select class="form-select form-select-lg form-select-solid"
                                                     title="Lựa chọn" data-style="btn-lg py-2 h-52" id="ward-commune"
                                                     name="village">
-                                                    <option>{{ $rooms->village }}</option>
-                                                    <option value='0'>&nbsp;Chọn Phường/Xã...</option>
                                                     <!-- Các tùy chọn khác sẽ được thêm vào qua JavaScript -->
                                                 </select>
                                             </div>
@@ -470,8 +650,15 @@
     <!--end::Page Custom Javascript-->
     <!--end::Javascript-->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="{{ asset('assets/js/seclectmap.js') }}"></script>
+    <script src="{{ asset('assets/js/api-new-map-ntt.js') }}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC67NQzqFC2WplLzC_3PsL5gejG1_PZLDk"></script>
     <script src="{{ asset('assets/js/mapapi-ntt.js') }}"></script>
     <script src="{{ asset('assets/js/image-ntt.js') }}"></script>
+    <script>
+        window.roomData = {
+            provinceId: '{{ $rooms->province }}',
+            districtId: '{{ $rooms->district }}',
+            communeId: '{{ $rooms->village }}'
+        };
+    </script>
 @endpush
