@@ -24,6 +24,7 @@ class ZoneRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'description'=>'required|string',
+            'status' => 'required|numeric',
             'total_rooms' => 'required|integer',
             'address' => 'required|string|max:255',
             'province' => 'required|string',
@@ -31,6 +32,7 @@ class ZoneRequest extends FormRequest
             'village' => 'required|string',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
+            
 
         ];
     }
@@ -39,6 +41,7 @@ class ZoneRequest extends FormRequest
         return [
             'name.required' => 'Tiêu đề là bắt buộc.',
             'description.required' => 'Mô tả là bắt buộc.',
+            'status.required' => 'Phần này là bắt buộc.',
             'total_rooms.required' => 'Số phòng là bắt buộc.',
             'total_rooms.integer' => 'Trường này phải là số.',
             'province.required' => 'Địa chỉ là bắt buộc',

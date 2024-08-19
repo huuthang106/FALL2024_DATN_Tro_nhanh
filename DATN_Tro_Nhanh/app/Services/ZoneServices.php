@@ -23,6 +23,7 @@ class ZoneServices
             $zone->village = $request->input('village');
             $zone->latitude = $request->input('latitude');
             $zone->longitude = $request->input('longitude');
+            $zone->status = $request->input('status');
             $zone->user_id = $user_id;
 
             // Lưu đối tượng vào cơ sở dữ liệu
@@ -115,6 +116,7 @@ class ZoneServices
             $zone->village = $request->input('village');
             $zone->latitude = $request->input('latitude');
             $zone->longitude = $request->input('longitude');
+            $zone->status = $request->input('status');
             $zone->user_id = auth()->id(); // Cập nhật user_id từ thông tin đăng nhập
     
             // Lưu thông tin đã cập nhật vào cơ sở dữ liệu

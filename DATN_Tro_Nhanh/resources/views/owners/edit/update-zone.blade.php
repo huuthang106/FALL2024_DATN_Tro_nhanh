@@ -81,6 +81,22 @@
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
+                                                            <div class="form-group">
+                                                                <label for="status" class="text-heading">Trạng
+                                                                    thái</label>
+                                                                <select
+                                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
+                                                                    title="Lựa chọn" data-style="btn-lg py-2 h-52"
+                                                                    id="status" name="status">
+                                                                    <option value='1' {{ $zone->status == '1' ? 'selected' : '' }}>&nbsp;Hoạt động
+                                                                    </option>
+                                                                    <option value='2'{{ $zone->status == '2' ? 'selected' : '' }}>&nbsp;Chưa hoạt động
+                                                                    </option>
+                                                                </select>
+                                                                @error('status')
+                                                                    <div class="text-danger">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
 
                                                         </div>
                                                     </div>

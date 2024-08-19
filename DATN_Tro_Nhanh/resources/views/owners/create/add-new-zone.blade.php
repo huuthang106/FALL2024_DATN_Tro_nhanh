@@ -80,6 +80,22 @@
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
+                                                            <div class="form-group">
+                                                                <label for="status" class="text-heading">Trạng
+                                                                    thái</label>
+                                                                <select
+                                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
+                                                                    title="Lựa chọn" data-style="btn-lg py-2 h-52"
+                                                                    id="status" name="status">
+                                                                    <option value='1'>&nbsp;Hoạt động
+                                                                    </option>
+                                                                    <option value='2'>&nbsp;Chưa hoạt động
+                                                                    </option>
+                                                                </select>
+                                                                @error('status')
+                                                                    <div class="text-danger">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
 
                                                         </div>
                                                     </div>
@@ -107,7 +123,8 @@
                                                 <div class="col-lg-6">
                                                     <div class="card mb-6">
                                                         <div class="card-body p-6">
-                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Vị trí niêm
+                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Vị trí
+                                                                niêm
                                                                 yết</h3>
                                                             <p class="card-text mb-5">Lorem ipsum dolor sit amet,
                                                                 consectetur adipiscing elit</p>
@@ -126,15 +143,19 @@
 
                                                             <!-- Tỉnh -->
                                                             <div class="form-group">
-                                                                <label for="city-province" class="text-heading">Tỉnh</label>
+                                                                <label for="city-province"
+                                                                    class="text-heading">Tỉnh</label>
                                                                 <select
                                                                     class="form-control border-0 shadow-none form-control-lg selectpicker"
                                                                     title="Lựa chọn" data-style="btn-lg py-2 h-52"
                                                                     id="city-province" name="province">
-                                                                    <option value='0'>&nbsp;Chọn Tỉnh/Thành Phố...</option>
+                                                                    <option value='0'>&nbsp;Chọn Tỉnh/Thành Phố...
+                                                                    </option>
                                                                     <option value='01'>&nbspThành phố Hà Nội</option>
-                                                                    <option value='79'>&nbspThành phố Hồ Chí Minh</option>
-                                                                    <option value='31'>&nbspThành phố Hải Phòng</option>
+                                                                    <option value='79'>&nbspThành phố Hồ Chí Minh
+                                                                    </option>
+                                                                    <option value='31'>&nbspThành phố Hải Phòng
+                                                                    </option>
                                                                     <option value='48'>&nbspThành phố Đà Nẵng</option>
                                                                     <option value='92'>&nbspThành phố Cần Thơ</option>
                                                                     <option value='02'>&nbspTỉnh Hà Giang</option>
@@ -165,7 +186,8 @@
                                                                     <option value='42'>&nbspTỉnh Hà Tĩnh</option>
                                                                     <option value='44'>&nbspTỉnh Quảng Bình</option>
                                                                     <option value='45'>&nbspTỉnh Quảng Trị</option>
-                                                                    <option value='46'>&nbspTỉnh Thừa Thiên Huế</option>
+                                                                    <option value='46'>&nbspTỉnh Thừa Thiên Huế
+                                                                    </option>
                                                                     <option value='49'>&nbspTỉnh Quảng Nam</option>
                                                                     <option value='51'>&nbspTỉnh Quảng Ngãi</option>
                                                                     <option value='52'>&nbspTỉnh Bình Định</option>
@@ -182,7 +204,8 @@
                                                                     <option value='72'>&nbspTỉnh Tây Ninh</option>
                                                                     <option value='74'>&nbspTỉnh Bình Dương</option>
                                                                     <option value='75'>&nbspTỉnh Đồng Nai</option>
-                                                                    <option value='77'>&nbspTỉnh Bà Rịa - Vũng Tàu</option>
+                                                                    <option value='77'>&nbspTỉnh Bà Rịa - Vũng Tàu
+                                                                    </option>
                                                                     <option value='80'>&nbspTỉnh Long An</option>
                                                                     <option value='82'>&nbspTỉnh Tiền Giang</option>
                                                                     <option value='83'>&nbspTỉnh Bến Tre</option>
@@ -203,19 +226,21 @@
                                                             </div>
                                                             {{-- huyen --}}
                                                             <div class="form-group district-town-select">
-                                                                <label for="district-town" class="text-heading">Huyện</label>
+                                                                <label for="district-town"
+                                                                    class="text-heading">Huyện</label>
                                                                 <select
                                                                     class="form-control border-0 shadow-none form-control-lg selectpicker"
                                                                     title="Lựa chọn" data-style="btn-lg py-2 h-52"
                                                                     id="district-town" name="district">
-                                                                    <option value='0'>&nbsp;Chọn Quận/Huyện...</option>
+                                                                    <option value='0'>&nbsp;Chọn Quận/Huyện...
+                                                                    </option>
                                                                     <!-- Các tùy chọn khác sẽ được thêm vào qua JavaScript -->
                                                                 </select>
                                                                 @error('district')
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
-                                                            
+
                                                             <!-- Xã -->
                                                             <div class="form-group ward-commune-select">
                                                                 <label for="ward-commune" class="text-heading">Xã</label>
@@ -347,7 +372,6 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-   
 @endpush
 @push('scriptOwners')
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
