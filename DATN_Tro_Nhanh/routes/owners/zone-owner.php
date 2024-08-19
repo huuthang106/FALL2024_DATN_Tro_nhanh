@@ -5,7 +5,11 @@ use App\Http\Controllers\Owners\ZoneOwnersController;
 Route::group(['prefix' =>''],function(){
     route::get('them-khu-tro',[ZoneOwnersController::class, 'index'])->name('zone-post');
     route::post('them-khu-tro',[ZoneOwnersController::class, 'store'])->name('zone-start-post');
-    route::get('khu-tro',[ZoneOwnersController::class, 'listZone'])->name('zone-list');
-    // Route::get('zones/fetch', [ZoneOwnersController::class, 'fetchZones'])->name('zones.fetch');
+    Route::group(['prefix' =>'khu-tro'],function(){
+    route::get('/',[ZoneOwnersController::class, 'listZone'])->name('zone-list');
+    route::get('chinh-sua-khu-tro/{slug}',[ZoneOwnersController::class, 'viewUpdate'])->name('zone-view-update');
+    route::Put('chinh-sua-khu-tro/{id}',[ZoneOwnersController::class, 'update'])->name('zone-start-update');
+
+    });
 
 });

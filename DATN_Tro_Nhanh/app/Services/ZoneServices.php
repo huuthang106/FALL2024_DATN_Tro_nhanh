@@ -73,7 +73,7 @@ class ZoneServices
     }
     public function getMyZone($user_id){
         $perPage = 10;
-        $zones = Zone::where('user_id', $user_id)->paginate($perPage);
+        $zones = Zone::where('user_id', $user_id)->orderByDesc('created_at')->paginate($perPage);
         return $zones;
     }
 
@@ -91,4 +91,53 @@ class ZoneServices
         // Giả sử bạn có mối quan hệ với bảng ảnh
         $zone->images()->create(['path' => $path]);
     }
+    public function getIdZone($slug){
+        $zone = Zone::where('slug', $slug)->first();
+        return $zone;
+    }
+    public function update($request, $zoneId)
+    {
+        if (auth()->check()) {
+            // Tìm đối tượng Zone theo ID
+            $zone = Zone::find($zoneId);
+    
+            if (!$zone) {
+                return false; // Nếu không tìm thấy, trả về false
+            }
+    
+            // Cập nhật thông tin đối tượng
+            $zone->name = $request->input('name');
+            $zone->description = $request->input('description');
+            $zone->total_rooms = $request->input('total_rooms');
+            $zone->address = $request->input('address');
+            $zone->province = $request->input('province');
+            $zone->district = $request->input('district');
+            $zone->village = $request->input('village');
+            $zone->latitude = $request->input('latitude');
+            $zone->longitude = $request->input('longitude');
+            $zone->user_id = auth()->id(); // Cập nhật user_id từ thông tin đăng nhập
+    
+            // Lưu thông tin đã cập nhật vào cơ sở dữ liệu
+            if ($zone->save()) {
+                // Tạo slug từ name và id
+                $slug = $this->createSlug($request->input('name')) . '-' . $zone->id;
+    
+                // Cập nhật slug cho đối tượng
+                $zone->slug = $slug;
+    
+                // Lưu lại đối tượng với slug mới
+                if ($zone->save()) {
+                    
+                    return $zone; 
+                } else {
+                    return false; // Nếu không thể lưu slug, trả về false
+                }
+            } else {
+                return false; // Nếu không thể lưu thông tin cập nhật, trả về false
+            }
+        } else {
+            return false; // Nếu người dùng chưa đăng nhập, trả về false
+        }
+    }
+    
 }

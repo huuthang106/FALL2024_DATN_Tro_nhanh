@@ -25,8 +25,9 @@
 
                 </ul>
                 <div class="tab-content shadow-none p-0">
-                    <form action="{{ route('owners.zone-start-post') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('owners.zone-start-update',$zone->id)}}" method="post" enctype="multipart/form-data">
                         @csrf
+                        @method('Put')
                         <div id="collapse-tabs-accordion">
                             <!-- Tab 1: Mô tả -->
                             <div class="tab-pane tab-pane-parent fade show active px-0" id="description" role="tabpanel"
@@ -51,7 +52,7 @@
                                                                 <input type="text"
                                                                     class="form-control form-control-lg border-0"
                                                                     id="name" name="name"
-                                                                    value="{{ old('name') }}">
+                                                                    value="{{ old('name', isset($zone) ? $zone->name : '') }}">
                                                                 @error('name')
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
@@ -61,7 +62,7 @@
                                                             <div class="form-group mb-0">
                                                                 <label for="description-01" class="text-heading">Mô
                                                                     tả</label>
-                                                                <textarea class="form-control border-0" rows="5" name="description" id="description-01">{{ old('description') }}</textarea>
+                                                                <textarea class="form-control border-0" rows="5" name="description" id="description-01">{{ old('description', isset($zone) ? $zone->description : '') }}</textarea>
                                                                 @error('description')
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
@@ -75,7 +76,7 @@
                                                                 <input type="number"
                                                                     class="form-control form-control-lg border-0"
                                                                     id="total_rooms" name="total_rooms"
-                                                                    value="{{ old('total_rooms') }}">
+                                                                    value="{{ old('total_rooms', isset($zone) ? $zone->total_rooms : '') }}">
                                                                 @error('total_rooms')
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
@@ -118,7 +119,7 @@
                                                                 <input type="text"
                                                                     class="form-control form-control-lg border-0"
                                                                     id="address" name="address"
-                                                                    value="{{ old('address') }}">
+                                                                    value="{{ old('address', isset($zone) ? $zone->address : '') }}">
                                                                 @error('address')
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
@@ -126,96 +127,229 @@
 
                                                             <!-- Tỉnh -->
                                                             <div class="form-group">
-                                                                <label for="city-province" class="text-heading">Tỉnh</label>
+                                                                <label for="city-province"
+                                                                    class="text-heading">Tỉnh</label>
                                                                 <select
                                                                     class="form-control border-0 shadow-none form-control-lg selectpicker"
                                                                     title="Lựa chọn" data-style="btn-lg py-2 h-52"
                                                                     id="city-province" name="province">
-                                                                    <option value='0'>&nbsp;Chọn Tỉnh/Thành Phố...</option>
-                                                                    <option value='01'>&nbspThành phố Hà Nội</option>
-                                                                    <option value='79'>&nbspThành phố Hồ Chí Minh</option>
-                                                                    <option value='31'>&nbspThành phố Hải Phòng</option>
-                                                                    <option value='48'>&nbspThành phố Đà Nẵng</option>
-                                                                    <option value='92'>&nbspThành phố Cần Thơ</option>
-                                                                    <option value='02'>&nbspTỉnh Hà Giang</option>
-                                                                    <option value='04'>&nbspTỉnh Cao Bằng</option>
-                                                                    <option value='06'>&nbspTỉnh Bắc Kạn</option>
-                                                                    <option value='08'>&nbspTỉnh Tuyên Quang</option>
-                                                                    <option value='10'>&nbspTỉnh Lào Cai</option>
-                                                                    <option value='11'>&nbspTỉnh Điện Biên</option>
-                                                                    <option value='12'>&nbspTỉnh Lai Châu</option>
-                                                                    <option value='14'>&nbspTỉnh Sơn La</option>
-                                                                    <option value='15'>&nbspTỉnh Yên Bái</option>
-                                                                    <option value='17'>&nbspTỉnh Hoà Bình</option>
-                                                                    <option value='19'>&nbspTỉnh Thái Nguyên</option>
-                                                                    <option value='20'>&nbspTỉnh Lạng Sơn</option>
-                                                                    <option value='22'>&nbspTỉnh Quảng Ninh</option>
-                                                                    <option value='24'>&nbspTỉnh Bắc Giang</option>
-                                                                    <option value='25'>&nbspTỉnh Phú Thọ</option>
-                                                                    <option value='26'>&nbspTỉnh Vĩnh Phúc</option>
-                                                                    <option value='27'>&nbspTỉnh Bắc Ninh</option>
-                                                                    <option value='30'>&nbspTỉnh Hải Dương</option>
-                                                                    <option value='33'>&nbspTỉnh Hưng Yên</option>
-                                                                    <option value='34'>&nbspTỉnh Thái Bình</option>
-                                                                    <option value='35'>&nbspTỉnh Hà Nam</option>
-                                                                    <option value='36'>&nbspTỉnh Nam Định</option>
-                                                                    <option value='37'>&nbspTỉnh Ninh Bình</option>
-                                                                    <option value='38'>&nbspTỉnh Thanh Hóa</option>
-                                                                    <option value='40'>&nbspTỉnh Nghệ An</option>
-                                                                    <option value='42'>&nbspTỉnh Hà Tĩnh</option>
-                                                                    <option value='44'>&nbspTỉnh Quảng Bình</option>
-                                                                    <option value='45'>&nbspTỉnh Quảng Trị</option>
-                                                                    <option value='46'>&nbspTỉnh Thừa Thiên Huế</option>
-                                                                    <option value='49'>&nbspTỉnh Quảng Nam</option>
-                                                                    <option value='51'>&nbspTỉnh Quảng Ngãi</option>
-                                                                    <option value='52'>&nbspTỉnh Bình Định</option>
-                                                                    <option value='54'>&nbspTỉnh Phú Yên</option>
-                                                                    <option value='56'>&nbspTỉnh Khánh Hòa</option>
-                                                                    <option value='58'>&nbspTỉnh Ninh Thuận</option>
-                                                                    <option value='60'>&nbspTỉnh Bình Thuận</option>
-                                                                    <option value='62'>&nbspTỉnh Kon Tum</option>
-                                                                    <option value='64'>&nbspTỉnh Gia Lai</option>
-                                                                    <option value='66'>&nbspTỉnh Đắk Lắk</option>
-                                                                    <option value='67'>&nbspTỉnh Đắk Nông</option>
-                                                                    <option value='68'>&nbspTỉnh Lâm Đồng</option>
-                                                                    <option value='70'>&nbspTỉnh Bình Phước</option>
-                                                                    <option value='72'>&nbspTỉnh Tây Ninh</option>
-                                                                    <option value='74'>&nbspTỉnh Bình Dương</option>
-                                                                    <option value='75'>&nbspTỉnh Đồng Nai</option>
-                                                                    <option value='77'>&nbspTỉnh Bà Rịa - Vũng Tàu</option>
-                                                                    <option value='80'>&nbspTỉnh Long An</option>
-                                                                    <option value='82'>&nbspTỉnh Tiền Giang</option>
-                                                                    <option value='83'>&nbspTỉnh Bến Tre</option>
-                                                                    <option value='84'>&nbspTỉnh Trà Vinh</option>
-                                                                    <option value='86'>&nbspTỉnh Vĩnh Long</option>
-                                                                    <option value='87'>&nbspTỉnh Đồng Tháp</option>
-                                                                    <option value='89'>&nbspTỉnh An Giang</option>
-                                                                    <option value='91'>&nbspTỉnh Kiên Giang</option>
-                                                                    <option value='93'>&nbspTỉnh Hậu Giang</option>
-                                                                    <option value='94'>&nbspTỉnh Sóc Trăng</option>
-                                                                    <option value='95'>&nbspTỉnh Bạc Liêu</option>
-                                                                    <option value='96'>&nbspTỉnh Cà Mau</option>
-                                                                    <!-- Thêm các tùy chọn khác ở đây -->
+                                                                    <option value='0'>&nbsp;Chọn Tỉnh/Thành Phố...
+                                                                    </option>
+                                                                    <option value='01'
+                                                                        {{ $zone->province == '01' ? 'selected' : '' }}>
+                                                                        &nbspThành phố Hà Nội</option>
+                                                                    <option value='79'
+                                                                        {{ $zone->province == '79' ? 'selected' : '' }}>
+                                                                        &nbspThành phố Hồ Chí Minh</option>
+                                                                    <option value='31'
+                                                                        {{ $zone->province == '31' ? 'selected' : '' }}>
+                                                                        &nbspThành phố Hải Phòng</option>
+                                                                    <option value='48'
+                                                                        {{ $zone->province == '48' ? 'selected' : '' }}>
+                                                                        &nbspThành phố Đà Nẵng</option>
+                                                                    <option value='92'
+                                                                        {{ $zone->province == '92' ? 'selected' : '' }}>
+                                                                        &nbspThành phố Cần Thơ</option>
+                                                                    <option value='02'
+                                                                        {{ $zone->province == '02' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Hà Giang</option>
+                                                                    <option value='04'
+                                                                        {{ $zone->province == '04' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Cao Bằng</option>
+                                                                    <option value='06'
+                                                                        {{ $zone->province == '06' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Bắc Kạn</option>
+                                                                    <option value='08'
+                                                                        {{ $zone->province == '08' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Tuyên Quang</option>
+                                                                    <option value='10'
+                                                                        {{ $zone->province == '10' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Lào Cai</option>
+                                                                    <option value='11'
+                                                                        {{ $zone->province == '11' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Điện Biên</option>
+                                                                    <option value='12'
+                                                                        {{ $zone->province == '12' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Lai Châu</option>
+                                                                    <option value='14'
+                                                                        {{ $zone->province == '14' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Sơn La</option>
+                                                                    <option value='15'
+                                                                        {{ $zone->province == '15' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Yên Bái</option>
+                                                                    <option value='17'
+                                                                        {{ $zone->province == '17' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Hoà Bình</option>
+                                                                    <option value='19'
+                                                                        {{ $zone->province == '19' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Thái Nguyên</option>
+                                                                    <option value='20'
+                                                                        {{ $zone->province == '20' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Lạng Sơn</option>
+                                                                    <option value='22'
+                                                                        {{ $zone->province == '22' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Quảng Ninh</option>
+                                                                    <option value='24'
+                                                                        {{ $zone->province == '24' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Bắc Giang</option>
+                                                                    <option value='25'
+                                                                        {{ $zone->province == '25' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Phú Thọ</option>
+                                                                    <option value='26'
+                                                                        {{ $zone->province == '26' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Vĩnh Phúc</option>
+                                                                    <option value='27'
+                                                                        {{ $zone->province == '27' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Bắc Ninh</option>
+                                                                    <option value='30'
+                                                                        {{ $zone->province == '30' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Hải Dương</option>
+                                                                    <option value='33'
+                                                                        {{ $zone->province == '33' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Hưng Yên</option>
+                                                                    <option value='34'
+                                                                        {{ $zone->province == '34' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Thái Bình</option>
+                                                                    <option value='35'
+                                                                        {{ $zone->province == '35' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Hà Nam</option>
+                                                                    <option value='36'
+                                                                        {{ $zone->province == '36' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Nam Định</option>
+                                                                    <option value='37'
+                                                                        {{ $zone->province == '37' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Ninh Bình</option>
+                                                                    <option value='38'
+                                                                        {{ $zone->province == '38' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Thanh Hóa</option>
+                                                                    <option value='40'
+                                                                        {{ $zone->province == '40' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Nghệ An</option>
+                                                                    <option value='42'
+                                                                        {{ $zone->province == '42' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Hà Tĩnh</option>
+                                                                    <option value='44'
+                                                                        {{ $zone->province == '44' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Quảng Bình</option>
+                                                                    <option value='45'
+                                                                        {{ $zone->province == '45' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Quảng Trị</option>
+                                                                    <option value='46'
+                                                                        {{ $zone->province == '46' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Thừa Thiên Huế</option>
+                                                                    <option value='49'
+                                                                        {{ $zone->province == '49' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Quảng Nam</option>
+                                                                    <option value='51'
+                                                                        {{ $zone->province == '51' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Quảng Ngãi</option>
+                                                                    <option value='52'
+                                                                        {{ $zone->province == '52' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Bình Định</option>
+                                                                    <option value='54'
+                                                                        {{ $zone->province == '54' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Phú Yên</option>
+                                                                    <option value='56'
+                                                                        {{ $zone->province == '56' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Khánh Hòa</option>
+                                                                    <option value='58'
+                                                                        {{ $zone->province == '58' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Ninh Thuận</option>
+                                                                    <option value='60'
+                                                                        {{ $zone->province == '60' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Bình Thuận</option>
+                                                                    <option value='62'
+                                                                        {{ $zone->province == '62' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Kon Tum</option>
+                                                                    <option value='64'
+                                                                        {{ $zone->province == '64' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Gia Lai</option>
+                                                                    <option value='66'
+                                                                        {{ $zone->province == '66' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Đắk Lắk</option>
+                                                                    <option value='67'
+                                                                        {{ $zone->province == '67' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Đắk Nông</option>
+                                                                    <option value='68'
+                                                                        {{ $zone->province == '68' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Lâm Đồng</option>
+                                                                    <option value='70'
+                                                                        {{ $zone->province == '70' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Bình Phước</option>
+                                                                    <option value='72'
+                                                                        {{ $zone->province == '72' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Tây Ninh</option>
+                                                                    <option value='74'
+                                                                        {{ $zone->province == '74' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Bình Dương</option>
+                                                                    <option value='75'
+                                                                        {{ $zone->province == '75' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Đồng Nai</option>
+                                                                    <option value='77'
+                                                                        {{ $zone->province == '77' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Bà Rịa - Vũng Tàu</option>
+                                                                    <option value='80'
+                                                                        {{ $zone->province == '80' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Long An</option>
+                                                                    <option value='82'
+                                                                        {{ $zone->province == '82' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Tiền Giang</option>
+                                                                    <option value='83'
+                                                                        {{ $zone->province == '83' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Bến Tre</option>
+                                                                    <option value='84'
+                                                                        {{ $zone->province == '84' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Trà Vinh</option>
+                                                                    <option value='86'
+                                                                        {{ $zone->province == '86' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Vĩnh Long</option>
+                                                                    <option value='87'
+                                                                        {{ $zone->province == '87' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Đồng Tháp</option>
+                                                                    <option value='89'
+                                                                        {{ $zone->province == '89' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh An Giang</option>
+                                                                    <option value='91'
+                                                                        {{ $zone->province == '91' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Kiên Giang</option>
+                                                                    <option value='93'
+                                                                        {{ $zone->province == '93' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Hậu Giang</option>
+                                                                    <option value='94'
+                                                                        {{ $zone->province == '94' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Sóc Trăng</option>
+                                                                    <option value='95'
+                                                                        {{ $zone->province == '95' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Bạc Liêu</option>
+                                                                    <option value='96'
+                                                                        {{ $zone->province == '96' ? 'selected' : '' }}>
+                                                                        &nbspTỉnh Cà Mau</option>
                                                                 </select>
+
+
                                                                 @error('province')
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
                                                             {{-- huyen --}}
                                                             <div class="form-group district-town-select">
-                                                                <label for="district-town" class="text-heading">Huyện</label>
+                                                                <label for="district-town"
+                                                                    class="text-heading">Huyện</label>
                                                                 <select
                                                                     class="form-control border-0 shadow-none form-control-lg selectpicker"
                                                                     title="Lựa chọn" data-style="btn-lg py-2 h-52"
                                                                     id="district-town" name="district">
-                                                                    <option value='0'>&nbsp;Chọn Quận/Huyện...</option>
+
+
+
+
                                                                     <!-- Các tùy chọn khác sẽ được thêm vào qua JavaScript -->
                                                                 </select>
                                                                 @error('district')
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
-                                                            
+
                                                             <!-- Xã -->
                                                             <div class="form-group ward-commune-select">
                                                                 <label for="ward-commune" class="text-heading">Xã</label>
@@ -223,7 +357,7 @@
                                                                     class="form-control border-0 shadow-none form-control-lg selectpicker"
                                                                     title="Lựa chọn" data-style="btn-lg py-2 h-52"
                                                                     id="ward-commune" name="village">
-                                                                    <option value='0'>&nbsp;Chọn Phường/Xã...</option>
+
                                                                     <!-- Các tùy chọn khác sẽ được thêm vào qua JavaScript -->
                                                                 </select>
                                                                 @error('village')
@@ -347,7 +481,6 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-   
 @endpush
 @push('scriptOwners')
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
@@ -366,10 +499,116 @@
     <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Theme scripts -->
+    <script>
+        window.zoneData = {
+            provinceId: '{{ $zone->province }}',
+            districtId: '{{ $zone->district }}',
+            communeId: '{{ $zone->village }}'
+        };
+    </script>
+    {{-- <script>
+    const apiUrl = "https://vietnam-administrative-division-json-server-swart.vercel.app";
+    const apiEndpointDistrict = apiUrl + '/district/?idProvince=';
+    const apiEndpointCommune = apiUrl + '/commune/?idDistrict=';
+
+    async function getDistrict(idProvince) {
+        const { data: districtList } = await axios.get(apiEndpointDistrict + idProvince);
+        return districtList;
+    }
+
+    async function getCommune(idDistrict) {
+        const { data: communeList } = await axios.get(apiEndpointCommune + idDistrict);
+        return communeList;
+    }
+
+    async function loadZoneData(provinceId, districtId, communeId) {
+        try {
+            // Get districts based on the selected province
+            const { data: districts } = await axios.get(apiEndpointDistrict + provinceId);
+            let districtOptions = "<option value='0'>&nbsp;Chọn Quận/Huyện...</option>";
+
+            districts.forEach(district => {
+                districtOptions += `<option value='${district.idDistrict}' ${district.idDistrict == districtId ? 'selected' : ''}>${district.name}</option>`;
+            });
+            document.querySelector('#district-town').innerHTML = districtOptions;
+            $('#district-town').selectpicker('refresh'); // Đảm bảo dropdown được làm mới
+            $('#district-town').selectpicker('val', districtId); // Chọn giá trị nếu có
+
+            // Get communes based on the selected district
+            if (districtId) {
+                const { data: communes } = await axios.get(apiEndpointCommune + districtId);
+                let communeOptions = "<option value='0'>&nbsp;Chọn Phường/Xã...</option>";
+
+                communes.forEach(commune => {
+                    communeOptions += `<option value='${commune.idCommune}' ${commune.idCommune == communeId ? 'selected' : ''}>${commune.name}</option>`;
+                });
+                document.querySelector('#ward-commune').innerHTML = communeOptions;
+                $('#ward-commune').selectpicker('refresh'); // Đảm bảo dropdown được làm mới
+                $('#ward-commune').selectpicker('val', communeId); // Chọn giá trị nếu có
+            } else {
+                // Reset commune dropdown if no district is selected
+                document.querySelector('#ward-commune').innerHTML = "<option value='0'>&nbsp;Chọn Phường/Xã...</option>";
+                $('#ward-commune').selectpicker('refresh'); // Đảm bảo dropdown được làm mới
+            }
+        } catch (error) {
+            console.error('Error loading zone data:', error);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        // Replace with your actual values from server-side rendering
+        const provinceId = '{{ $zone->province }}';
+        const districtId = '{{ $zone->district }}';
+        const communeId = '{{ $zone->village }}';
+
+        // Load initial data for province, district, and commune
+        if (provinceId) {
+            await loadZoneData(provinceId, districtId, communeId);
+        }
+    });
+
+    document.querySelector('#city-province').addEventListener('change', async () => {
+        // Get the selected province ID
+        const idProvince = document.querySelector('#city-province').value;
+
+        // Clear commune options
+        let outputCommune = "<option value='0'>&nbsp;Chọn Phường/Xã...</option>";
+        document.querySelector('#ward-commune').innerHTML = outputCommune;
+        $('#ward-commune').selectpicker('refresh');
+
+        // Get districts based on the selected province
+        const districtList = await getDistrict(idProvince) || [];
+        let outputDistrict = "<option value='0'>&nbsp;Chọn Quận/Huyện...</option>";
+        districtList.forEach(district => {
+            outputDistrict += `<option value='${district.idDistrict}'>${district.name}</option>`;
+        });
+        document.querySelector('#district-town').innerHTML = outputDistrict;
+        $('#district-town').selectpicker('refresh');
+
+        // Reset commune selection
+        $('#ward-commune').selectpicker('val', '0');
+    });
+
+    document.querySelector('#district-town').addEventListener('change', async () => {
+        // Get the selected district ID
+        const idDistrict = document.querySelector('#district-town').value;
+
+        // Get communes based on the selected district
+        const communeList = await getCommune(idDistrict) || [];
+        let outputCommune = "<option value='0'>&nbsp;Chọn Phường/Xã...</option>";
+        communeList.forEach(commune => {
+            outputCommune += `<option value='${commune.idCommune}'>${commune.name}</option>`;
+        });
+        document.querySelector('#ward-commune').innerHTML = outputCommune;
+        $('#ward-commune').selectpicker('refresh');
+    });
+</script> --}}
+
+
     <script src="{{ asset('assets/js/theme.js') }}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC67NQzqFC2WplLzC_3PsL5gejG1_PZLDk&libraries=places">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{{ asset('assets/js/api-ggmap-nht.js') }}"></script>
-    <script src="{{ asset('assets/js/api-country-vn-nht.js') }}"></script>
+    <script src="{{ asset('assets/js/api-update-zone-nht.js') }}"></script>
 @endpush

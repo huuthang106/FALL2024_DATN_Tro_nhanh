@@ -52,4 +52,35 @@ class ZoneOwnersController extends Controller
             return redirect()->route('client.home');
         }
     }
+    public function viewUpdate($slug)
+    {
+        $user_id = Auth::id();
+        if (Auth::check() && Auth::user()->role != 1) {
+            $zone = $this->zoneServices->getIdZone($slug);
+            
+            return view('owners.edit.update-zone', ['zone' => $zone]);
+        } else {
+            // Nếu người dùng không có quyền, chuyển hướng về trang chính
+            return redirect()->route('client.home');
+        }
+
+    }
+    public function update(ZoneRequest  $request,$id)
+    {
+
+        if ($request->isMethod('PUT')) {
+            $zone = $this->zoneServices->update($request,$id);
+
+            if ($zone) {
+                // Phát sự kiện ZoneCreated và truyền đối tượng Zone mới tạo
+              
+
+                return redirect()->route('owners.zone-list')->with('success', 'Zone đã được tạo thành công.');
+            }
+        }
+
+
+        return view('owners.zone-post');
+    }
+
 }
