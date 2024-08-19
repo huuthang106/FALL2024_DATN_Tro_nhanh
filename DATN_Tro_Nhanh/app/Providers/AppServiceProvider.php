@@ -5,7 +5,8 @@ namespace App\Providers;
 use App\Services\BlogServices;
 use Illuminate\Support\ServiceProvider;
 use App\Services\RoomOwnersService;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -30,7 +31,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Cung cấp thông tin người dùng cho view 'components.navbar-owner'
+        View::composer('components.navbar-owner', function ($view) {
+            $user = Auth::user();
+            $view->with('user', $user);
+        });
     }
 
     protected $listen = [
@@ -38,4 +43,5 @@ class AppServiceProvider extends ServiceProvider
             \App\Listeners\SendRoomCreatedNotification::class,
         ],
     ];
+    
 }

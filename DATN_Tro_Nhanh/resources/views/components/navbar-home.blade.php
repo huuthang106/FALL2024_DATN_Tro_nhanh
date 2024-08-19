@@ -512,9 +512,11 @@
                                         {{ Auth::user()->name }}
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                                        <li><a class="dropdown-item"
-                                                href="{{ route('owners.profile.profile-admin-index') }}">Xem thông
-                                                tin</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('owners.profile.profile-admin-index') }}">
+                                            Xem thông tin
+                                        </a>
+                                        
+                                        </li>
                                         <li>
                                             <a class="dropdown-item" href="{{ route('client.logout') }}"
                                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

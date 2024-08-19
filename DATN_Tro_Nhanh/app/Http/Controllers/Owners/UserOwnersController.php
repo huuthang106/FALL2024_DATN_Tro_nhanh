@@ -7,18 +7,40 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Services\UserClientServices;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\UpdateProfileRequest;
+use App\Services\ProfileService;
+use Illuminate\Support\Facades\Auth;
+
 class UserOwnersController extends Controller
 {
-    public function __construct(UserClientServices $userClientServices)
+    protected $userClientServices;
+    protected $profileService;
+    public function __construct(UserClientServices $userClientServices, ProfileService $profileService)
     {
         $this->userClientServices = $userClientServices;
+        $this->profileService = $profileService;
     }
     // Hiển thị giao diện Thông tin tài khoản Admin
     public function indexProfileAdmin()
     {
-        return view('owners.profile.dashboard-my-profiles');
+        // Lấy thông tin người dùng hiện tại từ service bằng slug
+        $user = $this->profileService->getUserById(Auth::user()->slug);
+    
+        // Trả về view cùng với dữ liệu người dùng
+        return view('owners.profile.dashboard-my-profiles', compact('user'));
     }
-    // Hiển thị giao diện Đổi mật khẩu Admin
+    
+
+
+    public function updateProfile(UpdateProfileRequest $request, $slug)
+{
+    $data = $request->all();
+    $this->profileService->updateProfileBySlug($slug, $data);
+    
+    return redirect()->back()->with('success', 'Profile updated successfully.');
+}
+
+
     public function indexResetPassWordAdmin()
     {
         return view('owners.profile.page-reset-password-admin');

@@ -4,7 +4,8 @@
         $role = auth()->user()->role;
     }
 @endphp
-    <div class="modal fade login-register login-register-modal" id="login-register-modal" tabindex="-1" role="dialog"
+    
+<div class="modal fade login-register login-register-modal" id="login-register-modal" tabindex="-1" role="dialog"
     aria-labelledby="login-register-modal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
         <div class="modal-content">

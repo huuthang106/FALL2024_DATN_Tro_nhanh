@@ -12,11 +12,11 @@
                             <a href="#" class="dropdown-toggle d-flex align-items-center text-heading"
                                 data-toggle="dropdown">
                                 <div class="w-48px">
-                                    <img src="{{ asset('assets/images/testimonial-5.jpg') }}" alt="Ronald Hunter"
-                                        class="rounded-circle">
+                                    <img src="{{ asset('assets/images/' . $user->image) }}" alt="Admin"
+                                    class="hehe rounded-circle">
                                 </div>
                                 <span class="fs-13 font-weight-500 d-none d-sm-inline ml-2">
-                                    Ronald Hunter
+                                    Hồ sơ
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
@@ -305,25 +305,26 @@
                             class="dropdown-toggle text-heading pr-3 pr-sm-6 d-flex align-items-center justify-content-end"
                             data-toggle="dropdown">
                             <div class="mr-4 w-48px">
-                                <img src="{{ asset('assets/images/testimonial-5.jpg') }}" alt="Admin"
-                                    class="rounded-circle">
+                                <!-- Hiển thị ảnh đại diện của người dùng -->
+                                <img src="{{ asset('assets/images/' . $user->image) }}" alt="Admin"
+                                    class="hehe rounded-circle">
                             </div>
                             <div class="fs-13 font-weight-500 lh-1">
-                                Admin
+                                Hồ sơ
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right w-100">
                             <a class="dropdown-item" href="{{ route('owners.profile.profile-admin-index') }}">Thông
                                 tin</a>
                             <a class="dropdown-item"
-                                href="{{ route('owners.profile.reset-password-admin-index') }}">Đổi mật
-                                khẩu</a>
-
+                                href="{{ route('owners.profile.reset-password-admin-index') }}">Đổi mật khẩu</a>
                             <a class="dropdown-item" href="#"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng
                                 xuất</a>
                         </div>
                     </div>
+
+
                     <div
                         class="dropdown no-caret py-3 px-3 px-sm-6 d-flex align-items-center justify-content-end notice">
                         <a href="#" class="dropdown-toggle text-heading fs-20 font-weight-500 lh-1"

@@ -9,7 +9,8 @@
     
     @stack('styleUs')
     <!-- Fonts -->
-    <link href="{{ asset('assets/css/user.css') }}" rel="stylesheet" type="text/css" />
+  
+    
 
 </head>
 

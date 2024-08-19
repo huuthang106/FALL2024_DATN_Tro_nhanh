@@ -9,7 +9,10 @@
                 <p class="mb-1">Dịch vụ khách hàng rất quan trọng, do đó, khách hàng phải chịu trách nhiệm. Cần có hy vọng
                 </p>
             </div>
-            <form>
+            <form method="POST" action="{{ route('owners.profile.update-profile', $user->slug) }}" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                
                 <div class="row mb-6">
                     <div class="col-lg-6">
                         <div class="card mb-6">
@@ -20,164 +23,74 @@
                                         <p class="card-text">Tải lên ảnh hồ sơ của bạn.</p>
                                     </div>
                                     <div class="col-sm-8 col-xl-12 col-xxl-5">
-                                        <img src="{{ asset('assets/images/my-profile.png') }}" alt="My Profile"
-                                            class="w-100">
-                                        <div class="custom-file mt-4 h-auto">
-                                            <input type="file" class="custom-file-input" hidden id="customFile"
-                                                name="file">
-                                            <label class="btn btn-secondary btn-lg btn-block" for="customFile">
-                                                <span class="d-inline-block mr-1"><i
-                                                        class="fal fa-cloud-upload"></i></span>Tải lên hình ảnh hồ
-                                                sơ</label>
+                                        <!-- Hiển thị ảnh hiện tại hoặc ảnh mặc định nếu không có ảnh -->
+                                        <div class="profile-image-container">
+                                            <img id="profileImagePreview" src="{{ asset('assets/images/' . $user->image) }}" alt="My Profile">
                                         </div>
-                                        <p class="mb-0 mt-2">
-                                            *tối thiểu 500px x 500px
-                                        </p>
+                    
+                                        <div class="custom-file mt-4 h-auto">
+                                            <input type="file" class="custom-file-input" id="customFile" name="image">
+                                            <label class="btn btn-secondary btn-lg btn-block" for="customFile">
+                                                <span class="d-inline-block mr-1"><i class="fal fa-cloud-upload"></i></span>Tải lên hình ảnh hồ sơ
+                                            </label>
+                                        </div>
+                                        <p class="mb-0 mt-2">*tối thiểu 500px x 500px</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="card mb-6">
-                            <div class="card-body px-6 pt-6 pb-5">
-                                <h3 class="card-title mb-0 text-heading fs-22 lh-15">Thông Tin Liên Hệ</h3>
-                                <p class="card-text">Khách hàng rất quan trọng, khách hàng sẽ được khách hàng theo dõi
-                                </p>
-                                <div class="form-row mx-n4">
-                                    <div class="form-group col-md-6 px-4">
-                                        <label for="firstName" class="text-heading">Tên</label>
-                                        <input type="text" class="form-control form-control-lg border-0" id="firstName"
-                                            name="firsName">
-                                    </div>
-                                    <div class="form-group col-md-6 px-4">
-                                        <label for="lastName" class="text-heading">Họ</label>
-                                        <input type="text" class="form-control form-control-lg border-0" id="lastName"
-                                            name="lastname">
-                                    </div>
-                                </div>
-                                <div class="form-row mx-n4">
-                                    <div class="form-group col-md-6 px-4">
-                                        <label for="phone" class="text-heading">Số điện thoại</label>
-                                        <input type="text" class="form-control form-control-lg border-0" id="phone"
-                                            name="phone">
-                                    </div>
-                                    <div class="form-group col-md-6 px-4">
-                                        <label for="mobile" class="text-heading">Mobile</label>
-                                        <input type="text" class="form-control form-control-lg border-0" id="mobile"
-                                            name="mobile">
-                                    </div>
-                                </div>
-                                <div class="form-row mx-n4">
-                                    <div class="form-group col-md-6 px-4 mb-md-0">
-                                        <label for="email" class="text-heading">Email</label>
-                                        <input type="email" class="form-control form-control-lg border-0" id="email"
-                                            name="email">
-                                    </div>
-                                    <div class="form-group col-md-6 px-4 mb-md-0">
-                                        <label for="skype" class="text-heading">Skype</label>
-                                        <input type="text" class="form-control form-control-lg border-0" id="skype"
-                                            name="skype">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {{-- <div class="card mb-6 mb-lg-0">
-                            <div class="card-body px-6 pt-6 pb-5">
-                                <h3 class="card-title mb-0 text-heading fs-22 lh-15">Chi tiết người dùng</h3>
-                                <p class="card-text">Khách hàng rất quan trọng, khách hàng sẽ được khách hàng theo dõi
-                                </p>
-                                <div class="form-group mb-0">
-                                    <label for="title" class="text-heading">Tiêu đề / Chức vụ</label>
-                                    <input type="text" class="form-control form-control-lg border-0" id="title"
-                                        name="title">
-                                </div>
-                            </div>
-                        </div> --}}
                     </div>
+                    
+                    
+                    
                     <div class="col-lg-6">
                         <div class="card mb-6">
                             <div class="card-body px-6 pt-6 pb-5">
                                 <h3 class="card-title mb-0 text-heading fs-22 lh-15">Chi tiết người dùng</h3>
-                                <p class="card-text">Khách hàng rất quan trọng, khách hàng sẽ được khách hàng theo dõi
-                                </p>
+                                <p class="card-text">Thông tin cá nhân của bạn.</p>
+            
                                 <div class="form-group">
-                                    <label for="facebook" class="text-heading">Link Facebook</label>
-                                    <input type="url" class="form-control form-control-lg border-0" id="facebook"
-                                        name="facebook">
+                                    <label for="name" class="text-heading">Tên</label>
+                                    <input type="text" class="form-control form-control-lg border-0" id="name" name="name" value="{{ old('name', $user->name) }}">
+                                    @error('name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
+                                
                                 <div class="form-group">
-                                    <label for="pinterest" class="text-heading">Link Pinterest</label>
-                                    <input type="url" class="form-control form-control-lg border-0" id="pinterest"
-                                        name="pinterest">
+                                    <label for="email" class="text-heading">Email</label>
+                                    <input type="email" class="form-control form-control-lg border-0" id="email" name="email" value="{{ old('email', $user->email) }}">
+                                    @error('email')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
+            
                                 <div class="form-group">
-                                    <label for="instagram" class="text-heading">Link Instagram</label>
-                                    <input type="url" class="form-control form-control-lg border-0" id="instagram"
-                                        name="instagram">
+                                    <label for="phone" class="text-heading">Số điện thoại</label>
+                                    <input type="text" class="form-control form-control-lg border-0" id="phone" name="phone" value="{{ old('phone', $user->phone) }}">
+                                    @error('phone')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
+            
                                 <div class="form-group">
-                                    <label for="twitter" class="text-heading">Link Twitter</label>
-                                    <input type="url" class="form-control form-control-lg border-0" id="twitter"
-                                        name="twitter">
+                                    <label for="address" class="text-heading">Địa chỉ</label>
+                                    <input type="text" class="form-control form-control-lg border-0" id="address" name="address" value="{{ old('address', $user->address) }}">
+                                    @error('address')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                <div class="form-group">
-                                    <label for="linkedin" class="text-heading">Link Linkedin</label>
-                                    <input type="url" class="form-control form-control-lg border-0" id="linkedin"
-                                        name="linkedin">
-                                </div>
-                                <div class="form-group mb-7">
-                                    <label for="website" class="text-heading">Link Website<span
-                                            class="text-muted">(Không có
-                                            http)</span>
-                                    </label>
-                                    <input type="url" class="form-control form-control-lg border-0" id="website"
-                                        name="website">
+            
+                                <div class="d-flex justify-content-end flex-wrap">
+                                    <button class="btn btn-lg btn-danger mb-3" type="button">Xóa tài khoản</button>
+                                    <button class="btn btn-lg btn-primary ml-4 mb-3" type="submit">Cập nhật tài khoản</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="card mb-6 mb-lg-0">
-                            <div class="card-body px-6 pt-6 pb-5">
-                                <h3 class="card-title mb-0 text-heading fs-22 lh-15">Chi tiết người dùng</h3>
-                                <p class="card-text">Khách hàng rất quan trọng, khách hàng sẽ được khách hàng theo dõi
-                                </p>
-                                <div class="form-group mb-0">
-                                    <label for="title" class="text-heading">Tiêu đề / Chức vụ</label>
-                                    <input type="text" class="form-control form-control-lg border-0" id="title"
-                                        name="title">
-                                </div>
-                            </div>
-                        </div>
-                        {{-- <div class="card">
-                            <div class="card-body px-6 pt-6 pb-5">
-                                <h3 class="card-title mb-0 text-heading fs-22 lh-15">Change password</h3>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                                </p>
-                                <div class="form-group">
-                                    <label for="oldPassword" class="text-heading">Old Password</label>
-                                    <input type="password" class="form-control form-control-lg border-0" id="oldPassword"
-                                        name="oldPassword">
-                                </div>
-                                <div class="form-row mx-n4">
-                                    <div class="form-group col-md-6 col-lg-12 col-xxl-6 px-4">
-                                        <label for="newPassword" class="text-heading">New Password</label>
-                                        <input type="password" class="form-control form-control-lg border-0"
-                                            id="newPassword" name="newPassword">
-                                    </div>
-                                    <div class="form-group col-md-6 col-lg-12 col-xxl-6 px-4">
-                                        <label for="confirmNewPassword" class="text-heading">Confirm New
-                                            Password</label>
-                                        <input type="password" class="form-control form-control-lg border-0"
-                                            id="confirmNewPassword" name="confirmNewPassword">
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
-                <div class="d-flex justify-content-end flex-wrap">
-                    <button class="btn btn-lg bg-hover-white border rounded-lg mb-3">Xóa tài khoản</button>
-                    <button class="btn btn-lg btn-primary ml-4 mb-3">Cập nhật tài khoản</button>
-                </div>
             </form>
+            
         </div>
     </main>
 @endsection
@@ -224,6 +137,7 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <link rel="stylesheet" href="{{ asset('assets/css/mh.css') }}">
 @endpush
 @push('scriptOwners')
     <!-- Vendors scripts -->
@@ -243,7 +157,15 @@
     <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Theme scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/js/theme.js') }}"></script>
+    
+    <script src="{{ asset('assets/js/load-file.js') }}"></script>
+    <script>
+        window.successMessage = "{{ session('success') }}";
+    </script>
+    <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
+      
     <div class="modal fade login-register login-register-modal" id="login-register-modal" tabindex="-1" role="dialog"
         aria-labelledby="login-register-modal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
