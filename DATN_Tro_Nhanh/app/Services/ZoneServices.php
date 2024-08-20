@@ -102,24 +102,24 @@ class ZoneServices
     }
 
     // Phương thức để cập nhật khu trọ
-    public function update($request, $id)
-    {
-        // Tìm khu trọ theo ID
-        $zone = Zone::find($id);
+    // public function update($request, $id)
+    // {
+    //     // Tìm khu trọ theo ID
+    //     $zone = Zone::find($id);
         
-        // Nếu khu trọ tồn tại, thực hiện cập nhật và kích hoạt sự kiện
-        if ($zone) {
-            $zone->update($request->all());
+    //     // Nếu khu trọ tồn tại, thực hiện cập nhật và kích hoạt sự kiện
+    //     if ($zone) {
+    //         $zone->update($request->all());
 
-            // Kích hoạt sự kiện
-            event(new ZoneUpdated($zone));
+    //         // Kích hoạt sự kiện
+    //         event(new ZoneUpdated($zone));
            
-            return true;
-        }
+    //         return true;
+    //     }
 
-        // Trả về false nếu không tìm thấy khu trọ
-        return false;
-    }
+    //     // Trả về false nếu không tìm thấy khu trọ
+    //     return false;
+    // }
     public function getIdZone($slug){
         $zone = Zone::where('slug', $slug)->first();
         return $zone;
