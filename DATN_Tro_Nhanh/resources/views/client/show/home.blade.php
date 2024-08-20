@@ -649,35 +649,20 @@
 
                 @foreach ($rooms as $room)
                 <div class="box pb-7 pt-2">
-                    <div class="card shadow-hover-2" data-animate="zoomIn">
-                        <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
+                    <div class="card shadow-hover-2 h-100" data-animate="zoomIn">
+                        <!-- Card image -->
+                        <div class="hover-change-image bg-hover-overlay rounded-lg">
                             @if ($room->images->isNotEmpty())
                                 @php
                                     $image = $room->images->first();
                                 @endphp
-                                <img src="{{ asset('assets/images/' . $image->filename) }}" alt="{{ $room->title }}">
+                                <img src="{{ asset('assets/images/' . $image->filename) }}" alt="{{ $room->title }}" class="card-img-top img-fluid" style="object-fit: cover; height: 200px;">
                             @else
-                                <img src="{{ asset('assets/images/properties-grid-01.jpg') }}" alt="{{ $room->title }}">
+                                <img src="{{ asset('assets/images/properties-grid-01.jpg') }}" alt="{{ $room->title }}" class="card-img-top img-fluid" style="object-fit: cover; height: 200px;">
                             @endif
-                            <div class="card-img-overlay p-2 d-flex flex-column">
-                                <div>
-                                    <span class="badge mr-2 badge-orange">nổi bật</span>
-                                    <span class="badge mr-2 badge-primary">để bán</span>
-                                </div>
-                                <ul class="list-inline mb-0 mt-auto hover-image">
-                                    <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Hình ảnh">
-                                        <a href="#" class="text-white hover-primary">
-                                            <i class="far fa-images"></i><span class="pl-1">9</span>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
-                                        <a href="#" class="text-white hover-primary">
-                                            <i class="far fa-play-circle"></i><span class="pl-1">2</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
+                
+                        <!-- Card body -->
                         <div class="card-body pt-3">
                             <h2 class="card-title fs-16 lh-2 mb-0">
                                 <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}" class="text-dark hover-primary">{{ $room->title }}</a>
@@ -688,19 +673,19 @@
                                     <svg class="icon icon-bedroom fs-18 text-primary mr-1">
                                         <use xlink:href="#icon-bedroom"></use>
                                     </svg>
-                                    3 Phòng
+                                    3 Phòng ngủ
                                 </li>
                                 <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5" data-toggle="tooltip" title="3 Phòng tắm">
                                     <svg class="icon icon-shower fs-18 text-primary mr-1">
                                         <use xlink:href="#icon-shower"></use>
                                     </svg>
-                                    3 Phòng
+                                    3 Phòng tắm
                                 </li>
                                 <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5" data-toggle="tooltip" title="Diện tích">
                                     <svg class="icon icon-square fs-18 text-primary mr-1">
                                         <use xlink:href="#icon-square"></use>
                                     </svg>
-                                    200m
+                                    200m²
                                 </li>
                                 <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5" data-toggle="tooltip" title="1 Gara">
                                     <svg class="icon icon-Garage fs-18 text-primary mr-1">
@@ -710,8 +695,10 @@
                                 </li>
                             </ul>
                         </div>
+                
+                        <!-- Card footer -->
                         <div class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
-                            <p class="fs-17 font-weight-bold text-heading mb-0">{{ $room->price }}VND</p>
+                            <p class="fs-17 font-weight-bold text-heading mb-0">{{ number_format($room->price, 0, ',', '.') }} VND</p>
                             <ul class="list-inline mb-0">
                                 <li class="list-inline-item">
                                     <a href="{{ route('client.add.favourite', ['slug' => $room->slug]) }}"
@@ -720,7 +707,6 @@
                                         <i class="fas fa-heart"></i>
                                     </a>
                                 </li>
-                                
                                 <li class="list-inline-item">
                                     <a href="#" class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent" data-toggle="tooltip" title="So sánh">
                                         <i class="fas fa-exchange-alt"></i>
@@ -730,13 +716,9 @@
                         </div>
                     </div>
                 </div>
+                
             @endforeach
             
-            
-            
-
-
-
                 </div>
             </div>
         </section>

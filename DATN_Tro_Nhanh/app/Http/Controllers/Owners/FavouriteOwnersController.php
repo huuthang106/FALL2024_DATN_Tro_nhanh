@@ -29,9 +29,7 @@ class FavouriteOwnersController  extends Controller
     
     {
         
-        $favourites = $this->favouritesService->getAllFavorites(); // Sử dụng service để lấy dữ liệu
-        // dd($favourites);
-        // Trả về view với dữ liệu favourites
+        $favourites = $this->favouritesService->getAllFavorites();
         return view('owners.show.dashboard-my-favorites', compact('favourites'));
     }
    // FavouriteController.php
@@ -39,7 +37,7 @@ class FavouriteOwnersController  extends Controller
    {
        // Kiểm tra nếu người dùng chưa đăng nhập
        if (!$request->user()) {
-           return response()->json(['success' => false, 'message' => 'User not authenticated']);
+           return redirect()->back()->with('error', 'User not authenticated');
        }
    
        $userId = $request->user()->id;
@@ -48,11 +46,12 @@ class FavouriteOwnersController  extends Controller
        $result = $this->favouritesService->removeFavouriteById($id, $userId);
    
        if ($result) {
-           return response()->json(['success' => true, 'message' => 'Removed from favourites']);
+           return redirect()->back()->with('success', 'Removed from favourites');
        } else {
-           return response()->json(['success' => false, 'message' => 'Failed to remove from favourites']);
+           return redirect()->back()->with('error', 'Failed to remove from favourites');
        }
    }
+   
    
 
     // public function destroyBySlug($slug)

@@ -201,16 +201,15 @@
                                 <ul class="list-inline mb-0">
                                     <li class="list-inline-item">
                                         <!-- View -->
-                                        <form action="{{ route('owners.favourites.remove', ['id' => $favourite->id]) }}"
-                                            method="POST" style="display:inline;">
+                                        <form action="{{ route('owners.favourites.remove', ['id' => $favourite->id]) }}" method="GET" style="display:inline;">
                                             @csrf
-                                            @method('POST') <!-- hoặc @method('DELETE') nếu bạn muốn sử dụng DELETE -->
-                                            <button type="submit"
-                                                class="delete-btn w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-secondary bg-accent border-accent"
-                                                data-toggle="tooltip" title="Xóa">
+                                            @method('GET') <!-- Phương thức DELETE được Laravel xử lý thông qua form -->
+                                            <button type="submit" class="delete-btn w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-secondary bg-accent border-accent" data-toggle="tooltip" title="Xóa">
                                                 <i class="fa-solid fa-delete-left"></i>
                                             </button>
                                         </form>
+                                        
+                                        
 
                                     </li>
                                     >
@@ -228,8 +227,10 @@
                     </div>
                 @endforeach
             </div>
-
-
+            
+            <nav class="mt-4">
+                {{ $favourites->links() }}
+            </nav>
 
 
 
