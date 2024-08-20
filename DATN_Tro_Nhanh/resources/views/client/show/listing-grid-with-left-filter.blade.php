@@ -397,25 +397,26 @@
                             </div>
                         </div>
                         <div class="row">
-                            @foreach ($rooms as $room)
-                               
-
+                            @if ($rooms->isNotEmpty())
+                                @foreach ($rooms as $room)
                                     <div class="col-md-6 mb-6">
-                                  
                                         <div class="card border-0" data-animate="fadeInUp">
-                                            <div class="position-relative hover-change-image bg-hover-overlay rounded-lg card-img">
+                                            <div
+                                                class="position-relative hover-change-image bg-hover-overlay rounded-lg card-img">
                                                 @if ($room->images->isNotEmpty())
                                                     @php
                                                         // Get the first image
                                                         $image = $room->images->first();
                                                     @endphp
-                                                          <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">     
-                                                    <img src="{{ asset('assets/images/' . $image->filename) }}"
-                                                        alt="{{ $room->title }}"> </a>
+                                                    <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
+                                                        <img src="{{ asset('assets/images/' . $image->filename) }}"
+                                                            alt="{{ $room->title }}">
+                                                    </a>
                                                 @else
-                                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">     
-                                                    <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                                        alt="{{ $room->title }}"> </a>
+                                                    <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
+                                                        <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                                            alt="{{ $room->title }}">
+                                                    </a>
                                                 @endif
                                                 <div class="card-img-overlay d-flex flex-column">
                                                     <div><span class="badge badge-primary">Cần Bán</span></div>
@@ -454,18 +455,20 @@
                                                 </div>
                                             </div>
                                             <div class="card-body pt-3 px-0 pb-1">
-                                                <h2 class="fs-16 mb-1"><a
-                                                        href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
-                                                        class="text-dark hover-primary">{{ $room->title }}</a>
+                                                <h2 class="fs-16 mb-1">
+                                                    <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
+                                                        class="text-dark hover-primary">
+                                                        {{ $room->title }}
+                                                    </a>
                                                 </h2>
-                                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"> 
-                                                <p class="font-weight-500 text-gray-light mb-0">{{ $room->address }}
-                                                </p>
+                                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
+                                                    <p class="font-weight-500 text-gray-light mb-0">{{ $room->address }}
+                                                    </p>
                                                 </a>
-                                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"> 
-                                                <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                    {{ $room->price }}VND
-                                                </p>
+                                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
+                                                    <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">
+                                                        {{ $room->price }} VND
+                                                    </p>
                                                 </a>
                                             </div>
                                             <div class="card-footer bg-transparent px-0 pb-0 pt-2">
@@ -489,61 +492,69 @@
                                                         <svg class="icon icon-square fs-18 text-primary mr-1">
                                                             <use xlink:href="#icon-square"></use>
                                                         </svg>
-                                                        200 m
+                                                        200 m²
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
-                                  
-
                                     </div>
-                           
-                            @endforeach
+                                @endforeach
+                            @else
+                                <div class="col-12">
+                                    <p class="text-center">Không có dữ liệu.</p>
+                                </div>
+                            @endif
+
                         </div>
-                        <nav class="pt-4">
-                            <ul class="pagination rounded-active justify-content-center">
-                                {{-- Trang trước --}}
-                                <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
-                                    <a class="page-link" href="{{ $rooms->previousPageUrl() }}"><i
-                                            class="far fa-angle-double-left"></i></a>
-                                </li>
-
-                                {{-- Trang đầu tiên --}}
-                                @if ($rooms->currentPage() > 2)
-                                    <li class="page-item"><a class="page-link" href="{{ $rooms->url(1) }}">1</a></li>
-                                @endif
-
-                                {{-- Dấu ba chấm ở đầu nếu cần --}}
-                                @if ($rooms->currentPage() > 3)
-                                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                                @endif
-
-                                {{-- Hiển thị các trang xung quanh trang hiện tại --}}
-                                @for ($i = max(1, $rooms->currentPage() - 1); $i <= min($rooms->currentPage() + 1, $rooms->lastPage()); $i++)
-                                    <li class="page-item {{ $rooms->currentPage() == $i ? 'active' : '' }}">
-                                        <a class="page-link" href="{{ $rooms->url($i) }}">{{ $i }}</a>
+                        @if ($rooms->hasPages())
+                            <nav class="pt-4">
+                                <ul class="pagination rounded-active justify-content-center">
+                                    {{-- Trang trước --}}
+                                    <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
+                                        <a class="page-link" href="{{ $rooms->previousPageUrl() }}"><i
+                                                class="far fa-angle-double-left"></i></a>
                                     </li>
-                                @endfor
 
-                                {{-- Dấu ba chấm ở cuối nếu cần --}}
-                                @if ($rooms->currentPage() < $rooms->lastPage() - 2)
-                                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                                @endif
+                                    {{-- Trang đầu tiên --}}
+                                    @if ($rooms->currentPage() > 2)
+                                        <li class="page-item"><a class="page-link" href="{{ $rooms->url(1) }}">1</a>
+                                        </li>
+                                    @endif
 
-                                {{-- Trang cuối cùng --}}
-                                @if ($rooms->currentPage() < $rooms->lastPage() - 1)
-                                    <li class="page-item"><a class="page-link"
-                                            href="{{ $rooms->url($rooms->lastPage()) }}">{{ $rooms->lastPage() }}</a>
+                                    {{-- Dấu ba chấm ở đầu nếu cần --}}
+                                    @if ($rooms->currentPage() > 3)
+                                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                                    @endif
+
+                                    {{-- Hiển thị các trang xung quanh trang hiện tại --}}
+                                    @for ($i = max(1, $rooms->currentPage() - 1); $i <= min($rooms->currentPage() + 1, $rooms->lastPage()); $i++)
+                                        <li class="page-item {{ $rooms->currentPage() == $i ? 'active' : '' }}">
+                                            <a class="page-link" href="{{ $rooms->url($i) }}">{{ $i }}</a>
+                                        </li>
+                                    @endfor
+
+                                    {{-- Dấu ba chấm ở cuối nếu cần --}}
+                                    @if ($rooms->currentPage() < $rooms->lastPage() - 2)
+                                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                                    @endif
+
+                                    {{-- Trang cuối cùng --}}
+                                    @if ($rooms->currentPage() < $rooms->lastPage() - 1)
+                                        <li class="page-item"><a class="page-link"
+                                                href="{{ $rooms->url($rooms->lastPage()) }}">{{ $rooms->lastPage() }}</a>
+                                        </li>
+                                    @endif
+
+                                    {{-- Trang tiếp theo --}}
+                                    <li
+                                        class="page-item {{ $rooms->currentPage() == $rooms->lastPage() ? 'disabled' : '' }}">
+                                        <a class="page-link" href="{{ $rooms->nextPageUrl() }}"><i
+                                                class="far fa-angle-double-right"></i></a>
                                     </li>
-                                @endif
+                                </ul>
+                            </nav>
+                        @endif
 
-                                {{-- Trang tiếp theo --}}
-                                <li class="page-item {{ $rooms->currentPage() == $rooms->lastPage() ? 'disabled' : '' }}">
-                                    <a class="page-link" href="{{ $rooms->nextPageUrl() }}"><i
-                                            class="far fa-angle-double-right"></i></a>
-                                </li>
-                            </ul>
-                        </nav>
                     </div>
                 </div>
             </div>

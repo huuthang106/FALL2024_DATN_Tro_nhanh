@@ -7,11 +7,13 @@ use App\Models\Image;
 class RoomClientServices
 {
     // viết các hàm lấy giá trị của bản đó 
+    private const status = 1;
     public function getAllRoom(int $perPage = 1)
     {
         try {
             // Lấy tất cả các blog từ cơ sở dữ liệu và phân trang
-            $rooms = Room::where('status', 1)->paginate($perPage);
+            $rooms = Room::where('status', self::status)->paginate($perPage);
+            return $rooms;
         } catch (\Exception $e) {
             // Xử lý lỗi nếu có
             return null;
