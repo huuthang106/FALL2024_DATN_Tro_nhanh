@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Services;
-// 1 file là 1 model 
+
 use App\Models\Room;
-use App\Models\Image;
+use App\Models\Favourite;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 class RoomClientServices
 {
     // viết các hàm lấy giá trị của bản đó 
@@ -19,15 +22,54 @@ class RoomClientServices
             return null;
         }
     }
+
+    // Lấy 5 phòng mới nhất
     public function getRoomWhere()
     {
-        $rooms = Room::orderBy('created_at', 'desc')->take(5)->get();
-        return $rooms;
+        try {
+            $rooms = Room::orderBy('created_at', 'desc')->take(5)->get();
+            return $rooms;
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 
+    // Lấy phòng theo slug
     public function getSlugRoom($slug)
     {
-        $rooms = Room::where('Slug', $slug)->first();
-        return $rooms;
+        try {
+            $room = Room::where('slug', $slug)->first();
+            return $room;
+        } catch (\Exception $e) {
+            return null;
+        }
     }
+
+    // Thêm phòng vào danh sách yêu thích
+    public function addFavourite($userId, $roomId)
+{
+    // Kiểm tra xem phòng đã có trong danh sách yêu thích chưa
+    $existingFavourite = Favourite::where('user_id', $userId)
+                                   ->where('room_id', $roomId)
+                                   ->first();
+
+    if ($existingFavourite) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Phòng này đã có trong danh sách yêu thích'
+        ]);
+    }
+
+    // Thêm mới vào danh sách yêu thích
+    Favourite::create([
+        'user_id' => $userId,
+        'room_id' => $roomId,
+    ]);
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Thêm vào danh sách yêu thích thành công'
+    ]);
+}
+
 }

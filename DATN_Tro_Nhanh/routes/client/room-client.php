@@ -15,6 +15,10 @@ Route::group(['prefix' => 'danh-sach-phong-tro'], function () {
 
 Route::group(['prefix' => ''], function () {
     Route::get('/xem-chi-tiet/{slug}', [RoomClientController::class, 'page_detail'])->name('detail-room');
+// routes/web.php
+// Đảm bảo rằng route có tên đúng và chấp nhận slug
+Route::get('/add-favourite/{slug}', [RoomClientController::class, 'addFavourite'])->name('add.favourite');
+
 
 });
 use App\Http\Controllers\Client\HomeClientController;

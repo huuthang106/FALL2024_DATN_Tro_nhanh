@@ -34,6 +34,7 @@ class FavouriteOwnersController  extends Controller
         // Trả về view với dữ liệu favourites
         return view('owners.show.dashboard-my-favorites', compact('favourites'));
     }
+   
     // public function destroyBySlug($slug)
     // {
     //     $result = $this->favouritesService->deleteBySlug($slug);
@@ -45,5 +46,6 @@ class FavouriteOwnersController  extends Controller
     //         return redirect()->back()->with('error', $result['message']);
     //     }
     // }
+
   
 }

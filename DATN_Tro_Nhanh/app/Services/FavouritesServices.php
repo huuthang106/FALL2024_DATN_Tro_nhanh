@@ -25,6 +25,8 @@ class FavouritesServices
             // dd($favourites); // Kiểm tra dữ liệu trả về
         return $favourites;
     }
+   
+}
     // public function deleteBySlug($slug)
     // {
     //     try {
@@ -56,4 +58,4 @@ class FavouritesServices
     //         ];
     //     }
     // }
-}
+
