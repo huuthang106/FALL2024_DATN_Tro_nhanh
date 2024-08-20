@@ -18,132 +18,43 @@
                 <h4 class="mb-2 fs-22 lh-15 text-heading">Chọn gói phù hợp với doanh nghiệp của bạn</h4>
                 <p class="mb-6 pb-1">Xem Thêm</p>
                 <div class="row">
-                    <div class="col-xl-3 col-sm-6 mb-6">
-                        <div class="card bg-gray-01 border-0 p-4 overflow-hidden">
-                            <div class="card-header bg-transparent p-0">
-                                <p class="fs-15 font-weight-bold text-heading mb-0">Gói <span class="font-weight-500">Miễn
-                                        Phí</span></p>
-                                <p class="fs-32 font-weight-bold text-heading lh-15 mb-1">Miễn Phí</p>
-                            </div>
-                            <div class="card-body p-0">
-                                <ul class="list-unstyled pt-2 mb-2">
-                                    <li class="d-flex justify-content-between">
-                                        <p class="text-gray-light mb-0">Hạn Sử Dụng</p>
-                                        <p class="font-weight-500 text-heading mb-0">10 ngày</p>
-                                    </li>
-                                    <li class="d-flex justify-content-between">
-                                        <p class="text-gray-light mb-0">Danh sách Bất Động Sản</p>
-                                        <p class="font-weight-500 text-heading mb-0">10</p>
-                                    </li>
-                                    <li class="d-flex justify-content-between">
-                                        <p class="text-gray-light mb-0">Danh Sách</p>
-                                        <p class="font-weight-500 text-heading mb-0">5</p>
-                                    </li>
-                                </ul>
-                                <a href="#"
-                                    class="btn btn-primary btn-block h-52 pl-4 pr-3 d-flex justify-content-between align-items-center">Chọn
-                                    gói này
-                                    <i class="far fa-arrow-right ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-sm-6 mb-6">
-                        <div class="card bg-gray-01 border-0 p-4 overflow-hidden">
-                            <div class="card-header bg-transparent p-0">
-                                <p class="fs-15 font-weight-bold text-heading mb-0">Gói <span class="font-weight-500">Tiêu
-                                        Chuẩn</span></p>
-                                <p class="fs-32 font-weight-bold text-heading lh-15 mb-1">$30</p>
-                            </div>
-                            <div class="card-body p-0">
-                                <ul class="list-unstyled pt-2 mb-2">
-                                    <li class="d-flex justify-content-between">
-                                        <p class="text-gray-light mb-0">Hạn Sử Dụng</p>
-                                        <p class="font-weight-500 text-heading mb-0">03 tháng</p>
-                                    </li>
-                                    <li class="d-flex justify-content-between">
-                                        <p class="text-gray-light mb-0">Danh sách Bất Động Sản</p>
-                                        <p class="font-weight-500 text-heading mb-0">20</p>
-                                    </li>
-                                    <li class="d-flex justify-content-between">
-                                        <p class="text-gray-light mb-0">Danh Sách</p>
-                                        <p class="font-weight-500 text-heading mb-0">10</p>
-                                    </li>
-                                </ul>
-                                <a href="#"
-                                    class="btn btn-primary btn-block h-52 pl-4 pr-3 d-flex justify-content-between align-items-center">Chọn
-                                    gói này
-                                    <i class="far fa-arrow-right ml-1"></i>
-                                </a>
+                    @foreach ($priceLists as $priceList)
+                        <div class="col-xl-3 col-sm-6 mb-6">
+                            <div class="card bg-gray-01 border-0 p-4 overflow-hidden d-flex flex-column">
+                                <div class="card-header bg-transparent p-0">
+                                    <p class="fs-15 font-weight-bold text-heading mb-0">Gói <span class="font-weight-500">{{ $priceList->name }}</span></p>
+                                    <p class="fs-32 font-weight-bold text-heading lh-15 mb-1">{{ number_format($priceList->price, 0, ',', '.') }} VND</p>
+                                    <span class="fs-13 font-weight-500 text-white text-uppercase custom-packages">
+                                        {{ $priceList->location->name }}
+                                    </span>
+                                </div>
+                                <div class="card-body p-0 flex-grow-1">
+                                    <ul class="list-unstyled pt-2 mb-2">
+                                        <li class="d-flex justify-content-between">
+                                            <p class="text-gray-light mb-0">Hạn Sử Dụng</p>
+                                            <p class="font-weight-500 text-heading mb-0">{{ $priceList->duration_day }} ngày</p>
+                                        </li>
+                                        <li class="d-flex justify-content-between">
+                                            <p class="text-gray-light mb-0">Loại</p>
+                                            <p class="font-weight-500 text-heading mb-0">{{ $priceList->location->name }}</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer p-0 mt-auto d-flex justify-content-center">
+                                    <a href="{{ route('admin.cap-nhat-bang-gia', $priceList->id) }}" class="btn btn-primary btn-block d-flex justify-content-between align-items-center">
+                                        Chọn gói này
+                                        <i class="far fa-arrow-right ml-1"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-3 col-sm-6 mb-6">
-                        <div class="card bg-gray-01 border-0 p-4 overflow-hidden">
-                            <div class="card-header bg-transparent p-0">
-                                <p class="fs-15 font-weight-bold text-heading mb-0">Gói <span class="font-weight-500">Cao
-                                        Cấp</span></p>
-                                <p class="fs-32 font-weight-bold text-heading lh-15 mb-1">$80</p>
-                                <span class="fs-13 font-weight-500 text-white text-uppercase custom-packages">Phổ
-                                    Biến</span>
-                            </div>
-                            <div class="card-body p-0">
-                                <ul class="list-unstyled pt-2 mb-2">
-                                    <li class="d-flex justify-content-between">
-                                        <p class="text-gray-light mb-0">Hạn Sử Dụng</p>
-                                        <p class="font-weight-500 text-heading mb-0">01 năm</p>
-                                    </li>
-                                    <li class="d-flex justify-content-between">
-                                        <p class="text-gray-light mb-0">Danh sách Bất Động Sản</p>
-                                        <p class="font-weight-500 text-heading mb-0">100</p>
-                                    </li>
-                                    <li class="d-flex justify-content-between">
-                                        <p class="text-gray-light mb-0">Danh Sách</p>
-                                        <p class="font-weight-500 text-heading mb-0">50</p>
-                                    </li>
-                                </ul>
-                                <a href="#"
-                                    class="btn btn-primary btn-block h-52 pl-4 pr-3 d-flex justify-content-between align-items-center">Chọn
-                                    gói này
-                                    <i class="far fa-arrow-right ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-sm-6 mb-6">
-                        <div class="card bg-gray-01 border-0 p-4 overflow-hidden">
-                            <div class="card-header bg-transparent p-0">
-                                <p class="fs-15 font-weight-bold text-heading mb-0">Gói <span class="font-weight-500">Cao
-                                        Cấp</span></p>
-                                <p class="fs-32 font-weight-bold text-heading lh-15 mb-1">$80</p>
-                                <span class="fs-13 font-weight-500 text-white text-uppercase custom-packages">Phổ
-                                    Biến</span>
-                            </div>
-                            <div class="card-body p-0">
-                                <ul class="list-unstyled pt-2 mb-2">
-                                    <li class="d-flex justify-content-between">
-                                        <p class="text-gray-light mb-0">Hạn Sử Dụng</p>
-                                        <p class="font-weight-500 text-heading mb-0">01 năm</p>
-                                    </li>
-                                    <li class="d-flex justify-content-between">
-                                        <p class="text-gray-light mb-0">Danh sách Bất Động Sản</p>
-                                        <p class="font-weight-500 text-heading mb-0">100</p>
-                                    </li>
-                                    <li class="d-flex justify-content-between">
-                                        <p class="text-gray-light mb-0">Danh Sách</p>
-                                        <p class="font-weight-500 text-heading mb-0">50</p>
-                                    </li>
-                                </ul>
-                                <a href="#"
-                                    class="btn btn-primary btn-block h-52 pl-4 pr-3 d-flex justify-content-between align-items-center">Chọn
-                                    gói này
-                                    <i class="far fa-arrow-right ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
+            
+            
+            
+            
         </section>
     </main>
 
@@ -191,6 +102,9 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <link rel="stylesheet" href="{{ asset('assets/css/mh.css') }}">
+        
+        
 @endpush
 
 @push('scriptUs')
