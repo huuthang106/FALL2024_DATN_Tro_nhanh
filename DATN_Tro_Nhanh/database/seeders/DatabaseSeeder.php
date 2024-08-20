@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\Blog;
+use App\Models\Favourite;
 use App\Models\RoomType;
 use App\Models\Acreage;
 use App\Models\Price;
@@ -28,7 +29,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory(10)->create();
-
+        Favourite::factory(10)->create();
 
 
         $faker = Faker::create();

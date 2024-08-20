@@ -19,4 +19,8 @@ class Image extends Model
     {
         return $this->belongsTo(Blog::class);
     }
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
 }

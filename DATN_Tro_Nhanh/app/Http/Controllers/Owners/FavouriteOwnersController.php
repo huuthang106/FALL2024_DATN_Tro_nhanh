@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Http\Controllers\Owners;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Services\FavouritesServices;
+use App\Services\BlogServices;
+use Illuminate\Support\Facades\Log;
+use App\Models\Blog; // Import lớp Blog
+use App\Models\Image; // Import lớp Image
+use App\Events\BlogCreated;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CreateBlogRequest;
+use App\Services\NotificationService;
+
+class FavouriteOwnersController  extends Controller
+{
+    protected $favouritesService;
+
+    // Constructor để khởi tạo service
+    public function __construct(FavouritesServices $favouritesService)
+    {
+        $this->favouritesService = $favouritesService;
+    }
+
+    // Phương thức index để hiển thị danh sách các favourites
+    public function index()
+    
+    {
+        
+        $favourites = $this->favouritesService->getAllFavorites(); // Sử dụng service để lấy dữ liệu
+        // dd($favourites);
+        // Trả về view với dữ liệu favourites
+        return view('owners.show.dashboard-my-favorites', compact('favourites'));
+    }
+    // public function destroyBySlug($slug)
+    // {
+    //     $result = $this->favouritesService->deleteBySlug($slug);
+
+    //     // Xử lý thông báo thành công hoặc lỗi
+    //     if ($result['success']) {
+    //         return redirect()->back()->with('success', $result['message']);
+    //     } else {
+    //         return redirect()->back()->with('error', $result['message']);
+    //     }
+    // }
+  
+}

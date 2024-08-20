@@ -83,6 +83,6 @@ class Room extends Model
 
     public function images()
     {
-        return $this->hasMany(Image::class);
+        return $this->hasMany(Image::class, 'room_id');
     }
 }
