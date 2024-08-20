@@ -1394,12 +1394,12 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Vị trí tin</span>
+                        <span class="menu-title">Gói tin</span>
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link" href="">
+                            <a class="menu-link" href="{{ route('admin.show-location') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1407,11 +1407,11 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.add-room-show') }}">
+                            <a class="menu-link" href="{{ route('admin.add-location-show') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Thêm vị trí</span>
+                                <span class="menu-title">Thêm gói tin</span>
                             </a>
                         </div>
                         <div class="menu-item">

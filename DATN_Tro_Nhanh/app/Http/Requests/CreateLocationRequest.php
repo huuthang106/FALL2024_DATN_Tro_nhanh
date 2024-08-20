@@ -3,7 +3,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateAcreageRequest extends FormRequest
+class CreateLocationRequest extends FormRequest
 {
     public function authorize()
     {
@@ -13,8 +13,16 @@ class CreateAcreageRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'min_size' => 'required|numeric', // Thay đổi từ string thành numeric
-            'max_size' => 'required|numeric', // Thay đổi từ string thành numeric
+            'end_date' => [
+                'required',
+                'date_format:Y-m-d',
+                function ($attribute, $value, $fail) {
+                    $currentDate = now()->format('Y-m-d');
+                    if ($value <= $currentDate) {
+                        $fail('Ngày hết hạn phải lớn hơn ngày hiện tại.');
+                    }
+                },
+            ],
             'status' => 'required',
         ];
     }
@@ -22,13 +30,10 @@ class CreateAcreageRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Vui lòng nhập tên diện tích.',
+            'name.required' => 'Vui lòng nhập tên gói tin.',
             'name.string' => 'Tên phải là một chuỗi văn bản.',
             'name.max' => 'Tên không được vượt quá 255 ký tự.',
-            'min_size.required' => 'Vui lòng nhập kích thước tối thiểu.',
-            'min_size.numeric' => 'Kích thước tối thiểu phải là một số.',
-            'max_size.required' => 'Vui lòng nhập kích thước tối đa.',
-            'max_size.numeric' => 'Kích thước tối đa phải là một số.',
+            'end_date.required' => 'Vui lòng nhập ngày kết thúc.',
             'status.required' => 'Vui lòng chọn trạng thái.',
         ];
     }

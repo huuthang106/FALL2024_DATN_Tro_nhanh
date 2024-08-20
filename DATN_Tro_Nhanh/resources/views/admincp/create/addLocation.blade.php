@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('titleAdmin', 'Trang chủ trọ nhanh')
-@section('linkAdmin', 'Thêm diện tích')
+@section('linkAdmin', 'Thêm gói tin')
 
 @section('contentAdmin')
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -11,50 +11,34 @@
                         data-bs-target="#kt_account_profile_details" aria-expanded="true"
                         aria-controls="kt_account_profile_details">
                         <div class="card-title m-0">
-                            <h3 class="fw-bolder m-0">Thêm diện tích</h3>
+                            <h3 class="fw-bolder m-0">Thêm gói tin</h3>
                         </div>
                     </div>
                     <div id="kt_account_profile_details" class="collapse show">
-                        <form id="acreageForm" class="form" action="{{ route('admin.add-acreage') }}" method="POST">
+                        <form class="form" action="{{ route('admin.add-location') }}" method="POST">
                             @csrf
                             <div class="card-body border-top p-9">
                                 <div class="row">
                                     <div class="row mb-6">
-                                        <label class="col-lg-4 col-form-label fw-bold fs-6 required">Tiêu diện tích</label>
+                                        <label class="col-lg-4 col-form-label fw-bold fs-6 required">Tên gói tin</label>
                                         <div class="col-lg-8 fv-row">
                                             <input type="text" id="name" name="name"
                                                 class="form-control form-control-lg form-control-solid"
-                                                placeholder="Nhập tên kích thước" />
+                                                placeholder="Nhập tên gói tin" />
                                             @error('name')
                                                 <div class="text-danger mt-3">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="row mb-6">
-                                        <label class="col-lg-4 col-form-label fw-bold fs-6 required">Kích thước tối
-                                            thiểu</label>
+                                        <label class="col-lg-4 col-form-label fw-bold fs-6 required">Ngày hết hạn</label>
                                         <div class="col-lg-8 fv-row">
-                                            <input type="text" id="min_size" name="min_size"
-                                                class="form-control form-control-lg form-control-solid"
-                                                placeholder="Nhập kích thước tối thiểu" />
-                                            @error('min_size')
+                                            <input type="date" id="end_date" name="end_date"
+                                                class="form-control form-control-lg form-control-solid" placeholder="" />
+                                            @error('end_date')
                                                 <div class="text-danger mt-3">{{ $message }}</div>
                                             @enderror
                                         </div>
-
-                                    </div>
-                                    <div class="row mb-6">
-                                        <label class="col-lg-4 col-form-label fw-bold fs-6 required">Kích thước tối
-                                            đa</label>
-                                        <div class="col-lg-8 fv-row">
-                                            <input type="text" name="max_size" id="max_size"
-                                                class="form-control form-control-lg form-control-solid"
-                                                placeholder="Nhập kích thước tối đa" />
-                                            @error('max_size')
-                                                <div class="text-danger mt-3">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-
                                     </div>
                                     <div class="row mb-6">
                                         <label class="col-lg-4 col-form-label fw-bold fs-6 required">Trạng thái</label>
@@ -67,20 +51,20 @@
                                                 <div class="text-danger mt-3">{{ $message }}</div>
                                             @enderror
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-footer d-flex justify-content-end py-6 px-9">
-                                <button type="reset" class="btn btn-light btn-active-light-primary me-2">Hủy</button>
-                                <button type="submit" class="btn btn-primary">Lưu</button>
-                            </div>
-                        </form>
                     </div>
+                    <div class="card-footer d-flex justify-content-end py-6 px-9">
+                        <button type="reset" class="btn btn-light btn-active-light-primary me-2">Hủy</button>
+                        <button type="submit" class="btn btn-primary" id="success">Lưu</button>
+                    </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <!--end::Post-->
+    </div>
+    <!--end::Post-->
     </div>
     <!--end::Content-->
     <!--begin::Footer-->
