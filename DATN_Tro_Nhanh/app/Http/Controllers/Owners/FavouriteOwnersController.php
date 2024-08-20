@@ -34,7 +34,27 @@ class FavouriteOwnersController  extends Controller
         // Trả về view với dữ liệu favourites
         return view('owners.show.dashboard-my-favorites', compact('favourites'));
     }
+   // FavouriteController.php
+   public function remove(Request $request, $id)
+   {
+       // Kiểm tra nếu người dùng chưa đăng nhập
+       if (!$request->user()) {
+           return response()->json(['success' => false, 'message' => 'User not authenticated']);
+       }
    
+       $userId = $request->user()->id;
+   
+       // Xóa mục khỏi bảng favourites dựa trên ID
+       $result = $this->favouritesService->removeFavouriteById($id, $userId);
+   
+       if ($result) {
+           return response()->json(['success' => true, 'message' => 'Removed from favourites']);
+       } else {
+           return response()->json(['success' => false, 'message' => 'Failed to remove from favourites']);
+       }
+   }
+   
+
     // public function destroyBySlug($slug)
     // {
     //     $result = $this->favouritesService->deleteBySlug($slug);

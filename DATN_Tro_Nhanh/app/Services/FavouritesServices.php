@@ -22,11 +22,25 @@ class FavouritesServices
         $favourites = Favourite::with('room')
             ->where('user_id', $userId)
             ->get();
-            // dd($favourites); // Kiểm tra dữ liệu trả về
+        // dd($favourites); // Kiểm tra dữ liệu trả về
         return $favourites;
     }
-   
+   // FavouriteServices.php
+public function removeFavouriteById($id, $userId)
+{
+    // Tìm và xóa mục dựa trên ID và user_id
+    $favourite = Favourite::where('id', $id)->where('user_id', $userId)->first();
+
+    if ($favourite) {
+        $favourite->delete();
+        return true;
+    }
+
+    return false;
 }
+
+}
+
     // public function deleteBySlug($slug)
     // {
     //     try {
@@ -58,4 +72,3 @@ class FavouritesServices
     //         ];
     //     }
     // }
-
