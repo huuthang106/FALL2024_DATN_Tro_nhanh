@@ -15,10 +15,16 @@ class Blog extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function image(){
+    public function image()
+    {
         return $this->hasMany(Image::class, 'blog_id');
     }
-    public function comments(){
+    public function comments()
+    {
         return $this->hasMany(Comment::class);
+    }
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
     }
 }

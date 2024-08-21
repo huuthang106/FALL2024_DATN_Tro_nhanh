@@ -25,4 +25,9 @@ class Zone extends Model
         'slug',
         'user_id',
     ];
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
 }

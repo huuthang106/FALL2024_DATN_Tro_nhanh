@@ -85,4 +85,8 @@ class Room extends Model
     {
         return $this->hasMany(Image::class, 'room_id');
     }
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
 }

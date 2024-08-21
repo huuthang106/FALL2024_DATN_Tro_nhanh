@@ -5,42 +5,56 @@
 
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
-            <div class="d-flex flex-wrap flex-md-nowrap mb-6">
+            <form action="{{ route('owners.properties') }}" method="GET">
                 <div class="mr-0 mr-md-auto">
-                    <h2 class="mb-0 text-heading fs-22 lh-15">Bất động sản của tôi<span
-                            class="badge badge-white badge-pill text-primary fs-18 font-weight-bold ml-2">29</span>
+                    <h2 class="mb-0 text-heading fs-22 lh-15">Blog sản của tôi<span
+                            class="badge badge-white badge-pill text-primary fs-18 font-weight-bold ml-2">{{ $roomCount }}</span>
                     </h2>
-                    <p>Xem thêm</p>
                 </div>
                 <div class="form-inline justify-content-md-end mx-n2">
                     <div class="p-2">
                         <div class="input-group input-group-lg bg-white border">
                             <div class="input-group-prepend">
-                                <button class="btn pr-0 shadow-none" type="button"><i class="far fa-search"></i></button>
+                                <button class="btn pr-0 shadow-none" type="submit"><i class="far fa-search"></i></button>
                             </div>
                             <input type="text" class="form-control bg-transparent border-0 shadow-none text-body"
-                                placeholder="Tìm kiếm danh sách" name="search">
+                                placeholder="Tìm kiếm danh sách" name="search" value="{{ request()->query('search') }}">
                         </div>
                     </div>
                     <div class="p-2">
                         <div class="input-group input-group-lg bg-white border">
                             <div class="input-group-prepend">
-                                <span class="input-group-text bg-transparent letter-spacing-093 border-0 pr-0"><i
-                                        class="far fa-align-left mr-2"></i>Sắp xếp theo:</span>
+                                <span class="input-group-text bg-transparent letter-spacing-093 border-0 pr-0">
+                                    <i class="far fa-align-left mr-2"></i>Sắp xếp theo:
+                                </span>
                             </div>
                             <select class="form-control bg-transparent pl-0 selectpicker d-flex align-items-center sortby"
-                                name="sort-by" data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body"
-                                id="status">
-                                <option>Chữ cái</option>
-                                <option>Giá - Thấp đến Cao</option>
-                                <option>Giá - Cao đến Thấp</option>
-                                <option>Ngày - Cũ đến Mới</option>
-                                <option>Ngày - Mới đến Cũ</option>
+                                name="sort-by" data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
+                                <option value="name"
+                                    {{ request()->query('sort-by', 'date_new_to_old') == 'name' ? 'selected' : '' }}>
+                                    Chữ cái
+                                </option>
+                                <option value="price_low_to_high"
+                                    {{ request()->query('sort-by', 'date_new_to_old') == 'price_low_to_high' ? 'selected' : '' }}>
+                                    Giá - Thấp đến Cao
+                                </option>
+                                <option value="price_high_to_low"
+                                    {{ request()->query('sort-by', 'date_new_to_old') == 'price_high_to_low' ? 'selected' : '' }}>
+                                    Giá - Cao đến Thấp
+                                </option>
+                                <option value="date_old_to_new"
+                                    {{ request()->query('sort-by', 'date_new_to_old') == 'date_old_to_new' ? 'selected' : '' }}>
+                                    Ngày - Cũ đến Mới
+                                </option>
+                                <option value="date_new_to_old"
+                                    {{ request()->query('sort-by', 'date_new_to_old') == 'date_new_to_old' ? 'selected' : '' }}>
+                                    Ngày - Mới đến Cũ
+                                </option>
                             </select>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
             <div class="table-responsive">
                 <table class="table table-hover bg-white border rounded-lg">
                     <thead class="thead-sm thead-black">
@@ -53,199 +67,120 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="shadow-hover-xs-2 bg-hover-white">
-                            <td class="align-middle pt-6 pb-4 px-6">
-                                <div class="media">
-                                    <div class="w-120px mr-4 position-relative">
-                                        <a href="single-property-1.html">
-                                            <img src="{{ asset('assets/images/my-properties-01.jpg') }}"
-                                                alt="Nhà ở Metric Way" class="img-fluid">
-                                        </a>
-                                        <span class="badge badge-indigo position-absolute pos-fixed-top">cho thuê</span>
-                                    </div>
+                        @if ($rooms->isEmpty())
+                            <p>Bạn chưa có phòng trọ nào.</p>
+                        @else
+                            @foreach ($rooms as $room)
+                                <tr class="shadow-hover-xs-2 bg-hover-white">
+                                    <td class="align-middle pt-6 pb-4 px-6">
+                                        <div class="media">
+                                            <div class="w-120px mr-4 position-relative">
+                                                @php
+                                                    // Gọi service để lấy URL của ảnh
+                                                    $imageUrl = $roomOwnersService->getRoomImageUrl($room);
+                                                @endphp
+                                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
+                                                    <img src="{{ $imageUrl }}" alt="{{ $room->title }}"
+                                                        class="img-fluid">
+                                                </a>
+                                                <span class="badge badge-indigo position-absolute pos-fixed-top">Cho
+                                                    thuê</span>
+                                            </div>
 
-                                    <div class="media-body">
-                                        <a href="single-property-1.html" class="text-dark hover-primary">
-                                            <h5 class="fs-16 mb-0 lh-18">Metric Way</h5>
-                                        </a>
-                                        <p class="mb-1 font-weight-500">1421 San Pedro St, Los Angeles</p>
-                                        <span class="text-heading lh-15 font-weight-bold fs-17">$2500</span>
-                                        <span class="text-gray-light">/tháng</span>
-                                    </div>
-
-                                </div>
-                            </td>
-                            <td class="align-middle">30 Tháng 12, 2019</td>
-                            <td class="align-middle">
-                                <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">chờ duyệt</span>
-                            </td>
-                            <td class="align-middle">2049</td>
-                            <td class="align-middle">
-                                <a href="#" data-toggle="tooltip" title="Chỉnh sửa"
-                                    class="d-inline-block fs-18 text-muted hover-primary mr-5"><i
-                                        class="fal fa-pencil-alt"></i></a>
-                                <a href="#" data-toggle="tooltip" title="Xóa"
-                                    class="d-inline-block fs-18 text-muted hover-primary"><i
-                                        class="fal fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr class="shadow-hover-xs-2 bg-hover-white">
-                            <td class="align-middle pt-6 pb-4 px-6">
-                                <div class="media">
-                                    <div class="w-120px mr-4 position-relative">
-                                        <a href="single-property-1.html">
-                                            <img src="{{ asset('assets/images/my-properties-02.jpg') }}"
-                                                alt="Nhà ở Metric Way" class="img-fluid" alt="Nhà gỗ Gingerbread">
-                                        </a>
-                                        <span class="badge badge-primary position-absolute pos-fixed-top">bán</span>
-                                    </div>
-                                    <div class="media-body">
-                                        <a href="single-property-1.html" class="text-dark hover-primary">
-                                            <h5 class="fs-16 mb-0 lh-18">Nhà gỗ Gingerbread</h5>
-                                        </a>
-                                        <p class="mb-1 font-weight-500">1421 San Pedro St, Los Angeles</p>
-                                        <span class="text-heading lh-15 font-weight-bold fs-17">$.1250.000</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="align-middle">30 Tháng 12, 2019</td>
-                            <td class="align-middle">
-                                <span class="badge text-capitalize font-weight-normal fs-12 badge-pink">đã xuất bản</span>
-                            </td>
-                            <td class="align-middle">2049</td>
-                            <td class="align-middle">
-                                <a href="#" data-toggle="tooltip" title="Chỉnh sửa"
-                                    class="d-inline-block fs-18 text-muted hover-primary mr-5"><i
-                                        class="fal fa-pencil-alt"></i></a>
-                                <a href="#" data-toggle="tooltip" title="Xóa"
-                                    class="d-inline-block fs-18 text-muted hover-primary"><i
-                                        class="fal fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr class="shadow-hover-xs-2 bg-hover-white">
-                            <td class="align-middle pt-6 pb-4 px-6">
-                                <div class="media">
-                                    <div class="w-120px mr-4 position-relative">
-                                        <a href="single-property-1.html">
-                                            <img src="{{ asset('assets/images/my-properties-03.jpg') }}"
-                                                alt="Nhà ở Metric Way" class="img-fluid"
-                                                alt="Nhà đô thị giá cả phải chăng">
-                                        </a>
-                                        <span class="badge badge-indigo position-absolute pos-fixed-top">cho thuê</span>
-                                    </div>
-                                    <div class="media-body">
-                                        <a href="single-property-1.html" class="text-dark hover-primary">
-                                            <h5 class="fs-16 mb-0 lh-18">Nhà đô thị giá cả phải chăng</h5>
-                                        </a>
-                                        <p class="mb-1 font-weight-500">1421 San Pedro St, Los Angeles</p>
-                                        <span class="text-heading lh-15 font-weight-bold fs-17">$2500</span>
-                                        <span class="text-gray-light">/tháng</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="align-middle">30 Tháng 12, 2019</td>
-                            <td class="align-middle">
-                                <span class="badge text-capitalize font-weight-normal fs-12 badge-pink">đang xử lý</span>
-                            </td>
-                            <td class="align-middle">2049</td>
-                            <td class="align-middle">
-                                <a href="#" data-toggle="tooltip" title="Chỉnh sửa"
-                                    class="d-inline-block fs-18 text-muted hover-primary mr-5"><i
-                                        class="fal fa-pencil-alt"></i></a>
-                                <a href="#" data-toggle="tooltip" title="Xóa"
-                                    class="d-inline-block fs-18 text-muted hover-primary"><i
-                                        class="fal fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr class="shadow-hover-xs-2 bg-hover-white">
-                            <td class="align-middle pt-6 pb-4 px-6">
-                                <div class="media">
-                                    <div class="w-120px mr-4 position-relative">
-                                        <a href="single-property-1.html">
-                                            <img src="{{ asset('assets/images/my-properties-04.jpg') }}"
-                                                alt="Nhà ở Metric Way" class="img-fluid"
-                                                alt="Biệt thự trên đại lộ Hollywood">
-                                        </a>
-                                        <span class="badge badge-primary position-absolute pos-fixed-top">bán</span>
-                                    </div>
-                                    <div class="media-body">
-                                        <a href="single-property-1.html" class="text-dark hover-primary">
-                                            <h5 class="fs-16 mb-0 lh-18">Biệt thự trên đại lộ Hollywood</h5>
-                                        </a>
-                                        <p class="mb-1 font-weight-500">1421 San Pedro St, Los Angeles</p>
-                                        <span class="text-heading lh-15 font-weight-bold fs-17">$7.500.000</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="align-middle">30 Tháng 12, 2019</td>
-                            <td class="align-middle">
-                                <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">chờ duyệt</span>
-                            </td>
-                            <td class="align-middle">2049</td>
-                            <td class="align-middle">
-                                <a href="#" data-toggle="tooltip" title="Chỉnh sửa"
-                                    class="d-inline-block fs-18 text-muted hover-primary mr-5"><i
-                                        class="fal fa-pencil-alt"></i></a>
-                                <a href="#" data-toggle="tooltip" title="Xóa"
-                                    class="d-inline-block fs-18 text-muted hover-primary"><i
-                                        class="fal fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr class="shadow-hover-xs-2 bg-hover-white">
-                            <td class="align-middle pt-6 pb-4 px-6">
-                                <div class="media">
-                                    <div class="w-120px mr-4 position-relative">
-                                        <a href="single-property-1.html">
-                                            <img src="{{ asset('assets/images/my-properties-05.jpg') }}"
-                                                alt="Nhà ở Metric Way" class="img-fluid"
-                                                alt="Nhà cao cấp tại Palm Street">
-                                        </a>
-                                        <span class="badge badge-primary position-absolute pos-fixed-top">bán</span>
-                                    </div>
-                                    <div class="media-body">
-                                        <a href="single-property-1.html" class="text-dark hover-primary">
-                                            <h5 class="fs-16 mb-0 lh-18">Nhà cao cấp tại Palm Street</h5>
-                                        </a>
-                                        <p class="mb-1 font-weight-500">1421 San Pedro St, Los Angeles</p>
-                                        <span class="text-heading lh-15 font-weight-bold fs-17">$1.250.000</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="align-middle">30 Tháng 12, 2019</td>
-                            <td class="align-middle">
-                                <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">chờ duyệt</span>
-                            </td>
-                            <td class="align-middle">2049</td>
-                            <td class="align-middle">
-                                <a href="#" data-toggle="tooltip" title="Chỉnh sửa"
-                                    class="d-inline-block fs-18 text-muted hover-primary mr-5"><i
-                                        class="fal fa-pencil-alt"></i></a>
-                                <a href="#" data-toggle="tooltip" title="Xóa"
-                                    class="d-inline-block fs-18 text-muted hover-primary"><i
-                                        class="fal fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
+                                            <div class="media-body">
+                                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
+                                                    class="text-dark hover-primary">
+                                                    <h5 class="fs-16 mb-0 lh-18">{{ $room->title }}</h5>
+                                                </a>
+                                                <p class="mb-1 font-weight-500">{{ $room->address }}</p>
+                                                <span
+                                                    class="text-heading lh-15 font-weight-bold fs-17">{{ number_format($room->price, 0, ',', '.') }}
+                                                    VND</span>
+                                                {{-- <span class="text-gray-light">/tháng</span> --}}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle">{{ $room->created_at->format('d/m/Y') }}</td>
+                                    {{-- <td class="align-middle">
+                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">chờ
+                                            duyệt</span>
+                                    </td> --}}
+                                    <td class="align-middle">
+                                        {{-- const CON_TRONG = 1; // Còn trống
+                                            const DA_THUE = 2; // Đã thuê --}}
+                                        @if ($room->status === 1)
+                                            <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">Còn
+                                                trống</span>
+                                        @elseif ($room->status === 2)
+                                            <span class="badge text-capitalize font-weight-normal fs-12 badge-pink">Đã
+                                                thuê</span>
+                                        @else
+                                            <span class="badge text-capitalize font-weight-normal fs-12 badge-gray">Không
+                                                xác định</span>
+                                        @endif
+                                    </td>
+                                    <td class="align-middle">{{ $room->view }}</td>
+                                    <td class="align-middle">
+                                        <a href="{{ route('owners.room-view-update', $room->slug) }}" data-toggle="tooltip"
+                                            title="Chỉnh sửa" class="d-inline-block fs-18 text-muted hover-primary mr-5"><i
+                                                class="fal fa-pencil-alt"></i></a>
+                                        <a href="#" data-toggle="tooltip" title="Xóa"
+                                            class="d-inline-block fs-18 text-muted hover-primary"><i
+                                                class="fal fa-trash-alt"></i></a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
+                {{-- Phân trang --}}
+                <div class="d-flex justify-content-center mt-4">
+                    @if ($rooms->hasPages())
+                        @php
+                            $queryParams = [
+                                'query' => request()->query('query', ''),
+                                'room-list_length' => request()->query('room-list_length', 10),
+                            ];
+                        @endphp
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                @if ($rooms->onFirstPage())
+                                    <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                                @else
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ $rooms->appends($queryParams)->previousPageUrl() }}"
+                                            rel="prev">&laquo;</a>
+                                    </li>
+                                @endif
+                                @for ($i = max(1, $rooms->currentPage() - 2); $i <= min($rooms->lastPage(), $rooms->currentPage() + 2); $i++)
+                                    <li class="page-item {{ $rooms->currentPage() == $i ? 'active' : '' }}">
+                                        <a class="page-link"
+                                            href="{{ $rooms->appends($queryParams)->url($i) }}">{{ $i }}</a>
+                                    </li>
+                                @endfor
+                                @if ($rooms->hasMorePages())
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ $rooms->appends($queryParams)->nextPageUrl() }}"
+                                            rel="next">&raquo;</a>
+                                    </li>
+                                @else
+                                    <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                                @endif
+                            </ul>
+                        </nav>
+                    @endif
+                </div>
+
+                {{-- Kết quả --}}
+                <div class="text-center mt-2">
+                    @if ($rooms->total() > 0)
+                        {{ $rooms->firstItem() }}-{{ $rooms->lastItem() }} trong {{ $rooms->total() }} Kết quả
+                    @else
+                        Không có kết quả nào
+                    @endif
+                </div>
 
             </div>
-            <nav class="mt-6">
-                <ul class="pagination rounded-active justify-content-center">
-                    <li class="page-item"><a class="page-link" href="#"><i
-                                class="far fa-angle-double-left"></i></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item d-none d-sm-block"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">...</li>
-                    <li class="page-item"><a class="page-link" href="#">6</a></li>
-                    <li class="page-item"><a class="page-link" href="#"><i
-                                class="far fa-angle-double-right"></i></a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="text-center mt-2">6-10 của 29 kết quả</div>
-
         </div>
     </main>
 
@@ -322,5 +257,4 @@
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
-    
 @endpush

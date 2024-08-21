@@ -117,7 +117,7 @@
                                         </span>
                                         <span class="sidebar-item-text">Danh sách trọ</span>
                                         <span
-                                            class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">29</span>
+                                            class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">{{ $unreadRoomCount }}</span>
                                     </a>
                                 </li>
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
@@ -135,15 +135,16 @@
                                 </li>
 
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                    <a href="{{route('owners.show-blog')}}"
-                                       class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                    <a href="{{ route('owners.show-blog') }}"
+                                        class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                         <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                             <svg class="icon icon-my-properties">
                                                 <use xlink:href="#icon-my-properties"></use>
                                             </svg>
                                         </span>
                                         <span class="sidebar-item-text">Danh sách Blog</span>
-                                        <span class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">29</span>
+                                        <span
+                                            class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">29</span>
                                     </a>
                                 </li>
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
@@ -228,8 +229,8 @@
                         </h5>
                         <ul class="list-group list-group-no-border rounded-lg">
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{Route('owners.favorites')}}"
-                                   class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                <a href="{{ Route('owners.favorites') }}"
+                                    class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-heart">
                                             <use xlink:href="#icon-heart"></use>
@@ -325,7 +326,8 @@
                     </div>
 
 
-                    <div
+                    <div>
+                    {{-- <div
                         class="dropdown no-caret py-3 px-3 px-sm-6 d-flex align-items-center justify-content-end notice">
                         <a href="#" class="dropdown-toggle text-heading fs-20 font-weight-500 lh-1"
                             data-toggle="dropdown">
@@ -335,6 +337,22 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="{{ route('owners.notification-owners') }}">danh sách thông
+                                báo</a>
+                            <a class="dropdown-item" href="#">Thao tác khác</a>
+                            <a class="dropdown-item" href="#">Tùy chọn khác</a>
+                        </div>
+                    </div> --}}
+                    <div
+                        class="dropdown no-caret py-3 px-3 px-sm-6 d-flex align-items-center justify-content-end notice">
+                        <a href="#" class="dropdown-toggle text-heading fs-20 font-weight-500 lh-1"
+                            data-toggle="dropdown">
+                            <i class="far fa-bell"></i>
+                            <span class="badge badge-primary badge-circle badge-absolute font-weight-bold fs-13">
+                                {{ $unreadNotificationCount }}
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="{{ route('owners.notification-owners') }}">Danh sách thông
                                 báo</a>
                             <a class="dropdown-item" href="#">Thao tác khác</a>
                             <a class="dropdown-item" href="#">Tùy chọn khác</a>
