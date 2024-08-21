@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
             // các route trong mảng là demo ae cứ tạo file route theo cấu trúc đó
             $adminRoute = [
                 'acreage-admin.php',
-                'area-admin.php',
+               
                 'blog-admin.php',
                 'category-admin.php',
                 'comment-admin.php',
@@ -30,7 +30,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 'report-admin.php',
                 'resident-admin.php',
                 'room-admin.php',
-                'roomType-admin.php',
+              
                 'transaction-admin.php',
                 'user-admin.php',
                 'watchlist-admin.php',
@@ -40,7 +40,7 @@ return Application::configure(basePath: dirname(__DIR__))
             ];
             $userRoute = [
                 'acreage-client.php',
-                'area-client.php',
+               
                 'blog-client.php',
                 'category-client.php',
                 'comment-client.php',
@@ -56,7 +56,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 'report-client.php',
                 'resident-client.php',
                 'room-client.php',
-                'roomType-client.php',
+               
                 'transaction-client.php',
                 'user-client.php',
                 'watchlist-client.php',
@@ -67,7 +67,7 @@ return Application::configure(basePath: dirname(__DIR__))
             ];
             $ownersRoute = [
                 'acreage-owner.php',
-                'area-owner.php',
+                
                 'blog-owner.php',
                 'category-owner.php',
                 'comment-owner.php',
@@ -83,7 +83,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 'report-owner.php',
                 'resident-owner.php',
                 'room-owner.php',
-                'roomType-owner.php',
+           
                 'transaction-owner.php',
                 'user-owner.php',
                 'watchlist-owner.php',
