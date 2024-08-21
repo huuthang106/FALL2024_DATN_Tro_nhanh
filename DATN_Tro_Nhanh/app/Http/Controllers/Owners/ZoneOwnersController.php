@@ -13,7 +13,7 @@ class ZoneOwnersController extends Controller
 {   
     protected $zoneServices;
     //
-    protected $zoneServices;
+
     public function __construct(ZoneServices $zoneServices)
     {
         $this->zoneServices = $zoneServices;
