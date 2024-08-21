@@ -23,5 +23,11 @@ return new class extends Migration {
     public function down(): void
     {
         //
+        Schema::table('rooms', function (Blueprint $table) {
+            // Xóa các cột đã thêm trong phương thức up
+            $table->dropColumn('province');
+            $table->dropColumn('district');
+            $table->dropColumn('village');
+        });
     }
 };
