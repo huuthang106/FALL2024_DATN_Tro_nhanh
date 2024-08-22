@@ -37,6 +37,10 @@ class Room extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 
     // public function acreage()
     // {
@@ -55,7 +59,8 @@ class Room extends Model
 
     public function acreage()
     {
-        return $this->belongsTo(Acreage::class);}
+        return $this->belongsTo(Acreage::class);
+    }
     public function area()
     {
         return $this->belongsTo(Area::class);
@@ -73,7 +78,7 @@ class Room extends Model
 
 
 
-    
+
 
     public function tenant()
     {

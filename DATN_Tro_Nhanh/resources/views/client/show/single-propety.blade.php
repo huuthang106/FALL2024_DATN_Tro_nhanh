@@ -489,29 +489,24 @@
                                                 <h5 class="fs-16 lh-2 text-heading mb-6">
                                                     Đánh giá trung bình của người dùng
                                                 </h5>
-                                                <p class="fs-40 text-heading font-weight-bold mb-6 lh-1">4.6 <span
-                                                        class="fs-18 text-gray-light font-weight-normal">/5</span></p>
+                                                <p class="fs-40 text-heading font-weight-bold mb-6 lh-1">
+                                                    {{ number_format($averageRating, 1) }} <span
+                                                        class="fs-18 text-gray-light font-weight-normal">/5</span>
+                                                </p>
                                                 <ul class="list-inline">
-                                                    <li
-                                                        class="list-inline-item bg-warning text-white w-46px h-46 rounded-lg d-inline-flex align-items-center justify-content-center fs-18 mb-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li
-                                                        class="list-inline-item bg-warning text-white w-46px h-46 rounded-lg d-inline-flex align-items-center justify-content-center fs-18 mb-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li
-                                                        class="list-inline-item bg-warning text-white w-46px h-46 rounded-lg d-inline-flex align-items-center justify-content-center fs-18 mb-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li
-                                                        class="list-inline-item bg-warning text-white w-46px h-46 rounded-lg d-inline-flex align-items-center justify-content-center fs-18 mb-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li
-                                                        class="list-inline-item bg-gray-04 text-white w-46px h-46 rounded-lg d-inline-flex align-items-center justify-content-center fs-18 mb-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
+                                                    @for ($i = 1; $i <= 5; $i++)
+                                                        <li
+                                                            class="list-inline-item w-46px h-46 rounded-lg d-inline-flex align-items-center justify-content-center fs-24 mb-1">
+                                                            <!-- Tăng fs-18 lên fs-24 -->
+                                                            @if ($i <= floor($averageRating))
+                                                                <i class="fas fa-star text-warning"></i>
+                                                            @elseif ($i == ceil($averageRating) && $averageRating - floor($averageRating) > 0)
+                                                                <i class="fas fa-star-half-alt text-warning"></i>
+                                                            @else
+                                                                <i class="far fa-star text-border"></i>
+                                                            @endif
+                                                        </li>
+                                                    @endfor
                                                 </ul>
                                             </div>
                                         </div>
@@ -519,431 +514,126 @@
                                             <h5 class="fs-16 lh-2 text-heading mb-5">
                                                 Phân tích đánh giá
                                             </h5>
-                                            <div class="d-flex align-items-center mx-n1">
-                                                <ul class="list-inline d-flex px-1 mb-0">
-                                                    <li class="list-inline-item text-warning mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="list-inline-item text-warning mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="list-inline-item text-warning mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="list-inline-item text-warning mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="list-inline-item text-warning mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                </ul>
-                                                <div class="d-block w-100 px-1">
-                                                    <div class="progress rating-progress">
-                                                        <div class="progress-bar bg-warning" role="progressbar"
-                                                            style="width: 60%" aria-valuenow="60" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="text-muted px-1">60%</div>
-                                            </div>
-                                            <div class="d-flex align-items-center mx-n1">
-                                                <ul class="list-inline d-flex px-1 mb-0">
-                                                    <li class="list-inline-item text-warning mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="list-inline-item text-warning mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="list-inline-item text-warning mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="list-inline-item text-warning mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="list-inline-item text-border mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                </ul>
-                                                <div class="d-block w-100 px-1">
-                                                    <div class="progress rating-progress">
-                                                        <div class="progress-bar bg-warning" role="progressbar"
-                                                            style="width: 40%" aria-valuenow="40" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="text-muted px-1">40%</div>
-                                            </div>
-                                            <div class="d-flex align-items-center mx-n1">
-                                                <ul class="list-inline d-flex px-1 mb-0">
-                                                    <li class="list-inline-item text-warning mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="list-inline-item text-warning mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="list-inline-item text-warning mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="list-inline-item text-border mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="list-inline-item text-border mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                </ul>
-                                                <div class="d-block w-100 px-1">
-                                                    <div class="progress rating-progress">
-                                                        <div class="progress-bar bg-warning" role="progressbar"
-                                                            aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                            @foreach ($ratingsDistribution as $rating => $percentage)
+                                                <div class="d-flex align-items-center mx-n1">
+                                                    <ul class="list-inline d-flex px-1 mb-0">
+                                                        @for ($i = 5; $i >= 1; $i--)
+                                                            <li
+                                                                class="list-inline-item {{ $rating >= $i ? 'text-warning' : 'text-border' }} mr-1">
+                                                                <i class="fas fa-star"></i>
+                                                            </li>
+                                                        @endfor
+                                                    </ul>
+                                                    <div class="d-block w-100 px-1">
+                                                        <div class="progress rating-progress">
+                                                            <div class="progress-bar bg-warning" role="progressbar"
+                                                                style="width: {{ $percentage }}%"
+                                                                aria-valuenow="{{ $percentage }}" aria-valuemin="0"
+                                                                aria-valuemax="100"></div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="text-muted px-1">0%</div>
-                                            </div>
-                                            <div class="d-flex align-items-center mx-n1">
-                                                <ul class="list-inline d-flex px-1 mb-0">
-                                                    <li class="list-inline-item text-warning mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="list-inline-item text-warning mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="list-inline-item text-border mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="list-inline-item text-border mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="list-inline-item text-border mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                </ul>
-                                                <div class="d-block w-100 px-1">
-                                                    <div class="progress rating-progress">
-                                                        <div class="progress-bar bg-warning" role="progressbar"
-                                                            aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                                                        </div>
+                                                    <div class="text-muted px-1">{{ number_format($percentage, 0) }}%
                                                     </div>
                                                 </div>
-                                                <div class="text-muted px-1">0%</div>
-                                            </div>
-                                            <div class="d-flex align-items-center mx-n1">
-                                                <ul class="list-inline d-flex px-1 mb-0">
-                                                    <li class="list-inline-item text-warning mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="list-inline-item text-border mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="list-inline-item text-border mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="list-inline-item text-border mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                    <li class="list-inline-item text-border mr-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </li>
-                                                </ul>
-                                                <div class="d-block w-100 px-1">
-                                                    <div class="progress rating-progress">
-                                                        <div class="progress-bar bg-warning" role="progressbar"
-                                                            aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="text-muted px-1">0%</< /div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                        </section>
-                        <section class="mt-2 pb-2 px-6 pt-6 bg-white rounded-lg">
-                            <div class="card border-0">
-                                <div class="card-body p-0">
-                                    <h3
-                                        class="fs-16 lh-2 text-heading mb-0 d-inline-block pr-4 border-bottom border-primary">
-                                        5 Đánh giá
-                                    </h3>
-                                    <div class="media border-top pt-7 pb-6 d-sm-flex d-block text-sm-left text-center">
-                                        <img src="{{ asset('assets/images/review-07.jpg') }}" alt="Danny Fox"
-                                            class="mr-sm-8 mb-4 mb-sm-0">
-                                        <div class="media-body">
-                                            <div class="row mb-1 align-items-center">
-                                                <div class="col-sm-6 mb-2 mb-sm-0">
-                                                    <h4 class="mb-0 text-heading fs-14">Danny Fox</h4>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <ul
-                                                        class="list-inline d-flex justify-content-sm-end justify-content-center mb-0">
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <p class="mb-3 pr-xl-17">Hỗ trợ rất tốt và nhanh chóng trong suốt tuần. Cảm ơn
-                                                vì đã luôn cập nhật các chủ đề WordPress của bạn. Mức độ hỗ trợ và sự tận
-                                                tâm của bạn không ai sánh kịp.</p>
-                                            <div class="d-flex justify-content-sm-start justify-content-center">
-                                                <p class="mb-0 text-muted fs-13 lh-1">02 Tháng 12, 2020 lúc 2:40 chiều</p>
-                                                <a href="#"
-                                                    class="mb-0 text-heading border-left border-dark hover-primary lh-1 ml-2 pl-2">Trả
-                                                    lời</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="media border-top py-6 d-sm-flex d-block text-sm-left text-center">
-                                        <img src="{{ asset('assets/images/review-07.jpg') }}" alt="Danny Fox"
-                                            class="mr-sm-8 mb-4 mb-sm-0">
-                                        <div class="media-body">
-                                            <div class="row mb-1 align-items-center">
-                                                <div class="col-sm-6 mb-2 mb-sm-0">
-                                                    <h4 class="mb-0 text-heading fs-14">Danny Fox</h4>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <ul
-                                                        class="list-inline d-flex justify-content-sm-end justify-content-center mb-0">
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <p class="mb-3 pr-xl-17">Hỗ trợ rất tốt và nhanh chóng trong suốt tuần. Cảm ơn
-                                                vì đã luôn cập nhật các chủ đề WordPress của bạn. Mức độ hỗ trợ và sự tận
-                                                tâm của bạn không ai sánh kịp.</p>
-                                            <div class="d-flex justify-content-sm-start justify-content-center">
-                                                <p class="mb-0 text-muted fs-13 lh-1">02 Tháng 12, 2020 lúc 2:40 chiều</p>
-                                                <a href="#"
-                                                    class="mb-0 text-heading border-left border-dark hover-primary lh-1 ml-2 pl-2">Trả
-                                                    lời</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="media border-top py-6 d-sm-flex d-block text-sm-left text-center">
-                                        <img src="{{ asset('assets/images/review-07.jpg') }}" alt="Danny Fox"
-                                            class="mr-sm-8 mb-4 mb-sm-0">
-                                        <div class="media-body">
-                                            <div class="row mb-1 align-items-center">
-                                                <div class="col-sm-6 mb-2 mb-sm-0">
-                                                    <h4 class="mb-0 text-heading fs-14">Danny Fox</h4>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <ul
-                                                        class="list-inline d-flex justify-content-sm-end justify-content-center mb-0">
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <p class="mb-3 pr-xl-17">Hỗ trợ rất tốt và nhanh chóng trong suốt tuần. Cảm ơn
-                                                vì đã luôn cập nhật các chủ đề WordPress của bạn. Mức độ hỗ trợ và sự tận
-                                                tâm của bạn không ai sánh kịp.</p>
-                                            <div class="d-flex justify-content-sm-start justify-content-center">
-                                                <p class="mb-0 text-muted fs-13 lh-1">02 Tháng 12, 2020 lúc 2:40 chiều</p>
-                                                <a href="#"
-                                                    class="mb-0 text-heading border-left border-dark hover-primary lh-1 ml-2 pl-2">Trả
-                                                    lời</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="media border-top py-6 d-sm-flex d-block text-sm-left text-center">
-                                        <img src="{{ asset('assets/images/review-07.jpg') }}" alt="Danny Fox"
-                                            class="mr-sm-8 mb-4 mb-sm-0">
-                                        <div class="media-body">
-                                            <div class="row mb-1 align-items-center">
-                                                <div class="col-sm-6 mb-2 mb-sm-0">
-                                                    <h4 class="mb-0 text-heading fs-14">Danny Fox</h4>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <ul
-                                                        class="list-inline d-flex justify-content-sm-end justify-content-center mb-0">
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <p class="mb-3 pr-xl-17">Hỗ trợ rất tốt và nhanh chóng trong suốt tuần. Cảm ơn
-                                                vì đã luôn cập nhật các chủ đề WordPress của bạn. Mức độ hỗ trợ và sự tận
-                                                tâm của bạn không ai sánh kịp.</p>
-                                            <div class="d-flex justify-content-sm-start justify-content-center">
-                                                <p class="mb-0 text-muted fs-13 lh-1">02 Tháng 12, 2020 lúc 2:40 chiều</p>
-                                                <a href="#"
-                                                    class="mb-0 text-heading border-left border-dark hover-primary lh-1 ml-2 pl-2">Trả
-                                                    lời</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="media border-top py-6 d-sm-flex d-block text-sm-left text-center">
-                                        <img src="{{ asset('assets/images/review-07.jpg') }}" alt="Danny Fox"
-                                            class="mr-sm-8 mb-4 mb-sm-0">
-                                        <div class="media-body">
-                                            <div class="row mb-1 align-items-center">
-                                                <div class="col-sm-6 mb-2 mb-sm-0">
-                                                    <h4 class="mb-0 text-heading fs-14">Danny Fox</h4>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <ul
-                                                        class="list-inline d-flex justify-content-sm-end justify-content-center mb-0">
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                        <li class="list-inline-item mr-1">
-                                                            <span class="text-warning fs-12 lh-2"><i
-                                                                    class="fas fa-star"></i></span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <p class="mb-3 pr-xl-17">Hỗ trợ rất tốt và nhanh chóng trong suốt tuần. Cảm ơn
-                                                vì đã luôn cập nhật các chủ đề WordPress của bạn. Mức độ hỗ trợ và sự tận
-                                                tâm của bạn không ai sánh kịp.</p>
-                                            <div class="d-flex justify-content-sm-start justify-content-center">
-                                                <p class="mb-0 text-muted fs-13 lh-1">02 Tháng 12, 2020 lúc 2:40 chiều</p>
-                                                <a href="#"
-                                                    class="mb-0 text-heading border-left border-dark hover-primary lh-1 ml-2 pl-2">Trả
-                                                    lời</a>
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </section>
+
+
+
+                        <section class="mt-2 pb-2 px-6 pt-6 bg-white rounded-lg">
+                            <div class="card border-0">
+                                <div class="card-body p-0">
+                                    <h3
+                                        class="fs-16 lh-2 text-heading mb-0 d-inline-block pr-4 border-bottom border-primary">
+                                        {{ $comments->count() }} Đánh giá
+                                    </h3>
+
+                                    @foreach ($comments as $comment)
+                                        <div class="media border-top pt-7 pb-6 d-sm-flex d-block text-sm-left text-center">
+                                            <img src="{{ $comment->user->image ? asset('assets/images/' . $comment->user->image) : asset('assets/images/review-07.jpg') }}"
+                                                alt="{{ $comment->user->name }}"
+                                                class="mr-sm-8 mb-4 mb-sm-0 custom-avatar">
+
+
+                                            <div class="media-body">
+                                                <div class="row mb-1 align-items-center">
+                                                    <div class="col-sm-6 mb-2 mb-sm-0">
+                                                        <h4 class="mb-0 text-heading fs-14">{{ $comment->user->name }}
+                                                        </h4>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <ul
+                                                            class="list-inline d-flex justify-content-sm-end justify-content-center mb-0">
+                                                            @for ($i = 1; $i <= 5; $i++)
+                                                                <li class="list-inline-item mr-1">
+                                                                    <span class="text-warning fs-12 lh-2">
+                                                                        <i
+                                                                            class="fas fa-star{{ $i <= $comment->rating ? '' : '-o' }}"></i>
+                                                                    </span>
+                                                                </li>
+                                                            @endfor
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <p class="mb-3 pr-xl-17">{{ $comment->content }}</p>
+                                                <div class="d-flex justify-content-sm-start justify-content-center">
+                                                    <p class="mb-0 text-muted fs-13 lh-1">
+                                                        {{ $comment->created_at->format('d/m/Y h:i A') }}
+                                                        <a href="#"
+                                                            class="mb-0 text-heading border-left border-dark hover-primary lh-1 ml-2 pl-2">Trả
+                                                            lời</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </section>
+
                         <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
                             <div class="card border-0">
                                 <div class="card-body p-0">
                                     <h3 class="fs-16 lh-2 text-heading mb-4">Viết Đánh Giá</h3>
-                                    <form>
+                                    <form id="commentForm" action="{{ route('client.danh-gia') }}" method="POST">
+                                        @csrf
                                         <div class="form-group mb-4 d-flex justify-content-start">
                                             <div class="rate-input">
-                                                <input type="radio" id="star5" name="rate" value="5">
+                                                <input type="radio" id="star5" name="rating" value="5">
                                                 <label for="star5" title="text" class="mb-0 mr-1 lh-1">
                                                     <i class="fas fa-star"></i>
                                                 </label>
-                                                <input type="radio" id="star4" name="rate" value="4">
+                                                <input type="radio" id="star4" name="rating" value="4">
                                                 <label for="star4" title="text" class="mb-0 mr-1 lh-1">
                                                     <i class="fas fa-star"></i>
                                                 </label>
-                                                <input type="radio" id="star3" name="rate" value="3">
+                                                <input type="radio" id="star3" name="rating" value="3">
                                                 <label for="star3" title="text" class="mb-0 mr-1 lh-1">
                                                     <i class="fas fa-star"></i>
                                                 </label>
-                                                <input type="radio" id="star2" name="rate" value="2">
+                                                <input type="radio" id="star2" name="rating" value="2">
                                                 <label for="star2" title="text" class="mb-0 mr-1 lh-1">
                                                     <i class="fas fa-star"></i>
                                                 </label>
-                                                <input type="radio" id="star1" name="rate" value="1">
+                                                <input type="radio" id="star1" name="rating" value="1">
                                                 <label for="star1" title="text" class="mb-0 mr-1 lh-1">
                                                     <i class="fas fa-star"></i>
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="form-group mb-4">
-                                                    <input placeholder="Tên của bạn"
-                                                        class="form-control form-control-lg border-0" type="text"
-                                                        name="name">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group mb-4">
-                                                    <input type="email" placeholder="Email" name="email"
-                                                        class="form-control form-control-lg border-0">
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="form-group mb-6">
-                                            <textarea class="form-control form-control-lg border-0" placeholder="Đánh giá của bạn" name="message"
+                                            <textarea class="form-control form-control-lg border-0" placeholder="Đánh giá của bạn" name="content"
                                                 rows="5"></textarea>
                                         </div>
+                                        <input type="hidden" name="room_slug" value="{{ $rooms->slug }}">
                                         <button type="submit" class="btn btn-lg btn-primary px-10">Gửi</button>
                                     </form>
+
+
+
                                 </div>
                             </div>
                         </section>
@@ -1461,8 +1151,7 @@
                                                             <i class="far fa-images"></i><span class="pl-1">9</span>
                                                         </a>
                                                     </li>
-                                                    <li class="list-inline-item" data-toggle="tooltip"
-                                                        title="2 Video">
+                                                    <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
                                                         <a href="#" class="text-white hover-primary">
                                                             <i class="far fa-play-circle"></i><span
                                                                 class="pl-1">2</span>
@@ -1540,8 +1229,7 @@
                                                             <i class="far fa-images"></i><span class="pl-1">9</span>
                                                         </a>
                                                     </li>
-                                                    <li class="list-inline-item" data-toggle="tooltip"
-                                                        title="2 Video">
+                                                    <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
                                                         <a href="#" class="text-white hover-primary">
                                                             <i class="far fa-play-circle"></i><span
                                                                 class="pl-1">2</span>
@@ -1619,8 +1307,7 @@
                                                             <i class="far fa-images"></i><span class="pl-1">9</span>
                                                         </a>
                                                     </li>
-                                                    <li class="list-inline-item" data-toggle="tooltip"
-                                                        title="2 Video">
+                                                    <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
                                                         <a href="#" class="text-white hover-primary">
                                                             <i class="far fa-play-circle"></i><span
                                                                 class="pl-1">2</span>
@@ -1851,6 +1538,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/mh.css') }}">
     <!-- Favicons -->
     <link rel="icon" href="images/favicon.ico">
     <!-- Twitter -->
@@ -1889,4 +1577,11 @@
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('assets/js/comment.js') }}"></script>
+    <script>
+        var userIsLoggedIn = @json(auth()->check());
+    </script>
 @endpush
