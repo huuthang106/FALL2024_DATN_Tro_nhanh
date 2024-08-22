@@ -20,10 +20,18 @@ class RoomClientController extends Controller
     }
 
     //Hiển thị giao diện Danh sách phòng trọ
-    public function indexRoom($perPage = 10)
+    public function indexRoom(Request $request, $perPage = 10)
     {
-        $rooms = $this->roomClientService->getAllRoom((int) $perPage);
-        return view('client.show.listing-grid-with-left-filter', ['rooms' => $rooms]);
+        // Nhận từ khóa tìm kiếm từ request (nếu có)
+        $searchTerm = $request->input('search');
+
+        // Gọi service với từ khóa tìm kiếm
+        $rooms = $this->roomClientService->getAllRoom((int) $perPage, $searchTerm);
+
+        return view('client.show.listing-grid-with-left-filter', [
+            'rooms' => $rooms,
+            'searchTerm' => $searchTerm // Trả lại từ khóa để hiển thị trên giao diện (nếu cần)
+        ]);
     }
     //Hiển thị giao diện Danh sách phòng trọ có Map
     public function indexRoomMap()

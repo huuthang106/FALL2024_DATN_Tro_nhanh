@@ -31,8 +31,8 @@ class RoomAdminService
         $acreages = Acreage::all();
         $zones = Zone::all();
         $users = User::all();
-        $room_types = RoomType::all();
-        return compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users', 'room_types');
+       
+        return compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users');
     }
     public function getRoom()
     {
@@ -42,9 +42,8 @@ class RoomAdminService
         $acreages = Acreage::all();
         $zones = Zone::all();
         $users = User::all();
-        $roomTypes = RoomType::all();
-        $room_types = RoomType::all();
-        return compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users', 'room_types');
+        
+        return compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users');
     }
     // Them tro 
     public function create($request)

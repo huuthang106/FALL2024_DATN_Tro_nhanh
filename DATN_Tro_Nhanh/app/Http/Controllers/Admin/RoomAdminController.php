@@ -39,8 +39,8 @@ class RoomAdminController extends Controller
         $locations = $data['locations'];
         $zones = $data['zones'];
         $users = $data['users'];
-        $room_types = $data['room_types'];
-        return view('admincp.create.addRoom', compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users', 'room_types'));
+        
+        return view('admincp.create.addRoom', compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users'));
     }
     public function add_room(CreateRoomRequest $request)
     {
@@ -67,8 +67,8 @@ class RoomAdminController extends Controller
         $locations = $data['locations'];
         $zones = $data['zones'];
         $users = $data['users'];
-        $room_types = $data['room_types'];
-        return view('admincp.edit.updateRoom', compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users', 'room_types'));
+        
+        return view('admincp.edit.updateRoom', compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users'));
     }
     public function update_room(Request $request, $slug)
     {

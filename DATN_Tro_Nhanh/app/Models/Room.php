@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 class Room extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use Searchable;
     protected $fillable = [
         'title',
         'description',
@@ -24,7 +26,6 @@ class Room extends Model
         'category_id',
         'area_id',
         'location_id',
-        'room_type_id',
         'zone_id',
         'user_id',
         'view',
@@ -54,8 +55,7 @@ class Room extends Model
 
     public function acreage()
     {
-        return $this->belongsTo(Acreage::class);
-    }
+        return $this->belongsTo(Acreage::class);}
     public function area()
     {
         return $this->belongsTo(Area::class);
@@ -66,15 +66,14 @@ class Room extends Model
         return $this->belongsTo(Location::class);
     }
 
-    public function roomType()
-    {
-        return $this->belongsTo(RoomType::class);
-    }
-
     public function zone()
     {
         return $this->belongsTo(Zone::class);
     }
+
+
+
+    
 
     public function tenant()
     {
@@ -83,7 +82,7 @@ class Room extends Model
 
     public function images()
     {
-        return $this->hasMany(Image::class, 'room_id');
+        return $this->hasMany(Image::class);
     }
     public function notifications()
     {

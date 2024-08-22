@@ -11,14 +11,20 @@ class RoomClientServices
 {
     // viết các hàm lấy giá trị của bản đó 
     private const status = 1;
-    public function getAllRoom(int $perPage = 1)
+    public function getAllRoom(int $perPage = 10, $searchTerm = null)
     {
         try {
-            // Lấy tất cả các blog từ cơ sở dữ liệu và phân trang
-            $rooms = Room::where('status', self::status)->paginate($perPage);
-            return $rooms;
+            $query = Room::where('status', self::status);
+
+            // Nếu có từ khóa tìm kiếm, thêm điều kiện vào truy vấn
+            if ($searchTerm) {
+                $query->where('title', 'like', '%' . $searchTerm . '%')
+                      ->orWhere('description', 'like', '%' . $searchTerm . '%')
+                      ->orWhere('address', 'like', '%' . $searchTerm . '%');
+            }
+
+            return $query->paginate($perPage);
         } catch (\Exception $e) {
-            // Xử lý lỗi nếu có
             return null;
         }
     }

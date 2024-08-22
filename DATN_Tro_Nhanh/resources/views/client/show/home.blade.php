@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('titleUs', 'Trang chủ trọ nhanh')
 @section('contentUs')
-    <main id="content">
+    <main id="content"> 
         <section class="d-flex flex-column">
             <div style="background-image: url('{{ asset('assets/images/bg-home-01.jpg') }}')"
                 class="bg-cover d-flex align-items-center custom-vh-100">
@@ -9,7 +9,7 @@
                     <p class="text-white fs-md-22 fs-18 font-weight-500 letter-spacing-367 mb-6 text-center text-uppercase">
                         Hãy để chúng tôi hướng dẫn ngôi nhà của bạn</p>
                     <h2 class="text-white display-2 text-center mb-sm-13 mb-8">Tìm Ngôi Nhà Mơ Ước của bạn</h2>
-                    <form class="property-search py-lg-0 z-index-2 position-relative d-none d-lg-block">
+                     <form action="{{ route('client.room-listing') }}" method="GET" class="property-search py-lg-0 z-index-2 position-relative d-none d-lg-block">
                         <div class="row no-gutters">
                             <div class="col-md-5 col-lg-4 col-xl-3">
                                 <input class="search-field" type="hidden" name="status" value="for-sale"
@@ -22,7 +22,7 @@
                                             <svg class="icon icon-villa fs-22 mr-2">
                                                 <use xlink:href="#icon-villa"></use>
                                             </svg>
-                                            Bán
+                                            Phòng
                                         </a>
                                     </li>
                                     <li class="nav-item bg-secondary rounded-top" role="presentation">
@@ -41,7 +41,7 @@
                         <div class="bg-white px-6 rounded-bottom rounded-top-right pb-6 pb-lg-0">
                             <div class="row align-items-center" id="accordion-4">
                                 <div class="col-md-6 col-lg-3 col-xl-3 pt-6 pt-lg-0 order-1">
-                                    <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Loại nhà</label>
+                                    <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Loại phòng</label>
                                     <select
                                         class="form-control selectpicker bg-transparent border-bottom rounded-0 border-color-input"
                                         title="Chọn" data-style="p-0 h-24 lh-17 text-dark" name="type">
@@ -78,109 +78,97 @@
                                 <div id="advanced-search-filters-4" class="col-12 pt-4 pb-sm-4 order-sm-5 order-4 collapse"
                                     data-parent="#accordion-4">
                                     <div class="row">
-                                        <div class="col-sm-6 col-lg-3 pt-6">
-                                            <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Phòng
-                                                ngủ</label>
-                                            <select
-                                                class="form-control selectpicker bg-transparent border-bottom rounded-0 border-color-input"
-                                                name="bedroom" title="Tất cả phòng ngủ"
-                                                data-style="p-0 h-24 lh-17 text-dark">
-                                                <option>Tất cả phòng ngủ</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                                <option>6</option>
-                                                <option>7</option>
-                                                <option>8</option>
-                                                <option>9</option>
-                                                <option>10</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-6 col-lg-3 pt-6">
-                                            <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Phòng
-                                                tắm</label>
-                                            <select
-                                                class="form-control selectpicker bg-transparent border-bottom rounded-0 border-color-input"
-                                                title="Tất cả phòng tắm" data-style="p-0 h-24 lh-17 text-dark"
-                                                name="bathroom">
-                                                <option>Tất cả phòng tắm</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                                <option>6</option>
-                                                <option>7</option>
-                                                <option>8</option>
-                                                <option>9</option>
-                                                <option>10</option>
-                                            </select>
-                                        </div>
+                                      
+                                       
                                         <div class="col-sm-6 col-lg-3 pt-6">
                                             <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Tất cả
                                                 thành phố</label>
+                                                <select class="form-control bg-transparent border-bottom rounded-0 border-color-input" id="city-province" title="Tất cả thành phố" name="province" data-style="p-0 h-24 lh-17 text-dark">
+                                                    <option value='0'>Chọn Tỉnh/Thành Phố...</option>
+                                                    <option value='01'>Thành phố Hà Nội</option>
+                                                    <option value='79'>Thành phố Hồ Chí Minh</option>
+                                                    <option value='31'>Thành phố Hải Phòng</option>
+                                                    <option value='48'>Thành phố Đà Nẵng</option>
+                                                    <option value='92'>Thành phố Cần Thơ</option>
+                                                    <option value='02'>Tỉnh Hà Giang</option>
+                                                    <option value='04'>Tỉnh Cao Bằng</option>
+                                                    <option value='06'>Tỉnh Bắc Kạn</option>
+                                                    <option value='08'>Tỉnh Tuyên Quang</option>
+                                                    <option value='10'>Tỉnh Lào Cai</option>
+                                                    <option value='11'>Tỉnh Điện Biên</option>
+                                                    <option value='12'>Tỉnh Lai Châu</option>
+                                                    <option value='14'>Tỉnh Sơn La</option>
+                                                    <option value='15'>Tỉnh Yên Bái</option>
+                                                    <option value='17'>Tỉnh Hoà Bình</option>
+                                                    <option value='19'>Tỉnh Thái Nguyên</option>
+                                                    <option value='20'>Tỉnh Lạng Sơn</option>
+                                                    <option value='22'>Tỉnh Quảng Ninh</option>
+                                                    <option value='24'>Tỉnh Bắc Giang</option>
+                                                    <option value='25'>Tỉnh Phú Thọ</option>
+                                                    <option value='26'>Tỉnh Vĩnh Phúc</option>
+                                                    <option value='27'>Tỉnh Bắc Ninh</option>
+                                                    <option value='30'>Tỉnh Hải Dương</option>
+                                                    <option value='33'>Tỉnh Hưng Yên</option>
+                                                    <option value='34'>Tỉnh Thái Bình</option>
+                                                    <option value='35'>Tỉnh Hà Nam</option>
+                                                    <option value='36'>Tỉnh Nam Định</option>
+                                                    <option value='37'>Tỉnh Ninh Bình</option>
+                                                    <option value='38'>Tỉnh Thanh Hóa</option>
+                                                    <option value='40'>Tỉnh Nghệ An</option>
+                                                    <option value='42'>Tỉnh Hà Tĩnh</option>
+                                                    <option value='44'>Tỉnh Quảng Bình</option>
+                                                    <option value='45'>Tỉnh Quảng Trị</option>
+                                                    <option value='46'>Tỉnh Thừa Thiên Huế</option>
+                                                    <option value='49'>Tỉnh Quảng Nam</option>
+                                                    <option value='51'>Tỉnh Quảng Ngãi</option>
+                                                    <option value='52'>Tỉnh Bình Định</option>
+                                                    <option value='54'>Tỉnh Phú Yên</option>
+                                                    <option value='56'>Tỉnh Khánh Hòa</option>
+                                                    <option value='58'>Tỉnh Ninh Thuận</option>
+                                                    <option value='60'>Tỉnh Bình Thuận</option>
+                                                    <option value='62'>Tỉnh Kon Tum</option>
+                                                    <option value='64'>Tỉnh Gia Lai</option>
+                                                    <option value='66'>Tỉnh Đắk Lắk</option>
+                                                    <option value='67'>Tỉnh Đắk Nông</option>
+                                                    <option value='68'>Tỉnh Lâm Đồng</option>
+                                                    <option value='70'>Tỉnh Bình Phước</option>
+                                                    <option value='72'>Tỉnh Tây Ninh</option>
+                                                    <option value='74'>Tỉnh Bình Dương</option>
+                                                    <option value='75'>Tỉnh Đồng Nai</option>
+                                                    <option value='77'>Tỉnh Bà Rịa - Vũng Tàu</option>
+                                                    <option value='80'>Tỉnh Long An</option>
+                                                    <option value='82'>Tỉnh Tiền Giang</option>
+                                                    <option value='83'>Tỉnh Bến Tre</option>
+                                                    <option value='84'>Tỉnh Trà Vinh</option>
+                                                    <option value='86'>Tỉnh Vĩnh Long</option>
+                                                    <option value='87'>Tỉnh Đồng Tháp</option>
+                                                    <option value='89'>Tỉnh An Giang</option>
+                                                    <option value='91'>Tỉnh Kiên Giang</option>
+                                                    <option value='93'>Tỉnh Hậu Giang</option>
+                                                    <option value='94'>Tỉnh Sóc Trăng</option>
+                                                    <option value='95'>Tỉnh Bạc Liêu</option>
+                                                    <option value='96'>Tỉnh Cà Mau</option>
+                                                    <!-- Các tỉnh thành khác... -->
+                                                </select>
+                                        </div>
+                                        <div class="col-sm-6 col-lg-3 pt-6">
+                                            <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Tất cả quận/huyện</label>
                                             <select
-                                                class="form-control selectpicker bg-transparent border-bottom rounded-0 border-color-input"
-                                                name="city" title="Tất cả thành phố"
-                                                data-style="p-0 h-24 lh-17 text-dark">
-                                                <option>Tất cả thành phố</option>
-                                                <option>New York</option>
-                                                <option>Los Angeles</option>
-                                                <option>Chicago</option>
-                                                <option>Houston</option>
-                                                <option>San Diego</option>
-                                                <option>Las Vegas</option>
-                                                <option>Atlanta</option>
+                                                class="form-control bg-transparent border-bottom rounded-0 border-color-input"
+                                                id="district-town" name="district" title="Tất cả khu vực" data-style="p-0 h-24 lh-17 text-dark">
+                                                <option value="0">Chọn Quận/Huyện...</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-6 col-lg-3 pt-6">
-                                            <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Tất cả khu
-                                                vực</label>
+                                            <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Tất cả xã/phường</label>
                                             <select
-                                                class="form-control selectpicker bg-transparent border-bottom rounded-0 border-color-input"
-                                                name="areas" title="Tất cả khu vực" data-style="p-0 h-24 lh-17 text-dark">
-                                                <option>Tất cả khu vực</option>
-                                                <option>Albany Park</option>
-                                                <option>Altgeld Gardens</option>
-                                                <option>Andersonville</option>
-                                                <option>Beverly</option>
-                                                <option>Brickel</option>
-                                                <option>Central City</option>
-                                                <option>Coconut Grove</option>
+                                                class="form-control bg-transparent border-bottom rounded-0 border-color-input"
+                                                id="ward-commune" name="village" title="Tất cả khu vực" data-style="p-0 h-24 lh-17 text-dark">
+                                                <option value="0">Chọn Xã/Phường...</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="row pt-2">
-                                        <div class="col-md-6 col-lg-4 pt-6 slider-range slider-range-secondary">
-                                            <label for="price-1-4" class="mb-4 text-gray-light">Khoảng giá</label>
-                                            <div data-slider="true"
-                                                data-slider-options='{"min":0,"max":1000000,"values":[100000,700000],"type":"currency"}'>
-                                            </div>
-                                            <div class="text-center mt-2">
-                                                <input id="price-1-4" type="text" readonly name="price"
-                                                    class="border-0 amount text-center text-body font-weight-500 bg-transparent">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-lg-4 pt-6 slider-range slider-range-secondary">
-                                            <label for="area-size-4" class="mb-4 text-gray-light">Diện tích</label>
-                                            <div data-slider="true"
-                                                data-slider-options='{"min":0,"max":15000,"values":[0,13000],"type":"currency"}'>
-                                            </div>
-                                            <div class="text-center mt-2">
-                                                <input id="area-size-4" type="text" readonly name="area"
-                                                    class="border-0 amount text-center text-body font-weight-500 bg-transparent">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-lg-3 pt-6">
-                                            <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Mã bất
-                                                động sản</label>
-                                            <input type="text" name="property_id"
-                                                class="form-control bg-transparent shadow-none border-top-0 border-right-0 border-left-0 border-bottom rounded-0 h-24 lh-17 pl-0 pr-4 font-weight-600 border-color-input placeholder-muted"
-                                                placeholder="Nhập mã bất động sản...">
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -462,91 +450,97 @@
                 <div class="slick-slider slick-dots-mt-0 custom-arrow-spacing-30"
                     data-slick-options='{"slidesToShow": 4, "autoplay":true,"dots":true,"responsive":[{"breakpoint": 1600,"settings": {"slidesToShow":3,"arrows":false}},{"breakpoint": 992,"settings": {"slidesToShow":2,"arrows":false}},{"breakpoint": 768,"settings": {"slidesToShow": 2,"arrows":false,"dots":true,"autoplay":true}},{"breakpoint": 576,"settings": {"slidesToShow": 1,"arrows":false,"dots":true,"autoplay":true}}]}'>
                     @foreach ($rooms as $room)
-                    <div class="box pb-7 pt-2">
-                        <div class="card shadow-hover-2" data-animate="zoomIn">
-                            <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                @if ($room->images->isNotEmpty())
-                                    @php
-                                        $image = $room->images->first();
-                                    @endphp
-                                    <img src="{{ asset('assets/images/' . $image->filename) }}" alt="{{ $room->title }}">
-                                @else
-                                    <img src="{{ asset('assets/images/properties-grid-01.jpg') }}" alt="{{ $room->title }}">
-                                @endif
-                                <div class="card-img-overlay p-2 d-flex flex-column">
-                                    <div>
-                                        <span class="badge mr-2 badge-orange">nổi bật</span>
-                                        <span class="badge mr-2 badge-primary">để bán</span>
+                        <div class="box pb-7 pt-2">
+                            <div class="card shadow-hover-2" data-animate="zoomIn">
+                                <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
+                                    @if ($room->images->isNotEmpty())
+                                        @php
+                                            // Get the first image
+                                            $image = $room->images->first();
+                                        @endphp
+                                        <img src="{{ asset('assets/images/' . $image->filename) }}"
+                                            alt="{{ $room->title }}">
+                                    @else
+                                        <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                            alt="{{ $room->title }}">
+                                    @endif
+                                    <div class="card-img-overlay p-2 d-flex flex-column">
+                                        <div>
+                                            <span class="badge mr-2 badge-orange">nổi bật</span>
+                                            <span class="badge mr-2 badge-primary">để bán</span>
+                                        </div>
+                                        <ul class="list-inline mb-0 mt-auto hover-image">
+                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Hình ảnh">
+                                                <a href="#" class="text-white hover-primary">
+                                                    <i class="far fa-images"></i><span class="pl-1">9</span>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
+                                                <a href="#" class="text-white hover-primary">
+                                                    <i class="far fa-play-circle"></i><span class="pl-1">2</span>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <ul class="list-inline mb-0 mt-auto hover-image">
-                                        <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Hình ảnh">
-                                            <a href="#" class="text-white hover-primary">
-                                                <i class="far fa-images"></i><span class="pl-1">9</span>
-                                            </a>
+                                </div>
+                                <div class="card-body pt-3">
+                                    <h2 class="card-title fs-16 lh-2 mb-0"><a
+                                            href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
+                                            class="text-dark hover-primary">{{ $room->title }}</a></h2>
+                                    <p class="card-text font-weight-500 text-gray-light mb-2">{{ $room->address }}
+                                    </p>
+                                    <ul class="list-inline d-flex mb-0 flex-wrap mr-n5">
+                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                            data-toggle="tooltip" title="3 Phòng ngủ">
+                                            <svg class="icon icon-bedroom fs-18 text-primary mr-1">
+                                                <use xlink:href="#icon-bedroom"></use>
+                                            </svg>
+                                            3 Phòng
                                         </li>
-                                        <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
-                                            <a href="#" class="text-white hover-primary">
-                                                <i class="far fa-play-circle"></i><span class="pl-1">2</span>
-                                            </a>
+                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                            data-toggle="tooltip" title="3 Phòng tắm">
+                                            <svg class="icon icon-shower fs-18 text-primary mr-1">
+                                                <use xlink:href="#icon-shower"></use>
+                                            </svg>
+                                            3 Phòng
+                                        </li>
+                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                            data-toggle="tooltip" title="Diện tích">
+                                            <svg class="icon icon-square fs-18 text-primary mr-1">
+                                                <use xlink:href="#icon-square"></use>
+                                            </svg>
+                                            200m
+                                        </li>
+                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                            data-toggle="tooltip" title="1 Gara">
+                                            <svg class="icon icon-Garage fs-18 text-primary mr-1">
+                                                <use xlink:href="#icon-Garage"></use>
+                                            </svg>
+                                            1 Gara
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div
+                                    class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
+                                    <p class="fs-17 font-weight-bold text-heading mb-0">{{ $room->price }}VND</p>
+                                    <ul class="list-inline mb-0">
+                                        <li class="list-inline-item">
+                                            <a href="#"
+                                                class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-secondary bg-accent border-accent"
+                                                data-toggle="tooltip" title="Danh sách yêu thích"><i
+                                                    class="fas fa-heart"></i></a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a href="#"
+                                                class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent"
+                                                data-toggle="tooltip" title="So sánh"><i
+                                                    class="fas fa-exchange-alt"></i></a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-                            <div class="card-body pt-3">
-                                <h2 class="card-title fs-16 lh-2 mb-0">
-                                    <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}" class="text-dark hover-primary">{{ $room->title }}</a>
-                                </h2>
-                                <p class="card-text font-weight-500 text-gray-light mb-2">{{ $room->address }}</p>
-                                <ul class="list-inline d-flex mb-0 flex-wrap mr-n5">
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5" data-toggle="tooltip" title="3 Phòng ngủ">
-                                        <svg class="icon icon-bedroom fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-bedroom"></use>
-                                        </svg>
-                                        3 Phòng
-                                    </li>
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5" data-toggle="tooltip" title="3 Phòng tắm">
-                                        <svg class="icon icon-shower fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-shower"></use>
-                                        </svg>
-                                        3 Phòng
-                                    </li>
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5" data-toggle="tooltip" title="Diện tích">
-                                        <svg class="icon icon-square fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-square"></use>
-                                        </svg>
-                                        200m
-                                    </li>
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5" data-toggle="tooltip" title="1 Gara">
-                                        <svg class="icon icon-Garage fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-Garage"></use>
-                                        </svg>
-                                        1 Gara
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
-                                <p class="fs-17 font-weight-bold text-heading mb-0">{{ $room->price }} VND</p>
-                                <ul class="list-inline mb-0">
-                                    <li class="list-inline-item">
-                                        <a href="{{ route('client.add.favourite', ['slug' => $room->slug]) }}"
-                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-secondary bg-accent border-accent"
-                                            data-toggle="tooltip" title="Danh sách yêu thích">
-                                            <i class="fas fa-heart"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                           class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent"
-                                           data-toggle="tooltip" title="So sánh">
-                                            <i class="fas fa-exchange-alt"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
-                    </div>
-                @endforeach
-                
+                    @endforeach
                 </div>
             </div>
         </section>
@@ -647,78 +641,311 @@
                     </div>
                 </div>
 
-                @foreach ($rooms as $room)
-                <div class="box pb-7 pt-2">
-                    <div class="card shadow-hover-2 h-100" data-animate="zoomIn">
-                        <!-- Card image -->
-                        <div class="hover-change-image bg-hover-overlay rounded-lg">
-                            @if ($room->images->isNotEmpty())
-                                @php
-                                    $image = $room->images->first();
-                                @endphp
-                                <img src="{{ asset('assets/images/' . $image->filename) }}" alt="{{ $room->title }}" class="card-img-top img-fluid" style="object-fit: cover; height: 200px;">
-                            @else
-                                <img src="{{ asset('assets/images/properties-grid-01.jpg') }}" alt="{{ $room->title }}" class="card-img-top img-fluid" style="object-fit: cover; height: 200px;">
-                            @endif
-                        </div>
-                
-                        <!-- Card body -->
-                        <div class="card-body pt-3">
-                            <h2 class="card-title fs-16 lh-2 mb-0">
-                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}" class="text-dark hover-primary">{{ $room->title }}</a>
-                            </h2>
-                            <p class="card-text font-weight-500 text-gray-light mb-2">{{ $room->address }}</p>
-                            <ul class="list-inline d-flex mb-0 flex-wrap mr-n5">
-                                <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5" data-toggle="tooltip" title="3 Phòng ngủ">
-                                    <svg class="icon icon-bedroom fs-18 text-primary mr-1">
-                                        <use xlink:href="#icon-bedroom"></use>
-                                    </svg>
-                                    3 Phòng ngủ
-                                </li>
-                                <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5" data-toggle="tooltip" title="3 Phòng tắm">
-                                    <svg class="icon icon-shower fs-18 text-primary mr-1">
-                                        <use xlink:href="#icon-shower"></use>
-                                    </svg>
-                                    3 Phòng tắm
-                                </li>
-                                <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5" data-toggle="tooltip" title="Diện tích">
-                                    <svg class="icon icon-square fs-18 text-primary mr-1">
-                                        <use xlink:href="#icon-square"></use>
-                                    </svg>
-                                    200m²
-                                </li>
-                                <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5" data-toggle="tooltip" title="1 Gara">
-                                    <svg class="icon icon-Garage fs-18 text-primary mr-1">
-                                        <use xlink:href="#icon-Garage"></use>
-                                    </svg>
-                                    1 Gara
-                                </li>
-                            </ul>
-                        </div>
-                
-                        <!-- Card footer -->
-                        <div class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
-                            <p class="fs-17 font-weight-bold text-heading mb-0">{{ number_format($room->price, 0, ',', '.') }} VND</p>
-                            <ul class="list-inline mb-0">
-                                <li class="list-inline-item">
-                                    <a href="{{ route('client.add.favourite', ['slug' => $room->slug]) }}"
-                                       class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-secondary bg-accent border-accent"
-                                       data-toggle="tooltip" title="Danh sách yêu thích">
-                                        <i class="fas fa-heart"></i>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent" data-toggle="tooltip" title="So sánh">
-                                        <i class="fas fa-exchange-alt"></i>
-                                    </a>
-                                </li>
-                            </ul>
+                <div class="slick-slider slick-dots-mt-0 custom-arrow-spacing-30"
+                    data-slick-options='{"slidesToShow": 4,"dots":true,"arrows":false,"responsive":[{"breakpoint": 1600,"settings": {"slidesToShow":3}},{"breakpoint": 992,"settings": {"slidesToShow":2,"arrows":false}},{"breakpoint": 768,"settings": {"slidesToShow": 2,"arrows":false,"dots":true,"autoplay":true}},{"breakpoint": 576,"settings": {"slidesToShow": 1,"arrows":false,"dots":true,"autoplay":true}}]}'>
+
+                    <div class="box box pb-7 pt-2" data-animate="fadeInUp">
+                        <div class="card shadow-hover-2">
+                            <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
+                                <img src="{{ asset('assets/images/properties-grid-02.jpg') }}" alt="Nhà ở Metric Way">
+                            </div>
+                            <div class="card-body pt-3">
+                                <h2 class="card-title fs-16 lh-2 mb-0"><a href="single-property-1.html"
+                                        class="text-dark hover-primary">Nhà ở Metric Way</a></h2>
+                                <p class="card-text font-weight-500 text-gray-light mb-2">1421 San Pedro St, Los Angeles
+                                </p>
+                                <ul class="list-inline d-flex mb-0 flex-wrap mr-n5">
+                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                        data-toggle="tooltip" title="3 Phòng Ngủ">
+                                        <svg class="icon icon-bedroom fs-18 text-primary mr-1">
+                                            <use xlink:href="#icon-bedroom"></use>
+                                        </svg>
+                                        3 Phòng Ngủ
+                                    </li>
+                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                        data-toggle="tooltip" title="3 Phòng Tắm">
+                                        <svg class="icon icon-shower fs-18 text-primary mr-1">
+                                            <use xlink:href="#icon-shower"></use>
+                                        </svg>
+                                        3 Phòng Tắm
+                                    </li>
+                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                        data-toggle="tooltip" title="Diện Tích">
+                                        <svg class="icon icon-square fs-18 text-primary mr-1">
+                                            <use xlink:href="#icon-square"></use>
+                                        </svg>
+                                        2300 Sq.Ft
+                                    </li>
+                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                        data-toggle="tooltip" title="1 Gara">
+                                        <svg class="icon icon-Garage fs-18 text-primary mr-1">
+                                            <use xlink:href="#icon-Garage"></use>
+                                        </svg>
+                                        1 Gara
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
+                                <p class="fs-17 font-weight-bold text-heading mb-0">$550<span
+                                        class="text-gray-light font-weight-500 fs-14"> / tháng</span></p>
+                                <ul class="list-inline mb-0">
+                                    <li class="list-inline-item">
+                                        <a href="#"
+                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-secondary bg-accent border-accent"
+                                            data-toggle="tooltip" title="Danh Sách Yêu Thích"><i
+                                                class="fas fa-heart"></i></a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#"
+                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent"
+                                            data-toggle="tooltip" title="So Sánh"><i class="fas fa-exchange-alt"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-            @endforeach
-            
+                    <div class="box box pb-7 pt-2" data-animate="fadeInUp">
+                        <div class="card shadow-hover-2">
+                            <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
+                                <img src="{{ asset('assets/images/properties-grid-03.jpg') }}" alt="Nhà ở Metric Way">
+                            </div>
+                            <div class="card-body pt-3">
+                                <h2 class="card-title fs-16 lh-2 mb-0"><a href="single-property-1.html"
+                                        class="text-dark hover-primary">Nhà ở Metric Way</a></h2>
+                                <p class="card-text font-weight-500 text-gray-light mb-2">1421 San Pedro St, Los Angeles
+                                </p>
+                                <ul class="list-inline d-flex mb-0 flex-wrap mr-n5">
+                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                        data-toggle="tooltip" title="3 Phòng Ngủ">
+                                        <svg class="icon icon-bedroom fs-18 text-primary mr-1">
+                                            <use xlink:href="#icon-bedroom"></use>
+                                        </svg>
+                                        3 Phòng Ngủ
+                                    </li>
+                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                        data-toggle="tooltip" title="3 Phòng Tắm">
+                                        <svg class="icon icon-shower fs-18 text-primary mr-1">
+                                            <use xlink:href="#icon-shower"></use>
+                                        </svg>
+                                        3 Phòng Tắm
+                                    </li>
+                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                        data-toggle="tooltip" title="Diện Tích">
+                                        <svg class="icon icon-square fs-18 text-primary mr-1">
+                                            <use xlink:href="#icon-square"></use>
+                                        </svg>
+                                        2300 Sq.Ft
+                                    </li>
+                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                        data-toggle="tooltip" title="1 Gara">
+                                        <svg class="icon icon-Garage fs-18 text-primary mr-1">
+                                            <use xlink:href="#icon-Garage"></use>
+                                        </svg>
+                                        1 Gara
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
+                                <p class="fs-17 font-weight-bold text-heading mb-0">$550<span
+                                        class="text-gray-light font-weight-500 fs-14"> / tháng</span></p>
+                                <ul class="list-inline mb-0">
+                                    <li class="list-inline-item">
+                                        <a href="#"
+                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-secondary bg-accent border-accent"
+                                            data-toggle="tooltip" title="Danh Sách Yêu Thích"><i
+                                                class="fas fa-heart"></i></a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#"
+                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent"
+                                            data-toggle="tooltip" title="So Sánh"><i class="fas fa-exchange-alt"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box box pb-7 pt-2" data-animate="fadeInUp">
+                        <div class="card shadow-hover-2">
+                            <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
+                                <img src="{{ asset('assets/images/properties-grid-04.jpg') }}" alt="Nhà ở Metric Way">
+                            </div>
+                            <div class="card-body pt-3">
+                                <h2 class="card-title fs-16 lh-2 mb-0"><a href="single-property-1.html"
+                                        class="text-dark hover-primary">Nhà ở Metric Way</a></h2>
+                                <p class="card-text font-weight-500 text-gray-light mb-2">1421 San Pedro St, Los Angeles
+                                </p>
+                                <ul class="list-inline d-flex mb-0 flex-wrap mr-n5">
+                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                        data-toggle="tooltip" title="3 Phòng Ngủ">
+                                        <svg class="icon icon-bedroom fs-18 text-primary mr-1">
+                                            <use xlink:href="#icon-bedroom"></use>
+                                        </svg>
+                                        3 Phòng Ngủ
+                                    </li>
+                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                        data-toggle="tooltip" title="3 Phòng Tắm">
+                                        <svg class="icon icon-shower fs-18 text-primary mr-1">
+                                            <use xlink:href="#icon-shower"></use>
+                                        </svg>
+                                        3 Phòng Tắm
+                                    </li>
+                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                        data-toggle="tooltip" title="Diện Tích">
+                                        <svg class="icon icon-square fs-18 text-primary mr-1">
+                                            <use xlink:href="#icon-square"></use>
+                                        </svg>
+                                        2300 Sq.Ft
+                                    </li>
+                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                        data-toggle="tooltip" title="1 Gara">
+                                        <svg class="icon icon-Garage fs-18 text-primary mr-1">
+                                            <use xlink:href="#icon-Garage"></use>
+                                        </svg>
+                                        1 Gara
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
+                                <p class="fs-17 font-weight-bold text-heading mb-0">$550<span
+                                        class="text-gray-light font-weight-500 fs-14"> / tháng</span></p>
+                                <ul class="list-inline mb-0">
+                                    <li class="list-inline-item">
+                                        <a href="#"
+                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-secondary bg-accent border-accent"
+                                            data-toggle="tooltip" title="Danh Sách Yêu Thích"><i
+                                                class="fas fa-heart"></i></a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#"
+                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent"
+                                            data-toggle="tooltip" title="So Sánh"><i class="fas fa-exchange-alt"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box box pb-7 pt-2" data-animate="fadeInUp">
+                        <div class="card shadow-hover-2">
+                            <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
+                                <img src="{{ asset('assets/images/properties-grid-05.jpg') }}" alt="Nhà ở Metric Way">
+                            </div>
+                            <div class="card-body pt-3">
+                                <h2 class="card-title fs-16 lh-2 mb-0"><a href="single-property-1.html"
+                                        class="text-dark hover-primary">Nhà ở Metric Way</a></h2>
+                                <p class="card-text font-weight-500 text-gray-light mb-2">1421 San Pedro St, Los Angeles
+                                </p>
+                                <ul class="list-inline d-flex mb-0 flex-wrap mr-n5">
+                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                        data-toggle="tooltip" title="3 Phòng Ngủ">
+                                        <svg class="icon icon-bedroom fs-18 text-primary mr-1">
+                                            <use xlink:href="#icon-bedroom"></use>
+                                        </svg>
+                                        3 Phòng Ngủ
+                                    </li>
+                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                        data-toggle="tooltip" title="3 Phòng Tắm">
+                                        <svg class="icon icon-shower fs-18 text-primary mr-1">
+                                            <use xlink:href="#icon-shower"></use>
+                                        </svg>
+                                        3 Phòng Tắm
+                                    </li>
+                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                        data-toggle="tooltip" title="Diện Tích">
+                                        <svg class="icon icon-square fs-18 text-primary mr-1">
+                                            <use xlink:href="#icon-square"></use>
+                                        </svg>
+                                        2300 Sq.Ft
+                                    </li>
+                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                        data-toggle="tooltip" title="1 Gara">
+                                        <svg class="icon icon-Garage fs-18 text-primary mr-1">
+                                            <use xlink:href="#icon-Garage"></use>
+                                        </svg>
+                                        1 Gara
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
+                                <p class="fs-17 font-weight-bold text-heading mb-0">$550<span
+                                        class="text-gray-light font-weight-500 fs-14"> / tháng</span></p>
+                                <ul class="list-inline mb-0">
+                                    <li class="list-inline-item">
+                                        <a href="#"
+                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-secondary bg-accent border-accent"
+                                            data-toggle="tooltip" title="Danh Sách Yêu Thích"><i
+                                                class="fas fa-heart"></i></a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#"
+                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent"
+                                            data-toggle="tooltip" title="So Sánh"><i class="fas fa-exchange-alt"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box box pb-7 pt-2" data-animate="fadeInUp">
+                        <div class="card shadow-hover-2">
+                            <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
+                                <img src="{{ asset('assets/images/properties-grid-06.jpg') }}" alt="Nhà ở Metric Way">
+                            </div>
+                            <div class="card-body pt-3">
+                                <h2 class="card-title fs-16 lh-2 mb-0"><a href="single-property-1.html"
+                                        class="text-dark hover-primary">Nhà ở Metric Way</a></h2>
+                                <p class="card-text font-weight-500 text-gray-light mb-2">1421 San Pedro St, Los Angeles
+                                </p>
+                                <ul class="list-inline d-flex mb-0 flex-wrap mr-n5">
+                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                        data-toggle="tooltip" title="3 Phòng Ngủ">
+                                        <svg class="icon icon-bedroom fs-18 text-primary mr-1">
+                                            <use xlink:href="#icon-bedroom"></use>
+                                        </svg>
+                                        3 Phòng Ngủ
+                                    </li>
+                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                        data-toggle="tooltip" title="3 Phòng Tắm">
+                                        <svg class="icon icon-shower fs-18 text-primary mr-1">
+                                            <use xlink:href="#icon-shower"></use>
+                                        </svg>
+                                        3 Phòng Tắm
+                                    </li>
+                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                        data-toggle="tooltip" title="Diện Tích">
+                                        <svg class="icon icon-square fs-18 text-primary mr-1">
+                                            <use xlink:href="#icon-square"></use>
+                                        </svg>
+                                        2300 Sq.Ft
+                                    </li>
+                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                        data-toggle="tooltip" title="1 Gara">
+                                        <svg class="icon icon-Garage fs-18 text-primary mr-1">
+                                            <use xlink:href="#icon-Garage"></use>
+                                        </svg>
+                                        1 Gara
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
+                                <p class="fs-17 font-weight-bold text-heading mb-0">$550<span
+                                        class="text-gray-light font-weight-500 fs-14"> / tháng</span></p>
+                                <ul class="list-inline mb-0">
+                                    <li class="list-inline-item">
+                                        <a href="#"
+                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-secondary bg-accent border-accent"
+                                            data-toggle="tooltip" title="Danh Sách Yêu Thích"><i
+                                                class="fas fa-heart"></i></a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#"
+                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent"
+                                            data-toggle="tooltip" title="So Sánh"><i class="fas fa-exchange-alt"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </section>
@@ -1089,4 +1316,10 @@
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
+   
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+    <script src="{{ asset('assets/js/api-country-vn-nht.js') }}"></script>
+    
 @endpush
