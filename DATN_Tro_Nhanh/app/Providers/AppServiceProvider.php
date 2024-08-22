@@ -8,6 +8,8 @@ use App\Services\NotificationOwnersService;
 use App\Services\RoomOwnersService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use App\Services\FavouritesServices;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -35,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
     //     //
     // }
     // Biến để xem thông báo
-    public function boot(NotificationOwnersService $notificationService, RoomOwnersService $roomOwnersService)
+    public function boot(NotificationOwnersService $notificationService, RoomOwnersService $roomOwnersService, FavouritesServices $favouriteService)
     {
         // Cung cấp thông tin người dùng cho view 'components.navbar-owner'
         View::composer('components.navbar-owner', function ($view) {
@@ -48,6 +50,18 @@ class AppServiceProvider extends ServiceProvider
         View::composer('components.navbar-owner', function ($view) use ($roomOwnersService) {
             $view->with('unreadRoomCount', $roomOwnersService->getRoomCount());
         });
+        View::composer('components.navbar-home', function ($view) use ($favouriteService) {
+            $userId = Auth::id(); // Lấy ID người dùng hiện tại
+        
+            // Kiểm tra nếu người dùng đã đăng nhập
+            if ($userId) {
+                $favouriteCount = $favouriteService->countUserFavourites($userId);
+                $view->with('favouriteCount', $favouriteCount);
+            } else {
+                $view->with('favouriteCount', 0);
+            }
+        });
+
     }
     protected $listen = [
         \App\Events\RoomCreated::class => [

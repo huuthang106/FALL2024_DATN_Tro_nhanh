@@ -45,7 +45,7 @@
                         <tr>
                             <th scope="col" class="border-top-0 px-6 pt-5 pb-4">Ảnh</th>
                             <th scope="col" class="border-top-0 pt-5 pb-4">Tiêu Đề</th>
-                            <th scope="col" class="border-top-0 pt-5 pb-4">Tiêu Đề</th>
+                            <th scope="col" class="border-top-0 pt-5 pb-4">Mô Tả</th>
                             <th scope="col" class="border-top-0 pt-5 pb-4">Trạng thái</th>
                             <th scope="col" class="border-top-0 pt-5 pb-4">Ngày xuất bản</th>
                             <th scope="col" class="border-top-0 pt-5 pb-4">Hành động</th>

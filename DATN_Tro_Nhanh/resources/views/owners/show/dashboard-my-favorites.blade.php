@@ -131,7 +131,7 @@
             </div> --}}
             <div class="row g-3">
                 @foreach ($favourites as $favourite)
-                    <div class="col-md-6 col-xxl-3 mb-6">
+                    <div class="col-md-4 col-lg-4 mb-3"> <!-- Thay đổi lớp cột -->
                         <div class="card shadow-hover-1">
                             <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
                                 <div class="image-container">
@@ -152,8 +152,7 @@
                                             <li class="list-inline-item mr-2" data-toggle="tooltip"
                                                 title="{{ $favourite->room->images->count() }} Images">
                                                 <a href="#" class="text-white hover-primary">
-                                                    <i class="far fa-images"></i><span
-                                                        class="pl-1">{{ $favourite->room->images->count() }}</span>
+                                                    <i class="far fa-images"></i><span class="pl-1">{{ $favourite->room->images->count() }}</span>
                                                 </a>
                                             </li>
                                             <!-- Nếu có video thì thêm thông tin tương ứng -->
@@ -169,12 +168,11 @@
                             </div>
                             <div class="card-body pt-3">
                                 <h2 class="card-title fs-16 lh-2 mb-0">
-                                    <a href="{{ route('client.detail-room', $favourite->room->slug) }}"
+<a href="{{ route('client.detail-room', $favourite->room->slug) }}"
                                         class="text-dark hover-primary">{{ $favourite->room->title }}</a>
                                 </h2>
-
-                                <p class="card-text font-weight-500 text-gray-light mb-2">{{ $favourite->room->address }}
-                                </p>
+            
+                                <p class="card-text font-weight-500 text-gray-light mb-2">{{ $favourite->room->address }}</p>
                                 <ul class="list-inline d-flex mb-0 flex-wrap">
                                     <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2"
                                         data-toggle="tooltip" title="{{ $favourite->room->bedrooms }} Phòng ngủ">
@@ -205,16 +203,10 @@
                                             @csrf
                                             @method('GET') <!-- Phương thức DELETE được Laravel xử lý thông qua form -->
                                             <button type="submit" class="delete-btn w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-secondary bg-accent border-accent" data-toggle="tooltip" title="Xóa">
-                                                <i class="fa-solid fa-delete-left"></i>
+<i class="fa-solid fa-delete-left"></i>
                                             </button>
                                         </form>
-                                        
-                                        
-
                                     </li>
-                                    
-                                    </li>
-
                                     <li class="list-inline-item">
                                         <a href="#" data-toggle="tooltip" title="Compare"
                                             class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent">

@@ -39,38 +39,12 @@ class FavouritesServices
    
        return false;
    }
+   public function countUserFavourites($userId)
+   {
+       return Favourite::where('user_id', $userId)->count();
+   }
    
 
 }
 
-    // public function deleteBySlug($slug)
-    // {
-    //     try {
-
-    //         $favourite = Favourite::where('slug', $slug)->first();
-
-    //         // Kiểm tra xem có tồn tại không
-    //         if (!$favourite) {
-    //             return [
-    //                 'success' => false,
-    //                 'message' => 'Mục yêu thích không tồn tại.'
-    //             ];
-    //         }
-
-    //         // Xóa mục yêu thích
-    //         $favourite->delete();
-
-    //         return [
-    //             'success' => true,
-    //             'message' => 'Mục yêu thích đã được xóa thành công.'
-    //         ];
-    //     } catch (\Exception $e) {
-    //         // Ghi log lỗi nếu có
-    //         Log::error('Lỗi khi xóa mục yêu thích: ' . $e->getMessage());
-
-    //         return [
-    //             'success' => false,
-    //             'message' => 'Đã xảy ra lỗi khi xóa mục yêu thích.'
-    //         ];
-    //     }
-    // }
+   
