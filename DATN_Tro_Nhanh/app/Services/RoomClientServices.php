@@ -11,18 +11,31 @@ class RoomClientServices
 {
     // viết các hàm lấy giá trị của bản đó 
     private const status = 1;
-    public function getAllRoom(int $perPage = 10, $searchTerm = null)
+    public function getAllRoom(int $perPage = 10, $searchTerm = null, $province = null, $district = null, $village = null)
     {
         try {
             $query = Room::where('status', self::status);
-
+    
             // Nếu có từ khóa tìm kiếm, thêm điều kiện vào truy vấn
             if ($searchTerm) {
-                $query->where('title', 'like', '%' . $searchTerm . '%')
+                $query->where(function($q) use ($searchTerm) {
+                    $q->where('title', 'like', '%' . $searchTerm . '%')
                       ->orWhere('description', 'like', '%' . $searchTerm . '%')
                       ->orWhere('address', 'like', '%' . $searchTerm . '%');
+                });
             }
-
+    
+            // Nếu có tỉnh, huyện, xã, thêm điều kiện vào truy vấn
+            if ($province) {
+                $query->where('province', $province);
+            }
+            if ($district) {
+                $query->where('district', $district);
+            }
+            if ($village) {
+                $query->where('village', $village);
+            }
+    
             return $query->paginate($perPage);
         } catch (\Exception $e) {
             return null;

@@ -176,20 +176,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="row mb-6">
-                                            <label class="col-lg-4 col-form-label fw-bold fs-6">Loại dịch vụ phòng</label>
-                                            <div class="col-lg-8 fv-row">
-                                                <select name="room_type_id"
-                                                    class="form-select form-select-solid form-select-lg">
-                                                    @foreach ($room_types as $room_type)
-                                                        <option value="{{ $room_type->id }}"
-                                                            {{ $rooms->room_type_id == $room_type->id ? 'selected' : '' }}>
-                                                            {{ $room_type->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                     <div class="col-6">
                                         <div class="row mb-6">

@@ -23,7 +23,6 @@ class CreateRoomRequest extends FormRequest
             'latitude' => 'required|numeric',
             'view' => 'required|integer',
             'status' => 'required|integer',
-            'room_type_id' => 'required|integer|exists:room_types,id',
             'category_id' => 'required|integer|exists:categories,id',
         ];
     }
