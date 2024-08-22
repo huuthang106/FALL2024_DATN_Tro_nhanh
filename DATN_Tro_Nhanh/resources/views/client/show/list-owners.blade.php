@@ -48,17 +48,21 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- <livewire:search-users /> --}}
                         <div class="form-group mb-3 mb-lg-0 col-md-5">
                             <label for="search" class="mb-0 lh-1 text-uppercase fs-14 letter-spacing-093">Tìm kiếm</label>
                             <div class="input-group input-group-sm">
                                 <input type="text" id="search" class="form-control pl-0 rounded-0 bg-white"
-                                    placeholder="Tìm kiếm theo tên người đăng tin…" name="search">
+                                    placeholder="Tìm kiếm theo tên người đăng tin…" name="search" wire:model>
                                 <div class="input-group-append ml-0">
                                     <span class="fs-18 input-group-text bg-white rounded-0"><i
                                             class="fal fa-search"></i></span>
                                 </div>
                             </div>
+
                         </div>
+
+
                         <div class="col-md-2 pl-0">
                             <button type="submit" class="btn btn-primary btn-lg btn-block">
                                 Tìm kiếm
@@ -157,13 +161,15 @@
                                 <div class="position-relative card-img-top">
                                     <a href="#">
                                         @if ($item->image)
-                                            <img src="{{ asset('assets/images/' . $item->image) }}" alt="{{ $item->name }}">
+                                            <img src="{{ asset('assets/images/' . $item->image) }}"
+                                                alt="{{ $item->name }}">
                                         @else
-                                            <img src="{{ asset('assets/images/agent-25.jpg') }}" alt="{{ $item->name }}">
+                                            <img src="{{ asset('assets/images/agent-25.jpg') }}"
+                                                alt="{{ $item->name }}">
                                         @endif
                                     </a>
-                                    
-                                    
+
+
                                     <div
                                         class="card-img-overlay bg-dark-opacity-06 hover-image d-flex flex-column rounded-lg p-4">
                                         <div class="mt-auto">
@@ -218,7 +224,7 @@
                     @endforeach
                 </div>
 
-                
+
 
                 <nav class="mt-4">
                     <ul class="pagination rounded-active justify-content-center">
@@ -318,6 +324,7 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    {{-- @livewireStyles --}}
 @endpush
 @push('scriptUs')
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
@@ -337,4 +344,5 @@
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
+    {{-- @livewireScripts --}}
 @endpush

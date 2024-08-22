@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events\admin;
+namespace App\Events\Admin;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;

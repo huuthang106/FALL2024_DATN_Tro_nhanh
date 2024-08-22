@@ -51,7 +51,7 @@ class UserClientController extends Controller
     public function indexAgent()
     {
         $users = $this->userClientServices->getUsersByRole(2);
-        return view('client.show.agents-grid-2', compact('users'));
+        return view('client.show.list-owners', compact('users'));
     }
     public function agentDetail($slug)
     {

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as BaseEventServiceProvider;
+use App\Events\Admin\ZoneCreated as AdminZoneCreated;
 use App\Events\ZoneCreated;
 use App\Listeners\SendZoneCreatedNotification;
 use App\Listeners\SendRoomCreatedNotification;
