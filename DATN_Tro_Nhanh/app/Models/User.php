@@ -27,7 +27,10 @@ class User extends Authenticatable
         'phone',
         'address',
         'image',
-        'slug'
+        'slug',
+        'province',
+        'district',
+        'village',
     ];
 
     /**

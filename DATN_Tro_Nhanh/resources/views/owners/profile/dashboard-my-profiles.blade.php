@@ -9,10 +9,11 @@
                 <p class="mb-1">Dịch vụ khách hàng rất quan trọng, do đó, khách hàng phải chịu trách nhiệm. Cần có hy vọng
                 </p>
             </div>
-            <form method="POST" action="{{ route('owners.profile.update-profile', $user->slug) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('owners.profile.update-profile', $user->slug) }}"
+                enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                
+
                 <div class="row mb-6">
                     <div class="col-lg-6">
                         <div class="card mb-6">
@@ -25,13 +26,15 @@
                                     <div class="col-sm-8 col-xl-12 col-xxl-5">
                                         <!-- Hiển thị ảnh hiện tại hoặc ảnh mặc định nếu không có ảnh -->
                                         <div class="profile-image-container">
-                                            <img id="profileImagePreview" src="{{ asset('assets/images/' . $user->image) }}" alt="My Profile">
+                                            <img id="profileImagePreview" src="{{ asset('assets/images/' . $user->image) }}"
+                                                alt="My Profile">
                                         </div>
-                    
+
                                         <div class="custom-file mt-4 h-auto">
                                             <input type="file" class="custom-file-input" id="customFile" name="image">
                                             <label class="btn btn-secondary btn-lg btn-block" for="customFile">
-                                                <span class="d-inline-block mr-1"><i class="fal fa-cloud-upload"></i></span>Tải lên hình ảnh hồ sơ
+                                                <span class="d-inline-block mr-1"><i
+                                                        class="fal fa-cloud-upload"></i></span>Tải lên hình ảnh hồ sơ
                                             </label>
                                         </div>
                                         <p class="mb-0 mt-2">*tối thiểu 500px x 500px</p>
@@ -40,57 +43,214 @@
                             </div>
                         </div>
                     </div>
-                    
-                    
-                    
+
+
+
                     <div class="col-lg-6">
                         <div class="card mb-6">
                             <div class="card-body px-6 pt-6 pb-5">
                                 <h3 class="card-title mb-0 text-heading fs-22 lh-15">Chi tiết người dùng</h3>
                                 <p class="card-text">Thông tin cá nhân của bạn.</p>
-            
+
                                 <div class="form-group">
                                     <label for="name" class="text-heading">Tên</label>
-                                    <input type="text" class="form-control form-control-lg border-0" id="name" name="name" value="{{ old('name', $user->name) }}">
+                                    <input type="text" class="form-control form-control-lg border-0" id="name"
+                                        name="name" value="{{ old('name', $user->name) }}">
                                     @error('name')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="email" class="text-heading">Email</label>
-                                    <input type="email" class="form-control form-control-lg border-0" id="email" name="email" value="{{ old('email', $user->email) }}">
+                                    <input type="email" class="form-control form-control-lg border-0" id="email"
+                                        name="email" value="{{ old('email', $user->email) }}">
                                     @error('email')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-            
+
                                 <div class="form-group">
                                     <label for="phone" class="text-heading">Số điện thoại</label>
-                                    <input type="text" class="form-control form-control-lg border-0" id="phone" name="phone" value="{{ old('phone', $user->phone) }}">
+                                    <input type="text" class="form-control form-control-lg border-0" id="phone"
+                                        name="phone" value="{{ old('phone', $user->phone) }}">
                                     @error('phone')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-            
+
                                 <div class="form-group">
                                     <label for="address" class="text-heading">Địa chỉ</label>
-                                    <input type="text" class="form-control form-control-lg border-0" id="address" name="address" value="{{ old('address', $user->address) }}">
+                                    <input type="text" class="form-control form-control-lg border-0" id="address"
+                                        name="address" value="{{ old('address', $user->address) }}">
                                     @error('address')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-            
+
+                                <!-- Tỉnh -->
+                                <div class="form-group">
+                                    <label for="city-province" class="text-heading">Tỉnh</label>
+                                    <select class="form-control border-0 shadow-none form-control-lg selectpicker"
+                                        title="Lựa chọn" data-style="btn-lg py-2 h-52" id="city-province" name="province">
+                                        <option value='0'>&nbsp;Chọn Tỉnh/Thành Phố...
+                                        </option>
+                                        <option value='01' {{ $user->province == '01' ? 'selected' : '' }}>
+                                            &nbspThành phố Hà Nội</option>
+                                        <option value='79' {{ $user->province == '79' ? 'selected' : '' }}>
+                                            &nbspThành phố Hồ Chí Minh</option>
+                                        <option value='31' {{ $user->province == '31' ? 'selected' : '' }}>
+                                            &nbspThành phố Hải Phòng</option>
+                                        <option value='48' {{ $user->province == '48' ? 'selected' : '' }}>
+                                            &nbspThành phố Đà Nẵng</option>
+                                        <option value='92' {{ $user->province == '92' ? 'selected' : '' }}>
+                                            &nbspThành phố Cần Thơ</option>
+                                        <option value='02' {{ $user->province == '02' ? 'selected' : '' }}>
+                                            &nbspTỉnh Hà Giang</option>
+                                        <option value='04' {{ $user->province == '04' ? 'selected' : '' }}>
+                                            &nbspTỉnh Cao Bằng</option>
+                                        <option value='06' {{ $user->province == '06' ? 'selected' : '' }}>
+                                            &nbspTỉnh Bắc Kạn</option>
+                                        <option value='08' {{ $user->province == '08' ? 'selected' : '' }}>
+                                            &nbspTỉnh Tuyên Quang</option>
+                                        <option value='10' {{ $user->province == '10' ? 'selected' : '' }}>
+                                            &nbspTỉnh Lào Cai</option>
+                                        <option value='11' {{ $user->province == '11' ? 'selected' : '' }}>
+                                            &nbspTỉnh Điện Biên</option>
+                                        <option value='12' {{ $user->province == '12' ? 'selected' : '' }}>
+                                            &nbspTỉnh Lai Châu</option>
+                                        <option value='14' {{ $user->province == '14' ? 'selected' : '' }}>
+                                            &nbspTỉnh Sơn La</option>
+                                        <option value='15' {{ $user->province == '15' ? 'selected' : '' }}>
+                                            &nbspTỉnh Yên Bái</option>
+                                        <option value='17' {{ $user->province == '17' ? 'selected' : '' }}>
+                                            &nbspTỉnh Hoà Bình</option>
+                                        <option value='19' {{ $user->province == '19' ? 'selected' : '' }}>
+                                            &nbspTỉnh Thái Nguyên</option>
+                                        <option value='20' {{ $user->province == '20' ? 'selected' : '' }}>
+                                            &nbspTỉnh Lạng Sơn</option>
+                                        <option value='22' {{ $user->province == '22' ? 'selected' : '' }}>
+                                            &nbspTỉnh Quảng Ninh</option>
+                                        <option value='24' {{ $user->province == '24' ? 'selected' : '' }}>
+                                            &nbspTỉnh Bắc Giang</option>
+                                        <option value='25' {{ $user->province == '25' ? 'selected' : '' }}>
+                                            &nbspTỉnh Phú Thọ</option>
+                                        <option value='26' {{ $user->province == '26' ? 'selected' : '' }}>
+                                            &nbspTỉnh Vĩnh Phúc</option>
+                                        <option value='27' {{ $user->province == '27' ? 'selected' : '' }}>
+                                            &nbspTỉnh Bắc Ninh</option>
+                                        <option value='30' {{ $user->province == '30' ? 'selected' : '' }}>
+                                            &nbspTỉnh Hải Dương</option>
+                                        <option value='33' {{ $user->province == '33' ? 'selected' : '' }}>
+                                            &nbspTỉnh Hưng Yên</option>
+                                        <option value='34' {{ $user->province == '34' ? 'selected' : '' }}>
+                                            &nbspTỉnh Thái Bình</option>
+                                        <option value='35' {{ $user->province == '35' ? 'selected' : '' }}>
+                                            &nbspTỉnh Hà Nam</option>
+                                        <option value='36' {{ $user->province == '36' ? 'selected' : '' }}>
+                                            &nbspTỉnh Nam Định</option>
+                                        <option value='37' {{ $user->province == '37' ? 'selected' : '' }}>
+                                            &nbspTỉnh Ninh Bình</option>
+                                        <option value='38' {{ $user->province == '38' ? 'selected' : '' }}>
+                                            &nbspTỉnh Thanh Hóa</option>
+                                        <option value='40' {{ $user->province == '40' ? 'selected' : '' }}>
+                                            &nbspTỉnh Nghệ An</option>
+                                        <option value='42' {{ $user->province == '42' ? 'selected' : '' }}>
+                                            &nbspTỉnh Hà Tĩnh</option>
+                                        <option value='44' {{ $user->province == '44' ? 'selected' : '' }}>
+                                            &nbspTỉnh Quảng Bình</option>
+                                        <option value='45' {{ $user->province == '45' ? 'selected' : '' }}>
+                                            &nbspTỉnh Quảng Trị</option>
+                                        <option value='46' {{ $user->province == '46' ? 'selected' : '' }}>
+                                            &nbspTỉnh Thừa Thiên Huế</option>
+                                        <option value='49' {{ $user->province == '49' ? 'selected' : '' }}>
+                                            &nbspTỉnh Quảng Nam</option>
+                                        <option value='51' {{ $user->province == '51' ? 'selected' : '' }}>
+                                            &nbspTỉnh Quảng Ngãi</option>
+                                        <option value='52' {{ $user->province == '52' ? 'selected' : '' }}>
+                                            &nbspTỉnh Bình Định</option>
+                                        <option value='54' {{ $user->province == '54' ? 'selected' : '' }}>
+                                            &nbspTỉnh Phú Yên</option>
+                                        <option value='56' {{ $user->province == '56' ? 'selected' : '' }}>
+                                            &nbspTỉnh Khánh Hòa</option>
+                                        <option value='58' {{ $user->province == '58' ? 'selected' : '' }}>
+                                            &nbspTỉnh Ninh Thuận</option>
+                                        <option value='60' {{ $user->province == '60' ? 'selected' : '' }}>
+                                            &nbspTỉnh Bình Thuận</option>
+                                        <option value='62' {{ $user->province == '62' ? 'selected' : '' }}>
+                                            &nbspTỉnh Kon Tum</option>
+                                        <option value='64' {{ $user->province == '64' ? 'selected' : '' }}>
+                                            &nbspTỉnh Gia Lai</option>
+                                        <option value='66' {{ $user->province == '66' ? 'selected' : '' }}>
+                                            &nbspTỉnh Đắk Lắk</option>
+                                        <option value='67' {{ $user->province == '67' ? 'selected' : '' }}>
+                                            &nbspTỉnh Đắk Nông</option>
+                                        <option value='68' {{ $user->province == '68' ? 'selected' : '' }}>
+                                            &nbspTỉnh Lâm Đồng</option>
+                                        <option value='70' {{ $user->province == '70' ? 'selected' : '' }}>
+                                            &nbspTỉnh Bình Phước</option>
+                                        <option value='72' {{ $user->province == '72' ? 'selected' : '' }}>
+                                            &nbspTỉnh Tây Ninh</option>
+                                        <option value='74' {{ $user->province == '74' ? 'selected' : '' }}>
+                                            &nbspTỉnh Bình Dương</option>
+                                        <option value='75' {{ $user->province == '75' ? 'selected' : '' }}>
+                                            &nbspTỉnh Đồng Nai</option>
+                                        <option value='77' {{ $user->province == '77' ? 'selected' : '' }}>
+                                            &nbspTỉnh Bà Rịa - Vũng Tàu</option>
+                                        <option value='80' {{ $user->province == '80' ? 'selected' : '' }}>
+                                            &nbspTỉnh Long An</option>
+                                        <option value='82' {{ $user->province == '82' ? 'selected' : '' }}>
+                                            &nbspTỉnh Tiền Giang</option>
+                                        <option value='83' {{ $user->province == '83' ? 'selected' : '' }}>
+                                            &nbspTỉnh Bến Tre</option>
+                                        <option value='84' {{ $user->province == '84' ? 'selected' : '' }}>
+                                            &nbspTỉnh Trà Vinh</option>
+                                        <option value='86' {{ $user->province == '86' ? 'selected' : '' }}>
+                                            &nbspTỉnh Vĩnh Long</option>
+                                        <option value='87' {{ $user->province == '87' ? 'selected' : '' }}>
+                                            &nbspTỉnh Đồng Tháp</option>
+                                        <option value='89' {{ $user->province == '89' ? 'selected' : '' }}>
+                                            &nbspTỉnh An Giang</option>
+                                        <option value='91' {{ $user->province == '91' ? 'selected' : '' }}>
+                                            &nbspTỉnh Kiên Giang</option>
+                                        <option value='93' {{ $user->province == '93' ? 'selected' : '' }}>
+                                            &nbspTỉnh Hậu Giang</option>
+                                        <option value='94' {{ $user->province == '94' ? 'selected' : '' }}>
+                                            &nbspTỉnh Sóc Trăng</option>
+                                        <option value='95' {{ $user->province == '95' ? 'selected' : '' }}>
+                                            &nbspTỉnh Bạc Liêu</option>
+                                        <option value='96' {{ $user->province == '96' ? 'selected' : '' }}>
+                                            &nbspTỉnh Cà Mau</option>
+                                    </select>
+                                </div>
+                                {{-- huyen --}}
+                                <div class="form-group district-town-select">
+                                    <label for="district-town" class="text-heading">Huyện</label>
+                                    <select class="form-control border-0 shadow-none form-control-lg selectpicker"
+                                        title="Lựa chọn" data-style="btn-lg py-2 h-52" id="district-town"
+                                        name="district">
+                                    </select>
+                                </div>
+
+                                <!-- Xã -->
+                                <div class="form-group ward-commune-select">
+                                    <label for="ward-commune" class="text-heading">Xã</label>
+                                    <select class="form-control border-0 shadow-none form-control-lg selectpicker"
+                                        title="Lựa chọn" data-style="btn-lg py-2 h-52" id="ward-commune" name="village">
+                                    </select>
+                                </div>
+
                                 <div class="d-flex justify-content-end flex-wrap">
                                     <button class="btn btn-lg btn-danger mb-3" type="button">Xóa tài khoản</button>
-                                    <button class="btn btn-lg btn-primary ml-4 mb-3" type="submit">Cập nhật tài khoản</button>
+                                    <button class="btn btn-lg btn-primary ml-4 mb-3" type="submit">Cập nhật tài
+                                        khoản</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
-            
+
         </div>
     </main>
 @endsection
@@ -157,15 +317,23 @@
     <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Theme scripts -->
+    <script>
+        window.zoneData = {
+            provinceId: '{{ $user->province }}',
+            districtId: '{{ $user->district }}',
+            communeId: '{{ $user->village }}'
+        };
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/js/theme.js') }}"></script>
-    
+
     <script src="{{ asset('assets/js/load-file.js') }}"></script>
     <script>
         window.successMessage = "{{ session('success') }}";
     </script>
     <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
-      
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="{{ asset('assets/js/api-update-zone-nht.js') }}"></script>
     <div class="modal fade login-register login-register-modal" id="login-register-modal" tabindex="-1" role="dialog"
         aria-labelledby="login-register-modal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered mxw-571" role="document">

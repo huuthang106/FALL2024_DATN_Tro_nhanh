@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace App\Services;
 
 use App\Models\User;
@@ -18,7 +19,7 @@ class ProfileService
     {
         return User::where('slug', $slug)->firstOrFail();
     }
-    
+
 
     /**
      * Cập nhật thông tin người dùng.
@@ -28,48 +29,49 @@ class ProfileService
      * @return bool
      */
     public function updateProfileBySlug($slug, array $data)
-{
-    $user = User::where('slug', $slug)->firstOrFail();
+    {
+        $user = User::where('slug', $slug)->firstOrFail();
 
-    // Kiểm tra nếu có tải lên ảnh mới
-    if (isset($data['image'])) {
-        // Xóa ảnh cũ nếu có
-        if ($user->image) {
-            $oldImagePath = public_path('assets/images/' . $user->image);
-            if (file_exists($oldImagePath)) {
-                unlink($oldImagePath);
+        // Kiểm tra nếu có tải lên ảnh mới
+        if (isset($data['image'])) {
+            // Xóa ảnh cũ nếu có
+            if ($user->image) {
+                $oldImagePath = public_path('assets/images/' . $user->image);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
             }
+
+            // Lưu ảnh mới
+            $image = $data['image'];
+            $timestamp = now()->format('YmdHis');
+            $originalName = $image->getClientOriginalName();
+            $extension = $image->getClientOriginalExtension();
+            $filename = pathinfo($originalName, PATHINFO_FILENAME) . '-' . $timestamp . '.' . $extension;
+
+            $destinationPath = public_path('assets/images');
+            if (!is_dir($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+
+            $image->move($destinationPath, $filename);
+
+            $data['image'] = $filename;
         }
 
-        // Lưu ảnh mới
-        $image = $data['image'];
-        $timestamp = now()->format('YmdHis');
-        $originalName = $image->getClientOriginalName();
-        $extension = $image->getClientOriginalExtension();
-        $filename = pathinfo($originalName, PATHINFO_FILENAME) . '-' . $timestamp . '.' . $extension;
-
-        $destinationPath = public_path('assets/images');
-        if (!is_dir($destinationPath)) {
-            mkdir($destinationPath, 0755, true);
+        // Cập nhật slug từ tên người dùng, nếu có thay đổi tên
+        if (isset($data['name'])) {
+            $slug = Str::slug($data['name']) . '-' . $user->id;
+            $data['slug'] = $slug;
         }
+        // Cập nhật thông tin tỉnh, huyện, xã nếu có
+        if (isset($data['province']) || isset($data['district']) || isset($data['village'])) {
+            $data['province'] = $data['province'] ?? $user->province;
+            $data['district'] = $data['district'] ?? $user->district;
+            $data['village'] = $data['village'] ?? $user->village;
+        }
+        $user->update($data);
 
-        $image->move($destinationPath, $filename);
-
-        $data['image'] = $filename;
+        return true;
     }
-
-    // Cập nhật slug từ tên người dùng, nếu có thay đổi tên
-    if (isset($data['name'])) {
-        $slug = Str::slug($data['name']) . '-' . $user->id;
-        $data['slug'] = $slug;
-    }
-
-    $user->update($data);
-
-    return true;
 }
-
-
-    
-}
-
