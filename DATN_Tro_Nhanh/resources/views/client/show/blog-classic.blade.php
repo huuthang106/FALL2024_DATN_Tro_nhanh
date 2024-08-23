@@ -23,10 +23,9 @@
                             <div class="card border-0 pb-6 mb-6 border-bottom">
                                 <div class="position-relative d-flex align-items-end card-img-top">
                                     @php
-                                    $image = $blog->image->first();
-                                @endphp
+                                        $image = $blog->image->first();
+                                    @endphp
                                     @if ($blog->image)
-                                    
                                         <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
                                             class="hover-shine d-block">
                                             <img src="{{ asset('assets/images/', $image->filename) }}"
@@ -140,7 +139,7 @@
                             <div class="card mb-4">
                                 <div class="card-body px-6 pt-5 pb-6">
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Loại</h4>
-                                    <form>
+                                    <form action="{{ route('client.client-blog') }}" method="GET">
                                         <div class="position-relative">
                                             <input type="text" id="search02"
                                                 class="form-control form-control-lg border-0 shadow-none"
@@ -164,7 +163,8 @@
                                             </a>
                                         </li>
                                         <li class="list-group-item p-0">
-                                            <a href="listing-with-left-sidebar.html" class="d-flex text-body hover-primary">
+                                            <a href="listing-with-left-sidebar.html"
+                                                class="d-flex text-body hover-primary">
                                                 <span class="lh-29">Cho thuê</span>
                                                 <span class="d-block ml-auto">21</span>
                                             </a>

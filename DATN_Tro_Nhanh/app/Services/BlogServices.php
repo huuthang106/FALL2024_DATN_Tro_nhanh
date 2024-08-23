@@ -144,10 +144,16 @@ class BlogServices
 
         return $blog;
     }
-    public function getAllBlogss(int $perPage = 10)
+    public function getAllBlogss(int $perPage = 10, $searchTerm = null)
     {
         try {
-            return Blog::where('status', 1)->paginate($perPage);
+            $query = Blog::where('status', 1)->paginate($perPage);
+
+            if ($searchTerm) {
+                $query->where('title', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('description', 'like', '%' . $searchTerm . '%');
+            }
+            return $query->paginate($perPage);
         } catch (\Exception $e) {
             Log::error('Error fetching blogs: ' . $e->getMessage());
             return null;
@@ -173,13 +179,24 @@ class BlogServices
             return null;
         }
     }
-    public function getAllBlogs()
+    public function getAllBlogs(int $perPage = 10, $searchTerm = null)
     {
-        // Lấy tất cả các blog cùng với thông tin hình ảnh liên quan
-        $blogs = Blog::with('image')->paginate(10);
+        try {
+            // Xây dựng truy vấn để lấy blog với thông tin liên quan
+            $query = Blog::query();
 
-        return $blogs;
+            if ($searchTerm) {
+                $query->where('title', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('description', 'like', '%' . $searchTerm . '%');
+            }
+
+            // Phân trang và trả về kết quả
+            return $query->paginate($perPage);
+        } catch (\Exception $e) {
+            return null;
+        }
     }
+
     public function deleteBlogBySlug($slug)
     {
         // Tìm blog theo slug
