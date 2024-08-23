@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('titleAdmin', 'Trang chủ trọ nhanh')
-@section('linkAdmin', 'Thêm gói tin')
+@section('linkAdmin', 'Thêm diện tích')
 
 @section('contentAdmin')
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -21,9 +21,9 @@
                                 <div class="row">
                                     <!-- Title Input -->
                                     <div class="row mb-6">
-                                        <label class="col-lg-4 col-form-label fw-bold fs-6 required">Title</label>
+                                        <label class="col-lg-4 col-form-label fw-bold fs-6 required">Tiêu Đề</label>
                                         <div class="col-lg-8 fv-row">
-                                            <input type="text" id="title" name="title" class="form-control form-control-lg form-control-solid" placeholder="Enter blog title" />
+                                            <input type="text" id="title" name="title" class="form-control form-control-lg form-control-solid" placeholder="Nhập tiêu đề" />
                                             @error('title')
                                                 <div class="text-danger mt-3">{{ $message }}</div>
                                             @enderror
@@ -32,9 +32,9 @@
                                     
                                     <!-- Description Input -->
                                     <div class="row mb-6">
-                                        <label class="col-lg-4 col-form-label fw-bold fs-6 required">Description</label>
+                                        <label class="col-lg-4 col-form-label fw-bold fs-6 required">Mô tả</label>
                                         <div class="col-lg-8 fv-row">
-                                            <textarea id="description" name="description" class="form-control form-control-lg form-control-solid" placeholder="Enter blog description"></textarea>
+                                            <textarea id="description" name="description" class="form-control form-control-lg form-control-solid" placeholder="nhập mô tả"></textarea>
                                             @error('description')
                                                 <div class="text-danger mt-3">{{ $message }}</div>
                                             @enderror
@@ -43,11 +43,11 @@
                                     
                                     <!-- Image Upload -->
                                     <div class="row mb-6">
-                                        <label class="col-lg-4 col-form-label fw-bold fs-6 required">Upload Images</label>
+                                        <label class="col-lg-4 col-form-label fw-bold fs-6 required">Gửi ảnh</label>
                                         <div class="col-lg-8 fv-row">
                                             <div class="custom-file">
                                                 <input type="file" class="form-control form-control-lg" id="images" name="images[]" multiple>
-                                                <label class="form-label" for="images">Choose images</label>
+                                                <label class="form-label" for="images">Chọn ảnh</label>
                                             </div>
                                             <small class="form-text text-muted">Chỉ được tải ảnh PNG & JPG, ảnh phải có kích thước 1024x768</small>
                                             <div id="imagePreview" class="mt-3">
@@ -61,17 +61,14 @@
                                 </div>
                             </div>
                             <div class="card-footer d-flex justify-content-end">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Thêm</button>
                             </div>
                         </form>
                     </div>
-
-                    </form>
                 </div>
             </div>
         </div>
-    </div>
-    <!--end::Post-->
+        <!--end::Post-->
     </div>
     <!--end::Content-->
     <!--begin::Footer-->
@@ -152,22 +149,6 @@
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-    href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
-    rel="stylesheet">
-<!-- Vendors CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/vendors/slick/slick.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/vendors/magnific-popup/magnific-popup.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/vendors/chartjs/Chart.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/vendors/dropzone/css/dropzone.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/vendors/animate.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <!--end::Global Stylesheets Bundle-->
 @endpush
 
