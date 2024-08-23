@@ -20,6 +20,9 @@ use App\Http\Requests\Auth\RegisterRequest;
 
 class UserClientController extends Controller
 {
+    private const role_owners = 2;
+    private const limit = 8;
+
     protected $userClientServices;
     protected $registerService;
     protected $loginService;
@@ -48,9 +51,14 @@ class UserClientController extends Controller
     }
 
     // Giao diện Danh Sách Người Đăng Tin
-    public function indexAgent()
+    public function indexAgent(Request $request)
     {
-        $users = $this->userClientServices->getUsersByRole(2);
+        $searchTerm = $request->input('search');
+        $province = $request->input('province');
+        $district = $request->input('district');
+        $village = $request->input('village');
+
+        $users = $this->userClientServices->getUsersByRole(self::role_owners, $searchTerm, self::limit,$province,  $district,$village );
         return view('client.show.list-owners', compact('users'));
     }
     public function agentDetail($slug)
@@ -82,7 +90,7 @@ class UserClientController extends Controller
         try {
             $user = $this->registerService->register($request->all());
             Auth::login($user);
-    
+
             return response()->json(['redirect' => route('client.home')]);
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);
@@ -93,7 +101,7 @@ class UserClientController extends Controller
     {
         try {
             $request->authenticate();
-    
+
             return response()->json(['redirect' => route('client.home')]);
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);

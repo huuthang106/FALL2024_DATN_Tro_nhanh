@@ -26,6 +26,7 @@ document.querySelector('#city-province').addEventListener("change", async () => 
             
         }
     }
+    
     document.querySelector('#district-town').innerHTML = outputDistrict;
 
     $('#district-town').selectpicker('refresh');

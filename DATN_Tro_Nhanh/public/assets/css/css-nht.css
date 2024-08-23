@@ -1,0 +1,7 @@
+.fixed-image {
+    width: 100%; /* Đặt chiều rộng cố định */
+    height: 340px; /* Đặt chiều cao cố định */
+    object-fit: cover; /* Đảm bảo hình ảnh không bị biến dạng và giữ tỷ lệ khung hình */
+    border-radius: 8px; /* Nếu bạn muốn hình ảnh có góc bo tròn */
+    overflow: hidden; /* Đảm bảo phần ngoài vùng hình ảnh bị cắt bỏ */
+}
