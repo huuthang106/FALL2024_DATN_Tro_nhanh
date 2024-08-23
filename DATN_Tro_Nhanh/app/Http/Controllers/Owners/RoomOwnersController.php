@@ -9,10 +9,10 @@ use Exception;
 use App\Models\Acreage;
 use App\Models\Price;
 use App\Models\Category;
-use App\Models\Area;
+
 use App\Models\Location;
 use App\Models\Zone;
-use App\Models\RoomType;
+
 use Illuminate\Validation\ValidationException;
 use App\Events\Owners\RoomOwnersEvent;
 use App\Models\Room;
@@ -59,11 +59,11 @@ class RoomOwnersController extends Controller
         $acreages = Acreage::all();
         $prices = Price::all();
         $categories = Category::all();
-        $areas = Area::all();
+    
         $locations = Location::all();
         $zones = Zone::all();
-        $roomTypes = RoomType::all();
-        return view('owners.create.add-new-property', compact('acreages', 'prices', 'categories', 'areas', 'locations', 'zones', 'roomTypes'));
+     
+        return view('owners.create.add-new-property', compact('acreages', 'prices', 'categories', 'locations', 'zones'));
     }
     public function store(RoomOwnersRequest $request)
     {
