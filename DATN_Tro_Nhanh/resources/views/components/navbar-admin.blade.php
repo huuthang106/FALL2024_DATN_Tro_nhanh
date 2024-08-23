@@ -7,9 +7,11 @@
         <!--begin::User-->
         <div class="aside-user d-flex align-items-sm-center justify-content-center py-5">
             <!--begin::Symbol-->
-            <div class="symbol symbol-50px">
-                <img src="{{ asset('assets/media/avatars/150-26.jpg') }}" alt="" />
-            </div>
+          <!-- resources/views/components/navbar-admin.blade.php -->
+                <div class="symbol symbol-50px">
+                    <img src="{{ asset('assets/images/' . $user->image) }}" alt="{{ $user->name }}" />
+                </div>
+
             <!--end::Symbol-->
             <!--begin::Wrapper-->
             <div class="aside-user-info flex-row-fluid flex-wrap ms-5">
@@ -18,10 +20,13 @@
                     <!--begin::Info-->
                     <div class="flex-grow-1 me-2">
                         <!--begin::Username-->
-                        <a href="#" class="text-white text-hover-primary fs-6 fw-bold">Paul Melone</a>
+                        {{-- <a href="#" class="text-white text-hover-primary fs-6 fw-bold">{{ $user->name }}</a> --}}
                         <!--end::Username-->
                         <!--begin::Description-->
-                        <span class="text-gray-600 fw-bold d-block fs-8 mb-1">Python Dev</span>
+                        <a href="#" class="text-white text-hover-primary fs-6 fw-bold">{{ $user->name }}</a>
+                        <span class="text-gray-600 fw-bold d-block fs-8 mb-1">
+                            {{ $user->role == 0 ? 'Admin' : 'User' }} <!-- Bạn có thể thay thế 'User' bằng vai trò khác nếu cần -->
+                        </span>
                         <!--end::Description-->
                         <!--begin::Label-->
                         <div class="d-flex align-items-center text-success fs-9">

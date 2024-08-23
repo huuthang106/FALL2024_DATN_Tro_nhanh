@@ -61,6 +61,10 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('favouriteCount', 0);
             }
         });
+        View::composer('components.navbar-admin', function ($view) {
+            $user = Auth::user();
+            $view->with('user', $user);
+        });
 
     }
     protected $listen = [
