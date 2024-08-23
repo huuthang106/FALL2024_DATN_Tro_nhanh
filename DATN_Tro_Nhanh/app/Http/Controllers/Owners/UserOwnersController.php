@@ -59,4 +59,8 @@ class UserOwnersController extends Controller
 
         return redirect()->route('owners.profile.dashboard-my-profiles')->with('status', __('Mật khẩu đã được cập nhật thành công.'));
     }
+    public function page_resigter_owner()
+    {
+        return view('owners.create.register_owner');
+    }
 }

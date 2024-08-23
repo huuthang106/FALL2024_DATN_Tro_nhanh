@@ -229,6 +229,17 @@
                         </h5>
                         <ul class="list-group list-group-no-border rounded-lg">
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                <a href="{{route('owners.profile.resigter-owner')}}"
+                                    class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                    <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
+                                        <svg class="icon icon-heart">
+                                            <use xlink:href="#icon-heart"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="sidebar-item-text">Người đưa tin</span>
+                                </a>
+                            </li>
+                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                 <a href="{{ Route('owners.favorites') }}"
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
