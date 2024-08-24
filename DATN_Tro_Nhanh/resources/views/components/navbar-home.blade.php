@@ -512,10 +512,11 @@
                                         {{ Auth::user()->name }}
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                                        <li><a class="dropdown-item" href="{{ route('owners.profile.profile-admin-index') }}">
-                                            Xem thông tin
-                                        </a>
-                                        
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('owners.profile.profile-admin-index') }}">
+                                                Xem thông tin
+                                            </a>
+
                                         </li>
                                         <li>
                                             <a class="dropdown-item" href="{{ route('client.logout') }}"
@@ -534,6 +535,15 @@
                                         href="#login-register-modal">SIGN
                                         IN</a>
                                 @endif
+                            </li>
+                            {{-- Icon giỏ hàng --}}
+                            &nbsp; &nbsp; &nbsp;
+                            <li class="divider"></li>
+                            &nbsp; &nbsp; &nbsp;
+                            <li class="nav-item mr-auto mr-lg-6">
+                                <a class="nav-link px-2 position-relative" href="{{ route('client.carts-show') }}">
+                                    <i class="fal fa-shopping-cart"></i>
+                                </a>
                             </li>
                             <li class="nav-item mr-auto mr-lg-6">
                                 <a class="nav-link px-2 position-relative" href="{{ route('owners.favorites') }}">

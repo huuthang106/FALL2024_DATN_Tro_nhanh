@@ -19,7 +19,6 @@ return new class extends Migration
             $table->dropColumn('resident_id');
         });
         Schema::rename('payments', 'bills');
-      
     }
 
     /**

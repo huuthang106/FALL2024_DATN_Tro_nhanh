@@ -21,26 +21,80 @@
                         <ul class="list-unstyled">
                             <li class="d-flex justify-content-between lh-22">
                                 <p class="text-gray-light mb-0">Mã Đơn Hàng:</p>
-                                <p class="font-weight-500 text-heading mb-0">6112</p>
+                                <p class="font-weight-500 text-heading mb-0">{{ $payment->id }}</p>
                             </li>
                             <li class="d-flex justify-content-between lh-22">
                                 <p class="text-gray-light mb-0">Ngày:</p>
-                                <p class="font-weight-500 text-heading mb-0">17 Tháng 9, 2020</p>
+                                {{-- <p class="font-weight-500 text-heading mb-0">17 Tháng 9, 2020</p> --}}
+                                <p class="font-weight-500 text-heading mb-0">
+                                    @if ($payment->payment_date instanceof \Carbon\Carbon)
+                                        {{ $payment->payment_date->format('d/m/Y') }}
+                                    @else
+                                        {{ \Carbon\Carbon::parse($payment->payment_date)->format('d/m/Y') }}
+                                    @endif
+                                </p>
                             </li>
                             <li class="d-flex justify-content-between lh-22">
                                 <p class="text-gray-light mb-0">Tổng Cộng:</p>
-                                <p class="font-weight-500 text-heading mb-0">$80</p>
+                                <p class="font-weight-500 text-heading mb-0">
+                                    {{ number_format($payment->amount, 0, ',', '.') }} VND</p>
                             </li>
                             <li class="d-flex justify-content-between lh-22">
                                 <p class="text-gray-light mb-0">Phương Thức Thanh Toán:</p>
-                                <p class="font-weight-500 text-heading mb-0">Chuyển Khoản</p>
+                                <p class="font-weight-500 text-heading mb-0">VNPay</p>
                             </li>
                             <li class="d-flex justify-content-between lh-22">
                                 <p class="text-gray-light mb-0">Loại Thanh Toán:</p>
-                                <p class="font-weight-500 text-heading mb-0">Gói Dịch Vụ</p>
+                                <p class="font-weight-500 text-heading mb-0">{{ $payment->description }}</p>
+                            </li>
+                            <li class="d-flex justify-content-between lh-22">
+                                <p class="text-gray-light mb-0">Trạng Thái:</p>
+                                <p class="font-weight-500 text-heading mb-0">
+                                    @if ($payment->status == 1)
+                                        Thành công
+                                    @elseif($payment->status == 2)
+                                        Thất bại
+                                    @else
+                                        Khác
+                                    @endif
+                                </p>
                             </li>
                         </ul>
                     </div>
+                    {{-- <div class="row">
+                    <div class="col-md-4 col-sm-8 mb-6 mb-md-0">
+                        <h4 class="text-heading fs-22 font-weight-500 lh-15">Đơn Hàng Của Tôi</h4>
+                        <ul class="list-unstyled">
+                            <li class="d-flex justify-content-between lh-22">
+                                <p class="text-gray-light mb-0">Mã Đơn Hàng:</p>
+                                <p class="font-weight-500 text-heading mb-0">{{ $payment->id }}</p>
+                            </li>
+                            <li class="d-flex justify-content-between lh-22">
+                                <p class="text-gray-light mb-0">Ngày:</p>
+                                <p class="font-weight-500 text-heading mb-0">
+                                    {{ \Carbon\Carbon::parse($payment->payment_date)->format('d/m/Y') }}
+                                </p>
+                            </li>
+                            <li class="d-flex justify-content-between lh-22">
+                                <p class="text-gray-light mb-0">Tổng Cộng:</p>
+                                <p class="font-weight-500 text-heading mb-0">
+                                    {{ number_format($payment->amount, 0, ',', '.') }} VND</p>
+                            </li>
+                            <li class="d-flex justify-content-between lh-22">
+                                <p class="text-gray-light mb-0">Phương Thức Thanh Toán:</p>
+                                <p class="font-weight-500 text-heading mb-0">VNPay</p>
+                            </li>
+                            <li class="d-flex justify-content-between lh-22">
+                                <p class="text-gray-light mb-0">Loại Thanh Toán:</p>
+                                <p class="font-weight-500 text-heading mb-0">{{ $payment->description }}</p>
+                            </li>
+                            <li class="d-flex justify-content-between lh-22">
+                                <p class="text-gray-light mb-0">Trạng Thái:</p>
+                                <p class="font-weight-500 text-heading mb-0">{{ $payment->status }}</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div> --}}
                     <div class="col-md-7 offset-md-1">
                         <h4 class="text-heading fs-22 font-weight-500 lh-15">Cảm ơn bạn đã mua hàng</h4>
                         <p class="mb-5">

@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-           // Xóa các khóa ngoại và cột trong bảng `rooms`
-           Schema::table('rooms', function (Blueprint $table) {
+        // Xóa các khóa ngoại và cột trong bảng `rooms`
+        Schema::table('rooms', function (Blueprint $table) {
             // Xóa khóa ngoại của `area_id`
             $table->dropForeign(['area_id']);
             // Xóa khóa ngoại của `room_type_id`
@@ -47,7 +47,7 @@ return new class extends Migration
         // Khôi phục các cột và khóa ngoại trong bảng `rooms`
         Schema::table('rooms', function (Blueprint $table) {
             // Thêm lại các cột
-            $table->foreignId('area_id')->nullable()->constrained('areas')->onDelete('set null');
+            // $table->foreignId('area_id')->nullable()->constrained('areas')->onDelete('set null');
             $table->foreignId('room_type_id')->nullable()->constrained('room_types')->onDelete('set null');
         });
     }

@@ -1,189 +1,191 @@
 <div>
     @php
-    if (Auth::check()) {
-        $role = auth()->user()->role;
-    }
-@endphp
-    
-<div class="modal fade login-register login-register-modal" id="login-register-modal" tabindex="-1" role="dialog"
-    aria-labelledby="login-register-modal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
-        <div class="modal-content">
-            <div class="modal-header border-0 p-0">
-                <div class="nav nav-tabs row w-100 no-gutters" id="myTab" role="tablist">
-                    <a class="nav-item col-sm-4 ml-0 nav-link pr-6 py-4 pl-9 active fs-18" id="login-tab"
-                        data-toggle="tab" href="#login" role="tab" aria-controls="login"
-                        aria-selected="true">Đăng nhập</a>
-                    <a class="nav-item col-sm-3 ml-0 nav-link py-4 px-6 fs-18" id="register-tab" data-toggle="tab"
-                        href="#register" role="tab" aria-controls="register" aria-selected="false">Đăng
-                        ký</a>
-                    <div class="nav-item col-sm-5 ml-0 d-flex align-items-center justify-content-end">
-                        <button type="button" class="close m-0 fs-23" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+        if (Auth::check()) {
+            $role = auth()->user()->role;
+        }
+    @endphp
+
+    <div class="modal fade login-register login-register-modal" id="login-register-modal" tabindex="-1" role="dialog"
+        aria-labelledby="login-register-modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0 p-0">
+                    <div class="nav nav-tabs row w-100 no-gutters" id="myTab" role="tablist">
+                        <a class="nav-item col-sm-4 ml-0 nav-link pr-6 py-4 pl-9 active fs-18" id="login-tab"
+                            data-toggle="tab" href="#login" role="tab" aria-controls="login"
+                            aria-selected="true">Đăng nhập</a>
+                        <a class="nav-item col-sm-3 ml-0 nav-link py-4 px-6 fs-18" id="register-tab" data-toggle="tab"
+                            href="#register" role="tab" aria-controls="register" aria-selected="false">Đăng
+                            ký</a>
+                        <div class="nav-item col-sm-5 ml-0 d-flex align-items-center justify-content-end">
+                            <button type="button" class="close m-0 fs-23" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-body p-4 py-sm-7 px-sm-9">
-                <div class="tab-content shadow-none p-0" id="myTabContent">
-                    <div class="tab-pane fade show active" id="login" role="tabpanel"
-                        aria-labelledby="login-tab">
-                        <form class="form" id="loginForm" method="POST"
-                            action="{{ route('client.login-user') }}">
-                            @csrf
-                            <!-- Các trường form và phần tử lỗi cho form đăng nhập -->
-                            <div class="form-group mb-4">
-                                <label for="username" class="sr-only">Tên đăng nhập / Email</label>
-                                <div class="input-group input-group-lg">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                                            <i class="far fa-user"></i>
-                                        </span>
+                <div class="modal-body p-4 py-sm-7 px-sm-9">
+                    <div class="tab-content shadow-none p-0" id="myTabContent">
+                        <div class="tab-pane fade show active" id="login" role="tabpanel"
+                            aria-labelledby="login-tab">
+                            <form class="form" id="loginForm" method="POST"
+                                action="{{ route('client.login-user') }}">
+                                @csrf
+                                <!-- Các trường form và phần tử lỗi cho form đăng nhập -->
+                                <div class="form-group mb-4">
+                                    <label for="username" class="sr-only">Tên đăng nhập / Email</label>
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
+                                                <i class="far fa-user"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text"
+                                            class="form-control border-0 shadow-none fs-13 @error('email') is-invalid @enderror"
+                                            id="username" name="email" value="{{ old('email') }}" required
+                                            placeholder="Tên đăng nhập / Email của bạn">
                                     </div>
-                                    <input type="text"
-                                        class="form-control border-0 shadow-none fs-13 @error('email') is-invalid @enderror"
-                                        id="username" name="email" value="{{ old('email') }}" required
-                                        placeholder="Tên đăng nhập / Email của bạn">
+                                    <div id="login-email-error" class="text-danger custom-margin-l"></div>
+                                    <!-- ID khác cho lỗi -->
                                 </div>
-                                <div id="login-email-error" class="text-danger custom-margin-l"></div>
-                                <!-- ID khác cho lỗi -->
-                            </div>
 
-                            <div class="form-group mb-4">
-                                <label for="password" class="sr-only">Mật khẩu</label>
-                                <div class="input-group input-group-lg">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                                            <i class="far fa-lock"></i>
-                                        </span>
+                                <div class="form-group mb-4">
+                                    <label for="password" class="sr-only">Mật khẩu</label>
+                                    <div class="input-group input-group-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
+                                                <i class="far fa-lock"></i>
+                                            </span>
+                                        </div>
+                                        <input type="password"
+                                            class="form-control border-0 shadow-none fs-13 @error('password') is-invalid @enderror"
+                                            id="password" name="password" required placeholder="Mật khẩu">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text bg-gray-01 border-0 text-body fs-18">
+                                                <i class="far fa-eye-slash"></i>
+                                            </span>
+                                        </div>
                                     </div>
-                                    <input type="password"
-                                        class="form-control border-0 shadow-none fs-13 @error('password') is-invalid @enderror"
-                                        id="password" name="password" required placeholder="Mật khẩu">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text bg-gray-01 border-0 text-body fs-18">
-                                            <i class="far fa-eye-slash"></i>
-                                        </span>
-                                    </div>
+                                    <div id="login-password-error" class="text-danger custom-margin-l"></div>
+                                    <!-- ID khác cho lỗi -->
                                 </div>
-                                <div id="login-password-error" class="text-danger custom-margin-l"></div>
-                                <!-- ID khác cho lỗi -->
-                            </div>
 
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng nhập</button>
-                        </form>
-                        <div class="divider text-center my-2">
-                            <span class="px-4 bg-white lh-17 text">
-                                hoặc tiếp tục với
-                            </span>
-                        </div>
-                        <div class="row no-gutters mx-n2">
-                            <div class="col-4 px-2 mb-4">
-                                <a href="#" class="btn btn-lg btn-block facebook text-white px-0">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng nhập</button>
+                            </form>
+                            <div class="divider text-center my-2">
+                                <span class="px-4 bg-white lh-17 text">
+                                    hoặc tiếp tục với
+                                </span>
                             </div>
-                            <div class="col-4 px-2 mb-5">
-                                <a href="{{ route('client.auth.google') }}" class="btn btn-lg btn-block google px-0">
-                                    <img src="{{ asset('assets/images/google.png') }}" alt="Google">
-                                </a>
-                            </div>
-                            <div class="col-4 px-2 mb-4">
-                                <a href="#" class="btn btn-lg btn-block twitter text-white px-0">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                        <form class="form" id="registerForm" method="POST"
-                            action="{{ route('client.register-user') }}">
-                            @csrf
-                            <!-- Các trường form và phần tử lỗi cho form đăng ký -->
-                            <div class="form-group mb-4">
-                                <label for="full-name" class="sr-only">Họ và tên</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                                            <i class="far fa-address-card"></i>
-                                        </span>
-                                    </div>
-                                    <input type="text"
-                                        class="form-control border-0 shadow-none fs-13 @error('name') is-invalid @enderror"
-                                        id="full-name" name="name" value="{{ old('name') }}"
-                                        placeholder="Họ và tên">
+                            <div class="row no-gutters mx-n2">
+                                <div class="col-4 px-2 mb-4">
+                                    <a href="#" class="btn btn-lg btn-block facebook text-white px-0">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
                                 </div>
-                                <div id="register-name-error" class="text-danger custom-margin-left"></div>
-                                <!-- Phần tử lỗi dưới input -->
-                            </div>
-
-                            <div class="form-group mb-4">
-                                <label for="username01" class="sr-only">Tên đăng nhập</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                                            <i class="far fa-user"></i>
-                                        </span>
-                                    </div>
-                                    <input type="text"
-                                        class="form-control border-0 shadow-none fs-13 @error('email') is-invalid @enderror"
-                                        id="username01" name="email" value="{{ old('email') }}" required
-                                        placeholder="Tên đăng nhập / Email của bạn">
+                                <div class="col-4 px-2 mb-5">
+                                    <a href="{{ route('client.auth.google') }}"
+                                        class="btn btn-lg btn-block google px-0">
+                                        <img src="{{ asset('assets/images/google.png') }}" alt="Google">
+                                    </a>
                                 </div>
-                                <div id="register-email-error" class="text-danger custom-margin-left"></div>
-                                <!-- Phần tử lỗi dưới input -->
-                            </div>
-
-                            <div class="form-group mb-4">
-                                <label for="password01" class="sr-only">Mật khẩu</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
-                                            <i class="far fa-lock"></i>
-                                        </span>
-                                    </div>
-                                    <input type="password"
-                                        class="form-control border-0 shadow-none fs-13 @error('password') is-invalid @enderror"
-                                        id="password01" name="password" required placeholder="Mật khẩu">
+                                <div class="col-4 px-2 mb-4">
+                                    <a href="#" class="btn btn-lg btn-block twitter text-white px-0">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
                                 </div>
-                                <div id="register-password-error" class="text-danger custom-margin-left"></div>
-                                <!-- Phần tử lỗi dưới input -->
-                            </div>
-
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng ký</button>
-                        </form>
-                        <div class="divider text-center my-2">
-                            <span class="px-4 bg-white lh-17 text">
-                                hoặc tiếp tục với
-                            </span>
-                        </div>
-                        <div class="row no-gutters mx-n2">
-                            <div class="col-4 px-2 mb-4">
-                                <a href="#" class="btn btn-lg btn-block facebook text-white px-0">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                            </div>
-                            <div class="col-4 px-2 mb-4">
-                                <a href="{{ route('client.auth.google') }}" class="btn btn-lg btn-block google px-0">
-                                    <img src="{{ asset('assets/images/google.png') }}" alt="Google">
-                                </a>
-                            </div>
-                            <div class="col-4 px-2 mb-4">
-                                <a href="#" class="btn btn-lg btn-block twitter text-white px-0">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
                             </div>
                         </div>
-                        <div class="mt-2">Bằng cách tạo tài khoản, bạn đồng ý với <a class="text-heading"
-                                href="#"><u>Các điều khoản sử dụng</u></a> và <a class="text-heading"
-                                href="#"><u>Chính sách bảo mật</u></a> của HomeID.
+                        <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                            <form class="form" id="registerForm" method="POST"
+                                action="{{ route('client.register-user') }}">
+                                @csrf
+                                <!-- Các trường form và phần tử lỗi cho form đăng ký -->
+                                <div class="form-group mb-4">
+                                    <label for="full-name" class="sr-only">Họ và tên</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
+                                                <i class="far fa-address-card"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text"
+                                            class="form-control border-0 shadow-none fs-13 @error('name') is-invalid @enderror"
+                                            id="full-name" name="name" value="{{ old('name') }}"
+                                            placeholder="Họ và tên">
+                                    </div>
+                                    <div id="register-name-error" class="text-danger custom-margin-left"></div>
+                                    <!-- Phần tử lỗi dưới input -->
+                                </div>
+
+                                <div class="form-group mb-4">
+                                    <label for="username01" class="sr-only">Tên đăng nhập</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
+                                                <i class="far fa-user"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text"
+                                            class="form-control border-0 shadow-none fs-13 @error('email') is-invalid @enderror"
+                                            id="username01" name="email" value="{{ old('email') }}" required
+                                            placeholder="Tên đăng nhập / Email của bạn">
+                                    </div>
+                                    <div id="register-email-error" class="text-danger custom-margin-left"></div>
+                                    <!-- Phần tử lỗi dưới input -->
+                                </div>
+
+                                <div class="form-group mb-4">
+                                    <label for="password01" class="sr-only">Mật khẩu</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
+                                                <i class="far fa-lock"></i>
+                                            </span>
+                                        </div>
+                                        <input type="password"
+                                            class="form-control border-0 shadow-none fs-13 @error('password') is-invalid @enderror"
+                                            id="password01" name="password" required placeholder="Mật khẩu">
+                                    </div>
+                                    <div id="register-password-error" class="text-danger custom-margin-left"></div>
+                                    <!-- Phần tử lỗi dưới input -->
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng ký</button>
+                            </form>
+                            <div class="divider text-center my-2">
+                                <span class="px-4 bg-white lh-17 text">
+                                    hoặc tiếp tục với
+                                </span>
+                            </div>
+                            <div class="row no-gutters mx-n2">
+                                <div class="col-4 px-2 mb-4">
+                                    <a href="#" class="btn btn-lg btn-block facebook text-white px-0">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                </div>
+                                <div class="col-4 px-2 mb-4">
+                                    <a href="{{ route('client.auth.google') }}"
+                                        class="btn btn-lg btn-block google px-0">
+                                        <img src="{{ asset('assets/images/google.png') }}" alt="Google">
+                                    </a>
+                                </div>
+                                <div class="col-4 px-2 mb-4">
+                                    <a href="#" class="btn btn-lg btn-block twitter text-white px-0">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="mt-2">Bằng cách tạo tài khoản, bạn đồng ý với <a class="text-heading"
+                                    href="#"><u>Các điều khoản sử dụng</u></a> và <a class="text-heading"
+                                    href="#"><u>Chính sách bảo mật</u></a> của HomeID.
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
     <!-- Nothing worth having comes easy. - Theodore Roosevelt -->
     <header class="main-header navbar-light header-sticky header-sticky-smart header-mobile-xl">
         <div class="sticky-area">
@@ -228,8 +230,7 @@
                             </li>
                             <li id="navbar-item-listing" aria-haspopup="true" aria-expanded="false"
                                 class="nav-item dropdown py-2 py-xl-5 px-0 px-xl-4">
-                                <a class="nav-link dropdown-toggle p-0" href="listing.html"
-                                    data-toggle="dropdown">
+                                <a class="nav-link dropdown-toggle p-0" href="listing.html" data-toggle="dropdown">
                                     Hành dộng
                                     <span class="caret"></span>
                                 </a>
@@ -244,8 +245,7 @@
                                                     Danh sách
                                                 </h4>
                                                 <!-- List -->
-                                                <a class="dropdown-item"
-                                                    href="{{ route('client.room-listing') }}">
+                                                <a class="dropdown-item" href="{{ route('client.room-listing') }}">
                                                     Danh sách trọ
                                                 </a>
                                                 <a class="dropdown-item"
@@ -260,8 +260,7 @@
                                                 </h4>
                                                 <!-- List -->
 
-                                                <a class="dropdown-item"
-                                                    href="{{ route('client.client-agent') }}">
+                                                <a class="dropdown-item" href="{{ route('client.client-agent') }}">
                                                     Người đưa tin
                                                 </a>
 
@@ -275,8 +274,7 @@
                                                 </h4>
                                                 <!-- List -->
 
-                                                <a class="dropdown-item"
-                                                    href="{{ route('client.client-service') }}">
+                                                <a class="dropdown-item" href="{{ route('client.client-service') }}">
                                                     Dịch vụ
                                                 </a>
 
@@ -451,15 +449,15 @@
                                 @endguest
                             </ul>
                             @if (Auth::check())
-                            @if ($role != '1')
-                            <li class="nav-item ml-auto w-100 w-sm-auto">
-                                <a class="btn btn-primary btn-lg" href="{{ route('owners.add-room') }}">
-                                    Cho thuê
-                                    <img src="{{ asset('assets/images/add-listing-icon.png') }}" alt="Add listing"
-                                        class="ml-1">
-                                </a>
-                            </li>
-                            @endif
+                                @if ($role != '1')
+                                    <li class="nav-item ml-auto w-100 w-sm-auto">
+                                        <a class="btn btn-primary btn-lg" href="{{ route('owners.add-room') }}">
+                                            Cho thuê
+                                            <img src="{{ asset('assets/images/add-listing-icon.png') }}"
+                                                alt="Add listing" class="ml-1">
+                                        </a>
+                                    </li>
+                                @endif
                             @endif
 
                             </ul>
@@ -506,7 +504,8 @@
                                     </ul> --}}
                                     <div class="dropdown-menu dropdown-sm dropdown-menu-end"
                                         aria-labelledby="userDropdown">
-                                        <a class="dropdown-item" href="{{ route('owners.profile.profile-admin-index') }}">Xem thông tin</a>
+                                        <a class="dropdown-item"
+                                            href="{{ route('owners.profile.profile-admin-index') }}">Xem thông tin</a>
                                         <a class="dropdown-item" href="{{ route('client.logout') }}"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             Đăng xuất
@@ -522,6 +521,13 @@
                                         IN</a>
                                 @endif
                             </li>
+                            {{-- Icon giỏ hàng --}}
+                            <li class="nav-item mr-auto mr-lg-6">
+                                <a class="nav-link px-2 position-relative" href="{{ route('client.carts-show') }}">
+                                    <i class="fal fa-shopping-cart"></i>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
                             <li class="nav-item mr-auto mr-lg-6">
                                 <a class="nav-link px-2 position-relative" href="{{ route('owners.favorites') }}">
                                     <i class="fal fa-heart fs-large-4"></i>
@@ -529,22 +535,22 @@
                                 </a>
                             </li>
                             @if (Auth::check())
-                            @if ($role != '1')
-                            <li class="nav-item">
-                                <a class="btn btn-lg text-heading border bg-hover-primary border-hover-primary hover-white d-none d-lg-block"
-                                    href="{{ route('owners.add-room') }}">
-                                    Cho thuê
-                                    <img src="{{ asset('assets/images/add-listing-icon-primary.png') }}"
-                                        alt="Add listing" class="ml-1">
-                                </a>
-                                <a class="btn btn-primary btn-lg d-block d-lg-none"
-                                    href="{{ route('owners.add-room') }}">
-                                    Cho thuê
-                                    <img src="{{ asset('assets/images/add-listing-icon.png') }}" alt="Add listing"
-                                        class="ml-1">
-                                </a>
-                            </li>
-                            @endif
+                                @if ($role != '1')
+                                    <li class="nav-item">
+                                        <a class="btn btn-lg text-heading border bg-hover-primary border-hover-primary hover-white d-none d-lg-block"
+                                            href="{{ route('owners.add-room') }}">
+                                            Cho thuê
+                                            <img src="{{ asset('assets/images/add-listing-icon-primary.png') }}"
+                                                alt="Add listing" class="ml-1">
+                                        </a>
+                                        <a class="btn btn-primary btn-lg d-block d-lg-none"
+                                            href="{{ route('owners.add-room') }}">
+                                            Cho thuê
+                                            <img src="{{ asset('assets/images/add-listing-icon.png') }}"
+                                                alt="Add listing" class="ml-1">
+                                        </a>
+                                    </li>
+                                @endif
                             @endif
 
                         </ul>

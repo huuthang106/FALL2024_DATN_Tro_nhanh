@@ -4,62 +4,40 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use Illuminate\Http\Request;
+use App\Services\CartService;
 
 class CartController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    protected $cartService;
+
+    public function __construct(CartService $cartService)
     {
-        //
+        $this->cartService = $cartService;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function addToCart($priceListId)
     {
-        //
+        $cartDetail = $this->cartService->addToCart(auth()->id(), $priceListId);
+        if ($cartDetail) {
+            return redirect()->route('client.carts-show')->with('success', 'Đã thêm gói vào giỏ hàng');
+        } else {
+            return back()->with('error', 'Không thể thêm gói vào giỏ hàng');
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function showCart()
     {
-        //
+        $cartDetails = $this->cartService->getCartItems(auth()->id());
+        return view('client.show.show-carts', compact('cartDetails'));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Cart $cart)
+    public function removeFromCart($cartDetailId)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Cart $cart)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Cart $cart)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Cart $cart)
-    {
-        //
+        $result = $this->cartService->removeFromCart(auth()->id(), $cartDetailId);
+        if ($result) {
+            return redirect()->route('client.carts-show')->with('success', 'Đã xóa gói khỏi giỏ hàng');
+        } else {
+            return back()->with('error', 'Không thể xóa gói khỏi giỏ hàng');
+        }
     }
 }

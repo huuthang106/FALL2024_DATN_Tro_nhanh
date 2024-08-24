@@ -19,31 +19,35 @@
                     <div class="col-lg-4 col-md-5 col-sm-8 mb-6 mb-md-0">
                         <h4 class="text-heading fs-22 font-weight-500 lh-15">Gói Dịch Vụ Đã Chọn</h4>
                         <div class="card border-0">
-                            <div
-                                class="card-header bg-transparent d-flex justify-content-between align-items-center px-0 pb-3">
-                                <p class="fs-15 font-weight-bold text-heading mb-0 text-uppercase mr-2">Gói <span
-                                        class="font-weight-500">Premium</span></p>
-                                <a href="#" class="btn btn-outline-primary py-2 lh-238 px-4">Đổi Gói</a>
-                            </div>
-                            <div class="card-body px-0 py-2">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="d-flex justify-content-between lh-22">
-                                        <p class="text-gray-light mb-0">Thời Gian Gói:</p>
-                                        <p class="font-weight-500 text-heading mb-0">01 năm</p>
-                                    </li>
-                                    <li class="d-flex justify-content-between lh-22">
-                                        <p class="text-gray-light mb-0">Danh Sách Bao Gồm:</p>
-                                        <p class="font-weight-500 text-heading mb-0">100</p>
-                                    </li>
-                                    <li class="d-flex justify-content-between lh-22">
-                                        <p class="text-gray-light mb-0">Danh Sách Nổi Bật Bao Gồm:</p>
-                                        <p class="font-weight-500 text-heading mb-0">50</p>
-                                    </li>
-                                </ul>
-                            </div>
+                            @foreach ($cartItems as $item)
+                                <div
+                                    class="card-header bg-transparent d-flex justify-content-between align-items-center px-0 pb-3">
+                                    <p class="fs-15 font-weight-bold text-heading mb-0 text-uppercase mr-2"> <span
+                                            class="font-weight-500"></span>{{ $item->name_price_list }}</p>
+                                    {{-- <a href="#" class="btn btn-outline-primary py-2 lh-238 px-4">Đổi Gói</a> --}}
+                                </div>
+                                <div class="card-body px-0 py-2">
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="d-flex justify-content-between lh-22">
+                                            <p class="text-gray-light mb-0">Thời Gian Gói:</p>
+                                            <p class="font-weight-500 text-heading mb-0">{{ $item->end_date }}</p>
+                                        </li>
+                                        {{-- <li class="d-flex justify-content-between lh-22">
+                                            <p class="text-gray-light mb-0">Danh Sách Bao Gồm:</p>
+                                            <p class="font-weight-500 text-heading mb-0">100</p>
+                                        </li>
+                                        <li class="d-flex justify-content-between lh-22">
+                                            <p class="text-gray-light mb-0">Danh Sách Nổi Bật Bao Gồm:</p>
+                                            <p class="font-weight-500 text-heading mb-0">50</p>
+                                        </li> --}}
+                                    </ul>
+                                </div>
+                            @endforeach
                             <div class="card-footer bg-transparent d-flex justify-content-between p-0 align-items-center">
                                 <p class="text-heading mb-0">Tổng Giá:</p>
-                                <span class="fs-32 font-weight-bold text-heading">$80</span>
+                                <span
+                                    class="fs-32 font-weight-bold text-heading">{{ number_format($cartItems->sum('price'), 0, ',', '.') }}
+                                    VND</span>
                             </div>
                         </div>
                     </div>
@@ -78,7 +82,12 @@
                         <p class="mb-6">Vui lòng đọc <a href="#"
                                 class="text-heading font-weight-500 border-bottom hover-primary">Điều Khoản & Điều Kiện</a>
                             trước</p>
-                        <a href="checkout-complete-2.html" class="btn btn-primary px-8 py-2 lh-238">Thanh Toán Ngay</a>
+                        {{-- <a href="checkout-complete-2.html" class="btn btn-primary px-8 py-2 lh-238">Thanh Toán Ngay</a> --}}
+                        <form action="{{ route('client.payment.process') }}" method="POST">
+                            @csrf
+                            {{-- <input type="hidden" name="amount" value="35000"> <!-- Ví dụ số tiền --> --}}
+                            <button type="submit" class="btn btn-primary">Thanh toán</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -86,67 +95,67 @@
     </main>
 @endsection
 
-    @push('styleUs')
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="Real Estate Html Template">
-        <meta name="author" content="">
-        <meta name="generator" content="Jekyll">
-        <title>Checkout - HomeID</title>
-        <!-- Google fonts -->
-        <link
-            href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
-            rel="stylesheet">
-        <!-- Vendors CSS -->
-        <link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/vendors/slick/slick.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/vendors/magnific-popup/magnific-popup.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/vendors/chartjs/Chart.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/vendors/dropzone/css/dropzone.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/vendors/animate.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
-        <!-- Themes core CSS -->
-        <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
-        <!-- Favicons -->
-        <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
-        <!-- Twitter -->
-        <meta name="twitter:card" content="summary">
-        <meta name="twitter:site" content="@">
-        <meta name="twitter:creator" content="@">
-        <meta name="twitter:title" content="Checkout">
-        <meta name="twitter:description" content="Real Estate Html Template">
-        <meta name="twitter:image" content="{{ asset('assets/images/homeid-social-logo.png') }}">
-        <!-- Facebook -->
-        <meta property="og:url" content="{{ asset('checkout-complete-1.html') }}">
-        <meta property="og:title" content="Checkout">
-        <meta property="og:description" content="Real Estate Html Template">
-        <meta property="og:type" content="website">
-        <meta property="og:image" content="{{ asset('assets/images/homeid-social.png') }}">
-        <meta property="og:image:type" content="image/png">
-        <meta property="og:image:width" content="1200">
-        <meta property="og:image:height" content="630">
-    @endpush
+@push('styleUs')
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Real Estate Html Template">
+    <meta name="author" content="">
+    <meta name="generator" content="Jekyll">
+    <title>Checkout - HomeID</title>
+    <!-- Google fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/slick/slick.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/magnific-popup/magnific-popup.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/chartjs/Chart.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dropzone/css/dropzone.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
+    <!-- Themes core CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
+    <!-- Favicons -->
+    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="Checkout">
+    <meta name="twitter:description" content="Real Estate Html Template">
+    <meta name="twitter:image" content="{{ asset('assets/images/homeid-social-logo.png') }}">
+    <!-- Facebook -->
+    <meta property="og:url" content="{{ asset('checkout-complete-1.html') }}">
+    <meta property="og:title" content="Checkout">
+    <meta property="og:description" content="Real Estate Html Template">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ asset('assets/images/homeid-social.png') }}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+@endpush
 
-    @push('scriptUs')
-        <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/bootstrap/bootstrap.bundle.js') }}"></script>
-        <script src="{{ asset('assets/vendors/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/slick/slick.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/waypoints/jquery.waypoints.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/counter/countUp.js') }}"></script>
-        <script src="{{ asset('assets/vendors/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/chartjs/Chart.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/dropzone/js/dropzone.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/hc-sticky/hc-sticky.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/jparallax/TweenMax.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
-        <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
-        <!-- Theme scripts -->
-        <script src="{{ asset('assets/js/theme.js') }}"></script>
-    @endpush
+@push('scriptUs')
+    <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/bootstrap/bootstrap.bundle.js') }}"></script>
+    <script src="{{ asset('assets/vendors/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/slick/slick.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/waypoints/jquery.waypoints.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/counter/countUp.js') }}"></script>
+    <script src="{{ asset('assets/vendors/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/chartjs/Chart.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/dropzone/js/dropzone.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/hc-sticky/hc-sticky.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/jparallax/TweenMax.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
+    <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
+    <!-- Theme scripts -->
+    <script src="{{ asset('assets/js/theme.js') }}"></script>
+@endpush
