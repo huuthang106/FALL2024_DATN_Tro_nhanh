@@ -24,9 +24,9 @@
                                         <label class="col-lg-4 col-form-label fw-bold fs-6 required">Tiêu Đề</label>
                                         <div class="col-lg-8 fv-row">
                                             <input type="text" id="title" name="title" class="form-control form-control-lg form-control-solid" placeholder="Nhập tiêu đề" />
-                                            @error('title')
-                                                <div class="text-danger mt-3">{{ $message }}</div>
-                                            @enderror
+                                            <div id="titleError" class="text-danger mt-3" style="display: none;">
+                                                Bạn chưa nhập tiêu đề.
+                                            </div>
                                         </div>
                                     </div>
                                     
@@ -34,10 +34,10 @@
                                     <div class="row mb-6">
                                         <label class="col-lg-4 col-form-label fw-bold fs-6 required">Mô tả</label>
                                         <div class="col-lg-8 fv-row">
-                                            <textarea id="description" name="description" class="form-control form-control-lg form-control-solid" placeholder="nhập mô tả"></textarea>
-                                            @error('description')
-                                                <div class="text-danger mt-3">{{ $message }}</div>
-                                            @enderror
+                                            <textarea id="description" name="description" class="form-control form-control-lg form-control-solid" placeholder="Nhập mô tả"></textarea>
+                                            <div id="descriptionError" class="text-danger mt-3" style="display: none;">
+                                                Bạn chưa nhập mô tả.
+                                            </div>
                                         </div>
                                     </div>
                                     
@@ -46,16 +46,19 @@
                                         <label class="col-lg-4 col-form-label fw-bold fs-6 required">Gửi ảnh</label>
                                         <div class="col-lg-8 fv-row">
                                             <div class="custom-file">
-                                                <input type="file" class="form-control form-control-lg" id="images" name="images[]" multiple>
+                                                <input type="file" class="form-control form-control-lg" id="images" name="images[]" multiple accept="image/jpeg, image/png">
                                                 <label class="form-label" for="images">Chọn ảnh</label>
                                             </div>
-                                            <small class="form-text text-muted">Chỉ được tải ảnh PNG & JPG, ảnh phải có kích thước 1024x768</small>
+                                            <small class="form-text text-muted">Chỉ được tải ảnh PNG & JPG, ảnh phải có kích thước không quá 2MB và kích thước 1024x768.</small>
                                             <div id="imagePreview" class="mt-3">
                                                 <!-- Preview uploaded images here -->
                                             </div>
-                                            @error('images')
-                                                <div class="text-danger mt-3">{{ $message }}</div>
-                                            @enderror
+                                            <div id="imageError" class="text-danger mt-3" style="display: none;">
+                                                <!-- Error messages will be displayed here -->
+                                            </div>
+                                            <div id="noImageError" class="text-danger mt-3" style="display: none;">
+                                                Bạn chưa nhập hình ảnh.
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -65,6 +68,7 @@
                             </div>
                         </form>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -158,6 +162,7 @@
     </script>
     <!--begin::Javascript-->
     <!--begin::Global Javascript Bundle(used by all pages)-->
+    <script src="{{ asset('assets/js/blog.js') }}"></script>
     <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
     <!--end::Global Javascript Bundle-->

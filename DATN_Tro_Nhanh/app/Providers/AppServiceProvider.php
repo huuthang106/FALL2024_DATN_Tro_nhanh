@@ -61,6 +61,17 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('favouriteCount', 0);
             }
         });
+        View::composer('components.navbar-default', function ($view) use ($favouriteService) {
+            $userId = Auth::id(); // Lấy ID người dùng hiện tại
+        
+            // Kiểm tra nếu người dùng đã đăng nhập
+            if ($userId) {
+                $favouriteCount = $favouriteService->countUserFavourites($userId);
+                $view->with('favouriteCount', $favouriteCount);
+            } else {
+                $view->with('favouriteCount', 0);
+            }
+        });
         View::composer('components.navbar-admin', function ($view) {
             $user = Auth::user();
             $view->with('user', $user);

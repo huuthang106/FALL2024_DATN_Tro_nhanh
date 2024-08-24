@@ -16,10 +16,11 @@ class CreateBlogRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'required|string',
+            'images.*' => 'mimes:jpeg,png|max:2048', // Ensure images are JPEG or PNG and not larger than 2MB
         ];
     }
 
-    public function messages(): array
+      public function messages(): array
     {
         return [
             'title.required' => 'Tiêu đề là bắt buộc.',
@@ -27,16 +28,27 @@ class CreateBlogRequest extends FormRequest
             'title.max' => 'Tiêu đề không được vượt quá 255 ký tự.',
             'description.required' => 'Mô tả là bắt buộc.',
             'description.string' => 'Mô tả phải là một chuỗi văn bản.',
+            'images.*.required' => 'Vui lòng chọn ít nhất một ảnh.',
+            'images.*.image' => 'Ảnh phải là một tập tin hình ảnh.',
+            'images.*.mimes' => 'Chỉ được tải ảnh có định dạng JPG hoặc PNG.',
+            'images.*.max' => 'Kích thước ảnh không được vượt quá 2MB.',
         ];
     }
-    public function uploadImage()
+
+    public function uploadImages()
     {
-        if ($this->hasFile('file')) {
-            $file = $this->file('file');
-            return $file->store('images', 'public'); // Save to the public/images directory
+        $uploadedImages = [];
+
+        if ($this->hasFile('images')) {
+            foreach ($this->file('images') as $file) {
+                if ($file->isValid()) {
+                    $filename = time() . '-' . $file->getClientOriginalName();
+                    $file->storeAs('public/images', $filename);
+                    $uploadedImages[] = $filename;
+                }
+            }
         }
 
-        return null; // Return null if no file is uploaded
+        return $uploadedImages;
     }
-
 }

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Events\BlogCreated;
 use Illuminate\Support\Facades\DB;
-
+use App\Http\Requests\CreateBlogRequest;
 class BlogServices
 {
 
@@ -26,55 +26,39 @@ class BlogServices
         return $slug;
     }
 
-
-    public function handleBlogCreation($request)
+    public function handleBlogCreation(CreateBlogRequest $request)
     {
         try {
+            // Lấy dữ liệu từ request
             $data = $request->validated();
-            $images = $request->file('images');
-
+            $images = $request->uploadImages(); // Gọi phương thức để tải lên ảnh
+    
+            // Xác thực người dùng
             $userId = Auth::id();
-
             if (!$userId) {
                 throw new \Exception("User not authenticated");
             }
-
+    
+            // Tạo blog mới
             $blog = new Blog();
             $blog->title = $data['title'];
             $blog->description = $data['description'];
             $blog->user_id = $userId;
             $blog->save();
-
-            // Tạo slug cho blog
+    
+            // Tạo slug cho blog và lưu vào cơ sở dữ liệu
             $slug = $this->createSlug($data['title'], $blog->id);
             $blog->slug = $slug;
             $blog->save();
-
-            // Xử lý tải ảnh
-            if ($images) {
-                foreach ($images as $image) {
-                    if ($image) {
-                        $timestamp = now()->format('YmdHis');
-                        $originalName = $image->getClientOriginalName();
-                        $extension = $image->getClientOriginalExtension();
-                        $filename = $slug . '-' . pathinfo($originalName, PATHINFO_FILENAME) . '.' . $extension;
-
-                        $destinationPath = public_path('assets/images');
-                        // $destinationPath = $image->storeAs('assets/images', $filename);
-                        if (!is_dir($destinationPath)) {
-                            mkdir($destinationPath, 0755, true);
-                        }
-
-                        $image->move($destinationPath, $filename);
-
-                        $imageModel = new Image();
-                        $imageModel->filename = $filename;
-                        $imageModel->blog_id = $blog->id;
-                        $imageModel->save();
-                    }
-                }
+    
+            // Xử lý lưu ảnh
+            foreach ($images as $filename) {
+                Image::create([
+                    'filename' => $filename,
+                    'blog_id' => $blog->id
+                ]);
             }
-
+    
             return $blog;
         } catch (\Exception $e) {
             // Ghi log lỗi chi tiết
@@ -82,7 +66,6 @@ class BlogServices
             throw $e; // Ném lại ngoại lệ để xử lý trong controller
         }
     }
-
 
 
 

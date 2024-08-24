@@ -846,10 +846,10 @@
                                                             </li>
                                                             <li class="list-inline-item" data-toggle="tooltip"
                                                                 title="2 Video">
-                                                                <a href="#" class="text-white hover-primary">
-                                                                    <i class="far fa-play-circle"></i><span
-                                                                        class="pl-1">2</span>
-                                                                </a>
+                                                                <a href="{{ route('client.add.favourite', ['slug' => $room->slug]) }}" 
+                                                                    class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                                     <i class="fas fa-heart"></i>
+                                                                 </a>
                                                             </li>
                                                         </ul>
                                                         <ul class="list-inline mb-0 d-flex align-items-end mr-n3">

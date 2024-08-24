@@ -124,9 +124,10 @@
                                 <div class="position-absolute pos-fixed-top-right z-index-3">
                                     <ul class="list-inline pt-4 pr-5">
                                         <li class="list-inline-item mr-2">
-                                            <a href="#" data-toggle="tooltip" title="Yêu thích"
-                                                class="d-flex align-items-center justify-content-center w-40px h-40 bg-white text-heading bg-hover-primary hover-white rounded-circle">
-                                                <i class="far fa-heart"></i></a>
+                                            <a href="{{ route('client.add.favourite', ['slug' => $rooms->slug]) }}" 
+                                                class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                 <i class="fas fa-heart"></i>
+                                             </a>
                                         </li>
                                         <li class="list-inline-item mr-2">
                                             <button type="button"
@@ -1196,11 +1197,11 @@
                                             class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
                                             <p class="fs-17 font-weight-bold text-heading mb-0">$1.250.000</p>
                                             <ul class="list-inline mb-0">
-                                                <li class="list-inline-item">
-                                                    <a href="#"
-                                                        class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-secondary bg-accent border-accent"
-                                                        data-toggle="tooltip" title="Wishlist"><i
-                                                            class="fas fa-heart"></i></a>
+                                                <li class="list-inline-item mr-2">
+                                                    <a href="{{ route('client.add.favourite', ['slug' => $rooms->slug]) }}" 
+                                                        class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                         <i class="fas fa-heart"></i>
+                                                     </a>
                                                 </li>
                                                 <li class="list-inline-item">
                                                     <a href="#"
