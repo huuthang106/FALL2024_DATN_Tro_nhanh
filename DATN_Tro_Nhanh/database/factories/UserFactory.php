@@ -37,7 +37,7 @@ class UserFactory extends Factory
             'slug' => Str::slug($this->faker->unique()->name),
             'google_id' => $this->faker->optional()->uuid,
             'status' => $this->faker->boolean(80), // 80% là trạng thái hoạt động (1)
-            'image' => $this->faker->optional()->imageUrl(),
+            'image' => 'agent-25.jpg',
             'identification_number' => $this->faker->optional()->regexify('[A-Za-z0-9]{10}'),
             'provider' => $this->faker->optional()->randomElement(['google', 'facebook']),
             'provider_id' => $this->faker->optional()->uuid,
