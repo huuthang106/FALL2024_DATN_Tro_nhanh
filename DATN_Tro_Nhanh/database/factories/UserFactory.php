@@ -25,24 +25,30 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
+            'name' => $this->faker->name,
+            'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
-            'password' => Hash::make('password'), // Mã hóa mật khẩu
-            'phone' => $this->faker->numerify('###########'), // Số điện thoại 13 ký tự
-            'address' => $this->faker->address(),
-            'role' => 1, // Đặt giá trị mặc định là 2
-            'balanca' => $this->faker->randomFloat(2, 0, 10000), // Số dư ngẫu nhiên dưới dạng số thực
-            'slug' => Str::slug($this->faker->name()),
-            'token' => Str::random(60),
-            'status' => $this->faker->boolean(), // Trạng thái là boolean
-            'image' => $this->faker->imageUrl(),
-            'identification_number' => $this->faker->numerify('#########'), // Chuỗi số ngẫu nhiên
-            'provider' => null,
-            'provider_id' => null,
-            'provider_token' => null,
+            'password' => bcrypt('password'), // Hoặc dùng Hash::make('password')
+            'phone' => $this->faker->optional()->numerify('###########'), // Số điện thoại từ 10 đến 13 chữ số
+            'address' => $this->faker->optional()->address,
+            'role' => $this->faker->randomElement([1, 2, 0]), // 1: User, 0: Admin 2:owners
+            'balance' => $this->faker->optional()->randomNumber(5),
+            'token' => Str::random(10),
+            'slug' => Str::slug($this->faker->unique()->name),
+            'google_id' => $this->faker->optional()->uuid,
+            'status' => $this->faker->boolean(80), // 80% là trạng thái hoạt động (1)
+            'image' => $this->faker->optional()->imageUrl(),
+            'identification_number' => $this->faker->optional()->regexify('[A-Za-z0-9]{10}'),
+            'provider' => $this->faker->optional()->randomElement(['google', 'facebook']),
+            'provider_id' => $this->faker->optional()->uuid,
+            'provider_token' => $this->faker->optional()->sha256,
+            'deleted_at' => null,
             'remember_token' => Str::random(10),
-            'token' => null,
+            'province' => '89', // Mã tỉnh
+            'district' => '892', // Mã huyện
+            'village' => '30592', // Mã xã
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 

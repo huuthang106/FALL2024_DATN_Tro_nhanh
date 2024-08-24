@@ -9,11 +9,23 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\Blog;
 use App\Models\Favourite;
-use App\Models\RoomType;
+use App\Models\Room;
 use App\Models\Acreage;
 use App\Models\Price;
 use App\Models\Category;
-use App\Models\Area;
+use App\Models\PriceList;
+use App\Models\Resident;
+use App\Models\Payment;
+use App\Models\MaintenanceRequest;
+use App\Models\Watchlist;
+
+use App\Models\Comment;
+use App\Models\Report;
+use App\Models\RegistrationList;
+use App\Models\Transaction;
+use App\Models\Notification;
+
+
 use App\Models\Location;
 use App\Models\Zone;
 use Faker\Factory as Faker;
@@ -28,37 +40,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
-        Favourite::factory(10)->create();
-
-
-        $faker = Faker::create();
-
-        // Lấy ID của user mẫu (giả sử bạn đã có ít nhất một user trong cơ sở dữ liệu)
-        $userId = User::first()->id;
-
-        // Tạo 10 dữ liệu mẫu cho bảng blogs
-        foreach (range(1, 10) as $index) {
-            Blog::create([
-                'title' => $faker->sentence,
-                'description' => $faker->paragraph,
-                'status' => $faker->boolean,
-                'slug' => Str::slug($faker->sentence),
-                'user_id' => $userId,
-            ]);
-        }
-        // RoomType::factory()->count(10)->create(); // Tạo 10 mẫu RoomType
-        // Acreage::factory()->count(10)->create(); // Seed 10 dòng dữ liệu vào bảng acreages
-        // Price::factory()->count(10)->create(); // Seed 10 dòng dữ liệu vào bảng prices
-        // // Seed danh mục không có parent_id
-        // Category::factory()->count(5)->create();
-
-        // // Seed danh mục con (có parent_id)
-        // Category::factory()->count(5)->create([
-        //     'parent_id' => Category::inRandomOrder()->first()->id,
-        // ]);
-        // Area::factory()->count(10)->create(); // Seed 10 dòng dữ liệu vào bảng areas
-        // Location::factory()->count(10)->create(); // Seed 10 dòng dữ liệu vào bảng locations
-        // Zone::factory()->count(10)->create(); // Seed 10 dòng dữ liệu vào bảng zones
+        User::factory(5)->create();
+        Acreage::factory(5)->create();
+        Category::factory(5)->create();
+        Location::factory(5)->create();
+        PriceList::factory(5)->create();
+        Price::factory(5)->create();
+        Zone::factory(5)->create();
+        Room::factory(5)->create();
+        Resident::factory(5)->create();
+        Payment::factory(5)->create();
+        Blog::factory(5)->create();
+        MaintenanceRequest::factory(5)->create();
+        Watchlist::factory(5)->create();
+        Comment::factory(5)->create();
+        RegistrationList::factory(5)->create();
+        Notification::factory(5)->create();
+        Transaction::factory(5)->create();
+        Report::factory(5)->create();
+        Favourite::factory(5)->create();
+  
+       
     }
 }

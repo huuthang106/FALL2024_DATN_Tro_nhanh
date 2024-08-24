@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use App\Models\Transaction;
 class TransactionSeeder extends Seeder
 {
     /**
@@ -13,5 +13,6 @@ class TransactionSeeder extends Seeder
     public function run(): void
     {
         //
+        Transaction::factory()->count(5)->create();
     }
 }

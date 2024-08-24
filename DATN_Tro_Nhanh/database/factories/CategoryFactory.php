@@ -17,14 +17,16 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
-        $name = $this->faker->word;
+
         return [
-            //
-            'name' => $name,
-            'status' => $this->faker->boolean,
-            'parent_id' => null, // Có thể set giá trị parent sau nếu cần cho phân loại danh mục con
-            'slug' => Str::slug($name) . '-' . $this->faker->unique()->numberBetween(1, 1000), // Tạo slug kết hợp với ID hoặc số ngẫu nhiên
-            'deleted_at' => null, // Null vì sử dụng soft deletes
+            'name' => $this->faker->word,
+            'status' => $this->faker->boolean(80),
+            'parent_id' => null, // Hoặc set giá trị phù hợp nếu cần
+            'slug' => $this->faker->unique()->slug, // Sử dụng unique để đảm bảo không trùng lặp
+            'deleted_at' => null,
+            'created_at' => now(),
+            'updated_at' => now(),
+
         ];
     }
 }

@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-
+use App\Models\Location;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Location>
  */
@@ -15,16 +15,20 @@ class LocationFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    protected $model = Location::class;
     public function definition(): array
     {
-        $name = $this->faker->city;
+        $uniqueNumber = $this->faker->unique()->numberBetween(1, 1000);
+        $name = 'VIP Zone ' . $uniqueNumber;
+        $slug = Str::slug('VIP-Zone-' . $uniqueNumber);
+
         return [
-            //
             'name' => $name,
-            'status' => $this->faker->boolean,
-            'slug' => Str::slug($name) . '-' . $this->faker->unique()->numberBetween(1, 1000), // Tạo slug kết hợp với số ngẫu nhiên
-            'end_date' => $this->faker->dateTimeBetween('now', '+2 years'), // Thời điểm kết thúc ngẫu nhiên trong vòng 2 năm tới
-            'deleted_at' => null, // Null vì sử dụng soft deletes
+            'status' => 1,
+            'slug' => $slug,
+            'deleted_at' => null,
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

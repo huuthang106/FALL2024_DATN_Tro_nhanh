@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use App\Models\MaintenanceRequest;
 class MaintenanceRequestSeeder extends Seeder
 {
     /**
@@ -13,5 +13,7 @@ class MaintenanceRequestSeeder extends Seeder
     public function run(): void
     {
         //
+        MaintenanceRequest::factory()->count(5)->create();
+
     }
 }

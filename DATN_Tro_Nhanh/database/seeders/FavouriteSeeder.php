@@ -15,12 +15,6 @@ class FavouriteSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::first();
-        $room = Room::first();
-        //
-        Favourite::create([
-            'user_id' => $user->id,
-            'room_id' => $room->id,
-        ]);
+        Favourite::factory()->count(10)->create();
     }
 }

@@ -10,4 +10,5 @@ class Payment extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    protected $table = 'bills'; // Đặt tên bảng là 'bills'
 }
