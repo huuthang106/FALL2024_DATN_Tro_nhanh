@@ -12,8 +12,11 @@ return new class extends Migration
     public function up()
     {
         Schema::table('notifications', function (Blueprint $table) {
-            $table->unsignedBigInteger('blog_id')->nullable()->after('id'); // Thêm cột blog_id sau cột id
-            $table->foreign('blog_id')->references('id')->on('blogs')->onDelete('cascade'); // Tạo khóa ngoại tới bảng blogs
+            // Kiểm tra xem cột 'blog_id' đã tồn tại hay chưa trước khi thêm cột
+            if (!Schema::hasColumn('notifications', 'blog_id')) {
+                $table->unsignedBigInteger('blog_id')->nullable()->after('id'); // Thêm cột blog_id sau cột id
+                $table->foreign('blog_id')->references('id')->on('blogs')->onDelete('cascade'); // Tạo khóa ngoại tới bảng blogs
+            }
         });
     }
 
@@ -23,8 +26,10 @@ return new class extends Migration
     public function down()
 {
     Schema::table('notifications', function (Blueprint $table) {
-        $table->dropForeign(['blog_id']);
-        $table->dropColumn('blog_id');
+        if (Schema::hasColumn('notifications', 'blog_id')) {
+            $table->dropForeign(['blog_id']);
+            $table->dropColumn('blog_id');
+        }
     });
 }
 };

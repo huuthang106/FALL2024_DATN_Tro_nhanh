@@ -12,4 +12,5 @@ Route::group(['prefix' => ''], function () {
 
     route::post('them-blog',[BlogOwnersController::class, 'store'])->name('create-blog');
     Route::post('/upload-image', [BlogOwnersController::class, 'uploadImage'])->name('upload-image');
+    // Route::get('nhan-tong', [BlogOwnersController::class, 'show'])->name('show-fix');
 });

@@ -77,7 +77,10 @@ class Room extends Model
     }
 
 
-
+    public function maintenanceRequests()
+    {
+        return $this->hasMany(MaintenanceRequest::class);
+    }
 
 
     public function tenant()

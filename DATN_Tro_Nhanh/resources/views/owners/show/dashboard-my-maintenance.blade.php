@@ -4,15 +4,12 @@
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
             <div class="d-flex flex-wrap flex-md-nowrap mb-6">
-                <div class="mr-0 mr-md-auto">
-                    <h2 class="mb-0 text-heading fs-22 lh-15">
-                        Blog sản của tôi
-                        <span class="badge badge-white badge-pill text-primary fs-18 font-weight-bold ml-2">
-                            {{ $blogs->total() }}
-                        </span>
-                    </h2>
-                    
-                    <p>Xem thêm</p>
+                <h2 class="mb-0 text-heading fs-22 lh-15">
+                  Số Lượng yêu cầu
+                    <span class="badge badge-white badge-pill text-primary fs-18 font-weight-bold ml-2">
+                        {{ $maintenanceRequests->total() }}
+                    </span>
+                </h2>
                 </div>
                 <div class="form-inline justify-content-md-end mx-n2">
                     <div class="p-2">
@@ -43,105 +40,100 @@
                     </div>
                 </div>
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive p-3">
                 <table class="table table-hover bg-white border rounded-lg">
                     <thead class="thead-sm thead-black">
                         <tr>
-                            <th scope="col" class="border-top-0 px-6 pt-5 pb-4">Ảnh</th>
+                            {{-- <th scope="col" class="border-top-0 px-6 pt-5 pb-4">Ảnh</th> --}}
+                            <th scope="col" class="border-top-0 pt-5 pb-4">Tên</th>
+                            <th scope="col" class="border-top-0 pt-5 pb-4">Số Phòng</th>
                             <th scope="col" class="border-top-0 pt-5 pb-4">Tiêu Đề</th>
                             <th scope="col" class="border-top-0 pt-5 pb-4">Mô Tả</th>
                             <th scope="col" class="border-top-0 pt-5 pb-4">Trạng thái</th>
-                            <th scope="col" class="border-top-0 pt-5 pb-4">Ngày xuất bản</th>
+                            <th scope="col" class="border-top-0 pt-5 pb-4">Ngày yêu cầu</th>
                             <th scope="col" class="border-top-0 pt-5 pb-4">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($blogs as $blog)
+                        @foreach ($maintenanceRequests as $item)
                             <tr class="shadow-hover-xs-2 bg-hover-white">
-                                <td class="align-middle pt-6 pb-4 px-6">
-                                    <div class="media d-flex align-items-center">
-                                        <div class="w-120px mr-4 position-relative">
-                                            <a href="{{ route('owners.show-blog', $blog->slug) }}">
-                                                @if ($blog->image)
-                                                    @foreach ($blog->image as $item)
-                                                        <img src="{{ asset('assets/images/' . $item->filename) }}"
-                                                            alt="{{ $item->filename }}" class="img-fluid">
-                                                    @endforeach
-                                                @else
-                                                    <p>No images available</p>
-                                                @endif
-                                            </a>
-                                        </div>
-                                    </div>
+                                <td class="align-middle p-3">{{ $item->user->name ?? 'N/A' }}</td>
+                                <td class="align-middle p-3">{{ $item->room->id ?? 'N/A' }}</td>
+                                <td class="align-middle p-3">{{ $item->title }}</td>
+                                <td class="align-middle p-3">{{ $item->description }}</td>
+                                <td class="align-middle p-3">
+                                    @if ($item->status == 1)
+                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">Đang xử lý</span>
+                                    @elseif ($item->status == 2)
+                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-green">Đã duyệt</span>
+                                    @elseif ($item->status == 3)
+                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-blue">Đã hoàn thành</span>
+                                    @else
+                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-gray">Không xác định</span>
+                                    @endif
                                 </td>
-                                <td class="align-middle">{{ $blog->title }}</td>
-                                <td class="align-middle">{{ $blog->description }}</td>
-                                <td class="align-middle">
-                                    <span
-                                        class="badge text-capitalize font-weight-normal fs-12 badge-yellow">{{ $blog->status }}</span>
-                                </td>
-                                <td class="align-middle">{{ $blog->created_at->format('d-m-Y') }}</td>
-                                <td class="align-middle">
-                                    <a href="{{ route('owners.sua-blog', ['slug' => $blog->slug]) }}" data-toggle="tooltip"
-                                        title="Chỉnh sửa" class="d-inline-block fs-18 text-muted hover-primary mr-5">
-                                        <i class="fal fa-pencil-alt"></i>
-                                    </a>
-
-
-
-
-                                    <a href="" data-toggle="tooltip" title="Xóa"
-                                        class="d-inline-block fs-18 text-muted hover-primary">
+                                <td class="align-middle p-3">{{ $item->created_at->format('d-m-Y') }}</td>
+                                
+                                <td class="align-middle p-3">
+                                    <a href="#" data-toggle="tooltip" title="Xóa" class="d-inline-block fs-18 text-muted hover-primary">
                                         <i class="fal fa-trash-alt"></i>
                                     </a>
-
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
+                    
 
                 </table>
             </div>
-            <nav class="mt-4">
-                <ul class="pagination rounded-active justify-content-center">
-                    {{-- Previous Page Link --}}
-                    @if ($blogs->onFirstPage())
-                        <li class="page-item disabled">
-                            <span class="page-link"><i class="far fa-angle-double-left"></i></span>
+         {{-- // phần này --}}
+         <nav class="mt-4">
+            <ul class="pagination rounded-active justify-content-center">
+                {{-- Previous Page Link --}}
+                @if ($maintenanceRequests->onFirstPage())
+                    <li class="page-item disabled">
+                        <span class="page-link"><i class="far fa-angle-double-left"></i></span>
+                    </li>
+                @else
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $maintenanceRequests->previousPageUrl() }}" aria-label="Previous">
+                            <i class="far fa-angle-double-left"></i>
+                        </a>
+                    </li>
+                @endif
+        
+                {{-- Pagination Elements --}}
+                @for ($page = 1; $page <= $maintenanceRequests->lastPage(); $page++)
+                    @if ($page == $maintenanceRequests->currentPage())
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link">{{ $page }}</span>
                         </li>
                     @else
                         <li class="page-item">
-                            <a class="page-link" href="{{ $blogs->previousPageUrl() }}"><i class="far fa-angle-double-left"></i></a>
+                            <a class="page-link" href="{{ $maintenanceRequests->url($page) }}">{{ $page }}</a>
                         </li>
                     @endif
-            
-                    {{-- Pagination Elements --}}
-                    @foreach ($blogs->getUrlRange(1, $blogs->lastPage()) as $page => $url)
-                        @if ($page == $blogs->currentPage())
-                            <li class="page-item active">
-                                <span class="page-link">{{ $page }}</span>
-                            </li>
-                        @else
-                            <li class="page-item">
-                                <a class="page-link" href="{{ $url }}">{{ $page }}</a>
-                            </li>
-                        @endif
-                    @endforeach
-            
-                    {{-- Next Page Link --}}
-                    @if ($blogs->hasMorePages())
-                        <li class="page-item">
-                            <a class="page-link" href="{{ $blogs->nextPageUrl() }}"><i class="far fa-angle-double-right"></i></a>
-                        </li>
-                    @else
-                        <li class="page-item disabled">
-                            <span class="page-link"><i class="far fa-angle-double-right"></i></span>
-                        </li>
-                    @endif
-                </ul>
-            </nav>
-            <div class="text-center mt-2">{{ $blogs->firstItem() }}-{{ $blogs->lastItem() }} của {{ $blogs->total() }} kết quả</div>
-            
+                @endfor
+        
+                {{-- Next Page Link --}}
+                @if ($maintenanceRequests->hasMorePages())
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $maintenanceRequests->nextPageUrl() }}" aria-label="Next">
+                            <i class="far fa-angle-double-right"></i>
+                        </a>
+                    </li>
+                @else
+                    <li class="page-item disabled">
+                        <span class="page-link"><i class="far fa-angle-double-right"></i></span>
+                    </li>
+                @endif
+            </ul>
+        </nav>
+        
+        <div class="text-center mt-2">
+            {{ $maintenanceRequests->firstItem() }}-{{ $maintenanceRequests->lastItem() }} của {{ $maintenanceRequests->total() }} kết quả
+        </div>
+        
         </div>
     </main>
 

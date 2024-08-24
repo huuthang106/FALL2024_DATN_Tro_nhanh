@@ -11,7 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-      
+        Schema::table('maintenance_requests', function (Blueprint $table) {
+            $table->string('status')->default('pending')->after('description');
+        });
     }
 
     /**
@@ -19,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-      
+        Schema::table('maintenance_requests', function (Blueprint $table) {
+            $table->dropColumn('status');
+        });
     }
 };

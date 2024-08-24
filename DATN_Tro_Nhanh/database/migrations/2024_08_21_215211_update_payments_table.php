@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::rename('bills', 'payments');
+        // Schema::rename('bills', 'payments');
         Schema::table('payments', function (Blueprint $table) {
             //
             $table->dropForeign(['resident_id']);
