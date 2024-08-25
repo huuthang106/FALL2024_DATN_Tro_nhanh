@@ -6,8 +6,9 @@
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
             <div class="d-flex flex-wrap flex-md-nowrap mb-6">
                 <div class="mr-0 mr-md-auto">
-                    <h2 class="mb-0 text-heading fs-22 lh-15">Những mục yêu thích của tôi<span
-                            class="badge badge-white badge-pill text-primary fs-18 font-weight-bold ml-2">5</span>
+                    <h2 class="mb-0 text-heading fs-22 lh-15">Những mục yêu thích của tôi <span class="badge badge-white badge-pill text-primary fs-18 font-weight-bold ml-2">
+                        {{ $favourites->total() }}
+                    </span>
                     </h2>
                     <p>Xem Thêm</p>
                 </div>
@@ -24,19 +25,33 @@
                     <div class="p-2">
                         <div class="input-group input-group-lg bg-white border">
                             <div class="input-group-prepend">
-                                <span class="input-group-text bg-transparent letter-spacing-093 border-0 pr-0"><i
-                                        class="far fa-align-left mr-2"></i>Sắp xếp theo:</span>
+                                <span class="input-group-text bg-transparent letter-spacing-093 border-0 pr-0">
+                                    <i class="far fa-align-left mr-2"></i>Sắp xếp theo:
+                                </span>
                             </div>
                             <select class="form-control bg-transparent pl-0 selectpicker d-flex align-items-center sortby"
-                                name="sort-by" data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body"
-                                id="status">
-                                <option>Theo chữ cái</option> <!-- Alphabet -->
-                                <option>Giá - Từ thấp đến cao</option>
-                                <option>Giá - Từ cao đến thấp</option> <!-- Price - High to Low -->
-                                <option>Ngày - Từ cũ đến mới</option> <!-- Date - Old to New -->
-                                <option>Ngày - Từ mới đến cũ</option>
+                                name="sort-by" data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
+                                <option value="name"
+                                    {{ request()->query('sort-by', 'date_new_to_old') == 'name' ? 'selected' : '' }}>
+                                    Chữ cái
+                                </option>
+                                <option value="price_low_to_high"
+                                    {{ request()->query('sort-by', 'date_new_to_old') == 'price_low_to_high' ? 'selected' : '' }}>
+                                    Giá - Thấp đến Cao
+                                </option>
+                                <option value="price_high_to_low"
+                                    {{ request()->query('sort-by', 'date_new_to_old') == 'price_high_to_low' ? 'selected' : '' }}>
+                                    Giá - Cao đến Thấp
+                                </option>
+                                <option value="date_old_to_new"
+                                    {{ request()->query('sort-by', 'date_new_to_old') == 'date_old_to_new' ? 'selected' : '' }}>
+                                    Ngày - Cũ đến Mới
+                                </option>
+                                <option value="date_new_to_old"
+                                    {{ request()->query('sort-by', 'date_new_to_old') == 'date_new_to_old' ? 'selected' : '' }}>
+                                    Ngày - Mới đến Cũ
+                                </option>
                             </select>
-
                         </div>
                     </div>
                 </div>

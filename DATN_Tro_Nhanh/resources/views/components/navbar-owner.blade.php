@@ -144,7 +144,7 @@
                                         </span>
                                         <span class="sidebar-item-text">Danh sách Blog</span>
                                         <span
-                                            class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">29</span>
+                                            class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">{{ $totalBlogs }}</span>
                                     </a>
                                 </li>
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
@@ -157,7 +157,7 @@
                                         </span>
                                         <span class="sidebar-item-text">Danh sách Sửa Chữa</span>
                                         <span
-                                            class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">29</span>
+                                            class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">{{ $totalMaintenanceRequests }}</span>
                                     </a>
                                 </li>
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
@@ -253,16 +253,20 @@
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{ Route('owners.favorites') }}"
-                                    class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                <a href="{{ Route('owners.favorites') }}" class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-heart">
                                             <use xlink:href="#icon-heart"></use>
                                         </svg>
                                     </span>
                                     <span class="sidebar-item-text">Yêu thích</span>
+                                    <!-- Số lượng yêu thích nằm sau chữ "Yêu thích" -->
+                                    <span class="sidebar-item-number text-primary fs-15 font-weight-bold ml-2">{{ $favouriteCount }}</span>
                                 </a>
                             </li>
+                            
+                            
+
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                 <a href="{{ route('owners.profile.profile-admin-index') }}"
                                     class="text-heading lh-1 sidebar-link">
