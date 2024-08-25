@@ -1,56 +1,72 @@
 @extends('layouts.owner')
 @section('titleOwners', 'Trang chủ trọ nhanh')
 @section('contentOwners')
+
+
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
-            <div class="d-flex flex-wrap flex-md-nowrap mb-6">
-                <h2 class="mb-0 text-heading fs-22 lh-15">
-                  Số Lượng yêu cầu
-                    <span class="badge badge-white badge-pill text-primary fs-18 font-weight-bold ml-2">
-                        {{ $maintenanceRequests->total() }}
-                    </span>
-                </h2>
+            <form action="{{ route('owners.properties') }}" method="GET">
+                <div class="mr-0 mr-md-auto">
+                    <h2 class="mb-0 text-heading fs-22 lh-15">
+                        Danh sách sửa chữa
+                        <span class="badge badge-white badge-pill text-primary fs-18 font-weight-bold ml-2">
+                            {{ $maintenanceRequests->total() }}
+                        </span>
+                    </h2>
                 </div>
                 <div class="form-inline justify-content-md-end mx-n2">
                     <div class="p-2">
                         <div class="input-group input-group-lg bg-white border">
                             <div class="input-group-prepend">
-                                <button class="btn pr-0 shadow-none" type="button"><i class="far fa-search"></i></button>
+                                <button class="btn pr-0 shadow-none" type="submit"><i class="far fa-search"></i></button>
                             </div>
                             <input type="text" class="form-control bg-transparent border-0 shadow-none text-body"
-                                placeholder="Tìm kiếm danh sách" name="search">
+                                placeholder="Tìm kiếm danh sách" name="search" value="{{ request()->query('search') }}">
                         </div>
                     </div>
                     <div class="p-2">
                         <div class="input-group input-group-lg bg-white border">
                             <div class="input-group-prepend">
-                                <span class="input-group-text bg-transparent letter-spacing-093 border-0 pr-0"><i
-                                        class="far fa-align-left mr-2"></i>Sắp xếp theo:</span>
+                                <span class="input-group-text bg-transparent letter-spacing-093 border-0 pr-0">
+                                    <i class="far fa-align-left mr-2"></i>Sắp xếp theo:
+                                </span>
                             </div>
                             <select class="form-control bg-transparent pl-0 selectpicker d-flex align-items-center sortby"
-                                name="sort-by" data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body"
-                                id="status">
-                                <option>Chữ cái</option>
-                                <option>Giá - Thấp đến Cao</option>
-                                <option>Giá - Cao đến Thấp</option>
-                                <option>Ngày - Cũ đến Mới</option>
-                                <option>Ngày - Mới đến Cũ</option>
+                                name="sort-by" data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
+                                <option value="name"
+                                    {{ request()->query('sort-by', 'date_new_to_old') == 'name' ? 'selected' : '' }}>
+                                    Chữ cái
+                                </option>
+                                <option value="price_low_to_high"
+                                    {{ request()->query('sort-by', 'date_new_to_old') == 'price_low_to_high' ? 'selected' : '' }}>
+                                    Giá - Thấp đến Cao
+                                </option>
+                                <option value="price_high_to_low"
+                                    {{ request()->query('sort-by', 'date_new_to_old') == 'price_high_to_low' ? 'selected' : '' }}>
+                                    Giá - Cao đến Thấp
+                                </option>
+                                <option value="date_old_to_new"
+                                    {{ request()->query('sort-by', 'date_new_to_old') == 'date_old_to_new' ? 'selected' : '' }}>
+                                    Ngày - Cũ đến Mới
+                                </option>
+                                <option value="date_new_to_old"
+                                    {{ request()->query('sort-by', 'date_new_to_old') == 'date_new_to_old' ? 'selected' : '' }}>
+                                    Ngày - Mới đến Cũ
+                                </option>
                             </select>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="table-responsive p-3">
+            </form>
+            <div class="table-responsive">
                 <table class="table table-hover bg-white border rounded-lg">
                     <thead class="thead-sm thead-black">
                         <tr>
-                            {{-- <th scope="col" class="border-top-0 px-6 pt-5 pb-4">Ảnh</th> --}}
-                            <th scope="col" class="border-top-0 pt-5 pb-4">Tên</th>
-                            <th scope="col" class="border-top-0 pt-5 pb-4">Số Phòng</th>
+                            <th scope="col" class="border-top-0 px-6 pt-5 pb-4">Ảnh</th>
                             <th scope="col" class="border-top-0 pt-5 pb-4">Tiêu Đề</th>
                             <th scope="col" class="border-top-0 pt-5 pb-4">Mô Tả</th>
                             <th scope="col" class="border-top-0 pt-5 pb-4">Trạng thái</th>
-                            <th scope="col" class="border-top-0 pt-5 pb-4">Ngày yêu cầu</th>
+                            <th scope="col" class="border-top-0 pt-5 pb-4">Ngày xuất bản</th>
                             <th scope="col" class="border-top-0 pt-5 pb-4">Hành động</th>
                         </tr>
                     </thead>
@@ -86,60 +102,60 @@
 
                 </table>
             </div>
-         {{-- // phần này --}}
-         <nav class="mt-4">
-            <ul class="pagination rounded-active justify-content-center">
-                {{-- Previous Page Link --}}
-                @if ($maintenanceRequests->onFirstPage())
-                    <li class="page-item disabled">
-                        <span class="page-link"><i class="far fa-angle-double-left"></i></span>
-                    </li>
-                @else
-                    <li class="page-item">
-                        <a class="page-link" href="{{ $maintenanceRequests->previousPageUrl() }}" aria-label="Previous">
-                            <i class="far fa-angle-double-left"></i>
-                        </a>
-                    </li>
-                @endif
-        
-                {{-- Pagination Elements --}}
-                @for ($page = 1; $page <= $maintenanceRequests->lastPage(); $page++)
-                    @if ($page == $maintenanceRequests->currentPage())
-                        <li class="page-item active" aria-current="page">
-                            <span class="page-link">{{ $page }}</span>
+            <nav class="mt-4">
+                <ul class="pagination rounded-active justify-content-center">
+                    {{-- Previous Page Link --}}
+                    @if ($maintenanceRequests->onFirstPage())
+                        <li class="page-item disabled">
+                            <span class="page-link"><i class="far fa-angle-double-left"></i></span>
                         </li>
                     @else
                         <li class="page-item">
-                            <a class="page-link" href="{{ $maintenanceRequests->url($page) }}">{{ $page }}</a>
+                            <a class="page-link" href="{{ $maintenanceRequests->previousPageUrl() }}" aria-label="Previous">
+                                <i class="far fa-angle-double-left"></i>
+                            </a>
                         </li>
                     @endif
-                @endfor
-        
-                {{-- Next Page Link --}}
-                @if ($maintenanceRequests->hasMorePages())
-                    <li class="page-item">
-                        <a class="page-link" href="{{ $maintenanceRequests->nextPageUrl() }}" aria-label="Next">
-                            <i class="far fa-angle-double-right"></i>
-                        </a>
-                    </li>
-                @else
-                    <li class="page-item disabled">
-                        <span class="page-link"><i class="far fa-angle-double-right"></i></span>
-                    </li>
-                @endif
-            </ul>
-        </nav>
-        
-        <div class="text-center mt-2">
-            {{ $maintenanceRequests->firstItem() }}-{{ $maintenanceRequests->lastItem() }} của {{ $maintenanceRequests->total() }} kết quả
-        </div>
-        
+            
+                    {{-- Pagination Elements --}}
+                    @for ($page = 1; $page <= $maintenanceRequests->lastPage(); $page++)
+                        @if ($page == $maintenanceRequests->currentPage())
+                            <li class="page-item active" aria-current="page">
+                                <span class="page-link">{{ $page }}</span>
+                            </li>
+                        @else
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $maintenanceRequests->url($page) }}">{{ $page }}</a>
+                            </li>
+                        @endif
+                    @endfor
+            
+                    {{-- Next Page Link --}}
+                    @if ($maintenanceRequests->hasMorePages())
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $maintenanceRequests->nextPageUrl() }}" aria-label="Next">
+                                <i class="far fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                    @else
+                        <li class="page-item disabled">
+                            <span class="page-link"><i class="far fa-angle-double-right"></i></span>
+                        </li>
+                    @endif
+                </ul>
+            </nav>
+            
+            <div class="text-center mt-2">
+                {{ $maintenanceRequests->firstItem() }}-{{ $maintenanceRequests->lastItem() }} của {{ $maintenanceRequests->total() }} kết quả
+            </div>
+            </div>
         </div>
     </main>
 
     </div>
     </div>
     </div>
+
     <!-- Vendors scripts -->
 
 
@@ -192,21 +208,21 @@
     <meta property="og:image:height" content="630">
 @endpush
 @push('scriptOwners')
-    <script src="{{ asset('vendors/jquery.min.js') }}"></script>
-    <script src="{{ asset('vendors/jquery-ui/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('vendors/bootstrap/bootstrap.bundle.js') }}"></script>
-    <script src="{{ asset('vendors/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
-    <script src="{{ asset('vendors/slick/slick.min.js') }}"></script>
-    <script src="{{ asset('vendors/waypoints/jquery.waypoints.min.js') }}"></script>
-    <script src="{{ asset('vendors/counter/countUp.js') }}"></script>
-    <script src="{{ asset('vendors/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
-    <script src="{{ asset('vendors/chartjs/Chart.min.js') }}"></script>
-    <script src="{{ asset('vendors/dropzone/js/dropzone.min.js') }}"></script>
-    <script src="{{ asset('vendors/timepicker/bootstrap-timepicker.min.js') }}"></script>
-    <script src="{{ asset('vendors/hc-sticky/hc-sticky.min.js') }}"></script>
-    <script src="{{ asset('vendors/jparallax/TweenMax.min.js') }}"></script>
-    <script src="{{ asset('vendors/mapbox-gl/mapbox-gl.js') }}"></script>
-    <script src="{{ asset('vendors/dataTables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/bootstrap/bootstrap.bundle.js') }}"></script>
+    <script src="{{ asset('assets/vendors/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/slick/slick.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/waypoints/jquery.waypoints.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/counter/countUp.js') }}"></script>
+    <script src="{{ asset('assets/vendors/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/chartjs/Chart.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/dropzone/js/dropzone.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/hc-sticky/hc-sticky.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/jparallax/TweenMax.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
+    <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Theme scripts -->
-    <script src="{{ asset('js/theme.js') }}"></script>
+    <script src="{{ asset('assets/js/theme.js') }}"></script>
 @endpush
