@@ -26,11 +26,11 @@
                                         $image = $blog->image->first();
                                     @endphp
                                     @if ($blog->image)
-                                        <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
-                                            class="hover-shine d-block">
-                                            <img src="{{ asset('assets/images/', $image->filename) }}"
-                                                alt="Ten Benefits Of Rentals That May Change Your Perspective">
-                                        </a>
+                                    <a href="{{ route('client.client-blog-detail', $blog->slug) }}" class="hover-shine d-block">
+                                        <img src="{{ asset('assets/images/' . ($image ? $image->filename : 'default.jpg')) }}"
+                                             alt="Ten Benefits Of Rentals That May Change Your Perspective">
+                                    </a>
+                                    
                                     @else
                                         <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
                                             class="hover-shine d-block">

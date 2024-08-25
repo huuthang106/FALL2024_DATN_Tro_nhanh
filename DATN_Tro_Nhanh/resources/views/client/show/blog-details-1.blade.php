@@ -25,14 +25,17 @@
                             @php
                             $image = $blog->image->first();
                         @endphp
-                            @if ($blog->image)
-                            <img class="rounded-lg d-block" src="{{ asset('assets/images/',$image->filename) }}"
-                            alt="Retail banks wake up to digital lending this year">
-                            @else 
-                            <img class="rounded-lg d-block" src="{{ asset('assets/images/post-11.jpg') }}"
-                            alt="Retail banks wake up to digital lending this year">
-                            @endif
-                       
+                        
+                        @if ($image)
+                            <img class="rounded-lg d-block" src="{{ asset('assets/images/' . $image->filename) }}"
+                                 alt="Retail banks wake up to digital lending this year">
+                        @else
+                            <!-- Có thể hiển thị một ảnh mặc định nếu không có ảnh nào được liên kết -->
+                            <img class="rounded-lg d-block" src="{{ asset('assets/images/default.jpg') }}"
+                                 alt="Default Image">
+                        @endif
+                        
+
                             <a href="#"
                                 class="badge text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white m-2 position-absolute letter-spacing-1 pos-fixed-bottom">
                                 Cho Thuê
