@@ -193,4 +193,13 @@ class BlogServices
         // Xóa blog
         return $blog->delete();
     }
+    public function countTotalBlogs()
+    {
+        try {
+            return Blog::count();
+        } catch (\Exception $e) {
+            Log::error('Error counting blogs: ' . $e->getMessage());
+            return 0;
+        }
+    }
 }
