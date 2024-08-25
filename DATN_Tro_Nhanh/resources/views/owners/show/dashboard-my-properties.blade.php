@@ -7,7 +7,7 @@
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
             <form action="{{ route('owners.properties') }}" method="GET">
                 <div class="mr-0 mr-md-auto">
-                    <h2 class="mb-0 text-heading fs-22 lh-15">Blog sản của tôi<span
+                    <h2 class="mb-0 text-heading fs-22 lh-15">Phòng trọ sản của tôi<span
                             class="badge badge-white badge-pill text-primary fs-18 font-weight-bold ml-2">{{ $roomCount }}</span>
                     </h2>
                 </div>

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Models\User;
 use App\Models\Room;
+use Illuminate\Http\Request;
+
 
 class UserClientServices
 {
@@ -61,6 +63,23 @@ class UserClientServices
     // Trả về kết quả phân trang
     return $query->paginate($limit);
 }
+// public function getUsersByRole2($role, $searchTerm = null, $limit)
+// {
+//     // Khởi tạo query để lọc người dùng theo vai trò
+//     $query = User::where('role', $role);
+
+//     // Nếu có từ khóa tìm kiếm, thêm điều kiện tìm kiếm
+//     if ($searchTerm) {
+//         $query->where(function ($q) use ($searchTerm) {
+//             $q->where('name', 'like', '%' . $searchTerm . '%')
+//               ->orWhere('email', 'like', '%' . $searchTerm . '%');
+//         });
+//     }
+
+//     // Trả về kết quả phân trang
+//     return $query->paginate($limit);
+// }
+
 
 
     
