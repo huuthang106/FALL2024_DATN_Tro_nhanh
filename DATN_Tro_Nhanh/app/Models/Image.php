@@ -12,7 +12,8 @@ class Image extends Model
         // cho phép thêm hàng loạt dữ liệu Nguyen Huu Thang
         'room_id',
         'filename',
-        'blog_id'
+        'blog_id',
+       ' memberregistration_id'
 
     ];
     public function blog()

@@ -19,17 +19,23 @@ class RegistrationListOwnersController extends Controller
 
     public function storeData(Request $request)
     {
+        //    dd('hi');
+
         try {
             $validatedData = $request->validate([
                 'cmnd_number' => 'required|string',
                 'full_name' => 'required|string',
                 'gender' => 'required|string',
                 'issued_by' => 'required|string',
-                'cccdmt' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-                'cccdms' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-                'fileface' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+
             ]);
-    
+
+            // dd(session('image_paths'));
+            $imagePaths = session()->get('image_paths', []);
+            // dd($validatedData['cmnd_number']);
+            // dd($validatedData['full_name']);
+
+            // dd($validatedData['issued_by']);
 
             $data = [
                 'identification_number' => $validatedData['cmnd_number'],
@@ -37,27 +43,32 @@ class RegistrationListOwnersController extends Controller
                 'gender' => $validatedData['gender'],
                 'description' => $validatedData['issued_by'],
                 'user_id' => auth()->id(),
-                'cccdmt_path' => $validatedData['cccdmt'],
-                'cccdms_path' => $validatedData['cccdms'],
-                'fileface_path' => $validatedData['fileface'],
+           
             ];
-    
+            $images=[
+                'cccdmt_filename' => $imagePaths['cccdmt_filename'] ?? null,
+                'cccdms_filename' => $imagePaths['cccdms_filename'] ?? null,
+                'fileface_filename' => $imagePaths['fileface_filename'] ?? null,
+            ];
+            // dd($data);
             // Đảm bảo registrationService được khởi tạo đúng cách
             if (is_null($this->registrationService)) {
                 throw new \Exception('RegistrationService không được khởi tạo.');
             }
-    
-            $this->registrationService->saveRegistrationData($request, $data);
-    
+        
+            $this->registrationService->saveRegistrationData($data,$images);
+
             return redirect()->back()->with('success', 'Dữ liệu và hình ảnh đã được lưu thành công!');
         } catch (\Exception $e) {
+            dd('loi 1');
+            // là thằng này 
             Log::error('Lỗi lưu dữ liệu và hình ảnh: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Có lỗi xảy ra khi lưu dữ liệu.');
         }
     }
-    
-    
-    
+
+
+
 
 
 
@@ -73,6 +84,4 @@ class RegistrationListOwnersController extends Controller
             return redirect()->back()->with(['error' => 'Đã xảy ra lỗi, dịch vụ không được khởi tạo thành công.']);
         }
     }
-
-
 }

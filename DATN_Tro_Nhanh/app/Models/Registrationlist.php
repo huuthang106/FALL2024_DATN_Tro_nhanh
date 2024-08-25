@@ -17,7 +17,10 @@ class Registrationlist extends Model
         'identification_number',
         'gender',
         'status',
-        'user_id'
+        'user_id',
+        'deleted_at',
+        'created_at',
+        'updated_at',
         
     ];
     public function user(){
