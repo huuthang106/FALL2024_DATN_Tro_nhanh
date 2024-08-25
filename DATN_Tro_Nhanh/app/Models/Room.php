@@ -61,10 +61,7 @@ class Room extends Model
     {
         return $this->belongsTo(Acreage::class);
     }
-    public function area()
-    {
-        return $this->belongsTo(Area::class);
-    }
+
 
     public function location()
     {

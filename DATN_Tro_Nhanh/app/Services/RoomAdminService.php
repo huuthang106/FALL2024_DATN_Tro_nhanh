@@ -10,7 +10,7 @@ use App\Models\Acreage;
 use App\Models\Location;
 use App\Models\Zone;
 use App\Models\User;
-use App\Models\RoomType;
+
 use App\Models\Image;
 
 class RoomAdminService

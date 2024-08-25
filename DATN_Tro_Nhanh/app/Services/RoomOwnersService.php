@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\Room;
-use App\Models\RoomType;
+
 use App\Models\Category;
 use App\Models\Price;
 use App\Models\Location;
@@ -33,10 +33,7 @@ class RoomOwnersService
     {
         return Category::all();
     }
-    public function getAllRoomTypes()
-    {
-        return RoomType::all();
-    }
+  
     public function getAllPrices()
     {
         return Price::all();
@@ -81,7 +78,7 @@ class RoomOwnersService
             $room->user_id = $user_id;
             $room->category_id = $request->input('category_id');
             $room->location_id = $request->input('location_id');
-            $room->room_type_id = $request->input('room_type_id');
+            
             $room->price_id = $request->input('price_id');
             $room->zone_id = $request->input('zone_id');
             // Lưu phòng và kiểm tra kết quả
@@ -182,7 +179,7 @@ class RoomOwnersService
     // Chi Tiết phòng trọ
     public function getIdRoom($slug)
     {
-        return Room::with('category', 'roomType', 'price', 'location', 'zone') // Thêm các quan hệ
+        return Room::with('category', 'price', 'location', 'zone') // Thêm các quan hệ
             ->where('slug', $slug)
             ->firstOrFail();
     }
@@ -213,7 +210,7 @@ class RoomOwnersService
             $room->latitude = $request->input('latitude');
             $room->category_id = $request->input('category_id');
             $room->location_id = $request->input('location_id');
-            $room->room_type_id = $request->input('room_type_id');
+      
             $room->price_id = $request->input('price_id');
             $room->zone_id = $request->input('zone_id');
             // Tạo slug từ tiêu đề và ID phòng

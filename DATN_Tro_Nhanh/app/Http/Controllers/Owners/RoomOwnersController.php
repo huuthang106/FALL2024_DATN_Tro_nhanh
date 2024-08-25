@@ -88,7 +88,7 @@ class RoomOwnersController extends Controller
         if (Auth::check() && Auth::user()->role != 1) {
             $room = $this->roomOwnersService->getIdRoom($slug);
             $categories = $this->roomOwnersService->getAllCategories();
-            $roomTypes = $this->roomOwnersService->getAllRoomTypes();
+
             $prices = $this->roomOwnersService->getAllPrices();
             $locations = $this->roomOwnersService->getAllLocations();
             $zones = $this->roomOwnersService->getAllZones();
@@ -96,7 +96,7 @@ class RoomOwnersController extends Controller
             return view('owners.edit.update-property', [
                 'room' => $room,
                 'categories' => $categories,
-                'roomTypes' => $roomTypes,
+           
                 'prices' => $prices,
                 'locations' => $locations,
                 'zones' => $zones,
