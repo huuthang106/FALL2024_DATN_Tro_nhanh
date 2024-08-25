@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Owners\UserOwnersController;
 use App\Http\Controllers\Auth\PasswordController;
 
+
 // Route::get('danh-sach-hoa-don', [InvoiceAdminController::class, 'index'])->name('invoice-listing');
 Route::group(['prefix' => '', 'as' => 'profile.'], function () {
     Route::get('/', [UserOwnersController::class, 'indexProfileAdmin'])->name('profile-admin-index');
@@ -18,5 +19,5 @@ Route::group(['prefix' => '', 'as' => 'profile.'], function () {
     Route::PUT('doi-mat-khau', [UserOwnersController::class, 'changePassword'])->name('reset-password-admin-index');
     // nguyen huu thang
     Route::get('/dang-ky-thanh-vien', [UserOwnersController::class, 'page_resigter_owner'])->name('resigter-owner');
-
+    
 });

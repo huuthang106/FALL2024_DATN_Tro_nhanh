@@ -63,4 +63,5 @@ class UserOwnersController extends Controller
     {
         return view('owners.create.register_owner');
     }
+    
 }
