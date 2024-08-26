@@ -1,172 +1,95 @@
-// document.addEventListener('DOMContentLoaded', function() {
-//     const form = document.getElementById('upload-form');
-//     const loadingOverlay = document.getElementById('loading-overlay');
-//     const fileInputs = form.querySelectorAll('input[type="file"]');
-//     const memberRegistrationIdInput = document.getElementById('memberregistration_id'); // Input field for memberregistration_id
+let currentImgElementId = '';
+let currentInputElementId = '';
+let fileInputCount = 0;
 
-//     // Hàm kiểm tra xem tất cả ảnh đã được chọn chưa
-//     function checkFiles() {
-//         let allFilesSelected = true;
-//         fileInputs.forEach(input => {
-//             if (!input.files.length) {
-//                 allFilesSelected = false;
-//             }
-//         });
-//         return allFilesSelected;
-//     }
+function openCameraModal(imgElementId, inputElementId) {
+    currentImgElementId = imgElementId;
+    currentInputElementId = inputElementId;
 
-//     // Hàm gửi form
-//     function submitForm() {
-//         if (!checkFiles()) {
-//             Swal.fire({
-//                 icon: 'warning',
-//                 title: 'Chưa chọn ảnh',
-//                 text: 'Vui lòng chọn tất cả các ảnh trước khi gửi.',
-//                 confirmButtonText: 'OK'
-//             });
-//             return;
-//         }
+    const video = document.getElementById('video');
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then((stream) => {
+            video.srcObject = stream;
+            $('#cameraModal').modal('show');
+        })
+        .catch((err) => {
+            console.error('Error accessing the camera:', err);
+        });
+}
 
-//         // Hiển thị lớp phủ tải
-//         loadingOverlay.classList.remove('d-none');
+document.getElementById('captureButton').addEventListener('click', function () {
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const imgElement = document.getElementById(currentImgElementId);
+    const inputElement = document.getElementById(currentInputElementId);
 
-//         // Tạo đối tượng FormData để gửi dữ liệu
-//         const formData = new FormData(form);
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0);
 
-//         // Thêm memberregistration_id vào FormData
-//         if (memberRegistrationIdInput) {
-//             formData.append('memberregistration_id', memberRegistrationIdInput.value);
-//         }
+    const imageDataUrl = canvas.toDataURL('image/png');
+    imgElement.src = imageDataUrl;
 
-//         // Gửi dữ liệu bằng fetch
-//         fetch(form.action, {
-//             method: 'POST',
-//             body: formData,
-//             headers: {
-//                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-//             },
-//         })
-//         .then(response => {
-//             if (!response.ok) {
-//                 throw new Error('Network response was not ok');
-//             }
-//             return response.json();
-//         })
-//         .then(data => {
-//             if (data.success) {
-//                 Swal.fire({
-//                     icon: 'success',
-//                     title: 'Thành công',
-//                     text: 'Dữ liệu đã được gửi thành công!',
-//                     confirmButtonText: 'OK'
-//                 });
+    fetch(imageDataUrl)
+        .then(res => res.blob())
+        .then(blob => {
+            const file = new File([blob], 'photo.png', { type: 'image/png' });
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            inputElement.files = dataTransfer.files;
 
-//                 // Hiển thị dữ liệu ngay sau khi thành công
-//                 displayData(data);
-//             } else if (data.error) {
-//                 Swal.fire({
-//                     icon: 'error',
-//                     title: 'Lỗi',
-//                     text: data.error,
-//                     confirmButtonText: 'OK'
-//                 });
-//             }
-//             loadingOverlay.classList.add('d-none');
-//         })
-//         .catch(error => {
-//             console.error('Có lỗi xảy ra:', error);
-//             Swal.fire({
-//                 icon: 'error',
-//                 title: 'Lỗi',
-//                 text: error.message || 'Có lỗi xảy ra, vui lòng thử lại.',
-//                 confirmButtonText: 'OK'
-//             });
-//             loadingOverlay.classList.add('d-none');
-//         });
-//     }
+            updateFileInputCount();
 
-//     // Hàm hiển thị dữ liệu
-//     function displayData(data) {
-//         console.log(data); // Kiểm tra dữ liệu
-    
-//         // Cập nhật các trường văn bản
-//         document.getElementById('cmnd_number').value = data.identification_number || '';
-//         document.getElementById('full_name').value = data.name || '';
-//         document.getElementById('gender').value = data.gender || '';
-//         document.getElementById('issued_by').value = data.description || '';
-    
-//         // Cập nhật các hình ảnh
-//         document.getElementById('cccdmt-image').value = '/' + data.cccdmt_path;
-//         document.getElementById('cccdms-image').value = '/' + data.cccdms_path;
-//         document.getElementById('fileface-image').value = '/' + data.fileface_path;
-//     }
-    
-    
-    
-
-//     // Gán sự kiện change cho các trường nhập liệu
-//     fileInputs.forEach(input => {
-//         input.addEventListener('change', function() {
-//             if (checkFiles()) {
-//                 submitForm();
-//             }
-//         });
-//     });
-
-//     // Nếu muốn gửi form khi nhấn nút gửi, cũng cần phải gán sự kiện cho nút gửi
-//     form.addEventListener('submit', function(event) {
-//         event.preventDefault(); // Ngăn chặn gửi form mặc định
-//         submitForm();
-//     });
-// });
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('upload-form');
-    const loadingOverlay = document.getElementById('loading-overlay');
-    const fileInputs = form.querySelectorAll('input[type="file"]');
-    const memberRegistrationIdInput = document.getElementById('memberregistration_id'); // Input field for memberregistration_id
-
-    // Function to check if all files have been selected
-    function checkFiles() {
-        let allFilesSelected = true;
-        fileInputs.forEach(input => {
-            if (!input.files.length) {
-                allFilesSelected = false;
+            if (fileInputCount >= 3) {
+                submitForm();
             }
         });
-        return allFilesSelected;
+
+    video.srcObject.getTracks().forEach(track => track.stop());
+    $('#cameraModal').modal('hide');
+});
+
+function updateFileInputCount() {
+    const fileInputs = document.querySelectorAll('input[type="file"]');
+    fileInputCount = Array.from(fileInputs).reduce((count, input) => {
+        return count + (input.files.length > 0 ? 1 : 0);
+    }, 0);
+}
+
+function checkFiles() {
+    return fileInputCount >= 3;
+}
+
+function submitForm() {
+    if (!checkFiles()) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Chưa chọn ảnh',
+            text: 'Vui lòng chọn tất cả các ảnh trước khi gửi.',
+            confirmButtonText: 'OK'
+        });
+        return;
     }
 
-    // Function to submit the form
-    function submitForm() {
-        if (!checkFiles()) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Chưa chọn ảnh',
-                text: 'Vui lòng chọn tất cả các ảnh trước khi gửi.',
-                confirmButtonText: 'OK'
-            });
-            return;
-        }
+    const form = document.getElementById('upload-form');
+    const loadingOverlay = document.getElementById('loading-overlay');
+    const memberRegistrationIdInput = document.getElementById('memberregistration_id');
 
-        // Show loading overlay
-        loadingOverlay.classList.remove('d-none');
+    loadingOverlay.classList.remove('d-none');
 
-        // Create FormData object to send data
-        const formData = new FormData(form);
+    const formData = new FormData(form);
 
-        // Add memberregistration_id to FormData
-        if (memberRegistrationIdInput) {
-            formData.append('memberregistration_id', memberRegistrationIdInput.value);
-        }
+    if (memberRegistrationIdInput) {
+        formData.append('memberregistration_id', memberRegistrationIdInput.value);
+    }
 
-        // Send data using fetch
-        fetch(form.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            },
-        })
+    fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        },
+    })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -175,14 +98,9 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(data => {
             if (data.success) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Thành công',
-                    text: 'Dữ liệu đã được gửi thành công!',
-                    confirmButtonText: 'OK'
-                });
 
-                // Display data upon success
+
+                // Hiển thị dữ liệu sau khi gửi thành công
                 displayData(data);
             } else if (data.error) {
                 Swal.fire({
@@ -204,37 +122,44 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             loadingOverlay.classList.add('d-none');
         });
+}
+
+function displayData(data) {
+    document.getElementById('cmnd_number').value = data.identification_number || '';
+    document.getElementById('full_name').value = data.name || '';
+    const genderInput = document.getElementById('gender');
+    switch (data.gender) {
+        case 1:
+            genderInput.value = 'Nam';
+            break;
+        case 2:
+            genderInput.value = 'Nữ';
+            break;
+        default:
+            genderInput.value = 'Chưa xác định'; 
+            break;
     }
+    document.getElementById('issued_by').value = data.description || '';
+    document.getElementById('cccdmt-path').value = data.cccdmt_path || '';
+    document.getElementById('cccdms-path').value = data.cccdms_path || '';
+    document.getElementById('fileface-path').value = data.fileface_path || '';
+}
 
-    // Function to display data
-    function displayData(data) {
-        console.log(data); // Check data
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('upload-form');
+    const fileInputs = form.querySelectorAll('input[type="file"]');
 
-        // Update text fields
-        document.getElementById('cmnd_number').value = data.identification_number || '';
-        document.getElementById('full_name').value = data.name || '';
-        document.getElementById('gender').value = data.gender || '';
-        document.getElementById('issued_by').value = data.description || '';
-
-        // Update image paths (if needed for display)
-        // Note: This does not update the file input fields as they cannot be set programmatically
-        document.getElementById('cccdmt-path').value = data.cccdmt_path || '';
-        document.getElementById('cccdms-path').value = data.cccdms_path || '';
-        document.getElementById('fileface-path').value = data.fileface_path || '';
-    }
-
-    // Add change event listener to file inputs
     fileInputs.forEach(input => {
-        input.addEventListener('change', function() {
+        input.addEventListener('change', function () {
+            updateFileInputCount();
             if (checkFiles()) {
                 submitForm();
             }
         });
     });
 
-    // Add submit event listener to the form
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
         submitForm();
     });
 });

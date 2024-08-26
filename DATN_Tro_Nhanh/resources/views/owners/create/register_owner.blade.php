@@ -11,6 +11,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-6">
+                    <!-- Form chính -->
                     <form id="upload-form" method="POST" action="{{ route('owners.dang-ky-thanh-vien') }}"
                         enctype="multipart/form-data">
                         @csrf
@@ -23,17 +24,22 @@
                                             <div class="col-12 mb-3">
                                                 <h5 class="card-title">1. Ảnh CMT/CCCD mặt trước</h5>
                                                 <div class="text-center mb-2">
-                                                    <img id="cccd-mt" src="" alt="Căn cước công dân mặt trước"
-                                                        class="img-large">
+                                                    <img id="cccd-mt" src="" alt="" class="img-large">
                                                 </div>
                                                 <div class="btn-wrapper">
                                                     <input type="file" class="custom-file-input" id="CCCDMT"
                                                         name="CCCDMT" required>
-                                                    <label class="btn btn-danger btn-custom" for="CCCDMT">
+                                                    <label class="btn btn-secondary btn-custom" for="CCCDMT">
                                                         <span class="d-inline-block mr-1"><i
                                                                 class="fal fa-cloud-upload"></i></span>
                                                         Chọn Ảnh
                                                     </label>
+
+                                                    <button type="button" class="btn btn-primary btn-custom"
+                                                        onclick="openCameraModal('cccd-mt', 'CCCDMT')"><i
+                                                            class="fa-solid fa-camera"></i>
+                                                        Chụp ảnh
+                                                    </button>
                                                 </div>
                                             </div>
 
@@ -41,17 +47,21 @@
                                             <div class="col-12 mb-3">
                                                 <h5 class="card-title">2. Ảnh CMT/CCCD mặt sau</h5>
                                                 <div class="text-center mb-2">
-                                                    <img id="cccd-ms" src="" alt="Căn cước công dân mặt sau"
-                                                        class="img-large">
+                                                    <img id="cccd-ms" src="" alt="" class="img-large">
                                                 </div>
                                                 <div class="btn-wrapper">
                                                     <input type="file" class="custom-file-input" id="CCCDMS"
                                                         name="CCCDMS" required>
-                                                    <label class="btn btn-danger btn-custom" for="CCCDMS">
+                                                    <label class="btn btn-secondary btn-custom" for="CCCDMS">
                                                         <span class="d-inline-block mr-1"><i
                                                                 class="fal fa-cloud-upload"></i></span>
                                                         Chọn Ảnh
                                                     </label>
+                                                    <button type="button" class="btn btn-primary btn-custom"
+                                                        onclick="openCameraModal('cccd-ms', 'CCCDMS')"><i
+                                                            class="fa-solid fa-camera"></i>
+                                                        Chụp ảnh
+                                                    </button>
                                                 </div>
                                             </div>
 
@@ -59,16 +69,21 @@
                                             <div class="col-12 mb-3">
                                                 <h5 class="card-title">3. Ảnh khuôn mặt</h5>
                                                 <div class="text-center mb-2">
-                                                    <img id="face" src="" alt="Khuôn mặt" class="img-large">
+                                                    <img id="face" src="" alt="" class="img-large">
                                                 </div>
                                                 <div class="btn-wrapper">
                                                     <input type="file" class="custom-file-input" id="FileFace"
                                                         name="FileFace" required>
-                                                    <label class="btn btn-danger btn-custom" for="FileFace">
+                                                    <label class="btn btn-secondary btn-custom" for="FileFace">
                                                         <span class="d-inline-block mr-1"><i
                                                                 class="fal fa-cloud-upload"></i></span>
                                                         Chọn Ảnh
                                                     </label>
+                                                    <button type="button" class="btn btn-primary btn-custom"
+                                                        onclick="openCameraModal('face', 'FileFace')"><i
+                                                            class="fa-solid fa-camera"></i>
+                                                        Chụp ảnh
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -77,6 +92,31 @@
                             </div>
                         </div>
                     </form>
+
+                    <!-- Modal Chụp ảnh -->
+                    <div class="modal fade" id="cameraModal" tabindex="-1" role="dialog"
+                        aria-labelledby="cameraModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="cameraModalLabel">Chụp ảnh</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <video id="video" width="100%" autoplay></video>
+                                    <canvas id="canvas" style="display:none;"></canvas>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                    <button type="button" class="btn btn-primary" id="captureButton">Chụp</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
 
                 <!-- Lớp phủ tải -->
@@ -104,8 +144,8 @@
                                     <div class="row">
                                         <div class="col-md-6 form-group">
                                             <label for="cmnd_number">Số CMND</label>
-                                            <input type="text" class="form-control" id="cmnd_number" name="cmnd_number"
-                                                required>
+                                            <input type="text" class="form-control" id="cmnd_number"
+                                                name="cmnd_number" required>
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label for="full_name">Họ và tên</label>
@@ -190,6 +230,8 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->

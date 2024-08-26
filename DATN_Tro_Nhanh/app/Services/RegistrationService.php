@@ -63,7 +63,7 @@ class RegistrationService
                 ) {
                     try {
                         $response = Http::withOptions(['verify' => false])
-                            ->withHeaders(['api_key' => 'jL44tn28V13GOJkIcn3shxq5R2HUOA9B'])
+                            ->withHeaders(['api_key' => 'UelRbMHuFW4Vu1fQFYrwytI6DQ0KOeLX'])
                             ->attach('file[]', fopen($request->file('CCCDMT')->getRealPath(), 'r'), $request->file('CCCDMT')->getClientOriginalName())
                             ->attach('file[]', fopen($request->file('FileFace')->getRealPath(), 'r'), $request->file('FileFace')->getClientOriginalName())
                             ->post('https://api.fpt.ai/dmp/checkface/v1');
@@ -161,7 +161,7 @@ class RegistrationService
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => $data,
             CURLOPT_HTTPHEADER => array(
-                "api-key: jL44tn28V13GOJkIcn3shxq5R2HUOA9B"
+                "api-key: UelRbMHuFW4Vu1fQFYrwytI6DQ0KOeLX"
             ),
             CURLOPT_RETURNTRANSFER => true, // Trả về kết quả dưới dạng chuỗi thay vì in ra
             CURLOPT_SSL_VERIFYPEER => false, // Tắt xác thực SSL

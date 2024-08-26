@@ -18,54 +18,59 @@ class RegistrationListOwnersController extends Controller
     }
 
     public function storeData(Request $request)
-    {
-        //    dd('hi');
+{
+    try {
+        $validatedData = $request->validate([
+            'cmnd_number' => 'required|string',
+            'full_name' => 'required|string',
+            'gender' => 'required|string',
+            'issued_by' => 'required|string',
+        ]);
 
-        try {
-            $validatedData = $request->validate([
-                'cmnd_number' => 'required|string',
-                'full_name' => 'required|string',
-                'gender' => 'required|string',
-                'issued_by' => 'required|string',
-
-            ]);
-
-            // dd(session('image_paths'));
-            $imagePaths = session()->get('image_paths', []);
-            // dd($validatedData['cmnd_number']);
-            // dd($validatedData['full_name']);
-
-            // dd($validatedData['issued_by']);
-
-            $data = [
-                'identification_number' => $validatedData['cmnd_number'],
-                'name' => $validatedData['full_name'],
-                'gender' => $validatedData['gender'],
-                'description' => $validatedData['issued_by'],
-                'user_id' => auth()->id(),
-           
-            ];
-            $images=[
-                'cccdmt_filename' => $imagePaths['cccdmt_filename'] ?? null,
-                'cccdms_filename' => $imagePaths['cccdms_filename'] ?? null,
-                'fileface_filename' => $imagePaths['fileface_filename'] ?? null,
-            ];
-            // dd($data);
-            // Đảm bảo registrationService được khởi tạo đúng cách
-            if (is_null($this->registrationService)) {
-                throw new \Exception('RegistrationService không được khởi tạo.');
-            }
-        
-            $this->registrationService->saveRegistrationData($data,$images);
-
-            return redirect()->back()->with('success', 'Dữ liệu và hình ảnh đã được lưu thành công!');
-        } catch (\Exception $e) {
-            dd('loi 1');
-            // là thằng này 
-            Log::error('Lỗi lưu dữ liệu và hình ảnh: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Có lỗi xảy ra khi lưu dữ liệu.');
+        // Chuyển đổi giá trị giới tính từ văn bản thành số
+        $gender = $validatedData['gender'];
+        switch (strtolower($gender)) {
+            case 'nam':
+                $gender = 1;
+                break;
+            case 'nữ':
+                $gender = 2;
+                break;
+            default:
+                $gender = null; // Hoặc xử lý lỗi nếu giá trị không phải 'nam' hoặc 'nữ'
+                break;
         }
+
+        $imagePaths = session()->get('image_paths', []);
+
+        $data = [
+            'identification_number' => $validatedData['cmnd_number'],
+            'name' => $validatedData['full_name'],
+            'gender' => $gender,
+            'description' => $validatedData['issued_by'],
+            'user_id' => auth()->id(),
+        ];
+
+        $images = [
+            'cccdmt_filename' => $imagePaths['cccdmt_filename'] ?? null,
+            'cccdms_filename' => $imagePaths['cccdms_filename'] ?? null,
+            'fileface_filename' => $imagePaths['fileface_filename'] ?? null,
+        ];
+
+        // Đảm bảo registrationService được khởi tạo đúng cách
+        if (is_null($this->registrationService)) {
+            throw new \Exception('RegistrationService không được khởi tạo.');
+        }
+
+        $this->registrationService->saveRegistrationData($data, $images);
+
+        return redirect()->back()->with('success', 'Dữ liệu và hình ảnh đã được lưu thành công!');
+    } catch (\Exception $e) {
+        Log::error('Lỗi lưu dữ liệu và hình ảnh: ' . $e->getMessage());
+        return redirect()->back()->with('error', 'Có lỗi xảy ra khi lưu dữ liệu.');
     }
+}
+
 
 
 
