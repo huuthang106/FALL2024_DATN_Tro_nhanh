@@ -110,9 +110,20 @@ class ZoneServices
     //     // Giả sử bạn có mối quan hệ với bảng ảnh
     //     $zone->images()->create(['path' => $path]);
     // }
-    public function getAllZones()
+    public function getAllZones(int $perPage = 10, $searchTerm = null)
     {
-        return Zone::all();
+        try {
+            $query = Zone::query();
+
+            if ($searchTerm) {
+                $query->where('name', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('description', 'like', '%' . $searchTerm . '%');
+            }
+
+            return $query->paginate($perPage);
+        } catch (\Exception $e) {
+            return null;
+        }
     }
     public function findById($id)
     {

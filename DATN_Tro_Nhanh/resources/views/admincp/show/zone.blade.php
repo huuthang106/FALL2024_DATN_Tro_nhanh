@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('titleAdmin', 'Trang chủ trọ nhanh')
-@section('linkAdmin', '')
+@section('linkAdmin', 'Danh dach khu tro / Thong ke')
 
 @section('contentAdmin')
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -29,7 +29,7 @@
                                 </span>
                                 <!--end::Svg Icon-->
                                 <input type="text" data-kt-user-table-filter="search"
-                                    class="form-control form-control-solid w-250px ps-14" placeholder="Search user" />
+                                    class="form-control form-control-solid w-250px ps-14" placeholder="Search zone" />
                             </div>
                             <!--end::Search-->
                         </div>
@@ -588,6 +588,48 @@
 
                         <!--end::Table-->
                     </div>
+                    <nav class="mt-4">
+                        <ul class="pagination rounded-active justify-content-center">
+                            {{-- Previous Page Link --}}
+                            @if ($zones->onFirstPage())
+                                <li class="page-item disabled">
+                                    <span class="page-link"><i class="far fa-angle-double-left"></i></span>
+                                </li>
+                            @else
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ $zones->previousPageUrl() }}"><i
+                                            class="far fa-angle-double-left"></i></a>
+                                </li>
+                            @endif
+
+                            {{-- Pagination Elements --}}
+                            @foreach ($zones->getUrlRange(1, $zones->lastPage()) as $page => $url)
+                                @if ($page == $zones->currentPage())
+                                    <li class="page-item active">
+                                        <span class="page-link">{{ $page }}</span>
+                                    </li>
+                                @else
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                    </li>
+                                @endif
+                            @endforeach
+
+                            {{-- Next Page Link --}}
+                            @if ($zones->hasMorePages())
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ $zones->nextPageUrl() }}"><i
+                                            class="far fa-angle-double-right"></i></a>
+                                </li>
+                            @else
+                                <li class="page-item disabled">
+                                    <span class="page-link"><i class="far fa-angle-double-right"></i></span>
+                                </li>
+                            @endif
+                        </ul>
+                    </nav>
+                    <div class="text-center mt-2">{{ $zones->firstItem() }}-{{ $zones->lastItem() }} của
+                        {{ $zones->total() }} kết quả</div>
                     <!--end::Card body-->
                 </div>
                 <!--end::Card-->
