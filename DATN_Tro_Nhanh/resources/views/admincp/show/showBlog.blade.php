@@ -29,7 +29,7 @@
                                 </span>
                                 <!--end::Svg Icon-->
                                 <input type="text" data-kt-user-table-filter="search"
-                                    class="form-control form-control-solid w-250px ps-14" placeholder="Search user" />
+                                    class="form-control form-control-solid w-250px ps-14" placeholder="Search blog" />
                             </div>
                             <!--end::Search-->
                         </div>
@@ -124,23 +124,24 @@
                                     <!--end::Svg Icon-->Export</button>
                                 <!--end::Export-->
                                 <!--begin::Add user-->
-                               <a href="{{ route('admin.create-blog') }}">
-                                <button type="button" class="btn btn-primary" data-bs-toggle=""
-                                data-bs-target="#kt_modal_add_user">
-                                {{-- type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user" --}}
-                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
-                                <span class="svg-icon svg-icon-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none">
-                                        <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2"
-                                            rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
-                                        <rect x="4.36396" y="11.364" width="16" height="2" rx="1"
-                                            fill="black" />
-                                    </svg>
-                                </span>
-                                <!--end::Svg Icon-->
-                                Add Blogs</button>
-                               </a>
+                                <a href="{{ route('admin.create-blog') }}">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle=""
+                                        data-bs-target="#kt_modal_add_user">
+                                        {{-- type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user" --}}
+                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
+                                        <span class="svg-icon svg-icon-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none">
+                                                <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2"
+                                                    rx="1" transform="rotate(-90 11.364 20.364)"
+                                                    fill="black" />
+                                                <rect x="4.36396" y="11.364" width="16" height="2" rx="1"
+                                                    fill="black" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                        Add Blogs</button>
+                                </a>
                                 <!--end::Add user-->
                             </div>
                             <!--end::Toolbar-->
@@ -564,16 +565,16 @@
                                                 <a href="{{ route('admin.show-blog', ['slug' => $blog->slug]) }}">
                                                     <div class="symbol-label">
                                                         @if ($blog->image)
-                                                        @foreach ($blog->image as $item)
-                                                            <img src="{{ asset('assets/images/' . $item->filename) }}"
-                                                                alt="{{ $item->filename }}" class="img-fluid">
-                                                        @endforeach
-                                                    @else
-                                                        <p>No images available</p>
-                                                    @endif
+                                                            @foreach ($blog->image as $item)
+                                                                <img src="{{ asset('assets/images/' . $item->filename) }}"
+                                                                    alt="{{ $item->filename }}" class="img-fluid">
+                                                            @endforeach
+                                                        @else
+                                                            <p>No images available</p>
+                                                        @endif
                                                     </div>
                                                 </a>
-                                                
+
                                             </div>
                                             <!--end::Avatar-->
                                             <!--begin::User details-->
@@ -585,7 +586,7 @@
                                         </td>
                                         <!--end::User=-->
                                         <!--begin::Role=-->
-                                      
+
                                         <!--end::Role=-->
                                         <!--begin::Last login=-->
                                         <td>
@@ -651,10 +652,11 @@
                                 </li>
                             @else
                                 <li class="page-item">
-                                    <a class="page-link" href="{{ $blogs->previousPageUrl() }}"><i class="far fa-angle-double-left"></i></a>
+                                    <a class="page-link" href="{{ $blogs->previousPageUrl() }}"><i
+                                            class="far fa-angle-double-left"></i></a>
                                 </li>
                             @endif
-                    
+
                             {{-- Pagination Elements --}}
                             @foreach ($blogs->getUrlRange(1, $blogs->lastPage()) as $page => $url)
                                 @if ($page == $blogs->currentPage())
@@ -667,11 +669,12 @@
                                     </li>
                                 @endif
                             @endforeach
-                    
+
                             {{-- Next Page Link --}}
                             @if ($blogs->hasMorePages())
                                 <li class="page-item">
-                                    <a class="page-link" href="{{ $blogs->nextPageUrl() }}"><i class="far fa-angle-double-right"></i></a>
+                                    <a class="page-link" href="{{ $blogs->nextPageUrl() }}"><i
+                                            class="far fa-angle-double-right"></i></a>
                                 </li>
                             @else
                                 <li class="page-item disabled">
@@ -680,7 +683,8 @@
                             @endif
                         </ul>
                     </nav>
-                    <div class="text-center mt-2">{{ $blogs->firstItem() }}-{{ $blogs->lastItem() }} của {{ $blogs->total() }} kết quả</div>
+                    <div class="text-center mt-2">{{ $blogs->firstItem() }}-{{ $blogs->lastItem() }} của
+                        {{ $blogs->total() }} kết quả</div>
                     <!--end::Card body-->
                 </div>
                 <!--end::Card-->

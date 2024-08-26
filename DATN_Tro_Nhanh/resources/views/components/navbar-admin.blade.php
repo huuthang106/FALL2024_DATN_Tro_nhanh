@@ -7,10 +7,10 @@
         <!--begin::User-->
         <div class="aside-user d-flex align-items-sm-center justify-content-center py-5">
             <!--begin::Symbol-->
-          <!-- resources/views/components/navbar-admin.blade.php -->
-                <div class="symbol symbol-50px">
-                    <img src="{{ asset('assets/images/' . $user->image) }}" alt="{{ $user->name }}" />
-                </div>
+            <!-- resources/views/components/navbar-admin.blade.php -->
+            <div class="symbol symbol-50px">
+                <img src="{{ asset('assets/images/' . $user->image) }}" alt="{{ $user->name }}" />
+            </div>
 
             <!--end::Symbol-->
             <!--begin::Wrapper-->
@@ -25,7 +25,8 @@
                         <!--begin::Description-->
                         <a href="#" class="text-white text-hover-primary fs-6 fw-bold">{{ $user->name }}</a>
                         <span class="text-gray-600 fw-bold d-block fs-8 mb-1">
-                            {{ $user->role == 0 ? 'Admin' : 'User' }} <!-- Bạn có thể thay thế 'User' bằng vai trò khác nếu cần -->
+                            {{ $user->role == 0 ? 'Admin' : 'User' }}
+                            <!-- Bạn có thể thay thế 'User' bằng vai trò khác nếu cần -->
                         </span>
                         <!--end::Description-->
                         <!--begin::Label-->
@@ -63,7 +64,8 @@
                                 <div class="menu-content d-flex align-items-center px-3">
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-50px me-5">
-                                        <img src="{{ asset('assets/images/' . $user->image) }}" alt="{{ $user->name }}" />
+                                        <img src="{{ asset('assets/images/' . $user->image) }}"
+                                            alt="{{ $user->name }}" />
                                     </div>
                                     <!--end::Avatar-->
                                     <!--begin::Username-->
@@ -84,11 +86,13 @@
                             <!--end::Menu separator-->
                             <!--begin::Menu item-->
                             <div class="menu-item px-5">
-                                <a href="{{ route('admin.admin.profile') }}" class="menu-link px-5">Thông tin của tôi</a>
+                                <a href="{{ route('admin.admin.profile') }}" class="menu-link px-5">Thông tin của
+                                    tôi</a>
                             </div>
                             <!--end::Menu item-->
                             <div class="menu-item px-5">
-                                <a href="{{ route('admin.private-chat') }}" class="menu-link px-5"> Trò chuyện riêng </a>
+                                <a href="{{ route('admin.private-chat') }}" class="menu-link px-5"> Trò chuyện riêng
+                                </a>
                             </div>
                             <!--begin::Menu item-->
 
@@ -104,7 +108,7 @@
                             <!--begin::Menu item-->
                             <div class="menu-item px-5">
                                 <a href="../../demo8/dist/authentication/flows/basic/sign-in.html"
-                                    class="menu-link px-5">Đăng Xut</a>
+                                    class="menu-link px-5">Đăng Xuất</a>
                             </div>
 
 
@@ -1041,6 +1045,27 @@
                     </a>
                 </div>
                 <div class="menu-item">
+                    <a class="menu-link text-decoration-none" href="{{ route('admin.show-blog-admin') }}">
+                        <span class="menu-icon">
+                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                            <span class="svg-icon svg-icon-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none">
+                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
+                                        fill="black" />
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
+                                        fill="black" />
+                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
+                                        fill="black" />
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-title">Danh Sách Blog</span>
+                    </a>
+                </div>
+                <div class="menu-item">
                     <div class="menu-content pt-8 pb-2">
                         <span class="menu-section text-light text-uppercase fs-8 ls-1">Crafted</span>
                     </div>
@@ -1051,11 +1076,15 @@
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none">
                                     <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
+                                        fill="black" />
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
+                                        fill="black" />
+                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
+                                        fill="black" />
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
@@ -1065,7 +1094,8 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.show-room') }}" style="text-decoration: none;">
+                            <a class="menu-link" href="{{ route('admin.show-room') }}"
+                                style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1073,7 +1103,8 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.add-room-show') }}" style="text-decoration: none;">
+                            <a class="menu-link" href="{{ route('admin.add-room-show') }}"
+                                style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1089,7 +1120,8 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="../../demo8/dist/widgets/mixed.html" style="text-decoration: none;">
+                            <a class="menu-link" href="../../demo8/dist/widgets/mixed.html"
+                                style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1098,7 +1130,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <span class="menu-link">
                         <span class="menu-icon">
@@ -1152,11 +1184,15 @@
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none">
                                     <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
+                                        fill="black" />
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
+                                        fill="black" />
+                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
+                                        fill="black" />
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
@@ -1166,7 +1202,8 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.danh-sach-tien-ich') }}" style="text-decoration: none;">
+                            <a class="menu-link" href="{{ route('admin.danh-sach-tien-ich') }}"
+                                style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1190,7 +1227,8 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="../../demo8/dist/widgets/mixed.html" style="text-decoration: none;">
+                            <a class="menu-link" href="../../demo8/dist/widgets/mixed.html"
+                                style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1199,17 +1237,21 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none">
                                     <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
+                                        fill="black" />
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
+                                        fill="black" />
+                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
+                                        fill="black" />
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
@@ -1219,7 +1261,8 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.danh-sach-bang-gia') }}" style="text-decoration: none;">
+                            <a class="menu-link" href="{{ route('admin.danh-sach-bang-gia') }}"
+                                style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1227,7 +1270,8 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.trang-them-bang-gia') }}" style="text-decoration: none;">
+                            <a class="menu-link" href="{{ route('admin.trang-them-bang-gia') }}"
+                                style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1252,17 +1296,21 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none">
                                     <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
+                                        fill="black" />
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
+                                        fill="black" />
+                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
+                                        fill="black" />
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
@@ -1272,7 +1320,8 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.danh-sach-khutro') }}" style="text-decoration: none;">
+                            <a class="menu-link" href="{{ route('admin.danh-sach-khutro') }}"
+                                style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1296,7 +1345,8 @@
                             </a>
                         </div> --}}
                         <div class="menu-item">
-                            <a class="menu-link" href="../../demo8/dist/widgets/mixed.html" style="text-decoration: none;">
+                            <a class="menu-link" href="../../demo8/dist/widgets/mixed.html"
+                                style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1305,17 +1355,21 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none">
                                     <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
+                                        fill="black" />
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9"
+                                        rx="2" fill="black" />
+                                    <rect opacity="0.3" x="2" y="13" width="9" height="9"
+                                        rx="2" fill="black" />
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
@@ -1325,7 +1379,8 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.list-category') }}" style="text-decoration: none;">
+                            <a class="menu-link" href="{{ route('admin.list-category') }}"
+                                style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1349,7 +1404,8 @@
                             </a>
                         </div> --}}
                         <div class="menu-item">
-                            <a class="menu-link" href="../../demo8/dist/widgets/mixed.html" style="text-decoration: none;">
+                            <a class="menu-link" href="../../demo8/dist/widgets/mixed.html"
+                                style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1358,17 +1414,22 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none">
+                                    <rect x="2" y="2" width="9" height="9" rx="2"
+                                        fill="black" />
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9"
+                                        rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9"
+                                        rx="2" fill="black" />
+                                    <rect opacity="0.3" x="2" y="13" width="9" height="9"
+                                        rx="2" fill="black" />
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
@@ -1378,7 +1439,8 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.show-acreage') }}" style="text-decoration: none;">
+                            <a class="menu-link" href="{{ route('admin.show-acreage') }}"
+                                style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1386,7 +1448,8 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.add-acreage-show') }}" style="text-decoration: none;">
+                            <a class="menu-link" href="{{ route('admin.add-acreage-show') }}"
+                                style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1402,7 +1465,8 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="../../demo8/dist/widgets/mixed.html" style="text-decoration: none;">
+                            <a class="menu-link" href="../../demo8/dist/widgets/mixed.html"
+                                style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1411,17 +1475,22 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none">
+                                    <rect x="2" y="2" width="9" height="9" rx="2"
+                                        fill="black" />
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9"
+                                        rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9"
+                                        rx="2" fill="black" />
+                                    <rect opacity="0.3" x="2" y="13" width="9" height="9"
+                                        rx="2" fill="black" />
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
@@ -1431,7 +1500,8 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.show-location') }}" style="text-decoration: none;">
+                            <a class="menu-link" href="{{ route('admin.show-location') }}"
+                                style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1439,7 +1509,8 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.add-location-show') }}" style="text-decoration: none;">
+                            <a class="menu-link" href="{{ route('admin.add-location-show') }}"
+                                style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1455,7 +1526,8 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="../../demo8/dist/widgets/mixed.html" style="text-decoration: none;">
+                            <a class="menu-link" href="../../demo8/dist/widgets/mixed.html"
+                                style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1464,7 +1536,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
             <!--end::Menu-->
         </div>

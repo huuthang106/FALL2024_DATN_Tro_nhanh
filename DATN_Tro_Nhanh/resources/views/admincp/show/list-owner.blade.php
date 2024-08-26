@@ -29,7 +29,7 @@
                                 </span>
                                 <!--end::Svg Icon-->
                                 <input type="text" data-kt-user-table-filter="search"
-                                    class="form-control form-control-solid w-250px ps-14" placeholder="Search user" />
+                                    class="form-control form-control-solid w-250px ps-14" placeholder="Search owner" />
                             </div>
                             <!--end::Search-->
                         </div>
@@ -124,23 +124,24 @@
                                     <!--end::Svg Icon-->Export</button>
                                 <!--end::Export-->
                                 <!--begin::Add user-->
-                               <a href="{{ route('admin.create-blog') }}">
-                                <button type="button" class="btn btn-primary" data-bs-toggle=""
-                                data-bs-target="#kt_modal_add_user">
-                                {{-- type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user" --}}
-                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
-                                <span class="svg-icon svg-icon-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none">
-                                        <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2"
-                                            rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
-                                        <rect x="4.36396" y="11.364" width="16" height="2" rx="1"
-                                            fill="black" />
-                                    </svg>
-                                </span>
-                                <!--end::Svg Icon-->
-                                Add Blogs</button>
-                               </a>
+                                <a href="{{ route('admin.create-blog') }}">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle=""
+                                        data-bs-target="#kt_modal_add_user">
+                                        {{-- type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user" --}}
+                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
+                                        <span class="svg-icon svg-icon-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none">
+                                                <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2"
+                                                    rx="1" transform="rotate(-90 11.364 20.364)"
+                                                    fill="black" />
+                                                <rect x="4.36396" y="11.364" width="16" height="2" rx="1"
+                                                    fill="black" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                        Add Blogs</button>
+                                </a>
                                 <!--end::Add user-->
                             </div>
                             <!--end::Toolbar-->
@@ -537,10 +538,10 @@
                                     <th class="min-w-125px">Ảnh</th>
                                     <th class="min-w-125px">Tên</th>
                                     <th class="min-w-125px">Email</th>
-                                  
+
                                     <th class="min-w-125px">Số Điện Thoại</th>
                                     <th class="min-w-125px">Địa Chỉ</th>
-                            
+
                                     <th class="text-end min-w-110px">Tác vụ</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -565,8 +566,8 @@
                                                 <a href="{{ route('admin.show-blog', ['slug' => $user->slug]) }}">
                                                     <div class="symbol-label">
                                                         @if ($user->image)
-                                                            <img src="{{ asset('assets/images/' . $user->image) }}" 
-                                                                 alt="User Image" class="img-fluid">
+                                                            <img src="{{ asset('assets/images/' . $user->image) }}"
+                                                                alt="User Image" class="img-fluid">
                                                         @else
                                                             <p>No image available</p>
                                                         @endif
@@ -588,11 +589,11 @@
                                         <!--begin::Action=-->
                                         <td class="text-end">
                                             <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
-                                               data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Tác vụ
+                                                data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Tác vụ
                                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
                                                 <span class="svg-icon svg-icon-5 m-0">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="26" height="24"
-                                                         viewBox="0 0 24 24" fill="none">
+                                                        viewBox="0 0 24 24" fill="none">
                                                         <path
                                                             d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
                                                             fill="black" />
@@ -602,17 +603,17 @@
                                             </a>
                                             <!--begin::Menu-->
                                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                                                 data-kt-menu="true">
+                                                data-kt-menu="true">
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
                                                     <a href="{{ route('admin.sua-blog', ['slug' => $user->slug]) }}"
-                                                       class="menu-link px-3">Chỉnh sửa</a>
+                                                        class="menu-link px-3">Chỉnh sửa</a>
                                                 </div>
                                                 <!--end::Menu item-->
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
                                                     <a href="#" class="menu-link px-3"
-                                                       data-kt-users-table-filter="delete_row">Xóa</a>
+                                                        data-kt-users-table-filter="delete_row">Xóa</a>
                                                 </div>
                                                 <!--end::Menu item-->
                                             </div>
@@ -623,7 +624,7 @@
                                 @endforeach
                                 <!--end::Table row-->
                             </tbody>
-                            
+
 
                             <!--end::Table body-->
                         </table>
@@ -638,10 +639,11 @@
                                 </li>
                             @else
                                 <li class="page-item">
-                                    <a class="page-link" href="{{ $users->previousPageUrl() }}"><i class="far fa-angle-double-left"></i></a>
+                                    <a class="page-link" href="{{ $users->previousPageUrl() }}"><i
+                                            class="far fa-angle-double-left"></i></a>
                                 </li>
                             @endif
-                    
+
                             {{-- Pagination Elements --}}
                             @foreach ($users->getUrlRange(1, $users->lastPage()) as $page => $url)
                                 @if ($page == $users->currentPage())
@@ -654,11 +656,12 @@
                                     </li>
                                 @endif
                             @endforeach
-                    
+
                             {{-- Next Page Link --}}
                             @if ($users->hasMorePages())
                                 <li class="page-item">
-                                    <a class="page-link" href="{{ $users->nextPageUrl() }}"><i class="far fa-angle-double-right"></i></a>
+                                    <a class="page-link" href="{{ $users->nextPageUrl() }}"><i
+                                            class="far fa-angle-double-right"></i></a>
                                 </li>
                             @else
                                 <li class="page-item disabled">
@@ -667,7 +670,8 @@
                             @endif
                         </ul>
                     </nav>
-                    <div class="text-center mt-2">{{ $users->firstItem() }}-{{ $users->lastItem() }} của {{ $users->total() }} kết quả</div>
+                    <div class="text-center mt-2">{{ $users->firstItem() }}-{{ $users->lastItem() }} của
+                        {{ $users->total() }} kết quả</div>
                     <!--end::Card body-->
                 </div>
                 <!--end::Card-->
