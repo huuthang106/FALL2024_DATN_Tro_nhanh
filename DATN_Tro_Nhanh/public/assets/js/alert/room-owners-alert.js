@@ -74,6 +74,31 @@ document.addEventListener('DOMContentLoaded', function () {
     districtSelect.addEventListener('change', updateAddress);
     wardSelect.addEventListener('change', updateAddress);
 });
+// Preview hình ảnh ở Trang cập nhật phòng
+
+function previewImages() {
+    var preview = document.getElementById('imagePreview');
+    preview.innerHTML = ''; // Xóa các hình ảnh trước đó
+
+    var files = document.getElementById('fileInput').files;
+    for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+        var reader = new FileReader();
+
+        reader.onload = (function (file) {
+            return function (e) {
+                var div = document.createElement('div');
+                div.classList.add('image-preview');
+                div.innerHTML = `
+<img src="${e.target.result}" alt="${file.name}">
+`;
+                preview.appendChild(div);
+            };
+        })(file);
+
+        reader.readAsDataURL(file);
+    }
+}
 // Load address
 // document.addEventListener('DOMContentLoaded', function () {
 //     const citySelect = document.getElementById('city-province');

@@ -30,6 +30,7 @@ class RoomOwnersRequest extends FormRequest
             'status' => 'required|integer|in:1,2',
             'user_id' => 'required|integer|exists:users,id',
             'category_id' => 'required|integer|exists:categories,id',
+            'bathrooms' => 'integer|min:0',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ];
     }
@@ -88,8 +89,12 @@ class RoomOwnersRequest extends FormRequest
             'user_id.required' => 'Vui lòng chọn người dùng',
             'user_id.exists' => 'Người dùng không tồn tại',
 
-            'category_id.required' => 'Vui lòng chọn danh mục',
-            'category_id.exists' => 'Danh mục không tồn tại',
+            'category_id.required' => 'Vui lòng chọn loại phòng',
+            'category_id.exists' => 'Loại phòng không tồn tại',
+
+            // 'bathrooms.required' => 'Vui lòng nhập số lượng phòng tắm',
+            'bathrooms.integer' => 'Số lượng phòng tắm phải là số nguyên',
+            'bathrooms.min' => 'Số lượng phòng tắm không được âm',
 
             'images.*.image' => 'Tệp tải lên phải là hình ảnh.',
             'images.*.mimes' => 'Hình ảnh phải có định dạng jpeg, png, hoặc jpg.',

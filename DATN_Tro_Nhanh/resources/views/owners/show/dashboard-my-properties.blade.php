@@ -7,7 +7,7 @@
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
             <form action="{{ route('owners.properties') }}" method="GET">
                 <div class="mr-0 mr-md-auto">
-                    <h2 class="mb-0 text-heading fs-22 lh-15">Phòng trọ sản của tôi<span
+                    <h2 class="mb-0 text-heading fs-22 lh-15">Danh sách trọ<span
                             class="badge badge-white badge-pill text-primary fs-18 font-weight-bold ml-2">{{ $roomCount }}</span>
                     </h2>
                 </div>
@@ -143,29 +143,51 @@
                             ];
                         @endphp
                         <nav aria-label="Page navigation">
-                            <ul class="pagination">
-                                @if ($rooms->onFirstPage())
-                                    <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
-                                @else
-                                    <li class="page-item">
-                                        <a class="page-link" href="{{ $rooms->appends($queryParams)->previousPageUrl() }}"
-                                            rel="prev">&laquo;</a>
-                                    </li>
+                            <ul class="pagination rounded-active justify-content-center">
+                                {{-- Trang trước --}}
+                                <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
+                                    <a class="page-link"
+                                        href="{{ $rooms->previousPageUrl() . '&' . http_build_query($queryParams) }}"><i
+                                            class="far fa-angle-double-left"></i></a>
+                                </li>
+
+                                {{-- Trang đầu tiên --}}
+                                @if ($rooms->currentPage() > 2)
+                                    <li class="page-item"><a class="page-link"
+                                            href="{{ $rooms->url(1) . '&' . http_build_query($queryParams) }}">1</a></li>
                                 @endif
-                                @for ($i = max(1, $rooms->currentPage() - 2); $i <= min($rooms->lastPage(), $rooms->currentPage() + 2); $i++)
+
+                                {{-- Dấu ba chấm ở đầu nếu cần --}}
+                                @if ($rooms->currentPage() > 3)
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                @endif
+
+                                {{-- Hiển thị các trang xung quanh trang hiện tại --}}
+                                @for ($i = max(1, $rooms->currentPage() - 1); $i <= min($rooms->currentPage() + 1, $rooms->lastPage()); $i++)
                                     <li class="page-item {{ $rooms->currentPage() == $i ? 'active' : '' }}">
                                         <a class="page-link"
-                                            href="{{ $rooms->appends($queryParams)->url($i) }}">{{ $i }}</a>
+                                            href="{{ $rooms->url($i) . '&' . http_build_query($queryParams) }}">{{ $i }}</a>
                                     </li>
                                 @endfor
-                                @if ($rooms->hasMorePages())
-                                    <li class="page-item">
-                                        <a class="page-link" href="{{ $rooms->appends($queryParams)->nextPageUrl() }}"
-                                            rel="next">&raquo;</a>
-                                    </li>
-                                @else
-                                    <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+
+                                {{-- Dấu ba chấm ở cuối nếu cần --}}
+                                @if ($rooms->currentPage() < $rooms->lastPage() - 2)
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
                                 @endif
+
+                                {{-- Trang cuối cùng --}}
+                                @if ($rooms->currentPage() < $rooms->lastPage() - 1)
+                                    <li class="page-item"><a class="page-link"
+                                            href="{{ $rooms->url($rooms->lastPage()) . '&' . http_build_query($queryParams) }}">{{ $rooms->lastPage() }}</a>
+                                    </li>
+                                @endif
+
+                                {{-- Trang tiếp theo --}}
+                                <li class="page-item {{ $rooms->currentPage() == $rooms->lastPage() ? 'disabled' : '' }}">
+                                    <a class="page-link"
+                                        href="{{ $rooms->nextPageUrl() . '&' . http_build_query($queryParams) }}"><i
+                                            class="far fa-angle-double-right"></i></a>
+                                </li>
                             </ul>
                         </nav>
                     @endif

@@ -12,28 +12,30 @@
                     <li class="nav-item col">
                         <a class="nav-link active bg-transparent shadow-none py-2 font-weight-500 text-center lh-214 d-block"
                             id="description-tab" data-toggle="pill" data-number="1." href="#description" role="tab"
-                            aria-controls="description" aria-selected="true"><span class="number">1.</span>Mô tả</a>
+                            aria-controls="description" aria-selected="true"><span class="number">1.</span> Mô tả</a>
                     </li>
                     <li class="nav-item col">
                         <a class="nav-link bg-transparent shadow-none py-2 font-weight-500 text-center lh-214 d-block"
                             id="media-tab" data-toggle="pill" data-number="2." href="#media" role="tab"
-                            aria-controls="media" aria-selected="false"><span class="number">2.</span>Phương tiện
-                            truyền thông</a>
+                            aria-controls="media" aria-selected="false"><span class="number">2.</span> Truyền thông</a>
                     </li>
                     <li class="nav-item col">
                         <a class="nav-link bg-transparent shadow-none py-2 font-weight-500 text-center lh-214 d-block"
                             id="location-tab" data-toggle="pill" data-number="3." href="#location" role="tab"
-                            aria-controls="location" aria-selected="false"><span class="number">3.</span>Vị trí</a>
+                            aria-controls="location" aria-selected="false"><span class="number">3.</span> Vị trí</a>
+                    </li>
+                    <li class="nav-item col">
+                        <a class="nav-link bg-transparent shadow-none py-2 font-weight-500 text-center lh-214 d-block"
+                            id="amenities-tab" data-toggle="pill" data-number="4." href="#amenities" role="tab"
+                            aria-controls="amenities" aria-selected="false"><span class="number">4.</span> Tiện ích</a>
                     </li>
                 </ul>
                 <div class="tab-content shadow-none p-0">
-                    <form id="add-rooms" class="form" enctype="multipart/form-data"
-                        action="{{ route('owners.store-room') }}" method="POST">
+                    <form enctype="multipart/form-data" action="{{ route('owners.store-room') }}" method="POST">
                         @csrf
                         <div id="collapse-tabs-accordion">
                             <div class="tab-pane tab-pane-parent fade show active px-0" id="description" role="tabpanel"
                                 aria-labelledby="description-tab">
-
                                 <div class="card bg-transparent border-0">
                                     <div class="card-header d-block d-md-none bg-transparent px-0 py-1 border-bottom-0"
                                         id="heading-description">
@@ -41,7 +43,7 @@
                                             <button class="btn btn-lg collapse-parent btn-block border shadow-none"
                                                 data-toggle="collapse" data-number="1." data-target="#description-collapse"
                                                 aria-expanded="true" aria-controls="description-collapse">
-                                                <span class="number">1.</span>Mô tả
+                                                <span class="number">1.</span> Mô tả
                                             </button>
                                         </h5>
                                     </div>
@@ -86,61 +88,40 @@
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="card mb-6">
-                                                        <div class="card-body p-6">
-                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Chọn danh
-                                                                mục</h3>
-                                                            <hr>
-                                                            <div class="form-row mx-n2">
-                                                                <div
-                                                                    class="col-md-6 col-lg-12 col-xxl-6 px-2 mb-4 mb-md-0">
-                                                                    <div class="form-group mb-0">
-                                                                        <label for="category_id" class="text-heading">Loại
-                                                                            phòng</label>
-                                                                        <select
-                                                                            class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                                            title="Lựa chọn" data-style="btn-lg py-2 h-52"
-                                                                            id="category_id" name="category_id">
-                                                                            <!-- Các lựa chọn loại phòng -->
-                                                                            @if ($categories->isEmpty())
-                                                                                <option value="">Không có dữ liệu
-                                                                                </option>
-                                                                            @else
-                                                                                @foreach ($categories as $category)
-                                                                                    <option value="{{ $category->id }}">
-                                                                                        {{ $category->name }}</option>
-                                                                                @endforeach
-                                                                            @endif
-                                                                        </select>
-                                                                        @error('category_id')
-                                                                            <div class="text-danger">{{ $message }}</div>
-                                                                        @enderror
-                                                                    </div>
-                                                                </div>
-                                                                {{-- <div
-                                                                    class="col-md-6 col-lg-12 col-xxl-6 px-2 mb-4 mb-md-0">
-                                                                    <div class="form-group mb-0">
-                                                                        <label for="room_type_id"
-                                                                            class="text-heading">Loại phòng</label>
-                                                                        <select
-                                                                            class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                                            title="Lựa chọn" data-style="btn-lg py-2 h-52"
-                                                                            id="room_type_id" name="room_type_id">
-                                                                            <!-- Các lựa chọn loại phòng -->
-                                                                            @if ($roomTypes->isEmpty())
-                                                                                <option value="">Không có dữ liệu
-                                                                                </option>
-                                                                            @else
-                                                                                @foreach ($roomTypes as $roomType)
-                                                                                    <option value="{{ $roomType->id }}">
-                                                                                        {{ $roomType->name }}</option>
-                                                                                @endforeach
-                                                                            @endif
-                                                                        </select>
-                                                                    </div>
-                                                                </div> --}}
+                                                            <div class="form-group mt-1">
+                                                                <label for="category_id" class="text-heading">Loại
+                                                                    phòng</label>
+                                                                <select
+                                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
+                                                                    title="Lựa chọn" data-style="btn-lg py-2 h-52"
+                                                                    id="category_id" name="category_id">
+                                                                    <!-- Các lựa chọn loại phòng -->
+                                                                    @if ($categories->isEmpty())
+                                                                        <option value="">Không có dữ liệu
+                                                                        </option>
+                                                                    @else
+                                                                        @foreach ($categories as $category)
+                                                                            <option value="{{ $category->id }}">
+                                                                                {{ $category->name }}</option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </select>
+                                                                @error('category_id')
+                                                                    <div class="text-danger">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="form-group mt-1">
+                                                                <label for="quantity" class="text-heading">Số người ở tối
+                                                                    đa <span class="text-muted">(Bắt buộc)</span><span
+                                                                        class="text-muted">(Ví dụ: 1,
+                                                                        2,...)</span></label>
+                                                                <input type="text"
+                                                                    class="form-control form-control-lg border-0"
+                                                                    id="quantity" name="quantity"
+                                                                    value="{{ old('quantity') }}">
+                                                                @error('quantity')
+                                                                    <div class="text-danger">{{ $message }}</div>
+                                                                @enderror
                                                             </div>
                                                         </div>
                                                     </div>
@@ -171,7 +152,8 @@
                                                                 <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
                                                                     <div class="form-group">
                                                                         <label for="phone" class="text-heading">Số điện
-                                                                            thoại</label>
+                                                                            thoại <span class="text-muted">(Bắt
+                                                                                buộc)</span></label>
                                                                         <input type="text" name="phone"
                                                                             class="form-control form-control-lg border-0"
                                                                             id="phone" value="{{ old('phone') }}">
@@ -201,84 +183,6 @@
                                                             @error('email')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
-                                                            {{-- <div class="form-row mx-n2">
-                                                                <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
-                                                                    <div class="form-group">
-                                                                        <label for="name" class="text-heading">Họ và
-                                                                            Tên</label>
-                                                                        <!-- Hiển thị tên người dùng -->
-                                                                        <input type="text"
-                                                                            class="form-control form-control-lg border-0"
-                                                                            id="name" name="name"
-                                                                            value="{{ Auth::check() ? Auth::user()->name : 'Chưa có' }}"
-                                                                            readonly>
-                                                                        @error('name')
-                                                                            <div class="text-danger">{{ $message }}</div>
-                                                                        @enderror
-                                                                    </div>
-                                                                </div>
-
-                                                                <!-- Trường ẩn để lưu ID người dùng -->
-                                                                <input type="hidden" id="user_id" name="user_id"
-                                                                    value="{{ Auth::check() ? Auth::user()->id : '' }}">
-
-                                                                <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
-                                                                    <div class="form-group">
-                                                                        <label for="email"
-                                                                            class="text-heading">Email</label>
-                                                                        <input type="email"
-                                                                            class="form-control form-control-lg border-0"
-                                                                            id="email" name="email"
-                                                                            value="{{ Auth::check() ? Auth::user()->email : 'Chưa có' }}">
-                                                                        @error('email')
-                                                                            <div class="text-danger">{{ $message }}</div>
-                                                                        @enderror
-                                                                    </div>
-                                                                </div>
-                                                            </div> --}}
-
-                                                            {{-- <div class="form-row mx-n2">
-                                                                <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
-                                                                    <div class="form-group mb-0"><label for="price_id"
-                                                                            class="text-heading">Giá ID</label>
-                                                                        <select
-                                                                            class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                                            title="Lựa chọn" data-style="btn-lg py-2 h-52"
-                                                                            id="price_id" name="price_id">
-                                                                            <!-- Các lựa chọn loại phòng -->
-                                                                            @if ($prices->isEmpty())
-                                                                                <option value="">Không có dữ liệu
-                                                                                </option>
-                                                                            @else
-                                                                                @foreach ($prices as $price)
-                                                                                    <option value="{{ $price->id }}">
-                                                                                        {{ $price->price_range }}</option>
-                                                                                @endforeach
-                                                                            @endif
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div> --}}
-                                                        </div>
-                                                    </div>
-                                                    <div class="card mb-6">
-                                                        <div class="card-body p-6">
-                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Chọn số
-                                                                lượng</h3>
-                                                            <hr>
-                                                            <div class="form-group mb-0">
-                                                                <label for="quantity" class="text-heading">Số người ở tối
-                                                                    đa <span class="text-muted">(Bắt buộc)</span><span
-                                                                        class="text-muted">(Ví dụ: 1,
-                                                                        2,...)</span></label>
-                                                                <input type="text"
-                                                                    class="form-control form-control-lg border-0"
-                                                                    id="quantity" name="quantity"
-                                                                    value="{{ old('quantity') }}">
-                                                                @error('quantity')
-                                                                    <div class="text-danger">{{ $message }}</div>
-                                                                @enderror
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -292,12 +196,9 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                             <div class="tab-pane tab-pane-parent fade px-0" id="media" role="tabpanel"
                                 aria-labelledby="media-tab">
-
                                 <div class="card bg-transparent border-0">
                                     <div class="card-header d-block d-md-none bg-transparent px-0 py-1 border-bottom-0"
                                         id="heading-media">
@@ -305,7 +206,7 @@
                                             <button class="btn btn-lg collapse-parent btn-block border shadow-none"
                                                 data-toggle="collapse" data-number="2." data-target="#media-collapse"
                                                 aria-expanded="true" aria-controls="media-collapse">
-                                                <span class="number">2.</span> Phương tiện truyền thông
+                                                <span class="number">2.</span> Truyền thông
                                             </button>
                                         </h5>
                                     </div>
@@ -407,7 +308,6 @@
                                 </div>
 
                             </div>
-
                             <div class="tab-pane tab-pane-parent fade px-0" id="location" role="tabpanel"
                                 aria-labelledby="location-tab">
 
@@ -563,30 +463,30 @@
                                                                 @enderror
                                                             </div>
                                                             {{-- <div class="form-group">
-                                                                <label for="location_id" class="text-heading">Vị
-                                                                    trí</label>
-                                                                <select
-                                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                                    title="Lựa chọn" data-style="btn-lg py-2 h-52"
-                                                                    id="location_id" name="location_id">
-                                                                    <!-- Các lựa chọn loại phòng -->
-                                                                    @if ($locations->isEmpty())
-                                                                        <option value="">Không có dữ liệu
-                                                                        </option>
-                                                                    @else
-                                                                        @foreach ($locations as $location)
-                                                                            <option value="{{ $location->id }}">
-                                                                                {{ $location->name }}</option>
-                                                                        @endforeach
-                                                                    @endif
-                                                                </select>
-                                                            </div> --}}
+                                                            <label for="location_id" class="text-heading">Vị
+                                                                trí</label>
+                                                            <select
+                                                                class="form-control border-0 shadow-none form-control-lg selectpicker"
+                                                                title="Lựa chọn" data-style="btn-lg py-2 h-52"
+                                                                id="location_id" name="location_id">
+                                                                <!-- Các lựa chọn loại phòng -->
+                                                                @if ($locations->isEmpty())
+                                                                    <option value="">Không có dữ liệu
+                                                                    </option>
+                                                                @else
+                                                                    @foreach ($locations as $location)
+                                                                        <option value="{{ $location->id }}">
+                                                                            {{ $location->name }}</option>
+                                                                    @endforeach
+                                                                @endif
+                                                            </select>
+                                                        </div> --}}
                                                             <div class="form-group">
                                                                 <label for="zone" class="text-heading">Khu
                                                                     vực</label>
                                                                 {{-- <input type="text"
-                                                                    class="form-control form-control-lg border-0"
-                                                                    id="zone" name="zone"> --}}
+                                                                class="form-control form-control-lg border-0"
+                                                                id="zone" name="zone"> --}}
                                                                 <select
                                                                     class="form-control border-0 shadow-none form-control-lg selectpicker"
                                                                     title="Lựa chọn" data-style="btn-lg py-2 h-52"
@@ -596,6 +496,8 @@
                                                                         <option value="">Không có dữ liệu
                                                                         </option>
                                                                     @else
+                                                                        <option value="" selected>
+                                                                            Chọn loại phòng</option>
                                                                         @foreach ($zones as $zone)
                                                                             <option value="{{ $zone->id }}">
                                                                                 {{ $zone->name }}</option>
@@ -611,8 +513,7 @@
                                                         <div class="card-body p-6">
                                                             <h3 class="card-title mb-6 text-heading fs-22 lh-15">Bản đồ
                                                             </h3>
-                                                            <div id="map" class="mapbox-gl map-point-animate mb-6"
-                                                                style="height: 296px">
+                                                            <div id="map" style="height: 296px">
                                                             </div>
                                                             <div class="form-row mx-n2">
                                                                 <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
@@ -650,10 +551,161 @@
                                                 <a href="#"
                                                     class="btn btn-lg bg-hover-white border rounded-lg mb-3 mr-auto prev-button">
                                                     <span class="d-inline-block text-primary mr-2 fs-16"><i
+                                                            class="fal fa-long-arrow-left"></i></span>Phía trước
+                                                </a>
+                                                <button class="btn btn-lg btn-primary next-button mb-3">Tiếp theo
+                                                    <span class="d-inline-block ml-2 fs-16"><i
+                                                            class="fal fa-long-arrow-right"></i></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane tab-pane-parent fade px-0" id="amenities" role="tabpanel"
+                                aria-labelledby="amenities-tab">
+                                <div class="card bg-transparent border-0">
+                                    <div class="card-header d-block d-md-none bg-transparent px-0 py-1 border-bottom-0"
+                                        id="heading-amenities">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-block collapse-parent collapsed border shadow-none"
+                                                data-toggle="collapse" data-number="4." data-target="#amenities-collapse"
+                                                aria-expanded="true" aria-controls="amenities-collapse">
+                                                <span class="number">4.</span> TIện ích
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="amenities-collapse" class="collapse collapsible"
+                                        aria-labelledby="heading-amenities" data-parent="#collapse-tabs-accordion">
+                                        <div class="card-body py-4 py-md-0 px-0">
+                                            <div class="card mb-6">
+                                                <div class="card-body p-6">
+                                                    <h3 class="card-title mb-0 text-heading fs-22 lh-15">Danh sách tiện ích
+                                                    </h3>
+                                                    {{-- <div class="row">
+                                                        <div class="col-sm-6 col-lg-3">
+                                                            <ul class="list-group list-group-no-border">
+                                                                <li class="list-group-item px-0 pt-0 pb-2">
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox"
+                                                                            class="custom-control-input" name="features[]"
+                                                                            id="attic">
+                                                                        <label class="custom-control-label"
+                                                                            for="attic">Wifi</label>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="col-sm-6 col-lg-3">
+                                                            <ul class="list-group list-group-no-border">
+                                                                <li class="list-group-item px-0 pt-0 pb-2">
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox"
+                                                                            class="custom-control-input" name="features[]"
+                                                                            id="attic-01">
+                                                                        <label class="custom-control-label"
+                                                                            for="attic-01">Phòng tắm</label>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="col-sm-6 col-lg-3">
+                                                            <ul class="list-group list-group-no-border">
+                                                                <li class="list-group-item px-0 pt-0 pb-2">
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox"
+                                                                            class="custom-control-input" name="features[]"
+                                                                            id="attic-02">
+                                                                        <label class="custom-control-label"
+                                                                            for="attic-02">Máy điều hòa</label>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="col-sm-6 col-lg-3">
+                                                            <ul class="list-group list-group-no-border">
+                                                                <li class="list-group-item px-0 pt-0 pb-2">
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox"
+                                                                            class="custom-control-input" name="features[]"
+                                                                            id="attic-03">
+                                                                        <label class="custom-control-label"
+                                                                            for="attic-03">Ga-ra</label>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div> --}}
+                                                    <div class="row">
+                                                        <div class="col-sm-6 col-lg-3">
+                                                            <ul class="list-group list-group-no-border">
+                                                                <li class="list-group-item px-0 pt-0 pb-2">
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox"
+                                                                            class="custom-control-input" name="wifi"
+                                                                            id="attic" value="attic">
+                                                                        <label class="custom-control-label"
+                                                                            for="attic">Wifi</label>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="col-sm-6 col-lg-3">
+                                                            <ul class="list-group list-group-no-border">
+                                                                <li class="list-group-item px-0 pt-0 pb-2">
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <label for="attic-01">Phòng tắm</label>
+                                                                        <input type="number" class="form-control"
+                                                                            name="bathrooms" id="bathrooms"
+                                                                            value="0">
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                            @error('bathrooms')
+                                                                <div class="text-danger">{{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-sm-6 col-lg-3">
+                                                            <ul class="list-group list-group-no-border">
+                                                                <li class="list-group-item px-0 pt-0 pb-2">
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox"
+                                                                            class="custom-control-input"
+                                                                            name="air_conditioning" id="attic-02"
+                                                                            value="attic-02">
+                                                                        <label class="custom-control-label"
+                                                                            for="attic-02">Máy điều hòa</label>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="col-sm-6 col-lg-3">
+                                                            <ul class="list-group list-group-no-border">
+                                                                <li class="list-group-item px-0 pt-0 pb-2">
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox"
+                                                                            class="custom-control-input" name="garage"
+                                                                            id="attic-03" value="attic-03">
+                                                                        <label class="custom-control-label"
+                                                                            for="attic-03">Ga-ra</label>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-wrap">
+                                                <a href="#"
+                                                    class="btn btn-lg bg-hover-white border rounded-lg mb-3 mr-auto prev-button">
+                                                    <span class="d-inline-block text-primary mr-2 fs-16"><i
                                                             class="fal fa-long-arrow-left"></i></span>Phía
                                                     trước
                                                 </a>
-                                                <button class="btn btn-lg btn-primary mb-3" type="submit">Gửi
+                                                <button class="btn btn-lg btn-primary mb-3" type="submit">Thêm phòng
                                                 </button>
                                             </div>
                                         </div>

@@ -59,10 +59,10 @@ class RoomOwnersController extends Controller
         $acreages = Acreage::all();
         $prices = Price::all();
         $categories = Category::all();
-    
+
         $locations = Location::all();
         $zones = Zone::all();
-     
+
         return view('owners.create.add-new-property', compact('acreages', 'prices', 'categories', 'locations', 'zones'));
     }
     public function store(RoomOwnersRequest $request)
@@ -93,14 +93,16 @@ class RoomOwnersController extends Controller
             $locations = $this->roomOwnersService->getAllLocations();
             $zones = $this->roomOwnersService->getAllZones();
             $images = $this->roomOwnersService->getRoomImages($room->id); // Lấy hình ảnh của phòng
+            $utilities = $this->roomOwnersService->getRoomUtilities($room->id); // Lấy tiện ích của phòng
             return view('owners.edit.update-property', [
                 'room' => $room,
                 'categories' => $categories,
-           
+
                 'prices' => $prices,
                 'locations' => $locations,
                 'zones' => $zones,
                 'images' => $images,
+                'utilities' => $utilities, // Truyền tiện ích vào view
             ]);
             // return view('owners.edit.update-property', compact('acreages', 'prices', 'categories', 'areas', 'locations', 'zones', 'roomTypes', 'room'));
         } else {
