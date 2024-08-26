@@ -11,6 +11,7 @@ Route::prefix('')->group(function () {
 });
 Route::prefix('')->group(function () {
     Route::get('/danh-sach', [RoomAdminController::class, 'show_room'])->name('show-room');
+    Route::get('/danh-sach-tro', [RoomAdminController::class, 'show_room_available'])->name('show-room-available');
     Route::get('/them-tro', [RoomAdminController::class, 'add_room_show'])->name('add-room-show');
     Route::post('/them-du-lieu-tro', [RoomAdminController::class, 'add_room'])->name('add-room');
     Route::get('/chinh-sua-tro/{slug}', [RoomAdminController::class, 'update_room_show'])->name('update-room-show');

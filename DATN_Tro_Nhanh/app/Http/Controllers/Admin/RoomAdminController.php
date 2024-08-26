@@ -30,6 +30,12 @@ class RoomAdminController extends Controller
         $rooms = $this->roomAdminService->showRoomWhere();
         return view('admincp.show.showRoom', ['rooms' => $rooms]);
     }
+
+    public function show_room_available()
+    {
+        $rooms = $this->roomAdminService->showRoomStatus();
+        return view('admincp.show.showRoom', ['rooms' => $rooms]);
+    }
     public function add_room_show()
     {
         $data = $this->roomAdminService->getRoom();
@@ -39,7 +45,7 @@ class RoomAdminController extends Controller
         $locations = $data['locations'];
         $zones = $data['zones'];
         $users = $data['users'];
-        
+
         return view('admincp.create.addRoom', compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users'));
     }
     public function add_room(CreateRoomRequest $request)
@@ -67,7 +73,7 @@ class RoomAdminController extends Controller
         $locations = $data['locations'];
         $zones = $data['zones'];
         $users = $data['users'];
-        
+
         return view('admincp.edit.updateRoom', compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users'));
     }
     public function update_room(Request $request, $slug)

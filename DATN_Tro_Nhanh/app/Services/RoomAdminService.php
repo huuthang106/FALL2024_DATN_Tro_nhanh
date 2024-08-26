@@ -15,11 +15,37 @@ use App\Models\Image;
 
 class RoomAdminService
 {
+    // Tao bien hien thi phong con trong
+    private const AvailableRooms = 1;
     public function showRoomWhere()
     {
         $rooms = Room::orderBy('created_at', 'desc')->take(7)->get();
         return $rooms;
     }
+
+    public function showRoomStatus(int $perPage = 10, $searchTerm = null)
+    {
+        try {
+            // Bắt đầu với query tìm tất cả các phòng có status = AvailableRooms
+            $query = Room::where('status', self::AvailableRooms);
+
+            // Nếu có điều kiện tìm kiếm, thêm điều kiện vào query
+            if ($searchTerm) {
+                $query->where(function ($q) use ($searchTerm) {
+                    $q->where('title', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('description', 'like', '%' . $searchTerm . '%');
+                });
+            }
+
+            // Phân trang kết quả cuối cùng
+            return $query->paginate($perPage);
+        } catch (\Exception $e) {
+            // Xử lý ngoại lệ nếu có
+            return null;
+        }
+    }
+
+
     public function getSlugRoom($slug)
     {
         $rooms = Room::with(['category', 'acreage', 'location', 'zone', 'user', 'images'])
@@ -31,7 +57,7 @@ class RoomAdminService
         $acreages = Acreage::all();
         $zones = Zone::all();
         $users = User::all();
-       
+
         return compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users');
     }
     public function getRoom()
@@ -42,7 +68,7 @@ class RoomAdminService
         $acreages = Acreage::all();
         $zones = Zone::all();
         $users = User::all();
-        
+
         return compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users');
     }
     // Them tro 
