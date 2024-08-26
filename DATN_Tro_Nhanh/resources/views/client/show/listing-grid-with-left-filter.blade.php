@@ -24,80 +24,96 @@
                                     <form>
                                         <div class="form-group">
                                             <label for="key-word" class="sr-only">Từ khóa tìm kiếm...</label>
-                                            <input type="text" class="form-control form-control-lg border-0 shadow-none"
+                                            <input type="search" class="form-control form-control-lg border-0 shadow-none"
                                                 id="key-word" placeholder="Nhập từ khóa...">
                                         </div>
                                         <div class="form-group">
-                                            <label for="location" class="sr-only">Vị trí</label>
-                                            <select class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                title="Vị trí" data-style="btn-lg py-2 h-52" id="location">
-                                                <option>Cần Thơ</option>
-                                                <option>Hậu Giang</option>
-                                                <option>Hồ Chí Minh</option>
-                                                <option>Đồng Tháp</option>
-                                                <option>An Giang</option>
-                                                <option>Cà Mau</option>
-                                                <option>Sóc Trăng</option>
+                                            <label for="location" class="sr-only">Tỉnh</label>
+                                            <select class="form-control border-0 shadow-none form-control-lg "
+                                            id="city-province" title="Tất cả thành phố" name="province" data-style="btn-lg py-2 h-52" >
+                                                <option value='0'>Chọn Tỉnh/Thành Phố...</option>
+                                                <option value='01'>Thành phố Hà Nội</option>
+                                                <option value='79'>Thành phố Hồ Chí Minh</option>
+                                                <option value='31'>Thành phố Hải Phòng</option>
+                                                <option value='48'>Thành phố Đà Nẵng</option>
+                                                <option value='92'>Thành phố Cần Thơ</option>
+                                                <option value='02'>Tỉnh Hà Giang</option>
+                                                <option value='04'>Tỉnh Cao Bằng</option>
+                                                <option value='06'>Tỉnh Bắc Kạn</option>
+                                                <option value='08'>Tỉnh Tuyên Quang</option>
+                                                <option value='10'>Tỉnh Lào Cai</option>
+                                                <option value='11'>Tỉnh Điện Biên</option>
+                                                <option value='12'>Tỉnh Lai Châu</option>
+                                                <option value='14'>Tỉnh Sơn La</option>
+                                                <option value='15'>Tỉnh Yên Bái</option>
+                                                <option value='17'>Tỉnh Hoà Bình</option>
+                                                <option value='19'>Tỉnh Thái Nguyên</option>
+                                                <option value='20'>Tỉnh Lạng Sơn</option>
+                                                <option value='22'>Tỉnh Quảng Ninh</option>
+                                                <option value='24'>Tỉnh Bắc Giang</option>
+                                                <option value='25'>Tỉnh Phú Thọ</option>
+                                                <option value='26'>Tỉnh Vĩnh Phúc</option>
+                                                <option value='27'>Tỉnh Bắc Ninh</option>
+                                                <option value='30'>Tỉnh Hải Dương</option>
+                                                <option value='33'>Tỉnh Hưng Yên</option>
+                                                <option value='34'>Tỉnh Thái Bình</option>
+                                                <option value='35'>Tỉnh Hà Nam</option>
+                                                <option value='36'>Tỉnh Nam Định</option>
+                                                <option value='37'>Tỉnh Ninh Bình</option>
+                                                <option value='38'>Tỉnh Thanh Hóa</option>
+                                                <option value='40'>Tỉnh Nghệ An</option>
+                                                <option value='42'>Tỉnh Hà Tĩnh</option>
+                                                <option value='44'>Tỉnh Quảng Bình</option>
+                                                <option value='45'>Tỉnh Quảng Trị</option>
+                                                <option value='46'>Tỉnh Thừa Thiên Huế</option>
+                                                <option value='49'>Tỉnh Quảng Nam</option>
+                                                <option value='51'>Tỉnh Quảng Ngãi</option>
+                                                <option value='52'>Tỉnh Bình Định</option>
+                                                <option value='54'>Tỉnh Phú Yên</option>
+                                                <option value='56'>Tỉnh Khánh Hòa</option>
+                                                <option value='58'>Tỉnh Ninh Thuận</option>
+                                                <option value='60'>Tỉnh Bình Thuận</option>
+                                                <option value='62'>Tỉnh Kon Tum</option>
+                                                <option value='64'>Tỉnh Gia Lai</option>
+                                                <option value='66'>Tỉnh Đắk Lắk</option>
+                                                <option value='67'>Tỉnh Đắk Nông</option>
+                                                <option value='68'>Tỉnh Lâm Đồng</option>
+                                                <option value='70'>Tỉnh Bình Phước</option>
+                                                <option value='72'>Tỉnh Tây Ninh</option>
+                                                <option value='74'>Tỉnh Bình Dương</option>
+                                                <option value='75'>Tỉnh Đồng Nai</option>
+                                                <option value='77'>Tỉnh Bà Rịa - Vũng Tàu</option>
+                                                <option value='80'>Tỉnh Long An</option>
+                                                <option value='82'>Tỉnh Tiền Giang</option>
+                                                <option value='83'>Tỉnh Bến Tre</option>
+                                                <option value='84'>Tỉnh Trà Vinh</option>
+                                                <option value='86'>Tỉnh Vĩnh Long</option>
+                                                <option value='87'>Tỉnh Đồng Tháp</option>
+                                                <option value='89'>Tỉnh An Giang</option>
+                                                <option value='91'>Tỉnh Kiên Giang</option>
+                                                <option value='93'>Tỉnh Hậu Giang</option>
+                                                <option value='94'>Tỉnh Sóc Trăng</option>
+                                                <option value='95'>Tỉnh Bạc Liêu</option>
+                                                <option value='96'>Tỉnh Cà Mau</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="type" class="sr-only">Loại</label>
-                                            <select class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                title="Tất cả loại" data-style="btn-lg py-2 h-52" id="type">
-                                                <option>Phòng đơn</option>
-                                                <option>Phòng đôi</option>
-                                                <option>Căn hộ</option>
-                                                <option>Nhà riêng</option>
+                                            <label for="location" class="sr-only">Huyện</label>
+                                            <select class="form-control border-0 shadow-none form-control-lg "
+                                            id="district-town" name="district" title="Vị trí" data-style="btn-lg py-2 h-52" id="location">
+                                                <option value="0">Chọn Quận/Huyện...</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="status" class="sr-only">Trạng thái</label>
-                                            <select class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                title="Tất cả trạng thái" data-style="btn-lg py-2 h-52" id="status">
-                                                <option>Cho thuê</option>
-                                                <option>Cần bán</option>
+                                            <label for="location" class="sr-only">Xã</label>
+                                            <select class="form-control border-0 shadow-none form-control-lg "
+                                            id="ward-commune" name="village" title="Vị trí" data-style="btn-lg py-2 h-52" id="location">
+                                                <option value="0">Chọn Xã/Phường...</option>
                                             </select>
                                         </div>
-                                        <div class="form-row mb-4">
-                                            <div class="col">
-                                                <label for="bed" class="sr-only">Giường</label>
-                                                <select
-                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                    title="Giường" data-style="btn-lg py-2 h-52" id="bed">
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                </select>
-                                            </div>
-                                            <div class="col">
-                                                <label for="baths" class="sr-only">Phòng tắm</label>
-                                                <select
-                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                    title="Phòng tắm" data-style="btn-lg py-2 h-52" id="baths">
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group slider-range slider-range-secondary">
-                                            <label for="price" class="mb-4 text-gray-light">Khoảng giá</label>
-                                            <div data-slider="true"
-                                                data-slider-options='{"min":0,"max":8000000,"values":[1000000,5000000],"type":"currency"}'>
-                                            </div>
-                                            <div class="text-center mt-2">
-                                                <input id="price" type="text" readonly
-                                                    class="border-0 amount text-center text-body font-weight-500">
-                                            </div>
-                                        </div>
-                                        <div class="form-group slider-range slider-range-secondary">
-                                            <label for="area-size" class="mb-4 text-gray-light">Diện tích</label>
-                                            <div data-slider="true"
-                                                data-slider-options='{"min":0,"max":15000,"values":[50,15000],"type":"sqrt"}'>
-                                            </div>
-                                            <div class="text-center mt-2">
-                                                <input id="area-size" type="text" readonly
-                                                    class="border-0 amount text-center text-body font-weight-500">
-                                            </div>
-                                        </div>
+                                       
+                                      
+                                       
                                         <a class="lh-17 d-inline-block" data-toggle="collapse" href="#other-feature"
                                             role="button" aria-expanded="false" aria-controls="other-feature">
                                             <span class="text-primary d-inline-block mr-1"><i
@@ -671,4 +687,7 @@
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="{{ asset('assets/js/api-country-vn-nht.js') }}"></script>
 @endpush
