@@ -10,19 +10,23 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use App\Events\RoomCreated;
 use App\Models\Notification;
+use App\Services\CategoryAdminService;
 
 class RoomAdminController extends Controller
 {
     //
     protected $roomAdminService;
+    protected $categoryAdminService;
 
-    public function __construct(RoomAdminService $roomAdminService)
+    public function __construct(RoomAdminService $roomAdminService, CategoryAdminService $categoryAdminService)
     {
         $this->roomAdminService = $roomAdminService;
+        $this->categoryAdminService = $categoryAdminService;
     }
     public function index()
     {
-        return view('admincp.show.index');
+        $roomsCountByCategoryType = $this->categoryAdminService->getRoomsCountByCategoryType();
+        return view('admincp.show.index', compact('roomsCountByCategoryType'));
     }
 
     public function show_room()

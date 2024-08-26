@@ -10,6 +10,18 @@ use App\Events\Admin\CategoryAdminEvent;
 
 class CategoryAdminService
 {
+    // Trong RoomService hoặc một nơi phù hợp
+    public function getRoomsCountByCategoryType()
+    {
+        $categorys = Category::whereIn('name', ['căn hộ', 'trọ'])
+            ->withCount('rooms')
+            ->get()
+            ->mapWithKeys(function ($category) {
+                return [$category->name => $category->rooms_count];
+            });
+        return $categorys;
+    }
+
     public function createCategory(array $data)
     {
         try {

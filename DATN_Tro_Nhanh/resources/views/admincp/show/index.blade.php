@@ -100,7 +100,7 @@
                 <!--begin::Row-->
                 <div class="row g-5 g-xl-8">
                     <!--begin::Col-->
-                    <div class="col-xl-4">
+                    <div class="col-xl-6">
                         <!--begin::List Widget 1-->
                         <div class="card card-xl-stretch mb-xl-8">
                             <!--begin::Header-->
@@ -249,7 +249,8 @@
                                     <!--end::Symbol-->
                                     <!--begin::Text-->
                                     <div class="d-flex flex-column">
-                                        <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Tóm tắt dự án</a>
+                                        <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Tóm tắt dự
+                                            án</a>
                                         <span class="text-muted fw-bold">Người quản lý dự án</span>
                                     </div>
                                     <!--end::Text-->
@@ -278,7 +279,8 @@
                                     <!--end::Symbol-->
                                     <!--begin::Text-->
                                     <div class="d-flex flex-column">
-                                        <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Thiết kế ý tưởng</a>
+                                        <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Thiết kế ý
+                                            tưởng</a>
                                         <span class="text-muted fw-bold">Giám đốc nghệ thuật</span>
                                     </div>
                                     <!--end::Text-->
@@ -308,7 +310,8 @@
                                     <!--end::Symbol-->
                                     <!--begin::Text-->
                                     <div class="d-flex flex-column">
-                                        <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Logic chức năng</a>
+                                        <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Logic chức
+                                            năng</a>
                                         <span class="text-muted fw-bold">Nhà phát triển chính</span>
                                     </div>
                                     <!--end::Text-->
@@ -337,8 +340,8 @@
                                     <!--end::Symbol-->
                                     <!--begin::Text-->
                                     <div class="d-flex flex-column">
-                                        <a href="#"
-                                            class="text-dark text-hover-primary fs-6 fw-bolder">Phát triển </a>
+                                        <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Phát triển
+                                        </a>
                                         <span class="text-muted fw-bold">DevOps</span>
                                     </div>
                                     <!--end::Text-->
@@ -383,14 +386,16 @@
                     </div>
                     <!--end::Col-->
                     <!--begin::Col-->
-                    <div class="col-xl-8">
+                    <div class="col-xl-6">
                         <!--begin::Tables Widget 5-->
                         <div class="card card-xl-stretch mb-5 mb-xl-8">
                             <!--begin::Header-->
                             <div class="card-header border-0 pt-5">
                                 <h3 class="card-title align-items-start flex-column">
-                                    <span class="card-label fw-bolder fs-3 mb-1">Sản phẩm mới nhất</span>
-                                    <span class="text-muted mt-1 fw-bold fs-7">Hơn 400 sản phẩm mới</span>
+                                    <span class="card-label fw-bolder fs-3 mb-1">Các Danh Mục Phòng</span>
+                                    <span class="text-muted mt-1 fw-bold fs-7">Có tất cả
+                                        {{ $roomsCountByCategoryType->count() }}
+                                        danh mục</span>
                                 </h3>
                                 <div class="card-toolbar">
                                     <ul class="nav">
@@ -424,9 +429,8 @@
                                                 <thead>
                                                     <tr class="border-0">
                                                         <th class="p-0 w-50px"></th>
-                                                        <th class="p-0 min-w-150px"></th>
-                                                        <th class="p-0 min-w-140px"></th>
-                                                        <th class="p-0 min-w-110px"></th>
+                                                        <th class="p-0 me-4 min-w-150px"></th>
+                                                        <th class="p-0 min-w-50px"></th>
                                                         <th class="p-0 min-w-50px"></th>
                                                     </tr>
                                                 </thead>
@@ -435,211 +439,48 @@
                                                 <tbody>
                                                     <tr>
                                                         <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="{{asset('assets/media/svg/brand-logos/plurk.svg')}}"
-                                                                        class="h-50 align-self-center" alt="" />
+                                                            <div class="symbol symbol-45px me-2"
+                                                                style="background: none; border: none;">
+                                                                <span class="symbol-label" style="padding: 0;">
+                                                                    <img src="{{ asset('assets/images/properties-grid-15.jpg') }}"
+                                                                        class="h-100 w-100 object-fit-cover"
+                                                                        style="border-radius: 0; display: block;"
+                                                                        alt="" />
                                                                 </span>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Brad Simmons</a>
-                                                            <span class="text-muted fw-bold d-block">Người tạo phim</span>
+                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Trọ</a>
                                                         </td>
-                                                        <td class="text-end text-muted fw-bold">React, HTML</td>
+                                                        <td class="text-start text-muted fw-bold">
+                                                            {{ $roomsCountByCategoryType['căn hộ'] ?? 0 }} phòng</td>
                                                         <td class="text-end">
-                                                            <span class="badge badge-light-success">Tán thành</span>
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" viewBox="0 0 24 24"
-                                                                        fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13" width="13"
-                                                                            height="2" rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
+                                                            <span class="badge badge-light-success">Hoạt động</span>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="{{asset('assets/media/svg/brand-logos/telegram.svg')}}"
-                                                                        class="h-50 align-self-center" alt="" />
+                                                            <div class="symbol symbol-45px me-2"
+                                                                style="background: none; border: none;">
+                                                                <span class="symbol-label" style="padding: 0;">
+                                                                    <img src="{{ asset('assets/images/properties-grid-13.jpg') }}"
+                                                                        class="h-100 w-100 object-fit-cover"
+                                                                        style="border-radius: 0; display: block;"
+                                                                        alt="" />
                                                                 </span>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Popular
-                                                                Authors</a>
-                                                            <span class="text-muted fw-bold d-block">Most
-                                                                Successful</span>
+                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Căn
+                                                                hộ</a>
                                                         </td>
-                                                        <td class="text-end text-muted fw-bold">Python, MySQL
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <span class="badge badge-light-warning">In
-                                                                Progress</span>
+                                                        <td class="text-start text-muted fw-bold">
+                                                            {{ $roomsCountByCategoryType['trọ'] ?? 0 }} phòng
                                                         </td>
                                                         <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" viewBox="0 0 24 24"
-                                                                        fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13" width="13"
-                                                                            height="2" rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="{{asset('assets/media/svg/brand-logos/vimeo.svg')}}"
-                                                                        class="h-50 align-self-center" alt="" />
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">New
-                                                                Users</a>
-                                                            <span class="text-muted fw-bold d-block">Awesome
-                                                                Users</span>
-                                                        </td>
-                                                        <td class="text-end text-muted fw-bold">Laravel,Metronic
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <span class="badge badge-light-primary">Success</span>
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" viewBox="0 0 24 24"
-                                                                        fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13" width="13"
-                                                                            height="2" rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="{{asset('assets/media/svg/brand-logos/bebo.svg')}}"
-                                                                        class="h-50 align-self-center" alt="" />
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Active
-                                                                Customers</a>
-                                                            <span class="text-muted fw-bold d-block">Movie
-                                                                Creator</span>
-                                                        </td>
-                                                        <td class="text-end text-muted fw-bold">AngularJS, C#
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <span class="badge badge-light-danger">Rejected</span>
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" viewBox="0 0 24 24"
-                                                                        fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13" width="13"
-                                                                            height="2" rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="{{asset('assets/media/svg/brand-logos/kickstarter.svg')}}"
-                                                                        class="h-50 align-self-center" alt="" />
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Bestseller
-                                                                Theme</a>
-                                                            <span class="text-muted fw-bold d-block">Best
-                                                                Customers</span>
-                                                        </td>
-                                                        <td class="text-end text-muted fw-bold">ReactJS, Ruby
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <span class="badge badge-light-warning">In
-                                                                Progress</span>
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" viewBox="0 0 24 24"
-                                                                        fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13" width="13"
-                                                                            height="2" rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
+                                                            <span class="badge badge-light-success">Hoạt động</span>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -660,9 +501,8 @@
                                                 <thead>
                                                     <tr class="border-0">
                                                         <th class="p-0 w-50px"></th>
-                                                        <th class="p-0 min-w-150px"></th>
-                                                        <th class="p-0 min-w-140px"></th>
-                                                        <th class="p-0 min-w-110px"></th>
+                                                        <th class="p-0 me-4 min-w-150px"></th>
+                                                        <th class="p-0 min-w-50px"></th>
                                                         <th class="p-0 min-w-50px"></th>
                                                     </tr>
                                                 </thead>
@@ -671,128 +511,48 @@
                                                 <tbody>
                                                     <tr>
                                                         <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="{{asset('assets/media/svg/brand-logos/plurk.svg')}}"
-                                                                        class="h-50 align-self-center" alt="" />
+                                                            <div class="symbol symbol-45px me-2"
+                                                                style="background: none; border: none;">
+                                                                <span class="symbol-label" style="padding: 0;">
+                                                                    <img src="{{ asset('assets/images/properties-grid-15.jpg') }}"
+                                                                        class="h-100 w-100 object-fit-cover"
+                                                                        style="border-radius: 0; display: block;"
+                                                                        alt="" />
                                                                 </span>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Brad
-                                                                Simmons</a>
-                                                            <span class="text-muted fw-bold d-block">Movie
-                                                                Creator</span>
+                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Trọ</a>
                                                         </td>
-                                                        <td class="text-end text-muted fw-bold">React, HTML</td>
+                                                        <td class="text-start text-muted fw-bold">
+                                                            {{ $roomsCountByCategoryType['căn hộ'] ?? 0 }} phòng</td>
                                                         <td class="text-end">
-                                                            <span class="badge badge-light-success">Approved</span>
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" viewBox="0 0 24 24"
-                                                                        fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13" width="13"
-                                                                            height="2" rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
+                                                            <span class="badge badge-light-success">Hoạt động</span>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="{{asset('assets/media/svg/brand-logos/telegram.svg')}}"
-                                                                        class="h-50 align-self-center" alt="" />
+                                                            <div class="symbol symbol-45px me-2"
+                                                                style="background: none; border: none;">
+                                                                <span class="symbol-label" style="padding: 0;">
+                                                                    <img src="{{ asset('assets/images/properties-grid-13.jpg') }}"
+                                                                        class="h-100 w-100 object-fit-cover"
+                                                                        style="border-radius: 0; display: block;"
+                                                                        alt="" />
                                                                 </span>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Popular
-                                                                Authors</a>
-                                                            <span class="text-muted fw-bold d-block">Most
-                                                                Successful</span>
+                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Căn
+                                                                hộ</a>
                                                         </td>
-                                                        <td class="text-end text-muted fw-bold">Python, MySQL
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <span class="badge badge-light-warning">In
-                                                                Progress</span>
+                                                        <td class="text-start text-muted fw-bold">
+                                                            {{ $roomsCountByCategoryType['trọ'] ?? 0 }} phòng
                                                         </td>
                                                         <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" viewBox="0 0 24 24"
-                                                                        fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13" width="13"
-                                                                            height="2" rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="{{asset('assets/media/svg/brand-logos/bebo.svg')}}"
-                                                                        class="h-50 align-self-center" alt="" />
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Active
-                                                                Customers</a>
-                                                            <span class="text-muted fw-bold d-block">Movie
-                                                                Creator</span>
-                                                        </td>
-                                                        <td class="text-end text-muted fw-bold">AngularJS, C#
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <span class="badge badge-light-danger">Rejected</span>
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" viewBox="0 0 24 24"
-                                                                        fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13" width="13"
-                                                                            height="2" rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
+                                                            <span class="badge badge-light-success">Hoạt động</span>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -813,9 +573,8 @@
                                                 <thead>
                                                     <tr class="border-0">
                                                         <th class="p-0 w-50px"></th>
-                                                        <th class="p-0 min-w-150px"></th>
-                                                        <th class="p-0 min-w-140px"></th>
-                                                        <th class="p-0 min-w-110px"></th>
+                                                        <th class="p-0 me-4 min-w-150px"></th>
+                                                        <th class="p-0 min-w-50px"></th>
                                                         <th class="p-0 min-w-50px"></th>
                                                     </tr>
                                                 </thead>
@@ -824,172 +583,48 @@
                                                 <tbody>
                                                     <tr>
                                                         <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="{{asset('assets/media/svg/brand-logos/kickstarter.svg')}}"
-                                                                        class="h-50 align-self-center" alt="" />
+                                                            <div class="symbol symbol-45px me-2"
+                                                                style="background: none; border: none;">
+                                                                <span class="symbol-label" style="padding: 0;">
+                                                                    <img src="{{ asset('assets/images/properties-grid-15.jpg') }}"
+                                                                        class="h-100 w-100 object-fit-cover"
+                                                                        style="border-radius: 0; display: block;"
+                                                                        alt="" />
                                                                 </span>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Bestseller
-                                                                Theme</a>
-                                                            <span class="text-muted fw-bold d-block">Best
-                                                                Customers</span>
+                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Trọ</a>
                                                         </td>
-                                                        <td class="text-end text-muted fw-bold">ReactJS, Ruby
-                                                        </td>
+                                                        <td class="text-start text-muted fw-bold">
+                                                            {{ $roomsCountByCategoryType['căn hộ'] ?? 0 }} phòng</td>
                                                         <td class="text-end">
-                                                            <span class="badge badge-light-warning">In
-                                                                Progress</span>
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" viewBox="0 0 24 24"
-                                                                        fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13" width="13"
-                                                                            height="2" rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
+                                                            <span class="badge badge-light-success">Hoạt động</span>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="{{asset('assets/media/svg/brand-logos/bebo.svg')}}"
-                                                                        class="h-50 align-self-center" alt="" />
+                                                            <div class="symbol symbol-45px me-2"
+                                                                style="background: none; border: none;">
+                                                                <span class="symbol-label" style="padding: 0;">
+                                                                    <img src="{{ asset('assets/images/properties-grid-13.jpg') }}"
+                                                                        class="h-100 w-100 object-fit-cover"
+                                                                        style="border-radius: 0; display: block;"
+                                                                        alt="" />
                                                                 </span>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Active
-                                                                Customers</a>
-                                                            <span class="text-muted fw-bold d-block">Movie
-                                                                Creator</span>
+                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Căn
+                                                                hộ</a>
                                                         </td>
-                                                        <td class="text-end text-muted fw-bold">AngularJS, C#
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <span class="badge badge-light-danger">Rejected</span>
+                                                        <td class="text-start text-muted fw-bold">
+                                                            {{ $roomsCountByCategoryType['trọ'] ?? 0 }} phòng
                                                         </td>
                                                         <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" viewBox="0 0 24 24"
-                                                                        fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13" width="13"
-                                                                            height="2" rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="{{asset('assets/media/svg/brand-logos/vimeo.svg')}}"
-                                                                        class="h-50 align-self-center" alt="" />
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">New
-                                                                Users</a>
-                                                            <span class="text-muted fw-bold d-block">Awesome
-                                                                Users</span>
-                                                        </td>
-                                                        <td class="text-end text-muted fw-bold">Laravel,Metronic
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <span class="badge badge-light-primary">Success</span>
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" viewBox="0 0 24 24"
-                                                                        fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13" width="13"
-                                                                            height="2" rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="{{asset('assets/media/svg/brand-logos/telegram.svg')}}"
-                                                                        class="h-50 align-self-center" alt="" />
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Popular
-                                                                Authors</a>
-                                                            <span class="text-muted fw-bold d-block">Most
-                                                                Successful</span>
-                                                        </td>
-                                                        <td class="text-end text-muted fw-bold">Python, MySQL
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <span class="badge badge-light-warning">In
-                                                                Progress</span>
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" viewBox="0 0 24 24"
-                                                                        fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13" width="13"
-                                                                            height="2" rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
+                                                            <span class="badge badge-light-success">Hoạt động</span>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -1527,7 +1162,7 @@
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-60px symbol-2by3 me-4">
                                         <div class="symbol-label"
-                                            style="background-image: url('{{asset('assets/media/stock/600x400/img-20.jpg')}}')">
+                                            style="background-image: url('{{ asset('assets/media/stock/600x400/img-20.jpg') }}')">
                                         </div>
                                     </div>
                                     <!--end::Symbol-->
@@ -1548,7 +1183,7 @@
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-60px symbol-2by3 me-4">
                                         <div class="symbol-label"
-                                            style="background-image: url('{{asset('assets/media/stock/600x400/img-19.jpg')}}')">
+                                            style="background-image: url('{{ asset('assets/media/stock/600x400/img-19.jpg') }}')">
                                         </div>
                                     </div>
                                     <!--end::Symbol-->
@@ -1571,7 +1206,7 @@
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-60px symbol-2by3 me-4">
                                         <div class="symbol-label"
-                                            style="background-image: url('{{asset('assets/media/stock/600x400/img-25.jpg')}}')">
+                                            style="background-image: url('{{ asset('assets/media/stock/600x400/img-25.jpg') }}')">
                                         </div>
                                     </div>
                                     <!--end::Symbol-->
@@ -1592,7 +1227,7 @@
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-60px symbol-2by3 me-4">
                                         <div class="symbol-label"
-                                            style="background-image: url('{{asset('assets/media/stock/600x400/img-24.jpg')}}')">
+                                            style="background-image: url('{{ asset('assets/media/stock/600x400/img-24.jpg') }}')">
                                         </div>
                                     </div>
                                     <!--end::Symbol-->
@@ -1628,8 +1263,7 @@
                                         <span class="svg-icon svg-icon-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
                                                 viewBox="0 0 24 24">
-                                                <g stroke="none" stroke-width="1" fill="none"
-                                                    fill-rule="evenodd">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                     <rect x="5" y="5" width="5" height="5" rx="1"
                                                         fill="#000000" />
                                                     <rect x="14" y="5" width="5" height="5" rx="1"
@@ -1703,9 +1337,8 @@
                                                         <label
                                                             class="form-check form-switch form-check-custom form-check-solid">
                                                             <!--begin::Input-->
-                                                            <input class="form-check-input w-30px h-20px"
-                                                                type="checkbox" value="1" checked="checked"
-                                                                name="notifications" />
+                                                            <input class="form-check-input w-30px h-20px" type="checkbox"
+                                                                value="1" checked="checked" name="notifications" />
                                                             <!--end::Input-->
                                                             <!--end::Label-->
                                                             <span class="form-check-label text-muted fs-6">Recuring</span>
@@ -1817,8 +1450,7 @@
                                     <!--end::Icon-->
                                     <!--begin::Title-->
                                     <div class="flex-grow-1 me-2">
-                                        <a href="#"
-                                            class="fw-bolder text-gray-800 text-hover-primary fs-6">Rebrand
+                                        <a href="#" class="fw-bolder text-gray-800 text-hover-primary fs-6">Rebrand
                                             strategy planning</a>
                                         <span class="text-muted fw-bold d-block">Due in 5 Days</span>
                                     </div>
@@ -1849,8 +1481,7 @@
                                     <!--end::Icon-->
                                     <!--begin::Title-->
                                     <div class="flex-grow-1 me-2">
-                                        <a href="#"
-                                            class="fw-bolder text-gray-800 text-hover-primary fs-6">Product
+                                        <a href="#" class="fw-bolder text-gray-800 text-hover-primary fs-6">Product
                                             goals strategy</a>
                                         <span class="text-muted fw-bold d-block">Due in 7 Days</span>
                                     </div>
@@ -1873,7 +1504,7 @@
         <!--end::Post-->
     </div>
     <!--end::Content-->
-    
+
 @endsection
 @push('styleAdmin')
     <base href="">
@@ -1892,7 +1523,7 @@
     <meta property="og:url" content="" />
     <meta property="og:site_name" content="" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    <link rel="shortcut icon" href="{{asset('assets/media/logos/favicon.ico')}}" />
+    <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
