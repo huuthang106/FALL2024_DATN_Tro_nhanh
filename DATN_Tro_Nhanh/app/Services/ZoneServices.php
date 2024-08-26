@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Zone;
 use Illuminate\Support\Facades\Storage;
 use App\Events\Admin\ZoneUpdated;
+
 class ZoneServices
 {
     public function store($request)
@@ -13,7 +14,7 @@ class ZoneServices
             $zone = new Zone();
             $user_id = auth()->id();
 
-          
+
             $zone->name = $request->input('name');
             $zone->description = $request->input('description');
             $zone->total_rooms = $request->input('total_rooms');
@@ -72,13 +73,30 @@ class ZoneServices
         $slug = trim($slug, '-');
         return $slug;
     }
-    public function getMyZone($user_id){
+    public function getMyZone($user_id)
+    {
         $perPage = 10;
         $zones = Zone::where('user_id', $user_id)->orderByDesc('created_at')->paginate($perPage);
         return $zones;
     }
-
-
+    // Danh sách khu vực trọ Client
+    public function getMyZoneClient()
+    {
+        $perPage = 5;
+        $zones = Zone::orderByDesc('created_at')->paginate($perPage); // sắp xếp
+        return $zones;
+    }
+    // Tổng só khu trọ Client
+    public function getTotalZones()
+    {
+        return Zone::count(); // Đếm tổng số khu vực trọ
+    }
+    // Xem chi tiết khu trọ CLient theo Slug
+    public function getZoneDetailsBySlug($slug)
+    {
+        // Tìm khu vực trọ dựa trên slug
+        return Zone::where('slug', $slug)->firstOrFail();
+    }
     /**
      * Lưu ảnh
      * 
@@ -106,21 +124,22 @@ class ZoneServices
     // {
     //     // Tìm khu trọ theo ID
     //     $zone = Zone::find($id);
-        
+
     //     // Nếu khu trọ tồn tại, thực hiện cập nhật và kích hoạt sự kiện
     //     if ($zone) {
     //         $zone->update($request->all());
 
     //         // Kích hoạt sự kiện
     //         event(new ZoneUpdated($zone));
-           
+
     //         return true;
     //     }
 
     //     // Trả về false nếu không tìm thấy khu trọ
     //     return false;
     // }
-    public function getIdZone($slug){
+    public function getIdZone($slug)
+    {
         $zone = Zone::where('slug', $slug)->first();
         return $zone;
     }
@@ -129,11 +148,11 @@ class ZoneServices
         if (auth()->check()) {
             // Tìm đối tượng Zone theo ID
             $zone = Zone::find($zoneId);
-    
+
             if (!$zone) {
                 return false; // Nếu không tìm thấy, trả về false
             }
-    
+
             // Cập nhật thông tin đối tượng
             $zone->name = $request->input('name');
             $zone->description = $request->input('description');
@@ -146,19 +165,19 @@ class ZoneServices
             $zone->longitude = $request->input('longitude');
             $zone->status = $request->input('status');
             $zone->user_id = auth()->id(); // Cập nhật user_id từ thông tin đăng nhập
-    
+
             // Lưu thông tin đã cập nhật vào cơ sở dữ liệu
             if ($zone->save()) {
                 // Tạo slug từ name và id
                 $slug = $this->createSlug($request->input('name')) . '-' . $zone->id;
-    
+
                 // Cập nhật slug cho đối tượng
                 $zone->slug = $slug;
-    
+
                 // Lưu lại đối tượng với slug mới
                 if ($zone->save()) {
-                    
-                    return $zone; 
+
+                    return $zone;
                 } else {
                     return false; // Nếu không thể lưu slug, trả về false
                 }
@@ -169,5 +188,4 @@ class ZoneServices
             return false; // Nếu người dùng chưa đăng nhập, trả về false
         }
     }
-    
 }

@@ -249,8 +249,8 @@
                                                     Danh sách trọ
                                                 </a>
                                                 <a class="dropdown-item"
-                                                    href="{{ route('client.room-map-listing') }}">
-                                                    Bản đồ trọ
+                                                    href="{{ route('client.client-list-zone') }}">
+                                                    Danh sách khu trọ
                                                 </a>
                                             </div>
                                             <div class="col-xl-3">
@@ -531,7 +531,8 @@
                             <li class="nav-item mr-auto mr-lg-6">
                                 <a class="nav-link px-2 position-relative" href="{{ route('owners.favorites') }}">
                                     <i class="fal fa-heart fs-large-4"></i>
-                                    <span class="badge badge-primary badge-circle badge-absolute">{{ $favouriteCount }}</span>
+                                    <span
+                                        class="badge badge-primary badge-circle badge-absolute">{{ $favouriteCount }}</span>
                                 </a>
                             </li>
                             @if (Auth::check())
