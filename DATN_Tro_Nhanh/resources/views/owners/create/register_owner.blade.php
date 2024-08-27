@@ -29,11 +29,11 @@
                                                 <div class="btn-wrapper">
                                                     <input type="file" class="custom-file-input" id="CCCDMT"
                                                         name="CCCDMT" required>
-                                                    {{-- <label class="btn btn-secondary btn-custom" for="CCCDMT">
+                                                    <label class="btn btn-secondary btn-custom" for="CCCDMT">
                                                         <span class="d-inline-block mr-1"><i
                                                                 class="fal fa-cloud-upload"></i></span>
                                                         Chọn Ảnh
-                                                    </label> --}}
+                                                    </label>
 
                                                     <button type="button" class="btn btn-primary btn-custom"
                                                         onclick="openCameraModal('cccd-mt', 'CCCDMT')"><i class="fal fa-camera"></i>
@@ -52,11 +52,11 @@
                                                 <div class="btn-wrapper">
                                                     <input type="file" class="custom-file-input" id="CCCDMS"
                                                         name="CCCDMS" required>
-                                                    {{-- <label class="btn btn-secondary btn-custom" for="CCCDMS">
+                                                    <label class="btn btn-secondary btn-custom" for="CCCDMS">
                                                         <span class="d-inline-block mr-1"><i
                                                                 class="fal fa-cloud-upload"></i></span>
                                                         Chọn Ảnh
-                                                    </label> --}}
+                                                    </label>
                                                     <button type="button" class="btn btn-primary btn-custom"
                                                         onclick="openCameraModal('cccd-ms', 'CCCDMS')"><i class="fal fa-camera"></i>
 
