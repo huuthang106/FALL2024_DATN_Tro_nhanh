@@ -29,15 +29,15 @@
                                                 <div class="btn-wrapper">
                                                     <input type="file" class="custom-file-input" id="CCCDMT"
                                                         name="CCCDMT" required>
-                                                    <label class="btn btn-secondary btn-custom" for="CCCDMT">
+                                                    {{-- <label class="btn btn-secondary btn-custom" for="CCCDMT">
                                                         <span class="d-inline-block mr-1"><i
                                                                 class="fal fa-cloud-upload"></i></span>
                                                         Chọn Ảnh
-                                                    </label>
+                                                    </label> --}}
 
                                                     <button type="button" class="btn btn-primary btn-custom"
-                                                        onclick="openCameraModal('cccd-mt', 'CCCDMT')"><i
-                                                            class="fa-solid fa-camera"></i>
+                                                        onclick="openCameraModal('cccd-mt', 'CCCDMT')"><i class="fal fa-camera"></i>
+
                                                         Chụp ảnh
                                                     </button>
                                                 </div>
@@ -52,14 +52,14 @@
                                                 <div class="btn-wrapper">
                                                     <input type="file" class="custom-file-input" id="CCCDMS"
                                                         name="CCCDMS" required>
-                                                    <label class="btn btn-secondary btn-custom" for="CCCDMS">
+                                                    {{-- <label class="btn btn-secondary btn-custom" for="CCCDMS">
                                                         <span class="d-inline-block mr-1"><i
                                                                 class="fal fa-cloud-upload"></i></span>
                                                         Chọn Ảnh
-                                                    </label>
+                                                    </label> --}}
                                                     <button type="button" class="btn btn-primary btn-custom"
-                                                        onclick="openCameraModal('cccd-ms', 'CCCDMS')"><i
-                                                            class="fa-solid fa-camera"></i>
+                                                        onclick="openCameraModal('cccd-ms', 'CCCDMS')"><i class="fal fa-camera"></i>
+
                                                         Chụp ảnh
                                                     </button>
                                                 </div>
@@ -74,14 +74,14 @@
                                                 <div class="btn-wrapper">
                                                     <input type="file" class="custom-file-input" id="FileFace"
                                                         name="FileFace" required>
-                                                    <label class="btn btn-secondary btn-custom" for="FileFace">
+                                                    {{-- <label class="btn btn-secondary btn-custom" for="FileFace">
                                                         <span class="d-inline-block mr-1"><i
                                                                 class="fal fa-cloud-upload"></i></span>
                                                         Chọn Ảnh
-                                                    </label>
+                                                    </label> --}}
                                                     <button type="button" class="btn btn-primary btn-custom"
-                                                        onclick="openCameraModal('face', 'FileFace')"><i
-                                                            class="fa-solid fa-camera"></i>
+                                                        onclick="openCameraModal('face', 'FileFace')"><i class="fal fa-camera"></i>
+
                                                         Chụp ảnh
                                                     </button>
                                                 </div>
@@ -230,7 +230,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> --}}
 
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
