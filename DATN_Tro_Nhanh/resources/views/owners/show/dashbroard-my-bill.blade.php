@@ -1,8 +1,6 @@
 @extends('layouts.owner')
 @section('titleOwners', 'Trang chủ trọ nhanh')
 @section('contentOwners')
-
-
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
             <form action="{{ route('owners.properties') }}" method="GET">

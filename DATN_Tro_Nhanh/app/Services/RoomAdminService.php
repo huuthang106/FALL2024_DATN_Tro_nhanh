@@ -10,18 +10,36 @@ use App\Models\Acreage;
 use App\Models\Location;
 use App\Models\Zone;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\Image;
 
 class RoomAdminService
 {
     // Tao bien hien thi phong con trong
     private const AvailableRooms = 1;
-    public function showRoomWhere()
+    public function showRoomWhere(int $perPage = 5, $searchTerm = null)
     {
-        $rooms = Room::orderBy('created_at', 'desc')->take(7)->get();
-        return $rooms;
+        try {
+            $user_id = Auth::user()->id;
+            // Bắt đầu với query tìm tất cả các phòng, sắp xếp theo ngày tạo
+            $query = Room::where('user_id', $user_id)->orderBy('created_at', 'desc');
+
+            // Nếu có điều kiện tìm kiếm, thêm điều kiện vào query
+            if ($searchTerm) {
+                $query->where(function ($q) use ($searchTerm) {
+                    $q->where('title', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('description', 'like', '%' . $searchTerm . '%');
+                });
+            }
+
+            // Giới hạn kết quả trả về là 7, và phân trang với số lượng trang được chỉ định
+            return $query->paginate($perPage);
+        } catch (\Exception $e) {
+            // Xử lý ngoại lệ nếu có
+            return null;
+        }
     }
+
 
     public function showRoomStatus(int $perPage = 10, $searchTerm = null)
     {
