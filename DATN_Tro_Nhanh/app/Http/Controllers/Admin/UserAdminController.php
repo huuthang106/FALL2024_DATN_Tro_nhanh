@@ -6,16 +6,22 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Services\UserClientServices;
+use App\Services\ProfileService;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UpdatePasswordRequest;
+use App\Http\Requests\UpdateProfileRequest;
 class UserAdminController extends Controller
 {
     protected $userService;
+    protected $profileService;
 
     // Khởi tạo UserService thông qua Dependency Injection
-    public function __construct(UserClientServices $userService)
+    public function __construct(UserClientServices $userService, ProfileService $profileService)
     {
         $this->userService = $userService;
+        $this->profileService = $profileService;
     }
-   
+
     public function index(Request $request)
     {
         // Lấy tham số từ yêu cầu
@@ -37,7 +43,17 @@ class UserAdminController extends Controller
 
     public function setting_profile()
     {
-        return view('admincp.show.settings');
+        // Lấy thông tin người dùng hiện tại từ service bằng slug
+        $user = $this->profileService->getUserById(Auth::user()->slug);
+        return view('admincp.show.settings', compact('user'));
+    }
+
+    public function updateProfile(UpdateProfileRequest $request, $slug)
+    {
+        $data = $request->all();
+        $this->profileService->updateProfileBySlug($slug, $data);
+
+        return redirect()->back()->with('success', 'Profile updated successfully.');
     }
     public function private_chat()
     {
