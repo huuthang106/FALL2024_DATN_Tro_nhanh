@@ -7,19 +7,25 @@ use App\Models\User;
 use App\Models\Room;
 use Illuminate\Support\Facades\Storage;
 use App\Events\Admin\ZoneUpdated;
-
+use App\Models\Utility;
 class ZoneServices
 {
+    const CO = 1; // Có tiện ích
+    const CHUA_CO = 2; // Chưa có tiện ích
+    public function getRoomUtilities($zoneId)
+    {
+        // Giả sử bạn đã có model `Utility`
+        return Utility::where('zone_id', $zoneId)->first();
+    }
     public function store($request)
     {
         if (auth()->check()) {
             $zone = new Zone();
             $user_id = auth()->id();
-
-
             $zone->name = $request->input('name');
             $zone->description = $request->input('description');
             $zone->total_rooms = $request->input('total_rooms');
+            $zone->room_number = $request->input('room_number');
             $zone->address = $request->input('address');
             $zone->province = $request->input('province');
             $zone->district = $request->input('district');
@@ -48,6 +54,19 @@ class ZoneServices
                             $this->storeImage($zone, $image);
                         }
                     }
+                    $utilities = new Utility();
+                    $utilities->zone_id = $zoneId;
+
+                    // Kiểm tra tiện ích từ request
+                    $utilities->wifi = $request->has('wifi') ? self::CO : self::CHUA_CO;
+                    $utilities->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
+                    $utilities->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
+
+                    // Xử lý số lượng phòng tắm
+                    $utilities->bathrooms = $request->input('bathrooms', 0); // Số lượng phòng tắm
+
+                    // Lưu thông tin tiện ích
+                    $utilities->save();
                     return $zone;
                 } else {
                     // Nếu không thể lưu slug, xóa đối tượng vừa thêm

@@ -11,23 +11,26 @@
                         data-bs-target="#kt_account_profile_details" aria-expanded="true"
                         aria-controls="kt_account_profile_details">
                         <div class="card-title m-0">
-                            <h3 class="fw-bolder m-0">Thêm phòng</h3>
+                            <h3 class="fw-bolder m-0">Thêm khu trọ</h3>
                         </div>
                     </div>
                     <div id="kt_account_profile_details" class="collapse show">
-                        <form id="zoneForm" class="form" method="POST" enctype="multipart/form-data" action="{{ route('admin.them-khutro') }}">
+                        <form id="zoneForm" class="form" method="POST" enctype="multipart/form-data"
+                            action="{{ route('admin.them-khutro') }}">
                             @csrf
                             <div class="card-body border-top p-9">
                                 <div class="row mb-6">
                                     <!-- Tên khu trọ -->
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label fw-bold fs-6 required">Tên khu trọ</label>
-                                        <input type="text" name="name" class="form-control form-control-lg form-control-solid" placeholder="Tên khu trọ" value="{{ old('name') }}" />
+                                        <input type="text" name="name"
+                                            class="form-control form-control-lg form-control-solid"
+                                            placeholder="Tên khu trọ" value="{{ old('name') }}" />
                                         @error('name')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    
+
                                     <!-- Mô tả -->
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label fw-bold fs-6 required">Mô tả</label>
@@ -37,21 +40,24 @@
                                         @enderror
                                     </div>
                                 </div>
-                        
+
                                 <div class="row mb-6">
                                     <!-- Địa chỉ -->
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label fw-bold fs-6 required">Địa chỉ</label>
-                                        <input type="text" name="address" class="form-control form-control-lg form-control-solid" placeholder="Địa chỉ" value="{{ old('address') }}" />
+                                        <input type="text" name="address"
+                                            class="form-control form-control-lg form-control-solid" placeholder="Địa chỉ"
+                                            value="{{ old('address') }}" />
                                         @error('address')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                        
+
                                     <!-- Khu vực -->
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label fw-bold fs-6 required">Tỉnh/Thành phố</label>
-                                        <select class="form-select form-select-solid form-select-lg" id="city-province" name="province">
+                                        <select class="form-select form-select-solid form-select-lg" id="city-province"
+                                            name="province">
                                             <option value='0'>Chọn Tỉnh/Thành Phố...</option>
                                             <option value='01'>Thành phố Hà Nội</option>
                                             <option value='79'>Thành phố Hồ Chí Minh</option>
@@ -123,22 +129,25 @@
                                         @enderror
                                     </div>
                                 </div>
-                        
+
                                 <div class="row mb-6">
                                     <!-- Quận/Huyện -->
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label fw-bold fs-6">Kinh độ</label>
-                                        <input type="text" id="longitude" name="longitude" class="form-control form-control-lg form-control-solid" placeholder="Kinh độ" value="{{ old('longitude') }}" readonly />
+                                        <input type="text" id="longitude" name="longitude"
+                                            class="form-control form-control-lg form-control-solid" placeholder="Kinh độ"
+                                            value="{{ old('longitude') }}" readonly />
                                         @error('longitude')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                        
+
                                     <!-- Xã/Phường -->
-                                    
+
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label fw-bold fs-6">Quận/Huyện</label>
-                                        <select id="district-town" name="district" class="form-select form-select-solid form-select-lg">
+                                        <select id="district-town" name="district"
+                                            class="form-select form-select-solid form-select-lg">
                                             <option value="0">Chọn Quận/Huyện...</option>
                                         </select>
                                         @error('district')
@@ -146,22 +155,25 @@
                                         @enderror
                                     </div>
                                 </div>
-                        
+
                                 <div class="row mb-6">
                                     <!-- Kinh độ -->
-                                  
+
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label fw-bold fs-6">Vĩ độ</label>
-                                        <input type="text" id="latitude" name="latitude" class="form-control form-control-lg form-control-solid" placeholder="Vĩ độ" value="{{ old('latitude') }}" readonly />
+                                        <input type="text" id="latitude" name="latitude"
+                                            class="form-control form-control-lg form-control-solid" placeholder="Vĩ độ"
+                                            value="{{ old('latitude') }}" readonly />
                                         @error('latitude')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <!-- Vĩ độ -->
-                                    
+
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label fw-bold fs-6">Xã/Phường</label>
-                                        <select id="ward-commune" name="village" class="form-select form-select-solid form-select-lg">
+                                        <select id="ward-commune" name="village"
+                                            class="form-select form-select-solid form-select-lg">
                                             <option value="0">Chọn Xã/Phường...</option>
                                         </select>
                                         @error('village')
@@ -169,17 +181,27 @@
                                         @enderror
                                     </div>
                                 </div>
-                        
+
                                 <div class="row mb-6">
                                     <!-- Số phòng -->
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label fw-bold fs-6 required">Số phòng</label>
-                                        <input type="number" name="total_rooms" class="form-control form-control-lg form-control-solid" placeholder="Số phòng" value="{{ old('total_rooms') }}" />
+                                        <label class="form-label fw-bold fs-6 required">Tổng số phòng</label>
+                                        <input type="number" name="total_rooms"
+                                            class="form-control form-control-lg form-control-solid"
+                                            placeholder="Tổng số phòng" value="{{ old('total_rooms') }}" />
                                         @error('total_rooms')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                        
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold fs-6 required">Số phòng</label>
+                                        <input type="number" name="room_number"
+                                            class="form-control form-control-lg form-control-solid" placeholder="Số phòng"
+                                            value="{{ old('room_number') }}" />
+                                        @error('room_number')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                     <!-- Tình trạng -->
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label fw-bold fs-6 required">Tình trạng</label>
@@ -192,9 +214,53 @@
                                         @enderror
                                     </div>
                                 </div>
-                        
-                               
-                        
+                                <div class="row mb-6">
+                                    <!-- Bản đồ -->
+                                    <div class="col-md-12 mb-3">
+                                        <label class="form-label fw-bold fs-6">Các tiện ích</label>
+                                        <div class="row mt-2">
+                                            <div class="col-sm-6 col-lg-3">
+                                                <div class="form-check custom-bathroom">
+                                                    <input class="bathroom-input" type="number" id="bathroomInput"
+                                                        value="" name="bathrooms">
+                                                    <label class="bathroom-label" for="bathroomInput">
+                                                        Phòng tắm
+                                                    </label>
+                                                </div>
+                                                @error('bathrooms')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-sm-6 col-lg-3">
+                                                <div class="form-check custom-checkbox">
+                                                    <input class="form-check-input" type="checkbox" id="attic"
+                                                        value="" name="wifi">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Wifi
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-lg-3">
+                                                <div class="form-check custom-checkbox">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                        name="air_conditioning" id="attic-02">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Máy điều hòa
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-lg-3">
+                                                <div class="form-check custom-checkbox">
+                                                    <input class="form-check-input" type="checkbox"id="attic-03"
+                                                        value="" name="garage">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        Ga-ra
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row mb-6">
                                     <!-- Bản đồ -->
                                     <div class="col-md-12 mb-3">
@@ -205,13 +271,13 @@
                                         @enderror
                                     </div>
                                 </div>
-                        
                                 <div class="d-flex justify-content-end">
-                                    <button type="reset" class="btn btn-light btn-active-light-primary me-2">Hủy</button>
+                                    <button type="reset"
+                                        class="btn btn-light btn-active-light-primary me-2">Hủy</button>
                                     <button type="submit" class="btn btn-primary">Lưu</button>
                                 </div>
                             </div>
-                        </form>   
+                        </form>
                     </div>
                 </div>
             </div>
@@ -301,6 +367,7 @@
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/style-ntt.css') }}" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
@@ -331,8 +398,4 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{{ asset('assets/js/api-ggmap-nht.js') }}"></script>
     <script src="{{ asset('assets/js/api-country-vn-nht.js') }}"></script>
-   
-
-
-    
 @endpush
