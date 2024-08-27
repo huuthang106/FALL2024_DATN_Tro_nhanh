@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\Zone;
+use App\Models\User;
+use App\Models\Room;
 use Illuminate\Support\Facades\Storage;
 use App\Events\Admin\ZoneUpdated;
 
@@ -125,6 +127,13 @@ class ZoneServices
             return null;
         }
     }
+
+    public function showDetail($slug)
+    {
+        // Tải trước các rooms và user tương ứng
+        return Zone::with(['rooms.user'])->where('slug', $slug)->firstOrFail();
+    }
+
     public function findById($id)
     {
         return Zone::find($id);

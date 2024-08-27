@@ -16,6 +16,12 @@ class ZoneAdminController extends Controller
         $this->zoneServices = $zoneServices;
     }
 
+    public function showDetailAdmin($slug)
+    {
+        $zones = $this->zoneServices->showDetail($slug);
+        return view('admincp.show.list-detail-zone', compact('zones'));
+    }
+
     public function addZoneForm()
     {
         return view('admincp.create.addZone');

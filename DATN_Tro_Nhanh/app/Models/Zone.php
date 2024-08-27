@@ -10,7 +10,7 @@ class Zone extends Model
 {
     use HasFactory;
     use SoftDeletes;
-   
+
     protected $fillable = [
         'name',
         'description',
@@ -29,5 +29,14 @@ class Zone extends Model
     public function notifications()
     {
         return $this->hasMany(Notification::class);
+    }
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

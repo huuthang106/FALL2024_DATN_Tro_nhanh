@@ -35,7 +35,7 @@
                         </div>
                         <!--begin::Card title-->
                         <!--begin::Card toolbar-->
-                        <div class="card-toolbar">
+                        {{-- <div class="card-toolbar">
                             <!--begin::Toolbar-->
                             <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                                 <!--begin::Filter-->
@@ -501,7 +501,7 @@
                                 <!--end::Modal dialog-->
                             </div>
                             <!--end::Modal - Add task-->
-                        </div>
+                        </div> --}}
                         <!--end::Card toolbar-->
                     </div>
                     <!--end::Card header-->
@@ -519,67 +519,41 @@
                                                 data-kt-check-target="#kt_table_zones .form-check-input" value="1" />
                                         </div>
                                     </th>
-                                    <th class="min-w-100px">Name</th>
-                                    <th class="min-w-100px">Address</th>
-                                    <th class="min-w-100px">Total Rooms</th>
-                                    <th class="min-w-100px">Status</th>
-                                    <th class="text-end min-w-px">Actions</th>
+                                    <th class="min-w-100px">Tên phòng</th>
+                                    <th class="min-w-100px">Tên user</th>
+                                    <th class="min-w-100px">Ngày đăng</th>
+                                    <th class="min-w-100px">Trạng thái</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
                             <!--end::Table head-->
                             <!--begin::Table body-->
                             <tbody class="text-gray-600 fw-bold">
-                                @foreach ($zones as $zone)
+                                @foreach ($zones->rooms as $room)
                                     <tr>
                                         <!--begin::Checkbox-->
                                         <td>
                                             <div class="form-check form-check-sm form-check-custom form-check-solid">
                                                 <input class="form-check-input" type="checkbox"
-                                                    value="{{ $zone->id }}" />
+                                                    value="{{ $room->id }}" />
                                             </div>
                                         </td>
                                         <!--end::Checkbox-->
                                         <!--begin::Zone details-->
-                                        <td><a href="{{ route('admin.chi-tiet-khu-tro', ['slug' => $zone->slug]) }}"
-                                                class="inv-number">{{ $zone->name }}</a></td>
-                                        <td>{{ $zone->address }}</td>
-                                        <td>{{ $zone->total_rooms }}</td>
-                                        <td>{{ $zone->status ? 'Active' : 'Inactive' }}</td>
-                                        <!--end::Zone details-->
-                                        <!--begin::Actions-->
-                                        <td class="text-end">
-                                            <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
-                                                data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                                                <span class="svg-icon svg-icon-5 m-0">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 24 24" fill="none">
-                                                        <path
-                                                            d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                                            fill="black" />
-                                                    </svg>
-                                                </span>
-                                                <!--end::Svg Icon--></a>
-                                            <!--begin::Menu-->
-                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                                                data-kt-menu="true">
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <a href="{{ route('admin.edit-khu-tro', $zone->id) }}"
-                                                        class="menu-link px-3">Edit</a>
-                                                </div>
-                                                <!--end::Menu item-->
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <a href="#" class="menu-link px-3"
-                                                        data-kt-users-table-filter="delete_row">Delete</a>
-                                                </div>
-                                                <!--end::Menu item-->
-                                            </div>
-                                            <!--end::Menu-->
+                                        <td>{{ $room->title }}</td>
+                                        <td>
+                                            @if ($room->user)
+                                                {{ $room->user->name }}
+                                            @else
+                                                No user assigned
+                                            @endif
+                                        </td>
+                                        <td>{{ $room->created_at->format('d/m/Y') }}</td>
+                                        <td>{{ $room->status ? 'Đang tạm trú' : 'Đã dọn đi' }}
 
                                         </td>
+                                        <!--end::Zone details-->
+                                        <!--begin::Actions-->
                                         <!--end::Actions-->
                                     </tr>
                                 @endforeach
@@ -589,48 +563,6 @@
 
                         <!--end::Table-->
                     </div>
-                    <nav class="mt-4">
-                        <ul class="pagination rounded-active justify-content-center">
-                            {{-- Previous Page Link --}}
-                            @if ($zones->onFirstPage())
-                                <li class="page-item disabled">
-                                    <span class="page-link"><i class="far fa-angle-double-left"></i></span>
-                                </li>
-                            @else
-                                <li class="page-item">
-                                    <a class="page-link" href="{{ $zones->previousPageUrl() }}"><i
-                                            class="far fa-angle-double-left"></i></a>
-                                </li>
-                            @endif
-
-                            {{-- Pagination Elements --}}
-                            @foreach ($zones->getUrlRange(1, $zones->lastPage()) as $page => $url)
-                                @if ($page == $zones->currentPage())
-                                    <li class="page-item active">
-                                        <span class="page-link">{{ $page }}</span>
-                                    </li>
-                                @else
-                                    <li class="page-item">
-                                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
-                                    </li>
-                                @endif
-                            @endforeach
-
-                            {{-- Next Page Link --}}
-                            @if ($zones->hasMorePages())
-                                <li class="page-item">
-                                    <a class="page-link" href="{{ $zones->nextPageUrl() }}"><i
-                                            class="far fa-angle-double-right"></i></a>
-                                </li>
-                            @else
-                                <li class="page-item disabled">
-                                    <span class="page-link"><i class="far fa-angle-double-right"></i></span>
-                                </li>
-                            @endif
-                        </ul>
-                    </nav>
-                    <div class="text-center mt-2">{{ $zones->firstItem() }}-{{ $zones->lastItem() }} của
-                        {{ $zones->total() }} kết quả</div>
                     <!--end::Card body-->
                 </div>
                 <!--end::Card-->
@@ -666,8 +598,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
     <!--begin::Page Vendor Stylesheets(used by this page)-->
-    <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet"
-        type="text/css" />
+    <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
     <!--end::Page Vendor Stylesheets-->
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />

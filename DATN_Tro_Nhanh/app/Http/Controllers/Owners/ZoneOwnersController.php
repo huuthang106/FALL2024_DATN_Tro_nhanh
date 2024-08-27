@@ -9,8 +9,9 @@ use App\Http\Requests\ZoneRequest;
 use Illuminate\Support\Facades\Auth;
 
 use App\Events\ZoneCreated; // Import event
+
 class ZoneOwnersController extends Controller
-{   
+{
     protected $zoneServices;
     //
 
@@ -23,7 +24,13 @@ class ZoneOwnersController extends Controller
 
         return view('owners.create.add-new-zone');
     }
-    public function store(ZoneRequest  $request)
+
+    public function showDetailOwners($slug)
+    {
+        $zones = $this->zoneServices->showDetail($slug);
+        return view('owners.show.dashbroard-zone-detail', compact('zones'));
+    }
+    public function store(ZoneRequest $request)
     {
 
         if ($request->isMethod('post')) {
@@ -41,11 +48,11 @@ class ZoneOwnersController extends Controller
         return view('owners.zone-post');
     }
 
-    public function listZone(Request $request)
+    public function listZone()
     {
         $user_id = Auth::id();
         if (Auth::check() && Auth::user()->role != 1) {
-            $zones = $this->zoneServices->getMyZone($user_id);
+            $zones = $this->zoneServices->getAllZones();
             // Xử lý yêu cầu không phải AJAX
             return view('owners.show.dashbroard-my-zone', ['zones' => $zones]);
         } else {
@@ -58,7 +65,7 @@ class ZoneOwnersController extends Controller
         $user_id = Auth::id();
         if (Auth::check() && Auth::user()->role != 1) {
             $zone = $this->zoneServices->getIdZone($slug);
-            
+
             return view('owners.edit.update-zone', ['zone' => $zone]);
         } else {
             // Nếu người dùng không có quyền, chuyển hướng về trang chính
@@ -66,15 +73,15 @@ class ZoneOwnersController extends Controller
         }
 
     }
-    public function update(ZoneRequest  $request,$id)
+    public function update(ZoneRequest $request, $id)
     {
 
         if ($request->isMethod('PUT')) {
-            $zone = $this->zoneServices->update($request,$id);
+            $zone = $this->zoneServices->update($request, $id);
 
             if ($zone) {
                 // Phát sự kiện ZoneCreated và truyền đối tượng Zone mới tạo
-              
+
 
                 return redirect()->route('owners.zone-list')->with('success', 'Zone đã được tạo thành công.');
             }
