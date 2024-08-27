@@ -15,7 +15,8 @@
                         </div>
                     </div>
                     <div id="kt_account_profile_details" class="collapse show">
-                        <form class="blogForm" action="{{ route('admin.update-blog', $blog->slug) }}" method="POST" enctype="multipart/form-data">
+                        <form class="blogForm" action="{{ route('admin.update-blog', $blog->slug) }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="card-body border-top p-9">
@@ -24,37 +25,44 @@
                                     <div class="row mb-6">
                                         <label class="col-lg-4 col-form-label fw-bold fs-6 required">Title</label>
                                         <div class="col-lg-8 fv-row">
-                                            <input type="text" id="title" name="title" class="form-control form-control-lg form-control-solid" placeholder="Enter blog title" value="{{ old('title', $blog->title) }}" />
+                                            <input type="text" id="title" name="title"
+                                                class="form-control form-control-lg form-control-solid"
+                                                placeholder="Enter blog title" value="{{ old('title', $blog->title) }}" />
                                             @error('title')
                                                 <div class="text-danger mt-3">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
-                                    
+
                                     <!-- Description Input -->
                                     <div class="row mb-6">
                                         <label class="col-lg-4 col-form-label fw-bold fs-6 required">Description</label>
                                         <div class="col-lg-8 fv-row">
-                                            <textarea id="description" name="description" class="form-control form-control-lg form-control-solid" placeholder="Enter blog description">{{ old('description', $blog->description) }}</textarea>
+                                            <textarea id="description" name="description" class="form-control form-control-lg form-control-solid"
+                                                placeholder="Enter blog description">{{ old('description', $blog->description) }}</textarea>
                                             @error('description')
                                                 <div class="text-danger mt-3">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
-                                    
+
                                     <!-- Image Upload -->
                                     <div class="row mb-6">
                                         <label class="col-lg-4 col-form-label fw-bold fs-6 required">Upload Images</label>
                                         <div class="col-lg-8 fv-row">
                                             <div class="custom-file">
-                                                <input type="file" class="form-control form-control-lg" id="images" name="images[]" multiple>
+                                                <input type="file" class="form-control form-control-lg" id="images"
+                                                    name="images[]" multiple>
                                                 <label class="form-label" for="images">Choose images</label>
                                             </div>
-                                            <small class="form-text text-muted">Chỉ được tải ảnh PNG & JPG, ảnh phải có kích thước 1024x768</small>
+                                            {{-- <small class="form-text text-muted">Chỉ được tải ảnh PNG & JPG, ảnh phải có kích
+                                                thước 1024x768</small> --}}
                                             <div id="imagePreview" class="mt-3">
-                                                @if($blog->images && $blog->images->count())
-                                                    @foreach($blog->images as $image)
-                                                        <img src="{{ asset('assets/images/' . $image->filename) }}" alt="Blog Image" class="img-thumbnail" style="max-width: 150px; margin-right: 10px;">
+                                                @if ($blog->images && $blog->images->count())
+                                                    @foreach ($blog->images as $image)
+                                                        <img src="{{ asset('assets/images/' . $image->filename) }}"
+                                                            alt="Blog Image" class="img-thumbnail"
+                                                            style="max-width: 150px; margin-right: 10px;">
                                                     @endforeach
                                                 @else
                                                     <p>Chưa có hình ảnh nào được tải lên.</p>
@@ -72,7 +80,7 @@
                             </div>
                         </form>
                     </div>
-                    
+
 
                     </form>
                 </div>
@@ -162,20 +170,21 @@
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
     rel="stylesheet">
-<!-- Vendors CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/vendors/slick/slick.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/vendors/magnific-popup/magnific-popup.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/vendors/chartjs/Chart.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/vendors/dropzone/css/dropzone.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/vendors/animate.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <!-- Vendors CSS -->
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/slick/slick.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/magnific-popup/magnific-popup.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/chartjs/Chart.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dropzone/css/dropzone.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"> --}}
     <!--end::Global Stylesheets Bundle-->
 @endpush
 
