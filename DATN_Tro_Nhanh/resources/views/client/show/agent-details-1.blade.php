@@ -36,6 +36,19 @@
                                     <p class="mb-0">Email</p>
                                     <p class="text-heading font-weight-500 mb-0 lh-13">{{ $user->email }}</p>
                                 </div>
+                                <div class="col-sm-6 mb-4">
+                                    <form action="" method="POST" id="approveForm">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="btn btn-sm btn-light me-2" id="followButton">
+                                            <span class="indicator-label">Theo dõi</span>
+                                            <span class="indicator-progress d-none">Vui lòng chờ...
+                                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                            </span>
+                                        </button>
+                                    </form>
+                                </div>
+                                
                             </div>
                             <hr class="mb-4">
                             <div class="row align-items-center">
@@ -1292,4 +1305,25 @@
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
+    <script>document.getElementById('followButton').addEventListener('click', function(event) {
+        event.preventDefault(); // Ngăn chặn form submit ngay lập tức
+    
+        var button = this;
+        var label = button.querySelector('.indicator-label');
+        var progress = button.querySelector('.indicator-progress');
+    
+        // Thay đổi trạng thái của nút
+        label.classList.add('d-none');
+        progress.classList.remove('d-none');
+    
+        // Giả lập việc xử lý form (bạn có thể thay thế bằng xử lý thật sự)
+        setTimeout(function() {
+            label.textContent = 'Đã theo dõi';
+            label.classList.remove('d-none');
+            progress.classList.add('d-none');
+            button.classList.remove('btn-light'); // Loại bỏ màu cũ
+            button.classList.add('btn-primary');  // Thêm class để thay đổi màu nền của nút
+        }, 2000); // Thời gian giả lập là 2 giây
+    });
+    </script>
 @endpush
