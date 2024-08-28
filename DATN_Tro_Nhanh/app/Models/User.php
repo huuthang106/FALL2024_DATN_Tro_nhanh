@@ -59,4 +59,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Room::class);
     }
+    public function zones()
+    {
+        return $this->hasMany(Zone::class);
+    }
 }

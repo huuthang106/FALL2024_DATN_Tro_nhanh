@@ -58,7 +58,7 @@ class UserClientController extends Controller
         $district = $request->input('district');
         $village = $request->input('village');
 
-        $users = $this->userClientServices->getUsersByRole(self::role_owners, $searchTerm, self::limit,$province,  $district,$village );
+        $users = $this->userClientServices->getUsersByRole(self::role_owners, $searchTerm, self::limit, $province,  $district, $village);
         return view('client.show.list-owners', compact('users'));
     }
     public function agentDetail($slug)
@@ -67,7 +67,20 @@ class UserClientController extends Controller
         if (!$user) {
             abort(404, 'Người dùng không tìm thấy');
         }
-        return view('client.show.agent-details-1', compact('user'));
+        // Lấy tất cả tin đăng phòng trọ của người dùng này
+        $rooms = $user->rooms;
+        $zones = $user->zones;
+        // Đếm tổng số phòng và khu trọ của người dùng này
+        $totalRooms = $rooms->count();
+        $totalZones = $zones->count();
+        // Lấy tổng số phòng và số phòng tắm từ bảng utilities
+        $totalRooms = $rooms->count();
+        foreach ($rooms as $room) {
+            $room->bathrooms = $room->utility ? $room->utility->bathrooms : 0;
+        }
+        // Tính tổng cả rooms và zones
+        $totalProperties = $totalRooms + $totalZones;
+        return view('client.show.agent-details-1', compact('user', 'rooms', 'zones', 'totalRooms', 'totalZones', 'totalProperties'));
     }
 
     public function redirectToGoogle()

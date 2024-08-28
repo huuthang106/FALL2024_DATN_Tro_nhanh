@@ -9,6 +9,7 @@ use App\Services\RoomClientServices;
 use App\Models\Favourite;
 use Illuminate\Support\Facades\Log;
 use App\Services\CommentClientService;
+
 class RoomClientController extends Controller
 {
     protected $roomClientService;
@@ -53,6 +54,8 @@ class RoomClientController extends Controller
     public function page_detail($slug)
     {
         $roomDetails = $this->CommentClientService->getRoomDetailsWithRatings($slug);
+        // Lấy người đăng từ thông tin phòng
+        $user = $roomDetails['room']->user;
 
         $comments = $roomDetails['comments'];
 
@@ -61,9 +64,9 @@ class RoomClientController extends Controller
             'averageRating' => $roomDetails['averageRating'],
             'ratingsDistribution' => $roomDetails['ratingsDistribution'],
             'comments' => $comments,
+            'user' => $user,  // Truyền người đăng sang view
         ]);
     }
-
 
 
 
@@ -101,6 +104,4 @@ class RoomClientController extends Controller
         // Trả về thông báo thành công và giữ nguyên trang
         return redirect()->back()->with('success', 'Phòng đã được thêm vào danh sách yêu thích thành công!');
     }
-
-
 }

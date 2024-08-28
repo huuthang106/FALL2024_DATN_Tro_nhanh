@@ -17,9 +17,8 @@
             <div class="container pt-17">
                 <div class="row">
                     <div class="col-md-5">
-                        <img src="{{ $user->image ? asset('assets/images/' . $user->image) : asset('assets/images/agent-25.jpg') }}" 
-                             class="card-img" 
-                             alt="{{ $user->name }}">
+                        <img src="{{ $user->image ? asset('assets/images/' . $user->image) : asset('assets/images/agent-25.jpg') }}"
+                            class="card-img" alt="{{ $user->name }}">
                     </div>
                     <div class="col-md-7">
                         <div class="pl-md-10 pr-md-8 py-7">
@@ -42,7 +41,8 @@
                             <div class="row align-items-center">
                                 <div class="col-sm-6 mb-6 mb-sm-0">
                                     <ul class="list-inline mb-0">
-                                        <li class="list-inline-item fs-13 text-heading font-weight-500">{{ $user->rating ?? 'Chưa có đánh giá' }}</li>
+                                        <li class="list-inline-item fs-13 text-heading font-weight-500">
+                                            {{ $user->rating ?? 'Chưa có đánh giá' }}</li>
                                         <li class="list-inline-item fs-13 text-heading font-weight-500 mr-1">
                                             <ul class="list-inline mb-0">
                                                 @for ($i = 0; $i < 5; $i++)
@@ -54,28 +54,33 @@
                                                 @endfor
                                             </ul>
                                         </li>
-                                        <li class="list-inline-item fs-13 text-gray-light">({{ $user->reviews_count ?? 0 }} đánh giá)</li>
+                                        <li class="list-inline-item fs-13 text-gray-light">({{ $user->reviews_count ?? 0 }}
+                                            đánh giá)</li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-6">
                                     <ul class="list-inline text-gray-lighter m-0 p-0">
                                         <li class="list-inline-item mx-0 my-1">
-                                            <a href="#" class="w-32px h-32 rounded bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary">
+                                            <a href="#"
+                                                class="w-32px h-32 rounded bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary">
                                                 <i class="fab fa-twitter"></i>
                                             </a>
                                         </li>
                                         <li class="list-inline-item mr-0 ml-2 my-1">
-                                            <a href="#" class="w-32px h-32 rounded bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary">
+                                            <a href="#"
+                                                class="w-32px h-32 rounded bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary">
                                                 <i class="fab fa-facebook-f"></i>
                                             </a>
                                         </li>
                                         <li class="list-inline-item mr-0 ml-2 my-1">
-                                            <a href="#" class="w-32px h-32 rounded bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary">
+                                            <a href="#"
+                                                class="w-32px h-32 rounded bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary">
                                                 <i class="fab fa-instagram"></i>
                                             </a>
                                         </li>
                                         <li class="list-inline-item mr-0 ml-2 my-1">
-                                            <a href="#" class="w-32px h-32 rounded bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary">
+                                            <a href="#"
+                                                class="w-32px h-32 rounded bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary">
                                                 <i class="fab fa-linkedin-in"></i>
                                             </a>
                                         </li>
@@ -87,11 +92,11 @@
                 </div>
             </div>
         </section>
-        
-        
-        
-        
-   
+
+
+
+
+
         <section class="bg-gray-01 pt-9 pb-13">
             <div class="container">
                 <div class="row">
@@ -102,25 +107,23 @@
                                 <li class="nav-item">
                                     <a href="#all" class="nav-link active shadow-none fs-13" data-toggle="tab"
                                         role="tab">
-                                        Tất cả (8)
+                                        Tất cả ({{ $totalProperties }})
                                     </a>
                                 </li>
                                 <li class="nav-item ml-0">
                                     <a href="#sale" class="nav-link shadow-none fs-13" data-toggle="tab" role="tab">
-                                        Bán (5)
+                                        Phòng ({{ $totalRooms }})
                                     </a>
                                 </li>
                                 <li class="nav-item ml-0">
-                                    <a href="#rent" class="nav-link shadow-none fs-13" data-toggle="tab"
-                                        role="tab">
-                                        Cho Thuê (3)
+                                    <a href="#rent" class="nav-link shadow-none fs-13" data-toggle="tab" role="tab">
+                                        Khu trọ ({{ $totalZones }})
                                     </a>
                                 </li>
                             </ul>
                             <div class="tab-content shadow-none pt-7 pb-0 px-6 bg-white">
                                 <div id="collapse-tabs-accordion-01">
-                                    <div class="tab-pane tab-pane-parent fade show active" id="all"
-                                        role="tabpanel">
+                                    <div class="tab-pane tab-pane-parent fade show active" id="all" role="tabpanel">
                                         <div class="card border-0 bg-transparent">
                                             <div class="card-header border-0 d-block d-md-none bg-transparent px-0 py-1"
                                                 id="headingAll-01">
@@ -129,7 +132,7 @@
                                                         class="btn lh-2 fs-18 bg-white py-1 px-6 mb-4 shadow-none w-100 collapse-parent border"
                                                         data-toggle="collapse" data-target="#all-collapse-01"
                                                         aria-expanded="true" aria-controls="all-collapse-01">
-                                                        Tất cả (8)
+                                                        Tất cả ({{ $totalProperties }})
                                                     </button>
                                                 </h5>
                                             </div>
@@ -137,778 +140,213 @@
                                                 aria-labelledby="headingAll-01" data-parent="#collapse-tabs-accordion-01">
                                                 <div class="card-body p-0">
                                                     <div class="row">
-                                                        <div class="col-md-6 mb-7">
-                                                            <div class="card border-0">
-                                                                <div
-                                                                    class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                                                    <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
-                                                                        alt="Nhà Siêu Cấp">
-                                                                    <div class="card-img-overlay d-flex flex-column">
-                                                                        <div class="mb-auto">
-                                                                            <span class="badge badge-primary">Bán</span>
+                                                        @if ($rooms->isEmpty())
+                                                            <div class="col-12 text-center py-5">
+                                                                <div class="alert alert-info">
+                                                                    <i class="fas fa-info-circle fs-24"></i>
+                                                                    <p class="mb-0">Người dùng này chưa có phòng trọ nào.
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        @else
+                                                            @foreach ($rooms as $room)
+                                                                <div class="col-md-6 mb-7">
+                                                                    <div class="card border-0">
+                                                                        <div
+                                                                            class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
+                                                                            @if ($room->images->isNotEmpty())
+                                                                                @php
+                                                                                    // Get the first image
+                                                                                    $image = $room->images->first();
+                                                                                @endphp
+                                                                                <img src="{{ asset('assets/images/' . $image->filename) }}"
+                                                                                    alt="{{ $room->title }}">
+                                                                            @else
+                                                                                <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
+                                                                                    alt="{{ $room->title }}">
+                                                                            @endif
+                                                                            {{-- <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
+                                                                                alt="Nhà Siêu Cấp"> --}}
+                                                                            <div
+                                                                                class="card-img-overlay d-flex flex-column">
+                                                                                <div class="mb-auto">
+                                                                                    <span
+                                                                                        class="badge badge-primary">Phòng</span>
+                                                                                </div>
+                                                                                <div class="d-flex hover-image">
+                                                                                    <ul
+                                                                                        class="list-inline mb-0 d-flex align-items-end mr-auto">
+                                                                                        <li class="list-inline-item mr-2"
+                                                                                            data-toggle="tooltip"
+                                                                                            title="9 Ảnh">
+                                                                                            <a href="#"
+                                                                                                class="text-white hover-primary">
+                                                                                                <i
+                                                                                                    class="far fa-images"></i><span
+                                                                                                    class="pl-1">9</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li class="list-inline-item"
+                                                                                            data-toggle="tooltip"
+                                                                                            title="2 Video">
+                                                                                            <a href="#"
+                                                                                                class="text-white hover-primary">
+                                                                                                <i
+                                                                                                    class="far fa-play-circle"></i><span
+                                                                                                    class="pl-1">2</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                    <ul
+                                                                                        class="list-inline mb-0 d-flex align-items-end mr-n3">
+                                                                                        <li class="list-inline-item mr-3 h-32"
+                                                                                            data-toggle="tooltip"
+                                                                                            title="Yêu thích">
+                                                                                            <a href="{{ route('client.add.favourite', ['slug' => $room->slug]) }}"
+                                                                                                class="text-white fs-20 hover-primary">
+                                                                                                <i
+                                                                                                    class="far fa-heart"></i>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li class="list-inline-item mr-3 h-32"
+                                                                                            data-toggle="tooltip"
+                                                                                            title="So sánh">
+                                                                                            <a href="#"
+                                                                                                class="text-white fs-20 hover-primary">
+                                                                                                <i
+                                                                                                    class="fas fa-exchange-alt"></i>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="d-flex hover-image">
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                                                <li class="list-inline-item mr-2"
-                                                                                    data-toggle="tooltip" title="9 Ảnh">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i class="far fa-images"></i><span
-                                                                                            class="pl-1">9</span>
-                                                                                    </a>
+                                                                        <div class="card-body pt-3 px-0 pb-1">
+                                                                            <h2 class="fs-16 mb-1"><a
+                                                                                    href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
+                                                                                    class="text-dark hover-primary">{{ $room->title }}</a>
+                                                                            </h2>
+                                                                            <p
+                                                                                class="font-weight-500 text-gray-light mb-0">
+                                                                                {{ $room->address }}</p>
+                                                                            <p
+                                                                                class="fs-17 font-weight-bold text-heading mb-0 lh-16">
+                                                                                {{ $room->price }} VND
+                                                                            </p>
+                                                                        </div>
+                                                                        <div
+                                                                            class="card-footer bg-transparent px-0 pb-0 pt-2">
+                                                                            <ul class="list-inline mb-0">
+                                                                                <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+                                                                                    data-toggle="tooltip" title="3 Phòng">
+                                                                                    <svg
+                                                                                        class="icon icon-bedroom fs-18 text-primary mr-1">
+                                                                                        <use xlink:href="#icon-bedroom">
+                                                                                        </use>
+                                                                                    </svg>
+                                                                                    3 Phòng
                                                                                 </li>
-                                                                                <li class="list-inline-item"
-                                                                                    data-toggle="tooltip" title="2 Video">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i
-                                                                                            class="far fa-play-circle"></i><span
-                                                                                            class="pl-1">2</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                                                <li class="list-inline-item mr-3 h-32"
+                                                                                <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
                                                                                     data-toggle="tooltip"
-                                                                                    title="Yêu thích">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="far fa-heart"></i>
-                                                                                    </a>
+                                                                                    title="{{ $room->utility ? $room->utility->bathrooms . ' Phòng tắm' : 'Không có thông tin' }}">
+                                                                                    <svg
+                                                                                        class="icon icon-shower fs-18 text-primary mr-1">
+                                                                                        <use xlink:href="#icon-shower">
+                                                                                        </use>
+                                                                                    </svg>
+                                                                                    {{ $room->utility ? $room->utility->bathrooms : 'Không có thông tin' }}
                                                                                 </li>
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip" title="So sánh">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="fas fa-exchange-alt"></i>
-                                                                                    </a>
+                                                                                <li class="list-inline-item text-gray font-weight-500 fs-13"
+                                                                                    data-toggle="tooltip"
+                                                                                    title="{{ $room->acreage }}m²">
+                                                                                    <svg
+                                                                                        class="icon icon-square fs-18 text-primary mr-1">
+                                                                                        <use xlink:href="#icon-square">
+                                                                                        </use>
+                                                                                    </svg>
+                                                                                    {{ $room->acreage }}m²
                                                                                 </li>
                                                                             </ul>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="card-body pt-3 px-0 pb-1">
-                                                                    <h2 class="fs-16 mb-1"><a
-                                                                            href="single-property-1.html"
-                                                                            class="text-dark hover-primary">Nhà Siêu
-                                                                            Cấp</a>
-                                                                    </h2>
-                                                                    <p class="font-weight-500 text-gray-light mb-0">
-                                                                        Ninh Kiều, TP.Cần Thơ</p>
-                                                                    <p
-                                                                        class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                                        $1.250.000
+                                                            @endforeach
+                                                        @endif
+                                                        {{-- Khu trọ --}}
+                                                        @if ($zones->isEmpty())
+                                                            <div class="col-12 text-center py-5">
+                                                                <div class="alert alert-info">
+                                                                    <i class="fas fa-info-circle fs-24"></i>
+                                                                    <p class="mb-0">Người dùng này chưa có khu vực nào.
                                                                     </p>
                                                                 </div>
-                                                                <div class="card-footer bg-transparent px-0 pb-0 pt-2">
-                                                                    <ul class="list-inline mb-0">
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng">
-                                                                            <svg
-                                                                                class="icon icon-bedroom fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-bedroom"></use>
-                                                                            </svg>
-                                                                            3 Phòng
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng tắm">
-                                                                            <svg
-                                                                                class="icon icon-shower fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-shower"></use>
-                                                                            </svg>
-                                                                            3 Phòng tắm
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13"
-                                                                            data-toggle="tooltip" title="2300m²">
-                                                                            <svg
-                                                                                class="icon icon-square fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-square"></use>
-                                                                            </svg>
-                                                                            2300m²
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-md-6 mb-7">
-                                                            <div class="card border-0">
-                                                                <div
-                                                                    class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                                                    <img src="{{ asset('assets/images/properties-grid-36.jpg') }}"
-                                                                        alt="Trọ Đẹp">
-                                                                    <div class="card-img-overlay d-flex flex-column">
-                                                                        <div class="mb-auto">
-                                                                            <span class="badge badge-indigo">Cho
-                                                                                Thuê</span>
+                                                        @else
+                                                            @foreach ($zones as $zone)
+                                                                <div class="col-md-6 mb-7">
+                                                                    <div class="card border-0">
+                                                                        <div
+                                                                            class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
+                                                                            <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
+                                                                                alt="{{ $zone->name }}">
+                                                                            <div
+                                                                                class="card-img-overlay d-flex flex-column">
+                                                                                <div class="mb-auto">
+                                                                                    <span class="badge badge-indigo">Khu
+                                                                                        trọ</span>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="d-flex hover-image">
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                                                <li class="list-inline-item mr-2"
-                                                                                    data-toggle="tooltip" title="9 Ảnh">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i class="far fa-images"></i><span
-                                                                                            class="pl-1">9</span>
-                                                                                    </a>
+                                                                        <div class="card-body pt-3 px-0 pb-1">
+                                                                            <h2 class="fs-16 mb-1"><a
+                                                                                    href="{{ route('client.client-details-zone', ['slug' => $zone->slug]) }}"
+                                                                                    class="text-dark hover-primary">{{ $zone->name }}</a>
+                                                                            </h2>
+                                                                            <p
+                                                                                class="font-weight-500 text-gray-light mb-0">
+                                                                                {{ $zone->address }}</p>
+                                                                            <p
+                                                                                class="fs-17 font-weight-bold text-heading mb-0 lh-16">
+                                                                                {{ $zone->total_rooms }} Phòng
+                                                                            </p>
+                                                                        </div>
+                                                                        {{-- <div
+                                                                            class="card-footer bg-transparent px-0 pb-0 pt-2">
+                                                                            <ul class="list-inline mb-0">
+                                                                                <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+                                                                                    data-toggle="tooltip" title="3 Phòng">
+                                                                                    <svg
+                                                                                        class="icon icon-bedroom fs-18 text-primary mr-1">
+                                                                                        <use xlink:href="#icon-bedroom">
+                                                                                        </use>
+                                                                                    </svg>
+                                                                                    3 Phòng
                                                                                 </li>
-                                                                                <li class="list-inline-item"
-                                                                                    data-toggle="tooltip" title="2 Video">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i
-                                                                                            class="far fa-play-circle"></i><span
-                                                                                            class="pl-1">2</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                                                <li class="list-inline-item mr-3 h-32"
+                                                                                <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
                                                                                     data-toggle="tooltip"
-                                                                                    title="Yêu thích">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="far fa-heart"></i>
-                                                                                    </a>
+                                                                                    title="3 Phòng tắm">
+                                                                                    <svg
+                                                                                        class="icon icon-shower fs-18 text-primary mr-1">
+                                                                                        <use xlink:href="#icon-shower">
+                                                                                        </use>
+                                                                                    </svg>
+                                                                                    3 Phòng tắm
                                                                                 </li>
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip" title="So sánh">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="fas fa-exchange-alt"></i>
-                                                                                    </a>
+                                                                                <li class="list-inline-item text-gray font-weight-500 fs-13"
+                                                                                    data-toggle="tooltip" title="2300m²">
+                                                                                    <svg
+                                                                                        class="icon icon-square fs-18 text-primary mr-1">
+                                                                                        <use xlink:href="#icon-square">
+                                                                                        </use>
+                                                                                    </svg>
+                                                                                    2300m²
                                                                                 </li>
                                                                             </ul>
-                                                                        </div>
+                                                                        </div> --}}
                                                                     </div>
                                                                 </div>
-                                                                <div class="card-body pt-3 px-0 pb-1">
-                                                                    <h2 class="fs-16 mb-1"><a
-                                                                            href="single-property-1.html"
-                                                                            class="text-dark hover-primary">Trọ Đẹp</a>
-                                                                    </h2>
-                                                                    <p class="font-weight-500 text-gray-light mb-0">
-                                                                        Cao Lãnh, Đồng Tháp</p>
-                                                                    <p
-                                                                        class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                                        $550
-                                                                        <span
-                                                                            class="fs-14 font-weight-500 text-gray-light">
-                                                                            /tháng</span>
-                                                                    </p>
-                                                                </div>
-                                                                <div class="card-footer bg-transparent px-0 pb-0 pt-2">
-                                                                    <ul class="list-inline mb-0">
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng">
-                                                                            <svg
-                                                                                class="icon icon-bedroom fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-bedroom"></use>
-                                                                            </svg>
-                                                                            3 Phòng
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng tắm">
-                                                                            <svg
-                                                                                class="icon icon-shower fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-shower"></use>
-                                                                            </svg>
-                                                                            3 Phòng tắm
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13"
-                                                                            data-toggle="tooltip" title="2300m²">
-                                                                            <svg
-                                                                                class="icon icon-square fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-square"></use>
-                                                                            </svg>
-                                                                            2300m²
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6 mb-7">
-                                                            <div class="card border-0">
-                                                                <div
-                                                                    class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                                                    <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
-                                                                        alt="Nhà Siêu Cấp">
-                                                                    <div class="card-img-overlay d-flex flex-column">
-                                                                        <div class="mb-auto">
-                                                                            <span class="badge badge-primary">Bán</span>
-                                                                        </div>
-                                                                        <div class="d-flex hover-image">
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                                                <li class="list-inline-item mr-2"
-                                                                                    data-toggle="tooltip" title="9 Ảnh">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i class="far fa-images"></i><span
-                                                                                            class="pl-1">9</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item"
-                                                                                    data-toggle="tooltip" title="2 Video">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i
-                                                                                            class="far fa-play-circle"></i><span
-                                                                                            class="pl-1">2</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip"
-                                                                                    title="Yêu thích">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="far fa-heart"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip" title="So sánh">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="fas fa-exchange-alt"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="card-body pt-3 px-0 pb-1">
-                                                                    <h2 class="fs-16 mb-1"><a
-                                                                            href="single-property-1.html"
-                                                                            class="text-dark hover-primary">Nhà Siêu
-                                                                            Cấp</a>
-                                                                    </h2>
-                                                                    <p class="font-weight-500 text-gray-light mb-0">
-                                                                        Ninh Kiều, TP.Cần Thơ</p>
-                                                                    <p
-                                                                        class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                                        $1.250.000
-                                                                    </p>
-                                                                </div>
-                                                                <div class="card-footer bg-transparent px-0 pb-0 pt-2">
-                                                                    <ul class="list-inline mb-0">
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng">
-                                                                            <svg
-                                                                                class="icon icon-bedroom fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-bedroom"></use>
-                                                                            </svg>
-                                                                            3 Phòng
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng tắm">
-                                                                            <svg
-                                                                                class="icon icon-shower fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-shower"></use>
-                                                                            </svg>
-                                                                            3 Phòng tắm
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13"
-                                                                            data-toggle="tooltip" title="2300m²">
-                                                                            <svg
-                                                                                class="icon icon-square fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-square"></use>
-                                                                            </svg>
-                                                                            2300m²
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6 mb-7">
-                                                            <div class="card border-0">
-                                                                <div
-                                                                    class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                                                    <img src="{{ asset('assets/images/properties-grid-36.jpg') }}"
-                                                                        alt="Trọ Đẹp">
-                                                                    <div class="card-img-overlay d-flex flex-column">
-                                                                        <div class="mb-auto">
-                                                                            <span class="badge badge-indigo">Cho
-                                                                                Thuê</span>
-                                                                        </div>
-                                                                        <div class="d-flex hover-image">
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                                                <li class="list-inline-item mr-2"
-                                                                                    data-toggle="tooltip" title="9 Ảnh">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i class="far fa-images"></i><span
-                                                                                            class="pl-1">9</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item"
-                                                                                    data-toggle="tooltip" title="2 Video">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i
-                                                                                            class="far fa-play-circle"></i><span
-                                                                                            class="pl-1">2</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip"
-                                                                                    title="Yêu thích">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="far fa-heart"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip" title="So sánh">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="fas fa-exchange-alt"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="card-body pt-3 px-0 pb-1">
-                                                                    <h2 class="fs-16 mb-1"><a
-                                                                            href="single-property-1.html"
-                                                                            class="text-dark hover-primary">Trọ Đẹp</a>
-                                                                    </h2>
-                                                                    <p class="font-weight-500 text-gray-light mb-0">
-                                                                        Cao Lãnh, Đồng Tháp</p>
-                                                                    <p
-                                                                        class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                                        $550
-                                                                        <span
-                                                                            class="fs-14 font-weight-500 text-gray-light">
-                                                                            /tháng</span>
-                                                                    </p>
-                                                                </div>
-                                                                <div class="card-footer bg-transparent px-0 pb-0 pt-2">
-                                                                    <ul class="list-inline mb-0">
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng">
-                                                                            <svg
-                                                                                class="icon icon-bedroom fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-bedroom"></use>
-                                                                            </svg>
-                                                                            3 Phòng
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng tắm">
-                                                                            <svg
-                                                                                class="icon icon-shower fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-shower"></use>
-                                                                            </svg>
-                                                                            3 Phòng tắm
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13"
-                                                                            data-toggle="tooltip" title="2300m²">
-                                                                            <svg
-                                                                                class="icon icon-square fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-square"></use>
-                                                                            </svg>
-                                                                            2300m²
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6 mb-7">
-                                                            <div class="card border-0">
-                                                                <div
-                                                                    class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                                                    <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
-                                                                        alt="Nhà Siêu Cấp">
-                                                                    <div class="card-img-overlay d-flex flex-column">
-                                                                        <div class="mb-auto">
-                                                                            <span class="badge badge-primary">Bán</span>
-                                                                        </div>
-                                                                        <div class="d-flex hover-image">
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                                                <li class="list-inline-item mr-2"
-                                                                                    data-toggle="tooltip" title="9 Ảnh">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i class="far fa-images"></i><span
-                                                                                            class="pl-1">9</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item"
-                                                                                    data-toggle="tooltip" title="2 Video">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i
-                                                                                            class="far fa-play-circle"></i><span
-                                                                                            class="pl-1">2</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip"
-                                                                                    title="Yêu thích">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="far fa-heart"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip" title="So sánh">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="fas fa-exchange-alt"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="card-body pt-3 px-0 pb-1">
-                                                                    <h2 class="fs-16 mb-1"><a
-                                                                            href="single-property-1.html"
-                                                                            class="text-dark hover-primary">Nhà Siêu
-                                                                            Cấp</a>
-                                                                    </h2>
-                                                                    <p class="font-weight-500 text-gray-light mb-0">
-                                                                        Ninh Kiều, TP.Cần Thơ</p>
-                                                                    <p
-                                                                        class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                                        $1.250.000
-                                                                    </p>
-                                                                </div>
-                                                                <div class="card-footer bg-transparent px-0 pb-0 pt-2">
-                                                                    <ul class="list-inline mb-0">
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng">
-                                                                            <svg
-                                                                                class="icon icon-bedroom fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-bedroom"></use>
-                                                                            </svg>
-                                                                            3 Phòng
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng tắm">
-                                                                            <svg
-                                                                                class="icon icon-shower fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-shower"></use>
-                                                                            </svg>
-                                                                            3 Phòng tắm
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13"
-                                                                            data-toggle="tooltip" title="2300m²">
-                                                                            <svg
-                                                                                class="icon icon-square fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-square"></use>
-                                                                            </svg>
-                                                                            2300m²
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6 mb-7">
-                                                            <div class="card border-0">
-                                                                <div
-                                                                    class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                                                    <img src="{{ asset('assets/images/properties-grid-36.jpg') }}"
-                                                                        alt="Trọ Đẹp">
-                                                                    <div class="card-img-overlay d-flex flex-column">
-                                                                        <div class="mb-auto">
-                                                                            <span class="badge badge-indigo">Cho
-                                                                                Thuê</span>
-                                                                        </div>
-                                                                        <div class="d-flex hover-image">
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                                                <li class="list-inline-item mr-2"
-                                                                                    data-toggle="tooltip" title="9 Ảnh">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i class="far fa-images"></i><span
-                                                                                            class="pl-1">9</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item"
-                                                                                    data-toggle="tooltip" title="2 Video">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i
-                                                                                            class="far fa-play-circle"></i><span
-                                                                                            class="pl-1">2</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip"
-                                                                                    title="Yêu thích">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="far fa-heart"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip" title="So sánh">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="fas fa-exchange-alt"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="card-body pt-3 px-0 pb-1">
-                                                                    <h2 class="fs-16 mb-1"><a
-                                                                            href="single-property-1.html"
-                                                                            class="text-dark hover-primary">Trọ Đẹp</a>
-                                                                    </h2>
-                                                                    <p class="font-weight-500 text-gray-light mb-0">
-                                                                        Cao Lãnh, Đồng Tháp</p>
-                                                                    <p
-                                                                        class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                                        $550
-                                                                        <span
-                                                                            class="fs-14 font-weight-500 text-gray-light">
-                                                                            /tháng</span>
-                                                                    </p>
-                                                                </div>
-                                                                <div class="card-footer bg-transparent px-0 pb-0 pt-2">
-                                                                    <ul class="list-inline mb-0">
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng">
-                                                                            <svg
-                                                                                class="icon icon-bedroom fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-bedroom"></use>
-                                                                            </svg>
-                                                                            3 Phòng
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng tắm">
-                                                                            <svg
-                                                                                class="icon icon-shower fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-shower"></use>
-                                                                            </svg>
-                                                                            3 Phòng tắm
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13"
-                                                                            data-toggle="tooltip" title="2300m²">
-                                                                            <svg
-                                                                                class="icon icon-square fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-square"></use>
-                                                                            </svg>
-                                                                            2300m²
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6 mb-7">
-                                                            <div class="card border-0">
-                                                                <div
-                                                                    class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                                                    <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
-                                                                        alt="Nhà Siêu Cấp">
-                                                                    <div class="card-img-overlay d-flex flex-column">
-                                                                        <div class="mb-auto">
-                                                                            <span class="badge badge-primary">Bán</span>
-                                                                        </div>
-                                                                        <div class="d-flex hover-image">
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                                                <li class="list-inline-item mr-2"
-                                                                                    data-toggle="tooltip" title="9 Ảnh">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i class="far fa-images"></i><span
-                                                                                            class="pl-1">9</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item"
-                                                                                    data-toggle="tooltip" title="2 Video">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i
-                                                                                            class="far fa-play-circle"></i><span
-                                                                                            class="pl-1">2</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip"
-                                                                                    title="Yêu thích">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="far fa-heart"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip" title="So sánh">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="fas fa-exchange-alt"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="card-body pt-3 px-0 pb-1">
-                                                                    <h2 class="fs-16 mb-1"><a
-                                                                            href="single-property-1.html"
-                                                                            class="text-dark hover-primary">Nhà Siêu
-                                                                            Cấp</a>
-                                                                    </h2>
-                                                                    <p class="font-weight-500 text-gray-light mb-0">
-                                                                        Ninh Kiều, TP.Cần Thơ</p>
-                                                                    <p
-                                                                        class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                                        $1.250.000
-                                                                    </p>
-                                                                </div>
-                                                                <div class="card-footer bg-transparent px-0 pb-0 pt-2">
-                                                                    <ul class="list-inline mb-0">
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng">
-                                                                            <svg
-                                                                                class="icon icon-bedroom fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-bedroom"></use>
-                                                                            </svg>
-                                                                            3 Phòng
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng tắm">
-                                                                            <svg
-                                                                                class="icon icon-shower fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-shower"></use>
-                                                                            </svg>
-                                                                            3 Phòng tắm
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13"
-                                                                            data-toggle="tooltip" title="2300m²">
-                                                                            <svg
-                                                                                class="icon icon-square fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-square"></use>
-                                                                            </svg>
-                                                                            2300m²
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6 mb-7">
-                                                            <div class="card border-0">
-                                                                <div
-                                                                    class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                                                    <img src="{{ asset('assets/images/properties-grid-36.jpg') }}"
-                                                                        alt="Trọ Đẹp">
-                                                                    <div class="card-img-overlay d-flex flex-column">
-                                                                        <div class="mb-auto">
-                                                                            <span class="badge badge-indigo">Cho
-                                                                                Thuê</span>
-                                                                        </div>
-                                                                        <div class="d-flex hover-image">
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                                                <li class="list-inline-item mr-2"
-                                                                                    data-toggle="tooltip" title="9 Ảnh">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i class="far fa-images"></i><span
-                                                                                            class="pl-1">9</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item"
-                                                                                    data-toggle="tooltip" title="2 Video">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i
-                                                                                            class="far fa-play-circle"></i><span
-                                                                                            class="pl-1">2</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip"
-                                                                                    title="Yêu thích">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="far fa-heart"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip" title="So sánh">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="fas fa-exchange-alt"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="card-body pt-3 px-0 pb-1">
-                                                                    <h2 class="fs-16 mb-1"><a
-                                                                            href="single-property-1.html"
-                                                                            class="text-dark hover-primary">Trọ Đẹp</a>
-                                                                    </h2>
-                                                                    <p class="font-weight-500 text-gray-light mb-0">
-                                                                        Cao Lãnh, Đồng Tháp</p>
-                                                                    <p
-                                                                        class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                                        $550
-                                                                        <span
-                                                                            class="fs-14 font-weight-500 text-gray-light">
-                                                                            /tháng</span>
-                                                                    </p>
-                                                                </div>
-                                                                <div class="card-footer bg-transparent px-0 pb-0 pt-2">
-                                                                    <ul class="list-inline mb-0">
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng">
-                                                                            <svg
-                                                                                class="icon icon-bedroom fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-bedroom"></use>
-                                                                            </svg>
-                                                                            3 Phòng
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng tắm">
-                                                                            <svg
-                                                                                class="icon icon-shower fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-shower"></use>
-                                                                            </svg>
-                                                                            3 Phòng tắm
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13"
-                                                                            data-toggle="tooltip" title="2300m²">
-                                                                            <svg
-                                                                                class="icon icon-square fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-square"></use>
-                                                                            </svg>
-                                                                            2300m²
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                            @endforeach
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -923,7 +361,7 @@
                                                         class="btn lh-2 fs-18 bg-white py-1 px-6 shadow-none w-100 collapse-parent border collapsed mb-4"
                                                         data-toggle="collapse" data-target="#sale-collapse-01"
                                                         aria-expanded="true" aria-controls="sale-collapse-01">
-                                                        Bán (5)
+                                                        Phòng ({{ $totalRooms }})
                                                     </button>
                                                 </h5>
                                             </div>
@@ -932,576 +370,138 @@
                                                 data-parent="#collapse-tabs-accordion-01">
                                                 <div class="card-body p-0">
                                                     <div class="row">
-                                                        <div class="col-md-6 mb-7">
-                                                            <div class="card border-0">
-                                                                <div
-                                                                    class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                                                    <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
-                                                                        alt="Home in Metric Way">
-                                                                    <div class="card-img-overlay d-flex flex-column">
-                                                                        <div class="mb-auto">
-                                                                            <span class="badge badge-primary">Bán</span>
+                                                        @if ($rooms->isEmpty())
+                                                            <div class="col-12 text-center py-5">
+                                                                <div class="alert alert-info">
+                                                                    <i class="fas fa-info-circle fs-24"></i>
+                                                                    <p class="mb-0">Người dùng này chưa có phòng trọ nào.
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        @else
+                                                            @foreach ($rooms as $room)
+                                                                <div class="col-md-6 mb-7">
+                                                                    <div class="card border-0">
+                                                                        <div
+                                                                            class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
+                                                                            @if ($room->images->isNotEmpty())
+                                                                                @php
+                                                                                    // Get the first image
+                                                                                    $image = $room->images->first();
+                                                                                @endphp
+                                                                                <img src="{{ asset('assets/images/' . $image->filename) }}"
+                                                                                    alt="{{ $room->title }}">
+                                                                            @else
+                                                                                <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
+                                                                                    alt="{{ $room->title }}">
+                                                                            @endif
+                                                                            {{-- <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
+                                                                            alt="Nhà Siêu Cấp"> --}}
+                                                                            <div
+                                                                                class="card-img-overlay d-flex flex-column">
+                                                                                <div class="mb-auto">
+                                                                                    <span
+                                                                                        class="badge badge-primary">Phòng</span>
+                                                                                </div>
+                                                                                <div class="d-flex hover-image">
+                                                                                    <ul
+                                                                                        class="list-inline mb-0 d-flex align-items-end mr-auto">
+                                                                                        <li class="list-inline-item mr-2"
+                                                                                            data-toggle="tooltip"
+                                                                                            title="9 Ảnh">
+                                                                                            <a href="#"
+                                                                                                class="text-white hover-primary">
+                                                                                                <i
+                                                                                                    class="far fa-images"></i><span
+                                                                                                    class="pl-1">9</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li class="list-inline-item"
+                                                                                            data-toggle="tooltip"
+                                                                                            title="2 Video">
+                                                                                            <a href="#"
+                                                                                                class="text-white hover-primary">
+                                                                                                <i
+                                                                                                    class="far fa-play-circle"></i><span
+                                                                                                    class="pl-1">2</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                    <ul
+                                                                                        class="list-inline mb-0 d-flex align-items-end mr-n3">
+                                                                                        <li class="list-inline-item mr-3 h-32"
+                                                                                            data-toggle="tooltip"
+                                                                                            title="Yêu thích">
+                                                                                            <a href="{{ route('client.add.favourite', ['slug' => $room->slug]) }}"
+                                                                                                class="text-white fs-20 hover-primary">
+                                                                                                <i
+                                                                                                    class="far fa-heart"></i>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li class="list-inline-item mr-3 h-32"
+                                                                                            data-toggle="tooltip"
+                                                                                            title="So sánh">
+                                                                                            <a href="#"
+                                                                                                class="text-white fs-20 hover-primary">
+                                                                                                <i
+                                                                                                    class="fas fa-exchange-alt"></i>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="d-flex hover-image">
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                                                <li class="list-inline-item mr-2"
-                                                                                    data-toggle="tooltip" title="9 Ảnh">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i class="far fa-images"></i><span
-                                                                                            class="pl-1">9</span>
-                                                                                    </a>
+                                                                        <div class="card-body pt-3 px-0 pb-1">
+                                                                            <h2 class="fs-16 mb-1"><a
+                                                                                    href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
+                                                                                    class="text-dark hover-primary">{{ $room->title }}</a>
+                                                                            </h2>
+                                                                            <p
+                                                                                class="font-weight-500 text-gray-light mb-0">
+                                                                                {{ $room->address }}</p>
+                                                                            <p
+                                                                                class="fs-17 font-weight-bold text-heading mb-0 lh-16">
+                                                                                {{ $room->price }} VND
+                                                                            </p>
+                                                                        </div>
+                                                                        <div
+                                                                            class="card-footer bg-transparent px-0 pb-0 pt-2">
+                                                                            <ul class="list-inline mb-0">
+                                                                                <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+                                                                                    data-toggle="tooltip" title="3 Phòng">
+                                                                                    <svg
+                                                                                        class="icon icon-bedroom fs-18 text-primary mr-1">
+                                                                                        <use xlink:href="#icon-bedroom">
+                                                                                        </use>
+                                                                                    </svg>
+                                                                                    3 Phòng
                                                                                 </li>
-                                                                                <li class="list-inline-item"
-                                                                                    data-toggle="tooltip" title="2 Video">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i
-                                                                                            class="far fa-play-circle"></i><span
-                                                                                            class="pl-1">2</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                                                <li class="list-inline-item mr-3 h-32"
+                                                                                <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
                                                                                     data-toggle="tooltip"
-                                                                                    title="Yêu thích">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="far fa-heart"></i>
-                                                                                    </a>
+                                                                                    title="{{ $room->utility ? $room->utility->bathrooms . ' Phòng tắm' : 'Không có thông tin' }}">
+                                                                                    <svg
+                                                                                        class="icon icon-shower fs-18 text-primary mr-1">
+                                                                                        <use xlink:href="#icon-shower">
+                                                                                        </use>
+                                                                                    </svg>
+                                                                                    {{ $room->utility ? $room->utility->bathrooms : 'Không có thông tin' }}
                                                                                 </li>
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip" title="So sánh">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="fas fa-exchange-alt"></i>
-                                                                                    </a>
+                                                                                <li class="list-inline-item text-gray font-weight-500 fs-13"
+                                                                                    data-toggle="tooltip"
+                                                                                    title="{{ $room->acreage }}m²">
+                                                                                    <svg
+                                                                                        class="icon icon-square fs-18 text-primary mr-1">
+                                                                                        <use xlink:href="#icon-square">
+                                                                                        </use>
+                                                                                    </svg>
+                                                                                    {{ $room->acreage }}m²
                                                                                 </li>
                                                                             </ul>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="card-body pt-3 px-0 pb-1">
-                                                                    <h2 class="fs-16 mb-1"><a
-                                                                            href="single-property-1.html"
-                                                                            class="text-dark hover-primary">Nhà Siêu
-                                                                            Cấp</a>
-                                                                    </h2>
-                                                                    <p class="font-weight-500 text-gray-light mb-0">
-                                                                        Ninh Kiều, TP.Cần Thơ</p>
-                                                                    <p
-                                                                        class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                                        1.250.000đ
-                                                                    </p>
-                                                                </div>
-                                                                <div class="card-footer bg-transparent px-0 pb-0 pt-2">
-                                                                    <ul class="list-inline mb-0">
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng">
-                                                                            <svg
-                                                                                class="icon icon-bedroom fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-bedroom"></use>
-                                                                            </svg>
-                                                                            3 Phòng
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng tắm">
-                                                                            <svg
-                                                                                class="icon icon-shower fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-shower"></use>
-                                                                            </svg>
-                                                                            3 Phòng tắm
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13"
-                                                                            data-toggle="tooltip" title="2300m²">
-                                                                            <svg
-                                                                                class="icon icon-square fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-square"></use>
-                                                                            </svg>
-                                                                            2300m²
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6 mb-7">
-                                                            <div class="card border-0">
-                                                                <div
-                                                                    class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                                                    <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
-                                                                        alt="Home in Metric Way">
-                                                                    <div class="card-img-overlay d-flex flex-column">
-                                                                        <div class="mb-auto">
-                                                                            <span class="badge badge-primary">Bán</span>
-                                                                        </div>
-                                                                        <div class="d-flex hover-image">
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                                                <li class="list-inline-item mr-2"
-                                                                                    data-toggle="tooltip" title="9 Ảnh">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i class="far fa-images"></i><span
-                                                                                            class="pl-1">9</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item"
-                                                                                    data-toggle="tooltip" title="2 Video">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i
-                                                                                            class="far fa-play-circle"></i><span
-                                                                                            class="pl-1">2</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip"
-                                                                                    title="Yêu thích">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="far fa-heart"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip" title="So sánh">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="fas fa-exchange-alt"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="card-body pt-3 px-0 pb-1">
-                                                                    <h2 class="fs-16 mb-1"><a
-                                                                            href="single-property-1.html"
-                                                                            class="text-dark hover-primary">Nhà Siêu
-                                                                            Cấp</a>
-                                                                    </h2>
-                                                                    <p class="font-weight-500 text-gray-light mb-0">
-                                                                        Ninh Kiều, TP.Cần Thơ</p>
-                                                                    <p
-                                                                        class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                                        1.250.000đ
-                                                                    </p>
-                                                                </div>
-                                                                <div class="card-footer bg-transparent px-0 pb-0 pt-2">
-                                                                    <ul class="list-inline mb-0">
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng">
-                                                                            <svg
-                                                                                class="icon icon-bedroom fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-bedroom"></use>
-                                                                            </svg>
-                                                                            3 Phòng
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng tắm">
-                                                                            <svg
-                                                                                class="icon icon-shower fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-shower"></use>
-                                                                            </svg>
-                                                                            3 Phòng tắm
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13"
-                                                                            data-toggle="tooltip" title="2300m²">
-                                                                            <svg
-                                                                                class="icon icon-square fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-square"></use>
-                                                                            </svg>
-                                                                            2300m²
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6 mb-7">
-                                                            <div class="card border-0">
-                                                                <div
-                                                                    class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                                                    <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
-                                                                        alt="Home in Metric Way">
-                                                                    <div class="card-img-overlay d-flex flex-column">
-                                                                        <div class="mb-auto">
-                                                                            <span class="badge badge-primary">Bán</span>
-                                                                        </div>
-                                                                        <div class="d-flex hover-image">
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                                                <li class="list-inline-item mr-2"
-                                                                                    data-toggle="tooltip" title="9 Ảnh">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i class="far fa-images"></i><span
-                                                                                            class="pl-1">9</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item"
-                                                                                    data-toggle="tooltip" title="2 Video">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i
-                                                                                            class="far fa-play-circle"></i><span
-                                                                                            class="pl-1">2</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip"
-                                                                                    title="Yêu thích">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="far fa-heart"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip" title="So sánh">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="fas fa-exchange-alt"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="card-body pt-3 px-0 pb-1">
-                                                                    <h2 class="fs-16 mb-1"><a
-                                                                            href="single-property-1.html"
-                                                                            class="text-dark hover-primary">Nhà Siêu
-                                                                            Cấp</a>
-                                                                    </h2>
-                                                                    <p class="font-weight-500 text-gray-light mb-0">
-                                                                        Ninh Kiều, TP.Cần Thơ</p>
-                                                                    <p
-                                                                        class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                                        1.250.000đ
-                                                                    </p>
-                                                                </div>
-                                                                <div class="card-footer bg-transparent px-0 pb-0 pt-2">
-                                                                    <ul class="list-inline mb-0">
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng">
-                                                                            <svg
-                                                                                class="icon icon-bedroom fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-bedroom"></use>
-                                                                            </svg>
-                                                                            3 Phòng
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng tắm">
-                                                                            <svg
-                                                                                class="icon icon-shower fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-shower"></use>
-                                                                            </svg>
-                                                                            3 Phòng tắm
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13"
-                                                                            data-toggle="tooltip" title="2300m²">
-                                                                            <svg
-                                                                                class="icon icon-square fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-square"></use>
-                                                                            </svg>
-                                                                            2300m²
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6 mb-7">
-                                                            <div class="card border-0">
-                                                                <div
-                                                                    class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                                                    <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
-                                                                        alt="Home in Metric Way">
-                                                                    <div class="card-img-overlay d-flex flex-column">
-                                                                        <div class="mb-auto">
-                                                                            <span class="badge badge-primary">Bán</span>
-                                                                        </div>
-                                                                        <div class="d-flex hover-image">
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                                                <li class="list-inline-item mr-2"
-                                                                                    data-toggle="tooltip" title="9 Ảnh">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i class="far fa-images"></i><span
-                                                                                            class="pl-1">9</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item"
-                                                                                    data-toggle="tooltip" title="2 Video">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i
-                                                                                            class="far fa-play-circle"></i><span
-                                                                                            class="pl-1">2</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip"
-                                                                                    title="Yêu thích">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="far fa-heart"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip" title="So sánh">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="fas fa-exchange-alt"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="card-body pt-3 px-0 pb-1">
-                                                                    <h2 class="fs-16 mb-1"><a
-                                                                            href="single-property-1.html"
-                                                                            class="text-dark hover-primary">Nhà Siêu
-                                                                            Cấp</a>
-                                                                    </h2>
-                                                                    <p class="font-weight-500 text-gray-light mb-0">
-                                                                        Ninh Kiều, TP.Cần Thơ</p>
-                                                                    <p
-                                                                        class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                                        1.250.000đ
-                                                                    </p>
-                                                                </div>
-                                                                <div class="card-footer bg-transparent px-0 pb-0 pt-2">
-                                                                    <ul class="list-inline mb-0">
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng">
-                                                                            <svg
-                                                                                class="icon icon-bedroom fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-bedroom"></use>
-                                                                            </svg>
-                                                                            3 Phòng
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng tắm">
-                                                                            <svg
-                                                                                class="icon icon-shower fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-shower"></use>
-                                                                            </svg>
-                                                                            3 Phòng tắm
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13"
-                                                                            data-toggle="tooltip" title="2300m²">
-                                                                            <svg
-                                                                                class="icon icon-square fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-square"></use>
-                                                                            </svg>
-                                                                            2300m²
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6 mb-7">
-                                                            <div class="card border-0">
-                                                                <div
-                                                                    class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                                                    <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
-                                                                        alt="Home in Metric Way">
-                                                                    <div class="card-img-overlay d-flex flex-column">
-                                                                        <div class="mb-auto">
-                                                                            <span class="badge badge-primary">Bán</span>
-                                                                        </div>
-                                                                        <div class="d-flex hover-image">
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                                                <li class="list-inline-item mr-2"
-                                                                                    data-toggle="tooltip" title="9 Ảnh">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i class="far fa-images"></i><span
-                                                                                            class="pl-1">9</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item"
-                                                                                    data-toggle="tooltip" title="2 Video">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i
-                                                                                            class="far fa-play-circle"></i><span
-                                                                                            class="pl-1">2</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip"
-                                                                                    title="Yêu thích">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="far fa-heart"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip" title="So sánh">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="fas fa-exchange-alt"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="card-body pt-3 px-0 pb-1">
-                                                                    <h2 class="fs-16 mb-1"><a
-                                                                            href="single-property-1.html"
-                                                                            class="text-dark hover-primary">Nhà Siêu
-                                                                            Cấp</a>
-                                                                    </h2>
-                                                                    <p class="font-weight-500 text-gray-light mb-0">
-                                                                        Ninh Kiều, TP.Cần Thơ</p>
-                                                                    <p
-                                                                        class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                                        1.250.000đ
-                                                                    </p>
-                                                                </div>
-                                                                <div class="card-footer bg-transparent px-0 pb-0 pt-2">
-                                                                    <ul class="list-inline mb-0">
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng">
-                                                                            <svg
-                                                                                class="icon icon-bedroom fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-bedroom"></use>
-                                                                            </svg>
-                                                                            3 Phòng
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng tắm">
-                                                                            <svg
-                                                                                class="icon icon-shower fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-shower"></use>
-                                                                            </svg>
-                                                                            3 Phòng tắm
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13"
-                                                                            data-toggle="tooltip" title="2300m²">
-                                                                            <svg
-                                                                                class="icon icon-square fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-square"></use>
-                                                                            </svg>
-                                                                            2300m²
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6 mb-7">
-                                                            <div class="card border-0">
-                                                                <div
-                                                                    class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                                                    <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
-                                                                        alt="Home in Metric Way">
-                                                                    <div class="card-img-overlay d-flex flex-column">
-                                                                        <div class="mb-auto">
-                                                                            <span class="badge badge-primary">Bán</span>
-                                                                        </div>
-                                                                        <div class="d-flex hover-image">
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                                                <li class="list-inline-item mr-2"
-                                                                                    data-toggle="tooltip" title="9 Ảnh">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i class="far fa-images"></i><span
-                                                                                            class="pl-1">9</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item"
-                                                                                    data-toggle="tooltip" title="2 Video">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i
-                                                                                            class="far fa-play-circle"></i><span
-                                                                                            class="pl-1">2</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip"
-                                                                                    title="Yêu thích">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="far fa-heart"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip" title="So sánh">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="fas fa-exchange-alt"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="card-body pt-3 px-0 pb-1">
-                                                                    <h2 class="fs-16 mb-1"><a
-                                                                            href="single-property-1.html"
-                                                                            class="text-dark hover-primary">Nhà Siêu
-                                                                            Cấp</a>
-                                                                    </h2>
-                                                                    <p class="font-weight-500 text-gray-light mb-0">
-                                                                        Ninh Kiều, TP.Cần Thơ</p>
-                                                                    <p
-                                                                        class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                                        1.250.000đ
-                                                                    </p>
-                                                                </div>
-                                                                <div class="card-footer bg-transparent px-0 pb-0 pt-2">
-                                                                    <ul class="list-inline mb-0">
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng">
-                                                                            <svg
-                                                                                class="icon icon-bedroom fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-bedroom"></use>
-                                                                            </svg>
-                                                                            3 Phòng
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng tắm">
-                                                                            <svg
-                                                                                class="icon icon-shower fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-shower"></use>
-                                                                            </svg>
-                                                                            3 Phòng tắm
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13"
-                                                                            data-toggle="tooltip" title="2300m²">
-                                                                            <svg
-                                                                                class="icon icon-square fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-square"></use>
-                                                                            </svg>
-                                                                            2300m²
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                            @endforeach
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -1516,7 +516,7 @@
                                                         class="btn lh-2 fs-18 bg-white py-1 px-6 shadow-none w-100 collapse-parent border collapsed mb-4"
                                                         data-toggle="collapse" data-target="#rent-collapse-01"
                                                         aria-expanded="true" aria-controls="rent-collapse-01">
-                                                        Cho Thuê (3)
+                                                        Khu trọ ({{ $totalZones }})
                                                     </button>
                                                 </h5>
                                             </div>
@@ -1525,210 +525,137 @@
                                                 data-parent="#collapse-tabs-accordion-01">
                                                 <div class="card-body p-0">
                                                     <div class="row">
-                                                        <div class="col-md-6 mb-7">
-                                                            <div class="card border-0">
-                                                                <div
-                                                                    class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                                                    <img src="{{ asset('assets/images/properties-grid-36.jpg') }}"
-                                                                        alt="Trọ Đẹp">
-                                                                    <div class="card-img-overlay d-flex flex-column">
-                                                                        <div class="mb-auto">
-                                                                            <span class="badge badge-indigo">Cho
-                                                                                Thuê</span>
-                                                                        </div>
-                                                                        <div class="d-flex hover-image">
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                                                <li class="list-inline-item mr-2"
-                                                                                    data-toggle="tooltip"
-                                                                                    title="9 Ảnh">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i class="far fa-images"></i><span
-                                                                                            class="pl-1">9</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item"
-                                                                                    data-toggle="tooltip"
-                                                                                    title="2 Video">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i
-                                                                                            class="far fa-play-circle"></i><span
-                                                                                            class="pl-1">2</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip"
-                                                                                    title="Yêu thích">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="far fa-heart"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip"
-                                                                                    title="So sánh">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i
-                                                                                            class="fas fa-exchange-alt"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="card-body pt-3 px-0 pb-1">
-                                                                    <h2 class="fs-16 mb-1"><a
-                                                                            href="single-property-1.html"
-                                                                            class="text-dark hover-primary">Trọ Đẹp</a>
-                                                                    </h2>
-                                                                    <p class="font-weight-500 text-gray-light mb-0">
-                                                                        Cao Lãnh, Đồng Tháp</p>
-                                                                    <p
-                                                                        class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                                        550đ
-                                                                        <span
-                                                                            class="fs-14 font-weight-500 text-gray-light">
-                                                                            /tháng</span>
+                                                        @if ($zones->isEmpty())
+                                                            <div class="col-12 text-center py-5">
+                                                                <div class="alert alert-info">
+                                                                    <i class="fas fa-info-circle fs-24"></i>
+                                                                    <p class="mb-0">Người dùng này chưa có khu vực nào.
                                                                     </p>
                                                                 </div>
-                                                                <div class="card-footer bg-transparent px-0 pb-0 pt-2">
-                                                                    <ul class="list-inline mb-0">
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng">
-                                                                            <svg
-                                                                                class="icon icon-bedroom fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-bedroom"></use>
-                                                                            </svg>
-                                                                            3 Phòng
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng tắm">
-                                                                            <svg
-                                                                                class="icon icon-shower fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-shower"></use>
-                                                                            </svg>
-                                                                            3 Phòng tắm
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13"
-                                                                            data-toggle="tooltip" title="2300m²">
-                                                                            <svg
-                                                                                class="icon icon-square fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-square"></use>
-                                                                            </svg>
-                                                                            2300m²
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-md-6 mb-7">
-                                                            <div class="card border-0">
-                                                                <div
-                                                                    class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                                                    <img src="{{ asset('assets/images/properties-grid-68.jpg') }}"
-                                                                        alt="Trọ Đẹp">
-                                                                    <div class="card-img-overlay d-flex flex-column">
-                                                                        <div class="mb-auto">
-                                                                            <span class="badge badge-indigo">Cho
-                                                                                Thuê</span>
+                                                        @else
+                                                            @foreach ($zones as $zone)
+                                                                <div class="col-md-6 mb-7">
+                                                                    <div class="card border-0">
+                                                                        <div
+                                                                            class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
+                                                                            {{-- @if ($zone->images->isNotEmpty())
+                                                                                @php
+                                                                                    // Get the first image
+                                                                                    $image = $zone->images->first();
+                                                                                @endphp
+                                                                                <img src="{{ asset('assets/images/' . $image->filename) }}"
+                                                                                    alt="{{ $zone->title }}">
+                                                                            @else
+                                                                                <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                                                                    alt="{{ $zone->title }}">
+                                                                            @endif --}}
+                                                                            <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
+                                                                                alt="{{ $zone->name }}">
+                                                                            <div
+                                                                                class="card-img-overlay d-flex flex-column">
+                                                                                <div class="mb-auto">
+                                                                                    <span class="badge badge-indigo">Khu
+                                                                                        trọ</span>
+                                                                                </div>
+                                                                                {{-- <div class="d-flex hover-image">
+                                                                                    <ul
+                                                                                        class="list-inline mb-0 d-flex align-items-end mr-auto">
+                                                                                        <li class="list-inline-item mr-2"
+                                                                                            data-toggle="tooltip"
+                                                                                            title="9 Ảnh">
+                                                                                            <a href="#"
+                                                                                                class="text-white hover-primary">
+                                                                                                <i
+                                                                                                    class="far fa-images"></i><span
+                                                                                                    class="pl-1">9</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li class="list-inline-item"
+                                                                                            data-toggle="tooltip"
+                                                                                            title="2 Video">
+                                                                                            <a href="#"
+                                                                                                class="text-white hover-primary">
+                                                                                                <i
+                                                                                                    class="far fa-play-circle"></i><span
+                                                                                                    class="pl-1">2</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                    <ul
+                                                                                    class="list-inline mb-0 d-flex align-items-end mr-n3">
+                                                                                    <li class="list-inline-item mr-3 h-32"
+                                                                                        data-toggle="tooltip"
+                                                                                        title="Yêu thích">
+                                                                                        <a href="{{ route('client.add.favourite', ['slug' => $zone->slug]) }}"
+                                                                                            class="text-white fs-20 hover-primary">
+                                                                                            <i
+                                                                                                class="far fa-heart"></i>
+                                                                                        </a>
+                                                                                    </li>
+                                                                                    <li class="list-inline-item mr-3 h-32"
+                                                                                        data-toggle="tooltip"
+                                                                                        title="So sánh">
+                                                                                        <a href="#"
+                                                                                            class="text-white fs-20 hover-primary">
+                                                                                            <i
+                                                                                                class="fas fa-exchange-alt"></i>
+                                                                                        </a>
+                                                                                    </li>
+                                                                                </ul>
+                                                                                </div> --}}
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="d-flex hover-image">
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                                                <li class="list-inline-item mr-2"
-                                                                                    data-toggle="tooltip"
-                                                                                    title="9 Ảnh">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i class="far fa-images"></i><span
-                                                                                            class="pl-1">9</span>
-                                                                                    </a>
+                                                                        <div class="card-body pt-3 px-0 pb-1">
+                                                                            <h2 class="fs-16 mb-1"><a
+                                                                                    href="{{ route('client.client-details-zone', ['slug' => $zone->slug]) }}"
+                                                                                    class="text-dark hover-primary">{{ $zone->name }}</a>
+                                                                            </h2>
+                                                                            <p
+                                                                                class="font-weight-500 text-gray-light mb-0">
+                                                                                {{ $zone->address }}</p>
+                                                                            <p
+                                                                                class="fs-17 font-weight-bold text-heading mb-0 lh-16">
+                                                                                {{ $zone->total_rooms }} Phòng
+                                                                            </p>
+                                                                        </div>
+                                                                        {{-- <div
+                                                                            class="card-footer bg-transparent px-0 pb-0 pt-2">
+                                                                            <ul class="list-inline mb-0">
+                                                                                <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+                                                                                    data-toggle="tooltip" title="3 Phòng">
+                                                                                    <svg
+                                                                                        class="icon icon-bedroom fs-18 text-primary mr-1">
+                                                                                        <use xlink:href="#icon-bedroom">
+                                                                                        </use>
+                                                                                    </svg>
+                                                                                    3 Phòng
                                                                                 </li>
-                                                                                <li class="list-inline-item"
+                                                                                <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
                                                                                     data-toggle="tooltip"
-                                                                                    title="2 Video">
-                                                                                    <a href="#"
-                                                                                        class="text-white hover-primary">
-                                                                                        <i
-                                                                                            class="far fa-play-circle"></i><span
-                                                                                            class="pl-1">2</span>
-                                                                                    </a>
+                                                                                    title="3 Phòng tắm">
+                                                                                    <svg
+                                                                                        class="icon icon-shower fs-18 text-primary mr-1">
+                                                                                        <use xlink:href="#icon-shower">
+                                                                                        </use>
+                                                                                    </svg>
+                                                                                    3 Phòng tắm
+                                                                                </li>
+                                                                                <li class="list-inline-item text-gray font-weight-500 fs-13"
+                                                                                    data-toggle="tooltip" title="2300m²">
+                                                                                    <svg
+                                                                                        class="icon icon-square fs-18 text-primary mr-1">
+                                                                                        <use xlink:href="#icon-square">
+                                                                                        </use>
+                                                                                    </svg>
+                                                                                    2300m²
                                                                                 </li>
                                                                             </ul>
-                                                                            <ul
-                                                                                class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip"
-                                                                                    title="Yêu thích">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i class="far fa-heart"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li class="list-inline-item mr-3 h-32"
-                                                                                    data-toggle="tooltip"
-                                                                                    title="So sánh">
-                                                                                    <a href="#"
-                                                                                        class="text-white fs-20 hover-primary">
-                                                                                        <i
-                                                                                            class="fas fa-exchange-alt"></i>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
+                                                                        </div> --}}
                                                                     </div>
                                                                 </div>
-                                                                <div class="card-body pt-3 px-0 pb-1">
-                                                                    <h2 class="fs-16 mb-1"><a
-                                                                            href="single-property-1.html"
-                                                                            class="text-dark hover-primary">Trọ Đẹp</a>
-                                                                    </h2>
-                                                                    <p class="font-weight-500 text-gray-light mb-0">
-                                                                        Cao Lãnh, Đồng Tháp</p>
-                                                                    <p
-                                                                        class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                                        550đ
-                                                                        <span
-                                                                            class="fs-14 font-weight-500 text-gray-light">
-                                                                            /tháng</span>
-                                                                    </p>
-                                                                </div>
-                                                                <div class="card-footer bg-transparent px-0 pb-0 pt-2">
-                                                                    <ul class="list-inline mb-0">
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng">
-                                                                            <svg
-                                                                                class="icon icon-bedroom fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-bedroom"></use>
-                                                                            </svg>
-                                                                            3 Phòng
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                            data-toggle="tooltip" title="3 Phòng tắm">
-                                                                            <svg
-                                                                                class="icon icon-shower fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-shower"></use>
-                                                                            </svg>
-                                                                            3 Phòng tắm
-                                                                        </li>
-                                                                        <li class="list-inline-item text-gray font-weight-500 fs-13"
-                                                                            data-toggle="tooltip" title="2300m²">
-                                                                            <svg
-                                                                                class="icon icon-square fs-18 text-primary mr-1">
-                                                                                <use xlink:href="#icon-square"></use>
-                                                                            </svg>
-                                                                            2300m²
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                            @endforeach
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -2148,8 +1075,8 @@
                             <div class="card mb-4">
                                 <div class="card-body px-6 py-6">
                                     <div class="media mb-4">
-                                        <img src="{{ asset('assets/images/agent-42.jpg') }}"
-                                            class="rounded-circle mr-2" alt="Blanche Gordon">
+                                        <img src="{{ asset('assets/images/agent-42.jpg') }}" class="rounded-circle mr-2"
+                                            alt="Blanche Gordon">
                                         <div class="media-body">
                                             <p class="fs-16 lh-1 text-dark mb-0 font-weight-500">
                                                 Nguyễn Văn A
@@ -2277,8 +1204,7 @@
                     </div>
                     <div class="modal-body pb-6">
                         <div class="form-group mb-2">
-                            <input type="text" class="form-control form-control-lg border-0"
-                                placeholder="Họ và Tên">
+                            <input type="text" class="form-control form-control-lg border-0" placeholder="Họ và Tên">
                         </div>
                         <div class="form-group mb-2">
                             <input type="email" class="form-control form-control-lg border-0"

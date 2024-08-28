@@ -93,4 +93,8 @@ class Room extends Model
     {
         return $this->hasMany(Notification::class);
     }
+    public function utility()
+    {
+        return $this->hasOne(Utility::class);
+    }
 }

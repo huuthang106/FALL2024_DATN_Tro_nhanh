@@ -20,4 +20,8 @@ class Utility extends Model
         'deleted_at',
         'room_id',
     ];
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
 }
