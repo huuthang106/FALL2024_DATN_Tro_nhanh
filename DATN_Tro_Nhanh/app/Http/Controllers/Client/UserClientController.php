@@ -90,12 +90,12 @@ class UserClientController extends Controller
         return view('client.show.agent-details-1', compact('user', 'rooms', 'zones', 'totalRooms', 'totalZones', 'totalProperties'));
 
         // Pass all the relevant data to the view
-        return view('client.show.agent-details-1', [
-            'user' => $userDetails['user'],
-            'averageRating' => $userDetails['averageRating'],
-            'ratingsDistribution' => $userDetails['ratingsDistribution'],
-            'comments' => $userDetails['comments']
-        ]);
+        // return view('client.show.agent-details-1', [
+        //     'user' => $userDetails['user'],
+        //     'averageRating' => $userDetails['averageRating'],
+        //     'ratingsDistribution' => $userDetails['ratingsDistribution'],
+        //     'comments' => $userDetails['comments']
+        // ]);
     }
 
 
