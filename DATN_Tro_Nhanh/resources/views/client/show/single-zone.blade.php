@@ -392,7 +392,7 @@
                                 </div>
                             </div>
                         </section>
-                        {{-- <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
+                         <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
                             <h4 class="fs-22 text-heading lh-15 mb-5">Đánh giá & Nhận xét</h4>
                             <div class="card border-0">
                                 <div class="card-body p-0">
@@ -505,13 +505,14 @@
                                     @endforeach
                                 </div>
                             </div>
-                        </section> --}}
+                        </section>
+
 
                         <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
                             <div class="card border-0">
                                 <div class="card-body p-0">
                                     <h3 class="fs-16 lh-2 text-heading mb-4">Viết Đánh Giá</h3>
-                                    <form id="commentForm" action="{{ route('client.danh-gia') }}" method="POST">
+                                    <form id="commentForm" action="{{ route('client.danh-gia-khu-tro') }}" method="POST">
                                         @csrf
                                         <div class="form-group mb-4 d-flex justify-content-start">
                                             <div class="rate-input">
@@ -541,12 +542,10 @@
                                             <textarea class="form-control form-control-lg border-0" placeholder="Đánh giá của bạn" name="content"
                                                 rows="5"></textarea>
                                         </div>
-                                        <input type="hidden" name="room_slug" value="{{ $zones->slug }}">
+                                        <input type="hidden" name="zone_slug" value="{{ $zones->slug }}">
+                                 
                                         <button type="submit" class="btn btn-lg btn-primary px-10">Gửi</button>
                                     </form>
-
-
-
                                 </div>
                             </div>
                         </section>

@@ -191,7 +191,7 @@
         <div class="sticky-area">
             <div class="container container-xxl">
                 <nav class="navbar navbar-expand-xl px-0 w-100">
-                    <a class="navbar-brand mr-7" href="index.html">
+                    <a class="navbar-brand mr-7" href="{{route('client.home')}}">
                         <img src="{{ asset('assets/images/logo.png') }}" alt="HomeID"
                             class="d-none d-xl-inline-block">
                         <img src="{{ asset('assets/images/logo-white.png') }}" alt="HomeID"

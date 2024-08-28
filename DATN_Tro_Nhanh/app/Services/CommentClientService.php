@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Models\Comment;
 use App\Models\Room;
+use App\Models\Blog;
+use App\Models\Zone;
 use Illuminate\Support\Facades\Auth;
 
 class CommentClientService
@@ -26,6 +28,57 @@ class CommentClientService
 
         return $review;
     }
+    public function submitZone($data)
+    {
+        // Tìm phòng theo slug
+        $zone = Zone::where('slug', $data['zone_slug'])->first();
+
+        if (!$zone) {
+            return null;
+        }
+
+        $review = new Comment();
+        $review->rating = $data['rating'];
+        $review->content = $data['content'];
+        $review->user_id = Auth::id();
+        $review->zone_id = $zone->id;
+        $review->save();
+
+        return $review;
+    }
+
+    public function submitBlogs($data)
+    {
+        $blog = Blog::where('slug', $data['blog_slug'])->first();
+
+        if (!$blog) {
+            return null;
+        }
+
+        $comment = new Comment();
+        $comment->content = $data['content'];
+        $comment->user_id = Auth::id();
+
+        if (!$comment->user_id) {
+            return null;
+        }
+
+        $comment->blog_id = $blog->id;
+        $comment->save();
+
+        return $comment;
+    }
+    public function getBlogWithComments($slug)
+    {
+
+        $blog = Blog::where('slug', $slug)->with('comments')->first();
+
+        if (!$blog) {
+            return null;
+        }
+
+        return $blog;
+    }
 
     public function getRoomDetailsWithRatings($slug)
     {
@@ -47,6 +100,31 @@ class CommentClientService
 
         return [
             'room' => $room,
+            'averageRating' => $averageRating,
+            'ratingsDistribution' => $ratingsDistribution,
+            'comments' => $comments,
+        ];
+    }
+    public function getZoneDetailsWithRatings($slug)
+    {
+        $zone = Zone::where('slug', $slug)->firstOrFail();
+
+        $totalReviews = $zone->comments()->count();
+        $averageRating = $totalReviews > 0 ? $zone->comments()->avg('rating') : 0;
+
+        $ratingsDistribution = [];
+        if ($totalReviews > 0) {
+            for ($i = 5; $i >= 1; $i--) {
+                $ratingsDistribution[$i] = $zone->comments()->where('rating', $i)->count() / $totalReviews * 100;
+            }
+        } else {
+            $ratingsDistribution = array_fill(1, 5, 0);
+        }
+
+        $comments = $zone->comments()->orderBy('created_at', 'desc')->get();
+
+        return [
+            'zone' => $zone,
             'averageRating' => $averageRating,
             'ratingsDistribution' => $ratingsDistribution,
             'comments' => $comments,

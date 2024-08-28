@@ -7,16 +7,18 @@ use Illuminate\Http\Request;
 use App\Services\ZoneServices;
 use App\Http\Requests\ZoneRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Services\CommentClientService;
 
 class ZoneClientController extends Controller
 {
     //
     protected $zoneServices;
     //
-
-    public function __construct(ZoneServices $zoneServices)
+    protected $CommentClientService;
+    public function __construct(ZoneServices $zoneServices, CommentClientService $CommentClientService)
     {
         $this->zoneServices = $zoneServices;
+        $this->CommentClientService = $CommentClientService;
     }
     // Danh sách khu trọ 
     public function listZoneClient(Request $request)
@@ -31,8 +33,17 @@ class ZoneClientController extends Controller
     // Xem chi tiết
     public function showZoneDetailsBySlug($slug)
     {
+        $zoneDetails = $this->CommentClientService->getZoneDetailsWithRatings($slug);
+
+        $comments = $zoneDetails['comments'];
+
         $zones = $this->zoneServices->getZoneDetailsBySlug($slug); // Lấy thông tin chi tiết của khu vực trọ dựa trên slug
 
-        return view('client.show.single-zone', ['zones' => $zones]);
+        return view('client.show.single-zone', [
+            'zones' => $zoneDetails['zone'],
+            'averageRating' => $zoneDetails['averageRating'],
+            'ratingsDistribution' => $zoneDetails['ratingsDistribution'],
+            'comments' => $comments,
+        ]);
     }
 }

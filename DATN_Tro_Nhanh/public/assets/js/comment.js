@@ -4,8 +4,7 @@ $(document).ready(function () {
 
         var form = $(this);
         var content = form.find('textarea[name="content"]').val();
-        var rating = form.find('input[name="rating"]:checked').val(); 
-
+     
         if (!userIsLoggedIn) { 
             Swal.fire({
                 title: 'Bạn chưa đăng nhập',
@@ -29,15 +28,7 @@ $(document).ready(function () {
             return;
         }
 
-        if (!rating) {
-            Swal.fire({
-                title: 'Số sao không được để trống',
-                text: 'Vui lòng chọn số sao.',
-                icon: 'warning',
-                confirmButtonText: 'OK'
-            });
-            return;
-        }
+      
 
         $.ajax({
             type: 'POST',
@@ -63,14 +54,15 @@ $(document).ready(function () {
                 }
             },
             error: function (xhr, status, error) {
-                console.error('Có lỗi xảy ra:', error);
+                console.error('Có lỗi xảy ra:', xhr.responseText); // In ra nội dung lỗi chi tiết từ server
                 Swal.fire({
                     title: 'Có lỗi xảy ra',
-                    text: 'Vui lòng thử lại.',
+                    text: xhr.responseText || 'Vui lòng thử lại.',
                     icon: 'error',
                     confirmButtonText: 'OK'
                 });
             }
+            
         });
     });
 });

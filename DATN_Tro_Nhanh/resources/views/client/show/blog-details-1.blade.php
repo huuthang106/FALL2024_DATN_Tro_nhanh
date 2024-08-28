@@ -23,18 +23,18 @@
                     <div class="col-lg-8 mb-6 mb-lg-0 pr-xl-6 pl-xl-0">
                         <div class="position-relative">
                             @php
-                            $image = $blog->image->first();
-                        @endphp
-                        
-                        @if ($image)
-                            <img class="rounded-lg d-block" src="{{ asset('assets/images/' . $image->filename) }}"
-                                 alt="Retail banks wake up to digital lending this year">
-                        @else
-                            <!-- Có thể hiển thị một ảnh mặc định nếu không có ảnh nào được liên kết -->
-                            <img class="rounded-lg d-block" src="{{ asset('assets/images/default.jpg') }}"
-                                 alt="Default Image">
-                        @endif
-                        
+                                $image = $blog->image->first();
+                            @endphp
+
+                            @if ($image)
+                                <img class="rounded-lg d-block" src="{{ asset('assets/images/' . $image->filename) }}"
+                                    alt="Retail banks wake up to digital lending this year">
+                            @else
+                                <!-- Có thể hiển thị một ảnh mặc định nếu không có ảnh nào được liên kết -->
+                                <img class="rounded-lg d-block" src="{{ asset('assets/images/default.jpg') }}"
+                                    alt="Default Image">
+                            @endif
+
 
                             <a href="#"
                                 class="badge text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white m-2 position-absolute letter-spacing-1 pos-fixed-bottom">
@@ -175,48 +175,49 @@
                                 </div>
                             </div>
                         </div>
-                        <h3 class="fs-22 text-heading lh-15 mb-6">Bình luận (3)</h3>
-                        @if ($blog->comments)
+                        <h3 class="fs-22 text-heading lh-15 mb-6">Bình luận ({{ $blog->comments->count() }})</h3>
+
+                        @if ($blog->comments->count() > 0)
                             @foreach ($blog->comments as $item)
                                 <div class="media mb-6 pb-5 border-bottom">
                                     <div class="w-70px mr-2">
-                                        <img src="{{ asset('assets/images/testimonial-5.jpg') }}" alt="Yasuo">
+                                        @php
+                                            $userImage = $item->user->image ?? 'default-avatar.jpg'; // Sử dụng hình ảnh người dùng nếu có, hoặc hình ảnh mặc định
+                                        @endphp
+                                        <img src="{{ asset('assets/images/' . $userImage) }}"
+                                            alt="{{ $item->user->name ?? 'Người dùng' }}"
+                                            class="mr-sm-8 mb-4 mb-sm-0 custom-avatar">
                                     </div>
                                     <div class="media-body">
-                                        <p class="text-heading fs-16 font-weight-500 mb-0">Yasuo</p>
-                                        <p class="mb-4">Trọ sạch sẽ</p>
+                                        <p class="text-heading fs-16 font-weight-500 mb-0">
+                                            {{ $item->user->name ?? 'Người dùng' }}
+                                        </p>
+                                        <p class="mb-4">{{ $item->content }}</p>
                                         <ul class="list-inline">
-                                            <li class="list-inline-item text-muted">02 Tháng 12 2019 lúc 2:40pm<span
+                                            <li class="list-inline-item text-muted">
+                                                {{ $item->created_at->format('d M Y \ lúc H:i') }}<span
                                                     class="d-inline-block ml-2">|</span></li>
                                             <li class="list-inline-item"><a href="#"
-                                                    class="text-heading hover-primary">Trả
-                                                    lời</a></li>
+                                                    class="text-heading hover-primary">Trả lời</a></li>
                                         </ul>
                                     </div>
                                 </div>
                             @endforeach
                         @else
+                            <p>Chưa có bình luận nào.</p>
                         @endif
 
+
+
                         <h3 class="fs-22 text-heading lh-15 mb-6">Để lại bình luận của bạn ở đây</h3>
-                        <form>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group mb-4">
-                                        <input type="text" placeholder="Tên bạn..." name="name"
-                                            class="form-control form-control-lg border-0">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group mb-4">
-                                        <input placeholder="Địa chỉ mail" class="form-control form-control-lg border-0"
-                                            type="email" name="email">
-                                    </div>
-                                </div>
-                            </div>
+                        <form id="commentForm" action="{{ route('client.binh-luan-blog') }}" method="POST">
+                            @csrf
+
                             <div class="form-group mb-6">
-                                <textarea class="form-control border-0" placeholder="Nội dung..." name="message" rows="5"></textarea>
+                                <textarea class="form-control border-0" placeholder="Nội dung..." name="content" rows="5"></textarea>
                             </div>
+                            <input type="hidden" name="blog_slug" value="{{ $blog->slug }}">
+
                             <button type="submit" class="btn btn-lg btn-primary px-9">Bình luận</button>
                         </form>
                     </div>
@@ -466,6 +467,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
     <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/mh.css') }}">
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">
@@ -501,4 +503,11 @@
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('assets/js/comment.js') }}"></script>
+    <script>
+        var userIsLoggedIn = @json(auth()->check());
+    </script>
 @endpush

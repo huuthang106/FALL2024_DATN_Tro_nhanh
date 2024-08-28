@@ -10,7 +10,7 @@ class Comment extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['content', 'rating', 'user_id', 'room_id', 'parent_id', 'blog_id'];
+    protected $fillable = ['content', 'rating', 'user_id', 'room_id', 'parent_id', 'blog_id', 'zone_id'];
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -19,5 +19,13 @@ class Comment extends Model
     public function room()
     {
         return $this->belongsTo(Room::class);
+    }
+    public function blog()
+    {
+        return $this->belongsTo(Blog::class);
+    }
+    public function zone()
+    {
+        return $this->belongsTo(Zone::class);
     }
 }
