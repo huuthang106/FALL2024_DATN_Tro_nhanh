@@ -12,7 +12,7 @@ Route::fallback(function () {
 // Route::get('/trang-chu', function () {
 //     return view('client.show.home');
 // })->middleware(['auth', 'verified'])->name('homes');
-
+    
 
 // // Route::get('/dashboard', function () {
 // //     return view('dashboard');

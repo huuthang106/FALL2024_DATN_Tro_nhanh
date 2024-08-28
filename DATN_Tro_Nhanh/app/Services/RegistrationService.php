@@ -7,6 +7,7 @@ use App\Models\RegistrationList;
 use Illuminate\Support\Facades\Http;
 use App\Models\Image;
 use Illuminate\Support\Facades\Log;
+use App\Events\ImagesUploaded;
 
 class RegistrationService
 {
@@ -63,7 +64,7 @@ class RegistrationService
                 ) {
                     try {
                         $response = Http::withOptions(['verify' => false])
-                            ->withHeaders(['api_key' => 'UelRbMHuFW4Vu1fQFYrwytI6DQ0KOeLX'])
+                            ->withHeaders(['api_key' => 'kKF03mZGXTblpB2UzVnSIi1ai64bcQHt'])
                             ->attach('file[]', fopen($request->file('CCCDMT')->getRealPath(), 'r'), $request->file('CCCDMT')->getClientOriginalName())
                             ->attach('file[]', fopen($request->file('FileFace')->getRealPath(), 'r'), $request->file('FileFace')->getClientOriginalName())
                             ->post('https://api.fpt.ai/dmp/checkface/v1');
@@ -79,23 +80,23 @@ class RegistrationService
                                 $description = 'Tôi muốn xin làm chủ trọ';
 
                                 // Lưu hình ảnh
+                                event(new ImagesUploaded($request));
+                                // // Tạo tên file với timestamp để đảm bảo tính duy nhất
+                                // $cccdmtFilename = 'cccdmt_' . time() . '.' . $request->file('CCCDMT')->extension();
+                                // $cccdmsFilename = 'cccdms_' . time() . '.' . $request->file('CCCDMS')->extension();
+                                // $fileFaceFilename = 'fileface_' . time() . '.' . $request->file('FileFace')->extension();
 
-                                // Tạo tên file với timestamp để đảm bảo tính duy nhất
-                                $cccdmtFilename = 'cccdmt_' . time() . '.' . $request->file('CCCDMT')->extension();
-                                $cccdmsFilename = 'cccdms_' . time() . '.' . $request->file('CCCDMS')->extension();
-                                $fileFaceFilename = 'fileface_' . time() . '.' . $request->file('FileFace')->extension();
+                                // // Di chuyển file vào thư mục public/assets/images/register_owner
+                                // $cccdmtPath = $request->file('CCCDMT')->move(public_path('assets/images/register_owner'), $cccdmtFilename);
+                                // $cccdmsPath = $request->file('CCCDMS')->move(public_path('assets/images/register_owner'), $cccdmsFilename);
+                                // $fileFacePath = $request->file('FileFace')->move(public_path('assets/images/register_owner'), $fileFaceFilename);
 
-                                // Di chuyển file vào thư mục public/assets/images/register_owner
-                                $cccdmtPath = $request->file('CCCDMT')->move(public_path('assets/images/register_owner'), $cccdmtFilename);
-                                $cccdmsPath = $request->file('CCCDMS')->move(public_path('assets/images/register_owner'), $cccdmsFilename);
-                                $fileFacePath = $request->file('FileFace')->move(public_path('assets/images/register_owner'), $fileFaceFilename);
-
-                                // Lưu tên file vào session
-                                session()->put('image_paths', [
-                                    'cccdmt_filename' => $cccdmtFilename,
-                                    'cccdms_filename' => $cccdmsFilename,
-                                    'fileface_filename' => $fileFaceFilename,
-                                ]);
+                                // // Lưu tên file vào session
+                                // session()->put('image_paths', [
+                                //     'cccdmt_filename' => $cccdmtFilename,
+                                //     'cccdms_filename' => $cccdmsFilename,
+                                //     'fileface_filename' => $fileFaceFilename,
+                                // ]);
                                 // Lưu hình nè 
 
                                 $data = [
@@ -107,8 +108,11 @@ class RegistrationService
 
                                 ];
 
-                                if (RegistrationList::where('user_id', $user_id)->exists()) {
-                                    return response()->json(['error' => 'Người dùng đã tồn tại.']);
+                                if (RegistrationList::where('user_id', $user_id)
+                                    ->orWhere('identification_number', $identification_number)
+                                    ->exists()
+                                ) {
+                                    return response()->json(['error' => 'Người dùng đã tồn tại với thông tin này.']);
                                 } else {
                                     // Lưu dữ liệu vào cơ sở dữ liệu
 
@@ -161,7 +165,7 @@ class RegistrationService
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => $data,
             CURLOPT_HTTPHEADER => array(
-                "api-key: UelRbMHuFW4Vu1fQFYrwytI6DQ0KOeLX"
+                "api-key: kKF03mZGXTblpB2UzVnSIi1ai64bcQHt"
             ),
             CURLOPT_RETURNTRANSFER => true, // Trả về kết quả dưới dạng chuỗi thay vì in ra
             CURLOPT_SSL_VERIFYPEER => false, // Tắt xác thực SSL
@@ -182,10 +186,11 @@ class RegistrationService
     }
     public function storeImages($images, $id)
     {
+
         // Lưu thông tin hình ảnh vào cơ sở dữ liệu
         foreach ($images as $filename) {
             Image::create([
-                'memberregistration_id' => $id,
+                'registrationlist_id' => $id,
                 'filename' => $filename,
             ]);
         }

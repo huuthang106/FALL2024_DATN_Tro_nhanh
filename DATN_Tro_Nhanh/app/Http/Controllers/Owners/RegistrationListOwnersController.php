@@ -40,7 +40,7 @@ class RegistrationListOwnersController extends Controller
                 $gender = null; // Hoặc xử lý lỗi nếu giá trị không phải 'nam' hoặc 'nữ'
                 break;
         }
-
+        
         $imagePaths = session()->get('image_paths', []);
 
         $data = [
