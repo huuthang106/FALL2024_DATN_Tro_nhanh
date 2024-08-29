@@ -12,4 +12,12 @@ class Watchlist extends Model
     use SoftDeletes;
     protected $table = 'watch_lists'; // Đặt tên bảng là 'watch_list'
 
+    public function personBeingFollowed()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function followe()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
