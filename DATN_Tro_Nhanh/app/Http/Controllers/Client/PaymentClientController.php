@@ -32,13 +32,14 @@ class PaymentClientController extends Controller
     // Giao diện chuẩn bị thanh toán
     public function showCheckout()
     {
-        $cartItems = $this->cartService->getCartItems(auth()->id());
+        $cartItems = $this->cartService->getCartDetails(auth()->id());
         return view('client.show.payment', compact('cartItems'));
     }
     // Tạo thanh toán
     public function processPayment(Request $request)
-    {
-        $payment = $this->paymentService->createPayment(auth()->id());
+    { // Kiểm tra giá trị trước khi tạo thanh toán
+
+        $payment = $this->paymentService->createPayment($request, auth()->id());
 
         if (!$payment) {
             return redirect()->route('client.payment')->with('error', 'Giỏ hàng trống hoặc có lỗi xảy ra');
@@ -62,9 +63,16 @@ class PaymentClientController extends Controller
     // Khi Thanh toán thành công
     public function showPaymentSuccess($paymentId)
     {
+        // Lấy thông tin thanh toán
         $payment = $this->paymentService->getPaymentDetails($paymentId);
+
+        // Gọi hàm để xóa các price list đã thanh toán khỏi giỏ hàng
+        $this->paymentService->clearPaidPriceLists($paymentId);
+
+        // Trả về view hiển thị thông báo thanh toán thành công
         return view('client.show.payment-successful', compact('payment'));
     }
+
     // Khi thanh toán thất bại
     public function showPaymentFailure()
     {

@@ -45,10 +45,21 @@
                             @endforeach
                             <div class="card-footer bg-transparent d-flex justify-content-between p-0 align-items-center">
                                 <p class="text-heading mb-0">Tổng Giá:</p>
-                                <span
-                                    class="fs-32 font-weight-bold text-heading">{{ number_format($cartItems->sum('price'), 0, ',', '.') }}
-                                    VND</span>
+                                <span class="fs-32 font-weight-bold text-heading">
+                                    {{ number_format(
+                                        $cartItems->reduce(function ($total, $item) {
+                                            // $item ở đây là đối tượng CartDetail, và bạn cần lấy thông tin từ Cart qua cart_id
+                                            $cart = $item->cart; // Giả sử bạn đã định nghĩa mối quan hệ trong CartDetail model
+                                            return $total + $item->price * $cart->quantity;
+                                        }, 0),
+                                        0,
+                                        ',',
+                                        '.',
+                                    ) }}
+                                    VND
+                                </span>
                             </div>
+
                         </div>
                     </div>
                     <div class="col-md-7 offset-lg-1">
@@ -85,8 +96,13 @@
                         {{-- <a href="checkout-complete-2.html" class="btn btn-primary px-8 py-2 lh-238">Thanh Toán Ngay</a> --}}
                         <form action="{{ route('client.payment.process') }}" method="POST">
                             @csrf
+                            <input type="hidden" name="totalAmount"
+                                value="{{ $cartItems->reduce(function ($total, $item) {
+                                    $cart = $item->cart;
+                                    return $total + $item->price * $cart->quantity;
+                                }, 0) }}">
                             {{-- <input type="hidden" name="amount" value="35000"> <!-- Ví dụ số tiền --> --}}
-                            <button type="submit" class="btn btn-primary">Thanh toán</button>
+                            <button type="submit" id="payButton" class="btn btn-primary">Thanh toán</button>
                         </form>
                     </div>
                 </div>

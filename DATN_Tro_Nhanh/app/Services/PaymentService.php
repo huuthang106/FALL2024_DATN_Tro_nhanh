@@ -3,11 +3,15 @@
 namespace App\Services;
 
 use App\Models\Payment;
+use App\Models\Bill;
 use App\Models\Cart;
+use App\Models\CartDetail;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 
 class PaymentService
 {
@@ -115,22 +119,42 @@ class PaymentService
         return null;
     }
     // Tạo thanh toán lưu vào DB
-    public function createPayment($userId)
+    public function createPayment($request, $userId)
     {
-        $cart = Cart::where('user_id', $userId)->with('details')->first();
+        $carts = Cart::where('user_id', $userId)->get();
 
-        if (!$cart || $cart->details->isEmpty()) {
+        // Kiểm tra nếu không có giỏ hàng
+        if ($carts->isEmpty()) {
             return null;
         }
 
-        $totalAmount = $cart->details->sum('price');
+        // $totalAmount = 0;
 
-        $payment = Payment::create([
+        // // Debug: Kiểm tra dữ liệu của cartDetails
+        // // dd($cartDetails);
+
+        // // Tính toán tổng số tiền từ các chi tiết
+        // foreach ($carts as $cart) {
+        //     dd($carts);
+        //     // Lấy tất cả các chi tiết liên quan đến giỏ hàng này
+        //     $cartDetails = CartDetail::where('cart_id', $cart->id)->get();
+        //     dd($cartDetails);
+        //     // Lặp qua từng chi tiết của giỏ hàng
+        //     foreach ($cartDetails as $detail) {
+
+        //         // Nhân quantity của từng giỏ hàng với price của chi tiết và cộng vào totalAmount
+        //         $totalAmount += $cart->quantity * $detail->price;
+        //     }
+        // }
+        $totalAmount = $request->input('totalAmount');
+
+        $payment = Bill::create([
             // 'resident_id' => $userId, trường này chưa có nên cmt lại
             'creator_id' => $userId,
             'payer_id' => $userId,
             'payment_date' => Carbon::now(),
             'amount' => $totalAmount,
+            'title' => 'Thanh toán thành công',
             'description' => 'Thanh toán gói dịch vụ',
             'status' => '1'
         ]);
@@ -142,19 +166,23 @@ class PaymentService
     // Chi tiết thanh toán
     public function getPaymentDetails($paymentId)
     {
-        return Payment::with(['resident', 'creator', 'payer'])->findOrFail($paymentId);
+        return Bill::findOrFail($paymentId);
     }
 
-    public function processPayment($paymentId)
+    public function clearPaidPriceLists($paymentId)
     {
-        $payment = Payment::findOrFail($paymentId);
-        // Xử lý thanh toán ở đây (có thể tích hợp với cổng thanh toán)
-        $payment->status = 'completed';
-        $payment->save();
+        // Lấy thông tin thanh toán
+        $payment = Bill::findOrFail($paymentId);
 
-        // Xóa giỏ hàng sau khi thanh toán thành công
-        Cart::where('user_id', $payment->resident_id)->delete();
+        // Lấy tất cả các giỏ hàng của người dùng
+        $carts = Cart::where('user_id', $payment->payer_id)->get();
+        foreach ($carts as $cart) {
+            // Lấy các price list trong cart (cart detail
+            $cart->delete();
+        }
 
-        return $payment;
+        return true; // Trả về true khi xóa thành công
     }
+
+
 }

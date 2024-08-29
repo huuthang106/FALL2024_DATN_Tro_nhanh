@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CartController;;
+use App\Http\Controllers\CartController;
+;
 
 Route::group(['prefix' => 'gio-hang'], function () {
     // Route::get('/', [CartController::class, 'index'])->name('carts-index');

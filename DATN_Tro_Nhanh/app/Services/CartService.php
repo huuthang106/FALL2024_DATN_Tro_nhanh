@@ -7,50 +7,79 @@ use App\Models\Cart;
 use App\Models\CartDetail;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class CartService
 {
     public function addToCart($priceListId)
     {
-        // Kiểm tra nếu người dùng chưa đăng nhập
-        if (!Auth::check()) {
-            return response()->json([
-                'message' => 'Vui lòng đăng nhập để thanh toán.',
-                'redirect' => route('home') // Chuyển hướng người dùng đến trang đăng nhập
-            ], 401);
+        $userId = Auth::id();
+        $priceList = PriceList::find($priceListId);
+
+        if (!$priceList) {
+            \Log::error('Price list not found for ID: ' . $priceListId);
+            throw new \Exception('Price list not found.');
         }
 
-        // Người dùng đã đăng nhập, tiếp tục thêm sản phẩm vào giỏ hàng
-        $userId = Auth::id(); // Lấy ID của người dùng hiện tại
-        $priceList = PriceList::with('location')->findOrFail($priceListId);
+        // Kiểm tra xem giỏ hàng đã tồn tại cho người dùng và gói tin này chưa
+        $cart = Cart::where('user_id', $userId)
+            ->where('price_list_id', $priceListId)
+            ->first();
 
-        // Tạo hoặc lấy giỏ hàng hiện tại của người dùng
-        $cart = Cart::firstOrCreate(
-            ['user_id' => $userId],
-            ['price_list_id' => $priceListId]
-        );
+        if ($cart) {
+            // Nếu đã tồn tại, tăng số lượng lên
+            $cart->quantity += 1;
+            $cart->save();
+        } else {
+            // Nếu chưa tồn tại, tạo mới giỏ hàng với số lượng ban đầu là 1
+            $cart = new Cart();
+            $cart->user_id = $userId;
+            $cart->price_list_id = $priceListId;
+            $cart->quantity = 1;
+            $cart->save();
+        }
 
-        // Thêm chi tiết sản phẩm vào giỏ hàng
-        $cartDetail = CartDetail::create([
-            'cart_id' => $cart->id,
-            'name_price_list' => $priceList->description,
-            'description' => $priceList->description,
-            'name_location' => $priceList->location->name,
-            'end_date' => Carbon::now()->addDays($priceList->duration_day),
-            'price' => $priceList->price
-        ]);
+        // Kiểm tra xem chi tiết giỏ hàng đã tồn tại chưa
+        $cartDetail = CartDetail::where('cart_id', $cart->id)
+            ->where('name_price_list', $priceList->description)
+            ->first();
 
-        return response()->json([
-            'message' => 'Sản phẩm đã được thêm vào giỏ hàng.',
-            'cartDetail' => $cartDetail
-        ]);
+        if (!$cartDetail) {
+            // Nếu chưa tồn tại, tạo mới chi tiết giỏ hàng
+            $cartDetail = new CartDetail();
+            $cartDetail->cart_id = $cart->id;
+            $cartDetail->name_price_list = $priceList->description;
+            $cartDetail->description = $priceList->description;
+            $cartDetail->name_location = $priceList->location->name; // Sử dụng mối quan hệ để lấy tên địa điểm
+            $cartDetail->end_date = $priceList->end_date;
+            $cartDetail->price = $priceList->price;
+            $cartDetail->save();
+        }
+
+        return $cart;
     }
 
-    public function getCartItems($userId)
+
+
+    public function getCartDetails($userId)
     {
-        $cart = Cart::where('user_id', $userId)->with('details')->first();
-        return $cart ? $cart->details : collect();
+        $carts = Cart::with('cartDetails')->where('user_id', $userId)->get();
+
+        if ($carts->isEmpty()) {
+            return [];
+        }
+
+        // Gộp tất cả các chi tiết giỏ hàng từ các giỏ hàng
+        $cartDetails = $carts->flatMap(function ($cart) {
+            return $cart->cartDetails;
+        });
+
+        return $cartDetails;
+
     }
+
+
+
     public function removeFromCart($userId, $cartDetailId)
     {
         $cart = Cart::where('user_id', $userId)->first();

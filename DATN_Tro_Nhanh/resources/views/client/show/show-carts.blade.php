@@ -55,6 +55,7 @@
                             <th class="py-6">Vị trí</th>
                             <th class="py-6">Ngày hết hạn</th>
                             <th class="no-sort py-6">Giá</th>
+                            <th class="no-sort py-6">Số lượng</th>
                             <th class="no-sort py-6">Thao tác</th>
                         </tr>
                     </thead>
@@ -78,6 +79,7 @@
                                         @endif
                                     </td>
                                     <td>{{ number_format($detail->price, 0, ',', '.') }} VND</td>
+                                    <td>{{ $detail->cart->quantity }}</td>
                                     <td>
                                         <form action="{{ route('client.carts-remove', $detail->id) }}" method="POST">
                                             @csrf
