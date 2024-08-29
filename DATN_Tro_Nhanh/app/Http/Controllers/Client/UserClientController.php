@@ -17,6 +17,7 @@ use App\Services\SocialAuthService;
 use App\Services\UserClientServices;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Services\CommentClientService;
 
 class UserClientController extends Controller
 {
@@ -27,12 +28,14 @@ class UserClientController extends Controller
     protected $registerService;
     protected $loginService;
     protected $socialAuthService;
-    public function __construct(UserClientServices $userClientServices, RegisterService $registerService, LoginService $loginService, SocialAuthService $socialAuthService)
+    protected $commentClientService;
+    public function __construct(UserClientServices $userClientServices, RegisterService $registerService, LoginService $loginService, SocialAuthService $socialAuthService, CommentClientService $commentClientService)
     {
         $this->userClientServices = $userClientServices;
         $this->registerService = $registerService;
         $this->loginService = $loginService;
         $this->socialAuthService = $socialAuthService;
+        $this->commentClientService = $commentClientService;
     }
 
     public function login()
@@ -59,12 +62,16 @@ class UserClientController extends Controller
         $village = $request->input('village');
 
         $users = $this->userClientServices->getUsersByRole(self::role_owners, $searchTerm, self::limit, $province,  $district, $village);
+ 
         return view('client.show.list-owners', compact('users'));
     }
     public function agentDetail($slug)
     {
-        $user = User::where('slug', $slug)->first();
-        if (!$user) {
+        // Get user details and ratings from the service
+        $userDetails = $this->commentClientService->getUserDetailsWithRatings($slug);
+        $comments = $userDetails['comments'];
+        // Check if user exists in the returned array
+        if (!$userDetails['user']) {
             abort(404, 'Người dùng không tìm thấy');
         }
         // Lấy tất cả tin đăng phòng trọ của người dùng này
@@ -81,7 +88,16 @@ class UserClientController extends Controller
         // Tính tổng cả rooms và zones
         $totalProperties = $totalRooms + $totalZones;
         return view('client.show.agent-details-1', compact('user', 'rooms', 'zones', 'totalRooms', 'totalZones', 'totalProperties'));
+
+        // Pass all the relevant data to the view
+        return view('client.show.agent-details-1', [
+            'user' => $userDetails['user'],
+            'averageRating' => $userDetails['averageRating'],
+            'ratingsDistribution' => $userDetails['ratingsDistribution'],
+            'comments' => $userDetails['comments']
+        ]);
     }
+
 
     public function redirectToGoogle()
     {

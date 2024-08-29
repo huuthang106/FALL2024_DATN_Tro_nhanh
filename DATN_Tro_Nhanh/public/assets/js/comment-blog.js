@@ -4,7 +4,6 @@ $(document).ready(function () {
 
         var form = $(this);
         var content = form.find('textarea[name="content"]').val();
-        var rating = form.find('input[name="rating"]:checked').val(); 
      
         if (!userIsLoggedIn) { 
             Swal.fire({
@@ -18,15 +17,7 @@ $(document).ready(function () {
             });
             return;
         }
-        if (!rating) {
-            Swal.fire({
-                title: 'Số sao không được để trống',
-                text: 'Vui lòng chọn số sao.',
-                icon: 'warning',
-                confirmButtonText: 'OK'
-            });
-            return;
-        }
+
         if (!content) {
             Swal.fire({
                 title: 'Nội dung không được để trống',

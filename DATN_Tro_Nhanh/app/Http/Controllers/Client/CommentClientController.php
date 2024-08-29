@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CommentRequest;
 use App\Http\Requests\RatingZoneRequest;
 use App\Http\Requests\BlogRequest;
+use App\Http\Requests\UserRequest;
 use App\Services\CommentClientService;
 
 class CommentClientController extends Controller
@@ -76,7 +77,23 @@ class CommentClientController extends Controller
         }
     }
 
+    public function submitUsers(UserRequest $request)
+    {
+        $validated = $request->validated();
 
+        if (!$request->has('user_slug')) {
+            return response()->json(['success' => false, 'message' => 'Phòng không hợp lệ.'], 400);
+        }
+
+        $validated['user_slug'] = $request->input('user_slug');
+        $user = $this->CommentClientService->submitUsers($validated);
+
+        if ($user) {
+            return response()->json(['success' => true, 'message' => 'Bình luận của bạn đã được gửi thành công!']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Đã xảy ra lỗi khi gửi bình luận.'], 500);
+        }
+    }
 
 }
 

@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Models\Room;
 use App\Models\Blog;
 use App\Models\Zone;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class CommentClientService
@@ -64,6 +65,28 @@ class CommentClientService
         }
 
         $comment->blog_id = $blog->id;
+        $comment->save();
+
+        return $comment;
+    }
+    public function submitUsers($data)
+    {
+        $user = User::where('slug', $data['user_slug'])->first();
+
+        if (!$user) {
+            return null;
+        }
+
+        $comment = new Comment();
+        $comment->rating = $data['rating'];
+        $comment->content = $data['content'];
+        $comment->user_id = Auth::id();
+
+        if (!$comment->user_id) {
+            return null;
+        }
+
+        $comment->user_id = $user->id;
         $comment->save();
 
         return $comment;
@@ -131,6 +154,30 @@ class CommentClientService
         ];
     }
 
+    public function getUserDetailsWithRatings($slug)
+    {
+        $user = User::where('slug', $slug)->firstOrFail();
 
+        $totalReviews = $user->comments()->count();
+        $averageRating = $totalReviews > 0 ? $user->comments()->avg('rating') : 0;
+
+        $ratingsDistribution = [];
+        if ($totalReviews > 0) {
+            for ($i = 5; $i >= 1; $i--) {
+                $ratingsDistribution[$i] = $user->comments()->where('rating', $i)->count() / $totalReviews * 100;
+            }
+        } else {
+            $ratingsDistribution = array_fill(1, 5, 0);
+        }
+
+        $comments = $user->comments()->orderBy('created_at', 'desc')->get();
+
+        return [
+            'user' => $user,
+            'averageRating' => $averageRating,
+            'ratingsDistribution' => $ratingsDistribution,
+            'comments' => $comments,
+        ];
+    }
 
 }
