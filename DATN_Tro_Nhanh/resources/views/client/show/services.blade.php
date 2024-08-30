@@ -149,18 +149,16 @@
                     Trọ Nhanh giúp bạn dễ dàng tìm kiếm phòng trọ phù hợp với nhu cầu của bạn. Hãy khám phá các tùy chọn của
                     chúng tôi và tìm cho mình không gian sống lý tưởng.
                 </p>
-                <form class="mxw-774">
+                <form class="mxw-774" method="POST" action="{{ route('client.service-mail-store') }}">
+                    @csrf
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <input type="text" placeholder="Tên" class="form-control form-control-lg border-0"
-                                    name="first-name">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="text" placeholder="Họ" name="last-name"
-                                    class="form-control form-control-lg border-0">
+                                    name="name" value="{{ old('name') }}">
+                                @error('name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -168,18 +166,27 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <input placeholder="Email" class="form-control form-control-lg border-0" type="email"
-                                    name="email">
+                                    name="email" value="{{ old('email') }}">
+                                @error('email')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6 px-2">
                             <div class="form-group">
                                 <input type="text" placeholder="Số điện thoại" name="phone"
-                                    class="form-control form-control-lg border-0">
+                                    class="form-control form-control-lg border-0" value="{{ old('phone') }}">
+                                @error('phone')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
                     <div class="form-group mb-6">
-                        <textarea class="form-control border-0" placeholder="Nội dung hỗ trợ..." name="message" rows="5"></textarea>
+                        <textarea class="form-control border-0" placeholder="Nội dung hỗ trợ..." name="message" rows="5">{{ old('message') }}</textarea>
+                        @error('message')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-lg btn-primary px-9">Gửi</button>

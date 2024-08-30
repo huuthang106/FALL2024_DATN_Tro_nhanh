@@ -56,7 +56,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 'report-client.php',
                 'resident-client.php',
                 'room-client.php',
-
+                'service-mail-client.php',
                 'transaction-client.php',
                 'user-client.php',
                 'watchlist-client.php',
