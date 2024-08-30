@@ -77,76 +77,89 @@
                             </h5>
                             <ul class="list-group list-group-no-border rounded-lg">
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                    <a href="{{ route('owners.add-room') }}" class="text-heading lh-1 sidebar-link">
-                                        <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20 fs-20">
-                                            <svg class="icon icon-add-new">
-                                                <use xlink:href="#icon-add-new"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="sidebar-item-text">Thêm trọ</span>
-                                    </a>
-                                </li>
-                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                    <a href="{{ route('owners.blog') }}" class="text-heading lh-1 sidebar-link">
-                                        <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20 fs-20">
-                                            <svg class="icon icon-add-new">
-                                                <use xlink:href="#icon-add-new"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="sidebar-item-text">Thêm blog</span>
-                                    </a>
-                                </li>
-                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                    <a href="{{ route('owners.zone-post') }}" class="text-heading lh-1 sidebar-link">
-                                        <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20 fs-20">
-                                            <svg class="icon icon-add-new">
-                                                <use xlink:href="#icon-add-new"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="sidebar-item-text">Thêm khu trọ</span>
-                                    </a>
-                                </li>
-
-                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                    <a href="{{ route('owners.properties') }}"
-                                        class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                    <a href="#collapseTrọ"
+                                        class="text-heading lh-1 sidebar-link d-flex align-items-center"
+                                        data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
                                         <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                             <svg class="icon icon-my-properties">
                                                 <use xlink:href="#icon-my-properties"></use>
                                             </svg>
                                         </span>
-                                        <span class="sidebar-item-text">Danh sách trọ</span>
-                                        <span
-                                            class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">{{ $unreadRoomCount }}</span>
+                                        <span class="sidebar-item-text">Trọ</span>
+                                        <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
                                     </a>
                                 </li>
+                                <div class="collapse" id="collapseTrọ">
+                                    <div class="card card-body border-0 bg-transparent py-0 pl-6">
+                                        <ul class="list-group list-group-flush list-group-no-border">
+                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                <a class="text-heading lh-1 sidebar-link"
+                                                    href="{{ route('owners.properties') }}">Danh sách trọ</a>
+                                            </li>
+                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                <a class="text-heading lh-1 sidebar-link"
+                                                    href="{{ route('owners.add-room') }}">Thêm mới
+                                                    trọ</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                    <a href="{{ route('owners.zone-list') }}"
-                                        class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                    <a href="#collapseKhuTrọ"
+                                        class="text-heading lh-1 sidebar-link d-flex align-items-center"
+                                        data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
                                         <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                             <svg class="icon icon-my-properties">
                                                 <use xlink:href="#icon-my-properties"></use>
                                             </svg>
                                         </span>
-                                        <span class="sidebar-item-text">Danh sách khu trọ</span>
-                                        <span
-                                            class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">29</span>
+                                        <span class="sidebar-item-text">Khu Trọ</span>
+                                        <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
                                     </a>
                                 </li>
-
+                                <div class="collapse" id="collapseKhuTrọ">
+                                    <div class="card card-body border-0 bg-transparent py-0 pl-6">
+                                        <ul class="list-group list-group-flush list-group-no-border">
+                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                <a class="text-heading lh-1 sidebar-link"
+                                                    href="{{ route('owners.zone-list') }}">Danh sách khu trọ</a>
+                                            </li>
+                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                <a class="text-heading lh-1 sidebar-link"
+                                                    href="{{ route('owners.zone-post') }}">Thêm mới
+                                                    khu trọ</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                    <a href="{{ route('owners.show-blog') }}"
-                                        class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                    <a href="#collapseBlog"
+                                        class="text-heading lh-1 sidebar-link d-flex align-items-center"
+                                        data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
                                         <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                             <svg class="icon icon-my-properties">
                                                 <use xlink:href="#icon-my-properties"></use>
                                             </svg>
                                         </span>
-                                        <span class="sidebar-item-text">Danh sách Blog</span>
-                                        <span
-                                            class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">{{ $totalBlogs }}</span>
+                                        <span class="sidebar-item-text">Blog</span>
+                                        <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
                                     </a>
                                 </li>
+                                <div class="collapse" id="collapseBlog">
+                                    <div class="card card-body border-0 bg-transparent py-0 pl-6">
+                                        <ul class="list-group list-group-flush list-group-no-border">
+                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                <a class="text-heading lh-1 sidebar-link"
+                                                    href="{{ route('owners.show-blog') }}">Danh sách blog</a>
+                                            </li>
+                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                <a class="text-heading lh-1 sidebar-link"
+                                                    href="{{ route('owners.blog') }}">Thêm mới
+                                                    blog</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                     <a href="{{ route('owners.show-fix') }}"
                                         class="text-heading lh-1 sidebar-link d-flex align-items-center">
@@ -161,31 +174,51 @@
                                     </a>
                                 </li>
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                    <a href="{{ route('owners.watch-list') }}"
-                                        class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                    <a href="#collapseLike"
+                                        class="text-heading lh-1 sidebar-link d-flex align-items-center"
+                                        data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
                                         <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                             <svg class="icon icon-my-properties">
                                                 <use xlink:href="#icon-my-properties"></use>
                                             </svg>
                                         </span>
-                                        <span class="sidebar-item-text">Danh sách theo dõi</span>
-                                        <span
-                                            class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">{{ $unreadRoomCount }}</span>
+                                        <span class="sidebar-item-text">Theo dõi</span>
+                                        <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
                                     </a>
                                 </li>
+                                <div class="collapse" id="collapseLike">
+                                    <div class="card card-body border-0 bg-transparent py-0 pl-6">
+                                        <ul class="list-group list-group-flush list-group-no-border">
+                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                <a class="text-heading lh-1 sidebar-link"
+                                                    href="{{ route('owners.watch-list') }}">Danh sách theo dõi</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                    <a href="{{ Route('owners.favorites') }}"
-                                        class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                    <a href="#collapseShare"
+                                        class="text-heading lh-1 sidebar-link d-flex align-items-center"
+                                        data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
                                         <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                             <svg class="icon icon-my-properties">
                                                 <use xlink:href="#icon-my-properties"></use>
                                             </svg>
                                         </span>
                                         <span class="sidebar-item-text">Yêu thích</span>
-                                        <span
-                                            class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">5</span>
+                                        <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
                                     </a>
                                 </li>
+                                <div class="collapse" id="collapseShare">
+                                    <div class="card card-body border-0 bg-transparent py-0 pl-6">
+                                        <ul class="list-group list-group-flush list-group-no-border">
+                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                <a class="text-heading lh-1 sidebar-link"
+                                                    href="{{ Route('owners.favorites') }}">Danh sách yêu thích</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                     <a href="dashboard-save-search.html"
                                         class="text-heading lh-1 sidebar-link d-flex align-items-center">
@@ -200,18 +233,28 @@
                                     </a>
                                 </li>
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                    <a href="{{ route('owners.danhgia') }}"
-                                        class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                    <a href="#collapseCmt"
+                                        class="text-heading lh-1 sidebar-link d-flex align-items-center"
+                                        data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
                                         <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                            <svg class="icon icon-review">
-                                                <use xlink:href="#icon-review"></use>
+                                            <svg class="icon icon-my-properties">
+                                                <use xlink:href="#icon-my-properties"></use>
                                             </svg>
                                         </span>
                                         <span class="sidebar-item-text">Đánh giá</span>
-                                        <span
-                                            class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">29</span>
+                                        <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
                                     </a>
                                 </li>
+                                <div class="collapse" id="collapseCmt">
+                                    <div class="card card-body border-0 bg-transparent py-0 pl-6">
+                                        <ul class="list-group list-group-flush list-group-no-border">
+                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                <a class="text-heading lh-1 sidebar-link"
+                                                    href="{{ route('owners.danhgia') }}">Danh sách đánh giá</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                     <a href="#invoice_collapse"
                                         class="text-heading lh-1 sidebar-link d-flex align-items-center"
