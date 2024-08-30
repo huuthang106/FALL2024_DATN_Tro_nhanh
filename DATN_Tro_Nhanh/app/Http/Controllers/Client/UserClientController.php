@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Watchlist;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -18,6 +19,7 @@ use App\Services\UserClientServices;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Services\CommentClientService;
+use App\Services\WatchListOwner;
 
 class UserClientController extends Controller
 {
@@ -29,13 +31,17 @@ class UserClientController extends Controller
     protected $loginService;
     protected $socialAuthService;
     protected $commentClientService;
-    public function __construct(UserClientServices $userClientServices, RegisterService $registerService, LoginService $loginService, SocialAuthService $socialAuthService, CommentClientService $commentClientService)
+    protected $watchListOwner;
+    public function __construct(UserClientServices $userClientServices, RegisterService $registerService, LoginService $loginService, SocialAuthService $socialAuthService, CommentClientService $commentClientService, WatchListOwner $watchListOwner)
     {
         $this->userClientServices = $userClientServices;
         $this->registerService = $registerService;
         $this->loginService = $loginService;
         $this->socialAuthService = $socialAuthService;
         $this->commentClientService = $commentClientService;
+        $this->watchListOwner = $watchListOwner;
+
+        
     }
 
     public function login()
@@ -69,11 +75,19 @@ class UserClientController extends Controller
     {
         // Get user details and ratings from the service
         $userDetails = $this->commentClientService->getUserDetailsWithRatings($slug);
+        $user =User::where('slug', $slug)->first();
         $comments = $userDetails['comments'];
         // Check if user exists in the returned array
         if (!$userDetails['user']) {
             abort(404, 'Người dùng không tìm thấy');
         }
+        //kiểm tra xem đã follow chưa 
+        $currentUserId = Auth::id(); // Lấy ID của người dùng hiện tại
+        $isFollowing = false;
+        if ($currentUserId) {
+            $isFollowing = $this->watchListOwner->checkFollowing($user->id, $currentUserId);
+        }
+       
         // Lấy tất cả tin đăng phòng trọ của người dùng này
         $rooms = $user->rooms;
         $zones = $user->zones;
@@ -87,15 +101,19 @@ class UserClientController extends Controller
         }
         // Tính tổng cả rooms và zones
         $totalProperties = $totalRooms + $totalZones;
-        return view('client.show.agent-details-1', compact('user', 'rooms', 'zones', 'totalRooms', 'totalZones', 'totalProperties'));
+        return view('client.show.agent-details-1', array_merge(
+            compact('user', 'rooms', 'zones', 'totalRooms', 'totalZones', 'totalProperties','isFollowing'),
+            [
+                'user' => $userDetails['user'],
+                'averageRating' => $userDetails['averageRating'],
+                'ratingsDistribution' => $userDetails['ratingsDistribution'],
+                'comments' => $userDetails['comments']
+            ]
+        ));
+        
 
         // Pass all the relevant data to the view
-        return view('client.show.agent-details-1', [
-            'user' => $userDetails['user'],
-            'averageRating' => $userDetails['averageRating'],
-            'ratingsDistribution' => $userDetails['ratingsDistribution'],
-            'comments' => $userDetails['comments']
-        ]);
+       
     }
 
 
@@ -150,4 +168,5 @@ class UserClientController extends Controller
         // Chuyển hướng về trang chủ
         return redirect('/');
     }
+
 }

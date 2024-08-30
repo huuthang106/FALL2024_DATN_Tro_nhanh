@@ -11,7 +11,7 @@ class Watchlist extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'watch_lists'; // Đặt tên bảng là 'watch_list'
-
+    protected $fillable = ['user_id', 'follower', 'status'];
     public function personBeingFollowed()
     {
         return $this->belongsTo(User::class, 'user_id');

@@ -37,18 +37,33 @@
                                     <p class="text-heading font-weight-500 mb-0 lh-13">{{ $user->email }}</p>
                                 </div>
                                 <div class="col-sm-6 mb-4">
-                                    <form action="" method="POST" id="approveForm">
-                                        @csrf
-                                        @method('PUT')
-                                        <button type="submit" class="btn btn-sm btn-light me-2" id="followButton">
-                                            <span class="indicator-label">Theo dõi</span>
-                                            <span class="indicator-progress d-none">Vui lòng chờ...
-                                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                                            </span>
-                                        </button>
-                                    </form>
+                                    @if ($isFollowing)
+                                        <form action="" method="POST" id="unfollowForm">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-primary me-2" id="unfollowButton">
+                                                <span class="indicator-label">Đã theo dõi</span>
+                                                <span class="indicator-progress d-none">Vui lòng chờ...
+                                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                </span>
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form action="{{ route('client.follow', $user->id) }}" method="POST"
+                                            id="followForm">
+                                            @csrf
+                                            @method('POST') <!-- Thay đổi để đồng bộ với phương thức POST -->
+                                            <button type="submit" class="btn btn-sm btn-light me-2" id="followButton">
+                                                <span class="indicator-label">Theo dõi</span>
+                                                <span class="indicator-progress d-none">Vui lòng chờ...
+                                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                </span>
+                                            </button>
+                                        </form>
+                                    @endif
                                 </div>
-                                
+
+
                             </div>
                             <hr class="mb-4">
                             <div class="row align-items-center">
@@ -129,14 +144,16 @@
                                     </a>
                                 </li>
                                 <li class="nav-item ml-0">
-                                    <a href="#rent" class="nav-link shadow-none fs-13" data-toggle="tab" role="tab">
+                                    <a href="#rent" class="nav-link shadow-none fs-13" data-toggle="tab"
+                                        role="tab">
                                         Khu trọ ({{ $totalZones }})
                                     </a>
                                 </li>
                             </ul>
                             <div class="tab-content shadow-none pt-7 pb-0 px-6 bg-white">
                                 <div id="collapse-tabs-accordion-01">
-                                    <div class="tab-pane tab-pane-parent fade show active" id="all" role="tabpanel">
+                                    <div class="tab-pane tab-pane-parent fade show active" id="all"
+                                        role="tabpanel">
                                         <div class="card border-0 bg-transparent">
                                             <div class="card-header border-0 d-block d-md-none bg-transparent px-0 py-1"
                                                 id="headingAll-01">
@@ -677,7 +694,7 @@
                                 </div>
                             </div>
                         </div>
-                      
+
                         <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
                             <h4 class="fs-22 text-heading lh-15 mb-5">Đánh giá & Nhận xét</h4>
                             <div class="card border-0">
@@ -798,7 +815,8 @@
                             <div class="card border-0">
                                 <div class="card-body p-0">
                                     <h3 class="fs-16 lh-2 text-heading mb-4">Viết Đánh Giá</h3>
-                                    <form id="commentForm" action="{{ route('client.danh-gia-nguoi-dung') }}" method="POST">
+                                    <form id="commentForm" action="{{ route('client.danh-gia-nguoi-dung') }}"
+                                        method="POST">
                                         @csrf
                                         <div class="form-group mb-4 d-flex justify-content-start">
                                             <div class="rate-input">
@@ -829,7 +847,7 @@
                                                 rows="5"></textarea>
                                         </div>
                                         <input type="hidden" name="user_slug" value="{{ $user->slug }}">
-                                 
+
                                         <button type="submit" class="btn btn-lg btn-primary px-10">Gửi</button>
                                     </form>
                                 </div>
@@ -1059,26 +1077,7 @@
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
-    <script>document.getElementById('followButton').addEventListener('click', function(event) {
-        event.preventDefault(); // Ngăn chặn form submit ngay lập tức
-    
-        var button = this;
-        var label = button.querySelector('.indicator-label');
-        var progress = button.querySelector('.indicator-progress');
-    
-        // Thay đổi trạng thái của nút
-        label.classList.add('d-none');
-        progress.classList.remove('d-none');
-    
-        // Giả lập việc xử lý form (bạn có thể thay thế bằng xử lý thật sự)
-        setTimeout(function() {
-            label.textContent = 'Đã theo dõi';
-            label.classList.remove('d-none');
-            progress.classList.add('d-none');
-            button.classList.remove('btn-light'); // Loại bỏ màu cũ
-            button.classList.add('btn-primary');  // Thêm class để thay đổi màu nền của nút
-        }, 2000); // Thời gian giả lập là 2 giây
-    });
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- SweetAlert2 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -1086,4 +1085,5 @@
     <script>
         var userIsLoggedIn = @json(auth()->check());
     </script>
+    <script src="{{ asset('assets/js/client/ajax-follow.js') }}"></script>
 @endpush
