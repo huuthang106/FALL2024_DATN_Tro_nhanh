@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Cocur\Slugify\Slugify;
 
 class RegisteredUserController extends Controller
 {
@@ -34,17 +35,32 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-
+        $slug = $this->createSlug($request->name);
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'slug' => $slug,
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('home', absolute: false));
+        return redirect(route('client.home', absolute: false));
+    }
+    private function createSlug($name)
+    {
+        $slugify = new Slugify();
+        $slug = $slugify->slugify($name);
+
+        $existingUser = User::where('slug', $slug)->first();
+
+        // Nếu slug đã tồn tại, thêm ID vào slug
+        if ($existingUser) {
+            $slug = $slug . '-' . (User::max('id') + 1);
+        }
+
+        return $slug;
     }
 }
