@@ -93,9 +93,15 @@ class ZoneOwnersController extends Controller
 
     public function destroy($id)
     {
-        $this->zoneServices->softDeleteZones($id);
-        return redirect()->route('owners.trash-zone')->with('success', 'Khu trọ đã được chuyển vào thùng rác.');
+        $result = $this->zoneServices->softDeleteZones($id);
+
+        if ($result['status'] === 'error') {
+            return redirect()->back()->with('error', $result['message']);
+        }
+
+        return redirect()->route('owners.trash-zone')->with('success', $result['message']);
     }
+
 
     public function trash()
     {

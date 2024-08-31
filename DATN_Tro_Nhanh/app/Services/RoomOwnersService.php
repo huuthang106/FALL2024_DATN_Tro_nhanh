@@ -9,6 +9,7 @@ use App\Models\Price;
 use App\Models\Location;
 use App\Models\Zone;
 use App\Models\Image;
+use App\Models\Resident;
 use App\Models\Utility;
 use Cocur\Slugify\Slugify;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -300,10 +301,31 @@ class RoomOwnersService
 
     public function softDeleteRoom($id)
     {
+        // Tìm phòng theo ID
         $room = Room::findOrFail($id);
+
+        // Kiểm tra xem room_id có trong bảng residents hay không
+        $hasResidents = Resident::where('room_id', $id)->exists();
+
+        if ($hasResidents) {
+            // Nếu phòng có người ở, trả về thông báo lỗi
+            return [
+                'status' => 'error',
+                'message' => 'Phòng có người ở, không thể xóa.'
+            ];
+        }
+
+        // Nếu không có người ở, tiến hành xóa mềm
         $room->delete();
-        return $room;
+
+        // Trả về thông báo thành công
+        return [
+            'status' => 'success',
+            'message' => 'Phòng đã được chuyển vào thùng rác thành công.'
+        ];
     }
+
+
 
     public function getTrashedRooms()
     {

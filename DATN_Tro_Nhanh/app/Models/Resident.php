@@ -10,4 +10,8 @@ class Resident extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
 }

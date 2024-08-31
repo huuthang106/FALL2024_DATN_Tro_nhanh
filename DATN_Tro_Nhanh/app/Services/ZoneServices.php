@@ -8,6 +8,7 @@ use App\Models\Room;
 use Illuminate\Support\Facades\Storage;
 use App\Events\Admin\ZoneUpdated;
 use App\Models\Utility;
+use App\Models\Resident;
 class ZoneServices
 {
     const CO = 1; // Có tiện ích
@@ -230,10 +231,44 @@ class ZoneServices
 
     public function softDeleteZones($id)
     {
+        // Tìm zone theo ID
         $zone = Zone::findOrFail($id);
+
+        // Kiểm tra xem có phòng nào thuộc zone này chưa bị xóa mềm hay không
+        $activeRooms = Room::where('zone_id', $id)->whereNull('deleted_at')->exists();
+
+        if ($activeRooms) {
+            // Nếu có phòng đang hoạt động, trả về thông báo lỗi
+            return [
+                'status' => 'error',
+                'message' => 'Khu trọ đang có phòng hoạt động, không thể xóa.'
+            ];
+        }
+
+        // Kiểm tra xem có user_id nào đang ở trong resident thuộc zone này không
+        $activeResidents = Resident::where('zone_id', $id)
+            ->whereNotNull('user_id')
+            ->exists();
+
+        if ($activeResidents) {
+            // Nếu có user_id đang ở trong resident, trả về thông báo lỗi
+            return [
+                'status' => 'error',
+                'message' => 'Khu trọ đang có người ở, không thể xóa.'
+            ];
+        }
+
+        // Nếu tất cả các phòng đều đã bị xóa mềm và không có người ở, tiến hành xóa mềm zone
         $zone->delete();
-        return $zone;
+
+        // Trả về thông báo thành công
+        return [
+            'status' => 'success',
+            'message' => 'Khu trọ đã được xóa thành công.'
+        ];
     }
+
+
 
     public function getTrashedZones()
     {

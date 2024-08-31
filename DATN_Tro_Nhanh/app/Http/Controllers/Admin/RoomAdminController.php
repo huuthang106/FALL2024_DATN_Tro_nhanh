@@ -61,10 +61,10 @@ class RoomAdminController extends Controller
                 event(new RoomCreated($room));
 
                 // Redirect với thông báo thành công
-                return redirect()->route('admin.add-room-show')->with('success', 'Room đã được tạo thành công.');
+                return redirect()->route('admin.show-room')->with('success', 'Room đã được tạo thành công.');
             } catch (\Exception $e) {
                 // Nếu có lỗi xảy ra, sửa thông báo
-                return redirect()->route('admin.add-room-show')->with('error', 'Đã xảy ra lỗi khi tạo Room.');
+                return redirect()->route('admin.show-room')->with('error', 'Đã xảy ra lỗi khi tạo Room.');
             }
         }
     }

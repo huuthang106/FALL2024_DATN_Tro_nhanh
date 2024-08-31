@@ -56,9 +56,17 @@ class RoomOwnersController extends Controller
     //xoa room 
     public function destroy($id)
     {
-        $this->roomOwnersService->softDeleteRoom($id);
+        $result = $this->roomOwnersService->softDeleteRoom($id);
+
+        if ($result['status'] === 'error') {
+            // Nếu có người ở, quay lại trang hiện tại với thông báo lỗi
+            return redirect()->back()->with('error', $result['message']);
+        }
+
+        // Nếu xóa thành công, chuyển hướng đến trang thùng rác với thông báo thành công
         return redirect()->route('owners.trash')->with('success', 'Phòng đã được chuyển vào thùng rác.');
     }
+
 
     public function trash()
     {

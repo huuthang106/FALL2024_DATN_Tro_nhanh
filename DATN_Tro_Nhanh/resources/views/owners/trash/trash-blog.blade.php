@@ -2,7 +2,17 @@
 @section('titleOwners', 'Trang chủ trọ nhanh')
 @section('contentOwners')
 
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
 
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
             <form action="{{ route('owners.properties') }}" method="GET">
@@ -94,7 +104,7 @@
                                 </td>
                                 <td class="align-middle">{{ $blog->created_at->format('d-m-Y') }}</td>
                                 <td class="align-middle">
-                                    <form action="{{ route('owners.restore-maintenance', $blog->id) }}" method="POST">
+                                    <form action="{{ route('owners.restore-blog', $blog->id) }}" method="POST">
                                         @csrf
                                         @method('PUT')
                                         <button type="submit" class="btn btn-primary">Khôi phục</button>
