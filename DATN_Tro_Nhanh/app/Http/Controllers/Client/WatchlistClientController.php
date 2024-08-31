@@ -14,24 +14,22 @@ class WatchlistClientController extends Controller
     public function __construct(WatchListOwner $watchListOwner)
     {
         $this->watchListOwner = $watchListOwner;
-   
     }
     public function follow($person_being_followed_id)
-    {
-        if (Auth::check()) {
-            $user_id = Auth::id();
-            $follow = $this->watchListOwner->follow($person_being_followed_id, $user_id);
-            return response()->json(['success' => true]);
-            // Kiểm tra kết quả của hành động follow
-            if ($follow) {
-                return redirect()->back()->with('success', 'Đã theo dõi thành công');
-            } else {
-                return response()->json(['success' => false, 'message' => 'Follow action failed.']);
-            }
-        } else {
-            return response()->json(['success' => false, 'message' => 'User not authenticated.']);
-        }
+{
+    if (Auth::check()) {
+        $user_id = Auth::id();
+        $response = $this->watchListOwner->follow($person_being_followed_id, $user_id);
+        // dd($response);
+        // Trả về phản hồi từ phương thức follow
+        return response()->json($response);
+    } else {
+        dd('cc');
+        // return response()->json([
+        //     'success' => false,
+        //     'message' => 'User not authenticated.'
+        // ]);
     }
-    
-    
+}
+
 }

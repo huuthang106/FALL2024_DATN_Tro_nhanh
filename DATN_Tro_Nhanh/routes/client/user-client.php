@@ -19,6 +19,7 @@ Route::group(['prefix' => 'nguoi-dang-tin'], function () {
     Route::get('/', [UserClientController::class, 'indexAgent'])->name('client-agent');
     Route::get('chi-tiet/{slug}', [UserClientController::class, 'agentDetail'])->name('client-agent-detail');
     Route::Post('theo-doi/{id}', [WatchlistClientController::class, 'follow'])->name('follow');
+    route::delete('huy-theo-doi/{id}', [WatchlistClientController::class, 'unfollow'])->name('unfollow');
 
 });
 

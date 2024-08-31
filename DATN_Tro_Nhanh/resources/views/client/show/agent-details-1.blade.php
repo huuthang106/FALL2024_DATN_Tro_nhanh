@@ -38,9 +38,9 @@
                                 </div>
                                 <div class="col-sm-6 mb-4">
                                     @if ($isFollowing)
-                                        <form action="" method="POST" id="unfollowForm">
+                                        <form action="{{ route('client.follow', $user->id) }}" method="POST" id="unfollowForm">
                                             @csrf
-                                            @method('DELETE')
+                                           
                                             <button type="submit" class="btn btn-sm btn-primary me-2" id="unfollowButton">
                                                 <span class="indicator-label">Đã theo dõi</span>
                                                 <span class="indicator-progress d-none">Vui lòng chờ...
@@ -49,17 +49,16 @@
                                             </button>
                                         </form>
                                     @else
-                                        <form action="{{ route('client.follow', $user->id) }}" method="POST"
-                                            id="followForm">
-                                            @csrf
-                                            @method('POST') <!-- Thay đổi để đồng bộ với phương thức POST -->
-                                            <button type="submit" class="btn btn-sm btn-light me-2" id="followButton">
-                                                <span class="indicator-label">Theo dõi</span>
-                                                <span class="indicator-progress d-none">Vui lòng chờ...
-                                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                                                </span>
-                                            </button>
-                                        </form>
+                                    <form action="{{ route('client.follow', $user->id) }}" method="POST" id="followForm">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-light me-2" id="followButton">
+                                            <span class="indicator-label">Theo dõi</span>
+                                            <span class="indicator-progress d-none">Vui lòng chờ...
+                                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                            </span>
+                                        </button>
+                                    </form>
+                                    
                                     @endif
                                 </div>
 

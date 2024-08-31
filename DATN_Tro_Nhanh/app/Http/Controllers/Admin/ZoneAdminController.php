@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ZoneRequest;
 use App\Services\ZoneServices;
 use App\Events\ZoneCreated;
-
+use Illuminate\Support\Facades\Auth;
 class ZoneAdminController extends Controller
 {
     protected $zoneServices;
@@ -44,6 +44,20 @@ class ZoneAdminController extends Controller
         $zones = $this->zoneServices->getAllZones();
 
         return view('admincp.show.zone', compact('zones'));
+    }
+    public function listMyZone()
+    {
+        $user_id = Auth::id();
+        if (Auth::check() && Auth::user()->role != 1) {
+            $zones = $this->zoneServices->getMyZone($user_id);
+            // Xử lý yêu cầu không phải AJAX
+            return view('admincp.show.zone', compact('zones'));
+        } else {
+            // Nếu người dùng không có quyền, chuyển hướng về trang chính
+            return redirect()->route('client.home');
+        }
+
+       
     }
     public function editZoneForm($id)
     {

@@ -52,7 +52,7 @@ class ZoneOwnersController extends Controller
     {
         $user_id = Auth::id();
         if (Auth::check() && Auth::user()->role != 1) {
-            $zones = $this->zoneServices->getAllZones();
+            $zones = $this->zoneServices->getMyZone($user_id);
             // Xử lý yêu cầu không phải AJAX
             return view('owners.show.dashbroard-my-zone', ['zones' => $zones]);
         } else {

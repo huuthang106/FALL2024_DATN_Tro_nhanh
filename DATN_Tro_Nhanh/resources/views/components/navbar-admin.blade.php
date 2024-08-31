@@ -1402,7 +1402,7 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.danh-sach-khutro') }}"
+                            <a class="menu-link" href="{{ route('admin.all_zone') }}"
                                 style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>

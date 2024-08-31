@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Watchlist extends Model
 {
     use HasFactory;
-    use SoftDeletes;
+
     protected $table = 'watch_lists'; // Đặt tên bảng là 'watch_list'
     protected $fillable = ['user_id', 'follower', 'status'];
     public function personBeingFollowed()
