@@ -216,6 +216,4 @@
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
     {{-- Show - Alert --}}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{ asset('assets/js/alert/category-admin-alert.js') }}"></script>
 @endpush
