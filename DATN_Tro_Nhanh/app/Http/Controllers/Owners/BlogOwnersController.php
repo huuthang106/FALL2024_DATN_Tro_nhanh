@@ -49,14 +49,14 @@ class BlogOwnersController extends Controller
     public function updateBlog(Request $request, $slug)
     {
         $result = $this->BlogService->updateBlog($request, $slug);
-    
-     
-            return redirect()->route('owners.show-blog')->with('success', $result['message']);
-    
+
+
+        return redirect()->route('owners.show-blog')->with('success', $result['message']);
+
     }
-    
-    
-    
+
+
+
 
     // public function update(Request $request, $slug)
     // {
@@ -102,4 +102,22 @@ class BlogOwnersController extends Controller
     //     $deleted = $this->BlogService->deleteBlogBySlug($slug);
     //     return view('owners.show.dashboard-my-blog');
     // }
+
+    public function destroy($id)
+    {
+        $this->BlogService->softDeleteBlogs($id);
+        return redirect()->route('owners.trash-blog')->with('success', 'Blog đã được chuyển vào thùng rác.');
+    }
+
+    public function trash()
+    {
+        $trashedBlogs = $this->BlogService->getTrashedBlogs();
+        return view('owners.trash.trash-blog', compact('trashedBlogs'));
+    }
+
+    public function restore($id)
+    {
+        $this->BlogService->restoreBlogs($id);
+        return redirect()->route('owners.show-blog')->with('success', 'Blog đã được khôi phục.');
+    }
 }

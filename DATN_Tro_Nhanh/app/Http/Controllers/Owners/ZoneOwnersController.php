@@ -91,4 +91,22 @@ class ZoneOwnersController extends Controller
         return view('owners.zone-post');
     }
 
+    public function destroy($id)
+    {
+        $this->zoneServices->softDeleteZones($id);
+        return redirect()->route('owners.trash-zone')->with('success', 'Khu trọ đã được chuyển vào thùng rác.');
+    }
+
+    public function trash()
+    {
+        $trashedZones = $this->zoneServices->getTrashedZones();
+        return view('owners.trash.trash-zone', compact('trashedZones'));
+    }
+
+    public function restore($id)
+    {
+        $this->zoneServices->restoreZones($id);
+        return redirect()->route('owners.zone-list')->with('success', 'Khu trọ đã được khôi phục.');
+    }
+
 }

@@ -56,8 +56,8 @@
                     </thead>
                     <tbody>
                         {{-- noi dung table --}}
-                        @if ($zones->isNotEmpty())
-                            @foreach ($zones as $zone)
+                        @if ($trashedZones->isNotEmpty())
+                            @foreach ($trashedZones as $zone)
                                 <tr role="row">
                                     <td class="checkbox-column py-6 pl-6"><label
                                             class="new-control new-checkbox checkbox-primary m-auto">
@@ -86,16 +86,10 @@
                                         @endif
                                     </td>
                                     <td class="align-middle">
-                                        <a href="{{ route('owners.zone-view-update', $zone->slug) }}" data-toggle="tooltip"
-                                            title="Chỉnh sửa" class="d-inline-block fs-18 text-muted hover-primary mr-5"><i
-                                                class="fal fa-pencil-alt"></i></a>
-                                        <form action="{{ route('owners.destroy-zone', $zone->id) }}" method="POST"
-                                            class="d-inline-block">
+                                        <form action="{{ route('owners.restore-zone', $zone->id) }}" method="POST">
                                             @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                class="fs-18 text-muted hover-primary border-0 bg-transparent"><i
-                                                    class="fal fa-trash-alt"></i></button>
+                                            @method('PUT')
+                                            <button type="submit" class="btn btn-primary">Khôi phục</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -104,50 +98,6 @@
 
                     </tbody>
                 </table>
-            </div>
-            <div class="mt-6">
-                <ul class="pagination rounded-active justify-content-center">
-                    {{-- Trang trước --}}
-                    <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
-                        <a class="page-link" href="{{ $zones->previousPageUrl() }}"><i
-                                class="far fa-angle-double-left"></i></a>
-                    </li>
-
-                    {{-- Trang đầu tiên --}}
-                    @if ($zones->currentPage() > 2)
-                        <li class="page-item"><a class="page-link" href="{{ $zones->url(1) }}">1</a></li>
-                    @endif
-
-                    {{-- Dấu ba chấm ở đầu nếu cần --}}
-                    @if ($zones->currentPage() > 3)
-                        <li class="page-item disabled"><span class="page-link">...</span></li>
-                    @endif
-
-                    {{-- Hiển thị các trang xung quanh trang hiện tại --}}
-                    @for ($i = max(1, $zones->currentPage() - 1); $i <= min($zones->currentPage() + 1, $zones->lastPage()); $i++)
-                        <li class="page-item {{ $zones->currentPage() == $i ? 'active' : '' }}">
-                            <a class="page-link" href="{{ $zones->url($i) }}">{{ $i }}</a>
-                        </li>
-                    @endfor
-
-                    {{-- Dấu ba chấm ở cuối nếu cần --}}
-                    @if ($zones->currentPage() < $zones->lastPage() - 2)
-                        <li class="page-item disabled"><span class="page-link">...</span></li>
-                    @endif
-
-                    {{-- Trang cuối cùng --}}
-                    @if ($zones->currentPage() < $zones->lastPage() - 1)
-                        <li class="page-item"><a class="page-link"
-                                href="{{ $zones->url($zones->lastPage()) }}">{{ $zones->lastPage() }}</a></li>
-                    @endif
-
-                    {{-- Trang tiếp theo --}}
-                    <li class="page-item {{ $zones->currentPage() == $zones->lastPage() ? 'disabled' : '' }}">
-                        <a class="page-link" href="{{ $zones->nextPageUrl() }}"><i
-                                class="far fa-angle-double-right"></i></a>
-                    </li>
-                </ul>
-                {{-- <div class="text-center mt-2">6-10 trên 29 Kết quả</div> --}}
             </div>
         </div>
     </main>

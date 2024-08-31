@@ -297,4 +297,23 @@ class RoomOwnersService
             return false; // Nếu người dùng chưa đăng nhập, trả về false
         }
     }
+
+    public function softDeleteRoom($id)
+    {
+        $room = Room::findOrFail($id);
+        $room->delete();
+        return $room;
+    }
+
+    public function getTrashedRooms()
+    {
+        return Room::onlyTrashed()->get();
+    }
+
+    public function restoreRoom($id)
+    {
+        $room = Room::withTrashed()->findOrFail($id);
+        $room->restore();
+        return $room;
+    }
 }

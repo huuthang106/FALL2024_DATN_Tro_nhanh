@@ -53,6 +53,24 @@ class RoomOwnersController extends Controller
             'roomCount' => $roomCount,
         ]);
     }
+    //xoa room 
+    public function destroy($id)
+    {
+        $this->roomOwnersService->softDeleteRoom($id);
+        return redirect()->route('owners.trash')->with('success', 'Phòng đã được chuyển vào thùng rác.');
+    }
+
+    public function trash()
+    {
+        $trashedRooms = $this->roomOwnersService->getTrashedRooms();
+        return view('owners.trash.trash-room', compact('trashedRooms'));
+    }
+
+    public function restore($id)
+    {
+        $this->roomOwnersService->restoreRoom($id);
+        return redirect()->route('owners.properties')->with('success', 'Phòng đã được khôi phục.');
+    }
     // Trả về view thêm phòng
     public function page_add_rooms()
     {

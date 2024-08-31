@@ -32,25 +32,25 @@ class BlogServices
             // Lấy dữ liệu từ request
             $data = $request->validated();
             $images = $request->uploadImages(); // Gọi phương thức để tải lên ảnh
-    
+
             // Xác thực người dùng
             $userId = Auth::id();
             if (!$userId) {
                 throw new \Exception("User not authenticated");
             }
-    
+
             // Tạo blog mới
             $blog = new Blog();
             $blog->title = $data['title'];
             $blog->description = $data['description'];
             $blog->user_id = $userId;
             $blog->save();
-    
+
             // Tạo slug cho blog và lưu vào cơ sở dữ liệu
             $slug = $this->createSlug($data['title'], $blog->id);
             $blog->slug = $slug;
             $blog->save();
-    
+
             // Xử lý lưu ảnh
             foreach ($images as $filename) {
                 Image::create([
@@ -58,7 +58,7 @@ class BlogServices
                     'blog_id' => $blog->id
                 ]);
             }
-    
+
             return $blog;
         } catch (\Exception $e) {
             // Ghi log lỗi chi tiết
@@ -201,5 +201,23 @@ class BlogServices
             Log::error('Error counting blogs: ' . $e->getMessage());
             return 0;
         }
+    }
+    public function softDeleteBlogs($id)
+    {
+        $blog = Blog::findOrFail($id);
+        $blog->delete();
+        return $blog;
+    }
+
+    public function getTrashedBlogs()
+    {
+        return Blog::onlyTrashed()->get();
+    }
+
+    public function restoreBlogs($id)
+    {
+        $blog = Blog::withTrashed()->findOrFail($id);
+        $blog->restore();
+        return $blog;
     }
 }

@@ -8,10 +8,7 @@
             <form action="{{ route('owners.properties') }}" method="GET">
                 <div class="mr-0 mr-md-auto">
                     <h2 class="mb-0 text-heading fs-22 lh-15">
-                        Blog sản của tôi
-                        <span class="badge badge-white badge-pill text-primary fs-18 font-weight-bold ml-2">
-                            {{ $blogs->total() }}
-                        </span>
+                        Thùng rác
                     </h2>
                 </div>
                 <div class="form-inline justify-content-md-end mx-n2">
@@ -71,7 +68,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($blogs as $blog)
+                        @foreach ($trashedBlogs as $blog)
                             <tr class="shadow-hover-xs-2 bg-hover-white">
                                 <td class="align-middle pt-6 pb-4 px-6">
                                     <div class="media d-flex align-items-center">
@@ -97,18 +94,12 @@
                                 </td>
                                 <td class="align-middle">{{ $blog->created_at->format('d-m-Y') }}</td>
                                 <td class="align-middle">
-                                    <a href="{{ route('owners.sua-blog', ['slug' => $blog->slug]) }}" data-toggle="tooltip"
-                                        title="Chỉnh sửa" class="d-inline-block fs-18 text-muted hover-primary mr-5">
-                                        <i class="fal fa-pencil-alt"></i>
-                                    </a>
-                                    <form action="{{ route('owners.destroy-blog', $blog->id) }}" method="POST"
-                                        class="d-inline-block">
+                                    <form action="{{ route('owners.restore-maintenance', $blog->id) }}" method="POST">
                                         @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            class="fs-18 text-muted hover-primary border-0 bg-transparent"><i
-                                                class="fal fa-trash-alt"></i></button>
+                                        @method('PUT')
+                                        <button type="submit" class="btn btn-primary">Khôi phục</button>
                                     </form>
+
                                 </td>
                             </tr>
                         @endforeach
@@ -116,48 +107,6 @@
 
                 </table>
             </div>
-            <nav class="mt-4">
-                <ul class="pagination rounded-active justify-content-center">
-                    {{-- Previous Page Link --}}
-                    @if ($blogs->onFirstPage())
-                        <li class="page-item disabled">
-                            <span class="page-link"><i class="far fa-angle-double-left"></i></span>
-                        </li>
-                    @else
-                        <li class="page-item">
-                            <a class="page-link" href="{{ $blogs->previousPageUrl() }}"><i
-                                    class="far fa-angle-double-left"></i></a>
-                        </li>
-                    @endif
-
-                    {{-- Pagination Elements --}}
-                    @foreach ($blogs->getUrlRange(1, $blogs->lastPage()) as $page => $url)
-                        @if ($page == $blogs->currentPage())
-                            <li class="page-item active">
-                                <span class="page-link">{{ $page }}</span>
-                            </li>
-                        @else
-                            <li class="page-item">
-                                <a class="page-link" href="{{ $url }}">{{ $page }}</a>
-                            </li>
-                        @endif
-                    @endforeach
-
-                    {{-- Next Page Link --}}
-                    @if ($blogs->hasMorePages())
-                        <li class="page-item">
-                            <a class="page-link" href="{{ $blogs->nextPageUrl() }}"><i
-                                    class="far fa-angle-double-right"></i></a>
-                        </li>
-                    @else
-                        <li class="page-item disabled">
-                            <span class="page-link"><i class="far fa-angle-double-right"></i></span>
-                        </li>
-                    @endif
-                </ul>
-            </nav>
-            <div class="text-center mt-2">{{ $blogs->firstItem() }}-{{ $blogs->lastItem() }} của {{ $blogs->total() }}
-                kết quả</div>
         </div>
     </main>
 

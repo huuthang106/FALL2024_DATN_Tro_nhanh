@@ -38,12 +38,12 @@ class AppServiceProvider extends ServiceProvider
     //     //
     // }
     // Biến để xem thông báo
-    public function boot(NotificationOwnersService $notificationService,BlogServices $blogServices, RoomOwnersService $roomOwnersService, FavouritesServices $favouriteService, MaintenanceRequestsServices $maintenanceRequestsService)
+    public function boot(NotificationOwnersService $notificationService, BlogServices $blogServices, RoomOwnersService $roomOwnersService, FavouritesServices $favouriteService, MaintenanceRequestsServices $maintenanceRequestsService)
     {
         // Cung cấp thông tin người dùng cho view 'components.navbar-owner'
         View::composer('components.navbar-owner', function ($view) use ($maintenanceRequestsService) { // Sử dụng biến đúng
             $userId = Auth::id(); // Lấy ID người dùng hiện tại
-    
+
             if ($userId) {
                 // Lấy tổng số yêu cầu sửa chữa
                 $totalMaintenanceRequests = $maintenanceRequestsService->countTotalMaintenanceRequests();
@@ -64,7 +64,7 @@ class AppServiceProvider extends ServiceProvider
         });
         View::composer('components.navbar-home', function ($view) use ($favouriteService) {
             $userId = Auth::id(); // Lấy ID người dùng hiện tại
-        
+
             // Kiểm tra nếu người dùng đã đăng nhập
             if ($userId) {
                 $favouriteCount = $favouriteService->countUserFavourites($userId);
@@ -75,7 +75,7 @@ class AppServiceProvider extends ServiceProvider
         });
         View::composer('components.navbar-default', function ($view) use ($favouriteService) {
             $userId = Auth::id(); // Lấy ID người dùng hiện tại
-        
+
             // Kiểm tra nếu người dùng đã đăng nhập
             if ($userId) {
                 $favouriteCount = $favouriteService->countUserFavourites($userId);
@@ -86,7 +86,7 @@ class AppServiceProvider extends ServiceProvider
         });
         View::composer('components.navbar-owner', function ($view) use ($favouriteService) {
             $userId = Auth::id(); // Lấy ID người dùng hiện tại
-        
+
             // Kiểm tra nếu người dùng đã đăng nhập
             if ($userId) {
                 $favouriteCount = $favouriteService->countUserFavourites($userId);
@@ -101,7 +101,7 @@ class AppServiceProvider extends ServiceProvider
         });
         View::composer('components.navbar-owner', function ($view) use ($blogServices) {
             $userId = Auth::id(); // Lấy ID người dùng hiện tại
-        
+
             if ($userId) {
                 // Lấy tổng số blog
                 $totalBlogs = $blogServices->countTotalBlogs();
@@ -110,12 +110,15 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('totalBlogs', 0);
             }
         });
+        View::composer('owners.trash.trash-room', function ($view) {
+            $view->with('roomOwnersService', app(RoomOwnersService::class));
+        });
         // Trong ServiceProvider hoặc nơi bạn cấu hình View Composer
 // Trong ServiceProvider hoặc nơi bạn cấu hình View Composer
 
 
 
-       
+
 
     }
     protected $listen = [
@@ -123,5 +126,5 @@ class AppServiceProvider extends ServiceProvider
             \App\Listeners\SendRoomCreatedNotification::class,
         ],
     ];
-    
+
 }

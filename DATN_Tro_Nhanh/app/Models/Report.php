@@ -18,4 +18,15 @@ class Report extends Model
         'reported_person',
         'zone_id',
     ];
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
+
+    // Quan hệ với bảng User
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

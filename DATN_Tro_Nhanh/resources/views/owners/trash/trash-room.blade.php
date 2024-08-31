@@ -7,11 +7,7 @@
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
             <form action="{{ route('owners.properties') }}" method="GET">
                 <div class="mr-0 mr-md-auto">
-                    <h2 class="mb-0 text-heading fs-22 lh-15">
-                        Blog sản của tôi
-                        <span class="badge badge-white badge-pill text-primary fs-18 font-weight-bold ml-2">
-                            {{ $blogs->total() }}
-                        </span>
+                    <h2 class="mb-0 text-heading fs-22 lh-15">Thùng rác
                     </h2>
                 </div>
                 <div class="form-inline justify-content-md-end mx-n2">
@@ -62,102 +58,82 @@
                 <table class="table table-hover bg-white border rounded-lg">
                     <thead class="thead-sm thead-black">
                         <tr>
-                            <th scope="col" class="border-top-0 px-6 pt-5 pb-4">Ảnh</th>
-                            <th scope="col" class="border-top-0 pt-5 pb-4">Tiêu Đề</th>
-                            <th scope="col" class="border-top-0 pt-5 pb-4">Mô Tả</th>
-                            <th scope="col" class="border-top-0 pt-5 pb-4">Trạng thái</th>
+                            <th scope="col" class="border-top-0 px-6 pt-5 pb-4">Tiêu đề danh sách</th>
                             <th scope="col" class="border-top-0 pt-5 pb-4">Ngày xuất bản</th>
+                            <th scope="col" class="border-top-0 pt-5 pb-4">Trạng thái</th>
+                            <th scope="col" class="border-top-0 pt-5 pb-4">Xem</th>
                             <th scope="col" class="border-top-0 pt-5 pb-4">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($blogs as $blog)
-                            <tr class="shadow-hover-xs-2 bg-hover-white">
-                                <td class="align-middle pt-6 pb-4 px-6">
-                                    <div class="media d-flex align-items-center">
-                                        <div class="w-120px mr-4 position-relative">
-                                            <a href="{{ route('owners.show-blog', $blog->slug) }}">
-                                                @if ($blog->image)
-                                                    @foreach ($blog->image as $item)
-                                                        <img src="{{ asset('assets/images/' . $item->filename) }}"
-                                                            alt="{{ $item->filename }}" class="img-fluid">
-                                                    @endforeach
-                                                @else
-                                                    <p>No images available</p>
-                                                @endif
-                                            </a>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="align-middle">{{ $blog->title }}</td>
-                                <td class="align-middle">{{ $blog->description }}</td>
-                                <td class="align-middle">
-                                    <span
-                                        class="badge text-capitalize font-weight-normal fs-12 badge-yellow">{{ $blog->status }}</span>
-                                </td>
-                                <td class="align-middle">{{ $blog->created_at->format('d-m-Y') }}</td>
-                                <td class="align-middle">
-                                    <a href="{{ route('owners.sua-blog', ['slug' => $blog->slug]) }}" data-toggle="tooltip"
-                                        title="Chỉnh sửa" class="d-inline-block fs-18 text-muted hover-primary mr-5">
-                                        <i class="fal fa-pencil-alt"></i>
-                                    </a>
-                                    <form action="{{ route('owners.destroy-blog', $blog->id) }}" method="POST"
-                                        class="d-inline-block">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            class="fs-18 text-muted hover-primary border-0 bg-transparent"><i
-                                                class="fal fa-trash-alt"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-
-                </table>
-            </div>
-            <nav class="mt-4">
-                <ul class="pagination rounded-active justify-content-center">
-                    {{-- Previous Page Link --}}
-                    @if ($blogs->onFirstPage())
-                        <li class="page-item disabled">
-                            <span class="page-link"><i class="far fa-angle-double-left"></i></span>
-                        </li>
-                    @else
-                        <li class="page-item">
-                            <a class="page-link" href="{{ $blogs->previousPageUrl() }}"><i
-                                    class="far fa-angle-double-left"></i></a>
-                        </li>
-                    @endif
-
-                    {{-- Pagination Elements --}}
-                    @foreach ($blogs->getUrlRange(1, $blogs->lastPage()) as $page => $url)
-                        @if ($page == $blogs->currentPage())
-                            <li class="page-item active">
-                                <span class="page-link">{{ $page }}</span>
-                            </li>
+                        @if ($trashedRooms->isEmpty())
+                            <p>Bạn chưa có gì trong thùng rác.</p>
                         @else
-                            <li class="page-item">
-                                <a class="page-link" href="{{ $url }}">{{ $page }}</a>
-                            </li>
-                        @endif
-                    @endforeach
+                            @foreach ($trashedRooms as $room)
+                                <tr class="shadow-hover-xs-2 bg-hover-white">
+                                    <td class="align-middle pt-6 pb-4 px-6">
+                                        <div class="media">
+                                            <div class="w-120px mr-4 position-relative">
+                                                @php
+                                                    // Gọi service để lấy URL của ảnh
+                                                    $imageUrl = $roomOwnersService->getRoomImageUrl($room);
+                                                @endphp
+                                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
+                                                    <img src="{{ $imageUrl }}" alt="{{ $room->title }}"
+                                                        class="img-fluid">
+                                                </a>
+                                                <span class="badge badge-indigo position-absolute pos-fixed-top">Cho
+                                                    thuê</span>
+                                            </div>
 
-                    {{-- Next Page Link --}}
-                    @if ($blogs->hasMorePages())
-                        <li class="page-item">
-                            <a class="page-link" href="{{ $blogs->nextPageUrl() }}"><i
-                                    class="far fa-angle-double-right"></i></a>
-                        </li>
-                    @else
-                        <li class="page-item disabled">
-                            <span class="page-link"><i class="far fa-angle-double-right"></i></span>
-                        </li>
-                    @endif
-                </ul>
-            </nav>
-            <div class="text-center mt-2">{{ $blogs->firstItem() }}-{{ $blogs->lastItem() }} của {{ $blogs->total() }}
-                kết quả</div>
+                                            <div class="media-body">
+                                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
+                                                    class="text-dark hover-primary">
+                                                    <h5 class="fs-16 mb-0 lh-18">{{ $room->title }}</h5>
+                                                </a>
+                                                <p class="mb-1 font-weight-500">{{ $room->address }}</p>
+                                                <span
+                                                    class="text-heading lh-15 font-weight-bold fs-17">{{ number_format($room->price, 0, ',', '.') }}
+                                                    VND</span>
+                                                {{-- <span class="text-gray-light">/tháng</span> --}}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle">{{ $room->created_at->format('d/m/Y') }}</td>
+                                    {{-- <td class="align-middle">
+                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">chờ
+                                            duyệt</span>
+                                    </td> --}}
+                                    <td class="align-middle">
+                                        {{-- const CON_TRONG = 1; // Còn trống
+                                            const DA_THUE = 2; // Đã thuê --}}
+                                        @if ($room->status === 1)
+                                            <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">Còn
+                                                trống</span>
+                                        @elseif ($room->status === 2)
+                                            <span class="badge text-capitalize font-weight-normal fs-12 badge-pink">Đã
+                                                thuê</span>
+                                        @else
+                                            <span class="badge text-capitalize font-weight-normal fs-12 badge-gray">Không
+                                                xác định</span>
+                                        @endif
+                                    </td>
+                                    <td class="align-middle">{{ $room->view }}</td>
+                                    <td class="align-middle">
+                                        <form action="{{ route('owners.restore', $room->id) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="btn btn-primary">Khôi phục</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
+                    </tbody>
+                </table>
+                {{-- Phân trang --}}
+
+            </div>
         </div>
     </main>
 
@@ -171,12 +147,12 @@
 
 @endsection
 @push('styleOwners')
+    <title>Danh Sách Loại</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
     <meta name="generator" content="Jekyll">
-    <title>My Properties - HomeID</title>
     <!-- Google fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
@@ -198,6 +174,11 @@
 
     <!-- Favicons -->
     <link rel="icon" href="{{ asset('images/favicon.ico') }}">
+    {{-- hien thi thong bao --}}
+    <meta name="success" content="{{ session('success') }}">
+    <meta name="error" content="{{ session('error') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">
@@ -234,4 +215,7 @@
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
+    {{-- Show - Alert --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('assets/js/alert/category-admin-alert.js') }}"></script>
 @endpush

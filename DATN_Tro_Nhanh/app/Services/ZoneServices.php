@@ -227,4 +227,23 @@ class ZoneServices
             return false; // Nếu người dùng chưa đăng nhập, trả về false
         }
     }
+
+    public function softDeleteZones($id)
+    {
+        $zone = Zone::findOrFail($id);
+        $zone->delete();
+        return $zone;
+    }
+
+    public function getTrashedZones()
+    {
+        return Zone::onlyTrashed()->get();
+    }
+
+    public function restoreZones($id)
+    {
+        $zone = Zone::withTrashed()->findOrFail($id);
+        $zone->restore();
+        return $zone;
+    }
 }

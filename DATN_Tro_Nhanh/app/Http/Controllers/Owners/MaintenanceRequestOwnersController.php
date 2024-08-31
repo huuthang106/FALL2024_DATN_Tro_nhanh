@@ -26,9 +26,27 @@ class MaintenanceRequestOwnersController extends Controller
     {
         // Gọi phương thức để lấy yêu cầu bảo trì với hoặc không có roomId
         $maintenanceRequests = $this->MaintenanceRequestsServices->getAllMaintenanceRequests($roomId);
-        
+
         // Truyền dữ liệu đến view
         return view('owners.show.dashboard-my-maintenance', compact('maintenanceRequests'));
     }
-    
+
+    public function destroy($id)
+    {
+        $this->MaintenanceRequestsServices->softDeleteMaintenances($id);
+        return redirect()->route('owners.trash-maintenances')->with('success', 'Phòng bảo trì đã được chuyển vào thùng rác.');
+    }
+
+    public function trash()
+    {
+        $trashedMaintenances = $this->MaintenanceRequestsServices->getTrashedMaintenances();
+        return view('owners.trash.trash-maintenance', compact('trashedMaintenances'));
+    }
+
+    public function restore($id)
+    {
+        $this->MaintenanceRequestsServices->restoreMaintenances($id);
+        return redirect()->route('owners.show-fix')->with('success', 'Phòng bảo trì đã được khôi phục.');
+    }
+
 }

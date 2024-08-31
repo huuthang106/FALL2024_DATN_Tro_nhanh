@@ -79,26 +79,35 @@
                                 <td class="align-middle p-3">{{ $item->description }}</td>
                                 <td class="align-middle p-3">
                                     @if ($item->status == 1)
-                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">Đang xử lý</span>
+                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">Đang xử
+                                            lý</span>
                                     @elseif ($item->status == 2)
-                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-green">Đã duyệt</span>
+                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-green">Đã
+                                            duyệt</span>
                                     @elseif ($item->status == 3)
-                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-blue">Đã hoàn thành</span>
+                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-blue">Đã hoàn
+                                            thành</span>
                                     @else
-                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-gray">Không xác định</span>
+                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-gray">Không xác
+                                            định</span>
                                     @endif
                                 </td>
                                 <td class="align-middle p-3">{{ $item->created_at->format('d-m-Y') }}</td>
-                                
+
                                 <td class="align-middle p-3">
-                                    <a href="#" data-toggle="tooltip" title="Xóa" class="d-inline-block fs-18 text-muted hover-primary">
-                                        <i class="fal fa-trash-alt"></i>
-                                    </a>
+                                    <form action="{{ route('owners.destroy-maintenances', $item->id) }}" method="POST"
+                                        class="d-inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="fs-18 text-muted hover-primary border-0 bg-transparent"><i
+                                                class="fal fa-trash-alt"></i></button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
-                    
+
 
                 </table>
             </div>
@@ -111,12 +120,13 @@
                         </li>
                     @else
                         <li class="page-item">
-                            <a class="page-link" href="{{ $maintenanceRequests->previousPageUrl() }}" aria-label="Previous">
+                            <a class="page-link" href="{{ $maintenanceRequests->previousPageUrl() }}"
+                                aria-label="Previous">
                                 <i class="far fa-angle-double-left"></i>
                             </a>
                         </li>
                     @endif
-            
+
                     {{-- Pagination Elements --}}
                     @for ($page = 1; $page <= $maintenanceRequests->lastPage(); $page++)
                         @if ($page == $maintenanceRequests->currentPage())
@@ -129,7 +139,7 @@
                             </li>
                         @endif
                     @endfor
-            
+
                     {{-- Next Page Link --}}
                     @if ($maintenanceRequests->hasMorePages())
                         <li class="page-item">
@@ -144,11 +154,12 @@
                     @endif
                 </ul>
             </nav>
-            
+
             <div class="text-center mt-2">
-                {{ $maintenanceRequests->firstItem() }}-{{ $maintenanceRequests->lastItem() }} của {{ $maintenanceRequests->total() }} kết quả
+                {{ $maintenanceRequests->firstItem() }}-{{ $maintenanceRequests->lastItem() }} của
+                {{ $maintenanceRequests->total() }} kết quả
             </div>
-            </div>
+        </div>
         </div>
     </main>
 

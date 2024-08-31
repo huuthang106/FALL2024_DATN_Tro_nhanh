@@ -13,7 +13,7 @@
 
 </head>
 
-<body >
+<body>
     <div class="wrapper dashboard-wrapper">
         <div class="d-flex flex-wrap flex-xl-nowrap">
             <!--begin::Aside-->

@@ -7,6 +7,9 @@ Route::group(['prefix' => ''], function () {
     route::post('them-khu-tro', [ZoneOwnersController::class, 'store'])->name('zone-start-post');
     Route::group(['prefix' => 'khu-tro'], function () {
         route::get('/', [ZoneOwnersController::class, 'listZone'])->name('zone-list');
+        Route::delete('/xoa-khu-tro/{id}', [ZoneOwnersController::class, 'destroy'])->name('destroy-zone');
+        Route::put('/khoi-phuc-khu-tro/{id}', [ZoneOwnersController::class, 'restore'])->name('restore-zone');
+        Route::get('/thung-rac-khu-tro', [ZoneOwnersController::class, 'trash'])->name('trash-zone');
         route::get('chi-tiet-khu-tro/{slug}', [ZoneOwnersController::class, 'showDetailOwners'])->name('detail-zone');
         route::get('chinh-sua-khu-tro/{slug}', [ZoneOwnersController::class, 'viewUpdate'])->name('zone-view-update');
         route::Put('chinh-sua-khu-tro/{id}', [ZoneOwnersController::class, 'update'])->name('zone-start-update');
