@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Events\BlogCreated;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CreateBlogRequest;
+
 class BlogServices
 {
 
@@ -165,20 +166,26 @@ class BlogServices
     public function getAllBlogs(int $perPage = 10, $searchTerm = null)
     {
         try {
-            // Xây dựng truy vấn để lấy blog với thông tin liên quan
-            $query = Blog::query();
-
+            $userId = Auth::id(); // Lấy ID của người dùng hiện tại
+    
+            // Xây dựng truy vấn để lấy blog của người dùng cụ thể với thông tin liên quan
+            $query = Blog::query()->where('user_id', $userId);
+    
             if ($searchTerm) {
-                $query->where('title', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('description', 'like', '%' . $searchTerm . '%');
+                $query->where(function ($q) use ($searchTerm) {
+                    $q->where('title', 'like', '%' . $searchTerm . '%')
+                      ->orWhere('description', 'like', '%' . $searchTerm . '%');
+                });
             }
-
+    
             // Phân trang và trả về kết quả
             return $query->paginate($perPage);
         } catch (\Exception $e) {
             return null;
         }
     }
+    
+    
 
     public function deleteBlogBySlug($slug)
     {

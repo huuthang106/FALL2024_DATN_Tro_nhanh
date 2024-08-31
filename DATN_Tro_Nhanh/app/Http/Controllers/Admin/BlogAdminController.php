@@ -29,6 +29,7 @@ class BlogAdminController extends Controller
         $blogs = $this->BlogService->getAllBlogs();
         return view('admincp.show.showBlog', compact('blogs'));
     }
+    
     public function editBlog($slug)
     {
         try {
