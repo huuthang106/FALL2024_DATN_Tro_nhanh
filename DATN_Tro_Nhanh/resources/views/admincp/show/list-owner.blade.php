@@ -538,7 +538,7 @@
                                     <th class="min-w-125px">Ảnh</th>
                                     <th class="min-w-125px">Tên</th>
                                     <th class="min-w-125px">Email</th>
-
+                                    {{-- <th class="min-w-125px">Mật Khẩu</th>s --}}
                                     <th class="min-w-125px">Số Điện Thoại</th>
                                     <th class="min-w-125px">Địa Chỉ</th>
 
@@ -580,8 +580,10 @@
                                         <!--begin::User Details-->
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
-                                        <td>{{ $user->phone }}</td>
-                                        <td>{{ $user->address }}</td>
+                                        {{-- <td>{{ $user->password }}</td> --}}
+                                        <td>{{ $user->phone ?: 'Trống' }}</td>
+                                        <td>{{ $user->address ?: 'Trống' }}</td>
+                                        
                                         <!--end::User Details-->
                                         <!--begin::Joined-->
                                         {{-- <td>{{ $user->created_at->format('d/m/Y') }}</td> --}}
@@ -690,6 +692,8 @@
     <!--end::Page-->
     </div>
     <!--end::Root-->
+    
+    
     <!--begin::Drawers-->
     <!--begin::Activities drawer-->
 

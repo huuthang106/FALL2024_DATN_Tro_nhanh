@@ -40,7 +40,10 @@ class UserAdminController extends Controller
     }
 
 
-
+    public function show()
+    {
+        return view('admincp.show.overview');
+    }
     public function setting_profile()
     {
         // Lấy thông tin người dùng hiện tại từ service bằng slug

@@ -99,6 +99,10 @@ class AppServiceProvider extends ServiceProvider
             $user = Auth::user();
             $view->with('user', $user);
         });
+        View::composer('admincp.show.overview', function ($view) {
+            $user = Auth::user();
+            $view->with('user', $user);
+        });
         View::composer('components.navbar-owner', function ($view) use ($blogServices) {
             $userId = Auth::id(); // Lấy ID người dùng hiện tại
 

@@ -37,7 +37,7 @@ class UserOwnersController extends Controller
     $data = $request->all();
     $this->profileService->updateProfileBySlug($slug, $data);
     
-    return redirect()->back()->with('success', 'Profile updated successfully.');
+    return redirect()->back()->with('success', 'Hồ sơ đã được cập nhật thành công.');
 }
 
 

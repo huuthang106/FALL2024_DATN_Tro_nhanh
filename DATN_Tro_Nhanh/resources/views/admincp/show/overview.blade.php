@@ -19,7 +19,12 @@
                             <!--begin: Pic-->
                             <div class="me-7 mb-4">
                                 <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                                    <img src="assets/media/avatars/150-26.jpg" alt="image" />
+                                    @if ($user->image)
+                                        <img src="{{ asset('assets/images/' . $user->image) }}" alt="User Image"
+                                            class="img-fluid">
+                                    @else
+                                        <p>No image available</p>
+                                    @endif
                                     <div
                                         class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px">
                                     </div>
@@ -35,7 +40,7 @@
                                         <!--begin::Name-->
                                         <div class="d-flex align-items-center mb-2">
                                             <a href="#"
-                                                class="text-gray-900 text-hover-primary fs-2 fw-bolder me-1">Max Smith</a>
+                                                class="text-gray-900 text-hover-primary fs-2 fw-bolder me-1">{{ $user->name }}</a>
                                             <a href="#">
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen026.svg-->
                                                 <span class="svg-icon svg-icon-1 svg-icon-primary">
@@ -70,7 +75,13 @@
                                                             fill="black" />
                                                     </svg>
                                                 </span>
-                                                <!--end::Svg Icon-->Developer</a>
+                                                <!--end::Svg Icon-->
+                                                @if ($user->role == 0)
+                                                    Admin
+                                                @else
+                                                    {{ $user->role }}
+                                                @endif
+                                            </a>
                                             <a href="#"
                                                 class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen018.svg-->
@@ -85,7 +96,7 @@
                                                             fill="black" />
                                                     </svg>
                                                 </span>
-                                                <!--end::Svg Icon-->SF, Bay Area</a>
+                                                <!--end::Svg Icon-->{{ $user->address ?: 'Không có địa chỉ' }}</a>
                                             <a href="#"
                                                 class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
                                                 <!--begin::Svg Icon | path: icons/duotune/communication/com011.svg-->
@@ -100,7 +111,7 @@
                                                             fill="black" />
                                                     </svg>
                                                 </span>
-                                                <!--end::Svg Icon-->max@kt.com</a>
+                                                <!--end::Svg Icon-->{{ $user->email }}</a>
                                         </div>
                                         <!--end::Info-->
                                     </div>
@@ -228,7 +239,7 @@
                                 </div>
                                 <!--end::Title-->
                                 <!--begin::Stats-->
-                                <div class="d-flex flex-wrap flex-stack">
+                                {{-- <div class="d-flex flex-wrap flex-stack">
                                     <!--begin::Wrapper-->
                                     <div class="d-flex flex-column flex-grow-1 pe-8">
                                         <!--begin::Stats-->
@@ -330,7 +341,7 @@
                                         </div>
                                     </div>
                                     <!--end::Progress-->
-                                </div>
+                                </div> --}}
                                 <!--end::Stats-->
                             </div>
                             <!--end::Info-->
@@ -349,11 +360,11 @@
                                 <!--begin::Nav item-->
                                 <li class="nav-item">
                                     <a class="nav-link text-active-primary me-6"
-                                        href="{{route('admin.admin.setting-profile')}}">Chỉnh sửa</a>
+                                        href="{{ route('admin.admin.setting-profile') }}">Chỉnh sửa</a>
                                 </li>
                                 <!--end::Nav item-->
                                 <!--begin::Nav item-->
-                                
+
                                 <!--end::Nav item-->
                                 <!--begin::Nav item-->
                                 <li class="nav-item">
@@ -362,7 +373,7 @@
                                 </li>
                                 <!--end::Nav item-->
                                 <!--begin::Nav item-->
-                               
+
                             </ul>
                         </div>
                         <!--begin::Navs-->
@@ -379,11 +390,13 @@
                         </div>
                         <!--end::Card title-->
                         <!--begin::Action-->
-                        <a href="../../demo8/dist/account/settings.html" class="btn btn-primary align-self-center">Chỉnh sửa hồ sơ</a>
+                        <a href="../../demo8/dist/account/settings.html" class="btn btn-primary align-self-center">Chỉnh
+                            sửa hồ sơ</a>
                         <!--end::Action-->
                     </div>
                     <!--begin::Card header-->
                     <!--begin::Card body-->
+
                     <div class="card-body p-9">
                         <!--begin::Row-->
                         <div class="row mb-7">
@@ -392,13 +405,13 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8">
-                                <span class="fw-bolder fs-6 text-gray-800">Max Smith</span>
+                                <span class="fw-bolder fs-6 text-gray-800">{{ $user->name }}</span>
                             </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Row-->
                         <!--begin::Input group-->
-                      
+
                         <!--end::Input group-->
                         <!--begin::Input group-->
                         <div class="row mb-7">
@@ -409,25 +422,29 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 d-flex align-items-center">
-                                <span class="fw-bolder fs-6 text-gray-800 me-2">044 3276 454 935</span>
-                                <span class="badge badge-success">Đã xác minh</span>
+                                <span
+                                    class="fw-bolder fs-6 text-gray-800 me-2">{{ $user->phone ?: 'Chưa có số điện thoại' }}</span>
+                                @if ($user->phone)
+                                    {{-- <span class="badge badge-success">{{ $user->address }}</span> --}}
+                                @endif
                             </div>
+
                             <!--end::Col-->
                         </div>
                         <!--end::Input group-->
                         <!--begin::Input group-->
-                     
+
                         <!--end::Input group-->
                         <!--begin::Input group-->
                         <div class="row mb-7">
                             <!--begin::Label-->
-                            <label class="col-lg-4 fw-bold text-muted">Quốc tịch
+                            <label class="col-lg-4 fw-bold text-muted">Địa chỉ
                                 <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
                                     title="Country of origination"></i></label>
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8">
-                                <span class="fw-bolder fs-6 text-gray-800">Germany</span>
+                                <span class="fw-bolder fs-6 text-gray-800">{{ $user->address ?: 'Chưa có địa chỉ' }}</span>
                             </div>
                             <!--end::Col-->
                         </div>
@@ -439,16 +456,16 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8">
-                                <span class="fw-bolder fs-6 text-gray-800">hello@gmail.com</span>
+                                <span class="fw-bolder fs-6 text-gray-800">{{ $user->email }}</span>
                             </div>
                             <!--end::Col-->
                         </div>
                         <!--end::Input group-->
                         <!--begin::Input group-->
-                       
+
                         <!--end::Input group-->
                         <!--begin::Notice-->
-                        <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
+                        {{-- <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
                             <!--begin::Icon-->
                             <!--begin::Svg Icon | path: icons/duotune/general/gen044.svg-->
                             <span class="svg-icon svg-icon-2tx svg-icon-warning me-4">
@@ -477,17 +494,18 @@
                                 <!--end::Content-->
                             </div>
                             <!--end::Wrapper-->
-                        </div>
+                        </div> --}}
                         <!--end::Notice-->
                     </div>
+
                     <!--end::Card body-->
                 </div>
                 <!--end::details View-->
                 <!--begin::Row-->
-             
+
                 <!--end::Row-->
                 <!--begin::Row-->
-                <div class="row gy-5 gx-xl-10">
+                {{-- <div class="row gy-5 gx-xl-10">
                     <!--begin::Col-->
                     <div class="col-xl-6">
                         <!--begin::List Widget 5-->
@@ -1364,7 +1382,7 @@
                         <!--end::Tables Widget 5-->
                     </div>
                     <!--end::Col-->
-                </div>
+                </div> --}}
                 <!--end::Row-->
             </div>
             <!--end::Container-->
@@ -1373,14 +1391,14 @@
     </div>
     <!--end::Content-->
     <!--begin::Footer-->
-  
+
     <!--end::Footer-->
     </div>
     <!--end::Wrapper-->
     </div>
     <!--end::Page-->
     </div>
-   
+
 
 
 @endsection

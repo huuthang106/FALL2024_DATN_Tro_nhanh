@@ -86,8 +86,7 @@
                             <!--end::Menu separator-->
                             <!--begin::Menu item-->
                             <div class="menu-item px-5">
-                                <a href="{{ route('admin.admin.profile') }}" class="menu-link px-5">Thông tin của
-                                    tôi</a>
+                                <a href="{{ route('admin.profile-admin') }}" class="menu-link px-5">Thông tin của tôi</a>
                             </div>
                             <!--end::Menu item-->
                             <div class="menu-item px-5">
