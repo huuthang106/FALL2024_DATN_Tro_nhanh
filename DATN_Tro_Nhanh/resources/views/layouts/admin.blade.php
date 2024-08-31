@@ -46,5 +46,6 @@
             </div>
 </body>
 @stack('scriptsAdmin')
+<script src="{{ asset('assets/js/save-dropdown-nav-admin.js') }}"></script>
 
 </html>
