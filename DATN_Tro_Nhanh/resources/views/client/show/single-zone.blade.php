@@ -392,7 +392,7 @@
                                 </div>
                             </div>
                         </section>
-                         <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
+                        <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
                             <h4 class="fs-22 text-heading lh-15 mb-5">Đánh giá & Nhận xét</h4>
                             <div class="card border-0">
                                 <div class="card-body p-0">
@@ -512,7 +512,8 @@
                             <div class="card border-0">
                                 <div class="card-body p-0">
                                     <h3 class="fs-16 lh-2 text-heading mb-4">Viết Đánh Giá</h3>
-                                    <form id="commentForm" action="{{ route('client.danh-gia-khu-tro') }}" method="POST">
+                                    <form id="commentForm" action="{{ route('client.danh-gia-khu-tro') }}"
+                                        method="POST">
                                         @csrf
                                         <div class="form-group mb-4 d-flex justify-content-start">
                                             <div class="rate-input">
@@ -543,7 +544,7 @@
                                                 rows="5"></textarea>
                                         </div>
                                         <input type="hidden" name="zone_slug" value="{{ $zones->slug }}">
-                                 
+
                                         <button type="submit" class="btn btn-lg btn-primary px-10">Gửi</button>
                                     </form>
                                 </div>
@@ -1297,14 +1298,23 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                                <p class="mb-6 mt-1">{{ $zones->description }}</p>
+                                {{-- <p class="mb-6 mt-1">{{ $zones->description }}</p> --}}
                                 <div class="mr-xl-2">
                                     <a href="#"
                                         class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white">Lên
                                         lịch một chuyến tham quan</a>
-                                    <a href="#"
+                                    {{-- <a href="#"
                                         class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Yêu
-                                        cầu thông tin</a>
+                                        cầu thông tin</a> --}}
+                                    @auth
+                                        <a href="{{ route('client.show-create-report-zone', ['slug' => $zones->slug]) }}"
+                                            class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Gửi
+                                            báo cáo</a>
+                                    @else
+                                        <a data-toggle="modal" href="#login-register-modal"
+                                            class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Đăng
+                                            nhập để gửi báo cáo</a>
+                                    @endauth
                                 </div>
                             </div>
                         </div>

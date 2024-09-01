@@ -1506,9 +1506,15 @@
                                     <a href="{{ route('client.client-agent-detail', ['slug' => $user->slug]) }}"
                                         class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white">Người
                                         đăng: {{ $user->name }}</a>
-                                    <a href="#"
-                                        class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Yêu
-                                        cầu thông tin</a>
+                                    @auth
+                                        <a href="{{ route('client.show-create-report-room', ['slug' => $rooms->slug]) }}"
+                                            class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Gửi
+                                            báo cáo</a>
+                                    @else
+                                        <a data-toggle="modal" href="#login-register-modal"
+                                            class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Đăng
+                                            nhập để gửi báo cáo</a>
+                                    @endauth
                                 </div>
                             </div>
                         </div>
@@ -1603,7 +1609,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/mh.css') }}">
     <!-- Favicons -->
-    <link rel="icon" href="images/favicon.ico">
+    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">

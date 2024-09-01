@@ -30,7 +30,8 @@
                                         <div class="form-group">
                                             <label for="location" class="sr-only">Tỉnh</label>
                                             <select class="form-control border-0 shadow-none form-control-lg "
-                                            id="city-province" title="Tất cả thành phố" name="province" data-style="btn-lg py-2 h-52" >
+                                                id="city-province" title="Tất cả thành phố" name="province"
+                                                data-style="btn-lg py-2 h-52">
                                                 <option value='0'>Chọn Tỉnh/Thành Phố...</option>
                                                 <option value='01'>Thành phố Hà Nội</option>
                                                 <option value='79'>Thành phố Hồ Chí Minh</option>
@@ -100,20 +101,22 @@
                                         <div class="form-group">
                                             <label for="location" class="sr-only">Huyện</label>
                                             <select class="form-control border-0 shadow-none form-control-lg "
-                                            id="district-town" name="district" title="Vị trí" data-style="btn-lg py-2 h-52" id="location">
+                                                id="district-town" name="district" title="Vị trí"
+                                                data-style="btn-lg py-2 h-52" id="location">
                                                 <option value="0">Chọn Quận/Huyện...</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="location" class="sr-only">Xã</label>
                                             <select class="form-control border-0 shadow-none form-control-lg "
-                                            id="ward-commune" name="village" title="Vị trí" data-style="btn-lg py-2 h-52" id="location">
+                                                id="ward-commune" name="village" title="Vị trí"
+                                                data-style="btn-lg py-2 h-52" id="location">
                                                 <option value="0">Chọn Xã/Phường...</option>
                                             </select>
                                         </div>
-                                       
-                                      
-                                       
+
+
+
                                         <a class="lh-17 d-inline-block" data-toggle="collapse" href="#other-feature"
                                             role="button" aria-expanded="false" aria-controls="other-feature">
                                             <span class="text-primary d-inline-block mr-1"><i
@@ -456,10 +459,10 @@
                                                         <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
                                                             <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
                                                                 title="Wishlist">
-                                                                <a href="{{ route('client.add.favourite', ['slug' => $room->slug]) }}" 
+                                                                <a href="{{ route('client.add.favourite', ['slug' => $room->slug]) }}"
                                                                     class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center">
-                                                                     <i class="fas fa-heart"></i>
-                                                                 </a>
+                                                                    <i class="fas fa-heart"></i>
+                                                                </a>
                                                             </li>
                                                             <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
                                                                 title="Compare">
@@ -690,4 +693,8 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script src="{{ asset('assets/js/api-country-vn-nht.js') }}"></script>
+    <script>
+        window.successMessage = "{{ session('success') }}";
+    </script>
+    <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
 @endpush

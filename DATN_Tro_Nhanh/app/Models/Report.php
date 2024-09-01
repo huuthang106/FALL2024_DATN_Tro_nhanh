@@ -10,4 +10,12 @@ class Report extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    protected $fillable = [
+        'description',
+        'status',
+        'user_id',
+        'room_id',
+        'reported_person',
+        'zone_id',
+    ];
 }
