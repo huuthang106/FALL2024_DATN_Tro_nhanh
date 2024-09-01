@@ -13,7 +13,8 @@ class Image extends Model
         'room_id',
         'filename',
         'blog_id',
-       'registrationlist_id'
+       'registrationlist_id',
+       'identity_id',
 
     ];
     public function blog()

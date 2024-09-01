@@ -18,6 +18,6 @@ Route::group(['prefix' => '', 'as' => 'profile.'], function () {
     Route::get('/trang-quan-ly', [UserOwnersController::class, 'page_dashboard'])->name('dashboard');
     Route::PUT('doi-mat-khau', [UserOwnersController::class, 'changePassword'])->name('reset-password-admin-index');
     // nguyen huu thang
-    Route::get('/dang-ky-thanh-vien', [UserOwnersController::class, 'page_resigter_owner'])->name('resigter-owner');
-    
+    Route::get('/dang-ky-thanh-vien', [UserOwnersController::class, 'page_register_owner'])->name('resigter-owner');
+    Route::get('/dang-ky-ekyc', [UserOwnersController::class, 'page_resigter_ekyc'])->name('resigter-ekyc');
 });

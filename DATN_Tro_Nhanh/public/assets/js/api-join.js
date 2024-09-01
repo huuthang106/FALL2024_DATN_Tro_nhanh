@@ -75,6 +75,7 @@ function submitForm() {
     const loadingOverlay = document.getElementById('loading-overlay');
     const memberRegistrationIdInput = document.getElementById('memberregistration_id');
 
+    // Hiển thị lớp phủ loading trong popup
     loadingOverlay.classList.remove('d-none');
 
     const formData = new FormData(form);
@@ -98,10 +99,20 @@ function submitForm() {
         })
         .then(data => {
             if (data.success) {
-
-
-                // Hiển thị dữ liệu sau khi gửi thành công
                 displayData(data);
+
+                // Ẩn lớp phủ loading sau khi gửi thành công
+                loadingOverlay.classList.add('d-none');
+                
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công',
+                    text: 'Đã gửi thông tin thành công.',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    // Tùy chọn: Đóng popup nếu cần
+                    $('#accountInfoModal').modal('hide');
+                });
             } else if (data.error) {
                 Swal.fire({
                     icon: 'error',
@@ -109,8 +120,8 @@ function submitForm() {
                     text: data.error,
                     confirmButtonText: 'OK'
                 });
+                loadingOverlay.classList.add('d-none');
             }
-            loadingOverlay.classList.add('d-none');
         })
         .catch(error => {
             console.error('Có lỗi xảy ra:', error);
@@ -139,7 +150,7 @@ function displayData(data) {
             genderInput.value = 'Chưa xác định'; 
             break;
     }
-   
+    document.getElementById('issued_by').value = data.description || '';
     document.getElementById('cccdmt-path').value = data.cccdmt_path || '';
     document.getElementById('cccdms-path').value = data.cccdms_path || '';
     document.getElementById('fileface-path').value = data.fileface_path || '';

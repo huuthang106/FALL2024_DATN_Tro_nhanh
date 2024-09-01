@@ -71,3 +71,49 @@
     object-fit: cover;
     /* Cắt hình ảnh để giữ tỷ lệ */
 }
+.modal-backdrop {
+    display: none !important;
+}
+
+
+
+.modal-dialog {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 1.75rem);
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 600px;
+    /* Bạn có thể điều chỉnh kích thước tối đa của modal */
+    margin: auto;
+}
+/* CSS để thêm hiệu ứng cho nút gửi */
+.btn-primary {
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.info-circle {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+}
+
+.info-circle i {
+    font-size: 15px; 
+    color: #007bff; 
+    border-radius: 50%; 
+    border: 2px solid #007bff; 
+    padding: 10px; 
+    background-color: #f8f9fa; 
+}
+
+.info-text {
+    font-size: 16px; 
+    margin: 0; 
+}

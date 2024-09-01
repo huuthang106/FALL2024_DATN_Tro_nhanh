@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Room;
+use App\Models\Identity;
 use App\Services\RoomClientServices;
 use App\Models\Favourite;
 use Illuminate\Support\Facades\Log;
@@ -54,22 +55,26 @@ class RoomClientController extends Controller
     public function page_detail($slug)
     {
         $roomDetails = $this->CommentClientService->getRoomDetailsWithRatings($slug);
-        // Lấy người đăng từ thông tin phòng
         $user = $roomDetails['room']->user;
+    
+        $userId = auth()->id();
+        $identity = Identity::where('user_id', $userId)->first();
 
+        $zone = $roomDetails['room']->zone; 
+    
         $comments = $roomDetails['comments'];
-
+    
         return view('client.show.single-propety', [
             'rooms' => $roomDetails['room'],
             'averageRating' => $roomDetails['averageRating'],
             'ratingsDistribution' => $roomDetails['ratingsDistribution'],
             'comments' => $comments,
-            'user' => $user,  // Truyền người đăng sang view
+            'user' => $user,
+            'identity' => $identity,
+            'zone' => $zone,  // Truyền thông tin zone sang view
         ]);
     }
-
-
-
+    
 
     public function addFavourite(Request $request, $slug)
     {

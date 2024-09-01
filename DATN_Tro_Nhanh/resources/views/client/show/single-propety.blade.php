@@ -1515,6 +1515,74 @@
                                             class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Đăng
                                             nhập để gửi báo cáo</a>
                                     @endauth
+                                    <a href="#"
+                                        class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Yêu
+                                        cầu thông tin</a>
+
+                                    <!-- Nút để mở modal -->
+                                    <button type="button"
+                                        class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4"
+                                        data-bs-toggle="modal" data-bs-target="#accountInfoModal">
+                                        Tham gia khu trọ
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="accountInfoModal" tabindex="-1"
+                                        aria-labelledby="accountInfoModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="accountInfoModalLabel">Xác nhận thông
+                                                        tin</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    @if ($identity)
+                                                        <!-- Nếu người dùng đã có thông tin identity -->
+                                                        <form id="account-info-form" method="POST"
+                                                            action="{{ route('client.dang-ky-zone') }}">
+                                                            @csrf
+                                                            <div class="form-group">
+                                                                <label class="info-label">Tên khu trọ:
+                                                                    <span
+                                                                        class="info-text">{{ $zone->name ?? 'Không có khu trọ' }}</span>
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="info-label">Tên trọ:
+                                                                    <span
+                                                                        class="info-text">{{ $rooms->title ?? 'Chưa có tên trọ' }}</span>
+                                                                </label>
+                                                            </div>
+                                                            <!-- Thêm các input ẩn để gửi dữ liệu -->
+                                                            <input type="hidden" name="user_id"
+                                                                value="{{ $user->id ?? '' }}">
+                                                            <input type="hidden" name="room_id"
+                                                                value="{{ $rooms->id ?? '' }}">
+                                                            <input type="hidden" name="zone_id"
+                                                                value="{{ $zone->id ?? '' }}">
+                                                            <!-- Nút gửi form -->
+                                                            <div class="text-right">
+                                                                <button type="submit" class="btn btn-primary">Xác
+                                                                    nhận</button>
+                                                            </div>
+                                                        </form>
+                                                    @else
+                                                        <div class="d-flex justify-content-center mt-3">
+                                                            <p class="text">Bạn cần cập nhật thông tin cá nhân để tham
+                                                                gia khu trọ.</p>
+                                                        </div>
+                                                        <div class="d-flex justify-content-center mt-3">
+                                                            <a href="{{ route('client.dang-kyekyc') }}"
+                                                                class="btn btn-primary">Đăng ký ngay</a>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -1539,44 +1607,11 @@
                         target="_blank"><i class="fal fa-phone"></i></a>
                 </div>
             </div>
-            <div class="modal fade" id="modal-messenger" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header border-0 pb-0">
-                            <h4 class="modal-title text-heading" id="exampleModalLabel">Contact Form</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body pb-6">
-                            <div class="form-group mb-2">
-                                <input type="text" class="form-control form-control-lg border-0"
-                                    placeholder="First Name, Last Name">
-                            </div>
-                            <div class="form-group mb-2">
-                                <input type="email" class="form-control form-control-lg border-0"
-                                    placeholder="Your Email">
-                            </div>
-                            <div class="form-group mb-2">
-                                <input type="tel" class="form-control form-control-lg border-0"
-                                    placeholder="Your phone">
-                            </div>
-                            <div class="form-group mb-2">
-                                <textarea class="form-control border-0" rows="4">Hello, I'm interested in Villa Called Archangel</textarea>
-                            </div>
-                            <div class="form-group form-check mb-4">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck3">
-                                <label class="form-check-label fs-13" for="exampleCheck3">Egestas fringilla phasellus
-                                    faucibus
-                                    scelerisque eleifend donec.</label>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-lg btn-block rounded">Request
-                                Info</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- Modal -->
+
+
+
+
         </section>
     </main>
 
@@ -1626,6 +1661,9 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <style>
+
+    </style>
 @endpush
 @push('scriptUs')
     <!-- Vendors scripts -->
@@ -1650,7 +1688,11 @@
     <!-- SweetAlert2 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/js/comment.js') }}"></script>
+    <script src="{{ asset('assets/js/register-zone.js') }}"></script>
     <script>
         var userIsLoggedIn = @json(auth()->check());
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
     </script>
 @endpush

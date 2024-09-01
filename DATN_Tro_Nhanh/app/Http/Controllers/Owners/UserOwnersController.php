@@ -9,36 +9,40 @@ use App\Services\UserClientServices;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Services\ProfileService;
+use App\Services\RegistrationService;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Identity;
+use App\Models\RegistrationList;
 class UserOwnersController extends Controller
 {
     protected $userClientServices;
     protected $profileService;
-    public function __construct(UserClientServices $userClientServices, ProfileService $profileService)
+    protected $registrationService;
+    public function __construct(UserClientServices $userClientServices, ProfileService $profileService, RegistrationService $registrationService)
     {
         $this->userClientServices = $userClientServices;
         $this->profileService = $profileService;
+        $this->registrationService = $registrationService;
     }
     // Hiển thị giao diện Thông tin tài khoản Admin
     public function indexProfileAdmin()
     {
         // Lấy thông tin người dùng hiện tại từ service bằng slug
         $user = $this->profileService->getUserById(Auth::user()->slug);
-    
+
         // Trả về view cùng với dữ liệu người dùng
         return view('owners.profile.dashboard-my-profiles', compact('user'));
     }
-    
+
 
 
     public function updateProfile(UpdateProfileRequest $request, $slug)
-{
-    $data = $request->all();
-    $this->profileService->updateProfileBySlug($slug, $data);
-    
-    return redirect()->back()->with('success', 'Hồ sơ đã được cập nhật thành công.');
-}
+    {
+        $data = $request->all();
+        $this->profileService->updateProfileBySlug($slug, $data);
+
+        return redirect()->back()->with('success', 'Profile updated successfully.');
+    }
 
 
     public function indexResetPassWordAdmin()
@@ -59,9 +63,19 @@ class UserOwnersController extends Controller
 
         return redirect()->route('owners.profile.dashboard-my-profiles')->with('status', __('Mật khẩu đã được cập nhật thành công.'));
     }
-    public function page_resigter_owner()
+    public function page_register_owner()
     {
-        return view('owners.create.register_owner');
+        $userId = auth()->id();
+        $registrationStatus = $this->registrationService->getRegistrationStatus($userId);
+
+        return view('owners.create.register_owner', $registrationStatus);
     }
-    
+
+    public function page_resigter_ekyc()
+    {
+        $userId = auth()->id();
+        $identity = Identity::where('user_id', $userId)->first();
+        $isRegistered = !is_null($identity);
+        return view('owners.create.register_ekyc', compact('isRegistered', 'identity'));
+    }
 }
