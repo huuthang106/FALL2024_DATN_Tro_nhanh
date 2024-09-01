@@ -123,6 +123,8 @@
                                             </div>
 
                                         </div>
+                                    </div>
+                                    <div class="col-6">
                                         <div class="row mb-6">
                                             <label class="col-lg-4 col-form-label fw-bold fs-6 required">Loại phòng</label>
                                             <div class="col-lg-8 fv-row">
@@ -149,20 +151,6 @@
                                             </div>
                                         </div>
                                         <div class="row mb-6">
-                                            <label class="col-lg-4 col-form-label fw-bold fs-6 required">Khu vực</label>
-                                            <div class="col-lg-8 fv-row">
-                                                <select name="location_id"
-                                                    class="form-select form-select-solid form-select-lg">
-                                                    @foreach ($locations as $location)
-                                                        <option value="{{ $location->id }}"
-                                                            {{ $rooms->location_id == $location->id ? 'selected' : '' }}>
-                                                            {{ $location->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-6">
                                             <label class="col-lg-4 col-form-label fw-bold fs-6 required">Vị trí</label>
                                             <div class="col-lg-8 fv-row">
                                                 <select name="zone_id"
@@ -176,9 +164,6 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        
-                                    </div>
-                                    <div class="col-6">
                                         <div class="row mb-6">
                                             <label class="col-lg-4 col-form-label fw-bold fs-6 required">Tỉnh</label>
                                             <div class="col-lg-8 fv-row">
@@ -443,33 +428,21 @@
                                         <div class="row mb-6">
                                             <label class="col-lg-4 col-form-label fw-bold fs-6 required">Huyện</label>
                                             <div class="col-lg-8 fv-row">
-                                                <select class="form-select form-select-lg form-select-solid"
-                                                    title="Lựa chọn" data-style="btn-lg py-2 h-52" id="district-town"
-                                                    name="district">
-                                                    <!-- Các tùy chọn khác sẽ được thêm vào qua JavaScript -->
+                                                <select class="selectpicker form-select form-select-solid form-select-lg"
+                                                    id="district-town" name="district">
+
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="row mb-6">
                                             <label class="col-lg-4 col-form-label fw-bold fs-6 required">Xã</label>
                                             <div class="col-lg-8 fv-row">
-                                                <select class="form-select form-select-lg form-select-solid"
-                                                    title="Lựa chọn" data-style="btn-lg py-2 h-52" id="ward-commune"
-                                                    name="village">
-                                                    <!-- Các tùy chọn khác sẽ được thêm vào qua JavaScript -->
+                                                <select class="selectpicker form-select form-select-solid form-select-lg"
+                                                    id="ward-commune" name="village">
                                                 </select>
                                             </div>
                                         </div>
-                                        <div onload="initMap()">
-                                            <div class="row mb-6">
-                                                <h3 class="card-title mb-0 text-heading fs-22 lh-15">Đặt ghim
-                                                    niêm yết trên bản đồ</h3>
-                                                <p class="card-text mb-5">Lorem ipsum dolor sit amet,
-                                                    consectetur adipiscing elit</p>
-                                                <!-- Bản đồ -->
-                                                <div id="map" class="mb-6" style="height: 292px;">
-                                                </div>
-                                            </div>
+                                        <div>
                                             <div class="row mb-6">
                                                 <label class="col-lg-4 col-form-label fw-bold fs-6 required">Kinh
                                                     độ</label>
@@ -518,6 +491,63 @@
                                                     Thêm ảnh
                                                 </button>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-6">
+                                        <!-- Bản đồ -->
+                                        <div class="col-md-12 mb-3">
+                                            <label class="form-label fw-bold fs-6">Các tiện ích</label>
+                                            <div class="row mt-2">
+                                                <div class="col-sm-6 col-lg-3">
+                                                    <div class="form-check custom-bathroom">
+                                                        <input class="bathroom-input" type="number" id="bathroomInput"
+                                                            value="{{ isset($utilities) ? $utilities->bathrooms : 0 }}"
+                                                            min="0" step="1" name="bathrooms">
+                                                        <label class="bathroom-label" for="bathroomInput">
+                                                            Phòng tắm
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-lg-3">
+                                                    <div class="form-check custom-checkbox">
+                                                        <input class="form-check-input" type="checkbox" id="attic"
+                                                            name="wifi"
+                                                            {{ isset($utilities) && $utilities->wifi == 1 ? 'checked' : '' }}>
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            Wifi
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-lg-3">
+                                                    <div class="form-check custom-checkbox">
+                                                        <input class="form-check-input" type="checkbox"
+                                                            name="air_conditioning" id="attic-02"
+                                                            {{ isset($utilities) && $utilities->air_conditioning == 1 ? 'checked' : '' }}>
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            Máy điều hòa
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-lg-3">
+                                                    <div class="form-check custom-checkbox">
+                                                        <input class="form-check-input" type="checkbox"id="attic-03"
+                                                            name="garage"
+                                                            {{ isset($utilities) && $utilities->garage == 1 ? 'checked' : '' }}>
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            Ga-ra
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-6">
+                                        <div class="col-md-12 mb-3">
+                                            <label class="form-label fw-bold fs-6">Bản đồ</label>
+                                            <div id="map" style="height: 400px;"></div>
+                                            @error('map')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -614,6 +644,7 @@
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
     <link rel="stylesheet" href="{{ asset('assets/css/toan.css') }}">
+    <link href="{{ asset('assets/css/style-ntt.css') }}" rel="stylesheet" type="text/css" />
 @endpush
 
 @push('scriptsAdmin')
@@ -636,10 +667,12 @@
     <script src="{{ asset('assets/js/custom/modals/upgrade-plan.js') }}"></script>
     <!--end::Page Custom Javascript-->
     <!--end::Javascript-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC67NQzqFC2WplLzC_3PsL5gejG1_PZLDk&libraries=places">
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="{{ asset('assets/js/api-new-map-ntt.js') }}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC67NQzqFC2WplLzC_3PsL5gejG1_PZLDk"></script>
-    <script src="{{ asset('assets/js/mapapi-ntt.js') }}"></script>
+    <script src="{{ asset('assets/js/api-ggmap-nht.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/api-country-vn-nht.js') }}"></script> --}}
+    <script src="{{ asset('assets/js/api-ntt.js') }}"></script>
     <script src="{{ asset('assets/js/image-ntt.js') }}"></script>
     <script>
         window.roomData = {

@@ -12,11 +12,15 @@ use App\Models\Zone;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Image;
+use App\Models\Utility;
 
 class RoomAdminService
 {
     // Tao bien hien thi phong con trong
     private const AvailableRooms = 1;
+
+    const CO = 1; // Có tiện ích
+    const CHUA_CO = 2; // Chưa có tiện ích
     public function showRoomWhere(int $perPage = 5, $searchTerm = null)
     {
         try {
@@ -94,6 +98,7 @@ class RoomAdminService
     {
         // Tạo mới đối tượng Room và gán giá trị
         $room = new Room();
+        $room->user_id = auth()->id();
         $room->title = $request->input('title');
         $room->description = $request->input('description');
         $room->price = $request->input('price');
@@ -111,7 +116,7 @@ class RoomAdminService
         $room->zone_id = $request->input('zone_id');
         // $room->room_type_id = $request->input('room_type_id');
         $room->category_id = $request->input('category_id');
-        $room->user_id = 2;
+
         // Lưu đối tượng Room
         if ($room->save()) {
             // Lấy ID của đối tượng mới tạo
@@ -144,7 +149,17 @@ class RoomAdminService
                         $imageModel->save();
                     }
                 }
+                $utilities = new Utility();
+                $utilities->room_id = $roomId;
 
+                // Kiểm tra tiện ích từ request
+                $utilities->wifi = $request->has('wifi') ? self::CO : self::CHUA_CO;
+                $utilities->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
+                $utilities->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
+
+                // Xử lý số lượng phòng tắm
+                $utilities->bathrooms = $request->input('bathrooms', 0); // Số lượng phòng tắm
+                $utilities->save();
                 return $room;
             } else {
                 // Nếu không thể lưu slug, xóa phòng
@@ -170,6 +185,12 @@ class RoomAdminService
         return $slug;
     }
 
+    public function getRoomUtilities($roomId)
+    {
+        // Giả sử bạn đã có model `Utility`
+        return Utility::where('room_id', $roomId)->first();
+    }
+
     public function update($request, $slug)
     {
         // Tìm đối tượng Room dựa trên slug
@@ -192,6 +213,27 @@ class RoomAdminService
         $room->zone_id = $request->input('zone_id');
         // $room->room_type_id = $request->input('room_type_id');
         $room->category_id = $request->input('category_id');
+
+        // Lấy thông tin tiện ích hiện tại
+        $utilities = Utility::where('room_id', $room->id)->first();
+
+        if ($utilities) {
+            // Cập nhật thông tin tiện ích
+            $utilities->wifi = $request->has('wifi') ? self::CO : self::CHUA_CO;
+            $utilities->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
+            $utilities->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
+            $utilities->bathrooms = $request->input('bathrooms', 0); // Số lượng phòng tắm
+            $utilities->save();
+        } else {
+            // Nếu không có tiện ích, tạo mới
+            $utilities = new Utility();
+            $utilities->room_id = $room->id;
+            $utilities->wifi = $request->has('wifi') ? self::CO : self::CHUA_CO;
+            $utilities->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
+            $utilities->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
+            $utilities->bathrooms = $request->input('bathrooms', 0); // Số lượng phòng tắm
+            $utilities->save();
+        }
 
         // Cập nhật slug nếu title thay đổi
         $newSlug = $this->createSlug($request->input('title')) . '-' . $room->id;

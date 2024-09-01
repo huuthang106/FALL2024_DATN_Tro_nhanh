@@ -11,7 +11,7 @@
                         data-bs-target="#kt_account_profile_details" aria-expanded="true"
                         aria-controls="kt_account_profile_details">
                         <div class="card-title m-0">
-                            <h3 class="fw-bolder m-0">Thêm phòng</h3>
+                            <h3 class="fw-bolder m-0">Thêm phòng của bạn</h3>
                         </div>
                     </div>
                     <div id="kt_account_profile_details" class="collapse show">
@@ -114,6 +114,9 @@
                                             </div>
 
                                         </div>
+
+                                    </div>
+                                    <div class="col-6">
                                         <div class="row mb-6">
                                             <label class="col-lg-4 col-form-label fw-bold fs-6 required">Loại phòng</label>
                                             <div class="col-lg-8 fv-row">
@@ -139,19 +142,6 @@
                                             </div>
                                         </div>
                                         <div class="row mb-6">
-                                            <label class="col-lg-4 col-form-label fw-bold fs-6 required">Khu vực</label>
-                                            <div class="col-lg-8 fv-row">
-                                                <select name="location_id"
-                                                    class="form-select form-select-solid form-select-lg">
-                                                    @foreach ($locations as $location)
-                                                        <option value="{{ $location->id }}">
-                                                            {{ $location->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-6">
                                             <label class="col-lg-4 col-form-label fw-bold fs-6 required">Khu trọ</label>
                                             <div class="col-lg-8 fv-row">
                                                 <select name="zone_id"
@@ -164,9 +154,6 @@
                                                 </select>
                                             </div>
                                         </div>
-                                      
-                                    </div>
-                                    <div class="col-6">
                                         <div class="row mb-6">
                                             <label class="col-lg-4 col-form-label fw-bold fs-6 required">Tỉnh</label>
                                             <div class="col-lg-8 fv-row">
@@ -265,15 +252,6 @@
                                         </div>
                                         <div onload="initMap()">
                                             <div class="row mb-6">
-                                                <h3 class="card-title mb-0 text-heading fs-22 lh-15">Đặt ghim
-                                                    niêm yết trên bản đồ</h3>
-                                                <p class="card-text mb-5">Lorem ipsum dolor sit amet,
-                                                    consectetur adipiscing elit</p>
-                                                <!-- Bản đồ -->
-                                                <div id="map" class="mb-6" style="height: 292px;">
-                                                </div>
-                                            </div>
-                                            <div class="row mb-6">
                                                 <label class="col-lg-4 col-form-label fw-bold fs-6 required">Kinh
                                                     độ</label>
                                                 <div class="col-lg-8 fv-row">
@@ -311,6 +289,59 @@
                                                     Thêm ảnh
                                                 </button>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-6">
+                                        <!-- Bản đồ -->
+                                        <div class="col-md-12 mb-3">
+                                            <label class="form-label fw-bold fs-6">Các tiện ích</label>
+                                            <div class="row mt-2">
+                                                <div class="col-sm-6 col-lg-3">
+                                                    <div class="form-check custom-bathroom">
+                                                        <input class="bathroom-input" type="number" id="bathroomInput"
+                                                            value="" name="bathrooms">
+                                                        <label class="bathroom-label" for="bathroomInput">
+                                                            Phòng tắm
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-lg-3">
+                                                    <div class="form-check custom-checkbox">
+                                                        <input class="form-check-input" type="checkbox" id="attic"
+                                                            value="" name="wifi">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            Wifi
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-lg-3">
+                                                    <div class="form-check custom-checkbox">
+                                                        <input class="form-check-input" type="checkbox" value=""
+                                                            name="air_conditioning" id="attic-02">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            Máy điều hòa
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-lg-3">
+                                                    <div class="form-check custom-checkbox">
+                                                        <input class="form-check-input" type="checkbox"id="attic-03"
+                                                            value="" name="garage">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            Ga-ra
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-6">
+                                        <div class="col-md-12 mb-3">
+                                            <label class="form-label fw-bold fs-6">Bản đồ</label>
+                                            <div id="map" style="height: 400px;"></div>
+                                            @error('map')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -405,6 +436,7 @@
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/style-ntt.css') }}" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
 @endpush
 
@@ -428,10 +460,11 @@
     <script src="{{ asset('assets/js/custom/modals/upgrade-plan.js') }}"></script>
     <!--end::Page Custom Javascript-->
     <!--end::Javascript-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC67NQzqFC2WplLzC_3PsL5gejG1_PZLDk&libraries=places">
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="{{ asset('assets/js/seclectmap.js') }}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC67NQzqFC2WplLzC_3PsL5gejG1_PZLDk"></script>
-    <script src="{{ asset('assets/js/mapapi-ntt.js') }}"></script>
+    <script src="{{ asset('assets/js/api-ggmap-nht.js') }}"></script>
+    <script src="{{ asset('assets/js/api-country-vn-nht.js') }}"></script>
     <script src="{{ asset('assets/js/image-ntt.js') }}"></script>
     <script>
         document.getElementById('title').addEventListener('input', function() {

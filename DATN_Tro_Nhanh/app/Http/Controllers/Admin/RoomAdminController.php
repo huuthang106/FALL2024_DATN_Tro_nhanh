@@ -72,13 +72,14 @@ class RoomAdminController extends Controller
     {
         $data = $this->roomAdminService->getSlugRoom($slug);
         $rooms = $data['rooms'];
+        $utilities = $this->roomAdminService->getRoomUtilities($rooms->id); // Lấy tiện ích của phòng
         $categories = $data['categories'];
         $acreages = $data['acreages'];
         $locations = $data['locations'];
         $zones = $data['zones'];
         $users = $data['users'];
 
-        return view('admincp.edit.updateRoom', compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users'));
+        return view('admincp.edit.updateRoom', compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users', 'utilities'));
     }
     public function update_room(Request $request, $slug)
     {
@@ -86,10 +87,10 @@ class RoomAdminController extends Controller
 
         if ($result) {
             // Cập nhật thành công, chuyển hướng hoặc thông báo
-            return redirect()->route('admin.show-room')->with('success', 'Room updated successfully.');
+            return redirect()->route('admin.show-room')->with('success', 'Cập nhật phòng thành công.');
         } else {
             // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
-            return back()->with('error', 'Failed to update room.');
+            return back()->with('error', 'Câpj nhật phòng thất bại.');
         }
     }
 }
