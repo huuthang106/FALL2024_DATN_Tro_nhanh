@@ -13,21 +13,21 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\CustomPasswordResetController;
 
 Route::middleware('guest')->group(function () {
-    // Route::get('dang-ky', [RegisteredUserController::class, 'create'])
-    //     ->name('client.register');
+    Route::get('dang-ky', [RegisteredUserController::class, 'create'])
+        ->name('client.register');
 
-    // Route::post('dang-ky', [RegisteredUserController::class, 'store']);
+    Route::post('dang-ky', [RegisteredUserController::class, 'store']);
 
-    // Route::get('dang-nhap', [AuthenticatedSessionController::class, 'create'])
-    //     ->name('login');
+    Route::get('dang-nhap', [AuthenticatedSessionController::class, 'create'])
+        ->name('login');
 
-    // Route::post('dang-nhap', [AuthenticatedSessionController::class, 'store']);
+    Route::post('dang-nhap', [AuthenticatedSessionController::class, 'store']);
 
     Route::get('quen-mat-khau', [PasswordResetLinkController::class, 'create'])
         ->name('password.request');
 
-    // Route::post('quen-mat-khau', [PasswordResetLinkController::class, 'store'])
-    //     ->name('password.email');
+    Route::post('quen-mat-khau', [PasswordResetLinkController::class, 'store'])
+        ->name('password.email');
 
     Route::post('quen-mat-khau', [CustomPasswordResetController::class, 'store'])
         ->name('password.email');
@@ -57,7 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
 
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
-
+// ko mở logout này 
     // Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
     //     ->name('logout');
 });
