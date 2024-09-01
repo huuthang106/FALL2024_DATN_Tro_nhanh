@@ -54,5 +54,42 @@ class PriceListAdminController extends Controller
             return redirect()->back()->with('error', 'Có lỗi xảy ra.');
         }
     }
+
+    public function destroy($id)
+    {
+        $result = $this->priceListService->softDeletePriceList($id);
+
+        if ($result['status'] === 'error') {
+            // Nếu location còn hoạt động, quay lại trang hiện tại với thông báo lỗi
+            return redirect()->back()->with('error', $result['message']);
+        }
+
+        // Nếu xóa thành công, chuyển hướng đến trang thùng rác với thông báo thành công
+        return redirect()->route('admin.trash-price-list')->with('success', 'Gói tin đã được chuyển vào thùng rác.');
+    }
+
+    public function trash()
+    {
+        $trashedPriceLists = $this->priceListService->getTrashedPriceLists();
+        return view('admincp.trash.trash-price-list', compact('trashedPriceLists'));
+    }
+
+    public function restore($id)
+    {
+        $this->priceListService->restorePriceList($id);
+        return redirect()->route('admin.danh-sach-bang-gia')->with('success', 'Gói tin đã được khôi phục.');
+    }
+
+    public function forceDelete($id)
+    {
+        $result = $this->priceListService->forceDeletePriceList($id);
+
+        if ($result['status'] === 'error') {
+            // Nếu location còn hoạt động, quay lại trang hiện tại với thông báo lỗi
+            return redirect()->back()->with('error', $result['message']);
+        }
+
+        return redirect()->route('admin.trash-price-list')->with('success', 'Gói tin đã được xóa vĩnh viễn.');
+    }
 }
 

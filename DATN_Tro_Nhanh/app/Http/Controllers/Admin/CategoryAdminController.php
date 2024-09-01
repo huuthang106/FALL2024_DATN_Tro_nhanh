@@ -74,4 +74,39 @@ class CategoryAdminController extends Controller
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
     }
+
+    public function destroy($id)
+    {
+        $result = $this->categoryService->softDeleteCategory($id);
+
+        if ($result['status'] === 'error') {
+            return redirect()->back()->with('error', $result['message']);
+        }
+
+        return redirect()->route('admin.trash-category')->with('success', $result['message']);
+    }
+
+    public function trash()
+    {
+        $trashedCategories = $this->categoryService->getTrashedCategories();
+        return view('admincp.trash.trash-category', compact('trashedCategories'));
+    }
+
+    public function restore($id)
+    {
+        $this->categoryService->restoreCategory($id);
+        return redirect()->route('admin.list-category')->with('success', 'Loại phòng đã được khôi phục.');
+    }
+
+    public function forceDelete($id)
+    {
+        $result = $this->categoryService->forceDeleteCategory($id);
+
+        if ($result['status'] === 'error') {
+            return redirect()->back()->with('error', $result['message']);
+        }
+
+        return redirect()->route('admin.trash-category')->with('success', $result['message']);
+    }
+
 }

@@ -47,12 +47,12 @@ class BlogAdminController extends Controller
     public function updateBlog(Request $request, $slug)
     {
         $result = $this->BlogService->updateBlog($request, $slug);
-    
-     
-            return redirect()->route('admin.show-blog')->with('success', $result['message']);
-    
+
+
+        return redirect()->route('admin.show-blog')->with('success', $result['message']);
+
     }
-    
+
 
 
     public function store(CreateBlogRequest $request)
@@ -69,5 +69,29 @@ class BlogAdminController extends Controller
             Log::error('Không thể tạo blog: ' . $e->getMessage());
             return redirect()->route('admin.create-blog')->with('error', 'Có lỗi xảy ra khi tạo blog.');
         }
+    }
+
+    public function destroy($id)
+    {
+        $this->BlogService->softDeleteBlogs($id);
+        return redirect()->route('admin.trash-blog')->with('success', 'Blog đã được chuyển vào thùng rác.');
+    }
+
+    public function trash()
+    {
+        $trashedBlogs = $this->BlogService->getTrashedBlogs();
+        return view('admincp.trash.trash-blog', compact('trashedBlogs'));
+    }
+
+    public function restore($id)
+    {
+        $this->BlogService->restoreBlogs($id);
+        return redirect()->route('admin.show-blog')->with('success', 'Blog đã được khôi phục.');
+    }
+
+    public function forceDelete($id)
+    {
+        $this->BlogService->forceDeleteBlogs($id);
+        return redirect()->route('admin.trash-blog')->with('success', 'Blog đã được xóa vĩnh viễn.');
     }
 }

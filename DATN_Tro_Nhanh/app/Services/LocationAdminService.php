@@ -69,4 +69,52 @@ class LocationAdminService
         // Lưu đối tượng Location
         $locations->save();
     }
+
+    public function softDeleteLocation($id)
+    {
+        // Tìm location theo ID
+        $location = Location::findOrFail($id);
+
+        // Tiến hành xóa mềm location
+        $location->delete();
+
+        // Trả về thông báo thành công
+        return [
+            'status' => 'success',
+            'message' => 'Location đã được chuyển vào thùng rác thành công.'
+        ];
+    }
+    public function getTrashedLocations()
+    {
+        return Location::onlyTrashed()->get();
+    }
+    public function restoreLocation($id)
+    {
+        // Tìm location theo ID (bao gồm cả những cái đã xóa mềm)
+        $location = Location::withTrashed()->findOrFail($id);
+
+        // Khôi phục location
+        $location->restore();
+
+        // Trả về thông báo thành công
+        return [
+            'status' => 'success',
+            'message' => 'Location đã được khôi phục thành công.'
+        ];
+    }
+    public function forceDeleteLocation($id)
+    {
+        // Tìm location theo ID (bao gồm cả những cái đã xóa mềm)
+        $location = Location::withTrashed()->findOrFail($id);
+
+        // Xóa vĩnh viễn location
+        $location->forceDelete();
+
+        // Trả về thông báo thành công
+        return [
+            'status' => 'success',
+            'message' => 'Location đã được xóa vĩnh viễn thành công.'
+        ];
+    }
+
 }

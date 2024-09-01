@@ -13,6 +13,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Image;
 use App\Models\Utility;
+use App\Models\Resident;
 
 class RoomAdminService
 {
@@ -266,6 +267,53 @@ class RoomAdminService
         } else {
             return false;
         }
+    }
+
+    public function softDeleteRoom($id)
+    {
+        // Tìm phòng theo ID
+        $room = Room::findOrFail($id);
+
+        // Kiểm tra xem room_id có trong bảng residents hay không
+        $hasResidents = Resident::where('room_id', $id)->exists();
+
+        if ($hasResidents) {
+            // Nếu phòng có người ở, trả về thông báo lỗi
+            return [
+                'status' => 'error',
+                'message' => 'Phòng có người ở, không thể xóa.'
+            ];
+        }
+
+        // Nếu không có người ở, tiến hành xóa mềm
+        $room->delete();
+
+        // Trả về thông báo thành công
+        return [
+            'status' => 'success',
+            'message' => 'Phòng đã được chuyển vào thùng rác thành công.'
+        ];
+    }
+
+
+
+    public function getTrashedRooms()
+    {
+        return Room::onlyTrashed()->get();
+    }
+
+    public function restoreRoom($id)
+    {
+        $room = Room::withTrashed()->findOrFail($id);
+        $room->restore();
+        return $room;
+    }
+
+    public function forceDeleteRoom($id)
+    {
+        $room = Room::withTrashed()->findOrFail($id);
+        $room->forceDelete();
+        return $room;
     }
 
 }

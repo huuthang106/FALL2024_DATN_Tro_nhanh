@@ -1162,7 +1162,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="../../demo8/dist/widgets/mixed.html"
+                            <a class="menu-link" href="{{ route('admin.trash-room') }}"
                                 style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
@@ -1202,19 +1202,42 @@
                                 <span class="menu-title">Danh sách</span>
                             </a>
                         </div>
+                    </div>
+                </div>
 
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <span class="menu-link">
+                        <span class="menu-icon">
+                            <span class="svg-icon svg-icon-2">
+                                <!-- SVG icon here -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none">
+                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
+                                        fill="black" />
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
+                                        fill="black" />
+                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
+                                        fill="black" />
+                                </svg>
+                            </span>
+                        </span>
+                        <span class="menu-title">Thông báo</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link text-decoration-none" href="../../demo8/dist/widgets/mixed.html">
+                            <a class="menu-link text-decoration-none" href="{{ route('admin.show-report') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Thùng rác</span>
+                                <span class="menu-title">Danh sách</span>
                             </a>
                         </div>
                     </div>
                 </div>
-                <div id="blog-menu" data-kt-menu-trigger="click"
-                    class="menu-item menu-accordion menu-item-persistent">
+
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">
@@ -1252,7 +1275,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link text-decoration-none" href="../../demo8/dist/widgets/mixed.html">
+                            <a class="menu-link text-decoration-none" href="{{ route('admin.trash-blog') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1281,7 +1304,7 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Utilities</span>
+                        <span class="menu-title">Tiện ích</span>
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -1291,7 +1314,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Lists</span>
+                                <span class="menu-title">Danh sách</span>
                             </a>
                         </div>
                         <div class="menu-item">
@@ -1299,24 +1322,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Add</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link" href="" style="text-decoration: none;">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Edit</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link" href="../../demo8/dist/widgets/mixed.html"
-                                style="text-decoration: none;">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Trash</span>
+                                <span class="menu-title">Thêm tiện ích</span>
                             </a>
                         </div>
                     </div>
@@ -1341,7 +1347,7 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Price List</span>
+                        <span class="menu-title">Vị trí gói</span>
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -1351,7 +1357,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Lists</span>
+                                <span class="menu-title">Danh sách</span>
                             </a>
                         </div>
                         <div class="menu-item">
@@ -1360,23 +1366,16 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Add</span>
+                                <span class="menu-title">Thêm vị trí gói</span>
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="" style="text-decoration: none;">
+                            <a class="menu-link" href="{{ route('admin.trash-price-list') }}"
+                                style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Edit</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link" href="" style="text-decoration: none;">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Trash</span>
+                                <span class="menu-title">Thùng rác</span>
                             </a>
                         </div>
                     </div>
@@ -1402,7 +1401,7 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Zone</span>
+                        <span class="menu-title">Khu trọ</span>
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -1432,7 +1431,7 @@
                             </a>
                         </div> --}}
                         <div class="menu-item">
-                            <a class="menu-link" href="../../demo8/dist/widgets/mixed.html"
+                            <a class="menu-link" href="{{ route('admin.trash-zone') }}"
                                 style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
@@ -1493,7 +1492,7 @@
                             </a>
                         </div> --}}
                         <div class="menu-item">
-                            <a class="menu-link" href="../../demo8/dist/widgets/mixed.html"
+                            <a class="menu-link" href="{{ route('admin.trash-category') }}"
                                 style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
@@ -1546,23 +1545,6 @@
                                 <span class="menu-title">Thêm diện tích</span>
                             </a>
                         </div>
-                        <div class="menu-item">
-                            <a class="menu-link" href="" style="text-decoration: none;">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Chỉnh sửa</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link" href="../../demo8/dist/widgets/mixed.html"
-                                style="text-decoration: none;">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Thùng rác</span>
-                            </a>
-                        </div>
                     </div>
                 </div>
 
@@ -1609,15 +1591,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="" style="text-decoration: none;">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Chỉnh sửa</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link" href="../../demo8/dist/widgets/mixed.html"
+                            <a class="menu-link" href="{{ route('admin.trash-location') }}"
                                 style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>

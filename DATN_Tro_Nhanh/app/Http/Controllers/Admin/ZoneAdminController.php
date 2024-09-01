@@ -83,6 +83,44 @@ class ZoneAdminController extends Controller
         }
     }
 
+    public function destroy($id)
+    {
+        $result = $this->zoneServices->softDeleteZones($id);
+
+        if ($result['status'] === 'error') {
+            return redirect()->back()->with('error', $result['message']);
+        }
+
+        return redirect()->route('admin.trash-zone')->with('success', $result['message']);
+    }
+
+
+    public function trash()
+    {
+        $trashedZones = $this->zoneServices->getTrashedZones();
+        return view('admincp.trash.trash-zone', compact('trashedZones'));
+    }
+
+    public function restore($id)
+    {
+        $this->zoneServices->restoreZones($id);
+        return redirect()->route('admin.danh-sach-khutro')->with('success', 'Khu trọ đã được khôi phục.');
+    }
+
+    public function forceDelete($id)
+    {
+        // Gọi phương thức forceDeleteZones từ service
+        $result = $this->zoneServices->forceDeleteZones($id);
+
+        if ($result['status'] === 'error') {
+            // Nếu không thể xóa vĩnh viễn do có phòng hoạt động hoặc người ở, quay lại trang hiện tại với thông báo lỗi
+            return redirect()->back()->with('error', $result['message']);
+        }
+
+        // Nếu xóa vĩnh viễn thành công, chuyển hướng đến trang danh sách khu trọ đã xóa với thông báo thành công
+        return redirect()->route('admin.trash-zone')->with('success', 'Khu trọ đã được xóa vĩnh viễn.');
+    }
+
 
 
 }

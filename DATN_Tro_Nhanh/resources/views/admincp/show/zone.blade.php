@@ -572,8 +572,13 @@
                                                 <!--end::Menu item-->
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="#" class="menu-link px-3"
-                                                        data-kt-users-table-filter="delete_row">Delete</a>
+                                                    <form action="{{ route('admin.destroy-zone', $zone->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="menu-link px-3 border-0 bg-transparent text-start">Xóa</button>
+                                                    </form>
                                                 </div>
                                                 <!--end::Menu item-->
                                             </div>

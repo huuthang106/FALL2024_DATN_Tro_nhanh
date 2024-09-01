@@ -29,6 +29,38 @@ class RoomAdminController extends Controller
         return view('admincp.show.index', compact('roomsCountByCategoryType'));
     }
 
+    public function destroy($id)
+    {
+        $result = $this->roomAdminService->softDeleteRoom($id);
+
+        if ($result['status'] === 'error') {
+            // Nếu có người ở, quay lại trang hiện tại với thông báo lỗi
+            return redirect()->back()->with('error', $result['message']);
+        }
+
+        // Nếu xóa thành công, chuyển hướng đến trang thùng rác với thông báo thành công
+        return redirect()->route('admin.trash-room')->with('success', 'Phòng đã được chuyển vào thùng rác.');
+    }
+
+
+    public function trash()
+    {
+        $trashedRooms = $this->roomAdminService->getTrashedRooms();
+        return view('admincp.trash.trash-room', compact('trashedRooms'));
+    }
+
+    public function restore($id)
+    {
+        $this->roomAdminService->restoreRoom($id);
+        return redirect()->route('admin.show-room')->with('success', 'Phòng đã được khôi phục.');
+    }
+
+    public function forceDelete($id)
+    {
+        $this->roomAdminService->forceDeleteRoom($id);
+        return redirect()->route('admin.trash-room')->with('success', 'Phòng đã được xóa vĩnh viễn.');
+    }
+
     public function show_room()
     {
         $rooms = $this->roomAdminService->showRoomWhere();

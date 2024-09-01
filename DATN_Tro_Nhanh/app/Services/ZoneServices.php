@@ -281,4 +281,43 @@ class ZoneServices
         $zone->restore();
         return $zone;
     }
+    public function forceDeleteZones($id)
+    {
+        // Tìm zone theo ID kể cả khi đã bị xóa mềm
+        $zone = Zone::withTrashed()->findOrFail($id);
+
+        // Kiểm tra xem có phòng nào thuộc zone này chưa bị xóa mềm hay không
+        $activeRooms = Room::where('zone_id', $id)->whereNull('deleted_at')->exists();
+
+        if ($activeRooms) {
+            // Nếu có phòng đang hoạt động, trả về thông báo lỗi
+            return [
+                'status' => 'error',
+                'message' => 'Khu trọ đang có phòng hoạt động, không thể xóa vĩnh viễn.'
+            ];
+        }
+
+        // Kiểm tra xem có user_id nào đang ở trong resident thuộc zone này không
+        $activeResidents = Resident::where('zone_id', $id)
+            ->whereNotNull('user_id')
+            ->exists();
+
+        if ($activeResidents) {
+            // Nếu có user_id đang ở trong resident, trả về thông báo lỗi
+            return [
+                'status' => 'error',
+                'message' => 'Khu trọ đang có người ở, không thể xóa vĩnh viễn.'
+            ];
+        }
+
+        // Nếu tất cả các phòng đều đã bị xóa mềm và không có người ở, tiến hành xóa vĩnh viễn zone
+        $zone->forceDelete();
+
+        // Trả về thông báo thành công
+        return [
+            'status' => 'success',
+            'message' => 'Khu trọ đã được xóa vĩnh viễn thành công.'
+        ];
+    }
+
 }

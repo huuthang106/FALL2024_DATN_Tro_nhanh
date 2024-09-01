@@ -62,4 +62,40 @@ class LocationAdminController extends Controller
             return redirect()->route('admin.show-location')->with('success', 'Cập nhật gói tin không thành công.');
         }
     }
+
+    public function destroy($id)
+    {
+        $result = $this->locationAdminService->softDeleteLocation($id);
+
+        if ($result['status'] === 'error') {
+            return redirect()->back()->with('error', $result['message']);
+        }
+
+        return redirect()->route('admin.trash-location')->with('success', $result['message']);
+    }
+
+    public function trash()
+    {
+        $trashedLocations = $this->locationAdminService->getTrashedLocations();
+        return view('admincp.trash.trash-location', compact('trashedLocations'));
+    }
+
+    public function restore($id)
+    {
+        $this->locationAdminService->restoreLocation($id);
+        return redirect()->route('admin.show-location')->with('success', 'Location đã được khôi phục.');
+    }
+
+    public function forceDelete($id)
+    {
+        $result = $this->locationAdminService->forceDeleteLocation($id);
+
+        if ($result['status'] === 'error') {
+            return redirect()->back()->with('error', $result['message']);
+        }
+
+        return redirect()->route('admin.trash-location')->with('success', $result['message']);
+    }
+
+
 }

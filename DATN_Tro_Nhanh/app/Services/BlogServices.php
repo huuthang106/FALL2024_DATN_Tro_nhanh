@@ -227,4 +227,11 @@ class BlogServices
         $blog->restore();
         return $blog;
     }
+
+    public function forceDeleteBlogs($id)
+    {
+        $blog = Blog::withTrashed()->findOrFail($id);
+        $blog->forceDelete();
+        return $blog;
+    }
 }

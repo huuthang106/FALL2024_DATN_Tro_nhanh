@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Support\Facades\Log;
 use Cocur\Slugify\Slugify;
 use App\Events\Admin\CategoryAdminEvent;
+use App\Models\Room;
 
 class CategoryAdminService
 {
@@ -149,4 +150,69 @@ class CategoryAdminService
 
         return $slug;
     }
+
+    public function softDeleteCategory($id)
+    {
+        // Tìm category theo ID
+        $category = Category::findOrFail($id);
+
+        // Kiểm tra xem có phòng nào thuộc category này không
+        $hasRooms = Room::where('category_id', $id)->exists();
+
+        if ($hasRooms) {
+            // Nếu có phòng thuộc loại này, trả về thông báo lỗi
+            return [
+                'status' => 'error',
+                'message' => 'Có phòng đang thuộc loại này, không thể xóa.'
+            ];
+        }
+
+        // Nếu không có phòng thuộc loại này, tiến hành xóa mềm
+        $category->delete();
+
+        // Trả về thông báo thành công
+        return [
+            'status' => 'success',
+            'message' => 'Loại phòng đã được chuyển vào thùng rác thành công.'
+        ];
+    }
+
+    public function getTrashedCategories()
+    {
+        return Category::onlyTrashed()->get();
+    }
+
+    public function restoreCategory($id)
+    {
+        $category = Category::withTrashed()->findOrFail($id);
+        $category->restore();
+        return $category;
+    }
+
+    public function forceDeleteCategory($id)
+    {
+        $category = Category::withTrashed()->findOrFail($id);
+
+        // Kiểm tra xem có phòng nào thuộc category này không
+        $hasRooms = Room::where('category_id', $id)->exists();
+
+        if ($hasRooms) {
+            // Nếu có phòng thuộc loại này, trả về thông báo lỗi
+            return [
+                'status' => 'error',
+                'message' => 'Có phòng đang thuộc loại này, không thể xóa vĩnh viễn.'
+            ];
+        }
+
+        // Nếu không có phòng thuộc loại này, tiến hành xóa vĩnh viễn
+        $category->forceDelete();
+
+        // Trả về thông báo thành công
+        return [
+            'status' => 'success',
+            'message' => 'Loại phòng đã được xóa vĩnh viễn thành công.'
+        ];
+    }
+
+
 }

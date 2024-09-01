@@ -515,7 +515,8 @@
                                     <th class="w-10px pe-2">
                                         <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                             <input class="form-check-input" type="checkbox" data-kt-check="true"
-                                                data-kt-check-target="#kt_table_price_lists .form-check-input" value="1" />
+                                                data-kt-check-target="#kt_table_price_lists .form-check-input"
+                                                value="1" />
                                         </div>
                                     </th>
                                     <th class="min-w-100px">Vị trí</th>
@@ -530,10 +531,12 @@
                                     <tr>
                                         <td>
                                             <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                                <input class="form-check-input" type="checkbox" value="{{ $priceList->id }}" />
+                                                <input class="form-check-input" type="checkbox"
+                                                    value="{{ $priceList->id }}" />
                                             </div>
                                         </td>
-                                        <td>{{ $priceList->location->name }}</td> <!-- Use location name -->
+                                        <td>{{ $priceList->location->name ?? 'Location không còn tồn tại' }}</td>
+                                        <!-- Use location name -->
                                         <td>{{ number_format($priceList->price, 0, ',', '.') }} ₫</td>
                                         <td>{{ $priceList->duration_day }}</td>
                                         <td>{{ $priceList->status ? 'Kích hoạt' : 'Không kích hoạt' }}</td>
@@ -561,21 +564,23 @@
                                                 <!--end::Menu item-->
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="#" class="menu-link px-3"
-                                                        data-kt-users-table-filter="delete_row">Xóa</a>
+                                                    <form action="{{ route('admin.destroy-price-list', $priceList->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="menu-link px-3 border-0 bg-transparent text-start">Xóa</button>
+                                                    </form>
                                                 </div>
                                                 <!--end::Menu item-->
                                             </div>
                                             <!--end::Menu-->
-                
+
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                     
-                       
-
                         <!--end::Table-->
                     </div>
                     <!--end::Card body-->
@@ -589,8 +594,7 @@
 @endsection
 @push('styleAdmin')
     <base href="{{ asset('') }}">
-    <title>Metronic - the world's #1 selling Bootstrap Admin Theme Ecosystem for HTML, Vue, React, Angular & Laravel by
-        Keenthemes</title>
+    <title>Danh Sách Loại</title>
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue & Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"
@@ -609,6 +613,10 @@
     <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
     <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
+    <meta name="success" content="{{ session('success') }}">
+    <meta name="error" content="{{ session('error') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
