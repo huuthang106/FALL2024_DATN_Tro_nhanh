@@ -113,3 +113,17 @@
     box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
     /* Tạo hiệu ứng khi input được focus */
 }
+
+.collapse-content {
+    display: none;
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.collapse-content.show {
+    display: block;
+    opacity: 1;
+    transform: scaleY(1);
+}

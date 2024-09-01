@@ -8,6 +8,20 @@
 
     @stack('styleOwners')
     <link rel="stylesheet" href="{{ asset('assets/css/mh.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style-ntt.css') }}">
+    {{-- <style>
+        .collapse {
+            transform: scaleY(0);
+            transform-origin: top;
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .collapse.show {
+            transform: scaleY(1);
+            opacity: 1;
+        }
+    </style> --}}
 
 
 
@@ -515,6 +529,7 @@
                     </symbol>
                 </defs>
             </svg>
+            <script src="{{ asset('assets/js/ntt-script.js') }}"></script>
 </body>
 @stack('scriptOwners')
 

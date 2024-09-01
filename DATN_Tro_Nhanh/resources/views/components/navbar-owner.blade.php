@@ -79,7 +79,7 @@
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                     <a href="#collapseTrọ"
                                         class="text-heading lh-1 sidebar-link d-flex align-items-center"
-                                        data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
+                                        onclick="toggleDropdown('collapseTrọ'); return false;">
                                         <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                             <svg class="icon icon-my-properties">
                                                 <use xlink:href="#icon-my-properties"></use>
@@ -89,7 +89,7 @@
                                         <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
                                     </a>
                                 </li>
-                                <div class="collapse" id="collapseTrọ">
+                                <div class="collapse-content" id="collapseTrọ">
                                     <div class="card card-body border-0 bg-transparent py-0 pl-6">
                                         <ul class="list-group list-group-flush list-group-no-border">
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
@@ -98,8 +98,7 @@
                                             </li>
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"
-                                                    href="{{ route('owners.add-room') }}">Thêm mới
-                                                    trọ</a>
+                                                    href="{{ route('owners.add-room') }}">Thêm mới trọ</a>
                                             </li>
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"
@@ -108,10 +107,11 @@
                                         </ul>
                                     </div>
                                 </div>
+
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                     <a href="#collapseKhuTrọ"
-                                        class="text-heading lh-1 sidebar-link d-flex align-items-center"
-                                        data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
+                                        class="text-heading lh-1 sidebar-link d-flex align-items-center" d
+                                        onclick="toggleDropdown('collapseKhuTrọ'); return false;">
                                         <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                             <svg class="icon icon-my-properties">
                                                 <use xlink:href="#icon-my-properties"></use>
@@ -143,7 +143,7 @@
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                     <a href="#collapseBlog"
                                         class="text-heading lh-1 sidebar-link d-flex align-items-center"
-                                        data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
+                                        onclick="toggleDropdown('collapseBlog'); return false;">
                                         <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                             <svg class="icon icon-my-properties">
                                                 <use xlink:href="#icon-my-properties"></use>
@@ -175,7 +175,7 @@
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                     <a href="#collapseEdit"
                                         class="text-heading lh-1 sidebar-link d-flex align-items-center"
-                                        data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
+                                        onclick="toggleDropdown('collapseEdit'); return false;">
                                         <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                             <svg class="icon icon-my-properties">
                                                 <use xlink:href="#icon-my-properties"></use>
@@ -202,7 +202,7 @@
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                     <a href="#collapseLike"
                                         class="text-heading lh-1 sidebar-link d-flex align-items-center"
-                                        data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
+                                        onclick="toggleDropdown('collapseLike'); return false;">
                                         <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                             <svg class="icon icon-my-properties">
                                                 <use xlink:href="#icon-my-properties"></use>
@@ -228,7 +228,7 @@
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                     <a href="#collapseShare"
                                         class="text-heading lh-1 sidebar-link d-flex align-items-center"
-                                        data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
+                                        onclick="toggleDropdown('collapseShare'); return false;">
                                         <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                             <svg class="icon icon-my-properties">
                                                 <use xlink:href="#icon-my-properties"></use>
@@ -264,7 +264,7 @@
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                     <a href="#collapseCmt"
                                         class="text-heading lh-1 sidebar-link d-flex align-items-center"
-                                        data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
+                                        onclick="toggleDropdown('collapseCmt'); return false;">
                                         <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                             <svg class="icon icon-my-properties">
                                                 <use xlink:href="#icon-my-properties"></use>
