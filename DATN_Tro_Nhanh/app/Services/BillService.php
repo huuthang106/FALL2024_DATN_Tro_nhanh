@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Events\BlogCreated;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CreateBlogRequest;
+use App\Models\Transaction;
 class BillService
 {
     public function getCurrentUserBills(int $perPage = 10, $searchTerm = null)
@@ -38,4 +39,56 @@ class BillService
             return null;
         }
     }
+
+    public function getBillBySlug($id)
+    {
+        // Lấy user đang đăng nhập
+        $user = Auth::user();
+
+        // Lấy email và phone của user đang đăng nhập
+        $email = $user->email;
+        $phone = $user->phone; // Nếu cột số điện thoại là 'phone'
+        $name = $user->name;
+        $address = $user->address;
+        // Lấy thông tin bill theo slug
+        $bill = Bill::where('id', $id)->first();
+        $totalAmount = $bill->sum('amount');
+        return [
+            'bill' => $bill,
+            'email' => $email,
+            'phone' => $phone,
+            'name' => $name,
+            'address' => $address,
+            'totalAmount' => $totalAmount
+        ];
+    }
+
+    public function processPayment($billId)
+    {
+        $user_id = Auth::user()->id;
+        $bill = Bill::findOrFail($billId);
+
+        // Kiểm tra nếu có thông tin hóa đơn
+        if ($bill) {
+            $description = $bill->description; // Lấy mô tả từ hóa đơn
+
+            // Lưu vào bảng transactions
+            Transaction::create([
+                'user_id' => $user_id,
+                'bill_id' => $billId,
+                'description' => $description,
+            ]);
+
+            // Cập nhật trạng thái của hóa đơn và ngày thanh toán
+            $bill->update([
+                'status' => 2,
+                'payment_date' => now(),
+            ]);
+
+            return ['success' => true];
+        }
+
+        return ['success' => false];
+    }
+
 }

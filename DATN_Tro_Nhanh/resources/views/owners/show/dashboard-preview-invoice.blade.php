@@ -3,173 +3,154 @@
 @section('contentOwners')
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 add-new-invoice">
-            <div class="row">
-                <div class="col-xl-9 mb-6 mb-xl-0">
-                    <div class="card card-body main-invoice-info p-6">
-                        <div class="row mb-7">
-                            <div class="col-sm-6 col-12 mr-auto mb-6">
-                                <div class="d-flex align-items-center">
-                                    <img class="company-logo" src="{{ asset('assets/images/logo.png') }}" alt="company">
-                                    <h3 class="mb-0 ml-2 fs-18">Tìm trọ nhanh</h3>
+            <form action="{{ route('owners.payment-bill', $bill->id) }}" method="POST">
+                @csrf
+                <div class="row">
+                    <div class="col-xl-9 mb-6 mb-xl-0">
+                        <div class="card card-body main-invoice-info p-6">
+                            <div class="row mb-7">
+                                <div class="col-sm-6 col-12 mr-auto mb-6">
+                                    <div class="d-flex align-items-center">
+                                        <img class="company-logo" src="{{ asset('assets/images/logo.png') }}"
+                                            alt="company">
+                                        <h3 class="mb-0 ml-2 fs-18">Tìm trọ nhanh</h3>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-6 text-sm-right mb-6">
-                                <p class="fs-18 mb-0"><span class="inv-title">Hóa đơn : </span> <span
-                                        class="text-primary">#0001</span>
-                                </p>
-                            </div>
-                            <div class="col-sm-6 align-self-center mt-3">
-                                <p class="mb-0">Quận Cái Răng, TP.Cần Thơ</p>
-                                <p class="mb-0">tronhanh@gmail.com</p>
-                                <p class="mb-0">(039) 456 7890</p>
-                            </div>
-                            <div class="col-sm-6 align-self-center mt-3 text-sm-right">
-                                <p class="mb-0"><span class="text-heading font-weight-500">Ngày lập hóa đơn : </span>
-                                    <span class="inv-date">20 tháng 8 2024</span>
-                                </p>
-                                <p class="mb-0"><span class="text-heading font-weight-500">Ngày hết hạn : </span> <span
-                                        class="inv-date">26
-                                        Tháng 8 2024</span></p>
-                            </div>
-                        </div>
-                        <div class="border-top pt-7 mb-7">
-                            <div class="row">
-                                <div class="col-xl-8 col-md-6 col-sm-4 align-self-center">
-                                    <h6 class="card-title mb-5 text-heading fs-22 lh-15">Hóa đơn gửi đến</h6>
-                                </div>
-                                <div class="col-xl-4 col-md-6 col-sm-8 align-self-center order-sm-0 order-1 text-sm-right">
-                                    <h6 class="card-title mb-5 text-heading fs-22 lh-15">Thông tin thanh toán:</h6>
-                                </div>
-                                <div class="col-xl-8 col-md-6 col-sm-4 align-self-center mb-6 mb-md-0">
-                                    <p class="mb-0">Văn Admin</p>
-                                    <p class="mb-0">Ninh Kiều, TP.Cần Thơ</p>
-                                    <p class="mb-0">vanadmin@gmail.com</p>
-                                    <p class="mb-0">(128) 666 070</p>
-                                </div>
-                                <div class="col-xl-4 col-md-6 col-sm-8 align-self-center order-sm-0 order-1 text-sm-right">
-                                    <p class="mb-0"><span class="text-heading font-weight-500">Ngân Hàng:</span>
-                                        <span>Vietcombank</span>
+                                <div class="col-sm-6 text-sm-right mb-6">
+                                    <p class="fs-18 mb-0"><span class="inv-title">Hóa đơn : </span> <span
+                                            class="text-primary">#000{{ $bill->id }}</span>
                                     </p>
-                                    <p class="mb-0"><span class="text-heading font-weight-500">Tên tài khoản: </span>
-                                        <span>1234567890</span>
-                                    </p>
-                                    <p class="mb-0"><span class="text-heading font-weight-500">Mã bưu chính:</span>
-                                        <span>VS70134</span>
-                                    </p>
-                                    <p class="mb-0"><span class="text-heading font-weight-500">Quốc gia: </span>
-                                        <span>Việt Nam</span>
+                                </div>
+                                <div class="col-sm-6 align-self-center mt-3">
+                                    <p class="mb-0">Quận Cái Răng, TP.Cần Thơ</p>
+                                    <p class="mb-0">tronhanh@gmail.com</p>
+                                    <p class="mb-0">(039) 456 7890</p>
+                                </div>
+                                <div class="col-sm-6 align-self-center mt-3 text-sm-right">
+                                    <p class="mb-0"><span class="text-heading font-weight-500">Ngày lập hóa đơn : </span>
+                                        <span class="inv-date">{{ $bill->created_at->format('d/m/Y') }}</span>
                                     </p>
                                 </div>
                             </div>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class="">
-                                    <tr>
-                                        <th scope="col">STT</th>
-                                        <th scope="col">Tên mặt hàng</th>
-                                        <th class="text-right" scope="col">Số lượng</th>
-                                        <th class="text-right" scope="col">Giá</th>
-                                        <th class="text-right" scope="col">Tổng tiền</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Wifi</td>
-                                        <td class="text-right">1</td>
-                                        <td class="text-right">$120</td>
-                                        <td class="text-right">$120</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Bồn tắm</td>
-                                        <td class="text-right">1</td>
-                                        <td class="text-right">$230</td>
-                                        <td class="text-right">$230</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Ca nước</td>
-                                        <td class="text-right">1</td>
-                                        <td class="text-right">$405</td>
-                                        <td class="text-right">$405</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Cửa phòng</td>
-                                        <td class="text-right">1</td>
-                                        <td class="text-right">$2500</td>
-                                        <td class="text-right">$2500</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="row mt-4">
-                            <div class="col-sm-5 col-12 order-sm-0 order-1">
+                            <div class="border-top pt-7 mb-7">
+                                <div class="row">
+                                    <div class="col-xl-8 col-md-6 col-sm-4 align-self-center">
+                                        <h6 class="card-title mb-5 text-heading fs-22 lh-15">Hóa đơn gửi đến</h6>
+                                    </div>
+                                    <div
+                                        class="col-xl-4 col-md-6 col-sm-8 align-self-center order-sm-0 order-1 text-sm-right">
+                                        <h6 class="card-title mb-5 text-heading fs-22 lh-15">Thông tin thanh toán:</h6>
+                                    </div>
+                                    <div class="col-xl-8 col-md-6 col-sm-4 align-self-center mb-6 mb-md-0">
+                                        <p class="mb-0">{{ $name }}</p>
+                                        <p class="mb-0">{{ $address }}</p>
+                                        <p class="mb-0">{{ $email }}</p>
+                                        <p class="mb-0">{{ $phone }}</p>
+                                    </div>
+                                    <div
+                                        class="col-xl-4 col-md-6 col-sm-8 align-self-center order-sm-0 order-1 text-sm-right">
+                                        <p class="mb-0"><span class="text-heading font-weight-500">Ngân Hàng:</span>
+                                            <span>Vietcombank</span>
+                                        </p>
+                                        <p class="mb-0"><span class="text-heading font-weight-500">Tên tài khoản: </span>
+                                            <span>1234567890</span>
+                                        </p>
+                                        <p class="mb-0"><span class="text-heading font-weight-500">Mã bưu chính:</span>
+                                            <span>VS70134</span>
+                                        </p>
+                                        <p class="mb-0"><span class="text-heading font-weight-500">Quốc gia: </span>
+                                            <span>Việt Nam</span>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-sm-7 col-12 order-sm-1 order-0">
-                                <div class="text-sm-right">
-                                    <div class="row">
-                                        <div class="col-sm-8 col-7">
-                                            <p class="mb-1">Tổng Phụ Thu: </p>
-                                        </div>
-                                        <div class="col-sm-4 col-5">
-                                            <p class="mb-1">$3155</p>
-                                        </div>
-                                        <div class="col-sm-8 col-7">
-                                            <p class="mb-1">Số Tiền Thuế: </p>
-                                        </div>
-                                        <div class="col-sm-4 col-5">
-                                            <p class="mb-1">$700</p>
-                                        </div>
-                                        <div class="col-sm-8 col-7">
-                                            <p class="discount-rate">Giảm Giá : <span class="discount-percentage">5%</span>
-                                            </p>
-                                        </div>
-                                        <div class="col-sm-4 col-5">
-                                            <p class="mb-1">$10</p>
-                                        </div>
-                                        <div class="col-sm-8 col-7 grand-total-title mt-4">
-                                            <h4 class="text-heading fs-22 lh-15">Tổng Cộng : </h4>
-                                        </div>
-                                        <div class="col-sm-4 col-5 grand-total-amount mt-4">
-                                            <h4 class="text-heading fs-22 lh-15">$3845</h4>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="">
+                                        <tr>
+                                            <th scope="col">Tên mặt hàng</th>
+                                            <th class="text-right" scope="col">Mô tả</th>
+                                            <th class="text-right" scope="col">Giá</th>
+                                            <th class="text-right" scope="col">Tổng tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ $bill->title }}</td>
+                                            <td class="text-right">{{ $bill->description }}</td>
+                                            <td class="text-right">{{ $bill->amount }}</td>
+                                            <td class="text-right">{{ $bill->amount }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-sm-5 col-12 order-sm-0 order-1">
+                                </div>
+                                <div class="col-sm-7 col-12 order-sm-1 order-0">
+                                    <div class="text-sm-right">
+                                        <div class="row">
+                                            <div class="col-sm-8 col-7">
+                                                <p class="mb-1">Tổng Phụ Thu: </p>
+                                            </div>
+                                            <div class="col-sm-4 col-5">
+                                                <p class="mb-1">{{ $bill->amount }}</p>
+                                            </div>
+                                            <div class="col-sm-8 col-7">
+                                                <p class="mb-1">Số Tiền Thuế: </p>
+                                            </div>
+                                            <div class="col-sm-4 col-5">
+                                                <p class="mb-1">Không có</p>
+                                            </div>
+                                            <div class="col-sm-8 col-7 grand-total-title mt-4">
+                                                <h4 class="text-heading fs-22 lh-15">Tổng Cộng : </h4>
+                                            </div>
+                                            <div class="col-sm-4 col-5 grand-total-amount mt-4">
+                                                <h4 class="text-heading fs-22 lh-15">{{ $bill->amount }}</h4>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="border-top pt-6 mt-7">
+                                <div class="row">
+                                    <div class="col-sm-12 col-12 order-sm-0 order-1">
+                                        <p class="mb-0">Ghi chú: Cảm ơn bạn đã hợp tác Kinh doanh với chúng tôi.</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="border-top pt-6 mt-7">
+                    </div>
+                    <div class="col-xl-3 invoice-preview-button">
+                        <div class="card card-body p-6">
                             <div class="row">
-                                <div class="col-sm-12 col-12 order-sm-0 order-1">
-                                    <p class="mb-0">Ghi chú: Cảm ơn bạn đã hợp tác Kinh doanh với chúng tôi.</p>
+                                <div class="col-xl-12 col-md-3 col-sm-6 mb-3">
+                                    <a href="javascript:void(0);" class="btn btn-primary btn-send btn-block">Gửi Hóa Đơn</a>
+                                </div>
+                                <div class="col-xl-12 col-md-3 col-sm-6 mb-3">
+                                    <a href="javascript:void(0);"
+                                        class="btn btn-secondary btn-print invoice-action-print btn-block">In Hóa Đơn</a>
+                                </div>
+                                <div class="col-xl-12 col-md-3 col-sm-6 mb-3">
+                                    <a href="javascript:void(0);" class="btn btn-success btn-download btn-block">Tải
+                                        xuống</a>
+                                </div>
+                                <div class="col-xl-12 col-md-3 col-sm-6 mb-3">
+                                    <a href="dashboard-edit-invoice.html" class="btn btn-dark btn-edit btn-block">Chỉnh sửa
+                                        hóa đơn</a>
+                                </div>
+                            </div>
+                            <div class="row flex-grow-1">
+                                <div class="col-xl-12 col-md-3 col-sm-6 mb-3 d-flex flex-column justify-content-end"
+                                    style="min-height: 100vh;">
+                                    <button type="submit" class="btn btn-danger btn-print  btn-block">Thanh
+                                        Toán</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 invoice-preview-button">
-                    <div class="card card-body p-6">
-                        <div class="row">
-                            <div class="col-xl-12 col-md-3 col-sm-6 mb-3">
-                                <a href="javascript:void(0);" class="btn btn-primary btn-send btn-block">Gửi Hóa Đơn</a>
-                            </div>
-                            <div class="col-xl-12 col-md-3 col-sm-6 mb-3">
-                                <a href="javascript:void(0);"
-                                    class="btn btn-secondary btn-print invoice-action-print btn-block">In Hóa Đơn</a>
-                            </div>
-                            <div class="col-xl-12 col-md-3 col-sm-6 mb-3">
-                                <a href="javascript:void(0);" class="btn btn-success btn-download btn-block">Tải xuống</a>
-                            </div>
-                            <div class="col-xl-12 col-md-3 col-sm-6 mb-3">
-                                <a href="dashboard-edit-invoice.html" class="btn btn-dark btn-edit btn-block">Chỉnh sửa
-                                    hóa đơn</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </form>
         </div>
     </main>
 @endsection

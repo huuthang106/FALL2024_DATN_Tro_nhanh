@@ -1,6 +1,17 @@
 @extends('layouts.owner')
 @section('titleOwners', 'Hóa đơn | TRỌ NHANH')
 @section('contentOwners')
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
             <div class="mb-6">
@@ -63,7 +74,9 @@
                                     </label></td>
                                 <td class="align-middle">
                                     <div class="d-flex align-items-center">
-                                        <p class="align-self-center mb-0 user-name">{{ $bill->description }}</p>
+                                        <a href="{{ route('owners.invoice-preview', $bill->id) }}">
+                                            <p class="align-self-center mb-0 user-name">{{ $bill->description }}</p>
+                                        </a>
                                     </div>
                                 </td>
                                 <td class="align-middle"><span class="inv-amount">{{ $bill->amount }} VNĐ</span></td>
@@ -75,7 +88,7 @@
                                         liệu
                                     @elseif($bill->status == 2)
                                         <span class="text-primary pr-1"><i
-                                                class="fal fa-calendar"></i></span>{{ $bill->payment_date->format('d/m/Y') }}
+                                                class="fal fa-calendar"></i></span>{{ \Carbon\Carbon::parse($bill->payment_date)->format('d/m/Y') }}
                                     @endif
                                 </td>
                                 <td class="align-middle">

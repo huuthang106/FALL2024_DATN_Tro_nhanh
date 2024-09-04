@@ -10,4 +10,11 @@ class Transaction extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    protected $fillable = [
+        'user_id',
+        'bill_id',
+        'description',
+        // Thêm các thuộc tính khác nếu cần
+    ];
 }

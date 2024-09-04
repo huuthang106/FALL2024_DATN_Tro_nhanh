@@ -290,10 +290,10 @@
                                             <a class="text-heading lh-1 sidebar-link"
                                                 href="{{ route('owners.invoice-edit') }}">Chỉnh sửa hóa đơn</a>
                                         </li>
-                                        <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                        {{-- <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                             <a class="text-heading lh-1 sidebar-link"
                                                 href="{{ route('owners.invoice-preview') }}">Xem trước hóa đơn</a>
-                                        </li>
+                                        </li> --}}
                                     </ul>
                                 </div>
                             </div>
@@ -304,7 +304,7 @@
                         <h5 class="fs-13 letter-spacing-087 text-muted mb-3 text-uppercase px-3">QUẢN LÝ TÀI KHOẢN
                         </h5>
                         <ul class="list-group list-group-no-border rounded-lg">
-                           
+
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                 <a href="{{ route('owners.profile.resigter-owner') }}"
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center">

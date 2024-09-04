@@ -195,8 +195,7 @@
                 <div class="d-flex align-items-center">
                     <nav class="navbar navbar-expand-xl bg-transparent px-0 w-100 w-xl-auto">
                         <a class="navbar-brand mr-7" href="index.html">
-                            <img src="{{ asset('assets/images/logo-white.png') }}" alt="HomeID"
-                                class="normal-logo">
+                            <img src="{{ asset('assets/images/logo-moi.png') }}" alt="HomeID" class="normal-logo">
 
                             <img src="{{ asset('assets/images/logo.png') }}" alt="HomeID" class="sticky-logo">
                         </a>
