@@ -22,6 +22,7 @@
             opacity: 1;
         }
     </style> --}}
+    @livewireStyles
 
 
 
@@ -532,5 +533,6 @@
             <script src="{{ asset('assets/js/ntt-script.js') }}"></script>
 </body>
 @stack('scriptOwners')
+@livewireScripts
 
 </html>

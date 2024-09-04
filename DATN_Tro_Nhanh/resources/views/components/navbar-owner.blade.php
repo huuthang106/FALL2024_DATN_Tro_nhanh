@@ -225,29 +225,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                    <a href="#collapseShare"
-                                        class="text-heading lh-1 sidebar-link d-flex align-items-center"
-                                        onclick="toggleDropdown('collapseShare'); return false;">
-                                        <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                            <svg class="icon icon-my-properties">
-                                                <use xlink:href="#icon-my-properties"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="sidebar-item-text">Yêu thích</span>
-                                        <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
-                                    </a>
-                                </li>
-                                <div class="collapse" id="collapseShare">
-                                    <div class="card card-body border-0 bg-transparent py-0 pl-6">
-                                        <ul class="list-group list-group-flush list-group-no-border">
-                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                                <a class="text-heading lh-1 sidebar-link"
-                                                    href="{{ Route('owners.favorites') }}">Danh sách yêu thích</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                               
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                     <a href="dashboard-save-search.html"
                                         class="text-heading lh-1 sidebar-link d-flex align-items-center">
@@ -361,6 +339,20 @@
                                     <!-- Số lượng yêu thích nằm sau chữ "Yêu thích" -->
                                     <span
                                         class="sidebar-item-number text-primary fs-15 font-weight-bold ml-2">{{ $favouriteCount }}</span>
+                                </a>
+                            </li>
+                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                <a href="{{ Route('owners.chat-owners') }}"
+                                    class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                    <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
+                                        <svg class="icon icon-heart">
+                                            <use xlink:href="#icon-heart"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="sidebar-item-text">Chat</span>
+                                    <!-- Số lượng yêu thích nằm sau chữ "Yêu thích" -->
+                                    <span
+                                        class="sidebar-item-number text-primary fs-15 font-weight-bold ml-2">    <livewire:unread-message-count /></span>
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">

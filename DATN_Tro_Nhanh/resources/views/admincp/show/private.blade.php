@@ -5172,8 +5172,7 @@
 		</div>
 		
 	
-	<!--end::Body-->
-</html>
+
 @endsection
 @push('styleAdmin')
 <base href="../../">

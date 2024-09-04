@@ -487,7 +487,7 @@
                     <div class="ml-auto d-none d-xl-block">
                         <ul
                             class="navbar-nav flex-row ml-auto align-items-center justify-content-lg-end flex-wrap py-2">
-                            <li class="nav-item dropdown">
+                            {{-- <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle mr-md-2 pr-2 pl-0 pl-lg-2" href="#"
                                     id="bd-versions" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false">
@@ -501,8 +501,8 @@
                                     <a class="dropdown-item" href="#">KR</a>
                                     <a class="dropdown-item" href="#">JN</a>
                                 </div>
-                            </li>
-                            <li class="divider"></li>
+                            </li> --}}
+                            {{-- <li class="divider"></li> --}}
                             &nbsp; &nbsp; &nbsp;
                             <li class="nav-item ">
                                 @if (Auth::check())
@@ -511,6 +511,13 @@
                                         aria-expanded="false">
                                         {{ Auth::user()->name }}
                                     </a>
+                                    <li class="nav-item mr-auto mr-lg-6">
+                                        <a class="nav-link px-2 position-relative" href="{{ route('owners.favorites') }}">
+                                            <i class="fal fa-comments-alt fs-large-4"></i>
+                                            <span
+                                            class="badge badge-primary badge-circle badge-absolute"> <livewire:unread-message-count /></span>
+                                    </a>
+                                    </li>
                                     <ul class="dropdown-menu" aria-labelledby="userDropdown">
                                         <li><a class="dropdown-item"
                                                 href="{{ route('owners.profile.profile-admin-index') }}">

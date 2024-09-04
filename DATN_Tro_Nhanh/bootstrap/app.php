@@ -84,7 +84,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 'report-owner.php',
                 'resident-owner.php',
                 'room-owner.php',
-
+                'chat-owner.php',
                 'transaction-owner.php',
                 'user-owner.php',
                 'watchlist-owner.php',

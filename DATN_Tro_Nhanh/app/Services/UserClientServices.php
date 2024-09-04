@@ -9,7 +9,8 @@ use App\Http\Requests\UpdatePasswordRequest;
 use App\Models\User;
 use App\Models\Room;
 use Illuminate\Http\Request;
-
+use App\Models\Message;
+use App\Models\Contact;
 
 class UserClientServices
 {
@@ -96,5 +97,16 @@ class UserClientServices
         Auth::user()->update([
             'password' => Hash::make($validated['password']),
         ]);
+    }
+
+    public function getUnreadMessagesCount($userId)
+    {
+        return Message::whereHas('contact', function ($query) use ($userId) {
+            $query->where('user_id', $userId)
+                ->orWhere('contact_user_id', $userId);
+        })
+        ->where('sender_id', '!=', $userId)
+        ->where('is_read', false)
+        ->count();
     }
 }   

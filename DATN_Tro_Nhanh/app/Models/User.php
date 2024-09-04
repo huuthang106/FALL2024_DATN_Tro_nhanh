@@ -67,4 +67,27 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class, 'user_id');
+    }
+
+    public function contactUsers()
+    {
+        return $this->hasMany(Contact::class, 'contact_user_id');
+    }
+    /**
+     * Get the messages sent or received by the user.
+     */
+    public function messages()
+    {
+        return $this->hasManyThrough(
+            Message::class,
+            Contact::class,
+            'user_id', // Foreign key on Contact table
+            'contact_id', // Foreign key on Message table
+            'id', // Local key on User table
+            'id' // Local key on Contact table
+        );
+    }
 }
