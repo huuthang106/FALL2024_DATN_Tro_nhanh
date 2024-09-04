@@ -27,46 +27,81 @@ class BlogServices
         return $slug;
     }
 
-    public function handleBlogCreation(CreateBlogRequest $request)
-    {
-        try {
-            // Lấy dữ liệu từ request
-            $data = $request->validated();
-            $images = $request->uploadImages(); // Gọi phương thức để tải lên ảnh
+   // In BlogServices.php
+   public function handleBlogCreation(Request $request)
+   {
+       try {
+           // Lấy dữ liệu từ request
+           $data = $request->validate([
+               'title' => 'required|string|max:255',
+               'description' => 'required|string',
+               'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048' // Điều kiện cho ảnh
+           ]);
 
-            // Xác thực người dùng
-            $userId = Auth::id();
-            if (!$userId) {
-                throw new \Exception("User not authenticated");
-            }
+           // Kiểm tra và tải lên ảnh
+           $images = $this->uploadImages($request);
 
-            // Tạo blog mới
-            $blog = new Blog();
-            $blog->title = $data['title'];
-            $blog->description = $data['description'];
-            $blog->user_id = $userId;
-            $blog->save();
+           // Xác thực người dùng
+           $userId = Auth::id();
+           if (!$userId) {
+               throw new \Exception("User not authenticated");
+           }
 
-            // Tạo slug cho blog và lưu vào cơ sở dữ liệu
-            $slug = $this->createSlug($data['title'], $blog->id);
-            $blog->slug = $slug;
-            $blog->save();
+           // Tạo blog mới
+           $blog = new Blog();
+           $blog->title = $data['title'];
+           $blog->description = $data['description'];
+           $blog->user_id = $userId;
+           $blog->save();
 
-            // Xử lý lưu ảnh
-            foreach ($images as $filename) {
-                Image::create([
-                    'filename' => $filename,
-                    'blog_id' => $blog->id
-                ]);
-            }
+           // Tạo slug cho blog và lưu vào cơ sở dữ liệu
+           $slug = $this->createSlug($data['title'], $blog->id);
+           $blog->slug = $slug;
+           $blog->save();
 
-            return $blog;
-        } catch (\Exception $e) {
-            // Ghi log lỗi chi tiết
-            Log::error('Lỗi khi xử lý tạo blog: ' . $e->getMessage());
-            throw $e; // Ném lại ngoại lệ để xử lý trong controller
-        }
-    }
+           // Lưu ảnh liên kết với blog
+           foreach ($images as $filename) {
+               Image::create([
+                   'filename' => $filename,
+                   'blog_id' => $blog->id
+               ]);
+           }
+
+           return $blog;
+       } catch (\Exception $e) {
+           // Ghi log lỗi chi tiết
+           Log::error('Lỗi khi xử lý tạo blog: ' . $e->getMessage());
+           // Ném lại ngoại lệ để xử lý trong controller
+           throw $e;
+       }
+   }
+
+   private function uploadImages(Request $request)
+   {
+       $uploadedImages = [];
+
+       // Kiểm tra xem có file ảnh nào được gửi trong request không
+       if ($request->hasFile('images')) {
+           foreach ($request->file('images') as $image) {
+               // Tạo tên file duy nhất với timestamp
+               $filename = time() . '_' . $image->getClientOriginalName();
+               // Định nghĩa đường dẫn để lưu ảnh
+               $path = 'assets/images';
+               // Di chuyển ảnh vào thư mục đích
+               $image->move(public_path($path), $filename);
+               // Thêm tên file vào mảng
+               $uploadedImages[] = $filename;
+           }
+       }
+
+       return $uploadedImages;
+   }
+
+
+    // In CreateBlogRequest.php
+    
+
+
 
 
 
