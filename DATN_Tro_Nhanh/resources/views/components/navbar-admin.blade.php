@@ -1051,6 +1051,7 @@
                 </div>
                 <div class="menu-item">
                     <a class="menu-link text-decoration-none" href="{{ route('admin.show-blog-admin') }}">
+                    {{-- <a class="menu-link text-decoration-none" href="{{ route('admin.admin.profile-user') }}"> --}}
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">

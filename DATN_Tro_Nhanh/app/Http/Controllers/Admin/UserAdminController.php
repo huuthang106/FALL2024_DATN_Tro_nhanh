@@ -38,7 +38,22 @@ class UserAdminController extends Controller
         // Trả dữ liệu đến view
         return view('admincp.show.list-owner', compact('users'));
     }
+    public function showuser(Request $request)
+    {
+        // Lấy tham số từ yêu cầu
+        $role = 1; // Ví dụ role = 2
+        $searchTerm = $request->input('searchTerm', null);
+        $limit = $request->input('limit', 10); // Sử dụng giá trị mặc định nếu không có trong yêu cầu
+        $province = $request->input('province', null);
+        $district = $request->input('district', null);
+        $village = $request->input('village', null);
 
+        // Gọi phương thức để lấy danh sách người dùng
+        $users = $this->userService->getUsersByRole($role, $searchTerm, $limit, $province, $district, $village);
+
+        // Trả dữ liệu đến view
+        return view('admincp.show.list-users', compact('users'));
+    }
 
     public function show()
     {
