@@ -3,16 +3,21 @@
 namespace App\Services;
 
 use App\Models\Zone;
+use App\Models\Resident;
 use App\Models\User;
 use App\Models\Room;
 use Illuminate\Support\Facades\Storage;
 use App\Events\Admin\ZoneUpdated;
 use App\Models\Utility;
-use App\Models\Resident;
+use App\Models\Bill;
+use Exception;
+use Illuminate\Support\Facades\Log;
+
 class ZoneServices
 {
     const CO = 1; // Có tiện ích
     const CHUA_CO = 2; // Chưa có tiện ích
+    const DA_TAO = 1; // Trạng thái tạo hóa đơn
     public function getRoomUtilities($zoneId)
     {
         // Giả sử bạn đã có model `Utility`
@@ -150,14 +155,33 @@ class ZoneServices
             return null;
         }
     }
-    
-
+    // Chi tiết khu trọ
     public function showDetail($slug)
     {
-        // Tải trước các rooms và user tương ứng
-        return Zone::with(['rooms.user'])->where('slug', $slug)->firstOrFail();
+        $zone = Zone::with(['rooms', 'residents.user'])
+            ->where('slug', $slug)
+            ->firstOrFail();
+        $residents = $zone->residents()->paginate(5);
+        return [
+            'zone' => $zone,
+            'residents' => $residents,
+        ];
     }
-
+    // Xóa mềm Residents
+    public function softDeleteResident($residentId)
+    {
+        $resident = Resident::findOrFail($residentId);
+        $resident->delete();
+        return $resident;
+    }
+    // Tạo Hóa Đơn Khu Trọ Bills
+    public function createBill($data)
+    {
+        $data['status'] = self::DA_TAO;
+        $data['payment_date'] = now();
+        $bill = Bill::create($data);
+        return $bill;
+    }
     public function findById($id)
     {
         return Zone::find($id);

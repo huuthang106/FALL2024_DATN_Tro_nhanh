@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Bill extends Model
 {
     use HasFactory;
@@ -20,4 +21,14 @@ class Bill extends Model
         'title',
         'status'
     ];
+       
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'creator_id');
+    }
+
+    public function payer()
+    {
+        return $this->belongsTo(User::class, 'payer_id');
+    }
 }

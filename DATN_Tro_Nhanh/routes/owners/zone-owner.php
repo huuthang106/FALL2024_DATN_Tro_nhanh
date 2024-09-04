@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Owners\ZoneOwnersController;
 
@@ -13,7 +14,7 @@ Route::group(['prefix' => ''], function () {
         route::get('chi-tiet-khu-tro/{slug}', [ZoneOwnersController::class, 'showDetailOwners'])->name('detail-zone');
         route::get('chinh-sua-khu-tro/{slug}', [ZoneOwnersController::class, 'viewUpdate'])->name('zone-view-update');
         route::Put('chinh-sua-khu-tro/{id}', [ZoneOwnersController::class, 'update'])->name('zone-start-update');
-
+        Route::delete('/xoa/{id}', [ZoneOwnersController::class, 'destroyResident'])->name('resident-destroy');
+        Route::post('/tao-hoa-don', [ZoneOwnersController::class, 'storeBill'])->name('bills-store');
     });
-
 });

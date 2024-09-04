@@ -7,8 +7,7 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
                         <div class="d-flex form-group mb-0 align-items-center">
-                            <h5 for="invoice-list_length" class="d-block mr-2 mb-0">Khu vực tempora cupiditate
-                                atque</h5>
+                            <h5 for="invoice-list_length" class="d-block mr-2 mb-0">Tên khu: {{ $zone->name }}</h5>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
@@ -33,51 +32,195 @@
                         <table id="myTable" class="table table-hover bg-white border rounded-lg">
                             <thead>
                                 <tr role="row">
-                                    <th class="no-sort py-6 pl-6"><label
-                                            class="new-control new-checkbox checkbox-primary m-auto">
+                                    <th class="no-sort py-6 pl-6">
+                                        <label class="new-control new-checkbox checkbox-primary m-auto">
                                             <input type="checkbox"
                                                 class="new-control-input chk-parent select-customers-info">
-                                        </label></th>
+                                        </label>
+                                    </th>
                                     <th class="py-6 text-start">Tên phòng</th>
-                                    <th class="py-6 text-start">Tên user</th>
-                                    <th class="py-6 text-start">Ngày đăng</th>
+                                    <th class="py-6 text-start">Tên người ở</th>
+                                    <th class="py-6 text-start">Số điện thoại</th>
                                     <th class="py-6 text-start">Trạng thái</th>
+                                    <th class="py-6 text-start">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr role="row">
-                                    @foreach ($zones->rooms as $room)
-                                <tr>
-                                    <td class="py-6 pl-6"><label class="new-control new-checkbox checkbox-primary m-auto">
-                                            <input type="checkbox"
-                                                class="new-control-input chk-parent select-customers-info">
-                                        </label></td>
-                                    <td class="align-middle">{{ $room->title }}</td>
-                                    <td class="align-middle">
-                                        @if ($room->user)
-                                            {{ $room->user->name }}
-                                        @else
-                                            No user assigned
-                                        @endif
-                                    </td>
-                                    <td class="align-middle">{{ $room->created_at->format('d/m/Y') }}</td>
-                                    <td class="align-middle">
-                                        @if ($room->status == 1)
-                                            <span class="badge badge-green text-capitalize">Đang tạm trú</span>
-                                        @else
-                                            <span class="badge badge-yellow text-capitalize">Đã dọn đi</span>
-                                        @endif
-                                    </td>
-                                </tr>
-                                @endforeach
-                                </tr>
+                                @if ($residents->isEmpty())
+                                    <tr>
+                                        <td colspan="6" class="text-center">Khu vực chưa có phòng trọ nào.</td>
+                                    </tr>
+                                @else
+                                    @foreach ($residents as $resident)
+                                        <tr>
+                                            <td class="py-6 pl-6">
+                                                <label class="new-control new-checkbox checkbox-primary m-auto">
+                                                    <input type="checkbox"
+                                                        class="new-control-input chk-parent select-customers-info">
+                                                </label>
+                                            </td>
+                                            <td class="align-middle">{{ $resident->room->title }}</td>
+                                            <td class="align-middle">
+                                                @if ($resident->user)
+                                                    {{ $resident->user->name }}
+                                                @else
+                                                    Không có người ở
+                                                @endif
+                                            </td>
+                                            <td class="align-middle">{{ $resident->room->phone }}</td>
+                                            <td class="align-middle">
+                                                @if ($resident->status == 1)
+                                                    <span class="badge badge-green text-capitalize">Đang tạm trú</span>
+                                                @else
+                                                    <span class="badge badge-yellow text-capitalize">Đã dọn đi</span>
+                                                @endif
+                                            </td>
+                                            <td class="align-middle">
+                                                @if ($resident->status == 1)
+                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                        data-toggle="modal" data-target="#invoiceModal{{ $resident->id }}">
+                                                        Viết hóa đơn
+                                                    </button>
+                                                @endif
+                                                <form action="{{ route('owners.resident-destroy', $resident->id) }}"
+                                                    method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
+                    </div>
+                    <div class="mt-6">
+                        @if ($residents->lastPage() > 1)
+                            <ul class="pagination rounded-active justify-content-center">
+                                {{-- Trang trước --}}
+                                <li class="page-item {{ $residents->onFirstPage() ? 'disabled' : '' }}">
+                                    <a class="page-link" href="{{ $residents->previousPageUrl() }}" aria-label="Previous">
+                                        <i class="far fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+
+                                {{-- Trang đầu tiên --}}
+                                @if ($residents->currentPage() > 2)
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ $residents->url(1) }}">1</a>
+                                    </li>
+                                @endif
+
+                                {{-- Dấu ba chấm ở đầu nếu cần --}}
+                                @if ($residents->currentPage() > 3)
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                @endif
+
+                                {{-- Hiển thị các trang xung quanh trang hiện tại --}}
+                                @for ($i = max(1, $residents->currentPage() - 1); $i <= min($residents->currentPage() + 1, $residents->lastPage()); $i++)
+                                    <li class="page-item {{ $residents->currentPage() == $i ? 'active' : '' }}">
+                                        <a class="page-link" href="{{ $residents->url($i) }}">{{ $i }}</a>
+                                    </li>
+                                @endfor
+
+                                {{-- Dấu ba chấm ở cuối nếu cần --}}
+                                @if ($residents->currentPage() < $residents->lastPage() - 2)
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                @endif
+
+                                {{-- Trang cuối cùng --}}
+                                @if ($residents->currentPage() < $residents->lastPage() - 1)
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                            href="{{ $residents->url($residents->lastPage()) }}">{{ $residents->lastPage() }}</a>
+                                    </li>
+                                @endif
+
+                                {{-- Trang tiếp theo --}}
+                                <li
+                                    class="page-item {{ $residents->currentPage() == $residents->lastPage() ? 'disabled' : '' }}">
+                                    <a class="page-link" href="{{ $residents->nextPageUrl() }}" aria-label="Next">
+                                        <i class="far fa-angle-double-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </main>
+    <!-- Modal -->
+    @foreach ($zone->residents as $resident)
+        <div class="modal fade" id="invoiceModal{{ $resident->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="invoiceModalLabel{{ $resident->id }}" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="invoiceModalLabel{{ $resident->id }}">Tạo hóa đơn cho
+                            {{ $resident->user->name }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formBills" action="{{ route('owners.bills-store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="payer_id" value="{{ $resident->user_id }}">
+                            <input type="hidden" name="creator_id" value="{{ auth()->user()->id }}">
+                            <div class="row">
+                                <!-- Cột trái -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name">Tên người ở:</label>
+                                        <input type="text" class="form-control" id="name"
+                                            value="{{ $resident->user->name }}" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="room">Tên phòng:</label>
+                                        <input type="text" class="form-control" id="room"
+                                            value="{{ $resident->room->title }}" readonly>
+                                    </div>
+                                </div>
+                                <!-- Cột phải -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="title">Tiêu đề:</label>
+                                        <input type="text" class="form-control" id="title" name="title"
+                                            required autocomplete="off" placeholder="Nhập tiêu đề hóa đơn">
+                                        <span class="text-danger" id="title-error"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="amount">Số tiền:</label>
+                                        <input type="number" class="form-control" id="amount" name="amount"
+                                            required min="0" step="0.01" placeholder="Nhập số tiền">
+                                        <span class="text-danger" id="amount-error"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Mô tả:</label>
+                                        <textarea class="form-control" id="description" name="description" rows="3"
+                                            placeholder="Nhập mô tả chi tiết về hóa đơn" required></textarea>
+                                        <span class="text-danger" id="description-error"></span>
+                                    </div>
+                                    {{-- <div class="form-group">
+                                        <label for="payment_date">Ngày và giờ thanh toán:</label>
+                                        <input type="datetime-local" class="form-control" id="payment_date"
+                                            name="payment_date" required>
+                                        <span class="text-danger" id="payment_date-error"></span>
+                                    </div> --}}
+                                </div>
+                            </div>
+                            <div class="modal-footer text-right">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                <button type="submit" class="btn btn-primary">Tạo hóa đơn</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
 @endsection
 
 @push('styleOwners')
@@ -86,7 +229,7 @@
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
     <meta name="generator" content="Jekyll">
-    {{-- <title>Invoice Listing - HomeID</title> --}}
+    <title>Chi Tiết Khu Trọ | TRỌ NHANH</title>
     <!-- Google fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
@@ -151,4 +294,10 @@
     <!-- Theme scripts -->
 
     <script src="{{ asset('assets/js/theme.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        window.successMessage = "{{ session('success') }}";
+    </script>
+    <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
+    <script src="{{ asset('assets/js/alert-report.js') }}"></script>
 @endpush

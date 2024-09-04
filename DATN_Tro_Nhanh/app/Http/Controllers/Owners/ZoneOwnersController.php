@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 use App\Services\ZoneServices;
 use App\Http\Requests\ZoneRequest;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Bill;
 use App\Events\ZoneCreated; // Import event
+use App\Http\Requests\BillRequest;
 
 class ZoneOwnersController extends Controller
 {
@@ -24,11 +25,30 @@ class ZoneOwnersController extends Controller
 
         return view('owners.create.add-new-zone');
     }
-
+    // Chi tiết khu trọ
     public function showDetailOwners($slug)
     {
-        $zones = $this->zoneServices->showDetail($slug);
-        return view('owners.show.dashbroard-zone-detail', compact('zones'));
+        $data = $this->zoneServices->showDetail($slug);
+        return view('owners.show.dashbroard-zone-detail', [
+            'zone' => $data['zone'],
+            'residents' => $data['residents']
+        ]);
+    }
+    // Xóa mềm Residents
+    public function destroyResident($id)
+    {
+        $this->zoneServices->softDeleteResident($id);
+        return redirect()->back()->with('success', 'Xóa thành công.');
+    }
+    // Tạo hóa đơn
+    public function storeBill(BillRequest $request)
+    {
+        $this->zoneServices->createBill($request->validated());
+        return response()->json([
+            'success' => true,
+            'message' => 'Hóa đơn đã được tạo thành công.',
+            'redirect' => url()->previous()
+        ]);
     }
     public function store(ZoneRequest $request)
     {
@@ -71,7 +91,6 @@ class ZoneOwnersController extends Controller
             // Nếu người dùng không có quyền, chuyển hướng về trang chính
             return redirect()->route('client.home');
         }
-
     }
     public function update(ZoneRequest $request, $id)
     {
