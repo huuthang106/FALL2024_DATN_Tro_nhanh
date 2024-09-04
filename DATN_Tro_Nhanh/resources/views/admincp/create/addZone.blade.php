@@ -193,15 +193,7 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label fw-bold fs-6 required">Số phòng</label>
-                                        <input type="number" name="room_number"
-                                            class="form-control form-control-lg form-control-solid" placeholder="Số phòng"
-                                            value="{{ old('room_number') }}" />
-                                        @error('room_number')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+                                    
                                     <!-- Tình trạng -->
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label fw-bold fs-6 required">Tình trạng</label>

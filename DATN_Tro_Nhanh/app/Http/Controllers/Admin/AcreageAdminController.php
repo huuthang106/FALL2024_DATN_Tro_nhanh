@@ -63,4 +63,5 @@ class AcreageAdminController extends Controller
             return back()->with('error', 'Failed to update acreage.');
         }
     }
+
 }

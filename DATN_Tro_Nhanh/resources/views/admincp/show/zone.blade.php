@@ -519,11 +519,11 @@
                                                 data-kt-check-target="#kt_table_zones .form-check-input" value="1" />
                                         </div>
                                     </th>
-                                    <th class="min-w-100px">Name</th>
-                                    <th class="min-w-100px">Address</th>
-                                    <th class="min-w-100px">Total Rooms</th>
-                                    <th class="min-w-100px">Status</th>
-                                    <th class="text-end min-w-px">Actions</th>
+                                    <th class="min-w-100px">Tên</th>
+                                    <th class="min-w-100px">Địa chỉ</th>
+                                    <th class="min-w-100px">Tổng số phòng</th>
+                                    <th class="min-w-100px">Trạng thái</th>
+                                    <th class="text-end min-w-px">Hành động</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
@@ -545,12 +545,12 @@
                                                 class="inv-number">{{ $zone->name }}</a></td>
                                         <td>{{ $zone->address }}</td>
                                         <td>{{ $zone->total_rooms }}</td>
-                                        <td>{{ $zone->status ? 'Active' : 'Inactive' }}</td>
+                                        <td>{{ $zone->status ? 'Hoạt động' : 'Chưa hoạt động' }}</td>
                                         <!--end::Zone details-->
                                         <!--begin::Actions-->
                                         <td class="text-end">
                                             <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
-                                                data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Hành động
                                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
                                                 <span class="svg-icon svg-icon-5 m-0">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -567,7 +567,7 @@
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
                                                     <a href="{{ route('admin.edit-khu-tro', $zone->id) }}"
-                                                        class="menu-link px-3">Edit</a>
+                                                        class="menu-link px-3">Sửa</a>
                                                 </div>
                                                 <!--end::Menu item-->
                                                 <!--begin::Menu item-->

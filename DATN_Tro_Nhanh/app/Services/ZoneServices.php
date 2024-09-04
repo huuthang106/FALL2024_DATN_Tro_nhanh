@@ -26,7 +26,7 @@ class ZoneServices
             $zone->name = $request->input('name');
             $zone->description = $request->input('description');
             $zone->total_rooms = $request->input('total_rooms');
-            $zone->room_number = $request->input('room_number');
+           
             $zone->address = $request->input('address');
             $zone->province = $request->input('province');
             $zone->district = $request->input('district');
@@ -136,17 +136,21 @@ class ZoneServices
     {
         try {
             $query = Zone::query();
-
+    
             if ($searchTerm) {
                 $query->where('name', 'like', '%' . $searchTerm . '%')
                     ->orWhere('description', 'like', '%' . $searchTerm . '%');
             }
-
+    
+            // Sắp xếp theo ngày tạo mới nhất
+            $query->orderBy('created_at', 'desc');
+    
             return $query->paginate($perPage);
         } catch (\Exception $e) {
             return null;
         }
     }
+    
 
     public function showDetail($slug)
     {

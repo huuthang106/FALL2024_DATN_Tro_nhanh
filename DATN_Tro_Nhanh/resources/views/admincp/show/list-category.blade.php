@@ -201,7 +201,7 @@
                     <!--begin::Card body-->
                     <div class="card-body pt-0">
                         <!--begin::Table-->
-                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_subscriptions_table">
+                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
                             <!--begin::Table head-->
                             <thead>
                                 <!--begin::Table row-->
@@ -300,9 +300,48 @@
                         <!--end::Table-->
                         <!--end::Card body-->
                         <!-- Hiển thị các liên kết phân trang -->
-                        <div class="pagination-container">
-                            {{ $categories->links('pagination::bootstrap-4') }}
+                        <nav class="mt-4">
+                            <ul class="pagination rounded-active justify-content-center">
+                                {{-- Previous Page Link --}}
+                                @if ($categories->onFirstPage())
+                                    <li class="page-item disabled">
+                                        <span class="page-link"><i class="far fa-angle-double-left"></i></span>
+                                    </li>
+                                @else
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ $categories->previousPageUrl() }}"><i class="far fa-angle-double-left"></i></a>
+                                    </li>
+                                @endif
+                        
+                                {{-- Pagination Elements --}}
+                                @foreach ($categories->getUrlRange(1, $categories->lastPage()) as $page => $url)
+                                    @if ($page == $categories->currentPage())
+                                        <li class="page-item active">
+                                            <span class="page-link">{{ $page }}</span>
+                                        </li>
+                                    @else
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                        </li>
+                                    @endif
+                                @endforeach
+                        
+                                {{-- Next Page Link --}}
+                                @if ($categories->hasMorePages())
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ $categories->nextPageUrl() }}"><i class="far fa-angle-double-right"></i></a>
+                                    </li>
+                                @else
+                                    <li class="page-item disabled">
+                                        <span class="page-link"><i class="far fa-angle-double-right"></i></span>
+                                    </li>
+                                @endif
+                            </ul>
+                        </nav>
+                        <div class="text-center mt-2">{{ $categories->firstItem() }}-{{ $categories->lastItem() }} của
+                            {{ $categories->total() }} kết quả
                         </div>
+                        
                     </div>
                     <!--end::Card-->
                     <!--begin::Modals-->
