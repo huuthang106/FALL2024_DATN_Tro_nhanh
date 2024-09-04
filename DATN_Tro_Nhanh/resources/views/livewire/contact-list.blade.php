@@ -9,22 +9,26 @@
                             <input type="text" class="form-control pl-4" placeholder="Tìm kiếm...">
                         </form>
                     </div>
-                    <div class="card-body" wire:poll="pollContacts">
+                    <div class="card-body" wire:poll="pollContacts"style="height: 400px; overflow-y: auto;">
                         <!-- ... existing code ... -->
                         <div class="list-group list-group-flush">
                             @foreach ($contacts as $contact)
-                                <div wire:click="selectContact({{ $contact['id'] }})" class="contact-item">
+                                <div wire:click="selectContact({{ $contact['id'] }})" class="contact-item mt-2">
                                     <div wire:key="item-{{ $contact['id'] }}">
                                         <div class="d-flex w-100 justify-content-between align-items-center mt-2">
                                             <div class="d-flex align-items-center">
                                                 @if ($contact['image'])
+                                                <div class="symbol symbol-45px symbol-circle mr-2">
                                                     <img src="{{ asset('assets/images/' . $contact['image']) }}"
                                                         class="rounded-circle mb-2" style="width: 40px; height: 40px;"
                                                         alt="Avatar">
+                                                </div>
                                                 @else
+                                                <div class="symbol symbol-45px symbol-circle">
                                                     <img src="{{ asset('assets/images/agent-4-lg.jpg') }}"
                                                         class="rounded-circle mb-2" style="width: 40px; height: 40px;"
                                                         alt="Avatar">
+                                                </div>
                                                 @endif
                                                 <div>
                                                     <h6 class="mb-0">{{ $contact['name'] }}</h6>
@@ -42,6 +46,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                             @endforeach
                         </div>
                         <!-- ... existing code ... -->
@@ -66,7 +71,7 @@
                                                 <div class="mr-3 text-right">
                                                     <small
                                                         class="text-muted d-block">{{ $message['relative_time'] }}</small>
-                                                    <a href="#" class="font-weight-bold text-dark">Bạn</a>
+                                                    <a href="#" class=" text-dark">Bạn</a>
                                                 </div>
                                                 <div class="rounded-circle overflow-hidden"
                                                     style="width: 35px; height: 35px;">
@@ -81,7 +86,7 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                            <div class="p-3 rounded bg-primary text-white font-weight-bold text-right"
+                                            <div class="p-3 rounded bg-primary text-white  text-right"
                                                 style="max-width: 400px;">
                                                 {{ $message['message'] }}
                                             </div>
@@ -105,14 +110,14 @@
                                                     @endif
                                                 </div>
                                                 <div>
-                                                    <a href="#" class="font-weight-bold text-dark mr-1">
+                                                    <a href="#" class=" text-dark mr-1">
                                                         {{ $sender ? $sender->name : 'Người khác' }}
                                                     </a>
                                                     <small
                                                         class="text-muted d-block">{{ $message['relative_time'] }}</small>
                                                 </div>
                                             </div>
-                                            <div class="p-3 rounded bg-light text-dark font-weight-bold"
+                                            <div class="p-3 rounded bg-light text-dark "
                                                 style="max-width: 400px;">
                                                 {{ $message['message'] }}
                                             </div>
@@ -120,24 +125,44 @@
                                     </div>
                                 @endif
                             @endforeach
-                      
 
-                        {{-- @endforelse --}}
+
+                            {{-- @endforelse --}}
                     </div>
-                    <div class="card-footer">
-                        <form wire:submit.prevent="sendMessage">
-                            <div class="input-group">
-                                <input type="text" wire:model="newMessage" class="form-control"
-                                    placeholder="Nhập tin nhắn...">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="submit">Gửi</button>
-                                </div>
+                    <div class="card-footer pt-4" id="kt_chat_messenger_footer">
+                        <form wire:submit.prevent="sendMessage" class="d-flex flex-column">
+                            <!--begin::Input-->
+                            <div class="input-group mb-3">
+                            <input class="form-control" wire:model="newMessage" rows="1" data-kt-element="input"
+                            placeholder="Nhập tin nhắn..." style="resize: none;"></input>
+                            <!--end::Input-->
+                            <!--begin:Toolbar-->
+                            <div class="d-flex flex-stack">
+                                <!--begin::Actions-->
+                                {{-- <div class="d-flex align-items-center me-2">
+                                <button class="btn btn-sm btn-icon btn-active-light-primary me-1" type="button"
+                                    data-bs-toggle="tooltip" title="Coming soon">
+                                    <i class="bi bi-paperclip fs-3"></i>
+                                </button>
+                                <button class="btn btn-sm btn-icon btn-active-light-primary me-1" type="button"
+                                    data-bs-toggle="tooltip" title="Coming soon">
+                                    <i class="bi bi-upload fs-3"></i>
+                                </button>
+                            </div> --}}
+                                <!--end::Actions-->
+                                <!--begin::Send-->
+                                <button class="btn btn-primary" type="submit" data-kt-element="send">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                                <!--end::Send-->
                             </div>
                         </form>
+                        <!--end::Toolbar-->
                     </div>
-                    @else
+                @else
                     <p class="text-center">Chưa có tin nhắn nào.</p>
-                @endif
+                    @endif
                 </div>
             </div>
         </div>

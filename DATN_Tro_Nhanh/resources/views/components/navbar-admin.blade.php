@@ -90,8 +90,14 @@
                             </div>
                             <!--end::Menu item-->
                             <div class="menu-item px-5">
-                                <a href="{{ route('admin.private-chat') }}" class="menu-link px-5"> Trò chuyện riêng
-                                </a>
+                              
+                                    <a href="{{ route('admin.private-chat') }}" class="menu-link px-5"> Trò chuyện riêng
+                                        <span
+                                        class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2"> <livewire:unread-message-count /></span>
+                                    </a>    
+                                   
+                              
+                              
                             </div>
                             <!--begin::Menu item-->
 

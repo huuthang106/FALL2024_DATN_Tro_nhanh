@@ -200,10 +200,20 @@
 
                             <img src="{{ asset('assets/images/logo.png') }}" alt="HomeID" class="sticky-logo">
                         </a>
-                        <a class="d-block d-xl-none ml-auto mr-4 position-relative text-white p-2" href="#">
-                            <i class="fal fa-heart fs-large-4"></i>
-                            <span class="badge badge-primary badge-circle badge-absolute">1</span>
-                        </a>
+
+                       <div class="row ml-auto mr-4 ">
+                        <a class="d-block d-xl-none ml-auto mr-4 position-relative text-white p-2"
+                        href="{{ Route('owners.chat-owners') }}">
+                        <i class="fal fa-comments-alt fs-large-4"></i>
+                        <span class="badge badge-primary badge-circle badge-absolute">
+                            <livewire:unread-message-count /></span>
+                    </a>
+
+                    <a class="d-block d-xl-none ml-auto mr-4 position-relative text-white p-2" href="#">
+                        <i class="fal fa-heart fs-large-4"></i>
+                        <span class="badge badge-primary badge-circle badge-absolute">1</span>
+                    </a>
+                       </div>
                         <button class="navbar-toggler border-0 px-0" type="button" data-toggle="collapse"
                             data-target="#primaryMenu02" aria-controls="primaryMenu02" aria-expanded="false"
                             aria-label="Toggle navigation">
@@ -302,38 +312,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                {{-- <li id="navbar-item-dashboard" aria-haspopup="true" aria-expanded="false"
-                                    class="nav-item dropdown py-2 py-xl-5 px-0 px-xl-4">
-                                    <a class="nav-link dropdown-toggle p-0" href="#" data-toggle="dropdown">
-                                        Dashboard
-                                        <span class="caret"></span>
-                                    </a>
-                                    <ul class="dropdown-menu pt-3 pb-0 pb-xl-3"
-                                        aria-labelledby="navbar-item-dashboard">
-                                        <li class="dropdown-item">
-                                            <a id="navbar-link-dashboard" class="dropdown-link"
-                                                href="{{ route('owners.profile.dashboard') }}">
-                                                Trang quản lí
-                                            </a>
-                                        </li>
 
-                                        <li class="dropdown-item">
-                                            <a id="navbar-link-my-properties" class="dropdown-link"
-                                                href="{{ route('owners.properties') }}">
-                                                Căn Hộ
-                                            </a>
-                                        </li>
-
-
-                                        <li class="dropdown-item">
-                                            <a id="navbar-link-my-favorites" class="dropdown-link"
-                                                href="{{ route('owners.favorites') }}">
-                                                Yêu Thích
-                                            </a>
-                                        </li>
-
-                                    </ul>
-                                </li> --}}
                                 <li id="navbar-item-pages" aria-haspopup="true" aria-expanded="false"
                                     class="nav-item dropdown py-2 py-xl-5 px-0 px-xl-4">
                                     <a class="nav-link dropdown-toggle p-0" href="#" data-toggle="dropdown">
@@ -418,7 +397,7 @@
                                                         id="login-tab" data-toggle="tab" href="#login"
                                                         role="tab" aria-controls="login"
                                                         aria-selected="true">Login</a>
-                                                    <a class="nav-item col-sm-3 ml-0 nav-link py-4 px-6 fs-18"
+                                                    <a class="nav-item  col-sm-3 ml-0 nav-link py-4 px-6 fs-18"
                                                         id="register-tab" data-toggle="tab" href="#register"
                                                         role="tab" aria-controls="register"
                                                         aria-selected="false">Register</a>
@@ -437,21 +416,7 @@
                                 </div>
                                 <ul
                                     class="navbar-nav flex-row ml-auto align-items-center justify-content-lg-end flex-wrap py-2">
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle mr-md-2 pr-2 pl-0 pl-lg-2" href="#"
-                                            id="bd-versions-mobile" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            ENG
-                                        </a>
-                                        <div class="dropdown-menu dropdown-sm dropdown-menu-left"
-                                            aria-labelledby="bd-versions-mobile">
-                                            <a class="dropdown-item" href="#">VN</a>
-                                            <a class="dropdown-item active" href="#">ENG</a>
-                                            <a class="dropdown-item" href="#">ARB</a>
-                                            <a class="dropdown-item" href="#">KR</a>
-                                            <a class="dropdown-item" href="#">JN</a>
-                                        </div>
-                                    </li>
+
                                     <li class="divider"></li>
                                     <li class="nav-item">
                                         @if (Auth::check())
@@ -511,37 +476,36 @@
                                         aria-expanded="false">
                                         {{ Auth::user()->name }}
                                     </a>
-                                    <li class="nav-item mr-auto mr-lg-6">
-                                        <a class="nav-link px-2 position-relative" href="{{ route('owners.favorites') }}">
-                                            <i class="fal fa-comments-alt fs-large-4"></i>
-                                            <span
-                                            class="badge badge-primary badge-circle badge-absolute"> <livewire:unread-message-count /></span>
+                            <li class="nav-item mr-auto mr-lg-6">
+                                <a class="nav-link px-2 position-relative" href="{{ Route('owners.chat-owners') }}">
+                                    <i class="fal fa-comments-alt fs-large-4"></i>
+                                    <span class="badge badge-primary badge-circle badge-absolute">
+                                        <livewire:unread-message-count /></span>
+                                </a>
+                            </li>
+                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item"
+                                        href="{{ route('owners.profile.profile-admin-index') }}">
+                                        Xem thông tin
                                     </a>
-                                    </li>
-                                    <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                                        <li><a class="dropdown-item"
-                                                href="{{ route('owners.profile.profile-admin-index') }}">
-                                                Xem thông tin
-                                            </a>
 
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="{{ route('client.logout') }}"
-                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                                Đăng xuất
-                                            </a>
-                                        </li>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('client.logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        Đăng xuất
+                                    </a>
+                                </li>
 
-                                    </ul>
-                                    <form id="logout-form" action="{{ route('client.logout') }}" method="POST"
-                                        style="display: none;">
-                                        @csrf
-                                    </form>
-                                @else
-                                    <a class="nav-link pl-3 pr-2" data-toggle="modal"
-                                        href="#login-register-modal">SIGN
-                                        IN</a>
-                                @endif
+                            </ul>
+                            <form id="logout-form" action="{{ route('client.logout') }}" method="POST"
+                                style="display: none;">
+                                @csrf
+                            </form>
+                        @else
+                            <a class="nav-link pl-3 pr-2" data-toggle="modal" href="#login-register-modal">SIGN
+                                IN</a>
+                            @endif
                             </li>
                             {{-- Icon giỏ hàng --}}
                             &nbsp; &nbsp; &nbsp;

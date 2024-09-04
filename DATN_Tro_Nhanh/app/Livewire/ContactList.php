@@ -20,86 +20,13 @@ class ContactList extends Component
     public $selectedContactId = null;
     public $messages = [];
     public $newMessage = ''; // Thuộc tính để lưu tin nhắn mới
-    // public function mount()
-    // {
-    //     $userId = auth()->id();
-    //     $this->contacts = Contact::where('user_id', $userId)
-    //         ->orWhere('contact_user_id', $userId)
-    //         ->with(['user', 'contactUser'])
-    //         ->get()
-    //         ->map(function ($contact) use ($userId) {
-    //             // Xác định người dùng khác trong cuộc trò chuyện
-    //             $otherUser = $contact->user_id == $userId ? $contact->contactUser : $contact->user;
-    //             return [
-    //                 'id' => $contact->id,
-    //                 'name' => $otherUser->name,
-    //                 'email' => $otherUser->email,
-    //                 'image' => $otherUser->image,
-    //                 // Thêm các thông tin khác nếu cần
-    //             ];
-    //         });
-    // }
-    // public function mount()
-    // {
-    //     $userId = auth()->id();
-    //     $this->contacts = Contact::where('user_id', $userId)
-    //         ->orWhere('contact_user_id', $userId)
-    //         ->with(['user', 'contactUser'])
-    //         ->get()
-    //         ->map(function ($contact) use ($userId) {
-    //             $otherUser = $contact->user_id == $userId ? $contact->contactUser : $contact->user;
-    //             $unreadCount = Message::where('contact_id', $contact->id)
-    //                 ->where('sender_id', '!=', $userId)
-    //                 ->where('is_read', false)
-    //                 ->count();
-    //             return [
-    //                 'id' => $contact->id,
-    //                 'name' => $otherUser->name,
-    //                 'email' => $otherUser->email,
-    //                 'image' => $otherUser->image,
-    //                 'unread_count' => $unreadCount,
-    //             ];
-    //         });
-    // }
-    //     public function mount()
-    // {
-    //     $userId = auth()->id();
-    //     $this->contacts = Contact::where('user_id', $userId)
-    //         ->orWhere('contact_user_id', $userId)
-    //         ->with(['user', 'contactUser'])
-    //         ->get()
-    //         ->map(function ($contact) use ($userId) {
-    //             $otherUser = $contact->user_id == $userId ? $contact->contactUser : $contact->user;
-    //             $unreadCount = Message::where('contact_id', $contact->id)
-    //                 ->where('sender_id', '!=', $userId)
-    //                 ->where('is_read', false)
-    //                 ->count();
-    //             return [
-    //                 'id' => $contact->id,
-    //                 'name' => $otherUser->name,
-    //                 'email' => $otherUser->email,
-    //                 'image' => $otherUser->image,
-    //                 'unread_count' => $unreadCount,
-    //                 'last_message_time' => Message::where('contact_id', $contact->id)->latest()->first()->created_at ?? null,
-    //             ];
-    //         });
-    // }
+    
     public function mount()
     {
         $this->getContacts();
     }
 
-    // public function selectContact($contactId)
-    // {
-    //     $contact = Contact::find($contactId);
-    //     if ($contact) {
-    //         $currentUserId = auth()->id();
-    //         // Xác định người dùng khác trong cuộc trò chuyện
-    //         $this->sender = $contact->user_id == $currentUserId ? $contact->contactUser : $contact->user;
-    //         $this->selectedContactId = $contactId;
-    //         $this->getmesseger();
-    //     }
-    // }
+  
     public function selectContact($contactId)
     {
         $contact = Contact::find($contactId);
@@ -131,12 +58,7 @@ class ContactList extends Component
         $this->dispatch('messagesUpdated');
     }
 
-    // public function selectContact($contactId)
-    // {
-    //     Log::info('ContactList: Đang gửi contactId: ' . $contactId);
-
-    //     // $this->dispatch('contact-selected', ['contactId' => $contactId]);
-    // }
+  
     public function markMessagesAsRead($contactId)
     {
         Message::where('contact_id', $contactId)
@@ -208,34 +130,7 @@ class ContactList extends Component
             return $carbon->format('d/m/Y');
         }
     }
-    // public function pollContacts()
-    // {
-    //     $userId = auth()->id();
-    //     $updatedContacts = Contact::where('user_id', $userId)
-    //         ->orWhere('contact_user_id', $userId)
-    //         ->with(['user', 'contactUser'])
-    //         ->get()
-    //         ->map(function ($contact) use ($userId) {
-    //             $otherUser = $contact->user_id == $userId ? $contact->contactUser : $contact->user;
-    //             $lastMessage = Message::where('contact_id', $contact->id)
-    //                 ->latest()
-    //                 ->first();
-    //             $unreadCount = Message::where('contact_id', $contact->id)
-    //                 ->where('sender_id', '!=', $userId)
-    //                 ->where('is_read', false)
-    //                 ->count();
-    //             return [
-    //                 'id' => $contact->id,
-    //                 'name' => $otherUser->name,
-    //                 'email' => $otherUser->email,
-    //                 'image' => $otherUser->image,
-    //                 'unread_count' => $unreadCount,
-    //                 'last_message_time' => $lastMessage ? $lastMessage->created_at : null,
-    //             ];
-    //         });
 
-    //     $this->contacts = collect($updatedContacts);
-    // }
     public function pollContacts()
     {
         $this->getContacts();
@@ -277,9 +172,6 @@ class ContactList extends Component
 
             'currentUserId' => $currentUserId // Truyền thông tin người dùng hiện tại đến view
         ]);
-        // return view('livewire.contact-list');
-        // return view('livewire.contact-list', [
-        //     'messages' => $this->messages // Truyền dữ liệu đến view
-        // ]);
+       
     }
 }

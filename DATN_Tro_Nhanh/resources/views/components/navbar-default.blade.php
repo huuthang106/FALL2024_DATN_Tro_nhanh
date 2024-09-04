@@ -297,38 +297,7 @@
                                     </div>
                                 </div>
                             </li>
-                            {{-- <li id="navbar-item-dashboard" aria-haspopup="true" aria-expanded="false"
-                                class="nav-item dropdown py-2 py-xl-5 px-0 px-xl-4">
-                                <a class="nav-link dropdown-toggle p-0" href="#" data-toggle="dropdown">
-                                    Dashboard
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu pt-3 pb-0 pb-xl-3"
-                                    aria-labelledby="navbar-item-dashboard">
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-dashboard" class="dropdown-link"
-                                            href="{{ route('owners.profile.dashboard') }}">
-                                            Trang quản lí
-                                        </a>
-                                    </li>
-
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-my-properties" class="dropdown-link"
-                                            href="{{ route('owners.properties') }}">
-                                            Căn Hộ
-                                        </a>
-                                    </li>
-
-
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-my-favorites" class="dropdown-link"
-                                            href="{{ route('owners.favorites') }}">
-                                            Yêu Thích
-                                        </a>
-                                    </li>
-
-                                </ul>
-                            </li> --}}
+                          
                             <li id="navbar-item-pages" aria-haspopup="true" aria-expanded="false"
                                 class="nav-item dropdown py-2 py-xl-5 px-0 px-xl-4">
                                 <a class="nav-link dropdown-toggle p-0" href="#" data-toggle="dropdown">
@@ -466,25 +435,7 @@
                     <div class="ml-auto d-none d-xl-block">
                         <ul
                             class="navbar-nav flex-row ml-auto align-items-center justify-content-lg-end flex-wrap py-2">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle mr-md-2 pr-2 pl-0 pl-lg-2" href="#"
-                                    id="bd-versions" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    ENG
-                                </a>
-                                <div class="dropdown-menu dropdown-sm dropdown-menu-right"
-                                    aria-labelledby="bd-versions">
-                                    <a class="dropdown-item" href="#">VN</a>
-                                    <a class="dropdown-item active" href="#">ENG</a>
-                                    <a class="dropdown-item" href="#">ARB</a>
-                                    <a class="dropdown-item" href="#">KR</a>
-                                    <a class="dropdown-item" href="#">JN</a>
-                                </div>
-                            </li>
-                            {{-- <li class="nav-item ">
-                                <a class="nav-link pl-3 pr-2" data-toggle="" href="{{ route('login') }}">Đăng
-                                    nhập</a>
-                            </li> --}}
+                            
 
                             <li class="nav-item dropdown">
                                 @if (Auth::check())
@@ -493,15 +444,14 @@
                                         aria-expanded="false">
                                         {{ Auth::user()->name }}
                                     </a>
-                                    {{-- <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                                        <li><a class="dropdown-item" href="#">Xem thông tin</a></li>
-                                        <li>
-                                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                                Đăng xuất
-                                            </a>
-                                        </li>
-                                    </ul> --}}
+                                    <li class="nav-item mr-auto mr-lg-6">
+                                        <a class="nav-link px-2 position-relative" href="{{ Route('owners.chat-owners') }}">
+                                            <i class="fal fa-comments-alt fs-large-4"></i>
+                                            <span class="badge badge-primary badge-circle badge-absolute">
+                                                <livewire:unread-message-count /></span>
+                                        </a>    
+                                    </li>
+                                 
                                     <div class="dropdown-menu dropdown-sm dropdown-menu-end"
                                         aria-labelledby="userDropdown">
                                         <a class="dropdown-item"
