@@ -45,277 +45,102 @@
                             <th class="no-sort py-6 pl-6"><label class="new-control new-checkbox checkbox-primary m-auto">
                                     <input type="checkbox" class="new-control-input chk-parent select-customers-info">
                                 </label></th>
-                            <th class="py-6">Mã hóa đơn</th>
-                            <th class="py-6">Tên</th>
-                            <th class="py-6">Email</th>
-                            <th class="py-6">Ngày</th>
+                            <th class="py-6">Tiêu đề</th>
                             <th class="py-6">Giá</th>
+                            <th class="py-6">Ngày tạo đơn</th>
+                            <th class="py-6">Ngày thanh toán</th>
                             <th class="py-6">Trạng thái</th>
                             <th class="no-sort py-6">Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr role="row">
-                            <td class="checkbox-column py-6 pl-6"><label
-                                    class="new-control new-checkbox checkbox-primary m-auto">
-                                    <input type="checkbox" class="new-control-input child-chk select-customers-info">
-                                </label></td>
-                            <td class="align-middle"><a href="dashboard-preview-invoice.html"><span
-                                        class="inv-number">#081451</span></a>
-                            </td>
-                            <td class="align-middle">
-                                <div class="d-flex align-items-center">
-                                    <div class="usr-img-frame mr-2 rounded-circle">
-                                        <img alt="avatar" class="img-fluid rounded-circle w-30px"
-                                            src="{{ asset('assets/images/profile-28.jpeg') }}">
+                        @foreach ($bills as $bill)
+                            <tr role="row">
+                                <td class="checkbox-column py-6 pl-6"><label
+                                        class="new-control new-checkbox checkbox-primary m-auto">
+                                        <input type="checkbox" class="new-control-input child-chk select-customers-info"
+                                            value="{{ $bill->id }}">
+                                    </label></td>
+                                <td class="align-middle">
+                                    <div class="d-flex align-items-center">
+                                        <p class="align-self-center mb-0 user-name">{{ $bill->description }}</p>
                                     </div>
-                                    <p class="align-self-center mb-0 user-name">Laurie Fox</p>
-                                </div>
-                            </td>
-                            <td class="align-middle"><span class="text-primary pr-1"><i
-                                        class="fal fa-envelope"></i></span>lauriefox@company.com</td>
-                            <td class="align-middle"><span class="text-success pr-1"><i
-                                        class="fal fa-calendar"></i></span>15
-                                Dec 2020</td>
-                            <td class="align-middle"><span class="inv-amount">$2275.45</span></td>
-                            <td class="align-middle"><span class="badge badge-green text-capitalize">Đã thanh
-                                    toán</span>
-                            </td>
-                            <td class="align-middle">
-                                <a href="#" data-toggle="tooltip" title="Chỉnh sửa"
-                                    class="d-inline-block fs-18 text-muted hover-primary mr-5"><i
-                                        class="fal fa-pencil-alt"></i></a>
-                                <a href="#" data-toggle="tooltip" title="Xóa"
-                                    class="d-inline-block fs-18 text-muted hover-primary"><i
-                                        class="fal fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr role="row">
-                            <td class="checkbox-column py-6 pl-6 align-middle"><label
-                                    class="new-control new-checkbox checkbox-primary  m-auto">
-                                    <input type="checkbox" class="new-control-input child-chk select-customers-info">
-                                </label></td>
-                            <td class="align-middle"><a href="dashboard-preview-invoice.html"><span
-                                        class="inv-number">#081452</span></a>
-                            </td>
-                            <td class="align-middle">
-                                <div class="d-flex align-items-center">
-                                    <div class="usr-img-frame mr-2 rounded-circle">
-                                        <img alt="avatar" class="img-fluid rounded-circle w-30px border-light"
-                                            src="{{ asset('assets/images/profile-30.png') }}">
-                                    </div>
-                                    <p class="align-self-center mb-0 user-name">Alexander Gray</p>
-                                </div>
-                            </td>
-                            <td class="align-middle"><span class="text-primary pr-1"><i
-                                        class="fal fa-envelope"></i></span>alexGray3188@gmail.com</td>
-                            <td class="align-middle"><span class="text-success pr-1"><i
-                                        class="fal fa-calendar"></i></span>20
-                                Dec 2020</td>
-                            <td class="align-middle"><span class="inv-amount">$1044.00</span></td>
-                            <td class="align-middle"><span class="badge badge-green text-capitalize">Đã thanh
-                                    toán</span></td>
-                            <td class="align-middle">
-                                <a href="#" data-toggle="tooltip" title="Chỉnh sửa"
-                                    class="d-inline-block fs-18 text-muted hover-primary mr-5"><i
-                                        class="fal fa-pencil-alt"></i></a>
-                                <a href="#" data-toggle="tooltip" title="Xóa"
-                                    class="d-inline-block fs-18 text-muted hover-primary"><i
-                                        class="fal fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr role="row">
-                            <td class="checkbox-column py-6 pl-6"><label
-                                    class="new-control new-checkbox checkbox-primary  m-auto">
-                                    <input type="checkbox" class="new-control-input child-chk select-customers-info">
-                                </label></td>
-                            <td class="align-middle"><a href="dashboard-preview-invoice.html"><span
-                                        class="inv-number">#081681</span></a>
-                            </td>
-                            <td class="align-middle">
-                                <div class="d-flex align-items-center">
-                                    <div class="usr-img-frame mr-2 rounded-circle">
-                                        <img alt="avatar" class="img-fluid rounded-circle w-30px"
-                                            src="{{ asset('assets/images/profile-32.jpeg') }}">
-                                    </div>
-                                    <p class="align-self-center mb-0 user-name">James Taylor</p>
-                                </div>
-                            </td>
-                            <td class="align-middle"><span class="text-primary pr-1"><i
-                                        class="fal fa-envelope"></i></span>jamestaylor468@gmail.com</td>
-                            <td class="align-middle"><span class="text-success pr-1"><i
-                                        class="fal fa-calendar"></i></span>27
-                                Dec 2020</td>
-                            <td class="align-middle"><span class="inv-amount">$20.00</span></td>
-                            <td class="align-middle"><span class="badge badge-yellow text-capitalize">Chưa thanh
-                                    toán</span>
-                            </td>
-                            <td class="align-middle">
-                                <a href="#" data-toggle="tooltip" title="Chỉnh sửa"
-                                    class="d-inline-block fs-18 text-muted hover-primary mr-5"><i
-                                        class="fal fa-pencil-alt"></i></a>
-                                <a href="#" data-toggle="tooltip" title="Xóa"
-                                    class="d-inline-block fs-18 text-muted hover-primary"><i
-                                        class="fal fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr role="row">
-                            <td class="checkbox-column py-6 pl-6"><label
-                                    class="new-control new-checkbox checkbox-primary  m-auto">
-                                    <input type="checkbox" class="new-control-input child-chk select-customers-info">
-                                </label></td>
-                            <td class="align-middle"><a href="dashboard-preview-invoice.html"><span
-                                        class="inv-number">#082693</span></a>
-                            </td>
-                            <td class="align-middle">
-                                <div class="d-flex align-items-center">
-                                    <div class="usr-img-frame mr-2 rounded-circle">
-                                        <img alt="avatar" class="img-fluid rounded-circle w-30px"
-                                            src="{{ asset('assets/images/profile-24.jpeg') }}">
-                                    </div>
-                                    <p class="align-self-center mb-0 user-name">Grace Roberts</p>
-                                </div>
-                            </td>
-                            <td class="align-middle"><span class="text-primary pr-1"><i
-                                        class="fal fa-envelope"></i></span>graceRoberts@company.com</td>
-                            <td class="align-middle"><span class="text-success pr-1"><i
-                                        class="fal fa-calendar"></i></span>31
-                                Dec 2020</td>
-                            <td class="align-middle"><span class="inv-amount">$344.00</span></td>
-                            <td class="align-middle"><span class="badge badge-green text-capitalize">Đã thanh
-                                    toán</span></td>
-                            <td class="align-middle">
-                                <a href="#" data-toggle="tooltip" title="Chỉnh sửa"
-                                    class="d-inline-block fs-18 text-muted hover-primary mr-5"><i
-                                        class="fal fa-pencil-alt"></i></a>
-                                <a href="#" data-toggle="tooltip" title="Xóa"
-                                    class="d-inline-block fs-18 text-muted hover-primary"><i
-                                        class="fal fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr role="row">
-                            <td class="checkbox-column py-6 pl-6"><label
-                                    class="new-control new-checkbox checkbox-primary  m-auto">
-                                    <input type="checkbox" class="new-control-input child-chk select-customers-info">
-                                </label></td>
-                            <td class="align-middle"><a href="dashboard-preview-invoice.html"><span
-                                        class="inv-number">#084743</span></a>
-                            </td>
-                            <td class="align-middle">
-                                <div class="d-flex align-items-center">
-                                    <div class="usr-img-frame mr-2 rounded-circle">
-                                        <img alt="avatar" class="img-fluid rounded-circle w-30px"
-                                            src="{{ asset('assets/images/profile-28.jpeg') }}">
-                                    </div>
-                                    <p class="align-self-center mb-0 user-name">Donna Rogers</p>
-                                </div>
-                            </td>
-                            <td class="align-middle"><span class="text-primary pr-1"><i
-                                        class="fal fa-envelope"></i></span>donnaRogers@hotmail.com</td>
-                            <td class="align-middle"><span class="text-success pr-1"><i
-                                        class="fal fa-calendar"></i></span>03
-                                Jan 2021</td>
-                            <td class="align-middle"><span class="inv-amount">$405.15</span></td>
-                            <td class="align-middle"><span class="badge badge-green text-capitalize">Đã thanh
-                                    toán</span></td>
-                            <td class="align-middle">
-                                <a href="#" data-toggle="tooltip" title="Chỉnh sửa"
-                                    class="d-inline-block fs-18 text-muted hover-primary mr-5"><i
-                                        class="fal fa-pencil-alt"></i></a>
-                                <a href="#" data-toggle="tooltip" title="Xóa"
-                                    class="d-inline-block fs-18 text-muted hover-primary"><i
-                                        class="fal fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr role="row">
-                            <td class="checkbox-column py-6 pl-6"><label
-                                    class="new-control new-checkbox checkbox-primary  m-auto">
-                                    <input type="checkbox" class="new-control-input child-chk select-customers-info">
-                                </label></td>
-                            <td class="align-middle"><a href="dashboard-preview-invoice.html"><span
-                                        class="inv-number">#086643</span></a>
-                            </td>
-                            <td class="align-middle">
-                                <div class="d-flex align-items-center">
-                                    <div class="usr-img-frame mr-2 rounded-circle">
-                                        <img alt="avatar" class="img-fluid rounded-circle w-30px"
-                                            src="{{ asset('assets/images/profile-11.jpeg') }}">
-                                    </div>
-                                    <p class="align-self-center mb-0 user-name">Amy Diaz</p>
-                                </div>
-                            </td>
-                            <td class="align-middle"><span class="text-primary pr-1"><i
-                                        class="fal fa-envelope"></i></span>amy968@gmail.com</td>
-                            <td class="align-middle"><span class="text-success pr-1"><i
-                                        class="fal fa-calendar"></i></span>14
-                                Jan 2021</td>
-                            <td class="align-middle"><span class="inv-amount">$100.00</span></td>
-                            <td class="align-middle"><span class="badge badge-green text-capitalize">Đã thanh
-                                    toán</span></td>
-                            <td class="align-middle">
-                                <a href="#" data-toggle="tooltip" title="Chỉnh sửa"
-                                    class="d-inline-block fs-18 text-muted hover-primary mr-5"><i
-                                        class="fal fa-pencil-alt"></i></a>
-                                <a href="#" data-toggle="tooltip" title="Xóa"
-                                    class="d-inline-block fs-18 text-muted hover-primary"><i
-                                        class="fal fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr role="row">
-                            <td class="checkbox-column py-6 pl-6"><label
-                                    class="new-control new-checkbox checkbox-primary  m-auto">
-                                    <input type="checkbox" class="new-control-input child-chk select-customers-info">
-                                </label></td>
-                            <td class="align-middle"><a href="dashboard-preview-invoice.html"><span
-                                        class="inv-number">#086773</span></a>
-                            </td>
-                            <td class="align-middle">
-                                <div class="d-flex align-items-center">
-                                    <div class="usr-img-frame mr-2 rounded-circle">
-                                        <img alt="avatar" class="img-fluid rounded-circle w-30px"
-                                            src="{{ asset('assets/images/profile-14.jpeg') }}">
-                                    </div>
-                                    <p class="align-self-center mb-0 user-name">Nia Hillyer</p>
-                                </div>
-                            </td>
-                            <td class="align-middle"><span class="text-primary pr-1"><i
-                                        class="fal fa-envelope"></i></span>niahillyer666@comapny.com</td>
-                            <td class="align-middle"><span class="text-success pr-1"><i
-                                        class="fal fa-calendar"></i></span>20
-                                Jan 2021</td>
-                            <td class="align-middle"><span class="inv-amount">$59.21</span></td>
-                            <td class="align-middle"><span class="badge badge-yellow text-capitalize">Chưa thanh
-                                    toán</span>
-                            </td>
-                            <td class="align-middle">
-                                <a href="#" data-toggle="tooltip" title="Chỉnh sửa"
-                                    class="d-inline-block fs-18 text-muted hover-primary mr-5"><i
-                                        class="fal fa-pencil-alt"></i></a>
-                                <a href="#" data-toggle="tooltip" title="Xóa"
-                                    class="d-inline-block fs-18 text-muted hover-primary"><i
-                                        class="fal fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
+                                </td>
+                                <td class="align-middle"><span class="inv-amount">{{ $bill->amount }} VNĐ</span></td>
+                                <td class="align-middle"><span class="text-success pr-1"><i
+                                            class="fal fa-calendar"></i></span>{{ $bill->created_at->format('d/m/Y') }}</td>
+                                <td class="align-middle">
+                                    @if ($bill->status == 1)
+                                        <span class="text-primary pr-1"><i class="fal fa-calendar"></i></span>Chưa có dữ
+                                        liệu
+                                    @elseif($bill->status == 2)
+                                        <span class="text-primary pr-1"><i
+                                                class="fal fa-calendar"></i></span>{{ $bill->payment_date->format('d/m/Y') }}
+                                    @endif
+                                </td>
+                                <td class="align-middle">
+                                    @if ($bill->status == 1)
+                                        <span class="badge badge-warning text-capitalize">Chưa thanh toán</span>
+                                    @elseif($bill->status == 2)
+                                        <span class="badge badge-green text-capitalize">Đã thanh toán</span>
+                                    @endif
+                                </td>
+                                <td class="align-middle">
+                                    <a href="#" data-toggle="tooltip" title="Chỉnh sửa"
+                                        class="d-inline-block fs-18 text-muted hover-primary mr-5"><i
+                                            class="fal fa-pencil-alt"></i></a>
+                                    <a href="#" data-toggle="tooltip" title="Xóa"
+                                        class="d-inline-block fs-18 text-muted hover-primary"><i
+                                            class="fal fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
             <div class="mt-6">
-                <nav>
+                <nav class="mt-4">
                     <ul class="pagination rounded-active justify-content-center">
-                        <li class="page-item"><a class="page-link" href="#"><i
-                                    class="far fa-angle-double-left"></i></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item d-none d-sm-block"><a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">...</li>
-                        <li class="page-item"><a class="page-link" href="#">6</a></li>
-                        <li class="page-item"><a class="page-link" href="#"><i
-                                    class="far fa-angle-double-right"></i></a></li>
+                        {{-- Previous Page Link --}}
+                        @if ($bills->onFirstPage())
+                            <li class="page-item disabled">
+                                <span class="page-link"><i class="far fa-angle-double-left"></i></span>
+                            </li>
+                        @else
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $bills->previousPageUrl() }}"><i
+                                        class="far fa-angle-double-left"></i></a>
+                            </li>
+                        @endif
+
+                        {{-- Pagination Elements --}}
+                        @foreach ($bills->getUrlRange(1, $bills->lastPage()) as $page => $url)
+                            @if ($page == $bills->currentPage())
+                                <li class="page-item active">
+                                    <span class="page-link">{{ $page }}</span>
+                                </li>
+                            @else
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                </li>
+                            @endif
+                        @endforeach
+
+                        {{-- Next Page Link --}}
+                        @if ($bills->hasMorePages())
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $bills->nextPageUrl() }}"><i
+                                        class="far fa-angle-double-right"></i></a>
+                            </li>
+                        @else
+                            <li class="page-item disabled">
+                                <span class="page-link"><i class="far fa-angle-double-right"></i></span>
+                            </li>
+                        @endif
                     </ul>
                 </nav>
-                <div class="text-center mt-2">6-10 trên 29 Kết quả</div>
+                <div class="text-center mt-2">{{ $bills->firstItem() }}-{{ $bills->lastItem() }} của
+                    {{ $bills->total() }} kết quả</div>
             </div>
         </div>
     </main>
