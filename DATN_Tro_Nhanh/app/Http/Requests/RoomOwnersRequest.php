@@ -30,8 +30,8 @@ class RoomOwnersRequest extends FormRequest
             'status' => 'required|integer|in:1,2',
             'user_id' => 'required|integer|exists:users,id',
             'category_id' => 'required|integer|exists:categories,id',
-            'bathrooms' => 'integer|min:0',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+           'images' => 'required|array|min:1', // Ensure at least one image is uploaded
+        'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
         ];
     }
 
@@ -96,6 +96,9 @@ class RoomOwnersRequest extends FormRequest
             'bathrooms.integer' => 'Số lượng phòng tắm phải là số nguyên',
             'bathrooms.min' => 'Số lượng phòng tắm không được âm',
 
+            'images.required' => 'Vui lòng tải lên ít nhất một hình ảnh.',
+            'images.array' => 'Hình ảnh phải là một mảng.',
+            'images.min' => 'Bạn phải tải lên ít nhất một hình ảnh.',
             'images.*.image' => 'Tệp tải lên phải là hình ảnh.',
             'images.*.mimes' => 'Hình ảnh phải có định dạng jpeg, png, hoặc jpg.',
             'images.*.max' => 'Kích thước hình ảnh không được vượt quá 2MB.',

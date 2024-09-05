@@ -16,27 +16,39 @@ class NotificationOwnersController extends Controller
     }
     public function index(Request $request)
     {
-        // Lấy số lượng kết quả từ query param, mặc định là 10
-        $perPage = $request->query('notification-list_length', 10);
         $query = $request->query('query', '');
-
-        // Lọc và phân trang
-        $notifications = $this->notificationOwnersService->getFilteredNotifications($query, $perPage);
-        // phương thức kiểm tra user
-        $notifications = $this->notificationOwnersService->getPaginatedNotifications($perPage);
+        $perPage = $request->query('notification-list_length', 10); // Default to 10 if not provided
+    
+        // Retrieve paginated notifications based on the search query and perPage value
+        $notifications = $this->notificationOwnersService->searchNotifications($query, $perPage);
+    
         if ($request->ajax()) {
             return response()->json([
-                'notifications' => $notifications->items(),
+                'html' => view('partials.notifications', compact('notifications'))->render(),
             ]);
         }
-
+    
         return view('owners.show.notification', [
             'notifications' => $notifications,
             'query' => $query,
         ]);
     }
+    
     public function search(Request $request)
     {
+        // $query = $request->query('query', '');
+
+        // // Lấy các thông báo dựa trên từ khóa tìm kiếm
+        // $notifications = $this->notificationOwnersService->searchNotifications($query);
+
+        // if ($request->ajax()) {
+        //     return response()->json([
+        //         'html' => view('partials.notifications', compact('notifications'))->render(),
+        //     ]);
+        // }
+
+        // // Đối với yêu cầu không phải AJAX
+        // return view('owners.show.notification', compact('notifications', 'query'));
         $query = $request->query('query', '');
 
         // Lấy các thông báo dựa trên từ khóa tìm kiếm
@@ -48,7 +60,6 @@ class NotificationOwnersController extends Controller
             ]);
         }
 
-        // Đối với yêu cầu không phải AJAX
         return view('owners.show.notification', compact('notifications', 'query'));
     }
     public function showDetails($slug)

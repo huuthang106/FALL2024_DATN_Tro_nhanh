@@ -13,6 +13,7 @@ use App\Models\Bill;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
+
 class ZoneServices
 {
     const CO = 1; // Có tiện ích
@@ -211,6 +212,21 @@ class ZoneServices
         $zone = Zone::where('slug', $slug)->first();
         return $zone;
     }
+    public function countTotalZones()
+    {
+        try {
+            // Đếm tổng số bản ghi trong bảng zones
+            return Zone::count(); // Chỉnh sửa tên lớp từ `zones` thành `Zone` (nếu `Zone` là tên mô hình của bạn)
+        } catch (\Exception $e) {
+            // Ghi log lỗi nếu có ngoại lệ
+            Log::error('Error counting zones: ' . $e->getMessage());
+            // Trả về 0 nếu có lỗi
+            return 0;
+        }
+    }
+    
+
+
     public function update($request, $zoneId)
     {
         if (auth()->check()) {

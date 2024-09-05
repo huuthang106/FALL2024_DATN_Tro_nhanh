@@ -69,49 +69,53 @@
                     <tbody>
                         {{-- noi dung table --}}
                         @if ($zones->isNotEmpty())
-                            @foreach ($zones as $zone)
-                                <tr role="row">
-                                    <td class="checkbox-column py-6 pl-6"><label
-                                            class="new-control new-checkbox checkbox-primary m-auto">
-                                            <input type="checkbox"
-                                                class="new-control-input child-chk select-customers-info">
-                                        </label></td>
-                                    <td class="align-middle"><a
-                                            href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}"><span
-                                                class="inv-number">{{ $zone->name }}</span></a>
-                                    </td>
-                                    <td class="align-middle">
-                                        <div class="d-flex align-items-center">
-                                            <small class="align-self-center mb-0 user-name">{{ $zone->description }}</small>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle"><span class="text-primary pr-1"></span>{{ $zone->address }}
-                                    </td>
-                                    <td class="align-middle"><span class="text-success pr-1"><i
-                                                class="fal fa-calendar"></i></span>{{ $zone->updated_at }}</td>
-                                    <td class="align-middle"><span class="inv-amount">{{ $zone->total_room }}</span></td>
-                                    <td class="align-middle">
-                                        @if ($zone->status == 1)
-                                            <span class="badge badge-green text-capitalize">Đang hoạt động</span>
-                                        @else
-                                            <span class="badge badge-yellow text-capitalize">Chưa hoạt động</span>
-                                        @endif
-                                    </td>
-                                    <td class="align-middle">
-                                        <a href="{{ route('owners.zone-view-update', $zone->slug) }}" data-toggle="tooltip"
-                                            title="Chỉnh sửa" class="d-inline-block fs-18 text-muted hover-primary mr-5"><i
-                                                class="fal fa-pencil-alt"></i></a>
-                                        <form action="{{ route('owners.destroy-zone', $zone->id) }}" method="POST"
-                                            class="d-inline-block">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                class="fs-18 text-muted hover-primary border-0 bg-transparent"><i
-                                                    class="fal fa-trash-alt"></i></button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
+                        @foreach ($zones as $zone)
+                            <tr role="row">
+                                <td class="checkbox-column py-6 pl-6"><label
+                                        class="new-control new-checkbox checkbox-primary m-auto">
+                                        <input type="checkbox"
+                                            class="new-control-input child-chk select-customers-info">
+                                    </label></td>
+                                <td class="align-middle"><a href="dashboard-preview-invoice.html"><span
+                                            class="inv-number">{{ $zone->name }}</span></a>
+                                </td>
+                                <td class="align-middle">
+                                    <div class="d-flex align-items-center">
+                        
+                                        <small class="align-self-center mb-0 user-name">{{ $zone->description }}</small>
+                                    </div>
+                                </td>
+                                <td class="align-middle"><span class="text-primary pr-1"></span>{{ $zone->address }}
+                                </td>
+                                <td class="align-middle"><span class="text-success pr-1"><i
+                                            class="fal fa-calendar"></i></span>{{ $zone->updated_at }}</td>
+                                            <td class="align-middle">
+                                                <span class="inv-amount">
+                                                    @if ($zone->total_rooms < 0)
+                                                        {{ -$zone->total_rooms }}
+                                                    @else
+                                                        {{ $zone->total_rooms }}
+                                                    @endif
+                                                </span>
+                                            </td>
+                                            
+                                <td class="align-middle">
+                                    @if ($zone->status == 1)
+                                        <span class="badge badge-green text-capitalize">Đang hoạt dộng</span>
+                                    @else
+                                        <span class="badge badge-yellow text-capitalize">Chưa hoạt động</span>
+                                    @endif
+                                </td>
+                                <td class="align-middle">
+                                    <a href="{{route('owners.zone-view-update',$zone->slug)}}" data-toggle="tooltip" title="Chỉnh sửa"
+                                        class="d-inline-block fs-18 text-muted hover-primary mr-5"><i
+                                            class="fal fa-pencil-alt"></i></a>
+                                    <a href="#" data-toggle="tooltip" title="Xóa"
+                                        class="d-inline-block fs-18 text-muted hover-primary"><i
+                                            class="fal fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        @endforeach
                         @endif
 
                     </tbody>

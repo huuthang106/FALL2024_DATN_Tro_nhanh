@@ -119,21 +119,21 @@ class NotificationOwnersService
             ->count();
     }
     // Tìm kiếm
-    public function searchNotifications($query)
+    public function searchNotifications($query, $perPage = 10)
     {
         return Notification::where(function ($queryBuilder) use ($query) {
             $queryBuilder->where('data', 'like', "%{$query}%")
                 ->orWhere('type', 'like', "%{$query}%")
                 ->orWhere('status', 'like', "%{$query}%");
         })
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+        ->orderBy('created_at', 'desc')
+        ->paginate($perPage);
     }
+    
     // Lọc
     public function getFilteredNotifications(string $query = '', int $perPage = 10): LengthAwarePaginator
     {
-        return Notification::where('data', 'like', "%{$query}%")
-            ->orderBy('created_at', 'desc')
-            ->paginate($perPage);
+        return $this->searchNotifications($query)->paginate($perPage);
+        
     }
 }

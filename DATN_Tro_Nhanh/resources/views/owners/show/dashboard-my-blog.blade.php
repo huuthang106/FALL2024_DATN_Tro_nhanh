@@ -103,9 +103,15 @@
                                 <td class="align-middle">{{ $blog->title }}</td>
                                 <td class="align-middle">{{ $blog->description }}</td>
                                 <td class="align-middle">
-                                    <span
-                                        class="badge text-capitalize font-weight-normal fs-12 badge-yellow">{{ $blog->status }}</span>
+                                    @if ($blog->status == 1)
+                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">Chờ xác nhận</span>
+                                    @elseif ($blog->status == 2)
+                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-green">Đã xác nhận</span>
+                                    @else
+                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-gray">Chưa xác định</span>
+                                    @endif
                                 </td>
+                                
                                 <td class="align-middle">{{ $blog->created_at->format('d-m-Y') }}</td>
                                 <td class="align-middle">
                                     <a href="{{ route('owners.sua-blog', ['slug' => $blog->slug]) }}" data-toggle="tooltip"

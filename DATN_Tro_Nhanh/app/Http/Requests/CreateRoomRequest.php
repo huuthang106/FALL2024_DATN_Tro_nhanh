@@ -24,6 +24,8 @@ class CreateRoomRequest extends FormRequest
             'view' => 'required|integer',
             'status' => 'required|integer',
             'category_id' => 'required|integer|exists:categories,id',
+            'images' => 'required|array', // Ensure images are uploaded
+             'images.*' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ];
     }
 
@@ -38,6 +40,10 @@ class CreateRoomRequest extends FormRequest
             'quantity.required' => 'Vui lòng nhập số lượng',
             'longitude.required' => 'Vui lòng nhập kinh độ',
             'latitude.required' => 'Vui lòng nhập vĩ độ',
+            'images.required' => 'Vui lòng tải lên ít nhất một hình ảnh', // Custom message for image requirement
+            'images.*.required' => 'Tất cả các tập tin phải là hình ảnh', // Handle each image being required
+            'images.*.mimes' => 'Hình ảnh phải có định dạng: jpeg, png, jpg',
+            'images.*.max' => 'Kích thước hình ảnh không được vượt quá 2MB',
         ];
     }
 }

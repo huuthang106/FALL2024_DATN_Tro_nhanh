@@ -12,9 +12,13 @@
                             <a href="#" class="dropdown-toggle d-flex align-items-center text-heading"
                                 data-toggle="dropdown">
                                 <div class="w-48px">
-                                    <img src="{{ asset('assets/images/' . $user->image) }}" alt="Admin"
-                                        class="hehe rounded-circle">
+                                    @if($user->image)
+                                        <img src="{{ asset('assets/images/' . $user->image) }}" alt="Admin" class="hehe rounded-circle">
+                                    @else
+                                        <img src="{{ asset('assets/images/nhan.JPG') }}" alt="Admin" class="hehe rounded-circle">
+                                    @endif
                                 </div>
+                                
                                 <span class="fs-13 font-weight-500 d-none d-sm-inline ml-2">
                                     Hồ sơ
                                 </span>
@@ -149,8 +153,9 @@
                                                 <use xlink:href="#icon-my-properties"></use>
                                             </svg>
                                         </span>
-                                        <span class="sidebar-item-text">Blog</span>
-                                        <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
+                                        <span class="sidebar-item-text">Danh sách khu trọ</span>
+                                        <span
+                                            class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">{{ $totalZones }}</span>
                                     </a>
                                 </li>
                                 <div class="collapse" id="collapseBlog">
@@ -208,8 +213,22 @@
                                                 <use xlink:href="#icon-my-properties"></use>
                                             </svg>
                                         </span>
-                                        <span class="sidebar-item-text">Theo dõi</span>
-                                        <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
+                                        <span class="sidebar-item-text">Danh sách Sửa Chữa</span>
+                                        <span
+                                            class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">{{ $totalMaintenanceRequests }}</span>
+                                    </a>
+                                </li>
+                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                    <a href="{{ Route('owners.favorites') }}"
+                                        class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                        <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
+                                            <svg class="icon icon-my-properties">
+                                                <use xlink:href="#icon-my-properties"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="sidebar-item-text">Yêu thích</span>
+                                        <span
+                                            class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">{{ $favouriteCount }}</span>
                                     </a>
                                 </li>
                                 <div class="collapse" id="collapseLike">
@@ -227,7 +246,7 @@
                                 </div>
                                
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                    <a href="dashboard-save-search.html"
+                                    <a href="#"
                                         class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                         <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                             <svg class="icon icon-save-search">
@@ -433,10 +452,14 @@
                             class="dropdown-toggle text-heading pr-3 pr-sm-6 d-flex align-items-center justify-content-end"
                             data-toggle="dropdown">
                             <div class="mr-4 w-48px">
-                                <!-- Hiển thị ảnh đại diện của người dùng -->
-                                <img src="{{ asset('assets/images/' . $user->image) }}" alt="Admin"
-                                    class="hehe rounded-circle">
+                                @if($user->image)
+                                    <img src="{{ asset('assets/images/' . $user->image) }}" alt="{{ $user->name }}" class="hehe rounded-circle">
+                                @else
+                                    <img src="{{ asset('assets/images/nhan.jpg') }}" alt="Default Image" class="hehe rounded-circle">
+                                @endif
                             </div>
+                            
+                            
                             <div class="fs-13 font-weight-500 lh-1">
                                 Hồ sơ
                             </div>

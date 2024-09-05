@@ -230,28 +230,32 @@
                                                                     <p class="text-heading fs-22 lh-15 mb-4">
                                                                         Kéo và thả hình ảnh hoặc
                                                                     </p>
-                                                                    {{-- <button class="btn btn-indigo px-7 mb-2"
-                                                                        type="button"
-                                                                        onclick="document.getElementById('fileInput').click();">
-                                                                        Chọn thư mục
-                                                                    </button> --}}
                                                                     <button class="btn btn-indigo px-7 mb-2"
                                                                         type="button"
                                                                         onclick="document.getElementById('fileInput').click();">
                                                                         Chọn thư mục
                                                                     </button>
-                                                                    {{-- <input type="file" hidden id="fileInput" multiple
-                                                                        accept="image/jpeg, image/png" name="images[]"
-                                                                        onchange="previewImages();"> --}}
                                                                     <input type="file" hidden id="fileInput" multiple
                                                                         accept="image/jpeg, image/png" name="images[]"
                                                                         onchange="previewImages();">
                                                                     <p>Chọn 1 lúc nhiều ảnh</p>
                                                                 </div>
+                                                                @if ($errors->has('images'))
+                                                                <div class="text-danger">{{ $errors->first('images') }}
+                                                                </div>
+                                                            @endif
+                                                            @foreach ($errors->get('images.*') as $messages)
+                                                                @foreach ($messages as $message)
+                                                                    <div class="text-danger">{{ $message }}</div>
+                                                                @endforeach
+                                                            @endforeach
                                                             </div>
-                                                            @error('images.*')
-                                                                <div class="text-danger">{{ $message }}</div>
-                                                            @enderror
+
+                                                            <!-- Display validation error for images -->
+                                                            <!-- Display validation error for images -->
+                                                            
+
+
                                                             <!-- Phần tử để hiển thị ảnh đã chọn trong form -->
                                                             <div id="imagePreview" class="text-center mt-4"></div>
                                                             <!-- Ẩn View -->
@@ -259,6 +263,8 @@
                                                                 name="view" value="1">
                                                         </div>
                                                     </div>
+
+
                                                 </div>
 
                                                 <div class="col-lg-6">

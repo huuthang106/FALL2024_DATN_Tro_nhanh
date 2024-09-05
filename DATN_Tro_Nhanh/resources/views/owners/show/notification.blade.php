@@ -85,11 +85,6 @@
                                                 href="{{ route('owners.notification-update', ['slug' => $notification->blog->slug]) }}">
                                                 {{ $notification->data }}
                                             </a>
-                                        @elseif ($notification->zone)
-                                            <a
-                                                href="{{ route('owners.notification-update', ['slug' => $notification->zone->slug]) }}">
-                                                {{ $notification->data }}
-                                            </a>
                                         @elseif ($notification->room)
                                             <a
                                                 href="{{ route('owners.notification-update', ['slug' => $notification->room->slug]) }}">

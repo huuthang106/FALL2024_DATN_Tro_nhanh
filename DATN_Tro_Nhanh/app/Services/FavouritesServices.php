@@ -44,6 +44,7 @@ class FavouritesServices
        return Favourite::where('user_id', $userId)->count();
    }
    
+   
 
 }
 
