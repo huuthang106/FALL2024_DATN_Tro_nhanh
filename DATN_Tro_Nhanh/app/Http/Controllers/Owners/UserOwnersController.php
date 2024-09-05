@@ -61,7 +61,7 @@ class UserOwnersController extends Controller
         // Nếu không có lỗi, tiếp tục gọi hàm đổi mật khẩu trong PasswordService
         $this->userClientServices->changePassword($request);
 
-        return redirect()->route('owners.profile.dashboard-my-profiles')->with('status', __('Mật khẩu đã được cập nhật thành công.'));
+        return redirect()->route('owners.profile.profile-admin-index')->with('status', __('Mật khẩu đã được cập nhật thành công.'));
     }
     public function page_register_owner()
     {
