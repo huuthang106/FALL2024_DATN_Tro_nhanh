@@ -44,7 +44,8 @@
                         <!--end::Separator-->
                         <!--begin::User-->
                         @foreach ($contacts as $contact)
-                            <div class="d-flex flex-stack py-4 contact-item"  wire:click="selectContact({{ $contact['id'] }})">
+                            <div class="d-flex flex-stack py-4 {{ $selectedContactId == $contact['id'] ? 'active-contact' : '' }}"
+                                wire:click="selectContact({{ $contact['id'] }})">
                                 <!--begin::Details-->
                                 <div class="d-flex align-items-center p-5" wire:key="item-{{ $contact['id'] }}">
                                     <!--begin::Avatar-->
@@ -60,9 +61,9 @@
                                     @endif
 
                                     <!--end::Avatar-->
-                                  <!--begin::Details-->
+                                    <!--begin::Details-->
                                     <div class="ms-5">
-                                        <a href="#"
+                                        <a wire:click="selectContact({{ $contact['id'] }})"
                                             class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">{{ $contact['name'] }}</a>
                                         <div class="fw-bold text-muted"><small>{{ $contact['email'] }}</small></div>
                                     </div>
@@ -84,8 +85,6 @@
                             <!--end::User-->
                             <!--begin::Separator-->
                             <div class="separator separator-dashed d-none"></div>
-
-                            
                         @endforeach
                         <!--end::User-->
                     </div>
@@ -97,6 +96,7 @@
         </div>
         <!--end::Sidebar-->
         <!--begin::Content-->
+
         <div class="flex-lg-row-fluid ms-lg-7 ms-xl-10">
             <!--begin::Messenger-->
             <div class="card" id="kt_chat_messenger">
@@ -109,10 +109,10 @@
                             <a href="#"
                                 class="fs-4 fw-bolder text-gray-900 text-hover-primary me-1 mb-2 lh-1">{{ $sender ? $sender->name : 'Chọn người nhận' }}</a>
                             <!--begin::Info-->
-                            <div class="mb-0 lh-1">
+                            {{-- <div class="mb-0 lh-1">
                                 <span class="badge badge-success badge-circle w-10px h-10px me-1"></span>
                                 <span class="fs-7 fw-bold text-muted">Active</span>
-                            </div>
+                            </div> --}}
                             <!--end::Info-->
                         </div>
                         <!--end::User-->
@@ -122,71 +122,14 @@
                     <div class="card-toolbar">
                         <!--begin::Menu-->
                         <div class="me-n3">
-                            <button class="btn btn-sm btn-icon btn-active-light-primary" data-kt-menu-trigger="click"
-                                data-kt-menu-placement="bottom-end">
-                                <i class="bi bi-three-dots fs-2"></i>
-                            </button>
-                            <!--begin::Menu 3-->
-                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold w-200px py-3"
-                                data-kt-menu="true">
-                                <!--begin::Heading-->
-                                <div class="menu-item px-3">
-                                    <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">Contacts</div>
-                                </div>
-                                <!--end::Heading-->
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-3" data-bs-toggle="modal"
-                                        data-bs-target="#kt_modal_users_search">Add Contact</a>
-                                </div>
-                                <!--end::Menu item-->
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-3">
-                                    <a href="#" class="menu-link flex-stack px-3" data-bs-toggle="modal"
-                                        data-bs-target="#kt_modal_invite_friends">Invite Contacts
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
-                                            title="Specify a contact email to send an invitation"></i></a>
-                                </div>
-                                <!--end::Menu item-->
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-3" data-kt-menu-trigger="hover"
-                                    data-kt-menu-placement="right-start">
-                                    <a href="#" class="menu-link px-3">
-                                        <span class="menu-title">Groups</span>
-                                        <span class="menu-arrow"></span>
-                                    </a>
-                                    <!--begin::Menu sub-->
-                                    <div class="menu-sub menu-sub-dropdown w-175px py-4">
-                                        <!--begin::Menu item-->
-                                        <div class="menu-item px-3">
-                                            <a href="#" class="menu-link px-3" data-bs-toggle="tooltip"
-                                                title="Coming soon">Create Group</a>
-                                        </div>
-                                        <!--end::Menu item-->
-                                        <!--begin::Menu item-->
-                                        <div class="menu-item px-3">
-                                            <a href="#" class="menu-link px-3" data-bs-toggle="tooltip"
-                                                title="Coming soon">Invite Members</a>
-                                        </div>
-                                        <!--end::Menu item-->
-                                        <!--begin::Menu item-->
-                                        <div class="menu-item px-3">
-                                            <a href="#" class="menu-link px-3" data-bs-toggle="tooltip"
-                                                title="Coming soon">Settings</a>
-                                        </div>
-                                        <!--end::Menu item-->
-                                    </div>
-                                    <!--end::Menu sub-->
-                                </div>
-                                <!--end::Menu item-->
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-3 my-1">
-                                    <a href="#" class="menu-link px-3" data-bs-toggle="tooltip"
-                                        title="Coming soon">Settings</a>
-                                </div>
-                                <!--end::Menu item-->
-                            </div>
-                            <!--end::Menu 3-->
+                            @if ($sender)
+                                <a href="{{ route('client.client-agent-detail', $sender->slug) }}"
+                                    class="btn btn-sm btn-icon btn-active-light-primary" data-kt-menu-trigger="click"
+                                    data-kt-menu-placement="bottom-end">
+                                    <i class="bi bi-person-lines-fill fs-2 me-2"></i>
+                                </a>
+                            @endif
+
                         </div>
                         <!--end::Menu-->
                     </div>
@@ -194,7 +137,7 @@
                 </div>
                 <!--end::Card header-->
                 <!--begin::Card body-->
-                <div class="card-body" id="chatBox" wire:poll="getmesseger" style="height: 400px; overflow-y: auto;" >
+                <div class="card-body" id="chatBox" wire:poll="getmesseger" style="height: 400px; overflow-y: auto;">
                     <!--begin::Messages-->
                     <div id="chat-messages">
 
@@ -339,28 +282,28 @@
                             <!--end::Wrapper-->
                         </div> --}}
                             <!--end::Message(template for in)-->
-
+                        @else
+                            <p class="text-center">Chưa có tin nhắn nào.</p>
+                        @endif
                     </div>
-                @else
-                    <p class="text-center">Chưa có tin nhắn nào.</p>
-                    @endif
+
                     <!--end::Messages-->
                 </div>
 
                 <!--end::Card body-->
                 <!--begin::Card footer-->
-                @if (isset($messages) && count($messages) > 0)
+
                 <div class="card-footer pt-4" id="kt_chat_messenger_footer">
                     <form wire:submit.prevent="sendMessage" class="d-flex flex-column">
                         <!--begin::Input-->
                         <div class="input-group mb-3">
-                        <input class="form-control" wire:model="newMessage" rows="1" data-kt-element="input"
-                        placeholder="Nhập tin nhắn..." style="resize: none;" ></input>
-                        <!--end::Input-->
-                        <!--begin:Toolbar-->
-                        <div class="d-flex flex-stack">
-                            <!--begin::Actions-->
-                            {{-- <div class="d-flex align-items-center me-2">
+                            <input class="form-control" wire:model="newMessage" rows="1"
+                                data-kt-element="input" placeholder="Nhập tin nhắn..." style="resize: none;"></input>
+                            <!--end::Input-->
+                            <!--begin:Toolbar-->
+                            <div class="d-flex flex-stack">
+                                <!--begin::Actions-->
+                                {{-- <div class="d-flex align-items-center me-2">
                             <button class="btn btn-sm btn-icon btn-active-light-primary me-1" type="button"
                                 data-bs-toggle="tooltip" title="Coming soon">
                                 <i class="bi bi-paperclip fs-3"></i>
@@ -370,18 +313,18 @@
                                 <i class="bi bi-upload fs-3"></i>
                             </button>
                         </div> --}}
-                            <!--end::Actions-->
-                            <!--begin::Send-->
-                            <button class="btn btn-primary" type="submit" data-kt-element="send">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-                        </div>
+                                <!--end::Actions-->
+                                <!--begin::Send-->
+                                <button class="btn btn-primary" type="submit" data-kt-element="send">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
                             <!--end::Send-->
                         </div>
                     </form>
                     <!--end::Toolbar-->
                 </div>
-                @endif
+
 
                 <!--end::Card footer-->
             </div>

@@ -821,18 +821,26 @@
                                             alt="Blanche Gordon">
                                         <div class="media-body">
                                             <p class="fs-16 lh-1 text-dark mb-0 font-weight-500">
-                                                Nguyễn Văn A
+                                                {{ $user->name }}
                                             </p>
-                                            <p class="mb-0">Chủ nhà trọ, người quản lý</p>
+                                            <p class="mb-0">@if($user->roll==0)
+                                                Người quản lý
+                                                @elseif($user->roll ==2)
+                                                Người đưa Tin
+                                                @else
+                                                Người dùng
+                                                @endif
+                                            </p>
                                             <p class="text-heading font-weight-500 mb-0">
                                                 <span class="text-primary d-inline-block mr-1"><i
                                                         class="fal fa-phone"></i></span>
-                                                123 900 68668
+                                                        {{ $user->phone }}
                                             </p>
                                         </div>
                                     </div>
-                                    <form>
-                                        <div class="form-group mb-2">
+                                    <form action="{{route('owners.add-chat',$user->id)}}" method="POST">
+                                        @csrf
+                                        {{-- <div class="form-group mb-2">
                                             <label for="name" class="sr-only">Họ và Tên</label>
                                             <input type="text"
                                                 class="form-control form-control-lg border-0 shadow-none" id="name"
@@ -854,7 +862,7 @@
                                             <label for="message" class="sr-only">Nội dung</label>
                                             <textarea class="form-control border-0 shadow-none" rows="5" id="message"
                                                 placeholder="Nội dung tin nhắn..."></textarea>
-                                        </div>
+                                        </div> --}}
                                         <button type="submit" class="btn btn-primary btn-lg btn-block shadow-none">Gửi
                                             tin nhắn
                                         </button>

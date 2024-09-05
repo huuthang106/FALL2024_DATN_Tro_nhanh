@@ -34,6 +34,7 @@
                 $this->selectedContactId = $contactId;
                 $this->getmesseger();
                 $this->markMessagesAsRead($contactId);
+                $this->selectedContactId = $contactId;
             }
         }
         public function getmesseger()
@@ -56,7 +57,7 @@
             $this->dispatch('messagesUpdated');
         }
     
-      
+   
         public function markMessagesAsRead($contactId)
         {
             Message::where('contact_id', $contactId)

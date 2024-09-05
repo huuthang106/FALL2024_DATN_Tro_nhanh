@@ -13,8 +13,8 @@
                         <!-- ... existing code ... -->
                         <div class="list-group list-group-flush">
                             @foreach ($contacts as $contact)
-                                <div wire:click="selectContact({{ $contact['id'] }})" class="contact-item mt-2">
-                                    <div wire:key="item-{{ $contact['id'] }}">
+                                <div wire:click="selectContact({{ $contact['id'] }})" class="contact-item mt-2  {{ $selectedContactId == $contact['id'] ? 'active-contact' : '' }}">
+                                    <div wire:key="item-{{ $contact['id'] }}" class="m-2 ">
                                         <div class="d-flex w-100 justify-content-between align-items-center mt-2">
                                             <div class="d-flex align-items-center">
                                                 @if ($contact['image'])
@@ -24,7 +24,7 @@
                                                         alt="Avatar">
                                                 </div>
                                                 @else
-                                                <div class="symbol symbol-45px symbol-circle">
+                                                <div class="symbol symbol-45px symbol-circle mr-2">
                                                     <img src="{{ asset('assets/images/agent-4-lg.jpg') }}"
                                                         class="rounded-circle mb-2" style="width: 40px; height: 40px;"
                                                         alt="Avatar">
@@ -56,8 +56,22 @@
             <!-- Chat -->
             <div class="col-lg-8 col-xl-8">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header d-flex justify-content-between align-items-cente">
                         <h5 class="mb-0">Chat với {{ $sender ? $sender->name : 'Chọn người nhận' }}</h5>
+                        @if ($sender)
+                        <a href="{{ route('client.client-agent-detail', $sender->slug) }}" 
+                            class="btn btn-sm btn-icon ml-auto d-flex align-items-center justify-content-center" 
+                            style="width: 32px; height: 32px; transition: all 0.2s ease;"
+                            data-toggle="tooltip" 
+                            data-placement="bottom" 
+                            title="Xem trang cá nhân"
+                            onmouseover="this.querySelector('svg').style.fill='#007bff'" 
+                            onmouseout="this.querySelector('svg').style.fill='#6c757d'">
+                             <svg class="icon icon-my-profile" width="16" height="16" style="fill: #6c757d;">
+                                 <use xlink:href="#icon-my-profile"></use>
+                             </svg>
+                         </a>
+                        @endif
                     </div>
                     <div class="card-body" id="chatBox" style="height: 400px; overflow-y: auto;"
                         wire:poll="getmesseger">
@@ -126,9 +140,13 @@
                                 @endif
                             @endforeach
 
-
+                            @else
+                            <p class="text-center">Chưa có tin nhắn nào.</p>
+                            @endif
                             {{-- @endforelse --}}
                     </div>
+                   
+             
                     <div class="card-footer pt-4" id="kt_chat_messenger_footer">
                         <form wire:submit.prevent="sendMessage" class="d-flex flex-column">
                             <!--begin::Input-->
@@ -160,9 +178,6 @@
                         </form>
                         <!--end::Toolbar-->
                     </div>
-                @else
-                    <p class="text-center">Chưa có tin nhắn nào.</p>
-                    @endif
                 </div>
             </div>
         </div>

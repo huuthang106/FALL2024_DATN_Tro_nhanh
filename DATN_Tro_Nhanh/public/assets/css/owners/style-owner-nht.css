@@ -35,8 +35,18 @@
 }
 
 .contact-item:hover {
-    border-radius: 10%;
+    /* border-radius: 5%; */
     background-color: #f8f9fa;
+    border-left: 3px solid #007bff;
     transform: translateY(-2px);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.active-contact {
+    background-color: #e9ecef;
+    border-left: 3px solid #007bff;
+    transition: all 0.3s ease;
+}
+
+.d-flex.flex-stack.py-4:hover {
+    background-color: #f8f9fa;
 }

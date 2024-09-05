@@ -36,6 +36,7 @@ class ContactList extends Component
             $this->selectedContactId = $contactId;
             $this->getmesseger();
             $this->markMessagesAsRead($contactId);
+            $this->selectedContactId = $contactId;
         }
     }
     public function getmesseger()
