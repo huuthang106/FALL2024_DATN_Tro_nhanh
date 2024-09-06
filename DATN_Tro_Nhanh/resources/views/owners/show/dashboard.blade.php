@@ -6,7 +6,8 @@
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
             <div class="d-flex flex-wrap flex-md-nowrap mb-6">
                 <div class="mr-0 mr-md-auto">
-                    <h2 class="mb-0 text-heading fs-22 lh-15">Chào mừng trở lại, Ronald Hunter!</h2>
+                    <h2 class="mb-0 text-heading fs-22 lh-15">Chào mừng trở lại, {{ $user->name }}!</h2>
+
                 </div>
                 <div>
                     <a href="dashboard-add-new-property.html" class="btn btn-primary btn-lg">
@@ -49,9 +50,8 @@
                                 </span>
                             </div>
                             <div class="col-7 text-center">
-                                <p class="fs-42 lh-12 mb-0 counterup" data-start="0" data-end="1730" data-decimals="0"
-                                    data-duration="0" data-separator="">1730</p>
-                                <p>Tổng số lượt xem</p>
+                                <p class="fs-42 lh-12 mb-0">{{ $roomCount }}</p>
+                                <p>Tổng Số Trọ</p>
                             </div>
                         </div>
                     </div>
@@ -68,9 +68,8 @@
                                 </span>
                             </div>
                             <div class="col-8 text-center">
-                                <p class="fs-42 lh-12 mb-0 counterup" data-start="0" data-end="329" data-decimals="0"
-                                    data-duration="0" data-separator="">329</p>
-                                <p>Tổng số lượt đánh giá của khách hàng</p>
+                                <p class="fs-42 lh-12 mb-0">{{ $totalReviews }}</p>
+                                <p>Tổng Số Lượt Đánh Gía</p>
                             </div>
                         </div>
                     </div>
@@ -87,9 +86,8 @@
                                 </span>
                             </div>
                             <div class="col-7 text-center">
-                                <p class="fs-42 lh-12 mb-0 counterup" data-start="0" data-end="914" data-decimals="0"
-                                    data-duration="0" data-separator="">914</p>
-                                <p>Tổng số lượt yêu thích</p>
+                                <p class="fs-42 lh-12 mb-0">{{ $totalWatchLists }}</p>
+                                <p>Tổng Số Lượt Theo Dõi</p>
                             </div>
                         </div>
                     </div>

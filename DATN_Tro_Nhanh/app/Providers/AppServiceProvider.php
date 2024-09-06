@@ -10,6 +10,10 @@ use App\Services\RoomOwnersService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\Services\FavouritesServices;
+use App\Services\ZoneServices;
+use App\Services\CommentClientService;
+use App\Services\WatchListOwner;
+// use App\Services\RoomOwnersService;
 use App\Services\MaintenanceRequestsServices;
 
 class AppServiceProvider extends ServiceProvider
@@ -39,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
     //     //
     // }
     // Biến để xem thông báo
-    public function boot(NotificationOwnersService $notificationService,BlogServices $blogServices,ZoneServices $zoneServices, RoomOwnersService $roomOwnersService, FavouritesServices $favouriteService, MaintenanceRequestsServices $maintenanceRequestsService)
+    public function boot(NotificationOwnersService $notificationService,WatchListOwner $watchListService,CommentClientService $commentClientService,ZoneServices $zoneServices, BlogServices $blogServices, RoomOwnersService $roomOwnersService, FavouritesServices $favouriteService, MaintenanceRequestsServices $maintenanceRequestsService)
     {
         // Cung cấp thông tin người dùng cho view 'components.navbar-owner'
         View::composer('components.navbar-owner', function ($view) use ($maintenanceRequestsService) { // Sử dụng biến đúng
@@ -103,6 +107,10 @@ class AppServiceProvider extends ServiceProvider
             $user = Auth::user();
             $view->with('user', $user);
         });
+        View::composer('owners.show.dashboard', function ($view) {
+            $user = Auth::user();
+            $view->with('user', $user);
+        });
         View::composer('admincp.show.overview', function ($view) {
             $user = Auth::user();
             $view->with('user', $user);
@@ -134,6 +142,63 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('totalZones', 0);
             }
         });
+        View::composer('owners.show.dashboard', function ($view) use ($zoneServices) {
+            $userId = Auth::id(); // Lấy ID người dùng hiện tại
+        
+            if ($userId) {
+                // Gọi hàm getTotalZonesByUser từ service để đếm tổng số zones
+                $totalZones = $zoneServices->getTotalZonesByUser($userId);
+        
+                // Truyền số lượng zones vào view
+                $view->with('totalZones', $totalZones);
+            } else {
+                // Nếu không có userId, truyền giá trị 0
+                $view->with('totalZones', 0);
+            }
+        });
+        View::composer('owners.show.dashboard', function ($view) use ($commentClientService) {
+            $userId = Auth::id(); // Lấy ID người dùng hiện tại
+        
+            if ($userId) {
+                // Gọi hàm countTotalReviews từ service để đếm tổng số lượng đánh giá
+                $totalReviews = $commentClientService->countTotalReviews();
+        
+                // Truyền tổng số lượng đánh giá vào view
+                $view->with('totalReviews', $totalReviews);
+            } else {
+                // Nếu không có userId, truyền giá trị 0
+                $view->with('totalReviews', 0);
+            }
+        });
+        View::composer('owners.show.dashboard', function ($view) {
+            $userId = Auth::id(); // Lấy ID người dùng hiện tại
+
+            if ($userId) {
+                // Gọi hàm getRoomCount từ service để đếm tổng số lượng phòng
+                $roomCount = app(RoomOwnersService::class)->getRoomCount($userId);
+
+                // Truyền tổng số lượng phòng vào view
+                $view->with('roomCount', $roomCount);
+            } else {
+                // Nếu không có userId, truyền giá trị 0
+                $view->with('roomCount', 0); // Truyền 0 nếu không có người dùng đăng nhập
+            }
+        });
+        View::composer('owners.show.dashboard', function ($view) use ($watchListService) {
+            $userId = Auth::id(); // Lấy ID người dùng hiện tại
+
+            if ($userId) {
+                // Gọi hàm getTotalWatchListsByUser từ service để đếm tổng số lượng watchlists
+                $totalWatchLists = $watchListService->getTotalWatchListsByUser($userId);
+
+                // Truyền số lượng watchlists vào view
+                $view->with('totalWatchLists', $totalWatchLists);
+            } else {
+                // Nếu không có userId, truyền giá trị 0
+                $view->with('totalWatchLists', 0); // Truyền 0 nếu không có người dùng đăng nhập
+            }
+        });
+
         // Trong ServiceProvider hoặc nơi bạn cấu hình View Composer
 // Trong ServiceProvider hoặc nơi bạn cấu hình View Composer
 

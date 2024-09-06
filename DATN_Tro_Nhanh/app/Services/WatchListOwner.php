@@ -8,6 +8,7 @@ use App\Models\Watchlist;
 use Illuminate\Support\Facades\Storage;
 use App\Events\Admin\ZoneUpdated;
 use App\Models\Utility;
+use Illuminate\Support\Facades\Log;
 use App\Events\UserFollowed;
 
 class WatchListOwner
@@ -55,6 +56,17 @@ public function follow($person_being_followed_id, $follower_id)
         return WatchList::where('user_id', $userId)
             ->where('follower', $followerId)
             ->exists();
+    }
+    public function getTotalWatchListsByUser($userId)
+    {
+        try {
+            // Đếm tổng số watchlists của người dùng với ID cụ thể
+            return WatchList::where('user_id', $userId)->count();
+        } catch (\Exception $e) {
+            // Ghi lại lỗi nếu có sự cố khi đếm số watchlists
+            Log::error('Error counting watchlists: ' . $e->getMessage());
+            return 0;
+        }
     }
  
 }

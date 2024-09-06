@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Events\Admin\ZoneUpdated;
 use App\Models\Utility;
 use App\Models\Bill;
+use Illuminate\Support\Facades\Auth;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
@@ -115,9 +116,19 @@ class ZoneServices
         return $zones;
     }
     // Tổng só khu trọ Client
-    public function getTotalZones()
+    public function getTotalZonesByUser($userId = null)
     {
-        return Zone::count(); // Đếm tổng số khu vực trọ
+        try {
+            // Use the provided userId or fall back to the currently authenticated user
+            $userId = $userId ?? Auth::id();
+    
+            // Count the number of zones for the specified user
+            return Zone::where('user_id', $userId)->count();
+        } catch (\Exception $e) {
+            // Log the error and return 0 in case of any issues
+            Log::error('Error counting zones: ' . $e->getMessage());
+            return 0;
+        }
     }
     // Xem chi tiết khu trọ CLient theo Slug
     public function getZoneDetailsBySlug($slug)

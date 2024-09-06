@@ -8,6 +8,7 @@ use App\Models\Blog;
 use App\Models\Zone;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class CommentClientService
 {
@@ -47,7 +48,24 @@ class CommentClientService
 
         return $review;
     }
+    public function countTotalReviews()
+    {
+        try {
+            $userId = Auth::id(); // Lấy ID của người dùng hiện tại
+            
+            if ($userId) {
+                // Đếm tổng số đánh giá của người dùng hiện tại
+                return Comment::where('user_id', $userId)->count();
+            }
 
+            // Nếu không có userId, trả về 0
+            return 0;
+        } catch (\Exception $e) {
+            // Ghi lại lỗi nếu có sự cố khi đếm tổng số đánh giá
+            Log::error('Error counting total reviews: ' . $e->getMessage());
+            return 0;
+        }
+    }
     public function submitBlogs($data)
     {
         $blog = Blog::where('slug', $data['blog_slug'])->first();
