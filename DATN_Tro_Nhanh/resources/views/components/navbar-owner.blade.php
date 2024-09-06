@@ -144,20 +144,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                    <a href="#collapseBlog"
-                                        class="text-heading lh-1 sidebar-link d-flex align-items-center"
-                                        onclick="toggleDropdown('collapseBlog'); return false;">
-                                        <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                            <svg class="icon icon-my-properties">
-                                                <use xlink:href="#icon-my-properties"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="sidebar-item-text">Danh sách khu trọ</span>
-                                        <span
-                                            class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">{{ $totalZones }}</span>
-                                    </a>
-                                </li>
+                               
                                 <div class="collapse" id="collapseBlog">
                                     <div class="card card-body border-0 bg-transparent py-0 pl-6">
                                         <ul class="list-group list-group-flush list-group-no-border">
@@ -190,47 +177,7 @@
                                         <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
                                     </a>
                                 </li>
-                                <div class="collapse" id="collapseEdit">
-                                    <div class="card card-body border-0 bg-transparent py-0 pl-6">
-                                        <ul class="list-group list-group-flush list-group-no-border">
-                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                                <a class="text-heading lh-1 sidebar-link"
-                                                    href="{{ route('owners.show-fix') }}">Danh sách sửa chữa</a>
-                                            </li>
-                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                                <a class="text-heading lh-1 sidebar-link"
-                                                    href="{{ route('owners.trash-maintenances') }}">Thùng rác</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                    <a href="#collapseLike"
-                                        class="text-heading lh-1 sidebar-link d-flex align-items-center"
-                                        onclick="toggleDropdown('collapseLike'); return false;">
-                                        <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                            <svg class="icon icon-my-properties">
-                                                <use xlink:href="#icon-my-properties"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="sidebar-item-text">Danh sách Sửa Chữa</span>
-                                        <span
-                                            class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">{{ $totalMaintenanceRequests }}</span>
-                                    </a>
-                                </li>
-                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                    <a href="{{ Route('owners.favorites') }}"
-                                        class="text-heading lh-1 sidebar-link d-flex align-items-center">
-                                        <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                            <svg class="icon icon-my-properties">
-                                                <use xlink:href="#icon-my-properties"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="sidebar-item-text">Yêu thích</span>
-                                        <span
-                                            class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">{{ $favouriteCount }}</span>
-                                    </a>
-                                </li>
+                             
                                 <div class="collapse" id="collapseLike">
                                     <div class="card card-body border-0 bg-transparent py-0 pl-6">
                                         <ul class="list-group list-group-flush list-group-no-border">
@@ -245,6 +192,21 @@
                                     </div>
                                 </div>
                                
+                              
+                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                    <a href="{{ Route('owners.favorites') }}"
+                                        class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                        <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
+                                            <svg class="icon icon-my-properties">
+                                                <use xlink:href="#icon-my-properties"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="sidebar-item-text">Yêu thích</span>
+                                        <span
+                                            class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">{{ $favouriteCount }}</span>
+                                    </a>
+                                </li>
+                             
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                     <a href="#"
                                         class="text-heading lh-1 sidebar-link d-flex align-items-center">
