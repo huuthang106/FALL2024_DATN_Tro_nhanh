@@ -14,142 +14,168 @@
         </div>
     @endif
     <main id="content" class="bg-gray-01">
-        <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
-            <form action="{{ route('owners.properties') }}" method="GET">
-                <div class="mr-0 mr-md-auto">
-                    <h2 class="mb-0 text-heading fs-22 lh-15">
-                        Danh sách sửa chữa
-                        <span class="badge badge-white badge-pill text-primary fs-18 font-weight-bold ml-2">
-                            {{ $maintenanceRequests->total() }}
-                        </span>
-                    </h2>
-                </div>
-                <div class="form-inline justify-content-md-end mx-n2">
-                    <div class="p-2">
-                        <div class="input-group input-group-lg bg-white border">
-                            <div class="input-group-prepend">
-                                <button class="btn pr-0 shadow-none" type="submit"><i class="far fa-search"></i></button>
+        <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10  invoice-listing">
+            <form action="#" method="GET">
+                
+                <div class="mb-6">
+                    <div class="row">
+                        <!-- Left Section: Kết quả và Thêm mới -->
+                        <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center align-items-center">
+                            <!-- Kết quả dropdown -->
+                            <div class="d-flex form-group mb-0 align-items-center mr-3">
+                                <label for="invoice-list_length" class="d-block mr-2 mb-0">Kết quả:</label>
+                                <select name="invoice-list_length" id="invoice-list_length" aria-controls="invoice-list"
+                                    class="form-control form-control-lg mr-2 selectpicker"
+                                    data-style="bg-white btn-lg h-52 py-2 border">
+                                    <option value="7">7</option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                </select>
                             </div>
-                            <input type="text" class="form-control bg-transparent border-0 shadow-none text-body"
-                                placeholder="Tìm kiếm danh sách" name="search" value="{{ request()->query('search') }}">
+                            <!-- Thêm mới button -->
+                            <button class="btn btn-primary btn-lg" tabindex="0" aria-controls="invoice-list">
+                                <span>Thêm mới</span>
+                            </button>
                         </div>
-                    </div>
-                    <div class="p-2">
-                        <div class="input-group input-group-lg bg-white border">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text bg-transparent letter-spacing-093 border-0 pr-0">
-                                    <i class="far fa-align-left mr-2"></i>Sắp xếp theo:
-                                </span>
+                
+                        <!-- Right Section: Tìm kiếm và Xóa -->
+                        <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3 align-items-center">
+                            <!-- Tìm kiếm input -->
+                            <div class="input-group input-group-lg bg-white mb-0 position-relative mr-3">
+                                <input type="text" class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..."
+                                    aria-label="" aria-describedby="basic-addon1">
+                                <div class="input-group-append position-absolute pos-fixed-right-center">
+                                    <button class="btn bg-transparent border-0 text-gray lh-1" type="button"><i class="fal fa-search"></i></button>
+                                </div>
                             </div>
-                            <select class="form-control bg-transparent pl-0 selectpicker d-flex align-items-center sortby"
-                                name="sort-by" data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
-                                <option value="name"
-                                    {{ request()->query('sort-by', 'date_new_to_old') == 'name' ? 'selected' : '' }}>
-                                    Chữ cái
-                                </option>
-                                <option value="price_low_to_high"
-                                    {{ request()->query('sort-by', 'date_new_to_old') == 'price_low_to_high' ? 'selected' : '' }}>
-                                    Giá - Thấp đến Cao
-                                </option>
-                                <option value="price_high_to_low"
-                                    {{ request()->query('sort-by', 'date_new_to_old') == 'price_high_to_low' ? 'selected' : '' }}>
-                                    Giá - Cao đến Thấp
-                                </option>
-                                <option value="date_old_to_new"
-                                    {{ request()->query('sort-by', 'date_new_to_old') == 'date_old_to_new' ? 'selected' : '' }}>
-                                    Ngày - Cũ đến Mới
-                                </option>
-                                <option value="date_new_to_old"
-                                    {{ request()->query('sort-by', 'date_new_to_old') == 'date_new_to_old' ? 'selected' : '' }}>
-                                    Ngày - Mới đến Cũ
-                                </option>
-                            </select>
+                            <!-- Xóa button -->
+                            <button class="btn btn-danger btn-lg" tabindex="0" aria-controls="invoice-list"><span>Xóa</span></button>
                         </div>
                     </div>
                 </div>
+                
+                
             </form>
             <div class="table-responsive">
                 <table class="table table-hover bg-white border rounded-lg">
-                    <thead class="thead-sm thead-black">
-                        <tr>
-                            <th scope="col" class="border-top-0 px-6 pt-5 pb-4">Ảnh</th>
-                            <th scope="col" class="border-top-0 pt-5 pb-4">Tiêu Đề</th>
-                            <th scope="col" class="border-top-0 pt-5 pb-4">Mô Tả</th>
-                            <th scope="col" class="border-top-0 pt-5 pb-4">Trạng thái</th>
-                            <th scope="col" class="border-top-0 pt-5 pb-4">Ngày xuất bản</th>
-                            <th scope="col" class="border-top-0 pt-5 pb-4">Hành động</th>
+                    <thead>
+                        <tr role="row">
+                            <th class="no-sort py-6 pl-6"><label class="new-control new-checkbox checkbox-primary m-auto">
+                                    <input type="checkbox" class="new-control-input chk-parent select-customers-info">
+                                </label></th>
+                            <th class="py-6">Người Yêu Cầu</th>
+                            <th class="py-6">Số Phòng</th>
+                            <th class="py-6 col-2">Vấn Đề</th>
+                            <th class="py-6 col-2">Nội Dung</th>
+                            <th class="py-6">Ngày</th>
+                            <th class="py-6">Trạng thái</th>
+                            <th class="no-sort py-6">Thao tác</th>
                         </tr>
                     </thead>
+                    
                     <tbody>
                         @foreach ($maintenanceRequests as $item)
-                            <tr class="shadow-hover-xs-2 bg-hover-white">
-                                <td class="align-middle p-3">{{ $item->user->name ?? 'N/A' }}</td>
-                                <td class="align-middle p-3">{{ $item->room->id ?? 'N/A' }}</td>
-                                <td class="align-middle p-3">{{ $item->title }}</td>
-                                <td class="align-middle p-3">{{ $item->description }}</td>
-                                <td class="align-middle p-3">
+                            <tr class="shadow-hover-xs-2">
+                                <td class="checkbox-column align-middle py-4 pl-6">
+                                    <label class="new-control new-checkbox checkbox-primary m-auto">
+                                        <input type="checkbox" class="new-control-input child-chk select-customers-info">
+                                    </label>
+                                </td>
+                                <td class="align-middle p-4 text-primary">{{ $item->user->name ?? 'N/A' }}</td>
+                                <td class="align-middle p-4">{{ $item->room->id ?? 'N/A' }}</td>
+                                <td class="align-middle p-4">{{ $item->title }}</td>
+                                <td class="align-middle p-4">{{ $item->description }}</td>
+                                <td class="align-middle p-4">
                                     @if ($item->status == 1)
-                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">Đang xử
-                                            lý</span>
+                                        <span class="badge badge-yellow text-capitalize font-weight-normal fs-12">Đang xử lý</span>
                                     @elseif ($item->status == 2)
-                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-green">Đã
-                                            duyệt</span>
+                                        <span class="badge badge-green text-capitalize font-weight-normal fs-12">Đã duyệt</span>
                                     @elseif ($item->status == 3)
-                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-blue">Đã hoàn
-                                            thành</span>
+                                        <span class="badge badge-blue text-capitalize font-weight-normal fs-12">Đã hoàn thành</span>
                                     @else
-                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-gray">Không xác
-                                            định</span>
+                                        <span class="badge badge-light text-capitalize font-weight-normal fs-12">Không xác định</span>
                                     @endif
                                 </td>
-                                <td class="align-middle p-3">{{ $item->created_at->format('d-m-Y') }}</td>
-
-                                <td class="align-middle p-3">
-                                    <form action="{{ route('owners.destroy-maintenances', $item->id) }}" method="POST"
-                                        class="d-inline-block">
+                                <td class="align-middle p-4">{{ $item->created_at->format('d-m-Y') }}</td>
+                
+                                <td class="align-middle p-4">
+                                    <form action="{{ route('owners.destroy-maintenances', $item->id) }}" method="POST" class="d-inline-block mb-0">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit"
-                                            class="fs-18 text-muted hover-primary border-0 bg-transparent"><i
-                                                class="fal fa-trash-alt"></i></button>
+                                        <button type="submit" class="fs-18 text-muted hover-primary border-0 bg-transparent">
+                                            <i class="fal fa-trash-alt"></i>
+                                        </button>
                                     </form>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
-
-
                 </table>
+                
+                
             </div>
             <nav class="mt-4">
                 <ul class="pagination rounded-active justify-content-center">
                     {{-- Previous Page Link --}}
                     @if ($maintenanceRequests->onFirstPage())
                         <li class="page-item disabled">
-                            <span class="page-link"><i class="far fa-angle-double-left"></i></span>
+                            <span class="page-link" aria-label="Previous">
+                                <i class="far fa-angle-double-left"></i>
+                            </span>
                         </li>
                     @else
                         <li class="page-item">
-                            <a class="page-link" href="{{ $maintenanceRequests->previousPageUrl() }}"
-                                aria-label="Previous">
+                            <a class="page-link" href="{{ $maintenanceRequests->previousPageUrl() }}" aria-label="Previous">
                                 <i class="far fa-angle-double-left"></i>
                             </a>
                         </li>
                     @endif
-
+            
                     {{-- Pagination Elements --}}
-                    @for ($page = 1; $page <= $maintenanceRequests->lastPage(); $page++)
-                        @if ($page == $maintenanceRequests->currentPage())
+                    @php
+                        $totalPages = $maintenanceRequests->lastPage();
+                        $currentPage = $maintenanceRequests->currentPage();
+                        $pageRange = 2; // Number of pages to display before and after the current page
+                    @endphp
+            
+                    {{-- Display the first page --}}
+                    @if ($currentPage > $pageRange + 1)
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $maintenanceRequests->url(1) }}">1</a>
+                        </li>
+                        @if ($currentPage > $pageRange + 2)
+                            <li class="page-item disabled">
+                                <span class="page-link">...</span>
+                            </li>
+                        @endif
+                    @endif
+            
+                    {{-- Display pages around the current page --}}
+                    @for ($i = max(1, $currentPage - $pageRange); $i <= min($totalPages, $currentPage + $pageRange); $i++)
+                        @if ($i == $currentPage)
                             <li class="page-item active" aria-current="page">
-                                <span class="page-link">{{ $page }}</span>
+                                <span class="page-link">{{ $i }}</span>
                             </li>
                         @else
                             <li class="page-item">
-                                <a class="page-link" href="{{ $maintenanceRequests->url($page) }}">{{ $page }}</a>
+                                <a class="page-link" href="{{ $maintenanceRequests->url($i) }}">{{ $i }}</a>
                             </li>
                         @endif
                     @endfor
-
+            
+                    {{-- Display the last page --}}
+                    @if ($currentPage < $totalPages - $pageRange)
+                        @if ($currentPage < $totalPages - $pageRange - 1)
+                            <li class="page-item disabled">
+                                <span class="page-link">...</span>
+                            </li>
+                        @endif
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $maintenanceRequests->url($totalPages) }}">{{ $totalPages }}</a>
+                        </li>
+                    @endif
+            
                     {{-- Next Page Link --}}
                     @if ($maintenanceRequests->hasMorePages())
                         <li class="page-item">
@@ -159,11 +185,14 @@
                         </li>
                     @else
                         <li class="page-item disabled">
-                            <span class="page-link"><i class="far fa-angle-double-right"></i></span>
+                            <span class="page-link">
+                                <i class="far fa-angle-double-right"></i>
+                            </span>
                         </li>
                     @endif
                 </ul>
             </nav>
+            
 
             <div class="text-center mt-2">
                 {{ $maintenanceRequests->firstItem() }}-{{ $maintenanceRequests->lastItem() }} của
@@ -191,8 +220,8 @@
     <title>My Properties - HomeID</title>
     <!-- Google fonts -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
-        rel="stylesheet">
+    href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+    rel="stylesheet">
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">

@@ -220,7 +220,7 @@ class BlogServices
             return null;
         }
     }
-    public function getAllBlogs(int $perPage = 10, $searchTerm = null)
+    public function getAllBlogs(int $perPage = 8, $searchTerm = null)
     {
         try {
             $userId = Auth::id(); // Lấy ID của người dùng hiện tại

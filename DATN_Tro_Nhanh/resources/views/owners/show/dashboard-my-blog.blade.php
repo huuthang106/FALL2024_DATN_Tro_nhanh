@@ -13,58 +13,45 @@
             {{ session('success') }}
         </div>
     @endif
-
+    
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
             <form action="{{ route('owners.properties') }}" method="GET">
-                <div class="mr-0 mr-md-auto">
-                    <h2 class="mb-0 text-heading fs-22 lh-15">
-                        Blog sản của tôi
-                        <span class="badge badge-white badge-pill text-primary fs-18 font-weight-bold ml-2">
-                            {{ $blogs->total() }}
-                        </span>
-                    </h2>
-                </div>
-                <div class="form-inline justify-content-md-end mx-n2">
-                    <div class="p-2">
-                        <div class="input-group input-group-lg bg-white border">
-                            <div class="input-group-prepend">
-                                <button class="btn pr-0 shadow-none" type="submit"><i class="far fa-search"></i></button>
+               
+                <div class="mb-6">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
+                            <div class="d-flex form-group mb-0 align-items-center">
+                                <label for="invoice-list_length" class="d-block mr-2 mb-0">Kết quả:</label>
+                                <select name="invoice-list_length" id="invoice-list_length" aria-controls="invoice-list"
+                                    class="form-control form-control-lg mr-2 selectpicker"
+                                    data-style="bg-white btn-lg h-52 py-2 border">
+                                    <option value="7">7</option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                </select>
                             </div>
-                            <input type="text" class="form-control bg-transparent border-0 shadow-none text-body"
-                                placeholder="Tìm kiếm danh sách" name="search" value="{{ request()->query('search') }}">
+                            <div class="align-self-center">
+                                <a href="{{ route('owners.blog') }}" class="btn btn-primary btn-lg" tabindex="0" aria-controls="invoice-list">
+                                    <span>Thêm mới</span>
+                                </a>
+                            </div>
+                            
                         </div>
-                    </div>
-                    <div class="p-2">
-                        <div class="input-group input-group-lg bg-white border">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text bg-transparent letter-spacing-093 border-0 pr-0">
-                                    <i class="far fa-align-left mr-2"></i>Sắp xếp theo:
-                                </span>
+                        <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
+                            <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
+                                <input type="text" class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..."
+                                    aria-label="" aria-describedby="basic-addon1">
+                                <div class="input-group-append position-absolute pos-fixed-right-center">
+                                    <button class="btn bg-transparent border-0 text-gray lh-1" type="button"><i
+                                            class="fal fa-search"></i></button>
+                                </div>
                             </div>
-                            <select class="form-control bg-transparent pl-0 selectpicker d-flex align-items-center sortby"
-                                name="sort-by" data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
-                                <option value="name"
-                                    {{ request()->query('sort-by', 'date_new_to_old') == 'name' ? 'selected' : '' }}>
-                                    Chữ cái
-                                </option>
-                                <option value="price_low_to_high"
-                                    {{ request()->query('sort-by', 'date_new_to_old') == 'price_low_to_high' ? 'selected' : '' }}>
-                                    Giá - Thấp đến Cao
-                                </option>
-                                <option value="price_high_to_low"
-                                    {{ request()->query('sort-by', 'date_new_to_old') == 'price_high_to_low' ? 'selected' : '' }}>
-                                    Giá - Cao đến Thấp
-                                </option>
-                                <option value="date_old_to_new"
-                                    {{ request()->query('sort-by', 'date_new_to_old') == 'date_old_to_new' ? 'selected' : '' }}>
-                                    Ngày - Cũ đến Mới
-                                </option>
-                                <option value="date_new_to_old"
-                                    {{ request()->query('sort-by', 'date_new_to_old') == 'date_new_to_old' ? 'selected' : '' }}>
-                                    Ngày - Mới đến Cũ
-                                </option>
-                            </select>
+                            <div class="align-self-center">
+                                <button class="btn btn-danger btn-lg" tabindex="0"
+                                    aria-controls="invoice-list"><span>Xóa</span></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -83,7 +70,7 @@
                     </thead>
                     <tbody>
                         @foreach ($blogs as $blog)
-                            <tr class="shadow-hover-xs-2 bg-hover-white">
+                            <tr class="shadow-hover-xs-2 ">
                                 <td class="align-middle pt-6 pb-4 px-6">
                                     <div class="media d-flex align-items-center">
                                         <div class="w-120px mr-4 position-relative">
@@ -130,7 +117,6 @@
                             </tr>
                         @endforeach
                     </tbody>
-
                 </table>
             </div>
             <nav class="mt-4">
@@ -142,29 +128,56 @@
                         </li>
                     @else
                         <li class="page-item">
-                            <a class="page-link" href="{{ $blogs->previousPageUrl() }}"><i
-                                    class="far fa-angle-double-left"></i></a>
+                            <a class="page-link" href="{{ $blogs->previousPageUrl() }}"><i class="far fa-angle-double-left"></i></a>
                         </li>
                     @endif
-
+            
                     {{-- Pagination Elements --}}
-                    @foreach ($blogs->getUrlRange(1, $blogs->lastPage()) as $page => $url)
-                        @if ($page == $blogs->currentPage())
+                    @php
+                        $totalPages = $blogs->lastPage();
+                        $currentPage = $blogs->currentPage();
+                        $startPage = 1;
+                        $endPage = $totalPages;
+                        $pageRange = 2; // Number of pages to display before and after the current page
+                    @endphp
+            
+                    {{-- Display the first page --}}
+                    @if ($currentPage > $pageRange + 1)
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $blogs->url($startPage) }}">{{ $startPage }}</a>
+                        </li>
+                        @if ($currentPage > $pageRange + 2)
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                        @endif
+                    @endif
+            
+                    {{-- Display pages around the current page --}}
+                    @for ($i = max($startPage, $currentPage - $pageRange); $i <= min($endPage, $currentPage + $pageRange); $i++)
+                        @if ($i == $currentPage)
                             <li class="page-item active">
-                                <span class="page-link">{{ $page }}</span>
+                                <span class="page-link">{{ $i }}</span>
                             </li>
                         @else
                             <li class="page-item">
-                                <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                <a class="page-link" href="{{ $blogs->url($i) }}">{{ $i }}</a>
                             </li>
                         @endif
-                    @endforeach
-
+                    @endfor
+            
+                    {{-- Display the last page --}}
+                    @if ($currentPage < $endPage - $pageRange)
+                        @if ($currentPage < $endPage - $pageRange - 1)
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                        @endif
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $blogs->url($endPage) }}">{{ $endPage }}</a>
+                        </li>
+                    @endif
+            
                     {{-- Next Page Link --}}
                     @if ($blogs->hasMorePages())
                         <li class="page-item">
-                            <a class="page-link" href="{{ $blogs->nextPageUrl() }}"><i
-                                    class="far fa-angle-double-right"></i></a>
+                            <a class="page-link" href="{{ $blogs->nextPageUrl() }}"><i class="far fa-angle-double-right"></i></a>
                         </li>
                     @else
                         <li class="page-item disabled">
@@ -173,10 +186,13 @@
                     @endif
                 </ul>
             </nav>
+            
             <div class="text-center mt-2">{{ $blogs->firstItem() }}-{{ $blogs->lastItem() }} của {{ $blogs->total() }}
                 kết quả</div>
         </div>
     </main>
+    
+    
 
     </div>
     </div>

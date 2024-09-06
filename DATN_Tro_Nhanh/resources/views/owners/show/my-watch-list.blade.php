@@ -4,49 +4,40 @@
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
             <div class="mb-6">
-                <div class="row" style="height: 50px">
+                <div class="row">
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
                         <div class="d-flex form-group mb-0 align-items-center">
-                            <label for="notification-list_length" class="d-block mr-2 mb-0">Kết quả:</label>
-                            <select name="notification-list_length" id="notification-list_length"
-                                aria-controls="invoice-list" class="form-control form-control-lg mr-2 selectpicker"
+                            <label for="invoice-list_length" class="d-block mr-2 mb-0">Kết quả:</label>
+                            <select name="invoice-list_length" id="invoice-list_length" aria-controls="invoice-list"
+                                class="form-control form-control-lg mr-2 selectpicker"
                                 data-style="bg-white btn-lg h-52 py-2 border">
-                                <option value="10" {{ request('notification-list_length') == '10' ? 'selected' : '' }}>
-                                    10
-                                </option>
-                                <option value="20" {{ request('notification-list_length') == '20' ? 'selected' : '' }}>
-                                    20
-                                </option>
-                                <option value="50" {{ request('notification-list_length') == '50' ? 'selected' : '' }}>
-                                    50
-                                </option>
+                                <option value="7">7</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
                             </select>
                         </div>
-                    </div>
-
-                    {{-- <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
-                        <form method="GET" action="{{ route('owners.notification-owners') }}" id="search-form"
-                            class="w-100 h-100" style="height: 1000px">
-                            <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
-                                <input type="text" name="query" value="{{ $query }}" id="search-input"
-                                    class="form-control bg-transparent border-1x" placeholder="Tìm..." aria-label=""
-                                    aria-describedby="basic-addon1">
-                                <div class="input-group-append position-absolute pos-fixed-right-center">
-                                    <button id="search-button" class="btn bg-transparent border-0 text-gray lh-1"
-                                        type="submit">
-                                        <i class="fal fa-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="align-self-center ml-2">
-                            <button class="btn btn-danger btn-lg" id="clear-button" tabindex="0"
-                                aria-controls="invoice-list">
-                                <span>Xóa</span>
-                            </button>
+                        <div class="align-self-center">
+                            <button class="btn btn-primary btn-lg" tabindex="0" aria-controls="invoice-list"><span>Thêm
+                                    mới</span></button>
                         </div>
-                    </div> --}}
+                    </div>
+                    <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
+                        <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
+                            <input type="text" class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..."
+                                aria-label="" aria-describedby="basic-addon1">
+                            <div class="input-group-append position-absolute pos-fixed-right-center">
+                                <button class="btn bg-transparent border-0 text-gray lh-1" type="button"><i
+                                        class="fal fa-search"></i></button>
+                            </div>
+                        </div>
+                        <div class="align-self-center">
+                            <button class="btn btn-danger btn-lg" tabindex="0"
+                                aria-controls="invoice-list"><span>Xóa</span></button>
+                        </div>
+                    </div>
                 </div>
+            </div>
             </div>
             <div class="table-responsive">
                 <table id="notification-list" class="table table-hover bg-white border rounded-lg">
