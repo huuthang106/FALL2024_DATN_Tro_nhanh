@@ -18,7 +18,7 @@ class PriceListService
 
     public function getAllPriceLists()
     {
-        return PriceList::all();
+        return PriceList::orderBy('created_at', 'desc')->get();
     }
 
     public function getPriceListById($id)

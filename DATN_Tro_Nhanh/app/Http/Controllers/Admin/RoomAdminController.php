@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Services\RoomAdminService;
 use App\Http\Requests\CreateRoomRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use App\Events\RoomCreated;
+use Illuminate\Http\Request;
 use App\Models\Notification;
 use App\Services\CategoryAdminService;
 
@@ -84,21 +84,39 @@ class RoomAdminController extends Controller
 
         return view('admincp.create.addRoom', compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users'));
     }
-    public function add_room(CreateRoomRequest $request)
+    public function add_room_test(CreateRoomRequest $request)
     {
         if ($request->isMethod('post')) {
-            try {
-                $room = $this->roomAdminService->create($request);
-                // Kích hoạt event
+            $room = $this->roomAdminService->create($request);
+            if ($room) {
                 event(new RoomCreated($room));
 
                 // Redirect với thông báo thành công
                 return redirect()->route('admin.show-room')->with('success', 'Room đã được tạo thành công.');
-            } catch (\Exception $e) {
-                // Nếu có lỗi xảy ra, sửa thông báo
+            } else {
+                // Handle the case where room creation failed
+                return redirect()->route('admin.add-room-show')->with('error', 'Đã xảy ra lỗi khi tạo Room.');
+            }
+        }
+        // Return a proper view if the request method is not POST
+        return view('admincp.show.showRoom');
+    }
+    public function add_room(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $room = $this->roomAdminService->create($request);
+            if ($room) {
+                event(new RoomCreated($room));
+
+                // Redirect với thông báo thành công
+                return redirect()->route('admin.show-room')->with('success', 'Room đã được tạo thành công.');
+            } else {
+                // Handle the case where room creation failed
                 return redirect()->route('admin.show-room')->with('error', 'Đã xảy ra lỗi khi tạo Room.');
             }
         }
+        // Return a proper view if the request method is not POST
+        return view('admincp.show.showRoom');
     }
     public function update_room_show($slug)
     {
@@ -113,7 +131,7 @@ class RoomAdminController extends Controller
 
         return view('admincp.edit.updateRoom', compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users', 'utilities'));
     }
-    public function update_room(Request $request, $slug)
+    public function update_room(CreateRoomRequest $request, $slug)
     {
         $result = $this->roomAdminService->update($request, $slug);
 

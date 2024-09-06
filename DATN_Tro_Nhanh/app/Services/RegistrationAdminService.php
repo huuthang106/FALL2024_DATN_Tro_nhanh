@@ -36,4 +36,16 @@ class RegistrationAdminService
             return false;
         }
     }
+
+    public function delete($id)
+    {
+        $registration = RegistrationList::find($id);
+
+        if ($registration) {
+            $registration->delete(); // Xóa mềm
+            return true;
+        }
+
+        return false;
+    }
 }

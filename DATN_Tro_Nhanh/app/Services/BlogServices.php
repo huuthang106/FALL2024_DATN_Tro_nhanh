@@ -27,79 +27,79 @@ class BlogServices
         return $slug;
     }
 
-   // In BlogServices.php
-   public function handleBlogCreation(Request $request)
-   {
-       try {
-           // Lấy dữ liệu từ request
-           $data = $request->validate([
-               'title' => 'required|string|max:255',
-               'description' => 'required|string',
-               'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048' // Điều kiện cho ảnh
-           ]);
+    // In BlogServices.php
+    public function handleBlogCreation(Request $request)
+    {
+        try {
+            // Lấy dữ liệu từ request
+            $data = $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'required|string',
+                'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048' // Điều kiện cho ảnh
+            ]);
 
-           // Kiểm tra và tải lên ảnh
-           $images = $this->uploadImages($request);
+            // Kiểm tra và tải lên ảnh
+            $images = $this->uploadImages($request);
 
-           // Xác thực người dùng
-           $userId = Auth::id();
-           if (!$userId) {
-               throw new \Exception("User not authenticated");
-           }
+            // Xác thực người dùng
+            $userId = Auth::id();
+            if (!$userId) {
+                throw new \Exception("User not authenticated");
+            }
 
-           // Tạo blog mới
-           $blog = new Blog();
-           $blog->title = $data['title'];
-           $blog->description = $data['description'];
-           $blog->user_id = $userId;
-           $blog->save();
+            // Tạo blog mới
+            $blog = new Blog();
+            $blog->title = $data['title'];
+            $blog->description = $data['description'];
+            $blog->user_id = $userId;
+            $blog->save();
 
-           // Tạo slug cho blog và lưu vào cơ sở dữ liệu
-           $slug = $this->createSlug($data['title'], $blog->id);
-           $blog->slug = $slug;
-           $blog->save();
+            // Tạo slug cho blog và lưu vào cơ sở dữ liệu
+            $slug = $this->createSlug($data['title'], $blog->id);
+            $blog->slug = $slug;
+            $blog->save();
 
-           // Lưu ảnh liên kết với blog
-           foreach ($images as $filename) {
-               Image::create([
-                   'filename' => $filename,
-                   'blog_id' => $blog->id
-               ]);
-           }
+            // Lưu ảnh liên kết với blog
+            foreach ($images as $filename) {
+                Image::create([
+                    'filename' => $filename,
+                    'blog_id' => $blog->id
+                ]);
+            }
 
-           return $blog;
-       } catch (\Exception $e) {
-           // Ghi log lỗi chi tiết
-           Log::error('Lỗi khi xử lý tạo blog: ' . $e->getMessage());
-           // Ném lại ngoại lệ để xử lý trong controller
-           throw $e;
-       }
-   }
+            return $blog;
+        } catch (\Exception $e) {
+            // Ghi log lỗi chi tiết
+            Log::error('Lỗi khi xử lý tạo blog: ' . $e->getMessage());
+            // Ném lại ngoại lệ để xử lý trong controller
+            throw $e;
+        }
+    }
 
-   private function uploadImages(Request $request)
-   {
-       $uploadedImages = [];
+    private function uploadImages(Request $request)
+    {
+        $uploadedImages = [];
 
-       // Kiểm tra xem có file ảnh nào được gửi trong request không
-       if ($request->hasFile('images')) {
-           foreach ($request->file('images') as $image) {
-               // Tạo tên file duy nhất với timestamp
-               $filename = time() . '_' . $image->getClientOriginalName();
-               // Định nghĩa đường dẫn để lưu ảnh
-               $path = 'assets/images';
-               // Di chuyển ảnh vào thư mục đích
-               $image->move(public_path($path), $filename);
-               // Thêm tên file vào mảng
-               $uploadedImages[] = $filename;
-           }
-       }
+        // Kiểm tra xem có file ảnh nào được gửi trong request không
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                // Tạo tên file duy nhất với timestamp
+                $filename = time() . '_' . $image->getClientOriginalName();
+                // Định nghĩa đường dẫn để lưu ảnh
+                $path = 'assets/images';
+                // Di chuyển ảnh vào thư mục đích
+                $image->move(public_path($path), $filename);
+                // Thêm tên file vào mảng
+                $uploadedImages[] = $filename;
+            }
+        }
 
-       return $uploadedImages;
-   }
+        return $uploadedImages;
+    }
 
 
     // In CreateBlogRequest.php
-    
+
 
 
 
@@ -107,8 +107,17 @@ class BlogServices
 
     public function editBlog($slug)
     {
+        // Lấy blog với slug tương ứng
+        $blog = Blog::where('slug', $slug)->firstOrFail();
 
-        return Blog::where('slug', $slug)->firstOrFail();
+        // Lấy tất cả các hình ảnh của blog
+        $images = Image::where('blog_id', $blog->id)->get();
+
+        // Trả về dữ liệu dưới dạng mảng
+        return [
+            'blog' => $blog,
+            'images' => $images,
+        ];
     }
     public function updateBlog(Request $request, $slug)
     {
@@ -134,30 +143,43 @@ class BlogServices
 
         // Xử lý ảnh
         if ($request->hasFile('images')) {
-            // Xóa ảnh cũ
+            // Lấy các ảnh cũ liên quan đến blog từ cơ sở dữ liệu
             $oldImages = Image::where('blog_id', $blog->id)->get();
+
+            // Xóa ảnh cũ khỏi thư mục và cơ sở dữ liệu
             foreach ($oldImages as $oldImage) {
                 $oldImagePath = public_path('assets/images/' . $oldImage->filename);
+
+                // Kiểm tra nếu file tồn tại và xóa nó
                 if (file_exists($oldImagePath)) {
                     unlink($oldImagePath);
                 }
+
+                // Xóa bản ghi ảnh cũ khỏi cơ sở dữ liệu
                 $oldImage->delete();
             }
 
+            // Lưu ảnh mới vào thư mục và cơ sở dữ liệu
             foreach ($request->file('images') as $image) {
-                $originalName = $image->getClientOriginalName();
+                // Lấy tên gốc và phần mở rộng của ảnh
+                $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
                 $extension = $image->getClientOriginalExtension();
-                $filename = $blog->slug . '-' . pathinfo($originalName, PATHINFO_FILENAME) . '-' . time() . '.' . $extension;
 
+                // Tạo tên file mới dựa trên slug của blog và thời gian hiện tại
+                $filename = $blog->slug . '-' . $originalName . '-' . time() . '.' . $extension;
+
+                // Đường dẫn thư mục lưu ảnh
                 $destinationPath = public_path('assets/images');
                 $image->move($destinationPath, $filename);
 
-                $imageModel = new Image();
-                $imageModel->filename = $filename;
-                $imageModel->blog_id = $blog->id;
-                $imageModel->save();
+                // Lưu thông tin ảnh mới vào cơ sở dữ liệu
+                Image::create([
+                    'filename' => $filename,
+                    'blog_id' => $blog->id,
+                ]);
             }
         }
+
 
         DB::commit();
 
@@ -202,25 +224,27 @@ class BlogServices
     {
         try {
             $userId = Auth::id(); // Lấy ID của người dùng hiện tại
-    
+
             // Xây dựng truy vấn để lấy blog của người dùng cụ thể với thông tin liên quan
             $query = Blog::query()->where('user_id', $userId);
-    
+
             if ($searchTerm) {
                 $query->where(function ($q) use ($searchTerm) {
                     $q->where('title', 'like', '%' . $searchTerm . '%')
-                      ->orWhere('description', 'like', '%' . $searchTerm . '%');
+                        ->orWhere('description', 'like', '%' . $searchTerm . '%');
                 });
             }
-    
+            // Sắp xếp các blog theo ngày tạo mới nhất
+            $query->orderBy('created_at', 'desc');
+
             // Phân trang và trả về kết quả
             return $query->paginate($perPage);
         } catch (\Exception $e) {
             return null;
         }
     }
-    
-    
+
+
 
     public function deleteBlogBySlug($slug)
     {

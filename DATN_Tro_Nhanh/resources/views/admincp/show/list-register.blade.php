@@ -41,7 +41,7 @@
                         </div>
                         <!--begin::Card title-->
                         <!--begin::Card toolbar-->
-                       
+
                         <!--end::Card toolbar-->
                     </div>
                     <!--end::Card header-->
@@ -80,21 +80,21 @@
                                                 <input class="form-check-input" type="checkbox" value="1" />
                                             </div>
                                         </td>
-                                 
+
                                         <td>
-                                            <a href="{{route('admin.detail-registers',$register->id)}}"
+                                            <a href="{{ route('admin.detail-registers', $register->id) }}"
                                                 class="text-gray-800 text-hover-primary mb-1">{{ $register->name }}</a>
-                                            <br><small>{{$register->description}}</small>
+                                            <br><small>{{ $register->description }}</small>
                                         </td>
-                                 
-              
+
+
                                         <td>
                                             <div
                                                 class="badge {{ $register->status ? 'badge-light-warning ' : 'badge-light-success' }}">
-                                                {{ $register->status ==1? 'Chưa duyêt' : ' Đã duyệt' }}
+                                                {{ $register->status == 1 ? 'Chưa duyêt' : ' Đã duyệt' }}
                                             </div>
                                         </td>
-                           
+
                                         <td class="text-end">
                                             <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
                                                 data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Thao tác
@@ -113,7 +113,7 @@
                                                 data-kt-menu="true">
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="../../demo8/dist/apps/subscriptions/add.html"
+                                                    <a href="{{ route('admin.detail-registers', $register->id) }}"
                                                         class="menu-link px-3">Xem chi tiết</a>
                                                 </div>
                                                 <!--end::Menu item-->
@@ -125,12 +125,23 @@
                                                 <!--end::Menu item-->
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
-                                                    <a href="#" data-kt-subscriptions-table-filter="delete_row"
-                                                        class="menu-link px-3">Duyệt</a>
+                                                    <form action="{{ route('admin.start-approve', $register->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <button type="submit"
+                                                            class="menu-link px-3 border-0 bg-transparent fw-normal">Duyệt</button>
+                                                    </form>
                                                 </div>
                                                 <div class="menu-item px-3">
-                                                    <a href="#" data-kt-subscriptions-table-filter="delete_row"
-                                                        class="menu-link px-3">Xóa</a>
+                                                    <form action="{{ route('admin.refuse-registration', $register->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="menu-link px-3 border-0 bg-transparent fw-normal">Từ
+                                                            chối</button>
+                                                    </form>
                                                 </div>
                                                 <!--end::Menu item-->
                                             </div>
@@ -151,7 +162,7 @@
                     </div>
                     <!--end::Card-->
                     <!--begin::Modals-->
-         
+
                 </div>
                 <!--end::Container-->
             </div>

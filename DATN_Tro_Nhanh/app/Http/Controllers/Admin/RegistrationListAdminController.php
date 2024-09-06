@@ -28,6 +28,17 @@ class RegistrationListAdminController extends Controller
         $list = $this->registrationAdminService->getAll();
         return view('admincp.show.list-register', compact('list'));
     }
+
+    public function refuse($id)
+    {
+        $deleted = $this->registrationAdminService->delete($id);
+
+        if ($deleted) {
+            return redirect()->route('admin.list-registers')->with('success', 'Từ chối đơn thành công.');
+        }
+
+        return redirect()->route('admin.list-registers')->with('error', 'Từ chối đơn thất bại.');
+    }
     public function show($id)
     {
 
@@ -44,12 +55,12 @@ class RegistrationListAdminController extends Controller
             return redirect()->back()->with('error', 'Có lỗi xảy ra khi trả dữ liệu. Vui lòng thử lại.');
         }
 
-        $start_update = $this->userAdminServices->updateRole($single_detail->user_id, Self::role_owner);
+        $start_update = $this->userAdminServices->updateRole($single_detail->user_id, self::role_owner);
         if (!$start_update) {
             return redirect()->back()->with('error', 'Có lỗi xảy ra khi cấp quyền. Vui lòng thử lại.');
         }
 
-        $update_status = $this->registrationAdminService->updateStatus($id, Self::hidden_status);
+        $update_status = $this->registrationAdminService->updateStatus($id, self::hidden_status);
         return redirect()->route('admin.list-registers')->with('success', 'Duyệt đơn thành công.');
     }
 }

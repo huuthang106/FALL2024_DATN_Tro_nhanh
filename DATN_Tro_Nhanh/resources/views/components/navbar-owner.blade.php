@@ -246,7 +246,7 @@
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                     <a href="#invoice_collapse"
                                         class="text-heading lh-1 sidebar-link d-flex align-items-center"
-                                        data-toggle="collapse" aria-haspopup="true" aria-expanded="false">
+                                        onclick="toggleDropdown('invoiceBill'); return false;">
                                         <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                             <i class="fal fa-file-invoice"></i>
                                         </span>
@@ -255,7 +255,7 @@
                                     </a>
                                 </li>
                             </ul>
-                            <div class="collapse" id="invoice_collapse">
+                            <div class="collapse" id="invoiceBill">
                                 <div class="card card-body border-0 bg-transparent py-0 pl-6">
                                     <ul class="list-group list-group-flush list-group-no-border">
                                         <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
@@ -332,8 +332,8 @@
                                     </span>
                                     <span class="sidebar-item-text">Chat</span>
                                     <!-- Số lượng yêu thích nằm sau chữ "Yêu thích" -->
-                                    <span
-                                        class="sidebar-item-number text-primary fs-15 font-weight-bold ml-2">    <livewire:unread-message-count /></span>
+                                    <span class="sidebar-item-number text-primary fs-15 font-weight-bold ml-2">
+                                        <livewire:unread-message-count /></span>
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">

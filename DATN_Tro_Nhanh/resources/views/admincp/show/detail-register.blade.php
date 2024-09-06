@@ -107,33 +107,38 @@
                                     <!--end::User-->
                                     <!--begin::Actions-->
                                     <div class="d-flex my-4">
-                                        <form action="{{ route('admin.start-approve', $single_detail->id) }}" method="POST" id="approveForm">
+                                        <form action="{{ route('admin.start-approve', $single_detail->id) }}" method="POST"
+                                            id="approveForm">
                                             @csrf
                                             @method('PUT')
-                                        <button  type="submit" class="btn btn-sm btn-light me-2" >
-                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr012.svg-->
-                                            <span class="svg-icon svg-icon-3 d-none">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none">
-                                                    <path opacity="0.3"
-                                                        d="M10 18C9.7 18 9.5 17.9 9.3 17.7L2.3 10.7C1.9 10.3 1.9 9.7 2.3 9.3C2.7 8.9 3.29999 8.9 3.69999 9.3L10.7 16.3C11.1 16.7 11.1 17.3 10.7 17.7C10.5 17.9 10.3 18 10 18Z"
-                                                        fill="black" />
-                                                    <path
-                                                        d="M10 18C9.7 18 9.5 17.9 9.3 17.7C8.9 17.3 8.9 16.7 9.3 16.3L20.3 5.3C20.7 4.9 21.3 4.9 21.7 5.3C22.1 5.7 22.1 6.30002 21.7 6.70002L10.7 17.7C10.5 17.9 10.3 18 10 18Z"
-                                                        fill="black" />
-                                                </svg>
-                                            </span>
-                                            <!--end::Svg Icon-->
-                                            <!--begin::Indicator-->
-                                            <span class="indicator-label-approve-application">Duyệt</span>
-                                            <span class="indicator-progress">Vui lòng chờ...
-                                                <span
-                                                    class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                            <!--end::Indicator-->
-                                        </button></form>
-                                        <a href="#" class="btn btn-sm btn-primary me-3" data-bs-toggle="modal"
-                                            data-bs-target="#kt_modal_offer_a_deal">Từ chối</a>
-
+                                            <button type="submit" class="btn btn-sm btn-light me-2">
+                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr012.svg-->
+                                                <span class="svg-icon svg-icon-3 d-none">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <path opacity="0.3"
+                                                            d="M10 18C9.7 18 9.5 17.9 9.3 17.7L2.3 10.7C1.9 10.3 1.9 9.7 2.3 9.3C2.7 8.9 3.29999 8.9 3.69999 9.3L10.7 16.3C11.1 16.7 11.1 17.3 10.7 17.7C10.5 17.9 10.3 18 10 18Z"
+                                                            fill="black" />
+                                                        <path
+                                                            d="M10 18C9.7 18 9.5 17.9 9.3 17.7C8.9 17.3 8.9 16.7 9.3 16.3L20.3 5.3C20.7 4.9 21.3 4.9 21.7 5.3C22.1 5.7 22.1 6.30002 21.7 6.70002L10.7 17.7C10.5 17.9 10.3 18 10 18Z"
+                                                            fill="black" />
+                                                    </svg>
+                                                </span>
+                                                <!--end::Svg Icon-->
+                                                <!--begin::Indicator-->
+                                                <span class="indicator-label-approve-application">Duyệt</span>
+                                                <span class="indicator-progress">Vui lòng chờ...
+                                                    <span
+                                                        class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                                <!--end::Indicator-->
+                                            </button>
+                                        </form>
+                                        <form action="{{ route('admin.refuse-registration', $single_detail->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-primary me-3">Từ chối</button>
+                                        </form>
                                     </div>
                                     <!--end::Actions-->
                                 </div>
@@ -154,7 +159,8 @@
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                             height="24" viewBox="0 0 24 24" fill="none">
                                                             <rect opacity="0.5" x="13" y="6" width="13" height="2"
-                                                                rx="1" transform="rotate(90 13 6)" fill="black" />
+                                                                rx="1" transform="rotate(90 13 6)"
+                                                                fill="black" />
                                                             <path
                                                                 d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
                                                                 fill="black" />

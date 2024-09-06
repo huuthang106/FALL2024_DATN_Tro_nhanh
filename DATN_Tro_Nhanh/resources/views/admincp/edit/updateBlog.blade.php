@@ -15,7 +15,7 @@
                         </div>
                     </div>
                     <div id="kt_account_profile_details" class="collapse show">
-                        <form class="blogForm" action="{{ route('admin.update-blog', $blog->slug) }}" method="POST"
+                        <form class="blogForm" action="{{ route('admin.update-blog', $data['blog']->slug) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -27,7 +27,8 @@
                                         <div class="col-lg-8 fv-row">
                                             <input type="text" id="title" name="title"
                                                 class="form-control form-control-lg form-control-solid"
-                                                placeholder="Enter blog title" value="{{ old('title', $blog->title) }}" />
+                                                placeholder="Enter blog title"
+                                                value="{{ old('title', $data['blog']->title) }}" />
                                             @error('title')
                                                 <div class="text-danger mt-3">{{ $message }}</div>
                                             @enderror
@@ -39,7 +40,7 @@
                                         <label class="col-lg-4 col-form-label fw-bold fs-6 required">Description</label>
                                         <div class="col-lg-8 fv-row">
                                             <textarea id="description" name="description" class="form-control form-control-lg form-control-solid"
-                                                placeholder="Enter blog description">{{ old('description', $blog->description) }}</textarea>
+                                                placeholder="Enter blog description">{{ old('description', $data['blog']->description) }}</textarea>
                                             @error('description')
                                                 <div class="text-danger mt-3">{{ $message }}</div>
                                             @enderror
@@ -58,19 +59,29 @@
                                             {{-- <small class="form-text text-muted">Chỉ được tải ảnh PNG & JPG, ảnh phải có kích
                                                 thước 1024x768</small> --}}
                                             <div id="imagePreview" class="mt-3">
-                                                @if ($blog->images && $blog->images->count())
-                                                    @foreach ($blog->images as $image)
+                                                @if ($data['images']->isNotEmpty())
+                                                    @foreach ($data['images'] as $image)
                                                         <img src="{{ asset('assets/images/' . $image->filename) }}"
-                                                            alt="Blog Image" class="img-thumbnail"
+                                                            alt="{{ $data['blog']->title }}" class="img-thumbnail"
                                                             style="max-width: 150px; margin-right: 10px;">
                                                     @endforeach
                                                 @else
                                                     <p>Chưa có hình ảnh nào được tải lên.</p>
                                                 @endif
+
                                             </div>
                                             @error('images')
                                                 <div class="text-danger mt-3">{{ $message }}</div>
                                             @enderror
+                                            <div id="imagePreview" class="mt-3">
+                                                <!-- Preview uploaded images here -->
+                                            </div>
+                                            <div id="imageError" class="text-danger mt-3" style="display: none;">
+                                                <!-- Error messages will be displayed here -->
+                                            </div>
+                                            <div id="noImageError" class="text-danger mt-3" style="display: none;">
+                                                Bạn chưa nhập hình ảnh.
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -146,8 +157,7 @@
 @endsection
 @push('styleAdmin')
     <base href="{{ asset('..') }}">
-    <title>Metronic - the world's #1 selling Bootstrap Admin Theme Ecosystem for HTML, Vue, React, Angular &amp; Laravel by
-        Keenthemes</title>
+    <title>Danh Sách Loại</title>
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"
@@ -162,6 +172,11 @@
     <meta property="og:site_name" content="Keenthemes | Metronic" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
     <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
+    {{-- hien thi thong bao --}}
+    <meta name="success" content="{{ session('success') }}">
+    <meta name="error" content="{{ session('error') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
@@ -194,6 +209,7 @@
     </script>
     <!--begin::Javascript-->
     <!--begin::Global Javascript Bundle(used by all pages)-->
+    <script src="{{ asset('assets/js/blog.js') }}"></script>
     <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
     <!--end::Global Javascript Bundle-->

@@ -15,6 +15,7 @@ class Transaction extends Model
         'user_id',
         'bill_id',
         'description',
+        'balance'
         // Thêm các thuộc tính khác nếu cần
     ];
 }

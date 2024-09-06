@@ -244,6 +244,19 @@ class RoomAdminService
         if ($room->save()) {
             // Xử lý tải hình ảnh
             if ($request->hasFile('images')) {
+                // Lấy tất cả các ảnh cũ liên quan đến room này từ cơ sở dữ liệu
+                $oldImages = Image::where('room_id', $room->id)->get();
+
+                // Xóa ảnh cũ khỏi thư mục và cơ sở dữ liệu
+                foreach ($oldImages as $oldImage) {
+                    $oldImagePath = public_path('assets/images/' . $oldImage->filename);
+                    if (file_exists($oldImagePath)) {
+                        unlink($oldImagePath); // Xóa file khỏi thư mục
+                    }
+                    $oldImage->delete(); // Xóa bản ghi ảnh trong cơ sở dữ liệu
+                }
+
+                // Lưu ảnh mới vào thư mục và cơ sở dữ liệu
                 $images = $request->file('images');
                 foreach ($images as $image) {
                     // Tạo tên file mới với timestamp

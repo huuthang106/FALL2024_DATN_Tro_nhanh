@@ -15,7 +15,8 @@
                         </div>
                     </div>
                     <div id="kt_account_profile_details" class="collapse show">
-                        <form id="priceListForm" class="form" method="POST" enctype="multipart/form-data" action="{{ route('admin.cap-nhat-bang-gia', $priceList->id) }}">
+                        <form id="priceListForm" class="form" method="POST" enctype="multipart/form-data"
+                            action="{{ route('admin.cap-nhat-bang-gia', $priceList->id) }}">
                             @csrf
                             @method('PUT')
                             <div class="card-body border-top p-9">
@@ -26,27 +27,30 @@
                                         <select name="location_id" class="form-select form-select-solid form-select-lg">
                                             <option value="">Chọn vị trí</option>
                                             @foreach ($locations as $location)
-                                            <option value="{{ $location->id }}" {{ old('location_id', $priceList->location_id) == $location->id ? 'selected' : '' }}>
-                                                {{ $location->name }}
-                                            </option>
-                                        @endforeach
+                                                <option value="{{ $location->id }}"
+                                                    {{ old('location_id', $priceList->location_id) == $location->id ? 'selected' : '' }}>
+                                                    {{ $location->name }}
+                                                </option>
+                                            @endforeach
                                         </select>
-                                        
-                                        @error('location')
+
+                                        @error('location_id')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                        
+
                                     <!-- Price -->
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label fw-bold fs-6 required">Giá</label>
-                                        <input type="number" name="price" class="form-control form-control-lg form-control-solid" placeholder="giá" value="{{ old('price', $priceList->price) }}" />
+                                        <input type="number" name="price"
+                                            class="form-control form-control-lg form-control-solid" placeholder="giá"
+                                            value="{{ old('price', $priceList->price) }}" />
                                         @error('price')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-                        
+
                                 <div class="row mb-6">
                                     <!-- Description -->
                                     <div class="col-md-12 mb-3">
@@ -57,38 +61,44 @@
                                         @enderror
                                     </div>
                                 </div>
-                        
+
                                 <div class="row mb-6">
                                     <!-- Duration (Days) -->
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label fw-bold fs-6 required">Số ngày</label>
-                                        <input type="number" name="duration_day" class="form-control form-control-lg form-control-solid" placeholder="Số ngày" value="{{ old('duration_day', $priceList->duration_day) }}" />
+                                        <input type="number" name="duration_day"
+                                            class="form-control form-control-lg form-control-solid" placeholder="Số ngày"
+                                            value="{{ old('duration_day', $priceList->duration_day) }}" />
                                         @error('duration_day')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                        
+
                                     <!-- Status -->
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label fw-bold fs-6 required">Trạng thái</label>
                                         <select name="status" class="form-select form-select-solid form-select-lg">
-                                            <option value="1" {{ old('status', $priceList->status) == '1' ? 'selected' : '' }}>Kích hoạt</option>
-                                            <option value="0" {{ old('status', $priceList->status) == '2' ? 'selected' : '' }}>Không kích hoạt</option>
+                                            <option value="1"
+                                                {{ old('status', $priceList->status) == '1' ? 'selected' : '' }}>Kích hoạt
+                                            </option>
+                                            <option value="0"
+                                                {{ old('status', $priceList->status) == '2' ? 'selected' : '' }}>Không kích
+                                                hoạt</option>
                                         </select>
                                         @error('status')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-                        
+
                                 <div class="d-flex justify-content-end">
                                     <button type="reset" class="btn btn-light btn-active-light-primary me-2">Hủy</button>
                                     <button type="submit" class="btn btn-primary">Lưu</button>
                                 </div>
                             </div>
                         </form>
-                        
-                        
+
+
                     </div>
                 </div>
             </div>
@@ -135,8 +145,8 @@
         <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
         <span class="svg-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1"
-                    transform="rotate(90 13 6)" fill="black" />
+                <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1" transform="rotate(90 13 6)"
+                    fill="black" />
                 <path
                     d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
                     fill="black" />
@@ -208,8 +218,4 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{{ asset('assets/js/api-ggmap-nht.js') }}"></script>
     <script src="{{ asset('assets/js/api-country-vn-nht.js') }}"></script>
-   
-
-
-    
 @endpush

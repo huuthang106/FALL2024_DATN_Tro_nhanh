@@ -130,13 +130,20 @@
                                             <div class="col-lg-8 fv-row">
                                                 <select name="category_id"
                                                     class="form-select form-select-solid form-select-lg">
-                                                    @foreach ($categories as $category)
-                                                        <option value="{{ $category->id }}"
-                                                            {{ $rooms->category_id == $category->id ? 'selected' : '' }}>
-                                                            {{ $category->name }}
+                                                    @if ($categories->isEmpty())
+                                                        <option value="">Không có dữ liệu
                                                         </option>
-                                                    @endforeach
+                                                    @else
+                                                        @foreach ($categories as $category)
+                                                            <option value="{{ $category->id }}">
+                                                                {{ $category->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    @endif
                                                 </select>
+                                                @error('category_id')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="row mb-6">
@@ -423,6 +430,9 @@
                                                         Tỉnh Cà
                                                         Mau</option>
                                                 </select>
+                                                @error('province')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="row mb-6">
@@ -430,8 +440,10 @@
                                             <div class="col-lg-8 fv-row">
                                                 <select class="selectpicker form-select form-select-solid form-select-lg"
                                                     id="district-town" name="district">
-
                                                 </select>
+                                                @error('district')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="row mb-6">
@@ -440,6 +452,9 @@
                                                 <select class="selectpicker form-select form-select-solid form-select-lg"
                                                     id="ward-commune" name="village">
                                                 </select>
+                                                @error('village')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div>
@@ -479,9 +494,15 @@
                                                             class="img-s" alt="{{ $rooms->title }}">
                                                     @endforeach
                                                 @else
-                                                    <p>No images available for this room.</p>
+                                                    <p>Phòng không có ảnh.</p>
                                                 @endif
-                                                <div id="image-input-container mt-5">
+                                                @error('images')
+                                                    <div class="text-danger mt-3">{{ $message }}</div>
+                                                @enderror
+                                                @foreach ($errors->get('images.*') as $error)
+                                                    <div class="text-danger mt-3">{{ $error[0] }}</div>
+                                                @endforeach
+                                                <div id="image-input-container" class="mt-5">
                                                     <input type="file" name="images[]"
                                                         class="form-control form-control-lg form-control-solid mb-3"
                                                         placeholder="" />
@@ -506,6 +527,9 @@
                                                         <label class="bathroom-label" for="bathroomInput">
                                                             Phòng tắm
                                                         </label>
+                                                        @error('bathrooms')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6 col-lg-3">
@@ -620,8 +644,7 @@
 @endsection
 @push('styleAdmin')
     <base href="{{ asset('..') }}">
-    <title>Metronic - the world's #1 selling Bootstrap Admin Theme Ecosystem for HTML, Vue, React, Angular &amp; Laravel by
-        Keenthemes</title>
+    <title>Danh Sách Loại</title>
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"
@@ -636,6 +659,11 @@
     <meta property="og:site_name" content="Keenthemes | Metronic" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
     <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
+    {{-- hien thi thong bao --}}
+    <meta name="success" content="{{ session('success') }}">
+    <meta name="error" content="{{ session('error') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
@@ -665,6 +693,9 @@
     <script src="{{ asset('assets/js/custom/apps/chat/chat.js') }}"></script>
     <script src="{{ asset('assets/js/custom/modals/create-app.js') }}"></script>
     <script src="{{ asset('assets/js/custom/modals/upgrade-plan.js') }}"></script>
+    <script src="{{ asset('assets/js/image-ntt.js') }}"></script>
+
+
     <!--end::Page Custom Javascript-->
     <!--end::Javascript-->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC67NQzqFC2WplLzC_3PsL5gejG1_PZLDk&libraries=places">
@@ -673,7 +704,6 @@
     <script src="{{ asset('assets/js/api-ggmap-nht.js') }}"></script>
     {{-- <script src="{{ asset('assets/js/api-country-vn-nht.js') }}"></script> --}}
     <script src="{{ asset('assets/js/api-ntt.js') }}"></script>
-    <script src="{{ asset('assets/js/image-ntt.js') }}"></script>
     <script>
         window.roomData = {
             provinceId: '{{ $rooms->province }}',

@@ -76,9 +76,9 @@ class BillService
             Transaction::create([
                 'user_id' => $user_id,
                 'bill_id' => $billId,
+                'balance' => 0,
                 'description' => $description,
             ]);
-
             // Cập nhật trạng thái của hóa đơn và ngày thanh toán
             $bill->update([
                 'status' => 2,

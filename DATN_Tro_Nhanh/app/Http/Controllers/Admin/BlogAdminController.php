@@ -29,22 +29,22 @@ class BlogAdminController extends Controller
         $blogs = $this->BlogService->getAllBlogs();
         return view('admincp.show.showBlog', compact('blogs'));
     }
-    
+
     public function editBlog($slug)
     {
         try {
             // Gọi phương thức editBlog từ service
-            $blog = $this->BlogService->editBlog($slug);
+            $data = $this->BlogService->editBlog($slug);
 
             // Trả về view với biến blog
-            return view('admincp.edit.updateBlog', compact('blog'));
+            return view('admincp.edit.updateBlog', compact('data'));
         } catch (\Exception $e) {
             Log::error('Không thể lấy blog để chỉnh sửa: ' . $e->getMessage());
             return redirect()->route('admin.sua-blog', $slug)->with('error', 'Có lỗi xảy ra khi lấy blog để chỉnh sửa.');
         }
     }
 
-    public function updateBlog(Request $request, $slug)
+    public function updateBlog(CreateBlogRequest $request, $slug)
     {
         $result = $this->BlogService->updateBlog($request, $slug);
 
