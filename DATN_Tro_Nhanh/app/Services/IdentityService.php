@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 use App\Models\Identity;
@@ -8,6 +9,7 @@ use Illuminate\Support\Facades\Http;
 use App\Models\Image;
 use Illuminate\Support\Facades\Log;
 use App\Events\ImagesUploaded;
+
 
 class IdentityService
 {
@@ -245,4 +247,10 @@ class IdentityService
 
         return redirect()->back()->with(['error' => $errorMessages['default'], 'showAlert' => true]);
     }
+
+    public function getIdIdentity($user_id)
+{
+    $identity = Identity::where('user_id', $user_id)->first();
+    return $identity ? $identity->id : null;
+}
 }

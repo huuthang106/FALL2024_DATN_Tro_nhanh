@@ -7,20 +7,25 @@ use Illuminate\Http\Request;
 use App\Services\RegistrationAdminService;
 use App\Services\ImageAdminService;
 use App\Services\UserAdminServices;
+use App\Services\IdentityService;
 use phpDocumentor\Reflection\Types\Self_;
-
+use Illuminate\Support\Facades\Auth;
 class RegistrationListAdminController extends Controller
 {
     //
-    protected $RegistrationAdminService;
+    protected $registrationAdminService;
+    protected $imageAdminService;
+    protected $identityService;
+    protected $userAdminServices;
     private const role_owner = 2;
     private const hidden_status = 2;
 
-    public function __construct(RegistrationAdminService $registrationAdminService, ImageAdminService $imageAdminService, UserAdminServices $userAdminServices)
+    public function __construct(RegistrationAdminService $registrationAdminService, ImageAdminService $imageAdminService, UserAdminServices $userAdminServices, IdentityService $identityService)
     {
         $this->registrationAdminService = $registrationAdminService;
         $this->imageAdminService = $imageAdminService;
         $this->userAdminServices = $userAdminServices;
+        $this->identityService = $identityService;
     }
     public function index()
     {
@@ -41,11 +46,15 @@ class RegistrationListAdminController extends Controller
     }
     public function show($id)
     {
-
+        if(Auth::check()) {
         $single_detail = $this->registrationAdminService->getID($id);
-        $list_image = $this->imageAdminService->getImageUserId($single_detail->id);
+        $id_intentity = $this->identityService->getIdIdentity(Auth::user()->id);
+
+        $list_image = $this->imageAdminService->getImageUserId($id_intentity);
         // dd($list_image);
         return view('admincp.show.detail-register', compact('single_detail', 'list_image'));
+        }
+        return redirect()->route('/')->with('error', '');
     }
     public function start_approve_application($id)
     {

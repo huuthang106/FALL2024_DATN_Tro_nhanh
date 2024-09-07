@@ -14,12 +14,12 @@ use Illuminate\Support\Facades\DB;
 
 class ImageAdminService
 {
-  public function getImageUserId($id){
-    $list_image = Image::where('registrationlist_id', $id)->get();
-    return $list_image;
+  public function getImageUserId($id)
+  {
+    if (auth::check()) {
+      $list_image = Image::where('identity_id', $id)->get();
+      return $list_image;
+    }
+    return null;
   }
-   
-
 }
-
-   
