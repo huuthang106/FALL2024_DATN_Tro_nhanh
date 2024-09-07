@@ -65,7 +65,8 @@
                             <input type="checkbox"
                                 class="new-control-input child-chk select-customers-info">
                         </label></td>
-                    <td class="align-middle"><a href="dashboard-preview-invoice.html"><span
+                        <td class="align-middle"><a
+                            href="{{route('owners.detail-zone', ['slug' => $zone->slug]) }}"><span
                                 class="inv-number">{{ $zone->name }}</span></a>
                     </td>
                     <td class="align-middle">
