@@ -39,18 +39,25 @@ class RoomOwnersController extends Controller
      */
     public function index(Request $request)
     {
+        // $userId = Auth::id();
+        // // Tìm kiếm và sắp xếp từ yêu cầu
+        // $searchQuery = $request->input('search');
+        // $sortBy = $request->input('sort-by', 'title'); // Mặc định theo tiêu đề
+        // // Gọi service
+        // $rooms = $this->roomOwnersService->getRooms($userId, $searchQuery, $sortBy);
+        // // Lấy số lượng phòng của người dùng hiện tại
+        // $roomCount = $this->roomOwnersService->getRoomCount($userId);
+        // return view('owners.show.dashboard-my-properties', [
+        //     'rooms' => $rooms,
+        //     'roomOwnersService' => $this->roomOwnersService,
+        //     'roomCount' => $roomCount,
+        // ]);
         $userId = Auth::id();
-        // Tìm kiếm và sắp xếp từ yêu cầu
-        $searchQuery = $request->input('search');
-        $sortBy = $request->input('sort-by', 'title'); // Mặc định theo tiêu đề
-        // Gọi service
-        $rooms = $this->roomOwnersService->getRooms($userId, $searchQuery, $sortBy);
-        // Lấy số lượng phòng của người dùng hiện tại
         $roomCount = $this->roomOwnersService->getRoomCount($userId);
+
         return view('owners.show.dashboard-my-properties', [
-            'rooms' => $rooms,
-            'roomOwnersService' => $this->roomOwnersService,
             'roomCount' => $roomCount,
+            'roomOwnersService' => $this->roomOwnersService,
         ]);
     }
     //xoa room 

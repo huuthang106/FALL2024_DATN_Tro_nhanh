@@ -150,39 +150,39 @@ class RoomOwnersService
         }
     }
     // Hiểm thị danh sách trọ của tài khoản
-    public function getRooms($userId, $searchQuery = null, $sortBy = 'title')
-    {
-        $query = Room::where('user_id', $userId);
-        // Lọc
-        if (!empty($searchQuery)) {
-            $query->where('title', 'like', '%' . $searchQuery . '%');
-        }
-        // Sắp xếp
-        switch ($sortBy) {
-            case 'price_low_to_high':
-                $query->orderBy('price', 'asc');
-                break;
-            case 'price_high_to_low':
-                $query->orderBy('price', 'desc');
-                break;
-            case 'date_old_to_new':
-                $query->orderBy('created_at', 'asc');
-                break;
-            case 'date_new_to_old':
-            default:
-                $query->orderBy('created_at', 'desc'); // Mặc định mới đến cũ
-                break;
-        }
-        // Phân trang
-        return $query->paginate(10);
-    }
+    // public function getRooms($userId, $searchQuery = null, $sortBy = 'title')
+    // {
+    //     $query = Room::where('user_id', $userId);
+    //     // Lọc
+    //     if (!empty($searchQuery)) {
+    //         $query->where('title', 'like', '%' . $searchQuery . '%');
+    //     }
+    //     // Sắp xếp
+    //     switch ($sortBy) {
+    //         case 'price_low_to_high':
+    //             $query->orderBy('price', 'asc');
+    //             break;
+    //         case 'price_high_to_low':
+    //             $query->orderBy('price', 'desc');
+    //             break;
+    //         case 'date_old_to_new':
+    //             $query->orderBy('created_at', 'asc');
+    //             break;
+    //         case 'date_new_to_old':
+    //         default:
+    //             $query->orderBy('created_at', 'desc'); // Mặc định mới đến cũ
+    //             break;
+    //     }
+    //     // Phân trang
+    //     return $query->paginate(10);
+    // }
 
-    // Lấy hình ảnh
-    public function getRoomImageUrl(Room $room): string
-    {
-        $image = $room->images->first();
-        return $image ? asset('assets/images/' . $image->filename) : asset('assets/images/properties-grid-08.jpg');
-    }
+    // // Lấy hình ảnh
+    // public function getRoomImageUrl(Room $room): string
+    // {
+    //     $image = $room->images->first();
+    //     return $image ? asset('assets/images/' . $image->filename) : asset('assets/images/properties-grid-08.jpg');
+    // }
     // Tổng số trọ của tài khoản
     public function getRoomCount($userId = null)
 {

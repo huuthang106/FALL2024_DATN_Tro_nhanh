@@ -22,7 +22,7 @@
                             class="badge badge-white badge-pill text-primary fs-18 font-weight-bold ml-2">{{ $roomCount }}</span>
                     </h2>
                 </div>
-                <div class="form-inline justify-content-md-end mx-n2">
+                {{-- <div class="form-inline justify-content-md-end mx-n2">
                     <div class="p-2">
                         <div class="input-group input-group-lg bg-white border">
                             <div class="input-group-prepend">
@@ -64,164 +64,129 @@
                             </select>
                         </div>
                     </div>
-                </div>
+                </div> --}}
+                @livewire('room-owners-list')
             </form>
-            <div class="table-responsive">
-                <table class="table table-hover bg-white border rounded-lg">
-                    <thead class="thead-sm thead-black">
-                        <tr>
-                            <th scope="col" class="border-top-0 px-6 pt-5 pb-4">Tiêu đề danh sách</th>
-                            <th scope="col" class="border-top-0 pt-5 pb-4">Ngày xuất bản</th>
-                            <th scope="col" class="border-top-0 pt-5 pb-4">Trạng thái</th>
-                            <th scope="col" class="border-top-0 pt-5 pb-4">Xem</th>
-                            <th scope="col" class="border-top-0 pt-5 pb-4">Hành động</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if ($rooms->isEmpty())
-                            <p>Bạn chưa có phòng trọ nào.</p>
-                        @else
-                            @foreach ($rooms as $room)
-                                <tr class="shadow-hover-xs-2 bg-hover-white">
-                                    <td class="align-middle pt-6 pb-4 px-6">
-                                        <div class="media">
-                                            <div class="w-120px mr-4 position-relative">
-                                                @php
-                                                    // Gọi service để lấy URL của ảnh
-                                                    $imageUrl = $roomOwnersService->getRoomImageUrl($room);
-                                                @endphp
-                                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
-                                                    <img src="{{ $imageUrl }}" alt="{{ $room->title }}"
-                                                        class="img-fluid">
-                                                </a>
-                                                <span class="badge badge-indigo position-absolute pos-fixed-top">Cho
-                                                    thuê</span>
-                                            </div>
 
-                                            <div class="media-body">
-                                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
-                                                    class="text-dark hover-primary">
-                                                    <h5 class="fs-16 mb-0 lh-18">{{ $room->title }}</h5>
-                                                </a>
-                                                <p class="mb-1 font-weight-500">{{ $room->address }}</p>
-                                                <span
-                                                    class="text-heading lh-15 font-weight-bold fs-17">{{ number_format($room->price, 0, ',', '.') }}
-                                                    VND</span>
-                                                {{-- <span class="text-gray-light">/tháng</span> --}}
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">{{ $room->created_at->format('d/m/Y') }}</td>
-                                    {{-- <td class="align-middle">
+            <div class="media-body">
+                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}" class="text-dark hover-primary">
+                    <h5 class="fs-16 mb-0 lh-18">{{ $room->title }}</h5>
+                </a>
+                <p class="mb-1 font-weight-500">{{ $room->address }}</p>
+                <span class="text-heading lh-15 font-weight-bold fs-17">{{ number_format($room->price, 0, ',', '.') }}
+                    VND</span>
+                {{-- <span class="text-gray-light">/tháng</span> --}}
+            </div>
+        </div>
+        </td>
+        <td class="align-middle">{{ $room->created_at->format('d/m/Y') }}</td>
+        {{-- <td class="align-middle">
                                         <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">chờ
                                             duyệt</span>
                                     </td> --}}
-                                    <td class="align-middle">
-                                        {{-- const CON_TRONG = 1; // Còn trống
+        <td class="align-middle">
+            {{-- const CON_TRONG = 1; // Còn trống
                                             const DA_THUE = 2; // Đã thuê --}}
-                                        @if ($room->status === 1)
-                                            <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">Còn
-                                                trống</span>
-                                        @elseif ($room->status === 2)
-                                            <span class="badge text-capitalize font-weight-normal fs-12 badge-pink">Đã
-                                                thuê</span>
-                                        @else
-                                            <span class="badge text-capitalize font-weight-normal fs-12 badge-gray">Không
-                                                xác định</span>
-                                        @endif
-                                    </td>
-                                    <td class="align-middle">{{ $room->view }}</td>
-                                    <td class="align-middle">
-                                        <a href="{{ route('owners.room-view-update', $room->slug) }}" data-toggle="tooltip"
-                                            title="Chỉnh sửa" class="d-inline-block fs-18 text-muted hover-primary mr-5"><i
-                                                class="fal fa-pencil-alt"></i></a>
-                                        <form action="{{ route('owners.destroy', $room->id) }}" method="POST"
-                                            class="d-inline-block">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                class="fs-18 text-muted hover-primary border-0 bg-transparent"><i
-                                                    class="fal fa-trash-alt"></i></button>
-                                        </form>
-                                        {{-- <a href="#" data-toggle="tooltip" title="Xóa"
+            @if ($room->status === 1)
+                <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">Còn
+                    trống</span>
+            @elseif ($room->status === 2)
+                <span class="badge text-capitalize font-weight-normal fs-12 badge-pink">Đã
+                    thuê</span>
+            @else
+                <span class="badge text-capitalize font-weight-normal fs-12 badge-gray">Không
+                    xác định</span>
+            @endif
+        </td>
+        <td class="align-middle">{{ $room->view }}</td>
+        <td class="align-middle">
+            <a href="{{ route('owners.room-view-update', $room->slug) }}" data-toggle="tooltip" title="Chỉnh sửa"
+                class="d-inline-block fs-18 text-muted hover-primary mr-5"><i class="fal fa-pencil-alt"></i></a>
+            <form action="{{ route('owners.destroy', $room->id) }}" method="POST" class="d-inline-block">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="fs-18 text-muted hover-primary border-0 bg-transparent"><i
+                        class="fal fa-trash-alt"></i></button>
+            </form>
+            {{-- <a href="#" data-toggle="tooltip" title="Xóa"
                                             class="d-inline-block fs-18 text-muted hover-primary"><i
                                                 class="fal fa-trash-alt"></i></a> --}}
-                                    </td>
-                                </tr>
-                            @endforeach
+        </td>
+        </tr>
+        @endforeach
+        @endif
+        </tbody>
+        </table>
+        {{-- Phân trang --}}
+        <div class="d-flex justify-content-center mt-4">
+            @if ($rooms->hasPages())
+                @php
+                    $queryParams = [
+                        'query' => request()->query('query', ''),
+                        'room-list_length' => request()->query('room-list_length', 10),
+                    ];
+                @endphp
+                <nav aria-label="Page navigation">
+                    <ul class="pagination rounded-active justify-content-center">
+                        {{-- Trang trước --}}
+                        <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
+                            <a class="page-link"
+                                href="{{ $rooms->previousPageUrl() . '&' . http_build_query($queryParams) }}"><i
+                                    class="far fa-angle-double-left"></i></a>
+                        </li>
+
+                        {{-- Trang đầu tiên --}}
+                        @if ($rooms->currentPage() > 2)
+                            <li class="page-item"><a class="page-link"
+                                    href="{{ $rooms->url(1) . '&' . http_build_query($queryParams) }}">1</a></li>
                         @endif
-                    </tbody>
-                </table>
-                {{-- Phân trang --}}
-                <div class="d-flex justify-content-center mt-4">
-                    @if ($rooms->hasPages())
-                        @php
-                            $queryParams = [
-                                'query' => request()->query('query', ''),
-                                'room-list_length' => request()->query('room-list_length', 10),
-                            ];
-                        @endphp
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination rounded-active justify-content-center">
-                                {{-- Trang trước --}}
-                                <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
-                                    <a class="page-link"
-                                        href="{{ $rooms->previousPageUrl() . '&' . http_build_query($queryParams) }}"><i
-                                            class="far fa-angle-double-left"></i></a>
-                                </li>
 
-                                {{-- Trang đầu tiên --}}
-                                @if ($rooms->currentPage() > 2)
-                                    <li class="page-item"><a class="page-link"
-                                            href="{{ $rooms->url(1) . '&' . http_build_query($queryParams) }}">1</a></li>
-                                @endif
+                        {{-- Dấu ba chấm ở đầu nếu cần --}}
+                        @if ($rooms->currentPage() > 3)
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                        @endif
 
-                                {{-- Dấu ba chấm ở đầu nếu cần --}}
-                                @if ($rooms->currentPage() > 3)
-                                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                                @endif
+                        {{-- Hiển thị các trang xung quanh trang hiện tại --}}
+                        @for ($i = max(1, $rooms->currentPage() - 1); $i <= min($rooms->currentPage() + 1, $rooms->lastPage()); $i++)
+                            <li class="page-item {{ $rooms->currentPage() == $i ? 'active' : '' }}">
+                                <a class="page-link"
+                                    href="{{ $rooms->url($i) . '&' . http_build_query($queryParams) }}">{{ $i }}</a>
+                            </li>
+                        @endfor
 
-                                {{-- Hiển thị các trang xung quanh trang hiện tại --}}
-                                @for ($i = max(1, $rooms->currentPage() - 1); $i <= min($rooms->currentPage() + 1, $rooms->lastPage()); $i++)
-                                    <li class="page-item {{ $rooms->currentPage() == $i ? 'active' : '' }}">
-                                        <a class="page-link"
-                                            href="{{ $rooms->url($i) . '&' . http_build_query($queryParams) }}">{{ $i }}</a>
-                                    </li>
-                                @endfor
+                        {{-- Dấu ba chấm ở cuối nếu cần --}}
+                        @if ($rooms->currentPage() < $rooms->lastPage() - 2)
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                        @endif
 
-                                {{-- Dấu ba chấm ở cuối nếu cần --}}
-                                @if ($rooms->currentPage() < $rooms->lastPage() - 2)
-                                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                                @endif
+                        {{-- Trang cuối cùng --}}
+                        @if ($rooms->currentPage() < $rooms->lastPage() - 1)
+                            <li class="page-item"><a class="page-link"
+                                    href="{{ $rooms->url($rooms->lastPage()) . '&' . http_build_query($queryParams) }}">{{ $rooms->lastPage() }}</a>
+                            </li>
+                        @endif
 
-                                {{-- Trang cuối cùng --}}
-                                @if ($rooms->currentPage() < $rooms->lastPage() - 1)
-                                    <li class="page-item"><a class="page-link"
-                                            href="{{ $rooms->url($rooms->lastPage()) . '&' . http_build_query($queryParams) }}">{{ $rooms->lastPage() }}</a>
-                                    </li>
-                                @endif
+                        {{-- Trang tiếp theo --}}
+                        <li class="page-item {{ $rooms->currentPage() == $rooms->lastPage() ? 'disabled' : '' }}">
+                            <a class="page-link"
+                                href="{{ $rooms->nextPageUrl() . '&' . http_build_query($queryParams) }}"><i
+                                    class="far fa-angle-double-right"></i></a>
+                        </li>
+                    </ul>
+                </nav>
+            @endif
+        </div>
 
-                                {{-- Trang tiếp theo --}}
-                                <li class="page-item {{ $rooms->currentPage() == $rooms->lastPage() ? 'disabled' : '' }}">
-                                    <a class="page-link"
-                                        href="{{ $rooms->nextPageUrl() . '&' . http_build_query($queryParams) }}"><i
-                                            class="far fa-angle-double-right"></i></a>
-                                </li>
-                            </ul>
-                        </nav>
-                    @endif
-                </div>
+        {{-- Kết quả --}}
+        <div class="text-center mt-2">
+            @if ($rooms->total() > 0)
+                {{ $rooms->firstItem() }}-{{ $rooms->lastItem() }} trong {{ $rooms->total() }} Kết quả
+            @else
+                Không có kết quả nào
+            @endif
+        </div>
 
-                {{-- Kết quả --}}
-                <div class="text-center mt-2">
-                    @if ($rooms->total() > 0)
-                        {{ $rooms->firstItem() }}-{{ $rooms->lastItem() }} trong {{ $rooms->total() }} Kết quả
-                    @else
-                        Không có kết quả nào
-                    @endif
-                </div>
-
-            </div>
+        </div>
         </div>
     </main>
 

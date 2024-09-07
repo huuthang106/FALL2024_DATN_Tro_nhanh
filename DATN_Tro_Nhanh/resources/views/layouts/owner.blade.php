@@ -26,6 +26,7 @@
 
 
 
+    @livewireStyles
 </head>
 
 <body>
