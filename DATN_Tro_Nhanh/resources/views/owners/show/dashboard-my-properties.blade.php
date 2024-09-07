@@ -14,20 +14,9 @@
          </div>
      @endif
 
-     <main id="content" class="bg-gray-01">
-         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
-             <div class="mr-0 mr-md-auto">
-                 <h2 class="mb-0 text-heading fs-22 lh-15">Danh sách trọ<span
-                         class="badge badge-white badge-pill text-primary fs-18 font-weight-bold ml-2">{{ $roomCount }}</span>
-                 </h2>
-             </div>
+  
              @livewire('room-owners-list')
-         </div>
-     </main>
-
-     </div>
-     </div>
-     </div>
+   
 
      <!-- Vendors scripts -->
 
@@ -98,4 +87,10 @@
      <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
      <!-- Theme scripts -->
      <script src="{{ asset('assets/js/theme.js') }}"></script>
+     <script>document.addEventListener("livewire:load", function() {
+        Livewire.hook('message.processed', (message, component) => {
+            $('.selectpicker').selectpicker('destroy');
+            $('.selectpicker').selectpicker();
+        });
+    });</script>
  @endpush

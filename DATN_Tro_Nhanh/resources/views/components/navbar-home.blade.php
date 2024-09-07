@@ -187,7 +187,6 @@
         </div>
     </div>
 
-    <!-- Life is available only in the present moment. - Thich Nhat Hanh -->
     <header
         class="main-header position-absolute fixed-top m-0 navbar-dark header-sticky header-sticky-smart header-mobile-xl">
         <div class="sticky-area">
@@ -197,7 +196,7 @@
                         <a class="navbar-brand mr-7" href="index.html">
                             <img src="{{ asset('assets/images/tro-moi.png') }}" alt="HomeID" class="normal-logo">
 
-                            <img src="{{ asset('assets/images/tro-moi.png') }}" alt="HomeID" class="sticky-logo">
+                            <img src="{{ asset('assets/images/logo-moi.png') }}" alt="HomeID" class="sticky-logo">
                         </a>
 
                        <div class="row ml-auto mr-4 ">
@@ -449,103 +448,68 @@
                         </div>
                     </nav>
                     <div class="ml-auto d-none d-xl-block">
-                        <ul
-                            class="navbar-nav flex-row ml-auto align-items-center justify-content-lg-end flex-wrap py-2">
-                            {{-- <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle mr-md-2 pr-2 pl-0 pl-lg-2" href="#"
-                                    id="bd-versions" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    ENG
-                                </a>
-                                <div class="dropdown-menu dropdown-sm dropdown-menu-right"
-                                    aria-labelledby="bd-versions">
-                                    <a class="dropdown-item" href="#">VN</a>
-                                    <a class="dropdown-item active" href="#">ENG</a>
-                                    <a class="dropdown-item" href="#">ARB</a>
-                                    <a class="dropdown-item" href="#">KR</a>
-                                    <a class="dropdown-item" href="#">JN</a>
-                                </div>
-                            </li> --}}
-                            {{-- <li class="divider"></li> --}}
-                            &nbsp; &nbsp; &nbsp;
-                            <li class="nav-item ">
+                        <ul class="navbar-nav flex-row ml-auto align-items-center justify-content-lg-end flex-wrap py-2">
+                            <!-- Language Dropdown (Commented Out) -->
+                            <!-- User Dropdown -->
+                            <li class="nav-item">
                                 @if (Auth::check())
-                                    <a class="nav-link dropdown-toggle mr-md-2 pr-2 pl-0 pl-lg-2" href="#"
-                                        id="bd-versions" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle mr-md-2 pr-2 pl-0 pl-lg-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         {{ Auth::user()->name }}
                                     </a>
+                                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="bd-versions">
+                                        <li><a class="dropdown-item" href="{{ route('owners.profile.profile-admin-index') }}">Xem thông tin</a></li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('client.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                Đăng xuất
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <form id="logout-form" action="{{ route('client.logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                @else
+                                    <a class="nav-link pl-3 pr-2" data-toggle="modal" href="#login-register-modal">SIGN IN</a>
+                                @endif
+                            </li>
+                            <!-- Chat Icon -->
                             <li class="nav-item mr-auto mr-lg-6">
                                 <a class="nav-link px-2 position-relative" href="{{ Route('owners.chat-owners') }}">
                                     <i class="fal fa-comments-alt fs-large-4"></i>
                                     <span class="badge badge-primary badge-circle badge-absolute">
-                                        <livewire:unread-message-count /></span>
+                                        <livewire:unread-message-count />
+                                    </span>
                                 </a>
                             </li>
-                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                                <li><a class="dropdown-item"
-                                        href="{{ route('owners.profile.profile-admin-index') }}">
-                                        Xem thông tin
-                                    </a>
-
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="{{ route('client.logout') }}"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        Đăng xuất
-                                    </a>
-                                </li>
-
-                            </ul>
-                            <form id="logout-form" action="{{ route('client.logout') }}" method="POST"
-                                style="display: none;">
-                                @csrf
-                            </form>
-                        @else
-                            <a class="nav-link pl-3 pr-2" data-toggle="modal" href="#login-register-modal">SIGN
-                                IN</a>
-                            @endif
-                            </li>
-                            {{-- Icon giỏ hàng --}}
-                            &nbsp; &nbsp; &nbsp;
-                            <li class="divider"></li>
-                            &nbsp; &nbsp; &nbsp;
+                            <!-- Cart Icon -->
                             <li class="nav-item mr-auto mr-lg-6">
                                 <a class="nav-link px-2 position-relative" href="{{ route('client.carts-show') }}">
                                     <i class="fal fa-shopping-cart"></i>
                                 </a>
                             </li>
+                            <!-- Favorites Icon -->
                             <li class="nav-item mr-auto mr-lg-6">
                                 <a class="nav-link px-2 position-relative" href="{{ route('owners.favorites') }}">
                                     <i class="fal fa-heart fs-large-4"></i>
-                                    <span
-                                        class="badge badge-primary badge-circle badge-absolute">{{ $favouriteCount }}</span>
+                                    <span class="badge badge-primary badge-circle badge-absolute">{{ $favouriteCount }}</span>
                                 </a>
                             </li>
-
-                            @if (Auth::check())
-                                @if ($role != '1')
-                                    <li class="nav-item">
-
-                                        <a class="btn btn-outline-light btn-lg text-white rounded-lg bg-hover-primary border-hover-primary hover-white d-none d-lg-block"
-                                            href="{{ route('owners.add-room') }}">
-                                            Cho thuê
-                                            <img src="{{ asset('assets/images/add-listing-icon.png') }}"
-                                                alt="Add listing" class="ml-1 normal-button-icon">
-                                            <img src="{{ asset('assets/images/add-listing-icon-primary.png') }}"
-                                                alt="Add listing" class="ml-1 sticky-button-icon">
-                                        </a>
-                                        <a class="btn btn-primary btn-lg d-block d-lg-none"
-                                            href="{{ route('owners.add-room') }}">
-                                            Cho thuê
-                                            <img src="{{ asset('assets/images/add-listing-icon.png') }}"
-                                                alt="Add listing" class="ml-1">
-                                        </a>
-                                    </li>
-                                @endif
+                            <!-- Add Room Button -->
+                            @if (Auth::check() && $role != '1')
+                                <li class="nav-item">
+                                    <a class="btn btn-outline-light btn-lg text-white rounded-lg bg-hover-primary border-hover-primary hover-white d-none d-lg-block" href="{{ route('owners.add-room') }}">
+                                        Cho thuê
+                                        <img src="{{ asset('assets/images/add-listing-icon.png') }}" alt="Add listing" class="ml-1 normal-button-icon">
+                                        <img src="{{ asset('assets/images/add-listing-icon-primary.png') }}" alt="Add listing" class="ml-1 sticky-button-icon">
+                                    </a>
+                                    <a class="btn btn-primary btn-lg d-block d-lg-none" href="{{ route('owners.add-room') }}">
+                                        Cho thuê
+                                        <img src="{{ asset('assets/images/add-listing-icon.png') }}" alt="Add listing" class="ml-1">
+                                    </a>
+                                </li>
                             @endif
                         </ul>
                     </div>
+                    
                 </div>
             </div>
         </div>

@@ -4,7 +4,9 @@
         <div class="sticky-area shadow-xs-1 py-3">
             <div class="d-flex px-3 px-xl-6 w-100">
                 <a class="navbar-brand" href="">
-                    <img src="{{ asset('assets/images/logo.png') }}" alt="HomeID">
+                    <img src="{{ asset('assets/images/logo-moi.png') }}" alt="HomeID" class="normal-logo">
+
+                            {{-- <img src="{{ asset('assets/images/logo.png') }}" alt="HomeID" class="sticky-logo"> --}}
                 </a>
                 <div class="ml-auto d-flex align-items-center ">
                     <div class="d-flex align-items-center d-xl-none">

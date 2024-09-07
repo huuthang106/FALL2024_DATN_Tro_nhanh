@@ -1,8 +1,17 @@
-<div>
-    {{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
-    <div>
-        <div class="form-inline justify-content-md-end mx-n2">
+{{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
+
+<main id="content" class="bg-gray-01">
+    <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
+       
+        <div class="d-flex flex-wrap flex-md-nowrap mb-6">
+            <div class="mr-0 mr-md-auto">
+                <h2 class="mb-0 text-heading fs-22 lh-15">Danh sách trọ<span
+                        class="badge badge-white badge-pill text-primary fs-18 font-weight-bold ml-2">{{ $roomCount }}</span>
+                </h2>
+                <p>Danh sách phòng trọ của bạn ở đây</p>
+            </div>
             <div class="p-2">
+
                 <div class="input-group input-group-lg bg-white border">
                     <div class="input-group-prepend">
                         <button class="btn pr-0 shadow-none" type="button">
@@ -10,11 +19,12 @@
                         </button>
                     </div>
                     <input type="text" class="form-control bg-transparent border-0 shadow-none text-body"
-                        placeholder="Tìm kiếm phòng trọ" wire:keydown.debounce.300ms="$refresh" wire:model.lazy="search">
+                        placeholder="Tìm kiếm phòng trọ" wire:keydown.debounce.300ms="$refresh"
+                        wire:model.lazy="search">
                 </div>
             </div>
 
-            <div class="p-2">
+            <div class="p-2" wire:ignore>
                 <div class="input-group input-group-lg bg-white border">
                     <div class="input-group-prepend">
                         <span class="input-group-text bg-transparent letter-spacing-093 border-0 pr-0">
@@ -22,8 +32,8 @@
                         </span>
                     </div>
                     {{-- selectpicker --}}
-                    <select class="form-control bg-transparent pl-0 d-flex align-items-center sortby"
-                        wire:model.lazy="sortBy" wire:key="sort-select">
+                    <select class="form-control bg-transparent pl-0 selectpicker d-flex align-items-center sortby"
+                        wire:model.lazy="sortBy" wire:key="sort-select" data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
                         <option value="name">Chữ cái</option>
                         <option value="price_low_to_high">Giá - Thấp đến Cao</option>
                         <option value="price_high_to_low">Giá - Cao đến Thấp</option>
@@ -33,6 +43,7 @@
                 </div>
             </div>
         </div>
+
         {{-- Load --}}
         <div wire:loading wire:target="search, sortBy, perPage" class="text-center my-2">
             <div class="spinner-border text-primary" role="status">
@@ -178,4 +189,8 @@
             </nav>
         @endif
     </div>
+</main>
+{{-- 
 </div>
+</div>
+</div> --}}

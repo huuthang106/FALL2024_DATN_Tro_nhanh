@@ -75,7 +75,7 @@
                             <small class="align-self-center mb-0 user-name">{{ $zone->description }}</small>
                         </div>
                     </td>
-                    <td class="align-middle"><span class="text-primary pr-1"></span>{{ $zone->address }}
+                    <td class="align-middle"><span class="text-primary pr-1"></span><small>{{ $zone->address }}</small>
                     </td>
                     <td class="align-middle"><span class="text-success pr-1"><i
                                 class="fal fa-calendar"></i></span>{{ $zone->updated_at }}</td>

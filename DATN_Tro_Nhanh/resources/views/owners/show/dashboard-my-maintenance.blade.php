@@ -66,8 +66,8 @@
                                 </label></th>
                             <th class="py-6">Người Yêu Cầu</th>
                             <th class="py-6">Số Phòng</th>
-                            <th class="py-6 col-2">Vấn Đề</th>
-                            <th class="py-6 col-2">Nội Dung</th>
+                         
+                            {{-- <th class="py-6 col-2">Nội Dung</th> --}}
                             <th class="py-6">Ngày</th>
                             <th class="py-6">Trạng thái</th>
                             <th class="no-sort py-6">Thao tác</th>
@@ -82,10 +82,12 @@
                                         <input type="checkbox" class="new-control-input child-chk select-customers-info">
                                     </label>
                                 </td>
-                                <td class="align-middle p-4 text-primary">{{ $item->user->name ?? 'N/A' }}</td>
+                                <td class="align-middle p-4 text-primary">{{ $item->user->name ?? 'N/A' }} <br><small>{{ $item->title }}</small></td>
                                 <td class="align-middle p-4">{{ $item->room->id ?? 'N/A' }}</td>
-                                <td class="align-middle p-4">{{ $item->title }}</td>
-                                <td class="align-middle p-4">{{ $item->description }}</td>
+                           
+                                {{-- <td class="align-middle p-4"><small>{{ $item->description }}</small></td> --}}
+                               
+                                <td class="align-middle p-4">{{ $item->created_at->format('d-m-Y') }}</td>
                                 <td class="align-middle p-4">
                                     @if ($item->status == 1)
                                         <span class="badge badge-yellow text-capitalize font-weight-normal fs-12">Đang xử lý</span>
@@ -97,8 +99,6 @@
                                         <span class="badge badge-light text-capitalize font-weight-normal fs-12">Không xác định</span>
                                     @endif
                                 </td>
-                                <td class="align-middle p-4">{{ $item->created_at->format('d-m-Y') }}</td>
-                
                                 <td class="align-middle p-4">
                                     <form action="{{ route('owners.destroy-maintenances', $item->id) }}" method="POST" class="d-inline-block mb-0">
                                         @csrf

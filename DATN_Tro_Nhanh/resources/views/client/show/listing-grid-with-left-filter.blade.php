@@ -420,52 +420,45 @@
                                 @foreach ($rooms as $room)
                                     <div class="col-md-6 mb-6">
                                         <div class="card border-0" data-animate="fadeInUp">
-                                            <div
-                                                class="position-relative hover-change-image bg-hover-overlay rounded-lg card-img">
+                                            <div class="position-relative bg-hover-overlay rounded-lg card-img" style="height: 200px;">
                                                 @if ($room->images->isNotEmpty())
                                                     @php
-                                                        // Get the first image
+                                                        // Lấy ảnh đầu tiên
                                                         $image = $room->images->first();
                                                     @endphp
                                                     <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
-                                                        <img src="{{ asset('assets/images/' . $image->filename) }}"
-                                                            alt="{{ $room->title }}">
+                                                        <img src="{{ asset('assets/images/' . $image->filename) }}" alt="{{ $room->title }}"
+                                                             class="img-fluid w-100 h-100 rounded" style="object-fit: cover;">
                                                     </a>
                                                 @else
                                                     <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
-                                                        <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                                            alt="{{ $room->title }}">
+                                                        <img src="{{ asset('assets/images/properties-grid-01.jpg') }}" alt="{{ $room->title }}"
+                                                             class="img-fluid w-100 h-100 rounded" style="object-fit: cover;">
                                                     </a>
                                                 @endif
                                                 <div class="card-img-overlay d-flex flex-column">
                                                     <div><span class="badge badge-primary">Cần Bán</span></div>
                                                     <div class="mt-auto d-flex hover-image">
                                                         <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                            <li class="list-inline-item mr-2" data-toggle="tooltip"
-                                                                title="9 Images">
+                                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Images">
                                                                 <a href="#" class="text-white hover-primary">
-                                                                    <i class="far fa-images"></i><span
-                                                                        class="pl-1">9</span>
+                                                                    <i class="far fa-images"></i><span class="pl-1">9</span>
                                                                 </a>
                                                             </li>
-                                                            <li class="list-inline-item" data-toggle="tooltip"
-                                                                title="2 Video">
+                                                            <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
                                                                 <a href="#" class="text-white hover-primary">
-                                                                    <i class="far fa-play-circle"></i><span
-                                                                        class="pl-1">2</span>
+                                                                    <i class="far fa-play-circle"></i><span class="pl-1">2</span>
                                                                 </a>
                                                             </li>
                                                         </ul>
                                                         <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
-                                                                title="Wishlist">
+                                                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip" title="Wishlist">
                                                                 <a href="{{ route('client.add.favourite', ['slug' => $room->slug]) }}"
-                                                                    class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                                   class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center">
                                                                     <i class="fas fa-heart"></i>
                                                                 </a>
                                                             </li>
-                                                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
-                                                                title="Compare">
+                                                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip" title="Compare">
                                                                 <a href="#" class="text-white fs-20 hover-primary">
                                                                     <i class="fas fa-exchange-alt"></i>
                                                                 </a>
@@ -477,38 +470,35 @@
                                             <div class="card-body pt-3 px-0 pb-1">
                                                 <h2 class="fs-16 mb-1">
                                                     <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
-                                                        class="text-dark hover-primary">
+                                                       class="text-dark hover-primary">
                                                         {{ $room->title }}
                                                     </a>
                                                 </h2>
                                                 <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
-                                                    <p class="font-weight-500 text-gray-light mb-0">{{ $room->address }}
-                                                    </p>
+                                                    <p class="font-weight-500 text-gray-light mb-0">{{ $room->address }}</p>
                                                 </a>
                                                 <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
-                                                    <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                        {{ $room->price }} VND
-                                                    </p>
+                                                    <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">{{ $room->price }} VND</p>
                                                 </a>
                                             </div>
                                             <div class="card-footer bg-transparent px-0 pb-0 pt-2">
                                                 <ul class="list-inline mb-0">
-                                                    <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                        data-toggle="tooltip" title="3 Giường">
+                                                    <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7" data-toggle="tooltip"
+                                                        title="3 Giường">
                                                         <svg class="icon icon-bedroom fs-18 text-primary mr-1">
                                                             <use xlink:href="#icon-bedroom"></use>
                                                         </svg>
                                                         3 Giường
                                                     </li>
-                                                    <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                        data-toggle="tooltip" title="3 Phòng tắm">
+                                                    <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7" data-toggle="tooltip"
+                                                        title="3 Phòng tắm">
                                                         <svg class="icon icon-shower fs-18 text-primary mr-1">
                                                             <use xlink:href="#icon-shower"></use>
                                                         </svg>
                                                         3 Phòng tắm
                                                     </li>
-                                                    <li class="list-inline-item text-gray font-weight-500 fs-13"
-                                                        data-toggle="tooltip" title="Mét vuông">
+                                                    <li class="list-inline-item text-gray font-weight-500 fs-13" data-toggle="tooltip"
+                                                        title="Mét vuông">
                                                         <svg class="icon icon-square fs-18 text-primary mr-1">
                                                             <use xlink:href="#icon-square"></use>
                                                         </svg>
@@ -524,8 +514,9 @@
                                     <p class="text-center">Không có dữ liệu.</p>
                                 </div>
                             @endif
-
                         </div>
+                        
+                        
                         @if ($rooms->hasPages())
                             <nav class="pt-4">
                                 <ul class="pagination rounded-active justify-content-center">
