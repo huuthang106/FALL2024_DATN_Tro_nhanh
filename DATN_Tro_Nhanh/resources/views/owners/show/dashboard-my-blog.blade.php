@@ -81,7 +81,7 @@
                                                             alt="{{ $item->filename }}" class="img-fluid">
                                                     @endforeach
                                                 @else
-                                                    <p>No images available</p>
+                                                    <p>Không có ảnh</p>
                                                 @endif
                                             </a>
                                         </div>
