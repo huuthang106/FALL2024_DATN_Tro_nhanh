@@ -5,14 +5,13 @@
             <div class="p-2">
                 <div class="input-group input-group-lg bg-white border">
                     <div class="input-group-prepend">
-                        <!-- Khi nhấn vào icon, kích hoạt tìm kiếm -->
-                        <button class="btn pr-0 shadow-none" type="button">
+                        <button class="btn pr-0 shadow-none" type="button" wire:click="$refresh">
                             <i class="far fa-search"></i>
                         </button>
                     </div>
-                    <!-- Lắng nghe sự kiện khi nhấn phím Enter -->
                     <input type="text" class="form-control bg-transparent border-0 shadow-none text-body"
-                        placeholder="Tìm kiếm phòng trọ" wire:model.lazy="search" name="search">
+                        placeholder="Tìm kiếm phòng trọ" wire:keydown.debounce.300ms="$refresh"
+                        wire:model.lazy="search">
                 </div>
             </div>
 
