@@ -1607,8 +1607,7 @@
                         target="_blank"><i class="fal fa-phone"></i></a>
                 </div>
             </div>
-            <!-- Modal -->
-            <<<<<<< HEAD=======>>>>>>> ae306e6d ([back-end]-fix-registration_list_va_dang_ky_khu_tro)
+          
 
 
 
