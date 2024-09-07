@@ -5,13 +5,12 @@
             <div class="p-2">
                 <div class="input-group input-group-lg bg-white border">
                     <div class="input-group-prepend">
-                        <button class="btn pr-0 shadow-none" type="button" wire:click="$refresh">
+                        <button class="btn pr-0 shadow-none" type="button">
                             <i class="far fa-search"></i>
                         </button>
                     </div>
                     <input type="text" class="form-control bg-transparent border-0 shadow-none text-body"
-                        placeholder="Tìm kiếm phòng trọ" wire:keydown.debounce.300ms="$refresh"
-                        wire:model.lazy="search">
+                        placeholder="Tìm kiếm phòng trọ" wire:keydown.debounce.300ms="$refresh" wire:model.lazy="search">
                 </div>
             </div>
 
