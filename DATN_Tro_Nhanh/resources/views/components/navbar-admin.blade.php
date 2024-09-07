@@ -1094,7 +1094,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link text-decoration-none" href="{{ route('admin.show-room-available') }}">
+                    <a class="menu-link text-decoration-none" href="{{ route('admin.room-available-all') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">

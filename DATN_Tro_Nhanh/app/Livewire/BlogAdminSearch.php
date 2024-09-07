@@ -7,27 +7,26 @@ use App\Models\Blog; // Giả sử bạn có model Blog
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Log;
 
-class BlogSearch extends Component
+class BlogAdminSearch extends Component
 {
     use WithPagination;
 
     public $search = ''; // Biến tìm kiếm
-    public $perPage = 5; // Phân trang, hiển thị 5 blog mỗi trang
-    public $orderBy = 'created_at'; // Sắp xếp theo cột created_at (ngày tạo)
+    public $perPage = 5; // Số lượng hiển thị mỗi trang
+    public $orderBy = 'created_at'; // Sắp xếp theo ngày tạo
     public $orderAsc = false; // Sắp xếp giảm dần
 
-    // Khi từ khóa thay đổi, reset lại trang hiện tại
+    // Khi từ khóa tìm kiếm thay đổi, reset lại trang hiện tại
     public function updatedSearch()
     {
         $this->resetPage();
     }
 
-    // Định nghĩa hàm render() để hiển thị dữ liệu
+    // Render dữ liệu và trả về view
     public function render()
     {
         Log::info('Searching for blogs with: ' . $this->search);
 
-        // Truy vấn blog theo title và description, không phụ thuộc vào user đăng nhập
         $blogs = Blog::where('title', 'like', '%' . $this->search . '%')
                      ->orWhere('description', 'like', '%' . $this->search . '%')
                      ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
@@ -35,7 +34,6 @@ class BlogSearch extends Component
 
         Log::info('Found ' . $blogs->count() . ' blogs');
 
-        // Trả về view với dữ liệu
         return view('livewire.blog-admin-search', [
             'blogs' => $blogs
         ]);

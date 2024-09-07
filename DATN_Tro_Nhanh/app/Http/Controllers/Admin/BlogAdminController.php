@@ -12,13 +12,15 @@ use App\Events\BlogCreated;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateBlogRequest;
 use App\Services\NotificationService;
+use App\Services\BlogAdminServices;
 class BlogAdminController extends Controller
 {
     protected $BlogService;
-
-    public function __construct(BlogServices $BlogService)
+    protected $BlogAdminService;
+    public function __construct(BlogServices $BlogService, BlogAdminServices $BlogAdminService)
     {
         $this->BlogService = $BlogService;
+        $this->BlogAdminService = $BlogAdminService;
     }
     public function index()
     {
@@ -28,6 +30,12 @@ class BlogAdminController extends Controller
     {
         $blogs = $this->BlogService->getAllBlogs();
         return view('admincp.show.showBlog', compact('blogs'));
+    }
+
+    public function showBlogAll()
+    {
+        $blogs = $this->BlogAdminService->getBlog();
+        return view('admincp.show.showAll-blog', compact('blogs'));
     }
 
     public function editBlog($slug)

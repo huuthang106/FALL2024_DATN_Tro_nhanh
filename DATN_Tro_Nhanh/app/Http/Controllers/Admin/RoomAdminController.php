@@ -67,10 +67,10 @@ class RoomAdminController extends Controller
         return view('admincp.show.showRoom', ['rooms' => $rooms]);
     }
 
-    public function show_room_available()
+    public function show_room_all()
     {
-        $rooms = $this->roomAdminService->showRoomStatus();
-        return view('admincp.show.showRoom', ['rooms' => $rooms]);
+        $rooms = $this->roomAdminService->showRoomAll();
+        return view('admincp.show.showAll-room', ['rooms' => $rooms]);
     }
     public function add_room_show()
     {

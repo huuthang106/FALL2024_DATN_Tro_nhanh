@@ -11,7 +11,7 @@ Route::get('/', [RoomAdminController::class, 'index'])->name('admin');
 // });
 Route::prefix('')->group(function () {
     Route::get('/danh-sach', [RoomAdminController::class, 'show_room'])->name('show-room');
-    Route::get('/danh-sach-tro', [RoomAdminController::class, 'show_room_available'])->name('show-room-available');
+    Route::get('/danh-sach-tro', [RoomAdminController::class, 'show_room_all'])->name('room-available-all');
     Route::delete('/xoa-phong/{id}', [RoomAdminController::class, 'destroy'])->name('destroy-room');
     Route::put('/khoi-phuc-phong/{id}', [RoomAdminController::class, 'restore'])->name('restore-room');
     Route::get('/thung-rac', [RoomAdminController::class, 'trash'])->name('trash-room');

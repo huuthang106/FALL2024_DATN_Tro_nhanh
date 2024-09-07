@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\BlogAdminController;
 
 Route::group(['prefix' => ''], function () {
     route::get('quan-li-blog-admin', [BlogAdminController::class, 'show'])->name('show-blog');
-    route::get('danh-sach-blog-admin', [BlogAdminController::class, 'show'])->name('show-blog-admin');
+    route::get('danh-sach-blog-admin', [BlogAdminController::class, 'showBlogAll'])->name('show-blog-admin');
     route::get('them-blog-admin', [BlogAdminController::class, 'index'])->name('blog');
     Route::delete('/xoa-blog/{id}', [BlogAdminController::class, 'destroy'])->name('destroy-blog');
     Route::put('/khoi-phuc-blog/{id}', [BlogAdminController::class, 'restore'])->name('restore-blog');

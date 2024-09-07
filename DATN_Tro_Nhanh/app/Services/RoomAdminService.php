@@ -68,6 +68,17 @@ class RoomAdminService
         }
     }
 
+    public function showRoomAll(int $perPage = 10)
+    {
+        
+            // Truy vấn và phân trang một lần
+            $rooms = Room::where('status', self::AvailableRooms)->get();
+           
+            // Trả về kết quả phân trang
+            return $rooms;
+       
+    }
+
 
     public function getSlugRoom($slug)
     {

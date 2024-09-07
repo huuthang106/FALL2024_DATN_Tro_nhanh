@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CreateBlogRequest;
 class BlogAdminServices
 {
+    private const trangthai = 1;
 
     public function getAllBlogAdmin(int $perPage = 10, $searchTerm = null)
     {
@@ -29,4 +30,13 @@ class BlogAdminServices
             return null;
         }
     }
+
+    public function getBlog(int $perPage = 5)
+{
+    // Truy vấn và phân trang một lần
+    $blogs = Blog::where('status', self::trangthai)->paginate($perPage);
+
+    // Trả về kết quả phân trang
+    return $blogs;
+}
 }

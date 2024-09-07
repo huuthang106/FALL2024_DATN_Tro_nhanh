@@ -177,7 +177,33 @@
                                         <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
                                     </a>
                                 </li>
-                             
+                                <div class="collapse" id="collapseEdit">
+                                    <div class="card card-body border-0 bg-transparent py-0 pl-6">
+                                        <ul class="list-group list-group-flush list-group-no-border">
+                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                <a class="text-heading lh-1 sidebar-link"
+                                                    href="{{ route('owners.show-fix') }}">Danh sách sửa chữa</a>
+                                            </li>
+                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                <a class="text-heading lh-1 sidebar-link"
+                                                    href="{{ route('owners.trash-maintenances') }}">Thùng</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                    <a href="#collapseLike"
+                                        class="text-heading lh-1 sidebar-link d-flex align-items-center"
+                                        onclick="toggleDropdown('collapseLike'); return false;">
+                                        <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
+                                            <svg class="icon icon-my-properties">
+                                                <use xlink:href="#icon-my-properties"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="sidebar-item-text">Theo dõi</span>
+                                        <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
+                                    </a>
+                                </li>
                                 <div class="collapse" id="collapseLike">
                                     <div class="card card-body border-0 bg-transparent py-0 pl-6">
                                         <ul class="list-group list-group-flush list-group-no-border">
