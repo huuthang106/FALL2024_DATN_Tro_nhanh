@@ -116,6 +116,10 @@ class ZoneServices
         return $zones;
     }
     // Tổng só khu trọ Client
+    public function getTotalZones()
+    {
+        return Zone::count(); // Đếm tổng số khu vực trọ
+    }
     public function getTotalZonesByUser($userId = null)
     {
         try {
