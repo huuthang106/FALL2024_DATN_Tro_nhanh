@@ -734,7 +734,9 @@
                                     </div>
                                 @else
                                     @foreach ($zones as $zone)
-                                        <div class="card mb-8 mb-lg-6 border-0" data-animate="fadeInUp">
+                                        <div class="card mb-8 mb-lg-6 border-0 zone-card" data-animate="fadeInUp"
+                                            data-latitude="{{ $zone->latitude }}" data-longitude="{{ $zone->longitude }}"
+                                            data-address="{{ $zone->address }}" data-rooms='@json($zone->rooms)'>
                                             <div class="row no-gutters">
                                                 <div class="col-md-6 mb-5 mb-md-0 pr-md-6">
                                                     <div class="position-relative hover-change-image bg-hover-overlay h-100 pt-75 bg-img-cover-center rounded-lg"
@@ -839,43 +841,24 @@
                                         </div>
                                     @endforeach
                                 @endif
-
-
                             </div>
                             <div class="col-12">
                                 <nav class="pt-2 pt-lg-4">
-                                    {{-- <ul class="pagination rounded-active justify-content-center mb-0">
-                                        <li class="page-item"><a class="page-link" href="#"><i
-                                                    class="far fa-angle-double-left"></i></a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item d-none d-sm-block"><a class="page-link" href="#">3</a>
-                                        </li>
-                                        <li class="page-item">...</li>
-                                        <li class="page-item"><a class="page-link" href="#">6</a></li>
-                                        <li class="page-item"><a class="page-link" href="#"><i
-                                                    class="far fa-angle-double-right"></i></a>
-                                        </li>
-                                    </ul> --}}
                                     <ul class="pagination rounded-active justify-content-center">
                                         {{-- Trang trước --}}
                                         <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
                                             <a class="page-link" href="{{ $zones->previousPageUrl() }}"><i
                                                     class="far fa-angle-double-left"></i></a>
                                         </li>
-
                                         {{-- Trang đầu tiên --}}
                                         @if ($zones->currentPage() > 2)
                                             <li class="page-item"><a class="page-link" href="{{ $zones->url(1) }}">1</a>
                                             </li>
                                         @endif
-
                                         {{-- Dấu ba chấm ở đầu nếu cần --}}
                                         @if ($zones->currentPage() > 3)
                                             <li class="page-item disabled"><span class="page-link">...</span></li>
                                         @endif
-
                                         {{-- Hiển thị các trang xung quanh trang hiện tại --}}
                                         @for ($i = max(1, $zones->currentPage() - 1); $i <= min($zones->currentPage() + 1, $zones->lastPage()); $i++)
                                             <li class="page-item {{ $zones->currentPage() == $i ? 'active' : '' }}">
@@ -883,19 +866,16 @@
                                                     href="{{ $zones->url($i) }}">{{ $i }}</a>
                                             </li>
                                         @endfor
-
                                         {{-- Dấu ba chấm ở cuối nếu cần --}}
                                         @if ($zones->currentPage() < $zones->lastPage() - 2)
                                             <li class="page-item disabled"><span class="page-link">...</span></li>
                                         @endif
-
                                         {{-- Trang cuối cùng --}}
                                         @if ($zones->currentPage() < $zones->lastPage() - 1)
                                             <li class="page-item"><a class="page-link"
                                                     href="{{ $zones->url($zones->lastPage()) }}">{{ $zones->lastPage() }}</a>
                                             </li>
                                         @endif
-
                                         {{-- Trang tiếp theo --}}
                                         <li
                                             class="page-item {{ $zones->currentPage() == $zones->lastPage() ? 'disabled' : '' }}">
@@ -914,8 +894,6 @@
                                 data-marker-target="#template-properties"
                                 data-mapbox-access-token="pk.eyJ1IjoiZHVvbmdsaCIsImEiOiJjanJnNHQ4czExMzhyNDVwdWo5bW13ZmtnIn0.f1bmXQsS6o4bzFFJc8RCcQ">
                             </div>
-                            {{-- <div id="map">
-                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -1260,6 +1238,7 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 @endpush
 @push('scriptUs')
     <!-- Vendors scripts -->
@@ -1286,8 +1265,4 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{{ asset('assets/js/api-ggmap-nht.js') }}"></script>
     <script src="{{ asset('assets/js/api-update-zone-nht.js') }}"></script>
-    <script>
-        window.successMessage = "{{ session('success') }}";
-    </script>
-    <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
 @endpush

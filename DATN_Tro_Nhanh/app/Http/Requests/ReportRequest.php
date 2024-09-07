@@ -34,9 +34,9 @@ class ReportRequest extends FormRequest
     public function messages()
     {
         return [
-            'description.required' => 'Mô tả không được để trống.',
-            'description.string' => 'Mô tả phải là chuỗi ký tự.',
-            'description.max' => 'Mô tả không được vượt quá 1000 ký tự.',
+            'description.required' => 'Vui lòng nhập nội dung báo cáo.',
+            'description.string' => 'Nội dung báo cáo phải là chuỗi ký tự.',
+            'description.max' => 'Nội dung báo cáo không được vượt quá 1000 ký tự.',
         ];
     }
     public function withValidator($validator)

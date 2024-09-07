@@ -1307,7 +1307,7 @@
                                         class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Yêu
                                         cầu thông tin</a> --}}
                                     @auth
-                                        <a href="{{ route('client.show-create-report-zone', ['slug' => $zones->slug]) }}"
+                                        <a data-toggle="modal" href="#report-modal"
                                             class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Gửi
                                             báo cáo</a>
                                     @else
@@ -1379,7 +1379,105 @@
             </div>
         </section>
     </main>
-
+    {{-- <div class="modal fade report report-modal" id="report-modal" tabindex="-1" role="dialog"
+        aria-labelledby="report-modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0 p-0">
+                    <div class="nav nav-tabs row w-100 no-gutters" id="myTab" role="tablist">
+                        <a class="nav-item col-sm-3 ml-0 nav-link pr-6 py-4 pl-9 active fs-18" id="login-tab"
+                            data-toggle="tab" href="#login" role="tab" aria-controls="login"
+                            aria-selected="true">Login</a>
+                        <a class="nav-item col-sm-3 ml-0 nav-link py-4 px-6 fs-18" id="register-tab" data-toggle="tab"
+                            href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
+                        <div class="nav-item col-sm-6 ml-0 d-flex align-items-center justify-content-end">
+                            <button type="button" class="close m-0 fs-23" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body p-4 py-sm-7 px-sm-8">
+                    <div class="tab-content shadow-none p-0" id="myTabContent">
+                        <form class="mxw-774" method="POST" action="{{ route('client.report-store-zone') }}">
+                            @csrf
+                            <input type="text" name="zone_id" value="{{ $zones->id }}">
+                            <input type="text" name="reported_person" value="{{ $zones->user_id }}">
+                            <input type="text" name="status" value="1">
+                            <div class="row">
+                                <div class="col-md-6 px-2">
+                                    <div class="form-group">
+                                        @error('status')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-6">
+                                <textarea class="form-control border-0" placeholder="Nội dung báo cáo..." name="description" id="description"
+                                    rows="5">{{ old('description') }}</textarea>
+                                @error('description')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-lg btn-primary px-9">Gửi</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+    <div class="modal fade report-modal" id="report-modal" tabindex="-1" role="dialog" aria-labelledby="report-modal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0 p-4">
+                    <h5 class="modal-title">Gửi Báo Cáo</h5>
+                    <button type="button" class="close fs-23" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body p-4 py-sm-7 px-sm-8 text-center">
+                    <h2 class="text-heading mb-3 fs-22 fs-md-32 lh-1-5">
+                        Gặp Vấn Đề Với Phòng Trọ? Báo Cáo Ngay!
+                    </h2>
+                    <p class="text-muted mb-4 mx-auto" style="max-width: 600px;">
+                        Trọ Nhanh luôn lắng nghe ý kiến của bạn. Nếu bạn gặp phải bất kỳ vấn đề nào với phòng trọ hoặc khu
+                        trọ
+                        của mình, hãy cho chúng tôi biết. Chúng tôi sẽ nhanh chóng xử lý để đảm bảo trải nghiệm sống tốt
+                        nhất
+                        cho bạn.
+                    </p>
+                    <form id="reportForm" class="mxw-774" method="POST"
+                        action="{{ route('client.report-store-zone') }}">
+                        @csrf
+                        <input type="hidden" name="zone_id" value="{{ $zones->id }}">
+                        <input type="hidden" name="reported_person" value="{{ $zones->user_id }}">
+                        <input type="hidden" name="status" value="1">
+                        <div class="row">
+                            <div class="col-md-6 px-2">
+                                <div class="form-group">
+                                    @error('status')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mb-6">
+                            <textarea class="form-control border-0" placeholder="Nội dung báo cáo..." name="description" id="description"
+                                rows="5">{{ old('description') }}</textarea>
+                            <span id="description-error" class="text-danger"></span>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-lg btn-primary px-9">Gửi</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('styleUs')
@@ -1458,4 +1556,9 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{{ asset('assets/js/api-ggmap-nht.js') }}"></script>
     <script src="{{ asset('assets/js/api-update-zone-nht.js') }}"></script>
+    <script>
+        window.successMessage = "{{ session('success') }}";
+    </script>
+    <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
+    <script src="{{ asset('assets/js/alert-report.js') }}"></script>
 @endpush

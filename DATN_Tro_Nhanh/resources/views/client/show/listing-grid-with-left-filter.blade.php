@@ -693,8 +693,4 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script src="{{ asset('assets/js/api-country-vn-nht.js') }}"></script>
-    <script>
-        window.successMessage = "{{ session('success') }}";
-    </script>
-    <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
 @endpush

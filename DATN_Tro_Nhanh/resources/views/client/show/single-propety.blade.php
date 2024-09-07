@@ -1507,7 +1507,7 @@
                                         class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white">Người
                                         đăng: {{ $user->name }}</a>
                                     @auth
-                                        <a href="{{ route('client.show-create-report-room', ['slug' => $rooms->slug]) }}"
+                                        <a data-toggle="modal" href="#report-modal"
                                             class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Gửi
                                             báo cáo</a>
                                     @else
@@ -1613,6 +1613,46 @@
 
         </section>
     </main>
+    <div class="modal fade report-modal" id="report-modal" tabindex="-1" role="dialog"
+        aria-labelledby="report-modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0 p-4">
+                    <h5 class="modal-title">Gửi Báo Cáo</h5>
+                    <button type="button" class="close fs-23" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body p-4 py-sm-7 px-sm-8 text-center">
+                    <h2 class="text-heading mb-3 fs-22 fs-md-32 lh-1-5">
+                        Gặp Vấn Đề Với Phòng Trọ? Báo Cáo Ngay!
+                    </h2>
+                    <p class="text-muted mb-4 mx-auto" style="max-width: 600px;">
+                        Trọ Nhanh luôn lắng nghe ý kiến của bạn. Nếu bạn gặp phải bất kỳ vấn đề nào với phòng trọ hoặc khu
+                        trọ
+                        của mình, hãy cho chúng tôi biết. Chúng tôi sẽ nhanh chóng xử lý để đảm bảo trải nghiệm sống tốt
+                        nhất
+                        cho bạn.
+                    </p>
+                    <form id="reportForm" method="POST" action="{{ route('client.report-store-room') }}">
+                        @csrf
+                        <input type="hidden" name="room_id" value="{{ $rooms->id }}">
+                        <input type="hidden" name="reported_person" value="{{ $rooms->user_id }}">
+                        <input type="hidden" name="status" value="1">
+
+                        <div class="form-group mb-4">
+                            <textarea class="form-control border-0 " placeholder="Nội dung báo cáo..." name="description" id="description"
+                                rows="5">{{ old('description') }}</textarea>
+                            <span id="description-error" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-lg btn-primary px-5">Gửi Báo Cáo</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 @endsection
 
@@ -1694,4 +1734,9 @@
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
+    <script>
+        window.successMessage = "{{ session('success') }}";
+    </script>
+    <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
+    <script src="{{ asset('assets/js/alert-report.js') }}"></script>
 @endpush
