@@ -542,7 +542,7 @@
                                         </td>
                                         <!--end::Checkbox-->
                                         <!--begin::Utility details-->
-                                        <td>{{ $utility->room->title }}</td> <!-- Assuming there's a relationship to get room title -->
+                                        <td>{{ $utility->room->created_at }}</td> <!-- Assuming there's a relationship to get room title -->
                                         <td>{{ $utility->wifi ? 'Yes' : 'No' }}</td>
                                         <td>{{ $utility->bathrooms }}</td>
                                         <td>{{ $utility->air_conditioning }}</td>

@@ -6,8 +6,7 @@
 
     <!--end::Content-->
     <!--begin::Footer-->
-   
-
+    @livewire('blog-admin-search')
     <!--end::Post-->
     <!--end::Footer-->
     </div>

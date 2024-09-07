@@ -37,10 +37,10 @@ class RoomSearch extends Component
     {
         Log::info('Searching for rooms with: ' . $this->search);
         $query = Room::where('user_id', Auth::id())
-            ->where(function ($query) {
-                $query->where('title', 'like', '%' . $this->search . '%')
-                    ->orWhere('description', 'like', '%' . $this->search . '%');
-            });
+        ->where(function ($query) {
+            $query->where('title', 'like', '%' . $this->search . '%')
+                ->orWhere('description', 'like', '%' . $this->search . '%');
+        });
 
         $rooms = $query->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
             ->paginate($this->perPage);

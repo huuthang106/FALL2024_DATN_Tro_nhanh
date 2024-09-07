@@ -127,7 +127,7 @@
                                         <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
                                     </a>
                                 </li>
-                                <div class="collapse" id="collapseKhuTrọ">
+                                <div class="collapse-content" id="collapseKhuTrọ">
                                     <div class="card card-body border-0 bg-transparent py-0 pl-6">
                                         <ul class="list-group list-group-flush list-group-no-border">
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
@@ -159,7 +159,7 @@
                                         <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
                                     </a>
                                 </li>
-                                <div class="collapse" id="collapseBlog">
+                                <div class="collapse-content" id="collapseBlog">
                                     <div class="card card-body border-0 bg-transparent py-0 pl-6">
                                         <ul class="list-group list-group-flush list-group-no-border">
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
@@ -191,7 +191,7 @@
                                         <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
                                     </a>
                                 </li>
-                                <div class="collapse" id="collapseEdit">
+                                <div class="collapse-content" id="collapseEdit">
                                     <div class="card card-body border-0 bg-transparent py-0 pl-6">
                                         <ul class="list-group list-group-flush list-group-no-border">
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
@@ -218,7 +218,7 @@
                                         <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
                                     </a>
                                 </li>
-                                <div class="collapse" id="collapseLike">
+                                <div class="collapse-content" id="collapseLike">
                                     <div class="card card-body border-0 bg-transparent py-0 pl-6">
                                         <ul class="list-group list-group-flush list-group-no-border">
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
@@ -273,7 +273,7 @@
                                         <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
                                     </a>
                                 </li>
-                                <div class="collapse" id="collapseCmt">
+                                <div class="collapse-content" id="collapseCmt">
                                     <div class="card card-body border-0 bg-transparent py-0 pl-6">
                                         <ul class="list-group list-group-flush list-group-no-border">
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
@@ -295,7 +295,7 @@
                                     </a>
                                 </li>
                             </ul>
-                            <div class="collapse" id="invoiceBill">
+                            <div class="collapse-content" id="invoiceBill">
                                 <div class="card card-body border-0 bg-transparent py-0 pl-6">
                                     <ul class="list-group list-group-flush list-group-no-border">
                                         <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">

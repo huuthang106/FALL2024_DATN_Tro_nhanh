@@ -115,15 +115,30 @@
 }
 
 .collapse-content {
-    display: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.8s ease-in-out, transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+    transform: translateY(20px);
+    /* Dịch chuyển xuống dưới */
     opacity: 0;
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    /* Bắt đầu với độ trong suốt */
 }
 
 .collapse-content.show {
-    display: block;
+    max-height: 500px;
+    /* Đặt chiều cao tối đa */
+    transform: translateY(0);
+    /* Đưa về vị trí ban đầu */
     opacity: 1;
-    transform: scaleY(1);
+    /* Hiển thị dần */
+}
+
+.collapse-content ul {
+    opacity: 0;
+    transition: opacity 0.7s ease-in-out;
+    /* Hiệu ứng xuất hiện dần */
+}
+
+.collapse-content.show ul {
+    opacity: 1;
 }

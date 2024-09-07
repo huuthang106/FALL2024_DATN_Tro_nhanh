@@ -23,7 +23,7 @@
                                     </svg>
                                 </span>
                                 <!--end::Svg Icon-->
-                                <input type="text" wire:model.lazy="search" name="search"
+                                <input type="text" wire:model.lazy="search" wire:keydown.debounce.300ms="$refresh" name="search"
                                     class="form-control form-control-solid w-250px ps-14" placeholder="Search blog" />
                             </div>
                             <!--end::Search-->
@@ -677,7 +677,7 @@
                             </li>
                         @endif
                     </ul>
-                </nav>
+                    </nav>
                 <div class="text-center mt-2">{{ $blogs->firstItem() }}-{{ $blogs->lastItem() }} của
                     {{ $blogs->total() }} kết quả</div>
                     <!--end::Card body-->
