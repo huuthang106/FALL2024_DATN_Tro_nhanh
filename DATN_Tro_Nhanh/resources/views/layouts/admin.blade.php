@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @stack('styleAdmin')
+    @livewireStyles
 </head>
 
 <body class="font-sans antialiased">
@@ -44,6 +45,7 @@
                 </div>
                 <!--end::Container-->
             </div>
+            @livewireScripts
 </body>
 @stack('scriptsAdmin')
 <script src="{{ asset('assets/js/save-dropdown-nav-admin.js') }}"></script>

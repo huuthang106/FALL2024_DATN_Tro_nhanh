@@ -1,13 +1,4 @@
-@extends('layouts.admin')
-@section('titleAdmin', 'Trang chủ trọ nhanh')
-@section('linkAdmin', 'Thêm bài viết')
-
-@section('contentAdmin')
-
-    <!--end::Content-->
-    <!--begin::Footer-->
-    <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    <!--begin::Post-->
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
         <div id="kt_content_container" class="container-xxl">
@@ -31,7 +22,8 @@
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
-                            <input type="text" placeholder="Search blogs..." class="form-control mb-3" />
+                            <input type="text" wire:model.lazy="search" name="search" placeholder="Search room"
+                                class="form-control form-control-solid w-250px ps-14" />
                         </div>
                         <!--end::Search-->
                     </div>
@@ -126,7 +118,7 @@
                                 <!--end::Svg Icon-->Export</button>
                             <!--end::Export-->
                             <!--begin::Add user-->
-                            <a href="{{ route('admin.create-blog') }}">
+                            <a href="{{ route('admin.add-room-show') }}">
                                 <button type="button" class="btn btn-primary" data-bs-toggle=""
                                     data-bs-target="#kt_modal_add_user">
                                     {{-- type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user" --}}
@@ -142,7 +134,7 @@
                                         </svg>
                                     </span>
                                     <!--end::Svg Icon-->
-                                    Add Blogs</button>
+                                    Add Room</button>
                             </a>
                             <!--end::Add user-->
                         </div>
@@ -541,8 +533,8 @@
                                 <th class="min-w-125px">Tiêu Đề</th>
                                 <th class="min-w-125px">Mô Tả</th>
                                 {{-- <th class="min-w-125px">Số lượng</th> --}}
-                                <th class="min-w-125px">Trạng Thái</th>
-                                <th class="min-w-125px">Ngày xuất bản</th>
+                                <th class="min-w-125px">Giá</th>
+                                <th class="min-w-125px">Địa chỉ</th>
                                 <th class="text-end min-w-110px">Tác vụ</th>
                             </tr>
                             <!--end::Table row-->
@@ -551,7 +543,7 @@
                         <!--begin::Table body-->
                         <tbody class="text-gray-600 fw-bold">
                             <!--begin::Table row-->
-                            @foreach ($blogs as $blog)
+                            @foreach ($rooms as $room)
                                 <tr>
                                     <!--begin::Checkbox-->
                                     <td>
@@ -563,16 +555,19 @@
                                     <!--begin::User=-->
                                     <td class="d-flex align-items-center min-w-125px">
                                         <!--begin:: Avatar -->
-                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
-                                            <a href="{{ route('admin.show-blog', ['slug' => $blog->slug]) }}">
+                                        <div class="symbol symbol-100px overflow-hidden me-3">
+                                            <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
                                                 <div class="symbol-label">
-                                                    @if ($blog->image)
-                                                        @foreach ($blog->image as $item)
-                                                            <img src="{{ asset('assets/images/' . $item->filename) }}"
-                                                                alt="{{ $item->filename }}" class="img-fluid">
-                                                        @endforeach
+                                                    @if ($room->images->isNotEmpty())
+                                                        @php
+                                                            // Get the first image
+                                                            $image = $room->images->first();
+                                                        @endphp
+                                                        <img src="{{ asset('assets/images/' . $image->filename) }}"
+                                                            alt="{{ $room->title }}">
                                                     @else
-                                                        <p>No images available</p>
+                                                        <img src="{{ asset('assets/images/blog-details.jpg') }}"
+                                                            alt="{{ $room->title }}">
                                                     @endif
                                                 </div>
                                             </a>
@@ -581,8 +576,7 @@
                                         <!--end::Avatar-->
                                         <!--begin::User details-->
                                         <div class="d-flex flex-column">
-                                            <a href="{{ route('client.detail-room', ['slug' => $blog->slug]) }}"
-                                                class="text-gray-800 text-hover-primary mb-1"></a>
+                                            <a href="" class="text-gray-800 text-hover-primary mb-1"></a>
                                         </div>
                                         <!--begin::User details-->
                                     </td>
@@ -592,16 +586,16 @@
                                     <!--end::Role=-->
                                     <!--begin::Last login=-->
                                     <td>
-                                        {{ $blog->title }}
+                                        {{ $room->title }}
                                     </td>
                                     <!--end::Last login=-->
                                     <!--begin::Two step=-->
-                                    <td>{{ $blog->description }}</td>
+                                    <td>{{ $room->description }}</td>
                                     <!--end::Two step=-->
                                     <!--begin::Joined-->
-                                    <td>{{ $blog->status }}</td>
+                                    <td>{{ $room->price }} VND</td>
                                     <!--begin::Joined-->
-                                    <td>{{ $blog->created_at->format('d/m/Y') }}</td>
+                                    <td>{{ $room->address }}</td>
                                     <!--begin::Action=-->
                                     <td class="text-end">
                                         <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
@@ -621,13 +615,15 @@
                                             data-kt-menu="true">
                                             <!--begin::Menu item-->
                                             <div class="menu-item px-3">
-                                                <a href="{{ route('admin.sua-blog', ['slug' => $blog->slug]) }}"
+                                                <a href="{{ route('admin.update-room-show', ['slug' => $room->slug]) }}"
                                                     class="menu-link px-3">Chỉnh sửa</a>
                                             </div>
                                             <!--end::Menu item-->
                                             <!--begin::Menu item-->
                                             <div class="menu-item px-3">
-                                                <form action="{{ route('admin.destroy-blog', $blog->id) }}"
+                                                {{-- <a href="#" class="menu-link px-3"
+                                                data-kt-users-table-filter="delete_row">Xóa</a> --}}
+                                                <form action="{{ route('admin.destroy-room', $room->id) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
@@ -653,20 +649,20 @@
                 <nav class="mt-4">
                     <ul class="pagination rounded-active justify-content-center">
                         {{-- Previous Page Link --}}
-                        @if ($blogs->onFirstPage())
+                        @if ($rooms->onFirstPage())
                             <li class="page-item disabled">
                                 <span class="page-link"><i class="far fa-angle-double-left"></i></span>
                             </li>
                         @else
                             <li class="page-item">
-                                <a class="page-link" href="{{ $blogs->previousPageUrl() }}"><i
+                                <a class="page-link" href="{{ $rooms->previousPageUrl() }}"><i
                                         class="far fa-angle-double-left"></i></a>
                             </li>
                         @endif
 
                         {{-- Pagination Elements --}}
-                        @foreach ($blogs->getUrlRange(1, $blogs->lastPage()) as $page => $url)
-                            @if ($page == $blogs->currentPage())
+                        @foreach ($rooms->getUrlRange(1, $rooms->lastPage()) as $page => $url)
+                            @if ($page == $rooms->currentPage())
                                 <li class="page-item active">
                                     <span class="page-link">{{ $page }}</span>
                                 </li>
@@ -678,9 +674,9 @@
                         @endforeach
 
                         {{-- Next Page Link --}}
-                        @if ($blogs->hasMorePages())
+                        @if ($rooms->hasMorePages())
                             <li class="page-item">
-                                <a class="page-link" href="{{ $blogs->nextPageUrl() }}"><i
+                                <a class="page-link" href="{{ $rooms->nextPageUrl() }}"><i
                                         class="far fa-angle-double-right"></i></a>
                             </li>
                         @else
@@ -690,113 +686,12 @@
                         @endif
                     </ul>
                 </nav>
-                <div class="text-center mt-2">{{ $blogs->firstItem() }}-{{ $blogs->lastItem() }} của
-                    {{ $blogs->total() }} kết quả</div>
+                <div class="text-center mt-2">{{ $rooms->firstItem() }}-{{ $rooms->lastItem() }} của
+                    {{ $rooms->total() }} kết quả</div>
                 <!--end::Card body-->
             </div>
             <!--end::Card-->
         </div>
         <!--end::Container-->
     </div>
-    <!--end::Post-->
 </div>
-    <!--end::Footer-->
-    </div>
-    <!--end::Wrapper-->
-    </div>
-    <!--end::Page-->
-    </div>
-    <!--end::Root-->
-    <!--begin::Drawers-->
-    <!--begin::Activities drawer-->
-
-    <!--end::Activities drawer-->
-    <!--begin::Chat drawer-->
-
-    <!--end::Chat drawer-->
-    <!--begin::Exolore drawer toggle-->
-
-    <!--end::Exolore drawer toggle-->
-    <!--begin::Exolore drawer-->
-
-    <!--end::Exolore drawer-->
-    <!--end::Drawers-->
-    <!--begin::Modals-->
-    <!--begin::Modal - Invite Friends-->
-
-    <!--end::Modal - Invite Friend-->
-    <!--begin::Modal - Create App-->
-
-    <!--end::Modal - Create App-->
-    <!--begin::Modal - Upgrade plan-->
-
-    <!--end::Modal - Upgrade plan-->
-    <!--end::Modals-->
-    <!--begin::Scrolltop-->
-    <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
-        <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
-        <span class="svg-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1"
-                    transform="rotate(90 13 6)" fill="black" />
-                <path
-                    d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
-                    fill="black" />
-            </svg>
-        </span>
-        <!--end::Svg Icon-->
-    </div>
-    <!--end::Scrolltop-->
-    <!--end::Main-->
-@endsection
-@push('styleAdmin')
-    <base href="{{ asset('..') }}">
-    <title>Danh Sách Loại</title>
-    <meta name="description"
-        content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
-    <meta name="keywords"
-        content="Metronic, bootstrap, bootstrap 5, Angular, VueJs, React, Laravel, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="utf-8" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title"
-        content="Metronic - Bootstrap 5 HTML, VueJS, React, Angular &amp; Laravel Admin Dashboard Theme" />
-    <meta property="og:url" content="https://keenthemes.com/metronic" />
-    <meta property="og:site_name" content="Keenthemes | Metronic" />
-    <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
-    <meta name="success" content="{{ session('success') }}">
-    <meta name="error" content="{{ session('error') }}">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
-    <!--begin::Fonts-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
-    <!--end::Fonts-->
-    <!--begin::Global Stylesheets Bundle(used by all pages)-->
-    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <!--end::Global Stylesheets Bundle-->
-@endpush
-
-@push('scriptsAdmin')
-    <script>
-        var hostUrl = "{{ asset('assets/') }}";
-    </script>
-    <!--begin::Javascript-->
-    <!--begin::Global Javascript Bundle(used by all pages)-->
-    <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
-    <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
-    <!--end::Global Javascript Bundle-->
-    <!--begin::Page Custom Javascript(used by this page)-->
-    <script src="{{ asset('assets/js/custom/account/settings/signin-methods.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/account/settings/profile-details.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/account/settings/deactivate-account.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/modals/two-factor-authentication.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/widgets.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/apps/chat/chat.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/modals/create-app.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/modals/upgrade-plan.js') }}"></script>
-    <!--end::Page Custom Javascript-->
-    <!--end::Javascript-->
-@endpush
