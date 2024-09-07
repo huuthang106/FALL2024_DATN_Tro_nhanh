@@ -33,7 +33,7 @@ class ZoneServices
             $zone->name = $request->input('name');
             $zone->description = $request->input('description');
             $zone->total_rooms = $request->input('total_rooms');
-           
+
             $zone->address = $request->input('address');
             $zone->province = $request->input('province');
             $zone->district = $request->input('district');
@@ -121,7 +121,7 @@ class ZoneServices
         try {
             // Use the provided userId or fall back to the currently authenticated user
             $userId = $userId ?? Auth::id();
-    
+
             // Count the number of zones for the specified user
             return Zone::where('user_id', $userId)->count();
         } catch (\Exception $e) {
@@ -153,15 +153,15 @@ class ZoneServices
     {
         try {
             $query = Zone::query();
-    
+
             if ($searchTerm) {
                 $query->where('name', 'like', '%' . $searchTerm . '%')
                     ->orWhere('description', 'like', '%' . $searchTerm . '%');
             }
-    
+
             // Sắp xếp theo ngày tạo mới nhất
             $query->orderBy('created_at', 'desc');
-    
+
             return $query->paginate($perPage);
         } catch (\Exception $e) {
             return null;
@@ -235,7 +235,7 @@ class ZoneServices
             return 0;
         }
     }
-    
+
 
 
     public function update($request, $zoneId)
@@ -374,5 +374,4 @@ class ZoneServices
             'message' => 'Khu trọ đã được xóa vĩnh viễn thành công.'
         ];
     }
-
 }

@@ -185,21 +185,21 @@ class RoomOwnersService
     }
     // Tổng số trọ của tài khoản
     public function getRoomCount($userId = null)
-{
-    try {
-        // Nếu userId không có hoặc NULL sẽ sử dụng auth()->id()
-        $userId = $userId ?? auth()->id();
+    {
+        try {
+            // Nếu userId không có hoặc NULL sẽ sử dụng auth()->id()
+            $userId = $userId ?? auth()->id();
 
-        // Đếm số lượng phòng thuộc về người dùng với ID cụ thể
-        return Room::where('user_id', $userId)->count();
-    } catch (\Exception $e) {
-        // Ghi lại lỗi nếu có sự cố khi đếm số phòng
-        Log::error('Error counting rooms: ' . $e->getMessage());
-        return 0;
+            // Đếm số lượng phòng thuộc về người dùng với ID cụ thể
+            return Room::where('user_id', $userId)->count();
+        } catch (\Exception $e) {
+            // Ghi lại lỗi nếu có sự cố khi đếm số phòng
+            Log::error('Error counting rooms: ' . $e->getMessage());
+            return 0;
+        }
     }
-}
 
-    
+
     // Hàm tạo Slug
     private function createSlug($name)
     {
