@@ -388,7 +388,7 @@
                                 </dl>
                                 <dl class="col-sm-6 mb-0 d-flex">
                                     <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Loại thuộc tính</dt>
-                                    <dd>{{ $rooms->category->name }}</dd>
+                                    <dd>{{ $rooms->category->name ?? '' }}</dd>
                                 </dl>
                                 <dl class="col-sm-6 mb-0 d-flex">
                                     <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Trạng thái thuộc tính</dt>

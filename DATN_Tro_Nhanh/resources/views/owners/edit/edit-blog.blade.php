@@ -47,14 +47,19 @@
                                                         <div class="card-body p-6">
                                                             <h3 class="card-title mb-0 text-heading fs-22 lh-15">Thông tin bài viết của bạn</h3>
                                                             <div class="form-group">
-                                                                <label for="title" class="text-heading">Tiêu đề<span class="text-muted">(bắt buộc)</span></label>
-                                                                <input type="text" class="form-control form-control-lg border-0" id="title" name="title" value="{{ old('title', $blog->title) }}" required>
-                                                                <span class="error-message text-danger" id="titleError" style="display: none;">Bạn chưa nhập tiêu đề.</span>
+                                                                <label for="title" class="text-heading" id="title-label">Tiêu đề<span class="text-muted">(bắt buộc)</span></label>
+                                                                <input type="text" class="form-control form-control-lg border-0 @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title', $blog->title) }}">
+                                                                @error('title')
+                                                                    <span class="error-message text-danger" id="title-error">{{ $message }}</span>
+                                                                @enderror
                                                             </div>
+                                                            
                                                             <div class="form-group mb-0">
                                                                 <label for="description" class="text-heading">Nội dung</label>
-                                                                <textarea class="form-control border-0" rows="5" name="description" id="description" required>{{ old('description', $blog->description) }}</textarea>
-                                                                <span class="error-message text-danger" id="descriptionError" style="display: none;">Bạn chưa nhập nội dung.</span>
+                                                                <textarea class="form-control border-0 @error('description') is-invalid @enderror" rows="5" name="description" id="description-field">{{ old('description', $blog->description) }}</textarea>
+                                                                @error('description')
+                                                                    <span class="error-message text-danger" id="description-error">{{ $message }}</span>
+                                                                @enderror
                                                             </div>
                                                         </div>
                                                     </div>
@@ -86,26 +91,22 @@
                                                 <div class="col-lg-10">
                                                     <div class="card mb-6">
                                                         <div class="card-body p-6">
-                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Tải lên hình ảnh bạn muốn truyền tải cho khách hàng</h3>
+                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Tải lên hình bạn muốn truyền tải cho khách hàng</h3>
                                                             <div class="dropzone upload-file text-center py-5" id="myDropzone">
-                                                                <div class="dz-default dz-message">
+                                                                <div class="dz-default dz-message mb-0">
                                                                     <span class="upload-icon lh-1 d-inline-block mb-4">
                                                                         <i class="fal fa-cloud-upload-alt"></i>
                                                                     </span>
                                                                     <p class="text-heading fs-22 lh-15 mb-4">Kéo và thả hình ảnh hoặc</p>
                                                                     <button class="btn btn-indigo px-7 mb-2" type="button" onclick="document.getElementById('fileInput').click();">Tải lên</button>
                                                                     <input id="fileInput" name="images[]" type="file" hidden multiple>
-                                                                    <p>Ảnh phải ở định dạng JPEG hoặc PNG và có kích thước tối thiểu là 1024x768</p>
                                                                 </div>
                                                                 <div id="imagePreview" class="mt-4">
-                                                                    @if($blog->images && $blog->images->count())
-                                                                        @foreach($blog->images as $image)
-                                                                            <img src="{{ asset('assets/images/' . $image->filename) }}" alt="Blog Image" class="img-thumbnail" style="max-width: 150px; margin-right: 10px;">
-                                                                        @endforeach
-                                                                    @else
-                                                                        <p>Chưa có hình ảnh nào được tải lên.</p>
-                                                                    @endif
+                                                                    <!-- Nơi ảnh sẽ hiển thị sau khi upload -->
                                                                 </div>
+                                                                @error('images')
+                                                                    <span class="error-message text-danger" id="images-error">{{ $message }}</span>
+                                                                @enderror
                                                             </div>
                                                         </div>
                                                     </div>
@@ -113,14 +114,16 @@
                                             </div>
                                             <div class="d-flex flex-wrap">
                                                 <a href="#" class="btn btn-lg bg-hover-white border rounded-lg mb-3 mr-auto prev-button">
-                                                    <span class="d-inline-block text-primary mr-2 fs-16"><i class="fal fa-long-arrow-left"></i></span>Trở lại
+                                                    <span class="d-inline-block text-primary mr-2 fs-16"><i class="fal fa-long-arrow-left"></i></span>Phía trước
                                                 </a>
-                                                <button class="btn btn-lg btn-primary mb-3" type="submit">Cập nhật</button>
+                                                <button class="btn btn-lg btn-primary mb-3" type="submit">Gửi</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        
                             
                         </div>
                     </form>
@@ -187,7 +190,8 @@
 @endpush
 @push('scriptOwners')
 
-    <script src="{{ asset('assets/js/batloi.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/batloi.js') }}"></script> --}}
+    <script src="{{ asset('assets/js/tcn.js') }}"></script>
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/bootstrap/bootstrap.bundle.js') }}"></script>

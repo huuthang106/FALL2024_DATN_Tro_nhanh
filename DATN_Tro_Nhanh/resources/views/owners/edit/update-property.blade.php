@@ -306,24 +306,28 @@
                                                                         onclick="document.getElementById('fileInput').click();">
                                                                         Chọn thư mục
                                                                     </button>
+                                                                 
                                                                     <input type="file" hidden id="fileInput" multiple
                                                                         accept="image/jpeg, image/png" name="images[]"
                                                                         onchange="previewImages();">
-                                                                    <p>Chọn 1 lúc nhiều ảnh</p>
+                                                                        @error('images')
+                                                                        <div class="text-danger">{{ $message }}</div>
+                                                                        @enderror
+                                                                        <div id="imagePreview" class="text-center mt-4">
+                                                                            @foreach ($room->images as $image)
+                                                                                <div class="image-preview"
+                                                                                    data-id="{{ $image->id }}">
+                                                                                    <img src="{{ asset('assets/images/' . $image->filename) }}"
+                                                                                        alt="Image">
+                                                                                </div>
+                                                                            @endforeach
+                                                                        </div>
                                                                 </div>
                                                                 @error('images')
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
-                                                            <div id="imagePreview" class="text-center mt-4">
-                                                                @foreach ($room->images as $image)
-                                                                    <div class="image-preview"
-                                                                        data-id="{{ $image->id }}">
-                                                                        <img src="{{ asset('assets/images/' . $image->filename) }}"
-                                                                            alt="Image">
-                                                                    </div>
-                                                                @endforeach
-                                                            </div>
+                                                            
                                                             <!-- Ẩn View -->
                                                             <input type="hidden" class="form-control" id="view"
                                                                 name="view" value="0">

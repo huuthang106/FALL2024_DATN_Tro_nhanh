@@ -82,3 +82,60 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('fileInput');
+    const titleInput = document.getElementById('title');
+    const descriptionTextarea = document.getElementById('description-field');
+    const errorMessageTitle = document.getElementById('title-error');
+    const errorMessageDescription = document.getElementById('description-error');
+    const errorMessageImages = document.getElementById('images-error');
+
+    // Ẩn thông báo lỗi khi người dùng chọn file
+    fileInput.addEventListener('change', function() {
+        if (errorMessageImages) {
+            errorMessageImages.style.display = 'none'; // Ẩn thông báo lỗi ảnh
+        }
+    });
+
+    // Ẩn thông báo lỗi khi người dùng nhập tiêu đề
+    titleInput.addEventListener('input', function() {
+        if (errorMessageTitle) {
+            errorMessageTitle.style.display = 'none'; // Ẩn thông báo lỗi tiêu đề
+        }
+    });
+
+    // Ẩn thông báo lỗi khi người dùng nhập nội dung
+    descriptionTextarea.addEventListener('input', function() {
+        if (errorMessageDescription) {
+            errorMessageDescription.style.display = 'none'; // Ẩn thông báo lỗi nội dung
+        }
+    });
+
+    // Optional: Ẩn thông báo lỗi khi kéo và thả ảnh
+    const dropzone = document.getElementById('myDropzone');
+    dropzone.addEventListener('drop', function() {
+        if (errorMessageImages) {
+            errorMessageImages.style.display = 'none'; // Ẩn thông báo lỗi khi kéo và thả ảnh
+        }
+    });
+
+    // Optional: Xử lý khi người dùng nhấn vào nút tải lên để ẩn thông báo lỗi ảnh
+    const uploadButton = document.querySelector('#myDropzone .btn');
+    if (uploadButton) {
+        uploadButton.addEventListener('click', function() {
+            if (errorMessageImages) {
+                errorMessageImages.style.display = 'none'; // Ẩn thông báo lỗi khi nhấn nút tải lên
+            }
+        });
+    }
+});
+
+
+
+
+
+
+

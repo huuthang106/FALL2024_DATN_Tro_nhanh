@@ -46,62 +46,48 @@ class BlogOwnersController extends Controller
         }
     }
 
-    public function updateBlog(Request $request, $slug)
-    {
-        $result = $this->BlogService->updateBlog($request, $slug);
-
-
-        return redirect()->route('owners.show-blog')->with('success', $result['message']);
-
-    }
-
-
-
-
-    // public function update(Request $request, $slug)
+    // public function updateBlog(Request $request, $slug)
     // {
     //     $result = $this->BlogService->updateBlog($request, $slug);
 
-    //     if ($result['success']) {
-    //         return redirect()->route('owners.blog')->with('success', $result['message']);
-    //     } else {
-    //         return redirect()->route('owners.blog')->with('error', $result['message']);
-    //     }
+
+    //     return redirect()->route('owners.show-blog')->with('success', $result['message']);
+
     // }
 
 
-    public function store(CreateBlogRequest $request)
+
+
+    public function updateBlog(CreateBlogRequest $request, $slug)
     {
-        try {
-            // Gọi hàm xử lý blog trong BlogService
-            $blog = $this->BlogService->handleBlogCreation($request);
+        $result = $this->BlogService->updateBlog($request, $slug);
 
-            // Kích hoạt sự kiện BlogCreated
-            event(new BlogCreated($blog));
-
-            return redirect()->route('owners.blog')->with('success', 'Blog đã được tạo thành công!');
-        } catch (\Exception $e) {
-            Log::error('Không thể tạo blog: ' . $e->getMessage());
-            return redirect()->route('owners.blog')->with('error', 'Có lỗi xảy ra khi tạo blog.');
+        if ($result['success']) {
+            return redirect()->route('owners.show-blog')->with('success', $result['message']);
+        } else {
+            return redirect()->route('owners.show-blog')->with('error', $result['message']);
         }
     }
 
-    // public function uploadImage(Request $request)
-    // {
-    //     $path = $this->BlogService->uploadImage($request);
 
-    //     if ($path) {
-    //         return response()->json(['success' => true, 'path' => $path]);
-    //     }
+    public function store(CreateBlogRequest $request)
+{
+    try {
+        $blog = $this->BlogService->handleBlogCreation($request);
 
-    //     return response()->json(['success' => false, 'message' => 'No file uploaded.']);
-    // }
-    // public function destroy($slug)
-    // {
-    //     // Gọi hàm xóa từ service
-    //     $deleted = $this->BlogService->deleteBlogBySlug($slug);
-    //     return view('owners.show.dashboard-my-blog');
-    // }
+        event(new BlogCreated($blog));
+
+        return redirect()->route('owners.blog')->with('success', 'Blog đã được tạo thành công!');
+    } catch (\Exception $e) {
+        Log::error('Không thể tạo blog: ' . $e->getMessage());
+        return redirect()->back()->withInput()->with('error', 'Có lỗi xảy ra khi tạo blog.');
+    }
+}
+
+    
+    
+    
+
 
     public function destroy($id)
     {

@@ -96,6 +96,21 @@ class BlogServices
 
         return $uploadedImages;
     }
+//    private function uploadImages(Request $request)
+//    {
+//        $uploadedImages = [];
+   
+//        if ($request->hasFile('images')) {
+//            foreach ($request->file('images') as $image) {
+//                $filename = time() . '_' . $image->getClientOriginalName();
+//                $path = 'images'; // Thay đổi thư mục lưu trữ nếu cần
+//                $image->storeAs($path, $filename, 'public'); // Sử dụng Storage facade
+//                $uploadedImages[] = $filename;
+//            }
+//        }
+   
+//        return $uploadedImages;
+//    }
 
 
     // In CreateBlogRequest.php
