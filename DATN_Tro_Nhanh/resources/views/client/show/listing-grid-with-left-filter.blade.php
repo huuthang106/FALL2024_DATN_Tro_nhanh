@@ -282,7 +282,7 @@
                                                         </div>
                                                         <div class="px-2 pb-2">
                                                             <a href="single-property-1.html" class="text-white">
-                                                                <h5 class="card-title fs-16 lh-2 mb-0">{{ $room->title }}
+                                                                <h5 class="card-title fs-16 lh-2 mb-0"><small>{{ $room->title }}</small>
                                                                 </h5>
                                                             </a>
                                                             <p class="card-text text-gray-light mb-0 font-weight-500">
@@ -467,18 +467,22 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="card-body pt-3 px-0 pb-1">
+                                            <div class="card-body pt-3 px-0 pb-1 d-flex flex-column" style="height: 150px;">
                                                 <h2 class="fs-16 mb-1">
                                                     <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
                                                        class="text-dark hover-primary">
-                                                        {{ $room->title }}
+                                                       <small>{{ Str::limit($room->title, 50) }}</small>
                                                     </a>
                                                 </h2>
-                                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
-                                                    <p class="font-weight-500 text-gray-light mb-0">{{ $room->address }}</p>
+                                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}" class="flex-grow-1">
+                                                    <p class="font-weight-500 text-gray-light mb-0">
+                                                        <small>{{ Str::limit($room->address, 70) }}</small>
+                                                    </p>
                                                 </a>
-                                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
-                                                    <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">{{ $room->price }} VND</p>
+                                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}" class="mt-auto">
+                                                    <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">
+                                                        {{ number_format($room->price, 0, ',', '.') }} VND
+                                                    </p>
                                                 </a>
                                             </div>
                                             <div class="card-footer bg-transparent px-0 pb-0 pt-2">

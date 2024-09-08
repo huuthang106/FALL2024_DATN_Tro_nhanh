@@ -33,21 +33,41 @@ class ZoneSearch extends Component
         $this->orderBy = $field;
     }
 
+    // public function render()
+    // {
+    //     Log::info('Rendering with search: "' . $this->search . '"');
+
+    //     $query = Zone::where('name', 'like', '%'.$this->search.'%')
+    //                  ->orWhere('description', 'like', '%'.$this->search.'%')
+    //                  ->orWhere('address', 'like', '%'.$this->search.'%');
+
+    //     $zones = $query->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
+    //                    ->paginate($this->perPage);
+
+    //     Log::info('Found ' . $zones->count() . ' zones');
+
+    //     return view('livewire.zone-search', [
+    //         'zones' => $zones
+    //     ]);
+    // }
     public function render()
-    {
-        Log::info('Rendering with search: "' . $this->search . '"');
+{
+    Log::info('Đang tìm kiếm với từ khóa: "' . $this->search . '"');
 
-        $query = Zone::where('name', 'like', '%'.$this->search.'%')
-                     ->orWhere('description', 'like', '%'.$this->search.'%')
-                     ->orWhere('address', 'like', '%'.$this->search.'%');
+    $query = Zone::where('user_id', auth()->id())
+                 ->where(function($q) {
+                     $q->where('name', 'like', '%'.$this->search.'%')
+                       ->orWhere('description', 'like', '%'.$this->search.'%')
+                       ->orWhere('address', 'like', '%'.$this->search.'%');
+                 });
 
-        $zones = $query->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
-                       ->paginate($this->perPage);
+    $zones = $query->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
+                   ->paginate($this->perPage);
 
-        Log::info('Found ' . $zones->count() . ' zones');
+    Log::info('Tìm thấy ' . $zones->count() . ' khu vực');
 
-        return view('livewire.zone-search', [
-            'zones' => $zones
-        ]);
-    }
+    return view('livewire.zone-search', [
+        'zones' => $zones
+    ]);
+}
 }

@@ -44,8 +44,8 @@ class DatabaseSeeder extends Seeder
         Contact::factory()->count(10)->create();
 
         // Tạo dữ liệu mẫu cho bảng Messages
-        Message::factory()->count(50)->create();
-        // User::factory(5)->create();
+        // Message::factory()->count(50)->create();
+        User::factory(20)->create();
         // Acreage::factory(5)->create();
         // Category::factory(5)->create();
         // Location::factory(5)->create();

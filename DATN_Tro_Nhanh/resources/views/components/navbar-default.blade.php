@@ -192,9 +192,9 @@
             <div class="container container-xxl">
                 <nav class="navbar navbar-expand-xl px-0 w-100">
                     <a class="navbar-brand mr-7" href="{{route('client.home')}}">
-                        <img src="{{ asset('assets/images/logo-moi.png') }}" alt="HomeID"
+                        <img src="{{ asset('assets/images/tro-moi.png') }}" alt="HomeID"
                             class="d-none d-xl-inline-block">
-                        <img src="{{ asset('assets/images/logo-moi.png') }}" alt="HomeID"
+                        <img src="{{ asset('assets/images/tro-moi.png') }}" alt="HomeID"
                             class="d-inline-block d-xl-none">
                     </a>
                     <div class="d-flex d-xl-none ml-auto">

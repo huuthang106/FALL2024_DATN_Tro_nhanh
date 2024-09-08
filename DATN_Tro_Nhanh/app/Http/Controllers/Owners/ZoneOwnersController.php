@@ -29,6 +29,7 @@ class ZoneOwnersController extends Controller
     public function showDetailOwners($slug)
     {
         $data = $this->zoneServices->showDetail($slug);
+        // dd($data);
         return view('owners.show.dashbroard-zone-detail', [
             'zone' => $data['zone'],
             'residents' => $data['residents']

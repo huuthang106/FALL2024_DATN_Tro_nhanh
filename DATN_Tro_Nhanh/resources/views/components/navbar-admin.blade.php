@@ -1628,8 +1628,9 @@
         <div class="header-brand">
             <!--begin::Logo-->
             <a href="../../demo8/dist/index.html">
-                <img alt="Logo" src="{{ asset('assets/media/logos/logo-1-dark.svg') }}"
-                    class="h-25px h-lg-25px" />
+                <img alt="Logo" src="{{  asset('assets/images/tro-moi.png') }}"
+                    />
+                    {{-- class="h-25px h-lg-25px" --}}
             </a>
             <!--end::Logo-->
             <!--begin::Aside minimize-->

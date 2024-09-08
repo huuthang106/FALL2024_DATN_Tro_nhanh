@@ -215,7 +215,19 @@ class BlogServices
             return null;
         }
     }
-
+    public function getMyBlogss(int $userId, int $perPage = 10)
+    {
+        try {
+            $query = Blog::where('user_id', $userId);
+    
+         
+    
+            return $query->paginate($perPage);
+        } catch (\Exception $e) {
+            Log::error('Error fetching blogs: ' . $e->getMessage());
+            return null;
+        }
+    }
     public function getBlogBySlug(string $slug): ?Blog
     {
         try {
@@ -241,7 +253,7 @@ class BlogServices
             $userId = Auth::id(); // Lấy ID của người dùng hiện tại
 
             // Xây dựng truy vấn để lấy blog của người dùng cụ thể với thông tin liên quan
-            $query = Blog::query()->where('user_id', $userId);
+            $query = Blog::query()->where('status', 1);
 
             if ($searchTerm) {
                 $query->where(function ($q) use ($searchTerm) {

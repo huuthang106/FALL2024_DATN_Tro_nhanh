@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Owners;
 use App\Http\Controllers\Controller;
 use App\Services\RoomOwnersService;
 use App\Http\Requests\RoomOwnersRequest;
+use App\Http\Requests\UpdateroomRequests;
+
 use Exception;
 use App\Models\Acreage;
 use App\Models\Price;
@@ -12,6 +14,7 @@ use App\Models\Category;
 
 use App\Models\Location;
 use App\Models\Zone;
+use App\Services\ZoneServices;
 
 use Illuminate\Validation\ValidationException;
 use App\Events\Owners\RoomOwnersEvent;
@@ -25,13 +28,17 @@ class RoomOwnersController extends Controller
 {
     protected $roomService;
     protected $roomOwnersService;
+    protected $zoneServices;
+    
+
 
 
     // Khởi tạo RoomService
-    public function __construct(RoomServices $roomService, RoomOwnersService $roomOwnersService)
+    public function __construct(RoomServices $roomService, RoomOwnersService $roomOwnersService, ZoneServices $zoneServices)
     {
         $this->roomService = $roomService;
         $this->roomOwnersService = $roomOwnersService;
+        $this->zoneServices = $zoneServices;
     }
     /**
      * Hiển thị danh sách phòng cho người dùng đang đăng nhập.
@@ -95,7 +102,7 @@ class RoomOwnersController extends Controller
         $categories = Category::all();
 
         $locations = Location::all();
-        $zones = Zone::all();
+        $zones = $this->zoneServices->getMyZone(Auth::user()->id);
 
         return view('owners.create.add-new-property', compact('acreages', 'prices', 'categories', 'locations', 'zones'));
     }
@@ -125,7 +132,7 @@ class RoomOwnersController extends Controller
 
             $prices = $this->roomOwnersService->getAllPrices();
             $locations = $this->roomOwnersService->getAllLocations();
-            $zones = $this->roomOwnersService->getAllZones();
+            $zones = $this->zoneServices->getMyZone(Auth::user()->id);
             $images = $this->roomOwnersService->getRoomImages($room->id); // Lấy hình ảnh của phòng
             $utilities = $this->roomOwnersService->getRoomUtilities($room->id); // Lấy tiện ích của phòng
             return view('owners.edit.update-property', [
@@ -144,9 +151,9 @@ class RoomOwnersController extends Controller
         }
     }
     // Cập nhật
-    public function update(RoomOwnersRequest $request, $roomId)
+    public function update(UpdateroomRequests $request, $roomId)
     {
-        // Gọi phương thức update từ service
+            // Gọi phương thức update từ service
         $room = $this->roomOwnersService->update($request, $roomId);
         if ($room) {
             // Phát sự kiện RoomOwners và truyền đối tượng phòng đã cập nhật

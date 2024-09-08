@@ -29,7 +29,8 @@ class BlogOwnersController extends Controller
     }
     public function show()
     {
-        $blogs = $this->BlogService->getAllBlogs();
+        $userId = Auth::id();
+        $blogs = $this->BlogService->getMyBlogss( $userId);
         return view('owners.show.dashboard-my-blog', compact('blogs'));
     }
     public function editBlog($slug)
