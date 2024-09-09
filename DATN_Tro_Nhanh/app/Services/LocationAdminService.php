@@ -40,7 +40,7 @@ class LocationAdminService
         // Tạo mới đối tượng Location và gán giá trị
         $locations = new Location();
         $locations->name = $request->input('name');
-        $locations->end_date = $request->input('end_date');
+        
         $locations->status = $request->input('status');
         // Lưu đối tượng locations
         if ($locations->save()) {
@@ -54,6 +54,7 @@ class LocationAdminService
 
             // Lưu lại đối tượng với slug mới
             $locations->save();
+            
         } else {
             return false;
         }
@@ -64,7 +65,6 @@ class LocationAdminService
     {
         $locations = Location::where('slug', $slug)->first();
         $locations->name = $request->input('name');
-        $locations->end_date = $request->input('end_date');
         $locations->status = $request->input('status');
         // Lưu đối tượng Location
         $locations->save();

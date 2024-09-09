@@ -9,7 +9,7 @@ class Location extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['room_id', 'path', 'name', 'status', 'slug', 'end_date'];
+    protected $fillable = ['room_id', 'path', 'name', 'status', 'slug'];
     public function priceLists()
     {
         return $this->hasMany(PriceList::class);

@@ -102,6 +102,8 @@
                                     </div>
                                     <!--end::Content-->
                                 </div>
+                                <a type="button" href="{{ route('admin.add-location-show') }}" class="btn btn-primary">
+                                    Thêm vị trí tin</a>
                                 <!--end::Menu 1-->
                                 <!--end::Filter-->
                                 <!--begin::Export-->
@@ -532,7 +534,7 @@
                                     </th>
                                     <th class="min-w-125px">Tên gói tin</th>
                                     <th class="min-w-125px">Ngày tạo</th>
-                                    <th class="min-w-125px">Ngày hết hạn</th>
+                               
                                     <th class="min-w-125px">Trạng thái</th>
                                     <th class="text-end min-w-110px">Tác vụ</th>
                                 </tr>
@@ -563,7 +565,7 @@
                                         {{-- <td>{{ $location->quantity }}</td> --}}
                                         <!--end::Two step=-->
                                         <!--begin::Joined-->
-                                        <td> {{ \Carbon\Carbon::parse($location->end_date)->format('d/m/Y') }}</td>
+                                     
                                         <!--begin::Joined-->
                                         <td>
                                             @if ($location->status == 1)
