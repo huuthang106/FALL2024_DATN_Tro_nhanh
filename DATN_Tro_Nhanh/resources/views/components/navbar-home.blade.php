@@ -447,6 +447,14 @@
                                             </a>
                                         </li>
                                     </ul>
+                                    <li class="nav-item mr-auto mr-lg-6">
+                                        <a class="nav-link px-2 position-relative" href="{{ Route('owners.chat-owners') }}">
+                                            <i class="fal fa-comments-alt fs-large-4"></i>
+                                            <span class="badge badge-primary badge-circle badge-absolute">
+                                                <livewire:unread-message-count />
+                                            </span>
+                                        </a>
+                                    </li>
                                     <form id="logout-form" action="{{ route('client.logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
@@ -455,14 +463,7 @@
                                 @endif
                             </li>
                             <!-- Chat Icon -->
-                            <li class="nav-item mr-auto mr-lg-6">
-                                <a class="nav-link px-2 position-relative" href="{{ Route('owners.chat-owners') }}">
-                                    <i class="fal fa-comments-alt fs-large-4"></i>
-                                    <span class="badge badge-primary badge-circle badge-absolute">
-                                        <livewire:unread-message-count />
-                                    </span>
-                                </a>
-                            </li>
+                           
                             <!-- Cart Icon -->
                             <li class="nav-item mr-auto mr-lg-6">
                                 <a class="nav-link px-2 position-relative" href="{{ route('client.carts-show') }}">
