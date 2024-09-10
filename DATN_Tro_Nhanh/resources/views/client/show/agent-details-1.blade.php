@@ -38,9 +38,10 @@
                                 </div>
                                 <div class="col-sm-6 mb-4">
                                     @if ($isFollowing)
-                                        <form action="{{ route('client.follow', $user->id) }}" method="POST" id="unfollowForm">
+                                        <form action="{{ route('client.follow', $user->id) }}" method="POST"
+                                            id="unfollowForm">
                                             @csrf
-                                           
+
                                             <button type="submit" class="btn btn-sm btn-primary me-2" id="unfollowButton">
                                                 <span class="indicator-label">Đã theo dõi</span>
                                                 <span class="indicator-progress d-none">Vui lòng chờ...
@@ -49,16 +50,16 @@
                                             </button>
                                         </form>
                                     @else
-                                    <form action="{{ route('client.follow', $user->id) }}" method="POST" id="followForm">
-                                        @csrf
-                                        <button type="submit" class="btn btn-sm btn-light me-2" id="followButton">
-                                            <span class="indicator-label">Theo dõi</span>
-                                            <span class="indicator-progress d-none">Vui lòng chờ...
-                                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                                            </span>
-                                        </button>
-                                    </form>
-                                    
+                                        <form action="{{ route('client.follow', $user->id) }}" method="POST"
+                                            id="followForm">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-light me-2" id="followButton">
+                                                <span class="indicator-label">Theo dõi</span>
+                                                <span class="indicator-progress d-none">Vui lòng chờ...
+                                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                </span>
+                                            </button>
+                                        </form>
                                     @endif
                                 </div>
 
@@ -131,27 +132,27 @@
                         <div class="collapse-tabs mb-10">
                             <ul class="nav nav-tabs text-uppercase d-none d-md-inline-flex agent-details-tabs"
                                 role="tablist">
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="#all" class="nav-link active shadow-none fs-13" data-toggle="tab"
                                         role="tab">
                                         Tất cả ({{ $totalProperties }})
                                     </a>
-                                </li>
-                                <li class="nav-item ml-0">
-                                    <a href="#sale" class="nav-link shadow-none fs-13" data-toggle="tab" role="tab">
+                                </li> --}}
+                                <li class="nav-item">
+                                    <a href="#sale" class="nav-link active shadow-none fs-13 " data-toggle="tab"
+                                        role="tab">
                                         Phòng ({{ $totalRooms }})
                                     </a>
                                 </li>
                                 <li class="nav-item ml-0">
-                                    <a href="#rent" class="nav-link shadow-none fs-13" data-toggle="tab"
-                                        role="tab">
+                                    <a href="#rent" class="nav-link shadow-none fs-13" data-toggle="tab" role="tab">
                                         Khu trọ ({{ $totalZones }})
                                     </a>
                                 </li>
                             </ul>
                             <div class="tab-content shadow-none pt-7 pb-0 px-6 bg-white">
                                 <div id="collapse-tabs-accordion-01">
-                                    <div class="tab-pane tab-pane-parent fade show active" id="all"
+                                    {{-- <div class="tab-pane tab-pane-parent fade show active" id="all"
                                         role="tabpanel">
                                         <div class="card border-0 bg-transparent">
                                             <div class="card-header border-0 d-block d-md-none bg-transparent px-0 py-1"
@@ -177,7 +178,6 @@
                                                                 </div>
                                                             </div>
                                                         @else
-                                                            {{-- Hiển thị danh sách phòng trọ --}}
                                                             @if (!$rooms->isEmpty())
                                                                 @foreach ($rooms as $room)
                                                                     <div class="col-md-6 mb-7">
@@ -300,7 +300,6 @@
                                                                     </div>
                                                                 @endforeach
                                                             @endif
-                                                            {{-- Hiển thị danh sách khu trọ --}}
                                                             @if (!$zones->isEmpty())
                                                                 @foreach ($zones as $zone)
                                                                     <div class="col-md-6 mb-7">
@@ -339,8 +338,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="tab-pane tab-pane-parent fade" id="sale" role="tabpanel">
+                                    </div> --}}
+                                    <div class="tab-pane tab-pane-parent fade show active" id="sale"
+                                        role="tabpanel">
                                         <div class="card border-0 bg-transparent">
                                             <div class="card-header border-0 d-block d-md-none bg-transparent p-0"
                                                 id="headingSale-01">
@@ -353,7 +353,7 @@
                                                     </button>
                                                 </h5>
                                             </div>
-                                            <div id="sale-collapse-01" class="collapse collapsible"
+                                            <div id="sale-collapse-01" class="collapse show collapsible"
                                                 aria-labelledby="headingSale-01"
                                                 data-parent="#collapse-tabs-accordion-01">
                                                 <div class="card-body p-0">
@@ -491,6 +491,54 @@
                                                             @endforeach
                                                         @endif
                                                     </div>
+                                                    @if (!$rooms->isEmpty())
+                                                        <div class="mt-4">
+                                                            <ul class="pagination rounded-active justify-content-center">
+                                                                {{-- Previous Page Link --}}
+                                                                @if ($rooms->onFirstPage())
+                                                                    <li class="page-item disabled">
+                                                                        <span class="page-link"><i
+                                                                                class="far fa-angle-double-left"></i></span>
+                                                                    </li>
+                                                                @else
+                                                                    <li class="page-item">
+                                                                        <a class="page-link"
+                                                                            href="{{ $rooms->previousPageUrl() }}"><i
+                                                                                class="far fa-angle-double-left"></i></a>
+                                                                    </li>
+                                                                @endif
+
+                                                                {{-- Pagination Elements --}}
+                                                                @foreach ($rooms->getUrlRange(1, $rooms->lastPage()) as $page => $url)
+                                                                    @if ($page == $rooms->currentPage())
+                                                                        <li class="page-item active">
+                                                                            <span
+                                                                                class="page-link">{{ $page }}</span>
+                                                                        </li>
+                                                                    @else
+                                                                        <li class="page-item">
+                                                                            <a class="page-link"
+                                                                                href="{{ $url }}">{{ $page }}</a>
+                                                                        </li>
+                                                                    @endif
+                                                                @endforeach
+
+                                                                {{-- Next Page Link --}}
+                                                                @if ($rooms->hasMorePages())
+                                                                    <li class="page-item">
+                                                                        <a class="page-link"
+                                                                            href="{{ $rooms->nextPageUrl() }}"><i
+                                                                                class="far fa-angle-double-right"></i></a>
+                                                                    </li>
+                                                                @else
+                                                                    <li class="page-item disabled">
+                                                                        <span class="page-link"><i
+                                                                                class="far fa-angle-double-right"></i></span>
+                                                                    </li>
+                                                                @endif
+                                                            </ul>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -645,6 +693,54 @@
                                                             @endforeach
                                                         @endif
                                                     </div>
+                                                    @if (!$zones->isEmpty())
+                                                        <div class="mt-4">
+                                                            <ul class="pagination rounded-active justify-content-center">
+                                                                {{-- Previous Page Link --}}
+                                                                @if ($zones->onFirstPage())
+                                                                    <li class="page-item disabled">
+                                                                        <span class="page-link"><i
+                                                                                class="far fa-angle-double-left"></i></span>
+                                                                    </li>
+                                                                @else
+                                                                    <li class="page-item">
+                                                                        <a class="page-link"
+                                                                            href="{{ $zones->previousPageUrl() }}"><i
+                                                                                class="far fa-angle-double-left"></i></a>
+                                                                    </li>
+                                                                @endif
+
+                                                                {{-- Pagination Elements --}}
+                                                                @foreach ($zones->getUrlRange(1, $zones->lastPage()) as $page => $url)
+                                                                    @if ($page == $zones->currentPage())
+                                                                        <li class="page-item active">
+                                                                            <span
+                                                                                class="page-link">{{ $page }}</span>
+                                                                        </li>
+                                                                    @else
+                                                                        <li class="page-item">
+                                                                            <a class="page-link"
+                                                                                href="{{ $url }}">{{ $page }}</a>
+                                                                        </li>
+                                                                    @endif
+                                                                @endforeach
+
+                                                                {{-- Next Page Link --}}
+                                                                @if ($zones->hasMorePages())
+                                                                    <li class="page-item">
+                                                                        <a class="page-link"
+                                                                            href="{{ $zones->nextPageUrl() }}"><i
+                                                                                class="far fa-angle-double-right"></i></a>
+                                                                    </li>
+                                                                @else
+                                                                    <li class="page-item disabled">
+                                                                        <span class="page-link"><i
+                                                                                class="far fa-angle-double-right"></i></span>
+                                                                    </li>
+                                                                @endif
+                                                            </ul>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -823,22 +919,23 @@
                                             <p class="fs-16 lh-1 text-dark mb-0 font-weight-500">
                                                 {{ $user->name }}
                                             </p>
-                                            <p class="mb-0">@if($user->roll==0)
-                                                Người quản lý
-                                                @elseif($user->roll ==2)
-                                                Người đưa Tin
+                                            <p class="mb-0">
+                                                @if ($user->roll == 0)
+                                                    Người quản lý
+                                                @elseif($user->roll == 2)
+                                                    Người đưa Tin
                                                 @else
-                                                Người dùng
+                                                    Người dùng
                                                 @endif
                                             </p>
                                             <p class="text-heading font-weight-500 mb-0">
                                                 <span class="text-primary d-inline-block mr-1"><i
                                                         class="fal fa-phone"></i></span>
-                                                        {{ $user->phone }}
+                                                {{ $user->phone }}
                                             </p>
                                         </div>
                                     </div>
-                                    <form action="{{route('owners.add-chat',$user->id)}}" method="POST">
+                                    <form action="{{ route('owners.add-chat', $user->id) }}" method="POST">
                                         @csrf
                                         {{-- <div class="form-group mb-2">
                                             <label for="name" class="sr-only">Họ và Tên</label>
@@ -869,7 +966,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="card mb-4">
+                            {{-- <div class="card mb-4">
                                 <div class="card-body px-6 pt-5 pb-6">
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Tìm kiếm</h4>
                                     <form>
@@ -912,8 +1009,8 @@
                                         </button>
                                     </form>
                                 </div>
-                            </div>
-                            <div class="card">
+                            </div> --}}
+                            {{-- <div class="card">
                                 <div class="card-body text-center pt-7 pb-6 px-0">
                                     <img src="{{ asset('assets/images/contact-widget.jpg') }}"
                                         alt="Bạn muốn trở thành người đăng tin trọ?">
@@ -922,7 +1019,7 @@
                                     </div>
                                     <a href="#" class="btn btn-primary">Đăng ký</a>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

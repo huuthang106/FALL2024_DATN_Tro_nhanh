@@ -40,8 +40,6 @@ class UserClientController extends Controller
         $this->socialAuthService = $socialAuthService;
         $this->commentClientService = $commentClientService;
         $this->watchListOwner = $watchListOwner;
-
-        
     }
 
     public function login()
@@ -68,14 +66,14 @@ class UserClientController extends Controller
         $village = $request->input('village');
 
         $users = $this->userClientServices->getUsersByRole(self::role_owners, $searchTerm, self::limit, $province,  $district, $village);
- 
+
         return view('client.show.list-owners', compact('users'));
     }
     public function agentDetail($slug)
     {
         // Get user details and ratings from the service
         $userDetails = $this->commentClientService->getUserDetailsWithRatings($slug);
-        $user =User::where('slug', $slug)->first();
+        $user = User::where('slug', $slug)->first();
         $comments = $userDetails['comments'];
         // Check if user exists in the returned array
         if (!$userDetails['user']) {
@@ -87,22 +85,24 @@ class UserClientController extends Controller
         if ($currentUserId) {
             $isFollowing = $this->watchListOwner->checkFollowing($user->id, $currentUserId);
         }
-       
+
         // Lấy tất cả tin đăng phòng trọ của người dùng này
-        $rooms = $user->rooms;
-        $zones = $user->zones;
+        // $rooms = $user->rooms;
+        $rooms = $user->rooms()->paginate(6); // Số phòng hiển thị trên mỗi trang là 6
+        $zones = $user->zones()->paginate(6);
         // Đếm tổng số phòng và khu trọ của người dùng này
-        $totalRooms = $rooms->count();
-        $totalZones = $zones->count();
+        // $totalRooms = $rooms->count();
+        $totalRooms = $user->rooms()->count();
+        $totalZones = $user->zones()->count();
         // Lấy tổng số phòng và số phòng tắm từ bảng utilities
-        $totalRooms = $rooms->count();
+        // $totalRooms = $rooms->count();
         foreach ($rooms as $room) {
             $room->bathrooms = $room->utility ? $room->utility->bathrooms : 0;
         }
         // Tính tổng cả rooms và zones
         $totalProperties = $totalRooms + $totalZones;
         return view('client.show.agent-details-1', array_merge(
-            compact('user', 'rooms', 'zones', 'totalRooms', 'totalZones', 'totalProperties','isFollowing'),
+            compact('user', 'rooms', 'zones', 'totalRooms', 'totalZones', 'totalProperties', 'isFollowing'),
             [
                 'user' => $userDetails['user'],
                 'averageRating' => $userDetails['averageRating'],
@@ -110,10 +110,10 @@ class UserClientController extends Controller
                 'comments' => $userDetails['comments']
             ]
         ));
-        
+
 
         // Pass all the relevant data to the view
-       
+
     }
 
 
@@ -168,5 +168,4 @@ class UserClientController extends Controller
         // Chuyển hướng về trang chủ
         return redirect('/');
     }
-
 }
