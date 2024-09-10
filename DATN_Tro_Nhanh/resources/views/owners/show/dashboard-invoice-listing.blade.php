@@ -57,11 +57,9 @@
                                     <input type="checkbox" class="new-control-input chk-parent select-customers-info">
                                 </label></th>
                             
-                            @if ($currentUserRole != 1)  
-                                <th class="py-6">Nội Dung</th>
-                            @else
+       
                                 <th class="py-6">Tiêu đề</th>
-                            @endif
+                            {{-- @endif --}}
                     
                             <th class="py-6">Giá</th>
                             <th class="py-6">Ngày tạo đơn</th>
