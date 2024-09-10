@@ -60,42 +60,51 @@
                                                 </label>
                                             </td>
                                             <td class="align-middle"><small>{{ $room->title }}</small></td>
-                                            <td class="align-middle"><small> 
-                                                @if ($room->residents && $room->residents->isNotEmpty())
-                                                {{ $room->residents->first()->tenant->name }}
-                                            @else
-                                                Không có người ở
-                                            @endif</small>
-                                              
+                                            <td class="align-middle"><small>
+                                                    @if ($room->residents && $room->residents->isNotEmpty())
+                                                        {{ $room->residents->first()->tenant->name }}
+                                                    @else
+                                                        Không có người ở
+                                                    @endif
+                                                </small>
+
                                             </td>
-                                            <td class="align-middle"><small>{{ $room->phone }}</small></td>
-                                            <td class="align-middle">
-                                               <small>
+                                            <td class="align-middle"> <small>
                                                 @if ($room->residents && $room->residents->isNotEmpty())
-                                                <span class="badge badge-green text-capitalize">Đang tạm trú</span>
-                                            @else
-                                                <span class="badge badge-yellow text-capitalize">Trống</span>
-                                            @endif
-                                               </small>
-                                            </td>
-                                            <td class="align-middle">
-                                                @if ($room->residents && $room->residents->isNotEmpty())
-                                                @php
-                                                    $resident = $room->residents->first();
-                                                @endphp
-                                                @if ($resident->status == 1)
-                                                    <button type="button" class="btn btn-primary btn-sm"
-                                                        data-toggle="modal" data-target="#invoiceModal{{ $resident->id }}">
-                                                        Viết hóa đơn
-                                                    </button>
+                                                    {{ $room->residents->first()->tenant->phone ?? 'Không có' }}
+                                                @else
+                                                    Phòng trống
                                                 @endif
-                                            @endif
-                                                <form action="{{ route('owners.resident-destroy', $room->id) }}"
-                                                    method="POST" style="display:inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
-                                                </form>
+                                            </small></td>
+                                            <td class="align-middle">
+                                                <small>
+                                                    @if ($room->residents && $room->residents->isNotEmpty())
+                                                        <span class="badge badge-green text-capitalize">Đang tạm trú</span>
+                                                    @else
+                                                        <span class="badge badge-yellow text-capitalize">Trống</span>
+                                                    @endif
+                                                </small>
+                                            </td>
+                                            <td class="align-middle">
+                                                @if ($room->residents && $room->residents->isNotEmpty())
+                                                    @php
+                                                        $resident = $room->residents->first();
+                                                    @endphp
+                                                    @if ($resident->status == 1)
+                                                        <button type="button" class="btn btn-primary btn-sm"
+                                                            data-toggle="modal"
+                                                            data-target="#invoiceModal{{ $resident->id }}">
+                                                            Viết hóa đơn
+                                                        </button>
+                                                        <form action="{{ route('owners.resident-destroy', $room->id) }}"
+                                                            method="POST" style="display:inline;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                                        </form>
+                                                    @endif
+                                                @endif
+                                               
                                             </td>
                                         </tr>
                                     @endforeach
@@ -166,7 +175,8 @@
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="invoiceModalLabel{{ $resident->tenant->id }}">Tạo hóa đơn cho {{ $resident->tenant->id }}
+                        <h5 class="modal-title" id="invoiceModalLabel{{ $resident->tenant->id }}">Tạo hóa đơn cho
+                            {{ $resident->tenant->id }}
                             {{ $resident->tenant->name }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
