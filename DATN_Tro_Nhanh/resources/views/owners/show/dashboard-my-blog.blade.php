@@ -13,11 +13,11 @@
             {{ session('success') }}
         </div>
     @endif
-    
+
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
             <form action="{{ route('owners.properties') }}" method="GET">
-               
+
                 <div class="mb-6">
                     <div class="row">
                         <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
@@ -33,16 +33,17 @@
                                 </select>
                             </div>
                             <div class="align-self-center">
-                                <a href="{{ route('owners.blog') }}" class="btn btn-primary btn-lg" tabindex="0" aria-controls="invoice-list">
+                                <a href="{{ route('owners.blog') }}" class="btn btn-primary btn-lg" tabindex="0"
+                                    aria-controls="invoice-list">
                                     <span>Thêm mới</span>
                                 </a>
                             </div>
-                            
+
                         </div>
                         <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
                             <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
-                                <input type="text" class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..."
-                                    aria-label="" aria-describedby="basic-addon1">
+                                <input type="text" class="form-control bg-transparent border-1x"
+                                    placeholder="Tìm kiếm..." aria-label="" aria-describedby="basic-addon1">
                                 <div class="input-group-append position-absolute pos-fixed-right-center">
                                     <button class="btn bg-transparent border-0 text-gray lh-1" type="button"><i
                                             class="fal fa-search"></i></button>
@@ -91,14 +92,17 @@
                                 <td class="align-middle">{{ $blog->description }}</td>
                                 <td class="align-middle">
                                     @if ($blog->status == 1)
-                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">Chờ xác nhận</span>
+                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">Chờ xác
+                                            nhận</span>
                                     @elseif ($blog->status == 2)
-                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-green">Đã xác nhận</span>
+                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-green">Đã xác
+                                            nhận</span>
                                     @else
-                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-gray">Chưa xác định</span>
+                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-gray">Chưa xác
+                                            định</span>
                                     @endif
                                 </td>
-                                
+
                                 <td class="align-middle">{{ $blog->created_at->format('d-m-Y') }}</td>
                                 <td class="align-middle">
                                     <a href="{{ route('owners.sua-blog', ['slug' => $blog->slug]) }}" data-toggle="tooltip"
@@ -128,10 +132,11 @@
                         </li>
                     @else
                         <li class="page-item">
-                            <a class="page-link" href="{{ $blogs->previousPageUrl() }}"><i class="far fa-angle-double-left"></i></a>
+                            <a class="page-link" href="{{ $blogs->previousPageUrl() }}"><i
+                                    class="far fa-angle-double-left"></i></a>
                         </li>
                     @endif
-            
+
                     {{-- Pagination Elements --}}
                     @php
                         $totalPages = $blogs->lastPage();
@@ -140,7 +145,7 @@
                         $endPage = $totalPages;
                         $pageRange = 2; // Number of pages to display before and after the current page
                     @endphp
-            
+
                     {{-- Display the first page --}}
                     @if ($currentPage > $pageRange + 1)
                         <li class="page-item">
@@ -150,7 +155,7 @@
                             <li class="page-item disabled"><span class="page-link">...</span></li>
                         @endif
                     @endif
-            
+
                     {{-- Display pages around the current page --}}
                     @for ($i = max($startPage, $currentPage - $pageRange); $i <= min($endPage, $currentPage + $pageRange); $i++)
                         @if ($i == $currentPage)
@@ -163,7 +168,7 @@
                             </li>
                         @endif
                     @endfor
-            
+
                     {{-- Display the last page --}}
                     @if ($currentPage < $endPage - $pageRange)
                         @if ($currentPage < $endPage - $pageRange - 1)
@@ -173,11 +178,12 @@
                             <a class="page-link" href="{{ $blogs->url($endPage) }}">{{ $endPage }}</a>
                         </li>
                     @endif
-            
+
                     {{-- Next Page Link --}}
                     @if ($blogs->hasMorePages())
                         <li class="page-item">
-                            <a class="page-link" href="{{ $blogs->nextPageUrl() }}"><i class="far fa-angle-double-right"></i></a>
+                            <a class="page-link" href="{{ $blogs->nextPageUrl() }}"><i
+                                    class="far fa-angle-double-right"></i></a>
                         </li>
                     @else
                         <li class="page-item disabled">
@@ -186,13 +192,13 @@
                     @endif
                 </ul>
             </nav>
-            
+
             <div class="text-center mt-2">{{ $blogs->firstItem() }}-{{ $blogs->lastItem() }} của {{ $blogs->total() }}
                 kết quả</div>
         </div>
     </main>
-    
-    
+
+
 
     </div>
     </div>

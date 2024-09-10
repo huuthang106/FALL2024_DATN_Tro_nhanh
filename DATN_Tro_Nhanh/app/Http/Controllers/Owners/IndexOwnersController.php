@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Owners;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\BillService;
+use Illuminate\Support\Facades\Auth;
 
 class IndexOwnersController extends Controller
 {
@@ -16,12 +17,22 @@ class IndexOwnersController extends Controller
         $this->BillService = $BillService;
     }
     public function indexInvoice()
-    {
-        $bills = $this->BillService->getCurrentUserBills();
+{
+    $currentUserRole = Auth::user()->role; // Lấy role của user hiện tại
+    $bills = $this->BillService->getCurrentUserBills(); // Lấy danh sách hóa đơn của user hiện tại
 
-        // Truyền dữ liệu bills sang view
-        return view('owners.show.dashboard-invoice-listing', compact('bills'));
-    }
+    // Truyền biến $bills và $currentUserRole sang view
+    return view('owners.show.dashboard-invoice-listing', compact('bills', 'currentUserRole'));
+}
+public function indexBill()
+{
+    $currentUserRole = Auth::user()->role; // Lấy role của user hiện tại
+    $bills = $this->BillService->getCurrentUserBills(); // Lấy danh sách hóa đơn của user hiện tại
+
+    // Truyền biến $bills và $currentUserRole sang view
+    return view('owners.show.dashboard-invoice-bill', compact('bills', 'currentUserRole'));
+}
+
 
     public function editInvoice()
     {

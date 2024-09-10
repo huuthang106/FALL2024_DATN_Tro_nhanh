@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\CommentRequest;
 use App\Http\Requests\RatingZoneRequest;
-use App\Http\Requests\BlogRequest;
+use App\Http\Requests\CommentBlogRequest;
 use App\Http\Requests\UserRequest;
 use App\Services\CommentClientService;
 
@@ -59,7 +59,7 @@ class CommentClientController extends Controller
     }
 
 
-    public function submitBlogs(BlogRequest $request)
+    public function submitBlogs(CommentBlogRequest $request)
     {
         $validated = $request->validated();
 
