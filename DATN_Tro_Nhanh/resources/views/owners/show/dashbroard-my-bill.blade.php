@@ -63,11 +63,13 @@
                             <th scope="col" class="border-top-0 pt-5 pb-4">Tên dịch vụ</th>
                             <th scope="col" class="border-top-0 pt-5 pb-4">Ngày thanh toán</th>
                             <th scope="col" class="border-top-0 pt-5 pb-4">Số tiền</th>
+                            {{-- <th scope="col" class="border-top-0 pt-5 pb-4">Số tiền</th> --}}
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($bills as $bill)
                             <tr class="shadow-hover-xs-2 bg-hover-white">
+                               <!-- Lấy tên từ bảng users -->
                                 <td class="align-middle">{{ $bill->title }}</td>
                                 <td class="align-middle">{{ $bill->created_at->format('d/m/Y') }}</td>
                                 <td class="align-middle">{{ $bill->amount }}</td>

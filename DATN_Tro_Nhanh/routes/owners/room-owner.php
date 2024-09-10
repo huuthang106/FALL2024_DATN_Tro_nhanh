@@ -9,6 +9,7 @@ use App\Http\Controllers\Owners\RoomOwnersController;
 // Route::get('danh-sach-hoa-don', [InvoiceAdminController::class, 'index'])->name('invoice-listing');
 Route::group(['prefix' => ''], function () {
     Route::get('danh-sach-hoa-don', [IndexOwnersController::class, 'indexInvoice'])->name('invoice-listing');
+    Route::get('danh-sach-hoa-donn', [IndexOwnersController::class, 'indexBill'])->name('invoice-bill');
     Route::get('chinh-sua-hoa-don', [IndexOwnersController::class, 'editInvoice'])->name('invoice-edit');
     Route::get('them-moi-hoa-don', [IndexOwnersController::class, 'createInvoice'])->name('invoice-create');
     Route::get('xem-chi-tiet-hoa-don/{id}', [IndexOwnersController::class, 'previewInvoice'])->name('invoice-preview');

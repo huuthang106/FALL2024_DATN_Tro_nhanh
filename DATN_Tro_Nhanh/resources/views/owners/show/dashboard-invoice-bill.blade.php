@@ -58,12 +58,13 @@
                                 </label></th>
                             
                             @if ($currentUserRole != 1)  
-                                <th class="py-6">Nội Dung</th>
+                                <th class="py-6">Người Nhận</th>
                             @else
                                 <th class="py-6">Tiêu đề</th>
                             @endif
-                    
+                            <th class="py-6">Nội Dung</th>
                             <th class="py-6">Giá</th>
+                         
                             <th class="py-6">Ngày tạo đơn</th>
                             <th class="py-6">Ngày thanh toán</th>
                             <th class="py-6">Trạng thái</th>
@@ -82,12 +83,17 @@
                                 <td class="align-middle">
                                     <div class="d-flex align-items-center">
                                         <a href="{{ route('owners.invoice-preview', $bill->id) }}">
+                                            @if ($bill->payer->role != 1)
+                                                <p class="align-self-center mb-0 user-name">{{ $bill->payer->name }}</p>
+                                            @else
                                                 <p class="align-self-center mb-0 user-name">{{ $bill->description }}</p>
-
+                                            @endif
                                         </a>
                                     </div>
                                 </td>
+                                <td class="align-middle"><span class="inv-amount">{{ $bill->description }}</span></td>
                                 <td class="align-middle"><span class="inv-amount">{{ $bill->amount }} VNĐ</span></td>
+                           
                                 <td class="align-middle">
                                     <span class="text-success pr-1"><i class="fal fa-calendar"></i></span>{{ $bill->created_at->format('d/m/Y') }}
                                 </td>
