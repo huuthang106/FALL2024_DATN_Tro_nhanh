@@ -4,44 +4,44 @@ function previewImages() {
     const files = document.getElementById('fileInput').files;
 
     // Xóa ảnh cũ trước khi thêm ảnh mới
-    // preview.innerHTML = ''; // Bỏ dòng này nếu muốn giữ các ảnh đã tải lên
+    preview.innerHTML = '';
 
     if (files.length > 0) {
         Array.from(files).forEach(file => {
             const reader = new FileReader();
 
             reader.onload = function (e) {
-                // Kiểm tra xem ảnh đã tồn tại trong khu vực xem trước chưa
-                const existingImgs = Array.from(preview.querySelectorAll('img')).map(img => img.src);
-                if (!existingImgs.includes(e.target.result)) {
-                    const container = document.createElement('div');
-                    container.style.display = 'inline-block';
-                    container.style.position = 'relative';
-                    container.style.margin = '5px';
+                // Tạo một phần tử chứa ảnh và nút xóa
+                const container = document.createElement('div');
+                container.style.position = 'relative';
+                container.style.display = 'inline-block';
+                container.style.margin = '5px';
 
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.style.width = '100px'; // Kích thước hiển thị của ảnh
-                    img.style.height = 'auto';
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.width = '100px'; // Kích thước hiển thị của ảnh
+                img.style.height = 'auto';
+                img.style.objectFit = 'cover'; // Đảm bảo ảnh không bị biến dạng
 
-                    const removeButton = document.createElement('button');
-                    removeButton.innerText = 'Xóa';
-                    removeButton.style.position = 'absolute';
-                    removeButton.style.top = '0';
-                    removeButton.style.right = '0';
-                    removeButton.style.backgroundColor = 'red';
-                    removeButton.style.color = 'white';
-                    removeButton.style.border = 'none';
-                    removeButton.style.cursor = 'pointer';
+                const removeButton = document.createElement('button');
+                removeButton.innerText = 'Xóa';
+                removeButton.style.position = 'absolute';
+                removeButton.style.top = '0';
+                removeButton.style.right = '0';
+                removeButton.style.backgroundColor = 'red';
+                removeButton.style.color = 'white';
+                removeButton.style.border = 'none';
+                removeButton.style.cursor = 'pointer';
+                removeButton.style.padding = '2px 5px';
+                removeButton.style.fontSize = '12px';
 
-                    removeButton.addEventListener('click', function () {
-                        container.remove();
-                    });
+                removeButton.addEventListener('click', function () {
+                    container.remove();
+                });
 
-                    container.appendChild(img);
-                    container.appendChild(removeButton);
-                    preview.appendChild(container);
-                }
+                container.appendChild(img);
+                container.appendChild(removeButton);
+                preview.appendChild(container);
             };
 
             reader.readAsDataURL(file);

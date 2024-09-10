@@ -10,13 +10,14 @@ use Illuminate\Support\Facades\Auth;
 class RoomClientServices
 {
     // viết các hàm lấy giá trị của bản đó 
-    private const status = 1;
     private const trangthaiphong = 2;
+    private const status = 2;
     public function getAllRoom(int $perPage = 10, $searchTerm = null, $province = null, $district = null, $village = null)
     {
         try {
-            $query = Room::where('status', self::status);
-
+            // $query = Room::where('status', self::status);
+            $query = Room::where('status', self::status)
+                ->withCount('images'); // Đếm số lượng ảnh liên quan đến mỗi phòng
             // Nếu có từ khóa tìm kiếm, thêm điều kiện vào truy vấn
             if ($searchTerm) {
                 $query->where(function ($q) use ($searchTerm) {

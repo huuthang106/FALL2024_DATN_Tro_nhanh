@@ -306,28 +306,28 @@
                                                                         onclick="document.getElementById('fileInput').click();">
                                                                         Chọn thư mục
                                                                     </button>
-                                                                 
+
                                                                     <input type="file" hidden id="fileInput" multiple
                                                                         accept="image/jpeg, image/png" name="images[]"
                                                                         onchange="previewImages();">
-                                                                        @error('images')
+                                                                    @error('images')
                                                                         <div class="text-danger">{{ $message }}</div>
-                                                                        @enderror
-                                                                        <div id="imagePreview" class="text-center mt-4">
-                                                                            @foreach ($room->images as $image)
-                                                                                <div class="image-preview"
-                                                                                    data-id="{{ $image->id }}">
-                                                                                    <img src="{{ asset('assets/images/' . $image->filename) }}"
-                                                                                        alt="Image">
-                                                                                </div>
-                                                                            @endforeach
-                                                                        </div>
+                                                                    @enderror
+                                                                    <div id="imagePreview" class="text-center mt-4">
+                                                                        @foreach ($room->images as $image)
+                                                                            <div class="image-preview"
+                                                                                data-id="{{ $image->id }}">
+                                                                                <img src="{{ asset('assets/images/' . $image->filename) }}"
+                                                                                    alt="Image">
+                                                                            </div>
+                                                                        @endforeach
+                                                                    </div>
                                                                 </div>
                                                                 @error('images')
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
-                                                            
+
                                                             <!-- Ẩn View -->
                                                             <input type="hidden" class="form-control" id="view"
                                                                 name="view" value="0">
@@ -352,11 +352,11 @@
                                                                             name="status">
                                                                             <option value='1'
                                                                                 {{ $room->status == '1' ? 'selected' : '' }}>
-                                                                                &nbsp;Còn trống
+                                                                                &nbsp;Đang duyệt
                                                                             </option>
                                                                             <option
                                                                                 value='2'{{ $room->status == '2' ? 'selected' : '' }}>
-                                                                                &nbsp;Đã thuê
+                                                                                &nbsp;Đang hoạt động
                                                                             </option>
                                                                         </select>
                                                                         @error('status')
@@ -813,7 +813,7 @@
                                                                 </li>
                                                             </ul>
                                                         </div>
-                                                        <div class="col-sm-6 col-lg-3">
+                                                        {{-- <div class="col-sm-6 col-lg-3">
                                                             <ul class="list-group list-group-no-border">
                                                                 <li class="list-group-item px-0 pt-0 pb-2">
                                                                     <div class="custom-control">
@@ -822,6 +822,24 @@
                                                                             name="bathrooms" id="bathrooms"
                                                                             value="{{ isset($utilities) ? $utilities->bathrooms : 0 }}"
                                                                             min="0" step="1">
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                            @error('bathrooms')
+                                                                <div class="text-danger">{{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </div> --}}
+                                                        <div class="col-sm-6 col-lg-3">
+                                                            <ul class="list-group list-group-no-border">
+                                                                <li class="list-group-item px-0 pt-0 pb-2">
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox"
+                                                                            class="custom-control-input" name="bathrooms"
+                                                                            id="bathrooms"
+                                                                            {{ isset($utilities) && $utilities->bathrooms == 1 ? 'checked' : '' }}>
+                                                                        <label class="custom-control-label"
+                                                                            for="bathrooms">Phòng tắm</label>
                                                                     </div>
                                                                 </li>
                                                             </ul>

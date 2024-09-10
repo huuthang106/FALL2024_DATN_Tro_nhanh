@@ -12,7 +12,7 @@
                     </select>
                 </div>
                 <div class="align-self-center">
-                    <button class="btn btn-primary btn-lg" tabindex="0"><span>Thêm mới</span></button>
+                    <a href="{{ route('owners.zone-post') }}" class="btn btn-primary btn-lg" tabindex="0"><span>Thêm mới</span></a>
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">

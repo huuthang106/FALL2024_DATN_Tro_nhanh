@@ -131,121 +131,34 @@
                                                         <div class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input"
                                                                 id="check1">
-                                                            <label class="custom-control-label" for="check1">Điều
-                                                                hòa</label>
+                                                            <label class="custom-control-label"
+                                                                for="check1">Wifi</label>
                                                         </div>
                                                     </li>
                                                     <li class="list-group-item px-0 pt-0 pb-2">
                                                         <div class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input"
                                                                 id="check2">
-                                                            <label class="custom-control-label" for="check2">Giặt
-                                                                ủi</label>
+                                                            <label class="custom-control-label" for="check2">Máy điều
+                                                                hòa</label>
                                                         </div>
                                                     </li>
                                                     <li class="list-group-item px-0 pt-0 pb-2">
                                                         <div class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input"
                                                                 id="check3">
-                                                            <label class="custom-control-label" for="check3">Tủ
-                                                                lạnh</label>
+                                                            <label class="custom-control-label" for="check3">Phòng
+                                                                tắm</label>
                                                         </div>
                                                     </li>
-                                                    <li class="list-group-item px-0 pt-0 pb-2">
+                                                    {{-- <li class="list-group-item px-0 pt-0 pb-2">
                                                         <div class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input"
                                                                 id="check4">
                                                             <label class="custom-control-label" for="check4">Máy
                                                                 giặt</label>
                                                         </div>
-                                                    </li>
-                                                    <li class="list-group-item px-0 pt-0 pb-2">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="check5">
-                                                            <label class="custom-control-label" for="check5">Đồ
-                                                                nướng</label>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item px-0 pt-0 pb-2">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="check6">
-                                                            <label class="custom-control-label" for="check6">Bãi
-                                                                cỏ</label>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item px-0 pt-0 pb-2">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="check7">
-                                                            <label class="custom-control-label" for="check7">Xông
-                                                                hơi</label>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item px-0 pt-0 pb-2">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="check8">
-                                                            <label class="custom-control-label"
-                                                                for="check8">WiFi</label>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item px-0 pt-0 pb-2">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="check9">
-                                                            <label class="custom-control-label" for="check9">Máy
-                                                                sấy</label>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item px-0 pt-0 pb-2">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="check10">
-                                                            <label class="custom-control-label" for="check10">Lò vi
-                                                                sóng</label>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item px-0 pt-0 pb-2">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="check11">
-                                                            <label class="custom-control-label" for="check11">Hồ
-                                                                bơi</label>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item px-0 pt-0 pb-2">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="check12">
-                                                            <label class="custom-control-label" for="check12">Tấm che cửa
-                                                                sổ</label>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item px-0 pt-0 pb-2">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="check13">
-                                                            <label class="custom-control-label" for="check13">Gym</label>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item px-0 pt-0 pb-2">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="check14">
-                                                            <label class="custom-control-label" for="check14">Vòi sen
-                                                                ngoài trời</label>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-group-item px-0 pt-0 pb-2">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="check15">
-                                                            <label class="custom-control-label" for="check15">TV Cáp
-                                                                truyền hình</label>
-                                                        </div>
-                                                    </li>
+                                                    </li> --}}
                                                 </ul>
                                             </div>
                                         </div>
@@ -282,7 +195,8 @@
                                                         </div>
                                                         <div class="px-2 pb-2">
                                                             <a href="single-property-1.html" class="text-white">
-                                                                <h5 class="card-title fs-16 lh-2 mb-0"><small>{{ $room->title }}</small>
+                                                                <h5 class="card-title fs-16 lh-2 mb-0">
+                                                                    <small>{{ $room->title }}</small>
                                                                 </h5>
                                                             </a>
                                                             <p class="card-text text-gray-light mb-0 font-weight-500">
@@ -298,7 +212,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card">
+                            {{-- <div class="card">
                                 <div class="card-body px-6 py-4">
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Bài viết mới nhất</h4>
                                     <ul class="list-group list-group-flush">
@@ -376,7 +290,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <div class="col-lg-8 mb-8 mb-lg-0 order-1 order-lg-2">
@@ -405,9 +319,9 @@
                                         </select>
                                     </div>
                                     <div class="d-none d-md-block">
-                                        <a class="fs-sm-18 text-dark opacity-2" href="listing-with-left-filter.html">
+                                        {{-- <a class="fs-sm-18 text-dark opacity-2" href="listing-with-left-filter.html">
                                             <i class="fas fa-list"></i>
-                                        </a>
+                                        </a> --}}
                                         <a class="fs-sm-18 text-dark ml-5" href="#">
                                             <i class="fa fa-th-large"></i>
                                         </a>
@@ -420,66 +334,88 @@
                                 @foreach ($rooms as $room)
                                     <div class="col-md-6 mb-6">
                                         <div class="card border-0" data-animate="fadeInUp">
-                                            <div class="position-relative bg-hover-overlay rounded-lg card-img" style="height: 200px;">
+                                            <div class="position-relative bg-hover-overlay rounded-lg card-img"
+                                                style="height: 200px;">
                                                 @if ($room->images->isNotEmpty())
                                                     @php
                                                         // Lấy ảnh đầu tiên
                                                         $image = $room->images->first();
                                                     @endphp
                                                     <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
-                                                        <img src="{{ asset('assets/images/' . $image->filename) }}" alt="{{ $room->title }}"
-                                                             class="img-fluid w-100 h-100 rounded" style="object-fit: cover;">
+                                                        <img src="{{ asset('assets/images/' . $image->filename) }}"
+                                                            alt="{{ $room->title }}"
+                                                            class="img-fluid w-100 h-100 rounded"
+                                                            style="object-fit: cover;">
                                                     </a>
                                                 @else
                                                     <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
-                                                        <img src="{{ asset('assets/images/properties-grid-01.jpg') }}" alt="{{ $room->title }}"
-                                                             class="img-fluid w-100 h-100 rounded" style="object-fit: cover;">
+                                                        <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                                            alt="{{ $room->title }}"
+                                                            class="img-fluid w-100 h-100 rounded"
+                                                            style="object-fit: cover;">
                                                     </a>
                                                 @endif
                                                 <div class="card-img-overlay d-flex flex-column">
                                                     <div><span class="badge badge-primary">Cần Bán</span></div>
                                                     <div class="mt-auto d-flex hover-image">
                                                         <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Images">
+                                                            {{-- <li class="list-inline-item mr-2" data-toggle="tooltip"
+                                                                title="9 Hình ảnh">
                                                                 <a href="#" class="text-white hover-primary">
-                                                                    <i class="far fa-images"></i><span class="pl-1">9</span>
+                                                                    <i class="far fa-images"></i><span
+                                                                        class="pl-1">9</span>
+                                                                </a>
+                                                            </li> --}}
+                                                            <li class="list-inline-item mr-2" data-toggle="tooltip"
+                                                                title="{{ $room->images_count }} Hình ảnh">
+                                                                <a href="#" class="text-white hover-primary">
+                                                                    <i class="far fa-images"></i><span
+                                                                        class="pl-1">{{ $room->images_count }}</span>
                                                                 </a>
                                                             </li>
-                                                            <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
+
+                                                            {{-- <li class="list-inline-item" data-toggle="tooltip"
+                                                                title="2 Video">
                                                                 <a href="#" class="text-white hover-primary">
-                                                                    <i class="far fa-play-circle"></i><span class="pl-1">2</span>
+                                                                    <i class="far fa-play-circle"></i><span
+                                                                        class="pl-1">2</span>
                                                                 </a>
-                                                            </li>
+                                                            </li> --}}
                                                         </ul>
                                                         <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip" title="Wishlist">
+                                                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+                                                                title="Yêu thích">
                                                                 <a href="{{ route('client.add.favourite', ['slug' => $room->slug]) }}"
-                                                                   class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                                    class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center">
                                                                     <i class="fas fa-heart"></i>
                                                                 </a>
                                                             </li>
-                                                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip" title="Compare">
+                                                            {{-- <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+                                                                title="Compare">
                                                                 <a href="#" class="text-white fs-20 hover-primary">
                                                                     <i class="fas fa-exchange-alt"></i>
                                                                 </a>
-                                                            </li>
+                                                            </li> --}}
                                                         </ul>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="card-body pt-3 px-0 pb-1 d-flex flex-column" style="height: 150px;">
+                                            <div class="card-body pt-3 px-0 pb-1 d-flex flex-column"
+                                                style="height: 150px;">
                                                 <h2 class="fs-16 mb-1">
                                                     <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
-                                                       class="text-dark hover-primary">
-                                                       <small>{{ Str::limit($room->title, 50) }}</small>
+                                                        class="text-dark hover-primary">
+                                                        <small>{{ Str::limit($room->title, 50) }}</small>
                                                     </a>
                                                 </h2>
-                                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}" class="flex-grow-1">
+                                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
+                                                    class="flex-grow-1">
                                                     <p class="font-weight-500 text-gray-light mb-0">
                                                         <small>{{ Str::limit($room->address, 70) }}</small>
                                                     </p>
                                                 </a>
-                                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}" class="mt-auto">
+                                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
+                                                    class="mt-auto">
                                                     <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">
                                                         {{ number_format($room->price, 0, ',', '.') }} VND
                                                     </p>
@@ -487,26 +423,85 @@
                                             </div>
                                             <div class="card-footer bg-transparent px-0 pb-0 pt-2">
                                                 <ul class="list-inline mb-0">
-                                                    <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7" data-toggle="tooltip"
-                                                        title="3 Giường">
-                                                        <svg class="icon icon-bedroom fs-18 text-primary mr-1">
-                                                            <use xlink:href="#icon-bedroom"></use>
-                                                        </svg>
-                                                        3 Giường
-                                                    </li>
-                                                    <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7" data-toggle="tooltip"
-                                                        title="3 Phòng tắm">
-                                                        <svg class="icon icon-shower fs-18 text-primary mr-1">
-                                                            <use xlink:href="#icon-shower"></use>
-                                                        </svg>
-                                                        3 Phòng tắm
-                                                    </li>
-                                                    <li class="list-inline-item text-gray font-weight-500 fs-13" data-toggle="tooltip"
-                                                        title="Mét vuông">
+                                                    {{-- @if ($room->utility && $room->utility->wifi)
+                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+                                                            data-toggle="tooltip" title="Wifi">
+                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                class="icon fs-18 text-primary mr-1" viewBox="0 0 24 24"
+                                                                fill="none" stroke="currentColor" stroke-width="2"
+                                                                stroke-linecap="round" stroke-linejoin="round">
+                                                                <path d="M2 12c4.97-4.97 13.03-4.97 18 0"></path>
+                                                                <path d="M5 15c3.31-3.31 8.69-3.31 12 0"></path>
+                                                                <path d="M8 18c1.66-1.66 4.34-1.66 6 0"></path>
+                                                                <circle cx="12" cy="20" r="1"></circle>
+                                                            </svg>
+                                                            Wifi
+                                                        </li>
+                                                    @endif
+
+                                                    @if ($room->utility && $room->utility->air_conditioning)
+                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+                                                            data-toggle="tooltip" title="Máy điều hòa">
+                                                            <svg class="icon icon-heating fs-32 text-primary">
+                                                                <use xlink:href="#icon-heating"></use>
+                                                            </svg>
+                                                            Máy điều hòa
+                                                        </li>
+                                                    @endif
+
+                                                    @if ($room->utility && $room->utility->bathrooms)
+                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+                                                            data-toggle="tooltip" title="Phòng tắm">
+                                                            <svg class="icon icon-shower fs-18 text-primary mr-1">
+                                                                <use xlink:href="#icon-shower">
+                                                                </use>
+                                                            </svg>
+                                                            Phòng tắm
+                                                        </li>
+                                                    @endif --}}
+                                                    @if ($room->utility && $room->utility->wifi == 1)
+                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+                                                            data-toggle="tooltip" title="Wifi">
+                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                class="icon fs-18 text-primary mr-1" viewBox="0 0 24 24"
+                                                                fill="none" stroke="currentColor" stroke-width="2"
+                                                                stroke-linecap="round" stroke-linejoin="round">
+                                                                <path d="M2 12c4.97-4.97 13.03-4.97 18 0"></path>
+                                                                <path d="M5 15c3.31-3.31 8.69-3.31 12 0"></path>
+                                                                <path d="M8 18c1.66-1.66 4.34-1.66 6 0"></path>
+                                                                <circle cx="12" cy="20" r="1"></circle>
+                                                            </svg>
+                                                            Wifi
+                                                        </li>
+                                                    @endif
+
+                                                    @if ($room->utility && $room->utility->air_conditioning == 1)
+                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+                                                            data-toggle="tooltip" title="Máy điều hòa">
+                                                            <svg class="icon icon-heating fs-32 text-primary">
+                                                                <use xlink:href="#icon-heating"></use>
+                                                            </svg>
+                                                            Máy điều hòa
+                                                        </li>
+                                                    @endif
+
+                                                    @if ($room->utility && $room->utility->bathrooms == 1)
+                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
+                                                            data-toggle="tooltip" title="Phòng tắm">
+                                                            <svg class="icon icon-shower fs-18 text-primary mr-1">
+                                                                <use xlink:href="#icon-shower"></use>
+                                                            </svg>
+                                                            Phòng tắm
+                                                        </li>
+                                                    @endif
+
+                                                    <li class="list-inline-item text-gray font-weight-500 fs-13"
+                                                        data-toggle="tooltip" title="{{ $room->acreage }}m²">
                                                         <svg class="icon icon-square fs-18 text-primary mr-1">
-                                                            <use xlink:href="#icon-square"></use>
+                                                            <use xlink:href="#icon-square">
+                                                            </use>
                                                         </svg>
-                                                        200 m²
+                                                        {{ $room->acreage }}m²
                                                     </li>
                                                 </ul>
                                             </div>
@@ -519,8 +514,8 @@
                                 </div>
                             @endif
                         </div>
-                        
-                        
+
+
                         @if ($rooms->hasPages())
                             <nav class="pt-4">
                                 <ul class="pagination rounded-active justify-content-center">
@@ -573,7 +568,7 @@
                 </div>
             </div>
         </section>
-        <div id="compare" class="compare">
+        {{-- <div id="compare" class="compare">
             <button
                 class="btn shadow btn-open bg-white bg-hover-accent text-secondary rounded-right-0 d-flex justify-content-center align-items-center w-30px h-140 p-0">
             </button>
@@ -618,7 +613,7 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </main>
 
 @endsection

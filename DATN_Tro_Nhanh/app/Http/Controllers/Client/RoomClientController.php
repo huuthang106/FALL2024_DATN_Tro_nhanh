@@ -56,12 +56,12 @@ class RoomClientController extends Controller
     {
         $roomDetails = $this->CommentClientService->getRoomDetailsWithRatings($slug);
         $user = $roomDetails['room']->user;
-    
+
         $userId = auth()->id();
         $identity = Identity::where('user_id', $userId)->first();
 
-        $zone = $roomDetails['room']->zone; 
-    
+        $zone = $roomDetails['room']->zone;
+
         $comments = $roomDetails['comments'];
 
         $utilities = $roomDetails['room']->utility;
@@ -86,7 +86,7 @@ foreach ($similarRooms as $room) {
             'similarRooms' => $similarRooms, 
         ]);
     }
-    
+
 
     public function addFavourite(Request $request, $slug)
     {

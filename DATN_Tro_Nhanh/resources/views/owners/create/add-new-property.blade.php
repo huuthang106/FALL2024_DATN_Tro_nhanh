@@ -241,32 +241,24 @@
                                                                     <p>Chọn 1 lúc nhiều ảnh</p>
                                                                 </div>
                                                                 @if ($errors->has('images'))
-                                                                <div class="text-danger">{{ $errors->first('images') }}
-                                                                </div>
-                                                            @endif
-                                                            @foreach ($errors->get('images.*') as $messages)
-                                                                @foreach ($messages as $message)
-                                                                    <div class="text-danger">{{ $message }}</div>
+                                                                    <div class="text-danger">
+                                                                        {{ $errors->first('images') }}
+                                                                    </div>
+                                                                @endif
+                                                                @foreach ($errors->get('images.*') as $messages)
+                                                                    @foreach ($messages as $message)
+                                                                        <div class="text-danger">{{ $message }}</div>
+                                                                    @endforeach
                                                                 @endforeach
-                                                            @endforeach
                                                             </div>
-
-                                                            <!-- Display validation error for images -->
-                                                            <!-- Display validation error for images -->
-                                                            
-
-
                                                             <!-- Phần tử để hiển thị ảnh đã chọn trong form -->
                                                             <div id="imagePreview" class="text-center mt-4"></div>
                                                             <!-- Ẩn View -->
                                                             <input type="hidden" class="form-control" id="view"
-                                                                name="view" value="1">
+                                                                name="view" value="0">
                                                         </div>
                                                     </div>
-
-
                                                 </div>
-
                                                 <div class="col-lg-6">
                                                     <div class="card mb-6">
                                                         <div class="card-body p-6">
@@ -283,9 +275,9 @@
                                                                             class="form-control border-0 shadow-none form-control-lg selectpicker"
                                                                             data-style="btn-lg py-2 h-52" id="status"
                                                                             name="status">
-                                                                            <option value="1">Còn trống
+                                                                            <option value="1">Đang duyệt
                                                                             </option>
-                                                                            <option value="2">Đã thuê</option>
+                                                                            <option value="2">Đang hoạt động</option>
                                                                         </select>
                                                                         @error('status')
                                                                             <div class="text-danger">{{ $message }}</div>
@@ -657,14 +649,32 @@
                                                                 </li>
                                                             </ul>
                                                         </div>
+                                                        {{-- <div class="col-sm-6 col-lg-3">
+                                                            <ul class="list-group list-group-no-border">
+                                                                <li class="list-group-item px-0 pt-0 pb-2">
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox" class="form-control-input"
+                                                                            name="bathrooms" id="bathrooms"
+                                                                            value="attic-01">
+                                                                        <label class="custom-control-label"
+                                                                            for="attic-01">Phòng tắm</label>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                            @error('bathrooms')
+                                                                <div class="text-danger">{{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </div> --}}
                                                         <div class="col-sm-6 col-lg-3">
                                                             <ul class="list-group list-group-no-border">
                                                                 <li class="list-group-item px-0 pt-0 pb-2">
                                                                     <div class="custom-control custom-checkbox">
-                                                                        <label for="attic-01">Phòng tắm</label>
-                                                                        <input type="number" class="form-control"
-                                                                            name="bathrooms" id="bathrooms"
-                                                                            value="0">
+                                                                        <input type="checkbox"
+                                                                            class="custom-control-input" name="bathrooms"
+                                                                            id="attic-01" value="attic-01">
+                                                                        <label class="custom-control-label"
+                                                                            for="attic-01">Phòng tắm</label>
                                                                     </div>
                                                                 </li>
                                                             </ul>
