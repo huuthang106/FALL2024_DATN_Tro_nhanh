@@ -102,110 +102,30 @@
                                     class="btn btn-primary rounded-circle w-52px h-52 fs-20 d-inline-flex align-items-center justify-content-center"
                                     data-container="body" data-toggle="popover" data-placement="top" data-html="true"
                                     data-content=' <ul class="list-inline mb-0">
-              <li class="list-inline-item">
-                <a href="#" class="text-muted fs-15 hover-dark lh-1 px-2"><i
-                                                  class="fab fa-twitter"></i></a>
-              </li>
-              <li class="list-inline-item ">
-                <a href="#" class="text-muted fs-15 hover-dark lh-1 px-2"><i
-                                                  class="fab fa-facebook-f"></i></a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#" class="text-muted fs-15 hover-dark lh-1 px-2"><i
-                                                  class="fab fa-instagram"></i></a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#" class="text-muted fs-15 hover-dark lh-1 px-2"><i
-                                                  class="fab fa-youtube"></i></a>
-              </li>
-            </ul>
-            '>
+                                        <li class="list-inline-item">
+                                            <a href="#" class="text-muted fs-15 hover-dark lh-1 px-2"><i
+                                                                            class="fab fa-twitter"></i></a>
+                                        </li>
+                                        <li class="list-inline-item ">
+                                            <a href="#" class="text-muted fs-15 hover-dark lh-1 px-2"><i
+                                                                            class="fab fa-facebook-f"></i></a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a href="#" class="text-muted fs-15 hover-dark lh-1 px-2"><i
+                                                                            class="fab fa-instagram"></i></a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a href="#" class="text-muted fs-15 hover-dark lh-1 px-2"><i
+                                                                            class="fab fa-youtube"></i></a>
+                                        </li>
+                                        </ul>
+                                        '>
                                     <i class="fad fa-share-alt"></i>
                                 </button>
                             </div>
                         </div>
-                        <div class="media flex-wrap flex-sm-nowrap mb-8">
-                            <div class="mb-3 mb-sm-0 mr-sm-2 text-center w-100 w-sm-auto">
-                                <img src="{{ asset('assets/images/author-2.jpg') }}" alt="Mao Trạch Đông">
-                                <ul class="list-inline mb-0 mt-3">
-                                    <li class="list-inline-item mr-0">
-                                        <a href="#" class="text-muted fs-15 hover-dark lh-1 px-2"><i
-                                                class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mr-0">
-                                        <a href="#" class="text-muted fs-15 hover-dark lh-1 px-2"><i
-                                                class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mr-0">
-                                        <a href="#" class="text-muted fs-15 hover-dark lh-1 px-2"><i
-                                                class="fab fa-instagram"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mr-0">
-                                        <a href="#" class="text-muted fs-15 hover-dark lh-1 px-2"><i
-                                                class="fab fa-youtube"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="media-body text-center text-sm-left">
-                                <h5 class="text-dark fs-16 mb-2">Mao Trạch Đông</h5>
-                                <p class="mb-0">Tuyệt vời</p>
-                            </div>
-                        </div>
-                        <div class="row mb-7">
-                            <div class="col-sm-6 mb-6">
-                                <div class="card">
-                                    <img src="{{ asset('assets/images/blog-nav-01.jpg') }}"
-                                        alt="Cách tạo một quảng cáo chiêu hàng thang máy hiệu quả" class="card-img">
-                                    <a href="#"
-                                        class="card-img-overlay d-flex align-items-center justify-content-center text-white fs-16 font-weight-500 px-4 pl-sm-5 pr-sm-8 py-6">
-                                        <span class="d-inline-block mr-4 fs-24"><i class="fal fa-angle-left"></i></span>
-                                        Cách tạo một quảng cáo chiêu hàng thang máy hiệu quả
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 mb-6">
-                                <div class="card">
-                                    <img src="{{ asset('assets/images/blog-nav-02.jpg') }}"
-                                        alt="Cách tạo một quảng cáo chiêu hàng thang máy hiệu quả" class="card-img">
-                                    <a href="#"
-                                        class="card-img-overlay d-flex align-items-center justify-content-center text-white fs-16 font-weight-500 px-4 pr-sm-5 pl-sm-10 py-6 text-right">
-                                        Xu hướng công nghệ chiến lược hàng đầu năm 2024
-                                        <span class="d-inline-block ml-4 fs-24"><i class="fal fa-angle-right"></i></span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <h3 class="fs-22 text-heading lh-15 mb-6">Bình luận ({{ $blog->comments->count() }})</h3>
-
-                        @if ($blog->comments->count() > 0)
-                            @foreach ($blog->comments as $item)
-                                <div class="media mb-6 pb-5 border-bottom">
-                                    <div class="w-70px mr-2">
-                                        @php
-                                            $userImage = $item->user->image ?? 'default-avatar.jpg'; // Sử dụng hình ảnh người dùng nếu có, hoặc hình ảnh mặc định
-                                        @endphp
-                                        <img src="{{ asset('assets/images/' . $userImage) }}"
-                                            alt="{{ $item->user->name ?? 'Người dùng' }}"
-                                            class="mr-sm-8 mb-4 mb-sm-0 custom-avatar">
-                                    </div>
-                                    <div class="media-body">
-                                        <p class="text-heading fs-16 font-weight-500 mb-0">
-                                            {{ $item->user->name ?? 'Người dùng' }}
-                                        </p>
-                                        <p class="mb-4">{{ $item->content }}</p>
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item text-muted">
-                                                {{ $item->created_at->format('d M Y \ lúc H:i') }}<span
-                                                    class="d-inline-block ml-2">|</span></li>
-                                            <li class="list-inline-item"><a href="#"
-                                                    class="text-heading hover-primary">Trả lời</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @else
-                            <p>Chưa có bình luận nào.</p>
-                        @endif
+                        
+                        @livewire('blog-comments', ['blogSlug' => $blog->slug])
 
 
 
@@ -239,7 +159,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="card mb-4">
+                            {{-- <div class="card mb-4">
                                 <div class="card-body px-6 pt-5 pb-6">
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Loại</h4>
                                     <ul class="list-group list-group-no-border">
@@ -279,9 +199,9 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </div>
-                            </div>
-                            <div class="card mb-4">
+                                </div> 
+                            </div>--}}
+                            {{-- <div class="card mb-4">
                                 <div class="card-body px-6 pt-5 pb-6">
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Bài viết mới nhất</h4>
                                     <ul class="list-group list-group-flush">
@@ -365,8 +285,8 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
-                            <div class="card mb-4">
+                            </div> --}}
+                            {{-- <div class="card mb-4">
                                 <div class="card-body px-6 pt-5 pb-6">
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Tải xuống tài liệu</h4>
                                     <img src="{{ asset('assets/images/download-brochure.png') }}"
@@ -378,8 +298,8 @@
                                                     class="far fa-arrow-circle-down"></i></span></a>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card mb-4">
+                            </div> --}}
+                            {{-- <div class="card mb-4">
                                 <div class="card-body px-6 py-5">
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Tags phổ biến</h4>
                                     <ul class="list-inline mb-0">
@@ -428,8 +348,8 @@
                                                 phác thảo</a>
                                         </li>
                                     </ul>
-                                </div>
-                            </div>
+                                </div> 
+                            </div>--}}
                         </div>
                     </div>
                 </div>

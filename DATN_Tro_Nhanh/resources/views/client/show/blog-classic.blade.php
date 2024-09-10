@@ -18,8 +18,27 @@
             <section class="pt-11 pb-13">
                 <div class="container">
                     <div class="row ml-xl-0 mr-xl-n6">
-                        @livewire('blog-list')
+                        <div class="col-lg-8 mb-8 mb-lg-0 pr-xl-6 pl-xl-0">
+                            @livewire('blog-list')
 
+                            {{-- <nav class="pt-4">
+                                <ul class="pagination rounded-active justify-content-center">
+                                    <li class="page-item"><a class="page-link" href="#"><i
+                                                class="far fa-angle-double-left"></i></a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item d-none d-sm-block"><a class="page-link" href="#">3</a>
+                                    </li>
+                                    <li class="page-item">...</li>
+                                    <li class="page-item"><a class="page-link" href="#">6</a></li>
+                                    <li class="page-item"><a class="page-link" href="#"><i
+                                                class="far fa-angle-double-right"></i></a></li>
+                                </ul>
+                            </nav> --}}
+                            
+
+                        </div>
                         <div class="col-lg-4 pl-xl-6 pr-xl-0 primary-sidebar sidebar-sticky" id="sidebar">
                             <div class="primary-sidebar-inner">
                                 <div class="card mb-4">
@@ -38,7 +57,7 @@
                                         </form>
                                     </div>
                                 </div>
-                                <div class="card mb-4">
+                                {{-- <div class="card mb-4">
                                     <div class="card-body px-6 pt-5 pb-6">
                                         <h4 class="card-title fs-16 lh-2 text-dark mb-3">Loại</h4>
                                         <ul class="list-group list-group-no-border">
@@ -78,8 +97,8 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </div>
-                                <div class="card mb-4">
+                                </div> --}}
+                                {{-- <div class="card mb-4">
                                     <div class="card-body px-6 pt-5 pb-6">
                                         <h4 class="card-title fs-16 lh-2 text-dark mb-3">Bài viết mới nhất</h4>
                                         <ul class="list-group list-group-flush">
@@ -163,8 +182,8 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </div>
-                                <div class="card mb-4">
+                                </div> --}}
+                                {{-- <div class="card mb-4">
                                     <div class="card-body px-6 pt-5 pb-6">
                                         <h4 class="card-title fs-16 lh-2 text-dark mb-3">Tải xuống tài liệu</h4>
                                         <img src="{{ asset('assets/images/download-brochure.png') }}"
@@ -176,8 +195,8 @@
                                                         class="far fa-arrow-circle-down"></i></span></a>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="card mb-4">
+                                </div> --}}
+                                {{-- <div class="card mb-4">
                                     <div class="card-body px-6 py-5">
                                         <h4 class="card-title fs-16 lh-2 text-dark mb-3">Tags phổ biến</h4>
                                         <ul class="list-inline mb-0">
@@ -227,12 +246,13 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
+
         </main>
 
         {{-- Modal Login - Register --}}

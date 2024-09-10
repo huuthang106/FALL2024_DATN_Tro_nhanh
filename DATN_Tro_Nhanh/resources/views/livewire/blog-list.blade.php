@@ -1,55 +1,61 @@
 <div>
     {{-- Success is as dangerous as failure. --}}
-    <div class="col-lg-8 mb-8 mb-lg-0 pr-xl-6 pl-xl-0">
-        @foreach ($blogs as $blog)
-            <div class="card border-0 pb-6 mb-6 border-bottom">
-                <div class="position-relative d-flex align-items-end card-img-top">
-                    @php
-                        $image = $blog->image->first(); // Get the first image for the blog
-                    @endphp
-                    <a href="{{ route('client.client-blog-detail', $blog->slug) }}" class="hover-shine d-block">
-                        <img src="{{ asset('assets/images/' . ($image ? $image->filename : 'default.jpg')) }}"
-                            alt="{{ $blog->title }}">
-                    </a>
-                    <a href="#"
-                        class="badge text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white m-2 position-absolute letter-spacing-1 pos-fixed-bottom">
-                        Cho Thuê
-                    </a>
-                </div>
-                <div class="card-body p-0">
-                    <ul class="list-inline mt-4">
-                        <li class="list-inline-item mr-4">
-                            <img class="mr-1" src="{{ asset('assets/images/author-01.jpg') }}"
-                                alt="{{ $blog->user->name }}">
-                            {{ $blog->user->name }}
-                        </li>
-                        <li class="list-inline-item mr-4">
-                            <i class="far fa-calendar mr-1"></i> {{ $blog->created_at->format('d, F Y') }}
-                        </li>
-                        <li class="list-inline-item mr-4">
-                            <i class="far fa-eye mr-1"></i> 149 Lượt xem
-                        </li>
-                    </ul>
-                    <h3 class="fs-md-32 text-heading lh-141 mb-3">
-                        <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
-                            class="text-heading hover-primary">{{ $blog->title }}</a>
-                    </h3>
-                    <p class="mb-4 lh-214">{{ $blog->description }}</p>
-                </div>
-                <div class="card-footer bg-transparent p-0 border-0">
-                    <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
-                        class="btn text-heading border btn-lg shadow-none btn-outline-light border-hover-light">
-                        Xem thêm <i class="far fa-long-arrow-right text-primary ml-1"></i>
-                    </a>
-                    <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
-                        class="btn text-heading btn-lg w-52px px-2 border shadow-none btn-outline-light border-hover-light rounded-circle ml-auto float-right">
-                        <i class="fad fa-share-alt text-primary"></i>
-                    </a>
-                </div>
-            </div>
-        @endforeach
+   
+    @foreach ($blogs as $blog)
+    <div class="card border-0 pb-6 mb-6 border-bottom">
+        <div class="position-relative d-flex align-items-end card-img-top">
+            @php
+                $image = $blog->image->first();
+            @endphp
+            @if ($blog->image)
+            <a href="{{ route('client.client-blog-detail', $blog->slug) }}" class="hover-shine d-block">
+                <img src="{{ asset('assets/images/' . ($image ? $image->filename : 'default.jpg')) }}"
+                    alt="Ten Benefit">
+            </a>
+            
+            @else
+                <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
+                    class="hover-shine d-block">
+                    <img src="{{ asset('assets/images/post-11.jpg') }}"
+                        alt="Ten Benefits Of Rentals That May Change Your Perspective">
+                </a>
+            @endif
 
-        <!-- Pagination Controls -->
+            <a href="#"
+                class="badge text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white m-2 position-absolute letter-spacing-1 pos-fixed-bottom">
+                Cho Thuê
+            </a>
+        </div>
+        <div class="card-body p-0">
+            <ul class="list-inline mt-4">
+                <li class="list-inline-item mr-4"><img class="mr-1"
+                        src="{{ asset('assets/images/author-01.jpg') }}" alt="D. Warren">
+                    {{ $blog->user->name }}
+                </li>
+                <li class="list-inline-item mr-4"><i class="far fa-calendar mr-1"></i> 16, Tháng 12,
+                    2024
+                </li>
+                <li class="list-inline-item mr-4"><i class="far fa-eye mr-1"></i> 149 Lượt xem
+                </li>
+            </ul>
+            <h3 class="fs-md-32 text-heading lh-141 mb-3">
+                <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
+                    class="text-heading hover-primary">{{ $blog->title }}</a>
+            </h3>
+            <p class="mb-4 lh-214">{{ $blog->description }}
+            </p>
+        </div>
+        <div class="card-footer bg-transparent p-0 border-0">
+            <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
+                class="btn text-heading border btn-lg shadow-none btn-outline-light border-hover-light">Xem
+                thêm <i class="far fa-long-arrow-right text-primary ml-1"></i></a>
+            <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
+                class="btn text-heading btn-lg w-52px px-2 border shadow-none btn-outline-light border-hover-light rounded-circle ml-auto float-right"><i
+                    class="fad fa-share-alt text-primary"></i></a>
+        </div>
+    </div>
+@endforeach
+
         @if ($blogs->hasPages())
             <div>
                 <nav aria-label="Page navigation">
@@ -112,8 +118,5 @@
                 </nav>
             </div>
         @endif
-
-    </div>
-
 
 </div>
