@@ -11,6 +11,7 @@ class RoomClientServices
 {
     // viết các hàm lấy giá trị của bản đó 
     private const status = 1;
+    private const trangthaiphong = 2;
     public function getAllRoom(int $perPage = 10, $searchTerm = null, $province = null, $district = null, $village = null)
     {
         try {
@@ -96,4 +97,15 @@ class RoomClientServices
         $userId = $userId ?? auth()->id();
         return Room::where('user_id', $userId)->count();
     }
+    
+    public function getRoomClient($province, $currentRoomId)
+{
+    return Room::where('status', self::trangthaiphong)
+        ->where('province', $province) // Thay 'province' bằng 'province_id' nếu cần
+        ->where('id', '<>', $currentRoomId)
+        ->get();
+}
+
+    
+    
 }

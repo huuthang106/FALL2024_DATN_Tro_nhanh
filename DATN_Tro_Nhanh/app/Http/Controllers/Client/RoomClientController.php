@@ -63,7 +63,17 @@ class RoomClientController extends Controller
         $zone = $roomDetails['room']->zone; 
     
         $comments = $roomDetails['comments'];
-    
+
+        $utilities = $roomDetails['room']->utility;
+        $province = $roomDetails['room']->province;
+       // Trong controller
+$similarRooms = $this->roomClientService->getRoomClient($province, $roomDetails['room']->id);
+
+// Lấy thông tin tiện ích cho từng phòng
+foreach ($similarRooms as $room) {
+    $utilitiesRoom[] = $room->utility;
+}
+
         return view('client.show.single-propety', [
             'rooms' => $roomDetails['room'],
             'averageRating' => $roomDetails['averageRating'],
@@ -72,6 +82,8 @@ class RoomClientController extends Controller
             'user' => $user,
             'identity' => $identity,
             'zone' => $zone,  // Truyền thông tin zone sang view
+            'utilities' => $utilities,
+            'similarRooms' => $similarRooms, 
         ]);
     }
     

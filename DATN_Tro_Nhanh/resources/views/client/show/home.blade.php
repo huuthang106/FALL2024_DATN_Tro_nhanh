@@ -532,7 +532,9 @@
                 </ul>
             </div>
             <div class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
-                <p class="fs-17 font-weight-bold text-heading mb-0">{{ number_format($room->price) }} VND</p>
+            <p class="fs-17 font-weight-bold text-heading mb-0">
+    {{ number_format($room->price, 0, ',', '.') }} VND
+</p>
                 <ul class="list-inline mb-0">
                     <li class="list-inline-item">
                         <a href="{{ route('client.add.favourite', ['slug' => $room->slug]) }}"
@@ -724,7 +726,7 @@
                                 </ul>
                             </div>
                             <div class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
-                                <p class="fs-17 font-weight-bold text-heading mb-0">{{ number_format($room->price) }} VND</p>
+                                <p class="fs-17 font-weight-bold text-heading mb-0">   {{ number_format($room->price, 0, ',', '.') }} VND</p>
                                 <ul class="list-inline mb-0">
                                     <li class="list-inline-item">
                                         <a href="{{ route('client.add.favourite', ['slug' => $room->slug]) }}"
