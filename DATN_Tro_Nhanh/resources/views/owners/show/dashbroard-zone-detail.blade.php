@@ -46,12 +46,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if ($residents->isEmpty())
+                                @if ($rooms->isEmpty())
                                     <tr>
                                         <td colspan="6" class="text-center">Khu vực chưa có phòng trọ nào.</td>
                                     </tr>
                                 @else
-                                    @foreach ($residents as $resident)
+                                    @foreach ($rooms as $room)
                                         <tr>
                                             <td class="py-6 pl-6">
                                                 <label class="new-control new-checkbox checkbox-primary m-auto">
@@ -59,30 +59,38 @@
                                                         class="new-control-input chk-parent select-customers-info">
                                                 </label>
                                             </td>
-                                            <td class="align-middle">{{ $resident->room->title }}</td>
-                                            <td class="align-middle">
-                                                @if ($resident->user)
-                                                    {{ $resident->user->name }}
-                                                @else
-                                                    Không có người ở
-                                                @endif
+                                            <td class="align-middle"><small>{{ $room->title }}</small></td>
+                                            <td class="align-middle"><small> 
+                                                @if ($room->residents && $room->residents->isNotEmpty())
+                                                {{ $room->residents->first()->tenant->name }}
+                                            @else
+                                                Không có người ở
+                                            @endif</small>
+                                              
                                             </td>
-                                            <td class="align-middle">{{ $resident->room->phone }}</td>
+                                            <td class="align-middle"><small>{{ $room->phone }}</small></td>
                                             <td class="align-middle">
-                                                @if ($resident->status == 1)
-                                                    <span class="badge badge-green text-capitalize">Đang tạm trú</span>
-                                                @else
-                                                    <span class="badge badge-yellow text-capitalize">Đã dọn đi</span>
-                                                @endif
+                                               <small>
+                                                @if ($room->residents && $room->residents->isNotEmpty())
+                                                <span class="badge badge-green text-capitalize">Đang tạm trú</span>
+                                            @else
+                                                <span class="badge badge-yellow text-capitalize">Trống</span>
+                                            @endif
+                                               </small>
                                             </td>
                                             <td class="align-middle">
+                                                @if ($room->residents && $room->residents->isNotEmpty())
+                                                @php
+                                                    $resident = $room->residents->first();
+                                                @endphp
                                                 @if ($resident->status == 1)
                                                     <button type="button" class="btn btn-primary btn-sm"
                                                         data-toggle="modal" data-target="#invoiceModal{{ $resident->id }}">
                                                         Viết hóa đơn
                                                     </button>
                                                 @endif
-                                                <form action="{{ route('owners.resident-destroy', $resident->id) }}"
+                                            @endif
+                                                <form action="{{ route('owners.resident-destroy', $room->id) }}"
                                                     method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
@@ -96,7 +104,7 @@
                         </table>
                     </div>
                     <div class="mt-6">
-                        @if ($residents->lastPage() > 1)
+                        @if ($rooms->lastPage() > 1)
                             <ul class="pagination rounded-active justify-content-center">
                                 {{-- Trang trước --}}
                                 <li class="page-item {{ $residents->onFirstPage() ? 'disabled' : '' }}">
@@ -158,8 +166,8 @@
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="invoiceModalLabel{{ $resident->id }}">Tạo hóa đơn cho
-                            {{ $resident->user->name }}</h5>
+                        <h5 class="modal-title" id="invoiceModalLabel{{ $resident->tenant->id }}">Tạo hóa đơn cho {{ $resident->tenant->id }}
+                            {{ $resident->tenant->name }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -167,7 +175,7 @@
                     <div class="modal-body">
                         <form id="formBills" action="{{ route('owners.bills-store') }}" method="POST">
                             @csrf
-                            <input type="hidden" name="payer_id" value="{{ $resident->user_id }}">
+                            <input type="hidden" name="payer_id" value="{{ $resident->tenant_id }}">
                             <input type="hidden" name="creator_id" value="{{ auth()->user()->id }}">
                             <div class="row">
                                 <!-- Cột trái -->
@@ -175,7 +183,7 @@
                                     <div class="form-group">
                                         <label for="name">Tên người ở:</label>
                                         <input type="text" class="form-control" id="name"
-                                            value="{{ $resident->user->name }}" readonly>
+                                            value="{{ $resident->tenant->name }}" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label for="room">Tên phòng:</label>

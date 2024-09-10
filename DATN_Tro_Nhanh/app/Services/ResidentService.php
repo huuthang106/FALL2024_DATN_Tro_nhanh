@@ -6,7 +6,7 @@ use Exception;
 
 class ResidentService
 {
-    public function storeResident($data)
+    public function storeResident($data, $tenant_id)
 {
     try {
         // Kiểm tra sự tồn tại của cư dân với cùng user_id, room_id và zone_id
@@ -22,7 +22,8 @@ class ResidentService
 
         // Tạo thông tin cư dân mới
         $resident = Resident::create([
-            'user_id' => $data['user_id'],
+            'tenant_id' =>  $tenant_id,
+            'user_id'=> $data['user_id'],
             'room_id' => $data['room_id'],
             'zone_id' => $data['zone_id'],
         ]);

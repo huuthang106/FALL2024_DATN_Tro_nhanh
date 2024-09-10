@@ -174,12 +174,21 @@ class ZoneServices
     // Chi tiết khu trọ
     public function showDetail($slug)
     {
-        $zone = Zone::with(['rooms', 'residents.user'])
-            ->where('slug', $slug)
-            ->firstOrFail();
-        $residents = $zone->residents()->paginate(5);
+        // Tìm zone dựa trên slug
+        $zone = Zone::where('slug', $slug)->firstOrFail();
+        
+        // Lấy danh sách phòng thuộc zone này
+        $rooms = Room::where('zone_id', $zone->id)->paginate(10);
+        
+        // Lấy danh sách người ở (residents) thuộc zone này
+        $residents = Resident::whereIn('room_id', $rooms->pluck('id'))
+            ->where('zone_id', $zone->id)
+            ->with('user') // Nạp thông tin người dùng liên quan
+            ->paginate(10);
+        
         return [
             'zone' => $zone,
+            'rooms' => $rooms,
             'residents' => $residents,
         ];
     }

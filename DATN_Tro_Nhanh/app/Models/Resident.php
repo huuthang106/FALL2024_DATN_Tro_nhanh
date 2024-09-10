@@ -13,6 +13,7 @@ class Resident extends Model
 
     protected $fillable = [
         'user_id',
+        'tenant_id',
         'room_id',
         'zone_id',
         'status',
@@ -33,4 +34,8 @@ class Resident extends Model
     {
         return $this->belongsTo(Zone::class);
     }
+    public function tenant()
+{
+    return $this->belongsTo(User::class, 'tenant_id');
+}
 }

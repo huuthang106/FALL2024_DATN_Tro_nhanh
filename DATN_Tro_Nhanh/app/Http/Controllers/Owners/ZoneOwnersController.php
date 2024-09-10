@@ -32,7 +32,8 @@ class ZoneOwnersController extends Controller
         // dd($data);
         return view('owners.show.dashbroard-zone-detail', [
             'zone' => $data['zone'],
-            'residents' => $data['residents']
+            'rooms' => $data['rooms'],
+            'residents'=> $data['residents'],
         ]);
     }
     // Xóa mềm Residents

@@ -97,4 +97,8 @@ class Room extends Model
     {
         return $this->hasOne(Utility::class);
     }
+    public function residents()
+{
+    return $this->hasMany(Resident::class);
+}
 }
