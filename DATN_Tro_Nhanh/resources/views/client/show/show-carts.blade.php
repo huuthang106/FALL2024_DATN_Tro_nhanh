@@ -41,19 +41,20 @@
                     </div>
                 </div>
             </div>
+            <form action="{{ route('client.payment') }}" id="form" method="POST">
+    @csrf
+    <input type="hidden" id="selected-items" name="selected_items" value=""/>
             <div class="table-responsive">
                 <table id="notification-list" class="table table-hover bg-white border rounded-lg">
                     <thead>
                         <tr role="row">
                             <th class="no-sort py-6 pl-6">
                                 <label class="new-control new-checkbox checkbox-primary m-auto">
-                                    <input type="checkbox" class="new-control-input chk-parent select-customers-info">
+                                    <input type="checkbox" class="new-control-input chk-parent select-customers-info price-list-checkbox"  id="select-all">
                                 </label>
                             </th>
                             <th class="py-6">Tên gói</th>
                             <th class="py-6">Mô tả</th>
-                            <th class="py-6">Vị trí</th>
-                            <th class="py-6">Ngày hết hạn</th>
                             <th class="no-sort py-6">Giá</th>
                             <th class="no-sort py-6">Số lượng</th>
                             <th class="no-sort py-6">Thao tác</th>
@@ -61,25 +62,22 @@
                     </thead>
                     <tbody>
                         @auth
-                            @forelse ($cartDetails as $detail)
+                            @forelse ($carts as $detail)
                                 <tr>
                                     <td class="checkbox-column py-6 pl-6">
                                         <label class="new-control new-checkbox checkbox-primary m-auto">
-                                            <input type="checkbox" class="new-control-input child-chk select-customers-info">
+                                            <input type="checkbox" class="new-control-input child-chk select-customers-info price-list-checkbox" name="cart_ids[]" 
+                   value="{{ $detail->id }}" 
+                   data-price="{{ $detail->priceList->price }}" 
+                   data-quantity="{{ $detail->quantity }}">
                                         </label>
-                                    </td>
-                                    <td>{{ $detail->name_price_list }}</td>
-                                    <td>{{ $detail->description }}</td>
-                                    <td>{{ $detail->name_location }}</td>
+                                    </td>                
+                                    <td name="name_price_list">{{ $detail->priceList->description }}</td>
+                                    <td name="description">{{ $detail->priceList->description }}</td>
+                                    <td name="price">{{ number_format($detail->priceList->price, 0, ',', '.') }} VND</td>
                                     <td>
-                                        @if ($detail->end_date)
-                                            {{ \Carbon\Carbon::parse($detail->end_date)->format('d/m/Y') }}
-                                        @else
-                                            Không có ngày
-                                        @endif
+                                       {{ $detail->quantity}}
                                     </td>
-                                    <td>{{ number_format($detail->price, 0, ',', '.') }} VND</td>
-                                    <td>{{ $detail->cart->quantity }}</td>
                                     <td>
                                         <form action="{{ route('client.carts-remove', $detail->id) }}" method="POST">
                                             @csrf
@@ -106,12 +104,20 @@
                     </tbody>
                 </table>
             </div>
-            <!-- Thêm nút tiếp hành thanh toán -->
-            <div class="d-flex justify-content-end mt-4">
-                <a href="{{ route('client.payment') }}" class="btn btn-primary btn-lg">
-                    Tiếp hành thanh toán
-                </a>
+            <div class="row">
+            <div class="col-6 d-flex justify-content-start mt-4">
+            <input type="hidden" name="total_price" id="total-price-input" value="">
+<h5>Tổng tiền: <span id="total-price" name="total-price">0 VND</span></h5>
+
             </div>
+            <!-- Thêm nút tiếp hành thanh toán -->
+            <div class="col-6 d-flex justify-content-end mt-4">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    Tiếp hành thanh toán
+</button>
+            </div>
+            </div>
+            </form>
         </div>
     </main>
 @endsection
@@ -180,4 +186,51 @@
     <script src="{{ asset('assets/js/theme.js') }}"></script>
     {{-- Notification - Pagination --}}
     {{-- <script src="{{ asset('assets/js/notification-list/notification-pagination.js') }}"></script> --}}
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const checkboxes = document.querySelectorAll('.price-list-checkbox');
+    const totalPriceElement = document.getElementById('total-price');
+    const totalPriceInput = document.getElementById('total-price-input'); // Thêm input ẩn
+
+    // Hàm tính tổng tiền
+    function calculateTotalPrice() {
+        let totalPrice = 0;
+
+        // Lặp qua tất cả các checkbox
+        checkboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+                // Lấy giá và số lượng từ thuộc tính data của checkbox
+                const price = parseFloat(checkbox.getAttribute('data-price')) || 0;
+                const quantity = parseInt(checkbox.getAttribute('data-quantity')) || 1;
+
+                // Tính tổng cho sản phẩm này và cộng vào tổng toàn bộ
+                totalPrice += price * quantity;
+            }
+        });
+
+        // Làm tròn tổng tiền xuống số nguyên
+        totalPrice = Math.round(totalPrice);
+
+        // Cập nhật tổng tiền trên giao diện và thêm đơn vị "VND"
+        totalPriceElement.textContent = new Intl.NumberFormat('vi-VN', {
+            style: 'decimal',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        }).format(totalPrice) + ' VND';
+
+        // Cập nhật tổng tiền vào input ẩn để gửi qua form
+        totalPriceInput.value = totalPrice;
+    }
+
+    // Gán sự kiện 'change' cho mỗi checkbox
+    checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('change', calculateTotalPrice);
+    });
+
+    // Tính tổng tiền ngay khi trang được tải
+    calculateTotalPrice();
+});
+
+    </script>
+
 @endpush

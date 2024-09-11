@@ -13,9 +13,8 @@ Route::group(['prefix' => 'gio-hang'], function () {
 
 
 
-
-
+   
     Route::get('', [CartController::class, 'showCart'])->name('carts-show');
-    Route::get('/{priceListId}', [CartController::class, 'addToCart'])->name('carts-add');
-    Route::delete('/{cartDetailId}', [CartController::class, 'removeFromCart'])->name('carts-remove');
+    Route::post('them-vao-gio-hang', [CartController::class, 'addToCart'])->name('carts-add');
+    Route::delete('{cartId}', [CartController::class, 'removeFromCart'])->name('carts-remove');
 });

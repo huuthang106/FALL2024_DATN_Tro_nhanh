@@ -17,7 +17,6 @@
             <div class="container">
                 <h4 class="mb-2 fs-22 lh-15 text-heading">Chọn gói phù hợp với doanh nghiệp của bạn</h4>
                 <div class="row">
-                @auth
     @foreach ($priceLists as $priceList)
         <div class="col-xl-3 col-sm-6 mb-6">
             <div class="card bg-gray-01 border-0 p-4 overflow-hidden d-flex flex-column">
@@ -43,20 +42,15 @@
                     </ul>
                 </div>
                 <div class="card-footer p-0 mt-auto d-flex justify-content-center">
-                    <a href="{{ route('client.carts-add', $priceList->id) }}"
-                        class="btn btn-primary btn-block d-flex justify-content-between align-items-center">
+                    <button id="add-to-cart-button" data-product-id="{{ $priceList->id }}"
+                        class="btn btn-primary btn-block d-flex justify-content-between align-items-center add-to-cart-button">
                         Thêm vào giỏ hàng
                         <i class="far fa-shopping-cart ml-1"></i>
-                    </a>
+</button>
                 </div>
             </div>
         </div>
     @endforeach
-@else
-    <div class="col-12 text-center">
-        <p class="text-danger fs-17">Vui lòng đăng nhập để tiếp tục.</p>
-    </div>
-@endauth
 
                 </div>
             </div>
@@ -132,4 +126,57 @@
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Scripts của chủ đề -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Kiểm tra xem người dùng đã đăng nhập hay chưa, biến này sẽ là 'true' hoặc 'false'
+        var isLoggedIn = '{{ Auth::check() ? 'true' : 'false' }}' === 'true';
+
+        // Xử lý sự kiện click cho tất cả các nút "Thêm vào giỏ hàng"
+        document.querySelectorAll('.add-to-cart-button').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault(); // Ngăn chặn hành động mặc định (không cho trang load lại)
+
+                if (!isLoggedIn) {
+                    // Nếu chưa đăng nhập, hiển thị modal đăng nhập
+                    $('#login-register-modal').modal('show');
+                } else {
+                    // Nếu đã đăng nhập, lấy productId và gửi request AJAX để thêm vào giỏ hàng
+                    var priceListId = this.getAttribute('data-product-id');
+
+                    // Gửi request AJAX đến route thêm vào giỏ hàng
+                    fetch("{{ route('client.carts-add') }}", {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}', // Gửi kèm token CSRF
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            price_list_id: priceListId
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Nếu thêm thành công, chuyển hướng đến trang giỏ hàng
+                            window.location.href = "{{ route('client.carts-show') }}";
+                        } else {
+                            // Nếu thêm thất bại, hiển thị thông báo lỗi
+                            alert("Lỗi: " + data.error);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Lỗi:', error);
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+
+
+c
+
+
+
 @endpush

@@ -119,10 +119,14 @@
                                         title="Chỉnh sửa" class="d-inline-block fs-18 text-muted hover-primary mr-5">
                                         <i class="fal fa-pencil-alt"></i>
                                     </a>
-                                    <a href="#" data-toggle="tooltip" title="Xóa"
-                                        class="d-inline-block fs-18 text-muted hover-primary">
-                                        <i class="fal fa-trash-alt"></i>
-                                    </a>
+                                    <form action="{{ route('owners.destroy', $room->slug) }}" method="POST"
+                                        class="d-inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="fs-18 text-muted hover-primary border-0 bg-transparent"><i
+                                                class="fal fa-trash-alt"></i></button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

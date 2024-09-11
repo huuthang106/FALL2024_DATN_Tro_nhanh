@@ -26,11 +26,18 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
-
-        $request->session()->regenerate();
-
-        return redirect()->intended(route('client.home', absolute: false));
+        try {
+            $request->authenticate();
+            $request->session()->regenerate();
+    
+            // Lấy URL trước đó (trang mà người dùng ở trước khi đăng nhập)
+            $previousUrl = url()->previous();
+    
+            // Trả về URL trước đó trong phản hồi JSON
+            return response()->json(['redirect' => $previousUrl]);
+        } catch (ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
+        }
     }
 
     /**

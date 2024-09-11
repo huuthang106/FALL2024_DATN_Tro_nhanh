@@ -148,8 +148,9 @@ class UserClientController extends Controller
     {
         try {
             $request->authenticate();
-
-            return response()->json(['redirect' => route('client.home')]);
+            $redirectUrl = url()->previous();
+    
+            return response()->json(['redirect' => $redirectUrl]);
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);
         }

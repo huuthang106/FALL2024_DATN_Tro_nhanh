@@ -11,8 +11,24 @@ use Illuminate\Support\Facades\Log;
 
 class CartService
 {
+    private const trangthai = 2;
+
+    public function getCartCollect($userId)
+    {
+        // Giả sử phương thức này trả về mảng, chuyển đổi nó thành Collection
+        return collect(Cart::where('user_id', $userId)->get());
+    }
+
     public function addToCart($priceListId)
     {
+      
+    //      // Kiểm tra xem người dùng đã đăng nhập chưa
+    // if (!Auth::check()) {
+    //     // Nếu người dùng chưa đăng nhập, ném ngoại lệ hoặc trả về thông báo
+    //     \Log::warning('User is not logged in.');
+    //     throw new \Exception('You must be logged in to add items to the cart.');
+    // }
+
         $userId = Auth::id();
         $priceList = PriceList::find($priceListId);
 
@@ -37,57 +53,126 @@ class CartService
             $cart->price_list_id = $priceListId;
             $cart->quantity = 1;
             $cart->save();
-        }
 
-        // Kiểm tra xem chi tiết giỏ hàng đã tồn tại chưa
-        $cartDetail = CartDetail::where('cart_id', $cart->id)
-            ->where('name_price_list', $priceList->description)
-            ->first();
-
-        if (!$cartDetail) {
-            // Nếu chưa tồn tại, tạo mới chi tiết giỏ hàng
-            $cartDetail = new CartDetail();
-            $cartDetail->cart_id = $cart->id;
-            $cartDetail->name_price_list = $priceList->description;
-            $cartDetail->description = $priceList->description;
-            $cartDetail->name_location = $priceList->location->name; // Sử dụng mối quan hệ để lấy tên địa điểm
-            $cartDetail->end_date = $priceList->end_date;
-            $cartDetail->price = $priceList->price;
-            $cartDetail->save();
         }
 
         return $cart;
     }
 
-
-
-    public function getCartDetails($userId)
+    public function getCart()
     {
-        $carts = Cart::with('cartDetails')->where('user_id', $userId)->get();
+        $userId = Auth::id();
+        $carts = Cart::where('user_id', $userId)->get();
 
-        if ($carts->isEmpty()) {
-            return [];
-        }
+if ($carts->isEmpty()) {
+    return [];
+}
 
-        // Gộp tất cả các chi tiết giỏ hàng từ các giỏ hàng
-        $cartDetails = $carts->flatMap(function ($cart) {
-            return $cart->cartDetails;
-        });
-
-        return $cartDetails;
-
+return $carts;
     }
 
-
-
-    public function removeFromCart($userId, $cartDetailId)
+    public function getCartDetails()
     {
-        $cart = Cart::where('user_id', $userId)->first();
-        if ($cart) {
-            return CartDetail::where('id', $cartDetailId)
-                ->where('cart_id', $cart->id)
-                ->delete();
-        }
-        return false;
+        $userId = Auth::id();
+$carts = Cart::where('user_id', $userId)
+             ->where('status', self::trangthai) // Thêm điều kiện status = 2
+             ->get();
+
+if ($carts->isEmpty()) {
+    return [];
+}
+
+return $carts;
     }
+
+    /**
+     * Xử lý thanh toán và cập nhật status của các cart
+     *
+     * @param array $selectedCartIds
+     * @param int $userId
+     * @return bool
+     */
+    public function processPayment(array $selectedCartIds, int $userId): bool
+    {
+        if (empty($selectedCartIds)) {
+            return false;
+        }
+
+        // Cập nhật status của các cart được chọn thành 2 (status = 2)
+        Cart::whereIn('id', $selectedCartIds)
+            ->where('user_id', $userId)
+            ->update(['status' => 2]);
+
+        return true;
+    }
+    
+    
+
+    public function addCartDetail(Request $request, $cartDetailId)
+    {
+    if (!Auth::check()) {
+        return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để thực hiện thanh toán.');
+    }
+
+    $userId = Auth::id();
+    $selectedItems = $request->input('selected_items');
+
+    if (!$selectedItems) {
+        return redirect()->back()->with('error', 'Không có sản phẩm nào được chọn.');
+    }
+
+    // Giả sử rằng bạn đã gửi dữ liệu dưới dạng JSON từ JavaScript
+    $items = json_decode($selectedItems, true);
+
+    foreach ($items as $item) {
+        $name_price_list = $item['name_price_list'];
+        $description = $item['description'];
+        $price = $item['total-price'];
+
+        // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
+        $cartDetail = CartDetail::where('user_id', $userId)
+            ->where('id', $cartDetailId)
+            ->first();
+
+        if (!$cartDetail) {
+            // Nếu sản phẩm chưa tồn tại, tạo mới bản ghi
+            CartDetail::create([
+                'name_price_list' => $name_price_list,
+                'description' => $description,
+                'price' => $price
+            ]);
+        }
+        // Nếu sản phẩm đã tồn tại, không làm gì
+    }
+
+    // Chuyển hướng đến trang thanh toán
+    return redirect()->route('client.payment')->with('success', 'Thông tin thanh toán đã được chuẩn bị.');
+}
+
+
+
+
+
+public function removeFromCart($cartId)
+{
+    $userId = auth()->id(); // Lấy ID của người dùng hiện tại
+
+    $cart = Cart::where('user_id', $userId)->where('id', $cartId)->first();
+    if ($cart) {
+        if ($cart->quantity > 1) {
+            $cart->quantity -= 1;
+            $cart->save(); // Lưu lại thay đổi
+        } else {
+            CartDetail::where('id', $cartId)->delete(); // Xóa các chi tiết giỏ hàng
+            $cart->delete(); // Xóa giỏ hàng
+        }
+        return response()->json(['success' => true]);
+    }
+    return response()->json(['success' => false], 404);
+}
+
+
+
+    
+    
 }

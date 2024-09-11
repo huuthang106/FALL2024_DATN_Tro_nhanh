@@ -23,39 +23,30 @@
                                 <div
                                     class="card-header bg-transparent d-flex justify-content-between align-items-center px-0 pb-3">
                                     <p class="fs-15 font-weight-bold text-heading mb-0 text-uppercase mr-2"> <span
-                                            class="font-weight-500"></span>{{ $item->name_price_list }}</p>
+                                            class="font-weight-500"></span>{{ $item->priceList->description }}</p>
                                     {{-- <a href="#" class="btn btn-outline-primary py-2 lh-238 px-4">Đổi Gói</a> --}}
                                 </div>
                                 <div class="card-body px-0 py-2">
                                     <ul class="list-unstyled mb-0">
                                         <li class="d-flex justify-content-between lh-22">
                                             <p class="text-gray-light mb-0">Thời Gian Gói:</p>
-                                            <p class="font-weight-500 text-heading mb-0">{{ $item->end_date }}</p>
+                                            <p class="font-weight-500 text-heading mb-0">{{$item->priceList->duration_day}} ngày</p>
                                         </li>
-                                        {{-- <li class="d-flex justify-content-between lh-22">
-                                            <p class="text-gray-light mb-0">Danh Sách Bao Gồm:</p>
-                                            <p class="font-weight-500 text-heading mb-0">100</p>
-                                        </li>
+                                         <li class="d-flex justify-content-between lh-22">
+                                            <p class="text-gray-light mb-0">Gía:</p>
+                                            <p class="font-weight-500 text-heading mb-0">{{ number_format($item->priceList->price, 0, ',', '.') }} VND</p>
+                                        </li> 
                                         <li class="d-flex justify-content-between lh-22">
-                                            <p class="text-gray-light mb-0">Danh Sách Nổi Bật Bao Gồm:</p>
-                                            <p class="font-weight-500 text-heading mb-0">50</p>
-                                        </li> --}}
+                                            <p class="text-gray-light mb-0">Số lượng:</p>
+                                            <p class="font-weight-500 text-heading mb-0">{{$item->quantity}}</p>
+                                        </li>
                                     </ul>
                                 </div>
                             @endforeach
                             <div class="card-footer bg-transparent d-flex justify-content-between p-0 align-items-center">
                                 <p class="text-heading mb-0">Tổng Giá:</p>
                                 <span class="fs-32 font-weight-bold text-heading">
-                                    {{ number_format(
-                                        $cartItems->reduce(function ($total, $item) {
-                                            // $item ở đây là đối tượng CartDetail, và bạn cần lấy thông tin từ Cart qua cart_id
-                                            $cart = $item->cart; // Giả sử bạn đã định nghĩa mối quan hệ trong CartDetail model
-                                            return $total + $item->price * $cart->quantity;
-                                        }, 0),
-                                        0,
-                                        ',',
-                                        '.',
-                                    ) }}
+                               {{ number_format($totalPrice, 0, ',', '.') }}
                                     VND
                                 </span>
                             </div>
@@ -87,21 +78,13 @@
                                         class="fas fa-paper-plane"></i></span>Chuyển Khoản</label>
                         </div>
                         <p class="text-heading font-weight-500 mb-0 pt-1">Xem Thêm</p>
-                        <p class="mb-2 text-gray-light">Xem Thêm</p>
-                        <p class="mb-4 text-gray-light">Xem Thêm
-                        </p>
+                        
                         <p class="mb-6">Vui lòng đọc <a href="#"
                                 class="text-heading font-weight-500 border-bottom hover-primary">Điều Khoản & Điều Kiện</a>
                             trước</p>
                         {{-- <a href="checkout-complete-2.html" class="btn btn-primary px-8 py-2 lh-238">Thanh Toán Ngay</a> --}}
                         <form action="{{ route('client.payment.process') }}" method="POST">
                             @csrf
-                            <input type="hidden" name="totalAmount"
-                                value="{{ $cartItems->reduce(function ($total, $item) {
-                                    $cart = $item->cart;
-                                    return $total + $item->price * $cart->quantity;
-                                }, 0) }}">
-                            {{-- <input type="hidden" name="amount" value="35000"> <!-- Ví dụ số tiền --> --}}
                             <button type="submit" id="payButton" class="btn btn-primary">Thanh toán</button>
                         </form>
                     </div>

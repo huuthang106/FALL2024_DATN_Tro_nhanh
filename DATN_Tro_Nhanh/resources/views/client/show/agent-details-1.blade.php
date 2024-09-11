@@ -258,7 +258,8 @@
                                                                                     {{ $room->address }}</p>
                                                                                 <p
                                                                                     class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                                                    {{ $room->price }} VND</p>
+                                                                                    {{ number_format($room->price, 0, ',', '.') }}
+                                                                                    VND</p>
                                                                             </div>
                                                                             <div
                                                                                 class="card-footer bg-transparent px-0 pb-0 pt-2">
@@ -449,7 +450,8 @@
                                                                                 {{ $room->address }}</p>
                                                                             <p
                                                                                 class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                                                {{ $room->price }} VND
+                                                                                {{ number_format($room->price, 0, ',', '.') }}
+ VND
                                                                             </p>
                                                                         </div>
                                                                         <div

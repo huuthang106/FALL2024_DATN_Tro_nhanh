@@ -19,11 +19,10 @@ class BillService
         try {
             // Lấy user hiện tại
             $userId = Auth::id();
-    
-            // Xây dựng truy vấn để lấy các Bill của user cụ thể và load thông tin người dùng liên quan
-            $query = Bill::where('payer_id', $userId)
-                         ->with('payer'); // Sử dụng with để lấy thông tin từ mối quan hệ
-    
+
+            // Xây dựng truy vấn để lấy các Bill của user cụ thể
+            $query = Transaction::where('user_id', $userId);
+
             // Nếu có từ khóa tìm kiếm, lọc theo từ khóa trong các trường liên quan
             if ($searchTerm) {
                 $query->where(function ($q) use ($searchTerm) {

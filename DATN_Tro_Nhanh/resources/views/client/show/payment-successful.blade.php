@@ -28,16 +28,16 @@
                                 {{-- <p class="font-weight-500 text-heading mb-0">17 Tháng 9, 2020</p> --}}
                                 <p class="font-weight-500 text-heading mb-0">
                                     @if ($payment->payment_date instanceof \Carbon\Carbon)
-                                        {{ $payment->payment_date->format('d/m/Y') }}
+                                        {{ $payment->created_at->format('d/m/Y') }}
                                     @else
-                                        {{ \Carbon\Carbon::parse($payment->payment_date)->format('d/m/Y') }}
+                                        {{ \Carbon\Carbon::parse($payment->created_at)->format('d/m/Y') }}
                                     @endif
                                 </p>
                             </li>
                             <li class="d-flex justify-content-between lh-22">
                                 <p class="text-gray-light mb-0">Tổng Cộng:</p>
                                 <p class="font-weight-500 text-heading mb-0">
-                                    {{ number_format($payment->amount, 0, ',', '.') }} VND</p>
+                                    {{ number_format($payment->total_price, 0, ',', '.') }} VND</p>
                             </li>
                             <li class="d-flex justify-content-between lh-22">
                                 <p class="text-gray-light mb-0">Phương Thức Thanh Toán:</p>

@@ -69,10 +69,9 @@
                     <tbody>
                         @foreach ($bills as $bill)
                             <tr class="shadow-hover-xs-2 bg-hover-white">
-                               <!-- Lấy tên từ bảng users -->
-                                <td class="align-middle">{{ $bill->title }}</td>
+                                <td class="align-middle">{{ $bill->description }}</td>
                                 <td class="align-middle">{{ $bill->created_at->format('d/m/Y') }}</td>
-                                <td class="align-middle">{{ $bill->amount }}</td>
+                                <td class="align-middle">{{ number_format($bill->total_price , 0, ',', '.') }} VND</td>
                             </tr>
                         @endforeach
                     </tbody>
