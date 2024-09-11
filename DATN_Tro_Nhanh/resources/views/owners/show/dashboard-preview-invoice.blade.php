@@ -30,7 +30,13 @@
                                     <p class="mb-0"><span class="text-heading font-weight-500">Ngày lập hóa đơn : </span>
                                         <span class="inv-date">{{ $bill->created_at->format('d/m/Y') }}</span>
                                     </p>
+                                    <p class="mb-0">
+                                        <span class="text-heading font-weight-500">Hạn Thanh Toán : </span>
+                                        <span class="inv-date">{{ \Carbon\Carbon::parse($bill->payment_due_date)->format('d/m/Y') }}</span>
+                                    </p>
+                                    
                                 </div>
+                               
                             </div>
                             @if ($status != 1)
                                 <div class="border-top pt-7 mb-7">
@@ -111,7 +117,8 @@
                                                 <h4 class="text-heading fs-22 lh-15">Tổng Cộng : </h4>
                                             </div>
                                             <div class="col-sm-4 col-5 grand-total-amount mt-4">
-                                                <h4 class="text-heading fs-22 lh-15">{{ number_format($bill->amount, 0, ',', '.') }}</h4>
+                                                <h4 class="text-heading fs-22 lh-15">
+                                                    {{ number_format($bill->amount, 0, ',', '.') }}</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -153,14 +160,16 @@
                             </div>
 
 
-
+                            @if (Auth::user()->role == 1 && $bill->status != 2)
                             <div class="row flex-grow-1">
                                 <div class="col-xl-12 col-md-3 col-sm-6 mb-3 d-flex flex-column justify-content-end"
                                     style="min-height: 100vh;">
-                                    <button type="submit" class="btn btn-danger btn-print  btn-block">Thanh
-                                        Toán</button>
+                                    <button type="submit" class="btn btn-danger btn-print btn-block">Thanh Toán</button>
                                 </div>
                             </div>
+                        @endif
+                        
+
                         </div>
                     </div>
                 </div>

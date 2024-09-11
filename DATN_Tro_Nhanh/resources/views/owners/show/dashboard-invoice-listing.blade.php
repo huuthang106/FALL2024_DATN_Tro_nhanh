@@ -63,6 +63,7 @@
                     
                             <th class="py-6">Giá</th>
                             <th class="py-6">Ngày tạo đơn</th>
+                            <th class="py-6">Hạn thanh toán</th>
                             <th class="py-6">Ngày thanh toán</th>
                             <th class="py-6">Trạng thái</th>
                             <th class="no-sort py-6">Thao tác</th>
@@ -88,6 +89,9 @@
                                 <td class="align-middle"><span class="inv-amount">{{ $bill->amount }} VNĐ</span></td>
                                 <td class="align-middle">
                                     <span class="text-success pr-1"><i class="fal fa-calendar"></i></span>{{ $bill->created_at->format('d/m/Y') }}
+                                </td>
+                                <td class="align-middle">
+                                        <span class="text-primary pr-1"><i class="fal fa-calendar"></i></span>{{ \Carbon\Carbon::parse($bill->payment_due_date)->format('d/m/Y') }}   
                                 </td>
                                 <td class="align-middle">
                                     @if ($bill->status == 1)

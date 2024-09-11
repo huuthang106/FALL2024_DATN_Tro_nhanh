@@ -22,12 +22,12 @@ class BillRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'creator_id' => 'required|exists:users,id',
-            'payer_id' => 'required|exists:users,id',
+            'payer_id' => 'required|integer',
+            'creator_id' => 'required|integer',
             'title' => 'required|string|max:255',
             'amount' => 'required|numeric|min:0',
-            // 'payment_date' => 'required|date|after_or_equal:today',
             'description' => 'required|string',
+            'payment_due_date' => 'nullable|date', // Xác thực hạn thanh toán
         ];
     }
     public function messages()

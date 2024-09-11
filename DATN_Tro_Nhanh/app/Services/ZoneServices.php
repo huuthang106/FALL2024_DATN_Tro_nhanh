@@ -13,7 +13,7 @@ use App\Models\Bill;
 use Illuminate\Support\Facades\Auth;
 use Exception;
 use Illuminate\Support\Facades\Log;
-
+use App\Events\BillCreated;
 
 class ZoneServices
 {
@@ -204,11 +204,23 @@ class ZoneServices
     // Tạo Hóa Đơn Khu Trọ Bills
     public function createBill($data)
     {
+        // dd($data); 
         $data['status'] = self::DA_TAO;
         $data['payment_date'] = now();
+    
+        // Kiểm tra và thêm hạn thanh toán nếu có
+        if (isset($data['payment_due_date'])) {
+            $data['payment_due_date'] = $data['payment_due_date']; // Giữ nguyên giá trị từ form
+        } else {
+            $data['payment_due_date'] = now(); // Nếu không có, mặc định là hiện tại
+        }
+    
         $bill = Bill::create($data);
+        event(new BillCreated($bill, $data['payer_id'])); 
         return $bill;
     }
+    
+    
     public function findById($id)
     {
         return Zone::find($id);

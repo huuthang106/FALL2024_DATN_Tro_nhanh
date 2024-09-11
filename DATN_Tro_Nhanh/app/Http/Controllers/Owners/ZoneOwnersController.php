@@ -51,7 +51,6 @@ class ZoneOwnersController extends Controller
     // Tạo hóa đơn
     public function storeBill(BillRequest $request)
     {
-
         $this->zoneServices->createBill($request->validated());
         return response()->json([
             'success' => true,
@@ -59,6 +58,9 @@ class ZoneOwnersController extends Controller
             'redirect' => url()->previous()
         ]);
     }
+    
+    
+    
     public function store(ZoneRequest $request)
     {
 

@@ -19,7 +19,8 @@ class Bill extends Model
         'amount',
         'description',
         'title',
-        'status'
+        'status',
+        'payment_due_date'
     ];
        
     public function creator()

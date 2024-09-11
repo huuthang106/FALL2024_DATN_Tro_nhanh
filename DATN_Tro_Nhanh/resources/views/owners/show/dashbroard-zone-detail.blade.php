@@ -193,15 +193,22 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="name">Tên người ở:</label>
-                                        <input type="text" class="form-control" id="name"
-                                            value="{{ $resident->tenant->name }}" readonly>
+                                        <input type="text" class="form-control" id="name" value="{{ $resident->tenant->name }}" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label for="room">Tên phòng:</label>
-                                        <input type="text" class="form-control" id="room"
-                                            value="{{ $resident->room->title }}" readonly>
+                                        <input type="text" class="form-control" id="room" value="{{ $resident->room->title }}" readonly>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="payment_due_date">Hạn thanh toán:</label>
+                                        <input type="date" class="form-control" id="payment_due_date" name="payment_due_date" min="{{ date('Y-m-d') }}">
+                                        <span class="text-danger" id="payment_due_date-error"></span>
+                                    </div>
+                                    
+                                    
+                                    
                                 </div>
+                                
                                 <!-- Cột phải -->
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -228,6 +235,8 @@
                                             name="payment_date" required>
                                         <span class="text-danger" id="payment_date-error"></span>
                                     </div> --}}
+                                    
+                                  
                                 </div>
                             </div>
                             <div class="modal-footer text-right">
