@@ -27,7 +27,7 @@ class IndexOwnersController extends Controller
 public function indexBill()
 {
     $currentUserRole = Auth::user()->role; // Lấy role của user hiện tại
-    $bills = $this->BillService->getCurrentUserBills(); // Lấy danh sách hóa đơn của user hiện tại
+    $bills = $this->BillService->getBillsByCreatorId(); // Lấy danh sách hóa đơn của user hiện tại
 
     // Truyền biến $bills và $currentUserRole sang view
     return view('owners.show.dashboard-invoice-bill', compact('bills', 'currentUserRole'));
@@ -46,20 +46,23 @@ public function indexBill()
     {
         // Gọi hàm getBillBySlug từ BillService
         $data = $this->BillService->getBillBySlug($id);
-
+    
         if (!$data['bill']) {
             // Xử lý nếu không tìm thấy bill
             abort(404, 'Không tìm thấy bill');
         }
+    
         return view('owners.show.dashboard-preview-invoice', [
             'bill' => $data['bill'],
             'email' => $data['email'],
             'phone' => $data['phone'],
             'name' => $data['name'],
             'address' => $data['address'],
-            'totalAmount' => $data['totalAmount']
+            'totalAmount' => $data['totalAmount'],
+            'status' => $data['bill']->status // Thêm status của bill
         ]);
     }
+    
 
     public function pay(Request $request, $billId)
     {

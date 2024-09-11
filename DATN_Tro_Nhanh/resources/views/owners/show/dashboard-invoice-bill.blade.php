@@ -60,7 +60,7 @@
                             {{-- @if ($currentUserRole != 1)  
                                 <th class="py-6">Người Nhận</th>
                             @else --}}
-                                <th class="py-6">Tiêu đề</th>
+                                <th class="py-6">Tên Người Nhận</th>
                             {{-- @endif --}}
                             <th class="py-6">Nội Dung</th>
                             <th class="py-6">Giá</th>
@@ -83,11 +83,9 @@
                                 <td class="align-middle">
                                     <div class="d-flex align-items-center">
                                         <a href="{{ route('owners.invoice-preview', $bill->id) }}">
-                                            @if ($bill->payer->role != 1)
+                                          
                                                 <p class="align-self-center mb-0 user-name">{{ $bill->payer->name }}</p>
-                                            @else
-                                                <p class="align-self-center mb-0 user-name">{{ $bill->description }}</p>
-                                            @endif
+                                          
                                         </a>
                                     </div>
                                 </td>

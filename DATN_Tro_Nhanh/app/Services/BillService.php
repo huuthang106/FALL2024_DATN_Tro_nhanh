@@ -39,6 +39,33 @@ class BillService
             return null;
         }
     }
+    public function getBillsByCreatorId(int $perPage = 10, $searchTerm = null)
+    {
+        try {
+            // Lấy user hiện tại
+            $userId = Auth::id();
+    
+            // Xây dựng truy vấn để lấy các Bill của user cụ thể và load thông tin người dùng liên quan
+            $query = Bill::where('creator_id', $userId)
+                         ->with('creator'); // Sử dụng with để lấy thông tin từ mối quan hệ
+    
+            // Nếu có từ khóa tìm kiếm, lọc theo từ khóa trong các trường liên quan
+            if ($searchTerm) {
+                $query->where(function ($q) use ($searchTerm) {
+                    $q->where('invoice_number', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('description', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('amount', 'like', '%' . $searchTerm . '%');
+                });
+            }
+    
+            // Phân trang và trả về kết quả
+            return $query->paginate($perPage);
+        } catch (\Exception $e) {
+            // Xử lý ngoại lệ và trả về null nếu có lỗi xảy ra
+            return null;
+        }
+    }
+    
     // public function getCurrentCreatorBills(int $perPage = 10, $searchTerm = null)
     // {
     //     try {

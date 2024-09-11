@@ -342,7 +342,7 @@
                                             <use xlink:href="#icon-heart"></use>
                                         </svg>
                                     </span>
-                                    <span class="sidebar-item-text">Danh sách hóa đơn</span>
+                                    <span class="sidebar-item-text">Hóa Đơn Của Bạn</span>
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">

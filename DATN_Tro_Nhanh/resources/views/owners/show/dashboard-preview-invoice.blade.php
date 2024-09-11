@@ -32,38 +32,43 @@
                                     </p>
                                 </div>
                             </div>
-                            <div class="border-top pt-7 mb-7">
-                                <div class="row">
-                                    <div class="col-xl-8 col-md-6 col-sm-4 align-self-center">
-                                        <h6 class="card-title mb-5 text-heading fs-22 lh-15">Hóa đơn gửi đến</h6>
-                                    </div>
-                                    <div
-                                        class="col-xl-4 col-md-6 col-sm-8 align-self-center order-sm-0 order-1 text-sm-right">
-                                        <h6 class="card-title mb-5 text-heading fs-22 lh-15">Thông tin thanh toán:</h6>
-                                    </div>
-                                    <div class="col-xl-8 col-md-6 col-sm-4 align-self-center mb-6 mb-md-0">
-                                        <p class="mb-0">{{ $name }}</p>
-                                        <p class="mb-0">{{ $address }}</p>
-                                        <p class="mb-0">{{ $email }}</p>
-                                        <p class="mb-0">{{ $phone }}</p>
-                                    </div>
-                                    <div
-                                        class="col-xl-4 col-md-6 col-sm-8 align-self-center order-sm-0 order-1 text-sm-right">
-                                        <p class="mb-0"><span class="text-heading font-weight-500">Ngân Hàng:</span>
-                                            <span>Vietcombank</span>
-                                        </p>
-                                        <p class="mb-0"><span class="text-heading font-weight-500">Tên tài khoản: </span>
-                                            <span>1234567890</span>
-                                        </p>
-                                        <p class="mb-0"><span class="text-heading font-weight-500">Mã bưu chính:</span>
-                                            <span>VS70134</span>
-                                        </p>
-                                        <p class="mb-0"><span class="text-heading font-weight-500">Quốc gia: </span>
-                                            <span>Việt Nam</span>
-                                        </p>
+                            @if ($status != 1)
+                                <div class="border-top pt-7 mb-7">
+                                    <div class="row">
+                                        <div class="col-xl-8 col-md-6 col-sm-4 align-self-center">
+                                            <h6 class="card-title mb-5 text-heading fs-22 lh-15">Hóa đơn gửi đến</h6>
+                                        </div>
+                                        <div
+                                            class="col-xl-4 col-md-6 col-sm-8 align-self-center order-sm-0 order-1 text-sm-right">
+                                            <h6 class="card-title mb-5 text-heading fs-22 lh-15">Thông tin thanh toán:</h6>
+                                        </div>
+                                        <div class="col-xl-8 col-md-6 col-sm-4 align-self-center mb-6 mb-md-0">
+                                            <p class="mb-0">{{ $name }}</p>
+                                            <p class="mb-0">{{ $address }}</p>
+                                            <p class="mb-0">{{ $email }}</p>
+                                            <p class="mb-0">{{ $phone }}</p>
+                                        </div>
+                                        <div
+                                            class="col-xl-4 col-md-6 col-sm-8 align-self-center order-sm-0 order-1 text-sm-right">
+                                            <p class="mb-0"><span class="text-heading font-weight-500">Ngân Hàng:</span>
+                                                <span>Vietcombank</span>
+                                            </p>
+                                            <p class="mb-0"><span class="text-heading font-weight-500">Tên tài khoản:
+                                                </span>
+                                                <span>1234567890</span>
+                                            </p>
+                                            <p class="mb-0"><span class="text-heading font-weight-500">Mã bưu
+                                                    chính:</span>
+                                                <span>VS70134</span>
+                                            </p>
+                                            <p class="mb-0"><span class="text-heading font-weight-500">Quốc gia: </span>
+                                                <span>Việt Nam</span>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
+
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead class="">
@@ -78,8 +83,8 @@
                                         <tr>
                                             <td>{{ $bill->title }}</td>
                                             <td class="text-right">{{ $bill->description }}</td>
-                                            <td class="text-right">{{ $bill->amount }}</td>
-                                            <td class="text-right">{{ $bill->amount }}</td>
+                                            <td class="text-right">{{ number_format($bill->amount, 0, ',', '.') }}</td>
+                                            <td class="text-right">{{ number_format($bill->amount, 0, ',', '.') }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -94,7 +99,7 @@
                                                 <p class="mb-1">Tổng Phụ Thu: </p>
                                             </div>
                                             <div class="col-sm-4 col-5">
-                                                <p class="mb-1">{{ $bill->amount }}</p>
+                                                <p class="mb-1">{{ number_format($bill->amount, 0, ',', '.') }}</p>
                                             </div>
                                             <div class="col-sm-8 col-7">
                                                 <p class="mb-1">Số Tiền Thuế: </p>
@@ -106,7 +111,7 @@
                                                 <h4 class="text-heading fs-22 lh-15">Tổng Cộng : </h4>
                                             </div>
                                             <div class="col-sm-4 col-5 grand-total-amount mt-4">
-                                                <h4 class="text-heading fs-22 lh-15">{{ $bill->amount }}</h4>
+                                                <h4 class="text-heading fs-22 lh-15">{{ number_format($bill->amount, 0, ',', '.') }}</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -124,22 +129,31 @@
                     <div class="col-xl-3 invoice-preview-button">
                         <div class="card card-body p-6">
                             <div class="row">
-                                <div class="col-xl-12 col-md-3 col-sm-6 mb-3">
-                                    <a href="javascript:void(0);" class="btn btn-primary btn-send btn-block">Gửi Hóa Đơn</a>
-                                </div>
-                                <div class="col-xl-12 col-md-3 col-sm-6 mb-3">
-                                    <a href="javascript:void(0);"
-                                        class="btn btn-secondary btn-print invoice-action-print btn-block">In Hóa Đơn</a>
-                                </div>
-                                <div class="col-xl-12 col-md-3 col-sm-6 mb-3">
-                                    <a href="javascript:void(0);" class="btn btn-success btn-download btn-block">Tải
-                                        xuống</a>
-                                </div>
-                                <div class="col-xl-12 col-md-3 col-sm-6 mb-3">
-                                    <a href="dashboard-edit-invoice.html" class="btn btn-dark btn-edit btn-block">Chỉnh sửa
-                                        hóa đơn</a>
-                                </div>
+                                @if (Auth::user()->role == 1)
+                                    <!-- Chỉ hiển thị nút "Tải xuống" nếu role là 1 -->
+                                    <div class="col-xl-12 col-md-3 col-sm-6 mb-3">
+                                        <a href="javascript:void(0);" class="btn btn-success btn-download btn-block">Tải
+                                            xuống</a>
+                                    </div>
+                                @else
+                                    <!-- Hiển thị tất cả các nút nếu role không phải là 1 -->
+                                    <div class="col-xl-12 col-md-3 col-sm-6 mb-3">
+                                        <a href="javascript:void(0);" class="btn btn-success btn-download btn-block">Tải
+                                            xuống</a>
+                                    </div>
+                                    @if ($status == 1)
+                                        <!-- Hiển thị nút "Chỉ sửa hóa đơn" nếu status là 1 -->
+                                        <div class="col-xl-12 col-md-3 col-sm-6 mb-3">
+                                            <a href="dashboard-edit-invoice.html"
+                                                class="btn btn-dark btn-edit btn-block">Chỉnh sửa hóa đơn</a>
+                                        </div>
+                                    @endif
+
+                                @endif
                             </div>
+
+
+
                             <div class="row flex-grow-1">
                                 <div class="col-xl-12 col-md-3 col-sm-6 mb-3 d-flex flex-column justify-content-end"
                                     style="min-height: 100vh;">

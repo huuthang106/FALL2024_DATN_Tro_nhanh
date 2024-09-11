@@ -61,7 +61,7 @@
                                 <th class="py-6">Tiêu đề</th>
                             {{-- @endif --}}
                     
-                            <th     ="py-6">Giá</th>
+                            <th class="py-6">Giá</th>
                             <th class="py-6">Ngày tạo đơn</th>
                             <th class="py-6">Ngày thanh toán</th>
                             <th class="py-6">Trạng thái</th>
