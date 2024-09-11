@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Owners\ZoneOwnersController;
+use App\Http\Controllers\Owners\ResidentOwnersController;
 
 Route::group(['prefix' => ''], function () {
     route::get('them-khu-tro', [ZoneOwnersController::class, 'index'])->name('zone-post');
@@ -16,5 +17,6 @@ Route::group(['prefix' => ''], function () {
         route::Put('chinh-sua-khu-tro/{id}', [ZoneOwnersController::class, 'update'])->name('zone-start-update');
         Route::delete('/xoa/{id}', [ZoneOwnersController::class, 'destroyResident'])->name('resident-destroy');
         Route::post('/tao-hoa-don', [ZoneOwnersController::class, 'storeBill'])->name('bills-store');
+     
     });
 });

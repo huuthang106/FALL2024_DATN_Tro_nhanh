@@ -129,6 +129,7 @@
                                         <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
                                     </a>
                                 </li>
+                                
                                 <div class="collapse-content" id="collapseKhuTrọ">
                                     <div class="card card-body border-0 bg-transparent py-0 pl-6">
                                         <ul class="list-group list-group-flush list-group-no-border">
@@ -138,9 +139,13 @@
                                             </li>
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"
+                                                    href="{{ route('owners.participation-list') }}">Danh đơn khu trọ</a>
+                                            </li>
+                                            {{-- <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                                <a class="text-heading lh-1 sidebar-link"
                                                     href="{{ route('owners.zone-post') }}">Thêm mới
                                                     khu trọ</a>
-                                            </li>
+                                            </li> --}}
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"
                                                     href="{{ route('owners.trash-zone') }}">Thùng rác</a>
@@ -327,6 +332,17 @@
                         <h5 class="fs-13 letter-spacing-087 text-muted mb-3 text-uppercase px-3">QUẢN LÝ TÀI KHOẢN
                         </h5>
                         <ul class="list-group list-group-no-border rounded-lg">
+                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                <a  href="{{ route('owners.application-form') }}"
+                                    class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                    <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
+                                        <svg class="icon icon-heart">
+                                            <use xlink:href="#icon-heart"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="sidebar-item-text">Đơn đã gửi</span>
+                                </a>
+                            </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                 <a  href="{{ route('owners.invoice-listing') }}"
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center">

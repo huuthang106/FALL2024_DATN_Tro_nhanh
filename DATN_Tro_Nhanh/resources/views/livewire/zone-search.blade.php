@@ -81,10 +81,10 @@
                                 class="fal fa-calendar"></i></span>{{ $zone->updated_at }}</td>
                                 <td class="align-middle">
                                     <span class="inv-amount">
-                                        @if ($zone->total_rooms < 0)
-                                            {{ -$zone->total_rooms }}
+                                        @if ($zone->room_count < 0)
+                                            {{ -$zone->room_count }}
                                         @else
-                                            {{ $zone->total_rooms }}
+                                            {{ $zone->room_count }}
                                         @endif
                                     </span>
                                 </td>

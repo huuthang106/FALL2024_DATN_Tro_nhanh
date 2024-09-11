@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Zone;
+use App\Models\Room;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Log;
 
@@ -63,6 +64,10 @@ class ZoneSearch extends Component
 
     $zones = $query->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
                    ->paginate($this->perPage);
+                     // Đếm số lượng phòng cho từng zone
+    foreach ($zones as $zone) {
+        $zone->room_count = Room::where('zone_id', $zone->id)->count();
+    }
 
     Log::info('Tìm thấy ' . $zones->count() . ' khu vực');
 

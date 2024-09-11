@@ -1,14 +1,14 @@
 @extends('layouts.owner')
-@section('titleOwners', 'Hóa đơn | TRỌ NHANH')
+@section('titleOwners', 'Đơn tham gia trọ | TRỌ NHANH')
 @section('contentOwners')
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
             <div class="mb-6">
                 <div class="row">
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
-                        <div class="d-flex form-group mb-0 align-items-center">
-                            <h5 for="invoice-list_length" class="d-block mr-2 mb-0">Tên khu: {{ $zone->name }}</h5>
-                        </div>
+                        {{-- <div class="d-flex form-group mb-0 align-items-center">
+                            <h5 for="invoice-list_length" class="d-block mr-2 mb-0">Tên khu:</h5>
+                        </div> --}}
                     </div>
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
                         <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
@@ -41,17 +41,17 @@
                                     <th class="py-6 text-start">Tên phòng</th>
                                     <th class="py-6 text-start">Tên người ở</th>
                                     <th class="py-6 text-start">Số điện thoại</th>
-                                    <th class="py-6 text-start">Trạng thái</th>
+                                    <th class="py-6 text-start">Khu trọ</th>
                                     <th class="py-6 text-start">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if ($rooms->isEmpty())
+                                @if ($residents->isEmpty())
                                     <tr>
-                                        <td colspan="6" class="text-center">Khu vực chưa có phòng trọ nào.</td>
+                                        <td colspan="6" class="text-center">Không có đơn</td>
                                     </tr>
                                 @else
-                                    @foreach ($rooms as $room)
+                                    @foreach ($residents as $resident)
                                         <tr>
                                             <td class="py-6 pl-6">
                                                 <label class="new-control new-checkbox checkbox-primary m-auto">
@@ -59,53 +59,35 @@
                                                         class="new-control-input chk-parent select-customers-info">
                                                 </label>
                                             </td>
-                                            <td class="align-middle"><small>{{ $room->title }}</small></td>
+                                            <td class="align-middle"><small>{{ $resident->room->title }}</small></td>
                                             <td class="align-middle">
                                                 <small>
-                                                    @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
-                                                        {{ $room->residents->where('status', $user_is_in)->first()->tenant->name ?? 'Không có tên' }}
-                                                    @else
-                                                        Không có người ở
-                                                    @endif
+                                                    <a href="{{route('client.client-agent-detail', $resident->tenant->slug)}}">{{ $resident->tenant->name }}</a>
+
                                                 </small>
 
                                             </td>
                                             <td class="align-middle"> <small>
-                                                    @if ($room->residents && $room->residents->isNotEmpty())
-                                                        {{ $room->residents->first()->tenant->phone ?? 'Không có' }}
-                                                    @else
-                                                        Phòng trống
-                                                    @endif
+                                                    <small>
+                                                        {{ $resident->tenant->phone }}
+
+                                                    </small>
                                                 </small></td>
                                             <td class="align-middle">
                                                 <small>
-                                                    @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
-                                                        <span class="badge badge-green text-capitalize">Đang tạm trú</span>
-                                                    @else
-                                                        <span class="badge badge-yellow text-capitalize">Trống</span>
-                                                    @endif
+                                                    {{ $resident->zone->name }}
+
                                                 </small>
                                             </td>
                                             <td class="align-middle">
-                                                @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
-                                                    @php
-                                                        $resident = $room->residents->first();
-                                                    @endphp
-                                                    @if ($resident->status == $user_is_in)
-                                                        <button type="button" class="btn btn-primary btn-sm"
-                                                            data-toggle="modal"
-                                                            data-target="#invoiceModal{{ $resident->id }}">
-                                                            Viết hóa đơn
-                                                        </button>
-                                                        <form action="{{route('owners.erase-tenant',$resident->id)}}" method="POST" style="display:inline;">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                class="btn btn-danger btn-sm">Xóa</button>
-                                                        </form>
-                                                    @endif
-                                                @endif
-
+                                                <small>
+                                                    
+                                                    <form action="{{route('owners.cancel-order',$resident->id)}}" method="POST" style="display:inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                                    </form>
+                                                </small>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -114,7 +96,7 @@
                         </table>
                     </div>
                     <div class="mt-6">
-                        @if ($rooms->lastPage() > 1)
+                        @if ($residents->lastPage() > 1)
                             <ul class="pagination rounded-active justify-content-center">
                                 {{-- Trang trước --}}
                                 <li class="page-item {{ $residents->onFirstPage() ? 'disabled' : '' }}">
@@ -169,77 +151,7 @@
             </div>
         </div>
     </main>
-    <!-- Modal -->
-    @foreach ($zone->residents as $resident)
-        <div class="modal fade" id="invoiceModal{{ $resident->id }}" tabindex="-1" role="dialog"
-            aria-labelledby="invoiceModalLabel{{ $resident->id }}" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="invoiceModalLabel{{ $resident->tenant->id }}">Tạo hóa đơn cho
-                            {{ $resident->tenant->id }}
-                            {{ $resident->tenant->name }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="formBills" action="{{ route('owners.bills-store') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="payer_id" value="{{ $resident->tenant_id }}">
-                            <input type="hidden" name="creator_id" value="{{ auth()->user()->id }}">
-                            <div class="row">
-                                <!-- Cột trái -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="name">Tên người ở:</label>
-                                        <input type="text" class="form-control" id="name"
-                                            value="{{ $resident->tenant->name }}" readonly>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="room">Tên phòng:</label>
-                                        <input type="text" class="form-control" id="room"
-                                            value="{{ $resident->room->title }}" readonly>
-                                    </div>
-                                </div>
-                                <!-- Cột phải -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="title">Tiêu đề:</label>
-                                        <input type="text" class="form-control" id="title" name="title"
-                                            required autocomplete="off" placeholder="Nhập tiêu đề hóa đơn">
-                                        <span class="text-danger" id="title-error"></span>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="amount">Số tiền:</label>
-                                        <input type="number" class="form-control" id="amount" name="amount"
-                                            required min="0" step="0.01" placeholder="Nhập số tiền">
-                                        <span class="text-danger" id="amount-error"></span>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="description">Mô tả:</label>
-                                        <textarea class="form-control" id="description" name="description" rows="3"
-                                            placeholder="Nhập mô tả chi tiết về hóa đơn" required></textarea>
-                                        <span class="text-danger" id="description-error"></span>
-                                    </div>
-                                    {{-- <div class="form-group">
-                                        <label for="payment_date">Ngày và giờ thanh toán:</label>
-                                        <input type="datetime-local" class="form-control" id="payment_date"
-                                            name="payment_date" required>
-                                        <span class="text-danger" id="payment_date-error"></span>
-                                    </div> --}}
-                                </div>
-                            </div>
-                            <div class="modal-footer text-right">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                                <button type="submit" class="btn btn-primary">Tạo hóa đơn</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach
+
 @endsection
 
 @push('styleOwners')
@@ -248,7 +160,7 @@
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
     <meta name="generator" content="Jekyll">
-    <title>Chi Tiết Khu Trọ | TRỌ NHANH</title>
+
     <!-- Google fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"

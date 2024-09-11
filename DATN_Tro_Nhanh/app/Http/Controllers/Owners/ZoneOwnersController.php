@@ -14,6 +14,10 @@ use App\Http\Requests\BillRequest;
 class ZoneOwnersController extends Controller
 {
     protected $zoneServices;
+    protected const show = 2;
+    protected const user_is_in = 2;
+  
+
     //
 
     public function __construct(ZoneServices $zoneServices)
@@ -28,12 +32,14 @@ class ZoneOwnersController extends Controller
     // Chi tiết khu trọ
     public function showDetailOwners($slug)
     {
-        $data = $this->zoneServices->showDetail($slug);
+        $data = $this->zoneServices->showDetail($slug, self::show);
+        // dd($data);
         // dd($data);
         return view('owners.show.dashbroard-zone-detail', [
             'zone' => $data['zone'],
             'rooms' => $data['rooms'],
-            'residents'=> $data['residents'],
+            'residents' => $data['residents'],
+            'user_is_in' => self::user_is_in,
         ]);
     }
     // Xóa mềm Residents
@@ -45,7 +51,7 @@ class ZoneOwnersController extends Controller
     // Tạo hóa đơn
     public function storeBill(BillRequest $request)
     {
-        
+
         $this->zoneServices->createBill($request->validated());
         return response()->json([
             'success' => true,
@@ -150,6 +156,5 @@ class ZoneOwnersController extends Controller
         // Nếu xóa vĩnh viễn thành công, chuyển hướng đến trang danh sách khu trọ đã xóa với thông báo thành công
         return redirect()->route('owners.trash-zone')->with('success', 'Khu trọ đã được xóa vĩnh viễn.');
     }
-
-
+   
 }
