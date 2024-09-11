@@ -4,7 +4,8 @@
             <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
                 <div class="d-flex form-group mb-0 align-items-center">
                     <label for="perPage" class="d-block mr-2 mb-0">Kết quả:</label>
-                    <select wire:model="perPage" id="perPage" class="form-control form-control-lg mr-2 selectpicker" data-style="bg-white btn-lg h-52 py-2 border">
+                    <select wire:model="perPage" id="perPage" class="form-control form-control-lg mr-2 selectpicker"
+                        data-style="bg-white btn-lg h-52 py-2 border">
                         <option value="7">7</option>
                         <option value="10">10</option>
                         <option value="20">20</option>
@@ -12,22 +13,18 @@
                     </select>
                 </div>
                 <div class="align-self-center">
-                    <a href="{{ route('owners.zone-post') }}" class="btn btn-primary btn-lg" tabindex="0"><span>Thêm mới</span></a>
+                    <a href="{{ route('owners.zone-post') }}" class="btn btn-primary btn-lg" tabindex="0"><span>Thêm
+                            mới</span></a>
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
                 <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
-                    <input 
-                    wire:model.lazy="search" 
-                    wire:keydown.debounce.300ms="$refresh"
-                    type="text" 
-                    class="form-control bg-transparent border-1x" 
-                    placeholder="Tìm kiếm..." 
-                    aria-label="" 
-                    aria-describedby="basic-addon1"
-                >
+                    <input wire:model.lazy="search" wire:keydown.debounce.300ms="$refresh" type="text"
+                        class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..." aria-label=""
+                        aria-describedby="basic-addon1">
                     <div class="input-group-append position-absolute pos-fixed-right-center">
-                        <button class="btn bg-transparent border-0 text-gray lh-1" type="button"><i class="fal fa-search"></i></button>
+                        <button class="btn bg-transparent border-0 text-gray lh-1" type="button"><i
+                                class="fal fa-search"></i></button>
                     </div>
                 </div>
                 <div class="align-self-center">
@@ -36,11 +33,11 @@
             </div>
         </div>
     </div>
-    
+
     <div wire:loading class="spinner-border text-primary " role="status">
         <span class="sr-only">Đang tải...</span>
     </div>
-    
+
     <table id="myTable" class="table table-hover bg-white border rounded-lg">
         <thead>
             <tr role="row">
@@ -58,13 +55,12 @@
         </thead>
         <tbody>
             @if ($zones->isNotEmpty())
-            @foreach ($zones as $zone)
-                <tr role="row" wire:key="zone-{{ $zone->id }}">
-                    <td class="checkbox-column py-6 pl-6"><label
-                            class="new-control new-checkbox checkbox-primary m-auto">
-                            <input type="checkbox"
-                                class="new-control-input child-chk select-customers-info">
-                        </label></td>
+                @foreach ($zones as $zone)
+                    <tr role="row" wire:key="zone-{{ $zone->id }}">
+                        <td class="checkbox-column py-6 pl-6"><label
+                                class="new-control new-checkbox checkbox-primary m-auto">
+                                <input type="checkbox" class="new-control-input child-chk select-customers-info">
+                            </label></td>
                         <td class="align-middle"><a
                             href="{{route('owners.detail-zone', ['slug' => $zone->slug]) }}"><span
                                 class="inv-number">{{ $zone->name }}</span></a>
@@ -118,7 +114,8 @@
         <ul class="pagination rounded-active justify-content-center">
             {{-- Trang trước --}}
             <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
-                <a class="page-link" wire:click="previousPage" wire:loading.attr="disabled" href="#"><i class="far fa-angle-double-left"></i></a>
+                <a class="page-link" wire:click="previousPage" wire:loading.attr="disabled" href="#"><i
+                        class="far fa-angle-double-left"></i></a>
             </li>
 
             {{-- Trang đầu tiên --}}
@@ -134,7 +131,8 @@
             {{-- Hiển thị các trang xung quanh trang hiện tại --}}
             @for ($i = max(1, $zones->currentPage() - 1); $i <= min($zones->currentPage() + 1, $zones->lastPage()); $i++)
                 <li class="page-item {{ $zones->currentPage() == $i ? 'active' : '' }}">
-                    <a class="page-link" wire:click="gotoPage({{ $i }})" href="#">{{ $i }}</a>
+                    <a class="page-link" wire:click="gotoPage({{ $i }})"
+                        href="#">{{ $i }}</a>
                 </li>
             @endfor
 
@@ -145,14 +143,15 @@
 
             {{-- Trang cuối cùng --}}
             @if ($zones->currentPage() < $zones->lastPage() - 1)
-                <li class="page-item"><a class="page-link" wire:click="gotoPage({{ $zones->lastPage() }})" href="#">{{ $zones->lastPage() }}</a></li>
+                <li class="page-item"><a class="page-link" wire:click="gotoPage({{ $zones->lastPage() }})"
+                        href="#">{{ $zones->lastPage() }}</a></li>
             @endif
 
             {{-- Trang tiếp theo --}}
             <li class="page-item {{ $zones->currentPage() == $zones->lastPage() ? 'disabled' : '' }}">
-                <a class="page-link" href="{{ $zones->nextPageUrl() }}"><i class="far fa-angle-double-right"></i></a>
+                <a class="page-link" href="{{ $zones->nextPageUrl() }}"><i
+                        class="far fa-angle-double-right"></i></a>
             </li>
         </ul>
     </div>
 </div>
-
