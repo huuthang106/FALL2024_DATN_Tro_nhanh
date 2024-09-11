@@ -69,7 +69,7 @@
                                         <div class="row mb-6">
                                             <label class="col-lg-4 col-form-label fw-bold fs-6 required">Địa chỉ</label>
                                             <div class="col-lg-8 fv-row">
-                                                <input type="text" name="address"
+                                                <input type="text" name="address" id="address"
                                                     class="form-control form-control-lg form-control-solid"
                                                     placeholder="" />
                                                 @error('address')
@@ -154,15 +154,26 @@
                                             <div class="col-lg-8 fv-row">
                                                 <select name="zone_id"
                                                     class="form-select form-select-solid form-select-lg">
-                                                    @foreach ($zones as $zone)
+                                                    {{-- @foreach ($zones as $zone)
                                                         <option value="{{ $zone->id }}">
                                                             {{ $zone->name }}
                                                         </option>
-                                                    @endforeach
+                                                    @endforeach --}}
+                                                    @if ($zones->isEmpty())
+                                                        <option value="">Không có dữ liệu
+                                                        </option>
+                                                    @else
+                                                        <option value="" selected>
+                                                            Chọn loại phòng</option>
+                                                        @foreach ($zones as $zone)
+                                                            <option value="{{ $zone->id }}">
+                                                                {{ $zone->name }}</option>
+                                                        @endforeach
+                                                    @endif
                                                 </select>
-                                                @error('zone_id')
+                                                {{-- @error('zone_id')
                                                     <div class="text-danger mt-3">{{ $message }}</div>
-                                                @enderror
+                                                @enderror --}}
                                             </div>
                                         </div>
                                         <div class="row mb-6">
@@ -508,4 +519,5 @@
             document.getElementById('slug').value = slug;
         });
     </script>
+    <script src="{{ asset('assets/js/alert/room-owners-alert.js') }}"></script>
 @endpush

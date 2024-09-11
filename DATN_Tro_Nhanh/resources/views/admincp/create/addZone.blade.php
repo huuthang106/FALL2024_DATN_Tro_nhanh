@@ -45,7 +45,7 @@
                                     <!-- Địa chỉ -->
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label fw-bold fs-6 required">Địa chỉ</label>
-                                        <input type="text" name="address"
+                                        <input type="text" name="address" id="address"
                                             class="form-control form-control-lg form-control-solid" placeholder="Địa chỉ"
                                             value="{{ old('address') }}" />
                                         @error('address')
@@ -193,7 +193,7 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    
+
                                     <!-- Tình trạng -->
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label fw-bold fs-6 required">Tình trạng</label>
@@ -390,4 +390,5 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{{ asset('assets/js/api-ggmap-nht.js') }}"></script>
     <script src="{{ asset('assets/js/api-country-vn-nht.js') }}"></script>
+    <script src="{{ asset('assets/js/alert/room-owners-alert.js') }}"></script>
 @endpush

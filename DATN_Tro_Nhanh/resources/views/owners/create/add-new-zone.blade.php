@@ -396,4 +396,5 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{{ asset('assets/js/api-ggmap-nht.js') }}"></script>
     <script src="{{ asset('assets/js/api-country-vn-nht.js') }}"></script>
+    <script src="{{ asset('assets/js/alert/room-owners-alert.js') }}"></script>
 @endpush
