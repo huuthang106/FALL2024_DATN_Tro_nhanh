@@ -29,18 +29,18 @@ class StoreImagesListener
             // Đặt tên file với timestamp để đảm bảo tính duy nhất
             $cccdmtFilename = 'cccdmt_' . time() . '.' . $request->file('CCCDMT')->extension();
             $cccdmsFilename = 'cccdms_' . time() . '.' . $request->file('CCCDMS')->extension();
-            $fileFaceFilename = 'fileface_' . time() . '.' . $request->file('FileFace')->extension();
+            // $fileFaceFilename = 'fileface_' . time() . '.' . $request->file('FileFace')->extension();
 
             // Di chuyển file vào thư mục public/assets/images/register_owner
             $cccdmtPath = $request->file('CCCDMT')->move(public_path('assets/images/register_owner'), $cccdmtFilename);
             $cccdmsPath = $request->file('CCCDMS')->move(public_path('assets/images/register_owner'), $cccdmsFilename);
-            $fileFacePath = $request->file('FileFace')->move(public_path('assets/images/register_owner'), $fileFaceFilename);
+            // $fileFacePath = $request->file('FileFace')->move(public_path('assets/images/register_owner'), $fileFaceFilename);
 
             // Lưu tên file vào session
             session()->put('image_paths', [
                 'cccdmt_filename' => $cccdmtFilename,
                 'cccdms_filename' => $cccdmsFilename,
-                'fileface_filename' => $fileFaceFilename,
+                // 'fileface_filename' => $fileFaceFilename,
             ]);
         } catch (\Exception $e) {
             Log::error('Exception occurred while storing images:', ['exception' => $e->getMessage()]);

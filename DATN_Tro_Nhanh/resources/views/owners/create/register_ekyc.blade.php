@@ -75,28 +75,12 @@
                                                     </div>
                                                 </div>
 
-                                                <!-- Ảnh khuôn mặt -->
-                                                {{-- <div class="col-12 mb-3">
-                                                            <h5 class="card-title">3. Ảnh khuôn mặt</h5>
-                                                            <div class="text-center mb-2">
-                                                                <img id="face" src="" alt="" class="img-large">
-                                                            </div>
-                                                            <div class="btn-wrapper">
-                                                                <input type="file" class="custom-file-input" id="FileFace"
-                                                                    name="FileFace" required>
-                                                             
-                                                                <button type="button" class="btn btn-primary btn-custom"
-                                                                    onclick="openCameraModal('face', 'FileFace')"><i class="fal fa-camera"></i>
-
-                                                                    Chụp ảnh
-                                                                </button>
-                                                            </div>
-                                                        </div> --}}
+                                          
                                                 <div class="col-12 mb-3">
                                                     <h5 class="card-title">3. Quay video khuôn mặt</h5>
                                                     <div class="btn-wrapper">
-                                                        <input type="file" class="custom-file-input" id="FileFace"
-                                                            name="FileFace" required>
+                                                        <input type="file" class="custom-file-input" id="videoFile"
+                                                            name="videoFile" required>
                                                         <button type="button" class="btn btn-primary btn-custom"
                                                             onclick="openVideoModal()">
                                                             <i class="fal fa-camera"></i> Quay video
@@ -115,7 +99,7 @@
 
                             </div>
                         </form>
-                        <form id="upload-form" method="POST" action="{{ route('client.dang-kyekyc') }}" enctype="multipart/form-data">
+                        {{-- <form id="upload-form" method="POST" action="{{ route('client.dang-kyekyc') }}" enctype="multipart/form-data">
                             @csrf
                             <!-- Tệp video -->
                             <label for="CCCDMT">Chọn video:</label>
@@ -124,12 +108,12 @@
                     
                             <!-- Tệp CMND (hoặc tệp khác) -->
                             <label for="CCCDMS">Chọn tệp CMND:</label>
-                            <input type="file" name="CCCDMS" id="CCCDMS" accept="video/mp4, video/webm, video/ogg" required>
+                            <input type="file" name="videoFile" id="videoFile" required>
                             <br><br>
                     
                             <!-- Nút gửi -->
                             <button type="submit">Gửi</button>
-                        </form>
+                        </form> --}}
                         <!-- Modal Chụp ảnh -->
                         <div class="modal fade" id="cameraModal" tabindex="-1" role="dialog"
                             aria-labelledby="cameraModalLabel" aria-hidden="true">
@@ -188,20 +172,20 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body text-center">
+                                    <div class="modal-body text-center p-0">
                                         <video id="modalVideo" width="100%" autoplay></video> <!-- Video trong modal -->
                                         <canvas id="videoCanvas" style="display:none;"></canvas>
                                         <!-- Canvas để xử lý video nếu cần -->
                                         <div id="videoNotification"
-                                            style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); color: white; background-color: rgba(0, 0, 0, 0.7); padding: 10px; border-radius: 5px; display: none;">
-                                            Đang quay video. Video sẽ tự động dừng sau 5 giây.
+                                            style="position: absolute; top: 5%; left: 50%; transform: translateX(-50%); color: white; background-color: rgba(0, 0, 0, 0.7); padding: 10px; border-radius: 5px; display: none;">
+                                            Đang xác thực khuôn mặt...
                                         </div>
                                     </div>
-                                    <div class="modal-footer">
+                                    {{-- <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Đóng</button>
                                         <button type="button" class="btn btn-primary" id="recordButton">Ghi lại</button>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>

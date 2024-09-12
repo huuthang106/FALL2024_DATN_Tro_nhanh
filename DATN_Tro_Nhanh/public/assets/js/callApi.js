@@ -55,7 +55,7 @@ document.getElementById('captureButton').addEventListener('click', function () {
 function updateFileInputCount() {
     const cccdmtInput = document.getElementById('CCCDMT');
     const cccdmsInput = document.getElementById('CCCDMS');
-    const fileFaceInput = document.getElementById('FileFace');
+    const fileFaceInput = document.getElementById('videoFile');
 
     fileInputCount = 0;
 
@@ -81,127 +81,59 @@ function checkFiles() {
     return fileInputCount === 3; // Kiểm tra nếu đủ 3 file (2 hình ảnh + 1 video)
 }
 
-// Hàm gửi form
-// async function submitForm() {
-//     const form = document.getElementById('upload-form'); // Thay đổi ID nếu cần
-//     const loadingOverlay = document.getElementById('loading-overlay'); // Thay đổi ID nếu cần
-//     const memberRegistrationIdInput = document.getElementById('memberregistration_id');
 
-//     loadingOverlay.classList.remove('d-none');
-
-//     const formData = new FormData(form);
-//     for (let [key, value] of formData.entries()) {
-//         console.log(key, value); // In ra từng cặp key-value
-//     }
-//     // Thêm video vào FormData
-//     const uploadedVideo = document.getElementById('uploadedVideo').src;
-//     if (uploadedVideo) {
-//         const videoBlob = await fetch(uploadedVideo).then(res => res.blob());
-//         formData.append('video', videoBlob, 'video.webm'); // Thay đổi tên file nếu cần
-//     }
-
-//     if (memberRegistrationIdInput) {
-//         formData.append('memberregistration_id', memberRegistrationIdInput.value);
-//     }
-
-//     fetch(form.action, {
-//         method: 'POST',
-//         body: formData,
-//         headers: {
-//             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-//         },
-//     })
-//     .then(response => {
-//         if (!response.ok) {
-//             throw new Error('loi day');
-//         }
-//         return response.json();
-//     })
-//     .then(data => {
-//         if (data.success) {
-//             // Hiển thị dữ liệu sau khi gửi thành công
-//             displayData(data);
-//         } else if (data.error) {
-//             Swal.fire({
-//                 icon: 'error',
-//                 title: 'Lỗi',
-//                 text: data.error,
-//                 confirmButtonText: 'OK'
-//             });
-//         }
-//         loadingOverlay.classList.add('d-none');
-//     })
-//     .catch(error => {
-//         console.error('Có lỗi xảy ra:', error);
-//         Swal.fire({
-//             icon: 'error',
-//             title: 'Lỗi',
-//             text: error.message || 'Có lỗi xảy ra, vui lòng thử lại.',
-//             confirmButtonText: 'OK'
-//         });
-//         loadingOverlay.classList.add('d-none');
-//     });
-// }
-async function submitForm() {
+function submitForm() {
     const form = document.getElementById('upload-form');
-    const loadingOverlay = document.getElementById('loading-overlay');
-    const memberRegistrationIdInput = document.getElementById('memberregistration_id');
-    const videoElement = document.getElementById('uploadedVideo'); // Video element
+    const formData = new FormData(form);
+    const loadingOverlay = document.getElementById('loading-overlay'); // Tham chiếu đến phần tử loading overlay
 
+    // Hiển thị loading overlay
     loadingOverlay.classList.remove('d-none');
 
-    const formData = new FormData(form);
-
-    // Kiểm tra và thêm videoBlob vào FormData nếu có
-    if (videoElement && videoElement.src) {
-        try {
-            const videoBlob = await fetch(videoElement.src).then(res => res.blob());
-            formData.append('FileFace', videoBlob, 'video.webm'); // Đặt tên file theo yêu cầu
-        } catch (error) {
-            console.error('Lỗi khi lấy video blob:', error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Lỗi',
-                text: 'Không thể lấy video để gửi.',
-                confirmButtonText: 'OK'
-            });
-            loadingOverlay.classList.add('d-none');
-            return;
-        }
-    } else {
-        console.error('Không có video để gửi.');
-    }
-
-    if (memberRegistrationIdInput) {
-        formData.append('memberregistration_id', memberRegistrationIdInput.value);
-    }
-
-    try {
-        const response = await fetch(form.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            },
+    // Kiểm tra xem video đã được ghi và cập nhật vào input chưa
+    const videoInput = document.getElementById('videoFile');
+    if (videoInput.files.length === 0) {
+        console.error('Không có video được ghi lại.');
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi',
+            text: 'Vui lòng ghi video trước khi gửi.',
+            confirmButtonText: 'OK'
         });
+        loadingOverlay.classList.add('d-none'); // Ẩn loading overlay nếu không có video
+        return;
+    }
 
+    fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        },
+    })
+    .then(response => {
         if (!response.ok) {
-            throw new Error('Lỗi xảy ra');
-        }
-
-        const data = await response.json();
-
-        if (data.success) {
-            displayData(data); // Hàm hiển thị dữ liệu sau khi thành công
-        } else if (data.error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Lỗi',
-                text: data.error,
-                confirmButtonText: 'OK'
+            return response.json().then(err => {
+                throw new Error(err.error || 'Có lỗi xảy ra khi gửi yêu cầu.');
             });
         }
-    } catch (error) {
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+                        // Hiển thị dữ liệu sau khi gửi thành công
+                        displayData(data);
+                        console.log(data);
+                    } else if (data.error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi',
+                            text: data.error,
+                            confirmButtonText: 'OK'
+                        });
+                    }
+    })
+    .catch(error => {
         console.error('Có lỗi xảy ra:', error);
         Swal.fire({
             icon: 'error',
@@ -209,10 +141,11 @@ async function submitForm() {
             text: error.message || 'Có lỗi xảy ra, vui lòng thử lại.',
             confirmButtonText: 'OK'
         });
-    } finally {
+    })
+    .finally(() => {
         // Luôn ẩn loadingOverlay sau khi xử lý xong, kể cả khi có lỗi
         loadingOverlay.classList.add('d-none');
-    }
+    });
 }
 
 
@@ -272,11 +205,14 @@ function displayData(data) {
 let mediaRecorder;
 let recordedChunks = [];
 let videoBlob;
+
 function openVideoModal() {
     const modalVideo = document.getElementById('modalVideo');
-
+    const verificationMessage = document.getElementById('videoNotification');
+    
     // Mở modal quay video
     $('#videoModal').modal('show');
+    verificationMessage.style.display = 'block';
 
     // Bắt đầu quay video
     navigator.mediaDevices.getUserMedia({ video: true })
@@ -286,7 +222,8 @@ function openVideoModal() {
 
             // Tạo MediaRecorder để ghi video
             mediaRecorder = new MediaRecorder(stream);
-            
+            recordedChunks = []; // Khởi tạo mảng để lưu trữ các đoạn video
+
             // Gán hàm ondataavailable
             mediaRecorder.ondataavailable = function(event) {
                 if (event.data.size > 0) {
@@ -305,16 +242,25 @@ function openVideoModal() {
                 uploadedVideo.src = videoURL;
                 document.getElementById('videoDisplay').style.display = 'block';
             
-                const fileFaceInput = document.getElementById('FileFace');
+                // Cập nhật input file với video đã ghi
+                const fileFaceInput = document.getElementById('videoFile'); // Đảm bảo ID đúng
                 const dataTransfer = new DataTransfer();
                 const file = new File([videoBlob], 'video.webm', { type: 'video/webm' });
                 dataTransfer.items.add(file);
-                fileFaceInput.files = dataTransfer.files;
-            
-                // Tự động submit form sau khi video đã được đính kèm nếu cần
+                fileFaceInput.files = dataTransfer.files; // Cập nhật input file
+                console.log('Video file:', fileFaceInput.files[0]); // Kiểm tra file trong input
+                console.log('Số lượng file trong input:', fileFaceInput.files.length); // Kiểm tra số lượng file
+                updateFileInputCount();
+                // Kiểm tra nếu đủ file trước khi gửi form
                 if (checkFiles()) {
+                    // Gọi hàm gửi form
                     submitForm();
+                } else {
+                    console.error('Không đủ file để gửi form.');
                 }
+
+                // Tắt modal
+                $('#videoModal').modal('hide'); // Đóng modal
             };
 
             // Bắt đầu ghi video
