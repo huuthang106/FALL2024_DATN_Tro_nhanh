@@ -79,6 +79,9 @@
     <meta property="og:image:height" content="630">
 @endpush
 @push('scriptOwners')
+<script>
+    
+</script>
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/bootstrap/bootstrap.bundle.js') }}"></script>

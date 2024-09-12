@@ -25,28 +25,27 @@ class BlogSearch extends Component
 
         // Lọc theo khoảng thời gian
         if ($this->timeFilter) {
-            $date = Carbon::now();
+            $date = Carbon::now()->copy(); // Tạo một bản sao mới của Carbon
             switch ($this->timeFilter) {
                 case '1_day':
-                    $date = $date->subDays(1);
+                    $date->subDays(1);
                     break;
                 case '7_day':
-                    $date = $date->subDays(7);
+                    $date->subDays(7);
                     break;
                 case '1_month':
-                    $date = $date->subMonth();
+                    $date->subMonth();
                     break;
                 case '3_month':
-                    $date = $date->subMonths(3);
+                    $date->subMonths(3);
                     break;
                 case '6_month':
-                    $date = $date->subMonths(6);
+                    $date->subMonths(6);
                     break;
                 case '1_year':
-                    $date = $date->subYear();
+                    $date->subYear();
                     break;
             }
-            // Sử dụng chỉ 1 trong 2 `created_at` hoặc `updated_at` để tránh điều kiện không mong muốn
             $query->where('created_at', '>=', $date);
         }
 

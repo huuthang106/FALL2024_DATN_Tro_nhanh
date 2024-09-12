@@ -1,15 +1,13 @@
 <div>
     {{-- Stop trying to control. --}}
     <form action="{{ route('owners.properties') }}" method="GET">
-       
-        <div class="mb-6">
+
+        <div class="mb-6" wire:ignore>
             <div class="row">
                 <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
                     <div class="d-flex form-group mb-0 align-items-center">
                         <label class="form-label fs-6 fw-bold mr-2 mb-0">Lọc:</label>
-                        <select class="form-control form-control-lg mr-2 "
-                                wire:model.lazy="timeFilter" wire:key="time-select"
-                                data-style="bg-white btn-lg h-52 py-2 border">
+                        <select class="form-control form-control-lg mr-2 selectpicker" wire:model.lazy="timeFilter" data-style="bg-white btn-lg h-52 py-2 border">
                             <option value="" selected>Thời Gian:</option>
                             <option value="1_day">1 ngày</option>
                             <option value="7_day">7 ngày</option>
@@ -20,7 +18,10 @@
                         </select>
                     </div>
                     
-                    
+
+
+
+
                     <div class="align-self-center">
                         <a href="{{ route('owners.blog') }}" class="btn btn-primary btn-lg" tabindex="0"><span>Thêm
                                 mới</span></a>
@@ -56,7 +57,7 @@
                 </tr>
             </thead>
             <tbody>
-                <div wire:loading  class="text-center my-2">
+                <div wire:loading class="text-center my-2">
                     <div class="spinner-border text-primary" role="status">
                         <span class="sr-only">Đang tải...</span>
                     </div>
@@ -104,8 +105,7 @@
                                 class="d-inline-block">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit"
-                                    class="fs-18 text-muted hover-primary border-0 bg-transparent"><i
+                                <button type="submit" class="fs-18 text-muted hover-primary border-0 bg-transparent"><i
                                         class="fal fa-trash-alt"></i></button>
                             </form>
                         </td>
@@ -121,17 +121,17 @@
                 <a class="page-link" wire:click="previousPage" wire:loading.attr="disabled" href="#"><i
                         class="far fa-angle-double-left"></i></a>
             </li>
-    
+
             {{-- Trang đầu tiên --}}
             @if ($blogs->currentPage() > 2)
                 <li class="page-item"><a class="page-link" wire:click="gotoPage(1)" href="#">1</a></li>
             @endif
-    
+
             {{-- Dấu ba chấm ở đầu nếu cần --}}
             @if ($blogs->currentPage() > 3)
                 <li class="page-item disabled"><span class="page-link">...</span></li>
             @endif
-    
+
             {{-- Hiển thị các trang xung quanh trang hiện tại --}}
             @for ($i = max(1, $blogs->currentPage() - 1); $i <= min($blogs->currentPage() + 1, $blogs->lastPage()); $i++)
                 <li class="page-item {{ $blogs->currentPage() == $i ? 'active' : '' }}">
@@ -139,18 +139,18 @@
                         href="#">{{ $i }}</a>
                 </li>
             @endfor
-    
+
             {{-- Dấu ba chấm ở cuối nếu cần --}}
             @if ($blogs->currentPage() < $blogs->lastPage() - 2)
                 <li class="page-item disabled"><span class="page-link">...</span></li>
             @endif
-    
+
             {{-- Trang cuối cùng --}}
             @if ($blogs->currentPage() < $blogs->lastPage() - 1)
                 <li class="page-item"><a class="page-link" wire:click="gotoPage({{ $blogs->lastPage() }})"
                         href="#">{{ $blogs->lastPage() }}</a></li>
             @endif
-    
+
             {{-- Trang tiếp theo --}}
             <li class="page-item {{ $blogs->currentPage() == $blogs->lastPage() ? 'disabled' : '' }}">
                 <a class="page-link" href="{{ $blogs->nextPageUrl() }}"><i
@@ -158,7 +158,7 @@
             </li>
         </ul>
     </div>
-    
+
 
     {{-- <div class="text-center mt-2">{{ $blogs->firstItem() }}-{{ $blogs->lastItem() }} của {{ $blogs->total() }}
         kết quả</div> --}}

@@ -12,7 +12,7 @@
                         </h2>
                         <p>Xem Thêm</p>
                     </div>
-                    <div class="form-inline justify-content-md-end mx-n2">
+                    <div class="form-inline justify-content-md-end mx-n2"   wire:ignore>
                         <div class="p-2">
                             <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
                                 <input type="text" class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..." 
@@ -26,22 +26,21 @@
                             </div>
                         </div>
                         <div class="p-2">
-                            <div class="input-group input-group-lg bg-white border">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text bg-transparent letter-spacing-093 border-0 pr-0">
-                                        <i class="far fa-align-left mr-2"></i>Sắp xếp theo:
-                                    </span>
-                                </div>
-                                <select class="form-control bg-transparent pl-0 selectpicker d-flex align-items-center sortby"
-                                        wire:model="sortBy" name="sort-by" data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
-                                    <option value="name">Chữ cái</option>
-                                    <option value="price_low_to_high">1 Ngày</option>
-                                    <option value="price_high_to_low">7 Ngày</option>
-                                    <option value="date_old_to_new">1 Tháng</option>
-                                    <option value="date_new_to_old">3 Tháng</option>
-                                    <option value="date_new_to_old">6 Tháng</option>
+                            <div class="d-flex form-group mb-0 align-items-center">
+                                <label class="form-label fs-6 fw-bold mr-2 mb-0">Lọc:</label>
+                                <select class="form-control selectpicker form-control-lg mr-2 " wire:model.lazy="timeFilters"
+                                     data-style="bg-white btn-lg h-52 py-2 border" >
+                                    <option value="" selected>Thời Gian:</option>
+                                    <option value="1_day">1 ngày</option>
+                                    <option value="7_day">7 ngày</option>
+                                    <option value="1_month">1 tháng</option>
+                                    <option value="3_month">3 tháng</option>
+                                    <option value="6_month">6 tháng</option>
+                                    <option value="1_year">1 năm</option>
                                 </select>
+        
                             </div>
+                            
                         </div>
                     </div>
                 </div>
