@@ -10,7 +10,7 @@ use Carbon\Carbon;
 class OwnerList extends Component
 {
     use WithPagination;
-
+    const CHU_TRO = 2;
     public $search = '';
     public $timeFilter = ''; // Mặc định là không lọc
     public $orderBy = 'created_at'; // Mặc định sắp xếp theo ngày tạo mới nhất
@@ -25,8 +25,8 @@ class OwnerList extends Component
 
     public function render()
     {
-        $query = User::query();
-
+        // $query = User::query();
+        $query = User::where('role', self::CHU_TRO);
         // Lấy khoảng thời gian dựa trên giá trị của selectpicker
         $now = Carbon::now();
         if ($this->timeFilter) {
