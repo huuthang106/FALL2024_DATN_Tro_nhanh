@@ -11,12 +11,13 @@ use Illuminate\Support\Facades\Auth;
 
 class ReportAdminService
 {
-    public function getUserReports($userId)
+    public function getUserReports($userId, $perPage = 8)
     {
         return Report::with(['room', 'user'])
             ->where('user_id', $userId)
-            ->get();
+            ->paginate($perPage); // Số lượng bản ghi trên mỗi trang
     }
+
 
     // Hàm thay đổi trạng thái báo cáo
     // ReportService.php
@@ -28,5 +29,4 @@ class ReportAdminService
 
         return $report;
     }
-
 }

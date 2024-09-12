@@ -9,9 +9,9 @@ use App\Models\Location;
 class LocationAdminService
 {
     private const status = 1;
-    public function showLocation()
+    public function showLocation($perPage = 10)
     {
-        $locations = Location::where('status', self::status)->get();
+        $locations = Location::where('status', self::status)->paginate($perPage);
         return $locations;
     }
 
@@ -40,7 +40,7 @@ class LocationAdminService
         // Tạo mới đối tượng Location và gán giá trị
         $locations = new Location();
         $locations->name = $request->input('name');
-        
+
         $locations->status = $request->input('status');
         // Lưu đối tượng locations
         if ($locations->save()) {
@@ -54,7 +54,6 @@ class LocationAdminService
 
             // Lưu lại đối tượng với slug mới
             $locations->save();
-            
         } else {
             return false;
         }
@@ -116,5 +115,4 @@ class LocationAdminService
             'message' => 'Location đã được xóa vĩnh viễn thành công.'
         ];
     }
-
 }

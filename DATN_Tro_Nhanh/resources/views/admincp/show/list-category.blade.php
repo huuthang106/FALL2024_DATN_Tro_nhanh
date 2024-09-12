@@ -300,46 +300,67 @@
                         <!--end::Table-->
                         <!--end::Card body-->
                         <!-- Hiển thị các liên kết phân trang -->
-                        <nav class="mt-4">
-                            <ul class="pagination rounded-active justify-content-center">
-                                {{-- Previous Page Link --}}
-                                @if ($categories->onFirstPage())
-                                    <li class="page-item disabled">
-                                        <span class="page-link"><i class="far fa-angle-double-left"></i></span>
+                        @if ($categories->hasPages())
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination rounded-active justify-content-center">
+                                    {{-- Liên kết Trang Trước --}}
+                                    <li class="page-item {{ $categories->onFirstPage() ? 'disabled' : '' }}">
+                                        <a class="page-link hover-white" href="{{ $categories->previousPageUrl() }}"
+                                            rel="prev" aria-label="@lang('pagination.previous')">
+                                            {{-- <i class="far fa-angle-left"></i> --}}
+                                            <{{-- Mũi tên trái --}} </a>
                                     </li>
-                                @else
-                                    <li class="page-item">
-                                        <a class="page-link" href="{{ $categories->previousPageUrl() }}"><i
-                                                class="far fa-angle-double-left"></i></a>
-                                    </li>
-                                @endif
 
-                                {{-- Pagination Elements --}}
-                                @foreach ($categories->getUrlRange(1, $categories->lastPage()) as $page => $url)
-                                    @if ($page == $categories->currentPage())
-                                        <li class="page-item active">
-                                            <span class="page-link">{{ $page }}</span>
-                                        </li>
-                                    @else
-                                        <li class="page-item">
-                                            <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                    @php
+                                        $totalPages = $categories->lastPage();
+                                        $currentPage = $categories->currentPage();
+                                        $visiblePages = 3; // Số trang hiển thị ở giữa
+                                    @endphp
+
+                                    {{-- Trang đầu --}}
+                                    <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                                        <a class="page-link hover-white" href="{{ $categories->url(1) }}">1</a>
+                                    </li>
+
+                                    {{-- Dấu ba chấm đầu --}}
+                                    @if ($currentPage > $visiblePages)
+                                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                                    @endif
+
+                                    {{-- Các trang giữa --}}
+                                    @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
+                                        @if ($i > 1 && $i < $totalPages)
+                                            <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                                <a class="page-link hover-white"
+                                                    href="{{ $categories->url($i) }}">{{ $i }}</a>
+                                            </li>
+                                        @endif
+                                    @endforeach
+
+                                    {{-- Dấu ba chấm cuối --}}
+                                    @if ($currentPage < $totalPages - ($visiblePages - 1))
+                                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                                    @endif
+
+                                    {{-- Trang cuối --}}
+                                    @if ($totalPages > 1)
+                                        <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                                            <a class="page-link hover-white"
+                                                href="{{ $categories->url($totalPages) }}">{{ $totalPages }}</a>
                                         </li>
                                     @endif
-                                @endforeach
 
-                                {{-- Next Page Link --}}
-                                @if ($categories->hasMorePages())
-                                    <li class="page-item">
-                                        <a class="page-link" href="{{ $categories->nextPageUrl() }}"><i
-                                                class="far fa-angle-double-right"></i></a>
+                                    {{-- Liên kết Trang Tiếp --}}
+                                    <li class="page-item {{ !$categories->hasMorePages() ? 'disabled' : '' }}">
+                                        <a class="page-link hover-white" href="{{ $categories->nextPageUrl() }}"
+                                            rel="next" aria-label="@lang('pagination.next')">
+                                            {{-- <i class="far fa-angle-right"></i> --}}
+                                            > {{-- Mũi tên phải --}}
+                                        </a>
                                     </li>
-                                @else
-                                    <li class="page-item disabled">
-                                        <span class="page-link"><i class="far fa-angle-double-right"></i></span>
-                                    </li>
-                                @endif
-                            </ul>
-                        </nav>
+                                </ul>
+                            </nav>
+                        @endif
                         <div class="text-center mt-2">{{ $categories->firstItem() }}-{{ $categories->lastItem() }} của
                             {{ $categories->total() }} kết quả
                         </div>

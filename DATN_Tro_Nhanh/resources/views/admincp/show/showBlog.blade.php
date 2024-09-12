@@ -650,46 +650,67 @@
                         </table>
                         <!--end::Table-->
                     </div>
-                    <nav class="mt-4">
-                        <ul class="pagination rounded-active justify-content-center">
-                            {{-- Previous Page Link --}}
-                            @if ($blogs->onFirstPage())
-                                <li class="page-item disabled">
-                                    <span class="page-link"><i class="far fa-angle-double-left"></i></span>
+                    @if ($blogs->hasPages())
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination rounded-active justify-content-center">
+                                {{-- Liên kết Trang Trước --}}
+                                <li class="page-item {{ $blogs->onFirstPage() ? 'disabled' : '' }}">
+                                    <a class="page-link hover-white" href="{{ $blogs->previousPageUrl() }}"
+                                        rel="prev" aria-label="@lang('pagination.previous')">
+                                        {{-- <i class="far fa-angle-left"></i> --}}
+                                        <{{-- Mũi tên trái --}} </a>
                                 </li>
-                            @else
-                                <li class="page-item">
-                                    <a class="page-link" href="{{ $blogs->previousPageUrl() }}"><i
-                                            class="far fa-angle-double-left"></i></a>
-                                </li>
-                            @endif
 
-                            {{-- Pagination Elements --}}
-                            @foreach ($blogs->getUrlRange(1, $blogs->lastPage()) as $page => $url)
-                                @if ($page == $blogs->currentPage())
-                                    <li class="page-item active">
-                                        <span class="page-link">{{ $page }}</span>
-                                    </li>
-                                @else
-                                    <li class="page-item">
-                                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                @php
+                                    $totalPages = $blogs->lastPage();
+                                    $currentPage = $blogs->currentPage();
+                                    $visiblePages = 3; // Số trang hiển thị ở giữa
+                                @endphp
+
+                                {{-- Trang đầu --}}
+                                <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                                    <a class="page-link hover-white" href="{{ $blogs->url(1) }}">1</a>
+                                </li>
+
+                                {{-- Dấu ba chấm đầu --}}
+                                @if ($currentPage > $visiblePages)
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                @endif
+
+                                {{-- Các trang giữa --}}
+                                @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
+                                    @if ($i > 1 && $i < $totalPages)
+                                        <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                            <a class="page-link hover-white"
+                                                href="{{ $blogs->url($i) }}">{{ $i }}</a>
+                                        </li>
+                                    @endif
+                                @endforeach
+
+                                {{-- Dấu ba chấm cuối --}}
+                                @if ($currentPage < $totalPages - ($visiblePages - 1))
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                @endif
+
+                                {{-- Trang cuối --}}
+                                @if ($totalPages > 1)
+                                    <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                                        <a class="page-link hover-white"
+                                            href="{{ $blogs->url($totalPages) }}">{{ $totalPages }}</a>
                                     </li>
                                 @endif
-                            @endforeach
 
-                            {{-- Next Page Link --}}
-                            @if ($blogs->hasMorePages())
-                                <li class="page-item">
-                                    <a class="page-link" href="{{ $blogs->nextPageUrl() }}"><i
-                                            class="far fa-angle-double-right"></i></a>
+                                {{-- Liên kết Trang Tiếp --}}
+                                <li class="page-item {{ !$blogs->hasMorePages() ? 'disabled' : '' }}">
+                                    <a class="page-link hover-white" href="{{ $blogs->nextPageUrl() }}" rel="next"
+                                        aria-label="@lang('pagination.next')">
+                                        {{-- <i class="far fa-angle-right"></i> --}}
+                                        > {{-- Mũi tên phải --}}
+                                    </a>
                                 </li>
-                            @else
-                                <li class="page-item disabled">
-                                    <span class="page-link"><i class="far fa-angle-double-right"></i></span>
-                                </li>
-                            @endif
-                        </ul>
-                    </nav>
+                            </ul>
+                        </nav>
+                    @endif
                     <div class="text-center mt-2">{{ $blogs->firstItem() }}-{{ $blogs->lastItem() }} của
                         {{ $blogs->total() }} kết quả</div>
                     <!--end::Card body-->

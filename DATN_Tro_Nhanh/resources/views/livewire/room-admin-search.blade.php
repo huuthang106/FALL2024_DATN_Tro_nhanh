@@ -22,7 +22,8 @@
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
-                            <input type="text" wire:model.lazy="search" wire:keydown.debounce.300ms="$refresh" name="search" placeholder="Search room"
+                            <input type="text" wire:model.lazy="search" wire:keydown.debounce.300ms="$refresh"
+                                name="search" placeholder="Search room"
                                 class="form-control form-control-solid w-250px ps-14" />
                         </div>
                         <!--end::Search-->
@@ -646,46 +647,65 @@
                     </table>
                     <!--end::Table-->
                 </div>
-                <nav class="mt-4">
-                    <ul class="pagination rounded-active justify-content-center">
-                        {{-- Previous Page Link --}}
-                        @if ($rooms->onFirstPage())
-                            <li class="page-item disabled">
-                                <span class="page-link"><i class="far fa-angle-double-left"></i></span>
-                            </li>
-                        @else
-                            <li class="page-item">
-                                <a class="page-link" href="{{ $rooms->previousPageUrl() }}"><i
+                @if ($rooms->hasPages())
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination rounded-active justify-content-center">
+                            {{-- Liên kết Trang Trước --}}
+                            <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
+                                <a class="page-link hover-white" wire:click="previousPage"
+                                    wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')"><i
                                         class="far fa-angle-double-left"></i></a>
                             </li>
-                        @endif
 
-                        {{-- Pagination Elements --}}
-                        @foreach ($rooms->getUrlRange(1, $rooms->lastPage()) as $page => $url)
-                            @if ($page == $rooms->currentPage())
-                                <li class="page-item active">
-                                    <span class="page-link">{{ $page }}</span>
-                                </li>
-                            @else
-                                <li class="page-item">
-                                    <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                            @php
+                                $totalPages = $rooms->lastPage();
+                                $currentPage = $rooms->currentPage();
+                                $visiblePages = 3; // Số trang hiển thị ở giữa
+                            @endphp
+
+                            {{-- Trang đầu --}}
+                            <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                                <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                    wire:loading.attr="disabled">1</a>
+                            </li>
+
+                            {{-- Dấu ba chấm đầu --}}
+                            @if ($currentPage > $visiblePages)
+                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                            @endif
+
+                            {{-- Các trang giữa --}}
+                            @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
+                                @if ($i > 1 && $i < $totalPages)
+                                    <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                        <a class="page-link hover-white" wire:click="gotoPage({{ $i }})"
+                                            wire:loading.attr="disabled">{{ $i }}</a>
+                                    </li>
+                                @endif
+                            @endforeach
+
+                            {{-- Dấu ba chấm cuối --}}
+                            @if ($currentPage < $totalPages - ($visiblePages - 1))
+                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                            @endif
+
+                            {{-- Trang cuối --}}
+                            @if ($totalPages > 1)
+                                <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                                    <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
+                                        wire:loading.attr="disabled">{{ $totalPages }}</a>
                                 </li>
                             @endif
-                        @endforeach
 
-                        {{-- Next Page Link --}}
-                        @if ($rooms->hasMorePages())
-                            <li class="page-item">
-                                <a class="page-link" href="{{ $rooms->nextPageUrl() }}"><i
+                            {{-- Liên kết Trang Tiếp --}}
+                            <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
+                                <a class="page-link hover-white" wire:click="nextPage" wire:loading.attr="disabled"
+                                    rel="next" aria-label="@lang('pagination.next')"><i
                                         class="far fa-angle-double-right"></i></a>
                             </li>
-                        @else
-                            <li class="page-item disabled">
-                                <span class="page-link"><i class="far fa-angle-double-right"></i></span>
-                            </li>
-                        @endif
-                    </ul>
-                </nav>
+                        </ul>
+                    </nav>
+                @endif
                 <div class="text-center mt-2">{{ $rooms->firstItem() }}-{{ $rooms->lastItem() }} của
                     {{ $rooms->total() }} kết quả</div>
                 <!--end::Card body-->

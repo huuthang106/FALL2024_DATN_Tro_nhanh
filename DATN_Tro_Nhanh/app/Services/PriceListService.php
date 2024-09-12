@@ -16,10 +16,11 @@ class PriceListService
         return PriceList::create($data);
     }
 
-    public function getAllPriceLists()
+    public function getAllPriceLists($perPage = 10)
     {
-        return PriceList::orderBy('created_at', 'desc')->get();
+        return PriceList::orderBy('created_at', 'desc')->paginate($perPage);
     }
+
 
     public function getPriceListById($id)
     {

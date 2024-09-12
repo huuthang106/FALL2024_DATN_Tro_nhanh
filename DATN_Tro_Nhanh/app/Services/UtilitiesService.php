@@ -11,10 +11,11 @@ class UtilitiesService
         return Utility::create($data);
     }
 
-    public function getAllUtilities()
+    public function getAllUtilities($perPage = 8)
     {
-        return Utility::all();
+        return Utility::paginate($perPage); // Số lượng bản ghi trên mỗi trang
     }
+
 
     public function getUtilityById($id)
     {

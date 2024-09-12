@@ -160,6 +160,67 @@
                         <!--end::Table-->
                         <!--end::Card body-->
                         <!-- Hiển thị các liên kết phân trang -->
+                        @if ($reports->hasPages())
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination rounded-active justify-content-center">
+                                    {{-- Liên kết Trang Trước --}}
+                                    <li class="page-item {{ $reports->onFirstPage() ? 'disabled' : '' }}">
+                                        <a class="page-link hover-white" href="{{ $reports->previousPageUrl() }}"
+                                            rel="prev" aria-label="@lang('pagination.previous')">
+                                            {{-- <i class="far fa-angle-left"></i> --}}
+                                            <{{-- Mũi tên trái --}} </a>
+                                    </li>
+
+                                    @php
+                                        $totalPages = $reports->lastPage();
+                                        $currentPage = $reports->currentPage();
+                                        $visiblePages = 3; // Số trang hiển thị ở giữa
+                                    @endphp
+
+                                    {{-- Trang đầu --}}
+                                    <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                                        <a class="page-link hover-white" href="{{ $reports->url(1) }}">1</a>
+                                    </li>
+
+                                    {{-- Dấu ba chấm đầu --}}
+                                    @if ($currentPage > $visiblePages)
+                                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                                    @endif
+
+                                    {{-- Các trang giữa --}}
+                                    @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
+                                        @if ($i > 1 && $i < $totalPages)
+                                            <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                                <a class="page-link hover-white"
+                                                    href="{{ $reports->url($i) }}">{{ $i }}</a>
+                                            </li>
+                                        @endif
+                                    @endforeach
+
+                                    {{-- Dấu ba chấm cuối --}}
+                                    @if ($currentPage < $totalPages - ($visiblePages - 1))
+                                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                                    @endif
+
+                                    {{-- Trang cuối --}}
+                                    @if ($totalPages > 1)
+                                        <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                                            <a class="page-link hover-white"
+                                                href="{{ $reports->url($totalPages) }}">{{ $totalPages }}</a>
+                                        </li>
+                                    @endif
+
+                                    {{-- Liên kết Trang Tiếp --}}
+                                    <li class="page-item {{ !$reports->hasMorePages() ? 'disabled' : '' }}">
+                                        <a class="page-link hover-white" href="{{ $reports->nextPageUrl() }}"
+                                            rel="next" aria-label="@lang('pagination.next')">
+                                            {{-- <i class="far fa-angle-right"></i> --}}
+                                            > {{-- Mũi tên phải --}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        @endif
                     </div>
                     <!--end::Card-->
                     <!--begin::Modals-->
