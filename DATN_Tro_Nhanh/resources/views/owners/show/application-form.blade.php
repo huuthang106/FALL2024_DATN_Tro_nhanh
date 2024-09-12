@@ -1,5 +1,5 @@
 @extends('layouts.owner')
-@section('titleOwners', 'Đơn tham gia trọ | TRỌ NHANH')
+@section('titleOwners', 'Đơn Tham Gia Trọ | TRỌ NHANH')
 @section('contentOwners')
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
@@ -62,7 +62,8 @@
                                             <td class="align-middle"><small>{{ $resident->room->title }}</small></td>
                                             <td class="align-middle">
                                                 <small>
-                                                    <a href="{{route('client.client-agent-detail', $resident->tenant->slug)}}">{{ $resident->tenant->name }}</a>
+                                                    <a
+                                                        href="{{ route('client.client-agent-detail', $resident->tenant->slug) }}">{{ $resident->tenant->name }}</a>
 
                                                 </small>
 
@@ -81,8 +82,9 @@
                                             </td>
                                             <td class="align-middle">
                                                 <small>
-                                                    
-                                                    <form action="{{route('owners.cancel-order',$resident->id)}}" method="POST" style="display:inline;">
+
+                                                    <form action="{{ route('owners.cancel-order', $resident->id) }}"
+                                                        method="POST" style="display:inline;">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
@@ -181,7 +183,8 @@
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    {{-- <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}"> --}}
+    <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">

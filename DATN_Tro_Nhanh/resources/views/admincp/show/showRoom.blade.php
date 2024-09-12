@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('titleAdmin', 'Danh sách phòng trọ')
+@section('titleAdmin', 'Danh Sách Phòng Trọ | TRỌ NHANH')
 @section('linkAdmin', 'Danh sách phòng trọ')
 
 @section('contentAdmin')

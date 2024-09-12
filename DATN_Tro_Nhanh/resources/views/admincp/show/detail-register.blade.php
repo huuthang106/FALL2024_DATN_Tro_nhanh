@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('titleAdmin', 'Chi tiết đơn đăng ký')
+@section('titleAdmin', 'Chi Tiết Đơn Đăng Ký | TRỌ NHANH')
 @section('linkAdmin', 'Chi tiết đơn đăng ký')
 
 @section('contentAdmin')
@@ -435,7 +435,7 @@
 @endsection
 @push('styleAdmin')
     <base href="../">
-    <title>Chi Tiết Đơn Đăng Ký | TRỌ NHANH</title>
+    {{-- <title>Chi Tiết Đơn Đăng Ký | TRỌ NHANH</title> --}}
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"

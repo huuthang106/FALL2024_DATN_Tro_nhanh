@@ -71,7 +71,7 @@
                             <tr class="shadow-hover-xs-2 bg-hover-white">
                                 <td class="align-middle">{{ $bill->description }}</td>
                                 <td class="align-middle">{{ $bill->created_at->format('d/m/Y') }}</td>
-                                <td class="align-middle">{{ number_format($bill->total_price , 0, ',', '.') }} VND</td>
+                                <td class="align-middle">{{ number_format($bill->total_price, 0, ',', '.') }} VND</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -96,7 +96,7 @@
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
     <meta name="generator" content="Jekyll">
-    <title>Lịch Sử Giao Dịch | TRỌ NHANH</title>
+    {{-- <title>Lịch Sử Giao Dịch | TRỌ NHANH</title> --}}
     <!-- Google fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"

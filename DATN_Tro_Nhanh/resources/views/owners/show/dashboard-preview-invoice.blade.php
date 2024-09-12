@@ -32,11 +32,12 @@
                                     </p>
                                     <p class="mb-0">
                                         <span class="text-heading font-weight-500">Hạn Thanh Toán : </span>
-                                        <span class="inv-date">{{ \Carbon\Carbon::parse($bill->payment_due_date)->format('d/m/Y') }}</span>
+                                        <span
+                                            class="inv-date">{{ \Carbon\Carbon::parse($bill->payment_due_date)->format('d/m/Y') }}</span>
                                     </p>
-                                    
+
                                 </div>
-                               
+
                             </div>
                             @if ($status != 1)
                                 <div class="border-top pt-7 mb-7">
@@ -161,14 +162,15 @@
 
 
                             @if (Auth::user()->role == 1 && $bill->status != 2)
-                            <div class="row flex-grow-1">
-                                <div class="col-xl-12 col-md-3 col-sm-6 mb-3 d-flex flex-column justify-content-end"
-                                    style="min-height: 100vh;">
-                                    <button type="submit" class="btn btn-danger btn-print btn-block">Thanh Toán</button>
+                                <div class="row flex-grow-1">
+                                    <div class="col-xl-12 col-md-3 col-sm-6 mb-3 d-flex flex-column justify-content-end"
+                                        style="min-height: 100vh;">
+                                        <button type="submit" class="btn btn-danger btn-print btn-block">Thanh
+                                            Toán</button>
+                                    </div>
                                 </div>
-                            </div>
-                        @endif
-                        
+                            @endif
+
 
                         </div>
                     </div>
@@ -183,7 +185,7 @@
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
     <meta name="generator" content="Jekyll">
-    <title>Xem Trước Hóa Đơn | TRỌ NHANH</title>
+    {{-- <title>Xem Trước Hóa Đơn | TRỌ NHANH</title> --}}
     <!-- Google fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"

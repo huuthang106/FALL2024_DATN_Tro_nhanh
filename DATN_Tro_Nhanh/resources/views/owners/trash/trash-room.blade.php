@@ -158,7 +158,7 @@
 
 @endsection
 @push('styleOwners')
-    <title>Thùng Rác Phòng Trọ | TRỌ NHANH</title>
+    {{-- <title>Thùng Rác Phòng Trọ | TRỌ NHANH</title> --}}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Real Estate Html Template">

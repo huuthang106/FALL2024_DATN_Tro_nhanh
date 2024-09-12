@@ -97,7 +97,8 @@
                                                             data-target="#invoiceModal{{ $resident->id }}">
                                                             Viết hóa đơn
                                                         </button>
-                                                        <form action="{{route('owners.erase-tenant',$resident->id)}}" method="POST" style="display:inline;">
+                                                        <form action="{{ route('owners.erase-tenant', $resident->id) }}"
+                                                            method="POST" style="display:inline;">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit"
@@ -193,22 +194,25 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="name">Tên người ở:</label>
-                                        <input type="text" class="form-control" id="name" value="{{ $resident->tenant->name }}" readonly>
+                                        <input type="text" class="form-control" id="name"
+                                            value="{{ $resident->tenant->name }}" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label for="room">Tên phòng:</label>
-                                        <input type="text" class="form-control" id="room" value="{{ $resident->room->title }}" readonly>
+                                        <input type="text" class="form-control" id="room"
+                                            value="{{ $resident->room->title }}" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label for="payment_due_date">Hạn thanh toán:</label>
-                                        <input type="date" class="form-control" id="payment_due_date" name="payment_due_date" min="{{ date('Y-m-d') }}">
+                                        <input type="date" class="form-control" id="payment_due_date"
+                                            name="payment_due_date" min="{{ date('Y-m-d') }}">
                                         <span class="text-danger" id="payment_due_date-error"></span>
                                     </div>
-                                    
-                                    
-                                    
+
+
+
                                 </div>
-                                
+
                                 <!-- Cột phải -->
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -235,8 +239,8 @@
                                             name="payment_date" required>
                                         <span class="text-danger" id="payment_date-error"></span>
                                     </div> --}}
-                                    
-                                  
+
+
                                 </div>
                             </div>
                             <div class="modal-footer text-right">
@@ -257,7 +261,7 @@
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
     <meta name="generator" content="Jekyll">
-    <title>Chi Tiết Khu Trọ | TRỌ NHANH</title>
+    {{-- <title>Chi Tiết Khu Trọ | TRỌ NHANH</title> --}}
     <!-- Google fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"

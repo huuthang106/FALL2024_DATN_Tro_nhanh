@@ -1,5 +1,5 @@
 @extends('layouts.owner')
-@section('titleOwner', 'Lượt theo dõi của tôi')
+@section('titleOwner', 'Lượt Theo Dõi Của Tôi | TRỌ NHANH')
 @section('contentOwners')
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
@@ -38,131 +38,129 @@
                     </div>
                 </div>
             </div>
-            </div>
-            <div class="table-responsive">
-                <table id="notification-list" class="table table-hover bg-white border rounded-lg">
-                    <thead>
-                        <tr role="row">
-                            <th class="no-sort py-6 pl-6">
-                                <label class="new-control new-checkbox checkbox-primary m-auto">
-                                    <input type="checkbox" class="new-control-input chk-parent select-customers-info">
-                                </label>
-                            </th>
-                            <th class="py-6">Hình ảnh</th>
+        </div>
+        <div class="table-responsive">
+            <table id="notification-list" class="table table-hover bg-white border rounded-lg">
+                <thead>
+                    <tr role="row">
+                        <th class="no-sort py-6 pl-6">
+                            <label class="new-control new-checkbox checkbox-primary m-auto">
+                                <input type="checkbox" class="new-control-input chk-parent select-customers-info">
+                            </label>
+                        </th>
+                        <th class="py-6">Hình ảnh</th>
 
-                            <th class="py-6">Tên</th>
-                            <th class="py-6">Chức năng</th>
-                            <th class="py-6">Thao tác</th>
+                        <th class="py-6">Tên</th>
+                        <th class="py-6">Chức năng</th>
+                        <th class="py-6">Thao tác</th>
 
 
+                    </tr>
+                </thead>
+                <tbody>
+                    @if ($myFollowings->isEmpty())
+                        <tr>
+                            <td colspan="8" class="text-center">Danh sách trống</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @if ($myFollowings->isEmpty())
-                            <tr>
-                                <td colspan="8" class="text-center">Danh sách trống</td>
-                            </tr>
-                        @else
-                            @foreach ($myFollowings as $item)
-                                <tr role="row">
-                                    <td class="checkbox-column py-6 pl-6">
-                                        <label class="new-control new-checkbox checkbox-primary m-auto">
-                                            <input type="checkbox"
-                                                class="new-control-input child-chk select-customers-info">
-                                        </label>
-                                    </td>
-                                    <td class="align-middle pt-6 pb-4 px-6">
-                                        <div class="media d-flex align-items-center">
-                                            <div class="w-120px mr-4 position-relative">
-                                                <a href="{{ route('owners.show-blog', $item->followers->slug) }}">
-                                                    @if ($item->followers->image)
-                                                        <img src="{{ asset('assets/images/' . $item->followers->image) }}"
-                                                            alt="{{ $item->followers->image }}"
-                                                            class="img-fluid rounded-image">
-                                                    @else
-                                                        <p>No images available</p>
-                                                    @endif
-                                                </a>
-                                            </div>
+                    @else
+                        @foreach ($myFollowings as $item)
+                            <tr role="row">
+                                <td class="checkbox-column py-6 pl-6">
+                                    <label class="new-control new-checkbox checkbox-primary m-auto">
+                                        <input type="checkbox" class="new-control-input child-chk select-customers-info">
+                                    </label>
+                                </td>
+                                <td class="align-middle pt-6 pb-4 px-6">
+                                    <div class="media d-flex align-items-center">
+                                        <div class="w-120px mr-4 position-relative">
+                                            <a href="{{ route('owners.show-blog', $item->followers->slug) }}">
+                                                @if ($item->followers->image)
+                                                    <img src="{{ asset('assets/images/' . $item->followers->image) }}"
+                                                        alt="{{ $item->followers->image }}" class="img-fluid rounded-image">
+                                                @else
+                                                    <p>No images available</p>
+                                                @endif
+                                            </a>
                                         </div>
-                                    </td>
-                                    <td class="align-middle">
-                                        {{ $item->followers->name }}
-                                    </td>
-                                    <td class="align-middle">
-                                        @if ($item->followers->role == '2')
-                                            <span>Người đưa tin</span>
-                                        @elseif ($item->followers->role == '0')
-                                            <span>Người quản trị</span>
-                                        @else
-                                            <span>Người dùng</span>
-                                        @endif
-
-                                    </td>
-
-                                    <td class="align-middle">
-                                        <a href="#" data-toggle="tooltip" title="Xóa"
-                                            class="d-inline-block fs-18 text-muted hover-primary">
-                                            <i class="fal fa-trash-alt"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                {{-- 1 --}}
-                            @endforeach
-                        @endif
-                    </tbody>
-                </table>
-                <!-- Phân trang 1-->
-                @if ($myFollowings->hasPages())
-                    <div class="d-flex justify-content-center mt-4">
-                        @if ($myFollowings->hasPages())
-                            @php
-                                $queryParams = [
-                                    'query' => request()->query('query', ''),
-                                    'notification-list_length' => request()->query('notification-list_length', 10),
-                                ];
-                            @endphp
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination">
-                                    @if ($myFollowings->onFirstPage())
-                                        <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                                    </div>
+                                </td>
+                                <td class="align-middle">
+                                    {{ $item->followers->name }}
+                                </td>
+                                <td class="align-middle">
+                                    @if ($item->followers->role == '2')
+                                        <span>Người đưa tin</span>
+                                    @elseif ($item->followers->role == '0')
+                                        <span>Người quản trị</span>
                                     @else
-                                        <li class="page-item">
-                                            <a class="page-link"
-                                                href="{{ $myFollowings->appends($queryParams)->previousPageUrl() }}"
-                                                rel="prev">&laquo;</a>
-                                        </li>
+                                        <span>Người dùng</span>
                                     @endif
-                                    @for ($i = max(1, $myFollowings->currentPage() - 2); $i <= min($myFollowings->lastPage(), $myFollowings->currentPage() + 2); $i++)
-                                        <li class="page-item {{ $myFollowings->currentPage() == $i ? 'active' : '' }}">
-                                            <a class="page-link"
-                                                href="{{ $myFollowings->appends($queryParams)->url($i) }}">{{ $i }}</a>
-                                        </li>
-                                    @endfor
-                                    @if ($myFollowings->hasMorePages())
-                                        <li class="page-item">
-                                            <a class="page-link"
-                                                href="{{ $myFollowings->appends($queryParams)->nextPageUrl() }}"
-                                                rel="next">&raquo;</a>
-                                        </li>
-                                    @else
-                                        <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
-                                    @endif
-                                </ul>
-                            </nav>
-                        @endif
-                    </div>
-                    {{-- Kết quả --}}
-                    <div class="text-center mt-2">
-                        @if ($myFollowings->total() > 0)
-                            {{ $myFollowings->firstItem() }}-{{ $myFollowings->lastItem() }} trong
-                            {{ $myFollowings->total() }} Kết quả
-                        @else
-                            Không có kết quả nào
-                        @endif
-                    </div>
-                @endif
-            </div>
+
+                                </td>
+
+                                <td class="align-middle">
+                                    <a href="#" data-toggle="tooltip" title="Xóa"
+                                        class="d-inline-block fs-18 text-muted hover-primary">
+                                        <i class="fal fa-trash-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {{-- 1 --}}
+                        @endforeach
+                    @endif
+                </tbody>
+            </table>
+            <!-- Phân trang 1-->
+            @if ($myFollowings->hasPages())
+                <div class="d-flex justify-content-center mt-4">
+                    @if ($myFollowings->hasPages())
+                        @php
+                            $queryParams = [
+                                'query' => request()->query('query', ''),
+                                'notification-list_length' => request()->query('notification-list_length', 10),
+                            ];
+                        @endphp
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                @if ($myFollowings->onFirstPage())
+                                    <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                                @else
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                            href="{{ $myFollowings->appends($queryParams)->previousPageUrl() }}"
+                                            rel="prev">&laquo;</a>
+                                    </li>
+                                @endif
+                                @for ($i = max(1, $myFollowings->currentPage() - 2); $i <= min($myFollowings->lastPage(), $myFollowings->currentPage() + 2); $i++)
+                                    <li class="page-item {{ $myFollowings->currentPage() == $i ? 'active' : '' }}">
+                                        <a class="page-link"
+                                            href="{{ $myFollowings->appends($queryParams)->url($i) }}">{{ $i }}</a>
+                                    </li>
+                                @endfor
+                                @if ($myFollowings->hasMorePages())
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                            href="{{ $myFollowings->appends($queryParams)->nextPageUrl() }}"
+                                            rel="next">&raquo;</a>
+                                    </li>
+                                @else
+                                    <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                                @endif
+                            </ul>
+                        </nav>
+                    @endif
+                </div>
+                {{-- Kết quả --}}
+                <div class="text-center mt-2">
+                    @if ($myFollowings->total() > 0)
+                        {{ $myFollowings->firstItem() }}-{{ $myFollowings->lastItem() }} trong
+                        {{ $myFollowings->total() }} Kết quả
+                    @else
+                        Không có kết quả nào
+                    @endif
+                </div>
+            @endif
+        </div>
         </div>
     </main>
 @endsection
@@ -172,7 +170,7 @@
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
     <meta name="generator" content="Jekyll">
-    <title>Thông Báo | TRỌ NHANH</title>
+    {{-- <title>Thông Báo | TRỌ NHANH</title> --}}
     <!-- Google fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
@@ -192,7 +190,8 @@
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    {{-- <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}"> --}}
+    <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">
