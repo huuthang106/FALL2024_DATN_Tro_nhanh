@@ -77,10 +77,12 @@ class CreateRoomRequest extends FormRequest
             'longitude.numeric' => 'Kinh độ phải là số',
 
             'latitude.required' => 'Vui lòng nhập vĩ độ',
+
             'images.required' => 'Vui lòng tải lên ít nhất một hình ảnh', // Custom message for image requirement
             'images.*.required' => 'Tất cả các tập tin phải là hình ảnh', // Handle each image being required
             'images.*.mimes' => 'Hình ảnh phải có định dạng: jpeg, png, jpg',
             'images.*.max' => 'Kích thước hình ảnh không được vượt quá 2MB',
+            
             'latitude.numeric' => 'Vĩ độ phải là số',
 
             'view.required' => 'Vui lòng nhập số lượng view',

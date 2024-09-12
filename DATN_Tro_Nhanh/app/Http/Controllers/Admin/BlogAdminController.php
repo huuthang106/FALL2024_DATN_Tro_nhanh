@@ -10,7 +10,7 @@ use App\Models\Blog; // Import lớp Blog
 use App\Models\Image; // Import lớp Image
 use App\Events\BlogCreated;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\CreateBlogRequest;
+use App\Http\Requests\BlogRequest;
 use App\Services\NotificationService;
 use App\Services\BlogAdminServices;
 class BlogAdminController extends Controller
@@ -52,12 +52,16 @@ class BlogAdminController extends Controller
         }
     }
 
-    public function updateBlog(CreateBlogRequest $request, $slug)
+    public function updateBlog(BlogRequest $request, $slug)
     {
         $result = $this->BlogService->updateBlog($request, $slug);
-
-
-        return redirect()->route('admin.show-blog')->with('success', $result['message']);
+        if ($result) {
+            // Cập nhật thành công, chuyển hướng hoặc thông báo
+            return redirect()->route('admin.show-blog')->with('success', 'Cập nhật phòng thành công.');
+        } else {
+            // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
+            return back()->with('error', 'Cập nhật phòng thất bại.');
+        }
 
     }
 

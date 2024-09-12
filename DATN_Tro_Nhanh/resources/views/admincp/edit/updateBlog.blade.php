@@ -73,15 +73,9 @@
                                             @error('images')
                                                 <div class="text-danger mt-3">{{ $message }}</div>
                                             @enderror
-                                            <div id="imagePreview" class="mt-3">
-                                                <!-- Preview uploaded images here -->
-                                            </div>
-                                            <div id="imageError" class="text-danger mt-3" style="display: none;">
-                                                <!-- Error messages will be displayed here -->
-                                            </div>
-                                            <div id="noImageError" class="text-danger mt-3" style="display: none;">
-                                                Bạn chưa nhập hình ảnh.
-                                            </div>
+                                            @foreach ($errors->get('images.*') as $error)
+                                                    <div class="text-danger mt-3">{{ $error[0] }}</div>
+                                                @endforeach
                                         </div>
                                     </div>
                                 </div>

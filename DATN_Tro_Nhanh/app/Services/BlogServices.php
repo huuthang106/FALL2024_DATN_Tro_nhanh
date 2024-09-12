@@ -156,44 +156,48 @@ class BlogServices
 
         $blog->save();
 
-        // Xử lý ảnh
-        if ($request->hasFile('images')) {
-            // Lấy các ảnh cũ liên quan đến blog từ cơ sở dữ liệu
-            $oldImages = Image::where('blog_id', $blog->id)->get();
+       // Xử lý ảnh
+if ($request->hasFile('images')) {
+    // Lấy các ảnh cũ liên quan đến blog từ cơ sở dữ liệu
+    $oldImages = Image::where('blog_id', $blog->id)->get();
 
-            // Xóa ảnh cũ khỏi thư mục và cơ sở dữ liệu
-            foreach ($oldImages as $oldImage) {
-                $oldImagePath = public_path('assets/images/' . $oldImage->filename);
+    // Xóa ảnh cũ khỏi thư mục và cơ sở dữ liệu
+    foreach ($oldImages as $oldImage) {
+        $oldImagePath = public_path('assets/images/' . $oldImage->filename);
 
-                // Kiểm tra nếu file tồn tại và xóa nó
-                if (file_exists($oldImagePath)) {
-                    unlink($oldImagePath);
-                }
-
-                // Xóa bản ghi ảnh cũ khỏi cơ sở dữ liệu
-                $oldImage->delete();
-            }
-
-            // Lưu ảnh mới vào thư mục và cơ sở dữ liệu
-            foreach ($request->file('images') as $image) {
-                // Lấy tên gốc và phần mở rộng của ảnh
-                $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                $extension = $image->getClientOriginalExtension();
-
-                // Tạo tên file mới dựa trên slug của blog và thời gian hiện tại
-                $filename = $blog->slug . '-' . $originalName . '-' . time() . '.' . $extension;
-
-                // Đường dẫn thư mục lưu ảnh
-                $destinationPath = public_path('assets/images');
-                $image->move($destinationPath, $filename);
-
-                // Lưu thông tin ảnh mới vào cơ sở dữ liệu
-                Image::create([
-                    'filename' => $filename,
-                    'blog_id' => $blog->id,
-                ]);
-            }
+        // Kiểm tra nếu file tồn tại và xóa nó
+        if (file_exists($oldImagePath)) {
+            unlink($oldImagePath);
         }
+
+        // Xóa bản ghi ảnh cũ khỏi cơ sở dữ liệu
+        $oldImage->delete();
+    }
+
+    // Lưu ảnh mới vào thư mục và cơ sở dữ liệu
+    foreach ($request->file('images') as $image) {
+        // Lấy tên gốc và phần mở rộng của ảnh
+        $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+        $extension = $image->getClientOriginalExtension();
+
+        // Tạo tên file mới dựa trên slug của blog và thời gian hiện tại
+        $filename = $blog->slug . '-' . $originalName . '-' . time() . '.' . $extension;
+
+        // Đường dẫn thư mục lưu ảnh
+        $destinationPath = public_path('assets/images');
+        $image->move($destinationPath, $filename);
+
+        // Lưu thông tin ảnh mới vào cơ sở dữ liệu
+        Image::create([
+            'filename' => $filename,
+            'blog_id' => $blog->id,
+        ]);
+    }
+} else {
+    // Nếu không có ảnh mới được tải lên, giữ lại ảnh cũ
+    // Không cần làm gì thêm vì ảnh cũ không bị xóa
+}
+
 
 
         DB::commit();
