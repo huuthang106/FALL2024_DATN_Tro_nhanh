@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Services\BlogServices;
 use App\Services\ZoneServices;
+use App\Services\CartService;
 use Illuminate\Support\ServiceProvider;
 use App\Services\NotificationOwnersService;
 use App\Services\RoomOwnersService;
@@ -43,7 +44,7 @@ class AppServiceProvider extends ServiceProvider
     //     //
     // }
     // Biến để xem thông báo
-    public function boot(NotificationOwnersService $notificationService,WatchListOwner $watchListService,CommentClientService $commentClientService,ZoneServices $zoneServices, BlogServices $blogServices, RoomOwnersService $roomOwnersService, FavouritesServices $favouriteService, MaintenanceRequestsServices $maintenanceRequestsService)
+    public function boot(NotificationOwnersService $notificationService,WatchListOwner $watchListService,CommentClientService $commentClientService,ZoneServices $zoneServices, BlogServices $blogServices, RoomOwnersService $roomOwnersService, FavouritesServices $favouriteService, MaintenanceRequestsServices $maintenanceRequestsService, CartService $cartService)
     {
         // Cung cấp thông tin người dùng cho view 'components.navbar-owner'
         View::composer('components.navbar-owner', function ($view) use ($maintenanceRequestsService) { // Sử dụng biến đúng
@@ -67,6 +68,17 @@ class AppServiceProvider extends ServiceProvider
         View::composer('components.navbar-owner', function ($view) use ($roomOwnersService) {
             $view->with('unreadRoomCount', $roomOwnersService->getRoomCount());
         });
+        View::composer('components.navbar-home', function ($view) use ($cartService) {
+            $userId = Auth::id(); // Lấy ID người dùng hiện tại
+
+            // Kiểm tra nếu người dùng đã đăng nhập
+            if ($userId) {
+                $cartCount = $cartService->getCoutCart($userId);
+                $view->with('cartCount', $cartCount);
+            } else {
+                $view->with('cartCount', 0);
+            }
+        });
         View::composer('components.navbar-home', function ($view) use ($favouriteService) {
             $userId = Auth::id(); // Lấy ID người dùng hiện tại
 
@@ -76,6 +88,17 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('favouriteCount', $favouriteCount);
             } else {
                 $view->with('favouriteCount', 0);
+            }
+        });
+        View::composer('components.navbar-default', function ($view) use ($cartService) {
+            $userId = Auth::id(); // Lấy ID người dùng hiện tại
+
+            // Kiểm tra nếu người dùng đã đăng nhập
+            if ($userId) {
+                $cartCount = $cartService->getCoutCart($userId);
+                $view->with('cartCount', $cartCount);
+            } else {
+                $view->with('cartCount', 0);
             }
         });
         View::composer('components.navbar-default', function ($view) use ($favouriteService) {

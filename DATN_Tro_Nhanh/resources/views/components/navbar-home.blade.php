@@ -467,7 +467,8 @@
                             <!-- Cart Icon -->
                             <li class="nav-item mr-auto mr-lg-6">
                                 <a class="nav-link px-2 position-relative" href="{{ route('client.carts-show') }}">
-                                    <i class="fal fa-shopping-cart"></i>
+                                    <i class="fal fa-shopping-cart fs-large-4"></i>
+                                    <span class="badge badge-primary badge-circle badge-absolute">{{ $cartCount }}</span>
                                 </a>
                             </li>
                             <!-- Favorites Icon -->

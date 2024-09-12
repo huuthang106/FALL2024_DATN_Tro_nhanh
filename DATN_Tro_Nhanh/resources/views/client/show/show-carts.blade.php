@@ -79,11 +79,7 @@
                                        {{ $detail->quantity}}
                                     </td>
                                     <td>
-                                        <form action="{{ route('client.carts-remove', $detail->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
-                                        </form>
+                                    <button type="button" class="btn btn-danger btn-sm delete-item" data-id="{{ $detail->id }}">Xóa</button>
                                     </td>
                                 </tr>
                             @empty
@@ -230,7 +226,55 @@ document.addEventListener('DOMContentLoaded', function () {
     // Tính tổng tiền ngay khi trang được tải
     calculateTotalPrice();
 });
-
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.delete-item').forEach(function (button) {
+        button.addEventListener('click', function () {
+            const cartDetailId = this.getAttribute('data-id');
+
+            // Hiển thị thông báo đang xóa để người dùng biết rằng hành động đang được thực hiện
+            this.disabled = true; // Vô hiệu hóa nút xóa để tránh nhấn nhiều lần
+            this.innerText = 'Đang xóa...';
+
+            // Gửi yêu cầu xóa tới server
+            axios.delete(`{{ url('/gio-hang') }}/${cartDetailId}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // CSRF token để bảo mật
+                }
+            })
+            .then(response => {
+                if (response.data.success) {
+                    // Chờ một thời gian ngắn để người dùng thấy phản hồi
+                    setTimeout(() => {
+                        // Tải lại trang để hiển thị kết quả mới
+                        window.location.reload();
+                    }, 300); // Thay đổi thời gian nếu cần
+                } else {
+                    alert('Có lỗi xảy ra khi xóa: ' + (response.data.message || ''));
+                    // Kích hoạt lại nút xóa
+                    this.disabled = false;
+                    this.innerText = 'Xóa';
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi:', error);
+                alert('Có lỗi xảy ra khi xóa.');
+                // Kích hoạt lại nút xóa
+                this.disabled = false;
+                this.innerText = 'Xóa';
+            });
+        });
+    });
+});
+</script>
+
+
+
+
+
+
 
 @endpush

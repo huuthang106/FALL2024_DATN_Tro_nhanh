@@ -74,13 +74,15 @@ class CartController extends Controller
 
 
 
-    public function removeFromCart($cartDetailId)
-    {
-        $result = $this->cartService->removeFromCart(auth()->id(), $cartDetailId);
-        if ($result) {
-            return redirect()->route('client.carts-show')->with('success', 'Đã xóa gói khỏi giỏ hàng');
-        } else {
-            return back()->with('error', 'Không thể xóa gói khỏi giỏ hàng');
-        }
+public function removeFromCart(Request $request, $cartDetailId)
+{
+    $result = $this->cartService->removeFromCart(auth()->id(), $cartDetailId);
+
+    if ($result) {
+        return response()->json(['success' => true]);
+    } else {
+        return response()->json(['success' => false, 'message' => 'Không thể xóa gói khỏi giỏ hàng']);
     }
+}
+
 }

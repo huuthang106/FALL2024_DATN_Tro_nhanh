@@ -153,23 +153,31 @@ return $carts;
 
 
 
-public function removeFromCart($cartId)
+public function removeFromCart($userId, $cartDetailId)
 {
-    $userId = auth()->id(); // Lấy ID của người dùng hiện tại
+    // Tìm giỏ hàng của người dùng dựa vào $cartDetailId và $userId
+    $cart = Cart::where('user_id', $userId)->where('id', $cartDetailId)->first();
 
-    $cart = Cart::where('user_id', $userId)->where('id', $cartId)->first();
     if ($cart) {
         if ($cart->quantity > 1) {
             $cart->quantity -= 1;
             $cart->save(); // Lưu lại thay đổi
         } else {
-            CartDetail::where('id', $cartId)->delete(); // Xóa các chi tiết giỏ hàng
+            CartDetail::where('id', $cartDetailId)->delete(); // Xóa các chi tiết giỏ hàng
             $cart->delete(); // Xóa giỏ hàng
         }
-        return response()->json(['success' => true]);
+        return true;
     }
-    return response()->json(['success' => false], 404);
+    return false;
 }
+
+public function getCoutCart($userId)
+{
+    return Cart::where('user_id', $userId)->count();
+}
+
+
+
 
 
 

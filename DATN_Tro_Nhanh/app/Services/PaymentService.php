@@ -317,36 +317,15 @@ $payments = Cart::whereIn('id', $paymentIds)
                 ->where('status', 2)  // Chỉ lấy các cart có status = 2
                 ->get();
 
-              
-            $priceListIds = [];
-            $processedDetails = []; // Mảng để lưu trữ các CartDetail đã tạo
+               // Mảng để lưu trữ các CartDetail đã tạo
 
             foreach ($payments as $payment) {
-                if ($payment->cartItems && $payment->cartItems instanceof \Illuminate\Support\Collection) {
-                    foreach ($payment->cartItems as $cartItem) {
-                        // Kiểm tra nếu CartDetail đã tồn tại
-                        $existingCartDetail = CartDetail::where('name_price_list', $cartItem->name_price_list)->first();
-
-                        if (!$existingCartDetail) {
-                            try {
-                                $newCartDetail = new CartDetail();
-                                $newCartDetail->name_price_list = $cartItem->name_price_list;
-                                $newCartDetail->description = $cartItem->description;
-                                $newCartDetail->price = $cartItem->price; // Giá từ cartItem
-                                $newCartDetail->save();
-
-                                // Lưu ID của CartDetail đã thêm vào mảng
-                                $processedDetails[] = $newCartDetail->id;
-                            } catch (\Exception $e) {
-                                // Log lỗi nếu có
-                                Log::error('Lỗi khi lưu CartDetail: ' . $e->getMessage());
-                            }
-                        } else {
-                            // Nếu đã tồn tại, lưu ID vào mảng
-                            $processedDetails[] = $existingCartDetail->id;
-                        }
-                    }
-                }
+                $newCartDetail = new CartDetail();
+                $newCartDetail->name_price_list = 'Nâng cấp tài khoản';
+                $newCartDetail->description = $payment->priceList->description;
+                $newCartDetail->quantity = $payment->quantity;
+                $newCartDetail->price = $request->vnp_Amount / 100; // Giá từ cartItem
+                $newCartDetail->save();
             }
                 // $newCartDetail = new CartDetail();
                 // $newCartDetail->name_price_list = "Name"; // Dùng thuộc tính của $payment
