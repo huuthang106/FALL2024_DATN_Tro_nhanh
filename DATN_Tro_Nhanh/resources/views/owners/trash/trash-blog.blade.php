@@ -1,5 +1,5 @@
 @extends('layouts.owner')
-@section('titleOwners', 'Trang chủ trọ nhanh')
+@section('titleOwners', 'Thùng Rác Blog | TRỌ NHANH')
 @section('contentOwners')
 
     @if (session('error'))
@@ -135,7 +135,7 @@
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
     <meta name="generator" content="Jekyll">
-    <title>My Properties - HomeID</title>
+    <title>Thùng Rác Blog | TRỌ NHANH</title>
     <!-- Google fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
@@ -156,7 +156,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
 
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('images/favicon.ico') }}">
+    {{-- <link rel="icon" href="{{ asset('images/favicon.ico') }}"> --}}
+    <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">

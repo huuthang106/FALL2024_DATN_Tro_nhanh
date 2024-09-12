@@ -1,5 +1,5 @@
  @extends('layouts.owner')
- @section('titleOwners', 'Trang chủ trọ nhanh')
+ @section('titleOwners', 'Danh Sách Phòng Trọ | TRỌ NHANH')
  @section('contentOwners')
 
      @if (session('error'))
@@ -14,9 +14,9 @@
          </div>
      @endif
 
-  
-             @livewire('room-owners-list')
-   
+
+     @livewire('room-owners-list')
+
 
      <!-- Vendors scripts -->
 
@@ -50,7 +50,8 @@
      <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
 
      <!-- Favicons -->
-     <link rel="icon" href="{{ asset('images/favicon.ico') }}">
+     {{-- <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}"> --}}
+     <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
      <!-- Twitter -->
      <meta name="twitter:card" content="summary">
      <meta name="twitter:site" content="@">
@@ -87,10 +88,12 @@
      <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
      <!-- Theme scripts -->
      <script src="{{ asset('assets/js/theme.js') }}"></script>
-     <script>document.addEventListener("livewire:load", function() {
-        Livewire.hook('message.processed', (message, component) => {
-            $('.selectpicker').selectpicker('destroy');
-            $('.selectpicker').selectpicker();
-        });
-    });</script>
+     <script>
+         document.addEventListener("livewire:load", function() {
+             Livewire.hook('message.processed', (message, component) => {
+                 $('.selectpicker').selectpicker('destroy');
+                 $('.selectpicker').selectpicker();
+             });
+         });
+     </script>
  @endpush

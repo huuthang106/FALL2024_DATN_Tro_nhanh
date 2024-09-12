@@ -1,6 +1,6 @@
 @extends('layouts.admin')
-@section('titleAdmin', 'Danh Sách Loại')
-@section('linkAdmin', 'Danh Sách Loại')
+@section('titleAdmin', 'Danh sách loại phòng')
+@section('linkAdmin', 'Danh sách loại phòng')
 @section('contentAdmin')
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -309,10 +309,11 @@
                                     </li>
                                 @else
                                     <li class="page-item">
-                                        <a class="page-link" href="{{ $categories->previousPageUrl() }}"><i class="far fa-angle-double-left"></i></a>
+                                        <a class="page-link" href="{{ $categories->previousPageUrl() }}"><i
+                                                class="far fa-angle-double-left"></i></a>
                                     </li>
                                 @endif
-                        
+
                                 {{-- Pagination Elements --}}
                                 @foreach ($categories->getUrlRange(1, $categories->lastPage()) as $page => $url)
                                     @if ($page == $categories->currentPage())
@@ -325,11 +326,12 @@
                                         </li>
                                     @endif
                                 @endforeach
-                        
+
                                 {{-- Next Page Link --}}
                                 @if ($categories->hasMorePages())
                                     <li class="page-item">
-                                        <a class="page-link" href="{{ $categories->nextPageUrl() }}"><i class="far fa-angle-double-right"></i></a>
+                                        <a class="page-link" href="{{ $categories->nextPageUrl() }}"><i
+                                                class="far fa-angle-double-right"></i></a>
                                     </li>
                                 @else
                                     <li class="page-item disabled">
@@ -341,7 +343,7 @@
                         <div class="text-center mt-2">{{ $categories->firstItem() }}-{{ $categories->lastItem() }} của
                             {{ $categories->total() }} kết quả
                         </div>
-                        
+
                     </div>
                     <!--end::Card-->
                     <!--begin::Modals-->
@@ -483,7 +485,7 @@
     @endsection
     @push('styleAdmin')
         <base href="">
-        <title>Danh Sách Loại</title>
+        <title>Danh Sách Loại Phòng | TRỌ NHANH</title>
         <meta name="description"
             content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
         <meta name="keywords"
@@ -497,7 +499,8 @@
         <meta property="og:url" content="https://keenthemes.com/metronic" />
         <meta property="og:site_name" content="Keenthemes | Metronic" />
         <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-        <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
+        {{-- <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" /> --}}
+        <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
         <meta name="success" content="{{ session('success') }}">
         <meta name="error" content="{{ session('error') }}">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

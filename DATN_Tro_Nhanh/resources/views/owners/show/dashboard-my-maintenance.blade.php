@@ -1,5 +1,5 @@
 @extends('layouts.owner')
-@section('titleOwners', 'Trang chủ trọ nhanh')
+@section('titleOwners', 'Danh Sách Yêu Cầu Sửa Chữa | TRỌ NHANH')
 @section('contentOwners')
 
     @if (session('error'))
@@ -16,11 +16,12 @@
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10  invoice-listing">
             <form action="#" method="GET">
-                
+
                 <div class="mb-6">
                     <div class="row">
                         <!-- Left Section: Kết quả và Thêm mới -->
-                        <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center align-items-center">
+                        <div
+                            class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center align-items-center">
                             <!-- Kết quả dropdown -->
                             <div class="d-flex form-group mb-0 align-items-center mr-3">
                                 <label for="invoice-list_length" class="d-block mr-2 mb-0">Kết quả:</label>
@@ -38,24 +39,27 @@
                                 <span>Thêm mới</span>
                             </button>
                         </div>
-                
+
                         <!-- Right Section: Tìm kiếm và Xóa -->
-                        <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3 align-items-center">
+                        <div
+                            class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3 align-items-center">
                             <!-- Tìm kiếm input -->
                             <div class="input-group input-group-lg bg-white mb-0 position-relative mr-3">
-                                <input type="text" class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..."
-                                    aria-label="" aria-describedby="basic-addon1">
+                                <input type="text" class="form-control bg-transparent border-1x"
+                                    placeholder="Tìm kiếm..." aria-label="" aria-describedby="basic-addon1">
                                 <div class="input-group-append position-absolute pos-fixed-right-center">
-                                    <button class="btn bg-transparent border-0 text-gray lh-1" type="button"><i class="fal fa-search"></i></button>
+                                    <button class="btn bg-transparent border-0 text-gray lh-1" type="button"><i
+                                            class="fal fa-search"></i></button>
                                 </div>
                             </div>
                             <!-- Xóa button -->
-                            <button class="btn btn-danger btn-lg" tabindex="0" aria-controls="invoice-list"><span>Xóa</span></button>
+                            <button class="btn btn-danger btn-lg" tabindex="0"
+                                aria-controls="invoice-list"><span>Xóa</span></button>
                         </div>
                     </div>
                 </div>
-                
-                
+
+
             </form>
             <div class="table-responsive">
                 <table class="table table-hover bg-white border rounded-lg">
@@ -66,14 +70,14 @@
                                 </label></th>
                             <th class="py-6">Người Yêu Cầu</th>
                             <th class="py-6">Số Phòng</th>
-                         
+
                             {{-- <th class="py-6 col-2">Nội Dung</th> --}}
                             <th class="py-6">Ngày</th>
                             <th class="py-6">Trạng thái</th>
                             <th class="no-sort py-6">Thao tác</th>
                         </tr>
                     </thead>
-                    
+
                     <tbody>
                         @foreach ($maintenanceRequests as $item)
                             <tr class="shadow-hover-xs-2">
@@ -82,28 +86,36 @@
                                         <input type="checkbox" class="new-control-input child-chk select-customers-info">
                                     </label>
                                 </td>
-                                <td class="align-middle p-4 text-primary">{{ $item->user->name ?? 'N/A' }} <br><small>{{ $item->title }}</small></td>
+                                <td class="align-middle p-4 text-primary">{{ $item->user->name ?? 'N/A' }}
+                                    <br><small>{{ $item->title }}</small>
+                                </td>
                                 <td class="align-middle p-4">{{ $item->room->id ?? 'N/A' }}</td>
-                           
+
                                 {{-- <td class="align-middle p-4"><small>{{ $item->description }}</small></td> --}}
-                               
+
                                 <td class="align-middle p-4">{{ $item->created_at->format('d-m-Y') }}</td>
                                 <td class="align-middle p-4">
                                     @if ($item->status == 1)
-                                        <span class="badge badge-yellow text-capitalize font-weight-normal fs-12">Đang xử lý</span>
+                                        <span class="badge badge-yellow text-capitalize font-weight-normal fs-12">Đang xử
+                                            lý</span>
                                     @elseif ($item->status == 2)
-                                        <span class="badge badge-green text-capitalize font-weight-normal fs-12">Đã duyệt</span>
+                                        <span class="badge badge-green text-capitalize font-weight-normal fs-12">Đã
+                                            duyệt</span>
                                     @elseif ($item->status == 3)
-                                        <span class="badge badge-blue text-capitalize font-weight-normal fs-12">Đã hoàn thành</span>
+                                        <span class="badge badge-blue text-capitalize font-weight-normal fs-12">Đã hoàn
+                                            thành</span>
                                     @else
-                                        <span class="badge badge-light text-capitalize font-weight-normal fs-12">Không xác định</span>
+                                        <span class="badge badge-light text-capitalize font-weight-normal fs-12">Không xác
+                                            định</span>
                                     @endif
                                 </td>
                                 <td class="align-middle p-4">
-                                    <form action="{{ route('owners.destroy-maintenances', $item->id) }}" method="POST" class="d-inline-block mb-0">
+                                    <form action="{{ route('owners.destroy-maintenances', $item->id) }}" method="POST"
+                                        class="d-inline-block mb-0">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="fs-18 text-muted hover-primary border-0 bg-transparent">
+                                        <button type="submit"
+                                            class="fs-18 text-muted hover-primary border-0 bg-transparent">
                                             <i class="fal fa-trash-alt"></i>
                                         </button>
                                     </form>
@@ -112,8 +124,8 @@
                         @endforeach
                     </tbody>
                 </table>
-                
-                
+
+
             </div>
             <nav class="mt-4">
                 <ul class="pagination rounded-active justify-content-center">
@@ -131,14 +143,14 @@
                             </a>
                         </li>
                     @endif
-            
+
                     {{-- Pagination Elements --}}
                     @php
                         $totalPages = $maintenanceRequests->lastPage();
                         $currentPage = $maintenanceRequests->currentPage();
                         $pageRange = 2; // Number of pages to display before and after the current page
                     @endphp
-            
+
                     {{-- Display the first page --}}
                     @if ($currentPage > $pageRange + 1)
                         <li class="page-item">
@@ -150,7 +162,7 @@
                             </li>
                         @endif
                     @endif
-            
+
                     {{-- Display pages around the current page --}}
                     @for ($i = max(1, $currentPage - $pageRange); $i <= min($totalPages, $currentPage + $pageRange); $i++)
                         @if ($i == $currentPage)
@@ -163,7 +175,7 @@
                             </li>
                         @endif
                     @endfor
-            
+
                     {{-- Display the last page --}}
                     @if ($currentPage < $totalPages - $pageRange)
                         @if ($currentPage < $totalPages - $pageRange - 1)
@@ -172,10 +184,11 @@
                             </li>
                         @endif
                         <li class="page-item">
-                            <a class="page-link" href="{{ $maintenanceRequests->url($totalPages) }}">{{ $totalPages }}</a>
+                            <a class="page-link"
+                                href="{{ $maintenanceRequests->url($totalPages) }}">{{ $totalPages }}</a>
                         </li>
                     @endif
-            
+
                     {{-- Next Page Link --}}
                     @if ($maintenanceRequests->hasMorePages())
                         <li class="page-item">
@@ -192,7 +205,7 @@
                     @endif
                 </ul>
             </nav>
-            
+
 
             <div class="text-center mt-2">
                 {{ $maintenanceRequests->firstItem() }}-{{ $maintenanceRequests->lastItem() }} của
@@ -217,11 +230,11 @@
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
     <meta name="generator" content="Jekyll">
-    <title>My Properties - HomeID</title>
+    <title>Danh Sách Yêu Cầu Sửa Chữa | TRỌ NHANH</title>
     <!-- Google fonts -->
     <link
-    href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
-    rel="stylesheet">
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
@@ -238,7 +251,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
 
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('images/favicon.ico') }}">
+    {{-- <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}"> --}}
+    <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
-@section('titleAdmin', 'Trang chủ trọ nhanh')
-@section('linkAdmin', 'Danh Sách Người Dùng')
+@section('titleAdmin', 'Danh sách người dùng')
+@section('linkAdmin', 'Danh sách người dùng')
 
 @section('contentAdmin')
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -124,23 +124,24 @@
                                     <!--end::Svg Icon-->Export</button>
                                 <!--end::Export-->
                                 <!--begin::Add user-->
-                               <a href="{{ route('admin.create-blog') }}">
-                                <button type="button" class="btn btn-primary" data-bs-toggle=""
-                                data-bs-target="#kt_modal_add_user">
-                                {{-- type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user" --}}
-                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
-                                <span class="svg-icon svg-icon-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none">
-                                        <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2"
-                                            rx="1" transform="rotate(-90 11.364 20.364)" fill="black" />
-                                        <rect x="4.36396" y="11.364" width="16" height="2" rx="1"
-                                            fill="black" />
-                                    </svg>
-                                </span>
-                                <!--end::Svg Icon-->
-                                Add Người Dùng</button>
-                               </a>
+                                <a href="{{ route('admin.create-blog') }}">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle=""
+                                        data-bs-target="#kt_modal_add_user">
+                                        {{-- type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user" --}}
+                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
+                                        <span class="svg-icon svg-icon-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none">
+                                                <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2"
+                                                    rx="1" transform="rotate(-90 11.364 20.364)"
+                                                    fill="black" />
+                                                <rect x="4.36396" y="11.364" width="16" height="2" rx="1"
+                                                    fill="black" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                        Add Người Dùng</button>
+                                </a>
                                 <!--end::Add user-->
                             </div>
                             <!--end::Toolbar-->
@@ -540,7 +541,7 @@
                                     {{-- <th class="min-w-125px">Mật Khẩu</th>s --}}
                                     <th class="min-w-125px">Số Điện Thoại</th>
                                     <th class="min-w-125px">Địa Chỉ</th>
-                            
+
                                     <th class="text-end min-w-110px">Tác vụ</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -565,8 +566,8 @@
                                                 <a href="{{ route('admin.show-blog', ['slug' => $user->slug]) }}">
                                                     <div class="symbol-label">
                                                         @if ($user->image)
-                                                            <img src="{{ asset('assets/images/' . $user->image) }}" 
-                                                                 alt="User Image" class="img-fluid">
+                                                            <img src="{{ asset('assets/images/' . $user->image) }}"
+                                                                alt="User Image" class="img-fluid">
                                                         @else
                                                             <p>No image available</p>
                                                         @endif
@@ -582,7 +583,7 @@
                                         {{-- <td>{{ $user->password }}</td> --}}
                                         <td>{{ $user->phone ?: 'Trống' }}</td>
                                         <td>{{ $user->address ?: 'Trống' }}</td>
-                                        
+
                                         <!--end::User Details-->
                                         <!--begin::Joined-->
                                         {{-- <td>{{ $user->created_at->format('d/m/Y') }}</td> --}}
@@ -590,11 +591,11 @@
                                         <!--begin::Action=-->
                                         <td class="text-end">
                                             <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
-                                               data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Tác vụ
+                                                data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Tác vụ
                                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
                                                 <span class="svg-icon svg-icon-5 m-0">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="26" height="24"
-                                                         viewBox="0 0 24 24" fill="none">
+                                                        viewBox="0 0 24 24" fill="none">
                                                         <path
                                                             d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
                                                             fill="black" />
@@ -604,17 +605,17 @@
                                             </a>
                                             <!--begin::Menu-->
                                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                                                 data-kt-menu="true">
+                                                data-kt-menu="true">
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
                                                     <a href="{{ route('admin.sua-blog', ['slug' => $user->slug]) }}"
-                                                       class="menu-link px-3">Chỉnh sửa</a>
+                                                        class="menu-link px-3">Chỉnh sửa</a>
                                                 </div>
                                                 <!--end::Menu item-->
                                                 <!--begin::Menu item-->
                                                 <div class="menu-item px-3">
                                                     <a href="#" class="menu-link px-3"
-                                                       data-kt-users-table-filter="delete_row">Xóa</a>
+                                                        data-kt-users-table-filter="delete_row">Xóa</a>
                                                 </div>
                                                 <!--end::Menu item-->
                                             </div>
@@ -625,13 +626,13 @@
                                 @endforeach
                                 <!--end::Table row-->
                             </tbody>
-                            
+
 
                             <!--end::Table body-->
                         </table>
                         <!--end::Table-->
                     </div>
-                    
+
                     <!--end::Card body-->
                 </div>
                 <!--end::Card-->
@@ -650,8 +651,8 @@
     <!--end::Page-->
     </div>
     <!--end::Root-->
-    
-    
+
+
     <!--begin::Drawers-->
     <!--begin::Activities drawer-->
 
@@ -696,8 +697,7 @@
 @endsection
 @push('styleAdmin')
     <base href="{{ asset('..') }}">
-    <title>Metronic - the world's #1 selling Bootstrap Admin Theme Ecosystem for HTML, Vue, React, Angular &amp; Laravel by
-        Keenthemes</title>
+    <title>Danh Sách Người Dùng | TRỌ NHANH</title>
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"
@@ -711,7 +711,8 @@
     <meta property="og:url" content="https://keenthemes.com/metronic" />
     <meta property="og:site_name" content="Keenthemes | Metronic" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
+    {{-- <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" /> --}}
+    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->

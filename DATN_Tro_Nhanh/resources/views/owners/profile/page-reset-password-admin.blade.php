@@ -18,17 +18,19 @@
                         <hr>
                         <div class="form-group">
                             <label for="oldPassword" class="text-heading">Mật khẩu cũ</label>
-                            <input type="password" class="form-control form-control-lg border-0 @error('current_password') is-invalid @enderror" 
+                            <input type="password"
+                                class="form-control form-control-lg border-0 @error('current_password') is-invalid @enderror"
                                 id="oldPassword" name="current_password" placeholder="Nhập mật khẩu cũ...">
-                                @error('current_password')
+                            @error('current_password')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                           
+
                         </div>
                         <div class="form-row mx-n4">
                             <div class="form-group col-md-6 col-lg-12 col-xxl-6 px-4">
                                 <label for="newPassword" class="text-heading">Mật khẩu mới</label>
-                                <input type="password" class="form-control form-control-lg border-0 @error('password') is-invalid @enderror" 
+                                <input type="password"
+                                    class="form-control form-control-lg border-0 @error('password') is-invalid @enderror"
                                     id="newPassword" name="password" placeholder="Nhập mật khẩu mới...">
                                 @error('password')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -36,8 +38,10 @@
                             </div>
                             <div class="form-group col-md-6 col-lg-12 col-xxl-6 px-4">
                                 <label for="password_confirmation" class="text-heading">Xác nhận mật khẩu</label>
-                                <input type="password" class="form-control form-control-lg border-0 @error('password_confirmation') is-invalid @enderror" 
-                                    id="password_confirmation" name="password_confirmation" placeholder="Nhập xác nhận mật khẩu...">
+                                <input type="password"
+                                    class="form-control form-control-lg border-0 @error('password_confirmation') is-invalid @enderror"
+                                    id="password_confirmation" name="password_confirmation"
+                                    placeholder="Nhập xác nhận mật khẩu...">
                                 @error('password_confirmation')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -49,7 +53,7 @@
                     </div>
                 </div>
             </form>
-            
+
         </div>
     </main>
 @endsection
@@ -59,7 +63,7 @@
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
     <meta name="generator" content="Jekyll">
-    {{-- <title>Invoice Listing - HomeID</title> --}}
+    <title>Đổi Mật Khẩu | TRỌ NHANH</title>
     <!-- Google fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
@@ -79,7 +83,8 @@
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    {{-- <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}"> --}}
+    <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">

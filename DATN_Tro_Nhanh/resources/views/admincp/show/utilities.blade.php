@@ -1,6 +1,6 @@
 @extends('layouts.admin')
-@section('titleAdmin', 'Trang chủ trọ nhanh')
-@section('linkAdmin', '')
+@section('titleAdmin', 'Danh sách tiện ích')
+@section('linkAdmin', 'Danh sách tiện ích')
 
 @section('contentAdmin')
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -516,7 +516,8 @@
                                     <th class="w-10px pe-2">
                                         <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                             <input class="form-check-input" type="checkbox" data-kt-check="true"
-                                                data-kt-check-target="#kt_table_utilities .form-check-input" value="1" />
+                                                data-kt-check-target="#kt_table_utilities .form-check-input"
+                                                value="1" />
                                         </div>
                                     </th>
                                     <th class="min-w-100px">Room</th>
@@ -542,7 +543,8 @@
                                         </td>
                                         <!--end::Checkbox-->
                                         <!--begin::Utility details-->
-                                        <td>{{ $utility->room->created_at }}</td> <!-- Assuming there's a relationship to get room title -->
+                                        <td>{{ $utility->room->created_at }}</td>
+                                        <!-- Assuming there's a relationship to get room title -->
                                         <td>{{ $utility->wifi ? 'Yes' : 'No' }}</td>
                                         <td>{{ $utility->bathrooms }}</td>
                                         <td>{{ $utility->air_conditioning }}</td>
@@ -579,7 +581,7 @@
                                                 <!--end::Menu item-->
                                             </div>
                                             <!--end::Menu-->
-                        
+
                                         </td>
                                         <!--end::Actions-->
                                     </tr>
@@ -587,7 +589,7 @@
                             </tbody>
                             <!--end::Table body-->
                         </table>
-                        
+
 
                         <!--end::Table-->
                     </div>
@@ -602,8 +604,7 @@
 @endsection
 @push('styleAdmin')
     <base href="{{ asset('') }}">
-    <title>Metronic - the world's #1 selling Bootstrap Admin Theme Ecosystem for HTML, Vue, React, Angular & Laravel by
-        Keenthemes</title>
+    <title>Danh Sách Tiện Ích | TRỌ NHANH</title>
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue & Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"
@@ -621,7 +622,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
+    {{-- <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" /> --}}
+    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->

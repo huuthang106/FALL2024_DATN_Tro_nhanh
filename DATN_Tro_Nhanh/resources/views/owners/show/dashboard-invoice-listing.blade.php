@@ -1,5 +1,5 @@
 @extends('layouts.owner')
-@section('titleOwners', 'Hóa đơn | TRỌ NHANH')
+@section('titleOwners', 'Danh Sách Hóa Đơn | TRỌ NHANH')
 @section('contentOwners')
     @if (session('error'))
         <div class="alert alert-danger">
@@ -56,9 +56,9 @@
                             <th class="no-sort py-6 pl-6"><label class="new-control new-checkbox checkbox-primary m-auto">
                                     <input type="checkbox" class="new-control-input chk-parent select-customers-info">
                                 </label></th>
-                            
-       
-                                <th class="py-6">Tiêu đề</th>
+
+
+                            <th class="py-6">Tiêu đề</th>
                             {{-- @endif --}}
                     
                             <th class="py-6">Giá</th>
@@ -69,35 +69,39 @@
                             <th class="no-sort py-6">Thao tác</th>
                         </tr>
                     </thead>
-                    
+
                     <tbody>
                         @foreach ($bills as $bill)
                             <tr role="row">
                                 <td class="checkbox-column py-6 pl-6">
                                     <label class="new-control new-checkbox checkbox-primary m-auto">
-                                        <input type="checkbox" class="new-control-input child-chk select-customers-info" value="{{ $bill->id }}">
+                                        <input type="checkbox" class="new-control-input child-chk select-customers-info"
+                                            value="{{ $bill->id }}">
                                     </label>
                                 </td>
                                 <td class="align-middle">
                                     <div class="d-flex align-items-center">
                                         <a href="{{ route('owners.invoice-preview', $bill->id) }}">
-                                                <p class="align-self-center mb-0 user-name">{{ $bill->description }}</p>
+                                            <p class="align-self-center mb-0 user-name">{{ $bill->description }}</p>
 
                                         </a>
                                     </div>
                                 </td>
                                 <td class="align-middle"><span class="inv-amount">{{ $bill->amount }} VNĐ</span></td>
                                 <td class="align-middle">
-                                    <span class="text-success pr-1"><i class="fal fa-calendar"></i></span>{{ $bill->created_at->format('d/m/Y') }}
+                                    <span class="text-success pr-1"><i
+                                            class="fal fa-calendar"></i></span>{{ $bill->created_at->format('d/m/Y') }}
                                 </td>
                                 <td class="align-middle">
                                         <span class="text-primary pr-1"><i class="fal fa-calendar"></i></span>{{ \Carbon\Carbon::parse($bill->payment_due_date)->format('d/m/Y') }}   
                                 </td>
                                 <td class="align-middle">
                                     @if ($bill->status == 1)
-                                        <span class="text-primary pr-1"><i class="fal fa-calendar"></i></span>Chưa có dữ liệu
+                                        <span class="text-primary pr-1"><i class="fal fa-calendar"></i></span>Chưa có dữ
+                                        liệu
                                     @elseif($bill->status == 2)
-                                        <span class="text-primary pr-1"><i class="fal fa-calendar"></i></span>{{ \Carbon\Carbon::parse($bill->payment_date)->format('d/m/Y') }}
+                                        <span class="text-primary pr-1"><i
+                                                class="fal fa-calendar"></i></span>{{ \Carbon\Carbon::parse($bill->payment_date)->format('d/m/Y') }}
                                     @endif
                                 </td>
                                 <td class="align-middle">
@@ -108,17 +112,19 @@
                                     @endif
                                 </td>
                                 <td class="align-middle">
-                                    <a href="#" data-toggle="tooltip" title="Chỉnh sửa" class="d-inline-block fs-18 text-muted hover-primary mr-5">
+                                    <a href="#" data-toggle="tooltip" title="Chỉnh sửa"
+                                        class="d-inline-block fs-18 text-muted hover-primary mr-5">
                                         <i class="fal fa-pencil-alt"></i>
                                     </a>
-                                    <a href="#" data-toggle="tooltip" title="Xóa" class="d-inline-block fs-18 text-muted hover-primary">
+                                    <a href="#" data-toggle="tooltip" title="Xóa"
+                                        class="d-inline-block fs-18 text-muted hover-primary">
                                         <i class="fal fa-trash-alt"></i>
                                     </a>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
-                    
+
                 </table>
             </div>
             <div class="mt-6">
@@ -175,7 +181,7 @@
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
     <meta name="generator" content="Jekyll">
-    {{-- <title>Invoice Listing - HomeID</title> --}}
+    <title>Danh Sách Hóa Đơn | TRỌ NHANH</title>
     <!-- Google fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
@@ -195,7 +201,8 @@
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    {{-- <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}"> --}}
+    <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">
@@ -230,5 +237,4 @@
     <script src="{{ asset('assets/vendors/jparallax/TweenMax.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
-
 @endpush

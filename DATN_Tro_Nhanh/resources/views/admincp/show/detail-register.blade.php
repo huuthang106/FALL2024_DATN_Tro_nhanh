@@ -1,6 +1,6 @@
 @extends('layouts.admin')
-@section('titleAdmin', 'Chi tiết đơn')
-@section('linkAdmin', 'Chi tiết đơn')
+@section('titleAdmin', 'Chi tiết đơn đăng ký')
+@section('linkAdmin', 'Chi tiết đơn đăng ký')
 
 @section('contentAdmin')
 
@@ -435,8 +435,7 @@
 @endsection
 @push('styleAdmin')
     <base href="../">
-    <title>Metronic - the world's #1 selling Bootstrap Admin Theme Ecosystem for HTML, Vue, React, Angular &amp; Laravel by
-        Keenthemes</title>
+    <title>Chi Tiết Đơn Đăng Ký | TRỌ NHANH</title>
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"
@@ -450,7 +449,8 @@
     <meta property="og:url" content="" />
     <meta property="og:site_name" content="" />
     <link rel="canonical" href="" />
-    <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
+    {{-- <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" /> --}}
+    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     {{-- hien thi thông báo  --}}
     <meta name="success" content="{{ session('success') }}">
     <meta name="error" content="{{ session('error') }}">

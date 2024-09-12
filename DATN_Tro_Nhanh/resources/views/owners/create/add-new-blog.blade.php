@@ -1,5 +1,5 @@
 @extends('layouts.owner')
-@section('titleOwners', 'Trang chủ trọ nhanh')
+@section('titleOwners', 'Thêm Blog | TRỌ NHANH')
 @section('contentOwners')
 
     <main id="content" class="bg-gray-01">
@@ -51,25 +51,28 @@
                                                         <div class="card-body p-6">
                                                             <h3 class="card-title mb-0 text-heading fs-22 lh-15">Thông tin
                                                                 bài viết của bạn</h3>
-                                                                <div class="form-group">
-                                                                    <label for="title" class="text-heading" id="title-label">Tiêu đề<span class="text-muted">(bắt buộc)</span></label>
-                                                                    <input type="text"
-                                                                        class="form-control form-control-lg border-0 @error('title') is-invalid @enderror"
-                                                                        id="title" name="title"
-                                                                        value="{{ old('title') }}">
-                                                                    @error('title')
-                                                                        <span class="error-message text-danger" id="title-error">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                                
+                                                            <div class="form-group">
+                                                                <label for="title" class="text-heading"
+                                                                    id="title-label">Tiêu đề<span class="text-muted">(bắt
+                                                                        buộc)</span></label>
+                                                                <input type="text"
+                                                                    class="form-control form-control-lg border-0 @error('title') is-invalid @enderror"
+                                                                    id="title" name="title"
+                                                                    value="{{ old('title') }}">
+                                                                @error('title')
+                                                                    <span class="error-message text-danger"
+                                                                        id="title-error">{{ $message }}</span>
+                                                                @enderror
+                                                            </div>
+
                                                             <div class="form-group mb-0">
                                                                 <label for="description" class="text-heading">Nội
                                                                     dung</label>
                                                                 <textarea class="form-control border-0 @error('description') is-invalid @enderror" rows="5" name="description"
                                                                     id="description-field">{{ old('description') }}</textarea>
                                                                 @error('description')
-                                                                    <span
-                                                                        class="error-message text-danger" id="description-error">{{ $message }}</span>
+                                                                    <span class="error-message text-danger"
+                                                                        id="description-error">{{ $message }}</span>
                                                                 @enderror
                                                             </div>
 
@@ -110,26 +113,34 @@
                                                 <div class="col-lg-10">
                                                     <div class="card mb-6">
                                                         <div class="card-body p-6">
-                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Tải lên hình bạn muốn truyền tải cho khách hàng</h3>
-                                                            <div class="dropzone upload-file text-center py-5" id="myDropzone">
+                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Tải lên
+                                                                hình bạn muốn truyền tải cho khách hàng</h3>
+                                                            <div class="dropzone upload-file text-center py-5"
+                                                                id="myDropzone">
                                                                 <div class="dz-default dz-message mb-0">
                                                                     <span class="upload-icon lh-1 d-inline-block mb-4">
                                                                         <i class="fal fa-cloud-upload-alt"></i>
                                                                     </span>
-                                                                    <p class="text-heading fs-22 lh-15 mb-4">Kéo và thả hình ảnh hoặc</p>
-                                                                    <button class="btn btn-indigo px-7 mb-2" type="button" onclick="document.getElementById('fileInput').click();">Tải lên</button>
-                                                                    <input id="fileInput" name="images[]" type="file" hidden multiple>
+                                                                    <p class="text-heading fs-22 lh-15 mb-4">Kéo và thả
+                                                                        hình ảnh hoặc</p>
+                                                                    <button class="btn btn-indigo px-7 mb-2"
+                                                                        type="button"
+                                                                        onclick="document.getElementById('fileInput').click();">Tải
+                                                                        lên</button>
+                                                                    <input id="fileInput" name="images[]" type="file"
+                                                                        hidden multiple>
                                                                 </div>
                                                                 <div id="imagePreview" class="mt-4">
                                                                     <!-- Nơi ảnh sẽ hiển thị sau khi upload -->
                                                                 </div>
                                                                 @error('images')
-                                                                    <span class="error-message text-danger" id="images-error">{{ $message }}</span>
+                                                                    <span class="error-message text-danger"
+                                                                        id="images-error">{{ $message }}</span>
                                                                 @enderror
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
                                             <div class="d-flex flex-wrap">
@@ -169,7 +180,7 @@
     <meta name="author" content="">
     <meta name="generator" content="Jekyll">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Add new property - HomeID</title>
+    <title>Thêm Blog | TRỌ NHANH</title>
     <!-- Google fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
@@ -192,7 +203,8 @@
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-    <link rel="icon" href="images/favicon.ico">
+    {{-- <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}"> --}}
+    <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">

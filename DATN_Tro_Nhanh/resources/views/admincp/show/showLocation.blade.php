@@ -1,6 +1,6 @@
 @extends('layouts.admin')
-@section('titleAdmin', 'Trang chủ trọ nhanh')
-@section('linkAdmin', 'Danh dách gói tin')
+@section('titleAdmin', 'Danh sách gói tin')
+@section('linkAdmin', 'Danh sách gói tin')
 
 @section('contentAdmin')
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -534,7 +534,7 @@
                                     </th>
                                     <th class="min-w-125px">Tên gói tin</th>
                                     <th class="min-w-125px">Ngày tạo</th>
-                               
+
                                     <th class="min-w-125px">Trạng thái</th>
                                     <th class="text-end min-w-110px">Tác vụ</th>
                                 </tr>
@@ -565,7 +565,7 @@
                                         {{-- <td>{{ $location->quantity }}</td> --}}
                                         <!--end::Two step=-->
                                         <!--begin::Joined-->
-                                     
+
                                         <!--begin::Joined-->
                                         <td>
                                             @if ($location->status == 1)
@@ -686,7 +686,7 @@
 @endsection
 @push('styleAdmin')
     <base href="{{ asset('..') }}">
-    <title>Danh sách loại</title>
+    <title>Danh Sách Gói Tin | TRỌ NHANH</title>
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"
@@ -700,7 +700,8 @@
     <meta property="og:url" content="https://keenthemes.com/metronic" />
     <meta property="og:site_name" content="Keenthemes | Metronic" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
+    {{-- <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" /> --}}
+    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <meta name="success" content="{{ session('success') }}">
     <meta name="error" content="{{ session('error') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

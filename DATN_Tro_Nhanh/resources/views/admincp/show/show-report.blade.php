@@ -1,6 +1,6 @@
 @extends('layouts.admin')
-@section('titleAdmin', 'Danh Sách Đơn ')
-@section('linkAdmin', 'Danh Sách Đơn')
+@section('titleAdmin', 'Danh sách thông báo')
+@section('linkAdmin', 'Danh sách thông báo')
 @section('contentAdmin')
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -173,7 +173,7 @@
     @endsection
     @push('styleAdmin')
         <base href="">
-        <title>Danh Sách Loại</title>
+        <title>Danh Sách Thông Báo | TRỌ NHANH</title>
         <meta name="description"
             content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
         <meta name="keywords"
@@ -187,7 +187,8 @@
         <meta property="og:url" content="https://keenthemes.com/metronic" />
         <meta property="og:site_name" content="Keenthemes | Metronic" />
         <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-        <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
+        {{-- <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" /> --}}
+        <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
         {{-- hien thi thong bao --}}
         <meta name="success" content="{{ session('success') }}">
         <meta name="error" content="{{ session('error') }}">

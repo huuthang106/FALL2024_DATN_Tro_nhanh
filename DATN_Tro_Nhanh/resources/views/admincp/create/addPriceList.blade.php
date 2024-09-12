@@ -1,6 +1,6 @@
 @extends('layouts.admin')
-@section('titleAdmin', 'Trang chủ trọ nhanh')
-@section('linkAdmin', '')
+@section('titleAdmin', 'Thêm vị trí gói')
+@section('linkAdmin', 'Thêm vị trí gói')
 
 @section('contentAdmin')
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -15,7 +15,8 @@
                         </div>
                     </div>
                     <div id="kt_account_profile_details" class="collapse show">
-                        <form id="priceListForm" class="form" method="POST" enctype="multipart/form-data" action="{{ route('admin.them-bang-gia') }}">
+                        <form id="priceListForm" class="form" method="POST" enctype="multipart/form-data"
+                            action="{{ route('admin.them-bang-gia') }}">
                             @csrf
                             <div class="card-body border-top p-9">
                                 <div class="row mb-6">
@@ -25,7 +26,8 @@
                                         <select name="location_id" class="form-select form-select-solid form-select-lg">
                                             <option value="">Chọn vị trí</option>
                                             @foreach ($locations as $location)
-                                                <option value="{{ $location->id }}" {{ old('location_id') == $location->id ? 'selected' : '' }}>
+                                                <option value="{{ $location->id }}"
+                                                    {{ old('location_id') == $location->id ? 'selected' : '' }}>
                                                     {{ $location->name }}
                                                 </option>
                                             @endforeach
@@ -34,17 +36,19 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                        
+
                                     <!-- Price -->
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label fw-bold fs-6 required">Giá</label>
-                                        <input type="number" name="price" class="form-control form-control-lg form-control-solid" placeholder="Giá" value="{{ old('price') }}" />
+                                        <input type="number" name="price"
+                                            class="form-control form-control-lg form-control-solid" placeholder="Giá"
+                                            value="{{ old('price') }}" />
                                         @error('price')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-                        
+
                                 <div class="row mb-6">
                                     <!-- Description -->
                                     <div class="col-md-12 mb-3">
@@ -55,39 +59,43 @@
                                         @enderror
                                     </div>
                                 </div>
-                        
+
                                 <div class="row mb-6">
                                     <!-- Duration (Days) -->
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label fw-bold fs-6 required">Số ngày</label>
-                                        <input type="number" name="duration_day" class="form-control form-control-lg form-control-solid" placeholder="Số ngày" value="{{ old('duration_day') }}" />
+                                        <input type="number" name="duration_day"
+                                            class="form-control form-control-lg form-control-solid" placeholder="Số ngày"
+                                            value="{{ old('duration_day') }}" />
                                         @error('duration_day')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    
-                        
+
+
                                     <!-- Status -->
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label fw-bold fs-6 required">Trạng thái</label>
                                         <select name="status" class="form-select form-select-solid form-select-lg">
-                                            <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Kích hoạt</option>
-                                            <option value="0" {{ old('status') == '2' ? 'selected' : '' }}>Không kích hoạt</option>
+                                            <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Kích hoạt
+                                            </option>
+                                            <option value="0" {{ old('status') == '2' ? 'selected' : '' }}>Không kích
+                                                hoạt</option>
                                         </select>
                                         @error('status')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-                        
+
                                 <div class="d-flex justify-content-end">
                                     <button type="reset" class="btn btn-light btn-active-light-primary me-2">Hủy</button>
                                     <button type="submit" class="btn btn-primary">Lưu</button>
                                 </div>
                             </div>
                         </form>
-                        
-                        
+
+
                     </div>
                 </div>
             </div>
@@ -134,8 +142,8 @@
         <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
         <span class="svg-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1"
-                    transform="rotate(90 13 6)" fill="black" />
+                <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1" transform="rotate(90 13 6)"
+                    fill="black" />
                 <path
                     d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
                     fill="black" />
@@ -151,8 +159,7 @@
 @endsection
 @push('styleAdmin')
     <base href="{{ asset('..') }}">
-    <title>Metronic - the world's #1 selling Bootstrap Admin Theme Ecosystem for HTML, Vue, React, Angular &amp; Laravel by
-        Keenthemes</title>
+    <title>Thêm Vị Trí Gói | TRỌ NHANH</title>
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"
@@ -170,7 +177,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
+    {{-- <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" /> --}}
+    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
@@ -203,9 +211,4 @@
     <!--end::Page Custom Javascript-->
 
     <!--end::Javascript-->
-   
-    
-
-
-    
 @endpush

@@ -1,56 +1,64 @@
 @extends('layouts.owner')
-@section('titleOwners', 'Thông Tin Tài Khoản | TRỌ NHANH')
+@section('titleOwners', 'Người Đưa Tin | TRỌ NHANH')
 @section('contentOwners')
-@if($isInRegistrationList)
-    <!-- Nếu người dùng đã tồn tại trong danh sách đăng ký -->
-    <div class="text-center my-5">
-        <h2 class="text-heading fs-22 lh-15 mb-3">Cảm ơn bạn!</h2>
-        <p class="mb-4 text-muted">Yêu cầu xác nhận của bạn đã được gửi đi. Chúng tôi sẽ xem xét và liên hệ với bạn sớm nhất có thể.</p>
-    </div>
-@elseif($isRegistered)
-    <!-- Nếu người dùng đã đăng ký -->
-    <div class="text-center my-5">
-        <h2 class="text-heading fs-22 lh-15 mb-3">Đăng ký chủ trọ</h2>
-        <p class="mb-4 text-muted">Để trở thành chủ trọ chính thức, vui lòng gửi yêu cầu xác nhận dưới đây. Chúng tôi sẽ xem xét và liên hệ với bạn sớm nhất.</p>
+    @if ($isInRegistrationList)
+        <!-- Nếu người dùng đã tồn tại trong danh sách đăng ký -->
+        <div class="text-center my-5">
+            <h2 class="text-heading fs-22 lh-15 mb-3">Cảm ơn bạn!</h2>
+            <p class="mb-4 text-muted">Yêu cầu xác nhận của bạn đã được gửi đi. Chúng tôi sẽ xem xét và liên hệ với bạn sớm
+                nhất có thể.</p>
+        </div>
+    @elseif($isRegistered)
+        <!-- Nếu người dùng đã đăng ký -->
+        <div class="text-center my-5">
+            <h2 class="text-heading fs-22 lh-15 mb-3">Đăng ký chủ trọ</h2>
+            <p class="mb-4 text-muted">Để trở thành chủ trọ chính thức, vui lòng gửi yêu cầu xác nhận dưới đây. Chúng tôi sẽ
+                xem xét và liên hệ với bạn sớm nhất.</p>
 
-        <!-- Form gửi yêu cầu xác nhận thành viên -->
-        <form action="{{ route('owners.gui-yeu-cau') }}" method="POST" class="mx-auto" style="max-width: 600px;">
-            @csrf
+            <!-- Form gửi yêu cầu xác nhận thành viên -->
+            <form action="{{ route('owners.gui-yeu-cau') }}" method="POST" class="mx-auto" style="max-width: 600px;">
+                @csrf
 
-            <!-- Hiển thị thông tin từ bảng identity -->
-            <div class="form-group mb-4">
-                <label for="name" class="text-left w-100 font-weight-bold">Tên</label>
-                <input type="text" id="name" name="name" class="form-control rounded-lg border-gray-300 shadow-sm" value="{{ $identity->name }}" readonly>
-            </div>
+                <!-- Hiển thị thông tin từ bảng identity -->
+                <div class="form-group mb-4">
+                    <label for="name" class="text-left w-100 font-weight-bold">Tên</label>
+                    <input type="text" id="name" name="name"
+                        class="form-control rounded-lg border-gray-300 shadow-sm" value="{{ $identity->name }}" readonly>
+                </div>
 
-            <div class="form-group mb-4">
-                <label for="identification_number" class="text-left w-100 font-weight-bold">Số CMND/CCCD</label>
-                <input type="text" id="identification_number" name="identification_number" class="form-control rounded-lg border-gray-300 shadow-sm" value="{{ $identity->identification_number }}" readonly>
-            </div>
+                <div class="form-group mb-4">
+                    <label for="identification_number" class="text-left w-100 font-weight-bold">Số CMND/CCCD</label>
+                    <input type="text" id="identification_number" name="identification_number"
+                        class="form-control rounded-lg border-gray-300 shadow-sm"
+                        value="{{ $identity->identification_number }}" readonly>
+                </div>
 
-            <div class="form-group mb-4">
-                <label for="gender" class="text-left w-100 font-weight-bold">Giới tính</label>
-                <input type="text" id="gender" name="gender" class="form-control rounded-lg border-gray-300 shadow-sm" value="{{ $identity->gender }}" readonly>
-            </div>
+                <div class="form-group mb-4">
+                    <label for="gender" class="text-left w-100 font-weight-bold">Giới tính</label>
+                    <input type="text" id="gender" name="gender"
+                        class="form-control rounded-lg border-gray-300 shadow-sm" value="{{ $identity->gender }}" readonly>
+                </div>
 
-            <input type="hidden" name="user_id" value="{{ $identity->user_id }}">
+                <input type="hidden" name="user_id" value="{{ $identity->user_id }}">
 
-            <!-- Lý do yêu cầu -->
-            <div class="form-group mb-4">
-                <label for="reason" class="text-left w-100 font-weight-bold">Lý do yêu cầu trở thành chủ trọ</label>
-                <textarea id="reason" name="reason" class="form-control rounded-lg border-gray-300 shadow-sm" rows="5" placeholder="Vui lòng nhập lý do bạn muốn trở thành chủ trọ..." required></textarea>
-            </div>
+                <!-- Lý do yêu cầu -->
+                <div class="form-group mb-4">
+                    <label for="reason" class="text-left w-100 font-weight-bold">Lý do yêu cầu trở thành chủ trọ</label>
+                    <textarea id="reason" name="reason" class="form-control rounded-lg border-gray-300 shadow-sm" rows="5"
+                        placeholder="Vui lòng nhập lý do bạn muốn trở thành chủ trọ..." required></textarea>
+                </div>
 
-            <button type="submit" class="btn btn-primary btn-lg px-4 py-2">Gửi Yêu Cầu</button>
-        </form>
-    </div>
-@else
-<div class="text-center my-5">
-    <h2 class="text-heading fs-22 lh-15 mb-3">Đăng ký chủ trọ</h2>
-    <p class="mb-4 text-muted">Bạn cần phải cập nhật thông tin cá nhân của mình trước khi đăng ký.</p>
+                <button type="submit" class="btn btn-primary btn-lg px-4 py-2">Gửi Yêu Cầu</button>
+            </form>
+        </div>
+    @else
+        <div class="text-center my-5">
+            <h2 class="text-heading fs-22 lh-15 mb-3">Đăng ký chủ trọ</h2>
+            <p class="mb-4 text-muted">Bạn cần phải cập nhật thông tin cá nhân của mình trước khi đăng ký.</p>
 
-        <a href="{{route('owners.profile.resigter-ekyc')}}" type="submit" class="btn btn-primary btn-lg px-4 py-2">Đến trang đăng ký eKYC</a>
-</div>
+            <a href="{{ route('owners.profile.resigter-ekyc') }}" type="submit"
+                class="btn btn-primary btn-lg px-4 py-2">Đến trang đăng ký eKYC</a>
+        </div>
     @endif
 
 
@@ -62,7 +70,7 @@
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
     <meta name="generator" content="Jekyll">
-    {{-- <title>Invoice Listing - HomeID</title> --}}
+    <title>Người Đưa Tin | TRỌ NHANH</title>
     <!-- Google fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
@@ -84,7 +92,8 @@
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    {{-- <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}"> --}}
+    <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">

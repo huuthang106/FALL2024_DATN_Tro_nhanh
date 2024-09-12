@@ -1,5 +1,5 @@
 @extends('layouts.owner')
-@section('titleOwners', 'Trang chủ trọ nhanh')
+@section('titleOwners', 'Chỉnh Sửa Blog | TRỌ NHANH')
 @section('contentOwners')
 
     <main id="content" class="bg-gray-01">
@@ -24,41 +24,57 @@
 
                 </ul>
                 <div class="tab-content shadow-none p-0">
-                    <form id="blogForm" action="{{ route('owners.update-blog', $blog->slug) }}" method="POST" enctype="multipart/form-data">
+                    <form id="blogForm" action="{{ route('owners.update-blog', $blog->slug) }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                
+
                         <div id="collapse-tabs-accordion">
                             <!-- Phần mô tả -->
-                            <div class="tab-pane tab-pane-parent fade show active px-0" id="description" role="tabpanel" aria-labelledby="description-tab">
+                            <div class="tab-pane tab-pane-parent fade show active px-0" id="description" role="tabpanel"
+                                aria-labelledby="description-tab">
                                 <div class="card bg-transparent border-0">
-                                    <div class="card-header d-block d-md-none bg-transparent px-0 py-1 border-bottom-0" id="heading-description">
+                                    <div class="card-header d-block d-md-none bg-transparent px-0 py-1 border-bottom-0"
+                                        id="heading-description">
                                         <h5 class="mb-0">
-                                            <button class="btn btn-lg collapse-parent btn-block border shadow-none" data-toggle="collapse" data-number="1." data-target="#description-collapse" aria-expanded="true" aria-controls="description-collapse">
+                                            <button class="btn btn-lg collapse-parent btn-block border shadow-none"
+                                                data-toggle="collapse" data-number="1." data-target="#description-collapse"
+                                                aria-expanded="true" aria-controls="description-collapse">
                                                 <span class="number">1.</span>Mô tả
                                             </button>
                                         </h5>
                                     </div>
-                                    <div id="description-collapse" class="collapse show collapsible" aria-labelledby="heading-description" data-parent="#collapse-tabs-accordion">
+                                    <div id="description-collapse" class="collapse show collapsible"
+                                        aria-labelledby="heading-description" data-parent="#collapse-tabs-accordion">
                                         <div class="card-body py-4 py-md-0 px-0">
                                             <div class="row">
                                                 <div class="col-lg-12">
                                                     <div class="card mb-6">
                                                         <div class="card-body p-6">
-                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Thông tin bài viết của bạn</h3>
+                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Thông tin
+                                                                bài viết của bạn</h3>
                                                             <div class="form-group">
-                                                                <label for="title" class="text-heading" id="title-label">Tiêu đề<span class="text-muted">(bắt buộc)</span></label>
-                                                                <input type="text" class="form-control form-control-lg border-0 @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title', $blog->title) }}">
+                                                                <label for="title" class="text-heading"
+                                                                    id="title-label">Tiêu đề<span class="text-muted">(bắt
+                                                                        buộc)</span></label>
+                                                                <input type="text"
+                                                                    class="form-control form-control-lg border-0 @error('title') is-invalid @enderror"
+                                                                    id="title" name="title"
+                                                                    value="{{ old('title', $blog->title) }}">
                                                                 @error('title')
-                                                                    <span class="error-message text-danger" id="title-error">{{ $message }}</span>
+                                                                    <span class="error-message text-danger"
+                                                                        id="title-error">{{ $message }}</span>
                                                                 @enderror
                                                             </div>
-                                                            
+
                                                             <div class="form-group mb-0">
-                                                                <label for="description" class="text-heading">Nội dung</label>
-                                                                <textarea class="form-control border-0 @error('description') is-invalid @enderror" rows="5" name="description" id="description-field">{{ old('description', $blog->description) }}</textarea>
+                                                                <label for="description" class="text-heading">Nội
+                                                                    dung</label>
+                                                                <textarea class="form-control border-0 @error('description') is-invalid @enderror" rows="5" name="description"
+                                                                    id="description-field">{{ old('description', $blog->description) }}</textarea>
                                                                 @error('description')
-                                                                    <span class="error-message text-danger" id="description-error">{{ $message }}</span>
+                                                                    <span class="error-message text-danger"
+                                                                        id="description-error">{{ $message }}</span>
                                                                 @enderror
                                                             </div>
                                                         </div>
@@ -66,46 +82,61 @@
                                                 </div>
                                             </div>
                                             <div class="text-right">
-                                                <button class="btn btn-lg btn-primary next-button" type="button" id="nextButton">Tiếp theo
-                                                    <span class="d-inline-block ml-2 fs-16"><i class="fal fa-long-arrow-right"></i></span>
+                                                <button class="btn btn-lg btn-primary next-button" type="button"
+                                                    id="nextButton">Tiếp theo
+                                                    <span class="d-inline-block ml-2 fs-16"><i
+                                                            class="fal fa-long-arrow-right"></i></span>
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <!-- Phần hình ảnh -->
-                            <div class="tab-pane tab-pane-parent fade px-0" id="media" role="tabpanel" aria-labelledby="media-tab">
+                            <div class="tab-pane tab-pane-parent fade px-0" id="media" role="tabpanel"
+                                aria-labelledby="media-tab">
                                 <div class="card bg-transparent border-0">
-                                    <div class="card-header d-block d-md-none bg-transparent px-0 py-1 border-bottom-0" id="heading-media">
+                                    <div class="card-header d-block d-md-none bg-transparent px-0 py-1 border-bottom-0"
+                                        id="heading-media">
                                         <h5 class="mb-0">
-                                            <button class="btn btn-lg collapse-parent btn-block border shadow-none" data-toggle="collapse" data-number="2." data-target="#media-collapse" aria-expanded="true" aria-controls="media-collapse">
+                                            <button class="btn btn-lg collapse-parent btn-block border shadow-none"
+                                                data-toggle="collapse" data-number="2." data-target="#media-collapse"
+                                                aria-expanded="true" aria-controls="media-collapse">
                                                 <span class="number">2.</span>Hình ảnh blog
                                             </button>
                                         </h5>
                                     </div>
-                                    <div id="media-collapse" class="collapse collapsible" aria-labelledby="heading-media" data-parent="#collapse-tabs-accordion">
+                                    <div id="media-collapse" class="collapse collapsible" aria-labelledby="heading-media"
+                                        data-parent="#collapse-tabs-accordion">
                                         <div class="card-body py-4 py-md-0 px-0">
                                             <div class="row d-flex justify-content-center">
                                                 <div class="col-lg-10">
                                                     <div class="card mb-6">
                                                         <div class="card-body p-6">
-                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Tải lên hình bạn muốn truyền tải cho khách hàng</h3>
-                                                            <div class="dropzone upload-file text-center py-5" id="myDropzone">
+                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Tải lên
+                                                                hình bạn muốn truyền tải cho khách hàng</h3>
+                                                            <div class="dropzone upload-file text-center py-5"
+                                                                id="myDropzone">
                                                                 <div class="dz-default dz-message mb-0">
                                                                     <span class="upload-icon lh-1 d-inline-block mb-4">
                                                                         <i class="fal fa-cloud-upload-alt"></i>
                                                                     </span>
-                                                                    <p class="text-heading fs-22 lh-15 mb-4">Kéo và thả hình ảnh hoặc</p>
-                                                                    <button class="btn btn-indigo px-7 mb-2" type="button" onclick="document.getElementById('fileInput').click();">Tải lên</button>
-                                                                    <input id="fileInput" name="images[]" type="file" hidden multiple>
+                                                                    <p class="text-heading fs-22 lh-15 mb-4">Kéo và thả
+                                                                        hình ảnh hoặc</p>
+                                                                    <button class="btn btn-indigo px-7 mb-2"
+                                                                        type="button"
+                                                                        onclick="document.getElementById('fileInput').click();">Tải
+                                                                        lên</button>
+                                                                    <input id="fileInput" name="images[]" type="file"
+                                                                        hidden multiple>
                                                                 </div>
                                                                 <div id="imagePreview" class="mt-4">
                                                                     <!-- Nơi ảnh sẽ hiển thị sau khi upload -->
                                                                 </div>
                                                                 @error('images')
-                                                                    <span class="error-message text-danger" id="images-error">{{ $message }}</span>
+                                                                    <span class="error-message text-danger"
+                                                                        id="images-error">{{ $message }}</span>
                                                                 @enderror
                                                             </div>
                                                         </div>
@@ -113,8 +144,10 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex flex-wrap">
-                                                <a href="#" class="btn btn-lg bg-hover-white border rounded-lg mb-3 mr-auto prev-button">
-                                                    <span class="d-inline-block text-primary mr-2 fs-16"><i class="fal fa-long-arrow-left"></i></span>Phía trước
+                                                <a href="#"
+                                                    class="btn btn-lg bg-hover-white border rounded-lg mb-3 mr-auto prev-button">
+                                                    <span class="d-inline-block text-primary mr-2 fs-16"><i
+                                                            class="fal fa-long-arrow-left"></i></span>Phía trước
                                                 </a>
                                                 <button class="btn btn-lg btn-primary mb-3" type="submit">Gửi</button>
                                             </div>
@@ -123,15 +156,15 @@
                                 </div>
                             </div>
                         </div>
-                        
-                            
-                        </div>
-                    </form>
+
+
                 </div>
-                
-                
-                
+                </form>
             </div>
+
+
+
+        </div>
         </div>
     </main>
     </div>
@@ -147,7 +180,7 @@
     <meta name="author" content="">
     <meta name="generator" content="Jekyll">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Add new property - HomeID</title>
+    <title>Chỉnh Sửa Blog | TRỌ NHANH</title>
     <!-- Google fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
@@ -170,7 +203,8 @@
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-    <link rel="icon" href="images/favicon.ico">
+    {{-- <link rel="icon" href="images/favicon.ico"> --}}
+    <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">
@@ -189,7 +223,6 @@
     <meta property="og:image:height" content="630">
 @endpush
 @push('scriptOwners')
-
     {{-- <script src="{{ asset('assets/js/batloi.js') }}"></script> --}}
     <script src="{{ asset('assets/js/tcn.js') }}"></script>
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
@@ -212,8 +245,6 @@
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
     {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
-  
-    {{-- <script src="{{ asset('assets/js/thongbao.js') }}"></script> --}}
 
-  
+    {{-- <script src="{{ asset('assets/js/thongbao.js') }}"></script> --}}
 @endpush

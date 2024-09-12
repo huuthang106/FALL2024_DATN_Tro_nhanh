@@ -1,5 +1,5 @@
 @extends('layouts.owner')
-@section('titleOwners', 'Trang chủ trọ nhanh')
+@section('titleOwners', 'Thùng Rác Phòng Trọ | TRỌ NHANH')
 @section('contentOwners')
 
     @if (session('error'))
@@ -158,7 +158,7 @@
 
 @endsection
 @push('styleOwners')
-    <title>Danh Sách Loại</title>
+    <title>Thùng Rác Phòng Trọ | TRỌ NHANH</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Real Estate Html Template">
@@ -184,7 +184,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
 
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('images/favicon.ico') }}">
+    {{-- <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}"> --}}
+    <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     {{-- hien thi thong bao --}}
     <meta name="success" content="{{ session('success') }}">
     <meta name="error" content="{{ session('error') }}">

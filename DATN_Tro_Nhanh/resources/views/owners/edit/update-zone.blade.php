@@ -1,5 +1,5 @@
 @extends('layouts.owner')
-@section('titleOwners', 'Trang chủ trọ nhanh')
+@section('titleOwners', 'Chỉnh Sửa Khu Vực | TRỌ NHANH')
 @section('contentOwners')
 
     <main id="content" class="bg-gray-01">
@@ -25,7 +25,8 @@
 
                 </ul>
                 <div class="tab-content shadow-none p-0">
-                    <form action="{{route('owners.zone-start-update',$zone->id)}}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('owners.zone-start-update', $zone->id) }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('Put')
                         <div id="collapse-tabs-accordion">
@@ -88,9 +89,13 @@
                                                                     class="form-control border-0 shadow-none form-control-lg selectpicker"
                                                                     title="Lựa chọn" data-style="btn-lg py-2 h-52"
                                                                     id="status" name="status">
-                                                                    <option value='1' {{ $zone->status == '1' ? 'selected' : '' }}>&nbsp;Hoạt động
+                                                                    <option value='1'
+                                                                        {{ $zone->status == '1' ? 'selected' : '' }}>
+                                                                        &nbsp;Hoạt động
                                                                     </option>
-                                                                    <option value='2'{{ $zone->status == '2' ? 'selected' : '' }}>&nbsp;Chưa hoạt động
+                                                                    <option
+                                                                        value='2'{{ $zone->status == '2' ? 'selected' : '' }}>
+                                                                        &nbsp;Chưa hoạt động
                                                                     </option>
                                                                 </select>
                                                                 @error('status')
@@ -124,7 +129,8 @@
                                                 <div class="col-lg-6">
                                                     <div class="card mb-6">
                                                         <div class="card-body p-6">
-                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Vị trí niêm
+                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Vị trí
+                                                                niêm
                                                                 yết</h3>
                                                             <p class="card-text mb-5">Lorem ipsum dolor sit amet,
                                                                 consectetur adipiscing elit</p>
@@ -460,7 +466,7 @@
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
     <meta name="generator" content="Jekyll">
-    <title>Thêm khu trọ</title>
+    <title>Chỉnh sửa Khu Vực | TRỌ NHANH</title>
     <!-- Google fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
@@ -480,7 +486,8 @@
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-    <link rel="icon" href="images/favicon.ico">
+    {{-- <link rel="icon" href="images/favicon.ico"> --}}
+    <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">
