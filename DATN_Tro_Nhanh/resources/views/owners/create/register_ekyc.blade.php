@@ -1,77 +1,82 @@
 @extends('layouts.owner')
 @section('titleOwners', 'Thông Tin Tài Khoản | TRỌ NHANH')
 @section('contentOwners')
-@if($isRegistered)
-<div class="text-center my-5">
-    <h2 class="text-heading fs-22 lh-15 mb-3">Cảm ơn bạn!</h2>
-    <p class="mb-4 text-muted">Bạn đã đăng ký eKYC.</p>
-</div>
-@else
-    <main id="content" class="bg-gray-01">
-        <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
-            <div class="mb-6">
-                <h2 class="mb-0 text-heading fs-22 lh-15">THÔNG TIN TÀI KHOẢN</h2>
-                <p class="mb-1">Dịch vụ khách hàng rất quan trọng, do đó, khách hàng phải chịu trách nhiệm. Cần có hy vọng.
-                </p>
-            </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <!-- Form chính -->
-                                <form id="upload-form" method="POST" action="{{ route('client.dang-kyekyc') }}"
-                                    enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="row mb-4">
-                                        <div class="col-lg-12">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <!-- Ảnh CMT/CCCD mặt trước -->
-                                                        <div class="col-12 mb-3">
-                                                            <h5 class="card-title">1. Ảnh CMT/CCCD mặt trước</h5>
-                                                            <div class="text-center mb-2">
-                                                                <img id="cccd-mt" src="" alt="" class="img-large">
-                                                            </div>
-                                                            <div class="btn-wrapper">
-                                                                <input type="file" class="custom-file-input" id="CCCDMT"
-                                                                    name="CCCDMT" required>
-                                                                <label class="btn btn-secondary btn-custom" for="CCCDMT">
-                                                                    <span class="d-inline-block mr-1"><i
-                                                                            class="fal fa-cloud-upload"></i></span>
-                                                                    Chọn Ảnh
-                                                                </label>
+    @if ($isRegistered)
+        <div class="text-center my-5">
+            <h2 class="text-heading fs-22 lh-15 mb-3">Cảm ơn bạn!</h2>
+            <p class="mb-4 text-muted">Bạn đã đăng ký eKYC.</p>
+        </div>
+    @else
+        <main id="content" class="bg-gray-01">
+            <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
+                <div class="mb-6">
+                    <h2 class="mb-0 text-heading fs-22 lh-15">THÔNG TIN TÀI KHOẢN</h2>
+                    <p class="mb-1">Dịch vụ khách hàng rất quan trọng, do đó, khách hàng phải chịu trách nhiệm. Cần có hy
+                        vọng.
+                    </p>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <!-- Form chính -->
+                        <form id="upload-form" method="POST" action="{{ route('client.dang-kyekyc') }}"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div class="row mb-4">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <!-- Ảnh CMT/CCCD mặt trước -->
+                                                <div class="col-12 mb-3">
+                                                    <h5 class="card-title">1. Ảnh CMT/CCCD mặt trước</h5>
+                                                    <div class="text-center mb-2">
+                                                        <img id="cccd-mt" src="" alt=""
+                                                            class="img-large m-0">
+                                                    </div>
+                                                    <div class="btn-wrapper">
+                                                        <input type="file" class="custom-file-input" id="CCCDMT"
+                                                            name="CCCDMT" required>
+                                                        <label class="btn btn-secondary btn-custom" for="CCCDMT">
+                                                            <span class="d-inline-block mr-1"><i
+                                                                    class="fal fa-cloud-upload"></i></span>
+                                                            Chọn Ảnh
+                                                        </label>
 
-                                                                <button type="button" class="btn btn-primary btn-custom"
-                                                                    onclick="openCameraModal('cccd-mt', 'CCCDMT')"><i class="fal fa-camera"></i>
+                                                        <button type="button" class="btn btn-primary btn-custom"
+                                                            onclick="openCameraModal('cccd-mt', 'CCCDMT')"><i
+                                                                class="fal fa-camera"></i>
 
-                                                                    Chụp ảnh
-                                                                </button>
-                                                            </div>
-                                                        </div>
+                                                            Chụp ảnh
+                                                        </button>
+                                                    </div>
+                                                </div>
 
-                                                        <!-- Ảnh CMT/CCCD mặt sau -->
-                                                        <div class="col-12 mb-3">
-                                                            <h5 class="card-title">2. Ảnh CMT/CCCD mặt sau</h5>
-                                                            <div class="text-center mb-2">
-                                                                <img id="cccd-ms" src="" alt="" class="img-large">
-                                                            </div>
-                                                            <div class="btn-wrapper">
-                                                                <input type="file" class="custom-file-input" id="CCCDMS"
-                                                                    name="CCCDMS" required>
-                                                                <label class="btn btn-secondary btn-custom" for="CCCDMS">
-                                                                    <span class="d-inline-block mr-1"><i
-                                                                            class="fal fa-cloud-upload"></i></span>
-                                                                    Chọn Ảnh
-                                                                </label>
-                                                                    <button type="button" class="btn btn-primary btn-custom"
-                                                                        onclick="openCameraModal('cccd-ms', 'CCCDMS')"><i class="fal fa-camera"></i>
+                                                <!-- Ảnh CMT/CCCD mặt sau -->
+                                                <div class="col-12 mb-3">
+                                                    <h5 class="card-title">2. Ảnh CMT/CCCD mặt sau</h5>
+                                                    <div class="text-center mb-2 ">
+                                                        <img id="cccd-ms" src="" alt=""
+                                                            class="img-large m-0">
+                                                    </div>
+                                                    <div class="btn-wrapper">
+                                                        <input type="file" class="custom-file-input" id="CCCDMS"
+                                                            name="CCCDMS" required>
+                                                        <label class="btn btn-secondary btn-custom" for="CCCDMS">
+                                                            <span class="d-inline-block mr-1"><i
+                                                                    class="fal fa-cloud-upload"></i></span>
+                                                            Chọn Ảnh
+                                                        </label>
+                                                        <button type="button" class="btn btn-primary btn-custom"
+                                                            onclick="openCameraModal('cccd-ms', 'CCCDMS')"><i
+                                                                class="fal fa-camera"></i>
 
-                                                                        Chụp ảnh
-                                                                    </button>
-                                                            </div>
-                                                        </div>
+                                                            Chụp ảnh
+                                                        </button>
+                                                    </div>
+                                                </div>
 
-                                                        <!-- Ảnh khuôn mặt -->
-                                                        <div class="col-12 mb-3">
+                                                <!-- Ảnh khuôn mặt -->
+                                                {{-- <div class="col-12 mb-3">
                                                             <h5 class="card-title">3. Ảnh khuôn mặt</h5>
                                                             <div class="text-center mb-2">
                                                                 <img id="face" src="" alt="" class="img-large">
@@ -79,96 +84,155 @@
                                                             <div class="btn-wrapper">
                                                                 <input type="file" class="custom-file-input" id="FileFace"
                                                                     name="FileFace" required>
-                                                                {{-- <label class="btn btn-secondary btn-custom" for="FileFace">
-                                                                    <span class="d-inline-block mr-1"><i
-                                                                            class="fal fa-cloud-upload"></i></span>
-                                                                    Chọn Ảnh
-                                                                </label> --}}
+                                                             
                                                                 <button type="button" class="btn btn-primary btn-custom"
                                                                     onclick="openCameraModal('face', 'FileFace')"><i class="fal fa-camera"></i>
 
                                                                     Chụp ảnh
                                                                 </button>
                                                             </div>
+                                                        </div> --}}
+                                                        <div class="col-12 mb-3">
+                                                            <h5 class="card-title">3. Quay video khuôn mặt</h5>
+                                                            <div class="btn-wrapper">
+                                                                <input type="file" class="custom-file-input" id="FileFace" name="FileFace" accept="video/*" required>
+                                                                <button type="button" class="btn btn-primary btn-custom" onclick="openVideoModal()"><i class="fal fa-camera"></i>
+                                                                    Quay video
+                                                                </button>
+                                                            </div>
+                                                            <div class="text-center mb-2" id="videoDisplay" style="display: none;"> <!-- Phần hiển thị video -->
+                                                                <video id="uploadedVideo" width="100%" class="img-large m-0" style="border: 1px solid #ccc; border-radius: 5px;" muted></video> <!-- Video đã quay -->
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
+                            </div>
+                        </form>
 
-                    <!-- Modal Chụp ảnh -->
-                    <div class="modal fade" id="cameraModal" tabindex="-1" role="dialog"
-                        aria-labelledby="cameraModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="cameraModalLabel">Chụp ảnh</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                        <!-- Modal Chụp ảnh -->
+                        <div class="modal fade" id="cameraModal" tabindex="-1" role="dialog"
+                            aria-labelledby="cameraModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="cameraModalLabel">Chụp ảnh</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <video id="video" width="100%" autoplay></video>
+                                        <canvas id="canvas" style="display:none;"></canvas>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Đóng</button>
+                                        <button type="button" class="btn btn-primary" id="captureButton">Chụp</button>
+                                    </div>
                                 </div>
-                                <div class="modal-body text-center">
-                                    <video id="video" width="100%" autoplay></video>
-                                    <canvas id="canvas" style="display:none;"></canvas>
+                            </div>
+                        </div>
+                        <!-- Modal Quay video -->
+                        {{-- <div class="modal fade" id="videoModal" tabindex="-1" role="dialog"
+                            aria-labelledby="videoModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="videoModalLabel">Quay video</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <video id="modalVideo" width="100%" autoplay></video> <!-- Video trong modal -->
+                                        <canvas id="videoCanvas" style="display:none;"></canvas>
+                                        <!-- Canvas để xử lý video nếu cần -->
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Đóng</button>
+                                        <button type="button" class="btn btn-primary" id="recordButton">Ghi lại</button>
+                                    </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                                    <button type="button" class="btn btn-primary" id="captureButton">Chụp</button>
+                            </div>
+                        </div> --}}
+                        <!-- Modal Quay video -->
+                        <div class="modal fade" id="videoModal" tabindex="-1" role="dialog"
+                            aria-labelledby="videoModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="videoModalLabel">Quay video</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <video id="modalVideo" width="100%" autoplay></video> <!-- Video trong modal -->
+                                        <canvas id="videoCanvas" style="display:none;"></canvas>
+                                        <!-- Canvas để xử lý video nếu cần -->
+                                        <div id="videoNotification"
+                                            style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); color: white; background-color: rgba(0, 0, 0, 0.7); padding: 10px; border-radius: 5px; display: none;">
+                                            Đang quay video. Video sẽ tự động dừng sau 5 giây.
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Đóng</button>
+                                        <button type="button" class="btn btn-primary" id="recordButton">Ghi lại</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-
-                </div>
-
-                <!-- Lớp phủ tải -->
-                <div id="loading-overlay" class="loading-overlay d-none">
-                    <div class="loading-spinner">
-                        <div class="spinner-border" role="status">
-                            <span class="sr-only">Loading...</span>
+                    <!-- Lớp phủ tải -->
+                    <div id="loading-overlay" class="loading-overlay d-none">
+                        <div class="loading-spinner">
+                            <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <p>Đang xử lý...</p>
                         </div>
-                        <p>Đang xử lý...</p>
                     </div>
-                </div>
 
-                <!-- Phần hiển thị kết quả bên phải -->
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body px-6 pt-6 pb-5">
-                            <h3 class="card-title text-heading fs-18 lh-15 mb-4">Kết quả</h3>
+                    <!-- Phần hiển thị kết quả bên phải -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body px-6 pt-6 pb-5">
+                                <h3 class="card-title text-heading fs-18 lh-15 mb-4">Kết quả</h3>
 
-                            <!-- Form chỉnh sửa kết quả OCR mặt trước -->
-                            <form id="result-form" method="POST" action="{{ route('client.storedata') }}"
-                                enctype="multipart/form-data">
-                                @csrf
-                                <div class="ocr-results mb-4">
-                                    <h6 class="fs-16 fw-bold">Kết quả OCR mặt trước</h6>
-                                    <div class="row">
-                                        <div class="col-md-6 form-group">
-                                            <label for="cmnd_number">Số CMND</label>
-                                            <input type="text" class="form-control" id="cmnd_number"
-                                                name="cmnd_number" required>
-                                        </div>
-                                        <div class="col-md-6 form-group">
-                                            <label for="full_name">Họ và tên</label>
-                                            <input type="text" class="form-control" id="full_name" name="full_name"
-                                                required>
-                                        </div>
-                                        <div class="col-md-6 form-group">
-                                            <label for="gender">Giới tính</label>
-                                            <input type="text" class="form-control" id="gender" name="gender"
-                                                required>
+                                <!-- Form chỉnh sửa kết quả OCR mặt trước -->
+                                <form id="result-form" method="POST" action="{{ route('client.storedata') }}"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="ocr-results mb-4">
+                                        <h6 class="fs-16 fw-bold">Kết quả OCR mặt trước</h6>
+                                        <div class="row">
+                                            <div class="col-md-6 form-group">
+                                                <label for="cmnd_number">Số CMND</label>
+                                                <input type="text" class="form-control" id="cmnd_number"
+                                                    name="cmnd_number" required>
+                                            </div>
+                                            <div class="col-md-6 form-group">
+                                                <label for="full_name">Họ và tên</label>
+                                                <input type="text" class="form-control" id="full_name"
+                                                    name="full_name" required>
+                                            </div>
+                                            <div class="col-md-6 form-group">
+                                                <label for="gender">Giới tính</label>
+                                                <input type="text" class="form-control" id="gender" name="gender"
+                                                    required>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                            
 
-                                <!-- Hiển thị hình ảnh -->
-                                {{-- <div id="images-container">
+
+                                    <!-- Hiển thị hình ảnh -->
+                                    {{-- <div id="images-container">
 
                                 <input type="file" id="cccdmt-image" name="cccdmt" src="" alt="CCCDMT" />
                                 <input  type="file"id="cccdms-image" name="cccdms" src="" alt="CCCDMS" />
@@ -176,27 +240,27 @@
                             </div> --}}
 
 
-                                <input type="hidden" id="cccdmt-path" name="cccdmt_path">
+                                    <input type="hidden" id="cccdmt-path" name="cccdmt_path">
 
-                                <input type="hidden" id="cccdms-path" name="cccdms_path">
+                                    <input type="hidden" id="cccdms-path" name="cccdms_path">
 
-                                <input type="hidden" id="fileface-path" name="fileface_path">
-
-
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">Lưu Kết Quả</button>
-                                </div>
-                            </form>
+                                    <input type="hidden" id="fileface-path" name="fileface_path">
 
 
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">Lưu Kết Quả</button>
+                                    </div>
+                                </form>
 
+
+
+                            </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
-        </div>
-    </main>
+        </main>
     @endif
 
 

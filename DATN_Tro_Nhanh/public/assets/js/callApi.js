@@ -136,10 +136,10 @@ function displayData(data) {
             genderInput.value = 'Nữ';
             break;
         default:
-            genderInput.value = 'Chưa xác định'; 
+            genderInput.value = 'Chưa xác định';
             break;
     }
-   
+
     document.getElementById('cccdmt-path').value = data.cccdmt_path || '';
     document.getElementById('cccdms-path').value = data.cccdms_path || '';
     document.getElementById('fileface-path').value = data.fileface_path || '';
@@ -163,3 +163,104 @@ document.addEventListener('DOMContentLoaded', function () {
         submitForm();
     });
 });
+
+//  xử lý video 
+let mediaRecorder;
+let recordedChunks = [];
+
+function openVideoModal() {
+    const modalVideo = document.getElementById('modalVideo');
+    const videoNotification = document.getElementById('videoNotification');
+
+    // Mở modal quay video
+    $('#videoModal').modal('show');
+
+    // Bắt đầu quay video
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(stream) {
+            modalVideo.srcObject = stream; // Gán stream video vào video trong modal
+            modalVideo.style.display = 'block'; // Hiển thị video
+
+            // Tạo MediaRecorder để ghi video
+            mediaRecorder = new MediaRecorder(stream);
+            
+            // Gán hàm ondataavailable
+            mediaRecorder.ondataavailable = function(event) {
+                if (event.data.size > 0) {
+                    recordedChunks.push(event.data);
+                }
+            };
+
+            // Gán hàm onstop
+            mediaRecorder.onstop = function() {
+                console.log('Đã dừng ghi video'); // Kiểm tra xem hàm onstop có được gọi không
+                const videoBlob = new Blob(recordedChunks, { type: 'video/webm' });
+                const videoURL = URL.createObjectURL(videoBlob);
+                
+                // Cập nhật nguồn cho video đã quay
+                const uploadedVideo = document.getElementById('uploadedVideo');
+                uploadedVideo.src = videoURL; // Cập nhật nguồn video
+            
+                // Hiển thị thẻ div chứa video
+                console.log('Hiên thi video');
+                const videoDisplay = document.getElementById('videoDisplay');
+                videoDisplay.style.display = 'block'; // Hiển thị thẻ div
+            
+                // Thêm sự kiện loadeddata
+                uploadedVideo.addEventListener('loadeddata', function() {
+                    console.log('Video đã được tải thành công');
+                    uploadedVideo.play(); // Tự động phát video nếu cần
+                });
+            
+                // Tắt modal
+                $('#videoModal').modal('hide'); // Đóng modal
+            };
+
+            // Hiển thị thông báo
+            videoNotification.style.display = 'block'; // Hiển thị thông báo
+
+            // Bắt đầu ghi video
+            mediaRecorder.start();
+            console.log('Bắt đầu ghi video'); // Kiểm tra xem video có bắt đầu ghi không
+
+            // Tự động dừng ghi sau 5 giây
+            setTimeout(function() {
+                console.log('Dừng ghi video'); // Kiểm tra xem hàm này có được gọi không
+                mediaRecorder.stop(); // Dừng ghi video
+                stream.getTracks().forEach(track => track.stop()); // Dừng stream video
+                videoNotification.style.display = 'none'; // Ẩn thông báo
+            }, 5000); // 5000ms = 5 giây
+        })
+        .catch(function(err) {
+            console.error("Lỗi truy cập camera: ", err);
+        });
+}
+// mediaRecorder.onstop = function() {
+//     console.log('Đã dừng ghi video'); // Kiểm tra xem hàm onstop có được gọi không
+//     if (recordedChunks.length === 0) {
+//         console.error("Không có dữ liệu video nào được ghi lại.");
+//         return; // Dừng lại nếu không có dữ liệu
+//     }
+//     const videoBlob = new Blob(recordedChunks, { type: 'video/webm' });
+//     const videoURL = URL.createObjectURL(videoBlob);
+    
+//     // Tạo một video tạm thời để lấy khung hình
+//     const tempVideo = document.createElement('video');
+//     tempVideo.src = videoURL;
+//     tempVideo.addEventListener('loadeddata', function() {
+//         // Lấy khung hình đầu tiên
+//         const canvas = document.createElement('canvas');
+//         canvas.width = tempVideo.videoWidth;
+//         canvas.height = tempVideo.videoHeight;
+//         const context = canvas.getContext('2d');
+//         context.drawImage(tempVideo, 0, 0, canvas.width, canvas.height);
+        
+//         // Cập nhật nguồn cho hình ảnh
+//         const imgElement = document.getElementById('uploadedImage');
+//         imgElement.src = canvas.toDataURL('image/png'); // Chuyển đổi canvas thành hình ảnh
+//         document.getElementById('videoDisplay').style.display = 'block'; // Hiển thị hình ảnh
+//     });
+
+//     // Tắt modal
+//     $('#videoModal').modal('hide'); // Đóng modal
+// };
