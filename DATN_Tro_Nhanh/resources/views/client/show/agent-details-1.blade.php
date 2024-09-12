@@ -294,10 +294,10 @@
                                                             @endforeach
                                                         @endif
                                                     </div>
-                                                    @if (!$rooms->isEmpty())
+                                                    {{-- @if (!$rooms->isEmpty())
                                                         <div class="mt-4">
                                                             <ul class="pagination rounded-active justify-content-center">
-                                                                {{-- Previous Page Link --}}
+                                                           
                                                                 @if ($rooms->onFirstPage())
                                                                     <li class="page-item disabled">
                                                                         <span class="page-link"><i
@@ -311,7 +311,7 @@
                                                                     </li>
                                                                 @endif
 
-                                                                {{-- Pagination Elements --}}
+                                                        
                                                                 @foreach ($rooms->getUrlRange(1, $rooms->lastPage()) as $page => $url)
                                                                     @if ($page == $rooms->currentPage())
                                                                         <li class="page-item active">
@@ -326,7 +326,7 @@
                                                                     @endif
                                                                 @endforeach
 
-                                                                {{-- Next Page Link --}}
+                      
                                                                 @if ($rooms->hasMorePages())
                                                                     <li class="page-item">
                                                                         <a class="page-link"
@@ -342,7 +342,7 @@
                                                             </ul>
                                                         </div>
                                                     @endif
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>
