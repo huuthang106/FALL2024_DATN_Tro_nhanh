@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Services\UserClientServices;
+use App\Services\UserAdminServices;
 use App\Services\ProfileService;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UpdatePasswordRequest;
@@ -16,10 +17,11 @@ class UserAdminController extends Controller
     protected $profileService;
 
     // Khởi tạo UserService thông qua Dependency Injection
-    public function __construct(UserClientServices $userService, ProfileService $profileService)
+    public function __construct(UserClientServices $userService, ProfileService $profileService, UserAdminServices $userAdminService)
     {
         $this->userService = $userService;
         $this->profileService = $profileService;
+        $this->userAdminService = $userAdminService;
     }
 
     public function index(Request $request)
@@ -76,5 +78,32 @@ class UserAdminController extends Controller
     public function private_chat()
     {
         return view('admincp.show.private');
+    }
+    public function updateRoleAdmin($id)
+    {
+        $result = $this->userAdminService->updateRoleAdmin($id);
+        if ($result) {
+            // Cập nhật thành công, chuyển hướng hoặc thông báo
+            return redirect()->route('admin.list-user')->with('success', 'Cập nhật thành công.');
+        } else {
+            // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
+            return back()->with('error', 'Cập nhật thất bại.');
+        }
+    }
+    public function updateRoleUser($id)
+    {
+        $result = $this->userAdminService->updateRoleUser($id);
+        if ($result) {
+            // Cập nhật thành công, chuyển hướng hoặc thông báo
+            return redirect()->route('admin.list-user')->with('success', 'Cập nhật thành công.');
+        } else {
+            // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
+            return back()->with('error', 'Cập nhật thất bại.');
+        }
+    }
+    public function showUserRole()
+    {
+        $users = $this->userAdminService->getUserRole();
+        return view('admincp.show.show-user',compact('users'));
     }
 }

@@ -1,8 +1,5 @@
-@extends('layouts.admin')
-@section('titleAdmin', 'Danh Sách Tiện Ích | TRỌ NHANH')
-@section('linkAdmin', 'Danh sách tiện ích')
-
-@section('contentAdmin')
+<div>
+    {{-- Be like water. --}}
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <!--begin::Post-->
         <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -28,8 +25,11 @@
                                     </svg>
                                 </span>
                                 <!--end::Svg Icon-->
-                                <input type="text" data-kt-user-table-filter="search"
-                                    class="form-control form-control-solid w-250px ps-14" placeholder="Search user" />
+                                {{-- <input type="text" data-kt-user-table-filter="search"
+                                    class="form-control form-control-solid w-250px ps-14" placeholder="Search owner" /> --}}
+                                <input type="text" wire:model.lazy="search" 
+                                wire:keydown.debounce.300ms="$refresh" name="search" placeholder="Tìm kiếm user"
+                                    class="form-control form-control-solid w-250px ps-14" />
                             </div>
                             <!--end::Search-->
                         </div>
@@ -37,6 +37,27 @@
                         <!--begin::Card toolbar-->
                         <div class="card-toolbar">
                             <!--begin::Toolbar-->
+                            {{-- <div class="p-2" wire:ignore>
+                                <div class="input-group input-group-lg bg-white border rounded">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-transparent letter-spacing-093 border-0 pr-0">
+                                            <i class="far fa-align-left mr-2"></i>Lọc khoảng thời gian:
+                                        </span>
+                                    </div>
+                                    <select
+                                        class="form-control btn btn-light-primary me-3 pl-0  d-flex align-items-center"
+                                        wire:model.lazy="timeFilter" wire:key="time-select"
+                                        data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
+                                        <option value="" selected>Chọn khoảng thời gian</option>
+                                        <option value="1_day">1 ngày</option>
+                                        <option value="7_day">7 ngày</option>
+                                        <option value="3_month">3 tháng</option>
+                                        <option value="6_month">6 tháng</option>
+                                        <option value="1_year">1 năm</option>
+                                    </select>
+                                </div>
+                            </div> --}}
+
                             <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                                 <!--begin::Filter-->
                                 <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click"
@@ -64,36 +85,38 @@
                                     <!--begin::Content-->
                                     <div class="px-7 py-5" data-kt-user-table-filter="form">
                                         <!--begin::Input group-->
-                                        <div class="mb-10">
-                                            <label class="form-label fs-6 fw-bold">Role:</label>
-                                            <select class="form-select form-select-solid fw-bolder" data-kt-select2="true"
-                                                data-placeholder="Select option" data-allow-clear="true"
-                                                data-kt-user-table-filter="role" data-hide-search="true">
-                                                <option></option>
-                                                <option value="Administrator">Administrator</option>
-                                                <option value="Analyst">Analyst</option>
-                                                <option value="Developer">Developer</option>
-                                                <option value="Support">Support</option>
-                                                <option value="Trial">Trial</option>
+                                        <div class="mb-10" wire:ignore>
+                                            <label class="form-label fs-6 fw-bold">Lọc theo khoảng thời gian:</label>
+                                            <select class="form-select form-select-solid fw-bolder"
+                                                wire:model.lazy="timeFilter" wire:key="time-select"
+                                                data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
+                                                <option value="" selected>Chọn khoảng thời gian</option>
+                                                <option value="1_day">1 ngày</option>
+                                                <option value="7_day">7 ngày</option>
+                                                <option value="3_month">3 tháng</option>
+                                                <option value="6_month">6 tháng</option>
+                                                <option value="1_year">1 năm</option>
                                             </select>
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
-                                        <div class="mb-10">
+                                        <!-- <div class="mb-10">
                                             <label class="form-label fs-6 fw-bold">Two Step Verification:</label>
-                                            <select class="form-select form-select-solid fw-bolder" data-kt-select2="true"
-                                                data-placeholder="Select option" data-allow-clear="true"
-                                                data-kt-user-table-filter="two-step" data-hide-search="true">
+                                            <select class="form-select form-select-solid fw-bolder"
+                                                data-kt-select2="true" data-placeholder="Select option"
+                                                data-allow-clear="true" data-kt-user-table-filter="two-step"
+                                                data-hide-search="true">
                                                 <option></option>
                                                 <option value="Enabled">Enabled</option>
                                             </select>
-                                        </div>
+                                        </div> -->
                                         <!--end::Input group-->
                                         <!--begin::Actions-->
                                         <div class="d-flex justify-content-end">
                                             <button type="reset"
                                                 class="btn btn-light btn-active-light-primary fw-bold me-2 px-6"
-                                                data-kt-menu-dismiss="true" data-kt-user-table-filter="reset">Reset</button>
+                                                data-kt-menu-dismiss="true"
+                                                data-kt-user-table-filter="reset">Reset</button>
                                             <button type="submit" class="btn btn-primary fw-bold px-6"
                                                 data-kt-menu-dismiss="true"
                                                 data-kt-user-table-filter="filter">Apply</button>
@@ -124,9 +147,7 @@
                                     <!--end::Svg Icon-->Export</button>
                                 <!--end::Export-->
                                 <!--begin::Add user-->
-                                <a type="button" href="{{ route('admin.trang-them-khu-tro') }}" class="btn btn-primary">
-                                    Thêm khu trọ</a>
-
+                                <!--end::Add user-->
                             </div>
                             <!--end::Toolbar-->
                             <!--begin::Group actions-->
@@ -155,8 +176,8 @@
                                                 data-kt-users-modal-action="close">
                                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                                                 <span class="svg-icon svg-icon-1">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 24 24" fill="none">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" viewBox="0 0 24 24" fill="none">
                                                         <rect opacity="0.5" x="6" y="17.3137" width="16"
                                                             height="2" rx="1"
                                                             transform="rotate(-45 6 17.3137)" fill="black" />
@@ -177,7 +198,8 @@
                                                 <!--begin::Input group-->
                                                 <div class="fv-row mb-10">
                                                     <!--begin::Label-->
-                                                    <label class="fs-6 fw-bold form-label mb-2">Select Roles:</label>
+                                                    <label class="fs-6 fw-bold form-label mb-2">Select
+                                                        Roles:</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
                                                     <select name="role" data-control="select2"
@@ -196,7 +218,8 @@
                                                 <!--begin::Input group-->
                                                 <div class="fv-row mb-10">
                                                     <!--begin::Label-->
-                                                    <label class="required fs-6 fw-bold form-label mb-2">Select Export
+                                                    <label class="required fs-6 fw-bold form-label mb-2">Select
+                                                        Export
                                                         Format:</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
@@ -244,15 +267,15 @@
                                         <!--begin::Modal header-->
                                         <div class="modal-header" id="kt_modal_add_user_header">
                                             <!--begin::Modal title-->
-                                            <h2 class="fw-bolder">Thêm tiện ích</h2>
+                                            <h2 class="fw-bolder">Add User</h2>
                                             <!--end::Modal title-->
                                             <!--begin::Close-->
                                             <div class="btn btn-icon btn-sm btn-active-icon-primary"
                                                 data-kt-users-modal-action="close">
                                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                                                 <span class="svg-icon svg-icon-1">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 24 24" fill="none">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" viewBox="0 0 24 24" fill="none">
                                                         <rect opacity="0.5" x="6" y="17.3137" width="16"
                                                             height="2" rx="1"
                                                             transform="rotate(-45 6 17.3137)" fill="black" />
@@ -324,7 +347,8 @@
                                                         </div>
                                                         <!--end::Image input-->
                                                         <!--begin::Hint-->
-                                                        <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                                                        <div class="form-text">Allowed file types: png, jpg, jpeg.
+                                                        </div>
                                                         <!--end::Hint-->
                                                     </div>
                                                     <!--end::Input group-->
@@ -372,9 +396,12 @@
                                                                 <!--begin::Label-->
                                                                 <label class="form-check-label"
                                                                     for="kt_modal_update_role_option_0">
-                                                                    <div class="fw-bolder text-gray-800">Administrator
+                                                                    <div class="fw-bolder text-gray-800">
+                                                                        Administrator
                                                                     </div>
-                                                                    <div class="text-gray-600">Best for business owners and
+                                                                    <div class="text-gray-600">Best for business
+                                                                        owners
+                                                                        and
                                                                         company administrators</div>
                                                                 </label>
                                                                 <!--end::Label-->
@@ -395,8 +422,10 @@
                                                                 <!--begin::Label-->
                                                                 <label class="form-check-label"
                                                                     for="kt_modal_update_role_option_1">
-                                                                    <div class="fw-bolder text-gray-800">Developer</div>
-                                                                    <div class="text-gray-600">Best for developers or
+                                                                    <div class="fw-bolder text-gray-800">Developer
+                                                                    </div>
+                                                                    <div class="text-gray-600">Best for developers
+                                                                        or
                                                                         people primarily using the API</div>
                                                                 </label>
                                                                 <!--end::Label-->
@@ -417,9 +446,12 @@
                                                                 <!--begin::Label-->
                                                                 <label class="form-check-label"
                                                                     for="kt_modal_update_role_option_2">
-                                                                    <div class="fw-bolder text-gray-800">Analyst</div>
-                                                                    <div class="text-gray-600">Best for people who need
-                                                                        full access to analytics data, but don't need to
+                                                                    <div class="fw-bolder text-gray-800">Analyst
+                                                                    </div>
+                                                                    <div class="text-gray-600">Best for people who
+                                                                        need
+                                                                        full access to analytics data, but don't
+                                                                        need to
                                                                         update business settings</div>
                                                                 </label>
                                                                 <!--end::Label-->
@@ -440,9 +472,12 @@
                                                                 <!--begin::Label-->
                                                                 <label class="form-check-label"
                                                                     for="kt_modal_update_role_option_3">
-                                                                    <div class="fw-bolder text-gray-800">Support</div>
-                                                                    <div class="text-gray-600">Best for employees who
-                                                                        regularly refund payments and respond to disputes
+                                                                    <div class="fw-bolder text-gray-800">Support
+                                                                    </div>
+                                                                    <div class="text-gray-600">Best for employees
+                                                                        who
+                                                                        regularly refund payments and respond to
+                                                                        disputes
                                                                     </div>
                                                                 </label>
                                                                 <!--end::Label-->
@@ -463,9 +498,13 @@
                                                                 <!--begin::Label-->
                                                                 <label class="form-check-label"
                                                                     for="kt_modal_update_role_option_4">
-                                                                    <div class="fw-bolder text-gray-800">Trial</div>
-                                                                    <div class="text-gray-600">Best for people who need to
-                                                                        preview content data, but don't need to make any
+                                                                    <div class="fw-bolder text-gray-800">Trial
+                                                                    </div>
+                                                                    <div class="text-gray-600">Best for people who
+                                                                        need
+                                                                        to
+                                                                        preview content data, but don't need to make
+                                                                        any
                                                                         updates</div>
                                                                 </label>
                                                                 <!--end::Label-->
@@ -506,161 +545,213 @@
                     </div>
                     <!--end::Card header-->
                     <!--begin::Card body-->
-                    <div class="card-body pt-0">
-                        <!--begin::Table-->
-                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
-                            <!--begin::Table head-->
-                            <thead>
-                                <!--begin::Table row-->
-                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                    <th class="w-10px pe-2">
-                                        <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                            <input class="form-check-input" type="checkbox" data-kt-check="true"
-                                                data-kt-check-target="#kt_table_utilities .form-check-input"
-                                                value="1" />
-                                        </div>
-                                    </th>
-                                    <th class="min-w-100px">Room</th>
-                                    <th class="min-w-100px">Wi-Fi</th>
-                                    <th class="min-w-100px">Bathrooms</th>
-                                    <th class="min-w-100px">Air Conditioning</th>
-                                    <th class="min-w-100px">Garage</th>
-                                    <th class="text-end min-w-px">Actions</th>
-                                </tr>
-                                <!--end::Table row-->
-                            </thead>
-                            <!--end::Table head-->
-                            <!--begin::Table body-->
-                            <tbody class="text-gray-600 fw-bold">
-                                @foreach ($utilities as $utility)
-                                    <tr>
-                                        <!--begin::Checkbox-->
-                                        <td>
-                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                                <input class="form-check-input" type="checkbox"
-                                                    value="{{ $utility->id }}" />
+                    {{-- Load --}}
+                    @if ($users->count() > 0)
+                        <div class="card-body pt-0">
+                            <!--begin::Table-->
+                            <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+                                <!--begin::Table head-->
+                                <thead>
+                                    <!--begin::Table row-->
+                                    <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                        <th class="w-10px pe-2">
+                                            <div
+                                                class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                                <input class="form-check-input" type="checkbox" data-kt-check="true"
+                                                    data-kt-check-target="#kt_table_users .form-check-input"
+                                                    value="1" />
                                             </div>
-                                        </td>
-                                        <!--end::Checkbox-->
-                                        <!--begin::Utility details-->
-                                        <td>
-    @if ($utility->room && $utility->room->created_at)
-        {{ $utility->room->created_at->format('d-m-Y') }}
-    @else
-        Chưa có ngày
-    @endif
-</td>
+                                        </th>
+                                        <th class="min-w-125px">Ảnh</th>
+                                        <th class="min-w-125px">Tên</th>
+                                        <th class="min-w-125px">Email</th>
+                                        {{-- <th class="min-w-125px">Mật Khẩu</th>s --}}
+                                        <th class="min-w-125px">Số Điện Thoại</th>
+                                        <th class="min-w-125px">Địa Chỉ</th>
 
-
-<!-- Assuming there's a relationship to get room title -->
-                                        <td>{{ $utility->wifi ? 'Yes' : 'No' }}</td>
-                                        <td>{{ $utility->bathrooms }}</td>
-                                        <td>{{ $utility->air_conditioning }}</td>
-                                        <td>{{ $utility->garage ? 'Yes' : 'No' }}</td>
-                                        <!--end::Utility details-->
-                                        <!--begin::Actions-->
-                                        <td class="text-end">
-                                            <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
-                                                data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                                                <span class="svg-icon svg-icon-5 m-0">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 24 24" fill="none">
-                                                        <path
-                                                            d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                                            fill="black" />
-                                                    </svg>
-                                                </span>
-                                                <!--end::Svg Icon--></a>
-                                            <!--begin::Menu-->
-                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                                                data-kt-menu="true">
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    {{-- <a href="{{ route('admin.edit-utility', $utility->id) }}"
-                                                        class="menu-link px-3">Edit</a> --}}
-                                                </div>
-                                                <!--end::Menu item-->
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    {{-- <a href="#" class="menu-link px-3"
-                                                        data-kt-users-table-filter="delete_row">Delete</a> --}}
-                                                </div>
-                                                <!--end::Menu item-->
-                                            </div>
-                                            <!--end::Menu-->
-
-                                        </td>
-                                        <!--end::Actions-->
+                                        <th class="text-center min-w-300px">Tác vụ</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                            <!--end::Table body-->
-                        </table>
-                        @if ($utilities->hasPages())
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination rounded-active justify-content-center">
-                                    {{-- Liên kết Trang Trước --}}
-                                    <li class="page-item {{ $utilities->onFirstPage() ? 'disabled' : '' }}">
-                                        <a class="page-link hover-white" href="{{ $utilities->previousPageUrl() }}"
-                                            rel="prev" aria-label="@lang('pagination.previous')">
-                                            {{-- <i class="far fa-angle-left"></i> --}}
-                                            <{{-- Mũi tên trái --}} </a>
-                                    </li>
+                                    <!--end::Table row-->
+                                </thead>
+                                <!--end::Table head-->
+                                <!--begin::Table body-->
+                                <tbody class="text-gray-600 fw-bold">
+                                    <!--begin::Table row-->
+                                    @foreach ($users as $user)
+                                        <tr>
+                                            <!--begin::Checkbox-->
+                                            <td>
+                                                <div
+                                                    class="form-check form-check-sm form-check-custom form-check-solid">
+                                                    <input class="form-check-input" type="checkbox" value="1" />
+                                                </div>
+                                            </td>
+                                            <!--end::Checkbox-->
+                                            <!--begin::User=-->
+                                            <td class="d-flex align-items-center min-w-125px">
+                                                <!--begin:: Avatar -->
+                                                <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                                    <a href="{{ route('admin.show-blog', ['slug' => $user->slug]) }}">
+                                                        <div class="symbol-label">
+                                                            @if ($user->image)
+                                                                <img src="{{ asset('assets/images/' . $user->image) }}"
+                                                                    alt="User Image" class="img-fluid">
+                                                            @else
+                                                                <p>No image available</p>
+                                                            @endif
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <!--end::Avatar-->
+                                            </td>
+                                            <!--end::User=-->
+                                            <!--begin::User Details-->
+                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            {{-- <td>{{ $user->password }}</td> --}}
+                                            <td>{{ $user->phone ?: 'Trống' }}</td>
+                                            <td>{{ $user->address ?: 'Trống' }}</td>
 
-                                    @php
-                                        $totalPages = $utilities->lastPage();
-                                        $currentPage = $utilities->currentPage();
-                                        $visiblePages = 3; // Số trang hiển thị ở giữa
-                                    @endphp
-
-                                    {{-- Trang đầu --}}
-                                    <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
-                                        <a class="page-link hover-white" href="{{ $utilities->url(1) }}">1</a>
-                                    </li>
-
-                                    {{-- Dấu ba chấm đầu --}}
-                                    @if ($currentPage > $visiblePages)
-                                        <li class="page-item disabled"><span class="page-link">...</span></li>
-                                    @endif
-
-                                    {{-- Các trang giữa --}}
-                                    @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
-                                        @if ($i > 1 && $i < $totalPages)
-                                            <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
-                                                <a class="page-link hover-white"
-                                                    href="{{ $utilities->url($i) }}">{{ $i }}</a>
-                                            </li>
-                                        @endif
+                                            <!--end::User Details-->
+                                            <!--begin::Joined-->
+                                            {{-- <td>{{ $user->created_at->format('d/m/Y') }}</td> --}}
+                                            <!--end::Joined-->
+                                            <!--begin::Action=-->
+                                            <td class="text-end">
+                                                <a href="#"
+                                                    class="btn btn-light btn-active-light-primary btn-sm"
+                                                    data-kt-menu-trigger="click"
+                                                    data-kt-menu-placement="bottom-end">Chỉnh role
+                                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+                                                    <span class="svg-icon svg-icon-5 m-0">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="26"
+                                                            height="24" viewBox="0 0 24 24" fill="none">
+                                                            <path
+                                                                d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                                fill="black" />
+                                                        </svg>
+                                                    </span>
+                                                    <!--end::Svg Icon-->
+                                                </a>
+                                                <!--begin::Menu-->
+                                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                                                    data-kt-menu="true">
+                                                    <!--begin::Menu item-->
+                                                    <div class="menu-item px-3">
+    <form action="{{ route('admin.update-role-admin', $user->id) }}" method="POST" style="display:inline;">
+        @csrf
+        @method('PUT')
+        <button type="submit" class="menu-link px-3" style="border:none; background:none; cursor:pointer;">Admin</button>
+    </form>
+</div>
+                                                    <!--end::Menu item-->
+                                                    <!--begin::Menu item-->
+                                                    <div class="menu-item px-3">
+    <form action="{{ route('admin.update-role-user', $user->id) }}" method="POST" style="display:inline;">
+        @csrf
+        @method('PUT')
+        <button type="submit" class="menu-link px-3" style="border:none; background:none; cursor:pointer;">Chủ trọ</button>
+    </form>
+</div>
+                                                    <!--end::Menu item-->
+                                                </div>
+                                                <button class="btn btn-danger btn-sm">Khóa tài khoản</button>
+                                                <!--end::Menu-->
+                                            </td>
+                                            <!--end::Action=-->
+                                        </tr>
                                     @endforeach
+                                    <!--end::Table row-->
+                                </tbody>
+                                <!--end::Table body-->
 
-                                    {{-- Dấu ba chấm cuối --}}
-                                    @if ($currentPage < $totalPages - ($visiblePages - 1))
-                                        <li class="page-item disabled"><span class="page-link">...</span></li>
-                                    @endif
-
-                                    {{-- Trang cuối --}}
-                                    @if ($totalPages > 1)
-                                        <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
-                                            <a class="page-link hover-white"
-                                                href="{{ $utilities->url($totalPages) }}">{{ $totalPages }}</a>
+                            </table>
+                            <!--end::Table-->
+                            <!-- Phân trang -->
+                            <nav class="mt-4">
+                                <ul class="pagination rounded-active justify-content-center">
+                                    {{-- Previous Page Link --}}
+                                    @if ($users->onFirstPage())
+                                        <li class="page-item disabled">
+                                            <span class="page-link"><i class="far fa-angle-double-left"></i></span>
+                                        </li>
+                                    @else
+                                        <li class="page-item">
+                                            <a class="page-link" wire:click="previousPage"
+                                                wire:loading.attr="disabled"><i
+                                                    class="far fa-angle-double-left"></i></a>
                                         </li>
                                     @endif
 
-                                    {{-- Liên kết Trang Tiếp --}}
-                                    <li class="page-item {{ !$utilities->hasMorePages() ? 'disabled' : '' }}">
-                                        <a class="page-link hover-white" href="{{ $utilities->nextPageUrl() }}"
-                                            rel="next" aria-label="@lang('pagination.next')">
-                                            {{-- <i class="far fa-angle-right"></i> --}}
-                                            > {{-- Mũi tên phải --}}
-                                        </a>
-                                    </li>
+                                    {{-- Pagination Elements --}}
+                                    @php
+                                        $maxPages = 5; // Số lượng trang hiển thị tối đa
+                                        $startPage = max(1, $users->currentPage() - floor($maxPages / 2));
+                                        $endPage = min($users->lastPage(), $startPage + $maxPages - 1);
+
+                                        if ($endPage - $startPage < $maxPages - 1) {
+                                            $startPage = max(1, $endPage - $maxPages + 1);
+                                        }
+                                    @endphp
+
+                                    @if ($startPage > 1)
+                                        <li class="page-item">
+                                            <a class="page-link" wire:click="gotoPage(1)"
+                                                wire:loading.attr="disabled">1</a>
+                                        </li>
+                                        @if ($startPage > 2)
+                                            <li class="page-item disabled">
+                                                <span class="page-link">...</span>
+                                            </li>
+                                        @endif
+                                    @endif
+
+                                    @for ($page = $startPage; $page <= $endPage; $page++)
+                                        @if ($page == $users->currentPage())
+                                            <li class="page-item active">
+                                                <span class="page-link">{{ $page }}</span>
+                                            </li>
+                                        @else
+                                            <li class="page-item">
+                                                <a class="page-link" wire:click="gotoPage({{ $page }})"
+                                                    wire:loading.attr="disabled">{{ $page }}</a>
+                                            </li>
+                                        @endif
+                                    @endfor
+
+                                    @if ($endPage < $users->lastPage())
+                                        @if ($endPage < $users->lastPage() - 1)
+                                            <li class="page-item disabled">
+                                                <span class="page-link">...</span>
+                                            </li>
+                                        @endif
+                                        <li class="page-item">
+                                            <a class="page-link" wire:click="gotoPage({{ $users->lastPage() }})"
+                                                wire:loading.attr="disabled">{{ $users->lastPage() }}</a>
+                                        </li>
+                                    @endif
+
+                                    {{-- Next Page Link --}}
+                                    @if ($users->hasMorePages())
+                                        <li class="page-item">
+                                            <a class="page-link" wire:click="nextPage"
+                                                wire:loading.attr="disabled"><i
+                                                    class="far fa-angle-double-right"></i></a>
+                                        </li>
+                                    @else
+                                        <li class="page-item disabled">
+                                            <span class="page-link"><i class="far fa-angle-double-right"></i></span>
+                                        </li>
+                                    @endif
                                 </ul>
                             </nav>
-                        @endif
+                            <div class="text-center mt-2">{{ $users->firstItem() }}-{{ $users->lastItem() }} của
+                                {{ $users->total() }} kết quả</div>
+                        </div>
+                    @else
+                        <div class="text-center mt-4">Không có dữ liệu.</div>
+                    @endif
 
-                        <!--end::Table-->
-                    </div>
                     <!--end::Card body-->
                 </div>
                 <!--end::Card-->
@@ -669,63 +760,5 @@
         </div>
         <!--end::Post-->
     </div>
-@endsection
-@push('styleAdmin')
-    <base href="{{ asset('') }}">
-    {{-- <title>Danh Sách Tiện Ích | TRỌ NHANH</title> --}}
-    <meta name="description"
-        content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue & Laravel versions. Grab your copy now and get life-time updates for free." />
-    <meta name="keywords"
-        content="Metronic, bootstrap, bootstrap 5, Angular, VueJs, React, Laravel, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="utf-8" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title"
-        content="Metronic - Bootstrap 5 HTML, VueJS, React, Angular & Laravel Admin Dashboard Theme" />
-    <meta property="og:url" content="https://keenthemes.com/metronic" />
-    <meta property="og:site_name" content="Keenthemes | Metronic" />
-    <meta name="success" content="{{ session('success') }}">
-    <meta name="error" content="{{ session('error') }}">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
-    <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    {{-- <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" /> --}}
-    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
-    <!--begin::Fonts-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
-    <!--end::Fonts-->
-    <!--begin::Page Vendor Stylesheets(used by this page)-->
-    <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet"
-        type="text/css" />
-    <!--end::Page Vendor Stylesheets-->
-    <!--begin::Global Stylesheets Bundle(used by all pages)-->
-    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <!--end::Global Stylesheets Bundle-->
-@endpush
+</div>
 
-
-@push('scriptsAdmin')
-    <script>
-        var hostUrl = "{{ asset('assets/') }}";
-    </script>
-    <!--begin::Javascript-->
-    <!--begin::Global Javascript Bundle(used by all pages)-->
-    <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
-    <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
-    <!--end::Global Javascript Bundle-->
-    <!--begin::Page Vendors Javascript(used by this page)-->
-    <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-    <!--end::Page Vendors Javascript-->
-    <!--begin::Page Custom Javascript(used by this page)-->
-    <script src="{{ asset('assets/js/custom/apps/user-management/users/list/table.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/apps/user-management/users/list/export-users.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/apps/user-management/users/list/add.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/widgets.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/apps/chat/chat.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/modals/create-app.js') }}"></script>
-    <script src="{{ asset('assets/js/custom/modals/upgrade-plan.js') }}"></script>
-    <!--end::Page Custom Javascript-->
-    <!--end::Javascript-->
-@endpush
