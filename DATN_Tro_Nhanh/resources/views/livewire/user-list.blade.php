@@ -71,12 +71,12 @@
                                                 fill="black" />
                                         </svg>
                                     </span>
-                                    <!--end::Svg Icon-->Filter</button>
+                                    <!--end::Svg Icon-->Lọc</button>
                                 <!--begin::Menu 1-->
                                 <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
                                     <!--begin::Header-->
                                     <div class="px-7 py-5">
-                                        <div class="fs-5 text-dark fw-bolder">Filter Options</div>
+                                        <div class="fs-5 text-dark fw-bolder">Lựa chọn</div>
                                     </div>
                                     <!--end::Header-->
                                     <!--begin::Separator-->

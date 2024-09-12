@@ -24,10 +24,10 @@
                             <!--end::Svg Icon-->
                             <input wire:model.lazy="search" wire:keydown.debounce.300ms="$refresh" type="text"
                                 data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-14"
-                                placeholder="Search zone" />&nbsp;
-                            <div wire:loading class="spinner-border text-primary " role="status">
-                                <span class="sr-only">Đang tải...</span>
-                            </div>
+                                placeholder="Tìm kiếm khu trọ" />&nbsp;
+                                <div wire:loading class="spinner-border text-primary " role="status">
+                                    <span class="sr-only">Đang tải...</span>
+                                </div>
                         </div>
                         <!--end::Search-->
                     </div>
@@ -48,12 +48,12 @@
                                             fill="black" />
                                     </svg>
                                 </span>
-                                <!--end::Svg Icon-->Filter</button>
+                                <!--end::Svg Icon-->Lọc</button>
                             <!--begin::Menu 1-->
                             <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
                                 <!--begin::Header-->
                                 <div class="px-7 py-5">
-                                    <div class="fs-5 text-dark fw-bolder">Filter Options</div>
+                                    <div class="fs-5 text-dark fw-bolder">Lựa chọn</div>
                                 </div>
                                 <!--end::Header-->
                                 <!--begin::Separator-->

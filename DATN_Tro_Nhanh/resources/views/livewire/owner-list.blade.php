@@ -71,12 +71,12 @@
                                                 fill="black" />
                                         </svg>
                                     </span>
-                                    <!--end::Svg Icon-->Filter</button>
+                                    <!--end::Svg Icon-->Lọc</button>
                                 <!--begin::Menu 1-->
                                 <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
                                     <!--begin::Header-->
                                     <div class="px-7 py-5">
-                                        <div class="fs-5 text-dark fw-bolder">Filter Options</div>
+                                        <div class="fs-5 text-dark fw-bolder">Lựa chọn</div>
                                     </div>
                                     <!--end::Header-->
                                     <!--begin::Separator-->
@@ -100,7 +100,7 @@
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
-                                        <div class="mb-10">
+                                        <!-- <div class="mb-10">
                                             <label class="form-label fs-6 fw-bold">Two Step Verification:</label>
                                             <select class="form-select form-select-solid fw-bolder"
                                                 data-kt-select2="true" data-placeholder="Select option"
@@ -109,7 +109,7 @@
                                                 <option></option>
                                                 <option value="Enabled">Enabled</option>
                                             </select>
-                                        </div>
+                                        </div> -->
                                         <!--end::Input group-->
                                         <!--begin::Actions-->
                                         <div class="d-flex justify-content-end">
@@ -147,24 +147,7 @@
                                     <!--end::Svg Icon-->Export</button>
                                 <!--end::Export-->
                                 <!--begin::Add user-->
-                                <a href="{{ route('admin.create-blog') }}">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle=""
-                                        data-bs-target="#kt_modal_add_user">
-                                        {{-- type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user" --}}
-                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
-                                        <span class="svg-icon svg-icon-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none">
-                                                <rect opacity="0.5" x="11.364" y="20.364" width="16"
-                                                    height="2" rx="1"
-                                                    transform="rotate(-90 11.364 20.364)" fill="black" />
-                                                <rect x="4.36396" y="11.364" width="16" height="2"
-                                                    rx="1" fill="black" />
-                                            </svg>
-                                        </span>
-                                        <!--end::Svg Icon-->
-                                        Add Blogs</button>
-                                </a>
+                                
                                 <!--end::Add user-->
                             </div>
                             <!--end::Toolbar-->
