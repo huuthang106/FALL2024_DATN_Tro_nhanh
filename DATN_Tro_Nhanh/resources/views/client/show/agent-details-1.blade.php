@@ -132,12 +132,7 @@
                         <div class="collapse-tabs mb-10">
                             <ul class="nav nav-tabs text-uppercase d-none d-md-inline-flex agent-details-tabs"
                                 role="tablist">
-                                {{-- <li class="nav-item">
-                                    <a href="#all" class="nav-link active shadow-none fs-13" data-toggle="tab"
-                                        role="tab">
-                                        Tất cả ({{ $totalProperties }})
-                                    </a>
-                                </li> --}}
+
                                 <li class="nav-item">
                                     <a href="#sale" class="nav-link active shadow-none fs-13 " data-toggle="tab"
                                         role="tab">
@@ -150,605 +145,44 @@
                                     </a>
                                 </li>
                             </ul>
+                            
                             <div class="tab-content shadow-none pt-7 pb-0 px-6 bg-white">
                                 <div id="collapse-tabs-accordion-01">
-                                    {{-- <div class="tab-pane tab-pane-parent fade show active" id="all"
-                                        role="tabpanel">
+                                    <div class="tab-pane tab-pane-parent fade show active" id="sale" role="tabpanel">
                                         <div class="card border-0 bg-transparent">
-                                            <div class="card-header border-0 d-block d-md-none bg-transparent px-0 py-1"
-                                                id="headingAll-01">
+                                            <div class="card-header border-0 d-block d-md-none bg-transparent p-0" id="headingSale-01">
                                                 <h5 class="mb-0">
-                                                    <button
-                                                        class="btn lh-2 fs-18 bg-white py-1 px-6 mb-4 shadow-none w-100 collapse-parent border"
-                                                        data-toggle="collapse" data-target="#all-collapse-01"
-                                                        aria-expanded="true" aria-controls="all-collapse-01">
-                                                        Tất cả ({{ $totalProperties }})
-                                                    </button>
-                                                </h5>
-                                            </div>
-                                            <div id="all-collapse-01" class="collapse show collapsible"
-                                                aria-labelledby="headingAll-01" data-parent="#collapse-tabs-accordion-01">
-                                                <div class="card-body p-0">
-                                                    <div class="row">
-                                                        @if ($rooms->isEmpty() && $zones->isEmpty())
-                                                            <div class="col-12 text-center py-5">
-                                                                <div class="alert alert-info">
-                                                                    <i class="fas fa-info-circle fs-24"></i>
-                                                                    <p class="mb-0">Chưa có thông tin.</p>
-                                                                </div>
-                                                            </div>
-                                                        @else
-                                                            @if (!$rooms->isEmpty())
-                                                                @foreach ($rooms as $room)
-                                                                    <div class="col-md-6 mb-7">
-                                                                        <div class="card border-0">
-                                                                            <div
-                                                                                class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                                                                @if ($room->images->isNotEmpty())
-                                                                                    @php
-                                                                                        $image = $room->images->first();
-                                                                                    @endphp
-                                                                                    <img src="{{ asset('assets/images/' . $image->filename) }}"
-                                                                                        alt="{{ $room->title }}">
-                                                                                @else
-                                                                                    <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
-                                                                                        alt="{{ $room->title }}">
-                                                                                @endif
-                                                                                <div
-                                                                                    class="card-img-overlay d-flex flex-column">
-                                                                                    <div class="mb-auto">
-                                                                                        <span
-                                                                                            class="badge badge-primary">Phòng</span>
-                                                                                    </div>
-                                                                                    <div class="d-flex hover-image">
-                                                                                        <ul
-                                                                                            class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                                                            <li class="list-inline-item mr-2"
-                                                                                                data-toggle="tooltip"
-                                                                                                title="9 Ảnh">
-                                                                                                <a href="#"
-                                                                                                    class="text-white hover-primary">
-                                                                                                    <i
-                                                                                                        class="far fa-images"></i><span
-                                                                                                        class="pl-1">9</span>
-                                                                                                </a>
-                                                                                            </li>
-                                                                                            <li class="list-inline-item"
-                                                                                                data-toggle="tooltip"
-                                                                                                title="2 Video">
-                                                                                                <a href="#"
-                                                                                                    class="text-white hover-primary">
-                                                                                                    <i
-                                                                                                        class="far fa-play-circle"></i><span
-                                                                                                        class="pl-1">2</span>
-                                                                                                </a>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                        <ul
-                                                                                            class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                                                            <li class="list-inline-item mr-3 h-32"
-                                                                                                data-toggle="tooltip"
-                                                                                                title="Yêu thích">
-                                                                                                <a href="{{ route('client.add.favourite', ['slug' => $room->slug]) }}"
-                                                                                                    class="text-white fs-20 hover-primary">
-                                                                                                    <i
-                                                                                                        class="far fa-heart"></i>
-                                                                                                </a>
-                                                                                            </li>
-                                                                                            <li class="list-inline-item mr-3 h-32"
-                                                                                                data-toggle="tooltip"
-                                                                                                title="So sánh">
-                                                                                                <a href="#"
-                                                                                                    class="text-white fs-20 hover-primary">
-                                                                                                    <i
-                                                                                                        class="fas fa-exchange-alt"></i>
-                                                                                                </a>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="card-body pt-3 px-0 pb-1">
-                                                                                <h2 class="fs-16 mb-1">
-                                                                                    <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
-                                                                                        class="text-dark hover-primary">{{ $room->title }}</a>
-                                                                                </h2>
-                                                                                <p
-                                                                                    class="font-weight-500 text-gray-light mb-0">
-                                                                                    {{ $room->address }}</p>
-                                                                                <p
-                                                                                    class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                                                    {{ number_format($room->price, 0, ',', '.') }}
-                                                                                    VND</p>
-                                                                            </div>
-                                                                            <div
-                                                                                class="card-footer bg-transparent px-0 pb-0 pt-2">
-                                                                                <ul class="list-inline mb-0">
-                                                                                    <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                                        data-toggle="tooltip"
-                                                                                        title="3 Phòng">
-                                                                                        <svg
-                                                                                            class="icon icon-bedroom fs-18 text-primary mr-1">
-                                                                                            <use
-                                                                                                xlink:href="#icon-bedroom">
-                                                                                            </use>
-                                                                                        </svg>
-                                                                                        3 Phòng
-                                                                                    </li>
-                                                                                    <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                                        data-toggle="tooltip"
-                                                                                        title="{{ $room->utility ? $room->utility->bathrooms . ' Phòng tắm' : 'Không có thông tin' }}">
-                                                                                        <svg
-                                                                                            class="icon icon-shower fs-18 text-primary mr-1">
-                                                                                            <use xlink:href="#icon-shower">
-                                                                                            </use>
-                                                                                        </svg>
-                                                                                        {{ $room->utility ? $room->utility->bathrooms : 'Không có thông tin' }}
-                                                                                    </li>
-                                                                                    <li class="list-inline-item text-gray font-weight-500 fs-13"
-                                                                                        data-toggle="tooltip"
-                                                                                        title="{{ $room->acreage }}m²">
-                                                                                        <svg
-                                                                                            class="icon icon-square fs-18 text-primary mr-1">
-                                                                                            <use xlink:href="#icon-square">
-                                                                                            </use>
-                                                                                        </svg>
-                                                                                        {{ $room->acreage }}m²
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                @endforeach
-                                                            @endif
-                                                            @if (!$zones->isEmpty())
-                                                                @foreach ($zones as $zone)
-                                                                    <div class="col-md-6 mb-7">
-                                                                        <div class="card border-0">
-                                                                            <div
-                                                                                class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                                                                <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
-                                                                                    alt="{{ $zone->name }}">
-                                                                                <div
-                                                                                    class="card-img-overlay d-flex flex-column">
-                                                                                    <div class="mb-auto">
-                                                                                        <span
-                                                                                            class="badge badge-indigo">Khu
-                                                                                            trọ</span>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="card-body pt-3 px-0 pb-1">
-                                                                                <h2 class="fs-16 mb-1">
-                                                                                    <a href="{{ route('client.client-details-zone', ['slug' => $zone->slug]) }}"
-                                                                                        class="text-dark hover-primary">{{ $zone->name }}</a>
-                                                                                </h2>
-                                                                                <p
-                                                                                    class="font-weight-500 text-gray-light mb-0">
-                                                                                    {{ $zone->address }}</p>
-                                                                                <p
-                                                                                    class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                                                    {{ $zone->total_rooms }} Phòng</p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                @endforeach
-                                                            @endif
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
-                                    <div class="tab-pane tab-pane-parent fade show active" id="sale"
-                                        role="tabpanel">
-                                        <div class="card border-0 bg-transparent">
-                                            <div class="card-header border-0 d-block d-md-none bg-transparent p-0"
-                                                id="headingSale-01">
-                                                <h5 class="mb-0">
-                                                    <button
-                                                        class="btn lh-2 fs-18 bg-white py-1 px-6 shadow-none w-100 collapse-parent border collapsed mb-4"
-                                                        data-toggle="collapse" data-target="#sale-collapse-01"
-                                                        aria-expanded="true" aria-controls="sale-collapse-01">
+                                                    <button class="btn lh-2 fs-18 bg-white py-1 px-6 shadow-none w-100 collapse-parent border collapsed mb-4" data-toggle="collapse" data-target="#sale-collapse-01" aria-expanded="true" aria-controls="sale-collapse-01">
                                                         Phòng ({{ $totalRooms }})
                                                     </button>
                                                 </h5>
                                             </div>
-                                            <div id="sale-collapse-01" class="collapse show collapsible"
-                                                aria-labelledby="headingSale-01"
-                                                data-parent="#collapse-tabs-accordion-01">
+                                            <div id="sale-collapse-01" class="collapse show collapsible" aria-labelledby="headingSale-01" data-parent="#collapse-tabs-accordion-01">
                                                 <div class="card-body p-0">
-                                                    <div class="row">
-                                                        @if ($rooms->isEmpty())
-                                                            <div class="col-12 text-center py-5">
-                                                                <div class="alert alert-info">
-                                                                    <i class="fas fa-info-circle fs-24"></i>
-                                                                    <p class="mb-0">Người dùng này chưa có phòng trọ nào.
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        @else
-                                                            @foreach ($rooms as $room)
-                                                                <div class="col-md-6 mb-7">
-                                                                    <div class="card border-0">
-                                                                        <div
-                                                                            class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                                                            @if ($room->images->isNotEmpty())
-                                                                                @php
-                                                                                    // Get the first image
-                                                                                    $image = $room->images->first();
-                                                                                @endphp
-                                                                                <img src="{{ asset('assets/images/' . $image->filename) }}"
-                                                                                    alt="{{ $room->title }}">
-                                                                            @else
-                                                                                <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
-                                                                                    alt="{{ $room->title }}">
-                                                                            @endif
-                                                                            {{-- <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
-                                                                            alt="Nhà Siêu Cấp"> --}}
-                                                                            <div
-                                                                                class="card-img-overlay d-flex flex-column">
-                                                                                <div class="mb-auto">
-                                                                                    <span
-                                                                                        class="badge badge-primary">Phòng</span>
-                                                                                </div>
-                                                                                <div class="d-flex hover-image">
-                                                                                    <ul
-                                                                                        class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                                                        <li class="list-inline-item mr-2"
-                                                                                            data-toggle="tooltip"
-                                                                                            title="9 Ảnh">
-                                                                                            <a href="#"
-                                                                                                class="text-white hover-primary">
-                                                                                                <i
-                                                                                                    class="far fa-images"></i><span
-                                                                                                    class="pl-1">9</span>
-                                                                                            </a>
-                                                                                        </li>
-                                                                                        <li class="list-inline-item"
-                                                                                            data-toggle="tooltip"
-                                                                                            title="2 Video">
-                                                                                            <a href="#"
-                                                                                                class="text-white hover-primary">
-                                                                                                <i
-                                                                                                    class="far fa-play-circle"></i><span
-                                                                                                    class="pl-1">2</span>
-                                                                                            </a>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                    <ul
-                                                                                        class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                                                        <li class="list-inline-item mr-3 h-32"
-                                                                                            data-toggle="tooltip"
-                                                                                            title="Yêu thích">
-                                                                                            <a href="{{ route('client.add.favourite', ['slug' => $room->slug]) }}"
-                                                                                                class="text-white fs-20 hover-primary">
-                                                                                                <i
-                                                                                                    class="far fa-heart"></i>
-                                                                                            </a>
-                                                                                        </li>
-                                                                                        <li class="list-inline-item mr-3 h-32"
-                                                                                            data-toggle="tooltip"
-                                                                                            title="So sánh">
-                                                                                            <a href="#"
-                                                                                                class="text-white fs-20 hover-primary">
-                                                                                                <i
-                                                                                                    class="fas fa-exchange-alt"></i>
-                                                                                            </a>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="card-body pt-3 px-0 pb-1">
-                                                                            <h2 class="fs-16 mb-1"><a
-                                                                                    href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
-                                                                                    class="text-dark hover-primary">{{ $room->title }}</a>
-                                                                            </h2>
-                                                                            <p
-                                                                                class="font-weight-500 text-gray-light mb-0">
-                                                                                {{ $room->address }}</p>
-                                                                            <p
-                                                                                class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                                                {{ number_format($room->price, 0, ',', '.') }}
- VND
-                                                                            </p>
-                                                                        </div>
-                                                                        <div
-                                                                            class="card-footer bg-transparent px-0 pb-0 pt-2">
-                                                                            <ul class="list-inline mb-0">
-                                                                                <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                                    data-toggle="tooltip" title="3 Phòng">
-                                                                                    <svg
-                                                                                        class="icon icon-bedroom fs-18 text-primary mr-1">
-                                                                                        <use xlink:href="#icon-bedroom">
-                                                                                        </use>
-                                                                                    </svg>
-                                                                                    3 Phòng
-                                                                                </li>
-                                                                                <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                                    data-toggle="tooltip"
-                                                                                    title="{{ $room->utility ? $room->utility->bathrooms . ' Phòng tắm' : 'Không có thông tin' }}">
-                                                                                    <svg
-                                                                                        class="icon icon-shower fs-18 text-primary mr-1">
-                                                                                        <use xlink:href="#icon-shower">
-                                                                                        </use>
-                                                                                    </svg>
-                                                                                    {{ $room->utility ? $room->utility->bathrooms : 'Không có thông tin' }}
-                                                                                </li>
-                                                                                <li class="list-inline-item text-gray font-weight-500 fs-13"
-                                                                                    data-toggle="tooltip"
-                                                                                    title="{{ $room->acreage }}m²">
-                                                                                    <svg
-                                                                                        class="icon icon-square fs-18 text-primary mr-1">
-                                                                                        <use xlink:href="#icon-square">
-                                                                                        </use>
-                                                                                    </svg>
-                                                                                    {{ $room->acreage }}m²
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            @endforeach
-                                                        @endif
-                                                    </div>
-                                                    @if (!$rooms->isEmpty())
-                                                        <div class="mt-4">
-                                                            <ul class="pagination rounded-active justify-content-center">
-                                                                {{-- Previous Page Link --}}
-                                                                @if ($rooms->onFirstPage())
-                                                                    <li class="page-item disabled">
-                                                                        <span class="page-link"><i
-                                                                                class="far fa-angle-double-left"></i></span>
-                                                                    </li>
-                                                                @else
-                                                                    <li class="page-item">
-                                                                        <a class="page-link"
-                                                                            href="{{ $rooms->previousPageUrl() }}"><i
-                                                                                class="far fa-angle-double-left"></i></a>
-                                                                    </li>
-                                                                @endif
-
-                                                                {{-- Pagination Elements --}}
-                                                                @foreach ($rooms->getUrlRange(1, $rooms->lastPage()) as $page => $url)
-                                                                    @if ($page == $rooms->currentPage())
-                                                                        <li class="page-item active">
-                                                                            <span
-                                                                                class="page-link">{{ $page }}</span>
-                                                                        </li>
-                                                                    @else
-                                                                        <li class="page-item">
-                                                                            <a class="page-link"
-                                                                                href="{{ $url }}">{{ $page }}</a>
-                                                                        </li>
-                                                                    @endif
-                                                                @endforeach
-
-                                                                {{-- Next Page Link --}}
-                                                                @if ($rooms->hasMorePages())
-                                                                    <li class="page-item">
-                                                                        <a class="page-link"
-                                                                            href="{{ $rooms->nextPageUrl() }}"><i
-                                                                                class="far fa-angle-double-right"></i></a>
-                                                                    </li>
-                                                                @else
-                                                                    <li class="page-item disabled">
-                                                                        <span class="page-link"><i
-                                                                                class="far fa-angle-double-right"></i></span>
-                                                                    </li>
-                                                                @endif
-                                                            </ul>
-                                                        </div>
-                                                    @endif
+                                                    @livewire('rooms-tab', ['userId' => $user->id])
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane tab-pane-parent fade" id="rent" role="tabpanel">
                                         <div class="card border-0 bg-transparent">
-                                            <div class="card-header border-0 d-block d-md-none bg-transparent p-0"
-                                                id="headingRent-01">
+                                            <div class="card-header border-0 d-block d-md-none bg-transparent p-0" id="headingRent-01">
                                                 <h5 class="mb-0">
-                                                    <button
-                                                        class="btn lh-2 fs-18 bg-white py-1 px-6 shadow-none w-100 collapse-parent border collapsed mb-4"
-                                                        data-toggle="collapse" data-target="#rent-collapse-01"
-                                                        aria-expanded="true" aria-controls="rent-collapse-01">
+                                                    <button class="btn lh-2 fs-18 bg-white py-1 px-6 shadow-none w-100 collapse-parent border collapsed mb-4" data-toggle="collapse" data-target="#rent-collapse-01" aria-expanded="true" aria-controls="rent-collapse-01">
                                                         Khu trọ ({{ $totalZones }})
                                                     </button>
                                                 </h5>
                                             </div>
-                                            <div id="rent-collapse-01" class="collapse collapsible"
-                                                aria-labelledby="headingRent-01"
-                                                data-parent="#collapse-tabs-accordion-01">
+                                            <div id="rent-collapse-01" class="collapse collapsible" aria-labelledby="headingRent-01" data-parent="#collapse-tabs-accordion-01">
                                                 <div class="card-body p-0">
-                                                    <div class="row">
-                                                        @if ($zones->isEmpty())
-                                                            <div class="col-12 text-center py-5">
-                                                                <div class="alert alert-info">
-                                                                    <i class="fas fa-info-circle fs-24"></i>
-                                                                    <p class="mb-0">Người dùng này chưa có khu vực nào.
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        @else
-                                                            @foreach ($zones as $zone)
-                                                                <div class="col-md-6 mb-7">
-                                                                    <div class="card border-0">
-                                                                        <div
-                                                                            class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                                                            {{-- @if ($zone->images->isNotEmpty())
-                                                                                @php
-                                                                                    // Get the first image
-                                                                                    $image = $zone->images->first();
-                                                                                @endphp
-                                                                                <img src="{{ asset('assets/images/' . $image->filename) }}"
-                                                                                    alt="{{ $zone->title }}">
-                                                                            @else
-                                                                                <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                                                                    alt="{{ $zone->title }}">
-                                                                            @endif --}}
-                                                                            <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
-                                                                                alt="{{ $zone->name }}">
-                                                                            <div
-                                                                                class="card-img-overlay d-flex flex-column">
-                                                                                <div class="mb-auto">
-                                                                                    <span class="badge badge-indigo">Khu
-                                                                                        trọ</span>
-                                                                                </div>
-                                                                                {{-- <div class="d-flex hover-image">
-                                                                                    <ul
-                                                                                        class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                                                        <li class="list-inline-item mr-2"
-                                                                                            data-toggle="tooltip"
-                                                                                            title="9 Ảnh">
-                                                                                            <a href="#"
-                                                                                                class="text-white hover-primary">
-                                                                                                <i
-                                                                                                    class="far fa-images"></i><span
-                                                                                                    class="pl-1">9</span>
-                                                                                            </a>
-                                                                                        </li>
-                                                                                        <li class="list-inline-item"
-                                                                                            data-toggle="tooltip"
-                                                                                            title="2 Video">
-                                                                                            <a href="#"
-                                                                                                class="text-white hover-primary">
-                                                                                                <i
-                                                                                                    class="far fa-play-circle"></i><span
-                                                                                                    class="pl-1">2</span>
-                                                                                            </a>
-                                                                                        </li>
-                                                                                    </ul>
-                                                                                    <ul
-                                                                                    class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                                                    <li class="list-inline-item mr-3 h-32"
-                                                                                        data-toggle="tooltip"
-                                                                                        title="Yêu thích">
-                                                                                        <a href="{{ route('client.add.favourite', ['slug' => $zone->slug]) }}"
-                                                                                            class="text-white fs-20 hover-primary">
-                                                                                            <i
-                                                                                                class="far fa-heart"></i>
-                                                                                        </a>
-                                                                                    </li>
-                                                                                    <li class="list-inline-item mr-3 h-32"
-                                                                                        data-toggle="tooltip"
-                                                                                        title="So sánh">
-                                                                                        <a href="#"
-                                                                                            class="text-white fs-20 hover-primary">
-                                                                                            <i
-                                                                                                class="fas fa-exchange-alt"></i>
-                                                                                        </a>
-                                                                                    </li>
-                                                                                </ul>
-                                                                                </div> --}}
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="card-body pt-3 px-0 pb-1">
-                                                                            <h2 class="fs-16 mb-1"><a
-                                                                                    href="{{ route('client.client-details-zone', ['slug' => $zone->slug]) }}"
-                                                                                    class="text-dark hover-primary">{{ $zone->name }}</a>
-                                                                            </h2>
-                                                                            <p
-                                                                                class="font-weight-500 text-gray-light mb-0">
-                                                                                {{ $zone->address }}</p>
-                                                                            <p
-                                                                                class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                                                {{ $zone->total_rooms }} Phòng
-                                                                            </p>
-                                                                        </div>
-                                                                        {{-- <div
-                                                                            class="card-footer bg-transparent px-0 pb-0 pt-2">
-                                                                            <ul class="list-inline mb-0">
-                                                                                <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                                    data-toggle="tooltip" title="3 Phòng">
-                                                                                    <svg
-                                                                                        class="icon icon-bedroom fs-18 text-primary mr-1">
-                                                                                        <use xlink:href="#icon-bedroom">
-                                                                                        </use>
-                                                                                    </svg>
-                                                                                    3 Phòng
-                                                                                </li>
-                                                                                <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                                                                    data-toggle="tooltip"
-                                                                                    title="3 Phòng tắm">
-                                                                                    <svg
-                                                                                        class="icon icon-shower fs-18 text-primary mr-1">
-                                                                                        <use xlink:href="#icon-shower">
-                                                                                        </use>
-                                                                                    </svg>
-                                                                                    3 Phòng tắm
-                                                                                </li>
-                                                                                <li class="list-inline-item text-gray font-weight-500 fs-13"
-                                                                                    data-toggle="tooltip" title="2300m²">
-                                                                                    <svg
-                                                                                        class="icon icon-square fs-18 text-primary mr-1">
-                                                                                        <use xlink:href="#icon-square">
-                                                                                        </use>
-                                                                                    </svg>
-                                                                                    2300m²
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div> --}}
-                                                                    </div>
-                                                                </div>
-                                                            @endforeach
-                                                        @endif
-                                                    </div>
-                                                    @if (!$zones->isEmpty())
-                                                        <div class="mt-4">
-                                                            <ul class="pagination rounded-active justify-content-center">
-                                                                {{-- Previous Page Link --}}
-                                                                @if ($zones->onFirstPage())
-                                                                    <li class="page-item disabled">
-                                                                        <span class="page-link"><i
-                                                                                class="far fa-angle-double-left"></i></span>
-                                                                    </li>
-                                                                @else
-                                                                    <li class="page-item">
-                                                                        <a class="page-link"
-                                                                            href="{{ $zones->previousPageUrl() }}"><i
-                                                                                class="far fa-angle-double-left"></i></a>
-                                                                    </li>
-                                                                @endif
-
-                                                                {{-- Pagination Elements --}}
-                                                                @foreach ($zones->getUrlRange(1, $zones->lastPage()) as $page => $url)
-                                                                    @if ($page == $zones->currentPage())
-                                                                        <li class="page-item active">
-                                                                            <span
-                                                                                class="page-link">{{ $page }}</span>
-                                                                        </li>
-                                                                    @else
-                                                                        <li class="page-item">
-                                                                            <a class="page-link"
-                                                                                href="{{ $url }}">{{ $page }}</a>
-                                                                        </li>
-                                                                    @endif
-                                                                @endforeach
-
-                                                                {{-- Next Page Link --}}
-                                                                @if ($zones->hasMorePages())
-                                                                    <li class="page-item">
-                                                                        <a class="page-link"
-                                                                            href="{{ $zones->nextPageUrl() }}"><i
-                                                                                class="far fa-angle-double-right"></i></a>
-                                                                    </li>
-                                                                @else
-                                                                    <li class="page-item disabled">
-                                                                        <span class="page-link"><i
-                                                                                class="far fa-angle-double-right"></i></span>
-                                                                    </li>
-                                                                @endif
-                                                            </ul>
-                                                        </div>
-                                                    @endif
+                                                    @livewire('zones-tab', ['userId' => $user->id])
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                       
                         </div>
 
                         <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
@@ -1151,4 +585,17 @@
         var userIsLoggedIn = @json(auth()->check());
     </script>
     <script src="{{ asset('assets/js/client/ajax-follow.js') }}"></script>
+    <script>
+        document.addEventListener('livewire:load', function () {
+            Livewire.hook('message.processed', (message, component) => {
+                if (message.updateQueue[0].payload.event === 'gotoPage') {
+                    window.scrollTo({
+                        top: document.querySelector('.tab-content').offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>  
+    @livewireScripts
 @endpush
