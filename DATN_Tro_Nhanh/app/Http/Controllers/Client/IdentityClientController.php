@@ -16,6 +16,7 @@ class IdentityClientController extends Controller
 
     public function storeData(Request $request)
 {
+    // dd($request->all());
     try {
         $validatedData = $request->validate([
             'cmnd_number' => 'required|string',
@@ -69,6 +70,7 @@ class IdentityClientController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         // Kiểm tra xem registrationService có được inject thành công không
         if ($this->IdentityService) {
             // Nếu có, gọi phương thức handleRegistration từ service

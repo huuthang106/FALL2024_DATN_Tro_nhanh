@@ -271,7 +271,7 @@
                                     <ul class="list-group list-group-flush list-group-no-border">
                                         <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                             <a class="text-heading lh-1 sidebar-link"
-                                                href="{{ route('owners.invoice-bill') }}">Danh sách hóa đơn</a>
+                                                href="{{ route('owners.invoice-bill') }}">Hóa Đơn Đã Tạo</a>
                                         </li>
                                         <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                             <a class="text-heading lh-1 sidebar-link"

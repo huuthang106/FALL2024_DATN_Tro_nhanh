@@ -92,25 +92,44 @@
                                                                 </button>
                                                             </div>
                                                         </div> --}}
-                                                        <div class="col-12 mb-3">
-                                                            <h5 class="card-title">3. Quay video khuôn mặt</h5>
-                                                            <div class="btn-wrapper">
-                                                                <input type="file" class="custom-file-input" id="FileFace" name="FileFace" accept="video/*" required>
-                                                                <button type="button" class="btn btn-primary btn-custom" onclick="openVideoModal()"><i class="fal fa-camera"></i>
-                                                                    Quay video
-                                                                </button>
-                                                            </div>
-                                                            <div class="text-center mb-2" id="videoDisplay" style="display: none;"> <!-- Phần hiển thị video -->
-                                                                <video id="uploadedVideo" width="100%" class="img-large m-0" style="border: 1px solid #ccc; border-radius: 5px;" muted></video> <!-- Video đã quay -->
-                                                            </div>
-                                                        </div>
+                                                <div class="col-12 mb-3">
+                                                    <h5 class="card-title">3. Quay video khuôn mặt</h5>
+                                                    <div class="btn-wrapper">
+                                                        <input type="file" class="custom-file-input" id="FileFace"
+                                                            name="FileFace" required>
+                                                        <button type="button" class="btn btn-primary btn-custom"
+                                                            onclick="openVideoModal()">
+                                                            <i class="fal fa-camera"></i> Quay video
+                                                        </button>
+                                                    </div>
+                                                    <div class="text-center mb-2" id="videoDisplay" style="display: none;">
+                                                        <video id="uploadedVideo" width="100%" class="img-large m-0"
+                                                            style="border: 1px solid #ccc; border-radius: 5px;"
+                                                            muted></video>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </form>
-
+                        <form id="upload-form" method="POST" action="{{ route('client.dang-kyekyc') }}" enctype="multipart/form-data">
+                            @csrf
+                            <!-- Tệp video -->
+                            <label for="CCCDMT">Chọn video:</label>
+                            <input type="file" name="CCCDMT" id="CCCDMT" accept="video/mp4, video/webm, video/ogg" required>
+                            <br><br>
+                    
+                            <!-- Tệp CMND (hoặc tệp khác) -->
+                            <label for="CCCDMS">Chọn tệp CMND:</label>
+                            <input type="file" name="CCCDMS" id="CCCDMS" accept="video/mp4, video/webm, video/ogg" required>
+                            <br><br>
+                    
+                            <!-- Nút gửi -->
+                            <button type="submit">Gửi</button>
+                        </form>
                         <!-- Modal Chụp ảnh -->
                         <div class="modal fade" id="cameraModal" tabindex="-1" role="dialog"
                             aria-labelledby="cameraModalLabel" aria-hidden="true">
@@ -331,7 +350,7 @@
     <script src="{{ asset('assets/vendors/jparallax/TweenMax.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
     <script src="{{ asset('assets/js/theme.js') }}"></script>
 
     <script src="{{ asset('assets/js/load-file.js') }}"></script>
@@ -342,4 +361,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{{ asset('assets/js/api-update-zone-nht.js') }}"></script>
     <script src="{{ asset('assets/js/callApi.js') }}"></script>
+    <!-- Thêm SweetAlert2 từ CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 @endpush
