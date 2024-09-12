@@ -40,31 +40,31 @@
                         </li>
                     @else
                         <li class="page-item">
-                            <a class="page-link" wire:click="gotoPage(1)" wire:loading.attr="disabled"><i class="far fa-angle-double-left"></i></a>
+                            <a class="page-link" wire:click="gotoPage(1, 'khu-tro')" wire:loading.attr="disabled"><i class="far fa-angle-double-left"></i></a>
                         </li>
                         <li class="page-item">
-                            <a class="page-link" wire:click="previousPage" wire:loading.attr="disabled"><i class="far fa-angle-left"></i></a>
+                            <a class="page-link" wire:click="previousPage('khu-tro')" wire:loading.attr="disabled"><i class="far fa-angle-left"></i></a>
                         </li>
                     @endif
-
+                
                     {{-- Pagination Elements --}}
                     @foreach (range(1, $zones->lastPage()) as $page)
                         @if ($page == $zones->currentPage())
                             <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
                         @elseif ($page == 1 || $page == $zones->lastPage() || ($page >= $zones->currentPage() - 1 && $page <= $zones->currentPage() + 1))
-                            <li class="page-item"><a class="page-link" wire:click="gotoPage({{ $page }})" wire:loading.attr="disabled">{{ $page }}</a></li>
+                            <li class="page-item"><a class="page-link" wire:click="gotoPage({{ $page }}, 'khu-tro')" wire:loading.attr="disabled">{{ $page }}</a></li>
                         @elseif ($page == $zones->currentPage() - 2 || $page == $zones->currentPage() + 2)
                             <li class="page-item disabled"><span class="page-link">...</span></li>
                         @endif
                     @endforeach
-
+                
                     {{-- Next Page Link --}}
                     @if ($zones->hasMorePages())
                         <li class="page-item">
-                            <a class="page-link" wire:click="nextPage" wire:loading.attr="disabled"><i class="far fa-angle-right"></i></a>
+                            <a class="page-link" wire:click="nextPage('khu-tro')" wire:loading.attr="disabled"><i class="far fa-angle-right"></i></a>
                         </li>
                         <li class="page-item">
-                            <a class="page-link" wire:click="gotoPage({{ $zones->lastPage() }})" wire:loading.attr="disabled"><i class="far fa-angle-double-right"></i></a>
+                            <a class="page-link" wire:click="gotoPage({{ $zones->lastPage() }}, 'khu-tro')" wire:loading.attr="disabled"><i class="far fa-angle-double-right"></i></a>
                         </li>
                     @else
                         <li class="page-item disabled">

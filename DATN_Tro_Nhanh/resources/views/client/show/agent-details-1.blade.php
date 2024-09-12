@@ -919,17 +919,6 @@
         var userIsLoggedIn = @json(auth()->check());
     </script>
     <script src="{{ asset('assets/js/client/ajax-follow.js') }}"></script>
-    <script>
-        document.addEventListener('livewire:load', function () {
-            Livewire.hook('message.processed', (message, component) => {
-                if (message.updateQueue[0].payload.event === 'gotoPage') {
-                    window.scrollTo({
-                        top: document.querySelector('.tab-content').offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    </script>  
+   
     @livewireScripts
 @endpush

@@ -95,31 +95,31 @@
                     </li>
                 @else
                     <li class="page-item">
-                        <a class="page-link" wire:click="gotoPage(1)" wire:loading.attr="disabled"><i class="far fa-angle-double-left"></i></a>
+                        <a class="page-link" wire:click="gotoPage(1, 'phong')" wire:loading.attr="disabled"><i class="far fa-angle-double-left"></i></a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" wire:click="previousPage" wire:loading.attr="disabled"><i class="far fa-angle-left"></i></a>
+                        <a class="page-link" wire:click="previousPage('phong')" wire:loading.attr="disabled"><i class="far fa-angle-left"></i></a>
                     </li>
                 @endif
-
+            
                 {{-- Pagination Elements --}}
                 @foreach (range(1, $rooms->lastPage()) as $page)
                     @if ($page == $rooms->currentPage())
                         <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
                     @elseif ($page == 1 || $page == $rooms->lastPage() || ($page >= $rooms->currentPage() - 1 && $page <= $rooms->currentPage() + 1))
-                        <li class="page-item"><a class="page-link" wire:click="gotoPage({{ $page }})" wire:loading.attr="disabled">{{ $page }}</a></li>
+                        <li class="page-item"><a class="page-link" wire:click="gotoPage({{ $page }}, 'phong')" wire:loading.attr="disabled">{{ $page }}</a></li>
                     @elseif ($page == $rooms->currentPage() - 2 || $page == $rooms->currentPage() + 2)
                         <li class="page-item disabled"><span class="page-link">...</span></li>
                     @endif
                 @endforeach
-
+            
                 {{-- Next Page Link --}}
                 @if ($rooms->hasMorePages())
                     <li class="page-item">
-                        <a class="page-link" wire:click="nextPage" wire:loading.attr="disabled"><i class="far fa-angle-right"></i></a>
+                        <a class="page-link" wire:click="nextPage('phong')" wire:loading.attr="disabled"><i class="far fa-angle-right"></i></a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" wire:click="gotoPage({{ $rooms->lastPage() }})" wire:loading.attr="disabled"><i class="far fa-angle-double-right"></i></a>
+                        <a class="page-link" wire:click="gotoPage({{ $rooms->lastPage() }}, 'phong')" wire:loading.attr="disabled"><i class="far fa-angle-double-right"></i></a>
                     </li>
                 @else
                     <li class="page-item disabled">

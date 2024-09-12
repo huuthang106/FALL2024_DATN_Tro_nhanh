@@ -11,9 +11,7 @@ class ZonesTab extends Component
     use WithPagination;
 
     public $userId;
-    public $queryString = [
-        'page' => ['except' => 1, 'as' => 'trang'],
-    ];
+  
 
     public function mount($userId)
     {
@@ -22,7 +20,7 @@ class ZonesTab extends Component
 
     public function render()
     {
-        $zones = Zone::where('user_id', $this->userId)->paginate(6);
+        $zones = Zone::where('user_id', $this->userId)->paginate(6, ['*'], 'khu-tro');
         return view('livewire.zones-tab', ['zones' => $zones]);
     }
 }
