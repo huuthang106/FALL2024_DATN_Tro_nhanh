@@ -24,4 +24,14 @@ class WatchlistOwnersController extends Controller
 
         }
     }
+
+    public function is_following(){
+        if(Auth::check()){
+            $user_id= Auth::id();
+        $myFollowings = $this->watchListOwner->myFollowers($user_id, self::limit);
+        // dd($myFollowings);
+        return view('owners.show.my_followers',compact('myFollowings'));
+
+        }
+    }
 }

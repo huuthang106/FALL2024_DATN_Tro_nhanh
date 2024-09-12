@@ -17,86 +17,86 @@
             <div class="row">
                 <div class="col-lg-6">
                     <!-- Form chính -->
-                    <form id="upload-form" method="POST" action="{{ route('client.dang-kyekyc') }}"
-                        enctype="multipart/form-data">
-                        @csrf
-                        <div class="row mb-4">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <!-- Ảnh CMT/CCCD mặt trước -->
-                                            <div class="col-12 mb-3">
-                                                <h5 class="card-title">1. Ảnh CMT/CCCD mặt trước</h5>
-                                                <div class="text-center mb-2">
-                                                    <img id="cccd-mt" src="" alt="" class="img-large">
-                                                </div>
-                                                <div class="btn-wrapper">
-                                                    <input type="file" class="custom-file-input" id="CCCDMT"
-                                                        name="CCCDMT" required>
-                                                    <label class="btn btn-secondary btn-custom" for="CCCDMT">
-                                                        <span class="d-inline-block mr-1"><i
-                                                                class="fal fa-cloud-upload"></i></span>
-                                                        Chọn Ảnh
-                                                    </label>
+                                <form id="upload-form" method="POST" action="{{ route('client.dang-kyekyc') }}"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="row mb-4">
+                                        <div class="col-lg-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <!-- Ảnh CMT/CCCD mặt trước -->
+                                                        <div class="col-12 mb-3">
+                                                            <h5 class="card-title">1. Ảnh CMT/CCCD mặt trước</h5>
+                                                            <div class="text-center mb-2">
+                                                                <img id="cccd-mt" src="" alt="" class="img-large">
+                                                            </div>
+                                                            <div class="btn-wrapper">
+                                                                <input type="file" class="custom-file-input" id="CCCDMT"
+                                                                    name="CCCDMT" required>
+                                                                <label class="btn btn-secondary btn-custom" for="CCCDMT">
+                                                                    <span class="d-inline-block mr-1"><i
+                                                                            class="fal fa-cloud-upload"></i></span>
+                                                                    Chọn Ảnh
+                                                                </label>
 
-                                                    <button type="button" class="btn btn-primary btn-custom"
-                                                        onclick="openCameraModal('cccd-mt', 'CCCDMT')"><i class="fal fa-camera"></i>
+                                                                <button type="button" class="btn btn-primary btn-custom"
+                                                                    onclick="openCameraModal('cccd-mt', 'CCCDMT')"><i class="fal fa-camera"></i>
 
-                                                        Chụp ảnh
-                                                    </button>
-                                                </div>
-                                            </div>
+                                                                    Chụp ảnh
+                                                                </button>
+                                                            </div>
+                                                        </div>
 
-                                            <!-- Ảnh CMT/CCCD mặt sau -->
-                                            <div class="col-12 mb-3">
-                                                <h5 class="card-title">2. Ảnh CMT/CCCD mặt sau</h5>
-                                                <div class="text-center mb-2">
-                                                    <img id="cccd-ms" src="" alt="" class="img-large">
-                                                </div>
-                                                <div class="btn-wrapper">
-                                                    <input type="file" class="custom-file-input" id="CCCDMS"
-                                                        name="CCCDMS" required>
-                                                    <label class="btn btn-secondary btn-custom" for="CCCDMS">
-                                                        <span class="d-inline-block mr-1"><i
-                                                                class="fal fa-cloud-upload"></i></span>
-                                                        Chọn Ảnh
-                                                    </label>
-                                                    <button type="button" class="btn btn-primary btn-custom"
-                                                        onclick="openCameraModal('cccd-ms', 'CCCDMS')"><i class="fal fa-camera"></i>
+                                                        <!-- Ảnh CMT/CCCD mặt sau -->
+                                                        <div class="col-12 mb-3">
+                                                            <h5 class="card-title">2. Ảnh CMT/CCCD mặt sau</h5>
+                                                            <div class="text-center mb-2">
+                                                                <img id="cccd-ms" src="" alt="" class="img-large">
+                                                            </div>
+                                                            <div class="btn-wrapper">
+                                                                <input type="file" class="custom-file-input" id="CCCDMS"
+                                                                    name="CCCDMS" required>
+                                                                <label class="btn btn-secondary btn-custom" for="CCCDMS">
+                                                                    <span class="d-inline-block mr-1"><i
+                                                                            class="fal fa-cloud-upload"></i></span>
+                                                                    Chọn Ảnh
+                                                                </label>
+                                                                    <button type="button" class="btn btn-primary btn-custom"
+                                                                        onclick="openCameraModal('cccd-ms', 'CCCDMS')"><i class="fal fa-camera"></i>
 
-                                                        Chụp ảnh
-                                                    </button>
-                                                </div>
-                                            </div>
+                                                                        Chụp ảnh
+                                                                    </button>
+                                                            </div>
+                                                        </div>
 
-                                            <!-- Ảnh khuôn mặt -->
-                                            <div class="col-12 mb-3">
-                                                <h5 class="card-title">3. Ảnh khuôn mặt</h5>
-                                                <div class="text-center mb-2">
-                                                    <img id="face" src="" alt="" class="img-large">
-                                                </div>
-                                                <div class="btn-wrapper">
-                                                    <input type="file" class="custom-file-input" id="FileFace"
-                                                        name="FileFace" required>
-                                                    {{-- <label class="btn btn-secondary btn-custom" for="FileFace">
-                                                        <span class="d-inline-block mr-1"><i
-                                                                class="fal fa-cloud-upload"></i></span>
-                                                        Chọn Ảnh
-                                                    </label> --}}
-                                                    <button type="button" class="btn btn-primary btn-custom"
-                                                        onclick="openCameraModal('face', 'FileFace')"><i class="fal fa-camera"></i>
+                                                        <!-- Ảnh khuôn mặt -->
+                                                        <div class="col-12 mb-3">
+                                                            <h5 class="card-title">3. Ảnh khuôn mặt</h5>
+                                                            <div class="text-center mb-2">
+                                                                <img id="face" src="" alt="" class="img-large">
+                                                            </div>
+                                                            <div class="btn-wrapper">
+                                                                <input type="file" class="custom-file-input" id="FileFace"
+                                                                    name="FileFace" required>
+                                                                {{-- <label class="btn btn-secondary btn-custom" for="FileFace">
+                                                                    <span class="d-inline-block mr-1"><i
+                                                                            class="fal fa-cloud-upload"></i></span>
+                                                                    Chọn Ảnh
+                                                                </label> --}}
+                                                                <button type="button" class="btn btn-primary btn-custom"
+                                                                    onclick="openCameraModal('face', 'FileFace')"><i class="fal fa-camera"></i>
 
-                                                        Chụp ảnh
-                                                    </button>
+                                                                    Chụp ảnh
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                                </form>
 
                     <!-- Modal Chụp ảnh -->
                     <div class="modal fade" id="cameraModal" tabindex="-1" role="dialog"

@@ -16,8 +16,12 @@ class Watchlist extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function followe()
+    // public function followe()
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
+    public function followers() // {{ edit_1 }}
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'follower'); // {{ edit_2 }}
     }
 }

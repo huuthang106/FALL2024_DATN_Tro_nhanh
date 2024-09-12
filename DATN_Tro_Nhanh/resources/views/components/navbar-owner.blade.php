@@ -212,32 +212,8 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                    <a href="#collapseLike"
-                                        class="text-heading lh-1 sidebar-link d-flex align-items-center"
-                                        onclick="toggleDropdown('collapseLike'); return false;">
-                                        <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                            <svg class="icon icon-my-properties">
-                                                <use xlink:href="#icon-my-properties"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="sidebar-item-text">Theo dõi</span>
-                                        <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
-                                    </a>
-                                </li>
-                                <div class="collapse-content" id="collapseLike">
-                                    <div class="card card-body border-0 bg-transparent py-0 pl-6">
-                                        <ul class="list-group list-group-flush list-group-no-border">
-                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                                <a class="text-heading lh-1 sidebar-link"
-                                                    href="{{ route('owners.watch-list') }}">Danh sách theo dõi</a>
-                                            </li>
-                                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                                <a class="text-heading lh-1 sidebar-link" href="#">Thùng rác</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                              
+                               
 
 
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
@@ -254,20 +230,8 @@
                                     </a>
                                 </li>
 
-                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                    <a href="#"
-                                        class="text-heading lh-1 sidebar-link d-flex align-items-center">
-                                        <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                            <svg class="icon icon-save-search">
-                                                <use xlink:href="#icon-save-search"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="sidebar-item-text">Save Search</span>
-                                        <span
-                                            class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">5</span>
-                                    </a>
-                                </li>
-                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                               
+                                {{-- <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                     <a href="#collapseCmt"
                                         class="text-heading lh-1 sidebar-link d-flex align-items-center"
                                         onclick="toggleDropdown('collapseCmt'); return false;">
@@ -279,7 +243,7 @@
                                         <span class="sidebar-item-text">Đánh giá</span>
                                         <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
                                     </a>
-                                </li>
+                                </li> --}}
                                 <div class="collapse-content" id="collapseCmt">
                                     <div class="card card-body border-0 bg-transparent py-0 pl-6">
                                         <ul class="list-group list-group-flush list-group-no-border">
@@ -327,11 +291,38 @@
                             </div>
                         </li>
                     @endif
-
+                  
                     <li class="list-group-item pt-6 pb-4">
                         <h5 class="fs-13 letter-spacing-087 text-muted mb-3 text-uppercase px-3">QUẢN LÝ TÀI KHOẢN
                         </h5>
                         <ul class="list-group list-group-no-border rounded-lg">
+                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                <a href="#collapseLike"
+                                    class="text-heading lh-1 sidebar-link d-flex align-items-center"
+                                    onclick="toggleDropdown('collapseLike'); return false;">
+                                    <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
+                                        <svg class="icon icon-my-properties">
+                                            <use xlink:href="#icon-my-properties"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="sidebar-item-text">Follower</span>
+                                    <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
+                                </a>
+                            </li>
+                            <div class="collapse-content" id="collapseLike">
+                                <div class="card card-body border-0 bg-transparent py-0 pl-6">
+                                    <ul class="list-group list-group-flush list-group-no-border">
+                                        <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                            <a class="text-heading lh-1 sidebar-link"
+                                                href="{{ route('owners.is-following') }}">Follower</a>
+                                        </li>
+                                        <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                            <a class="text-heading lh-1 sidebar-link"
+                                                href="{{ route('owners.watch-list') }}">Đang follower</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                 <a  href="{{ route('owners.application-form') }}"
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center">

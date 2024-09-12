@@ -79,28 +79,7 @@ class IdentityService
                                 $name = $responseData['name'];
                                 $gender = ($responseData['sex'] == 'NAM') ? 1 : 2;
                                 $identification_number = $responseData['id'];
-
-
-                                // Lưu hình ảnh
                                 event(new ImagesUploaded($request));
-                                // // Tạo tên file với timestamp để đảm bảo tính duy nhất
-                                // $cccdmtFilename = 'cccdmt_' . time() . '.' . $request->file('CCCDMT')->extension();
-                                // $cccdmsFilename = 'cccdms_' . time() . '.' . $request->file('CCCDMS')->extension();
-                                // $fileFaceFilename = 'fileface_' . time() . '.' . $request->file('FileFace')->extension();
-
-                                // // Di chuyển file vào thư mục public/assets/images/register_owner
-                                // $cccdmtPath = $request->file('CCCDMT')->move(public_path('assets/images/register_owner'), $cccdmtFilename);
-                                // $cccdmsPath = $request->file('CCCDMS')->move(public_path('assets/images/register_owner'), $cccdmsFilename);
-                                // $fileFacePath = $request->file('FileFace')->move(public_path('assets/images/register_owner'), $fileFaceFilename);
-
-                                // // Lưu tên file vào session
-                                // session()->put('image_paths', [
-                                //     'cccdmt_filename' => $cccdmtFilename,
-                                //     'cccdms_filename' => $cccdmsFilename,
-                                //     'fileface_filename' => $fileFaceFilename,
-                                // ]);
-                                // Lưu hình nè 
-
                                 $data = [
                                     'name' => $name,
                                     'identification_number' => $identification_number,
