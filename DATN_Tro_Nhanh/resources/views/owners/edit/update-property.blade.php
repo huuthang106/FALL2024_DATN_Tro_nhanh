@@ -314,13 +314,20 @@
                                                                         <div class="text-danger">{{ $message }}</div>
                                                                     @enderror
                                                                     <div id="imagePreview" class="text-center mt-4">
-                                                                        @foreach ($room->images as $image)
-                                                                            <div class="image-preview"
-                                                                                data-id="{{ $image->id }}">
-                                                                                <img src="{{ asset('assets/images/' . $image->filename) }}"
-                                                                                    alt="Image">
-                                                                            </div>
-                                                                        @endforeach
+                                                                        @if(is_array($images) || is_object($images))
+                                                                            @foreach ($images as $image)
+                                                                                <div class="image-preview position-relative" data-id="{{ $image->id }}">
+                                                                                    <img src="{{ asset('assets/images/' . $image->filename) }}" alt="Image" class="img-thumbnail">
+                                                                                    
+                                                                                </div>
+                                                                            @endforeach
+                                                                        @else
+                                                                            <p>Không có hình ảnh nào.</p>
+                                                                        @endif
+                                                                    </div>
+                                                                    <div class="text-right">
+                                                                        <a href="{{ route('owners.room-images', ['id' => $room->id]) }}" class="btn btn-secondary">Quản lý ảnh</a>
+                                                                       
                                                                     </div>
                                                                 </div>
                                                                 @error('images')
@@ -996,4 +1003,39 @@
     <script src="{{ asset('assets/js/api-update-zone-nht.js') }}"></script>
     <script src="{{ asset('assets/js/api-ggmap-nht.js') }}"></script>
     <script src="{{ asset('assets/js/alert/room-owners-alert.js') }}"></script>
+    <SCript>document.addEventListener('DOMContentLoaded', function() {
+        // ... existing code ...
+    
+        // Xử lý sự kiện submit form xóa ảnh
+        document.querySelectorAll('.delete-image-form').forEach(form => {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Ngăn chặn sự kiện submit mặc định
+                const imagePreview = this.closest('.image-preview');
+    
+                fetch(this.action, {
+                    method: 'DELETE', // Sử dụng phương thức DELETE
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Xóa phần tử ảnh khỏi DOM
+                        imagePreview.remove();
+                    } else {
+                        alert('Có lỗi xảy ra khi xóa ảnh: ' + data.message);
+                    } 
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Có lỗi xảy ra khi xóa ảnh.');
+                });
+            });
+        });
+    
+        // ... existing code ...
+    });</SCript>
 @endpush

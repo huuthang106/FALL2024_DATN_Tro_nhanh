@@ -121,24 +121,25 @@ class BlogServices
 
 
     public function editBlog($slug)
-    {
-        // Lấy blog với slug tương ứng
-        $blog = Blog::where('slug', $slug)->firstOrFail();
+{
+    // Lấy blog với slug tương ứng
+    $blog = Blog::where('slug', $slug)->firstOrFail();
 
-        // Lấy tất cả các hình ảnh của blog
-        $images = Image::where('blog_id', $blog->id)->get();
+    // Lấy tất cả các hình ảnh của blog
+    $images = Image::where('blog_id', $blog->id)->get(); // Sửa từ $blog->slug thành $blog->id
 
-        // Trả về dữ liệu dưới dạng mảng
-        return [
-            'blog' => $blog,
-            'images' => $images,
-        ];
-    }
-    public function updateBlog(Request $request, $slug)
-    {
-        DB::beginTransaction();
+    // Trả về dữ liệu dưới dạng mảng
+    return [
+        'blog' => $blog,
+        'images' => $images,
+    ];
+}
+    public function updateBlog(Request $request, $id)
+{
+    DB::beginTransaction();
 
-        $blog = Blog::where('slug', $slug)->firstOrFail();
+    try {
+        $blog = Blog::findOrFail($id); // Lấy blog bằng id
 
         $data = $request->validate([
             'title' => 'required|string|max:255',
@@ -165,45 +166,44 @@ if ($request->hasFile('images')) {
     foreach ($oldImages as $oldImage) {
         $oldImagePath = public_path('assets/images/' . $oldImage->filename);
 
-        // Kiểm tra nếu file tồn tại và xóa nó
-        if (file_exists($oldImagePath)) {
-            unlink($oldImagePath);
+                // Kiểm tra nếu file tồn tại và xóa nó
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+
+                // Xóa bản ghi ảnh cũ khỏi cơ sở dữ liệu
+                $oldImage->delete();
+            }
+
+            // Lưu ảnh mới vào thư mục và cơ sở dữ liệu
+            foreach ($request->file('images') as $image) {
+                // Lấy tên gốc và phần mở rộng của ảnh
+                $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = $image->getClientOriginalExtension();
+
+                // Tạo tên file mới dựa trên slug của blog và thời gian hiện tại
+                $filename = $blog->id . '-' . $originalName . '-' . time() . '.' . $extension;
+
+                // Đường dẫn thư mục lưu ảnh
+                $destinationPath = public_path('assets/images');
+                $image->move($destinationPath, $filename);
+
+                // Lưu thông tin ảnh mới vào cơ sở dữ liệu
+                Image::create([
+                    'filename' => $filename,
+                    'blog_id' => $blog->id,
+                ]);
+            }
         }
-
-        // Xóa bản ghi ảnh cũ khỏi cơ sở dữ liệu
-        $oldImage->delete();
-    }
-
-    // Lưu ảnh mới vào thư mục và cơ sở dữ liệu
-    foreach ($request->file('images') as $image) {
-        // Lấy tên gốc và phần mở rộng của ảnh
-        $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-        $extension = $image->getClientOriginalExtension();
-
-        // Tạo tên file mới dựa trên slug của blog và thời gian hiện tại
-        $filename = $blog->slug . '-' . $originalName . '-' . time() . '.' . $extension;
-
-        // Đường dẫn thư mục lưu ảnh
-        $destinationPath = public_path('assets/images');
-        $image->move($destinationPath, $filename);
-
-        // Lưu thông tin ảnh mới vào cơ sở dữ liệu
-        Image::create([
-            'filename' => $filename,
-            'blog_id' => $blog->id,
-        ]);
-    }
-} else {
-    // Nếu không có ảnh mới được tải lên, giữ lại ảnh cũ
-    // Không cần làm gì thêm vì ảnh cũ không bị xóa
-}
-
-
 
         DB::commit();
 
-        return $blog;
+        return ['success' => true, 'message' => 'Blog đã được cập nhật thành công!'];
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return ['success' => false, 'message' => 'Có lỗi xảy ra khi cập nhật blog: ' . $e->getMessage()];
     }
+}
     public function getAllBlogss(int $perPage = 10, $searchTerm = null)
     {
         try {

@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\Room;
+use Exception;
+
 
 use App\Models\Category;
 use App\Models\Price;
@@ -254,6 +256,43 @@ class RoomOwnersService
         } else {
             return false;
         }
+    }
+    public function deleteImage($id)
+    {
+        try {
+            $image = Image::find($id); // Sử dụng find thay vì findOrFail để kiểm tra sự tồn tại
+    
+            if (!$image) {
+                return ['success' => false, 'message' => 'Ảnh không tồn tại.'];
+            }
+    
+            $room = $image->room; // Giả sử bạn có quan hệ `room` trong model Image
+            if ($room->images()->count() <= 1) {
+                return ['success' => false, 'message' => 'Phòng cần ít nhất 1 ảnh.'];
+            }
+    
+            $imagePath = public_path('assets/images/' . $image->filename);
+    
+            // Kiểm tra nếu file tồn tại và xóa nó
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+    
+            // Xóa bản ghi ảnh khỏi cơ sở dữ liệu
+            $image->delete();
+    
+            return ['success' => true];
+        } catch (Exception $e) {
+            return ['success' => false, 'message' => $e->getMessage()];
+        }
+    }
+
+    public function showImages($id)
+    {
+        $room = Room::findOrFail($id);
+        $images = $room->images()->paginate(3); 
+    
+        return compact('room', 'images');
     }
 
     // Hiểm thị danh sách trọ của tài khoản

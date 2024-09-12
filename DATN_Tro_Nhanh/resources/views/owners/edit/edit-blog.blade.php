@@ -24,7 +24,7 @@
 
                 </ul>
                 <div class="tab-content shadow-none p-0">
-                    <form id="blogForm" action="{{ route('owners.update-blog', $blog->slug) }}" method="POST"
+                    <form id="blogForm" action="{{ route('owners.update-blog', ['id' => $blog->id]) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -129,10 +129,18 @@
                                                                         onclick="document.getElementById('fileInput').click();">Tải
                                                                         lên</button>
                                                                     <input id="fileInput" name="images[]" type="file"
-                                                                        hidden multiple>
+                                                                        hidden >
                                                                 </div>
-                                                                <div id="imagePreview" class="mt-4">
-                                                                    <!-- Nơi ảnh sẽ hiển thị sau khi upload -->
+                                                                <div id="imagePreview" class="text-center mt-4">
+                                                                    @if(is_array($images) || is_object($images))
+                                                                        @foreach ($images as $image)
+                                                                            <div class="image-preview mx-auto" data-id="{{ $image->id }}">
+                                                                                <img src="{{ asset('assets/images/' . $image->filename) }}" alt="Image" class="img-fluid" style="max-width: 100%; height: auto;">
+                                                                            </div>
+                                                                        @endforeach
+                                                                    @else
+                                                                        <p>Không có hình ảnh nào.</p>
+                                                                    @endif
                                                                 </div>
                                                                 @error('images')
                                                                     <span class="error-message text-danger"

@@ -15,7 +15,7 @@ use App\Models\Category;
 use App\Models\Location;
 use App\Models\Zone;
 use App\Services\ZoneServices;
-
+use App\Models\Image;
 use Illuminate\Validation\ValidationException;
 use App\Events\Owners\RoomOwnersEvent;
 use App\Models\Room;
@@ -23,6 +23,7 @@ use Illuminate\Http\Request;
 use App\Services\RoomServices; // Đảm bảo import RoomService
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+
 
 class RoomOwnersController extends Controller
 {
@@ -69,6 +70,18 @@ class RoomOwnersController extends Controller
         // ]);
     }
     //xoa room 
+    public function deleteImage($id)
+    {
+        $result = $this->roomOwnersService->deleteImage($id);
+        return response()->json($result);
+    }
+
+    public function showImages($id)
+    {
+        $data = $this->roomOwnersService->showImages($id);
+        return view('owners.show.room-images', $data);
+    }
+
     public function destroy($id)
     {
         $result = $this->roomOwnersService->softDeleteRoom($id);
