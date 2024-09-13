@@ -10,177 +10,172 @@
                         Hãy để chúng tôi hướng dẫn ngôi nhà của bạn</p>
                     <h2 class="text-white display-2 text-center mb-sm-13 mb-8">Tìm Ngôi Nhà Mơ Ước của bạn</h2>
                     <form action="{{ route('client.room-listing') }}" method="GET"
-                        class="property-search py-lg-0 z-index-2 position-relative d-none d-lg-block">
-                        <div class="row no-gutters">
-                            <div class="col-md-5 col-lg-4 col-xl-3">
-                                <input class="search-field" type="hidden" name="status" value="for-sale"
-                                    data-default-value="">
-                                <ul class="nav nav-pills property-search-status-tab">
-                                    <li class="nav-item bg-secondary rounded-top" role="presentation">
-                                        <a href="#" role="tab" aria-selected="true"
-                                            class="nav-link btn shadow-none rounded-bottom-0 text-white text-btn-focus-secondary text-uppercase d-flex align-items-center fs-13 rounded-bottom-0 bg-active-white text-active-secondary letter-spacing-087 flex-md-1 px-4 py-2 active"
-                                            data-toggle="pill" data-value="for-sale">
-                                            <svg class="icon icon-villa fs-22 mr-2">
-                                                <use xlink:href="#icon-villa"></use>
-                                            </svg>
-                                            Phòng
-                                        </a>
-                                    </li>
-                                    <li class="nav-item bg-secondary rounded-top" role="presentation">
-                                        <a href="#" role="tab" aria-selected="true"
-                                            class="nav-link btn shadow-none rounded-bottom-0 text-white text-btn-focus-secondary text-uppercase d-flex align-items-center fs-13 rounded-bottom-0 bg-active-white text-active-secondary letter-spacing-087 flex-md-1 px-4 py-2"
-                                            data-toggle="pill" data-value="for-rent">
-                                            <svg class="icon icon-building fs-22 mr-2">
-                                                <use xlink:href="#icon-building"></use>
-                                            </svg>
-                                            Cho thuê
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="bg-white px-6 rounded-bottom rounded-top-right pb-6 pb-lg-0">
-                            <div class="row align-items-center" id="accordion-4">
-                                <div class="col-md-6 col-lg-3 col-xl-3 pt-6 pt-lg-0 order-1">
-                                    <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Loại phòng</label>
-                                    <select
-                                        class="form-control selectpicker bg-transparent border-bottom rounded-0 border-color-input"
-                                        title="Chọn" data-style="p-0 h-24 lh-17 text-dark" name="type">
-                                        <option>Căn hộ</option>
-                                        <option>Nhà đơn lập</option>
-                                        <option>Nhà liên kế</option>
-                                        <option>Nhà nhiều tầng</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6 col-lg-4 col-xl-5 pt-6 pt-lg-0 order-2">
-                                    <label class="text-uppercase font-weight-500 letter-spacing-093">Tìm kiếm</label>
-                                    <div class="position-relative">
-                                        <input type="text" name="search"
-                                            class="form-control bg-transparent shadow-none border-top-0 border-right-0 border-left-0 border-bottom rounded-0 h-24 lh-17 pl-0 pr-4 font-weight-600 border-color-input placeholder-muted"
-                                            placeholder="Tìm kiếm...">
-                                        <i
-                                            class="far fa-search position-absolute pos-fixed-right-center pr-0 fs-18 mt-n3"></i>
-                                    </div>
-                                </div>
-                                <div class="col-sm pr-lg-0 pt-6 pt-lg-0 order-3">
-                                    <a href="#advanced-search-filters-4"
-                                        class="btn advanced-search btn-accent h-lg-100 w-100 shadow-none text-secondary rounded-0 fs-14 fs-sm-16 font-weight-600 text-left d-flex align-items-center collapsed"
-                                        data-toggle="collapse" data-target="#advanced-search-filters-4" aria-expanded="true"
-                                        aria-controls="advanced-search-filters-4">
-                                        Tìm kiếm nâng cao
-                                    </a>
-                                </div>
-                                <div class="col-sm pt-6 pt-lg-0 order-sm-4 order-5">
-                                    <button type="submit"
-                                        class="btn btn-primary shadow-none fs-16 font-weight-600 w-100 py-lg-2 lh-213">
-                                        Tìm kiếm
-                                    </button>
-                                </div>
-                                <div id="advanced-search-filters-4" class="col-12 pt-4 pb-sm-4 order-sm-5 order-4 collapse"
-                                    data-parent="#accordion-4">
-                                    <div class="row">
-
-
-                                        <div class="col-sm-6 col-lg-3 pt-6">
-                                            <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Tất cả
-                                                thành phố</label>
-                                            <select
-                                                class="form-control bg-transparent border-bottom rounded-0 border-color-input"
-                                                id="city-province" title="Tất cả thành phố" name="province"
-                                                data-style="p-0 h-24 lh-17 text-dark">
-                                                <option value='0'>Chọn Tỉnh/Thành Phố...</option>
-                                                <option value='01'>Thành phố Hà Nội</option>
-                                                <option value='79'>Thành phố Hồ Chí Minh</option>
-                                                <option value='31'>Thành phố Hải Phòng</option>
-                                                <option value='48'>Thành phố Đà Nẵng</option>
-                                                <option value='92'>Thành phố Cần Thơ</option>
-                                                <option value='02'>Tỉnh Hà Giang</option>
-                                                <option value='04'>Tỉnh Cao Bằng</option>
-                                                <option value='06'>Tỉnh Bắc Kạn</option>
-                                                <option value='08'>Tỉnh Tuyên Quang</option>
-                                                <option value='10'>Tỉnh Lào Cai</option>
-                                                <option value='11'>Tỉnh Điện Biên</option>
-                                                <option value='12'>Tỉnh Lai Châu</option>
-                                                <option value='14'>Tỉnh Sơn La</option>
-                                                <option value='15'>Tỉnh Yên Bái</option>
-                                                <option value='17'>Tỉnh Hoà Bình</option>
-                                                <option value='19'>Tỉnh Thái Nguyên</option>
-                                                <option value='20'>Tỉnh Lạng Sơn</option>
-                                                <option value='22'>Tỉnh Quảng Ninh</option>
-                                                <option value='24'>Tỉnh Bắc Giang</option>
-                                                <option value='25'>Tỉnh Phú Thọ</option>
-                                                <option value='26'>Tỉnh Vĩnh Phúc</option>
-                                                <option value='27'>Tỉnh Bắc Ninh</option>
-                                                <option value='30'>Tỉnh Hải Dương</option>
-                                                <option value='33'>Tỉnh Hưng Yên</option>
-                                                <option value='34'>Tỉnh Thái Bình</option>
-                                                <option value='35'>Tỉnh Hà Nam</option>
-                                                <option value='36'>Tỉnh Nam Định</option>
-                                                <option value='37'>Tỉnh Ninh Bình</option>
-                                                <option value='38'>Tỉnh Thanh Hóa</option>
-                                                <option value='40'>Tỉnh Nghệ An</option>
-                                                <option value='42'>Tỉnh Hà Tĩnh</option>
-                                                <option value='44'>Tỉnh Quảng Bình</option>
-                                                <option value='45'>Tỉnh Quảng Trị</option>
-                                                <option value='46'>Tỉnh Thừa Thiên Huế</option>
-                                                <option value='49'>Tỉnh Quảng Nam</option>
-                                                <option value='51'>Tỉnh Quảng Ngãi</option>
-                                                <option value='52'>Tỉnh Bình Định</option>
-                                                <option value='54'>Tỉnh Phú Yên</option>
-                                                <option value='56'>Tỉnh Khánh Hòa</option>
-                                                <option value='58'>Tỉnh Ninh Thuận</option>
-                                                <option value='60'>Tỉnh Bình Thuận</option>
-                                                <option value='62'>Tỉnh Kon Tum</option>
-                                                <option value='64'>Tỉnh Gia Lai</option>
-                                                <option value='66'>Tỉnh Đắk Lắk</option>
-                                                <option value='67'>Tỉnh Đắk Nông</option>
-                                                <option value='68'>Tỉnh Lâm Đồng</option>
-                                                <option value='70'>Tỉnh Bình Phước</option>
-                                                <option value='72'>Tỉnh Tây Ninh</option>
-                                                <option value='74'>Tỉnh Bình Dương</option>
-                                                <option value='75'>Tỉnh Đồng Nai</option>
-                                                <option value='77'>Tỉnh Bà Rịa - Vũng Tàu</option>
-                                                <option value='80'>Tỉnh Long An</option>
-                                                <option value='82'>Tỉnh Tiền Giang</option>
-                                                <option value='83'>Tỉnh Bến Tre</option>
-                                                <option value='84'>Tỉnh Trà Vinh</option>
-                                                <option value='86'>Tỉnh Vĩnh Long</option>
-                                                <option value='87'>Tỉnh Đồng Tháp</option>
-                                                <option value='89'>Tỉnh An Giang</option>
-                                                <option value='91'>Tỉnh Kiên Giang</option>
-                                                <option value='93'>Tỉnh Hậu Giang</option>
-                                                <option value='94'>Tỉnh Sóc Trăng</option>
-                                                <option value='95'>Tỉnh Bạc Liêu</option>
-                                                <option value='96'>Tỉnh Cà Mau</option>
-                                                <!-- Các tỉnh thành khác... -->
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-6 col-lg-3 pt-6">
-                                            <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Tất cả
-                                                quận/huyện</label>
-                                            <select
-                                                class="form-control bg-transparent border-bottom rounded-0 border-color-input"
-                                                id="district-town" name="district" title="Tất cả khu vực"
-                                                data-style="p-0 h-24 lh-17 text-dark">
-                                                <option value="0">Chọn Quận/Huyện...</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-6 col-lg-3 pt-6">
-                                            <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Tất cả
-                                                xã/phường</label>
-                                            <select
-                                                class="form-control bg-transparent border-bottom rounded-0 border-color-input"
-                                                id="ward-commune" name="village" title="Tất cả khu vực"
-                                                data-style="p-0 h-24 lh-17 text-dark">
-                                                <option value="0">Chọn Xã/Phường...</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+    class="property-search py-lg-0 z-index-2 position-relative d-none d-lg-block">
+    <div class="row no-gutters">
+        <div class="col-md-5 col-lg-4 col-xl-3">
+            <input class="search-field" type="hidden" name="status" value="for-sale" data-default-value="">
+            <ul class="nav nav-pills property-search-status-tab">
+                {{-- <li class="nav-item bg-secondary rounded-top" role="presentation">
+                    <a href="#" role="tab" aria-selected="true"
+                        class="nav-link btn shadow-none rounded-bottom-0 text-white text-btn-focus-secondary text-uppercase d-flex align-items-center fs-13 rounded-bottom-0 bg-active-white text-active-secondary letter-spacing-087 flex-md-1 px-4 py-2 "
+                        data-toggle="pill" data-value="for-sale">
+                        <svg class="icon icon-villa fs-22 mr-2">
+                            <use xlink:href="#icon-villa"></use>
+                        </svg>
+                        Phòng
+                    </a>
+                </li> --}}
+                 {{-- <li class="nav-item bg-secondary rounded-top" role="presentation">
+                    <a href="#" role="tab" aria-selected="true"
+                        class="nav-link btn shadow-none rounded-bottom-0 text-white text-btn-focus-secondary text-uppercase d-flex align-items-center fs-13 rounded-bottom-0 bg-active-white text-active-secondary letter-spacing-087 flex-md-1 px-4 py-2"
+                        data-toggle="pill" data-value="for-rent">
+                        <svg class="icon icon-building fs-22 mr-2">
+                            <use xlink:href="#icon-building"></use>
+                        </svg>
+                        Cho thuê
+                    </a>
+                </li>  --}}
+            </ul>
+        </div>
+    </div>
+    <div class="bg-white px-6 rounded-bottom rounded-top-right pb-6 pb-lg-0">
+        <div class="row align-items-center" id="accordion-4">
+            <div class="col-md-6 col-lg-3 col-xl-3 pt-6 pt-lg-0 order-1">
+                <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Loại phòng</label>
+                <select
+                    class="form-control custom-select bg-transparent border-bottom rounded-0 border-color-input"
+                    title="Chọn" data-style="p-0 h-24 lh-17 text-dark" name="type">
+                    <option>Căn hộ</option>
+                    <option>Nhà đơn lập</option>
+                    <option>Nhà liên kế</option>
+                    <option>Nhà nhiều tầng</option>
+                </select>
+            </div>
+            <div class="col-md-6 col-lg-4 col-xl-5 pt-6 pt-lg-0 order-2">
+                <label class="text-uppercase font-weight-500 letter-spacing-093">Tìm kiếm</label>
+                <div class="position-relative">
+                    <input type="text" name="search"
+                        class="form-control bg-transparent shadow-none border-top-0 border-right-0 border-left-0 border-bottom rounded-0 h-24 lh-17 pl-0 pr-4 font-weight-600 border-color-input placeholder-muted"
+                        placeholder="Tìm kiếm...">
+                    <i class="far fa-search position-absolute pos-fixed-right-center pr-0 fs-18 mt-n3"></i>
+                </div>
+            </div>
+            <div class="col-sm pr-lg-0 pt-6 pt-lg-0 order-3">
+                <a href="#advanced-search-filters-4"
+                    class="btn advanced-search btn-accent h-lg-100 w-100 shadow-none text-secondary rounded-0 fs-14 fs-sm-16 font-weight-600 text-left d-flex align-items-center collapsed"
+                    data-toggle="collapse" data-target="#advanced-search-filters-4" aria-expanded="true"
+                    aria-controls="advanced-search-filters-4">
+                    Tìm kiếm nâng cao
+                </a>
+            </div>
+            <div class="col-sm pt-6 pt-lg-0 order-sm-4 order-5">
+                <button type="submit"
+                    class="btn btn-primary shadow-none fs-16 font-weight-600 w-100 py-lg-2 lh-213">
+                    Tìm kiếm
+                </button>
+            </div>
+            <div id="advanced-search-filters-4" class="col-12 pt-4 pb-sm-4 order-sm-5 order-4 collapse"
+                data-parent="#accordion-4">
+                <div class="row">
+                    <div class="col-sm-6 col-lg-3 pt-6">
+                        <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Tất cả
+                            thành phố</label>
+                        <select
+                            class="form-control custom-select bg-transparent border-bottom rounded-0 border-color-input"
+                            id="city-province" title="Tất cả thành phố" name="province"
+                            data-style="p-0 h-24 lh-17 text-dark">
+                            <option value='0'>Chọn Tỉnh/Thành Phố...</option>
+                            <option value='01'>Thành phố Hà Nội</option>
+                            <option value='79'>Thành phố Hồ Chí Minh</option>
+                            <option value='31'>Thành phố Hải Phòng</option>
+                            <option value='48'>Thành phố Đà Nẵng</option>
+                            <option value='92'>Thành phố Cần Thơ</option>
+                            <option value='02'>Tỉnh Hà Giang</option>
+                            <option value='04'>Tỉnh Cao Bằng</option>
+                            <option value='06'>Tỉnh Bắc Kạn</option>
+                            <option value='08'>Tỉnh Tuyên Quang</option>
+                            <option value='10'>Tỉnh Lào Cai</option>
+                            <option value='11'>Tỉnh Điện Biên</option>
+                            <option value='12'>Tỉnh Lai Châu</option>
+                            <option value='14'>Tỉnh Sơn La</option>
+                            <option value='15'>Tỉnh Yên Bái</option>
+                            <option value='17'>Tỉnh Hoà Bình</option>
+                            <option value='19'>Tỉnh Thái Nguyên</option>
+                            <option value='20'>Tỉnh Lạng Sơn</option>
+                            <option value='22'>Tỉnh Quảng Ninh</option>
+                            <option value='24'>Tỉnh Bắc Giang</option>
+                            <option value='25'>Tỉnh Phú Thọ</option>
+                            <option value='26'>Tỉnh Vĩnh Phúc</option>
+                            <option value='27'>Tỉnh Bắc Ninh</option>
+                            <option value='30'>Tỉnh Hải Dương</option>
+                            <option value='33'>Tỉnh Hưng Yên</option>
+                            <option value='34'>Tỉnh Thái Bình</option>
+                            <option value='35'>Tỉnh Hà Nam</option>
+                            <option value='36'>Tỉnh Nam Định</option>
+                            <option value='37'>Tỉnh Ninh Bình</option>
+                            <option value='38'>Tỉnh Thanh Hóa</option>
+                            <option value='40'>Tỉnh Nghệ An</option>
+                            <option value='42'>Tỉnh Hà Tĩnh</option>
+                            <option value='44'>Tỉnh Quảng Bình</option>
+                            <option value='45'>Tỉnh Quảng Trị</option>
+                            <option value='46'>Tỉnh Thừa Thiên Huế</option>
+                            <option value='49'>Tỉnh Quảng Nam</option>
+                            <option value='51'>Tỉnh Quảng Ngãi</option>
+                            <option value='52'>Tỉnh Bình Định</option>
+                            <option value='54'>Tỉnh Phú Yên</option>
+                            <option value='56'>Tỉnh Khánh Hòa</option>
+                            <option value='58'>Tỉnh Ninh Thuận</option>
+                            <option value='60'>Tỉnh Bình Thuận</option>
+                            <option value='62'>Tỉnh Kon Tum</option>
+                            <option value='64'>Tỉnh Gia Lai</option>
+                            <option value='66'>Tỉnh Đắk Lắk</option>
+                            <option value='67'>Tỉnh Đắk Nông</option>
+                            <option value='68'>Tỉnh Lâm Đồng</option>
+                            <option value='70'>Tỉnh Bình Phước</option>
+                            <option value='72'>Tỉnh Tây Ninh</option>
+                            <option value='74'>Tỉnh Bình Dương</option>
+                            <option value='75'>Tỉnh Đồng Nai</option>
+                            <option value='77'>Tỉnh Bà Rịa - Vũng Tàu</option>
+                            <option value='80'>Tỉnh Long An</option>
+                            <option value='82'>Tỉnh Tiền Giang</option>
+                            <option value='83'>Tỉnh Bến Tre</option>
+                            <option value='84'>Tỉnh Trà Vinh</option>
+                            <option value='86'>Tỉnh Vĩnh Long</option>
+                            <option value='87'>Tỉnh Đồng Tháp</option>
+                            <option value='89'>Tỉnh An Giang</option>
+                            <option value='91'>Tỉnh Kiên Giang</option>
+                            <option value='93'>Tỉnh Hậu Giang</option>
+                            <option value='94'>Tỉnh Sóc Trăng</option>
+                            <option value='95'>Tỉnh Bạc Liêu</option>
+                            <option value='96'>Tỉnh Cà Mau</option>
+                            <!-- Các tỉnh thành khác... -->
+                        </select>
+                    </div>
+                    <div class="col-sm-6 col-lg-3 pt-6">
+                        <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Tất cả
+                            quận/huyện</label>
+                        <select
+                            class="form-control custom-select bg-transparent border-bottom rounded-0 border-color-input"
+                            id="district-town" name="district" title="Tất cả khu vực"
+                            data-style="p-0 h-24 lh-17 text-dark">
+                            <option value="0">Chọn Quận/Huyện...</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 col-lg-3 pt-6">
+                        <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Tất cả
+                            xã/phường</label>
+                        <select
+                            class="form-control custom-select bg-transparent border-bottom rounded-0 border-color-input"
+                            id="ward-commune" name="village" title="Tất cả khu vực"
+                            data-style="p-0 h-24 lh-17 text-dark">
+                            <option value="0">Chọn Xã/Phường...</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 
                     <form
                         class="property-search property-search-mobile d-lg-none z-index-2 position-relative bg-white rounded mx-md-10">
@@ -449,112 +444,115 @@
                         </p>
                     </div>
                     <div class="col-md-6 text-md-right">
-                        <a href="listing-grid-with-left-filter.html"
+                        <a href="{{route('client.room-listing')}}"
                             class="btn fs-14 text-secondary btn-accent py-3 lh-15 px-7 mb-6 mb-lg-0">Xem tất cả tài sản
                             <i class="far fa-long-arrow-right ml-1"></i>
                         </a>
                     </div>
                 </div>
                 <div class="slick-slider slick-dots-mt-0 custom-arrow-spacing-30"
-     data-slick-options='{"slidesToShow": 4, "autoplay": true, "dots": true, "responsive": [
+                    data-slick-options='{"slidesToShow": 4, "autoplay": true, "dots": true, "responsive": [
         {"breakpoint": 1600, "settings": {"slidesToShow": 3, "arrows": false}},
         {"breakpoint": 992, "settings": {"slidesToShow": 2, "arrows": false}},
         {"breakpoint": 768, "settings": {"slidesToShow": 2, "arrows": false, "dots": true, "autoplay": true}},
         {"breakpoint": 576, "settings": {"slidesToShow": 1, "arrows": false, "dots": true, "autoplay": true}}
      ]}'>
-    @foreach ($rooms as $room)
-    <div class="box pb-7 pt-2">
-        <div class="card shadow-hover-2 h-100" data-animate="zoomIn">
-            <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top" style="height: 200px; overflow: hidden;">
-                @if ($room->images->isNotEmpty())
-                    <img src="{{ asset('assets/images/' . $room->images->first()->filename) }}"
-                         alt="{{ $room->title }}"
-                         class="img-fluid w-100 h-100 rounded" style="object-fit: cover;">
-                @else
-                    <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                         alt="{{ $room->title }}"
-                         class="img-fluid w-100 h-100 rounded" style="object-fit: cover;">
-                @endif
-                <div class="card-img-overlay p-2 d-flex flex-column">
-                    <div>
-                        <span class="badge mr-2 badge-orange">nổi bật</span>
-                        <span class="badge mr-2 badge-primary">để bán</span>
-                    </div>
-                    <ul class="list-inline mb-0 mt-auto hover-image">
-                        <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Hình ảnh">
-                            <a href="#" class="text-white hover-primary">
-                                <i class="far fa-images"></i><span class="pl-1">9</span>
-                            </a>
-                        </li>
-                        <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
-                            <a href="#" class="text-white hover-primary">
-                                <i class="far fa-play-circle"></i><span class="pl-1">2</span>
-                            </a>
-                        </li>
-                    </ul>
+                    @foreach ($rooms as $room)
+                        <div class="box pb-7 pt-2">
+                            <div class="card shadow-hover-2 h-100" data-animate="zoomIn">
+                                <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top"
+                                    style="height: 200px; overflow: hidden;">
+                                    @if ($room->images->isNotEmpty())
+                                        <img src="{{ asset('assets/images/' . $room->images->first()->filename) }}"
+                                            alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;">
+                                    @else
+                                        <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                            alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;">
+                                    @endif
+                                    <div class="card-img-overlay p-2 d-flex flex-column">
+                                        <div>
+                                            <span class="badge mr-2 badge-orange">nổi bật</span>
+                                            <span class="badge mr-2 badge-primary">để bán</span>
+                                        </div>
+                                        <ul class="list-inline mb-0 mt-auto hover-image">
+                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Hình ảnh">
+                                                <a href="#" class="text-white hover-primary">
+                                                    <i class="far fa-images"></i><span class="pl-1">9</span>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
+                                                <a href="#" class="text-white hover-primary">
+                                                    <i class="far fa-play-circle"></i><span class="pl-1">2</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body pt-3 d-flex flex-column">
+                                    <h2 class="card-title fs-16 lh-2 mb-0">
+                                        <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
+                                            class="text-dark hover-primary"><small>{{ Str::limit($room->title, 70) }}</small></a>
+                                    </h2>
+                                    <p class="card-text font-weight-500 text-gray-light mb-2">
+                                        {{ Str::limit($room->address, 100) }}</p>
+                                    <ul class="list-inline d-flex mb-0 flex-wrap mr-n5 mt-auto">
+                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                            data-toggle="tooltip" title="Phòng ngủ">
+                                            <svg class="icon icon-bedroom fs-18 text-primary mr-1">
+                                                <use xlink:href="#icon-bedroom"></use>
+                                            </svg>
+                                            {{ $room->bedroom ?? '3' }} Phòng
+                                        </li>
+                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                            data-toggle="tooltip" title="Phòng tắm">
+                                            <svg class="icon icon-shower fs-18 text-primary mr-1">
+                                                <use xlink:href="#icon-shower"></use>
+                                            </svg>
+                                            {{ $room->bathroom ?? '3' }} Phòng
+                                        </li>
+                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                            data-toggle="tooltip" title="Diện tích">
+                                            <svg class="icon icon-square fs-18 text-primary mr-1">
+                                                <use xlink:href="#icon-square"></use>
+                                            </svg>
+                                            {{ $room->acreage ?? '200' }}m²
+                                        </li>
+                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                            data-toggle="tooltip" title="Gara">
+                                            <svg class="icon icon-Garage fs-18 text-primary mr-1">
+                                                <use xlink:href="#icon-Garage"></use>
+                                            </svg>
+                                            {{ $room->garage ?? '1' }} Gara
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div
+                                    class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
+                                    <p class="fs-17 font-weight-bold text-heading mb-0">
+                                        {{ number_format($room->price, 0, ',', '.') }} VND
+                                    </p>
+                                    <ul class="list-inline mb-0">
+                                        <li class="list-inline-item">
+                                            <a href="{{ route('client.add.favourite', ['slug' => $room->slug]) }}"
+                                                class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                <i class="fas fa-heart"></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a href="#"
+                                                class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent"
+                                                data-toggle="tooltip" title="So sánh">
+                                                <i class="fas fa-exchange-alt"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-            </div>
-            <div class="card-body pt-3 d-flex flex-column">
-                <h2 class="card-title fs-16 lh-2 mb-0">
-                    <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
-                       class="text-dark hover-primary"><small>{{ Str::limit($room->title, 70) }}</small></a>
-                </h2>
-                <p class="card-text font-weight-500 text-gray-light mb-2">{{ Str::limit($room->address, 100) }}</p>
-                <ul class="list-inline d-flex mb-0 flex-wrap mr-n5 mt-auto">
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                        data-toggle="tooltip" title="Phòng ngủ">
-                        <svg class="icon icon-bedroom fs-18 text-primary mr-1">
-                            <use xlink:href="#icon-bedroom"></use>
-                        </svg>
-                        {{ $room->bedroom ?? '3' }} Phòng
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                        data-toggle="tooltip" title="Phòng tắm">
-                        <svg class="icon icon-shower fs-18 text-primary mr-1">
-                            <use xlink:href="#icon-shower"></use>
-                        </svg>
-                        {{ $room->bathroom ?? '3' }} Phòng
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                        data-toggle="tooltip" title="Diện tích">
-                        <svg class="icon icon-square fs-18 text-primary mr-1">
-                            <use xlink:href="#icon-square"></use>
-                        </svg>
-                        {{ $room->acreage ?? '200' }}m²
-                    </li>
-                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                        data-toggle="tooltip" title="Gara">
-                        <svg class="icon icon-Garage fs-18 text-primary mr-1">
-                            <use xlink:href="#icon-Garage"></use>
-                        </svg>
-                        {{ $room->garage ?? '1' }} Gara
-                    </li>
-                </ul>
-            </div>
-            <div class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
-            <p class="fs-17 font-weight-bold text-heading mb-0">
-    {{ number_format($room->price, 0, ',', '.') }} VND
-</p>
-                <ul class="list-inline mb-0">
-                    <li class="list-inline-item">
-                        <a href="{{ route('client.add.favourite', ['slug' => $room->slug]) }}"
-                           class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center">
-                            <i class="fas fa-heart"></i>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="#"
-                           class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent"
-                           data-toggle="tooltip" title="So sánh">
-                            <i class="fas fa-exchange-alt"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    @endforeach
-</div>
 
         </section>
 
@@ -646,110 +644,113 @@
                         <p class="mb-6">Xem Thêm</p>
                     </div>
                     <div class="col-md-6 text-md-right">
-                        <a href="listing-grid-with-left-filter.html"
+                        <a href="{{route('client.room-listing')}}"
                             class="btn fs-14 text-secondary btn-accent py-3 lh-15 px-7 mb-6 mb-lg-0">Xem tất cả bất động
                             sản
                             <i class="far fa-long-arrow-right ml-1"></i>
                         </a>
                     </div>
                 </div>
-          
+
                 <div class="slick-slider slick-dots-mt-0 custom-arrow-spacing-30"
                     data-slick-options='{"slidesToShow": 4,"dots":true,"arrows":false,"responsive":[{"breakpoint": 1600,"settings": {"slidesToShow":3}},{"breakpoint": 992,"settings": {"slidesToShow":2,"arrows":false}},{"breakpoint": 768,"settings": {"slidesToShow": 2,"arrows":false,"dots":true,"autoplay":true}},{"breakpoint": 576,"settings": {"slidesToShow": 1,"arrows":false,"dots":true,"autoplay":true}}]}'>
                     @foreach ($rooms as $room)
-                    <div class="box pb-7 pt-2">
-                        <div class="card shadow-hover-2 h-100" data-animate="zoomIn">
-                            <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top" style="height: 200px; overflow: hidden;">
-                                @if ($room->images->isNotEmpty())
-                                    <img src="{{ asset('assets/images/' . $room->images->first()->filename) }}"
-                                         alt="{{ $room->title }}"
-                                         class="img-fluid w-100 h-100 rounded" style="object-fit: cover;">
-                                @else
-                                    <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                         alt="{{ $room->title }}"
-                                         class="img-fluid w-100 h-100 rounded" style="object-fit: cover;">
-                                @endif
-                                <div class="card-img-overlay p-2 d-flex flex-column">
-                                    <div>
-                                        <span class="badge mr-2 badge-orange">nổi bật</span>
-                                        <span class="badge mr-2 badge-primary">để bán</span>
+                        <div class="box pb-7 pt-2">
+                            <div class="card shadow-hover-2 h-100" data-animate="zoomIn">
+                                <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top"
+                                    style="height: 200px; overflow: hidden;">
+                                    @if ($room->images->isNotEmpty())
+                                        <img src="{{ asset('assets/images/' . $room->images->first()->filename) }}"
+                                            alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;">
+                                    @else
+                                        <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                            alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;">
+                                    @endif
+                                    <div class="card-img-overlay p-2 d-flex flex-column">
+                                        <div>
+                                            <span class="badge mr-2 badge-orange">nổi bật</span>
+                                            <span class="badge mr-2 badge-primary">để bán</span>
+                                        </div>
+                                        <ul class="list-inline mb-0 mt-auto hover-image">
+                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Hình ảnh">
+                                                <a href="#" class="text-white hover-primary">
+                                                    <i class="far fa-images"></i><span class="pl-1">9</span>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
+                                                <a href="#" class="text-white hover-primary">
+                                                    <i class="far fa-play-circle"></i><span class="pl-1">2</span>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <ul class="list-inline mb-0 mt-auto hover-image">
-                                        <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Hình ảnh">
-                                            <a href="#" class="text-white hover-primary">
-                                                <i class="far fa-images"></i><span class="pl-1">9</span>
+                                </div>
+                                <div class="card-body pt-3 d-flex flex-column">
+                                    <h2 class="card-title fs-16 lh-2 mb-0">
+                                        <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
+                                            class="text-dark hover-primary"><small>{{ Str::limit($room->title, 70) }}</small></a>
+                                    </h2>
+                                    <p class="card-text font-weight-500 text-gray-light mb-2">
+                                        {{ Str::limit($room->address, 100) }}</p>
+                                    <ul class="list-inline d-flex mb-0 flex-wrap mr-n5 mt-auto">
+                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                            data-toggle="tooltip" title="Phòng ngủ">
+                                            <svg class="icon icon-bedroom fs-18 text-primary mr-1">
+                                                <use xlink:href="#icon-bedroom"></use>
+                                            </svg>
+                                            {{ $room->bedroom ?? '3' }} Phòng
+                                        </li>
+                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                            data-toggle="tooltip" title="Phòng tắm">
+                                            <svg class="icon icon-shower fs-18 text-primary mr-1">
+                                                <use xlink:href="#icon-shower"></use>
+                                            </svg>
+                                            {{ $room->bathroom ?? '3' }} Phòng
+                                        </li>
+                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                            data-toggle="tooltip" title="Diện tích">
+                                            <svg class="icon icon-square fs-18 text-primary mr-1">
+                                                <use xlink:href="#icon-square"></use>
+                                            </svg>
+                                            {{ $room->acreage ?? '200' }}m²
+                                        </li>
+                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                            data-toggle="tooltip" title="Gara">
+                                            <svg class="icon icon-Garage fs-18 text-primary mr-1">
+                                                <use xlink:href="#icon-Garage"></use>
+                                            </svg>
+                                            {{ $room->garage ?? '1' }} Gara
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div
+                                    class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
+                                    <p class="fs-17 font-weight-bold text-heading mb-0">
+                                        {{ number_format($room->price, 0, ',', '.') }} VND</p>
+                                    <ul class="list-inline mb-0">
+                                        <li class="list-inline-item">
+                                            <a href="{{ route('client.add.favourite', ['slug' => $room->slug]) }}"
+                                                class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                <i class="fas fa-heart"></i>
                                             </a>
                                         </li>
-                                        <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
-                                            <a href="#" class="text-white hover-primary">
-                                                <i class="far fa-play-circle"></i><span class="pl-1">2</span>
+                                        <li class="list-inline-item">
+                                            <a href="#"
+                                                class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent"
+                                                data-toggle="tooltip" title="So sánh">
+                                                <i class="fas fa-exchange-alt"></i>
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-                            <div class="card-body pt-3 d-flex flex-column">
-                                <h2 class="card-title fs-16 lh-2 mb-0">
-                                    <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
-                                       class="text-dark hover-primary"><small>{{ Str::limit($room->title, 70) }}</small></a>
-                                </h2>
-                                <p class="card-text font-weight-500 text-gray-light mb-2">{{ Str::limit($room->address, 100) }}</p>
-                                <ul class="list-inline d-flex mb-0 flex-wrap mr-n5 mt-auto">
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="Phòng ngủ">
-                                        <svg class="icon icon-bedroom fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-bedroom"></use>
-                                        </svg>
-                                        {{ $room->bedroom ?? '3' }} Phòng
-                                    </li>
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="Phòng tắm">
-                                        <svg class="icon icon-shower fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-shower"></use>
-                                        </svg>
-                                        {{ $room->bathroom ?? '3' }} Phòng
-                                    </li>
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="Diện tích">
-                                        <svg class="icon icon-square fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-square"></use>
-                                        </svg>
-                                        {{ $room->acreage ?? '200' }}m²
-                                    </li>
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                        data-toggle="tooltip" title="Gara">
-                                        <svg class="icon icon-Garage fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-Garage"></use>
-                                        </svg>
-                                        {{ $room->garage ?? '1' }} Gara
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
-                                <p class="fs-17 font-weight-bold text-heading mb-0">   {{ number_format($room->price, 0, ',', '.') }} VND</p>
-                                <ul class="list-inline mb-0">
-                                    <li class="list-inline-item">
-                                        <a href="{{ route('client.add.favourite', ['slug' => $room->slug]) }}"
-                                           class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center">
-                                            <i class="fas fa-heart"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#"
-                                           class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent"
-                                           data-toggle="tooltip" title="So sánh">
-                                            <i class="fas fa-exchange-alt"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
-                    </div>
-                   
                     @endforeach
 
                 </div>
-             
+
             </div>
         </section>
 
@@ -1081,6 +1082,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
     <!-- Themes core CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/hoangtuchile.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
     <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
@@ -1100,6 +1102,7 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+   
 @endpush
 @push('scriptUs')
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>

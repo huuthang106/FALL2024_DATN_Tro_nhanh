@@ -6,3 +6,8 @@
     margin-left: 2.9rem;
 }
 
+.spinner-border {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-width: 0.2em;
+}

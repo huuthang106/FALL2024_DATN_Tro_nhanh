@@ -10,7 +10,7 @@ class Comment extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['content', 'rating', 'user_id', 'room_id', 'parent_id', 'blog_id', 'zone_id'];
+    protected $fillable = ['content', 'rating', 'user_id', 'room_id', 'parent_id', 'blog_id', 'zone_id', 'commented_user_id' ];
     public function user()
     {
         return $this->belongsTo(User::class);

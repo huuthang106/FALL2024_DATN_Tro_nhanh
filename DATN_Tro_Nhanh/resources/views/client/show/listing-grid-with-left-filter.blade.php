@@ -194,7 +194,7 @@
                                                             <a href="#" class="badge badge-indigo">Cho thuê</a>
                                                         </div>
                                                         <div class="px-2 pb-2">
-                                                            <a href="single-property-1.html" class="text-white">
+                                                            <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}" class="text-white">
                                                                 <h5 class="card-title fs-16 lh-2 mb-0">
                                                                     <small>{{ $room->title }}</small>
                                                                 </h5>

@@ -411,7 +411,7 @@
             <div class="container position-relative z-index-2 text-center text-white">
                 <p class="fs-18 font-weight-bold text-uppercase lh-143 letter-spacing-5 mb-3 mt-1">Trở thành</p>
                 <h2 class="fs-30 fs-lg-48 lh-13 font-weight-normal mb-7 text-white">Người Đăng Tin Cho Thuê Phòng Trọ</h2>
-                <a href="#" class="btn btn-lg btn-primary px-9 mb-1">Đăng Ký</a>
+                <a href="{{route('owners.profile.resigter-owner')}}" class="btn btn-lg btn-primary px-9 mb-1">Đăng Ký</a>
             </div>
         </section>
     </main>

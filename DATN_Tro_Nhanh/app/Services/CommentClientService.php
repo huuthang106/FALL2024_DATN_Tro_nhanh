@@ -90,23 +90,23 @@ class CommentClientService
     public function submitUsers($data)
     {
         $user = User::where('slug', $data['user_slug'])->first();
-
+    
         if (!$user) {
             return null;
         }
-
+    
         $comment = new Comment();
         $comment->rating = $data['rating'];
         $comment->content = $data['content'];
-        $comment->user_id = Auth::id();
-
+        $comment->user_id = Auth::id(); // Sửa lại để lấy user_id của người đang đăng nhập
+    
         if (!$comment->user_id) {
             return null;
         }
-
-        $comment->user_id = $user->id;
+    
+        $comment->commented_user_id = $user->id; // Thêm trường này để lưu user_id của người được đánh giá
         $comment->save();
-
+    
         return $comment;
     }
     public function getBlogWithComments($slug)
@@ -175,21 +175,21 @@ class CommentClientService
     public function getUserDetailsWithRatings($slug)
     {
         $user = User::where('slug', $slug)->firstOrFail();
-
-        $totalReviews = $user->comments()->count();
-        $averageRating = $totalReviews > 0 ? $user->comments()->avg('rating') : 0;
-
+    
+        $totalReviews = Comment::where('commented_user_id', $user->id)->count();
+        $averageRating = $totalReviews > 0 ? Comment::where('commented_user_id', $user->id)->avg('rating') : 0;
+    
         $ratingsDistribution = [];
         if ($totalReviews > 0) {
             for ($i = 5; $i >= 1; $i--) {
-                $ratingsDistribution[$i] = $user->comments()->where('rating', $i)->count() / $totalReviews * 100;
+                $ratingsDistribution[$i] = Comment::where('commented_user_id', $user->id)->where('rating', $i)->count() / $totalReviews * 100;
             }
         } else {
             $ratingsDistribution = array_fill(1, 5, 0);
         }
-
-        $comments = $user->comments()->orderBy('created_at', 'desc')->get();
-
+    
+        $comments = Comment::where('commented_user_id', $user->id)->orderBy('created_at', 'desc')->get();
+    
         return [
             'user' => $user,
             'averageRating' => $averageRating,
@@ -197,5 +197,4 @@ class CommentClientService
             'comments' => $comments,
         ];
     }
-
 }

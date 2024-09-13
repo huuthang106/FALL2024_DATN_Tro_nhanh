@@ -71,6 +71,12 @@
                                 </div>
 
                                 <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng nhập</button>
+    <div id="login-loading" style="display: none; text-align: center; margin-top: 10px;">
+        <span>Đang đăng nhập...</span>
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
                             </form>
                             <div class="divider text-center my-2">
                                 <span class="px-4 bg-white lh-17 text">
@@ -152,6 +158,12 @@
                                 </div>
 
                                 <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng ký</button>
+                                <div id="register-loading" style="display: none; text-align: center; margin-top: 10px;">
+                                    <span>Đang đăng ký...</span>
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
                             </form>
                             <div class="divider text-center my-2">
                                 <span class="px-4 bg-white lh-17 text">
