@@ -537,60 +537,67 @@
                             <tbody class="text-gray-600 fw-bold">
                                 <!--begin::Table row-->
                                 @forelse ($acreages as $acreage)
-                                <tr>
-                                    <!--begin::Checkbox-->
-                                    <td>
-                                        <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                            <input class="form-check-input" type="checkbox" value="1" />
-                                        </div>
-                                    </td>
-                                    <!--end::Checkbox-->
-                                    <!--begin::Role=-->
-                                    <td>{{ $acreage->name }}</td>
-                                    <!--end::Role=-->
-                                    <!--begin::Last login=-->
-                                    <td>{{ $acreage->min_size }}</td>
-                                    <!--end::Last login=-->
-                                    <!--begin::Joined-->
-                                    <td>{{ $acreage->max_size }}</td>
-                                    <!--begin::Joined-->
-                                    <td>{{ $acreage->created_at->format('d/m/Y') }}</td>
-                                    <!--begin::Action=-->
-                                    <td class="text-end">
-                                        <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
-                                           data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Tác vụ
-                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                                            <span class="svg-icon svg-icon-5 m-0">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="24" viewBox="0 0 24 24" fill="none">
-                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
-                                                </svg>
-                                            </span>
-                                            <!--end::Svg Icon-->
-                                        </a>
-                                        <!--begin::Menu-->
-                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
-                                                <a href="{{ route('admin.update-acreage-show', ['id' => $acreage->id]) }}" class="menu-link px-3">Chỉnh sửa</a>
+                                    <tr>
+                                        <!--begin::Checkbox-->
+                                        <td>
+                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                <input class="form-check-input" type="checkbox" value="1" />
                                             </div>
-                                            <!--end::Menu item-->
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
-                                                <a href="#" class="menu-link px-3" wire:click.prevent="deleteAcreage({{ $acreage->id }})">
-                                                    Xóa
-                                                </a>
+                                        </td>
+                                        <!--end::Checkbox-->
+                                        <!--begin::Role=-->
+                                        <td>{{ $acreage->name }}</td>
+                                        <!--end::Role=-->
+                                        <!--begin::Last login=-->
+                                        <td>{{ $acreage->min_size }}</td>
+                                        <!--end::Last login=-->
+                                        <!--begin::Joined-->
+                                        <td>{{ $acreage->max_size }}</td>
+                                        <!--begin::Joined-->
+                                        <td>{{ $acreage->created_at->format('d/m/Y') }}</td>
+                                        <!--begin::Action=-->
+                                        <td class="text-end">
+                                            <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
+                                                data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Tác
+                                                vụ
+                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+                                                <span class="svg-icon svg-icon-5 m-0">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26"
+                                                        height="24" viewBox="0 0 24 24" fill="none">
+                                                        <path
+                                                            d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                            fill="black" />
+                                                    </svg>
+                                                </span>
+                                                <!--end::Svg Icon-->
+                                            </a>
+                                            <!--begin::Menu-->
+                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                                                data-kt-menu="true">
+                                                <!--begin::Menu item-->
+                                                <div class="menu-item px-3">
+                                                    <a href="{{ route('admin.update-acreage-show', ['id' => $acreage->id]) }}"
+                                                        class="menu-link px-3">Chỉnh sửa</a>
+                                                </div>
+                                                <!--end::Menu item-->
+                                                <!--begin::Menu item-->
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3"
+                                                        wire:click.prevent="deleteAcreage({{ $acreage->id }})">
+                                                        Xóa
+                                                    </a>
+                                                </div>
+                                                <!--end::Menu item-->
                                             </div>
-                                            <!--end::Menu item-->
-                                        </div>
-                                        <!--end::Menu-->
-                                    </td>
-                                    <!--end::Action=-->
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="6" class="text-center">Không có diện tích nào !</td>
-                                </tr>
-                            @endforelse
+                                            <!--end::Menu-->
+                                        </td>
+                                        <!--end::Action=-->
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="6" class="text-center">Không có diện tích nào !</td>
+                                    </tr>
+                                @endforelse
                                 <!--end::Table row-->
                                 <!--begin::Table row-->
                             </tbody>
@@ -598,122 +605,123 @@
 
                             <!--end::Table body-->
                         </table>
-                        @if ($acreages->hasPages())
-                            <nav class="mt-4">
-                                <ul class="pagination rounded-active justify-content-center">
-                                    {{-- First Page Link --}}
-                                    @if ($acreages->onFirstPage())
-                                        <li class="page-item disabled">
-                                            <span class="page-link"><i class="fas fa-angle-double-left"></i></span>
-                                        </li>
-                                    @else
-                                        <li class="page-item">
-                                            <a class="page-link" wire:click="gotoPage(1)"
-                                                wire:loading.attr="disabled">
-                                                <i class="fas fa-angle-double-left"></i>
-                                            </a>
-                                        </li>
-                                    @endif
-
-
-                                    {{-- Previous Page Link --}}
-                                    @if ($acreages->onFirstPage())
-                                        <li class="page-item disabled">
-                                            <span class="page-link"><i class="fas fa-angle-left"></i></span>
-                                        </li>
-                                    @else
-                                        <li class="page-item">
-                                            <a class="page-link" wire:click="previousPage"
-                                                wire:loading.attr="disabled">
-                                                <i class="fas fa-angle-left"></i>
-                                            </a>
-                                        </li>
-                                    @endif
-
-
-                                    {{-- Pagination Elements --}}
-                                    @php
-                                        $maxPages = 5; // Số lượng trang hiển thị tối đa
-                                        $startPage = max(1, $acreages->currentPage() - floor($maxPages / 2));
-                                        $endPage = min($acreages->lastPage(), $startPage + $maxPages - 1);
-
-
-                                        if ($endPage - $startPage < $maxPages - 1) {
-                                            $startPage = max(1, $endPage - $maxPages + 1);
-                                        }
-                                    @endphp
-
-
-                                    @if ($startPage > 1)
-                                        <li class="page-item">
-                                            <a class="page-link" wire:click="gotoPage(1)"
-                                                wire:loading.attr="disabled">1</a>
-                                        </li>
-                                        @if ($startPage > 2)
+                        @if ($acreages->total() > 0)
+                            @if ($acreages->hasPages())
+                                <nav class="mt-4">
+                                    <ul class="pagination rounded-active justify-content-center">
+                                        {{-- First Page Link --}}
+                                        @if ($acreages->onFirstPage())
                                             <li class="page-item disabled">
-                                                <span class="page-link">...</span>
-                                            </li>
-                                        @endif
-                                    @endif
-
-
-                                    @for ($page = $startPage; $page <= $endPage; $page++)
-                                        @if ($page == $acreages->currentPage())
-                                            <li class="page-item active">
-                                                <span class="page-link">{{ $page }}</span>
+                                                <span class="page-link"><i
+                                                        class="fas fa-angle-double-left"></i></span>
                                             </li>
                                         @else
                                             <li class="page-item">
-                                                <a class="page-link" wire:click="gotoPage({{ $page }})"
-                                                    wire:loading.attr="disabled">{{ $page }}</a>
+                                                <a class="page-link" wire:click="gotoPage(1)"
+                                                    wire:loading.attr="disabled">
+                                                    <i class="fas fa-angle-double-left"></i>
+                                                </a>
                                             </li>
                                         @endif
-                                    @endfor
 
-
-                                    @if ($endPage < $acreages->lastPage())
-                                        @if ($endPage < $acreages->lastPage() - 1)
+                                        {{-- Previous Page Link --}}
+                                        @if ($acreages->onFirstPage())
                                             <li class="page-item disabled">
-                                                <span class="page-link">...</span>
+                                                <span class="page-link"><i class="fas fa-angle-left"></i></span>
+                                            </li>
+                                        @else
+                                            <li class="page-item">
+                                                <a class="page-link" wire:click="previousPage"
+                                                    wire:loading.attr="disabled">
+                                                    <i class="fas fa-angle-left"></i>
+                                                </a>
                                             </li>
                                         @endif
-                                        <li class="page-item">
-                                            <a class="page-link" wire:click="gotoPage({{ $acreages->lastPage() }})"
-                                                wire:loading.attr="disabled">{{ $acreages->lastPage() }}</a>
-                                        </li>
-                                    @endif
 
+                                        {{-- Pagination Elements --}}
+                                        @php
+                                            $maxPages = 5;
+                                            $startPage = max(1, $acreages->currentPage() - floor($maxPages / 2));
+                                            $endPage = min($acreages->lastPage(), $startPage + $maxPages - 1);
 
-                                    {{-- Next Page Link --}}
-                                    @if ($acreages->hasMorePages())
-                                        <li class="page-item">
-                                            <a class="page-link" wire:click="nextPage" wire:loading.attr="disabled">
-                                                <i class="fas fa-angle-right"></i>
-                                            </a>
-                                        </li>
-                                    @else
-                                        <li class="page-item disabled">
-                                            <span class="page-link"><i class="fas fa-angle-right"></i></span>
-                                        </li>
-                                    @endif
+                                            if ($endPage - $startPage < $maxPages - 1) {
+                                                $startPage = max(1, $endPage - $maxPages + 1);
+                                            }
+                                        @endphp
 
+                                        @if ($startPage > 1)
+                                            <li class="page-item">
+                                                <a class="page-link" wire:click="gotoPage(1)"
+                                                    wire:loading.attr="disabled">1</a>
+                                            </li>
+                                            @if ($startPage > 2)
+                                                <li class="page-item disabled">
+                                                    <span class="page-link">...</span>
+                                                </li>
+                                            @endif
+                                        @endif
 
-                                    {{-- Last Page Link --}}
-                                    @if ($acreages->hasMorePages())
-                                        <li class="page-item">
-                                            <a class="page-link" wire:click="gotoPage({{ $acreages->lastPage() }})"
-                                                wire:loading.attr="disabled">
-                                                <i class="fas fa-angle-double-right"></i>
-                                            </a>
-                                        </li>
-                                    @else
-                                        <li class="page-item disabled">
-                                            <span class="page-link"><i class="fas fa-angle-double-right"></i></span>
-                                        </li>
-                                    @endif
-                                </ul>
-                            </nav>
+                                        @for ($page = $startPage; $page <= $endPage; $page++)
+                                            @if ($page == $acreages->currentPage())
+                                                <li class="page-item active">
+                                                    <span class="page-link">{{ $page }}</span>
+                                                </li>
+                                            @else
+                                                <li class="page-item">
+                                                    <a class="page-link" wire:click="gotoPage({{ $page }})"
+                                                        wire:loading.attr="disabled">{{ $page }}</a>
+                                                </li>
+                                            @endif
+                                        @endfor
+
+                                        @if ($endPage < $acreages->lastPage())
+                                            @if ($endPage < $acreages->lastPage() - 1)
+                                                <li class="page-item disabled">
+                                                    <span class="page-link">...</span>
+                                                </li>
+                                            @endif
+                                            <li class="page-item">
+                                                <a class="page-link"
+                                                    wire:click="gotoPage({{ $acreages->lastPage() }})"
+                                                    wire:loading.attr="disabled">{{ $acreages->lastPage() }}</a>
+                                            </li>
+                                        @endif
+
+                                        {{-- Next Page Link --}}
+                                        @if ($acreages->hasMorePages())
+                                            <li class="page-item">
+                                                <a class="page-link" wire:click="nextPage"
+                                                    wire:loading.attr="disabled">
+                                                    <i class="fas fa-angle-right"></i>
+                                                </a>
+                                            </li>
+                                        @else
+                                            <li class="page-item disabled">
+                                                <span class="page-link"><i class="fas fa-angle-right"></i></span>
+                                            </li>
+                                        @endif
+
+                                        {{-- Last Page Link --}}
+                                        @if ($acreages->hasMorePages())
+                                            <li class="page-item">
+                                                <a class="page-link"
+                                                    wire:click="gotoPage({{ $acreages->lastPage() }})"
+                                                    wire:loading.attr="disabled">
+                                                    <i class="fas fa-angle-double-right"></i>
+                                                </a>
+                                            </li>
+                                        @else
+                                            <li class="page-item disabled">
+                                                <span class="page-link"><i
+                                                        class="fas fa-angle-double-right"></i></span>
+                                            </li>
+                                        @endif
+                                    </ul>
+                                </nav>
+                            @endif
                         @endif
+
+
                         <!--end::Table-->
                     </div>
 

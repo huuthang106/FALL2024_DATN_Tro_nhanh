@@ -1,10 +1,24 @@
 document.addEventListener('DOMContentLoaded', function () {
     const imageInput = document.querySelector('input[name="images[]"]');
     const selectedImagesContainer = document.getElementById('selected-images');
+    const errorContainer = document.getElementById('image-limit-error');
+    const maxImages = 15; // Số lượng ảnh tối đa
 
     if (imageInput) {
         imageInput.addEventListener('change', function (event) {
-            selectedImagesContainer.innerHTML = ''; // Clear existing images
+            const totalFiles = event.target.files.length;
+
+            // Kiểm tra số lượng ảnh
+            if (totalFiles > maxImages) {
+                errorContainer.style.display = 'block'; // Hiển thị thông báo lỗi
+                imageInput.value = ''; // Reset lại input nếu quá số lượng
+                selectedImagesContainer.innerHTML = ''; // Xóa các ảnh đã hiển thị
+                return;
+            } else {
+                errorContainer.style.display = 'none'; // Ẩn thông báo lỗi nếu đúng số lượng
+            }
+
+            selectedImagesContainer.innerHTML = ''; // Xóa các ảnh đã hiển thị
             Array.from(event.target.files).forEach(file => {
                 const reader = new FileReader();
                 
@@ -12,8 +26,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     const img = document.createElement('img');
                     img.src = e.target.result;
                     img.className = 'img-thumbnail m-1';
-                    img.style.maxWidth = '60px'; // Smaller image size
-                    img.style.maxHeight = '50px'; // Smaller image size
+                    img.style.maxWidth = '60px'; // Kích thước ảnh nhỏ hơn
+                    img.style.maxHeight = '50px'; // Kích thước ảnh nhỏ hơn
 
                     const removeBtn = document.createElement('button');
                     removeBtn.className = 'btn btn-danger btn-sm position-absolute';
@@ -23,8 +37,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     removeBtn.style.fontSize = '0.45rem';
                     removeBtn.style.padding = '0.25rem 0.5rem';
                     removeBtn.addEventListener('click', function () {
-                        img.remove(); // Remove the image
-                        removeBtn.remove(); // Remove the button
+                        img.remove(); // Xóa ảnh
+                        removeBtn.remove(); // Xóa nút xóa
                     });
 
                     const wrapper = document.createElement('div');

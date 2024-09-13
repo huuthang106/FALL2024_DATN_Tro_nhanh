@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('titleAdmin', 'Danh Sách Thông Báo | TRỌ NHANH')
-@section('linkAdmin', 'Danh sách thông báo')
+@section('linkAdmin', 'Danh sách báo cáo')
 @section('contentAdmin')
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">

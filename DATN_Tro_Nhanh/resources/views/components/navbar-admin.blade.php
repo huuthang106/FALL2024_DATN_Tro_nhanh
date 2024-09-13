@@ -1026,7 +1026,7 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Thống kê</span>
+                        <span class="menu-title">Báo Cáo</span>
                     </a>
                 </div>
                 <div class="menu-item">
@@ -1251,7 +1251,7 @@
                                 </svg>
                             </span>
                         </span>
-                        <span class="menu-title">Thông báo</span>
+                        <span class="menu-title">Báo Cáo</span>
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">

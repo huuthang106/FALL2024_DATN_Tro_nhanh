@@ -318,13 +318,16 @@
                                                         <div class="text-danger mt-3">{{ $error[0] }}</div>
                                                     @endforeach
                                                 </div>
-                                        
+                                            
+                                                <!-- Container for displaying error message -->
+                                                <div id="image-limit-error" class="text-danger mt-3" style="display: none;">Bạn không thể tải lên quá 15 ảnh.</div>
+                                            
                                                 <!-- Container for displaying selected images -->
                                                 <div id="selected-images" class="d-flex flex-wrap mb-3 overflow-auto" style="max-height: 300px;">
-                                                    <!-- Example image items -->
                                                     <!-- Images will be added dynamically here -->
                                                 </div>
                                             </div>
+                                            
                                         </div>
                                         
                                         

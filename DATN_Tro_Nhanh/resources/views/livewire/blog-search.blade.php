@@ -7,8 +7,8 @@
                 <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
                     <div class="d-flex form-group mb-0 align-items-center">
                         <label class="form-label fs-6 fw-bold mr-2 mb-0">Lọc:</label>
-                        <select class="form-control form-control-lg mr-2 selectpicker" wire:model.lazy="timeFilter"
-                            data-style="bg-white btn-lg h-52 py-2 border">
+                        <select class="form-control selectpicker form-control-lg mr-2"
+                            wire:model.lazy="timeFilter" data-style="bg-white btn-lg h-52 py-2 border">
                             <option value="" selected>Thời Gian:</option>
                             <option value="1_day">1 ngày</option>
                             <option value="7_day">7 ngày</option>
@@ -18,6 +18,7 @@
                             <option value="1_year">1 năm</option>
                         </select>
                     </div>
+                    
 
 
 
@@ -30,7 +31,7 @@
                 </div>
                 <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
                     <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
-                        <input wire:model.lazy="search" wire:keydown.debounce.300ms="$refresh" type="text"
+                        <input wire:model.lazy="search" wire:keydown.debounce.100ms="$refresh" type="text"
                             class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..." aria-label=""
                             aria-describedby="basic-addon1">
                         <div class="input-group-append position-absolute pos-fixed-right-center">
