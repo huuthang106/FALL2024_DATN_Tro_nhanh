@@ -606,120 +606,118 @@
                             <!--end::Table body-->
                         </table>
                         @if ($acreages->total() > 0)
-                            @if ($acreages->hasPages())
-                                <nav class="mt-4">
-                                    <ul class="pagination rounded-active justify-content-center">
-                                        {{-- First Page Link --}}
-                                        @if ($acreages->onFirstPage())
+                        @if ($acreages->hasPages())
+                            <nav class="mt-4">
+                                <ul class="pagination rounded-active justify-content-center">
+                                    {{-- First Page Link --}}
+                                    @if ($acreages->onFirstPage())
+                                        <li class="page-item disabled">
+                                            <span class="page-link"><i class="fas fa-angle-double-left"></i></span>
+                                        </li>
+                                    @else
+                                        <li class="page-item">
+                                            <a class="page-link" wire:click="gotoPage(1)"
+                                                wire:loading.attr="disabled">
+                                                <i class="fas fa-angle-double-left"></i>
+                                            </a>
+                                        </li>
+                                    @endif
+                    
+                                    {{-- Previous Page Link --}}
+                                    @if ($acreages->onFirstPage())
+                                        <li class="page-item disabled">
+                                            <span class="page-link"><i class="fas fa-angle-left"></i></span>
+                                        </li>
+                                    @else
+                                        <li class="page-item">
+                                            <a class="page-link" wire:click="previousPage"
+                                                wire:loading.attr="disabled">
+                                                <i class="fas fa-angle-left"></i>
+                                            </a>
+                                        </li>
+                                    @endif
+                    
+                                    {{-- Pagination Elements --}}
+                                    @php
+                                        $currentPage = $acreages->currentPage();
+                                        $totalPages = $acreages->lastPage();
+                                        $pageRange = 2; // Number of pages to show before and after the current page
+                                    @endphp
+                    
+                                    {{-- Show first and last page links --}}
+                                    @if ($currentPage > $pageRange + 1)
+                                        <li class="page-item">
+                                            <a class="page-link" wire:click="gotoPage(1)"
+                                                wire:loading.attr="disabled">1</a>
+                                        </li>
+                                        @if ($currentPage > $pageRange + 2)
                                             <li class="page-item disabled">
-                                                <span class="page-link"><i
-                                                        class="fas fa-angle-double-left"></i></span>
+                                                <span class="page-link">...</span>
+                                            </li>
+                                        @endif
+                                    @endif
+                    
+                                    {{-- Show pages around the current page --}}
+                                    @for ($page = max(1, $currentPage - $pageRange); $page <= min($totalPages, $currentPage + $pageRange); $page++)
+                                        @if ($page == $currentPage)
+                                            <li class="page-item active">
+                                                <span class="page-link">{{ $page }}</span>
                                             </li>
                                         @else
                                             <li class="page-item">
-                                                <a class="page-link" wire:click="gotoPage(1)"
-                                                    wire:loading.attr="disabled">
-                                                    <i class="fas fa-angle-double-left"></i>
-                                                </a>
+                                                <a class="page-link" wire:click="gotoPage({{ $page }})"
+                                                    wire:loading.attr="disabled">{{ $page }}</a>
                                             </li>
                                         @endif
-
-                                        {{-- Previous Page Link --}}
-                                        @if ($acreages->onFirstPage())
+                                    @endfor
+                    
+                                    {{-- Show ellipsis and last page link if needed --}}
+                                    @if ($currentPage < $totalPages - $pageRange)
+                                        @if ($currentPage < $totalPages - $pageRange - 1)
                                             <li class="page-item disabled">
-                                                <span class="page-link"><i class="fas fa-angle-left"></i></span>
-                                            </li>
-                                        @else
-                                            <li class="page-item">
-                                                <a class="page-link" wire:click="previousPage"
-                                                    wire:loading.attr="disabled">
-                                                    <i class="fas fa-angle-left"></i>
-                                                </a>
+                                                <span class="page-link">...</span>
                                             </li>
                                         @endif
-
-                                        {{-- Pagination Elements --}}
-                                        @php
-                                            $maxPages = 5;
-                                            $startPage = max(1, $acreages->currentPage() - floor($maxPages / 2));
-                                            $endPage = min($acreages->lastPage(), $startPage + $maxPages - 1);
-
-                                            if ($endPage - $startPage < $maxPages - 1) {
-                                                $startPage = max(1, $endPage - $maxPages + 1);
-                                            }
-                                        @endphp
-
-                                        @if ($startPage > 1)
-                                            <li class="page-item">
-                                                <a class="page-link" wire:click="gotoPage(1)"
-                                                    wire:loading.attr="disabled">1</a>
-                                            </li>
-                                            @if ($startPage > 2)
-                                                <li class="page-item disabled">
-                                                    <span class="page-link">...</span>
-                                                </li>
-                                            @endif
-                                        @endif
-
-                                        @for ($page = $startPage; $page <= $endPage; $page++)
-                                            @if ($page == $acreages->currentPage())
-                                                <li class="page-item active">
-                                                    <span class="page-link">{{ $page }}</span>
-                                                </li>
-                                            @else
-                                                <li class="page-item">
-                                                    <a class="page-link" wire:click="gotoPage({{ $page }})"
-                                                        wire:loading.attr="disabled">{{ $page }}</a>
-                                                </li>
-                                            @endif
-                                        @endfor
-
-                                        @if ($endPage < $acreages->lastPage())
-                                            @if ($endPage < $acreages->lastPage() - 1)
-                                                <li class="page-item disabled">
-                                                    <span class="page-link">...</span>
-                                                </li>
-                                            @endif
-                                            <li class="page-item">
-                                                <a class="page-link"
-                                                    wire:click="gotoPage({{ $acreages->lastPage() }})"
-                                                    wire:loading.attr="disabled">{{ $acreages->lastPage() }}</a>
-                                            </li>
-                                        @endif
-
-                                        {{-- Next Page Link --}}
-                                        @if ($acreages->hasMorePages())
-                                            <li class="page-item">
-                                                <a class="page-link" wire:click="nextPage"
-                                                    wire:loading.attr="disabled">
-                                                    <i class="fas fa-angle-right"></i>
-                                                </a>
-                                            </li>
-                                        @else
-                                            <li class="page-item disabled">
-                                                <span class="page-link"><i class="fas fa-angle-right"></i></span>
-                                            </li>
-                                        @endif
-
-                                        {{-- Last Page Link --}}
-                                        @if ($acreages->hasMorePages())
-                                            <li class="page-item">
-                                                <a class="page-link"
-                                                    wire:click="gotoPage({{ $acreages->lastPage() }})"
-                                                    wire:loading.attr="disabled">
-                                                    <i class="fas fa-angle-double-right"></i>
-                                                </a>
-                                            </li>
-                                        @else
-                                            <li class="page-item disabled">
-                                                <span class="page-link"><i
-                                                        class="fas fa-angle-double-right"></i></span>
-                                            </li>
-                                        @endif
-                                    </ul>
-                                </nav>
-                            @endif
+                                        <li class="page-item">
+                                            <a class="page-link" wire:click="gotoPage({{ $totalPages }})"
+                                                wire:loading.attr="disabled">{{ $totalPages }}</a>
+                                        </li>
+                                    @endif
+                    
+                                    {{-- Next Page Link --}}
+                                    @if ($acreages->hasMorePages())
+                                        <li class="page-item">
+                                            <a class="page-link" wire:click="nextPage"
+                                                wire:loading.attr="disabled">
+                                                <i class="fas fa-angle-right"></i>
+                                            </a>
+                                        </li>
+                                    @else
+                                        <li class="page-item disabled">
+                                            <span class="page-link"><i class="fas fa-angle-right"></i></span>
+                                        </li>
+                                    @endif
+                    
+                                    {{-- Last Page Link --}}
+                                    @if ($acreages->hasMorePages())
+                                        <li class="page-item">
+                                            <a class="page-link" wire:click="gotoPage({{ $totalPages }})"
+                                                wire:loading.attr="disabled">
+                                                <i class="fas fa-angle-double-right"></i>
+                                            </a>
+                                        </li>
+                                    @else
+                                        <li class="page-item disabled">
+                                            <span class="page-link"><i class="fas fa-angle-double-right"></i></span>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </nav>
                         @endif
+                    @endif
+                    
+                    
+                    
 
 
                         <!--end::Table-->
