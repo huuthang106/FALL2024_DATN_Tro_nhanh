@@ -193,33 +193,21 @@
             <div class="container container-xxl">
                 <div class="d-flex align-items-center">
                     <nav class="navbar navbar-expand-xl bg-transparent px-0 w-100 w-xl-auto">
-                        <a class="navbar-brand mr-7" href="{{route('client.home')}}">
+                        <a class="navbar-brand mr-7" href="{{ route('client.home') }}">
                             <img src="{{ asset('assets/images/tro-moi.png') }}" alt="HomeID" class="normal-logo">
 
                             <img src="{{ asset('assets/images/tro-moi.png') }}" alt="HomeID" class="sticky-logo">
                         </a>
 
-                       <div class="row ml-auto mr-4 ">
-                        <a class="d-block d-xl-none ml-auto mr-4 position-relative text-white p-2"
-                        href="{{ Route('owners.chat-owners') }}">
-                        <i class="fal fa-comments-alt fs-large-4"></i>
-                        <span class="badge badge-primary badge-circle badge-absolute">
-                            <livewire:unread-message-count /></span>
-                    </a>
-
-                    <a class="d-block d-xl-none ml-auto mr-4 position-relative text-white p-2" href="#">
-                        <i class="fal fa-heart fs-large-4"></i>
-                        <span class="badge badge-primary badge-circle badge-absolute">1</span>
-                    </a>
-                       </div>
+                       
                         <button class="navbar-toggler border-0 px-0" type="button" data-toggle="collapse"
                             data-target="#primaryMenu02" aria-controls="primaryMenu02" aria-expanded="false"
                             aria-label="Toggle navigation">
-                            <span class="text-white fs-24"><i class="fal fa-bars"></i></span>
+                            <span class="text-white fs-24" ><i class="fal fa-bars" style="color: #2f1f1f;"></i></span>
                         </button>
                         <div class="collapse navbar-collapse mt-3 mt-xl-0" id="primaryMenu02">
                             <ul class="navbar-nav hover-menu main-menu px-0 mx-xl-n4">
-                              
+
                                 <li id="navbar-item-listing" aria-haspopup="true" aria-expanded="false"
                                     class="nav-item dropdown py-2 py-xl-5 px-0 px-xl-4">
                                     <a class="nav-link dropdown-toggle p-0" href="listing.html"
@@ -366,7 +354,7 @@
 
                             </ul>
                             <div class="d-block d-xl-none">
-                                <div class="modal fade login-register login-register-modal" id="login-register-modal"
+                                {{-- <div class="modal fade login-register login-register-modal" id="login-register-modal"
                                     tabindex="-1" role="dialog" aria-labelledby="login-register-modal"
                                     aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
@@ -394,21 +382,34 @@
 
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <ul
+                                {{-- giao diện mobile --}}
                                     class="navbar-nav flex-row ml-auto align-items-center justify-content-lg-end flex-wrap py-2">
 
-                                    <li class="divider"></li>
                                     <li class="nav-item">
                                         @if (Auth::check())
-                                            <a class="nav-link pl-3 pr-3" data-toggle="modal"
+                                            <a class="nav-link pr-3" data-toggle="modal"
                                                 href="#user-profile-modal">
                                                 {{ Auth::user()->name }} <!-- Hiển thị tên người dùng -->
                                             </a>
+                                            <div class="row ml-auto mr-4 p-0">
+                                                <a class="d-block d-xl-none mr-4 position-relative text-white p-2"
+                                                    href="{{ Route('owners.chat-owners') }}">
+                                                    <i class="fal fa-comments-alt fs-large-4" style="color: #2f1f1f;"></i>
+                                                    <span class="badge badge-primary badge-circle badge-absolute">
+                                                        <livewire:unread-message-count /></span>
+                                                </a>
+                    
+                                                <a class="d-block d-xl-none ml-auto mr-4 position-relative text-white p-2" href="#">
+                                                    <i class="fal fa-heart fs-large-4" style="color: #2f1f1f;"></i>
+                                                    <span class="badge badge-primary badge-circle badge-absolute">1</span>
+                                                </a>
+                                            </div>
                                         @else
-                                            <a class="nav-link pl-3 pr-3" data-toggle="modal"
+                                            <a class="nav-link pr-3" data-toggle="modal"
                                                 href="#login-register-modal">
-                                                SIGN IN
+                                                Đăng nhập
                                             </a>
                                         @endif
                                     </li>
@@ -431,70 +432,84 @@
                         </div>
                     </nav>
                     <div class="ml-auto d-none d-xl-block">
-                        <ul class="navbar-nav flex-row ml-auto align-items-center justify-content-lg-end flex-wrap py-2">
+                        <ul
+                            class="navbar-nav flex-row ml-auto align-items-center justify-content-lg-end flex-wrap py-2">
                             <!-- Language Dropdown (Commented Out) -->
                             <!-- User Dropdown -->
                             <li class="nav-item">
                                 @if (Auth::check())
-                                    <a class="nav-link dropdown-toggle mr-md-2 pr-2 pl-0 pl-lg-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle mr-md-2 pr-2 pl-0 pl-lg-2" href="#"
+                                        id="bd-versions" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
                                         {{ Auth::user()->name }}
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="bd-versions">
-                                        <li><a class="dropdown-item" href="{{ route('owners.profile.profile-admin-index') }}">Xem thông tin</a></li>
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('owners.profile.profile-admin-index') }}">Xem thông
+                                                tin</a></li>
                                         <li>
-                                            <a class="dropdown-item" href="{{ route('client.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            <a class="dropdown-item" href="{{ route('client.logout') }}"
+                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                                 Đăng xuất
                                             </a>
                                         </li>
                                     </ul>
-                                    <li class="nav-item mr-auto mr-lg-6">
-                                        <a class="nav-link px-2 position-relative" href="{{ Route('owners.chat-owners') }}">
-                                            <i class="fal fa-comments-alt fs-large-4"></i>
-                                            <span class="badge badge-primary badge-circle badge-absolute">
-                                                <livewire:unread-message-count />
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <form id="logout-form" action="{{ route('client.logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                @else
-                                    <a class="nav-link pl-3 pr-2" data-toggle="modal" href="#login-register-modal">SIGN IN</a>
-                                @endif
+                            <li class="nav-item mr-auto mr-lg-6">
+                                <a class="nav-link px-2 position-relative" href="{{ Route('owners.chat-owners') }}">
+                                    <i class="fal fa-comments-alt fs-large-4"></i>
+                                    <span class="badge badge-primary badge-circle badge-absolute">
+                                        <livewire:unread-message-count />
+                                    </span>
+                                </a>
+                            </li>
+                            <form id="logout-form" action="{{ route('client.logout') }}" method="POST"
+                                style="display: none;">
+                                @csrf
+                            </form>
+                        @else
+                            <a class="nav-link pl-3 pr-2" data-toggle="modal" href="#login-register-modal">Đăng nhập</a>
+                            @endif
                             </li>
                             <!-- Chat Icon -->
-                           
+
                             <!-- Cart Icon -->
                             <li class="nav-item mr-auto mr-lg-6">
                                 <a class="nav-link px-2 position-relative" href="{{ route('client.carts-show') }}">
                                     <i class="fal fa-shopping-cart fs-large-4"></i>
-                                    <span class="badge badge-primary badge-circle badge-absolute">{{ $cartCount }}</span>
+                                    <span
+                                        class="badge badge-primary badge-circle badge-absolute">{{ $cartCount }}</span>
                                 </a>
                             </li>
                             <!-- Favorites Icon -->
                             <li class="nav-item mr-auto mr-lg-6">
                                 <a class="nav-link px-2 position-relative" href="{{ route('owners.favorites') }}">
                                     <i class="fal fa-heart fs-large-4"></i>
-                                    <span class="badge badge-primary badge-circle badge-absolute">{{ $favouriteCount }}</span>
+                                    <span
+                                        class="badge badge-primary badge-circle badge-absolute">{{ $favouriteCount }}</span>
                                 </a>
                             </li>
                             <!-- Add Room Button -->
                             @if (Auth::check() && $role != '1')
                                 <li class="nav-item">
-                                    <a class="btn btn-outline-light btn-lg text-white rounded-lg bg-hover-primary border-hover-primary hover-white d-none d-lg-block" href="{{ route('owners.add-room') }}">
+                                    <a class="btn btn-outline-light btn-lg text-white rounded-lg bg-hover-primary border-hover-primary hover-white d-none d-lg-block"
+                                        href="{{ route('owners.add-room') }}">
                                         Cho thuê
-                                        <img src="{{ asset('assets/images/add-listing-icon.png') }}" alt="Add listing" class="ml-1 normal-button-icon">
-                                        <img src="{{ asset('assets/images/add-listing-icon-primary.png') }}" alt="Add listing" class="ml-1 sticky-button-icon">
+                                        <img src="{{ asset('assets/images/add-listing-icon.png') }}"
+                                            alt="Add listing" class="ml-1 normal-button-icon">
+                                        <img src="{{ asset('assets/images/add-listing-icon-primary.png') }}"
+                                            alt="Add listing" class="ml-1 sticky-button-icon">
                                     </a>
-                                    <a class="btn btn-primary btn-lg d-block d-lg-none" href="{{ route('owners.add-room') }}">
+                                    <a class="btn btn-primary btn-lg d-block d-lg-none"
+                                        href="{{ route('owners.add-room') }}">
                                         Cho thuê
-                                        <img src="{{ asset('assets/images/add-listing-icon.png') }}" alt="Add listing" class="ml-1">
+                                        <img src="{{ asset('assets/images/add-listing-icon.png') }}"
+                                            alt="Add listing" class="ml-1">
                                     </a>
                                 </li>
                             @endif
                         </ul>
                     </div>
-                    
+
                 </div>
             </div>
         </div>

@@ -16766,7 +16766,9 @@ a.text-indigo:hover, a.text-indigo:focus {
     position: static !important;
   }
   .main-header.header-mobile-xl .sticky-area {
-    background-color: #1e1d85 !important;
+    /* background-color: #1e1d85 !important; */
+    background-color: #fff;
+  
   }
   .main-header.header-mobile-xl .main-menu {
     max-height: 500px;
@@ -16779,7 +16781,7 @@ a.text-indigo:hover, a.text-indigo:focus {
     background-color: transparent;
   }
   .main-header.header-mobile-xl .main-menu .dropdown-menu .dropdown-link, .main-header.header-mobile-xl .main-menu .dropdown-menu .dropdown-item, .main-header.header-mobile-xl .main-menu .dropdown-menu .dropdown-header {
-    color: #fff !important;
+    color: #2f1f1f !important;
   }
   .main-header.header-mobile-xl .main-menu .dropdown-menu .dropdown-item:not(.dropdown):hover, .main-header.header-mobile-xl .main-menu .dropdown-menu .dropdown-item:not(.dropdown):focus, .main-header.header-mobile-xl .main-menu .dropdown-menu .dropdown-item:not(.dropdown).active {
     background-color: #0ec6d5;
@@ -16795,7 +16797,7 @@ a.text-indigo:hover, a.text-indigo:focus {
     margin-left: 10px;
   }
   .main-header.header-mobile-xl .navbar-nav > .nav-item > .nav-link {
-    color: #fff;
+    color: #2f1f1f;
   }
   .main-header.header-mobile-xl .sticky-logo {
     display: none !important;
