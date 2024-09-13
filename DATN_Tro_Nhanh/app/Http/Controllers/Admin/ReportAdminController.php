@@ -19,7 +19,9 @@ class ReportAdminController extends Controller
     // Hàm lấy tất cả báo cáo của user hiện tại
     public function index()
     {
-        $userId = auth()->user()->id;
+        $userId = Auth::id();
+
+
         $reports = $this->reportService->getUserReports($userId);
 
         return view('admincp.show.show-report', compact('reports'));
