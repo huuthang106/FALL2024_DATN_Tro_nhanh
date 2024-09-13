@@ -495,14 +495,14 @@
                         <a href="#"
                             class="dropdown-toggle text-heading pr-3 pr-sm-6 d-flex align-items-center justify-content-end"
                             data-toggle="dropdown">
-                            <div class="mr-4 position-relative w-48px">
+                            <div class="mr-4 ntt w-48px">
     @if ($user->image)
         <img src="{{ asset('assets/images/' . $user->image) }}" alt="{{ $user->name }}" class="hehe rounded-circle">
     @else
         <img src="{{ asset('assets/images/nhan.jpg') }}" alt="Default Image" class="hehe rounded-circle">
     @endif
     @if(Auth::check() && Auth::user()->has_vip_badge && \Carbon\Carbon::today()->lte(\Carbon\Carbon::parse(Auth::user()->vip_expiration_date)->endOfDay()))
-    <span class="badge badge-vip position-absolute">VIP</span>
+    <span class="badge badge-vip list">VIP</span>
 @endif
 
 </div>

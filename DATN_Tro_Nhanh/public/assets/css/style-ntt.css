@@ -188,11 +188,11 @@
     font-size: 12px;
 }
 
-.position-relative {
+.ntt {
     position: relative;
 }
 
-.position-absolute {
+.list {
     position: absolute;
     top: -5px;
     /* Đẩy badge lên phía trên một chút */
