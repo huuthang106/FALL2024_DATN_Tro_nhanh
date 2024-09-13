@@ -213,6 +213,4 @@ class CategoryAdminService
             'message' => 'Loại phòng đã được xóa vĩnh viễn thành công.'
         ];
     }
-
-
 }

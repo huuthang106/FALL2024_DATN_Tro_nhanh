@@ -34,9 +34,9 @@
         </div>
     </div>
 
-    <div wire:loading class="spinner-border text-primary " role="status">
+    {{-- <div wire:loading class="spinner-border text-primary " role="status">
         <span class="sr-only">Đang tải...</span>
-    </div>
+    </div> --}}
 
     <table id="myTable" class="table table-hover bg-white border rounded-lg">
         <thead>
@@ -62,46 +62,47 @@
                                 <input type="checkbox" class="new-control-input child-chk select-customers-info">
                             </label></td>
                         <td class="align-middle"><a
-                            href="{{route('owners.detail-zone', ['slug' => $zone->slug]) }}"><span
-                                class="inv-number">{{ $zone->name }}</span></a>
-                    </td>
-                    <td class="align-middle">
-                        <div class="d-flex align-items-center">
-            
-                            <small class="align-self-center mb-0 user-name">{{ $zone->description }}</small>
-                        </div>
-                    </td>
-                    <td class="align-middle"><span class="text-primary pr-1"></span><small>{{ $zone->address }}</small>
-                    </td>
-                    <td class="align-middle"><span class="text-success pr-1"><i
-                                class="fal fa-calendar"></i></span>{{ $zone->updated_at }}</td>
-                                <td class="align-middle">
-                                    <span class="inv-amount">
-                                        @if ($zone->room_count < 0)
-                                            {{ -$zone->room_count }}
-                                        @else
-                                            {{ $zone->room_count }}
-                                        @endif
-                                    </span>
-                                </td>
-                                
-                    <td class="align-middle">
-                        @if ($zone->status == 1)
-                            <span class="badge badge-green text-capitalize">Đang hoạt dộng</span>
-                        @else
-                            <span class="badge badge-yellow text-capitalize">Chưa hoạt động</span>
-                        @endif
-                    </td>
-                    <td class="align-middle">
-                        <a href="{{route('owners.zone-view-update',$zone->slug)}}" data-toggle="tooltip" title="Chỉnh sửa"
-                            class="d-inline-block fs-18 text-muted hover-primary mr-5"><i
-                                class="fal fa-pencil-alt"></i></a>
-                        <a href="#" data-toggle="tooltip" title="Xóa"
-                            class="d-inline-block fs-18 text-muted hover-primary"><i
-                                class="fal fa-trash-alt"></i></a>
-                    </td>
-                </tr>
-            @endforeach
+                                href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}"><span
+                                    class="inv-number">{{ $zone->name }}</span></a>
+                        </td>
+                        <td class="align-middle">
+                            <div class="d-flex align-items-center">
+
+                                <small class="align-self-center mb-0 user-name">{{ $zone->description }}</small>
+                            </div>
+                        </td>
+                        <td class="align-middle"><span
+                                class="text-primary pr-1"></span><small>{{ $zone->address }}</small>
+                        </td>
+                        <td class="align-middle"><span class="text-success pr-1"><i
+                                    class="fal fa-calendar"></i></span>{{ $zone->updated_at }}</td>
+                        <td class="align-middle">
+                            <span class="inv-amount">
+                                @if ($zone->room_count < 0)
+                                    {{ -$zone->room_count }}
+                                @else
+                                    {{ $zone->room_count }}
+                                @endif
+                            </span>
+                        </td>
+
+                        <td class="align-middle">
+                            @if ($zone->status == 1)
+                                <span class="badge badge-green text-capitalize">Đang hoạt dộng</span>
+                            @else
+                                <span class="badge badge-yellow text-capitalize">Chưa hoạt động</span>
+                            @endif
+                        </td>
+                        <td class="align-middle">
+                            <a href="{{ route('owners.zone-view-update', $zone->slug) }}" data-toggle="tooltip"
+                                title="Chỉnh sửa" class="d-inline-block fs-18 text-muted hover-primary mr-5"><i
+                                    class="fal fa-pencil-alt"></i></a>
+                            <a href="#" data-toggle="tooltip" title="Xóa"
+                                class="d-inline-block fs-18 text-muted hover-primary"><i
+                                    class="fal fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                @endforeach
             @else
                 <tr>
                     <td colspan="8" class="text-center">Không tìm thấy kết quả nào.</td>

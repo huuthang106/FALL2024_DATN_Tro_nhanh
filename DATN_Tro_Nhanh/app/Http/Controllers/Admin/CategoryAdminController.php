@@ -68,10 +68,12 @@ class CategoryAdminController extends Controller
     {
         try {
             $category = $this->categoryService->createCategory($request->all());
-            return response()->json(['success' => true, 'data' => $category], 200);
+            // return response()->json(['success' => true, 'data' => $category], 200);
+            return redirect()->route('admin.list-category')->with('success', 'Loại phòng đã được tạo thành công!');
         } catch (Exception $e) {
-            Log::error('Đã xảy ra lỗi khi lưu: ' . $e->getMessage());
-            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+            // Log::error('Đã xảy ra lỗi khi lưu: ' . $e->getMessage());
+            // return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+            return back()->with('error', 'Có lỗi xảy ra khi tạo loại phòng.');
         }
     }
 
@@ -108,5 +110,4 @@ class CategoryAdminController extends Controller
 
         return redirect()->route('admin.trash-category')->with('success', $result['message']);
     }
-
 }
