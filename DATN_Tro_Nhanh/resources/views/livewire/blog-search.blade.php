@@ -118,7 +118,8 @@
             </tbody>
         </table>
     </div>
-    <div class="mt-6">
+    @if ($blogs->count() > 0)
+    <div id="pagination-section" class="mt-6">
         <ul class="pagination rounded-active justify-content-center">
             {{-- Nút quay về trang đầu tiên (<<) --}}
             <li class="page-item {{ $blogs->onFirstPage() ? 'disabled' : '' }}">
@@ -151,8 +152,7 @@
             {{-- Hiển thị các trang xung quanh trang hiện tại --}}
             @for ($i = max(1, $blogs->currentPage() - 1); $i <= min($blogs->currentPage() + 1, $blogs->lastPage()); $i++)
                 <li class="page-item {{ $blogs->currentPage() == $i ? 'active' : '' }}">
-                    <a class="page-link" wire:click="gotoPage({{ $i }})"
-                        href="#">{{ $i }}</a>
+                    <a class="page-link" wire:click="gotoPage({{ $i }})" href="#pagination-section">{{ $i }}</a>
                 </li>
             @endfor
 
@@ -172,7 +172,7 @@
                 </li>
             @endif
 
-            {{-- Trang tiếp theo --}}
+            {{-- Nút tới trang kế tiếp (>) --}}
             <li class="page-item {{ $blogs->currentPage() == $blogs->lastPage() ? 'disabled' : '' }}">
                 <a class="page-link" wire:click="nextPage" wire:loading.attr="disabled" href="#pagination-section">
                     <i class="fas fa-angle-right"></i> {{-- Icon cho trang kế tiếp --}}
@@ -187,6 +187,9 @@
             </li>
         </ul>
     </div>
+@endif
+
+
 
 
 

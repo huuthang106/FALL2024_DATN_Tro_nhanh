@@ -13,7 +13,7 @@ class BillsTable extends Component
     use WithPagination;
 
     public $search = ''; // Từ khóa tìm kiếm
-    public $perPage = 10; // Số lượng hóa đơn trên mỗi trang
+    public $perPage = 5; // Số lượng hóa đơn trên mỗi trang
     public $timeFilter = ''; // Khoảng thời gian lọc
 
     public function render()

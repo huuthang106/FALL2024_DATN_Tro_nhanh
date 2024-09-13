@@ -109,11 +109,70 @@
                     @endforeach
                 </tbody>
             </table>
-
-            <!-- Phân trang -->
-            <div class="d-flex justify-content-center">
-                {{ $bills->links() }}
+            @if ($bills->count() > 0)
+            <div class="mt-6">
+                <ul class="pagination rounded-active justify-content-center">
+                    {{-- Nút tới trang đầu tiên --}}
+                    <li class="page-item {{ $bills->onFirstPage() ? 'disabled' : '' }}">
+                        <a class="page-link" wire:click.prevent="gotoPage(1)">
+                            <i class="far fa-angle-double-left"></i>
+                        </a>
+                    </li>
+        
+                    {{-- Nút tới trang trước (<) --}}
+                    <li class="page-item {{ $bills->onFirstPage() ? 'disabled' : '' }}">
+                        <a class="page-link" wire:click.prevent="previousPage">
+                            <i class="fas fa-angle-left"></i>
+                        </a>
+                    </li>
+        
+                    {{-- Trang đầu tiên --}}
+                    @if ($bills->currentPage() > 2)
+                        <li class="page-item"><a class="page-link" wire:click.prevent="gotoPage(1)">1</a></li>
+                    @endif
+        
+                    {{-- Dấu ba chấm ở đầu nếu cần --}}
+                    @if ($bills->currentPage() > 3)
+                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                    @endif
+        
+                    {{-- Hiển thị các trang xung quanh trang hiện tại --}}
+                    @for ($i = max(1, $bills->currentPage() - 1); $i <= min($bills->currentPage() + 1, $bills->lastPage()); $i++)
+                        <li class="page-item {{ $bills->currentPage() == $i ? 'active' : '' }}">
+                            <a class="page-link" wire:click.prevent="gotoPage({{ $i }})">{{ $i }}</a>
+                        </li>
+                    @endfor
+        
+                    {{-- Dấu ba chấm ở cuối nếu cần --}}
+                    @if ($bills->currentPage() < $bills->lastPage() - 2)
+                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                    @endif
+        
+                    {{-- Trang cuối cùng --}}
+                    @if ($bills->currentPage() < $bills->lastPage() - 1)
+                        <li class="page-item"><a class="page-link" wire:click.prevent="gotoPage({{ $bills->lastPage() }})">{{ $bills->lastPage() }}</a></li>
+                    @endif
+        
+                    {{-- Nút tới trang kế tiếp (>) --}}
+                    <li class="page-item {{ $bills->currentPage() == $bills->lastPage() ? 'disabled' : '' }}">
+                        <a class="page-link" wire:click.prevent="nextPage">
+                            <i class="fas fa-angle-right"></i>
+                        </a>
+                    </li>
+        
+                    {{-- Nút tới trang cuối cùng (>>) --}}
+                    <li class="page-item {{ $bills->currentPage() == $bills->lastPage() ? 'disabled' : '' }}">
+                        <a class="page-link" wire:click.prevent="gotoPage({{ $bills->lastPage() }})">
+                            <i class="far fa-angle-double-right"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
+        @endif
+        
+
+        
+        
         </div>
     </div>
 </div>

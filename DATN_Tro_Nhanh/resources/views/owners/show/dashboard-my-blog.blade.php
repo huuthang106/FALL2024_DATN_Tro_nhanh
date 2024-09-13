@@ -2,17 +2,6 @@
 @section('titleOwners', 'Danh Sách Blog | TRỌ NHANH')
 @section('contentOwners')
 
-    @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
-
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
 
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
@@ -79,9 +68,7 @@
     <meta property="og:image:height" content="630">
 @endpush
 @push('scriptOwners')
-<script>
-    
-</script>
+    <script></script>
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/bootstrap/bootstrap.bundle.js') }}"></script>

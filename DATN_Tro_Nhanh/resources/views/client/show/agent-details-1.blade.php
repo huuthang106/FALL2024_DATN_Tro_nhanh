@@ -145,19 +145,26 @@
                                     </a>
                                 </li>
                             </ul>
-                            
+
                             <div class="tab-content shadow-none pt-7 pb-0 px-6 bg-white">
                                 <div id="collapse-tabs-accordion-01">
-                                    <div class="tab-pane tab-pane-parent fade show active" id="sale" role="tabpanel">
+                                    <div class="tab-pane tab-pane-parent fade show active" id="sale"
+                                        role="tabpanel">
                                         <div class="card border-0 bg-transparent">
-                                            <div class="card-header border-0 d-block d-md-none bg-transparent p-0" id="headingSale-01">
+                                            <div class="card-header border-0 d-block d-md-none bg-transparent p-0"
+                                                id="headingSale-01">
                                                 <h5 class="mb-0">
-                                                    <button class="btn lh-2 fs-18 bg-white py-1 px-6 shadow-none w-100 collapse-parent border collapsed mb-4" data-toggle="collapse" data-target="#sale-collapse-01" aria-expanded="true" aria-controls="sale-collapse-01">
+                                                    <button
+                                                        class="btn lh-2 fs-18 bg-white py-1 px-6 shadow-none w-100 collapse-parent border collapsed mb-4"
+                                                        data-toggle="collapse" data-target="#sale-collapse-01"
+                                                        aria-expanded="true" aria-controls="sale-collapse-01">
                                                         Phòng ({{ $totalRooms }})
                                                     </button>
                                                 </h5>
                                             </div>
-                                            <div id="sale-collapse-01" class="collapse show collapsible" aria-labelledby="headingSale-01" data-parent="#collapse-tabs-accordion-01">
+                                            <div id="sale-collapse-01" class="collapse show collapsible"
+                                                aria-labelledby="headingSale-01"
+                                                data-parent="#collapse-tabs-accordion-01">
                                                 <div class="card-body p-0">
                                                     <div class="row">
                                                         @if ($rooms->isEmpty())
@@ -343,36 +350,43 @@
                                                         </div>
                                                     @endif
                                                 </div> --}}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="tab-pane tab-pane-parent fade" id="rent" role="tabpanel">
-                                        <div class="card border-0 bg-transparent">
-                                            <div class="card-header border-0 d-block d-md-none bg-transparent p-0" id="headingRent-01">
-                                                <h5 class="mb-0">
-                                                    <button class="btn lh-2 fs-18 bg-white py-1 px-6 shadow-none w-100 collapse-parent border collapsed mb-4" data-toggle="collapse" data-target="#rent-collapse-01" aria-expanded="true" aria-controls="rent-collapse-01">
-                                                        Khu trọ ({{ $totalZones }})
-                                                    </button>
-                                                </h5>
-                                            </div>
-                                            <div id="rent-collapse-01" class="collapse collapsible" aria-labelledby="headingRent-01" data-parent="#collapse-tabs-accordion-01">
-                                                <div class="card-body p-0">
-                                                    <div class="row">
-                                                        @if ($zones->isEmpty())
-                                                            <div class="col-12 text-center py-5">
-                                                                <div class="alert alert-info">
-                                                                    <i class="fas fa-info-circle fs-24"></i>
-                                                                    <p class="mb-0">Người dùng này chưa có khu vực nào.
-                                                                    </p>
+                                        <div class="tab-pane tab-pane-parent fade" id="rent" role="tabpanel">
+                                            <div class="card border-0 bg-transparent">
+                                                <div class="card-header border-0 d-block d-md-none bg-transparent p-0"
+                                                    id="headingRent-01">
+                                                    <h5 class="mb-0">
+                                                        <button
+                                                            class="btn lh-2 fs-18 bg-white py-1 px-6 shadow-none w-100 collapse-parent border collapsed mb-4"
+                                                            data-toggle="collapse" data-target="#rent-collapse-01"
+                                                            aria-expanded="true" aria-controls="rent-collapse-01">
+                                                            Khu trọ ({{ $totalZones }})
+                                                        </button>
+                                                    </h5>
+                                                </div>
+                                                <div id="rent-collapse-01" class="collapse collapsible"
+                                                    aria-labelledby="headingRent-01"
+                                                    data-parent="#collapse-tabs-accordion-01">
+                                                    <div class="card-body p-0">
+                                                        <div class="row">
+                                                            @if ($zones->isEmpty())
+                                                                <div class="col-12 text-center py-5">
+                                                                    <div class="alert alert-info">
+                                                                        <i class="fas fa-info-circle fs-24"></i>
+                                                                        <p class="mb-0">Người dùng này chưa có khu vực
+                                                                            nào.
+                                                                        </p>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        @else
-                                                            @foreach ($zones as $zone)
-                                                                <div class="col-md-6 mb-7">
-                                                                    <div class="card border-0">
-                                                                        <div
-                                                                            class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                                                            {{-- @if ($zone->images->isNotEmpty())
+                                                            @else
+                                                                @foreach ($zones as $zone)
+                                                                    <div class="col-md-6 mb-7">
+                                                                        <div class="card border-0">
+                                                                            <div
+                                                                                class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
+                                                                                {{-- @if ($zone->images->isNotEmpty())
                                                                                 @php
                                                                                     // Get the first image
                                                                                     $image = $zone->images->first();
@@ -383,15 +397,16 @@
                                                                                 <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
                                                                                     alt="{{ $zone->title }}">
                                                                             @endif --}}
-                                                                            <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
-                                                                                alt="{{ $zone->name }}">
-                                                                            <div
-                                                                                class="card-img-overlay d-flex flex-column">
-                                                                                <div class="mb-auto">
-                                                                                    <span class="badge badge-indigo">Khu
-                                                                                        trọ</span>
-                                                                                </div>
-                                                                                {{-- <div class="d-flex hover-image">
+                                                                                <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
+                                                                                    alt="{{ $zone->name }}">
+                                                                                <div
+                                                                                    class="card-img-overlay d-flex flex-column">
+                                                                                    <div class="mb-auto">
+                                                                                        <span
+                                                                                            class="badge badge-indigo">Khu
+                                                                                            trọ</span>
+                                                                                    </div>
+                                                                                    {{-- <div class="d-flex hover-image">
                                                                                     <ul
                                                                                         class="list-inline mb-0 d-flex align-items-end mr-auto">
                                                                                         <li class="list-inline-item mr-2"
@@ -437,22 +452,22 @@
                                                                                     </li>
                                                                                 </ul>
                                                                                 </div> --}}
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="card-body pt-3 px-0 pb-1">
-                                                                            <h2 class="fs-16 mb-1"><a
-                                                                                    href="{{ route('client.client-details-zone', ['slug' => $zone->slug]) }}"
-                                                                                    class="text-dark hover-primary">{{ $zone->name }}</a>
-                                                                            </h2>
-                                                                            <p
-                                                                                class="font-weight-500 text-gray-light mb-0">
-                                                                                {{ $zone->address }}</p>
-                                                                            <p
-                                                                                class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                                                                {{ $zone->total_rooms }} Phòng
-                                                                            </p>
-                                                                        </div>
-                                                                        {{-- <div
+                                                                            <div class="card-body pt-3 px-0 pb-1">
+                                                                                <h2 class="fs-16 mb-1"><a
+                                                                                        href="{{ route('client.client-details-zone', ['slug' => $zone->slug]) }}"
+                                                                                        class="text-dark hover-primary">{{ $zone->name }}</a>
+                                                                                </h2>
+                                                                                <p
+                                                                                    class="font-weight-500 text-gray-light mb-0">
+                                                                                    {{ $zone->address }}</p>
+                                                                                <p
+                                                                                    class="fs-17 font-weight-bold text-heading mb-0 lh-16">
+                                                                                    {{ $zone->total_rooms }} Phòng
+                                                                                </p>
+                                                                            </div>
+                                                                            {{-- <div
                                                                             class="card-footer bg-transparent px-0 pb-0 pt-2">
                                                                             <ul class="list-inline mb-0">
                                                                                 <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
@@ -485,189 +500,194 @@
                                                                                 </li>
                                                                             </ul>
                                                                         </div> --}}
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            @endforeach
-                                                        @endif
-                                                    </div>
-                                                    @if (!$zones->isEmpty())
-                                                        <div class="mt-4">
-                                                            <ul class="pagination rounded-active justify-content-center">
-                                                                {{-- Previous Page Link --}}
-                                                                @if ($zones->onFirstPage())
-                                                                    <li class="page-item disabled">
-                                                                        <span class="page-link"><i
-                                                                                class="far fa-angle-double-left"></i></span>
-                                                                    </li>
-                                                                @else
-                                                                    <li class="page-item">
-                                                                        <a class="page-link"
-                                                                            href="{{ $zones->previousPageUrl() }}"><i
-                                                                                class="far fa-angle-double-left"></i></a>
-                                                                    </li>
-                                                                @endif
-
-                                                                {{-- Pagination Elements --}}
-                                                                @foreach ($zones->getUrlRange(1, $zones->lastPage()) as $page => $url)
-                                                                    @if ($page == $zones->currentPage())
-                                                                        <li class="page-item active">
-                                                                            <span
-                                                                                class="page-link">{{ $page }}</span>
+                                                                @endforeach
+                                                            @endif
+                                                        </div>
+                                                        @if (!$zones->isEmpty())
+                                                            <div class="mt-4">
+                                                                <ul
+                                                                    class="pagination rounded-active justify-content-center">
+                                                                    {{-- Previous Page Link --}}
+                                                                    @if ($zones->onFirstPage())
+                                                                        <li class="page-item disabled">
+                                                                            <span class="page-link"><i
+                                                                                    class="far fa-angle-double-left"></i></span>
                                                                         </li>
                                                                     @else
                                                                         <li class="page-item">
                                                                             <a class="page-link"
-                                                                                href="{{ $url }}">{{ $page }}</a>
+                                                                                href="{{ $zones->previousPageUrl() }}"><i
+                                                                                    class="far fa-angle-double-left"></i></a>
                                                                         </li>
                                                                     @endif
-                                                                @endforeach
+
+                                                                    {{-- Pagination Elements --}}
+                                                                    @foreach ($zones->getUrlRange(1, $zones->lastPage()) as $page => $url)
+                                                                        @if ($page == $zones->currentPage())
+                                                                            <li class="page-item active">
+                                                                                <span
+                                                                                    class="page-link">{{ $page }}</span>
+                                                                            </li>
+                                                                        @else
+                                                                            <li class="page-item">
+                                                                                <a class="page-link"
+                                                                                    href="{{ $url }}">{{ $page }}</a>
+                                                                            </li>
+                                                                        @endif
+                                                                    @endforeach
 
 
-                                                                @if ($zones->hasMorePages())
-                                                                    <li class="page-item">
-                                                                        <a class="page-link"
-                                                                            href="{{ $zones->nextPageUrl() }}"><i
-                                                                                class="far fa-angle-double-right"></i></a>
-                                                                    </li>
-                                                                @else
-                                                                    <li class="page-item disabled">
-                                                                        <span class="page-link"><i
-                                                                                class="far fa-angle-double-right"></i></span>
-                                                                    </li>
-                                                                @endif
-                                                            </ul>
-                                                        </div>
-                                                    @endif
+                                                                    @if ($zones->hasMorePages())
+                                                                        <li class="page-item">
+                                                                            <a class="page-link"
+                                                                                href="{{ $zones->nextPageUrl() }}"><i
+                                                                                    class="far fa-angle-double-right"></i></a>
+                                                                        </li>
+                                                                    @else
+                                                                        <li class="page-item disabled">
+                                                                            <span class="page-link"><i
+                                                                                    class="far fa-angle-double-right"></i></span>
+                                                                        </li>
+                                                                    @endif
+                                                                </ul>
+                                                            </div>
+                                                        @endif
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                       
-                        </div>
 
-                        <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
-                            <h4 class="fs-22 text-heading lh-15 mb-5">Đánh giá & Nhận xét</h4>
-                            <div class="card border-0">
-                                <div class="card-body p-0">
-                                    <div class="row">
-                                        <div class="col-sm-6 mb-6 mb-sm-0">
-                                            <div class="bg-gray-01 rounded-lg pt-2 px-6 pb-6">
-                                                <h5 class="fs-16 lh-2 text-heading mb-6">
-                                                    Đánh giá trung bình của người dùng
-                                                </h5>
-                                                <p class="fs-40 text-heading font-weight-bold mb-6 lh-1">
-                                                    {{ number_format($averageRating, 1) }} <span
-                                                        class="fs-18 text-gray-light font-weight-normal">/5</span>
-                                                </p>
-                                                <ul class="list-inline">
-                                                    @for ($i = 1; $i <= 5; $i++)
-                                                        <li
-                                                            class="list-inline-item w-46px h-46 rounded-lg d-inline-flex align-items-center justify-content-center fs-24 mb-1">
-                                                            <!-- Tăng fs-18 lên fs-24 -->
-                                                            @if ($i <= floor($averageRating))
-                                                                <i class="fas fa-star text-warning"></i>
-                                                            @elseif ($i == ceil($averageRating) && $averageRating - floor($averageRating) > 0)
-                                                                <i class="fas fa-star-half-alt text-warning"></i>
-                                                            @else
-                                                                <i class="far fa-star text-border"></i>
-                                                            @endif
-                                                        </li>
-                                                    @endfor
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 pt-3">
-                                            <h5 class="fs-16 lh-2 text-heading mb-5">
-                                                Phân tích đánh giá
-                                            </h5>
-                                            @foreach ($ratingsDistribution as $rating => $percentage)
-                                                <div class="d-flex align-items-center mx-n1">
-                                                    <ul class="list-inline d-flex px-1 mb-0">
-                                                        @for ($i = 5; $i >= 1; $i--)
+                            </div>
+
+                            <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
+                                <h4 class="fs-22 text-heading lh-15 mb-5">Đánh giá & Nhận xét</h4>
+                                <div class="card border-0">
+                                    <div class="card-body p-0">
+                                        <div class="row">
+                                            <div class="col-sm-6 mb-6 mb-sm-0">
+                                                <div class="bg-gray-01 rounded-lg pt-2 px-6 pb-6">
+                                                    <h5 class="fs-16 lh-2 text-heading mb-6">
+                                                        Đánh giá trung bình của người dùng
+                                                    </h5>
+                                                    <p class="fs-40 text-heading font-weight-bold mb-6 lh-1">
+                                                        {{ number_format($averageRating, 1) }} <span
+                                                            class="fs-18 text-gray-light font-weight-normal">/5</span>
+                                                    </p>
+                                                    <ul class="list-inline">
+                                                        @for ($i = 1; $i <= 5; $i++)
                                                             <li
-                                                                class="list-inline-item {{ $rating >= $i ? 'text-warning' : 'text-border' }} mr-1">
-                                                                <i class="fas fa-star"></i>
+                                                                class="list-inline-item w-46px h-46 rounded-lg d-inline-flex align-items-center justify-content-center fs-24 mb-1">
+                                                                <!-- Tăng fs-18 lên fs-24 -->
+                                                                @if ($i <= floor($averageRating))
+                                                                    <i class="fas fa-star text-warning"></i>
+                                                                @elseif ($i == ceil($averageRating) && $averageRating - floor($averageRating) > 0)
+                                                                    <i class="fas fa-star-half-alt text-warning"></i>
+                                                                @else
+                                                                    <i class="far fa-star text-border"></i>
+                                                                @endif
                                                             </li>
                                                         @endfor
                                                     </ul>
-                                                    <div class="d-block w-100 px-1">
-                                                        <div class="progress rating-progress">
-                                                            <div class="progress-bar bg-warning" role="progressbar"
-                                                                style="width: {{ $percentage }}%"
-                                                                aria-valuenow="{{ $percentage }}" aria-valuemin="0"
-                                                                aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 pt-3">
+                                                <h5 class="fs-16 lh-2 text-heading mb-5">
+                                                    Phân tích đánh giá
+                                                </h5>
+                                                @foreach ($ratingsDistribution as $rating => $percentage)
+                                                    <div class="d-flex align-items-center mx-n1">
+                                                        <ul class="list-inline d-flex px-1 mb-0">
+                                                            @for ($i = 5; $i >= 1; $i--)
+                                                                <li
+                                                                    class="list-inline-item {{ $rating >= $i ? 'text-warning' : 'text-border' }} mr-1">
+                                                                    <i class="fas fa-star"></i>
+                                                                </li>
+                                                            @endfor
+                                                        </ul>
+                                                        <div class="d-block w-100 px-1">
+                                                            <div class="progress rating-progress">
+                                                                <div class="progress-bar bg-warning" role="progressbar"
+                                                                    style="width: {{ $percentage }}%"
+                                                                    aria-valuenow="{{ $percentage }}" aria-valuemin="0"
+                                                                    aria-valuemax="100"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="text-muted px-1">{{ number_format($percentage, 0) }}%
                                                         </div>
                                                     </div>
-                                                    <div class="text-muted px-1">{{ number_format($percentage, 0) }}%
-                                                    </div>
-                                                </div>
-                                            @endforeach
+                                                @endforeach
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </section>
+                            </section>
 
 
 
-                        <section class="mt-2 pb-2 px-6 pt-6 bg-white rounded-lg">
-                            <div class="card border-0">
-                                <div class="card-body p-0">
-                                    <h3
-                                        class="fs-16 lh-2 text-heading mb-0 d-inline-block pr-4 border-bottom border-primary">
-                                        {{ $comments->count() }} Đánh giá
-                                    </h3>
+                            <section class="mt-2 pb-2 px-6 pt-6 bg-white rounded-lg">
+                                <div class="card border-0">
+                                    <div class="card-body p-0">
+                                        <h3
+                                            class="fs-16 lh-2 text-heading mb-0 d-inline-block pr-4 border-bottom border-primary">
+                                            {{ $comments->count() }} Đánh giá
+                                        </h3>
 
-                                    @livewire('comments')
+                                        @livewire('comments')
+                                    </div>
                                 </div>
-                            </div>
-                        </section>
+                            </section>
 
 
-                        <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
-                            <div class="card border-0">
-                                <div class="card-body p-0">
-                                    <h3 class="fs-16 lh-2 text-heading mb-4">Viết Đánh Giá</h3>
-                                    <form id="commentForm" action="{{ route('client.danh-gia-nguoi-dung') }}"
-                                        method="POST">
-                                        @csrf
-                                        <div class="form-group mb-4 d-flex justify-content-start">
-                                            <div class="rate-input">
-                                                <input type="radio" id="star5" name="rating" value="5">
-                                                <label for="star5" title="text" class="mb-0 mr-1 lh-1">
-                                                    <i class="fas fa-star"></i>
-                                                </label>
-                                                <input type="radio" id="star4" name="rating" value="4">
-                                                <label for="star4" title="text" class="mb-0 mr-1 lh-1">
-                                                    <i class="fas fa-star"></i>
-                                                </label>
-                                                <input type="radio" id="star3" name="rating" value="3">
-                                                <label for="star3" title="text" class="mb-0 mr-1 lh-1">
-                                                    <i class="fas fa-star"></i>
-                                                </label>
-                                                <input type="radio" id="star2" name="rating" value="2">
-                                                <label for="star2" title="text" class="mb-0 mr-1 lh-1">
-                                                    <i class="fas fa-star"></i>
-                                                </label>
-                                                <input type="radio" id="star1" name="rating" value="1">
-                                                <label for="star1" title="text" class="mb-0 mr-1 lh-1">
-                                                    <i class="fas fa-star"></i>
-                                                </label>
+                            <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
+                                <div class="card border-0">
+                                    <div class="card-body p-0">
+                                        <h3 class="fs-16 lh-2 text-heading mb-4">Viết Đánh Giá</h3>
+                                        <form id="commentForm" action="{{ route('client.danh-gia-nguoi-dung') }}"
+                                            method="POST">
+                                            @csrf
+                                            <div class="form-group mb-4 d-flex justify-content-start">
+                                                <div class="rate-input">
+                                                    <input type="radio" id="star5" name="rating" value="5">
+                                                    <label for="star5" title="text" class="mb-0 mr-1 lh-1">
+                                                        <i class="fas fa-star"></i>
+                                                    </label>
+                                                    <input type="radio" id="star4" name="rating" value="4">
+                                                    <label for="star4" title="text" class="mb-0 mr-1 lh-1">
+                                                        <i class="fas fa-star"></i>
+                                                    </label>
+                                                    <input type="radio" id="star3" name="rating" value="3">
+                                                    <label for="star3" title="text" class="mb-0 mr-1 lh-1">
+                                                        <i class="fas fa-star"></i>
+                                                    </label>
+                                                    <input type="radio" id="star2" name="rating" value="2">
+                                                    <label for="star2" title="text" class="mb-0 mr-1 lh-1">
+                                                        <i class="fas fa-star"></i>
+                                                    </label>
+                                                    <input type="radio" id="star1" name="rating" value="1">
+                                                    <label for="star1" title="text" class="mb-0 mr-1 lh-1">
+                                                        <i class="fas fa-star"></i>
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group mb-6">
-                                            <textarea class="form-control form-control-lg border-0" placeholder="Đánh giá của bạn" name="content"
-                                                rows="5"></textarea>
-                                        </div>
-                                        <input type="hidden" name="user_slug" value="{{ $user->slug }}">
+                                            <div class="form-group mb-6">
+                                                <textarea class="form-control form-control-lg border-0" placeholder="Đánh giá của bạn" name="content"
+                                                    rows="5"></textarea>
+                                            </div>
+                                            <input type="hidden" name="user_slug" value="{{ $user->slug }}">
 
-                                        <button type="submit" class="btn btn-lg btn-primary px-10">Gửi</button>
-                                    </form>
+                                            <button type="submit" class="btn btn-lg btn-primary px-10">Gửi</button>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                        </section>
+                            </section>
+                        </div>
+
                     </div>
                     <div class="col-lg-4 primary-sidebar sidebar-sticky" id="sidebar">
                         <div class="primary-sidebar-inner">
@@ -699,93 +719,94 @@
                                     <form action="{{ route('owners.add-chat', $user->id) }}" method="POST">
                                         @csrf
                                         {{-- <div class="form-group mb-2">
-                                            <label for="name" class="sr-only">Họ và Tên</label>
-                                            <input type="text"
-                                                class="form-control form-control-lg border-0 shadow-none" id="name"
-                                                placeholder="Nhập Họ và Tên...">
-                                        </div>
-                                        <div class="form-group mb-2">
-                                            <label for="email" class="sr-only">Email</label>
-                                            <input type="text"
-                                                class="form-control form-control-lg border-0 shadow-none" id="email"
-                                                placeholder="Địa chỉ mail...">
-                                        </div>
-                                        <div class="form-group mb-2">
-                                            <label for="phone" class="sr-only">Số điện thoại</label>
-                                            <input type="text"
-                                                class="form-control form-control-lg border-0 shadow-none" id="phone"
-                                                placeholder="Số điện thoại...">
-                                        </div>
-                                        <div class="form-group mb-4">
-                                            <label for="message" class="sr-only">Nội dung</label>
-                                            <textarea class="form-control border-0 shadow-none" rows="5" id="message"
-                                                placeholder="Nội dung tin nhắn..."></textarea>
-                                        </div> --}}
+                                    <label for="name" class="sr-only">Họ và Tên</label>
+                                    <input type="text"
+class="form-control form-control-lg border-0 shadow-none" id="name"
+                                        placeholder="Nhập Họ và Tên...">
+                                </div>
+                                <div class="form-group mb-2">
+                                    <label for="email" class="sr-only">Email</label>
+                                    <input type="text"
+                                        class="form-control form-control-lg border-0 shadow-none" id="email"
+                                        placeholder="Địa chỉ mail...">
+                                </div>
+                                <div class="form-group mb-2">
+                                    <label for="phone" class="sr-only">Số điện thoại</label>
+                                    <input type="text"
+                                        class="form-control form-control-lg border-0 shadow-none" id="phone"
+                                        placeholder="Số điện thoại...">
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="message" class="sr-only">Nội dung</label>
+                                    <textarea class="form-control border-0 shadow-none" rows="5" id="message"
+                                        placeholder="Nội dung tin nhắn..."></textarea>
+                                </div> --}}
                                         <button type="submit" class="btn btn-primary btn-lg btn-block shadow-none">Gửi
                                             tin nhắn
                                         </button>
                                     </form>
                                 </div>
                             </div>
+
                             {{-- <div class="card mb-4">
-                                <div class="card-body px-6 pt-5 pb-6">
-                                    <h4 class="card-title fs-16 lh-2 text-dark mb-3">Tìm kiếm</h4>
-                                    <form>
-                                        <div class="form-group mb-2">
-                                            <select class="form-control border-0 shadow-none selectpicker"
-                                                name="property-type" title="Loại phòng" data-style="btn-lg px-3">
-                                                <option>Phòng trọ</option>
-                                                <option>Căn hộ</option>
-                                                <option>Nhà nguyên căn</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-row mb-2">
-                                            <div class="col-6 form-group">
-                                                <select class="form-control selectpicker border-0" name="city"
-                                                    title="Thành phố" data-style="btn-lg rounded-lg px-3">
-                                                    <option>Hà Nội</option>
-                                                    <option>Hồ Chí Minh</option>
-                                                    <option>Đà Nẵng</option>
-                                                    <option>Hải Phòng</option>
-                                                    <option>Cần Thơ</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-6 form-group">
-                                                <select class="form-control selectpicker border-0" name="district"
-                                                    title="Quận/Huyện" data-style="btn-lg rounded-lg px-3">
-                                                    <option>Hoàn Kiếm</option>
-                                                    <option>Ba Đình</option>
-                                                    <option>Đống Đa</option>
-                                                    <option>Hà Đông</option>
-                                                    <option>Tân Bình</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group mb-4">
-                                            <input type="text" class="form-control form-control-lg border-0"
-                                                name="search" placeholder="Tìm kiếm theo tên phòng trọ...">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block">
-                                            Tìm kiếm
-                                        </button>
-                                    </form>
+                        <div class="card-body px-6 pt-5 pb-6">
+                            <h4 class="card-title fs-16 lh-2 text-dark mb-3">Tìm kiếm</h4>
+                            <form>
+                                <div class="form-group mb-2">
+<select class="form-control border-0 shadow-none selectpicker"
+                                        name="property-type" title="Loại phòng" data-style="btn-lg px-3">
+                                        <option>Phòng trọ</option>
+                                        <option>Căn hộ</option>
+                                        <option>Nhà nguyên căn</option>
+                                    </select>
                                 </div>
-                            </div> --}}
-                            {{-- <div class="card">
-                                <div class="card-body text-center pt-7 pb-6 px-0">
-                                    <img src="{{ asset('assets/images/contact-widget.jpg') }}"
-                                        alt="Bạn muốn trở thành người đăng tin trọ?">
-                                    <div class="text-dark mb-6 mt-n2 font-weight-500">Bạn muốn trở thành
-                                        <p class="mb-0 fs-18">Người Đăng Tin Trọ?</p>
+                                <div class="form-row mb-2">
+                                    <div class="col-6 form-group">
+                                        <select class="form-control selectpicker border-0" name="city"
+                                            title="Thành phố" data-style="btn-lg rounded-lg px-3">
+                                            <option>Hà Nội</option>
+                                            <option>Hồ Chí Minh</option>
+                                            <option>Đà Nẵng</option>
+                                            <option>Hải Phòng</option>
+                                            <option>Cần Thơ</option>
+                                        </select>
                                     </div>
-                                    <a href="#" class="btn btn-primary">Đăng ký</a>
+                                    <div class="col-6 form-group">
+                                        <select class="form-control selectpicker border-0" name="district"
+                                            title="Quận/Huyện" data-style="btn-lg rounded-lg px-3">
+                                            <option>Hoàn Kiếm</option>
+                                            <option>Ba Đình</option>
+                                            <option>Đống Đa</option>
+                                            <option>Hà Đông</option>
+                                            <option>Tân Bình</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div> --}}
+                                <div class="form-group mb-4">
+                                    <input type="text" class="form-control form-control-lg border-0"
+                            name="search" placeholder="Tìm kiếm theo tên phòng trọ...">
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                    Tìm kiếm
+                                </button>
+                            </form>
+                        </div>
+                                </div> --}}
+                            {{-- <div class="card">
+                                    <div class="card-body text-center pt-7 pb-6 px-0">
+                                        <img src="{{ asset('assets/images/contact-widget.jpg') }}"
+                                            alt="Bạn muốn trở thành người đăng tin trọ?">
+                                        <div class="text-dark mb-6 mt-n2 font-weight-500">Bạn muốn trở thành
+                                            <p class="mb-0 fs-18">Người Đăng Tin Trọ?</p>
+                                        </div>
+                                        <a href="#" class="btn btn-primary">Đăng ký</a>
+                                    </div>
+                                </div> --}}
                         </div>
                     </div>
                 </div>
-            </div>
         </section>
+
         <div class="bottom-bar-action py-2 px-4 bg-gray-01 position-fixed fixed-bottom d-block d-sm-none">
             <div class="container">
                 <div class="row no-gutters mx-n2 mxw-571 mx-auto">
@@ -800,6 +821,7 @@
                 </div>
             </div>
         </div>
+
         <div class="modal fade" id="modal-messenger" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
@@ -884,14 +906,14 @@
     <meta property="og:image:height" content="630">
 @endpush
 @push('scriptUs')
-<script>
-    document.addEventListener('livewire:load', function () {
-        Livewire.on('scrollToTop', () => {
-            // Xử lý cuộn đến vị trí mong muốn hoặc giữ nguyên vị trí hiện tại
-            // window.scrollTo({ top: 0, behavior: 'smooth' }); // Cuộn lên đầu
+    <script>
+        document.addEventListener('livewire:load', function() {
+            Livewire.on('scrollToTop', () => {
+                // Xử lý cuộn đến vị trí mong muốn hoặc giữ nguyên vị trí hiện tại
+                // window.scrollTo({ top: 0, behavior: 'smooth' }); // Cuộn lên đầu
+            });
         });
-    });
-</script>
+    </script>
 
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.js') }}"></script>
@@ -919,6 +941,6 @@
         var userIsLoggedIn = @json(auth()->check());
     </script>
     <script src="{{ asset('assets/js/client/ajax-follow.js') }}"></script>
-   
+
     @livewireScripts
 @endpush
