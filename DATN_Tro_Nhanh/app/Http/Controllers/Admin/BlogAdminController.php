@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\BlogRequest;
 use App\Services\NotificationService;
 use App\Services\BlogAdminServices;
+use App\Http\Requests\CreateBlogRequest;
+
 class BlogAdminController extends Controller
 {
     protected $BlogService;
@@ -62,7 +64,6 @@ class BlogAdminController extends Controller
             // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
             return back()->with('error', 'Cập nhật phòng thất bại.');
         }
-
     }
 
 

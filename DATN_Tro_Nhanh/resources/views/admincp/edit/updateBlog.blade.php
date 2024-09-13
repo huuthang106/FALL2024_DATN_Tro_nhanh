@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('titleAdmin', 'CChỉnh Sửa Blog | TRỌ NHANH')
+@section('titleAdmin', 'Chỉnh Sửa Blog | TRỌ NHANH')
 @section('linkAdmin', 'Chỉnh sửa BLog')
 
 @section('contentAdmin')
@@ -74,8 +74,8 @@
                                                 <div class="text-danger mt-3">{{ $message }}</div>
                                             @enderror
                                             @foreach ($errors->get('images.*') as $error)
-                                                    <div class="text-danger mt-3">{{ $error[0] }}</div>
-                                                @endforeach
+                                                <div class="text-danger mt-3">{{ $error[0] }}</div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
@@ -178,8 +178,8 @@
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-    href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
-    rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap">
     <!-- Vendors CSS -->
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">

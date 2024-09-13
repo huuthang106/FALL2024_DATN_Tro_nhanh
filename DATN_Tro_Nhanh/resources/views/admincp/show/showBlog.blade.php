@@ -600,6 +600,21 @@
                                         <!--end::Two step=-->
                                         <!--begin::Joined-->
                                         <td>{{ $blog->status }}</td>
+                                        {{-- <td>
+                                            @if ($blog->status == 1)
+                                                <span>Chờ
+                                                    xác
+                                                    nhận</span>
+                                            @elseif ($blog->status == 2)
+                                                <span>Đã
+                                                    xác
+                                                    nhận</span>
+                                            @else
+                                                <span>Chưa
+                                                    xác
+                                                    định</span>
+                                            @endif
+                                        </td> --}}
                                         <!--begin::Joined-->
                                         <td>{{ $blog->created_at->format('d/m/Y') }}</td>
                                         <!--begin::Action=-->
