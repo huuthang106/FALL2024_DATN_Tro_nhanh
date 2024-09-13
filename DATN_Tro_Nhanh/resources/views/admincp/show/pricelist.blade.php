@@ -5,7 +5,8 @@
 @section('contentAdmin')
 
     <!--begin::Content-->
-    @livewire('pricelist-admin-search')
+    {{-- @livewire('pricelist-admin-search') --}}
+@livewire('price-list-component')
     <!--end::Content-->
     <!--begin::Footer-->
 
@@ -80,6 +81,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     {{-- <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" /> --}}
     <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
 
