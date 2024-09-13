@@ -128,8 +128,8 @@
                                 <!--begin::Add user-->
                                 {{-- <a type="button" href="{{ route('admin.trang-them-khu-tro') }}" class="btn btn-primary">
                                     Thêm tiện ích</a> --}}
-                                <a type="button" href="#" class="btn btn-primary">
-                                    Thêm tiện ích</a>
+                                {{-- <a type="button" href="#" class="btn btn-primary">
+                                    Thêm tiện ích</a> --}}
                             </div>
                             <!--end::Toolbar-->
                             <!--begin::Group actions-->
@@ -535,7 +535,7 @@
                                         <th class="min-w-100px">Phòng tắm</th>
                                         <th class="min-w-100px">Máy điều hòa</th>
                                         <th class="min-w-100px">Ga-ra</th>
-                                        <th class="text-end min-w-px">Tác vụ</th>
+                                        {{-- <th class="text-end min-w-px">Tác vụ</th> --}}
                                     </tr>
                                     <!--end::Table row-->
                                 </thead>
@@ -582,7 +582,7 @@
                                                 <td>{{ $utility->garage ? 'Có' : 'Không' }}</td>
                                                 <!--end::Utility details-->
                                                 <!--begin::Actions-->
-                                                <td class="text-end">
+                                                {{-- <td class="text-end">
                                                     <a href="#"
                                                         class="btn btn-light btn-active-light-primary btn-sm"
                                                         data-kt-menu-trigger="click"data-kt-menu-placement="bottom-end">Thao
@@ -602,19 +602,19 @@
                                                         data-kt-menu="true">
                                                         <!--begin::Menu item-->
                                                         <div class="menu-item px-3">
-                                                            {{-- <a href="{{ route('admin.edit-utility', $utility->id) }}"
-                                                    class="menu-link px-3">Edit</a> --}}
+                                                            <a href="{{ route('admin.edit-utility', $utility->id) }}"
+                                                    class="menu-link px-3">Edit</a>
                                                         </div>
                                                         <!--end::Menu item-->
                                                         <!--begin::Menu item-->
                                                         <div class="menu-item px-3">
-                                                            {{-- <a href="#" class="menu-link px-3"
-                                                    data-kt-users-table-filter="delete_row">Delete</a> --}}
+                                                            <a href="#" class="menu-link px-3"
+                                                    data-kt-users-table-filter="delete_row">Delete</a>
                                                         </div>
                                                         <!--end::Menu item-->
                                                     </div>
                                                     <!--end::Menu-->
-                                                </td>
+                                                </td> --}}
                                                 <!--end::Actions-->
                                             </tr>
                                         @endforeach
