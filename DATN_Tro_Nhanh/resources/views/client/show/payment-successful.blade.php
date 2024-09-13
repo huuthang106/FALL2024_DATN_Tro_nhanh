@@ -109,7 +109,7 @@
                         <p class="mb-5">
 
 
-                            <a href="dashboard.html" class="btn btn-primary px-4 py-2 lh-238">Đi đến Bảng Điều Khiển</a>
+                            <a href="{{ route('owners.lich-su-giao-dich') }}" class="btn btn-primary px-4 py-2 lh-238">Đi đến Bảng Điều Khiển</a>
                     </div>
                 </div>
             </div>
