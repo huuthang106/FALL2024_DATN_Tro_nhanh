@@ -8,7 +8,7 @@ use App\Models\MaintenanceRequest;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
-class MaintenanceRequestList extends Component
+class MaintenanceOwnerList extends Component
 {
     use WithPagination;
 
@@ -54,7 +54,7 @@ class MaintenanceRequestList extends Component
                 case '6_month':
                     $date->subMonths(6);
                     break;
-                case '1_year':  
+                case '1_year':
                     $date->subYear();
                     break;
             }
@@ -64,7 +64,7 @@ class MaintenanceRequestList extends Component
 
    
 
-        return view('livewire.maintenance-request-list', compact('maintenanceRequests'));
+        return view('livewire.maintenance-owner-list', compact('maintenanceRequests'));
     }
 
     // Reset trang khi thay đổi số lượng bản ghi trên mỗi trang
@@ -78,24 +78,4 @@ class MaintenanceRequestList extends Component
     {
         $this->resetPage();
     }
-    public function deleteMaintenanceRequest($id)
-    {
-        try {
-            // Find the maintenance request by ID
-            $maintenanceRequest = MaintenanceRequest::find($id);
-    
-            // Check if the request exists and belongs to the current user
-            if ($maintenanceRequest && $maintenanceRequest->user_id == Auth::id()) {
-                // Delete the maintenance request from the database
-                $maintenanceRequest->delete();
-            }
-    
-            // Reset pagination after deletion
-            $this->resetPage();
-        } catch (\Exception $e) {
-            // Handle errors silently
-        }
-    }
-    
-    
 }

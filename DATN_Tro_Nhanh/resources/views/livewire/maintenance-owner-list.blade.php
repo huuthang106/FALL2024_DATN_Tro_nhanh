@@ -55,7 +55,7 @@
                                 <input type="checkbox" class="new-control-input chk-parent select-customers-info">
                             </label>
                         </th>
-                        <th class="py-6">Chủ Trọ</th>
+                        <th class="py-6">Người Yêu Cầu</th>
                         <th class="py-6">Số Phòng</th>
                         <th class="py-6">Ngày</th>
                         <th class="py-6">Trạng thái</th>
@@ -87,18 +87,14 @@
                         @endif
                     </td>
                     <td class="align-middle p-4">
-                        <button type="button" class="fs-18 text-muted hover-primary border-0 bg-transparent" 
-                                wire:click="deleteMaintenanceRequest({{ $item->id }})"
-                                onclick="">
-                            <i class="fal fa-trash-alt"></i>
-                        </button>
-                        <button type="button" class="fs-18 text-muted hover-primary border-0 bg-transparent" 
-                        wire:click="deleteMaintenanceRequest({{ $item->id }})"
-                        onclick="v">
-                        <i class="fa-solid fa-wrench"></i>
-                </button>
+                        <form action="{{ route('owners.destroy-maintenances', $item->id) }}" method="POST" class="d-inline-block mb-0">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="fs-18 text-muted hover-primary border-0 bg-transparent">
+                                <i class="fal fa-trash-alt"></i>
+                            </button>
+                        </form>
                     </td>
-                    
                 </tr>
             @empty
                 <tr>
