@@ -16,7 +16,7 @@ class CreateBlogRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'images' => 'required', // Bắt buộc phải có ít nhất một ảnh
+            // 'images' => 'required', // Bắt buộc phải có ít nhất một ảnh
             'images.*' => 'mimes:jpeg,png,jpg|max:2048', // Kiểm tra định dạng và kích thước ảnh
         ];
     }
@@ -29,7 +29,7 @@ class CreateBlogRequest extends FormRequest
             'title.max' => 'Tiêu đề không được vượt quá 255 ký tự.',
             'description.required' => 'Mô tả là bắt buộc.',
             'description.string' => 'Mô tả phải là một chuỗi văn bản.',
-            'images.required' => 'Hãy tải lên hình ảnh để hoàn tất.', // Message for the 'required' rule for images
+            // 'images.required' => 'Hãy tải lên hình ảnh để hoàn tất.', // Message for the 'required' rule for images
             'images.*.mimes' => 'Chỉ được tải ảnh có định dạng JPEG hoặc PNG.',
             'images.*.max' => 'Kích thước ảnh không được vượt quá 2MB.',
         ];

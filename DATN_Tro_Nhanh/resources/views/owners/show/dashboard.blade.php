@@ -93,7 +93,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-xxl-8 mb-6">
                     <div class="card px-7 py-6 h-100 chart">
                         <div class="card-body p-0 collapse-tabs">
@@ -291,14 +291,14 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </main>
-    </div>
+    </div>  
     </div>
     </div>
     <!-- Theme scripts -->
-    <script src="js/theme.js"></script>
+    {{-- <script src="js/theme.js"></script>
     <div class="modal fade login-register login-register-modal" id="login-register-modal" tabindex="-1" role="dialog"
         aria-labelledby="login-register-modal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
@@ -964,7 +964,7 @@
                 </path>
             </symbol>
         </defs>
-    </svg>
+    </svg> --}}
 @endsection
 
 @push('styleOwners')

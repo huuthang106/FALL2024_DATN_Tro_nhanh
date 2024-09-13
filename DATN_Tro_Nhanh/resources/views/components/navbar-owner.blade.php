@@ -74,7 +74,7 @@
                                     class="text-heading lh-1 sidebar-link">
                                     <span class="sidebar-item-icon d-inline-block mr-3 fs-20"><i
                                             class="fal fa-cog"></i></span>
-                                    <span class="sidebar-item-text">Dashboard</span>
+                                    <span class="sidebar-item-text">Trang điều khiển</span>
                                 </a>
                             </li>
                         </ul>
@@ -216,19 +216,6 @@
                                
 
 
-                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                    <a href="{{ Route('owners.favorites') }}"
-                                        class="text-heading lh-1 sidebar-link d-flex align-items-center">
-                                        <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                            <svg class="icon icon-my-properties">
-                                                <use xlink:href="#icon-my-properties"></use>
-                                            </svg>
-                                        </span>
-                                        <span class="sidebar-item-text">Yêu thích</span>
-                                        <span
-                                            class="sidebar-item-number ml-auto text-primary fs-15 font-weight-bold">{{ $favouriteCount }}</span>
-                                    </a>
-                                </li>
 
                                
                                 {{-- <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
@@ -377,8 +364,7 @@
                                     </span>
                                     <span class="sidebar-item-text">Yêu thích</span>
                                     <!-- Số lượng yêu thích nằm sau chữ "Yêu thích" -->
-                                    <span
-                                        class="sidebar-item-number text-primary fs-15 font-weight-bold ml-2">{{ $favouriteCount }}</span>
+                                    
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">

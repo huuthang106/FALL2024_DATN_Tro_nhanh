@@ -17,10 +17,7 @@
                                 <option value="50">50</option>
                             </select>
                         </div>
-                        <div class="align-self-center">
-                            <button class="btn btn-primary btn-lg" tabindex="0" aria-controls="invoice-list"><span>Thêm
-                                    mới</span></button>
-                        </div>
+
                     </div>
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
                         <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">

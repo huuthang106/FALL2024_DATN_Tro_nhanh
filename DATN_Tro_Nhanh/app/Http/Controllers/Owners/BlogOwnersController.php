@@ -38,7 +38,10 @@ class BlogOwnersController extends Controller
     {
         $result = $this->BlogService->editBlog($slug); // Gọi phương thức từ BlogService
 
-        return view('owners.edit.edit-blog',compact())->with('success', 'Bài viết đã tạo thành công');
+        return view('owners.edit.edit-blog', [
+            'blog' => $result['blog'],
+            'images' => $result['images'],
+        ]);
     }
 
     // public function updateBlog(Request $request, $slug)
@@ -63,9 +66,9 @@ class BlogOwnersController extends Controller
         $result = $this->BlogService->updateBlog($request, $id);
 
         if ($result['success']) {
-            return redirect()->route('owners.show-blog')->with('success', $result['message']);
+            return redirect()->route('owners.show-blog')->with('success', 'Sửa thành công');
         } else {
-            return redirect()->route('owners.show-blog')->with('error', $result['message']);
+            return redirect()->route('owners.show-blog')->with('error', 'Sửa thất bại');
         }
     }
 
