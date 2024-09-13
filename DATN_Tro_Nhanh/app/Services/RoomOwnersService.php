@@ -384,7 +384,7 @@ class RoomOwnersService
             $room->acreage = $request->input('acreage');
             $room->quantity = $request->input('quantity');
             $room->view = $request->input('view');
-            $room->status = $request->input('status');
+         
             $room->province = $request->input('province');
             $room->district = $request->input('district');
             $room->village = $request->input('village');

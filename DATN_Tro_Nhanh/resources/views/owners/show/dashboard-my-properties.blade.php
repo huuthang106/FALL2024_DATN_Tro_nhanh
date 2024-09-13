@@ -2,7 +2,7 @@
  @section('titleOwners', 'Danh Sách Phòng Trọ | TRỌ NHANH')
  @section('contentOwners')
 
-     @if (session('error'))
+     {{-- @if (session('error'))
          <div class="alert alert-danger">
              {{ session('error') }}
          </div>
@@ -12,7 +12,7 @@
          <div class="alert alert-success">
              {{ session('success') }}
          </div>
-     @endif
+     @endif --}}
 
 
      @livewire('room-owners-list')
@@ -96,4 +96,10 @@
              });
          });
      </script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script>
+          window.successMessage = "{{ session('success') }}";
+      </script>
+       <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
+          <script src="{{ asset('assets/js/alert-report.js') }}"></script>
  @endpush

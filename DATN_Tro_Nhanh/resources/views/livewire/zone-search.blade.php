@@ -110,48 +110,50 @@
         </tbody>
     </table>
 
+    @if ($zones->isNotEmpty())
     <div class="mt-6">
-        <ul class="pagination rounded-active justify-content-center">
-            {{-- Trang trước --}}
-            <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
-                <a class="page-link" wire:click="previousPage" wire:loading.attr="disabled" href="#"><i
-                        class="far fa-angle-double-left"></i></a>
-            </li>
-
-            {{-- Trang đầu tiên --}}
-            @if ($zones->currentPage() > 2)
-                <li class="page-item"><a class="page-link" wire:click="gotoPage(1)" href="#">1</a></li>
-            @endif
-
-            {{-- Dấu ba chấm ở đầu nếu cần --}}
-            @if ($zones->currentPage() > 3)
-                <li class="page-item disabled"><span class="page-link">...</span></li>
-            @endif
-
-            {{-- Hiển thị các trang xung quanh trang hiện tại --}}
-            @for ($i = max(1, $zones->currentPage() - 1); $i <= min($zones->currentPage() + 1, $zones->lastPage()); $i++)
-                <li class="page-item {{ $zones->currentPage() == $i ? 'active' : '' }}">
-                    <a class="page-link" wire:click="gotoPage({{ $i }})"
-                        href="#">{{ $i }}</a>
-                </li>
-            @endfor
-
-            {{-- Dấu ba chấm ở cuối nếu cần --}}
-            @if ($zones->currentPage() < $zones->lastPage() - 2)
-                <li class="page-item disabled"><span class="page-link">...</span></li>
-            @endif
-
-            {{-- Trang cuối cùng --}}
-            @if ($zones->currentPage() < $zones->lastPage() - 1)
-                <li class="page-item"><a class="page-link" wire:click="gotoPage({{ $zones->lastPage() }})"
-                        href="#">{{ $zones->lastPage() }}</a></li>
-            @endif
-
-            {{-- Trang tiếp theo --}}
-            <li class="page-item {{ $zones->currentPage() == $zones->lastPage() ? 'disabled' : '' }}">
-                <a class="page-link" href="{{ $zones->nextPageUrl() }}"><i
-                        class="far fa-angle-double-right"></i></a>
-            </li>
-        </ul>
-    </div>
+     <ul class="pagination rounded-active justify-content-center">
+         {{-- Trang trước --}}
+         <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
+             <a class="page-link" wire:click="previousPage" wire:loading.attr="disabled" href="#"><i
+                     class="far fa-angle-double-left"></i></a>
+         </li>
+ 
+         {{-- Trang đầu tiên --}}
+         @if ($zones->currentPage() > 2)
+             <li class="page-item"><a class="page-link" wire:click="gotoPage(1)" href="#">1</a></li>
+         @endif
+ 
+         {{-- Dấu ba chấm ở đầu nếu cần --}}
+         @if ($zones->currentPage() > 3)
+             <li class="page-item disabled"><span class="page-link">...</span></li>
+         @endif
+ 
+         {{-- Hiển thị các trang xung quanh trang hiện tại --}}
+         @for ($i = max(1, $zones->currentPage() - 1); $i <= min($zones->currentPage() + 1, $zones->lastPage()); $i++)
+             <li class="page-item {{ $zones->currentPage() == $i ? 'active' : '' }}">
+                 <a class="page-link" wire:click="gotoPage({{ $i }})"
+                     href="#">{{ $i }}</a>
+             </li>
+         @endfor
+ 
+         {{-- Dấu ba chấm ở cuối nếu cần --}}
+         @if ($zones->currentPage() < $zones->lastPage() - 2)
+             <li class="page-item disabled"><span class="page-link">...</span></li>
+         @endif
+ 
+         {{-- Trang cuối cùng --}}
+         @if ($zones->currentPage() < $zones->lastPage() - 1)
+             <li class="page-item"><a class="page-link" wire:click="gotoPage({{ $zones->lastPage() }})"
+                     href="#">{{ $zones->lastPage() }}</a></li>
+         @endif
+ 
+         {{-- Trang tiếp theo --}}
+         <li class="page-item {{ $zones->currentPage() == $zones->lastPage() ? 'disabled' : '' }}">
+             <a class="page-link" href="{{ $zones->nextPageUrl() }}"><i
+                     class="far fa-angle-double-right"></i></a>
+         </li>
+     </ul>
+ </div>
+ @endif
 </div>

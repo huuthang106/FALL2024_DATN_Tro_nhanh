@@ -7,7 +7,8 @@
                 <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
                     <div class="d-flex form-group mb-0 align-items-center">
                         <label class="form-label fs-6 fw-bold mr-2 mb-0">Lọc:</label>
-                        <select class="form-control form-control-lg mr-2 selectpicker" wire:model.lazy="timeFilter" data-style="bg-white btn-lg h-52 py-2 border">
+                        <select class="form-control form-control-lg mr-2 selectpicker" wire:model.lazy="timeFilter"
+                            data-style="bg-white btn-lg h-52 py-2 border">
                             <option value="" selected>Thời Gian:</option>
                             <option value="1_day">1 ngày</option>
                             <option value="7_day">7 ngày</option>
@@ -17,7 +18,7 @@
                             <option value="1_year">1 năm</option>
                         </select>
                     </div>
-                    
+
 
 
 
@@ -57,79 +58,94 @@
                 </tr>
             </thead>
             <tbody>
-                <div wire:loading class="text-center my-2">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="sr-only">Đang tải...</span>
-                    </div>
-                </div>
-                @foreach ($blogs as $blog)
-                    <tr class="shadow-hover-xs-2 ">
-                        <td class="align-middle pt-6 pb-4 px-6">
-                            <div class="media d-flex align-items-center">
-                                <div class="w-120px mr-4 position-relative">
-                                    <a href="{{ route('owners.show-blog', $blog->slug) }}">
-                                        @if ($blog->image)
-                                            @foreach ($blog->image as $item)
-                                                <img src="{{ asset('assets/images/' . $item->filename) }}"
-                                                    alt="{{ $item->filename }}" class="img-fluid">
-                                            @endforeach
-                                        @else
-                                            <p>Không có ảnh</p>
-                                        @endif
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="align-middle">{{ $blog->title }}</td>
-                        <td class="align-middle">{{ $blog->description }}</td>
-                        <td class="align-middle">
-                            @if ($blog->status == 1)
-                                <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">Chờ xác
-                                    nhận</span>
-                            @elseif ($blog->status == 2)
-                                <span class="badge text-capitalize font-weight-normal fs-12 badge-green">Đã xác
-                                    nhận</span>
-                            @else
-                                <span class="badge text-capitalize font-weight-normal fs-12 badge-gray">Chưa xác
-                                    định</span>
-                            @endif
-                        </td>
-
-                        <td class="align-middle">{{ $blog->created_at->format('d-m-Y') }}</td>
-                        <td class="align-middle">
-                            <a href="{{ route('owners.sua-blog', ['slug' => $blog->slug]) }}" data-toggle="tooltip"
-                                title="Chỉnh sửa" class="d-inline-block fs-18 text-muted hover-primary mr-5">
-                                <i class="fal fa-pencil-alt"></i>
-                            </a>
-                            <form action="{{ route('owners.destroy-blog', $blog->id) }}" method="POST"
-                                class="d-inline-block">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="fs-18 text-muted hover-primary border-0 bg-transparent"><i
-                                        class="fal fa-trash-alt"></i></button>
-                            </form>
-                        </td>
+                @if ($blogs->isEmpty())
+                    <tr>
+                        <td colspan="6" class="text-center py-4">Không có blog nào!</td>
                     </tr>
-                @endforeach
+                @else
+                    @foreach ($blogs as $blog)
+                        <tr class="shadow-hover-xs-2">
+                            <td class="align-middle pt-6 pb-4 px-6">
+                                <div class="media d-flex align-items-center">
+                                    <div class="w-120px mr-4 position-relative">
+                                        <a href="{{ route('owners.show-blog', $blog->slug) }}">
+                                            @if ($blog->image)
+                                                @foreach ($blog->image as $item)
+                                                    <img src="{{ asset('assets/images/' . $item->filename) }}"
+                                                        alt="{{ $item->filename }}" class="img-fluid">
+                                                @endforeach
+                                            @else
+                                                <p>Không có ảnh</p>
+                                            @endif
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="align-middle">{{ $blog->title }}</td>
+                            <td class="align-middle">{{ $blog->description }}</td>
+                            <td class="align-middle">
+                                @if ($blog->status == 1)
+                                    <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">Chờ xác
+                                        nhận</span>
+                                @elseif ($blog->status == 2)
+                                    <span class="badge text-capitalize font-weight-normal fs-12 badge-green">Đã xác
+                                        nhận</span>
+                                @else
+                                    <span class="badge text-capitalize font-weight-normal fs-12 badge-gray">Chưa xác
+                                        định</span>
+                                @endif
+                            </td>
+                            <td class="align-middle">{{ $blog->created_at->format('d-m-Y') }}</td>
+                            <td class="align-middle">
+                                <a href="{{ route('owners.sua-blog', ['slug' => $blog->slug]) }}" data-toggle="tooltip"
+                                    title="Chỉnh sửa" class="d-inline-block fs-18 text-muted hover-primary mr-5">
+                                    <i class="fal fa-pencil-alt"></i>
+                                </a>
+                                <form action="{{ route('owners.destroy-blog', $blog->id) }}" method="POST"
+                                    class="d-inline-block">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="fs-18 text-muted hover-primary border-0 bg-transparent">
+                                        <i class="fal fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
+
             </tbody>
         </table>
     </div>
     <div class="mt-6">
         <ul class="pagination rounded-active justify-content-center">
-            {{-- Trang trước --}}
+            {{-- Nút quay về trang đầu tiên (<<) --}}
             <li class="page-item {{ $blogs->onFirstPage() ? 'disabled' : '' }}">
-                <a class="page-link" wire:click="previousPage" wire:loading.attr="disabled" href="#"><i
-                        class="far fa-angle-double-left"></i></a>
+                <a class="page-link" wire:click="gotoPage(1)" wire:loading.attr="disabled" href="#pagination-section">
+                    <i class="far fa-angle-double-left"></i> {{-- Icon cho trang đầu tiên --}}
+                </a>
+            </li>
+
+            {{-- Nút quay lại trang trước (<) --}}
+            <li class="page-item {{ $blogs->onFirstPage() ? 'disabled' : '' }}">
+                <a class="page-link" wire:click="previousPage" wire:loading.attr="disabled" href="#pagination-section">
+                    <i class="fas fa-angle-left"></i> {{-- Icon cho trang trước --}}
+                </a>
             </li>
 
             {{-- Trang đầu tiên --}}
             @if ($blogs->currentPage() > 2)
-                <li class="page-item"><a class="page-link" wire:click="gotoPage(1)" href="#">1</a></li>
+                <li class="page-item">
+                    <a class="page-link" wire:click="gotoPage(1)" href="#pagination-section">1</a>
+                </li>
             @endif
 
             {{-- Dấu ba chấm ở đầu nếu cần --}}
             @if ($blogs->currentPage() > 3)
-                <li class="page-item disabled"><span class="page-link">...</span></li>
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
             @endif
 
             {{-- Hiển thị các trang xung quanh trang hiện tại --}}
@@ -142,22 +158,37 @@
 
             {{-- Dấu ba chấm ở cuối nếu cần --}}
             @if ($blogs->currentPage() < $blogs->lastPage() - 2)
-                <li class="page-item disabled"><span class="page-link">...</span></li>
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
             @endif
 
             {{-- Trang cuối cùng --}}
             @if ($blogs->currentPage() < $blogs->lastPage() - 1)
-                <li class="page-item"><a class="page-link" wire:click="gotoPage({{ $blogs->lastPage() }})"
-                        href="#">{{ $blogs->lastPage() }}</a></li>
+                <li class="page-item">
+                    <a class="page-link" wire:click="gotoPage({{ $blogs->lastPage() }})" href="#pagination-section">
+                        {{ $blogs->lastPage() }}
+                    </a>
+                </li>
             @endif
 
             {{-- Trang tiếp theo --}}
             <li class="page-item {{ $blogs->currentPage() == $blogs->lastPage() ? 'disabled' : '' }}">
-                <a class="page-link" href="{{ $blogs->nextPageUrl() }}"><i
-                        class="far fa-angle-double-right"></i></a>
+                <a class="page-link" wire:click="nextPage" wire:loading.attr="disabled" href="#pagination-section">
+                    <i class="fas fa-angle-right"></i> {{-- Icon cho trang kế tiếp --}}
+                </a>
+            </li>
+
+            {{-- Nút tới trang cuối cùng (>>) --}}
+            <li class="page-item {{ $blogs->currentPage() == $blogs->lastPage() ? 'disabled' : '' }}">
+                <a class="page-link" wire:click="gotoPage({{ $blogs->lastPage() }})" wire:loading.attr="disabled" href="#pagination-section">
+                    <i class="far fa-angle-double-right"></i> {{-- Icon cho trang cuối cùng --}}
+                </a>
             </li>
         </ul>
     </div>
+
+
 
 
     {{-- <div class="text-center mt-2">{{ $blogs->firstItem() }}-{{ $blogs->lastItem() }} của {{ $blogs->total() }}

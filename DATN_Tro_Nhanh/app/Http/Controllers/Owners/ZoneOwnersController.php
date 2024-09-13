@@ -16,7 +16,7 @@ class ZoneOwnersController extends Controller
     protected $zoneServices;
     protected const show = 2;
     protected const user_is_in = 2;
-  
+
 
     //
 
@@ -52,15 +52,11 @@ class ZoneOwnersController extends Controller
     public function storeBill(BillRequest $request)
     {
         $this->zoneServices->createBill($request->validated());
-        return response()->json([
-            'success' => true,
-            'message' => 'Hóa đơn đã được tạo thành công.',
-            'redirect' => url()->previous()
-        ]);
+        return redirect()->back()->with('success', 'Hóa đơn đã được tạo thành công.');
     }
-    
-    
-    
+
+
+
     public function store(ZoneRequest $request)
     {
 
@@ -71,7 +67,7 @@ class ZoneOwnersController extends Controller
                 // Phát sự kiện ZoneCreated và truyền đối tượng Zone mới tạo
                 event(new ZoneCreated($zone));
 
-                return redirect()->route('owners.zone-post')->with('success', 'Zone đã được tạo thành công.');
+                return redirect()->route('owners.zone-list')->with('success', 'Khu trọ đã được tạo thành công.');
             }
         }
 
@@ -113,7 +109,7 @@ class ZoneOwnersController extends Controller
                 // Phát sự kiện ZoneCreated và truyền đối tượng Zone mới tạo
 
 
-                return redirect()->route('owners.zone-list')->with('success', 'Zone đã được tạo thành công.');
+                return redirect()->route('owners.zone-list')->with('success', 'Khu trọ đã được tạo thành công.');
             }
         }
 
@@ -158,5 +154,4 @@ class ZoneOwnersController extends Controller
         // Nếu xóa vĩnh viễn thành công, chuyển hướng đến trang danh sách khu trọ đã xóa với thông báo thành công
         return redirect()->route('owners.trash-zone')->with('success', 'Khu trọ đã được xóa vĩnh viễn.');
     }
-   
 }

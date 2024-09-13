@@ -1,17 +1,7 @@
 @extends('layouts.owner')
 @section('titleOwners', 'Danh Sách Khu Trọ | TRỌ NHANH')
 @section('contentOwners')
-    @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
-
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+   
 
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
@@ -92,4 +82,10 @@
     <!-- Theme scripts -->
 
     <script src="{{ asset('assets/js/theme.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        window.successMessage = "{{ session('success') }}";
+    </script>
+     <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
+        <script src="{{ asset('assets/js/alert-report.js') }}"></script>
 @endpush

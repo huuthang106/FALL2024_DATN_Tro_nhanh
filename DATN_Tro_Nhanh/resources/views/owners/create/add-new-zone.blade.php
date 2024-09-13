@@ -130,16 +130,7 @@
                                                                 consectetur adipiscing elit</p>
 
                                                             <!-- Địa chỉ -->
-                                                            <div class="form-group">
-                                                                <label for="address" class="text-heading">Địa chỉ</label>
-                                                                <input type="text"
-                                                                    class="form-control form-control-lg border-0"
-                                                                    id="address" name="address"
-                                                                    value="{{ old('address') }}">
-                                                                @error('address')
-                                                                    <div class="text-danger">{{ $message }}</div>
-                                                                @enderror
-                                                            </div>
+                                                           
 
                                                             <!-- Tỉnh -->
                                                             <div class="form-group">
@@ -255,7 +246,16 @@
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
-
+                                                            <div class="form-group">
+                                                                <label for="address" class="text-heading">Địa chỉ</label>
+                                                                <input type="text"
+                                                                    class="form-control form-control-lg border-0"
+                                                                    id="address" name="address"
+                                                                    value="{{ old('address') }}">
+                                                                @error('address')
+                                                                    <div class="text-danger">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

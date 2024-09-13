@@ -166,6 +166,7 @@ class RoomOwnersController extends Controller
     // Cập nhật
     public function update(UpdateroomRequests $request, $roomId)
     {
+        // dd('hi');
             // Gọi phương thức update từ service
         $room = $this->roomOwnersService->update($request, $roomId);
         if ($room) {

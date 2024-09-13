@@ -38,10 +38,7 @@ class BlogOwnersController extends Controller
     {
         $result = $this->BlogService->editBlog($slug); // Gọi phương thức từ BlogService
     
-        return view('owners.edit.edit-blog', [
-            'blog' => $result['blog'],
-            'images' => $result['images'],
-        ]);
+        return view('owners.show.dashboard-my-blog')->with('success', 'Bài viết đã tạo thành công');
     }
 
     // public function updateBlog(Request $request, $slug)

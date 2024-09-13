@@ -252,7 +252,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="text-right">
+                                            <div class="text-right mt-1">
                                                 <button class="btn btn-lg btn-primary next-button">Tiếp theo <span
                                                         class="d-inline-block ml-2 fs-16">
                                                         <i class="fal fa-long-arrow-right"></i></span>
@@ -282,7 +282,7 @@
                                         data-parent="#collapse-tabs-accordion">
                                         <div class="card-body py-4 py-md-0 px-0">
                                             <div class="row">
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-12">
                                                     <div class="card mb-6">
                                                         <div class="card-body p-6">
                                                             <h3 class="card-title mb-0 text-heading fs-22 lh-15">
@@ -325,7 +325,7 @@
                                                                             <p>Không có hình ảnh nào.</p>
                                                                         @endif
                                                                     </div>
-                                                                    <div class="text-right">
+                                                                    <div class="text-right mt-1">
                                                                         <a href="{{ route('owners.room-images', ['id' => $room->id]) }}" class="btn btn-secondary">Quản lý ảnh</a>
                                                                        
                                                                     </div>
@@ -341,7 +341,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
+                                                {{-- <div class="col-lg-6">
                                                     <div class="card mb-6">
                                                         <div class="card-body p-6">
                                                             <h3 class="card-title mb-0 text-heading fs-22 lh-15">
@@ -375,9 +375,9 @@
                                                         </div>
                                                     </div>
                                                     <!-- Removed commented out "Virtual Tour" section -->
-                                                </div>
+                                                </div> --}}
                                             </div>
-                                            <div class="d-flex flex-wrap">
+                                            <div class="d-flex flex-wrap mt-1">
                                                 <a href="#"
                                                     class="btn btn-lg bg-hover-white border rounded-lg mb-3 mr-auto prev-button">
                                                     <span class="d-inline-block text-primary mr-2 fs-16"><i
@@ -769,7 +769,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="d-flex flex-wrap">
+                                            <div class="d-flex flex-wrap mt-1">
                                                 <a href="#"
                                                     class="btn btn-lg bg-hover-white border rounded-lg mb-3 mr-auto prev-button">
                                                     <span class="d-inline-block text-primary mr-2 fs-16"><i
@@ -886,7 +886,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="d-flex flex-wrap">
+                                            <div class="d-flex flex-wrap mt-1">
                                                 <a href="#"
                                                     class="btn btn-lg bg-hover-white border rounded-lg mb-3 mr-auto prev-button">
                                                     <span class="d-inline-block text-primary mr-2 fs-16"><i
@@ -957,6 +957,7 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+
 @endpush
 @push('scriptOwners')
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>

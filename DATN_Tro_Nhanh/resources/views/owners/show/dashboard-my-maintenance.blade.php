@@ -127,90 +127,95 @@
 
 
             </div>
-            <nav class="mt-4">
-                <ul class="pagination rounded-active justify-content-center">
-                    {{-- Previous Page Link --}}
-                    @if ($maintenanceRequests->onFirstPage())
-                        <li class="page-item disabled">
-                            <span class="page-link" aria-label="Previous">
-                                <i class="far fa-angle-double-left"></i>
-                            </span>
-                        </li>
-                    @else
-                        <li class="page-item">
-                            <a class="page-link" href="{{ $maintenanceRequests->previousPageUrl() }}" aria-label="Previous">
-                                <i class="far fa-angle-double-left"></i>
-                            </a>
-                        </li>
-                    @endif
-
-                    {{-- Pagination Elements --}}
-                    @php
-                        $totalPages = $maintenanceRequests->lastPage();
-                        $currentPage = $maintenanceRequests->currentPage();
-                        $pageRange = 2; // Number of pages to display before and after the current page
-                    @endphp
-
-                    {{-- Display the first page --}}
-                    @if ($currentPage > $pageRange + 1)
-                        <li class="page-item">
-                            <a class="page-link" href="{{ $maintenanceRequests->url(1) }}">1</a>
-                        </li>
-                        @if ($currentPage > $pageRange + 2)
+            @if ($maintenanceRequests)
+                <nav class="mt-4">
+                    <ul class="pagination rounded-active justify-content-center">
+                        {{-- Previous Page Link --}}
+                        @if ($maintenanceRequests->onFirstPage())
                             <li class="page-item disabled">
-                                <span class="page-link">...</span>
-                            </li>
-                        @endif
-                    @endif
-
-                    {{-- Display pages around the current page --}}
-                    @for ($i = max(1, $currentPage - $pageRange); $i <= min($totalPages, $currentPage + $pageRange); $i++)
-                        @if ($i == $currentPage)
-                            <li class="page-item active" aria-current="page">
-                                <span class="page-link">{{ $i }}</span>
+                                <span class="page-link" aria-label="Previous">
+                                    <i class="far fa-angle-double-left"></i>
+                                </span>
                             </li>
                         @else
                             <li class="page-item">
-                                <a class="page-link" href="{{ $maintenanceRequests->url($i) }}">{{ $i }}</a>
+                                <a class="page-link" href="{{ $maintenanceRequests->previousPageUrl() }}"
+                                    aria-label="Previous">
+                                    <i class="far fa-angle-double-left"></i>
+                                </a>
                             </li>
                         @endif
-                    @endfor
 
-                    {{-- Display the last page --}}
-                    @if ($currentPage < $totalPages - $pageRange)
-                        @if ($currentPage < $totalPages - $pageRange - 1)
+                        {{-- Pagination Elements --}}
+                        @php
+                            $totalPages = $maintenanceRequests->lastPage();
+                            $currentPage = $maintenanceRequests->currentPage();
+                            $pageRange = 2; // Number of pages to display before and after the current page
+                        @endphp
+
+                        {{-- Display the first page --}}
+                        @if ($currentPage > $pageRange + 1)
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $maintenanceRequests->url(1) }}">1</a>
+                            </li>
+                            @if ($currentPage > $pageRange + 2)
+                                <li class="page-item disabled">
+                                    <span class="page-link">...</span>
+                                </li>
+                            @endif
+                        @endif
+
+                        {{-- Display pages around the current page --}}
+                        @for ($i = max(1, $currentPage - $pageRange); $i <= min($totalPages, $currentPage + $pageRange); $i++)
+                            @if ($i == $currentPage)
+                                <li class="page-item active" aria-current="page">
+                                    <span class="page-link">{{ $i }}</span>
+                                </li>
+                            @else
+                                <li class="page-item">
+                                    <a class="page-link"
+                                        href="{{ $maintenanceRequests->url($i) }}">{{ $i }}</a>
+                                </li>
+                            @endif
+                        @endfor
+
+                        {{-- Display the last page --}}
+                        @if ($currentPage < $totalPages - $pageRange)
+                            @if ($currentPage < $totalPages - $pageRange - 1)
+                                <li class="page-item disabled">
+                                    <span class="page-link">...</span>
+                                </li>
+                            @endif
+                            <li class="page-item">
+                                <a class="page-link"
+                                    href="{{ $maintenanceRequests->url($totalPages) }}">{{ $totalPages }}</a>
+                            </li>
+                        @endif
+
+                        {{-- Next Page Link --}}
+                        @if ($maintenanceRequests->hasMorePages())
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $maintenanceRequests->nextPageUrl() }}" aria-label="Next">
+                                    <i class="far fa-angle-double-right"></i>
+                                </a>
+                            </li>
+                        @else
                             <li class="page-item disabled">
-                                <span class="page-link">...</span>
+                                <span class="page-link">
+                                    <i class="far fa-angle-double-right"></i>
+                                </span>
                             </li>
                         @endif
-                        <li class="page-item">
-                            <a class="page-link"
-                                href="{{ $maintenanceRequests->url($totalPages) }}">{{ $totalPages }}</a>
-                        </li>
-                    @endif
+                    </ul>
+                </nav>
+                <div class="text-center mt-2">
+                    {{ $maintenanceRequests->firstItem() }}-{{ $maintenanceRequests->lastItem() }} của
+                    {{ $maintenanceRequests->total() }} kết quả
+                </div>
+           
+            @endif
 
-                    {{-- Next Page Link --}}
-                    @if ($maintenanceRequests->hasMorePages())
-                        <li class="page-item">
-                            <a class="page-link" href="{{ $maintenanceRequests->nextPageUrl() }}" aria-label="Next">
-                                <i class="far fa-angle-double-right"></i>
-                            </a>
-                        </li>
-                    @else
-                        <li class="page-item disabled">
-                            <span class="page-link">
-                                <i class="far fa-angle-double-right"></i>
-                            </span>
-                        </li>
-                    @endif
-                </ul>
-            </nav>
-
-
-            <div class="text-center mt-2">
-                {{ $maintenanceRequests->firstItem() }}-{{ $maintenanceRequests->lastItem() }} của
-                {{ $maintenanceRequests->total() }} kết quả
-            </div>
+          
         </div>
         </div>
     </main>
