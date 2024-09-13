@@ -307,10 +307,10 @@
                                         <div class="row mb-6">
                                             <label class="col-lg-4 col-form-label fw-bold fs-6 required">Hình ảnh</label>
                                             <div class="col-lg-8 fv-row">
-                                                <div id="image-input-container">
-                                                    <input type="file" name="images[]"
-                                                        class="form-control form-control-lg form-control-solid mb-3"
-                                                        placeholder="" />
+                                                <div id="image-input-container" class="mb-3">
+                                                    <input type="file" name="images[]" 
+                                                           class="form-control form-control-lg form-control-solid mb-3" 
+                                                           placeholder="" multiple />
                                                     @error('images')
                                                         <div class="text-danger mt-3">{{ $message }}</div>
                                                     @enderror
@@ -318,12 +318,20 @@
                                                         <div class="text-danger mt-3">{{ $error[0] }}</div>
                                                     @endforeach
                                                 </div>
-                                                <button type="button" id="add-image-input"
-                                                    class="btn btn-primary float-end">
-                                                    Thêm ảnh
-                                                </button>
+                                        
+                                                <!-- Container for displaying selected images -->
+                                                <div id="selected-images" class="d-flex flex-wrap mb-3 overflow-auto" style="max-height: 300px;">
+                                                    <!-- Example image items -->
+                                                    <!-- Images will be added dynamically here -->
+                                                </div>
                                             </div>
                                         </div>
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
                                     </div>
                                     <div class="row mb-6">
                                         <!-- Bản đồ -->
