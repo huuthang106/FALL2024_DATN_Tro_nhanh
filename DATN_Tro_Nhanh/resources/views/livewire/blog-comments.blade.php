@@ -17,11 +17,11 @@
                     <div class="media-body">
                         <p class="text-heading fs-16 font-weight-500 mb-0">
                             {{ $item->user->name ?? 'Người dùng' }}
-                        </p>
+                        </p> 
                         <p class="mb-4">{{ $item->content }}</p>
                         <ul class="list-inline">
                             <li class="list-inline-item text-muted">
-                                {{ $item->created_at->format('d M Y \ lúc H:i') }}<span
+                                {{ $item->created_at->format('d/m/Y h:i A') }}<span
                                     class="d-inline-block ml-2">|</span></li>
                             <li class="list-inline-item"><a href="#"
                                     class="text-heading hover-primary">Trả lời</a></li>

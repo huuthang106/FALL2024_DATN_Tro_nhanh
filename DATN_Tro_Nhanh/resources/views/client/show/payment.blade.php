@@ -55,28 +55,26 @@
                     </div>
                     <div class="col-md-7 offset-lg-1">
                         <h4 class="text-heading fs-22 font-weight-500 lh-15">Chọn Phương Thức Thanh Toán</h4>
-                        <p class="mb-5 pr-xl-17">
-                            Xem Thêm
-                        </p>
-                        <div class="custom-control custom-radio mb-2">
+                       
+                        {{-- <div class="custom-control custom-radio mb-2">
                             <input type="radio" id="paypal" name="pay" value="paypal" checked
                                 class="custom-control-input">
                             <label for="paypal" class="font-weight-500 mb-0 custom-control-label">
                                 <span class="fs-12 text-heading d-inline-block mr-1"><i class="fab fa-paypal"></i></span>
                                 Thanh Toán Bằng Paypal</label>
-                        </div>
+                        </div> --}}
                         <div class="custom-control custom-radio mb-2">
                             <input type="radio" id="card" name="pay" value="card" class="custom-control-input">
                             <label for="card" class="font-weight-500 mb-0 custom-control-label"><span
                                     class="fs-12 text-heading d-inline-block mr-1"><i
-                                        class="fas fa-credit-card"></i></span>Thanh Toán Bằng Thẻ Tín Dụng</label>
+                                        class="fas fa-credit-card"></i></span>Thanh Toán Bằng VNPAY</label>
                         </div>
-                        <div class="custom-control custom-radio mb-2">
+                        {{-- <div class="custom-control custom-radio mb-2">
                             <input type="radio" id="wire" name="pay" value="wire" class="custom-control-input">
                             <label for="wire" class="font-weight-500 mb-0 custom-control-label"><span
                                     class="text-heading fs-12  d-inline-block mr-1"><i
                                         class="fas fa-paper-plane"></i></span>Chuyển Khoản</label>
-                        </div>
+                        </div> --}}
                         <p class="text-heading font-weight-500 mb-0 pt-1">Xem Thêm</p>
                         
                         <p class="mb-6">Vui lòng đọc <a href="#"

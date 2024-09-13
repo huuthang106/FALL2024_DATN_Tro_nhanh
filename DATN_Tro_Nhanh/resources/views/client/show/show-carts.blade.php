@@ -99,6 +99,8 @@
 
                     </tbody>
                 </table>
+            </div><div id="no-checkbox-selected" class="alert alert-danger mt-4" style="display: none;">
+                Vui lòng chọn ít nhất một gói để thanh toán.
             </div>
             <div class="row">
             <div class="col-6 d-flex justify-content-start mt-4">
@@ -108,11 +110,13 @@
             </div>
             <!-- Thêm nút tiếp hành thanh toán -->
             <div class="col-6 d-flex justify-content-end mt-4">
-                <button type="submit" class="btn btn-primary btn-lg">
+                <button type="submit" class="btn btn-primary btn-lg" id="checkout-button">
                     Tiếp hành thanh toán
-</button>
+                </button>
             </div>
             </div>
+            <!-- Div thông báo khi không có checkbox nào được chọn -->
+            
             </form>
         </div>
     </main>
@@ -296,6 +300,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Tính tổng tiền ngay khi trang được tải
     calculateTotalPrice();
+
+    // Kiểm tra trạng thái của các checkbox khi bấm nút thanh toán
+    checkoutButton.addEventListener('click', function (event) {
+        const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+
+        if (!anyChecked) {
+            event.preventDefault(); // Ngăn chặn form submit
+            noCheckboxSelected.style.display = 'block'; // Hiển thị thông báo
+        } else {
+            noCheckboxSelected.style.display = 'none'; // Ẩn thông báo nếu có checkbox được chọn
+        }
+    });
 });
 
     </script>

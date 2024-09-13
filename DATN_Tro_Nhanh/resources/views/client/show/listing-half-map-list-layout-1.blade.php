@@ -4,10 +4,10 @@
     <main id="content">
         <section class="bg-secondary">
             <div class="container">
-                <form class="property-search d-none d-lg-block">
+                <form action="{{ route('client.room-listing') }}" class="property-search d-none d-lg-block">
                     <div class="row align-items-lg-center" id="accordion-2">
                         <div class="col-xl-2 col-lg-3 col-md-4">
-                            <div class="property-search-status-tab d-flex flex-row">
+                             <div class="property-search-status-tab d-flex flex-row">
                                 <input class="search-field" type="hidden" name="status" value="for-rent"
                                     data-default-value="">
                                 <button type="button" data-value="for-rent"
@@ -18,18 +18,77 @@
                                     class="btn shadow-none btn-active-primary text-white rounded-0 hover-white text-uppercase h-lg-80 border-left-0 border-top-0 border-bottom-0 border-right border-white-opacity-03 flex-md-1">
                                     Bán
                                 </button>
-                            </div>
+                            </div> 
                         </div>
                         <div class="col-xl-8 col-lg-7 d-md-flex">
-                            <select
+                             <select
                                 class="form-control shadow-none form-control-lg selectpicker rounded-right-md-0 rounded-md-top-left-0 rounded-lg-top-left flex-md-1 mt-3 mt-md-0"
-                                title="Loại" data-style="btn-lg py-2 h-52 border-right bg-white" id="type-1"
-                                name="type">
-                                <option>Chung cư</option>
-                                <option>Nhà dành cho một gia đình</option>
-                                <option>Nhà phố</option>
-                                <option>Nhà dành cho nhiều gia đình</option>
-                            </select>
+                                title="Chọn Thành Phố" data-style="btn-lg py-2 h-52 border-right bg-white" name="province" id="city-province">
+                                <option value='0'>Chọn Tỉnh/Thành Phố...</option>
+                                <option value='01'>Thành phố Hà Nội</option>
+                                <option value='79'>Thành phố Hồ Chí Minh</option>
+                                <option value='31'>Thành phố Hải Phòng</option>
+                                <option value='48'>Thành phố Đà Nẵng</option>
+                                <option value='92'>Thành phố Cần Thơ</option>
+                                <option value='02'>Tỉnh Hà Giang</option>
+                                <option value='04'>Tỉnh Cao Bằng</option>
+                                <option value='06'>Tỉnh Bắc Kạn</option>
+                                <option value='08'>Tỉnh Tuyên Quang</option>
+                                <option value='10'>Tỉnh Lào Cai</option>
+                                <option value='11'>Tỉnh Điện Biên</option>
+                                <option value='12'>Tỉnh Lai Châu</option>
+                                <option value='14'>Tỉnh Sơn La</option>
+                                <option value='15'>Tỉnh Yên Bái</option>
+                                <option value='17'>Tỉnh Hoà Bình</option>
+                                <option value='19'>Tỉnh Thái Nguyên</option>
+                                <option value='20'>Tỉnh Lạng Sơn</option>
+                                <option value='22'>Tỉnh Quảng Ninh</option>
+                                <option value='24'>Tỉnh Bắc Giang</option>
+                                <option value='25'>Tỉnh Phú Thọ</option>
+                                <option value='26'>Tỉnh Vĩnh Phúc</option>
+                                <option value='27'>Tỉnh Bắc Ninh</option>
+                                <option value='30'>Tỉnh Hải Dương</option>
+                                <option value='33'>Tỉnh Hưng Yên</option>
+                                <option value='34'>Tỉnh Thái Bình</option>
+                                <option value='35'>Tỉnh Hà Nam</option>
+                                <option value='36'>Tỉnh Nam Định</option>
+                                <option value='37'>Tỉnh Ninh Bình</option>
+                                <option value='38'>Tỉnh Thanh Hóa</option>
+                                <option value='40'>Tỉnh Nghệ An</option>
+                                <option value='42'>Tỉnh Hà Tĩnh</option>
+                                <option value='44'>Tỉnh Quảng Bình</option>
+                                <option value='45'>Tỉnh Quảng Trị</option>
+                                <option value='46'>Tỉnh Thừa Thiên Huế</option>
+                                <option value='49'>Tỉnh Quảng Nam</option>
+                                <option value='51'>Tỉnh Quảng Ngãi</option>
+                                <option value='52'>Tỉnh Bình Định</option>
+                                <option value='54'>Tỉnh Phú Yên</option>
+                                <option value='56'>Tỉnh Khánh Hòa</option>
+                                <option value='58'>Tỉnh Ninh Thuận</option>
+                                <option value='60'>Tỉnh Bình Thuận</option>
+                                <option value='62'>Tỉnh Kon Tum</option>
+                                <option value='64'>Tỉnh Gia Lai</option>
+                                <option value='66'>Tỉnh Đắk Lắk</option>
+                                <option value='67'>Tỉnh Đắk Nông</option>
+                                <option value='68'>Tỉnh Lâm Đồng</option>
+                                <option value='70'>Tỉnh Bình Phước</option>
+                                <option value='72'>Tỉnh Tây Ninh</option>
+                                <option value='74'>Tỉnh Bình Dương</option>
+                                <option value='75'>Tỉnh Đồng Nai</option>
+                                <option value='77'>Tỉnh Bà Rịa - Vũng Tàu</option>
+                                <option value='80'>Tỉnh Long An</option>
+                                <option value='82'>Tỉnh Tiền Giang</option>
+                                <option value='83'>Tỉnh Bến Tre</option>
+                                <option value='84'>Tỉnh Trà Vinh</option>
+                                <option value='86'>Tỉnh Vĩnh Long</option>
+                                <option value='87'>Tỉnh Đồng Tháp</option>
+                                <option value='89'>Tỉnh An Giang</option>
+                                <option value='91'>Tỉnh Kiên Giang</option>
+                                <option value='93'>Tỉnh Hậu Giang</option>
+                                <option value='94'>Tỉnh Sóc Trăng</option>
+                                <option value='95'>Tỉnh Bạc Liêu</option>
+                                <option value='96'>Tỉnh Cà Mau</option>
+                            </select> 
                             <div class="form-group mb-0 position-relative flex-md-3 mt-3 mt-md-0">
                                 <input type="text"
                                     class="form-control form-control-lg border-0 shadow-none rounded-left-md-0 pr-8 bg-white placeholder-muted"
@@ -90,40 +149,14 @@
                                         <option>10</option>
                                     </select>
                                 </div>
-                                <div class="col-sm-6 col-md-4 col-lg-3 pt-4 px-2">
-                                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
-                                        title="Địa chỉ" data-style="btn-lg py-2 h-52 bg-white" name="city">
-                                        <option>Tỉnh/Thành phố</option>
-                                        <option>Hà Nội</option>
-                                        <option>Hồ Chí Minh</option>
-                                        <option>Đà Nẵng</option>
-                                        <option>Hải Phòng</option>
-                                        <option>Huế</option>
-                                        <option>Cần Thơ</option>
-                                        <option>Đà Lạt</option>
-                                        <option>Nha Trang</option>
-
-                                    </select>
-                                </div>
-                                <div class="col-sm-6 col-md-4 col-lg-3 pt-4 px-2">
-                                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
-                                        name="areas" title="Khu vực" data-style="btn-lg py-2 h-52 bg-white">
-                                        <option>Tất cả khu vực</option>
-                                        <option>Quận Hoàn Kiếm</option>
-                                        <option>Quận 1</option>
-                                        <option>Quận 3</option>
-                                        <option>Quận Tân Bình</option>
-                                        <option>Quận Cầu Giấy</option>
-                                        <option>Quận Bình Thạnh</option>
-                                        <option>Quận Hải Châu</option>
-                                    </select>
-                                </div>
+                                
+                                
                                 <div class="col-sm-6 col-md-4 col-lg-3 pt-4 px-2">
                                     <input type="text" class="form-control form-control-lg border-0 shadow-none bg-white"
-                                        placeholder="Mã phòng trọ" name="property-id">
+                                        placeholder="Mã phòng trọ" name="">
                                 </div>
                             </div>
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-md-6 col-lg-5 pt-6 slider-range slider-range-primary">
                                     <label for="price-2" class="mb-4 text-white">Khoảng Giá</label>
                                     <div data-slider="true"
@@ -267,11 +300,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </form>
-                <form class="property-search property-search-mobile d-lg-none py-6">
+                {{-- <form class="property-search property-search-mobile d-lg-none py-6">
                     <div class="row align-items-lg-center" id="accordion-2-mobile">
                         <div class="col-12">
                             <div class="form-group mb-0 position-relative">
@@ -516,11 +549,11 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                </form> --}}
             </div>
         </section>
        
-        <section class="position-relative">
+        <section class="position-relative mt-1">
             <div class="container-fluid px-0">
                 <div class="row no-gutters">
                     <div class="col-xl-6 col-xxl-5 px-3 px-xxl-6 pt-7 order-2 order-xl-1 pb-11">
@@ -1098,4 +1131,5 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{{ asset('assets/js/api-ggmap-nht.js') }}"></script>
     <script src="{{ asset('assets/js/api-update-zone-nht.js') }}"></script>
+
 @endpush
