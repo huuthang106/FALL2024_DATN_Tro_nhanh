@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -30,7 +31,7 @@ class CreateRoomRequest extends FormRequest
             'category_id' => 'required|integer|exists:categories,id',
             // 'images' => 'required|array', // Ensure images are uploaded
             //  'images.*' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'bathrooms' => 'integer|min:0',
+            // 'bathrooms' => 'integer|min:0',
             'images' => 'required',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ];
@@ -82,7 +83,7 @@ class CreateRoomRequest extends FormRequest
             'images.*.required' => 'Tất cả các tập tin phải là hình ảnh', // Handle each image being required
             'images.*.mimes' => 'Hình ảnh phải có định dạng: jpeg, png, jpg',
             'images.*.max' => 'Kích thước hình ảnh không được vượt quá 2MB',
-            
+
             'latitude.numeric' => 'Vĩ độ phải là số',
 
             'view.required' => 'Vui lòng nhập số lượng view',
@@ -97,8 +98,8 @@ class CreateRoomRequest extends FormRequest
             'category_id.exists' => 'Loại phòng không tồn tại',
 
             // 'bathrooms.required' => 'Vui lòng nhập số lượng phòng tắm',
-            'bathrooms.integer' => 'Số lượng phòng tắm phải là số nguyên',
-            'bathrooms.min' => 'Số lượng phòng tắm không được âm',
+            // 'bathrooms.integer' => 'Số lượng phòng tắm phải là số nguyên',
+            // 'bathrooms.min' => 'Số lượng phòng tắm không được âm',
 
             // 'images.required' => 'Vui lòng tải lên ít nhất một hình ảnh.',
             // 'images.*.image' => 'Tệp tải lên phải là hình ảnh.',

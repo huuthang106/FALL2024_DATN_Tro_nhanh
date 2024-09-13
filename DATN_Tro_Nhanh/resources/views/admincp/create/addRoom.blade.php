@@ -67,17 +67,6 @@
                                             </div>
                                         </div>
                                         <div class="row mb-6">
-                                            <label class="col-lg-4 col-form-label fw-bold fs-6 required">Địa chỉ</label>
-                                            <div class="col-lg-8 fv-row">
-                                                <input type="text" name="address" id="address"
-                                                    class="form-control form-control-lg form-control-solid"
-                                                    placeholder="" />
-                                                @error('address')
-                                                    <div class="text-danger mt-3">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="row mb-6">
                                             <label class="col-lg-4 col-form-label fw-bold fs-6 required">Số lượng</label>
                                             <div class="col-lg-8 fv-row">
                                                 <input type="number" name="quantity"
@@ -89,10 +78,10 @@
                                             </div>
 
                                         </div>
-                                        <div class="row mb-6">
+                                        <div class="row mb-6" style="display: none">
                                             <label class="col-lg-4 col-form-label fw-bold fs-6 required">View</label>
                                             <div class="col-lg-8 fv-row">
-                                                <input type="number" name="view" value="1"
+                                                <input type="hidden" name="view" value="1"
                                                     class="form-control form-control-lg form-control-solid"
                                                     placeholder="" />
                                                 @error('view')
@@ -112,9 +101,32 @@
                                                     <div class="text-danger mt-3">{{ $message }}</div>
                                                 @enderror
                                             </div>
-
                                         </div>
-
+                                        <div onload="initMap()">
+                                            <div class="row mb-6">
+                                                <label class="col-lg-4 col-form-label fw-bold fs-6 required">Kinh
+                                                    độ</label>
+                                                <div class="col-lg-8 fv-row">
+                                                    <input type="text" id="longitude" name="longitude"
+                                                        class="form-control form-control-lg form-control-solid"
+                                                        placeholder="" />
+                                                    @error('logitude')
+                                                        <div class="text-danger mt-3">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="row mb-6">
+                                                <label class="col-lg-4 col-form-label fw-bold fs-6 required">Vĩ độ</label>
+                                                <div class="col-lg-8 fv-row">
+                                                    <input type="text" id="latitude" name="latitude"
+                                                        class="form-control form-control-lg form-control-solid"
+                                                        placeholder="" />
+                                                    @error('latitude')
+                                                        <div class="text-danger mt-3">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="row mb-6">
@@ -281,30 +293,15 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div onload="initMap()">
-                                            <div class="row mb-6">
-                                                <label class="col-lg-4 col-form-label fw-bold fs-6 required">Kinh
-                                                    độ</label>
-                                                <div class="col-lg-8 fv-row">
-                                                    <input type="text" id="longitude" name="longitude"
-                                                        class="form-control form-control-lg form-control-solid"
-                                                        placeholder="" />
-                                                    @error('logitude')
-                                                        <div class="text-danger mt-3">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-
-                                            </div>
-                                            <div class="row mb-6">
-                                                <label class="col-lg-4 col-form-label fw-bold fs-6 required">Vĩ độ</label>
-                                                <div class="col-lg-8 fv-row">
-                                                    <input type="text" id="latitude" name="latitude"
-                                                        class="form-control form-control-lg form-control-solid"
-                                                        placeholder="" />
-                                                    @error('latitude')
-                                                        <div class="text-danger mt-3">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label fw-bold fs-6 required">Địa chỉ</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <input type="text" name="address" id="address"
+                                                    class="form-control form-control-lg form-control-solid"
+                                                    placeholder="" />
+                                                @error('address')
+                                                    <div class="text-danger mt-3">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="row mb-6">
@@ -333,7 +330,7 @@
                                         <div class="col-md-12 mb-3">
                                             <label class="form-label fw-bold fs-6">Các tiện ích</label>
                                             <div class="row mt-2">
-                                                <div class="col-sm-6 col-lg-3">
+                                                {{-- <div class="col-sm-6 col-lg-3">
                                                     <div class="form-check custom-bathroom">
                                                         <input class="bathroom-input" type="number" id="bathroomInput"
                                                             value="0" name="bathrooms">
@@ -345,6 +342,18 @@
                                                             </div>
                                                         @enderror
                                                     </div>
+                                                </div> --}}
+                                                <div class="col-sm-6 col-lg-3">
+                                                    <ul class="form-check custom-checkbox">
+                                                        <input type="checkbox" class="form-check-input" name="bathrooms"
+                                                            id="attic-01" value="attic-01">
+                                                        <label class="form-check-label" for="attic-01">Phòng
+                                                            tắm</label>
+                                                    </ul>
+                                                    @error('bathrooms')
+                                                        <div class="text-danger">{{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                                 <div class="col-sm-6 col-lg-3">
                                                     <div class="form-check custom-checkbox">

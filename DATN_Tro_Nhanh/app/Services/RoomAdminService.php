@@ -70,13 +70,12 @@ class RoomAdminService
 
     public function showRoomAll(int $perPage = 10)
     {
-        
-            // Truy vấn và phân trang một lần
-            $rooms = Room::where('status', self::AvailableRooms)->get();
-           
-            // Trả về kết quả phân trang
-            return $rooms;
-       
+
+        // Truy vấn và phân trang một lần
+        $rooms = Room::where('status', self::AvailableRooms)->get();
+
+        // Trả về kết quả phân trang
+        return $rooms;
     }
 
 
@@ -168,9 +167,7 @@ class RoomAdminService
                 $utilities->wifi = $request->has('wifi') ? self::CO : self::CHUA_CO;
                 $utilities->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
                 $utilities->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
-
-                // Xử lý số lượng phòng tắm
-                $utilities->bathrooms = $request->input('bathrooms', 0); // Số lượng phòng tắm
+                $utilities->bathrooms = $request->has('bathrooms') ? self::CO : self::CHUA_CO;
                 $utilities->save();
                 return $room;
             } else {
@@ -234,7 +231,8 @@ class RoomAdminService
             $utilities->wifi = $request->has('wifi') ? self::CO : self::CHUA_CO;
             $utilities->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
             $utilities->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
-            $utilities->bathrooms = $request->input('bathrooms', 0); // Số lượng phòng tắm
+            // $utilities->bathrooms = $request->input('bathrooms', 0); // Số lượng phòng tắm
+            $utilities->bathrooms = $request->has('bathrooms') ? self::CO : self::CHUA_CO;
             $utilities->save();
         } else {
             // Nếu không có tiện ích, tạo mới
@@ -243,7 +241,8 @@ class RoomAdminService
             $utilities->wifi = $request->has('wifi') ? self::CO : self::CHUA_CO;
             $utilities->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
             $utilities->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
-            $utilities->bathrooms = $request->input('bathrooms', 0); // Số lượng phòng tắm
+            // $utilities->bathrooms = $request->input('bathrooms', 0); // Số lượng phòng tắm
+            $utilities->bathrooms = $request->has('bathrooms') ? self::CO : self::CHUA_CO;
             $utilities->save();
         }
 
@@ -339,5 +338,4 @@ class RoomAdminService
         $room->forceDelete();
         return $room;
     }
-
 }

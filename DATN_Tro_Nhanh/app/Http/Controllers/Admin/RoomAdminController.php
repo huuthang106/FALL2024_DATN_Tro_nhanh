@@ -140,7 +140,7 @@ class RoomAdminController extends Controller
             return redirect()->route('admin.show-room')->with('success', 'Cập nhật phòng thành công.');
         } else {
             // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
-            return back()->with('error', 'Câpj nhật phòng thất bại.');
+            return back()->with('error', 'Cập nhật phòng thất bại.');
         }
     }
 }

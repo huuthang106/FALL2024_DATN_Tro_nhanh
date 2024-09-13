@@ -70,18 +70,6 @@
 
                                         </div>
                                         <div class="row mb-6">
-                                            <label class="col-lg-4 col-form-label fw-bold fs-6 required">Địa chỉ</label>
-                                            <div class="col-lg-8 fv-row">
-                                                <input type="text" name="address" value="{{ $rooms->address }}"
-                                                    class="form-control form-control-lg form-control-solid"
-                                                    placeholder="" />
-                                                @error('address')
-                                                    <div class="text-danger mt-3">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-
-                                        </div>
-                                        <div class="row mb-6">
                                             <label class="col-lg-4 col-form-label fw-bold fs-6 required">Số lượng</label>
                                             <div class="col-lg-8 fv-row">
                                                 <input type="number" name="quantity" value="{{ $rooms->quantity }}"
@@ -93,23 +81,23 @@
                                             </div>
 
                                         </div>
-                                        <div class="row mb-6">
+                                        <div class="row mb-6" style="display: none">
                                             <label class="col-lg-4 col-form-label fw-bold fs-6 required">View</label>
                                             <div class="col-lg-8 fv-row">
-                                                <input type="number" name="view" value="{{ $rooms->view }}"
+                                                <input type="hidden" name="view" value="{{ $rooms->view }}"
                                                     class="form-control form-control-lg form-control-solid"
                                                     placeholder="" />
                                                 @error('view')
                                                     <div class="text-danger mt-3">{{ $message }}</div>
                                                 @enderror
                                             </div>
-
                                         </div>
                                         <div class="row mb-6">
                                             <label class="col-lg-4 col-form-label fw-bold fs-6 required">Trạng thái</label>
                                             <div class="col-lg-8 fv-row">
                                                 <select name="status" class="form-select form-select-solid form-select-lg">
-                                                    <option value="1" {{ $rooms->status == 1 ? 'selected' : '' }}>Kích
+                                                    <option value="1" {{ $rooms->status == 1 ? 'selected' : '' }}>
+                                                        Kích
                                                         hoạt
                                                     </option>
                                                     <option value="0" {{ $rooms->status == 0 ? 'selected' : '' }}>
@@ -121,7 +109,33 @@
                                                     <div class="text-danger mt-3">{{ $message }}</div>
                                                 @enderror
                                             </div>
-
+                                        </div>
+                                        <div>
+                                            <div class="row mb-6">
+                                                <label class="col-lg-4 col-form-label fw-bold fs-6 required">Kinh
+                                                    độ</label>
+                                                <div class="col-lg-8 fv-row">
+                                                    <input type="text" id="longitude" name="longitude"
+                                                        value="{{ $rooms->longitude }}"
+                                                        class="form-control form-control-lg form-control-solid"
+                                                        placeholder="" />
+                                                    @error('logitude')
+                                                        <div class="text-danger mt-3">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="row mb-6">
+                                                <label class="col-lg-4 col-form-label fw-bold fs-6 required">Vĩ độ</label>
+                                                <div class="col-lg-8 fv-row">
+                                                    <input type="text" id="latitude" name="latitude"
+                                                        value="{{ $rooms->latitude }}"
+                                                        class="form-control form-control-lg form-control-solid"
+                                                        placeholder="" />
+                                                    @error('latitude')
+                                                        <div class="text-danger mt-3">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-6">
@@ -457,32 +471,15 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div>
-                                            <div class="row mb-6">
-                                                <label class="col-lg-4 col-form-label fw-bold fs-6 required">Kinh
-                                                    độ</label>
-                                                <div class="col-lg-8 fv-row">
-                                                    <input type="text" id="longitude" name="longitude"
-                                                        value="{{ $rooms->longitude }}"
-                                                        class="form-control form-control-lg form-control-solid"
-                                                        placeholder="" />
-                                                    @error('logitude')
-                                                        <div class="text-danger mt-3">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-
-                                            </div>
-                                            <div class="row mb-6">
-                                                <label class="col-lg-4 col-form-label fw-bold fs-6 required">Vĩ độ</label>
-                                                <div class="col-lg-8 fv-row">
-                                                    <input type="text" id="latitude" name="latitude"
-                                                        value="{{ $rooms->latitude }}"
-                                                        class="form-control form-control-lg form-control-solid"
-                                                        placeholder="" />
-                                                    @error('latitude')
-                                                        <div class="text-danger mt-3">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                        <div class="row mb-6">
+                                            <label class="col-lg-4 col-form-label fw-bold fs-6 required">Địa chỉ</label>
+                                            <div class="col-lg-8 fv-row">
+                                                <input type="text" name="address" value="{{ $rooms->address }}"
+                                                    class="form-control form-control-lg form-control-solid"
+                                                    placeholder="" />
+                                                @error('address')
+                                                    <div class="text-danger mt-3">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="row mb-6">
@@ -519,7 +516,7 @@
                                         <div class="col-md-12 mb-3">
                                             <label class="form-label fw-bold fs-6">Các tiện ích</label>
                                             <div class="row mt-2">
-                                                <div class="col-sm-6 col-lg-3">
+                                                {{-- <div class="col-sm-6 col-lg-3">
                                                     <div class="form-check custom-bathroom">
                                                         <input class="bathroom-input" type="number" id="bathroomInput"
                                                             value="{{ isset($utilities) ? $utilities->bathrooms : 0 }}"
@@ -531,6 +528,19 @@
                                                             <div class="text-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
+                                                </div> --}}
+                                                <div class="col-sm-6 col-lg-3">
+                                                    <div class="form-check custom-checkbox">
+                                                        <input type="checkbox" class="form-check-input" name="bathrooms"
+                                                            id="attic-01"
+                                                            {{ isset($utilities) && $utilities->bathrooms == 1 ? 'checked' : '' }}>
+                                                        <label class="form-check-label" for="bathrooms">Phòng
+                                                            tắm</label>
+                                                    </div>
+                                                    @error('bathrooms')
+                                                        <div class="text-danger">{{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                                 <div class="col-sm-6 col-lg-3">
                                                     <div class="form-check custom-checkbox">
