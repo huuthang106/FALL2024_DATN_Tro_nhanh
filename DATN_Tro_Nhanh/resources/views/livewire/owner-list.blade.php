@@ -147,7 +147,7 @@
                                     <!--end::Svg Icon-->Export</button>
                                 <!--end::Export-->
                                 <!--begin::Add user-->
-                                
+
                                 <!--end::Add user-->
                             </div>
                             <!--end::Toolbar-->
@@ -547,42 +547,46 @@
                     <!--end::Card header-->
                     <!--begin::Card body-->
                     {{-- Load --}}
-                    <div wire:loading class="text-center my-2">
+                    {{-- <div wire:loading class="text-center my-2">
                         <div class="spinner-border text-primary" role="status">
                             <span class="sr-only">Đang tải...</span>
                         </div>
-                    </div>
-                    @if ($users->count() > 0)
-                        <div class="card-body pt-0">
-                            <!--begin::Table-->
-                            <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
-                                <!--begin::Table head-->
-                                <thead>
-                                    <!--begin::Table row-->
-                                    <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                        <th class="w-10px pe-2">
-                                            <div
-                                                class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                                <input class="form-check-input" type="checkbox" data-kt-check="true"
-                                                    data-kt-check-target="#kt_table_users .form-check-input"
-                                                    value="1" />
-                                            </div>
-                                        </th>
-                                        <th class="min-w-125px">Ảnh</th>
-                                        <th class="min-w-125px">Tên</th>
-                                        <th class="min-w-125px">Email</th>
-                                        {{-- <th class="min-w-125px">Mật Khẩu</th>s --}}
-                                        <th class="min-w-125px">Số Điện Thoại</th>
-                                        <th class="min-w-125px">Địa Chỉ</th>
+                    </div> --}}
+                    <div class="card-body pt-0">
+                        <!--begin::Table-->
+                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+                            <!--begin::Table head-->
+                            <thead>
+                                <!--begin::Table row-->
+                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                    <th class="w-10px pe-2">
+                                        <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                            <input class="form-check-input" type="checkbox" data-kt-check="true"
+                                                data-kt-check-target="#kt_table_users .form-check-input"
+                                                value="1" />
+                                        </div>
+                                    </th>
+                                    <th class="min-w-125px">Ảnh</th>
+                                    <th class="min-w-125px">Tên</th>
+                                    <th class="min-w-125px">Email</th>
+                                    {{-- <th class="min-w-125px">Mật Khẩu</th>s --}}
+                                    <th class="min-w-125px">Số Điện Thoại</th>
+                                    <th class="min-w-125px">Địa Chỉ</th>
 
-                                        <th class="text-end min-w-110px">Tác vụ</th>
+                                    <th class="text-end min-w-110px">Tác vụ</th>
+                                </tr>
+                                <!--end::Table row-->
+                            </thead>
+                            <!--end::Table head-->
+                            <!--begin::Table body-->
+                            <tbody class="text-gray-600 fw-bold">
+                                <!--begin::Table row-->
+                                @if ($users->isEmpty())
+                                    <!-- Hiển thị khi không có dữ liệu -->
+                                    <tr>
+                                        <td colspan="7" class="text-center">Không có dữ liệu.</td>
                                     </tr>
-                                    <!--end::Table row-->
-                                </thead>
-                                <!--end::Table head-->
-                                <!--begin::Table body-->
-                                <tbody class="text-gray-600 fw-bold">
-                                    <!--begin::Table row-->
+                                @else
                                     @foreach ($users as $user)
                                         <tr>
                                             <!--begin::Checkbox-->
@@ -662,95 +666,94 @@
                                         </tr>
                                     @endforeach
                                     <!--end::Table row-->
-                                </tbody>
-                                <!--end::Table body-->
+                                @endif
+                            </tbody>
+                            <!--end::Table body-->
 
-                            </table>
-                            <!--end::Table-->
-                            <!-- Phân trang -->
-                            <nav class="mt-4">
+                        </table>
+                        <!--end::Table-->
+                        <!-- Phân trang -->
+                        @if ($users->hasPages())
+                            <nav aria-label="Page navigation">
                                 <ul class="pagination rounded-active justify-content-center">
-                                    {{-- Previous Page Link --}}
-                                    @if ($users->onFirstPage())
-                                        <li class="page-item disabled">
-                                            <span class="page-link"><i class="far fa-angle-double-left"></i></span>
-                                        </li>
-                                    @else
-                                        <li class="page-item">
-                                            <a class="page-link" wire:click="previousPage"
-                                                wire:loading.attr="disabled"><i
-                                                    class="far fa-angle-double-left"></i></a>
-                                        </li>
-                                    @endif
+                                    {{-- Nút về đầu --}}
+                                    {{-- <li class="page-item {{ $users->onFirstPage() ? 'disabled' : '' }}">
+                                        <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                            wire:loading.attr="disabled" aria-label="First Page">
+                                            << </a>
+                                    </li> --}}
 
-                                    {{-- Pagination Elements --}}
+                                    {{-- Liên kết Trang Trước --}}
+                                    <li class="page-item {{ $users->onFirstPage() ? 'disabled' : '' }}">
+                                        <a class="page-link hover-white" wire:click="previousPage"
+                                            wire:loading.attr="disabled" rel="prev"
+                                            aria-label="@lang('pagination.previous')">
+                                            < </a>
+                                    </li>
+
                                     @php
-                                        $maxPages = 5; // Số lượng trang hiển thị tối đa
-                                        $startPage = max(1, $users->currentPage() - floor($maxPages / 2));
-                                        $endPage = min($users->lastPage(), $startPage + $maxPages - 1);
-
-                                        if ($endPage - $startPage < $maxPages - 1) {
-                                            $startPage = max(1, $endPage - $maxPages + 1);
-                                        }
+                                        $totalPages = $users->lastPage();
+                                        $currentPage = $users->currentPage();
+                                        $visiblePages = 3; // Số trang hiển thị ở giữa
                                     @endphp
 
-                                    @if ($startPage > 1)
-                                        <li class="page-item">
-                                            <a class="page-link" wire:click="gotoPage(1)"
-                                                wire:loading.attr="disabled">1</a>
-                                        </li>
-                                        @if ($startPage > 2)
-                                            <li class="page-item disabled">
-                                                <span class="page-link">...</span>
-                                            </li>
-                                        @endif
+                                    {{-- Trang đầu --}}
+                                    <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                                        <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                            wire:loading.attr="disabled">1</a>
+                                    </li>
+
+                                    {{-- Dấu ba chấm đầu --}}
+                                    @if ($currentPage > $visiblePages)
+                                        <li class="page-item disabled"><span class="page-link">...</span></li>
                                     @endif
 
-                                    @for ($page = $startPage; $page <= $endPage; $page++)
-                                        @if ($page == $users->currentPage())
-                                            <li class="page-item active">
-                                                <span class="page-link">{{ $page }}</span>
-                                            </li>
-                                        @else
-                                            <li class="page-item">
-                                                <a class="page-link" wire:click="gotoPage({{ $page }})"
-                                                    wire:loading.attr="disabled">{{ $page }}</a>
+                                    {{-- Các trang giữa --}}
+                                    @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
+                                        @if ($i > 1 && $i < $totalPages)
+                                            <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                                <a class="page-link hover-white"
+                                                    wire:click="gotoPage({{ $i }})"
+                                                    wire:loading.attr="disabled">{{ $i }}</a>
                                             </li>
                                         @endif
-                                    @endfor
+                                    @endforeach
 
-                                    @if ($endPage < $users->lastPage())
-                                        @if ($endPage < $users->lastPage() - 1)
-                                            <li class="page-item disabled">
-                                                <span class="page-link">...</span>
-                                            </li>
-                                        @endif
-                                        <li class="page-item">
-                                            <a class="page-link" wire:click="gotoPage({{ $users->lastPage() }})"
-                                                wire:loading.attr="disabled">{{ $users->lastPage() }}</a>
+                                    {{-- Dấu ba chấm cuối --}}
+                                    @if ($currentPage < $totalPages - ($visiblePages - 1))
+                                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                                    @endif
+
+                                    {{-- Trang cuối --}}
+                                    @if ($totalPages > 1)
+                                        <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                                            <a class="page-link hover-white"
+                                                wire:click="gotoPage({{ $totalPages }})"
+                                                wire:loading.attr="disabled">{{ $totalPages }}</a>
                                         </li>
                                     @endif
 
-                                    {{-- Next Page Link --}}
-                                    @if ($users->hasMorePages())
-                                        <li class="page-item">
-                                            <a class="page-link" wire:click="nextPage"
-                                                wire:loading.attr="disabled"><i
-                                                    class="far fa-angle-double-right"></i></a>
-                                        </li>
-                                    @else
-                                        <li class="page-item disabled">
-                                            <span class="page-link"><i class="far fa-angle-double-right"></i></span>
-                                        </li>
-                                    @endif
+                                    {{-- Liên kết Trang Tiếp --}}
+                                    <li class="page-item {{ !$users->hasMorePages() ? 'disabled' : '' }}">
+                                        <a class="page-link hover-white" wire:click="nextPage"
+                                            wire:loading.attr="disabled" rel="next"
+                                            aria-label="@lang('pagination.next')"> >
+                                        </a>
+                                    </li>
+
+                                    {{-- Nút về cuối --}}
+                                    {{-- <li class="page-item {{ !$users->hasMorePages() ? 'disabled' : '' }}">
+                                        <a class="page-link hover-white"
+                                            wire:click="gotoPage({{ $users->lastPage() }})"
+                                            wire:loading.attr="disabled" aria-label="Last Page"> >>
+                                        </a>
+                                    </li> --}}
                                 </ul>
                             </nav>
-                            <div class="text-center mt-2">{{ $users->firstItem() }}-{{ $users->lastItem() }} của
-                                {{ $users->total() }} kết quả</div>
-                        </div>
-                    @else
-                        <div class="text-center mt-4">Không có dữ liệu.</div>
-                    @endif
+                        @endif
+                        {{-- <div class="text-center mt-2">{{ $users->firstItem() }}-{{ $users->lastItem() }} của
+                                {{ $users->total() }} kết quả</div> --}}
+                    </div>
 
                     <!--end::Card body-->
                 </div>
