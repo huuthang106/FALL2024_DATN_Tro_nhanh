@@ -16,6 +16,8 @@ use App\Events\BlogCreated;
 use App\Listeners\SendBlogCreatedNotification;
 use App\Events\Owners\RoomOwnersEvent;
 use App\Listeners\Owners\HandleRoomOwner;
+use App\Events\Owners\PaymentProcessed;
+use App\Listeners\Owners\ProcessPayment;
 
 class EventServiceProvider extends BaseEventServiceProvider
 {
@@ -46,7 +48,10 @@ class EventServiceProvider extends BaseEventServiceProvider
         ],
         RoomOwnersEvent::class => [
             HandleRoomOwner::class,
-        ]
+        ],
+        PaymentProcessed::class => [
+            ProcessPayment::class,
+        ],
     ];
 
     /**

@@ -187,3 +187,37 @@
     padding: 2px 5px;
     font-size: 12px;
 }
+
+.position-relative {
+    position: relative;
+}
+
+.position-absolute {
+    position: absolute;
+    top: -5px;
+    /* Đẩy badge lên phía trên một chút */
+    left: 27px;
+    /* Điều chỉnh vị trí theo nhu cầu */
+    background-color: rgb(14, 202, 212);
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    padding: 5px 10px;
+    /* Tăng thêm khoảng trống cho badge */
+    border-radius: 20px;
+    /* Làm badge có dạng hình elip */
+    font-size: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Hiệu ứng đổ bóng */
+    text-transform: uppercase;
+    /* Chuyển chữ thành in hoa */
+    border: 2px solid white;
+    /* Thêm viền trắng cho badge */
+}
+
+.hehe {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid white;
+}

@@ -89,7 +89,12 @@ class UserAdminController extends Controller
         } else {
             // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
             return back()->with('error', 'Cập nhật thất bại Admin.');
-        }
+            return redirect()->route('admin.list-user')->with('success', 'Cập nhật role admin thành công.');
+        } 
+        // else {
+        //     // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
+        //     return back()->with('error', 'Cập nhật role admin thất bại.');
+        // }
     }
     public function updateRoleUser($id)
     {
@@ -100,7 +105,12 @@ class UserAdminController extends Controller
         } else {
             // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
             return back()->with('error', 'Cập nhật thất bại chủ trọ.');
-        }
+            return redirect()->route('admin.list-user')->with('success', 'Cập nhật role user thành công.');
+        } 
+        // else {
+        //     // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
+        //     return back()->with('error', 'Cập nhật thất role user bại.');
+        // }
     }
     public function showUserRole()
     {

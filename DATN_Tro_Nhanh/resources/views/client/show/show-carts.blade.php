@@ -103,7 +103,7 @@
             <div class="row">
             <div class="col-6 d-flex justify-content-start mt-4">
             <input type="hidden" name="total_price" id="total-price-input" value="">
-<h5>Tổng tiền: <span id="total-price" name="total-price">0 VND</span></h5>
+<h5 class="text-info">Tổng tiền: <span id="total-price" name="total-price" class="text-dark">0 VND</span></h5>
 
             </div>
             <!-- Thêm nút tiếp hành thanh toán -->
@@ -183,10 +183,54 @@
     {{-- Notification - Pagination --}}
     {{-- <script src="{{ asset('assets/js/notification-list/notification-pagination.js') }}"></script> --}}
     <script>
+// document.addEventListener('DOMContentLoaded', function () {
+//     const checkboxes = document.querySelectorAll('.price-list-checkbox');
+//     const totalPriceElement = document.getElementById('total-price');
+//     const totalPriceInput = document.getElementById('total-price-input'); // Thêm input ẩn
+
+//     // Hàm tính tổng tiền
+//     function calculateTotalPrice() {
+//         let totalPrice = 0;
+
+//         // Lặp qua tất cả các checkbox
+//         checkboxes.forEach(function (checkbox) {
+//             if (checkbox.checked) {
+//                 // Lấy giá và số lượng từ thuộc tính data của checkbox
+//                 const price = parseFloat(checkbox.getAttribute('data-price')) || 0;
+//                 const quantity = parseInt(checkbox.getAttribute('data-quantity')) || 1;
+
+//                 // Tính tổng cho sản phẩm này và cộng vào tổng toàn bộ
+//                 totalPrice += price * quantity;
+//             }
+//         });
+
+//         // Làm tròn tổng tiền xuống số nguyên
+//         totalPrice = Math.round(totalPrice);
+
+//         // Cập nhật tổng tiền trên giao diện và thêm đơn vị "VND"
+//         totalPriceElement.textContent = new Intl.NumberFormat('vi-VN', {
+//             style: 'decimal',
+//             minimumFractionDigits: 0,
+//             maximumFractionDigits: 0
+//         }).format(totalPrice) + ' VND';
+
+//         // Cập nhật tổng tiền vào input ẩn để gửi qua form
+//         totalPriceInput.value = totalPrice;
+//     }
+
+//     // Gán sự kiện 'change' cho mỗi checkbox
+//     checkboxes.forEach(function (checkbox) {
+//         checkbox.addEventListener('change', calculateTotalPrice);
+//     });
+
+//     // Tính tổng tiền ngay khi trang được tải
+//     calculateTotalPrice();
+// });
 document.addEventListener('DOMContentLoaded', function () {
-    const checkboxes = document.querySelectorAll('.price-list-checkbox');
-    const totalPriceElement = document.getElementById('total-price');
-    const totalPriceInput = document.getElementById('total-price-input'); // Thêm input ẩn
+    const checkboxes = document.querySelectorAll('.price-list-checkbox');  // Tất cả checkbox cho từng price list
+    const selectAllCheckbox = document.getElementById('select-all');  // Checkbox tổng
+    const totalPriceElement = document.getElementById('total-price');  // Phần tử hiển thị tổng tiền
+    const totalPriceInput = document.getElementById('total-price-input'); // Input ẩn để lưu tổng tiền
 
     // Hàm tính tổng tiền
     function calculateTotalPrice() {
@@ -218,14 +262,42 @@ document.addEventListener('DOMContentLoaded', function () {
         totalPriceInput.value = totalPrice;
     }
 
+    // Hàm kiểm tra trạng thái của tất cả checkbox và cập nhật trạng thái của checkbox tổng
+    function updateSelectAllCheckbox() {
+        const allChecked = Array.from(checkboxes).every(function (checkbox) {
+            return checkbox.checked;
+        });
+        selectAllCheckbox.checked = allChecked;
+    }
+
     // Gán sự kiện 'change' cho mỗi checkbox
     checkboxes.forEach(function (checkbox) {
-        checkbox.addEventListener('change', calculateTotalPrice);
+        checkbox.addEventListener('change', function () {
+            // Cập nhật tổng tiền khi chọn hoặc bỏ chọn checkbox
+            calculateTotalPrice();
+
+            // Cập nhật trạng thái của checkbox tổng
+            updateSelectAllCheckbox();
+        });
+    });
+
+    // Gán sự kiện 'change' cho checkbox tổng
+    selectAllCheckbox.addEventListener('change', function () {
+        const isChecked = selectAllCheckbox.checked;
+
+        // Chọn hoặc bỏ chọn tất cả các checkbox khác khi checkbox tổng được thay đổi
+        checkboxes.forEach(function (checkbox) {
+            checkbox.checked = isChecked;
+        });
+
+        // Tính toán lại tổng tiền
+        calculateTotalPrice();
     });
 
     // Tính tổng tiền ngay khi trang được tải
     calculateTotalPrice();
 });
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>

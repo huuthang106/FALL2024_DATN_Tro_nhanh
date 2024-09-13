@@ -32,7 +32,7 @@ class ZoneAdminController extends Controller
         $result = $this->zoneServices->store($request);
 
         if ($result) {
-            return redirect()->route('admin.trang-them-khu-tro')
+            return redirect()->route('admin.all_zone')
                 ->with('success', 'Khu trọ đã được thêm thành công.');
         } else {
             return redirect()->back()

@@ -43,12 +43,14 @@
 
                                 <div class="row mb-6">
                                     <!-- Địa chỉ -->
+                                  
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label fw-bold fs-6 required">Địa chỉ</label>
-                                        <input type="text" name="address" id="address"
-                                            class="form-control form-control-lg form-control-solid" placeholder="Địa chỉ"
-                                            value="{{ old('address') }}" />
-                                        @error('address')
+                                        <label class="form-label fw-bold fs-6 required">Tình trạng</label>
+                                        <select name="status" class="form-select form-select-solid form-select-lg">
+                                            <option value="1">Kích hoạt</option>
+                                            <option value="0">Vô hiệu hóa</option>
+                                        </select>
+                                        @error('status')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -195,7 +197,7 @@
                                     </div>
 
                                     <!-- Tình trạng -->
-                                    <div class="col-md-6 mb-3">
+                                    <!-- <div class="col-md-6 mb-3">
                                         <label class="form-label fw-bold fs-6 required">Tình trạng</label>
                                         <select name="status" class="form-select form-select-solid form-select-lg">
                                             <option value="1">Kích hoạt</option>
@@ -204,53 +206,15 @@
                                         @error('status')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
-                                    </div>
-                                </div>
-                                <div class="row mb-6">
-                                    <!-- Bản đồ -->
-                                    <div class="col-md-12 mb-3">
-                                        <label class="form-label fw-bold fs-6">Các tiện ích</label>
-                                        <div class="row mt-2">
-                                            <div class="col-sm-6 col-lg-3">
-                                                <div class="form-check custom-bathroom">
-                                                    <input class="bathroom-input" type="number" id="bathroomInput"
-                                                        value="" name="bathrooms">
-                                                    <label class="bathroom-label" for="bathroomInput">
-                                                        Phòng tắm
-                                                    </label>
-                                                </div>
-                                                @error('bathrooms')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                            <div class="col-sm-6 col-lg-3">
-                                                <div class="form-check custom-checkbox">
-                                                    <input class="form-check-input" type="checkbox" id="attic"
-                                                        value="" name="wifi">
-                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                        Wifi
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 col-lg-3">
-                                                <div class="form-check custom-checkbox">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        name="air_conditioning" id="attic-02">
-                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                        Máy điều hòa
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 col-lg-3">
-                                                <div class="form-check custom-checkbox">
-                                                    <input class="form-check-input" type="checkbox"id="attic-03"
-                                                        value="" name="garage">
-                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                        Ga-ra
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    </div> -->
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-bold fs-6 required">Địa chỉ</label>
+                                        <input type="text" name="address" id="address"
+                                            class="form-control form-control-lg form-control-solid" placeholder="Địa chỉ"
+                                            value="{{ old('address') }}" />
+                                        @error('address')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="row mb-6">

@@ -33,7 +33,7 @@
                                             <p class="font-weight-500 text-heading mb-0">{{$item->priceList->duration_day}} ngày</p>
                                         </li>
                                          <li class="d-flex justify-content-between lh-22">
-                                            <p class="text-gray-light mb-0">Gía:</p>
+                                            <p class="text-gray-light mb-0">Giá:</p>
                                             <p class="font-weight-500 text-heading mb-0">{{ number_format($item->priceList->price, 0, ',', '.') }} VND</p>
                                         </li> 
                                         <li class="d-flex justify-content-between lh-22">
