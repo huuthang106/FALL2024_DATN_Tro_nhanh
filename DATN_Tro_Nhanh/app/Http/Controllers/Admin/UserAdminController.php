@@ -11,6 +11,7 @@ use App\Services\ProfileService;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdateProfileRequest;
+
 class UserAdminController extends Controller
 {
     protected $userService;
@@ -82,28 +83,28 @@ class UserAdminController extends Controller
     public function updateRoleAdmin($id)
     {
         $result = $this->userAdminService->updateRoleAdmin($id);
-        if ($result) {
+        if (!$result) {
             // Cập nhật thành công, chuyển hướng hoặc thông báo
-            return redirect()->route('admin.list-user')->with('success', 'Cập nhật thành công.');
+            return redirect()->back()->with('success', 'Cập nhật thành công Admin.');
         } else {
             // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
-            return back()->with('error', 'Cập nhật thất bại.');
+            return back()->with('error', 'Cập nhật thất bại Admin.');
         }
     }
     public function updateRoleUser($id)
     {
         $result = $this->userAdminService->updateRoleUser($id);
-        if ($result) {
+        if (!$result) {
             // Cập nhật thành công, chuyển hướng hoặc thông báo
-            return redirect()->route('admin.list-user')->with('success', 'Cập nhật thành công.');
+            return redirect()->back()->with('success', 'Cập nhật thành công chủ trọ.');
         } else {
             // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
-            return back()->with('error', 'Cập nhật thất bại.');
+            return back()->with('error', 'Cập nhật thất bại chủ trọ.');
         }
     }
     public function showUserRole()
     {
         $users = $this->userAdminService->getUserRole();
-        return view('admincp.show.show-user',compact('users'));
+        return view('admincp.show.show-user', compact('users'));
     }
 }
