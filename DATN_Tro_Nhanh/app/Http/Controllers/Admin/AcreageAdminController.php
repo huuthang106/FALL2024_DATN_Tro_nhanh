@@ -19,7 +19,16 @@ class AcreageAdminController extends Controller
     {
         return view('admincp.show.index');
     }
+    public function deleteAcreage($id)
+    {
+        $deleted = $this->acreageAdminService->deleteAcreage($id);
 
+        if ($deleted) {
+            return redirect()->route('admincp.show.showAcreage')->with('success', 'Diện tích đã được xóa thành công.');
+        }
+
+        return redirect()->route('admincp.show.showAcreage')->with('error', 'Diện tích không tồn tại.');
+    }
     public function show_acreage()
     {
         $acreages = $this->acreageAdminService->showAcreage();

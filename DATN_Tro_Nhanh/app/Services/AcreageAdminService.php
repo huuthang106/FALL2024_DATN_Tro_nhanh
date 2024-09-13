@@ -19,7 +19,17 @@ class AcreageAdminService
         $acreages = Acreage::find($id);
         return $acreages;
     }
+    public function deleteAcreage($id)
+    {
+        $acreage = Acreage::find($id);
 
+        if ($acreage) {
+            $acreage->delete();
+            return true;
+        }
+
+        return false;
+    }
     public function created($request)
     {
         // Tạo mới đối tượng Acreage và gán giá trị
