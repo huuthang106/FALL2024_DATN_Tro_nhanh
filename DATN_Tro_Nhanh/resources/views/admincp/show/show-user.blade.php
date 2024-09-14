@@ -116,4 +116,23 @@
     {{-- Show - Alert --}}
     {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('assets/js/alert/category-admin-alert.js') }}"></script> --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    var blockAccountModal = document.getElementById('blockAccountModal');
+    var blockAccountForm = document.getElementById('blockAccountForm');
+
+    // Khi modal được hiển thị
+    blockAccountModal.addEventListener('show.bs.modal', function (event) {
+        // Lấy thông tin từ nút đã kích hoạt modal
+        var button = event.relatedTarget;
+        var userId = button.getAttribute('data-user-id');
+        
+        // Cập nhật action của form với user_id động
+        var action = "{{ route('admin.lock-account', ':id') }}";
+        action = action.replace(':id', userId);
+        blockAccountForm.setAttribute('action', action);
+    });
+});
+
+    </script>
 @endpush

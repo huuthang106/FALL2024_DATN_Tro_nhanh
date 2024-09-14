@@ -85,11 +85,10 @@ class UserAdminController extends Controller
         $result = $this->userAdminService->updateRoleAdmin($id);
         if (!$result) {
             // Cập nhật thành công, chuyển hướng hoặc thông báo
-            return redirect()->back()->with('success', 'Cập nhật thành công Admin.');
+            return redirect()->route('admin.list-user')->with('success', 'Cập nhật role admin thành công.');
         } else {
             // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
-            return back()->with('error', 'Cập nhật thất bại Admin.');
-            return redirect()->route('admin.list-user')->with('success', 'Cập nhật role admin thành công.');
+            return redirect()->back()->with('error', 'Cập nhật thất bại Admin.');
         } 
         // else {
         //     // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
@@ -101,16 +100,26 @@ class UserAdminController extends Controller
         $result = $this->userAdminService->updateRoleUser($id);
         if (!$result) {
             // Cập nhật thành công, chuyển hướng hoặc thông báo
-            return redirect()->back()->with('success', 'Cập nhật thành công chủ trọ.');
+            return redirect()->route('admin.list-user')->with('success', 'Cập nhật role user thành công.');
         } else {
             // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
-            return back()->with('error', 'Cập nhật thất bại chủ trọ.');
-            return redirect()->route('admin.list-user')->with('success', 'Cập nhật role user thành công.');
+            return redirect()->back()->with('error', 'Cập nhật thất bại chủ trọ.');
         } 
         // else {
         //     // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
         //     return back()->with('error', 'Cập nhật thất role user bại.');
         // }
+    }
+
+    public function lockAccoutUser(Request $request,$id)
+    {
+        $result = $this->userAdminService->lockAccount($request,$id);
+        if(!$result)
+        {
+           return redirect()->route('admin.list-user')->with('success', 'Khóa tài khoản thành công');
+        } else {
+            return redirect()->back()->with('error', 'Khóa tài khoản thất bại ');
+        }
     }
     public function showUserRole()
     {

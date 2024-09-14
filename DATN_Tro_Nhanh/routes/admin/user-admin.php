@@ -18,3 +18,4 @@ Route::get('/ho-so', [UserAdminController::class, 'show'])->name('profile-admin'
 Route::get('/danh-sach-user', [UserAdminController::class, 'showUserRole'])->name('list-user');
 Route::put('/chinh-sua-role-admin/{id}', [UserAdminController::class, 'updateRoleAdmin'])->name('update-role-admin');
 Route::put('/chinh-sua-role-user/{id}', [UserAdminController::class, 'updateRoleUser'])->name('update-role-user');
+Route::post('/khoa-tai-khoan/{id}', [UserAdminController::class, 'lockAccoutUser'])->name('lock-account');

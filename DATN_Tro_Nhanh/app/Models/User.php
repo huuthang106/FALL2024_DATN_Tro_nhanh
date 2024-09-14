@@ -72,6 +72,12 @@ class User extends Authenticatable
         return $this->hasMany(Contact::class, 'user_id');
     }
 
+     // Quan hệ với bảng AccountLock
+     public function accountLock()
+     {
+         return $this->hasOne(AccountLock::class, 'user_id');
+     }
+
     public function contactUsers()
     {
         return $this->hasMany(Contact::class, 'contact_user_id');

@@ -101,8 +101,11 @@ class RoomAdminService
         $acreages = Acreage::all();
         $zones = Zone::all();
         $users = User::all();
+        $userLock = auth()->user();
 
-        return compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users');
+           // Lấy trạng thái của người dùng hiện tại
+        $userStatus =  $userLock ?  $userLock->status : null;
+        return compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users','userStatus');
     }
     // Them tro 
     public function create($request)

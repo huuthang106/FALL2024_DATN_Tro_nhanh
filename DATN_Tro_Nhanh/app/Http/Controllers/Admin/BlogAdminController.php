@@ -26,7 +26,11 @@ class BlogAdminController extends Controller
     }
     public function index()
     {
-        return view('admincp.create.addBlog');
+        $userLock = auth()->user();
+
+        // Lấy trạng thái của người dùng hiện tại
+     $userStatus =  $userLock ?  $userLock->status : null;
+        return view('admincp.create.addBlog',compact('userStatus'));
     }
     public function show()
     {

@@ -18,6 +18,8 @@ class Kernel extends ConsoleKernel
         // Định nghĩa các tác vụ định kỳ tại đây.
         // Ví dụ: $schedule->command('inspire')->hourly();
         $schedule->command('mails:send-service')->hourly();
+        // Chạy lệnh này mỗi ngày
+    $schedule->command('locks:handle-expired')->daily();
     }
 
     /**
@@ -31,4 +33,6 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+
+    
 }
