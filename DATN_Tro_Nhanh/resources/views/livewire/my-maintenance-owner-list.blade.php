@@ -60,7 +60,7 @@
                             <th class="py-6">Tên phòng</th>
                             <th class="py-6">Giá</th>
                             <th class="py-6">Ngày tham gia</th>
-                            <th class="no-sort py-6">Sửa chửa</th>
+                            <th class="no-sort py-6">Bảo trì</th>
 
                             <th class="no-sort py-6">Rời Khỏi</th>
                         </tr>
@@ -78,12 +78,15 @@
                             </td>
                             <td class="align-middle p-4"><small>{{ $item->room->title }}</small></td>
                             <td class="align-middle p-4">
-                                <small>{{ number_format($item->room->price, 0, ',', '.') }}</small></td>
+                                <small>{{ number_format($item->room->price, 0, ',', '.') }}</small>
+                            </td>
                             <td class="align-middle p-4">
                                 {{ $item->updated_at }}
                             </td>
                             <td class="align-middle p-4">
-                                <a data-toggle="modal" href="#maintenance" class=""> <i class="fa-solid fa-wrench"></i></a>
+                                <button data-toggle="modal" href="#maintenance"
+                                    class="fs-18 text-muted hover-primary border-0 bg-transparent"> <i
+                                    class="fal fa-pencil-alt"></i> </button>
 
 
                             </td>
@@ -101,7 +104,7 @@
 
 
                             </td>
-        
+
                         </tr>
                         <div class="modal fade maintenance" id="maintenance" tabindex="-1" role="dialog"
                             aria-labelledby="maintenance" aria-hidden="true">
@@ -119,23 +122,29 @@
                                             Nội dung yêu cầu!
                                         </h2>
 
-                                        <form id="" method="POST" action="{{route('owners.sent-for-maintenance')}}">
+                                        <form id="" method="POST"
+                                            action="{{ route('owners.sent-for-maintenance') }}">
                                             @csrf
-                                          
-                                            <input type="hidden" name="room_id" id="" value="{{$item->room->id}}">
-                                           <input type="text" class="form-control mb-3 border-0" name="title" id="" placeholder="Nhập tiêu đề" value="{{ old('title') }}">
-                                             @error('title')
-                                           <span id="title-error" class="text-danger">{{ $message }}</span>
-                                           @enderror
+
+                                            <input type="hidden" name="room_id" id=""
+                                                value="{{ $item->room->id }}">
+                                            <input type="text" class="form-control mb-3 border-0" name="title"
+                                                id="" placeholder="Nhập tiêu đề"
+                                                value="{{ old('title') }}">
+                                            @error('title')
+                                                <span id="title-error" class="text-danger">{{ $message }}</span>
+                                            @enderror
                                             <div class="form-group mb-4">
                                                 <textarea class="form-control border-0 " placeholder="Nội dung yêu cầu..." name="description" id="description"
                                                     rows="5">{{ old('description') }}</textarea>
-                                                    @error('description')
-                                                    <span id="description-error" class="text-danger">{{ $message }}</span>
+                                                @error('description')
+                                                    <span id="description-error"
+                                                        class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
 
-                                            <button type="submit" class="btn btn-lg btn-primary px-5">Gửi yêu cầu</button>
+                                            <button type="submit" class="btn btn-lg btn-primary px-5">Gửi yêu
+                                                cầu</button>
                                         </form>
                                     </div>
                                 </div>

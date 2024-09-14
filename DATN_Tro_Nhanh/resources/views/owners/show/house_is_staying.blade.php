@@ -72,6 +72,7 @@
 <script src="{{ asset('assets/vendors/jparallax/TweenMax.min.js') }}"></script>
 <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
 <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
+
 <!-- Theme scripts -->
 <script></script>
 <script src="{{ asset('assets/js/theme.js') }}"></script>
@@ -84,38 +85,5 @@
     <script src="{{ asset('assets/js/alert-report.js') }}"></script>
     <script src="{{ asset('assets/js/confirm.js') }}"></script>
   
-    {{-- <script>
-        $(document).ready(function() {
-    $('#reportForm').on('submit', function(e) {
-        e.preventDefault(); // Ngăn chặn hành vi mặc định của form
-
-        // Xóa thông báo lỗi trước đó
-        $('#title-error').text('');
-        $('#description-error').text('');
-
-        $.ajax({
-            url: $(this).attr('action'), // Lấy URL từ thuộc tính action của form
-            method: 'POST',
-            data: $(this).serialize(), // Lấy dữ liệu từ form
-            success: function(response) {
-                // Xử lý thành công
-                alert('Yêu cầu đã được gửi thành công!');
-                // Bạn có thể làm gì đó khác ở đây, như làm mới trang hoặc chuyển hướng
-            },
-            error: function(xhr) {
-                // Kiểm tra xem có lỗi xác thực không
-                if (xhr.responseJSON && xhr.responseJSON.errors) {
-                    // Hiển thị lỗi cho trường title
-                    $('#title-error').text(xhr.responseJSON.errors.title ? xhr.responseJSON.errors.title[0] : '');
-                    // Hiển thị lỗi cho trường description
-                    $('#description-error').text(xhr.responseJSON.errors.description ? xhr.responseJSON.errors.description[0] : '');
-                } else {
-                    // Xử lý lỗi khác
-                    console.log('Có lỗi xảy ra: ' + xhr.statusText);
-                }
-            }
-        });
-    });
-});
-    </script> --}}
+ 
 @endpush

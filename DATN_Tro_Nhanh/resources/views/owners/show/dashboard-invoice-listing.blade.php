@@ -1,17 +1,7 @@
 @extends('layouts.owner')
 @section('titleOwners', 'Danh Sách Hóa Đơn | TRỌ NHANH')
 @section('contentOwners')
-    @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
-
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+  
     <main id="content" class="bg-gray-01">
         @livewire('bills-table')
 
@@ -80,4 +70,12 @@
     <script src="{{ asset('assets/vendors/jparallax/TweenMax.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
+        {{--  trả succces --}}
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            window.successMessage = "{{ session('success') }}";
+        </script>
+        <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
+        <script src="{{ asset('assets/js/alert-report.js') }}"></script>
+        <script src="{{ asset('assets/js/confirm.js') }}"></script>
 @endpush
