@@ -13,5 +13,6 @@ Route::group(['prefix' => ''], function () {
         
         route::get('don-da-gui', [ResidentOwnersController::class, 'application_form'])->name('application-form');
         route::delete('huy-don/{id}', [ResidentOwnersController::class, 'cancel_order'])->name('cancel-order');
+        route::delete('roi-phong/{id}', [ResidentOwnersController::class, 'leave_the_room'])->name('leave-the-room');
    
 });

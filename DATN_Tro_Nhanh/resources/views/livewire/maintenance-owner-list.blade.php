@@ -19,11 +19,7 @@
                                 <option value="1_year">1 năm</option>
                             </select>
                         </div>
-                        <div class="align-self-center">
-                            <button class="btn btn-primary btn-lg" tabindex="0" aria-controls="invoice-list">
-                                <span>Thêm mới</span>
-                            </button>
-                        </div>
+                       
                     </div>
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
                         <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
@@ -71,9 +67,9 @@
                         </label>
                     </td>
                     <td class="align-middle p-4 text-primary">{{ $item->user->name ?? 'N/A' }}
-                        <br><small>{{ $item->title }}</small>
+                        <br><small>Yêu cầu: {{ $item->title }}</small>
                     </td>
-                    <td class="align-middle p-4">{{ $item->room->id ?? 'N/A' }}</td>
+                    <td class="align-middle p-4">{{ $item->room->title ?? 'N/A' }}</td>
                     <td class="align-middle p-4">{{ $item->created_at->format('d-m-Y') }}</td>
                     <td class="align-middle p-4">
                         @if ($item->status == 1)

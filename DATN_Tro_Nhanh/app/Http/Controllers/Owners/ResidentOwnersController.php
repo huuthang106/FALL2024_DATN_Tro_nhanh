@@ -91,7 +91,8 @@ class ResidentOwnersController extends Controller
         }
     }
 
-    public function application_form(){
+    public function application_form()
+    {
         if (Auth::check()) {
             // dd('hi');
             $user_id = Auth::id(); // Lấy ID người dùng đã đăng nhập
@@ -101,12 +102,11 @@ class ResidentOwnersController extends Controller
             $residents = $this->residentOwnersService->getmyResdent($user_id,  self::not_yet_approved);
 
             // dd($residents); 
-            
+
             return view('owners.show.application-form', [
                 'residents' => $residents,
             ]);
         }
-
     }
     public function cancel_order($idResident)
     {
@@ -115,7 +115,7 @@ class ResidentOwnersController extends Controller
             // dd('hi');
             $user_id = Auth::id(); // Lấy ID người dùng đã đăng nhập
 
-         
+
             // Gọi hàm lấy dữ liệu
             $residents = $this->residentOwnersService->cancel_order($idResident,  $user_id,);
 
@@ -127,5 +127,21 @@ class ResidentOwnersController extends Controller
             }
         }
     }
-    
+    public function leave_the_room(Request $request,$idResident) {
+        if (Auth::check()) {
+            // dd('hi');
+            $user_id = Auth::id(); // Lấy ID người dùng đã đăng nhập
+
+
+            // Gọi hàm lấy dữ liệu
+            $residents = $this->residentOwnersService->cancel_order($idResident,  $user_id,);
+
+            // dd($residents); 
+            if ($residents) {
+                return redirect()->back()->with('success', 'Rời phòng thành công');
+            } else {
+                return redirect()->back()->with('error', 'Có lỗi khi thu hồi');
+            }
+        }
+    }
 }

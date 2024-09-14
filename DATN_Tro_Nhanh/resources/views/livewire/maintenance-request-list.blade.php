@@ -55,9 +55,10 @@
                                 <input type="checkbox" class="new-control-input chk-parent select-customers-info">
                             </label>
                         </th>
-                        <th class="py-6">Chủ Trọ</th>
-                        <th class="py-6">Số Phòng</th>
-                        <th class="py-6">Ngày</th>
+                        <th class="py-6">Người gửi</th>
+                        <th class="py-6">Tiêu đề</th>
+                        
+                        <th class="py-6">Ngày gửi</th>
                         <th class="py-6">Trạng thái</th>
                         <th class="no-sort py-6">Rời Khỏi</th>
                     </tr>
@@ -71,9 +72,10 @@
                         </label>
                     </td>
                     <td class="align-middle p-4 text-primary">{{ $item->user->name ?? 'N/A' }}
-                        <br><small>{{ $item->title }}</small>
+                        <br><small>Phòng: {{ $item->room->title }}</small>
                     </td>
-                    <td class="align-middle p-4">{{ $item->room->id ?? 'N/A' }}</td>
+                    <td class="align-middle p-4">{{ $item->title }}</td>
+                 
                     <td class="align-middle p-4">{{ $item->created_at->format('d-m-Y') }}</td>
                     <td class="align-middle p-4">
                         @if ($item->status == 1)
@@ -92,11 +94,11 @@
                                 onclick="">
                             <i class="fal fa-trash-alt"></i>
                         </button>
-                        <button type="button" class="fs-18 text-muted hover-primary border-0 bg-transparent" 
+                        {{-- <button type="button" class="fs-18 text-muted hover-primary border-0 bg-transparent" 
                         wire:click="deleteMaintenanceRequest({{ $item->id }})"
                         onclick="v">
                         <i class="fa-solid fa-wrench"></i>
-                </button>
+                </button> --}}
                     </td>
                     
                 </tr>

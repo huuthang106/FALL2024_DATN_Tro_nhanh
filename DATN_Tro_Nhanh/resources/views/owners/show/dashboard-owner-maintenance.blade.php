@@ -2,7 +2,7 @@
 @section('titleOwners', 'Danh Sách Yêu Cầu Sửa Chữa | TRỌ NHANH')
 @section('contentOwners')
 
-    @if (session('error'))
+    {{-- @if (session('error'))
         <div class="alert alert-danger">
             {{ session('error') }}
         </div>
@@ -12,7 +12,7 @@
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
-    @endif
+    @endif --}}
     <main id="content" class="bg-gray-01">
         @livewire('maintenance-owner-list')
         </div>
@@ -92,4 +92,5 @@
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
+    
 @endpush

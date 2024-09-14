@@ -7,6 +7,8 @@ use Livewire\WithPagination;
 use App\Models\MaintenanceRequest;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Models\Room;
+
 
 class MaintenanceOwnerList extends Component
 {
@@ -24,9 +26,12 @@ class MaintenanceOwnerList extends Component
     {
         $userId = Auth::id(); // Lấy ID của người dùng hiện tại
 
-        // Xây dựng truy vấn để lọc yêu cầu bảo trì của người dùng hiện tại
-        $query = MaintenanceRequest::where('user_id', $userId);
-
+        // Lấy các phòng mà người dùng sở hữu
+        $rooms = Room::where('user_id', $userId)->pluck('id'); // Giả sử bạn có model Room
+    
+        // Xây dựng truy vấn để lọc yêu cầu bảo trì của các phòng thuộc người dùng hiện tại
+        $query = MaintenanceRequest::whereIn('room_id', $rooms);
+    
         // Lọc theo từ khóa tìm kiếm
         if ($this->search) {
             $query->where(function ($q) {

@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class MaintenanceRequest extends Model
 {
     use HasFactory;
+    protected $fillable = ['title', 'description', 'status', 'room_id','user_id'];
+
     use SoftDeletes; public function user()
     {
         return $this->belongsTo(User::class);

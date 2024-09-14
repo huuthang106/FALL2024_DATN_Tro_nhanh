@@ -4,9 +4,9 @@
         <div class="sticky-area shadow-xs-1 py-3">
             <div class="d-flex px-3 px-xl-6 w-100">
                 <a class="navbar-brand" href="">
-                    <img src="{{  asset('assets/images/tro-moi.png') }}" alt="HomeID" class="normal-logo">
+                    <img src="{{ asset('assets/images/tro-moi.png') }}" alt="HomeID" class="normal-logo">
 
-                            {{-- <img src="{{ asset('assets/images/logo.png') }}" alt="HomeID" class="sticky-logo"> --}}
+                    {{-- <img src="{{ asset('assets/images/logo.png') }}" alt="HomeID" class="sticky-logo"> --}}
                 </a>
                 <div class="ml-auto d-flex align-items-center ">
                     <div class="d-flex align-items-center d-xl-none">
@@ -129,7 +129,7 @@
                                         <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
                                     </a>
                                 </li>
-                                
+
                                 <div class="collapse-content" id="collapseKhuTrọ">
                                     <div class="card card-body border-0 bg-transparent py-0 pl-6">
                                         <ul class="list-group list-group-flush list-group-no-border">
@@ -139,7 +139,8 @@
                                             </li>
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"
-                                                    href="{{ route('owners.participation-list') }}">Danh đơn khu trọ</a>
+                                                    href="{{ route('owners.participation-list') }}">Danh đơn khu
+                                                    trọ</a>
                                             </li>
                                             {{-- <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"
@@ -212,12 +213,12 @@
                                         </ul>
                                     </div>
                                 </div>
-                              
-                               
 
 
 
-                               
+
+
+
                                 {{-- <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                     <a href="#collapseCmt"
                                         class="text-heading lh-1 sidebar-link d-flex align-items-center"
@@ -278,7 +279,7 @@
                             </div>
                         </li>
                     @endif
-                  
+
                     <li class="list-group-item pt-6 pb-4">
                         <h5 class="fs-13 letter-spacing-087 text-muted mb-3 text-uppercase px-3">QUẢN LÝ TÀI KHOẢN
                         </h5>
@@ -296,36 +297,6 @@
                                     <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
                                 </a>
                             </li>
-                            
-                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="#collapseEditUnique"
-                                    class="text-heading lh-1 sidebar-link d-flex align-items-center"
-                                    onclick="toggleDropdown('collapseEditUnique'); return false;">
-                                    <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                        <svg class="icon icon-my-properties">
-                                            <use xlink:href="#icon-my-properties"></use>
-                                        </svg>
-                                    </span>
-                                    <span class="sidebar-item-text">Sửa Chữa Của Bạn</span>
-                                    <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
-                                </a>
-                            </li>
-                            <div class="collapse-content" id="collapseEditUnique">
-                                <div class="card card-body border-0 bg-transparent py-0 pl-6">
-                                    <ul class="list-group list-group-flush list-group-no-border">
-                                        <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                            <a class="text-heading lh-1 sidebar-link"
-                                                href="{{ route('owners.show-fix') }}">Danh Sách Sửa Chữa</a>
-                                        </li>
-                                        <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                            <a class="text-heading lh-1 sidebar-link"
-                                                href="{{ route('owners.trash-maintenances') }}">Thùng</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                           
                             <div class="collapse-content" id="collapseLike">
                                 <div class="card card-body border-0 bg-transparent py-0 pl-6">
                                     <ul class="list-group list-group-flush list-group-no-border">
@@ -340,7 +311,42 @@
                                     </ul>
                                 </div>
                             </div>
+
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                <a href="#collapseEditUnique"
+                                    class="text-heading lh-1 sidebar-link d-flex align-items-center"
+                                    onclick="toggleDropdown('collapseEditUnique'); return false;">
+                                    <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
+                                        <svg class="icon icon-my-properties">
+                                            <use xlink:href="#icon-my-properties"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="sidebar-item-text">Quản lý đơn</span>
+                                    <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
+                                </a>
+                            </li>
+                            <div class="collapse-content" id="collapseEditUnique">
+                                <div class="card card-body border-0 bg-transparent py-0 pl-6">
+                                    <ul class="list-group list-group-flush list-group-no-border">
+                                        <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                            <a class="text-heading lh-1 sidebar-link"
+                                                href="{{ route('owners.house-is-staying') }}">Phòng đang ở </a>
+                                        </li>
+                                        <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                            <a class="text-heading lh-1 sidebar-link"
+                                                href="{{ route('owners.application-form') }}">Đơn tham gia trọ</a>
+                                        </li>
+                                        <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                            <a class="text-heading lh-1 sidebar-link"
+                                                href="{{ route('owners.show-fix') }}">Đơn sửa chữa</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+
+                            {{-- <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                 <a  href="{{ route('owners.application-form') }}"
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
@@ -350,9 +356,9 @@
                                     </span>
                                     <span class="sidebar-item-text">Đơn đã gửi</span>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a  href="{{ route('owners.invoice-listing') }}"
+                                <a href="{{ route('owners.invoice-listing') }}"
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-heart">
@@ -394,7 +400,7 @@
                                     </span>
                                     <span class="sidebar-item-text">Yêu thích</span>
                                     <!-- Số lượng yêu thích nằm sau chữ "Yêu thích" -->
-                                    
+
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
@@ -422,7 +428,7 @@
                                     <span class="sidebar-item-text">Lịch sử giao dịch</span>
                                 </a>
                             </li>
-                            
+
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                 <a href="{{ route('owners.profile.profile-admin-index') }}"
                                     class="text-heading lh-1 sidebar-link">

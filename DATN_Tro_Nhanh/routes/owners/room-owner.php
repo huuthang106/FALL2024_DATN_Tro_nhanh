@@ -28,4 +28,6 @@ Route::group(['prefix' => ''], function () {
         Route::delete('/xoa-anh/{id}', [RoomOwnersController::class, 'deleteImage'])->name('delete-room-image');
         Route::get('anh/{id}', [RoomOwnersController::class, 'showImages'])->name('room-images');
     });
+    Route::get('danh-dach-phong-cua-toi', [RoomOwnersController::class, 'house_is_staying'])->name('house-is-staying');
+
 });

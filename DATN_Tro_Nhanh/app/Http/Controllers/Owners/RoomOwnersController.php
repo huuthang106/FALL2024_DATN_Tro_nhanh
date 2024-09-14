@@ -192,5 +192,8 @@ class RoomOwnersController extends Controller
             return redirect()->back()->with('error', 'Có lỗi xảy ra khi lấy danh sách phòng.');
         }
     }
-  
+    public function house_is_staying(){
+        return view('owners.show.house_is_staying');
+    }
+
 }

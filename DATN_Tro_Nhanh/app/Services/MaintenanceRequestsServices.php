@@ -69,6 +69,16 @@ class MaintenanceRequestsServices
         $Maintenance->restore();
         return $Maintenance;
     }
+    public function store($request,$user_id){
+        $maintenanceRequest = MaintenanceRequest::create([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'user_id' => $user_id, // Gán user_id cho yêu cầu
+            'room_id'=> $request->input('room_id'),
+        ]);
+    
+        return $maintenanceRequest;
+    }
 
 }
 

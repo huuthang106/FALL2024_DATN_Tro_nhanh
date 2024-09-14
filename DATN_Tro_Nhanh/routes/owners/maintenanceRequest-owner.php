@@ -8,4 +8,5 @@ Route::group(['prefix' => 'danh-sach-sua-chua'], function () {
     Route::delete('/xoa-phong-bao-tri/{id}', [MaintenanceRequestOwnersController::class, 'destroy'])->name('destroy-maintenances');
     Route::put('/khoi-phuc-bao-tri/{id}', [MaintenanceRequestOwnersController::class, 'restore'])->name('restore-maintenance');
     Route::get('/thung-rac-bao-tri', [MaintenanceRequestOwnersController::class, 'trash'])->name('trash-maintenances');
+    Route::post('gui-bao-tri', [MaintenanceRequestOwnersController::class, 'sent_for_maintenance'])->name('sent-for-maintenance');
 });

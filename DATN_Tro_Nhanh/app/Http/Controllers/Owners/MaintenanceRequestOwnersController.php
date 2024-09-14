@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-use App\Models\MaintenanceRequest;
 use App\Http\Controllers\Controller;
 use App\Services\MaintenanceRequestsServices;
 use Illuminate\Support\Facades\Log;
 use App\Services\NotificationService;
+use App\Http\Requests\MaintenanceRequest;
+
+
 
 class MaintenanceRequestOwnersController extends Controller
 {
@@ -33,10 +35,10 @@ class MaintenanceRequestOwnersController extends Controller
     public function showowner($roomId = null)
     {
         // Gọi phương thức để lấy yêu cầu bảo trì với hoặc không có roomId
-        $maintenanceRequests = $this->MaintenanceRequestsServices->getAllMaintenanceRequests($roomId);
+        // $maintenanceRequests = $this->MaintenanceRequestsServices->getAllMaintenanceRequests($roomId);
 
         // Truyền dữ liệu đến view
-        return view('owners.show.dashboard-owner-maintenance', compact('maintenanceRequests'));
+        return view('owners.show.dashboard-owner-maintenance');
     }
 
     public function destroy($id)
@@ -56,6 +58,17 @@ class MaintenanceRequestOwnersController extends Controller
     {
         $this->MaintenanceRequestsServices->restoreMaintenances($id);
         return redirect()->route('owners.show-fix')->with('success', 'Phòng bảo trì đã được khôi phục.');
+    }
+
+    public function sent_for_maintenance(MaintenanceRequest $request){
+        
+        // dd($request->all()); 
+        if(Auth::check()){
+           $user_id  = Auth::id();
+           $this->MaintenanceRequestsServices->store($request,$user_id);
+           return redirect()->back()->with('success','Đơn đã được gửi'); 
+        }
+        // return redirect()->back()->with('error','Bạn chưa đăng nhập');
     }
 
 }
