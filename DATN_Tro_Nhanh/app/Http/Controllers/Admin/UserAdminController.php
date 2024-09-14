@@ -11,6 +11,7 @@ use App\Services\ProfileService;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Requests\AccoutnRequest;
 
 class UserAdminController extends Controller
 {
@@ -111,7 +112,7 @@ class UserAdminController extends Controller
         // }
     }
 
-    public function lockAccoutUser(Request $request,$id)
+    public function lockAccoutUser(AccoutnRequest $request,$id)
     {
         $result = $this->userAdminService->lockAccount($request,$id);
         if(!$result)

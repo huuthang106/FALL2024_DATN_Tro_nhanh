@@ -576,10 +576,10 @@
                                                 </td>
 
                                                 <!-- Assuming there's a relationship to get room title -->
-                                                <td>{{ $utility->wifi ? 'Có' : 'Không' }}</td>
-                                                <td>{{ $utility->bathrooms ? 'Có' : 'Không' }}</td>
-                                                <td>{{ $utility->air_conditioning ? 'Có' : 'Không' }}</td>
-                                                <td>{{ $utility->garage ? 'Có' : 'Không' }}</td>
+                                                <td>{{ $utility->wifi == 1 ? 'Có' : ($utility->wifi == 2 ? 'Không' : 'Chưa xác định') }}</td>
+                                                <td>{{ $utility->bathrooms == 1 ? 'Có' : ($utility->bathrooms == 2 ? 'Không' : 'Chưa xác định') }}</td>
+                                                <td>{{ $utility->air_conditioning == 1 ? 'Có' : ($utility->air_conditioning == 2 ? 'Không' : 'Chưa xác định') }}</td>
+                                                <td>{{ $utility->garage == 1 ? 'Có' : ($utility->garage == 2 ? 'Không' : 'Chưa xác định') }}</td>
                                                 <!--end::Utility details-->
                                                 <!--begin::Actions-->
                                                 {{-- <td class="text-end">

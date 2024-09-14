@@ -1346,14 +1346,14 @@
                                 <span class="menu-title">Danh sách</span>
                             </a>
                         </div>
-                        <div class="menu-item">
+                        <!-- <div class="menu-item">
                             <a class="menu-link" href="" style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
                                 <span class="menu-title">Thêm tiện ích</span>
                             </a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 

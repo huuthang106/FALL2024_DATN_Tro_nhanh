@@ -690,11 +690,19 @@
           @csrf <!-- Thêm token bảo mật -->
           <div class="mb-3">
             <label for="blockDays" class="form-label text-start d-block">Số ngày khóa tài khoản</label>
-            <input type="number" class="form-control" id="blockDays" name="blockDays" required>
+            <input type="number" class="form-control" id="blockDays" name="blockDays">
+            @error('blockDays')
+                                                            <div class="text-danger">{{ $message }}
+                                                            </div>
+                                                        @enderror
           </div>
           <div class="mb-3">
             <label for="blockReason" class="form-label text-start d-block">Lý do khóa tài khoản</label>
-            <textarea class="form-control" id="blockReason" name="blockReason" rows="3" required></textarea>
+            <textarea class="form-control" id="blockReason" name="blockReason" rows="3"></textarea>
+            @error('blockReason')
+                                                            <div class="text-danger">{{ $message }}
+                                                            </div>
+                                                        @enderror
           </div>
         </form>
       </div>
