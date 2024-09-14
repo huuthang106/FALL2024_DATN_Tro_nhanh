@@ -625,5 +625,54 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{ asset('assets/js/users.js') }}"></script>
+<script>
+    function checkAuthStatus() {
+        fetch('{{ route('status') }}', {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (!data.authenticated) {
+                window.location.href = '{{ route('client.home') }}'; // Chuyển hướng đến trang chủ
+            }
+        })
+        .catch(error => {
+            console.error('Error checking auth status:', error);
+        });
+    }
+
+    // Lắng nghe sự kiện đăng xuất
+    window.addEventListener('storage', function(event) {
+        if (event.key === 'logout-event') {
+            checkAuthStatus();
+        }
+    });
+
+    // Hàm đăng xuất sử dụng AJAX
+    function logout() {
+        fetch('{{ route('client.logout') }}', {
+            method: 'POST',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                localStorage.setItem('logout-event', Date.now());
+                window.location.href = '{{ route('client.home') }}'; // Chuyển hướng đến trang chủ
+            } else {
+                console.error('Logout failed');
+            }
+        })
+        .catch(error => {
+            console.error('Error during logout:', error);
+        });
+    }
+</script>
 @livewireScripts
 </html>

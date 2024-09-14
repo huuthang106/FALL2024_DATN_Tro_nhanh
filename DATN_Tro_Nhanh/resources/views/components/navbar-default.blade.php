@@ -69,8 +69,14 @@
                                     <div id="login-password-error" class="text-danger custom-margin-l"></div>
                                     <!-- ID khác cho lỗi -->
                                 </div>
-
-                                <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng nhập</button>
+                                <a href="{{ route('password.request') }}" class="d-block text-right ">Quên mật khẩu?</a>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block mt-2">Đăng nhập</button>
+                                <div id="login-loading" style="display: none; text-align: center; margin-top: 10px;">
+                                    <span>Đang đăng nhập...</span>
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
                             </form>
                             <div class="divider text-center my-2">
                                 <span class="px-4 bg-white lh-17 text">
@@ -152,6 +158,13 @@
                                 </div>
 
                                 <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng ký</button>
+                                <div id="register-loading"
+                                style="display: none; text-align: center; margin-top: 10px;">
+                                <span>Đang đăng ký...</span>
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
                             </form>
                             <div class="divider text-center my-2">
                                 <span class="px-4 bg-white lh-17 text">
@@ -432,22 +445,23 @@
                                             Đăng xuất
                                         </a>
                                     </ul>
+                                    <li class="nav-item mr-auto mr-lg-6">
+                                        <a class="nav-link px-2 position-relative" href="{{ Route('owners.chat-owners') }}">
+                                            <i class="fal fa-comments-alt fs-large-4"></i>
+                                            <span class="badge badge-primary badge-circle badge-absolute">
+                                                <livewire:unread-message-count /></span>
+                                        </a>    
+                                    </li>
                                     <form id="logout-form" action="{{ route('client.logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
                                 @else
-                                    <a class="nav-link pl-3 pr-2" data-toggle="modal" href="#login-register-modal">SIGN IN</a>
+                                    <a class="nav-link pl-3 pr-2" data-toggle="modal" href="#login-register-modal"> Đăng nhập</a>
                                 @endif
                             </li>
-                            @if (Auth::check())
-                            <li class="nav-item mr-auto mr-lg-6">
-                                <a class="nav-link px-2 position-relative" href="{{ Route('owners.chat-owners') }}">
-                                    <i class="fal fa-comments-alt fs-large-4"></i>
-                                    <span class="badge badge-primary badge-circle badge-absolute">
-                                        <livewire:unread-message-count /></span>
-                                </a>    
-                            </li>
-                        @endif
+                           
+                          
+                      
                             <!-- Icon giỏ hàng -->
                             <li class="nav-item mr-auto mr-lg-6">
                             <a class="nav-link px-2 position-relative" href="{{ route('client.carts-show') }}">

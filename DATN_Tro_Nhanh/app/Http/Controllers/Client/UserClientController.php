@@ -200,17 +200,11 @@ class UserClientController extends Controller
         }
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::logout();
 
-        // Invalidate the session
-        request()->session()->invalidate();
-
-        // Regenerate the session token to prevent session fixation attacks
-        request()->session()->regenerateToken();
-
-        // Chuyển hướng về trang chủ
-        return redirect('/');
+        // Kích hoạt sự kiện logout-event
+        echo "<script>localStorage.setItem('logout-event', Date.now()); window.location.href = '" . route('client.home') . "';</script>";
     }
 }

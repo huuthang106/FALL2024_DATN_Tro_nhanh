@@ -4,10 +4,11 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Services\UserClientServices;
+use Illuminate\Support\Facades\Auth;
+
 class UnreadMessageCount extends Component
 {
     public $unreadCount = 0;
-
     protected $userClientServices;
 
     public function boot(UserClientServices $userClientServices)
@@ -30,6 +31,10 @@ class UnreadMessageCount extends Component
 
     public function updateUnreadCount()
     {
+        if (!Auth::check()) {
+            return redirect()->route('client.home')->with('error', 'Phiên đăng nhập của bạn đã hết hạn. Vui lòng đăng nhập lại.');
+        }
+
         $this->unreadCount = $this->userClientServices->getUnreadMessagesCount(auth()->id());
     }
 

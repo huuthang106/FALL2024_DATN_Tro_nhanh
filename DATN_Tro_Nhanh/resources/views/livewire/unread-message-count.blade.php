@@ -1,7 +1,7 @@
 <div wire:poll="updateUnreadCount">
-    @if($unreadCount > 0)
-  {{ $unreadCount }}
+  @if(Auth::check() && $unreadCount > 0)
+      {{ $unreadCount }}
   @else
-  0
-    @endif
+      0
+  @endif
 </div>

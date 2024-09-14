@@ -69,14 +69,15 @@
                                     <div id="login-password-error" class="text-danger custom-margin-l"></div>
                                     <!-- ID khác cho lỗi -->
                                 </div>
-
-                                <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng nhập</button>
-    <div id="login-loading" style="display: none; text-align: center; margin-top: 10px;">
-        <span>Đang đăng nhập...</span>
-        <div class="spinner-border text-primary" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
+                                <div></div>
+                                <a href="{{ route('password.request') }}" class="d-block text-right ">Quên mật khẩu?</a>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block mt-2">Đăng nhập</button>
+                                <div id="login-loading" style="display: none; text-align: center; margin-top: 10px;">
+                                    <span>Đang đăng nhập...</span>
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
                             </form>
                             <div class="divider text-center my-2">
                                 <span class="px-4 bg-white lh-17 text">
@@ -158,7 +159,8 @@
                                 </div>
 
                                 <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng ký</button>
-                                <div id="register-loading" style="display: none; text-align: center; margin-top: 10px;">
+                                <div id="register-loading"
+                                    style="display: none; text-align: center; margin-top: 10px;">
                                     <span>Đang đăng ký...</span>
                                     <div class="spinner-border text-primary" role="status">
                                         <span class="sr-only">Loading...</span>
@@ -211,11 +213,11 @@
                             <img src="{{ asset('assets/images/tro-moi.png') }}" alt="HomeID" class="sticky-logo">
                         </a>
 
-                       
+
                         <button class="navbar-toggler border-0 px-0" type="button" data-toggle="collapse"
                             data-target="#primaryMenu02" aria-controls="primaryMenu02" aria-expanded="false"
                             aria-label="Toggle navigation">
-                            <span class="text-white fs-24" ><i class="fal fa-bars" style="color: #2f1f1f;"></i></span>
+                            <span class="text-white fs-24"><i class="fal fa-bars" style="color: #2f1f1f;"></i></span>
                         </button>
                         <div class="collapse navbar-collapse mt-3 mt-xl-0" id="primaryMenu02">
                             <ul class="navbar-nav hover-menu main-menu px-0 mx-xl-n4">
@@ -395,27 +397,28 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                                <ul
-                                {{-- giao diện mobile --}}
+                                <ul {{-- giao diện mobile --}}
                                     class="navbar-nav flex-row ml-auto align-items-center justify-content-lg-end flex-wrap py-2">
 
                                     <li class="nav-item">
                                         @if (Auth::check())
-                                            <a class="nav-link pr-3" data-toggle="modal"
-                                                href="#user-profile-modal">
+                                            <a class="nav-link pr-3" data-toggle="modal" href="#user-profile-modal">
                                                 {{ Auth::user()->name }} <!-- Hiển thị tên người dùng -->
                                             </a>
                                             <div class="row ml-auto mr-4 p-0">
                                                 <a class="d-block d-xl-none mr-4 position-relative text-white p-2"
                                                     href="{{ Route('owners.chat-owners') }}">
-                                                    <i class="fal fa-comments-alt fs-large-4" style="color: #2f1f1f;"></i>
+                                                    <i class="fal fa-comments-alt fs-large-4"
+                                                        style="color: #2f1f1f;"></i>
                                                     <span class="badge badge-primary badge-circle badge-absolute">
                                                         <livewire:unread-message-count /></span>
                                                 </a>
-                    
-                                                <a class="d-block d-xl-none ml-auto mr-4 position-relative text-white p-2" href="#">
+
+                                                <a class="d-block d-xl-none ml-auto mr-4 position-relative text-white p-2"
+                                                    href="#">
                                                     <i class="fal fa-heart fs-large-4" style="color: #2f1f1f;"></i>
-                                                    <span class="badge badge-primary badge-circle badge-absolute">1</span>
+                                                    <span
+                                                        class="badge badge-primary badge-circle badge-absolute">1</span>
                                                 </a>
                                             </div>
                                         @else
@@ -479,7 +482,8 @@
                                 @csrf
                             </form>
                         @else
-                            <a class="nav-link pl-3 pr-2" data-toggle="modal" href="#login-register-modal">Đăng nhập</a>
+                            <a class="nav-link pl-3 pr-2" data-toggle="modal" href="#login-register-modal">Đăng
+                                nhập</a>
                             @endif
                             </li>
                             <!-- Chat Icon -->

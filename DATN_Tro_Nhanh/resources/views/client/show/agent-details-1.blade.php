@@ -221,29 +221,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 pt-3">
-                                            <h5 class="fs-16 lh-2 text-heading mb-5">
-                                                Phân tích đánh giá
-                                            </h5>
-                                            @foreach ($ratingsDistribution as $rating => $percentage)
-                                                <div class="d-flex align-items-center mx-n1">
-                                                    <ul class="list-inline d-flex px-1 mb-0">
-                                                        @for ($i = 5; $i >= 1; $i--)
-                                                            <li
-                                                                class="list-inline-item w-46px h-46 rounded-lg d-inline-flex align-items-center justify-content-center fs-24 mb-1">
-                                                                <!-- Tăng fs-18 lên fs-24 -->
-                                                                @if ($i <= floor($averageRating))
-                                                                    <i class="fas fa-star text-warning"></i>
-                                                                @elseif ($i == ceil($averageRating) && $averageRating - floor($averageRating) > 0)
-                                                                    <i class="fas fa-star-half-alt text-warning"></i>
-                                                                @else
-                                                                    <i class="far fa-star text-border"></i>
-                                                                @endif
-                                                            </li>
-                                                        @endfor
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                       
 
                                             <div class="col-sm-6 pt-3">
                                                 <h5 class="fs-16 lh-2 text-heading mb-5">
@@ -334,7 +312,7 @@
                             </section>
                         </div>
 
-                    </div>
+                   
                     <div class="col-lg-4 primary-sidebar sidebar-sticky" id="sidebar">
                         <div class="primary-sidebar-inner">
                             <div class="card mb-4">
@@ -364,146 +342,19 @@
                                     </div>
                                     <form action="{{ route('owners.add-chat', $user->id) }}" method="POST">
                                         @csrf
-                                        {{-- <div class="form-group mb-2">
-                                    <label for="name" class="sr-only">Họ và Tên</label>
-                                    <input type="text"
-class="form-control form-control-lg border-0 shadow-none" id="name"
-                                        placeholder="Nhập Họ và Tên...">
-                                </div>
-                                <div class="form-group mb-2">
-                                    <label for="email" class="sr-only">Email</label>
-                                    <input type="text"
-                                        class="form-control form-control-lg border-0 shadow-none" id="email"
-                                        placeholder="Địa chỉ mail...">
-                                </div>
-                                <div class="form-group mb-2">
-                                    <label for="phone" class="sr-only">Số điện thoại</label>
-                                    <input type="text"
-                                        class="form-control form-control-lg border-0 shadow-none" id="phone"
-                                        placeholder="Số điện thoại...">
-                                </div>
-                                <div class="form-group mb-4">
-                                    <label for="message" class="sr-only">Nội dung</label>
-                                    <textarea class="form-control border-0 shadow-none" rows="5" id="message"
-                                        placeholder="Nội dung tin nhắn..."></textarea>
-                                </div> --}}
                                         <button type="submit" class="btn btn-primary btn-lg btn-block shadow-none">Gửi
                                             tin nhắn
                                         </button>
                                     </form>
                                 </div>
                             </div>
-
-                            {{-- <div class="card mb-4">
-                        <div class="card-body px-6 pt-5 pb-6">
-                            <h4 class="card-title fs-16 lh-2 text-dark mb-3">Tìm kiếm</h4>
-                            <form>
-                                <div class="form-group mb-2">
-<select class="form-control border-0 shadow-none selectpicker"
-                                        name="property-type" title="Loại phòng" data-style="btn-lg px-3">
-                                        <option>Phòng trọ</option>
-                                        <option>Căn hộ</option>
-                                        <option>Nhà nguyên căn</option>
-                                    </select>
-                                </div>
-                                <div class="form-row mb-2">
-                                    <div class="col-6 form-group">
-                                        <select class="form-control selectpicker border-0" name="city"
-                                            title="Thành phố" data-style="btn-lg rounded-lg px-3">
-                                            <option>Hà Nội</option>
-                                            <option>Hồ Chí Minh</option>
-                                            <option>Đà Nẵng</option>
-                                            <option>Hải Phòng</option>
-                                            <option>Cần Thơ</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-6 form-group">
-                                        <select class="form-control selectpicker border-0" name="district"
-                                            title="Quận/Huyện" data-style="btn-lg rounded-lg px-3">
-                                            <option>Hoàn Kiếm</option>
-                                            <option>Ba Đình</option>
-                                            <option>Đống Đa</option>
-                                            <option>Hà Đông</option>
-                                            <option>Tân Bình</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-4">
-                                    <input type="text" class="form-control form-control-lg border-0"
-                            name="search" placeholder="Tìm kiếm theo tên phòng trọ...">
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-lg btn-block">
-                                    Tìm kiếm
-                                </button>
-                            </form>
-                        </div>
-                                </div> --}}
-                            {{-- <div class="card">
-                                    <div class="card-body text-center pt-7 pb-6 px-0">
-                                        <img src="{{ asset('assets/images/contact-widget.jpg') }}"
-                                            alt="Bạn muốn trở thành người đăng tin trọ?">
-                                        <div class="text-dark mb-6 mt-n2 font-weight-500">Bạn muốn trở thành
-                                            <p class="mb-0 fs-18">Người Đăng Tin Trọ?</p>
-                                        </div>
-                                        <a href="#" class="btn btn-primary">Đăng ký</a>
-                                    </div>
-                                </div> --}}
                         </div>
                     </div>
                 </div>
+            </div>
         </section>
 
-        <div class="bottom-bar-action py-2 px-4 bg-gray-01 position-fixed fixed-bottom d-block d-sm-none">
-            <div class="container">
-                <div class="row no-gutters mx-n2 mxw-571 mx-auto">
-                    <div class="col-6 px-2">
-                        <a href="#modal-messenger" data-toggle="modal"
-                            class="btn btn-primary btn-lg btn-block fs-14 px-1 py-3 h-auto lh-13">Gửi tin nhắn</a>
-                    </div>
-                    <div class="col-6 px-2">
-                        <a href="tel:(+84)2388-969-888"
-                            class="btn btn-primary btn-lg btn-block fs-14 px-1 py-3 h-auto lh-13">Gọi điện</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="modal-messenger" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header border-0 pb-0">
-                        <h4 class="modal-title text-heading" id="exampleModalLabel">Mẫu Đơn Liên Hệ</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body pb-6">
-                        <div class="form-group mb-2">
-                            <input type="text" class="form-control form-control-lg border-0" placeholder="Họ và Tên">
-                        </div>
-                        <div class="form-group mb-2">
-                            <input type="email" class="form-control form-control-lg border-0"
-                                placeholder="Email của bạn">
-                        </div>
-                        <div class="form-group mb-2">
-                            <input type="tel" class="form-control form-control-lg border-0"
-                                placeholder="Số điện thoại của bạn">
-                        </div>
-                        <div class="form-group mb-2">
-                            <textarea class="form-control border-0" rows="4">Chào, tôi quan tâm đến căn hộ có tên Trọ Siêu Cấp</textarea>
-                        </div>
-                        <div class="form-group form-check mb-4">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck3">
-                            <label class="form-check-label fs-13" for="exampleCheck3">Tôi đồng ý với các điều khoản và
-                                chính sách.</label>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-lg btn-block rounded">Yêu Cầu Thông
-                            Tin</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </main>
 
 @endsection

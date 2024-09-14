@@ -11,6 +11,7 @@
     use App\Helpers\TimeHelper;
     use App\Events\NewMessage;
     use Carbon\Carbon;
+    use Illuminate\Support\Facades\Auth;
     class Chat extends Component
     {    public $contacts;
         public $sender;
@@ -27,6 +28,9 @@
       
         public function selectContact($contactId)
         {
+            if (!Auth::check()) {
+                return redirect()->route('client.home')->with('error', 'Phiên đăng nhập của bạn đã hết hạn. Vui lòng đăng nhập lại.');
+            }
             $contact = Contact::find($contactId);
             if ($contact) {
                 $currentUserId = auth()->id();
@@ -39,6 +43,10 @@
         }
         public function getmesseger()
         {
+            if (!Auth::check()) {
+                return redirect()->route('client.home')->with('error', 'Phiên đăng nhập của bạn đã hết hạn. Vui lòng đăng nhập lại.');
+            }
+    
             if ($this->selectedContactId) {
                 $this->messages = Message::where('contact_id', $this->selectedContactId)
                     ->orderBy('created_at', 'asc')
@@ -60,6 +68,9 @@
    
         public function markMessagesAsRead($contactId)
         {
+            if (!Auth::check()) {
+                return redirect()->route('client.home')->with('error', 'Phiên đăng nhập của bạn đã hết hạn. Vui lòng đăng nhập lại.');
+            }
             Message::where('contact_id', $contactId)
                 ->where('sender_id', '!=', auth()->id())
                 ->where('is_read', false)
@@ -69,6 +80,9 @@
         }
         public function updateUnreadCount($contactId)
         {
+            if (!Auth::check()) {
+                return redirect()->route('client.home')->with('error', 'Phiên đăng nhập của bạn đã hết hạn. Vui lòng đăng nhập lại.');
+            }
             $this->contacts = $this->contacts->map(function ($contact) use ($contactId) {
                 if ($contact['id'] == $contactId) {
                     $contact['unread_count'] = 0;
@@ -78,6 +92,10 @@
         }
         public function sendMessage()
         {
+            if (!Auth::check()) {
+                return redirect()->route('client.home')->with('error', 'Phiên đăng nhập của bạn đã hết hạn. Vui lòng đăng nhập lại.');
+            }
+    
             // dd($this->selectedContactId);
             Log::info('Selected Contact ID: ' . $this->selectedContactId);
             Log::info('New Message: ' . $this->newMessage);

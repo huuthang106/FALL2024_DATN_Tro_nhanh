@@ -95,6 +95,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 'web.php',
                 'auth.php',
                 'console.php',
+                'authstatus.php',
 
             ];
             foreach ($adminRoute as $route) {

@@ -20,7 +20,7 @@ class BlogComments extends Component
     public function render()
     {
         return view('livewire.blog-comments', [
-            'comments' => $this->blog->comments()->paginate(5), // Số lượng bình luận trên mỗi trang
+            'comments' => $this->blog->comments()->orderBy('created_at', 'desc')->paginate(3), // Số lượng bình luận trên mỗi trang
         ]);
     }
 }
