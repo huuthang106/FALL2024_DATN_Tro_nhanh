@@ -35,7 +35,6 @@ class UserClientServices
             ->groupBy('users.id') // Nhóm theo id người dùng để tính số lượng room
             ->orderBy('rooms_count', 'desc') // Sắp xếp theo số lượng room giảm dần
             ->orderBy('users.created_at', 'desc'); // Sau đó sắp xếp theo ngày tạo giảm dần
-
         // Nếu có từ khóa tìm kiếm, thêm điều kiện tìm kiếm
         if ($searchTerm) {
             $query->where(function ($q) use ($searchTerm) {

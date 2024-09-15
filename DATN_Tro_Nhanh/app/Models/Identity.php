@@ -10,7 +10,7 @@ class Identity extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $table = 'Identity'; 
+    protected $table = 'identity'; 
     protected $fillable = [
         'name',
         'identification_number',
