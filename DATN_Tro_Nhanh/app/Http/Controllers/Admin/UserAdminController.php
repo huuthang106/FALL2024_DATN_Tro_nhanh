@@ -122,6 +122,18 @@ class UserAdminController extends Controller
             return redirect()->back()->with('error', 'Khóa tài khoản thất bại ');
         }
     }
+
+    public function lockAccoutOwner(AccoutnRequest $request,$id)
+    {
+        $result = $this->userAdminService->lockOwner($request,$id);
+        if(!$result)
+        {
+           return redirect()->route('admin.admin.profile')->with('success', 'Khóa tài khoản thành công');
+        } else {
+            return redirect()->back()->with('error', 'Khóa tài khoản thất bại ');
+        }
+    }
+
     public function showUserRole()
     {
         $users = $this->userAdminService->getUserRole();

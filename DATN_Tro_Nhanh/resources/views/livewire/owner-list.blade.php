@@ -573,13 +573,15 @@
                                         <th class="min-w-125px">Email</th>
                                         <th class="min-w-125px">Số Điện Thoại</th>
                                         <th class="min-w-125px">Địa Chỉ</th>
-                                        <th class="text-end min-w-110px">Tác vụ</th>
+                                        <th class="text-center w-40">Trạng thái</th>
+                                        <th class="text-center min-w-110px">Tác vụ</th>
                                         {{-- <th class="text-center w-10">Ảnh</th>
                                         <th class="text-center w-15">Tên</th>
                                         <th class="text-center w-15">Email</th>
                                         <th class="text-center w-10">Số điện thoại</th>
                                         <th class="text-center w-40">Địa chỉ</th>
-                                        <th class="text-end w-10">Tác vụ</th> --}}
+                                        <th class="text-center w-100">Trạng thái</th>
+                                        <th class="text-center w-10">Tác vụ</th> --}}
                                     </tr>
                                     <!--end::Table row-->
                                 </thead>
@@ -629,7 +631,13 @@
                                                 {{-- <td>{{ $user->password }}</td> --}}
                                                 <td>{{ $user->phone ?: 'Trống' }}</td>
                                                 <td>{{ $user->address ?: 'Trống' }}</td>
-
+                                                <td>
+    @if($user->status == 3)
+        <span class="badge badge-warning">Tài khoản hạn chế</span>
+    @else
+        <span class="badge badge-primary">Hoạt động</span>
+    @endif
+</td>
                                                 <!--end::User Details-->
                                                 <!--begin::Joined-->
                                                 {{-- <td>{{ $user->created_at->format('d/m/Y') }}</td> --}}
@@ -668,6 +676,48 @@
                                                         </div>
                                                         <!--end::Menu item-->
                                                     </div>
+                                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#blockAccountModal" data-user-id="{{ $user->id }}">
+  Xủ lí vi phạm
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="blockAccountModal" tabindex="-1" aria-labelledby="blockAccountModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="blockAccountModalLabel">Khóa tài khoản</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Form để gửi dữ liệu -->
+        <form id="blockAccountForm" method="POST" action="{{ route('admin.owner-lock', $user->id) }}">
+          @csrf <!-- Thêm token bảo mật -->
+          <div class="mb-3">
+            <label for="blockDays" class="form-label text-start d-block">Số ngày khóa tài khoản</label>
+            <input type="number" class="form-control" id="blockDays" name="blockDays">
+            @error('blockDays')
+                                                            <div class="text-danger">{{ $message }}
+                                                            </div>
+                                                        @enderror
+          </div>
+          <div class="mb-3">
+            <label for="blockReason" class="form-label text-start d-block">Lý do khóa tài khoản</label>
+            <textarea class="form-control" id="blockReason" name="blockReason" rows="3"></textarea>
+            @error('blockReason')
+                                                            <div class="text-danger">{{ $message }}
+                                                            </div>
+                                                        @enderror
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+        <!-- Nút submit form -->
+        <button type="submit" form="blockAccountForm" class="btn btn-danger">Xác nhận khóa</button>
+      </div>
+    </div>
+  </div>
+</div>
                                                     <!--end::Menu-->
                                                 </td>
                                                 <!--end::Action=-->
