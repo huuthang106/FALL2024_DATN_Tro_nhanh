@@ -27,12 +27,12 @@ class UserAdminServices
         }
         return false;
     }
-    public function getUserRole(int $perPage = 10)
+    public function getUserRole(int $perPage = 4)
     {
         try {
             return User::where('role', self::vaitronguoidung)->paginate($perPage);
         } catch (\Exception $e) {
-            Log::error('Không thể lấy danh sách phòng: ' . $e->getMessage());
+            Log::error('Không thể lấy danh sách user: ' . $e->getMessage());
             return null;
         }
     }

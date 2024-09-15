@@ -25,7 +25,11 @@ class BlogOwnersController extends Controller
     }
     public function index()
     {
-        return view('owners.create.add-new-blog');
+        $userLock = auth()->user();
+
+        // Lấy trạng thái của người dùng hiện tại
+     $userStatus =  $userLock ?  $userLock->status : null;
+        return view('owners.create.add-new-blog',compact('userStatus'));
     }
     public function show()
     {

@@ -7,6 +7,12 @@
                 <h2 class="mb-0 text-heading fs-22 lh-15">Thêm phòng trọ
                 </h2>
             </div>
+            @if($userStatus == 3)
+    <!-- Nếu trạng thái của người dùng là 3 (tài khoản bị khóa) -->
+    <div class="text-center" role="alert">
+        <h4 class="text-danger">Tài khoản của bạn đang bị khóa. Vui lòng quay lại sau.</h4>
+    </div>
+@else
             <div class="collapse-tabs new-property-step">
                 <ul class="nav nav-pills border py-2 px-3 mb-6 d-none d-md-flex mb-6" role="tablist">
                     <li class="nav-item col">
@@ -732,6 +738,7 @@
                     </form>
                 </div>
             </div>
+            @endif
         </div>
     </main>
 @endsection

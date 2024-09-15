@@ -15,12 +15,6 @@
                         </div>
                     </div>
                     <div id="kt_account_profile_details" class="collapse show">
-                    @if($userStatus == 3)
-    <!-- Nếu trạng thái của người dùng là 3 (tài khoản bị khóa) -->
-    <div class="text-center" role="alert">
-        <h4 class="text-danger">Tài khoản của bạn đang bị khóa. Vui lòng quay lại sau.</h4>
-    </div>
-@else
                         <form class="blogForm" action="{{ route('admin.create-blog') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
@@ -77,7 +71,7 @@
                                 <button type="submit" class="btn btn-primary">Thêm</button>
                             </div>
                         </form>
-                        @endif
+                    
                     </div>
 
                 </div>

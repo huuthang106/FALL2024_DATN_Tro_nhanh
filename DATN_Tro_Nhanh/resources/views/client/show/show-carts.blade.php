@@ -188,9 +188,10 @@
     {{-- <script src="{{ asset('assets/js/notification-list/notification-pagination.js') }}"></script> --}}
     <script>
 // document.addEventListener('DOMContentLoaded', function () {
-//     const checkboxes = document.querySelectorAll('.price-list-checkbox');
-//     const totalPriceElement = document.getElementById('total-price');
-//     const totalPriceInput = document.getElementById('total-price-input'); // Thêm input ẩn
+//     const checkboxes = document.querySelectorAll('.price-list-checkbox');  // Tất cả checkbox cho từng price list
+//     const selectAllCheckbox = document.getElementById('select-all');  // Checkbox tổng
+//     const totalPriceElement = document.getElementById('total-price');  // Phần tử hiển thị tổng tiền
+//     const totalPriceInput = document.getElementById('total-price-input'); // Input ẩn để lưu tổng tiền
 
 //     // Hàm tính tổng tiền
 //     function calculateTotalPrice() {
@@ -222,19 +223,60 @@
 //         totalPriceInput.value = totalPrice;
 //     }
 
+//     // Hàm kiểm tra trạng thái của tất cả checkbox và cập nhật trạng thái của checkbox tổng
+//     function updateSelectAllCheckbox() {
+//         const allChecked = Array.from(checkboxes).every(function (checkbox) {
+//             return checkbox.checked;
+//         });
+//         selectAllCheckbox.checked = allChecked;
+//     }
+
 //     // Gán sự kiện 'change' cho mỗi checkbox
 //     checkboxes.forEach(function (checkbox) {
-//         checkbox.addEventListener('change', calculateTotalPrice);
+//         checkbox.addEventListener('change', function () {
+//             // Cập nhật tổng tiền khi chọn hoặc bỏ chọn checkbox
+//             calculateTotalPrice();
+
+//             // Cập nhật trạng thái của checkbox tổng
+//             updateSelectAllCheckbox();
+//         });
+//     });
+
+//     // Gán sự kiện 'change' cho checkbox tổng
+//     selectAllCheckbox.addEventListener('change', function () {
+//         const isChecked = selectAllCheckbox.checked;
+
+//         // Chọn hoặc bỏ chọn tất cả các checkbox khác khi checkbox tổng được thay đổi
+//         checkboxes.forEach(function (checkbox) {
+//             checkbox.checked = isChecked;
+//         });
+
+//         // Tính toán lại tổng tiền
+//         calculateTotalPrice();
 //     });
 
 //     // Tính tổng tiền ngay khi trang được tải
 //     calculateTotalPrice();
+
+//     // Kiểm tra trạng thái của các checkbox khi bấm nút thanh toán
+//     checkoutButton.addEventListener('click', function (event) {
+//         const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+
+//         if (!anyChecked) {
+//             event.preventDefault(); // Ngăn chặn form submit
+//             noCheckboxSelected.style.display = 'block'; // Hiển thị thông báo
+//         } else {
+//             noCheckboxSelected.style.display = 'none'; // Ẩn thông báo nếu có checkbox được chọn
+//         }
+//     });
 // });
 document.addEventListener('DOMContentLoaded', function () {
     const checkboxes = document.querySelectorAll('.price-list-checkbox');  // Tất cả checkbox cho từng price list
     const selectAllCheckbox = document.getElementById('select-all');  // Checkbox tổng
     const totalPriceElement = document.getElementById('total-price');  // Phần tử hiển thị tổng tiền
     const totalPriceInput = document.getElementById('total-price-input'); // Input ẩn để lưu tổng tiền
+    const checkoutButton = document.getElementById('checkout-button'); // Nút thanh toán
+    const noCheckboxSelected = document.getElementById('no-checkbox-selected'); // Thông báo nếu không có checkbox nào được chọn
 
     // Hàm tính tổng tiền
     function calculateTotalPrice() {
@@ -267,12 +309,29 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Hàm kiểm tra trạng thái của tất cả checkbox và cập nhật trạng thái của checkbox tổng
-    function updateSelectAllCheckbox() {
-        const allChecked = Array.from(checkboxes).every(function (checkbox) {
-            return checkbox.checked;
-        });
-        selectAllCheckbox.checked = allChecked;
-    }
+   // Hàm kiểm tra trạng thái của tất cả checkbox và cập nhật trạng thái của checkbox tổng
+   function updateSelectAllCheckbox() {
+    // Lọc các checkbox con, không bao gồm checkbox tổng
+    const childCheckboxes = Array.from(checkboxes).filter(function (checkbox) {
+        return checkbox !== selectAllCheckbox;
+    });
+
+    // Kiểm tra xem tất cả checkbox con có được chọn hay không
+    const allChecked = childCheckboxes.every(function (checkbox) {
+        return checkbox.checked;
+    });
+
+    // Log ra giá trị từng checkbox con để kiểm tra trạng thái của nó
+    childCheckboxes.forEach(function (checkbox, index) {
+        console.log(`Checkbox con ${index + 1}: `, checkbox.checked);
+    });
+
+    // Log ra giá trị của allChecked để kiểm tra
+    console.log("Tất cả checkbox con được chọn: ", allChecked);
+
+    // Cập nhật trạng thái của checkbox tổng: chỉ chọn nếu tất cả checkbox con được chọn
+    selectAllCheckbox.checked = allChecked;
+}
 
     // Gán sự kiện 'change' cho mỗi checkbox
     checkboxes.forEach(function (checkbox) {

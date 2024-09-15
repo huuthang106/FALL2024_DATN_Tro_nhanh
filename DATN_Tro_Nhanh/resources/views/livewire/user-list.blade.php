@@ -673,7 +673,7 @@
                                                         <!--end::Menu item-->
                                                     </div>
                                                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#blockAccountModal" data-user-id="{{ $user->id }}">
-  Khóa tài khoản
+  Xủ lí vi phạm
 </button>
 
 <!-- Modal -->

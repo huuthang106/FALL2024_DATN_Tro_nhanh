@@ -117,7 +117,12 @@ class RoomOwnersController extends Controller
         $locations = Location::all();
         $zones = $this->zoneServices->getMyZone(Auth::user()->id);
 
-        return view('owners.create.add-new-property', compact('acreages', 'prices', 'categories', 'locations', 'zones'));
+        $userLock = auth()->user();
+
+        // Lấy trạng thái của người dùng hiện tại
+     $userStatus =  $userLock ?  $userLock->status : null;
+
+        return view('owners.create.add-new-property', compact('acreages', 'prices', 'categories', 'locations', 'zones','userStatus'));
     }
     public function store(RoomOwnersRequest $request)
     {
