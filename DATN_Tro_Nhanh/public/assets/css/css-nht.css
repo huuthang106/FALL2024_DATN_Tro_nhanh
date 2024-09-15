@@ -5,3 +5,16 @@
     border-radius: 8px; /* Nếu bạn muốn hình ảnh có góc bo tròn */
     overflow: hidden; /* Đảm bảo phần ngoài vùng hình ảnh bị cắt bỏ */
 }
+.image-container {
+    width: 80px; /* Chiều rộng tối đa của hình ảnh */
+    height: 80px; /* Chiều cao tối đa của hình ảnh */
+    overflow: hidden; /* Ẩn phần hình ảnh vượt ra ngoài */
+    border-radius: 50%; /* Để tạo hình tròn */
+   
+}
+
+.image-container img {
+    width: 100%; /* Đặt chiều rộng hình ảnh 100% */
+    height: auto; /* Giữ tỷ lệ khung hình */
+    object-fit: cover; /* Cắt hình ảnh để phù hợp với kích thước */
+}
