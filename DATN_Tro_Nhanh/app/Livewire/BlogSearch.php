@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Blog;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class BlogSearch extends Component
 {
@@ -17,11 +18,21 @@ class BlogSearch extends Component
 
     public function render()
     {
-        $query = Blog::query()
-            ->where(function ($q) {
+        $userId = Auth::id();
+
+        $query = Blog::where('user_id', $userId);
+
+        if (!empty($this->search)) {
+            $query->where(function ($q) {
                 $q->where('title', 'like', '%' . $this->search . '%')
-                  ->orWhere('description', 'like', '%' . $this->search . '%');
+                    ->orWhere('description', 'like', '%' . $this->search . '%');
             });
+        }
+        // $query = Blog::query()
+        //     ->where(function ($q) {
+        //         $q->where('title', 'like', '%' . $this->search . '%')
+        //           ->orWhere('description', 'like', '%' . $this->search . '%');
+        //     });
 
         // Lọc theo khoảng thời gian
         if ($this->timeFilter) {
