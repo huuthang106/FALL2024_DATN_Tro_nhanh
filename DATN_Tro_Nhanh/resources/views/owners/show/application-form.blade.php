@@ -41,6 +41,13 @@
                                     <th class="py-6 text-start">Tên phòng</th>
                                     <th class="py-6 text-start">Tên người ở</th>
                                     <th class="py-6 text-start">Số điện thoại</th>
+                                    <th
+                                        class="py-6 text-start {{ $residents->where('status', $user_is_in)->isEmpty() ? 'd-none' : '' }}">
+                                        Lý do</th>
+                                    @if ($residents->whereNotNull('description')->isNotEmpty())
+                                        <th class="py-6 text-start">Từ Chối</th>
+                                    @endif
+
                                     <th class="py-6 text-start">Khu trọ</th>
                                     <th class="py-6 text-start">Thao tác</th>
                                 </tr>
@@ -53,48 +60,48 @@
                                 @else
                                     @foreach ($residents as $resident)
                                         <tr>
-                                            <td class="py-6 pl-6">
+                                            <td class="py-6 pl-6 align-middle text-center">
                                                 <label class="new-control new-checkbox checkbox-primary m-auto">
                                                     <input type="checkbox"
                                                         class="new-control-input chk-parent select-customers-info">
                                                 </label>
                                             </td>
-                                            <td class="align-middle"><small>{{ $resident->room->title }}</small></td>
                                             <td class="align-middle">
-                                                <small>
-                                                    <a
-                                                        href="{{ route('client.client-agent-detail', $resident->tenant->slug) }}">{{ $resident->tenant->name }}</a>
-
-                                                </small>
-
-                                            </td>
-                                            <td class="align-middle"> <small>
-                                                    <small>
-                                                        {{ $resident->tenant->phone }}
-
-                                                    </small>
-                                                </small></td>
-                                            <td class="align-middle">
-                                                <small>
-                                                    {{ $resident->zone->name }}
-
-                                                </small>
+                                                <small class="text">{{ $resident->room->title }}</small>
                                             </td>
                                             <td class="align-middle">
                                                 <small>
-
-                                                    <form action="{{ route('owners.cancel-order', $resident->id) }}"
-                                                        method="POST" style="display:inline;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
-                                                    </form>
+                                                    <a href="{{ route('client.client-agent-detail', $resident->tenant->slug) }}"
+                                                        class="text-primary">
+                                                        {{ $resident->tenant->name }}
+                                                    </a>
                                                 </small>
+                                            </td>
+                                            <td class="align-middle">
+                                                <small class="text">{{ $resident->tenant->phone }}</small>
+                                            </td>
+                                            <td
+                                                class="align-middle description-column {{ empty($resident->description) ? 'd-none' : '' }}">
+                                                <small class="text">{{ $resident->description }}</small>
+                                            </td>
+
+
+                                            <td class="align-middle">
+                                                <small class="text">{{ $resident->zone->name }}</small>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <form action="{{ route('owners.cancel-order', $resident->id) }}"
+                                                    method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
                                 @endif
                             </tbody>
+
                         </table>
                     </div>
                     <div class="mt-6">

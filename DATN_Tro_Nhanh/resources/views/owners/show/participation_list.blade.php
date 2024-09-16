@@ -89,12 +89,17 @@
                                                         <button type="submit"
                                                             class="btn btn-primary btn-sm text-light">Duyệt</button>
                                                     </form>
-                                                    <form action="{{ route('owners.refuse', $resident->id) }}"
+                                                    {{-- <form action="{{ route('owners.refuse', $resident->id) }}"
                                                         method="POST" style="display:inline;">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
-                                                    </form>
+                                                    </form> --}}
+                                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                                        data-target="#confirmDeleteModal{{ $resident->id }}">
+                                                        Xóa
+                                                    </button>
+
                                                 </small>
                                             </td>
                                         </tr>
@@ -157,6 +162,81 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal tạo hóa đơn -->
+            @foreach ($residents as $resident)
+                <div class="modal fade" id="confirmDeleteModal{{ $resident->id }}" tabindex="-1" role="dialog"
+                    aria-labelledby="invoiceModalLabel{{ $resident->id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="invoiceModalLabel{{ $resident->id }}">Lý do xóa đơn này</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="formBills{{ $resident->id }}"
+                                    action="{{ route('owners.refuses', $resident->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <div class="row">
+                                        <!-- Cột trái -->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="name">Tên người ở:</label>
+                                                <input type="text" class="form-control" id="name"
+                                                    value="{{ $resident->tenant->name }}" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="room">Tên khu trọ:</label>
+                                                <input type="text" class="form-control" id="room"
+                                                    value="{{ $resident->zone->name }}" readonly>
+                                            </div>
+                                        </div>
+                                    
+                                        <!-- Cột phải -->
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <!-- Cột lý do -->
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="reasons{{ $resident->id }}">Lý Do:</label>
+                                                        <select class="form-select selectpicker" id="reasons{{ $resident->id }}" name="title[]" title="">
+                                                            <option value="Không phù hợp với đối tượng thuê">Không phù hợp với đối tượng thuê</option>
+                                                            <option value="Lịch sử thuê nhà không tốt">Lịch sử thuê nhà không tốt</option>
+                                                            <option value="Số lượng người thuê vượt quá quy định">Số lượng người thuê vượt quá quy định</option>
+                                                            <option value="Tiền án tiền sự">Tiền án tiền sự</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    
+                                            <!-- Phần ghi chú nằm dưới lý do -->
+                                            <div class="row mt-3">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="note">Ghi chú:</label>
+                                                        <textarea class="form-control" id="note" name="note" rows="2"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="modal-footer text-right">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Đóng</button>
+                                        <button type="submit" class="btn btn-primary">Từ Chối Đơn</button>
+                                    </div>
+                                </form>
+
+                             
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
         </div>
     </main>
 

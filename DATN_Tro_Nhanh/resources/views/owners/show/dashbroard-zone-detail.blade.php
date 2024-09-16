@@ -41,6 +41,7 @@
                                     <th class="py-6 text-start">Tên phòng</th>
                                     <th class="py-6 text-start">Tên người ở</th>
                                     <th class="py-6 text-start">Số điện thoại</th>
+                                    <th class="py-6 text-start">Lý do từ chối</th>
                                     <th class="py-6 text-start">Trạng thái</th>
                                     <th class="py-6 text-start">Thao tác</th>
                                 </tr>

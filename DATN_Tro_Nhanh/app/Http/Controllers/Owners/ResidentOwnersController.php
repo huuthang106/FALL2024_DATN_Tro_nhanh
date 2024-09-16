@@ -73,41 +73,45 @@ class ResidentOwnersController extends Controller
     }
     public function refuse($idResident)
     {
-
         if (Auth::check()) {
-            // dd('hi');
             $user_id = Auth::id(); // Lấy ID người dùng đã đăng nhập
-
-            $content = 'Bạn đã bị từ trối tham gia phòng ';
-            // Gọi hàm lấy dữ liệu
-            $residents = $this->residentOwnersService->deleteResident($idResident,  $user_id, $content);
-
-            // dd($residents); 
-            if ($residents) {
+            $content = 'Bạn đã bị từ chối tham gia phòng';
+    
+            // Gọi hàm xóa Resident
+            try {
+                $this->residentOwnersService->deleteResident($idResident, $user_id, $content);
+    
+                // Trả về thông báo thành công
                 return redirect()->back()->with('success', 'Xóa khách hàng thành công');
-            } else {
-                return redirect()->back()->with('error', 'Có lỗi khi duyệt đơn');
+            } catch (\Exception $e) {
+                // Trả về thông báo lỗi
+                return redirect()->back()->with('error', 'Có lỗi khi duyệt đơn: ' . $e->getMessage());
             }
         }
+    
+        return redirect()->back()->with('error', 'Bạn cần đăng nhập để thực hiện hành động này.');
     }
+    
 
     public function application_form()
-    {
-        if (Auth::check()) {
-            // dd('hi');
-            $user_id = Auth::id(); // Lấy ID người dùng đã đăng nhập
+{
+    if (Auth::check()) {
+        $user_id = Auth::id(); // Lấy ID người dùng đã đăng nhập
 
+        // Gọi hàm lấy dữ liệu residents
+        $residents = $this->residentOwnersService->getmyResdent($user_id,  self::not_yet_approved);
 
-            // Gọi hàm lấy dữ liệu
-            $residents = $this->residentOwnersService->getmyResdent($user_id,  self::not_yet_approved);
+        // Đặt giá trị cho biến $user_is_in
+        $user_is_in = 'some_status_value'; // Giá trị phù hợp của status mà bạn muốn kiểm tra
 
-            // dd($residents); 
-
-            return view('owners.show.application-form', [
-                'residents' => $residents,
-            ]);
-        }
+        return view('owners.show.application-form', [
+            'residents' => $residents,
+            'user_is_in' => $user_is_in, // Truyền biến vào view
+        ]);
     }
+}
+
+
     public function cancel_order($idResident)
     {
 
@@ -142,6 +146,19 @@ class ResidentOwnersController extends Controller
             } else {
                 return redirect()->back()->with('error', 'Có lỗi khi thu hồi');
             }
+        }
+    }
+    public function refuses(Request $request, $id)
+    {
+        $reasons = $request->input('title', []);
+        $note = $request->input('note', '');
+
+        $success = $this->residentOwnersService->refuseApplication($id, $reasons, $note);
+
+        if ($success) {
+            return redirect()->back()->with('success', 'Đơn đã được từ chối thành công.');
+        } else {
+            return redirect()->back()->with('error', 'Đã xảy ra lỗi khi từ chối đơn.');
         }
     }
 }
