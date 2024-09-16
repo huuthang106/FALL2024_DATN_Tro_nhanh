@@ -343,7 +343,33 @@
                                     </ul>
                                 </div>
                             </div>
-
+                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                <a href="#collapseAccount"
+                                    class="text-heading lh-1 sidebar-link d-flex align-items-center"
+                                    onclick="toggleDropdown('collapseAccount'); return false;">
+                                    <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
+                                    <svg class="icon icon-my-profile">
+                                            <use xlink:href="#icon-my-profile"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="sidebar-item-text">Thông tin thêm</span>
+                                    <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
+                                </a>
+                            </li>
+                            <div class="collapse-content" id="collapseAccount">
+                                <div class="card card-body border-0 bg-transparent py-0 pl-6">
+                                    <ul class="list-group list-group-flush list-group-no-border">
+                                        <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                            <a class="text-heading lh-1 sidebar-link"
+                                                href="{{ route('owners.profile.resigter-ekyc') }}">Bổ sung thông tin</a>
+                                        </li>
+                                        <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                            <a class="text-heading lh-1 sidebar-link"
+                                                href="{{ route('owners.profile.information-ekyc') }}">Chi tiết thông tin</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
 
 
                             {{-- <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
@@ -379,7 +405,7 @@
                                     <span class="sidebar-item-text">Người đưa tin</span>
                                 </a>
                             </li>
-                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                            <!-- <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                 <a href="{{ route('owners.profile.resigter-ekyc') }}"
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
@@ -387,9 +413,9 @@
                                             <use xlink:href="#icon-heart"></use>
                                         </svg>
                                     </span>
-                                    <span class="sidebar-item-text">Đăng ký eKYC</span>
+                                    <span class="sidebar-item-text">Bổ sung thông tin</span>
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                 <a href="{{ Route('owners.favorites') }}"
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center">

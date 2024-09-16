@@ -60,7 +60,7 @@ class IdentityClientController extends Controller
 
         $this->IdentityService->saveRegistrationData($data, $images);
 
-        return redirect()->back()->with('success', 'Dữ liệu và hình ảnh đã được lưu thành công!');
+        return redirect()->route('owners.show.information-ekyc')->with('success', 'Dữ liệu và hình ảnh đã được lưu thành công!');
     } catch (\Exception $e) {
       
         return redirect()->back()->with('error', 'Có lỗi xảy ra khi lưu dữ liệu.');

@@ -20,4 +20,6 @@ Route::group(['prefix' => '', 'as' => 'profile.'], function () {
     // nguyen huu thang
     Route::get('/dang-ky-thanh-vien', [UserOwnersController::class, 'page_register_owner'])->name('resigter-owner');
     Route::get('/dang-ky-ekyc', [UserOwnersController::class, 'page_resigter_ekyc'])->name('resigter-ekyc');
+    Route::get('/thong-tin-ekyc', [UserOwnersController::class, 'information_page_ekyc'])->name('information-ekyc');
+    Route::delete('/xoa-thong-tin-ekyc', [UserOwnersController::class, 'clear_information'])->name('clear-information');
 });

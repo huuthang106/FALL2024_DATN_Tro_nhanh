@@ -22,9 +22,15 @@ class ProcessPayment
 
             $user_id = Auth::id();
             Log::info('User ID:', ['user_id' => $user_id]);
-
+                
          
             Log::info('Giá của payment.', ['amout' =>  $event->amount]);
+
+              // Lấy thông tin PriceList từ cart
+    $priceList = $cart->priceList;
+
+    // Lấy thông tin location từ priceList
+    $location = $priceList->location;
             // Thực hiện các thao tác thêm dữ liệu cho đối tượng CartDetail
             $newCartDetail = new CartDetail();
             $newCartDetail->name_price_list = 'Nâng cấp tài khoản';

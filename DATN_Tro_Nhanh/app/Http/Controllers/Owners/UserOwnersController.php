@@ -78,4 +78,28 @@ class UserOwnersController extends Controller
         $isRegistered = !is_null($identity);
         return view('owners.create.register_ekyc', compact('isRegistered', 'identity'));
     }
+
+    public function information_page_ekyc()
+    {
+        $userId = auth()->id();
+        $information = Identity::where('user_id',$userId)->first();
+        return view('owners.show.dashboard-ekyc',compact('information'));
+    }
+
+    public function clear_information()
+{
+    $userId = auth()->id();
+
+    // Xóa thông tin của người dùng và kiểm tra số lượng bản ghi bị xóa
+    $deleted = Identity::where('user_id', $userId)->delete();
+
+    // Nếu xóa thành công
+    if ($deleted > 0) {
+        return redirect()->back()->with('success', 'Xóa thông tin thành công!');
+    }
+
+    // Nếu không có bản ghi nào bị xóa
+    return redirect()->back()->with('error', 'Không tìm thấy thông tin để xóa.');
+}
+
 }

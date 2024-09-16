@@ -29,12 +29,16 @@ class UserClientServices
     {
         // Khởi tạo query để lọc người dùng theo vai trò
         $query = User::where('role', $role)
-            ->leftJoin('rooms', 'users.id', '=', 'rooms.user_id') // Join bảng rooms với bảng users
-            ->select('users.*') // Chọn tất cả các cột từ bảng users
-            ->selectRaw('COUNT(rooms.id) as rooms_count') // Đếm số lượng room cho mỗi user
-            ->groupBy('users.id') // Nhóm theo id người dùng để tính số lượng room
-            ->orderBy('rooms_count', 'desc') // Sắp xếp theo số lượng room giảm dần
-            ->orderBy('users.created_at', 'desc'); // Sau đó sắp xếp theo ngày tạo giảm dần
+        ->leftJoin('rooms', 'users.id', '=', 'rooms.user_id') // Join bảng rooms với bảng users
+        ->leftJoin('comments', 'users.id', '=', 'comments.user_id') // Join bảng comments với bảng users để lấy rating
+        ->select('users.*') // Chọn tất cả các cột từ bảng users
+        ->selectRaw('COUNT(rooms.id) as rooms_count') // Đếm số lượng room cho mỗi user
+        ->selectRaw('comments.rating as user_rating') // Lấy rating trực tiếp từ bảng comments
+        ->groupBy('users.id', 'comments.rating') // Nhóm theo id người dùng và rating
+        ->orderBy('has_vip_badge', 'desc') // Sắp xếp ưu tiên theo VIP (1 trước, 0 sau)
+        ->orderBy('user_rating', 'desc') // Sắp xếp theo rating trực tiếp từ cao đến thấp
+        ->orderBy('rooms_count', 'desc') // Sau đó sắp xếp theo số lượng room giảm dần
+        ->orderBy('users.created_at', 'desc'); // Cuối cùng sắp xếp theo ngày tạo giảm dần
         // Nếu có từ khóa tìm kiếm, thêm điều kiện tìm kiếm
         if ($searchTerm) {
             $query->where(function ($q) use ($searchTerm) {
