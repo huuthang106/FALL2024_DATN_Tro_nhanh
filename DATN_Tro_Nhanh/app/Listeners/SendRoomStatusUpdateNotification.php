@@ -29,7 +29,7 @@ class SendRoomStatusUpdateNotification
             Notification::create([
                 'user_id' => $event->room->user_id, // Hoặc ID của người dùng liên quan
                 'message' => 'Trạng thái phòng "' . $event->room->title . '" đã được cập nhật thành ' . $event->newStatus,
-                'type' => 'Đã duyệt phòng trọ thành công', // Hoặc loại thông báo phù hợp
+                'type' => 'Trọ của bạn đã được duyệt', // Hoặc loại thông báo phù hợp
             ]);
         } catch (\Exception $e) {
             Log::error('Không thể lưu thông báo khi cập nhật trạng thái phòng: ' . $e->getMessage());

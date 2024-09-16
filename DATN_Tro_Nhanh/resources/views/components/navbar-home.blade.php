@@ -486,9 +486,7 @@
                                 nhập</a>
                             @endif
                             </li>
-                            <!-- Chat Icon -->
-
-                            <!-- Cart Icon -->
+                            
                             <li class="nav-item mr-auto mr-lg-6">
                                 <a class="nav-link px-2 position-relative" href="{{ route('client.carts-show') }}">
                                     <i class="fal fa-shopping-cart fs-large-4"></i>
