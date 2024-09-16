@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Image;
 use App\Models\Utility;
 use App\Models\Resident;
-
+use Illuminate\Support\Facades\Log;
+use App\Events\RoomStatusUpdated;
 class RoomAdminService
 {
     // Tao bien hien thi phong con trong
@@ -341,4 +342,33 @@ class RoomAdminService
         $room->forceDelete();
         return $room;
     }
+    public function getRoomsWithStatus(int $status, int $perPage = 10)
+    {
+        try {
+            return Room::where('status', $status)->paginate($perPage);
+        } catch (\Exception $e) {
+            Log::error('Không thể lấy danh sách phòng với status ' . $status . ': ' . $e->getMessage());
+            return null;
+        }
+    }
+    public function updateRoomStatus(int $id, int $newStatus)
+    {
+        try {
+            // Tìm phòng theo id
+            $room = Room::where('id', $id)->firstOrFail();
+            
+            // Cập nhật status
+            $room->status = $newStatus;
+            $room->save();
+            
+            // Phát sự kiện
+            event(new RoomStatusUpdated($room, $newStatus));
+            
+            return $room; // Trả về phòng đã được cập nhật
+        } catch (\Exception $e) {
+            Log::error('Không thể cập nhật status phòng với id ' . $id . ': ' . $e->getMessage());
+            return null;
+        }
+    }
+    
 }

@@ -143,4 +143,27 @@ class RoomAdminController extends Controller
             return back()->with('error', 'Cập nhật phòng thất bại.');
         }
     }
+    public function getroom()
+    {
+        // Lấy danh sách phòng với status = 2
+        $rooms = $this->roomAdminService->getRoomsWithStatus(1);
+
+        if ($rooms === null) {
+            return response()->json(['message' => 'Không thể lấy danh sách phòng.'], 500);
+        }
+
+        return view('admincp.show.showAcceptRoom', compact('rooms'));
+    }
+    public function approveRoom(string $id)
+    {
+        // Cập nhật status phòng thành giá trị 1
+        $updatedRoom = $this->roomAdminService->updateRoomStatus($id, 2);
+    
+        if ($updatedRoom === null) {
+            return redirect()->back()->withErrors('Không thể cập nhật status phòng.');
+        }
+    
+        return redirect()->back()->with('success', 'Cập nhật status phòng thành công.');
+    }
+    
 }
