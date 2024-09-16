@@ -13,11 +13,11 @@ class RoomPagination extends Component
     public $search = '';
     public $timeFilter = '';
     public $perPage = 10; // Số lượng phòng mỗi trang
-
+    const hienthidulieu = 1;
     public function render()
     {
         $query = Room::query();
-
+        $query->where('status', self::hienthidulieu);
         // Tìm kiếm theo nhiều trường
         if ($this->search) {
             $query->where(function($query) {
