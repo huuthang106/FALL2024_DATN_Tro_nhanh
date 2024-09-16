@@ -194,7 +194,8 @@
                                                             <a href="#" class="badge badge-indigo">Cho thuê</a>
                                                         </div>
                                                         <div class="px-2 pb-2">
-                                                            <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}" class="text-white">
+                                                            <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
+                                                                class="text-white">
                                                                 <h5 class="card-title fs-16 lh-2 mb-0">
                                                                     <small>{{ $room->title }}</small>
                                                                 </h5>
@@ -356,7 +357,13 @@
                                                     </a>
                                                 @endif
                                                 <div class="card-img-overlay d-flex flex-column">
-                                                    <div><span class="badge badge-primary">Cần Bán</span></div>
+                                                    {{-- <div><span class="badge badge-primary">Cần Bán</span></div> --}}
+                                                    <div>
+                                                        @if ($room->user->has_vip_badge)
+                                                            <span class="badge badge-primary">VIP</span>
+                                                        @endif
+                                                        {{-- <span class="badge badge-primary">Cần Bán</span> --}}
+                                                    </div>
                                                     <div class="mt-auto d-flex hover-image">
                                                         <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
                                                             {{-- <li class="list-inline-item mr-2" data-toggle="tooltip"
@@ -383,10 +390,17 @@
                                                             </li> --}}
                                                         </ul>
                                                         <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
+                                                            {{-- <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
                                                                 title="Yêu thích">
                                                                 <a href="{{ route('client.add.favourite', ['slug' => $room->slug]) }}"
                                                                     class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                                    <i class="fas fa-heart"></i>
+                                                                </a>
+                                                            </li> --}}
+                                                            <li class="list-inline-item">
+                                                                <a href="#"
+                                                                    class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center favorite-btn {{ $room->isFavoritedByUser(auth()->id()) ? 'favorited' : '' }}"
+                                                                    data-room-slug="{{ $room->slug }}">
                                                                     <i class="fas fa-heart"></i>
                                                                 </a>
                                                             </li>
@@ -683,4 +697,5 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script src="{{ asset('assets/js/api-country-vn-nht.js') }}"></script>
+    <script src="{{ asset('assets/js/yeuthich.js') }}"></script>
 @endpush

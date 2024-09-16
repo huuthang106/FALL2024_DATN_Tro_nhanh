@@ -11,3 +11,7 @@
     height: 1.5rem;
     border-width: 0.2em;
 }
+
+.favorite-btn.favorited .fas.fa-heart {
+    color: red;
+}

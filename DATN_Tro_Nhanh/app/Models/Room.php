@@ -98,7 +98,15 @@ class Room extends Model
         return $this->hasOne(Utility::class);
     }
     public function residents()
-{
-    return $this->hasMany(Resident::class);
-}
+    {
+        return $this->hasMany(Resident::class);
+    }
+    public function favourites()
+    {
+        return $this->hasMany(Favourite::class, 'room_id');
+    }
+    public function isFavoritedByUser($userId)
+    {
+        return $this->favourites()->where('user_id', $userId)->exists();
+    }
 }

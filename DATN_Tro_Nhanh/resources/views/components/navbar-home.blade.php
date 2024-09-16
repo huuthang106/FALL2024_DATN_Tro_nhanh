@@ -498,8 +498,8 @@
                             <li class="nav-item mr-auto mr-lg-6">
                                 <a class="nav-link px-2 position-relative" href="{{ route('owners.favorites') }}">
                                     <i class="fal fa-heart fs-large-4"></i>
-                                    <span
-                                        class="badge badge-primary badge-circle badge-absolute">{{ $favouriteCount }}</span>
+                                    <span class="badge badge-primary badge-circle badge-absolute"
+                                        id="favorite-count">{{ $favouriteCount }}</span>
                                 </a>
                             </li>
                             <!-- Add Room Button -->

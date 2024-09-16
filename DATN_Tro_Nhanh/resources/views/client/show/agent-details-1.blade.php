@@ -173,14 +173,20 @@
                                     </div>
                                     <div class="tab-pane tab-pane-parent fade" id="rent" role="tabpanel">
                                         <div class="card border-0 bg-transparent">
-                                            <div class="card-header border-0 d-block d-md-none bg-transparent p-0" id="headingRent-01">
+                                            <div class="card-header border-0 d-block d-md-none bg-transparent p-0"
+                                                id="headingRent-01">
                                                 <h5 class="mb-0">
-                                                    <button class="btn lh-2 fs-18 bg-white py-1 px-6 shadow-none w-100 collapse-parent border collapsed mb-4" data-toggle="collapse" data-target="#rent-collapse-01" aria-expanded="true" aria-controls="rent-collapse-01">
+                                                    <button
+                                                        class="btn lh-2 fs-18 bg-white py-1 px-6 shadow-none w-100 collapse-parent border collapsed mb-4"
+                                                        data-toggle="collapse" data-target="#rent-collapse-01"
+                                                        aria-expanded="true" aria-controls="rent-collapse-01">
                                                         Khu trọ ({{ $totalZones }})
                                                     </button>
                                                 </h5>
                                             </div>
-                                            <div id="rent-collapse-01" class="collapse collapsible" aria-labelledby="headingRent-01" data-parent="#collapse-tabs-accordion-01">
+                                            <div id="rent-collapse-01" class="collapse collapsible"
+                                                aria-labelledby="headingRent-01"
+                                                data-parent="#collapse-tabs-accordion-01">
                                                 <div class="card-body p-0">
                                                     @livewire('zones-tab', ['userId' => $user->id])
                                                 </div>
@@ -189,7 +195,7 @@
                                     </div>
                                 </div>
                             </div>
-                       
+
                         </div>
                         <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
                             <h4 class="fs-22 text-heading lh-15 mb-5">Đánh giá & Nhận xét</h4>
@@ -221,110 +227,112 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                       
 
-                                            <div class="col-sm-6 pt-3">
-                                                <h5 class="fs-16 lh-2 text-heading mb-5">
-                                                    Phân tích đánh giá
-                                                </h5>
-                                                @foreach ($ratingsDistribution as $rating => $percentage)
-                                                    <div class="d-flex align-items-center mx-n1">
-                                                        <ul class="list-inline d-flex px-1 mb-0">
-                                                            @for ($i = 5; $i >= 1; $i--)
-                                                                <li
-                                                                    class="list-inline-item {{ $rating >= $i ? 'text-warning' : 'text-border' }} mr-1">
-                                                                    <i class="fas fa-star"></i>
-                                                                </li>
-                                                            @endfor
-                                                        </ul>
-                                                        <div class="d-block w-100 px-1">
-                                                            <div class="progress rating-progress">
-                                                                <div class="progress-bar bg-warning" role="progressbar"
-                                                                    style="width: {{ $percentage }}%"
-                                                                    aria-valuenow="{{ $percentage }}" aria-valuemin="0"
-                                                                    aria-valuemax="100"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="text-muted px-1">{{ number_format($percentage, 0) }}%
+
+                                        <div class="col-sm-6 pt-3">
+                                            <h5 class="fs-16 lh-2 text-heading mb-5">
+                                                Phân tích đánh giá
+                                            </h5>
+                                            @foreach ($ratingsDistribution as $rating => $percentage)
+                                                <div class="d-flex align-items-center mx-n1">
+                                                    <ul class="list-inline d-flex px-1 mb-0">
+                                                        @for ($i = 5; $i >= 1; $i--)
+                                                            <li
+                                                                class="list-inline-item {{ $rating >= $i ? 'text-warning' : 'text-border' }} mr-1">
+                                                                <i class="fas fa-star"></i>
+                                                            </li>
+                                                        @endfor
+                                                    </ul>
+                                                    <div class="d-block w-100 px-1">
+                                                        <div class="progress rating-progress">
+                                                            <div class="progress-bar bg-warning" role="progressbar"
+                                                                style="width: {{ $percentage }}%"
+                                                                aria-valuenow="{{ $percentage }}" aria-valuemin="0"
+                                                                aria-valuemax="100"></div>
                                                         </div>
                                                     </div>
-                                                @endforeach
-                                            </div>
-
+                                                    <div class="text-muted px-1">{{ number_format($percentage, 0) }}%
+                                                    </div>
+                                                </div>
+                                            @endforeach
                                         </div>
+
                                     </div>
                                 </div>
-                            </section>
+                            </div>
+                        </section>
 
                         <section class="mt-2 pb-2 px-6 pt-6 bg-white rounded-lg">
                             <div class="card border-0">
                                 <div class="card-body p-0">
-                                    <h3 class="fs-16 lh-2 text-heading mb-0 d-inline-block pr-4 border-bottom border-primary">
+                                    <h3
+                                        class="fs-16 lh-2 text-heading mb-0 d-inline-block pr-4 border-bottom border-primary">
                                         {{ $comments->count() }} Đánh giá
                                     </h3>
 
                                     @livewire('comments', ['commentedUserId' => $user->id])
                                 </div>
-                            </section>
+                        </section>
 
 
-                            <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
-                                <div class="card border-0">
-                                    <div class="card-body p-0">
-                                        <h3 class="fs-16 lh-2 text-heading mb-4">Viết Đánh Giá</h3>
-                                        <form id="commentForm" action="{{ route('client.danh-gia-nguoi-dung') }}"
-                                            method="POST">
-                                            @csrf
-                                            <div class="form-group mb-4 d-flex justify-content-start">
-                                                <div class="rate-input">
-                                                    <input type="radio" id="star5" name="rating" value="5">
-                                                    <label for="star5" title="text" class="mb-0 mr-1 lh-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </label>
-                                                    <input type="radio" id="star4" name="rating" value="4">
-                                                    <label for="star4" title="text" class="mb-0 mr-1 lh-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </label>
-                                                    <input type="radio" id="star3" name="rating" value="3">
-                                                    <label for="star3" title="text" class="mb-0 mr-1 lh-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </label>
-                                                    <input type="radio" id="star2" name="rating" value="2">
-                                                    <label for="star2" title="text" class="mb-0 mr-1 lh-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </label>
-                                                    <input type="radio" id="star1" name="rating" value="1">
-                                                    <label for="star1" title="text" class="mb-0 mr-1 lh-1">
-                                                        <i class="fas fa-star"></i>
-                                                    </label>
-                                                </div>
+                        <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
+                            <div class="card border-0">
+                                <div class="card-body p-0">
+                                    <h3 class="fs-16 lh-2 text-heading mb-4">Viết Đánh Giá</h3>
+                                    <form id="commentForm" action="{{ route('client.danh-gia-nguoi-dung') }}"
+                                        method="POST">
+                                        @csrf
+                                        <div class="form-group mb-4 d-flex justify-content-start">
+                                            <div class="rate-input">
+                                                <input type="radio" id="star5" name="rating" value="5">
+                                                <label for="star5" title="text" class="mb-0 mr-1 lh-1">
+                                                    <i class="fas fa-star"></i>
+                                                </label>
+                                                <input type="radio" id="star4" name="rating" value="4">
+                                                <label for="star4" title="text" class="mb-0 mr-1 lh-1">
+                                                    <i class="fas fa-star"></i>
+                                                </label>
+                                                <input type="radio" id="star3" name="rating" value="3">
+                                                <label for="star3" title="text" class="mb-0 mr-1 lh-1">
+                                                    <i class="fas fa-star"></i>
+                                                </label>
+                                                <input type="radio" id="star2" name="rating" value="2">
+                                                <label for="star2" title="text" class="mb-0 mr-1 lh-1">
+                                                    <i class="fas fa-star"></i>
+                                                </label>
+                                                <input type="radio" id="star1" name="rating" value="1">
+                                                <label for="star1" title="text" class="mb-0 mr-1 lh-1">
+                                                    <i class="fas fa-star"></i>
+                                                </label>
                                             </div>
-                                            <div class="form-group mb-6">
-                                                <textarea class="form-control form-control-lg border-0" placeholder="Đánh giá của bạn" name="content"
-                                                    rows="5"></textarea>
-                                            </div>
-                                            <input type="hidden" name="user_slug" value="{{ $user->slug }}">
+                                        </div>
+                                        <div class="form-group mb-6">
+                                            <textarea class="form-control form-control-lg border-0" placeholder="Đánh giá của bạn" name="content"
+                                                rows="5"></textarea>
+                                        </div>
+                                        <input type="hidden" name="user_slug" value="{{ $user->slug }}">
 
-                                            <button type="submit" class="btn btn-lg btn-primary px-10">Gửi</button>
-                                        </form>
-                                    </div>
+                                        <button type="submit" class="btn btn-lg btn-primary px-10">Gửi</button>
+                                    </form>
                                 </div>
-                            </section>
-                        </div>
+                            </div>
+                        </section>
+                    </div>
 
-                   
+
                     <div class="col-lg-4 primary-sidebar sidebar-sticky" id="sidebar">
                         <div class="primary-sidebar-inner">
                             <div class="card mb-4">
                                 <div class="card-body px-6 py-6">
                                     <div class="media mb-4">
                                         <div class="image-container p-0 mr-2">
-                                            <img src="{{ $user->image ? asset('assets/images/' . $user->image) : asset('assets/images/agent-25.jpg') }}" class="rounded-circle " alt="Blanche Gordon">
+                                            <img src="{{ $user->image ? asset('assets/images/' . $user->image) : asset('assets/images/agent-25.jpg') }}"
+                                                class="rounded-circle " alt="Blanche Gordon">
                                         </div>
-             
+
                                         <div class="media-body">
                                             <p class="fs-16 lh-1 text-dark mb-0 font-weight-500">
-                                               <small> {{ $user->name }}</small>
+                                                <small> {{ $user->name }}</small>
                                             </p>
                                             <p class="mb-0">
                                                 @if ($user->roll == 0)
@@ -356,7 +364,7 @@
             </div>
         </section>
 
-        
+
     </main>
 
 @endsection
@@ -441,6 +449,6 @@
         var userIsLoggedIn = @json(auth()->check());
     </script>
     <script src="{{ asset('assets/js/client/ajax-follow.js') }}"></script>
-
+    <script src="{{ asset('assets/js/yeuthich.js') }}"></script>
     @livewireScripts
 @endpush

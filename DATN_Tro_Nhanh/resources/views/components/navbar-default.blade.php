@@ -159,12 +159,12 @@
 
                                 <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng ký</button>
                                 <div id="register-loading"
-                                style="display: none; text-align: center; margin-top: 10px;">
-                                <span>Đang đăng ký...</span>
-                                <div class="spinner-border text-primary" role="status">
-                                    <span class="sr-only">Loading...</span>
+                                    style="display: none; text-align: center; margin-top: 10px;">
+                                    <span>Đang đăng ký...</span>
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
                                 </div>
-                            </div>
                             </form>
                             <div class="divider text-center my-2">
                                 <span class="px-4 bg-white lh-17 text">
@@ -204,7 +204,7 @@
         <div class="sticky-area">
             <div class="container container-xxl">
                 <nav class="navbar navbar-expand-xl px-0 w-100">
-                    <a class="navbar-brand mr-7" href="{{route('client.home')}}">
+                    <a class="navbar-brand mr-7" href="{{ route('client.home') }}">
                         <img src="{{ asset('assets/images/tro-moi.png') }}" alt="HomeID"
                             class="d-none d-xl-inline-block">
                         <img src="{{ asset('assets/images/tro-moi.png') }}" alt="HomeID"
@@ -223,7 +223,7 @@
                     </div>
                     <div class="collapse navbar-collapse mt-3 mt-xl-0 flex-grow-0" id="primaryMenu05">
                         <ul class="navbar-nav hover-menu main-menu px-0 mx-xl-n4">
-                            
+
                             <li id="navbar-item-listing" aria-haspopup="true" aria-expanded="false"
                                 class="nav-item dropdown py-2 py-xl-5 px-0 px-xl-4">
                                 <a class="nav-link dropdown-toggle p-0" href="listing.html" data-toggle="dropdown">
@@ -293,7 +293,7 @@
                                     </div>
                                 </div>
                             </li>
-                          
+
                             <li id="navbar-item-pages" aria-haspopup="true" aria-expanded="false"
                                 class="nav-item dropdown py-2 py-xl-5 px-0 px-xl-4">
                                 <a class="nav-link dropdown-toggle p-0" href="#" data-toggle="dropdown">
@@ -429,8 +429,9 @@
                         </div>
                     </div>
                     <div class="ml-auto d-none d-xl-block">
-                        <ul class="navbar-nav flex-row ml-auto align-items-center justify-content-lg-end flex-wrap py-2">
-                    
+                        <ul
+                            class="navbar-nav flex-row ml-auto align-items-center justify-content-lg-end flex-wrap py-2">
+
                             <li class="nav-item dropdown">
                                 @if (Auth::check())
                                     <a class="nav-link dropdown-toggle mr-md-2 pr-2 pl-0 pl-lg-2" href="#"
@@ -438,49 +439,55 @@
                                         aria-expanded="false">
                                         {{ Auth::user()->name }}
                                     </a>
-                                    <ul class="dropdown-menu dropdown-sm dropdown-menu-end" aria-labelledby="bd-versions">
-                                        <a class="dropdown-item" href="{{ route('owners.profile.profile-admin-index') }}">Xem thông tin</a>
+                                    <ul class="dropdown-menu dropdown-sm dropdown-menu-end"
+                                        aria-labelledby="bd-versions">
+                                        <a class="dropdown-item"
+                                            href="{{ route('owners.profile.profile-admin-index') }}">Xem thông tin</a>
                                         <a class="dropdown-item" href="{{ route('client.logout') }}"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             Đăng xuất
                                         </a>
                                     </ul>
-                                    <li class="nav-item mr-auto mr-lg-6">
-                                        <a class="nav-link px-2 position-relative" href="{{ Route('owners.chat-owners') }}">
-                                            <i class="fal fa-comments-alt fs-large-4"></i>
-                                            <span class="badge badge-primary badge-circle badge-absolute">
-                                                <livewire:unread-message-count /></span>
-                                        </a>    
-                                    </li>
-                                    <form id="logout-form" action="{{ route('client.logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                @else
-                                    <a class="nav-link pl-3 pr-2" data-toggle="modal" href="#login-register-modal"> Đăng nhập</a>
-                                @endif
-                            </li>
-                           
-                          
-                      
-                            <!-- Icon giỏ hàng -->
                             <li class="nav-item mr-auto mr-lg-6">
-                            <a class="nav-link px-2 position-relative" href="{{ route('client.carts-show') }}">
-                                    <i class="fal fa-shopping-cart fs-large-4"></i>
-                                    <span class="badge badge-primary badge-circle badge-absolute">{{ $cartCount }}</span>
+                                <a class="nav-link px-2 position-relative" href="{{ Route('owners.chat-owners') }}">
+                                    <i class="fal fa-comments-alt fs-large-4"></i>
+                                    <span class="badge badge-primary badge-circle badge-absolute">
+                                        <livewire:unread-message-count /></span>
                                 </a>
                             </li>
-                    
+                            <form id="logout-form" action="{{ route('client.logout') }}" method="POST"
+                                style="display: none;">
+                                @csrf
+                            </form>
+                        @else
+                            <a class="nav-link pl-3 pr-2" data-toggle="modal" href="#login-register-modal"> Đăng
+                                nhập</a>
+                            @endif
+                            </li>
+
+
+
+                            <!-- Icon giỏ hàng -->
+                            <li class="nav-item mr-auto mr-lg-6">
+                                <a class="nav-link px-2 position-relative" href="{{ route('client.carts-show') }}">
+                                    <i class="fal fa-shopping-cart fs-large-4"></i>
+                                    <span
+                                        class="badge badge-primary badge-circle badge-absolute">{{ $cartCount }}</span>
+                                </a>
+                            </li>
+
                             <li class="divider"></li>
-                    
+
                             <!-- Icon yêu thích -->
-                           
-                    
+
+
                             <!-- Phần tử chat nằm ngoài dropdown -->
-                          
+
                             <li class="nav-item mr-auto mr-lg-6">
                                 <a class="nav-link px-2 position-relative" href="{{ route('owners.favorites') }}">
                                     <i class="fal fa-heart fs-large-4"></i>
-                                    <span class="badge badge-primary badge-circle badge-absolute">{{ $favouriteCount }}</span>
+                                    <span class="badge badge-primary badge-circle badge-absolute"
+                                        id="favorite-count">{{ $favouriteCount }}</span>
                                 </a>
                             </li>
                             @if (Auth::check())
@@ -489,19 +496,22 @@
                                         <a class="btn btn-lg text-heading border bg-hover-primary border-hover-primary hover-white d-none d-lg-block"
                                             href="{{ route('owners.add-room') }}">
                                             Cho thuê
-                                            <img src="{{ asset('assets/images/add-listing-icon-primary.png') }}" alt="Add listing" class="ml-1">
+                                            <img src="{{ asset('assets/images/add-listing-icon-primary.png') }}"
+                                                alt="Add listing" class="ml-1">
                                         </a>
-                                        <a class="btn btn-primary btn-lg d-block d-lg-none" href="{{ route('owners.add-room') }}">
+                                        <a class="btn btn-primary btn-lg d-block d-lg-none"
+                                            href="{{ route('owners.add-room') }}">
                                             Cho thuê
-                                            <img src="{{ asset('assets/images/add-listing-icon.png') }}" alt="Add listing" class="ml-1">
+                                            <img src="{{ asset('assets/images/add-listing-icon.png') }}"
+                                                alt="Add listing" class="ml-1">
                                         </a>
                                     </li>
                                 @endif
                             @endif
-                        
+
                         </ul>
                     </div>
-                    
+
                 </nav>
 
             </div>
