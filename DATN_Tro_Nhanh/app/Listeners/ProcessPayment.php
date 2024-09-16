@@ -31,6 +31,14 @@ class ProcessPayment
             $newCartDetail->description = $cart->priceList->description;
             $newCartDetail->quantity = $cart->quantity;
             $newCartDetail->price = $event->amount;
+
+             // Gán giá trị cho cột name_location
+    if ($location) {
+        $newCartDetail->name_location = $location->name;
+        Log::info('Location name:', ['name_location' => $location->name]);
+    } else {
+        Log::info('Location not found for price list', ['price_list_id' => $priceList->id]);
+    }
             $newCartDetail->save();
             Log::info('CartDetail đã được lưu.', ['cart_detail_id' => $newCartDetail->id]);
 

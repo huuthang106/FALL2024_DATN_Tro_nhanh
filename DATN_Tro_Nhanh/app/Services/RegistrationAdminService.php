@@ -4,6 +4,8 @@ namespace App\Services;
 
 use Illuminate\Http\Request;
 use App\Models\RegistrationList;
+use App\Models\User;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Http;
 
 use Illuminate\Support\Facades\Log;
@@ -25,12 +27,24 @@ class RegistrationAdminService
         // Tìm đối tượng bằng id
         $user = RegistrationList::find($id);
 
-        // Kiểm tra nếu đối tượng tồn tại
         if ($user) {
             // Cập nhật trạng thái
             $user->status = $status;
             $user->save(); // Lưu thay đổi vào cơ sở dữ liệu
 
+            $registration = User::find($user->user_id); // Tìm user từ user_id
+    
+            // Tạo thông báo mới sau khi cập nhật role thành công
+            Notification::create([
+                'type' => 'Đơn Xin Làm Chủ Trọ',
+                'data' => 'Bạn đã được duyệt đơn.', // Thêm dữ liệu thông báo vào đây
+                'user_id' => $registration->id,  // Giả định user_id có trong $user
+                'registration_list_id' => $user->id,
+            ]);
+         
+            // Gửi email thông báo cập nhật trạng thái
+            \Mail::to($registration->email)->send(new \App\Mail\StatusUpdatedMail($user));
+    
             return true;
         } else {
             return false;

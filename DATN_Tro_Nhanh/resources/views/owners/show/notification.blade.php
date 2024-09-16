@@ -91,7 +91,7 @@
                                                 {{ $notification->data }}
                                             </a>
                                         @else
-                                            <span class="text-muted">Không thể truy cập</span>
+                                        <span class="text-dark">{{$notification->data}}</span>
                                         @endif
                                     </td>
                                     {{-- 5 trường khóa ngoại --}}
