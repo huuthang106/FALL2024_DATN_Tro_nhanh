@@ -4,57 +4,71 @@
             <!-- Contact List -->
             <div class="col-lg-5 col-xl-4 mb-4 mb-lg-0">
                 <div class="card">
-                    <div class="card-header">
+                    {{-- <div class="card-header">
                         <form class="position-relative">
                             <input type="text" class="form-control pl-4" placeholder="Tìm kiếm...">
+                        </form>
+                    </div> --}}
+                    <div class="card-header">
+                        <form class="position-relative">
+                            <!-- Ô tìm kiếm liên kết với thuộc tính searchTerm trong Livewire -->
+                            <input type="text" class="form-control pl-4" placeholder="Tìm kiếm..."
+                                wire:model.lazy="searchTerm" wire:keydown.debounce.300ms="$refresh">
                         </form>
                     </div>
                     <div class="card-body" wire:poll="pollContacts"style="height: 400px; overflow-y: auto;">
                         <!-- ... existing code ... -->
                         <div class="list-group list-group-flush">
-                            @foreach ($contacts as $contact)
-                                <div wire:click="selectContact({{ $contact['id'] }})"
-                                    class="contact-item mt-2  {{ $selectedContactId == $contact['id'] ? 'active-contact' : '' }}">
-                                    <div wire:key="item-{{ $contact['id'] }}" class="m-2 ">
-                                        <div class="d-flex w-100 justify-content-between align-items-center mt-2">
-                                            <div class="col-lg-10 d-flex align-items-center">
-                                                @if ($contact['image'])
-                                                    <div class="symbol symbol-45px symbol-circle mr-2">
-                                                        <img src="{{ asset('assets/images/' . $contact['image']) }}"
-                                                            class="rounded-circle mb-2"
-                                                            style="width: 40px; height: 30px;" alt="Avatar">
-                                                    </div>
-                                                @else
-                                                    <div class="symbol symbol-45px symbol-circle mr-2">
-                                                        <img src="{{ asset('assets/images/agent-4-lg.jpg') }}"
-                                                            class="rounded-circle mb-2"
-                                                            style="width: 50px; height: 30px;" alt="Avatar">
-                                                    </div>
-                                                @endif
-                                                <div>
-                                                    <small> <span class="mb-0">{{ $contact['name'] }} @if ($contact['unread_count'] > 0)
-                                                                <small
-                                                                    class="badge badge-primary badge-pill">{{ $contact['unread_count'] }}</small>
-                                                            @endif
-                                                        </span>
+                            @if ($contacts->isEmpty())
+                                <!-- Thông báo khi không tìm thấy kết quả -->
+                                <div class="text-center text-muted">
+                                    Không tìm thấy kết quả.
+                                </div>
+                            @else
+                                @foreach ($contacts as $contact)
+                                    <div wire:click="selectContact({{ $contact['id'] }})"
+                                        class="contact-item mt-2  {{ $selectedContactId == $contact['id'] ? 'active-contact' : '' }}">
+                                        <div wire:key="item-{{ $contact['id'] }}" class="m-2 ">
+                                            <div class="d-flex w-100 justify-content-between align-items-center mt-2">
+                                                <div class="col-lg-10 d-flex align-items-center">
+                                                    @if ($contact['image'])
+                                                        <div class="symbol symbol-45px symbol-circle mr-2">
+                                                            <img src="{{ asset('assets/images/' . $contact['image']) }}"
+                                                                class="rounded-circle mb-2"
+                                                                style="width: 40px; height: 30px;" alt="Avatar">
+                                                        </div>
+                                                    @else
+                                                        <div class="symbol symbol-45px symbol-circle mr-2">
+                                                            <img src="{{ asset('assets/images/agent-4-lg.jpg') }}"
+                                                                class="rounded-circle mb-2"
+                                                                style="width: 50px; height: 30px;" alt="Avatar">
+                                                        </div>
+                                                    @endif
+                                                    <div>
+                                                        <small> <span class="mb-0">{{ $contact['name'] }} @if ($contact['unread_count'] > 0)
+                                                                    <small
+                                                                        class="badge badge-primary badge-pill">{{ $contact['unread_count'] }}</small>
+                                                                @endif
+                                                            </span>
 
-                                                    </small>
-                                                    <small> <span class="mb-0">{{ $contact['email'] }} 
-                                                </span>
+                                                        </small>
+                                                        <small> <span class="mb-0">{{ $contact['email'] }}
+                                                            </span>
 
-                                            </small>
-                                                    {{-- <small class="text-muted">{{ $contact['email'] }}</small> --}}
+                                                        </small>
+                                                        {{-- <small class="text-muted">{{ $contact['email'] }}</small> --}}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="d-flex flex-column align-items-end">
+                                                <div class="d-flex flex-column align-items-end">
 
-                                                <small
-                                                    class="text-muted d-block">{{ $this->getRelativeTime($contact['last_message_time']) }}</small>
+                                                    <small
+                                                        class="text-muted d-block">{{ $this->getRelativeTime($contact['last_message_time']) }}</small>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            @endif
                         </div>
                         <!-- ... existing code ... -->
                     </div>

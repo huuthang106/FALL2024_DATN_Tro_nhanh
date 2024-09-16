@@ -20,13 +20,13 @@ class ContactList extends Component
     public $selectedContactId = null;
     public $messages = [];
     public $newMessage = ''; // Thuộc tính để lưu tin nhắn mới
-    
+    public $searchTerm = ''; // Thuộc tính tìm kiếm
     public function mount()
     {
         $this->getContacts();
     }
 
-  
+
     public function selectContact($contactId)
     {
         $contact = Contact::find($contactId);
@@ -59,7 +59,7 @@ class ContactList extends Component
         $this->dispatch('messagesUpdated');
     }
 
-  
+
     public function markMessagesAsRead($contactId)
     {
         Message::where('contact_id', $contactId)
@@ -136,32 +136,56 @@ class ContactList extends Component
     {
         $this->getContacts();
     }
- 
+    // Tìm kiếm liên hệ và cập nhật danh sách
+    public function updatedSearchTerm()
+    {
+        $this->getContacts();
+    }
     public function getContacts()
     {
         $userId = auth()->id();
-        $contacts = Contact::where('user_id', $userId)
-            ->orWhere('contact_user_id', $userId)
+        // $contacts = Contact::where('user_id', $userId)
+        //     ->orWhere('contact_user_id', $userId)
+        //     ->with(['user', 'contactUser', 'latestMessage'])
+        //     ->get();
+        $contacts = Contact::where(function ($query) use ($userId) {
+            $query->where('user_id', $userId)
+                ->orWhere('contact_user_id', $userId);
+        })
             ->with(['user', 'contactUser', 'latestMessage'])
             ->get();
-    
         $this->contacts = $contacts->map(function ($contact) use ($userId) {
             $otherUser = $contact->user_id == $userId ? $contact->contactUser : $contact->user;
             $unreadCount = $contact->messages()
                 ->where('sender_id', '!=', $userId)
                 ->where('is_read', false)
                 ->count();
-            return [
-                'id' => $contact->id,
-                'name' => $otherUser->name,
-                'email' => $otherUser->email,
-                'image' => $otherUser->image,
-                'unread_count' => $unreadCount,
-                'last_message_time' => $contact->latestMessage ? $contact->latestMessage->created_at : null,
-            ];
+            // return [
+            //     'id' => $contact->id,
+            //     'name' => $otherUser->name,
+            //     'email' => $otherUser->email,
+            //     'image' => $otherUser->image,
+            //     'unread_count' => $unreadCount,
+            //     'last_message_time' => $contact->latestMessage ? $contact->latestMessage->created_at : null,
+            // ];
+            // Tìm kiếm dựa trên tên hoặc email
+            if (
+                stripos($otherUser->name, $this->searchTerm) !== false ||
+                stripos($otherUser->email, $this->searchTerm) !== false
+            ) {
+                return [
+                    'id' => $contact->id,
+                    'name' => $otherUser->name,
+                    'email' => $otherUser->email,
+                    'image' => $otherUser->image,
+                    'unread_count' => $unreadCount,
+                    'last_message_time' => $contact->latestMessage ? $contact->latestMessage->created_at : null,
+                ];
+            }
         })
-        ->sortByDesc('last_message_time')
-        ->values();
+            // ->sortByDesc('last_message_time')
+            // ->values();
+            ->filter()->sortByDesc('last_message_time')->values();
         // Bỏ ->all() ở cuối
     }
 
@@ -173,6 +197,5 @@ class ContactList extends Component
 
             'currentUserId' => $currentUserId // Truyền thông tin người dùng hiện tại đến view
         ]);
-       
     }
 }
