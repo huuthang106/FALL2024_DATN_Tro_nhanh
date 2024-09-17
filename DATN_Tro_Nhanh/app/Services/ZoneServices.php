@@ -172,26 +172,26 @@ class ZoneServices
         }
     }
     // Chi tiết khu trọ
-    public function showDetail($slug,$status)
+    public function showDetail($slug, $status)
     {
         // Tìm zone dựa trên slug
         $zone = Zone::where('slug', $slug)->firstOrFail();
-        
+
         // Lấy danh sách phòng thuộc zone này
         $rooms = Room::where('zone_id', $zone->id)->paginate(10);
-        
+
         // Lấy danh sách người ở (residents) thuộc zone này
         $residents = Resident::whereIn('room_id', $rooms->pluck('id'))
-        ->where('zone_id', $zone->id)
-        ->where('status', $status) // Chỉ lấy resident có status = 2
-        ->with('user') // Nạp thông tin người dùng liên quan
-        ->paginate(10);
-        
+            ->where('zone_id', $zone->id)
+            ->where('status', $status) // Chỉ lấy resident có status = 2
+            ->with('user') // Nạp thông tin người dùng liên quan
+            ->paginate(10);
+
         return [
             'zone' => $zone,
             'rooms' => $rooms,
             'residents' => $residents,
-        
+
         ];
     }
     // Xóa mềm Residents
@@ -207,20 +207,20 @@ class ZoneServices
         // dd($data); 
         $data['status'] = self::DA_TAO;
         $data['payment_date'] = now();
-    
+
         // Kiểm tra và thêm hạn thanh toán nếu có
         if (isset($data['payment_due_date'])) {
             $data['payment_due_date'] = $data['payment_due_date']; // Giữ nguyên giá trị từ form
         } else {
             $data['payment_due_date'] = now(); // Nếu không có, mặc định là hiện tại
         }
-    
+
         $bill = Bill::create($data);
-        event(new BillCreated($bill, $data['payer_id'])); 
+        event(new BillCreated($bill, $data['payer_id']));
         return $bill;
     }
-    
-    
+
+
     public function findById($id)
     {
         return Zone::find($id);
@@ -400,5 +400,38 @@ class ZoneServices
             'status' => 'success',
             'message' => 'Khu trọ đã được xóa vĩnh viễn thành công.'
         ];
+    }
+    public function searchZones($keyword, $province)
+    {
+        $query = Zone::query();
+
+        if ($keyword) {
+            $query->where(function ($q) use ($keyword) {
+                $q->where('name', 'like', '%' . $keyword . '%')
+                    ->orWhere('address', 'like', '%' . $keyword . '%');
+            });
+        }
+
+        if ($province) {
+            $query->where('province', $province);
+        }
+
+        return $query->paginate(10); // Trả về đối tượng Paginator
+    }
+    public function searchZonesWithinRadius($latitude = null, $longitude = null, $radius = 30, $perPage = 10)
+    {
+        $query = Zone::query();
+
+        if ($latitude && $longitude) {
+            $haversine = "(6371 * acos(cos(radians($latitude)) * cos(radians(latitude)) * cos(radians(longitude) - radians($longitude)) + sin(radians($latitude)) * sin(radians(latitude))))";
+            $query->select('*')
+                ->selectRaw("{$haversine} AS distance")
+                ->having('distance', '<', $radius)
+                ->orderBy('distance');
+        } else {
+            $query->orderByDesc('created_at');
+        }
+
+        return $query->paginate($perPage);
     }
 }

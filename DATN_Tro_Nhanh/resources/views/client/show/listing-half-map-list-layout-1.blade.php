@@ -4,7 +4,7 @@
     <main id="content">
         <section class="bg-secondary">
             <div class="container">
-                <form action="{{ route('client.room-listing') }}" class="property-search d-none d-lg-block">
+                <form action="{{ route('client.client-list-zone') }}" class="property-search d-none d-lg-block">
                     <div class="row align-items-lg-center" id="accordion-2">
                         <div class="col-xl-2 col-lg-3 col-md-4">
                             <div class="property-search-status-tab d-flex flex-row">
@@ -91,11 +91,9 @@
                                 <option value='96'>Tỉnh Cà Mau</option>
                             </select>
                             <div class="form-group mb-0 position-relative flex-md-3 mt-3 mt-md-0">
-                                <input type="text"
-                                    class="form-control form-control-lg border-0 shadow-none rounded-left-md-0 pr-8 bg-white placeholder-muted"
-                                    id="key-word-1" name="key-word" placeholder="Nhập địa chỉ...">
-                                <button type="submit"
-                                    class="btn position-absolute pos-fixed-right-center p-0 text-heading fs-20 mr-4 shadow-none">
+                                <input type="text" class="form-control form-control-lg border-0 shadow-none rounded-left-md-0 pr-8 bg-white placeholder-muted"
+                                    id="key-word-1" name="keyword" placeholder="Nhập địa chỉ...">
+                                <button type="submit" class="btn position-absolute pos-fixed-right-center p-0 text-heading fs-20 mr-4 shadow-none">
                                     <i class="far fa-search"></i>
                                 </button>
                             </div>
@@ -159,400 +157,11 @@
                                         placeholder="Mã phòng trọ" name="">
                                 </div>
                             </div>
-                            {{-- <div class="row">
-                                <div class="col-md-6 col-lg-5 pt-6 slider-range slider-range-primary">
-                                    <label for="price-2" class="mb-4 text-white">Khoảng Giá</label>
-                                    <div data-slider="true"
-                                        data-slider-options='{"min":0,"max":1000000,"values":[100000,700000],"type":"currency"}'>
-                                    </div>
-                                    <div class="text-center mt-2">
-                                        <input id="price-2" type="text" readonly
-                                            class="border-0 amount text-center text-white bg-transparent font-weight-500"
-                                            name="price">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-5 pt-6 slider-range slider-range-primary offset-lg-1">
-                                    <label for="area-size-2" class="mb-4 text-white">Diện Tích</label>
-                                    <div data-slider="true"
-                                        data-slider-options='{"min":0,"max":15000,"values":[0,12000],"type":"currency"}'>
-                                    </div>
-                                    <div class="text-center mt-2">
-                                        <input id="area-size-2" type="text" readonly
-                                            class="border-0 amount text-center text-white bg-transparent font-weight-500"
-                                            name="area">
-                                    </div>
-                                </div>
-                                <div class="col-12 pt-4 pb-2">
-                                    <a class="lh-17 d-inline-block other-feature collapsed" data-toggle="collapse"
-                                        href="#other-feature-2" role="button" aria-expanded="false"
-                                        aria-controls="other-feature-2">
-                                        <span class="fs-15 text-white font-weight-500 hover-primary">Các tính năng
-                                            khác</span>
-                                    </a>
-                                </div>
-                                <div class="collapse row mx-0 w-100" id="other-feature-2">
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check1-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check1-2">Điều hòa</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check2-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check2-2">Giặt là</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check4-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check4-2">Máy giặt</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check5-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check5-2">Nướng
-                                                BBQ</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check6-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check6-2">Sân cỏ</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check7-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check7-2">Phòng xông
-                                                hơi</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check8-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check8-2">WiFi</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check9-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check9-2">Máy sấy</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check10-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check10-2">Lò vi
-                                                sóng</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check11-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check11-2">Hồ bơi</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check12-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check12-2">Rèm cửa</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check13-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check13-2">Phòng
-                                                gym</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check14-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check14-2">Vòi sen ngoài
-                                                trời</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check15-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check15-2">Truyền hình
-                                                cáp</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check16-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check16-2">Tủ lạnh</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
+                           
                         </div>
                     </div>
                 </form>
-                {{-- <form class="property-search property-search-mobile d-lg-none py-6">
-                    <div class="row align-items-lg-center" id="accordion-2-mobile">
-                        <div class="col-12">
-                            <div class="form-group mb-0 position-relative">
-                                <a href="#advanced-search-filters-2-mobile"
-                                    class="icon-primary btn advanced-search shadow-none pr-3 pl-0 d-flex align-items-center position-absolute pos-fixed-left-center py-0 h-100 border-right collapsed"
-                                    data-toggle="collapse" data-target="#advanced-search-filters-2-mobile"
-                                    aria-expanded="true" aria-controls="advanced-search-filters-2-mobile">
-                                </a>
-                                <input type="text"
-                                    class="form-control form-control-lg border-0 shadow-none pr-9 pl-11 bg-white placeholder-muted"
-                                    name="key-word" placeholder="Search...">
-                                <button type="submit"
-                                    class="btn position-absolute pos-fixed-right-center p-0 text-heading fs-20 px-3 shadow-none h-100 border-left bg-white">
-                                    <i class="far fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div id="advanced-search-filters-2-mobile" class="col-12 pt-2 collapse"
-                            data-parent="#accordion-2-mobile">
-                            <div class="row mx-n2">
-                                <div class="col-sm-6 pt-4 px-2">
-                                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
-                                        title="Trạng thái" data-style="btn-lg py-2 h-52 bg-white" name="type">
-                                        <option>Trạng Thái</option>
-                                        <option>Cho Thuê</option>
-                                        <option>Cần Bán</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-6 pt-4 px-2">
-                                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
-                                        title="Loại" data-style="btn-lg py-2 h-52 bg-white" name="type">
-                                        <option>Chung cư</option>
-                                        <option>Nhà cho 1 gia đình</option>
-                                        <option>Nhà phố</option>
-                                        <option>Nhà dành cho nhiều gia đình</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-6 pt-4 px-2">
-                                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
-                                        name="bedroom" title="Phòng ngủ" data-style="btn-lg py-2 h-52 bg-white">
-                                        <option>Phòng ngủ</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
-                                        <option>10</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-6 pt-4 px-2">
-                                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
-                                        name="bathrooms" title="Phòng tắm" data-style="btn-lg py-2 h-52 bg-white">
-                                        <option>Phòng tắm</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
-                                        <option>10</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-6 pt-4 px-2">
-                                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
-                                        title="TỈnh/Thành phố" data-style="btn-lg py-2 h-52 bg-white" name="city">
-                                        <option>Tỉnh/Thành phố</option>
-                                        <option>Hà Nội</option>
-                                        <option>Hồ Chí Minh</option>
-                                        <option>Đà Nẵng</option>
-                                        <option>Hải Phòng</option>
-                                        <option>Huế</option>
-                                        <option>Cần Thơ</option>
-                                        <option>Đà Lạt</option>
-                                        <option>Nha Trang</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-6 pt-4 px-2">
-                                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
-                                        name="areas" title="Khu vực" data-style="btn-lg py-2 h-52 bg-white">
-                                        <option>Khu vực</option>
-                                        <option>Quận Hoàn Kiếm</option>
-                                        <option>Quận 1</option>
-                                        <option>Quận 3</option>
-                                        <option>Quận Tân Bình</option>
-                                        <option>Quận Cầu Giấy</option>
-                                        <option>Quận Bình Thạnh</option>
-                                        <option>Quận Hải Châu</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 pt-6 slider-range slider-range-primary">
-                                    <label for="price-2-mobile" class="mb-4 text-white">Khoảng Giá</label>
-                                    <div data-slider="true"
-                                        data-slider-options='{"min":0,"max":1000000,"values":[100000,700000],"type":"currency"}'>
-                                    </div>
-                                    <div class="text-center mt-2">
-                                        <input id="price-2-mobile" type="text" readonly
-                                            class="border-0 amount text-center text-white bg-transparent font-weight-500"
-                                            name="price">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 pt-6 slider-range slider-range-primary">
-                                    <label for="area-size-2-mobile" class="mb-4 text-white">Diện Tích</label>
-                                    <div data-slider="true"
-                                        data-slider-options='{"min":0,"max":15000,"values":[0,12000],"type":"sqrt"}'>
-                                    </div>
-                                    <div class="text-center mt-2">
-                                        <input id="area-size-2-mobile" type="text" readonly
-                                            class="border-0 amount text-center text-white bg-transparent font-weight-500"
-                                            name="area">
-                                    </div>
-                                </div>
-                                <div class="col-12 pt-4 pb-2">
-                                    <a class="lh-17 d-inline-block other-feature collapsed" data-toggle="collapse"
-                                        href="#other-feature-2-mobile" role="button" aria-expanded="false"
-                                        aria-controls="other-feature-2-mobile">
-                                        <span class="fs-15 text-white font-weight-500 hover-primary">Các tính năng
-                                            khác</span>
-                                    </a>
-                                </div>
-                                <div class="collapse row mx-0 w-100" id="other-feature-2-mobile">
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check1-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check1-2">Điều hòa</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check2-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check2-2">Giặt là</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check4-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check4-2">Máy giặt</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check5-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check5-2">Nướng
-                                                BBQ</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check6-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check6-2">Sân cỏ</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check7-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check7-2">Phòng xông
-                                                hơi</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check8-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check8-2">WiFi</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check9-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check9-2">Máy sấy</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check10-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check10-2">Lò vi
-                                                sóng</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check11-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check11-2">Hồ bơi</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check12-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check12-2">Rèm cửa</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check13-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check13-2">Phòng
-                                                gym</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check14-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check14-2">Vòi sen ngoài
-                                                trời</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check15-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check15-2">Truyền hình
-                                                cáp</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4 col-lg-3 py-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="check16-2"
-                                                name="feature[]">
-                                            <label class="custom-control-label text-white" for="check16-2">Tủ lạnh</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form> --}}
+               
             </div>
         </section>
 
@@ -563,7 +172,7 @@
                         <div class="row align-items-sm-center mb-6">
                             <div class="col-md-6 col-xl-5 col-xxl-6">
                                 <h2 class="fs-15 text-dark mb-0">Chúng tôi đã tìm thấy <span
-                                        class="text-primary">{{ $totalZones }}</span> khu vực trọ
+                                        class="text-primary">{{ $zones->total() > 0 ? $zones->total() : 0 }}</span> khu vực trọ
                                 </h2>
                             </div>
                             <div class="col-md-6 col-xl-7 col-xxl-6 mt-6 mt-md-0">
@@ -596,7 +205,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-12" id="zone-list">
                                 @if ($zones->isEmpty())
                                     <div class="alert alert-info">
                                         Chưa có khu trọ.
@@ -756,8 +365,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-xxl-7 order-1 order-xl-2 primary-map map-sticky overflow-hidden"
-                        id="map-sticky">
+                    <div class="col-xl-6 col-xxl-7 order-1 order-xl-2 primary-map map-sticky overflow-hidden" id="map-sticky">
                         <div class="primary-map-inner">
                             <div class="mapbox-gl map-grid-property-01 xl-vh-100" id="map"></div>
                         </div>
@@ -1200,201 +808,337 @@
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
 
-
+   
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="{{ asset('assets/js/api-ggmap-nht.js') }}"></script>
+
     <script src="{{ asset('assets/js/api-update-zone-nht.js') }}"></script>
-
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
-    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-
+    <script src="https://unpkg.com/leaflet-smooth-marker-bouncing@1.0.0/dist/leaflet.smoothmarkerbouncing.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC67NQzqFC2WplLzC_3PsL5gejG1_PZLDk&callback=initMap" async defer></script>
     <script>
-        var map = L.map('map').setView([10.0354, 105.7553], 13);
-        var userMarker; // Khai báo biến cho marker của người dùng
-        var routeControl;
-        var selectedHostel = null; // Biến để lưu trọ được chọn
-        var lastPosition = null; // Lưu vị trí cuối cùng của người dùng để so sánh
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        var hostels = [{
-                name: 'Trọ 1',
-                lat: 10.0452,
-                lng: 105.7469
-            },
-            {
-                name: 'Trọ 2',
-                lat: 10.0502,
-                lng: 105.7580
-            },
-            {
-                name: 'Trọ 3',
-                lat: 10.0354,
-                lng: 105.7553
-            },
-            {
-                name: 'Trọ 4',
-                lat: 10.0408,
-                lng: 105.7670
-            }
-        ];
-
-        function fetchRoute(startLat, startLng, endLat, endLng) {
-            var apiKey = '5b3ce3597851110001cf6248e9bd77db287448f9b03de2374e2eca12';
-            var url =
-                `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${apiKey}&start=${startLng},${startLat}&end=${endLng},${endLat}`;
-
-            document.getElementById('overlay').style.display = 'block'; // Hiển thị lớp phủ
-
-            return fetch(url, {
-                    headers: {
-                        'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8'
-                    }
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok: ' + response.statusText);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.features && data.features.length > 0) {
-                        var steps = data.features[0].geometry.coordinates;
-                        return steps.map(coord => L.latLng(coord[1], coord[0]));
-                    } else {
-                        throw new Error('No route found.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching route:', error);
-                    throw error;
-                });
-        }
-
-
-        function drawRoute(route) {
-            if (routeControl) {
-                map.removeControl(routeControl);
-            }
-
-            routeControl = L.Routing.control({
-                waypoints: route,
-                routeWhileDragging: true,
-                createMarker: function() {
-                    return null;
-                },
-                lineOptions: {
-                    styles: [{
-                        color: 'blue',
-                        opacity: 0.6,
-                        weight: 5
-                    }]
-                }
+        function initMap() {
+            var map = L.map('map').setView([0, 0], 2);
+    
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
+    
+            var userMarker;
+            var userLat, userLng;
+    
+            var userIcon = L.icon({
+                iconUrl: 'path/to/your/custom-icon.png', // Đường dẫn đến biểu tượng tùy chỉnh của bạn
+                iconSize: [38, 38], // Kích thước của biểu tượng
+                iconAnchor: [22, 38], // Điểm neo của biểu tượng (tâm của biểu tượng)
+                popupAnchor: [-3, -38] // Điểm neo của popup so với biểu tượng
+            });
+    
+            function addMarkers(zones) {
+                zones.forEach(zone => {
+                    var marker = L.marker([zone.latitude, zone.longitude])
+                        .addTo(map)
+                        .bindPopup(`<b>${zone.name}</b><br>${zone.address}`)
+                        .openPopup();
+    
+                    marker.on('click', function() {
+                        marker.bounce({duration: 500, height: 100});
+                    });
+                });
+            }
+    
+            function setMapViewToCenter(zones) {
+                if (zones.length > 0) {
+                    var latitudes = zones.map(zone => zone.latitude);
+                    var longitudes = zones.map(zone => zone.longitude);
+    
+                    if (userLat && userLng) {
+                        latitudes.push(userLat);
+                        longitudes.push(userLng);
+                    }
+    
+                    var avgLat = latitudes.reduce((a, b) => a + b, 0) / latitudes.length;
+                    var avgLng = longitudes.reduce((a, b) => a + b, 0) / longitudes.length;
+                    map.setView([avgLat, avgLng], 13);
+                }
+            }
+    
+            function fetchZonesWithinRadius(lat, lng, radius = 10) { // radius in kilometers
+        console.log(`Fetching zones within radius: ${radius} km from (${lat}, ${lng})`);
+        $.ajax({
+            url: '{{ route("client.client-list-zone") }}',
+            method: 'GET',
+            data: {
+                latitude: lat,
+                longitude: lng,
+                radius: radius
+            },
+            success: function(response) {
+                console.log('Zones fetched successfully:', response.zones);
+                if (response.zones.length > 0) {
+                    addMarkers(response.zones);
+                    setMapViewToCenter(response.zones);
 
-            document.getElementById('overlay').style.display = 'none'; // Ẩn lớp phủ khi hoàn tất
+                    // Hiển thị tên tất cả các khu trọ
+                    let zoneList = $('#zone-list');
+                    zoneList.empty();
+                    response.zones.forEach(zone => {
+                        zoneList.append(`
+                            <div class="zone-item">
+                                <h3>${zone.name}</h3>
+                                <p>${zone.address}</p>
+                            </div>
+                        `);
+                    });
+                } else {
+                    alert(response.message || 'Không tìm thấy khu trọ nào.');
+                }
+            },
+            error: function(error) {
+                console.error('Error fetching zones:', error);
+            }
+        });
+    }
+
+    
+            function setUserMarker(lat, lng) {
+                if (userMarker) {
+                    map.removeLayer(userMarker);
+                }
+                userMarker = L.marker([lat, lng], { icon: userIcon }).addTo(map)
+                    .bindPopup("Vị trí của bạn").openPopup();
+                map.setView([lat, lng], 13);
+            }
+    
+            function clearSearchStorage() {
+                localStorage.removeItem('searchKeyword');
+                localStorage.removeItem('searchProvince');
+            }
+            function fetchZones(keyword, province) {
+        $.ajax({
+            url: '{{ route("client.client-list-zone") }}',
+            method: 'GET',
+            data: {
+                keyword: keyword,
+                province: province
+            },
+            success: function(response) {
+                map.eachLayer(function(layer) {
+                    if (layer instanceof L.Marker && layer !== userMarker) {
+                        map.removeLayer(layer);
+                    }
+                });
+
+                if (response.zones.length > 0) {
+                    addMarkers(response.zones);
+                    setMapViewToCenter(response.zones);
+
+                    let zoneList = $('#zone-list');
+                    zoneList.empty();
+                    response.zones.forEach(zone => {
+                        zoneList.append(`
+                            <div class="zone-item">
+                                <h3>${zone.name}</h3>
+                                <p>${zone.address}</p>
+                            </div>
+                        `);
+                    });
+                } else {
+                    alert(response.message || 'Không tìm thấy khu trọ nào.');
+                }
+            }
+        });
+    }
+    function initializeMap() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var keyword = urlParams.get('keyword');
+        var province = urlParams.get('province');
+
+        if (!keyword && !province) {
+            clearSearchStorage();
         }
 
-        function addHostelMarkers() {
-            hostels.forEach(function(hostel) {
-                var marker = L.marker([hostel.lat, hostel.lng]).addTo(map)
-                    .bindPopup('<div class="popup-content"><h3>' + hostel.name +
-                        '</h3><p class="address">Địa chỉ: Cần Thơ</p></div>')
-                    .on('click', function() {
-                        if (userMarker) {
-                            var userLat = userMarker.getLatLng().lat;
-                            var userLng = userMarker.getLatLng().lng;
-                            selectedHostel = hostel; // Lưu lại trọ đã chọn
+        if (localStorage.getItem('userLat') && localStorage.getItem('userLng')) {
+            userLat = parseFloat(localStorage.getItem('userLat'));
+            userLng = parseFloat(localStorage.getItem('userLng'));
 
-                            fetchRoute(userLat, userLng, hostel.lat, hostel.lng)
-                                .then(route => {
-                                    if (route && route.length > 0) {
-                                        drawRoute(route);
-                                        map.setView([userLat, userLng], 13);
-                                    } else {
-                                        alert('Không có tuyến đường khả dụng.');
-                                    }
-                                })
-                                .catch(error => {
-                                    alert('Không thể lấy dữ liệu định tuyến: ' + error.message);
-                                });
+            setUserMarker(userLat, userLng);
+
+            if (!keyword && !province) {
+                fetchZonesWithinRadius(userLat, userLng);
+            } else {
+                fetchZones(keyword, province);
+            }
+        } else {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    userLat = position.coords.latitude;
+                    userLng = position.coords.longitude;
+
+                    localStorage.setItem('userLat', userLat);
+                    localStorage.setItem('userLng', userLng);
+
+                    setUserMarker(userLat, userLng);
+
+                    if (!keyword && !province) {
+                        fetchZonesWithinRadius(userLat, userLng);
+                    } else {
+                        fetchZones(keyword, province);
+                    }
+                }, function() {
+                    alert("Không thể lấy vị trí của bạn.");
+                });
+            } else {
+                alert("Trình duyệt của bạn không hỗ trợ Geolocation.");
+            }
+        }
+
+        if (localStorage.getItem('mapLat') && localStorage.getItem('mapLng') && localStorage.getItem('mapZoom')) {
+            var mapLat = parseFloat(localStorage.getItem('mapLat'));
+            var mapLng = parseFloat(localStorage.getItem('mapLng'));
+            var mapZoom = parseInt(localStorage.getItem('mapZoom'));
+
+            map.setView([mapLat, mapLng], mapZoom);
+        }
+
+        var searchKeyword = localStorage.getItem('searchKeyword');
+        var searchProvince = localStorage.getItem('searchProvince');
+
+        if (searchKeyword || searchProvince) {
+            $('#key-word-1').val(searchKeyword);
+            $('#city-province').val(searchProvince);
+
+            $.ajax({
+                url: '{{ route("client.client-list-zone") }}',
+                method: 'GET',
+                data: {
+                    keyword: searchKeyword,
+                    province: searchProvince
+                },
+                success: function(response) {
+                    map.eachLayer(function(layer) {
+                        if (layer instanceof L.Marker && layer !== userMarker) {
+                            map.removeLayer(layer);
                         }
                     });
-            });
-        }
 
-        if (navigator.geolocation) {
-            navigator.geolocation.watchPosition(function(position) {
-                var lat = position.coords.latitude;
-                var lng = position.coords.longitude;
+                    if (response.zones.length > 0) {
+                        addMarkers(response.zones);
+                        setMapViewToCenter(response.zones);
 
-                if (lastPosition) {
-                    var distance = map.distance([lastPosition.lat, lastPosition.lng], [lat, lng]);
-                    if (distance < 50) { // Chỉ cập nhật nếu di chuyển ít nhất 50m
-                        return;
+                        let zoneList = $('#zone-list');
+                        zoneList.empty();
+                        response.zones.forEach(zone => {
+                            zoneList.append(`
+                                <div class="zone-item">
+                                    <h3>${zone.name}</h3>
+                                    <p>${zone.address}</p>
+                                </div>
+                            `);
+                        });
+                    } else {
+                        alert(response.message || 'Không tìm thấy khu trọ nào.');
                     }
                 }
-
-                lastPosition = {
-                    lat: lat,
-                    lng: lng
-                };
-
-                if (userMarker) {
-                    map.removeLayer(userMarker); // Xóa marker cũ
-                }
-
-                userMarker = L.marker([lat, lng]).addTo(map)
-                    .bindPopup('<div class="popup-content"><h3>Vị trí hiện tại của bạn</h3></div>').openPopup();
-
-                map.setView([lat, lng], 13);
-
-                // Nếu đã chọn trọ, cập nhật lại tuyến đường
-                if (selectedHostel) {
-                    fetchRoute(lat, lng, selectedHostel.lat, selectedHostel.lng)
-                        .then(route => {
-                            if (route && route.length > 0) {
-                                drawRoute(route);
-
-                            } else {
-                                alert('Không có tuyến đường khả dụng khi di chuyển.');
-                            }
-                        })
-                        .catch(error => {
-                            alert('Không thể lấy dữ liệu định tuyến khi di chuyển: ' + error.message);
-                        });
-                }
-
-                addHostelMarkers(); // Thêm đánh dấu cho các khu trọ sau khi có vị trí hiện tại
-
-            }, function() {
-                alert('Không thể lấy vị trí hiện tại của bạn.');
             });
-        } else {
-            alert('Trình duyệt của bạn không hỗ trợ Geolocation API.');
         }
+    }
+
+    
+            initializeMap();
+    
+            $('.property-search').on('submit', function(e) {
+                e.preventDefault();
+    
+                var keyword = $('#key-word-1').val();
+                var province = $('#city-province').val();
+    
+                localStorage.setItem('searchKeyword', keyword);
+                localStorage.setItem('searchProvince', province);
+    
+                var newUrl = new URL(window.location.href);
+                newUrl.searchParams.set('keyword', keyword);
+                newUrl.searchParams.set('province', province);
+                history.pushState(null, '', newUrl.toString());
+    
+                $.ajax({
+                    url: '{{ route("client.client-list-zone") }}',
+                    method: 'GET',
+                    data: {
+                        keyword: keyword,
+                        province: province
+                    },
+                    success: function(response) {
+                        map.eachLayer(function(layer) {
+                            if (layer instanceof L.Marker && layer !== userMarker) {
+                                map.removeLayer(layer);
+                            }
+                        });
+    
+                        if (response.zones.length > 0) {
+                            addMarkers(response.zones);
+                            setMapViewToCenter(response.zones);
+    
+                            var latitudes = response.zones.map(zone => zone.latitude);
+                            var longitudes = response.zones.map(zone => zone.longitude);
+                            var avgLat = latitudes.reduce((a, b) => a + b, 0) / latitudes.length;
+                            var avgLng = longitudes.reduce((a, b) => a + b, 0) / longitudes.length;
+                            map.setView([avgLat, avgLng], 13);
+    
+                            let zoneList = $('#zone-list');
+                            zoneList.empty();
+                            response.zones.forEach(zone => {
+                                zoneList.append(`
+                                    <div class="zone-item">
+                                        <h3>${zone.name}</h3>
+                                        <p>${zone.address}</p>
+                                    </div>
+                                `);
+                            });
+                        } else {
+                            alert(response.message || 'Không tìm thấy khu trọ nào.');
+                        }
+                    }
+                });
+            });
+    
+            let updateUrlTimeout;
+    
+            map.on('moveend', function() {
+                var center = map.getCenter();
+    
+                if (updateUrlTimeout) {
+                    clearTimeout(updateUrlTimeout);
+                }
+    
+                updateUrlTimeout = setTimeout(function() {
+                    var newUrl = new URL(window.location.href);
+                    newUrl.searchParams.set('lat', center.lat);
+                    newUrl.searchParams.set('lng', center.lng);
+                    newUrl.searchParams.set('zoom', map.getZoom());
+                    history.pushState(null, '', newUrl.toString());
+    
+                    localStorage.setItem('mapLat', center.lat);
+                    localStorage.setItem('mapLng', center.lng);
+                    localStorage.setItem('mapZoom', map.getZoom());
+                }, 1000);
+            });
+    
+            window.addEventListener('popstate', function() {
+                var urlParams = new URLSearchParams(window.location.search);
+                var keyword = urlParams.get('keyword');
+                var province = urlParams.get('province');
+    
+                if (!keyword && !province) {
+                    clearSearchStorage();
+                }
+    
+                initializeMap();
+            });
+        }
+    
+        initMap();
     </script>
+    @endpush
+    
 
-
-
-
-
-
-
-
-    <style>
-        #map {
-            height: 600px;
-            /* Tùy chỉnh chiều cao của bản đồ theo ý bạn */
-        }
-
-        /* Cải thiện giao diện của bảng chỉ đường */
-        .leaflet-top,
-        .leaflet-right {
-            display: none;
-        }
-    </style>
-@endpush
