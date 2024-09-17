@@ -7,7 +7,7 @@
                 <form action="{{ route('client.room-listing') }}" class="property-search d-none d-lg-block">
                     <div class="row align-items-lg-center" id="accordion-2">
                         <div class="col-xl-2 col-lg-3 col-md-4">
-                             <div class="property-search-status-tab d-flex flex-row">
+                            <div class="property-search-status-tab d-flex flex-row">
                                 <input class="search-field" type="hidden" name="status" value="for-rent"
                                     data-default-value="">
                                 <button type="button" data-value="for-rent"
@@ -18,12 +18,13 @@
                                     class="btn shadow-none btn-active-primary text-white rounded-0 hover-white text-uppercase h-lg-80 border-left-0 border-top-0 border-bottom-0 border-right border-white-opacity-03 flex-md-1">
                                     Bán
                                 </button>
-                            </div> 
+                            </div>
                         </div>
                         <div class="col-xl-8 col-lg-7 d-md-flex">
-                             <select
+                            <select
                                 class="form-control shadow-none form-control-lg selectpicker rounded-right-md-0 rounded-md-top-left-0 rounded-lg-top-left flex-md-1 mt-3 mt-md-0"
-                                title="Chọn Thành Phố" data-style="btn-lg py-2 h-52 border-right bg-white" name="province" id="city-province">
+                                title="Chọn Thành Phố" data-style="btn-lg py-2 h-52 border-right bg-white" name="province"
+                                id="city-province">
                                 <option value='0'>Chọn Tỉnh/Thành Phố...</option>
                                 <option value='01'>Thành phố Hà Nội</option>
                                 <option value='79'>Thành phố Hồ Chí Minh</option>
@@ -88,7 +89,7 @@
                                 <option value='94'>Tỉnh Sóc Trăng</option>
                                 <option value='95'>Tỉnh Bạc Liêu</option>
                                 <option value='96'>Tỉnh Cà Mau</option>
-                            </select> 
+                            </select>
                             <div class="form-group mb-0 position-relative flex-md-3 mt-3 mt-md-0">
                                 <input type="text"
                                     class="form-control form-control-lg border-0 shadow-none rounded-left-md-0 pr-8 bg-white placeholder-muted"
@@ -107,7 +108,8 @@
                                 Tìm kiếm
                             </a>
                         </div>
-                        <div id="advanced-search-filters-2" class="col-12 pb-6 pt-lg-2 collapse" data-parent="#accordion-2">
+                        <div id="advanced-search-filters-2" class="col-12 pb-6 pt-lg-2 collapse"
+                            data-parent="#accordion-2">
                             <div class="row mx-n2">
                                 <div class="col-sm-6 col-md-4 col-lg-3 pt-4 px-2">
                                     <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
@@ -149,10 +151,11 @@
                                         <option>10</option>
                                     </select>
                                 </div>
-                                
-                                
+
+
                                 <div class="col-sm-6 col-md-4 col-lg-3 pt-4 px-2">
-                                    <input type="text" class="form-control form-control-lg border-0 shadow-none bg-white"
+                                    <input type="text"
+                                        class="form-control form-control-lg border-0 shadow-none bg-white"
                                         placeholder="Mã phòng trọ" name="">
                                 </div>
                             </div>
@@ -552,7 +555,7 @@
                 </form> --}}
             </div>
         </section>
-       
+
         <section class="position-relative mt-1">
             <div class="container-fluid px-0">
                 <div class="row no-gutters">
@@ -756,12 +759,10 @@
                     <div class="col-xl-6 col-xxl-7 order-1 order-xl-2 primary-map map-sticky overflow-hidden"
                         id="map-sticky">
                         <div class="primary-map-inner">
-                            <div class="mapbox-gl map-grid-property-01 xl-vh-100" id="map"
-                                data-marker-target="#template-properties"
-                                data-mapbox-access-token="pk.eyJ1IjoiZHVvbmdsaCIsImEiOiJjanJnNHQ4czExMzhyNDVwdWo5bW13ZmtnIn0.f1bmXQsS6o4bzFFJc8RCcQ">
-                            </div>
+                            <div class="mapbox-gl map-grid-property-01 xl-vh-100" id="map"></div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -1058,6 +1059,8 @@
                 </div>
             </div>
         </div>
+        <div id="overlay"></div>
+
     </main>
 
 @endsection
@@ -1105,6 +1108,27 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            /* Màu nền mờ với độ mờ 50% */
+            z-index: 999;
+            /* Đảm bảo lớp phủ nằm trên bản đồ */
+            display: none;
+            /* Ẩn lớp phủ khi không cần thiết */
+        }
+    </style>
 @endpush
 @push('scriptUs')
     <!-- Vendors scripts -->
@@ -1126,10 +1150,201 @@
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC67NQzqFC2WplLzC_3PsL5gejG1_PZLDk&libraries=places">
-    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{{ asset('assets/js/api-ggmap-nht.js') }}"></script>
     <script src="{{ asset('assets/js/api-update-zone-nht.js') }}"></script>
 
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+    <script>
+        var map = L.map('map').setView([10.0354, 105.7553], 13);
+        var userMarker; // Khai báo biến cho marker của người dùng
+        var routeControl;
+        var selectedHostel = null; // Biến để lưu trọ được chọn
+        var lastPosition = null; // Lưu vị trí cuối cùng của người dùng để so sánh
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var hostels = [{
+                name: 'Trọ 1',
+                lat: 10.0452,
+                lng: 105.7469
+            },
+            {
+                name: 'Trọ 2',
+                lat: 10.0502,
+                lng: 105.7580
+            },
+            {
+                name: 'Trọ 3',
+                lat: 10.0354,
+                lng: 105.7553
+            },
+            {
+                name: 'Trọ 4',
+                lat: 10.0408,
+                lng: 105.7670
+            }
+        ];
+
+        function fetchRoute(startLat, startLng, endLat, endLng) {
+            var apiKey = '5b3ce3597851110001cf6248e9bd77db287448f9b03de2374e2eca12';
+            var url =
+                `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${apiKey}&start=${startLng},${startLat}&end=${endLng},${endLat}`;
+
+            document.getElementById('overlay').style.display = 'block'; // Hiển thị lớp phủ
+
+            return fetch(url, {
+                    headers: {
+                        'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok: ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.features && data.features.length > 0) {
+                        var steps = data.features[0].geometry.coordinates;
+                        return steps.map(coord => L.latLng(coord[1], coord[0]));
+                    } else {
+                        throw new Error('No route found.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching route:', error);
+                    throw error;
+                });
+        }
+
+
+        function drawRoute(route) {
+            if (routeControl) {
+                map.removeControl(routeControl);
+            }
+
+            routeControl = L.Routing.control({
+                waypoints: route,
+                routeWhileDragging: true,
+                createMarker: function() {
+                    return null;
+                },
+                lineOptions: {
+                    styles: [{
+                        color: 'blue',
+                        opacity: 0.6,
+                        weight: 5
+                    }]
+                }
+            }).addTo(map);
+
+            document.getElementById('overlay').style.display = 'none'; // Ẩn lớp phủ khi hoàn tất
+        }
+
+        function addHostelMarkers() {
+            hostels.forEach(function(hostel) {
+                var marker = L.marker([hostel.lat, hostel.lng]).addTo(map)
+                    .bindPopup('<div class="popup-content"><h3>' + hostel.name +
+                        '</h3><p class="address">Địa chỉ: Cần Thơ</p></div>')
+                    .on('click', function() {
+                        if (userMarker) {
+                            var userLat = userMarker.getLatLng().lat;
+                            var userLng = userMarker.getLatLng().lng;
+                            selectedHostel = hostel; // Lưu lại trọ đã chọn
+
+                            fetchRoute(userLat, userLng, hostel.lat, hostel.lng)
+                                .then(route => {
+                                    if (route && route.length > 0) {
+                                        drawRoute(route);
+                                        map.setView([userLat, userLng], 13);
+                                    } else {
+                                        alert('Không có tuyến đường khả dụng.');
+                                    }
+                                })
+                                .catch(error => {
+                                    alert('Không thể lấy dữ liệu định tuyến: ' + error.message);
+                                });
+                        }
+                    });
+            });
+        }
+
+        if (navigator.geolocation) {
+            navigator.geolocation.watchPosition(function(position) {
+                var lat = position.coords.latitude;
+                var lng = position.coords.longitude;
+
+                if (lastPosition) {
+                    var distance = map.distance([lastPosition.lat, lastPosition.lng], [lat, lng]);
+                    if (distance < 50) { // Chỉ cập nhật nếu di chuyển ít nhất 50m
+                        return;
+                    }
+                }
+
+                lastPosition = {
+                    lat: lat,
+                    lng: lng
+                };
+
+                if (userMarker) {
+                    map.removeLayer(userMarker); // Xóa marker cũ
+                }
+
+                userMarker = L.marker([lat, lng]).addTo(map)
+                    .bindPopup('<div class="popup-content"><h3>Vị trí hiện tại của bạn</h3></div>').openPopup();
+
+                map.setView([lat, lng], 13);
+
+                // Nếu đã chọn trọ, cập nhật lại tuyến đường
+                if (selectedHostel) {
+                    fetchRoute(lat, lng, selectedHostel.lat, selectedHostel.lng)
+                        .then(route => {
+                            if (route && route.length > 0) {
+                                drawRoute(route);
+
+                            } else {
+                                alert('Không có tuyến đường khả dụng khi di chuyển.');
+                            }
+                        })
+                        .catch(error => {
+                            alert('Không thể lấy dữ liệu định tuyến khi di chuyển: ' + error.message);
+                        });
+                }
+
+                addHostelMarkers(); // Thêm đánh dấu cho các khu trọ sau khi có vị trí hiện tại
+
+            }, function() {
+                alert('Không thể lấy vị trí hiện tại của bạn.');
+            });
+        } else {
+            alert('Trình duyệt của bạn không hỗ trợ Geolocation API.');
+        }
+    </script>
+
+
+
+
+
+
+
+
+    <style>
+        #map {
+            height: 600px;
+            /* Tùy chỉnh chiều cao của bản đồ theo ý bạn */
+        }
+
+        /* Cải thiện giao diện của bảng chỉ đường */
+        .leaflet-top,
+        .leaflet-right {
+            display: none;
+        }
+    </style>
 @endpush

@@ -46,4 +46,5 @@ class ZoneClientController extends Controller
             'comments' => $comments,
         ]);
     }
+    
 }

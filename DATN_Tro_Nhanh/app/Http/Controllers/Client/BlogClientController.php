@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Client;
 use App\Services\BlogServices;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request;    
 use App\Services\CommentClientService;
 
 class BlogClientController extends Controller
@@ -17,7 +17,7 @@ class BlogClientController extends Controller
         $this->commentClientService = $commentClientService;
     }
 
-    public function indexBlog(Request $request, $perPage = 10)
+    public function indexBlog(Requ  est $request, $perPage = 10)
     {
         // Nhận từ khóa tìm kiếm từ request (nếu có)
         $searchTerm = $request->input('search');
