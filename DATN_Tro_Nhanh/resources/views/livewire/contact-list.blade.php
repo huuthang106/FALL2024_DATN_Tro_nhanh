@@ -16,7 +16,7 @@
                                 wire:model.lazy="searchTerm" wire:keydown.debounce.300ms="$refresh">
                         </form>
                     </div>
-                    <div class="card-body" wire:poll="pollContacts"style="height: 400px; overflow-y: auto;">
+                    <div class="card-body p-0" wire:poll="pollContacts"style="height: 400px; overflow-y: auto;">
                         <!-- ... existing code ... -->
                         <div class="list-group list-group-flush">
                             @if ($contacts->isEmpty())
@@ -30,34 +30,36 @@
                                         class="contact-item mt-2  {{ $selectedContactId == $contact['id'] ? 'active-contact' : '' }}">
                                         <div wire:key="item-{{ $contact['id'] }}" class="m-2 ">
                                             <div class="d-flex w-100 justify-content-between align-items-center mt-2">
-                                                <div class="col-lg-10 d-flex align-items-center">
-                                                    @if ($contact['image'])
-                                                        <div class="symbol symbol-45px symbol-circle mr-2">
-                                                            <img src="{{ asset('assets/images/' . $contact['image']) }}"
-                                                                class="rounded-circle mb-2"
-                                                                style="width: 40px; height: 30px;" alt="Avatar">
-                                                        </div>
-                                                    @else
-                                                        <div class="symbol symbol-45px symbol-circle mr-2">
-                                                            <img src="{{ asset('assets/images/agent-4-lg.jpg') }}"
-                                                                class="rounded-circle mb-2"
-                                                                style="width: 50px; height: 30px;" alt="Avatar">
-                                                        </div>
-                                                    @endif
+                                                <div class="col-lg-9 d-flex align-items-center p-0">
+                                                  <small>  @if ($contact['image'])
+                                                    <div class="symbol symbol-45px symbol-circle mr-2">
+                                                        <img src="{{ asset('assets/images/' . $contact['image']) }}"
+                                                            class="rounded-circle "
+                                                            style="width: 40px; height: 30px;" alt="Avatar">
+                                                    </div>
+                                                @else
+                                                    <div class="symbol symbol-45px symbol-circle mr-2">
+                                                        <img src="{{ asset('assets/images/agent-4-lg.jpg') }}"
+                                                            class="rounded-circle"
+                                                            style="width: 40px; height: 30px;" alt="Avatar">
+                                                    </div>
+                                                @endif</small>
                                                     <div>
-                                                        <small> <span class="mb-0">{{ $contact['name'] }} @if ($contact['unread_count'] > 0)
-                                                                    <small
-                                                                        class="badge badge-primary badge-pill">{{ $contact['unread_count'] }}</small>
-                                                                @endif
+                                                        <small> <span class="mb-0">{{ Str::limit($contact['name'], 25) }}
                                                             </span>
 
                                                         </small>
+                                                        <br>
                                                         <small> <span class="mb-0">{{ $contact['email'] }}
                                                             </span>
 
                                                         </small>
                                                         {{-- <small class="text-muted">{{ $contact['email'] }}</small> --}}
                                                     </div>
+                                                    @if ($contact['unread_count'] > 0)
+                                                                    <small
+                                                                        class="badge badge-primary badge-pill mb-5">{{ $contact['unread_count'] }}</small>
+                                                                @endif
                                                 </div>
                                                 <div class="d-flex flex-column align-items-end">
 
