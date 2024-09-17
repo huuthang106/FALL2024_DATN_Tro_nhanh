@@ -443,6 +443,10 @@
                                         aria-labelledby="bd-versions">
                                         <a class="dropdown-item"
                                             href="{{ route('owners.profile.profile-admin-index') }}">Xem thông tin</a>
+                                          
+                                                    <a class="dropdown-item"
+                                                href="{{route('client.payment-recharge')}}">Nạp tiền</a>
+                                            </li>
                                         <a class="dropdown-item" href="{{ route('client.logout') }}"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             Đăng xuất

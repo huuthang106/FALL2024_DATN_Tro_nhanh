@@ -461,7 +461,12 @@
                                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="bd-versions">
                                         <li><a class="dropdown-item"
                                                 href="{{ route('owners.profile.profile-admin-index') }}">Xem thông
-                                                tin</a></li>
+                                                tin</a>
+                                            </li>
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                href="{{ route('client.payment-recharge') }}">Nạp tiền</a>
+                                            </li>
                                         <li>
                                             <a class="dropdown-item" href="{{ route('client.logout') }}"
                                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

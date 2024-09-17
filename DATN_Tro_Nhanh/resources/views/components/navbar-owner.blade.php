@@ -467,6 +467,17 @@
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                <a href="{{ route('client.payment-recharge') }}"
+                                    class="text-heading lh-1 sidebar-link">
+                                    <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
+                                        <svg class="icon icon-my-profile">
+                                            <use xlink:href="#icon-my-profile"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="sidebar-item-text">Nạp tiền</span>
+                                </a>
+                            </li>
+                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                 <a href="{{ route('client.home') }}" class="text-heading lh-1 sidebar-link">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-my-profile">

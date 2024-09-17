@@ -10,4 +10,5 @@ Route::group(['prefix' => 'thanh-toan'], function () {
     Route::get('/thanh-toan-vn-pay', [PaymentClientController::class, 'vnpayReturn'])->name('vnpay.return');
     Route::get('/thanh-cong', [PaymentClientController::class, 'showPaymentSuccess'])->name('payment.success');
     Route::get('/that-bai', [PaymentClientController::class, 'showPaymentFailure'])->name('payment.failure');
+    Route::get('/nap-tien-tai-khoan', [PaymentClientController::class, 'showRecharge'])->name('payment-recharge');
 });

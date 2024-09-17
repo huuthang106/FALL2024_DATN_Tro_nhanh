@@ -30,6 +30,11 @@ class PaymentClientController extends Controller
         $this->paymentService = $paymentService;
         $this->cartService = $cartService;
     }
+
+    public function showRecharge()
+    {
+        return view('owners.show.dashboard-recharge');
+    }
     // Giao diện chuẩn bị thanh toán
     public function showCheckout(Request $request)
     {

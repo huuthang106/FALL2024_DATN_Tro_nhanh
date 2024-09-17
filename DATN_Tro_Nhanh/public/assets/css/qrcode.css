@@ -1,0 +1,34 @@
+.important-note {
+    background-color: #FFF9C4;
+    /* Màu nền vàng nhạt */
+    border-radius: 8px;
+    /* Bo góc khung */
+    padding: 15px;
+    /* Khoảng cách bên trong khung */
+    font-size: 0.2rem;
+    /* Cỡ chữ hơi lớn hơn */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* Tạo hiệu ứng bóng nhẹ */
+}
+
+.modal-content {
+    border-radius: 8px;
+    /* Bo góc modal */
+}
+
+.modal-header {
+    background-color: #f8f9fa;
+    /* Màu nền của header modal */
+    border-bottom: 1px solid #dee2e6;
+    /* Viền dưới của header modal */
+}
+
+.modal-body {
+    font-size: 16px;
+    /* Kích thước chữ của nội dung modal */
+}
+
+.modal-body .btn {
+    margin-top: 10px;
+    /* Khoảng cách trên nút sao chép */
+}
