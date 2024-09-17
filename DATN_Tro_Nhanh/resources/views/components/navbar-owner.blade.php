@@ -21,16 +21,24 @@
                                         <img src="{{ asset('assets/images/nhan.JPG') }}" alt="Admin"
                                             class="hehe rounded-circle">
                                     @endif
+                                    @if (Auth::check() &&
+                                            Auth::user()->has_vip_badge &&
+                                            \Carbon\Carbon::today()->lte(\Carbon\Carbon::parse(Auth::user()->vip_expiration_date)->endOfDay()))
+                                        <span class="badge badge-vip list">VIP</span>
+                                    @endif
                                 </div>
-
                                 <span class="fs-13 font-weight-500 d-none d-sm-inline ml-2">
                                     Hồ sơ
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#">My Profile</a>
-                                <a class="dropdown-item" href="#">My Profile</a>
-                                <a class="dropdown-item" href="#">Logout</a>
+                                <a class="dropdown-item" href="{{ route('owners.profile.profile-admin-index') }}">Thông
+                                    tin</a>
+                                <a class="dropdown-item"
+                                    href="{{ route('owners.profile.reset-password-admin-index') }}">Đổi mật khẩu</a>
+                                <a class="dropdown-item" href="#"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng
+                                    xuất</a>
                             </div>
                         </div>
                         <div class="dropdown no-caret py-4 px-3 d-flex align-items-center notice mr-3">
@@ -38,12 +46,13 @@
                                 data-toggle="dropdown">
                                 <i class="far fa-bell"></i>
                                 <span
-                                    class="badge badge-primary badge-circle badge-absolute font-weight-bold fs-13">1</span>
+                                    class="badge badge-primary badge-circle badge-absolute font-weight-bold fs-13">{{ $unreadNotificationCount }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <a class="dropdown-item" href="{{ route('owners.notification-owners') }}">Danh sách
+                                    thông báo</a>
+                                <a class="dropdown-item" href="#">Thao tác khác</a>
+                                <a class="dropdown-item" href="#">Tùy chọn khác</a>
                             </div>
                         </div>
                     </div>
@@ -62,7 +71,7 @@
                                     class="far fa-search"></i></button>
                         </div>
                         <input type="text" class="form-control border-0 form-control-lg shadow-none"
-                            placeholder="Search for..." name="search">
+                            placeholder="Tìm kiếm" name="search">
                     </div>
                 </form>
                 <ul class="list-group list-group-flush w-100">
@@ -81,7 +90,7 @@
                     </li>
                     @if (Auth::user()->role != 1)
                         <li class="list-group-item pt-6 pb-4">
-                            <h5 class="fs-13 letter-spacing-087 text-muted mb-3 text-uppercase px-3">Manage Listings
+                            <h5 class="fs-13 letter-spacing-087 text-muted mb-3 text-uppercase px-3">Quản lý danh sách
                             </h5>
                             <ul class="list-group list-group-no-border rounded-lg">
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
@@ -348,7 +357,7 @@
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center"
                                     onclick="toggleDropdown('collapseAccount'); return false;">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                    <svg class="icon icon-my-profile">
+                                        <svg class="icon icon-my-profile">
                                             <use xlink:href="#icon-my-profile"></use>
                                         </svg>
                                     </span>
@@ -361,11 +370,13 @@
                                     <ul class="list-group list-group-flush list-group-no-border">
                                         <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                             <a class="text-heading lh-1 sidebar-link"
-                                                href="{{ route('owners.profile.resigter-ekyc') }}">Bổ sung thông tin</a>
+                                                href="{{ route('owners.profile.resigter-ekyc') }}">Bổ sung thông
+                                                tin</a>
                                         </li>
                                         <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                             <a class="text-heading lh-1 sidebar-link"
-                                                href="{{ route('owners.profile.information-ekyc') }}">Chi tiết thông tin</a>
+                                                href="{{ route('owners.profile.information-ekyc') }}">Chi tiết thông
+                                                tin</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -533,16 +544,20 @@
                             class="dropdown-toggle text-heading pr-3 pr-sm-6 d-flex align-items-center justify-content-end"
                             data-toggle="dropdown">
                             <div class="mr-4 ntt w-48px">
-    @if ($user->image)
-        <img src="{{ asset('assets/images/' . $user->image) }}" alt="{{ $user->name }}" class="hehe rounded-circle">
-    @else
-        <img src="{{ asset('assets/images/nhan.jpg') }}" alt="Default Image" class="hehe rounded-circle">
-    @endif
-    @if(Auth::check() && Auth::user()->has_vip_badge && \Carbon\Carbon::today()->lte(\Carbon\Carbon::parse(Auth::user()->vip_expiration_date)->endOfDay()))
-    <span class="badge badge-vip list">VIP</span>
-@endif
+                                @if ($user->image)
+                                    <img src="{{ asset('assets/images/' . $user->image) }}"
+                                        alt="{{ $user->name }}" class="hehe rounded-circle">
+                                @else
+                                    <img src="{{ asset('assets/images/nhan.jpg') }}" alt="Default Image"
+                                        class="hehe rounded-circle">
+                                @endif
+                                @if (Auth::check() &&
+                                        Auth::user()->has_vip_badge &&
+                                        \Carbon\Carbon::today()->lte(\Carbon\Carbon::parse(Auth::user()->vip_expiration_date)->endOfDay()))
+                                    <span class="badge badge-vip list">VIP</span>
+                                @endif
 
-</div>
+                            </div>
 
                             <div class="fs-13 font-weight-500 lh-1">
                                 Hồ sơ
@@ -562,20 +577,21 @@
 
                     <div>
                         {{-- <div
-                        class="dropdown no-caret py-3 px-3 px-sm-6 d-flex align-items-center justify-content-end notice">
-                        <a href="#" class="dropdown-toggle text-heading fs-20 font-weight-500 lh-1"
-                            data-toggle="dropdown">
-                            <i class="far fa-bell"></i>
-                            <span
-                                class="badge badge-primary badge-circle badge-absolute font-weight-bold fs-13">1</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="{{ route('owners.notification-owners') }}">danh sách thông
-                                báo</a>
-                            <a class="dropdown-item" href="#">Thao tác khác</a>
-                            <a class="dropdown-item" href="#">Tùy chọn khác</a>
-                        </div>
-                    </div> --}}
+                            class="dropdown no-caret py-3 px-3 px-sm-6 d-flex align-items-center justify-content-end notice">
+                            <a href="#" class="dropdown-toggle text-heading fs-20 font-weight-500 lh-1"
+                                data-toggle="dropdown">
+                                <i class="far fa-bell"></i>
+                                <span
+                                    class="badge badge-primary badge-circle badge-absolute font-weight-bold fs-13">1</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="{{ route('owners.notification-owners') }}">danh sách
+                                    thông
+                                    báo</a>
+                                <a class="dropdown-item" href="#">Thao tác khác</a>
+                                <a class="dropdown-item" href="#">Tùy chọn khác</a>
+                            </div>
+                        </div> --}}
                         <div
                             class="dropdown no-caret py-3 px-3 px-sm-6 d-flex align-items-center justify-content-end notice">
                             <a href="#" class="dropdown-toggle text-heading fs-20 font-weight-500 lh-1"
@@ -594,6 +610,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
             </nav>
         </div>
     </header>

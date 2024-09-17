@@ -18,13 +18,14 @@
         <section>
             <div class="container">
                 <div class="mt-n8 bg-white px-6 py-3 shadow-sm-2 rounded-lg form-search-02 position-relative z-index-3">
-                    <form action="{{route('client.client-agent')}}" method="GET" class="d-none row d-md-flex flex-wrap align-items-center">
+                    <form action="{{ route('client.client-agent') }}" method="GET"
+                        class="d-none row d-md-flex flex-wrap align-items-center">
                         <div class="col-md-5 mb-3 mb-md-0">
                             <div class="row">
                                 <div class="form-group mb-3 mb-md-0 col-md-4">
-                                    <label for="province" class="mb-0 lh-1 text-uppercase fs-14 letter-spacing-093">Khu vực</label>
-                                    <select
-                                        class="form-control form-control-sm font-weight-600  shadow-0 bg-white "
+                                    <label for="province" class="mb-0 lh-1 text-uppercase fs-14 letter-spacing-093">Khu
+                                        vực</label>
+                                    <select class="form-control form-control-sm font-weight-600  shadow-0 bg-white "
                                         id="city-province" name="province" data-style="bg-white pl-0 text-dark rounded-0">
                                         <option value='0'>&nbsp;Chọn Tỉnh/Thành Phố...
                                         </option>
@@ -98,34 +99,37 @@
                                     </select>
                                 </div>
                                 <div class="form-group mb-3 mb-md-0 col-md-4">
-                                    <label for="district" class="mb-0 lh-1 text-uppercase fs-14 letter-spacing-093">Quận/Huyện</label>
+                                    <label for="district"
+                                        class="mb-0 lh-1 text-uppercase fs-14 letter-spacing-093">Quận/Huyện</label>
                                     <select class="form-control font-weight-600 pl-0 bg-white form-control-sm "
-                                    id="district-town" name="district" data-style="bg-white pl-0 text-dark rounded-0">
-                                    <option value='0'>&nbsp;Chọn Quận/Huyện...
-                                    </option>
+                                        id="district-town" name="district" data-style="bg-white pl-0 text-dark rounded-0">
+                                        <option value='0'>&nbsp;Chọn Quận/Huyện...
+                                        </option>
                                     </select>
                                 </div>
                                 <div class="form-group mb-3 mb-md-0 col-md-4">
-                                    <label for="ward-commune" class="mb-0 lh-1 text-uppercase fs-14 letter-spacing-093">Xã</label>
+                                    <label for="ward-commune"
+                                        class="mb-0 lh-1 text-uppercase fs-14 letter-spacing-093">Xã</label>
                                     <select class="form-control font-weight-600 pl-0 bg-white form-control-sm "
-                                    id="ward-commune" name="village" data-style="bg-white pl-0 text-dark rounded-0">
-                                    <option value='0'>&nbsp;Chọn Xã...
-                                    </option>
+                                        id="ward-commune" name="village" data-style="bg-white pl-0 text-dark rounded-0">
+                                        <option value='0'>&nbsp;Chọn Xã...
+                                        </option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        
+
                         {{-- <livewire:search-users /> --}}
                         <div class="form-group mb-3 mb-lg-0 col-md-5">
-                            <label for="search" class="mb-0 lh-1 text-uppercase fs-14 letter-spacing-093">Tìm kiếm</label>
+                            <label for="search" class="mb-0 lh-1 text-uppercase fs-14 letter-spacing-093">Tìm
+                                kiếm</label>
                             <div class="input-group input-group-sm">
                                 <input type="text" id="search" class="form-control pl-0 rounded-0 bg-white"
-                                    placeholder="Tìm kiếm theo tên người đăng tin…" name="search" >
-                                <div class="input-group-append ml-0">
+                                    placeholder="Tìm kiếm theo tên người đăng tin…" name="search">
+                                {{-- <div class="input-group-append ml-0">
                                     <span class="fs-18 input-group-text bg-white rounded-0"><i
                                             class="fal fa-search"></i></span>
-                                </div>
+                                </div> --}}
                             </div>
 
                         </div>
@@ -147,19 +151,27 @@
                             <div class="input-group">
                                 <input type="text" class="form-control pl-0 rounded-0 bg-white"
                                     placeholder="Tìm kiếm theo tên người đăng tin…" name="search">
-                                <div class="input-group-append ml-0">
+                                {{-- <div class="input-group-append ml-0">
                                     <span class="fs-18 input-group-text bg-white rounded-0"><i
                                             class="fal fa-search"></i></span>
+                                </div> --}}
+                                <div class="input-group-append ml-0">
+                                    <button class="fs-18 input-group-text bg-white rounded-0" type="submit">
+                                        <i class="fal fa-search"></i>
+                                    </button>
                                 </div>
+
                             </div>
                         </div>
                         <div class="collapse" id="collapseMobileSearch">
                             <div class="card card-body border-0 px-0">
                                 <div class="form-group mb-3">
-                                    <label for="language-01" class="mb-0 lh-1 text-uppercase fs-14 letter-spacing-093">Khu vực</label>
+                                    <label for="language-01" class="mb-0 lh-1 text-uppercase fs-14 letter-spacing-093">Khu
+                                        vực</label>
                                     <select
                                         class="form-control form-control-sm font-weight-600  shadow-0 bg-white selectpicker"
-                                        name="province"  id="city-province" name="province" data-style="bg-white pl-0 text-dark rounded-0">
+                                        name="province" id="city-province" name="province"
+                                        data-style="bg-white pl-0 text-dark rounded-0">
                                         <option value='0'>&nbsp;Chọn Tỉnh/Thành Phố...
                                         </option>
                                         <option value='01'>&nbspThành phố Hà Nội</option>
@@ -232,17 +244,20 @@
                                     </select>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label for="region-01" class="mb-0 lh-1 text-uppercase fs-14 letter-spacing-093">Quận/Huyện</label>
+                                    <label for="region-01"
+                                        class="mb-0 lh-1 text-uppercase fs-14 letter-spacing-093">Quận/Huyện</label>
                                     <select class="form-control font-weight-600 pl-0 bg-white selectpicker form-control-sm"
-                                        name="district" id="district-town" data-style="bg-white pl-0 text-dark rounded-0"  >
+                                        name="district" id="district-town"
+                                        data-style="bg-white pl-0 text-dark rounded-0">
                                         <option value='0'>&nbsp;Chọn Quận/Huyện...
                                         </option>
                                     </select>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label for="region-01" class="mb-0 lh-1 text-uppercase fs-14 letter-spacing-093">Xã</label>
+                                    <label for="region-01"
+                                        class="mb-0 lh-1 text-uppercase fs-14 letter-spacing-093">Xã</label>
                                     <select class="form-control font-weight-600 pl-0 bg-white selectpicker form-control-sm"
-                                        name="village" id="ward-commune" data-style="bg-white pl-0 text-dark rounded-0" >
+                                        name="village" id="ward-commune" data-style="bg-white pl-0 text-dark rounded-0">
                                         <option value='0'>&nbsp;Chọn Xã...
                                         </option>
                                     </select>
@@ -270,8 +285,8 @@
                                     class="input-group-text bg-transparent border-0 text-uppercase letter-spacing-093 pr-1 pl-3"
                                     for="inputGroupSelect01"><i class="fas fa-align-left fs-16 pr-2"></i>SẮP XẾP:</label>
                                 <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker"
-                                    data-style="bg-transparent border-0 font-weight-600 btn-lg pl-0" id="inputGroupSelect01"
-                                    name="sortby">
+                                    data-style="bg-transparent border-0 font-weight-600 btn-lg pl-0"
+                                    id="inputGroupSelect01" name="sortby">
                                     <option selected>Tùy chọn</option>
                                     <option value="1">Ngẫu nhiên</option>
                                     <option value="1">Đánh giá</option>
@@ -299,8 +314,8 @@
                                             <img src="{{ asset('assets/images/' . $item->image) }}"
                                                 alt="{{ $item->name }}" class="fixed-image">
                                         @else
-                                            <img src="{{ asset('assets/images/agent-25.jpg') }}"
-                                                alt="{{ $item->name }}"  class="fixed-image">
+                                            <img src="{{ asset('assets/images/agent-25.jpg') }}" alt="{{ $item->name }}"
+                                                class="fixed-image">
                                         @endif
                                     </a>
 
@@ -411,7 +426,8 @@
             <div class="container position-relative z-index-2 text-center text-white">
                 <p class="fs-18 font-weight-bold text-uppercase lh-143 letter-spacing-5 mb-3 mt-1">Trở thành</p>
                 <h2 class="fs-30 fs-lg-48 lh-13 font-weight-normal mb-7 text-white">Người Đăng Tin Cho Thuê Phòng Trọ</h2>
-                <a href="{{route('owners.profile.resigter-owner')}}" class="btn btn-lg btn-primary px-9 mb-1">Đăng Ký</a>
+                <a href="{{ route('owners.profile.resigter-owner') }}" class="btn btn-lg btn-primary px-9 mb-1">Đăng
+                    Ký</a>
             </div>
         </section>
     </main>
@@ -460,12 +476,11 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    
+
     {{-- @livewireStyles --}}
 @endpush
 @push('scriptUs')
-
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/bootstrap/bootstrap.bundle.js') }}"></script>

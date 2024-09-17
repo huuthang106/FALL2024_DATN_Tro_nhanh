@@ -179,7 +179,7 @@
                         </div>
                     </form>
 
-                    <form
+                    <form action="{{ route('client.room-listing') }}" method="GET"
                         class="property-search property-search-mobile d-lg-none z-index-2 position-relative bg-white rounded mx-md-10">
                         <div class="row align-items-lg-center" id="accordion-4-mobile">
                             <div class="col-12">
@@ -201,6 +201,119 @@
                             <div id="advanced-search-filters-4-mobile" class="col-12 pt-2 px-7 collapse"
                                 data-parent="#accordion-4-mobile">
                                 <div class="row mx-n2">
+                                    {{-- <div class="col-sm-6 pt-4 px-2">
+                                        <select
+                                            class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
+                                            name="bedroom" title="Phòng ngủ"
+                                            data-style="btn-lg py-2 h-52 bg-transparent">
+                                            <option>Tất cả phòng ngủ</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>7</option>
+                                            <option>8</option>
+                                            <option>9</option>
+                                            <option>10</option>
+                                        </select>
+                                    </div> --}}
+                                    <div class="col-sm-6 pt-4 px-2">
+                                        {{-- <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Tất cả
+                                            thành phố</label> --}}
+                                        <select
+                                            class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
+                                            id="city-province" title="Chọn Tỉnh/Thành Phố..." name="province"
+                                            data-style="btn-lg py-2 h-52 bg-transparent">
+                                            <option value='0'>Chọn Tỉnh/Thành Phố...</option>
+                                            <option value='01'>Thành phố Hà Nội</option>
+                                            <option value='79'>Thành phố Hồ Chí Minh</option>
+                                            <option value='31'>Thành phố Hải Phòng</option>
+                                            <option value='48'>Thành phố Đà Nẵng</option>
+                                            <option value='92'>Thành phố Cần Thơ</option>
+                                            <option value='02'>Tỉnh Hà Giang</option>
+                                            <option value='04'>Tỉnh Cao Bằng</option>
+                                            <option value='06'>Tỉnh Bắc Kạn</option>
+                                            <option value='08'>Tỉnh Tuyên Quang</option>
+                                            <option value='10'>Tỉnh Lào Cai</option>
+                                            <option value='11'>Tỉnh Điện Biên</option>
+                                            <option value='12'>Tỉnh Lai Châu</option>
+                                            <option value='14'>Tỉnh Sơn La</option>
+                                            <option value='15'>Tỉnh Yên Bái</option>
+                                            <option value='17'>Tỉnh Hoà Bình</option>
+                                            <option value='19'>Tỉnh Thái Nguyên</option>
+                                            <option value='20'>Tỉnh Lạng Sơn</option>
+                                            <option value='22'>Tỉnh Quảng Ninh</option>
+                                            <option value='24'>Tỉnh Bắc Giang</option>
+                                            <option value='25'>Tỉnh Phú Thọ</option>
+                                            <option value='26'>Tỉnh Vĩnh Phúc</option>
+                                            <option value='27'>Tỉnh Bắc Ninh</option>
+                                            <option value='30'>Tỉnh Hải Dương</option>
+                                            <option value='33'>Tỉnh Hưng Yên</option>
+                                            <option value='34'>Tỉnh Thái Bình</option>
+                                            <option value='35'>Tỉnh Hà Nam</option>
+                                            <option value='36'>Tỉnh Nam Định</option>
+                                            <option value='37'>Tỉnh Ninh Bình</option>
+                                            <option value='38'>Tỉnh Thanh Hóa</option>
+                                            <option value='40'>Tỉnh Nghệ An</option>
+                                            <option value='42'>Tỉnh Hà Tĩnh</option>
+                                            <option value='44'>Tỉnh Quảng Bình</option>
+                                            <option value='45'>Tỉnh Quảng Trị</option>
+                                            <option value='46'>Tỉnh Thừa Thiên Huế</option>
+                                            <option value='49'>Tỉnh Quảng Nam</option>
+                                            <option value='51'>Tỉnh Quảng Ngãi</option>
+                                            <option value='52'>Tỉnh Bình Định</option>
+                                            <option value='54'>Tỉnh Phú Yên</option>
+                                            <option value='56'>Tỉnh Khánh Hòa</option>
+                                            <option value='58'>Tỉnh Ninh Thuận</option>
+                                            <option value='60'>Tỉnh Bình Thuận</option>
+                                            <option value='62'>Tỉnh Kon Tum</option>
+                                            <option value='64'>Tỉnh Gia Lai</option>
+                                            <option value='66'>Tỉnh Đắk Lắk</option>
+                                            <option value='67'>Tỉnh Đắk Nông</option>
+                                            <option value='68'>Tỉnh Lâm Đồng</option>
+                                            <option value='70'>Tỉnh Bình Phước</option>
+                                            <option value='72'>Tỉnh Tây Ninh</option>
+                                            <option value='74'>Tỉnh Bình Dương</option>
+                                            <option value='75'>Tỉnh Đồng Nai</option>
+                                            <option value='77'>Tỉnh Bà Rịa - Vũng Tàu</option>
+                                            <option value='80'>Tỉnh Long An</option>
+                                            <option value='82'>Tỉnh Tiền Giang</option>
+                                            <option value='83'>Tỉnh Bến Tre</option>
+                                            <option value='84'>Tỉnh Trà Vinh</option>
+                                            <option value='86'>Tỉnh Vĩnh Long</option>
+                                            <option value='87'>Tỉnh Đồng Tháp</option>
+                                            <option value='89'>Tỉnh An Giang</option>
+                                            <option value='91'>Tỉnh Kiên Giang</option>
+                                            <option value='93'>Tỉnh Hậu Giang</option>
+                                            <option value='94'>Tỉnh Sóc Trăng</option>
+                                            <option value='95'>Tỉnh Bạc Liêu</option>
+                                            <option value='96'>Tỉnh Cà Mau</option>
+                                            <!-- Các tỉnh thành khác... -->
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6 pt-4 px-2">
+                                        {{-- <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Tất cả
+                                            quận/huyện</label> --}}
+                                        <select
+                                            class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
+                                            id="district-town" name="district" title="Chọn Quận/Huyện..."
+                                            data-style="btn-lg py-2 h-52 bg-transparent">
+                                            <option value="0">Chọn Quận/Huyện...</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6 pt-4 px-2">
+                                        {{-- <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Tất cả
+                                            xã/phường</label> --}}
+                                        <select
+                                            class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
+                                            id="ward-commune" name="village" title="Chọn Xã/Phường..."
+                                            data-style="btn-lg py-2 h-52 bg-transparent">
+                                            <option value="0">Chọn Xã/Phường...</option>
+                                        </select>
+                                    </div>
+
                                     <div class="col-sm-6 pt-4 px-2">
                                         <select
                                             class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
@@ -219,24 +332,6 @@
                                             <option>Nhà đơn lập</option>
                                             <option>Nhà liên kế</option>
                                             <option>Nhà nhiều tầng</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-6 pt-4 px-2">
-                                        <select
-                                            class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
-                                            name="bedroom" title="Phòng ngủ"
-                                            data-style="btn-lg py-2 h-52 bg-transparent">
-                                            <option>Tất cả phòng ngủ</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
-                                            <option>7</option>
-                                            <option>8</option>
-                                            <option>9</option>
-                                            <option>10</option>
                                         </select>
                                     </div>
                                     <div class="col-sm-6 pt-4 px-2">

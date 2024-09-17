@@ -211,14 +211,16 @@
                             class="d-inline-block d-xl-none">
                     </a>
                     <div class="d-flex d-xl-none ml-auto">
-                        <a class="d-block mr-4 position-relative text-white p-2" href="#">
+                        <a class="d-block mr-4 position-relative text-dark p-2"
+                            href="{{ route('owners.favorites') }}">
                             <i class="fal fa-heart fs-large-4"></i>
-                            <span class="badge badge-primary badge-circle badge-absolute">1</span>
+                            <span class="badge badge-primary badge-circle badge-absolute"
+                                id="favorite-count">{{ $favouriteCount }}</span>
                         </a>
                         <button class="navbar-toggler border-0 px-0 ml-0" type="button" data-toggle="collapse"
                             data-target="#primaryMenu05" aria-controls="primaryMenu05" aria-expanded="false"
                             aria-label="Toggle navigation">
-                            <span class="text-white fs-24"><i class="fal fa-bars"></i></span>
+                            <span class="text-dark fs-24"><i class="fal fa-bars"></i></span>
                         </button>
                     </div>
                     <div class="collapse navbar-collapse mt-3 mt-xl-0 flex-grow-0" id="primaryMenu05">
@@ -368,7 +370,7 @@
                         <div class="d-block d-xl-none">
                             <ul
                                 class="navbar-nav flex-row ml-auto align-items-center justify-content-lg-end flex-wrap py-2">
-                                <li class="nav-item dropdown">
+                                {{-- <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle mr-md-2 pr-2 pl-0 pl-lg-2" href="#"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         ENG
@@ -380,7 +382,7 @@
                                         <a class="dropdown-item" href="#">KR</a>
                                         <a class="dropdown-item" href="#">JN</a>
                                     </div>
-                                </li>
+                                </li> --}}
                                 {{-- <li class="nav-item ">
                                     <a class="nav-link pl-3 pr-2" data-toggle="" href="{{ route('login') }}">Đăng
                                         nhập</a>
@@ -397,9 +399,11 @@
                                             aria-expanded="false">
                                             &nbsp;Xin chào, {{ Auth::user()->name }}
                                         </a>
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                            <a class="dropdown-item" href="#">Hồ sơ</a>
-                                            <a class="dropdown-item" href="#">Cài đặt</a>
+                                        <div class="dropdown-menu dropdown-menu-center" aria-labelledby="userDropdown">
+                                            {{-- <a class="dropdown-item" href="#">Hồ sơ</a> --}}
+                                            <a class="dropdown-item"
+                                                href="{{ route('owners.profile.profile-admin-index') }}">Xem thông tin</a>
+                                            {{-- <a class="dropdown-item" href="#">Cài đặt</a> --}}
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="{{ route('client.logout') }}"
                                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -415,7 +419,7 @@
                             </ul>
                             @if (Auth::check())
                                 @if ($role != '1')
-                                    <li class="nav-item ml-auto w-100 w-sm-auto">
+                                    <li class="nav-item ml-auto w-100 w-sm-auto list-unstyled">
                                         <a class="btn btn-primary btn-lg" href="{{ route('owners.add-room') }}">
                                             Cho thuê
                                             <img src="{{ asset('assets/images/add-listing-icon.png') }}"

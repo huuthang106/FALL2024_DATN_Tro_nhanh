@@ -398,35 +398,51 @@
                                     </div>
                                 </div> --}}
                                 <ul {{-- giao diện mobile --}}
-                                    class="navbar-nav flex-row ml-auto align-items-center justify-content-lg-end flex-wrap py-2">
+                                    class="navbar-nav flex-row ml-auto align-items-center justify-content-lg-end flex-wrap py-0">
 
                                     <li class="nav-item">
                                         @if (Auth::check())
-                                            <a class="nav-link pr-3" data-toggle="modal" href="#user-profile-modal">
+                                            {{-- <a class="nav-link pr-3" data-toggle="modal" href="#user-profile-modal">
                                                 {{ Auth::user()->name }} <!-- Hiển thị tên người dùng -->
+                                            </a> --}}
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle mr-md-2 pr-2 pl-0 pl-lg-2" href="#"
+                                            id="bd-versions" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            {{ Auth::user()->name }}
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-sm dropdown-menu-end"
+                                            aria-labelledby="bd-versions">
+                                            <a class="dropdown-item"
+                                                href="{{ route('owners.profile.profile-admin-index') }}">Xem thông
+                                                tin</a>
+                                            <a class="dropdown-item" href="{{ route('client.logout') }}"
+                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                Đăng xuất
                                             </a>
-                                            <div class="row ml-auto mr-4 p-0">
-                                                <a class="d-block d-xl-none mr-4 position-relative text-white p-2"
-                                                    href="{{ Route('owners.chat-owners') }}">
-                                                    <i class="fal fa-comments-alt fs-large-4"
-                                                        style="color: #2f1f1f;"></i>
-                                                    <span class="badge badge-primary badge-circle badge-absolute">
-                                                        <livewire:unread-message-count /></span>
-                                                </a>
+                                        </ul>
+                                    </li>
 
-                                                <a class="d-block d-xl-none ml-auto mr-4 position-relative text-white p-2"
-                                                    href="#">
-                                                    <i class="fal fa-heart fs-large-4" style="color: #2f1f1f;"></i>
-                                                    <span
-                                                        class="badge badge-primary badge-circle badge-absolute">1</span>
-                                                </a>
-                                            </div>
-                                        @else
-                                            <a class="nav-link pr-3" data-toggle="modal"
-                                                href="#login-register-modal">
-                                                Đăng nhập
-                                            </a>
-                                        @endif
+                                    <div class="row ml-auto mr-4 p-0">
+                                        <a class="d-block d-xl-none mr-4 position-relative text-white p-2"
+                                            href="{{ Route('owners.chat-owners') }}">
+                                            <i class="fal fa-comments-alt fs-large-4" style="color: #2f1f1f;"></i>
+                                            <span class="badge badge-primary badge-circle badge-absolute">
+                                                <livewire:unread-message-count /></span>
+                                        </a>
+
+                                        <a class="d-block d-xl-none ml-auto mr-4 position-relative text-white p-2"
+                                            href="{{ route('owners.favorites') }}">
+                                            <i class="fal fa-heart fs-large-4" style="color: #2f1f1f;"></i>
+                                            <span class="badge badge-primary badge-circle badge-absolute"
+                                                id="favorite-count">{{ $favouriteCount }}</span>
+                                        </a>
+                                    </div>
+                                @else
+                                    <a class="nav-link pr-3" data-toggle="modal" href="#login-register-modal">
+                                        Đăng nhập
+                                    </a>
+                                    @endif
                                     </li>
 
                                     @if (Auth::check())
@@ -491,7 +507,7 @@
                                 nhập</a>
                             @endif
                             </li>
-                            
+
                             <li class="nav-item mr-auto mr-lg-6">
                                 <a class="nav-link px-2 position-relative" href="{{ route('client.carts-show') }}">
                                     <i class="fal fa-shopping-cart fs-large-4"></i>
