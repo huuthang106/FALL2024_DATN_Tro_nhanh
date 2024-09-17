@@ -16,6 +16,7 @@ use App\Models\Utility;
 use App\Models\Resident;
 use Illuminate\Support\Facades\Log;
 use App\Events\RoomStatusUpdated;
+
 class RoomAdminService
 {
     // Tao bien hien thi phong con trong
@@ -104,9 +105,9 @@ class RoomAdminService
         $users = User::all();
         $userLock = auth()->user();
 
-           // Lấy trạng thái của người dùng hiện tại
+        // Lấy trạng thái của người dùng hiện tại
         $userStatus =  $userLock ?  $userLock->status : null;
-        return compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users','userStatus');
+        return compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users', 'userStatus');
     }
     // Them tro 
     public function create($request)
@@ -204,10 +205,11 @@ class RoomAdminService
         return Utility::where('room_id', $roomId)->first();
     }
 
-    public function update($request, $slug)
+    public function update($request, $id)
     {
         // Tìm đối tượng Room dựa trên slug
-        $room = Room::where('slug', $slug)->first();
+        // $room = Room::where('slug', $slug)->first();
+        $room = Room::findOrFail($id);
         // Cập nhật các thuộc tính của Room
         $room->title = $request->input('title');
         $room->description = $request->input('description');
@@ -356,19 +358,18 @@ class RoomAdminService
         try {
             // Tìm phòng theo id
             $room = Room::where('id', $id)->firstOrFail();
-            
+
             // Cập nhật status
             $room->status = $newStatus;
             $room->save();
-            
+
             // Phát sự kiện
             event(new RoomStatusUpdated($room, $newStatus));
-            
+
             return $room; // Trả về phòng đã được cập nhật
         } catch (\Exception $e) {
             Log::error('Không thể cập nhật status phòng với id ' . $id . ': ' . $e->getMessage());
             return null;
         }
     }
-    
 }

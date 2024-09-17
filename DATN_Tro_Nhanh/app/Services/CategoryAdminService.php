@@ -86,10 +86,11 @@ class CategoryAdminService
         }
     }
     // Hàm chỉnh sửa
-    public function updateCategory($slug, array $data)
+    public function updateCategory($id, array $data)
     {
         try {
-            $category = Category::findOrFail($slug);
+            // Tìm category bằng ID
+            $category = Category::findOrFail($id);
             $category->name = $data['name'];
             $category->status = $data['status'];
             $category->slug = $this->createSlug($data['name']);
@@ -100,28 +101,6 @@ class CategoryAdminService
             Log::error('Error updating category: ' . $e->getMessage());
             throw new Exception('Đã xảy ra lỗi khi cập nhật loại.');
         }
-        // try {
-        //     // Tìm category bằng slug
-        //     $category = Category::findOrFail($slug);
-
-        //     // Cập nhật thông tin category
-        //     $category->name = $data['name'];
-        //     $category->status = $data['status'];
-        //     $category->slug = $this->createSlug($data['name']);
-        //     $category->save();
-
-        //     // Lấy ID của người dùng hiện tại
-        //     $userId = auth()->id();
-
-        //     // Kích hoạt sự kiện với các tham số phù hợp
-        //     event(new CategoryAdminEvent('Cập nhật loại', 'Cập nhật loại thành công.', 1, $userId));
-
-        //     return $category;
-        // } catch (Exception $e) {
-        //     // Ghi log lỗi và hiển thị lỗi ra ngoài
-        //     Log::error('Error updating category: ' . $e->getMessage());
-        //     throw new Exception('Đã xảy ra lỗi khi cập nhật loại.');
-        // }
     }
     public function searchCategories($query, $perPage = 10)
     {

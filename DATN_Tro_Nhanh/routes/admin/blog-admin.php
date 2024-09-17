@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BlogAdminController;
 
@@ -12,7 +13,7 @@ Route::group(['prefix' => ''], function () {
     Route::delete('/xoa-blog-vinh-vien/{id}', [BlogAdminController::class, 'forceDelete'])->name('forceDelete-blog');
 
     Route::get('sua-blog/{slug}', [BlogAdminController::class, 'editBlog'])->name('sua-blog');
-    Route::put('sua-blog/{slug}', [BlogAdminController::class, 'updateBlog'])->name('update-blog');
+    Route::put('sua-blog/{id}', [BlogAdminController::class, 'updateBlog'])->name('update-blog');
 
     route::post('them-blog-admin', [BlogAdminController::class, 'store'])->name('create-blog');
     Route::post('/upload-image', [BlogAdminController::class, 'uploadImage'])->name('upload-image');

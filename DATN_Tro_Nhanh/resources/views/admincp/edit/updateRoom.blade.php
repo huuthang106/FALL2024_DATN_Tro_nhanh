@@ -15,8 +15,8 @@
                         </div>
                     </div>
                     <div id="kt_account_profile_details" class="collapse show">
-                        <form class="form" action="{{ route('admin.update-room', ['slug' => $rooms->slug]) }}"
-                            method="POST" enctype="multipart/form-data">
+                        <form class="form" action="{{ route('admin.update-room', ['id' => $rooms->id]) }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="card-body border-top p-9">

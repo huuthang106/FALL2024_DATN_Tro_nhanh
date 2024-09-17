@@ -384,7 +384,7 @@
                     <div id="kt_account_profile_details" class="collapse show">
                         <!--begin::Form-->
                         <form class="form" method="POST"
-                            action="{{ route('owners.profile.update-profile', $user->slug) }}"
+                            action="{{ route('owners.profile.update-profile', $user->id) }}"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')

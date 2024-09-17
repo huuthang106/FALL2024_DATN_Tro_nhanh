@@ -82,7 +82,7 @@ class RoomAdminController extends Controller
         $zones = $data['zones'];
         $users = $data['users'];
         $userStatus = $data['userStatus'];
-        return view('admincp.create.addRoom', compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users','userStatus'));
+        return view('admincp.create.addRoom', compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users', 'userStatus'));
     }
     public function add_room_test(CreateRoomRequest $request)
     {
@@ -131,9 +131,9 @@ class RoomAdminController extends Controller
 
         return view('admincp.edit.updateRoom', compact('rooms', 'acreages', 'categories', 'locations', 'zones', 'users', 'utilities'));
     }
-    public function update_room(CreateRoomRequest $request, $slug)
+    public function update_room(CreateRoomRequest $request, $id)
     {
-        $result = $this->roomAdminService->update($request, $slug);
+        $result = $this->roomAdminService->update($request, $id);
 
         if ($result) {
             // Cập nhật thành công, chuyển hướng hoặc thông báo
@@ -158,12 +158,11 @@ class RoomAdminController extends Controller
     {
         // Cập nhật status phòng thành giá trị 1
         $updatedRoom = $this->roomAdminService->updateRoomStatus($id, 2);
-    
+
         if ($updatedRoom === null) {
             return redirect()->back()->withErrors('Không thể cập nhật status phòng.');
         }
-    
+
         return redirect()->back()->with('success', 'Cập nhật status phòng thành công.');
     }
-    
 }

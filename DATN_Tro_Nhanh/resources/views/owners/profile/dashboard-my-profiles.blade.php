@@ -9,7 +9,7 @@
                 <p class="mb-1">Dịch vụ khách hàng rất quan trọng, do đó, khách hàng phải chịu trách nhiệm. Cần có hy vọng
                 </p>
             </div>
-            <form method="POST" action="{{ route('owners.profile.update-profile', $user->slug) }}"
+            <form method="POST" action="{{ route('owners.profile.update-profile', $user->id) }}"
                 enctype="multipart/form-data">
                 @csrf
                 @method('PUT')

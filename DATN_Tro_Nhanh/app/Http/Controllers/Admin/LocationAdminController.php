@@ -50,9 +50,9 @@ class LocationAdminController extends Controller
         return view('admincp.edit.updateLocation', ['locations' => $locations]);
     }
 
-    public function update_location(CreateLocationRequest $request, $slug)
+    public function update_location(CreateLocationRequest $request, $id)
     {
-        $result = $this->locationAdminService->updateLocation($request, $slug);
+        $result = $this->locationAdminService->updateLocation($request, $id);
 
         if ($result) {
             // Cập nhật thành công, chuyển hướng hoặc thông báo
@@ -96,6 +96,4 @@ class LocationAdminController extends Controller
 
         return redirect()->route('admin.trash-location')->with('success', $result['message']);
     }
-
-
 }

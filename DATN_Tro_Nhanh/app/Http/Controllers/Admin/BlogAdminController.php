@@ -29,8 +29,8 @@ class BlogAdminController extends Controller
         $userLock = auth()->user();
 
         // Lấy trạng thái của người dùng hiện tại
-     $userStatus =  $userLock ?  $userLock->status : null;
-        return view('admincp.create.addBlog',compact('userStatus'));
+        $userStatus =  $userLock ?  $userLock->status : null;
+        return view('admincp.create.addBlog', compact('userStatus'));
     }
     public function show()
     {
@@ -58,9 +58,9 @@ class BlogAdminController extends Controller
         }
     }
 
-    public function updateBlog(BlogRequest $request, $slug)
+    public function updateBlog(BlogRequest $request, $id)
     {
-        $result = $this->BlogService->updateBlog($request, $slug);
+        $result = $this->BlogService->updateBlog($request, $id);
         if ($result) {
             // Cập nhật thành công, chuyển hướng hoặc thông báo
             return redirect()->route('admin.show-blog')->with('success', 'Cập nhật phòng thành công.');

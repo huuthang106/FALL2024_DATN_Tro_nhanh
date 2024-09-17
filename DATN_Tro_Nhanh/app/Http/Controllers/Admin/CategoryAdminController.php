@@ -51,17 +51,17 @@ class CategoryAdminController extends Controller
         }
     }
     // Xử lý yêu cầu cập nhật
-    public function update(Request $request, $slug)
+    public function update(Request $request, $id)
     {
         try {
-            // Xử lý cập nhật
-            $category = $this->categoryService->updateCategory($slug, $request->all());
-
-            return response()->json(['success' => true, 'data' => $category], 200);
+            // Gọi service để cập nhật category
+            $category = $this->categoryService->updateCategory($id, $request->all());
+            return redirect()->route('admin.list-category')->with('success', 'Loại phòng đã được cập nhật thành công!');
         } catch (Exception $e) {
             // Ghi log lỗi và trả về phản hồi lỗi JSON
             Log::error('Đã xảy ra lỗi khi lưu: ' . $e->getMessage());
-            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+            // return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+            return back()->with('error', 'Có lỗi xảy ra khi cập nhật loại phòng.');
         }
     }
     public function store(Request $request)

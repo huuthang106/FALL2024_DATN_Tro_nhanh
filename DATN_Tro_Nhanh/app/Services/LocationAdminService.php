@@ -60,9 +60,9 @@ class LocationAdminService
     }
 
 
-    public function updateLocation($request, $slug)
+    public function updateLocation($request, $id)
     {
-        $locations = Location::where('slug', $slug)->first();
+        $locations = Location::findOrFail($id);
         $locations->name = $request->input('name');
         $locations->status = $request->input('status');
         // Lưu đối tượng Location

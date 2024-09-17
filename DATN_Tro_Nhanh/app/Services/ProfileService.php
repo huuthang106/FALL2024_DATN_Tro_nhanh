@@ -28,10 +28,9 @@ class ProfileService
      * @param array $data
      * @return bool
      */
-    public function updateProfileBySlug($slug, array $data)
+    public function updateProfileBySlug($id, array $data)
     {
-        $user = User::where('slug', $slug)->firstOrFail();
-
+        $user = User::findOrFail($id);
         // Kiểm tra nếu có tải lên ảnh mới
         if (isset($data['image'])) {
             // Xóa ảnh cũ nếu có

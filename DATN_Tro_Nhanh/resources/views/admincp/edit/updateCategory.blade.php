@@ -15,7 +15,7 @@
                         </div>
                     </div>
                     <div id="kt_account_profile_details" class="collapse show">
-                        <form class="form" action="{{ route('admin.update-category', ['slug' => $category->slug]) }}"
+                        <form class="form" action="{{ route('admin.update-category', ['id' => $category->id]) }}"
                             method="POST" id="update" data-id="{{ $category->id }}">
                             @csrf
                             @method('PUT')
@@ -165,8 +165,4 @@
     <script src="{{ asset('assets/js/custom/modals/create-app.js') }}"></script>
     <script src="{{ asset('assets/js/custom/modals/upgrade-plan.js') }}"></script>
     <!--end::Page Custom Javascript-->
-    <!--end::Javascript-->
-    {{-- Show - Alert --}}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{ asset('assets/js/alert/category-admin-update-alert.js') }}"></script>
 @endpush

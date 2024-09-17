@@ -70,10 +70,10 @@ class UserAdminController extends Controller
         return view('admincp.show.settings', compact('user'));
     }
 
-    public function updateProfile(UpdateProfileRequest $request, $slug)
+    public function updateProfile(UpdateProfileRequest $request, $id)
     {
         $data = $request->all();
-        $this->profileService->updateProfileBySlug($slug, $data);
+        $this->profileService->updateProfileBySlug($id, $data);
 
         return redirect()->back()->with('success', 'Profile updated successfully.');
     }
@@ -90,7 +90,7 @@ class UserAdminController extends Controller
         } else {
             // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
             return redirect()->back()->with('error', 'Cập nhật thất bại Admin.');
-        } 
+        }
         // else {
         //     // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
         //     return back()->with('error', 'Cập nhật role admin thất bại.');
@@ -105,30 +105,28 @@ class UserAdminController extends Controller
         } else {
             // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
             return redirect()->back()->with('error', 'Cập nhật thất bại chủ trọ.');
-        } 
+        }
         // else {
         //     // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
         //     return back()->with('error', 'Cập nhật thất role user bại.');
         // }
     }
 
-    public function lockAccoutUser(AccoutnRequest $request,$id)
+    public function lockAccoutUser(AccoutnRequest $request, $id)
     {
-        $result = $this->userAdminService->lockAccount($request,$id);
-        if(!$result)
-        {
-           return redirect()->route('admin.list-user')->with('success', 'Khóa tài khoản thành công');
+        $result = $this->userAdminService->lockAccount($request, $id);
+        if (!$result) {
+            return redirect()->route('admin.list-user')->with('success', 'Khóa tài khoản thành công');
         } else {
             return redirect()->back()->with('error', 'Khóa tài khoản thất bại ');
         }
     }
 
-    public function lockAccoutOwner(AccoutnRequest $request,$id)
+    public function lockAccoutOwner(AccoutnRequest $request, $id)
     {
-        $result = $this->userAdminService->lockOwner($request,$id);
-        if(!$result)
-        {
-           return redirect()->route('admin.admin.profile')->with('success', 'Khóa tài khoản thành công');
+        $result = $this->userAdminService->lockOwner($request, $id);
+        if (!$result) {
+            return redirect()->route('admin.admin.profile')->with('success', 'Khóa tài khoản thành công');
         } else {
             return redirect()->back()->with('error', 'Khóa tài khoản thất bại ');
         }

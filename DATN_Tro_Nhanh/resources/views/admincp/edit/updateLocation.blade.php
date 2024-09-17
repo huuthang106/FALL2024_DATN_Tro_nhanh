@@ -15,7 +15,7 @@
                         </div>
                     </div>
                     <div id="kt_account_profile_details" class="collapse show">
-                        <form class="form" action="{{ route('admin.update-location', ['slug' => $locations->slug]) }}"
+                        <form class="form" action="{{ route('admin.update-location', ['id' => $locations->id]) }}"
                             method="POST">
                             @csrf
                             @method('PUT')
