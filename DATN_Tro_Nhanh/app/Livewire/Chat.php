@@ -132,18 +132,32 @@
             if (!$dateTime) {
                 return '';
             }
-    
+        
             $carbon = Carbon::parse($dateTime);
             $now = Carbon::now();
-            $diff = $carbon->diffForHumans($now, true, true);
-    
+        
+            // Kiểm tra nếu thời gian là dưới 1 phút
+            if ($carbon->diffInMinutes($now) < 1) {
+                return 'Vừa xong';
+            }
+        
+            // Nếu tin nhắn trong ngày hôm nay thì hiển thị dạng tương đối (x phút trước, x giờ trước)
             if ($carbon->isToday()) {
-                return $diff;
-            } elseif ($carbon->isYesterday()) {
+                return $carbon->diffForHumans($now, true); // Hiển thị dạng tương đối
+            } 
+        
+            // Nếu là ngày hôm qua, hiển thị 'Hôm qua'
+            elseif ($carbon->isYesterday()) {
                 return 'Hôm qua';
-            } elseif ($carbon->isSameYear($now)) {
+            } 
+        
+            // Nếu cùng năm, hiển thị ngày/tháng
+            elseif ($carbon->isSameYear($now)) {
                 return $carbon->format('d/m');
-            } else {
+            } 
+        
+            // Nếu khác năm, hiển thị đầy đủ ngày/tháng/năm
+            else {
                 return $carbon->format('d/m/Y');
             }
         }

@@ -31,21 +31,24 @@
                                         <div wire:key="item-{{ $contact['id'] }}" class="m-2 ">
                                             <div class="d-flex w-100 justify-content-between align-items-center mt-2">
                                                 <div class="col-lg-9 d-flex align-items-center p-0">
-                                                  <small>  @if ($contact['image'])
-                                                    <div class="symbol symbol-45px symbol-circle mr-2">
-                                                        <img src="{{ asset('assets/images/' . $contact['image']) }}"
-                                                            class="rounded-circle "
-                                                            style="width: 40px; height: 30px;" alt="Avatar">
-                                                    </div>
-                                                @else
-                                                    <div class="symbol symbol-45px symbol-circle mr-2">
-                                                        <img src="{{ asset('assets/images/agent-4-lg.jpg') }}"
-                                                            class="rounded-circle"
-                                                            style="width: 40px; height: 30px;" alt="Avatar">
-                                                    </div>
-                                                @endif</small>
+                                                    <small>
+                                                        @if ($contact['image'])
+                                                            <div class="symbol symbol-45px symbol-circle mr-2">
+                                                                <img src="{{ asset('assets/images/' . $contact['image']) }}"
+                                                                    class="rounded-circle "
+                                                                    style="width: 40px; height: 30px;" alt="Avatar">
+                                                            </div>
+                                                        @else
+                                                            <div class="symbol symbol-45px symbol-circle mr-2">
+                                                                <img src="{{ asset('assets/images/agent-4-lg.jpg') }}"
+                                                                    class="rounded-circle"
+                                                                    style="width: 40px; height: 30px;" alt="Avatar">
+                                                            </div>
+                                                        @endif
+                                                    </small>
                                                     <div>
-                                                        <small> <span class="mb-0">{{ Str::limit($contact['name'], 25) }}
+                                                        <small> <span
+                                                                class="mb-0">{{ Str::limit($contact['name'], 25) }}
                                                             </span>
 
                                                         </small>
@@ -57,14 +60,15 @@
                                                         {{-- <small class="text-muted">{{ $contact['email'] }}</small> --}}
                                                     </div>
                                                     @if ($contact['unread_count'] > 0)
-                                                                    <small
-                                                                        class="badge badge-primary badge-pill mb-5">{{ $contact['unread_count'] }}</small>
-                                                                @endif
+                                                        <small
+                                                            class="badge badge-primary badge-pill mb-5">{{ $contact['unread_count'] }}</small>
+                                                    @endif
                                                 </div>
                                                 <div class="d-flex flex-column align-items-end">
-
-                                                    <small
-                                                        class="text-muted d-block">{{ $this->getRelativeTime($contact['last_message_time']) }}</small>
+                                                    
+                                                    <small class="text-muted d-block">
+                                                        {{ $contact['last_message_time'] ? $this->getRelativeTime($contact['last_message_time']) : 'Chưa có tin nhắn' }}
+                                                    </small>
                                                 </div>
                                             </div>
                                         </div>

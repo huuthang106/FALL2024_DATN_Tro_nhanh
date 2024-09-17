@@ -119,10 +119,27 @@ class ContactList extends Component
 
         $carbon = Carbon::parse($dateTime);
         $now = Carbon::now();
-        $diff = $carbon->diffForHumans($now, true, true);
 
-        if ($carbon->isToday()) {
-            return $diff;
+        // Kiểm tra xem thời gian có phải là trong tương lai không
+        if ($carbon->isFuture()) {
+            return 'Tin nhắn chưa được gửi'; // Hoặc một thông báo khác nếu thời gian là trong tương lai
+        }
+
+        // Tính toán sự khác biệt
+        $diff = $now->diff($carbon);
+        $diffInSeconds = $diff->s + ($diff->i * 60) + ($diff->h * 3600); // Tính tổng số giây
+        $diffInMinutes = $diff->i + ($diff->h * 60); // Tính tổng số phút
+
+        // Ghi log để kiểm tra giá trị
+      
+
+        // Hiển thị "Vừa xong" nếu tin nhắn được gửi trong vòng 1 phút (dưới 60 giây)
+        if ($diffInSeconds < 60) {
+            return 'Vừa xong';
+        } elseif ($diffInMinutes < 60) {
+            return $diffInMinutes . ' phút trước';
+        } elseif ($carbon->isToday()) {
+            return  $carbon->format('H:i'); // Hiển thị giờ nếu trong cùng ngày
         } elseif ($carbon->isYesterday()) {
             return 'Hôm qua';
         } elseif ($carbon->isSameYear($now)) {
@@ -131,7 +148,6 @@ class ContactList extends Component
             return $carbon->format('d/m/Y');
         }
     }
-
     public function pollContacts()
     {
         $this->getContacts();
