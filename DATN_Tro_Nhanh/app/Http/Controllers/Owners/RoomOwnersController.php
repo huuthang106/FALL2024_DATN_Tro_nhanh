@@ -99,13 +99,19 @@ class RoomOwnersController extends Controller
     public function trash()
     {
         $trashedRooms = $this->roomOwnersService->getTrashedRooms();
-        return view('owners.trash.trash-room', compact('trashedRooms'));
+        return view('owners.trash.trash-room', ['trashedRooms'=> $trashedRooms, 'roomOwnersService' => $this->roomOwnersService]);
     }
 
     public function restore($id)
     {
         $this->roomOwnersService->restoreRoom($id);
         return redirect()->route('owners.properties')->with('success', 'Phòng đã được khôi phục.');
+    }
+
+    public function forceDelete($id)
+    {
+        $this->roomOwnersService->forceDeleteRoom($id);
+        return redirect()->route('owners.trash')->with('success', 'Phòng đã được xóa vĩnh viễn.');
     }
     // Trả về view thêm phòng
     public function page_add_rooms()

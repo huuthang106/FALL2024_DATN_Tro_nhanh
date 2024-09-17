@@ -496,4 +496,11 @@ class RoomOwnersService
         $room->restore();
         return $room;
     }
+
+    public function forceDeleteRoom($id)
+    {
+        $room = Room::withTrashed()->findOrFail($id);
+        $room->forceDelete();
+        return $room;
+    }
 }

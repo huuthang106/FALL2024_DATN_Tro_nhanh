@@ -23,6 +23,7 @@ Route::group(['prefix' => ''], function () {
         Route::delete('/xoa-phong/{id}', [RoomOwnersController::class, 'destroy'])->name('destroy');
         Route::put('/khoi-phuc-phong/{id}', [RoomOwnersController::class, 'restore'])->name('restore');
         Route::get('/thung-rac', [RoomOwnersController::class, 'trash'])->name('trash');
+        Route::delete('/xoa-phong-vinh-vien/{id}', [RoomOwnersController::class, 'forceDelete'])->name('forceDelete-room');
         route::get('chinh-sua-phong-tro/{slug}', [RoomOwnersController::class, 'viewUpdate'])->name('room-view-update');
         route::PUT('chinh-sua-phong-tro/{id}', [RoomOwnersController::class, 'update'])->name('room-start-update');
         Route::delete('/xoa-anh/{id}', [RoomOwnersController::class, 'deleteImage'])->name('delete-room-image');

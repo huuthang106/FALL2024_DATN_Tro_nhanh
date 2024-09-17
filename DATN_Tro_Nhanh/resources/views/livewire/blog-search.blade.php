@@ -18,12 +18,6 @@
                             <option value="1_year">1 năm</option>
                         </select>
                     </div>
-                    
-
-
-
-
-
                     <div class="align-self-center">
                         <a href="{{ route('owners.blog') }}" class="btn btn-primary btn-lg" tabindex="0"><span>Thêm
                                 mới</span></a>

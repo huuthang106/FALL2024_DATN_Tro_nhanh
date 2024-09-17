@@ -121,11 +121,20 @@
                                     </td>
                                     <td class="align-middle">{{ $room->view }}</td>
                                     <td class="align-middle">
-                                        <form action="{{ route('owners.restore', $room->id) }}" method="POST">
-                                            @csrf
-                                            @method('PUT')
-                                            <button type="submit" class="btn btn-primary">Khôi phục</button>
-                                        </form>
+                                    <div class="d-flex align-items-center justify-content-between">
+    <form action="{{ route('owners.restore', $room->id) }}" method="POST" class="">
+        @csrf
+        @method('PUT')
+        <button type="submit" class="btn btn-primary">Khôi phục</button>
+    </form>
+    
+    <form action="{{ route('owners.forceDelete-room', $room->id) }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger">Xóa</button>
+    </form>
+</div>
+
                                     </td>
                                 </tr>
                             @endforeach

@@ -208,7 +208,7 @@
                                             </li>
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"
-                                                    href="{{ route('owners.trash-maintenances') }}">Thùng</a>
+                                                    href="{{ route('owners.trash-maintenances') }}">Thùng rác</a>
                                             </li>
                                         </ul>
                                     </div>

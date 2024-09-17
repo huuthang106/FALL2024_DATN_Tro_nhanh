@@ -120,7 +120,7 @@
                                         title="Chỉnh sửa" class="d-inline-block fs-18 text-muted hover-primary mr-5">
                                         <i class="fal fa-pencil-alt"></i>
                                     </a>
-                                    <form action="{{ route('owners.destroy', $room->slug) }}" method="POST"
+                                    <form action="{{ route('owners.destroy', $room->id) }}" method="POST"
                                         class="d-inline-block">
                                         @csrf
                                         @method('DELETE')
