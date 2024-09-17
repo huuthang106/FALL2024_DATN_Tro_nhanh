@@ -435,7 +435,7 @@
                                             href="{{ route('owners.favorites') }}">
                                             <i class="fal fa-heart fs-large-4" style="color: #2f1f1f;"></i>
                                             <span class="badge badge-primary badge-circle badge-absolute"
-                                                id="favorite-count">{{ $favouriteCount }}</span>
+                                                id="favorite-count-2">{{ $favouriteCount }}</span>
                                         </a>
                                     </div>
                                 @else

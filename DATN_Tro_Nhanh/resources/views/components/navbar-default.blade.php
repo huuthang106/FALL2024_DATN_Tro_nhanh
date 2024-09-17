@@ -215,7 +215,7 @@
                             href="{{ route('owners.favorites') }}">
                             <i class="fal fa-heart fs-large-4"></i>
                             <span class="badge badge-primary badge-circle badge-absolute"
-                                id="favorite-count">{{ $favouriteCount }}</span>
+                                id="favorite-count-2">{{ $favouriteCount }}</span>
                         </a>
                         <button class="navbar-toggler border-0 px-0 ml-0" type="button" data-toggle="collapse"
                             data-target="#primaryMenu05" aria-controls="primaryMenu05" aria-expanded="false"
