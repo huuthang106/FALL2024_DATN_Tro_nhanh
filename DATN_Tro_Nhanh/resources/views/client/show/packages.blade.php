@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('titleUs', 'Trang chủ trọ nhanh')
+@section('titleUs', 'Gói Tin | TRỌ NHANH')
 @section('contentUs')
 
     @livewire('price-list-client')
@@ -12,9 +12,8 @@
         content="Khám phá gói tin quảng cáo phòng trọ của chúng tôi! Đặt vị trí đăng bài nổi bật, tiếp cận hàng nghìn khách hàng tiềm năng và tăng cường khả năng tìm kiếm phòng trọ của bạn. Đừng bỏ lỡ cơ hội nâng cao sự hiện diện của bạn trên thị trường. Xem ngay để biết thêm chi tiết và nhận ưu đãi đặc biệt!">
     <meta name="keywords"
         content="quảng cáo phòng trọ, gói tin quảng cáo, vị trí đăng bài, tăng cường tìm kiếm phòng trọ, ưu đãi quảng cáo">
-    <meta name="author" content="Trọ Nhanh">
-    <meta name="generator" content="Trọ Nhanh">
-    <title>Gói - HomeID</title>
+    <meta name="author" content="TRỌ NHANH">
+    <meta name="generator" content="TRỌ NHANH">
     <!-- Google fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"

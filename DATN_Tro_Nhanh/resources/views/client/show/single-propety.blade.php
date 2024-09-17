@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('titleUs', 'Trang chủ trọ nhanh')
+@section('titleUs', $rooms->title . ' | TRỌ NHANH')
 @section('contentUs')
     <main id="content">
         <section class="bg-secondary py-6 py-lg-0">
@@ -284,19 +284,19 @@
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-3 col-sm-4 mb-6">
-                                                                                                                <div class="media">
-                                                                                                                    <div class="p-2 shadow-xxs-1 rounded-lg mr-2">
-                                                                                                                        <svg class="icon icon-bedroom fs-32 text-primary">
-                                                                                                                            <use xlink:href="#icon-bedroom"></use>
-                                                                                                                        </svg>
-                                                                                                                    </div>
-                                                                                                                    <div class="media-body">
-                                                                                                                            <h5 class="my-1 fs-14 text-uppercase letter-spacing-093 font-weight-normal">
-                                                                                                                                Phòng ngủ</h5>
-                                                                                                                            <p class="mb-0 fs-13 font-weight-bold text-heading">3</p>
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                            </div> -->
+                                                                                                                                    <div class="media">
+                                                                                                                                        <div class="p-2 shadow-xxs-1 rounded-lg mr-2">
+                                                                                                                                            <svg class="icon icon-bedroom fs-32 text-primary">
+                                                                                                                                                <use xlink:href="#icon-bedroom"></use>
+                                                                                                                                            </svg>
+                                                                                                                                        </div>
+                                                                                                                                        <div class="media-body">
+                                                                                                                                                <h5 class="my-1 fs-14 text-uppercase letter-spacing-093 font-weight-normal">
+                                                                                                                                                    Phòng ngủ</h5>
+                                                                                                                                                <p class="mb-0 fs-13 font-weight-bold text-heading">3</p>
+                                                                                                                                            </div>
+                                                                                                                                    </div>
+                                                                                                                                </div> -->
                                 <div class="col-lg-3 col-sm-4 mb-6">
                                     <div class="media">
                                         <div class="p-2 shadow-xxs-1 rounded-lg mr-2">
@@ -331,42 +331,42 @@
                             </div>
                         </section>
                         <!-- <section class="mt-2 pb-6 px-6 pt-5 bg-white rounded-lg">
-                                                                                                            <h4 class="fs-22 text-heading mb-4">Chi tiết bổ sung</h4>
-                                                                                                            <div class="row">
-                                                                                                                <dl class="col-sm-6 mb-0 d-flex">
-                                                                                                                    <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Giá</dt>
-                                                                                                                    <dd>{{ $rooms->price }}VND</dd>
-                                                                                                                </dl>
-                                                                                                                <dl class="col-sm-6 mb-0 d-flex">
-                                                                                                                    <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Loại thuộc tính</dt>
-                                                                                                                    <dd>{{ $rooms->category->name ?? '' }}</dd>
-                                                                                                                </dl>
-                                                                                                                <dl class="col-sm-6 mb-0 d-flex">
-                                                                                                                    <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Trạng thái thuộc tính</dt>
-                                                                                                                    <dd>Cần bán</dd>
-                                                                                                                </dl>
-                                                                                                                <dl class="col-sm-6 mb-0 d-flex">
-                                                                                                                    <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Phòng</dt>
-                                                                                                                    <dd>4</dd>
-                                                                                                                </dl>
-                                                                                                                <dl class="col-sm-6 mb-0 d-flex">
-                                                                                                                    <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Phòng ngủ</dt>
-                                                                                                                    <dd>3</dd>
-                                                                                                                </dl>
-                                                                                                                <dl class="col-sm-6 mb-0 d-flex">
-                                                                                                                    <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Kích cỡ</dt>
-                                                                                                                    <dd>200</dd>
-                                                                                                                </dl>
-                                                                                                                <dl class="col-sm-6 mb-0 d-flex">
-                                                                                                                    <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Phòng tắm</dt>
-                                                                                                                    <dd>2</dd>
-                                                                                                                </dl>
-                                                                                                                <dl class="col-sm-6 mb-0 d-flex">
-                                                                                                                    <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Garage</dt>
-                                                                                                                    <dd>1</dd>
-                                                                                                                </dl>
-                                                                                                            </div>
-                                                                                                        </section> -->
+                                                                                                                                <h4 class="fs-22 text-heading mb-4">Chi tiết bổ sung</h4>
+                                                                                                                                <div class="row">
+                                                                                                                                    <dl class="col-sm-6 mb-0 d-flex">
+                                                                                                                                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Giá</dt>
+                                                                                                                                        <dd>{{ $rooms->price }}VND</dd>
+                                                                                                                                    </dl>
+                                                                                                                                    <dl class="col-sm-6 mb-0 d-flex">
+                                                                                                                                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Loại thuộc tính</dt>
+                                                                                                                                        <dd>{{ $rooms->category->name ?? '' }}</dd>
+                                                                                                                                    </dl>
+                                                                                                                                    <dl class="col-sm-6 mb-0 d-flex">
+                                                                                                                                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Trạng thái thuộc tính</dt>
+                                                                                                                                        <dd>Cần bán</dd>
+                                                                                                                                    </dl>
+                                                                                                                                    <dl class="col-sm-6 mb-0 d-flex">
+                                                                                                                                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Phòng</dt>
+                                                                                                                                        <dd>4</dd>
+                                                                                                                                    </dl>
+                                                                                                                                    <dl class="col-sm-6 mb-0 d-flex">
+                                                                                                                                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Phòng ngủ</dt>
+                                                                                                                                        <dd>3</dd>
+                                                                                                                                    </dl>
+                                                                                                                                    <dl class="col-sm-6 mb-0 d-flex">
+                                                                                                                                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Kích cỡ</dt>
+                                                                                                                                        <dd>200</dd>
+                                                                                                                                    </dl>
+                                                                                                                                    <dl class="col-sm-6 mb-0 d-flex">
+                                                                                                                                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Phòng tắm</dt>
+                                                                                                                                        <dd>2</dd>
+                                                                                                                                    </dl>
+                                                                                                                                    <dl class="col-sm-6 mb-0 d-flex">
+                                                                                                                                        <dt class="w-110px fs-14 font-weight-500 text-heading pr-2">Garage</dt>
+                                                                                                                                        <dd>1</dd>
+                                                                                                                                    </dl>
+                                                                                                                                </div>
+                                                                                                                            </section> -->
                         <section class="mt-2 pb-7 px-6 pt-5 bg-white rounded-lg">
                             <h4 class="fs-22 text-heading mb-4">Tiện ích văn phòng</h4>
                             <ul class="list-unstyled mb-0 row no-gutters">
@@ -393,86 +393,86 @@
                             </ul>
                         </section>
                         <!-- <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
-                                                                                                        <h4 class="fs-22 text-heading mb-6">Sơ đồ mặt bằng</h4>
-                                                                                                        <div class="accordion accordion-03 mb-3" id="accordion-01">
-                                                                                                            <div class="card border-0 shadow-xxs-5 bg-gray-01">
-                                                                                                                <div class="card-header bg-gray-01 border-gray border-0 p-0" id="floor-plans-01">
-                                                                                                                    <div class="heading bg-gray-01 d-flex justify-content-between align-items-center px-6"
-                                                                                                                        data-toggle="collapse" data-target="#collapse-01" aria-expanded="true"
-                                                                                                                        aria-controls="collapse-01" role="button">
-                                                                                                                        <h2 class="mb-0 fs-16 text-heading font-weight-500 py-4 lh-13">Tầng một</h2>
-                                                                                                                        <ul class="list-inline mb-0 d-none d-sm-block pr-2">
-                                                                                                                            <li class="list-inline-item text-muted mr-4">Phòng tắm: <span
-                                                                                                                                    class="font-weight-500 text-heading">{{ $rooms->utilities->bathroom ?? '2' }}</span>
-                                                                                                                            </li>
-                                                                                                                            <li class="list-inline-item text-muted mr-4">Diện tích: <span
-                                                                                                                                    class="font-weight-500 text-heading">{{ $rooms->acreage ?? '200' }}</span>m
-                                                                                                                            </li>
-                                                                                                                        </ul>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                                <div id="collapse-01" class="collapse show mx-6 mb-6 bg-white"
-                                                                                                                    aria-labelledby="floor-plans-01" data-parent="#accordion-01">
-                                                                                                                    <div class="card-body card-body col-sm-6 offset-sm-3 mb-3">
-                                                                                                                        <img src="{{ asset('assets/images/single-detail-property-01.jpg') }}"
-                                                                                                                            class="card-img" alt="Sơ đồ mặt bằng">
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                        <div class="accordion accordion-03 mb-3" id="accordion-02">
-                                                                                                            <div class="card border-0 shadow-xxs-5 bg-gray-01">
-                                                                                                                <div class="card-header bg-gray-01 border-gray border-0 p-0" id="floor-plans-02">
-                                                                                                                    <div class="heading bg-gray-01 d-flex justify-content-between align-items-center px-6"
-                                                                                                                        data-toggle="collapse" data-target="#collapse-02" aria-expanded="true"
-                                                                                                                        aria-controls="collapse-02" role="button">
-                                                                                                                        <h2 class="mb-0 fs-16 text-heading font-weight-500 py-4 lh-13">Tầng hai</h2>
-                                                                                                                        <ul class="list-inline mb-0 d-none d-sm-block pr-2">
-                                                                                                                            <li class="list-inline-item text-muted mr-4">Phòng tắm: <span
-                                                                                                                                    class="font-weight-500 text-heading">{{ $rooms->utilities->bathroom ?? '2' }}</span>
-                                                                                                                            </li>
-                                                                                                                            <li class="list-inline-item text-muted mr-4">Diện tích: <span
-                                                                                                                                    class="font-weight-500 text-heading">{{ $rooms->acreage ?? '200' }}</span>
-                                                                                                                                m</li>
-                                                                                                                        </ul>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                                <div id="collapse-02" class="collapse mx-6 mb-6 bg-white"
-                                                                                                                    aria-labelledby="floor-plans-02" data-parent="#accordion-02">
-                                                                                                                    <div class="card-body card-body col-sm-6 offset-sm-3 mb-3">
-                                                                                                                        <img src="{{ asset('assets/images/single-detail-property-01.jpg') }}"
-                                                                                                                            class="card-img" alt="Sơ đồ mặt bằng">
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                        <div class="accordion accordion-03 mb-3" id="accordion-03">
-                                                                                                            <div class="card border-0 shadow-xxs-5 bg-gray-01">
-                                                                                                                <div class="card-header bg-gray-01 border-gray border-0 p-0" id="floor-plans-03">
-                                                                                                                    <div class="heading bg-gray-01 d-flex justify-content-between align-items-center px-6"
-                                                                                                                        data-toggle="collapse" data-target="#collapse-03" aria-expanded="true"
-                                                                                                                        aria-controls="collapse-03" role="button">
-                                                                                                                        <h2 class="mb-0 fs-16 text-heading font-weight-500 py-4 lh-13">Tầng ba</h2>
-                                                                                                                        <ul class="list-inline mb-0 d-none d-sm-block pr-2">
-                                                                                                                            <li class="list-inline-item text-muted mr-4">Phòng tắm: <span
-                                                                                                                                    class="font-weight-500 text-heading">{{ $rooms->utilities->bathroom ?? '2' }}</span>
-                                                                                                                            </li>
-                                                                                                                            <li class="list-inline-item text-muted mr-4">Diện tích: <span
-                                                                                                                                    class="font-weight-500 text-heading">{{ $rooms->acreage ?? '200' }}</span>
-                                                                                                                                m</li>
-                                                                                                                        </ul>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                                <div id="collapse-03" class="collapse mx-6 mb-6 bg-white"
-                                                                                                                    aria-labelledby="floor-plans-03" data-parent="#accordion-03">
-                                                                                                                    <div class="card-body card-body col-sm-6 offset-sm-3 mb-3">
-                                                                                                                        <img src="{{ asset('assets/images/single-detail-property-01.jpg') }}"
-                                                                                                                            class="card-img" alt="Sơ đồ mặt bằng">
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    </section> -->
+                                                                                                                            <h4 class="fs-22 text-heading mb-6">Sơ đồ mặt bằng</h4>
+                                                                                                                            <div class="accordion accordion-03 mb-3" id="accordion-01">
+                                                                                                                                <div class="card border-0 shadow-xxs-5 bg-gray-01">
+                                                                                                                                    <div class="card-header bg-gray-01 border-gray border-0 p-0" id="floor-plans-01">
+                                                                                                                                        <div class="heading bg-gray-01 d-flex justify-content-between align-items-center px-6"
+                                                                                                                                            data-toggle="collapse" data-target="#collapse-01" aria-expanded="true"
+                                                                                                                                            aria-controls="collapse-01" role="button">
+                                                                                                                                            <h2 class="mb-0 fs-16 text-heading font-weight-500 py-4 lh-13">Tầng một</h2>
+                                                                                                                                            <ul class="list-inline mb-0 d-none d-sm-block pr-2">
+                                                                                                                                                <li class="list-inline-item text-muted mr-4">Phòng tắm: <span
+                                                                                                                                                        class="font-weight-500 text-heading">{{ $rooms->utilities->bathroom ?? '2' }}</span>
+                                                                                                                                                </li>
+                                                                                                                                                <li class="list-inline-item text-muted mr-4">Diện tích: <span
+                                                                                                                                                        class="font-weight-500 text-heading">{{ $rooms->acreage ?? '200' }}</span>m
+                                                                                                                                                </li>
+                                                                                                                                            </ul>
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                    <div id="collapse-01" class="collapse show mx-6 mb-6 bg-white"
+                                                                                                                                        aria-labelledby="floor-plans-01" data-parent="#accordion-01">
+                                                                                                                                        <div class="card-body card-body col-sm-6 offset-sm-3 mb-3">
+                                                                                                                                            <img src="{{ asset('assets/images/single-detail-property-01.jpg') }}"
+                                                                                                                                                class="card-img" alt="Sơ đồ mặt bằng">
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                            <div class="accordion accordion-03 mb-3" id="accordion-02">
+                                                                                                                                <div class="card border-0 shadow-xxs-5 bg-gray-01">
+                                                                                                                                    <div class="card-header bg-gray-01 border-gray border-0 p-0" id="floor-plans-02">
+                                                                                                                                        <div class="heading bg-gray-01 d-flex justify-content-between align-items-center px-6"
+                                                                                                                                            data-toggle="collapse" data-target="#collapse-02" aria-expanded="true"
+                                                                                                                                            aria-controls="collapse-02" role="button">
+                                                                                                                                            <h2 class="mb-0 fs-16 text-heading font-weight-500 py-4 lh-13">Tầng hai</h2>
+                                                                                                                                            <ul class="list-inline mb-0 d-none d-sm-block pr-2">
+                                                                                                                                                <li class="list-inline-item text-muted mr-4">Phòng tắm: <span
+                                                                                                                                                        class="font-weight-500 text-heading">{{ $rooms->utilities->bathroom ?? '2' }}</span>
+                                                                                                                                                </li>
+                                                                                                                                                <li class="list-inline-item text-muted mr-4">Diện tích: <span
+                                                                                                                                                        class="font-weight-500 text-heading">{{ $rooms->acreage ?? '200' }}</span>
+                                                                                                                                                    m</li>
+                                                                                                                                            </ul>
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                    <div id="collapse-02" class="collapse mx-6 mb-6 bg-white"
+                                                                                                                                        aria-labelledby="floor-plans-02" data-parent="#accordion-02">
+                                                                                                                                        <div class="card-body card-body col-sm-6 offset-sm-3 mb-3">
+                                                                                                                                            <img src="{{ asset('assets/images/single-detail-property-01.jpg') }}"
+                                                                                                                                                class="card-img" alt="Sơ đồ mặt bằng">
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                            <div class="accordion accordion-03 mb-3" id="accordion-03">
+                                                                                                                                <div class="card border-0 shadow-xxs-5 bg-gray-01">
+                                                                                                                                    <div class="card-header bg-gray-01 border-gray border-0 p-0" id="floor-plans-03">
+                                                                                                                                        <div class="heading bg-gray-01 d-flex justify-content-between align-items-center px-6"
+                                                                                                                                            data-toggle="collapse" data-target="#collapse-03" aria-expanded="true"
+                                                                                                                                            aria-controls="collapse-03" role="button">
+                                                                                                                                            <h2 class="mb-0 fs-16 text-heading font-weight-500 py-4 lh-13">Tầng ba</h2>
+                                                                                                                                            <ul class="list-inline mb-0 d-none d-sm-block pr-2">
+                                                                                                                                                <li class="list-inline-item text-muted mr-4">Phòng tắm: <span
+                                                                                                                                                        class="font-weight-500 text-heading">{{ $rooms->utilities->bathroom ?? '2' }}</span>
+                                                                                                                                                </li>
+                                                                                                                                                <li class="list-inline-item text-muted mr-4">Diện tích: <span
+                                                                                                                                                        class="font-weight-500 text-heading">{{ $rooms->acreage ?? '200' }}</span>
+                                                                                                                                                    m</li>
+                                                                                                                                            </ul>
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                    <div id="collapse-03" class="collapse mx-6 mb-6 bg-white"
+                                                                                                                                        aria-labelledby="floor-plans-03" data-parent="#accordion-03">
+                                                                                                                                        <div class="card-body card-body col-sm-6 offset-sm-3 mb-3">
+                                                                                                                                            <img src="{{ asset('assets/images/single-detail-property-01.jpg') }}"
+                                                                                                                                                class="card-img" alt="Sơ đồ mặt bằng">
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </section> -->
                         <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
                             <h4 class="fs-22 text-heading lh-15 mb-5">Đánh giá & Nhận xét</h4>
                             <div class="card border-0">
@@ -632,296 +632,296 @@
                             </div>
                         </section>
                         <!-- <section class="mt-2 pb-5 px-6 pt-6 bg-white rounded-lg">
-                                                                                                        <h4 class="fs-22 text-heading mb-5">Gần đó là gì?</h4>
-                                                                                                        <div class="mt-4">
-                                                                                                            <h6 class="mb-0 mt-5"><a href="#"
-                                                                                                                    class="fs-16 lh-2 text-heading border-bottom border-primary pb-1">Nhà hàng</a>
-                                                                                                            </h6>
-                                                                                                            <div class="border-top pt-2">
-                                                                                                                <div class="py-3 border-bottom d-sm-flex justify-content-sm-between">
-                                                                                                                    <div class="media align-items-sm-center d-sm-flex d-block">
-                                                                                                                        <a href="#" class="hover-shine">
-                                                                                                                            <img src="{{ asset('assets/images/single-detail-property-02.jpg') }}"
-                                                                                                                                class="mr-sm-4 rounded-lg w-sm-90"
-                                                                                                                                alt="Bacchanal Buffet-Temporarily Closed">
-                                                                                                                        </a>
-                                                                                                                        <div class="mt-sm-0 mt-2">
-                                                                                                                            <h4 class="my-0"><a href="#"
-                                                                                                                                    class="lh-186 fs-15 text-heading hover-primary">
-                                                                                                                                    Bacchanal Buffet-Tạm thời đóng cửa</a></h4>
-                                                                                                                            <p class="lh-186 fs-15 font-weight-500 mb-0">3570 S Las Vegas BlvdLas
-                                                                                                                                Vegas, NV 89109</p>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                    <div class="text-lg-right mt-lg-0 mt-2">
-                                                                                                                        <p class="mb-2 mb-0 lh-13">120 Đánh giá</p>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                                <div class="py-3 border-bottom d-sm-flex justify-content-sm-between">
-                                                                                                                    <div class="media align-items-sm-center d-sm-flex d-block">
-                                                                                                                        <a href="#" class="hover-shine">
-                                                                                                                            <img src="{{ asset('assets/images/single-detail-property-03.jpg') }}"
-                                                                                                                                class="mr-sm-4 rounded-lg w-sm-90"
-                                                                                                                                alt="Bacchanal Buffet-Temporarily Closed">
-                                                                                                                        </a>
-                                                                                                                        <div class="mt-sm-0 mt-2">
-                                                                                                                            <h4 class="my-0"><a href="#"
-                                                                                                                                    class="lh-186 fs-15 text-heading hover-primary">
-                                                                                                                                    Bacchanal Buffet-Tạm thời đóng cửa</a></h4>
-                                                                                                                            <p class="lh-186 fs-15 font-weight-500 mb-0">3084 S Highland DrSte C</p>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                    <div class="text-lg-right mt-lg-0 mt-2">
-                                                                                                                        <p class="mb-2 mb-0 lh-13">120 Đánh giá</p>
-                                                                                                                        <div class="text-lg-right mt-lg-0 mt-2">
-                                                                                                                            <i
-                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
-                                                                                                                            <i
-                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
-                                                                                                                            <i
-                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
-                                                                                                                            <i
-                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
-                                                                                                                            <i
-                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-1"></i>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                                <div class="py-3 border-bottom d-sm-flex justify-content-sm-between">
-                                                                                                                    <div class="media align-items-sm-center d-sm-flex d-block">
-                                                                                                                        <a href="#" class="hover-shine">
-                                                                                                                            <img src="{{ asset('assets/images/single-detail-property-04.jpg') }}"
-                                                                                                                                class="mr-sm-4 rounded-lg w-sm-90"
-                                                                                                                                alt="Bacchanal Buffet-Temporarily Closed">
-                                                                                                                        </a>
-                                                                                                                        <div class="mt-sm-0 mt-2">
-                                                                                                                            <h4 class="my-0"><a href="#"
-                                                                                                                                    class="lh-186 fs-15 text-heading hover-primary">
-                                                                                                                                    Bacchanal Buffet-Tạm thời đóng cửa</a></h4>
-                                                                                                                            <p class="lh-186 fs-15 font-weight-500 mb-0">3570 S Las Vegas BlvdLas
-                                                                                                                                Vegas, NV 89109</p>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                    <div class="text-lg-right mt-lg-0 mt-2">
-                                                                                                                        <p class="mb-2 mb-0 lh-13">120 Đánh giá</p>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                            <h6 class="mb-0 mt-5"><a href="#"
-                                                                                                                    class="fs-16 lh-2 text-heading border-bottom border-primary pb-1">Giáo dục</a>
-                                                                                                            </h6>
-                                                                                                            <div class="border-top pt-2">
-                                                                                                                <div class="py-3 border-bottom d-sm-flex justify-content-sm-between">
-                                                                                                                    <div class="media align-items-sm-center d-sm-flex d-block">
-                                                                                                                        <a href="#" class="hover-shine">
-                                                                                                                            <img src="{{ asset('assets/images/single-detail-property-07.jpg') }}"
-                                                                                                                                class="mr-sm-4 rounded-lg w-sm-90"
-                                                                                                                                alt="Bacchanal Buffet-Temporarily Closed">
-                                                                                                                        </a>
-                                                                                                                        <div class="mt-sm-0 mt-2">
-                                                                                                                            <h4 class="my-0"><a href="#"
-                                                                                                                                    class="lh-186 fs-15 text-heading hover-primary">
-                                                                                                                                    Huấn luyện sử dụng vũ khí an toàn</a></h4>
-                                                                                                                            <p class="lh-186 fs-15 font-weight-500 mb-0">3570 S Las Vegas BlvdLas
-                                                                                                                                Vegas, NV 89109</p>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                    <div class="text-lg-right mt-lg-0 mt-2">
-                                                                                                                        <p class="mb-2 mb-0 lh-13">120 Đánh giá</p>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                                <div class="py-3 border-bottom d-sm-flex justify-content-sm-between">
-                                                                                                                    <div class="media align-items-sm-center d-sm-flex d-block">
-                                                                                                                        <a href="#" class="hover-shine">
-                                                                                                                            <img src="{{ asset('assets/images/single-detail-property-08.jpg') }}"
-                                                                                                                                class="mr-sm-4 rounded-lg w-sm-90"
-                                                                                                                                alt="Bacchanal Buffet-Temporarily Closed">
-                                                                                                                        </a>
-                                                                                                                        <div class="mt-sm-0 mt-2">
-                                                                                                                            <h4 class="my-0"><a href="#"
-                                                                                                                                    class="lh-186 fs-15 text-heading hover-primary">Thầy tu Shai
-                                                                                                                                    Specht-Sandler</a></h4>
-                                                                                                                            <p class="lh-186 fs-15 font-weight-500 mb-0">3084 S Highland DrSte C</p>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                    <div class="text-lg-right mt-lg-0 mt-2">
-                                                                                                                        <p class="mb-2 mb-0 lh-13">120 Đánh giá</p>
-                                                                                                                        <div class="text-lg-right mt-lg-0 mt-2">
-                                                                                                                            <i
-                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
-                                                                                                                            <i
-                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
-                                                                                                                            <i
-                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
-                                                                                                                            <i
-                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
-                                                                                                                            <i
-                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-1"></i>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                                <div class="py-3 border-bottom d-sm-flex justify-content-sm-between">
-                                                                                                                    <div class="media align-items-sm-center d-sm-flex d-block">
-                                                                                                                        <a href="#" class="hover-shine">
-                                                                                                                            <img src="{{ asset('assets/images/single-detail-property-09.jpg') }}"
-                                                                                                                                class="mr-sm-4 rounded-lg w-sm-90"
-                                                                                                                                alt="Bacchanal Buffet-Temporarily Closed">
-                                                                                                                        </a>
-                                                                                                                        <div class="mt-sm-0 mt-2">
-                                                                                                                            <h4 class="my-0"><a href="#"
-                                                                                                                                    class="lh-186 fs-15 text-heading hover-primary">
-                                                                                                                                    Huấn luyện sử dụng vũ khí an toàn</a></h4>
-                                                                                                                            <p class="lh-186 fs-15 font-weight-500 mb-0">3570 S Las Vegas BlvdLas
-                                                                                                                                Vegas, NV 89109</p>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                    <div class="text-lg-right mt-lg-0 mt-2">
-                                                                                                                        <p class="mb-2 mb-0 lh-13">120 Đánh giá</p>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                            <h6 class="mb-0 mt-5"><a href="#"
-                                                                                                                    class="fs-16 lh-2 text-heading border-bottom border-primary pb-1">Sức khỏe & Y
-                                                                                                                    tế</a></h6>
-                                                                                                            <div class="border-top pt-2">
-                                                                                                                <div class="py-3 border-bottom d-sm-flex justify-content-sm-between">
-                                                                                                                    <div class="media align-items-sm-center d-sm-flex d-block">
-                                                                                                                        <a href="#" class="hover-shine">
-                                                                                                                            <img src="{{ asset('assets/images/single-detail-property-10.jpg') }}"
-                                                                                                                                class="mr-sm-4 rounded-lg w-sm-90"
-                                                                                                                                alt="Bacchanal Buffet-Temporarily Closed">
-                                                                                                                        </a>
-                                                                                                                        <div class="mt-sm-0 mt-2">
-                                                                                                                            <h4 class="my-0"><a href="#"
-                                                                                                                                    class="lh-186 fs-15 text-heading hover-primary">Coppola David F DC
-                                                                                                                                    & Assoc</a></h4>
-                                                                                                                            <p class="lh-186 fs-15 font-weight-500 mb-0">3570 S Las Vegas BlvdLas
-                                                                                                                                Vegas, NV 89109</p>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                    <div class="text-lg-right mt-lg-0 mt-2">
-                                                                                                                        <p class="mb-2 mb-0 lh-13">120 Đánh giá</p>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                        <i
-                                                                                                                            class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                                <div class="py-3 border-bottom d-sm-flex justify-content-sm-between">
-                                                                                                                    <div class="media align-items-sm-center d-sm-flex d-block">
-                                                                                                                        <a href="#" class="hover-shine">
-                                                                                                                            <img src="{{ asset('assets/images/single-detail-property-11.jpg') }}"
-                                                                                                                                class="mr-sm-4 rounded-lg w-sm-90"
-                                                                                                                                alt="Bacchanal Buffet-Temporarily Closed">
-                                                                                                                        </a>
-                                                                                                                        <div class="mt-sm-0 mt-2">
-                                                                                                                            <h4 class="my-0"><a href="#"
-                                                                                                                                    class="lh-186 fs-15 text-heading hover-primary">
-                                                                                                                                    Trung tâm y tế Elite</a></h4>
-                                                                                                                            <p class="lh-186 fs-15 font-weight-500 mb-0">3084 S Highland DrSte C</p>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                    <div class="text-lg-right mt-lg-0 mt-2">
-                                                                                                                        <p class="mb-2 mb-0 lh-13">120 Đánh giá</p>
-                                                                                                                        <div class="text-lg-right mt-lg-0 mt-2">
-                                                                                                                            <i
-                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
-                                                                                                                            <i
-                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
-                                                                                                                            <i
-                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
-                                                                                                                            <i
-                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
-                                                                                                                            <i
-                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-1"></i>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    </section> -->
+                                                                                                                            <h4 class="fs-22 text-heading mb-5">Gần đó là gì?</h4>
+                                                                                                                            <div class="mt-4">
+                                                                                                                                <h6 class="mb-0 mt-5"><a href="#"
+                                                                                                                                        class="fs-16 lh-2 text-heading border-bottom border-primary pb-1">Nhà hàng</a>
+                                                                                                                                </h6>
+                                                                                                                                <div class="border-top pt-2">
+                                                                                                                                    <div class="py-3 border-bottom d-sm-flex justify-content-sm-between">
+                                                                                                                                        <div class="media align-items-sm-center d-sm-flex d-block">
+                                                                                                                                            <a href="#" class="hover-shine">
+                                                                                                                                                <img src="{{ asset('assets/images/single-detail-property-02.jpg') }}"
+                                                                                                                                                    class="mr-sm-4 rounded-lg w-sm-90"
+                                                                                                                                                    alt="Bacchanal Buffet-Temporarily Closed">
+                                                                                                                                            </a>
+                                                                                                                                            <div class="mt-sm-0 mt-2">
+                                                                                                                                                <h4 class="my-0"><a href="#"
+                                                                                                                                                        class="lh-186 fs-15 text-heading hover-primary">
+                                                                                                                                                        Bacchanal Buffet-Tạm thời đóng cửa</a></h4>
+                                                                                                                                                <p class="lh-186 fs-15 font-weight-500 mb-0">3570 S Las Vegas BlvdLas
+                                                                                                                                                    Vegas, NV 89109</p>
+                                                                                                                                            </div>
+                                                                                                                                        </div>
+                                                                                                                                        <div class="text-lg-right mt-lg-0 mt-2">
+                                                                                                                                            <p class="mb-2 mb-0 lh-13">120 Đánh giá</p>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="py-3 border-bottom d-sm-flex justify-content-sm-between">
+                                                                                                                                        <div class="media align-items-sm-center d-sm-flex d-block">
+                                                                                                                                            <a href="#" class="hover-shine">
+                                                                                                                                                <img src="{{ asset('assets/images/single-detail-property-03.jpg') }}"
+                                                                                                                                                    class="mr-sm-4 rounded-lg w-sm-90"
+                                                                                                                                                    alt="Bacchanal Buffet-Temporarily Closed">
+                                                                                                                                            </a>
+                                                                                                                                            <div class="mt-sm-0 mt-2">
+                                                                                                                                                <h4 class="my-0"><a href="#"
+                                                                                                                                                        class="lh-186 fs-15 text-heading hover-primary">
+                                                                                                                                                        Bacchanal Buffet-Tạm thời đóng cửa</a></h4>
+                                                                                                                                                <p class="lh-186 fs-15 font-weight-500 mb-0">3084 S Highland DrSte C</p>
+                                                                                                                                            </div>
+                                                                                                                                        </div>
+                                                                                                                                        <div class="text-lg-right mt-lg-0 mt-2">
+                                                                                                                                            <p class="mb-2 mb-0 lh-13">120 Đánh giá</p>
+                                                                                                                                            <div class="text-lg-right mt-lg-0 mt-2">
+                                                                                                                                                <i
+                                                                                                                                                    class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
+                                                                                                                                                <i
+                                                                                                                                                    class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
+                                                                                                                                                <i
+                                                                                                                                                    class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
+                                                                                                                                                <i
+                                                                                                                                                    class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
+                                                                                                                                                <i
+                                                                                                                                                    class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-1"></i>
+                                                                                                                                            </div>
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="py-3 border-bottom d-sm-flex justify-content-sm-between">
+                                                                                                                                        <div class="media align-items-sm-center d-sm-flex d-block">
+                                                                                                                                            <a href="#" class="hover-shine">
+                                                                                                                                                <img src="{{ asset('assets/images/single-detail-property-04.jpg') }}"
+                                                                                                                                                    class="mr-sm-4 rounded-lg w-sm-90"
+                                                                                                                                                    alt="Bacchanal Buffet-Temporarily Closed">
+                                                                                                                                            </a>
+                                                                                                                                            <div class="mt-sm-0 mt-2">
+                                                                                                                                                <h4 class="my-0"><a href="#"
+                                                                                                                                                        class="lh-186 fs-15 text-heading hover-primary">
+                                                                                                                                                        Bacchanal Buffet-Tạm thời đóng cửa</a></h4>
+                                                                                                                                                <p class="lh-186 fs-15 font-weight-500 mb-0">3570 S Las Vegas BlvdLas
+                                                                                                                                                    Vegas, NV 89109</p>
+                                                                                                                                            </div>
+                                                                                                                                        </div>
+                                                                                                                                        <div class="text-lg-right mt-lg-0 mt-2">
+                                                                                                                                            <p class="mb-2 mb-0 lh-13">120 Đánh giá</p>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                                <h6 class="mb-0 mt-5"><a href="#"
+                                                                                                                                        class="fs-16 lh-2 text-heading border-bottom border-primary pb-1">Giáo dục</a>
+                                                                                                                                </h6>
+                                                                                                                                <div class="border-top pt-2">
+                                                                                                                                    <div class="py-3 border-bottom d-sm-flex justify-content-sm-between">
+                                                                                                                                        <div class="media align-items-sm-center d-sm-flex d-block">
+                                                                                                                                            <a href="#" class="hover-shine">
+                                                                                                                                                <img src="{{ asset('assets/images/single-detail-property-07.jpg') }}"
+                                                                                                                                                    class="mr-sm-4 rounded-lg w-sm-90"
+                                                                                                                                                    alt="Bacchanal Buffet-Temporarily Closed">
+                                                                                                                                            </a>
+                                                                                                                                            <div class="mt-sm-0 mt-2">
+                                                                                                                                                <h4 class="my-0"><a href="#"
+                                                                                                                                                        class="lh-186 fs-15 text-heading hover-primary">
+                                                                                                                                                        Huấn luyện sử dụng vũ khí an toàn</a></h4>
+                                                                                                                                                <p class="lh-186 fs-15 font-weight-500 mb-0">3570 S Las Vegas BlvdLas
+                                                                                                                                                    Vegas, NV 89109</p>
+                                                                                                                                            </div>
+                                                                                                                                        </div>
+                                                                                                                                        <div class="text-lg-right mt-lg-0 mt-2">
+                                                                                                                                            <p class="mb-2 mb-0 lh-13">120 Đánh giá</p>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="py-3 border-bottom d-sm-flex justify-content-sm-between">
+                                                                                                                                        <div class="media align-items-sm-center d-sm-flex d-block">
+                                                                                                                                            <a href="#" class="hover-shine">
+                                                                                                                                                <img src="{{ asset('assets/images/single-detail-property-08.jpg') }}"
+                                                                                                                                                    class="mr-sm-4 rounded-lg w-sm-90"
+                                                                                                                                                    alt="Bacchanal Buffet-Temporarily Closed">
+                                                                                                                                            </a>
+                                                                                                                                            <div class="mt-sm-0 mt-2">
+                                                                                                                                                <h4 class="my-0"><a href="#"
+                                                                                                                                                        class="lh-186 fs-15 text-heading hover-primary">Thầy tu Shai
+                                                                                                                                                        Specht-Sandler</a></h4>
+                                                                                                                                                <p class="lh-186 fs-15 font-weight-500 mb-0">3084 S Highland DrSte C</p>
+                                                                                                                                            </div>
+                                                                                                                                        </div>
+                                                                                                                                        <div class="text-lg-right mt-lg-0 mt-2">
+                                                                                                                                            <p class="mb-2 mb-0 lh-13">120 Đánh giá</p>
+                                                                                                                                            <div class="text-lg-right mt-lg-0 mt-2">
+                                                                                                                                                <i
+                                                                                                                                                    class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
+                                                                                                                                                <i
+                                                                                                                                                    class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
+                                                                                                                                                <i
+                                                                                                                                                    class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
+                                                                                                                                                <i
+                                                                                                                                                    class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
+                                                                                                                                                <i
+                                                                                                                                                    class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-1"></i>
+                                                                                                                                            </div>
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="py-3 border-bottom d-sm-flex justify-content-sm-between">
+                                                                                                                                        <div class="media align-items-sm-center d-sm-flex d-block">
+                                                                                                                                            <a href="#" class="hover-shine">
+                                                                                                                                                <img src="{{ asset('assets/images/single-detail-property-09.jpg') }}"
+                                                                                                                                                    class="mr-sm-4 rounded-lg w-sm-90"
+                                                                                                                                                    alt="Bacchanal Buffet-Temporarily Closed">
+                                                                                                                                            </a>
+                                                                                                                                            <div class="mt-sm-0 mt-2">
+                                                                                                                                                <h4 class="my-0"><a href="#"
+                                                                                                                                                        class="lh-186 fs-15 text-heading hover-primary">
+                                                                                                                                                        Huấn luyện sử dụng vũ khí an toàn</a></h4>
+                                                                                                                                                <p class="lh-186 fs-15 font-weight-500 mb-0">3570 S Las Vegas BlvdLas
+                                                                                                                                                    Vegas, NV 89109</p>
+                                                                                                                                            </div>
+                                                                                                                                        </div>
+                                                                                                                                        <div class="text-lg-right mt-lg-0 mt-2">
+                                                                                                                                            <p class="mb-2 mb-0 lh-13">120 Đánh giá</p>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                                <h6 class="mb-0 mt-5"><a href="#"
+                                                                                                                                        class="fs-16 lh-2 text-heading border-bottom border-primary pb-1">Sức khỏe & Y
+                                                                                                                                        tế</a></h6>
+                                                                                                                                <div class="border-top pt-2">
+                                                                                                                                    <div class="py-3 border-bottom d-sm-flex justify-content-sm-between">
+                                                                                                                                        <div class="media align-items-sm-center d-sm-flex d-block">
+                                                                                                                                            <a href="#" class="hover-shine">
+                                                                                                                                                <img src="{{ asset('assets/images/single-detail-property-10.jpg') }}"
+                                                                                                                                                    class="mr-sm-4 rounded-lg w-sm-90"
+                                                                                                                                                    alt="Bacchanal Buffet-Temporarily Closed">
+                                                                                                                                            </a>
+                                                                                                                                            <div class="mt-sm-0 mt-2">
+                                                                                                                                                <h4 class="my-0"><a href="#"
+                                                                                                                                                        class="lh-186 fs-15 text-heading hover-primary">Coppola David F DC
+                                                                                                                                                        & Assoc</a></h4>
+                                                                                                                                                <p class="lh-186 fs-15 font-weight-500 mb-0">3570 S Las Vegas BlvdLas
+                                                                                                                                                    Vegas, NV 89109</p>
+                                                                                                                                            </div>
+                                                                                                                                        </div>
+                                                                                                                                        <div class="text-lg-right mt-lg-0 mt-2">
+                                                                                                                                            <p class="mb-2 mb-0 lh-13">120 Đánh giá</p>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                            <i
+                                                                                                                                                class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm"></i>
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="py-3 border-bottom d-sm-flex justify-content-sm-between">
+                                                                                                                                        <div class="media align-items-sm-center d-sm-flex d-block">
+                                                                                                                                            <a href="#" class="hover-shine">
+                                                                                                                                                <img src="{{ asset('assets/images/single-detail-property-11.jpg') }}"
+                                                                                                                                                    class="mr-sm-4 rounded-lg w-sm-90"
+                                                                                                                                                    alt="Bacchanal Buffet-Temporarily Closed">
+                                                                                                                                            </a>
+                                                                                                                                            <div class="mt-sm-0 mt-2">
+                                                                                                                                                <h4 class="my-0"><a href="#"
+                                                                                                                                                        class="lh-186 fs-15 text-heading hover-primary">
+                                                                                                                                                        Trung tâm y tế Elite</a></h4>
+                                                                                                                                                <p class="lh-186 fs-15 font-weight-500 mb-0">3084 S Highland DrSte C</p>
+                                                                                                                                            </div>
+                                                                                                                                        </div>
+                                                                                                                                        <div class="text-lg-right mt-lg-0 mt-2">
+                                                                                                                                            <p class="mb-2 mb-0 lh-13">120 Đánh giá</p>
+                                                                                                                                            <div class="text-lg-right mt-lg-0 mt-2">
+                                                                                                                                                <i
+                                                                                                                                                    class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
+                                                                                                                                                <i
+                                                                                                                                                    class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
+                                                                                                                                                <i
+                                                                                                                                                    class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
+                                                                                                                                                <i
+                                                                                                                                                    class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-7"></i>
+                                                                                                                                                <i
+                                                                                                                                                    class="fas fa-star w-18px h-18 d-inline-flex justify-content-center align-items-center rate-bg-blue text-white fs-12 rounded-sm opacity-1"></i>
+                                                                                                                                            </div>
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </section> -->
                         <!-- <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
-                                                                                                        <h4 class="fs-22 text-heading mb-6">Tài Liệu Đính Kèm</h4>
-                                                                                                        <div class="d-sm-flex">
-                                                                                                            <div class="w-sm-170 mb-sm-0 mb-6 mr-sm-6">
-                                                                                                                <div class="card text-center pt-4">
-                                                                                                                    <img src="{{ asset('assets/images/single-detail-property-05.png') }}"
-                                                                                                                        class="card-img card-img w-78px mx-auto"
-                                                                                                                        alt="Tài liệu Word về Villa Called Archangel">
-                                                                                                                    <div class="card-body p-0 mt-4">
-                                                                                                                        <p class="fs-13 lh-2 mb-0 py-0 px-2">Tài liệu Word về Villa Called Archangel
-                                                                                                                        </p>
-                                                                                                                        <a href="#" class="btn btn-block bg-gray-01 border-0 fs-14 text-heading">Tải
-                                                                                                                            về<i class="far fa-arrow-alt-circle-down ml-1 text-primary"></i></a>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                            <div class="w-sm-170 mb-sm-0 mb-6 mr-sm-6">
-                                                                                                                <div class="card text-center pt-4">
-                                                                                                                    <img src="{{ asset('assets/images/single-detail-property-06.png') }}"
-                                                                                                                        class="card-img card-img w-78px mx-auto"
-                                                                                                                        alt="Tài liệu PDF về Villa Called Archangel">
-                                                                                                                    <div class="card-body p-0 mt-4">
-                                                                                                                        <p class="fs-13 lh-2 mb-0 py-0 px-2">Tài liệu PDF về Villa Called Archangel</p>
-                                                                                                                        <a href="#" class="btn btn-block bg-gray-01 border-0 fs-14 text-heading">Tải
-                                                                                                                            về<i class="far fa-arrow-alt-circle-down ml-1 text-primary"></i></a>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    </section> -->
+                                                                                                                            <h4 class="fs-22 text-heading mb-6">Tài Liệu Đính Kèm</h4>
+                                                                                                                            <div class="d-sm-flex">
+                                                                                                                                <div class="w-sm-170 mb-sm-0 mb-6 mr-sm-6">
+                                                                                                                                    <div class="card text-center pt-4">
+                                                                                                                                        <img src="{{ asset('assets/images/single-detail-property-05.png') }}"
+                                                                                                                                            class="card-img card-img w-78px mx-auto"
+                                                                                                                                            alt="Tài liệu Word về Villa Called Archangel">
+                                                                                                                                        <div class="card-body p-0 mt-4">
+                                                                                                                                            <p class="fs-13 lh-2 mb-0 py-0 px-2">Tài liệu Word về Villa Called Archangel
+                                                                                                                                            </p>
+                                                                                                                                            <a href="#" class="btn btn-block bg-gray-01 border-0 fs-14 text-heading">Tải
+                                                                                                                                                về<i class="far fa-arrow-alt-circle-down ml-1 text-primary"></i></a>
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                                <div class="w-sm-170 mb-sm-0 mb-6 mr-sm-6">
+                                                                                                                                    <div class="card text-center pt-4">
+                                                                                                                                        <img src="{{ asset('assets/images/single-detail-property-06.png') }}"
+                                                                                                                                            class="card-img card-img w-78px mx-auto"
+                                                                                                                                            alt="Tài liệu PDF về Villa Called Archangel">
+                                                                                                                                        <div class="card-body p-0 mt-4">
+                                                                                                                                            <p class="fs-13 lh-2 mb-0 py-0 px-2">Tài liệu PDF về Villa Called Archangel</p>
+                                                                                                                                            <a href="#" class="btn btn-block bg-gray-01 border-0 fs-14 text-heading">Tải
+                                                                                                                                                về<i class="far fa-arrow-alt-circle-down ml-1 text-primary"></i></a>
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </section> -->
                         <!-- <section class="mt-2 pb-6 px-6 pt-6 bg-white rounded-lg">
-                                                                                                        <h4 class="fs-22 text-heading mb-6">Virtual Tour</h4>
-                                                                                                        <iframe height="430"
-                                                                                                            src="https://my.matterport.com/show/?m=wWcGxjuUuSb&amp;utm_source=hit-content-embed"
-                                                                                                            allowfullscreen="" class="w-100"></iframe>
-                                                                                                    </section> -->
+                                                                                                                            <h4 class="fs-22 text-heading mb-6">Virtual Tour</h4>
+                                                                                                                            <iframe height="430"
+                                                                                                                                src="https://my.matterport.com/show/?m=wWcGxjuUuSb&amp;utm_source=hit-content-embed"
+                                                                                                                                allowfullscreen="" class="w-100"></iframe>
+                                                                                                                        </section> -->
                         <section class="mt-2 pb-6 px-6 pt-6 bg-white rounded-lg">
                             <h4 class="fs-22 text-heading mb-6">Vị trí</h4>
                             <p class="mb-0 p-3 bg-white shadow rounded-lg">
@@ -933,190 +933,190 @@
                                 </div>
                         </section>
                         <!-- <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
-                                                                                                        <h4 class="fs-22 text-heading mb-5">Máy Tính Vay Mua Nhà</h4>
-                                                                                                        <form>
-                                                                                                            <div class="row">
-                                                                                                                <div class="col-md-6 mb-4">
-                                                                                                                    <label>Số Tiền Tổng</label>
-                                                                                                                    <div class="position-relative">
-                                                                                                                        <input type="number" class="form-control border-0 pr-3 h-52 pl-7" value="345"
-                                                                                                                            name="total-amount">
-                                                                                                                        <span
-                                                                                                                            class="position-absolute pl-3 pos-fixed-left-center fs-13 font-weight-600">$</span>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                                <div class="col-md-6 mb-4">
-                                                                                                                    <label>Tiền Đặt Cọc</label>
-                                                                                                                    <div class="position-relative">
-                                                                                                                        <input type="number" class="form-control border-0 pr-3 h-52 pl-7" value="0"
-                                                                                                                            name="down-payment">
-                                                                                                                        <span
-                                                                                                                            class="position-absolute pl-3 pos-fixed-left-center fs-13 font-weight-600">$</span>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                            <div class="row">
-                                                                                                                <div class="col-md-6 mb-4">
-                                                                                                                    <label>Lãi Suất</label>
-                                                                                                                    <div class="position-relative">
-                                                                                                                        <input type="number" class="form-control border-0 pr-3 h-52 pl-7" value="2.500"
-                                                                                                                            step="0.25" name="interest-rate">
-                                                                                                                        <span
-                                                                                                                            class="position-absolute pl-3 pos-fixed-left-center fs-13 font-weight-600">%</span>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                                <div class="col-md-6 mb-4">
-                                                                                                                    <label>Số Năm</label>
-                                                                                                                    <input type="number" class="form-control border-0 px-3 h-52" value="25"
-                                                                                                                        name="years">
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                            <div class="form-group mb-6">
-                                                                                                                <label>Thời Gian Thanh Toán</label>
-                                                                                                                <select class="form-control selectpicker" data-style="btn-lg h-52 px-3"
-                                                                                                                    name="payment-period">
-                                                                                                                    <option selected>Hàng Tháng</option>
-                                                                                                                    <option>Hàng Năm</option>
-                                                                                                                </select>
-                                                                                                            </div>
-                                                                                                            <div class="row">
-                                                                                                                <div class="col-lg-6">
-                                                                                                                    <button class="btn btn-primary fs-14 h-52 px-8" type="submit">Tính Toán</button>
-                                                                                                                </div>
-                                                                                                                <div class="col-lg-6">
-                                                                                                                    <div
-                                                                                                                        class="shadow-xxs-2 pt-1 pb-2 px-6 border-bottom border-primary border-5x rounded-lg">
-                                                                                                                        <dl class="d-flex mb-0 justify-content-between py-2">
-                                                                                                                            <dt class="font-weight-normal">Thanh Toán Hàng Tháng</dt>
-                                                                                                                            <dd class="font-weight-500 text-heading mb-0">$33</dd>
-                                                                                                                        </dl>
-                                                                                                                        <dl class="d-flex mb-0 justify-content-between border-top py-2">
-                                                                                                                            <dt class="font-weight-normal">Tổng Chi Phí Vay</dt>
-                                                                                                                            <dd class="font-weight-500 text-heading mb-0">$464</dd>
-                                                                                                                        </dl>
-                                                                                                                        <dl class="d-flex mb-0 justify-content-between border-top py-2">
-                                                                                                                            <dt class="font-weight-normal">Tổng Lãi Suất Đã Thanh Toán</dt>
-                                                                                                                            <dd class="font-weight-500 text-heading mb-0">$119</dd>
-                                                                                                                        </dl>
-                                                                                                                        <dl class="d-flex mb-0 justify-content-between border-top py-2">
-                                                                                                                            <dt class="font-weight-normal">Thanh Toán Vay Mua Nhà</dt>
-                                                                                                                            <dd class="font-weight-500 text-heading mb-0">$1.55</dd>
-                                                                                                                        </dl>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        </form>
-                                                                                                    </section> -->
+                                                                                                                            <h4 class="fs-22 text-heading mb-5">Máy Tính Vay Mua Nhà</h4>
+                                                                                                                            <form>
+                                                                                                                                <div class="row">
+                                                                                                                                    <div class="col-md-6 mb-4">
+                                                                                                                                        <label>Số Tiền Tổng</label>
+                                                                                                                                        <div class="position-relative">
+                                                                                                                                            <input type="number" class="form-control border-0 pr-3 h-52 pl-7" value="345"
+                                                                                                                                                name="total-amount">
+                                                                                                                                            <span
+                                                                                                                                                class="position-absolute pl-3 pos-fixed-left-center fs-13 font-weight-600">$</span>
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="col-md-6 mb-4">
+                                                                                                                                        <label>Tiền Đặt Cọc</label>
+                                                                                                                                        <div class="position-relative">
+                                                                                                                                            <input type="number" class="form-control border-0 pr-3 h-52 pl-7" value="0"
+                                                                                                                                                name="down-payment">
+                                                                                                                                            <span
+                                                                                                                                                class="position-absolute pl-3 pos-fixed-left-center fs-13 font-weight-600">$</span>
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                                <div class="row">
+                                                                                                                                    <div class="col-md-6 mb-4">
+                                                                                                                                        <label>Lãi Suất</label>
+                                                                                                                                        <div class="position-relative">
+                                                                                                                                            <input type="number" class="form-control border-0 pr-3 h-52 pl-7" value="2.500"
+                                                                                                                                                step="0.25" name="interest-rate">
+                                                                                                                                            <span
+                                                                                                                                                class="position-absolute pl-3 pos-fixed-left-center fs-13 font-weight-600">%</span>
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="col-md-6 mb-4">
+                                                                                                                                        <label>Số Năm</label>
+                                                                                                                                        <input type="number" class="form-control border-0 px-3 h-52" value="25"
+                                                                                                                                            name="years">
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                                <div class="form-group mb-6">
+                                                                                                                                    <label>Thời Gian Thanh Toán</label>
+                                                                                                                                    <select class="form-control selectpicker" data-style="btn-lg h-52 px-3"
+                                                                                                                                        name="payment-period">
+                                                                                                                                        <option selected>Hàng Tháng</option>
+                                                                                                                                        <option>Hàng Năm</option>
+                                                                                                                                    </select>
+                                                                                                                                </div>
+                                                                                                                                <div class="row">
+                                                                                                                                    <div class="col-lg-6">
+                                                                                                                                        <button class="btn btn-primary fs-14 h-52 px-8" type="submit">Tính Toán</button>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="col-lg-6">
+                                                                                                                                        <div
+                                                                                                                                            class="shadow-xxs-2 pt-1 pb-2 px-6 border-bottom border-primary border-5x rounded-lg">
+                                                                                                                                            <dl class="d-flex mb-0 justify-content-between py-2">
+                                                                                                                                                <dt class="font-weight-normal">Thanh Toán Hàng Tháng</dt>
+                                                                                                                                                <dd class="font-weight-500 text-heading mb-0">$33</dd>
+                                                                                                                                            </dl>
+                                                                                                                                            <dl class="d-flex mb-0 justify-content-between border-top py-2">
+                                                                                                                                                <dt class="font-weight-normal">Tổng Chi Phí Vay</dt>
+                                                                                                                                                <dd class="font-weight-500 text-heading mb-0">$464</dd>
+                                                                                                                                            </dl>
+                                                                                                                                            <dl class="d-flex mb-0 justify-content-between border-top py-2">
+                                                                                                                                                <dt class="font-weight-normal">Tổng Lãi Suất Đã Thanh Toán</dt>
+                                                                                                                                                <dd class="font-weight-500 text-heading mb-0">$119</dd>
+                                                                                                                                            </dl>
+                                                                                                                                            <dl class="d-flex mb-0 justify-content-between border-top py-2">
+                                                                                                                                                <dt class="font-weight-normal">Thanh Toán Vay Mua Nhà</dt>
+                                                                                                                                                <dd class="font-weight-500 text-heading mb-0">$1.55</dd>
+                                                                                                                                            </dl>
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                            </form>
+                                                                                                                        </section> -->
                         <!-- <section class="mt-2 pb-4 px-6 pt-6 bg-white rounded-lg chart">
-                                                                                                        <div class="card border-0">
-                                                                                                            <div class="card-body p-0 collapse-tabs">
-                                                                                                                <div class="d-flex align-items-center mb-5">
-                                                                                                                    <h2 class="mb-0 text-heading fs-22 lh-15 mr-auto">Thống kê trang</h2>
-                                                                                                                    <ul class="nav nav-pills nav-pills-01 justify-content-end d-none d-sm-flex"
-                                                                                                                        role="tablist">
-                                                                                                                        <li class="nav-item px-5 py-1">
-                                                                                                                            <a class="nav-link active bg-transparent shadow-none p-0 letter-spacing-1"
-                                                                                                                                id="hours-tab" data-toggle="tab" href="#hours" role="tab"
-                                                                                                                                aria-controls="hours" aria-selected="true">Giời</a>
-                                                                                                                        </li>
-                                                                                                                        <li class="nav-item px-5 py-1">
-                                                                                                                            <a class="nav-link bg-transparent shadow-none p-0 letter-spacing-1"
-                                                                                                                                id="weekly-tab" data-toggle="tab" href="#weekly" role="tab"
-                                                                                                                                aria-controls="weekly" aria-selected="false">Hàng tuần</a>
-                                                                                                                        </li>
-                                                                                                                        <li class="nav-item px-5 py-1">
-                                                                                                                            <a class="nav-link bg-transparent shadow-none p-0 letter-spacing-1"
-                                                                                                                                id="monthly-tab" data-toggle="tab" href="#monthly" role="tab"
-                                                                                                                                aria-controls="monthly" aria-selected="false">Hàng
-                                                                                                                                tháng</a>
-                                                                                                                        </li>
-                                                                                                                    </ul>
-                                                                                                                </div>
-                                                                                                                <div class="tab-content shadow-none p-0">
-                                                                                                                    <div id="collapse-tabs-accordion">
-                                                                                                                        <div class="tab-pane tab-pane-parent fade show active px-0" id="hours"
-                                                                                                                            role="tabpanel" aria-labelledby="hours-tab">
-                                                                                                                            <div class="card bg-transparent mb-sm-0 border-0">
-                                                                                                                                <div class="card-header d-block d-sm-none bg-transparent px-0 py-1 border-bottom-0"
-                                                                                                                                    id="headingHours">
-                                                                                                                                    <h5 class="mb-0">
-                                                                                                                                        <button
-                                                                                                                                            class="btn collapse-parent font-size-h5 btn-block border shadow-none"
-                                                                                                                                            data-toggle="collapse" data-target="#hours-collapse"
-                                                                                                                                            aria-expanded="true" aria-controls="hours-collapse">
-                                                                                                                                            Giời
-                                                                                                                                        </button>
-                                                                                                                                    </h5>
-                                                                                                                                </div>
-                                                                                                                                <div id="hours-collapse" class="collapse show collapsible"
-                                                                                                                                    aria-labelledby="headingHours"
-                                                                                                                                    data-parent="#collapse-tabs-accordion">
-                                                                                                                                    <div class="card-body p-0 py-4">
-                                                                                                                                        <canvas class="chartjs" data-chart-options="[]"
-                                                                                                                                            data-chart-labels='["05h","08h","11h","14h","17h","20h","23h"]'
-                                                                                                                                            data-chart-datasets='[{"label":"Clicked","data":[0,7,10,3,15,30,10],"backgroundColor":"rgba(105, 105, 235, 0.1)","borderColor":"#6969eb","borderWidth":3,"fill":true},{"label":"View","data":[10,9,18,20,28,40,27],"backgroundColor":"rgba(254, 91, 52, 0.1)","borderColor":"#ff6935","borderWidth":3,"fill":true}]'>
-                                                                                                                                        </canvas>
+                                                                                                                            <div class="card border-0">
+                                                                                                                                <div class="card-body p-0 collapse-tabs">
+                                                                                                                                    <div class="d-flex align-items-center mb-5">
+                                                                                                                                        <h2 class="mb-0 text-heading fs-22 lh-15 mr-auto">Thống kê trang</h2>
+                                                                                                                                        <ul class="nav nav-pills nav-pills-01 justify-content-end d-none d-sm-flex"
+                                                                                                                                            role="tablist">
+                                                                                                                                            <li class="nav-item px-5 py-1">
+                                                                                                                                                <a class="nav-link active bg-transparent shadow-none p-0 letter-spacing-1"
+                                                                                                                                                    id="hours-tab" data-toggle="tab" href="#hours" role="tab"
+                                                                                                                                                    aria-controls="hours" aria-selected="true">Giời</a>
+                                                                                                                                            </li>
+                                                                                                                                            <li class="nav-item px-5 py-1">
+                                                                                                                                                <a class="nav-link bg-transparent shadow-none p-0 letter-spacing-1"
+                                                                                                                                                    id="weekly-tab" data-toggle="tab" href="#weekly" role="tab"
+                                                                                                                                                    aria-controls="weekly" aria-selected="false">Hàng tuần</a>
+                                                                                                                                            </li>
+                                                                                                                                            <li class="nav-item px-5 py-1">
+                                                                                                                                                <a class="nav-link bg-transparent shadow-none p-0 letter-spacing-1"
+                                                                                                                                                    id="monthly-tab" data-toggle="tab" href="#monthly" role="tab"
+                                                                                                                                                    aria-controls="monthly" aria-selected="false">Hàng
+                                                                                                                                                    tháng</a>
+                                                                                                                                            </li>
+                                                                                                                                        </ul>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="tab-content shadow-none p-0">
+                                                                                                                                        <div id="collapse-tabs-accordion">
+                                                                                                                                            <div class="tab-pane tab-pane-parent fade show active px-0" id="hours"
+                                                                                                                                                role="tabpanel" aria-labelledby="hours-tab">
+                                                                                                                                                <div class="card bg-transparent mb-sm-0 border-0">
+                                                                                                                                                    <div class="card-header d-block d-sm-none bg-transparent px-0 py-1 border-bottom-0"
+                                                                                                                                                        id="headingHours">
+                                                                                                                                                        <h5 class="mb-0">
+                                                                                                                                                            <button
+                                                                                                                                                                class="btn collapse-parent font-size-h5 btn-block border shadow-none"
+                                                                                                                                                                data-toggle="collapse" data-target="#hours-collapse"
+                                                                                                                                                                aria-expanded="true" aria-controls="hours-collapse">
+                                                                                                                                                                Giời
+                                                                                                                                                            </button>
+                                                                                                                                                        </h5>
+                                                                                                                                                    </div>
+                                                                                                                                                    <div id="hours-collapse" class="collapse show collapsible"
+                                                                                                                                                        aria-labelledby="headingHours"
+                                                                                                                                                        data-parent="#collapse-tabs-accordion">
+                                                                                                                                                        <div class="card-body p-0 py-4">
+                                                                                                                                                            <canvas class="chartjs" data-chart-options="[]"
+                                                                                                                                                                data-chart-labels='["05h","08h","11h","14h","17h","20h","23h"]'
+                                                                                                                                                                data-chart-datasets='[{"label":"Clicked","data":[0,7,10,3,15,30,10],"backgroundColor":"rgba(105, 105, 235, 0.1)","borderColor":"#6969eb","borderWidth":3,"fill":true},{"label":"View","data":[10,9,18,20,28,40,27],"backgroundColor":"rgba(254, 91, 52, 0.1)","borderColor":"#ff6935","borderWidth":3,"fill":true}]'>
+                                                                                                                                                            </canvas>
+                                                                                                                                                        </div>
+                                                                                                                                                    </div>
+                                                                                                                                                </div>
+                                                                                                                                            </div>
+                                                                                                                                            <div class="tab-pane tab-pane-parent fade px-0" id="weekly" role="tabpanel"
+                                                                                                                                                aria-labelledby="weekly-tab">
+                                                                                                                                                <div class="card bg-transparent mb-sm-0 border-0">
+                                                                                                                                                    <div class="card-header d-block d-sm-none bg-transparent px-0 py-1 border-bottom-0"
+                                                                                                                                                        id="headingWeekly">
+                                                                                                                                                        <h5 class="mb-0">
+                                                                                                                                                            <button
+                                                                                                                                                                class="btn collapse-parent font-size-h5 btn-block collapsed border shadow-none"
+                                                                                                                                                                data-toggle="collapse" data-target="#weekly-collapse"
+                                                                                                                                                                aria-expanded="true" aria-controls="weekly-collapse">
+                                                                                                                                                                Hàng tuần
+                                                                                                                                                            </button>
+                                                                                                                                                        </h5>
+                                                                                                                                                    </div>
+                                                                                                                                                    <div id="weekly-collapse" class="collapse collapsible"
+                                                                                                                                                        aria-labelledby="headingWeekly"
+                                                                                                                                                        data-parent="#collapse-tabs-accordion">
+                                                                                                                                                        <div class="card-body p-0 py-4">
+                                                                                                                                                            <canvas class="chartjs" data-chart-options="[]"
+                                                                                                                                                                data-chart-labels='["Mar 12","Mar 13","Mar 14","Mar 15","Mar 16","Mar 17","Mar 18","Mar 19"]'
+                                                                                                                                                                data-chart-datasets='[{"label":"Clicked","data":[0,13,9,3,15,15,10,0],"backgroundColor":"rgba(105, 105, 235, 0.1)","borderColor":"#6969eb","borderWidth":3,"fill":true},{"label":"View","data":[10,20,18,15,28,33,27,10],"backgroundColor":"rgba(254, 91, 52, 0.1)","borderColor":"#ff6935","borderWidth":3,"fill":true}]'>
+                                                                                                                                                            </canvas>
+                                                                                                                                                        </div>
+                                                                                                                                                    </div>
+                                                                                                                                                </div>
+                                                                                                                                            </div>
+                                                                                                                                            <div class="tab-pane tab-pane-parent fade px-0" id="monthly" role="tabpanel"
+                                                                                                                                                aria-labelledby="monthly-tab">
+                                                                                                                                                <div class="card bg-transparent mb-sm-0 border-0">
+                                                                                                                                                    <div class="card-header d-block d-sm-none bg-transparent px-0 py-1 border-bottom-0"
+                                                                                                                                                        id="headingMonthly">
+                                                                                                                                                        <h5 class="mb-0">
+                                                                                                                                                            <button
+                                                                                                                                                                class="btn btn-block collapse-parent collapsed border shadow-none"
+                                                                                                                                                                data-toggle="collapse" data-target="#monthly-collapse"
+                                                                                                                                                                aria-expanded="true" aria-controls="monthly-collapse">
+                                                                                                                                                                Hàng tháng
+                                                                                                                                                            </button>
+                                                                                                                                                        </h5>
+                                                                                                                                                    </div>
+                                                                                                                                                    <div id="monthly-collapse" class="collapse collapsible"
+                                                                                                                                                        aria-labelledby="headingMonthly"
+                                                                                                                                                        data-parent="#collapse-tabs-accordion">
+                                                                                                                                                        <div class="card-body p-0 py-4">
+                                                                                                                                                            <canvas class="chartjs" data-chart-options="[]"
+                                                                                                                                                                data-chart-labels='["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]'
+                                                                                                                                                                data-chart-datasets='[{"label":"Clicked","data":[2,15,20,10,15,20,10,0,20,30,10,0],"backgroundColor":"rgba(105, 105, 235, 0.1)","borderColor":"#6969eb","borderWidth":3,"fill":true},{"label":"View","data":[10,20,18,15,28,33,27,10,20,30,10,0],"backgroundColor":"rgba(254, 91, 52, 0.1)","borderColor":"#ff6935","borderWidth":3,"fill":true}]'>
+                                                                                                                                                            </canvas>
+                                                                                                                                                        </div>
+                                                                                                                                                    </div>
+                                                                                                                                                </div>
+                                                                                                                                            </div>
+                                                                                                                                        </div>
                                                                                                                                     </div>
                                                                                                                                 </div>
                                                                                                                             </div>
-                                                                                                                        </div>
-                                                                                                                        <div class="tab-pane tab-pane-parent fade px-0" id="weekly" role="tabpanel"
-                                                                                                                            aria-labelledby="weekly-tab">
-                                                                                                                            <div class="card bg-transparent mb-sm-0 border-0">
-                                                                                                                                <div class="card-header d-block d-sm-none bg-transparent px-0 py-1 border-bottom-0"
-                                                                                                                                    id="headingWeekly">
-                                                                                                                                    <h5 class="mb-0">
-                                                                                                                                        <button
-                                                                                                                                            class="btn collapse-parent font-size-h5 btn-block collapsed border shadow-none"
-                                                                                                                                            data-toggle="collapse" data-target="#weekly-collapse"
-                                                                                                                                            aria-expanded="true" aria-controls="weekly-collapse">
-                                                                                                                                            Hàng tuần
-                                                                                                                                        </button>
-                                                                                                                                    </h5>
-                                                                                                                                </div>
-                                                                                                                                <div id="weekly-collapse" class="collapse collapsible"
-                                                                                                                                    aria-labelledby="headingWeekly"
-                                                                                                                                    data-parent="#collapse-tabs-accordion">
-                                                                                                                                    <div class="card-body p-0 py-4">
-                                                                                                                                        <canvas class="chartjs" data-chart-options="[]"
-                                                                                                                                            data-chart-labels='["Mar 12","Mar 13","Mar 14","Mar 15","Mar 16","Mar 17","Mar 18","Mar 19"]'
-                                                                                                                                            data-chart-datasets='[{"label":"Clicked","data":[0,13,9,3,15,15,10,0],"backgroundColor":"rgba(105, 105, 235, 0.1)","borderColor":"#6969eb","borderWidth":3,"fill":true},{"label":"View","data":[10,20,18,15,28,33,27,10],"backgroundColor":"rgba(254, 91, 52, 0.1)","borderColor":"#ff6935","borderWidth":3,"fill":true}]'>
-                                                                                                                                        </canvas>
-                                                                                                                                    </div>
-                                                                                                                                </div>
-                                                                                                                            </div>
-                                                                                                                        </div>
-                                                                                                                        <div class="tab-pane tab-pane-parent fade px-0" id="monthly" role="tabpanel"
-                                                                                                                            aria-labelledby="monthly-tab">
-                                                                                                                            <div class="card bg-transparent mb-sm-0 border-0">
-                                                                                                                                <div class="card-header d-block d-sm-none bg-transparent px-0 py-1 border-bottom-0"
-                                                                                                                                    id="headingMonthly">
-                                                                                                                                    <h5 class="mb-0">
-                                                                                                                                        <button
-                                                                                                                                            class="btn btn-block collapse-parent collapsed border shadow-none"
-                                                                                                                                            data-toggle="collapse" data-target="#monthly-collapse"
-                                                                                                                                            aria-expanded="true" aria-controls="monthly-collapse">
-                                                                                                                                            Hàng tháng
-                                                                                                                                        </button>
-                                                                                                                                    </h5>
-                                                                                                                                </div>
-                                                                                                                                <div id="monthly-collapse" class="collapse collapsible"
-                                                                                                                                    aria-labelledby="headingMonthly"
-                                                                                                                                    data-parent="#collapse-tabs-accordion">
-                                                                                                                                    <div class="card-body p-0 py-4">
-                                                                                                                                        <canvas class="chartjs" data-chart-options="[]"
-                                                                                                                                            data-chart-labels='["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]'
-                                                                                                                                            data-chart-datasets='[{"label":"Clicked","data":[2,15,20,10,15,20,10,0,20,30,10,0],"backgroundColor":"rgba(105, 105, 235, 0.1)","borderColor":"#6969eb","borderWidth":3,"fill":true},{"label":"View","data":[10,20,18,15,28,33,27,10,20,30,10,0],"backgroundColor":"rgba(254, 91, 52, 0.1)","borderColor":"#ff6935","borderWidth":3,"fill":true}]'>
-                                                                                                                                        </canvas>
-                                                                                                                                    </div>
-                                                                                                                                </div>
-                                                                                                                            </div>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    </section> -->
+                                                                                                                        </section> -->
                         @if ($similarRooms->isNotEmpty())
                             <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
                                 <h4 class="fs-22 text-heading mb-6">Những ngôi nhà tương tự bạn có thể thích</h4>
@@ -1231,18 +1231,18 @@
                                 </div>
                                 <div class="row mt-5">
                                     <!-- <div class="col-6 mb-3">
-                                                                                                                        <div class="media">
-                                                                                                                            <div class="p-2 shadow-xxs-1 rounded-lg mr-2 lh-1">
-                                                                                                                                <svg class="icon icon-bedroom fs-18 text-primary">
-                                                                                                                                    <use xlink:href="#icon-bedroom"></use>
-                                                                                                                                </svg>
-                                                                                                                            </div>
-                                                                                                                            <div class="media-body">
-                                                                                                                                <h5 class="fs-13 font-weight-normal mb-0">Phòng ngủ</h5>
-                                                                                                                                <p class="mb-0 fs-13 font-weight-bold text-dark">3</p>
-                                                                                                                            </div>
-                                                                                                                        </div>
-                                                                                                                    </div> -->
+                                                                                                                                            <div class="media">
+                                                                                                                                                <div class="p-2 shadow-xxs-1 rounded-lg mr-2 lh-1">
+                                                                                                                                                    <svg class="icon icon-bedroom fs-18 text-primary">
+                                                                                                                                                        <use xlink:href="#icon-bedroom"></use>
+                                                                                                                                                    </svg>
+                                                                                                                                                </div>
+                                                                                                                                                <div class="media-body">
+                                                                                                                                                    <h5 class="fs-13 font-weight-normal mb-0">Phòng ngủ</h5>
+                                                                                                                                                    <p class="mb-0 fs-13 font-weight-bold text-dark">3</p>
+                                                                                                                                                </div>
+                                                                                                                                            </div>
+                                                                                                                                        </div> -->
                                     <div class="col-6 mb-3">
                                         <div class="media">
                                             <div class="p-2 shadow-xxs-1 rounded-lg mr-2 lh-1">
@@ -1447,12 +1447,12 @@
 @endsection
 
 @push('styleUs')
-    <meta charset="utf-8">
+    {{-- <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
     <meta name="generator" content="Jekyll">
-    <title>Chi tiết</title>
+    <title>Chi Tiết Phòng Trọ | TRỌ NHANH</title>
     <!-- Google fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
@@ -1480,19 +1480,63 @@
     <meta name="twitter:creator" content="@">
     <meta name="twitter:title" content="Single Property 6">
     <meta name="twitter:description" content="Real Estate Html Template">
-    <meta name="twitter:image" content="images/homeid-social-logo.png">
+    <meta name="twitter:image" content="images/tro-moi.png">
     <!-- Facebook -->
     <meta property="og:url" content="single-property-6.html">
     <meta property="og:title" content="Single Property 6">
     <meta property="og:description" content="Real Estate Html Template">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="images/homeid-social.png">
+    <meta property="og:image" content="images/tro-moi.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630"> --}}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+        content="Chi tiết về các phòng trọ cho thuê tại TRỌ NHANH - thông tin chính xác, đầy đủ và hữu ích cho người thuê nhà.">
+    <meta name="author" content="TRỌ NHANH">
+    <meta name="generator" content="TRỌ NHANH">
+    {{-- <title>Chi Tiết Phòng Trọ | TRỌ NHANH</title> --}}
+
+    <!-- Google fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/slick/slick.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/magnific-popup/magnific-popup.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/chartjs/Chart.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dropzone/css/dropzone.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
+    <!-- Themes core CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/mh.css') }}">
+    <!-- Favicons -->
+    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@TroNanh">
+    <meta name="twitter:creator" content="@TroNanh">
+    <meta name="twitter:title" content="Chi Tiết Phòng Trọ tại TRỌ NHANH">
+    <meta name="twitter:description"
+        content="Tìm hiểu chi tiết về phòng trọ, các tiện ích và giá cả phù hợp với nhu cầu của bạn tại TRỌ NHANH.">
+    <meta name="twitter:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <!-- Facebook -->
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="Chi Tiết Phòng Trọ tại TRỌ NHANH">
+    <meta property="og:description"
+        content="Thông tin chi tiết và đầy đủ về phòng trọ, phù hợp với mọi nhu cầu của bạn.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <style>
-
-    </style>
 @endpush
 @push('scriptUs')
     <!-- Vendors scripts -->

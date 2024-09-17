@@ -60,8 +60,7 @@
     <!--end::Main-->
 @endsection
 @push('styleAdmin')
-    <base href="">
-    {{-- <title>Danh Sách User</title> --}}
+    {{-- <base href="">
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"
@@ -75,9 +74,7 @@
     <meta property="og:url" content="https://keenthemes.com/metronic" />
     <meta property="og:site_name" content="Keenthemes | Metronic" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    {{-- <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" /> --}}
     <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
-    {{-- hien thi thong bao --}}
     <meta name="success" content="{{ session('success') }}">
     <meta name="error" content="{{ session('error') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -90,7 +87,37 @@
     <!--end::Page Vendor Stylesheets-->
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" /> --}}
+    <base href="">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Trang danh sách người dùng trên Trọ Nhanh giúp quản trị viên xem và quản lý tất cả người dùng trong hệ thống. Dễ dàng tìm kiếm, lọc và chỉnh sửa thông tin người dùng từ bảng điều khiển quản trị.">
+    <meta name="keywords"
+        content="danh sách người dùng, quản lý người dùng, Trọ Nhanh, quản trị viên, thông tin người dùng, tìm kiếm người dùng">
+    <meta property="og:title" content="Danh Sách Người Dùng - Trọ Nhanh">
+    <meta property="og:description"
+        content="Xem và quản lý tất cả người dùng trong hệ thống Trọ Nhanh. Tìm kiếm, lọc và chỉnh sửa thông tin người dùng một cách dễ dàng từ bảng điều khiển quản trị.">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:site_name" content="Trọ Nhanh">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}">
+    <meta name="success" content="{{ session('success') }}">
+    <meta name="error" content="{{ session('error') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
+    <!--begin::Fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+    <!--end::Fonts-->
+    <!--begin::Page Vendor Stylesheets(used by this page)-->
+    <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css">
+    <!--end::Page Vendor Stylesheets-->
+    <!--begin::Global Stylesheets Bundle(used by all pages)-->
+    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css">
+    <!--end::Global Stylesheets Bundle-->
 @endpush
 @push('scriptsAdmin')
     <script>
@@ -117,22 +144,21 @@
     {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('assets/js/alert/category-admin-alert.js') }}"></script> --}}
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-    var blockAccountModal = document.getElementById('blockAccountModal');
-    var blockAccountForm = document.getElementById('blockAccountForm');
+        document.addEventListener('DOMContentLoaded', function() {
+            var blockAccountModal = document.getElementById('blockAccountModal');
+            var blockAccountForm = document.getElementById('blockAccountForm');
 
-    // Khi modal được hiển thị
-    blockAccountModal.addEventListener('show.bs.modal', function (event) {
-        // Lấy thông tin từ nút đã kích hoạt modal
-        var button = event.relatedTarget;
-        var userId = button.getAttribute('data-user-id');
-        
-        // Cập nhật action của form với user_id động
-        var action = "{{ route('admin.lock-account', ':id') }}";
-        action = action.replace(':id', userId);
-        blockAccountForm.setAttribute('action', action);
-    });
-});
+            // Khi modal được hiển thị
+            blockAccountModal.addEventListener('show.bs.modal', function(event) {
+                // Lấy thông tin từ nút đã kích hoạt modal
+                var button = event.relatedTarget;
+                var userId = button.getAttribute('data-user-id');
 
+                // Cập nhật action của form với user_id động
+                var action = "{{ route('admin.lock-account', ':id') }}";
+                action = action.replace(':id', userId);
+                blockAccountForm.setAttribute('action', action);
+            });
+        });
     </script>
 @endpush

@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('titleUs', 'Chi Tiết Blog | TRỌ NHANH')
+@section('titleUs', $blog->title . ' | TRỌ NHANH')
 @section('contentUs')
     <main id="content">
         <section class="pt-2 pb-13 page-title bg-img-cover-center bg-white-overlay"
@@ -124,7 +124,7 @@
                                 </button>
                             </div>
                         </div>
-                        
+
                         @livewire('blog-comments', ['blogSlug' => $blog->slug])
 
 
@@ -200,7 +200,7 @@
                                         </li>
                                     </ul>
                                 </div> 
-                            </div>--}}
+                            </div> --}}
                             {{-- <div class="card mb-4">
                                 <div class="card-body px-6 pt-5 pb-6">
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Bài viết mới nhất</h4>
@@ -349,7 +349,7 @@
                                         </li>
                                     </ul>
                                 </div> 
-                            </div>--}}
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -362,7 +362,7 @@
 
 @endsection
 @push('styleUs')
-    <meta charset="utf-8">
+    {{-- <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
@@ -394,13 +394,63 @@
     <meta name="twitter:creator" content="@">
     <meta name="twitter:title" content="Home 01">
     <meta name="twitter:description" content="Real Estate Html Template">
-    <meta name="twitter:image" content="images/homeid-social-logo.png">
+    <meta name="twitter:image" content="{{ asset('assets/images/tro-moi.png') }}">
     <!-- Facebook -->
     <meta property="og:url" content="home-01.html">
     <meta property="og:title" content="Home 01">
     <meta property="og:description" content="Real Estate Html Template">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="images/homeid-social.png">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630"> --}}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+        content="Đọc chi tiết bài viết trên blog của TRỌ NHANH để khám phá các thông tin và mẹo mới nhất về thị trường bất động sản. Nâng cao kiến thức và đưa ra quyết định thông minh với các phân tích từ các chuyên gia trong ngành.">
+    <meta name="author" content="TRỌ NHANH">
+    <meta name="generator" content="TRỌ NHANH">
+    <title>Chi Tiết Blog | TRỌ NHANH</title>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS của nhà cung cấp -->
+    <link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/slick/slick.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/magnific-popup/magnific-popup.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/chartjs/Chart.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dropzone/css/dropzone.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
+    <!-- Themes core CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
+    <!-- Favicons -->
+    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/mh.css') }}">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@TronNhanh">
+    <meta name="twitter:creator" content="@TronNhanh">
+    <meta name="twitter:title" content="Chi Tiết Blog | TRỌ NHANH">
+    <meta name="twitter:description"
+        content="Đọc chi tiết bài viết trên blog của TRỌ NHANH để khám phá các thông tin và mẹo mới nhất về thị trường bất động sản. Nâng cao kiến thức và đưa ra quyết định thông minh với các phân tích từ các chuyên gia trong ngành.">
+    <meta name="twitter:image" content="{{ asset('assets/images/tro-moi.png') }}">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="Chi Tiết Blog | TRỌ NHANH">
+    <meta property="og:description"
+        content="Đọc chi tiết bài viết trên blog của TRỌ NHANH để khám phá các thông tin và mẹo mới nhất về thị trường bất động sản. Nâng cao kiến thức và đưa ra quyết định thông minh với các phân tích từ các chuyên gia trong ngành.">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">

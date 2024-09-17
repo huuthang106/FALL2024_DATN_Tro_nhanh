@@ -750,8 +750,7 @@
     <!--end::Main-->
 @endsection
 @push('styleAdmin')
-    <base href="{{ asset('..') }}">
-    {{-- <title>Danh Sách Gói Tin | TRỌ NHANH</title> --}}
+    {{-- <base href="{{ asset('..') }}">
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"
@@ -765,7 +764,6 @@
     <meta property="og:url" content="https://keenthemes.com/metronic" />
     <meta property="og:site_name" content="Keenthemes | Metronic" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    {{-- <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" /> --}}
     <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <meta name="success" content="{{ session('success') }}">
     <meta name="error" content="{{ session('error') }}">
@@ -777,6 +775,34 @@
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!--end::Global Stylesheets Bundle--> --}}
+    <base href="{{ asset('..') }}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Danh sách các gói tin quảng cáo cho thuê phòng trọ tại Trọ Nhanh. Khám phá các tùy chọn gói tin để quảng bá và tăng cường hiển thị phòng trọ của bạn.">
+    <meta name="keywords"
+        content="gói tin, quảng cáo phòng trọ, gói quảng cáo, Trọ Nhanh, gói tin cho thuê phòng trọ, gói tin quảng cáo phòng trọ">
+    <meta property="og:title" content="Danh Sách Gói Tin - Trọ Nhanh">
+    <meta property="og:description"
+        content="Khám phá danh sách các gói tin quảng cáo trên Trọ Nhanh. Tìm hiểu các tùy chọn quảng bá phòng trọ hiệu quả với các gói tin hấp dẫn.">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:site_name" content="Trọ Nhanh">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}">
+    <meta name="success" content="{{ session('success') }}">
+    <meta name="error" content="{{ session('error') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
+    <!--begin::Fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+    <!--end::Fonts-->
+    <!--begin::Global Stylesheets Bundle(used by all pages)-->
+    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!--end::Global Stylesheets Bundle-->
 @endpush

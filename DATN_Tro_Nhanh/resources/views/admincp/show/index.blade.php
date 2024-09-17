@@ -1507,8 +1507,7 @@
 
 @endsection
 @push('styleAdmin')
-    <base href="">
-    {{-- <title>Thống Kê | TRỌ NHANH</title> --}}
+    {{-- <base href="">
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"
@@ -1522,7 +1521,6 @@
     <meta property="og:url" content="" />
     <meta property="og:site_name" content="" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    {{-- <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" /> --}}
     <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
@@ -1533,7 +1531,33 @@
     <!--end::Page Vendor Stylesheets-->
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" /> --}}
+    <base href="">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Trang thống kê của hệ thống Trọ Nhanh, cung cấp các số liệu và phân tích chi tiết về hoạt động của hệ thống và các phòng trọ.">
+    <meta name="keywords"
+        content="Thống kê, số liệu, phân tích, hệ thống phòng trọ, Trọ Nhanh, báo cáo, quản lý phòng trọ">
+    <meta property="og:title" content="Thống Kê - Trọ Nhanh">
+    <meta property="og:description"
+        content="Khám phá các số liệu thống kê chi tiết và phân tích hoạt động của hệ thống phòng trọ Trọ Nhanh.">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}">
+    <!--begin::Fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+    <!--end::Fonts-->
+    <!--begin::Page Vendor Stylesheets (used by this page)-->
+    <link href="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet"
+        type="text/css">
+    <!--end::Page Vendor Stylesheets-->
+    <!--begin::Global Stylesheets Bundle (used by all pages)-->
+    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css">
 @endpush
 @push('scriptsAdmin')
     <script>

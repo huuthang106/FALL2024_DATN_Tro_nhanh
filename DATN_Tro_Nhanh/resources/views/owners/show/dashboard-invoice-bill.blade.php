@@ -28,7 +28,7 @@
                                 <option value="50">50</option>
                             </select>
                         </div>
-                    
+
                     </div>
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
                         <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
@@ -126,65 +126,64 @@
 
                 </table>
             </div>
-            @if($bills ->isNotEmpty())
-            <div class="mt-6">
-                <nav class="mt-4">
-                    <ul class="pagination rounded-active justify-content-center">
-                        {{-- Previous Page Link --}}
-                        @if ($bills->onFirstPage())
-                            <li class="page-item disabled">
-                                <span class="page-link"><i class="far fa-angle-double-left"></i></span>
-                            </li>
-                        @else
-                            <li class="page-item">
-                                <a class="page-link" href="{{ $bills->previousPageUrl() }}"><i
-                                        class="far fa-angle-double-left"></i></a>
-                            </li>
-                        @endif
-
-                        {{-- Pagination Elements --}}
-                        @foreach ($bills->getUrlRange(1, $bills->lastPage()) as $page => $url)
-                            @if ($page == $bills->currentPage())
-                                <li class="page-item active">
-                                    <span class="page-link">{{ $page }}</span>
+            @if ($bills->isNotEmpty())
+                <div class="mt-6">
+                    <nav class="mt-4">
+                        <ul class="pagination rounded-active justify-content-center">
+                            {{-- Previous Page Link --}}
+                            @if ($bills->onFirstPage())
+                                <li class="page-item disabled">
+                                    <span class="page-link"><i class="far fa-angle-double-left"></i></span>
                                 </li>
                             @else
                                 <li class="page-item">
-                                    <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                    <a class="page-link" href="{{ $bills->previousPageUrl() }}"><i
+                                            class="far fa-angle-double-left"></i></a>
                                 </li>
                             @endif
-                        @endforeach
 
-                        {{-- Next Page Link --}}
-                        @if ($bills->hasMorePages())
-                            <li class="page-item">
-                                <a class="page-link" href="{{ $bills->nextPageUrl() }}"><i
-                                        class="far fa-angle-double-right"></i></a>
-                            </li>
-                        @else
-                            <li class="page-item disabled">
-                                <span class="page-link"><i class="far fa-angle-double-right"></i></span>
-                            </li>
-                        @endif
-                    </ul>
-                </nav>
-                <div class="text-center mt-2">{{ $bills->firstItem() }}-{{ $bills->lastItem() }} của
-                    {{ $bills->total() }} kết quả</div>
-            </div>
+                            {{-- Pagination Elements --}}
+                            @foreach ($bills->getUrlRange(1, $bills->lastPage()) as $page => $url)
+                                @if ($page == $bills->currentPage())
+                                    <li class="page-item active">
+                                        <span class="page-link">{{ $page }}</span>
+                                    </li>
+                                @else
+                                    <li class="page-item">
+                                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                    </li>
+                                @endif
+                            @endforeach
+
+                            {{-- Next Page Link --}}
+                            @if ($bills->hasMorePages())
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ $bills->nextPageUrl() }}"><i
+                                            class="far fa-angle-double-right"></i></a>
+                                </li>
+                            @else
+                                <li class="page-item disabled">
+                                    <span class="page-link"><i class="far fa-angle-double-right"></i></span>
+                                </li>
+                            @endif
+                        </ul>
+                    </nav>
+                    <div class="text-center mt-2">{{ $bills->firstItem() }}-{{ $bills->lastItem() }} của
+                        {{ $bills->total() }} kết quả</div>
+                </div>
             @else<div class="text-center mt-2">
-            Không có dữ liệu</div>
+                    Không có dữ liệu</div>
             @endif
         </div>
     </main>
 @endsection
 
 @push('styleOwners')
-    <meta charset="utf-8">
+    {{-- <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Real Estate Html Template">
-    <meta name="author" content="">
-    <meta name="generator" content="Jekyll">
-    {{-- <title>Danh Sách Hóa Đơn | TRỌ NHANH</title> --}}
+    <meta name="author" content="TRỌ NHANH">
+    <meta name="generator" content="TRỌ NHANH">
     <!-- Google fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
@@ -204,7 +203,6 @@
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-    {{-- <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}"> --}}
     <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
@@ -219,6 +217,56 @@
     <meta property="og:description" content="Real Estate Html Template">
     <meta property="og:type" content="website">
     <meta property="og:image" content="images/homeid-social.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630"> --}}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+        content="TRỌ NHANH - Quản lý và xem danh sách hóa đơn tiện lợi. Cập nhật thông tin thanh toán và quản lý hóa đơn một cách dễ dàng.">
+    <meta name="author" content="TRỌ NHANH">
+    <meta name="generator" content="TRỌ NHANH">
+
+    <!-- Google fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/slick/slick.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/magnific-popup/magnific-popup.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/chartjs/Chart.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dropzone/css/dropzone.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
+
+    <!-- Themes core CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
+
+    <!-- Favicons -->
+    <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@TroNhanh">
+    <meta name="twitter:creator" content="@TroNhanh">
+    <meta name="twitter:title" content="Danh Sách Hóa Đơn | TRỌ NHANH">
+    <meta name="twitter:description"
+        content="Quản lý và xem danh sách hóa đơn tại TRỌ NHANH, nơi bạn có thể cập nhật thông tin thanh toán và kiểm tra lịch sử thanh toán của mình.">
+    <meta name="twitter:image" content="{{ asset('assets/images/tro-moi.png') }}">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="Danh Sách Hóa Đơn | TRỌ NHANH">
+    <meta property="og:description"
+        content="Xem và quản lý danh sách hóa đơn của bạn trên TRỌ NHANH, giúp bạn theo dõi các khoản thanh toán dễ dàng.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">

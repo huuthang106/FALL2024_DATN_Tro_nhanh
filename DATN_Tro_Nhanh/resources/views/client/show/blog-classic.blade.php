@@ -36,7 +36,7 @@
                                                 class="far fa-angle-double-right"></i></a></li>
                                 </ul>
                             </nav> --}}
-                            
+
 
                         </div>
                         <div class="col-lg-4 pl-xl-6 pr-xl-0 primary-sidebar sidebar-sticky" id="sidebar">
@@ -310,8 +310,8 @@
                                     </div>
                                     <div class="d-flex mb-4">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="remember-me"
-                                                name="remember-me">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="remember-me" name="remember-me">
                                             <label class="form-check-label" for="remember-me">
                                                 Remember me
                                             </label>
@@ -322,8 +322,8 @@
                                     </div>
                                     <div class="d-flex p-2 border re-capchar align-items-center mb-4">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="verify"
-                                                name="verify">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="verify" name="verify">
                                             <label class="form-check-label" for="verify">
                                                 I'm not a robot
                                             </label>
@@ -932,7 +932,7 @@
         </div>
     @endsection
     @push('styleUs')
-        <meta charset="utf-8">
+        {{-- <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="Real Estate Html Template">
         <meta name="author" content="">
@@ -972,13 +972,62 @@
         <meta property="og:image" content="images/homeid-social.png">
         <meta property="og:image:type" content="image/png">
         <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630"> --}}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description"
+            content="Khám phá các bài viết mới nhất và thông tin hữu ích về thị trường bất động sản trên blog của TRỌ NHANH. Cập nhật tin tức, mẹo và hướng dẫn từ các chuyên gia trong ngành.">
+        <meta name="author" content="TRỌ NHANH">
+        <meta name="generator" content="TRỌ NHANH">
+
+        <!-- Google Fonts -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+            rel="stylesheet">
+
+        <!-- CSS của nhà cung cấp -->
+        <link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/vendors/slick/slick.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/vendors/magnific-popup/magnific-popup.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/vendors/chartjs/Chart.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/vendors/dropzone/css/dropzone.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/vendors/animate.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
+        <!-- Themes core CSS -->
+        <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
+        <!-- Favicons -->
+        <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@TronNhanh">
+        <meta name="twitter:creator" content="@TronNhanh">
+        <meta name="twitter:title" content="Blog | TRỌ NHANH">
+        <meta name="twitter:description"
+            content="Khám phá blog của TRỌ NHANH để cập nhật tin tức mới nhất, mẹo và hướng dẫn về bất động sản. Đọc các bài viết từ các chuyên gia trong ngành và tận dụng thông tin hữu ích để hỗ trợ quyết định của bạn.">
+        <meta name="twitter:image" content="{{ asset('assets/images/tro-moi.png') }}">
+
+        <!-- Facebook -->
+        <meta property="og:url" content="{{ url()->current() }}">
+        <meta property="og:title" content="Blog | TRỌ NHANH">
+        <meta property="og:description"
+            content="Khám phá các bài viết mới nhất về thị trường bất động sản trên blog của TRỌ NHANH. Cập nhật tin tức, mẹo và hướng dẫn từ các chuyên gia trong ngành. Đọc ngay để không bỏ lỡ thông tin hữu ích.">
+        <meta property="og:type" content="website">
+        <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+        <meta property="og:image:type" content="image/png">
+        <meta property="og:image:width" content="1200">
         <meta property="og:image:height" content="630">
     @endpush
     @push('scriptUs')
-    
         <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.js') }}"></s>
-        <script src="{{ asset('assets/vendors/bootstrap/bootstrap.bundle.js') }}"></script>
+        <script src="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.js') }}">
+            < /s> <
+            script src = "{{ asset('assets/vendors/bootstrap/bootstrap.bundle.js') }}" >
+        </script>
         <script src="{{ asset('assets/vendors/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
         <script src="{{ asset('assets/vendors/slick/slick.min.js') }}"></script>
         <script src="{{ asset('assets/vendors/waypoints/jquery.waypoints.min.js') }}"></script>

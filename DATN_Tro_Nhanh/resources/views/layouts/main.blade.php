@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('titleUs')</title>
 
-    
     @stack('styleUs')
     <!-- Fonts -->
-<meta name="google-site-verification" content="S8_uq6Cve3CDUmFSZllcxo8BAPFlrpwmzUlZzwv0iR4" />
+    <meta name="google-site-verification" content="S8_uq6Cve3CDUmFSZllcxo8BAPFlrpwmzUlZzwv0iR4" />
     <link href="{{ asset('assets/css/user.css') }}" rel="stylesheet" type="text/css" />
     @livewireStyles
 </head>
@@ -628,21 +628,21 @@
 <script>
     function checkAuthStatus() {
         fetch('{{ route('status') }}', {
-            method: 'GET',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (!data.authenticated) {
-                window.location.href = '{{ route('client.home') }}'; // Chuyển hướng đến trang chủ
-            }
-        })
-        .catch(error => {
-            console.error('Error checking auth status:', error);
-        });
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.authenticated) {
+                    window.location.href = '{{ route('client.home') }}'; // Chuyển hướng đến trang chủ
+                }
+            })
+            .catch(error => {
+                console.error('Error checking auth status:', error);
+            });
     }
 
     // Lắng nghe sự kiện đăng xuất
@@ -655,24 +655,25 @@
     // Hàm đăng xuất sử dụng AJAX
     function logout() {
         fetch('{{ route('client.logout') }}', {
-            method: 'POST',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                localStorage.setItem('logout-event', Date.now());
-                window.location.href = '{{ route('client.home') }}'; // Chuyển hướng đến trang chủ
-            } else {
-                console.error('Logout failed');
-            }
-        })
-        .catch(error => {
-            console.error('Error during logout:', error);
-        });
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    localStorage.setItem('logout-event', Date.now());
+                    window.location.href = '{{ route('client.home') }}'; // Chuyển hướng đến trang chủ
+                } else {
+                    console.error('Logout failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error during logout:', error);
+            });
     }
 </script>
 @livewireScripts
+
 </html>

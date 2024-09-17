@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('titleUs', 'Trang chủ trọ nhanh')
+@section('titleUs', 'Trang Chủ | TRỌ NHANH')
 @section('contentUs')
     <main id="content">
         <section class="d-flex flex-column">
@@ -1163,7 +1163,7 @@
 
 @endsection
 @push('styleUs')
-    <meta charset="utf-8">
+    {{-- <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
@@ -1196,13 +1196,64 @@
     <meta name="twitter:creator" content="@">
     <meta name="twitter:title" content="Home 01">
     <meta name="twitter:description" content="Real Estate Html Template">
-    <meta name="twitter:image" content="{{ asset('assets/images/homeid-social-logo.png') }}">
+    <meta name="twitter:image" content="{{ asset('assets/images/tro-moi.png') }}">
     <!-- Facebook -->
     <meta property="og:url" content="{{ url('home-01.html') }}">
     <meta property="og:title" content="Home 01">
     <meta property="og:description" content="Real Estate Html Template">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="{{ asset('assets/images/homeid-social.png') }}">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630"> --}}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+        content="TRỌ NHANH cung cấp giải pháp cho thuê nhà và phòng trọ nhanh chóng và dễ dàng. Khám phá các dịch vụ của chúng tôi và tìm kiếm nơi ở phù hợp với nhu cầu của bạn ngay hôm nay.">
+    <meta name="author" content="TRỌ NHANH">
+    <meta name="generator" content="TRỌ NHANH">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/slick/slick.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/magnific-popup/magnific-popup.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/chartjs/Chart.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dropzone/css/dropzone.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
+
+    <!-- Themes core CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/hoangtuchile.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
+
+    <!-- Favicons -->
+    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@TronNhanh">
+    <meta name="twitter:creator" content="@TronNhanh">
+    <meta name="twitter:title" content="Trang Chủ | TRỌ NHANH">
+    <meta name="twitter:description"
+        content="TRỌ NHANH cung cấp giải pháp cho thuê nhà và phòng trọ nhanh chóng và dễ dàng. Khám phá các dịch vụ của chúng tôi và tìm kiếm nơi ở phù hợp với nhu cầu của bạn ngay hôm nay.">
+    <meta name="twitter:image" content="{{ asset('assets/images/tro-moi.png') }}">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="{{ url('/') }}">
+    <meta property="og:title" content="Trang Chủ | TRỌ NHANH">
+    <meta property="og:description"
+        content="TRỌ NHANH cung cấp giải pháp cho thuê nhà và phòng trọ nhanh chóng và dễ dàng. Khám phá các dịch vụ của chúng tôi và tìm kiếm nơi ở phù hợp với nhu cầu của bạn ngay hôm nay.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">

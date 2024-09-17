@@ -1403,8 +1403,7 @@
 
 @endsection
 @push('styleAdmin')
-    <base href="../">
-    {{-- <title>Hồ Sơ | TRỌ NHANH</title> --}}
+    {{-- <base href="../">
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"
@@ -1418,14 +1417,38 @@
     <meta property="og:url" content="https://keenthemes.com/metronic" />
     <meta property="og:site_name" content="Keenthemes | Metronic" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    {{-- <link rel="shortcut icon" href="assets/media/logos/favicon.ico" /> --}}
     <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
-    <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" /> --}}
+    <base href="../">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Xem và chỉnh sửa thông tin hồ sơ cá nhân của bạn. Trang này cho phép bạn cập nhật thông tin cá nhân, thay đổi mật khẩu, và quản lý các thiết lập tài khoản của bạn.">
+    <meta name="keywords"
+        content="hồ sơ cá nhân, thông tin cá nhân, chỉnh sửa hồ sơ, thay đổi mật khẩu, quản lý tài khoản">
+    <meta property="og:title" content="Hồ Sơ - Trọ Nhanh">
+    <meta property="og:description"
+        content="Xem và cập nhật thông tin hồ sơ cá nhân của bạn trên Trọ Nhanh. Quản lý tài khoản và thay đổi các thiết lập cá nhân dễ dàng.">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:site_name" content="Trọ Nhanh">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}">
+    <!--begin::Fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+    <!--end::Fonts-->
+    <!--begin::Global Stylesheets Bundle(used by all pages)-->
+    <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css">
+    <!--end::Global Stylesheets Bundle-->
 @endpush
 @push('scriptsAdmin')
     <script>

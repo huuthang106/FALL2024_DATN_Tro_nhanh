@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('titleUs', 'Trang chủ trọ nhanh')
+@section('titleUs', 'Thanh Toán | TRỌ NHANH')
 @section('contentUs')
     <main id="content">
         <section class="pb-4 shadow-xs-5">
@@ -30,15 +30,17 @@
                                     <ul class="list-unstyled mb-0">
                                         <li class="d-flex justify-content-between lh-22">
                                             <p class="text-gray-light mb-0">Thời Gian Gói:</p>
-                                            <p class="font-weight-500 text-heading mb-0">{{$item->priceList->duration_day}} ngày</p>
+                                            <p class="font-weight-500 text-heading mb-0">
+                                                {{ $item->priceList->duration_day }} ngày</p>
                                         </li>
-                                         <li class="d-flex justify-content-between lh-22">
+                                        <li class="d-flex justify-content-between lh-22">
                                             <p class="text-gray-light mb-0">Giá:</p>
-                                            <p class="font-weight-500 text-heading mb-0">{{ number_format($item->priceList->price, 0, ',', '.') }} VND</p>
-                                        </li> 
+                                            <p class="font-weight-500 text-heading mb-0">
+                                                {{ number_format($item->priceList->price, 0, ',', '.') }} VND</p>
+                                        </li>
                                         <li class="d-flex justify-content-between lh-22">
                                             <p class="text-gray-light mb-0">Số lượng:</p>
-                                            <p class="font-weight-500 text-heading mb-0">{{$item->quantity}}</p>
+                                            <p class="font-weight-500 text-heading mb-0">{{ $item->quantity }}</p>
                                         </li>
                                     </ul>
                                 </div>
@@ -46,7 +48,7 @@
                             <div class="card-footer bg-transparent d-flex justify-content-between p-0 align-items-center">
                                 <p class="text-heading mb-0">Tổng Giá:</p>
                                 <span class="fs-32 font-weight-bold text-heading">
-                               {{ number_format($totalPrice, 0, ',', '.') }}
+                                    {{ number_format($totalPrice, 0, ',', '.') }}
                                     VND
                                 </span>
                             </div>
@@ -55,7 +57,7 @@
                     </div>
                     <div class="col-md-7 offset-lg-1">
                         <h4 class="text-heading fs-22 font-weight-500 lh-15">Chọn Phương Thức Thanh Toán</h4>
-                       
+
                         {{-- <div class="custom-control custom-radio mb-2">
                             <input type="radio" id="paypal" name="pay" value="paypal" checked
                                 class="custom-control-input">
@@ -76,7 +78,7 @@
                                         class="fas fa-paper-plane"></i></span>Chuyển Khoản</label>
                         </div> --}}
                         <p class="text-heading font-weight-500 mb-0 pt-1">Xem Thêm</p>
-                        
+
                         <p class="mb-6">Vui lòng đọc <a href="#"
                                 class="text-heading font-weight-500 border-bottom hover-primary">Điều Khoản & Điều Kiện</a>
                             trước</p>
@@ -93,7 +95,7 @@
 @endsection
 
 @push('styleUs')
-    <meta charset="utf-8">
+    {{-- <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
@@ -132,6 +134,56 @@
     <meta property="og:description" content="Real Estate Html Template">
     <meta property="og:type" content="website">
     <meta property="og:image" content="{{ asset('assets/images/homeid-social.png') }}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630"> --}}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+        content="Hoàn tất thanh toán nhanh chóng và an toàn với TRỌ NHANH - dịch vụ uy tín giúp bạn thanh toán mọi khoản phí thuê trọ dễ dàng.">
+    <meta name="author" content="TRỌ NHANH">
+    <meta name="generator" content="TRỌ NHANH">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/slick/slick.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/magnific-popup/magnific-popup.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/chartjs/Chart.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dropzone/css/dropzone.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
+
+    <!-- Themes core CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
+
+    <!-- Favicons -->
+    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@TronNhanh">
+    <meta name="twitter:creator" content="@TronNhanh">
+    <meta name="twitter:title" content="Thanh Toán Dễ Dàng | TRỌ NHANH">
+    <meta name="twitter:description"
+        content="Thanh toán nhanh chóng và an toàn cho các khoản phí thuê trọ tại TRỌ NHANH. Đảm bảo bảo mật thông tin và giao dịch dễ dàng.">
+    <meta name="twitter:image" content="{{ asset('assets/images/tro-moi.png') }}">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="{{ url('/thanh-toan') }}">
+    <meta property="og:title" content="Thanh Toán | TRỌ NHANH">
+    <meta property="og:description"
+        content="Hoàn tất giao dịch thanh toán an toàn và nhanh chóng với TRỌ NHANH. Dễ dàng thanh toán mọi khoản phí thuê trọ với dịch vụ bảo mật cao.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">

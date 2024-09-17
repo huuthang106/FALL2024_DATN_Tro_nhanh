@@ -55,7 +55,8 @@
                                         <!--begin::Table row-->
                                         <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                             <th class="w-10px pe-2">
-                                                <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                                <div
+                                                    class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                                     <input class="form-check-input" type="checkbox" data-kt-check="true"
                                                         data-kt-check-target="#kt_subscriptions_table .form-check-input"
                                                         value="1" />
@@ -73,12 +74,13 @@
                                     <!--end::Table head-->
                                     <!--begin::Table body-->
                                     <tbody class="text-gray-600 fw-bold">
-                                        
+
                                         @foreach ($reports as $report)
                                             <tr>
                                                 <!--begin::Checkbox-->
                                                 <td>
-                                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                    <div
+                                                        class="form-check form-check-sm form-check-custom form-check-solid">
                                                         <input class="form-check-input" type="checkbox" value="1" />
                                                     </div>
                                                 </td>
@@ -106,7 +108,8 @@
 
                                                 <td class="text-end">
                                                     <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
-                                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Thao
+                                                        data-kt-menu-trigger="click"
+                                                        data-kt-menu-placement="bottom-end">Thao
                                                         tác
                                                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
                                                         <span class="svg-icon svg-icon-5 m-0">
@@ -136,7 +139,8 @@
                                                         <!--begin::Menu item-->
                                                         <div class="menu-item px-3">
                                                             @if ($report->status == 1)
-                                                                <form action="{{ route('admin.approve-report', $report->id) }}"
+                                                                <form
+                                                                    action="{{ route('admin.approve-report', $report->id) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('PUT')
@@ -147,7 +151,8 @@
                                                             @endif
                                                         </div>
                                                         <div class="menu-item px-3">
-                                                            <a href="#" data-kt-subscriptions-table-filter="delete_row"
+                                                            <a href="#"
+                                                                data-kt-subscriptions-table-filter="delete_row"
                                                                 class="menu-link px-3">Xóa</a>
                                                         </div>
                                                         <!--end::Menu item-->
@@ -237,8 +242,7 @@
             <!--end::Content-->
         @endsection
         @push('styleAdmin')
-            <base href="">
-            {{-- <title>Danh Sách Thông Báo | TRỌ NHANH</title> --}}
+            {{-- <base href="">
             <meta name="description"
                 content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
             <meta name="keywords"
@@ -252,9 +256,7 @@
             <meta property="og:url" content="https://keenthemes.com/metronic" />
             <meta property="og:site_name" content="Keenthemes | Metronic" />
             <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-            {{-- <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" /> --}}
             <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
-            {{-- hien thi thong bao --}}
             <meta name="success" content="{{ session('success') }}">
             <meta name="error" content="{{ session('error') }}">
             <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -268,7 +270,38 @@
             <!--end::Page Vendor Stylesheets-->
             <!--begin::Global Stylesheets Bundle(used by all pages)-->
             <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-            <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+            <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" /> --}}
+            <base href="">
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <meta name="description"
+                content="Trang danh sách báo cáo trên Trọ Nhanh cho phép người dùng xem và quản lý các báo cáo liên quan đến các khu vực và phòng trọ. Dễ dàng theo dõi và xử lý các vấn đề từ bảng điều khiển quản trị.">
+            <meta name="keywords"
+                content="danh sách báo cáo, quản lý báo cáo, báo cáo khu vực, báo cáo phòng trọ, Trọ Nhanh, quản trị">
+            <meta property="og:title" content="Danh Sách Báo Cáo - Trọ Nhanh">
+            <meta property="og:description"
+                content="Xem và quản lý các báo cáo liên quan đến khu vực và phòng trọ trên Trọ Nhanh. Theo dõi và xử lý các vấn đề báo cáo một cách hiệu quả từ bảng điều khiển quản trị.">
+            <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+            <meta property="og:url" content="{{ url()->current() }}">
+            <meta property="og:site_name" content="Trọ Nhanh">
+            <meta property="og:type" content="website">
+            <link rel="canonical" href="{{ url()->current() }}">
+            <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}">
+            <meta name="success" content="{{ session('success') }}">
+            <meta name="error" content="{{ session('error') }}">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+            <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
+            <!--begin::Fonts-->
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+            <!--end::Fonts-->
+            <!--begin::Page Vendor Stylesheets(used by this page)-->
+            <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet"
+                type="text/css">
+            <!--end::Page Vendor Stylesheets-->
+            <!--begin::Global Stylesheets Bundle(used by all pages)-->
+            <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css">
+            <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css">
+            <!--end::Global Stylesheets Bundle-->
         @endpush
         @push('scriptsAdmin')
             <script>

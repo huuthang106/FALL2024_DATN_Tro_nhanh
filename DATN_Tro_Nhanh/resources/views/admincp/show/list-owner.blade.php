@@ -60,8 +60,7 @@
     <!--end::Main-->
 @endsection
 @push('styleAdmin')
-    <base href="{{ asset('..') }}">
-    {{-- <title>Danh Sách Tất Cả Chủ Trọ | TRỌ NHANH</title> --}}
+    {{-- <base href="{{ asset('..') }}">
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"
@@ -82,6 +81,30 @@
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <!--end::Global Stylesheets Bundle--> --}}
+    <base href="{{ asset('..') }}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Danh sách tất cả các khu trọ trên hệ thống Trọ Nhanh. Xem và so sánh các khu trọ, tìm khu trọ phù hợp với nhu cầu và ngân sách của bạn.">
+    <meta name="keywords" content="Danh sách khu trọ, tất cả khu trọ, Trọ Nhanh, khu trọ, tìm khu trọ, so sánh khu trọ">
+    <meta property="og:title" content="Danh Sách Tất Cả Khu Trọ - Trọ Nhanh">
+    <meta property="og:description"
+        content="Khám phá danh sách tất cả các khu trọ trên Trọ Nhanh. Tìm kiếm và so sánh các khu trọ để tìm khu trọ phù hợp nhất cho bạn.">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:site_name" content="Trọ Nhanh">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}">
+    <!--begin::Fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+    <!--end::Fonts-->
+    <!--begin::Global Stylesheets Bundle (used by all pages)-->
+    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css">
     <!--end::Global Stylesheets Bundle-->
 @endpush
 

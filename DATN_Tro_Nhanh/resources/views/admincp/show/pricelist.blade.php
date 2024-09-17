@@ -6,7 +6,7 @@
 
     <!--begin::Content-->
     {{-- @livewire('pricelist-admin-search') --}}
-@livewire('price-list-component')
+    @livewire('price-list-component')
     <!--end::Content-->
     <!--begin::Footer-->
 
@@ -62,8 +62,7 @@
     <!--end::Main-->
 @endsection
 @push('styleAdmin')
-    <base href="{{ asset('') }}">
-    {{-- <title>Danh Sách Vị Trí Gói | TRỌ NHANH</title> --}}
+    {{-- <base href="{{ asset('') }}">
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue & Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"
@@ -82,8 +81,6 @@
     <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    {{-- <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" /> --}}
     <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
 
     <!--begin::Fonts-->
@@ -95,7 +92,35 @@
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <!--end::Global Stylesheets Bundle--> --}}
+    <base href="{{ asset('') }}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Danh sách tất cả các vị trí gói tin trên trang của chúng tôi. Khám phá các vị trí quảng cáo hấp dẫn và chọn lựa cho chiến dịch của bạn.">
+    <meta name="keywords" content="vị trí gói tin, quảng cáo, danh sách vị trí, quản lý gói tin, quảng cáo trực tuyến">
+    <meta property="og:title" content="Danh Sách Vị Trí Gói - Trọ Nhanh">
+    <meta property="og:description"
+        content="Khám phá các vị trí gói tin có sẵn trên Trọ Nhanh. Tìm hiểu các tùy chọn quảng cáo để tối ưu hóa chiến dịch của bạn.">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:site_name" content="Trọ Nhanh">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!--begin::Fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+    <!--end::Fonts-->
+    <!--begin::Page Vendor Stylesheets(used by this page)-->
+    <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css">
+    <!--end::Page Vendor Stylesheets-->
+    <!--begin::Global Stylesheets Bundle(used by all pages)-->
+    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css">
     <!--end::Global Stylesheets Bundle-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
 @endpush
 
 

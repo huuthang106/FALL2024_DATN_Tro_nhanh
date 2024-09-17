@@ -193,7 +193,7 @@
                                                     value="{{ $resident->zone->name }}" readonly>
                                             </div>
                                         </div>
-                                    
+
                                         <!-- Cột phải -->
                                         <div class="col-md-8">
                                             <div class="row">
@@ -201,16 +201,21 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="reasons{{ $resident->id }}">Lý Do:</label>
-                                                        <select class="form-select selectpicker" id="reasons{{ $resident->id }}" name="title[]" title="">
-                                                            <option value="Không phù hợp với đối tượng thuê">Không phù hợp với đối tượng thuê</option>
-                                                            <option value="Lịch sử thuê nhà không tốt">Lịch sử thuê nhà không tốt</option>
-                                                            <option value="Số lượng người thuê vượt quá quy định">Số lượng người thuê vượt quá quy định</option>
+                                                        <select class="form-select selectpicker"
+                                                            id="reasons{{ $resident->id }}" name="title[]"
+                                                            title="">
+                                                            <option value="Không phù hợp với đối tượng thuê">Không phù hợp
+                                                                với đối tượng thuê</option>
+                                                            <option value="Lịch sử thuê nhà không tốt">Lịch sử thuê nhà
+                                                                không tốt</option>
+                                                            <option value="Số lượng người thuê vượt quá quy định">Số lượng
+                                                                người thuê vượt quá quy định</option>
                                                             <option value="Tiền án tiền sự">Tiền án tiền sự</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
-                                    
+
                                             <!-- Phần ghi chú nằm dưới lý do -->
                                             <div class="row mt-3">
                                                 <div class="col-md-12">
@@ -222,7 +227,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="modal-footer text-right">
                                         <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Đóng</button>
@@ -230,7 +235,7 @@
                                     </div>
                                 </form>
 
-                             
+
                             </div>
                         </div>
                     </div>
@@ -243,11 +248,11 @@
 @endsection
 
 @push('styleOwners')
-    <meta charset="utf-8">
+    {{-- <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Real Estate Html Template">
-    <meta name="author" content="">
-    <meta name="generator" content="Jekyll">
+    <meta name="author" content="TRỌ NHANH">
+    <meta name="generator" content="TRỌ NHANH">
 
     <!-- Google fonts -->
     <link
@@ -264,12 +269,9 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/animate.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
-    {{-- <link rel="stylesheet" href="{{ asset('assets/js/jquery.dataTables.min.css') }}"> --}}
-    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"> --}}
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-    {{-- <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}"> --}}
     <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
@@ -283,7 +285,57 @@
     <meta property="og:title" content="Invoice Listing">
     <meta property="og:description" content="Real Estate Html Template">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="images/homeid-social.png">
+    <meta property="og:image" content="images/tro-moi.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630"> --}}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+        content="Chi tiết về đơn khu trọ trên TRỌ NHANH. Khám phá thông tin, tiện ích, và hình ảnh về các khu trọ.">
+    <meta name="author" content="TRỌ NHANH">
+    <meta name="generator" content="TRỌ NHANH">
+    <title>Chi Tiết Đơn Khu Trọ | TRỌ NHANH</title>
+
+    <!-- Google fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/slick/slick.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/magnific-popup/magnific-popup.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/chartjs/Chart.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dropzone/css/dropzone.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
+
+    <!-- Themes core CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
+
+    <!-- Favicons -->
+    <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@TroNanh">
+    <meta name="twitter:creator" content="@TroNanh">
+    <meta name="twitter:title" content="Chi Tiết Đơn Khu Trọ | TRỌ NHANH">
+    <meta name="twitter:description"
+        content="Khám phá thông tin chi tiết về các đơn khu trọ trên TRỌ NHANH. Tìm hiểu về các tiện ích và hình ảnh khu trọ.">
+    <meta name="twitter:image" content="{{ asset('assets/images/tro-moi.png') }}">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="Chi Tiết Đơn Khu Trọ | TRỌ NHANH">
+    <meta property="og:description"
+        content="Khám phá thông tin chi tiết về các đơn khu trọ trên TRỌ NHANH. Tìm hiểu về các tiện ích và hình ảnh khu trọ.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">

@@ -237,8 +237,7 @@
         <!--end::Content-->
     @endsection
     @push('styleAdmin')
-        <base href="">
-        {{-- <title>Danh Sách Đơn Đăng Ký | TRỌ NHANH</title> --}}
+        {{-- <base href="">
         <meta name="description"
             content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
         <meta name="keywords"
@@ -252,9 +251,7 @@
         <meta property="og:url" content="https://keenthemes.com/metronic" />
         <meta property="og:site_name" content="Keenthemes | Metronic" />
         <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-        {{-- <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" /> --}}
         <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
-        {{-- hien thi thong bao --}}
         <meta name="success" content="{{ session('success') }}">
         <meta name="error" content="{{ session('error') }}">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -268,7 +265,36 @@
         <!--end::Page Vendor Stylesheets-->
         <!--begin::Global Stylesheets Bundle(used by all pages)-->
         <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" /> --}}
+        <base href="{{ asset('') }}">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description"
+            content="Danh sách tất cả các đơn đăng ký trên hệ thống Trọ Nhanh. Quản lý và xem các đơn đăng ký dễ dàng từ trang này.">
+        <meta name="keywords"
+            content="Danh sách đơn đăng ký, quản lý đơn đăng ký, Trọ Nhanh, hệ thống đăng ký, theo dõi đơn đăng ký">
+        <meta property="og:title" content="Danh Sách Đơn Đăng Ký - Trọ Nhanh">
+        <meta property="og:description"
+            content="Xem và quản lý tất cả các đơn đăng ký trên Trọ Nhanh. Trang này cung cấp cái nhìn tổng quan về các đơn đăng ký và cho phép bạn theo dõi và xử lý chúng dễ dàng.">
+        <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+        <meta property="og:image:type" content="image/png">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <meta property="og:url" content="{{ url()->current() }}">
+        <meta property="og:site_name" content="Trọ Nhanh">
+        <link rel="canonical" href="{{ url()->current() }}">
+        <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}">
+        <!--begin::Fonts-->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+        <!--end::Fonts-->
+        <!--begin::Page Vendor Stylesheets(used by this page)-->
+        <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet"
+            type="text/css">
+        <!--end::Page Vendor Stylesheets-->
+        <!--begin::Global Stylesheets Bundle(used by all pages)-->
+        <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css">
+        <!--end::Global Stylesheets Bundle-->
     @endpush
     @push('scriptsAdmin')
         <script>

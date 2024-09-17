@@ -434,8 +434,7 @@
 
 @endsection
 @push('styleAdmin')
-    <base href="../">
-    {{-- <title>Chi Tiết Đơn Đăng Ký | TRỌ NHANH</title> --}}
+    {{-- <base href="../">
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"
@@ -449,9 +448,7 @@
     <meta property="og:url" content="" />
     <meta property="og:site_name" content="" />
     <link rel="canonical" href="" />
-    {{-- <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" /> --}}
     <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
-    {{-- hien thi thông báo  --}}
     <meta name="success" content="{{ session('success') }}">
     <meta name="error" content="{{ session('error') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -462,7 +459,31 @@
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/css/admin/style-detail-register.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/admin/style-detail-register.css') }}" rel="stylesheet" type="text/css" /> --}}
+    <base href="../">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Chi tiết đơn đăng ký trong hệ thống Trọ Nhanh, nơi bạn có thể theo dõi và quản lý các đơn đăng ký một cách dễ dàng và hiệu quả.">
+    <meta name="keywords" content="Trọ Nhanh, đơn đăng ký, chi tiết đơn, quản lý đăng ký, hệ thống phòng trọ">
+    <meta property="og:title" content="Chi Tiết Đơn Đăng Ký - Trọ Nhanh">
+    <meta property="og:description"
+        content="Khám phá chi tiết các đơn đăng ký trên hệ thống Trọ Nhanh. Theo dõi trạng thái và thông tin liên quan đến đơn đăng ký.">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
+    <!--begin::Fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+    <!--end::Fonts-->
+    <!--begin::Global Stylesheets Bundle(used by all pages)-->
+    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/admin/style-detail-register.css') }}" rel="stylesheet" type="text/css">
 @endpush
 @push('scriptsAdmin')
     <script>

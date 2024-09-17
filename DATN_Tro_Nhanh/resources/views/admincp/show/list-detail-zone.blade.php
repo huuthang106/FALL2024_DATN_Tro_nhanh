@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 @section('titleAdmin', 'Chi Tiết Khu Trọ | TRỌ NHANH')
+{{-- @section('titleAdmin', $zones->name . ' | TRỌ NHANH') --}}
 @section('linkAdmin', 'Chi tiết khu trọ')
 
 @section('contentAdmin')
@@ -573,8 +574,7 @@
     </div>
 @endsection
 @push('styleAdmin')
-    <base href="{{ asset('') }}">
-    {{-- <title>Chi Tiết Khu Trọ | TRỌ NHANH</title> --}}
+    {{-- <base href="{{ asset('') }}">
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue & Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"
@@ -592,7 +592,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    {{-- <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" /> --}}
     <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
@@ -603,7 +602,34 @@
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <!--end::Global Stylesheets Bundle-->
+    <!--end::Global Stylesheets Bundle--> --}}
+    <base href="{{ asset('') }}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Chi tiết khu trọ trên hệ thống Trọ Nhanh. Xem thông tin đầy đủ về khu trọ, tiện ích, phòng trọ, và các thông tin liên quan để lựa chọn khu trọ phù hợp với nhu cầu của bạn.">
+    <meta name="keywords"
+        content="Chi tiết khu trọ, thông tin khu trọ, Trọ Nhanh, khu trọ, phòng trọ, tiện ích khu trọ, quản lý khu trọ">
+    <meta property="og:title" content="Chi Tiết Khu Trọ - Trọ Nhanh">
+    <meta property="og:description"
+        content="Khám phá thông tin chi tiết về khu trọ trên Trọ Nhanh, bao gồm các tiện ích, phòng trọ, và các thông tin quan trọng khác.">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:site_name" content="Trọ Nhanh">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}">
+    <!--begin::Fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+    <!--end::Fonts-->
+    <!--begin::Page Vendor Stylesheets (used by this page)-->
+    <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css">
+    <!--end::Page Vendor Stylesheets-->
+    <!--begin::Global Stylesheets Bundle (used by all pages)-->
+    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css">
 @endpush
 
 

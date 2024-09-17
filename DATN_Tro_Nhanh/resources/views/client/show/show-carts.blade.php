@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('titleUs', 'Trang chủ trọ nhanh')
+@section('titleUs', 'Giỏ Hàng | TRỌ NHANH')
 @section('contentUs')
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
@@ -42,92 +42,98 @@
                 </div>
             </div>
             <form action="{{ route('client.payment') }}" id="form" method="POST">
-    @csrf
-    <input type="hidden" id="selected-items" name="selected_items" value=""/>
-            <div class="table-responsive">
-                <table id="notification-list" class="table table-hover bg-white border rounded-lg">
-                    <thead>
-                        <tr role="row">
-                            <th class="no-sort py-6 pl-6">
-                                <label class="new-control new-checkbox checkbox-primary m-auto">
-                                    <input type="checkbox" class="new-control-input chk-parent select-customers-info price-list-checkbox"  id="select-all">
-                                </label>
-                            </th>
-                            <th class="py-6">Tên gói</th>
-                            <th class="py-6">Mô tả</th>
-                            <th class="no-sort py-6">Giá</th>
-                            <th class="no-sort py-6">Số lượng</th>
-                            <th class="no-sort py-6">Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @auth
-                            @forelse ($carts as $detail)
-                                <tr>
-                                    <td class="checkbox-column py-6 pl-6">
-                                        <label class="new-control new-checkbox checkbox-primary m-auto">
-                                            <input type="checkbox" class="new-control-input child-chk select-customers-info price-list-checkbox" name="cart_ids[]" 
-                   value="{{ $detail->id }}" 
-                   data-price="{{ $detail->priceList->price }}" 
-                   data-quantity="{{ $detail->quantity }}">
-                                        </label>
-                                    </td>                
-                                    <td name="name_price_list">{{ $detail->priceList->description }}</td>
-                                    <td name="description">{{ $detail->priceList->description }}</td>
-                                    <td name="price">{{ number_format($detail->priceList->price, 0, ',', '.') }} VND</td>
-                                    <td>
-                                       {{ $detail->quantity}}
-                                    </td>
-                                    <td>
-                                    <button type="button" class="btn btn-danger btn-sm delete-item" data-id="{{ $detail->id }}">Xóa</button>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="7" class="text-center">Giỏ hàng trống.</td>
-                                </tr>
-                            @endforelse
-                        @else
-                            <tr>
-                                <td colspan="7" class="text-center">
-                                    <a class="nav-link pl-3 pr-3" data-toggle="modal" href="#login-register-modal">
-                                        <button class="btn btn-primary ">Đăng nhập để mua gói</button>
-                                    </a>
-                                </td>
+                @csrf
+                <input type="hidden" id="selected-items" name="selected_items" value="" />
+                <div class="table-responsive">
+                    <table id="notification-list" class="table table-hover bg-white border rounded-lg">
+                        <thead>
+                            <tr role="row">
+                                <th class="no-sort py-6 pl-6">
+                                    <label class="new-control new-checkbox checkbox-primary m-auto">
+                                        <input type="checkbox"
+                                            class="new-control-input chk-parent select-customers-info price-list-checkbox"
+                                            id="select-all">
+                                    </label>
+                                </th>
+                                <th class="py-6">Tên gói</th>
+                                <th class="py-6">Mô tả</th>
+                                <th class="no-sort py-6">Giá</th>
+                                <th class="no-sort py-6">Số lượng</th>
+                                <th class="no-sort py-6">Thao tác</th>
                             </tr>
-                        @endauth
+                        </thead>
+                        <tbody>
+                            @auth
+                                @forelse ($carts as $detail)
+                                    <tr>
+                                        <td class="checkbox-column py-6 pl-6">
+                                            <label class="new-control new-checkbox checkbox-primary m-auto">
+                                                <input type="checkbox"
+                                                    class="new-control-input child-chk select-customers-info price-list-checkbox"
+                                                    name="cart_ids[]" value="{{ $detail->id }}"
+                                                    data-price="{{ $detail->priceList->price }}"
+                                                    data-quantity="{{ $detail->quantity }}">
+                                            </label>
+                                        </td>
+                                        <td name="name_price_list">{{ $detail->priceList->description }}</td>
+                                        <td name="description">{{ $detail->priceList->description }}</td>
+                                        <td name="price">{{ number_format($detail->priceList->price, 0, ',', '.') }} VND</td>
+                                        <td>
+                                            {{ $detail->quantity }}
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger btn-sm delete-item"
+                                                data-id="{{ $detail->id }}">Xóa</button>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="7" class="text-center">Giỏ hàng trống.</td>
+                                    </tr>
+                                @endforelse
+                            @else
+                                <tr>
+                                    <td colspan="7" class="text-center">
+                                        <a class="nav-link pl-3 pr-3" data-toggle="modal" href="#login-register-modal">
+                                            <button class="btn btn-primary ">Đăng nhập để mua gói</button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endauth
 
-                    </tbody>
-                </table>
-            </div><div id="no-checkbox-selected" class="alert alert-danger mt-4" style="display: none;">
-                Vui lòng chọn ít nhất một gói để thanh toán.
-            </div>
-            <div class="row">
-            <div class="col-6 d-flex justify-content-start mt-4">
-            <input type="hidden" name="total_price" id="total-price-input" value="">
-<h5 class="text-info">Tổng tiền: <span id="total-price" name="total-price" class="text-dark">0 VND</span></h5>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="no-checkbox-selected" class="alert alert-danger mt-4" style="display: none;">
+                    Vui lòng chọn ít nhất một gói để thanh toán.
+                </div>
+                <div class="row">
+                    <div class="col-6 d-flex justify-content-start mt-4">
+                        <input type="hidden" name="total_price" id="total-price-input" value="">
+                        <h5 class="text-info">Tổng tiền: <span id="total-price" name="total-price" class="text-dark">0
+                                VND</span></h5>
 
-            </div>
-            <!-- Thêm nút tiếp hành thanh toán -->
-            <div class="col-6 d-flex justify-content-end mt-4">
-                <button type="submit" class="btn btn-primary btn-lg" id="checkout-button">
-                    Tiếp hành thanh toán
-                </button>
-            </div>
-            </div>
-            <!-- Div thông báo khi không có checkbox nào được chọn -->
-            
+                    </div>
+                    <!-- Thêm nút tiếp hành thanh toán -->
+                    <div class="col-6 d-flex justify-content-end mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg" id="checkout-button">
+                            Tiếp hành thanh toán
+                        </button>
+                    </div>
+                </div>
+                <!-- Div thông báo khi không có checkbox nào được chọn -->
+
             </form>
         </div>
     </main>
 @endsection
 @push('styleUs')
-    <meta charset="utf-8">
+    {{-- <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
     <meta name="generator" content="Jekyll">
-    <title>Thông Báo | TRỌ NHANH</title>
+    <title>Giỏ Hàng | TRỌ NHANH</title>
     <!-- Google fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
@@ -154,14 +160,64 @@
     <meta name="twitter:creator" content="@">
     <meta name="twitter:title" content="Invoice Listing">
     <meta name="twitter:description" content="Real Estate Html Template">
-    <meta name="twitter:image" content="{{ asset('assets/images/homeid-social-logo.png') }}">
+    <meta name="twitter:image" content="{{ asset('assets/images/tro-moi.png') }}">
     <!-- Facebook -->
     <meta property="og:url" content="dashboard-invoice-listing.html">
     <meta property="og:title" content="Invoice Listing">
     <meta property="og:description" content="Real Estate Html Template">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="{{ asset('assets/images/homeid-social.png') }}">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
     <meta property="og:image:type" content="{{ asset('assets/image/png') }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630"> --}}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+        content="Trang giỏ hàng của TRỌ NHANH giúp bạn quản lý và theo dõi các dịch vụ và sản phẩm đã chọn.">
+    <meta name="author" content="TRỌ NHANH">
+    <meta name="generator" content="TRỌ NHANH">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/slick/slick.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/magnific-popup/magnific-popup.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/chartjs/Chart.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dropzone/css/dropzone.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
+
+    <!-- Themes core CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
+
+    <!-- Favicons -->
+    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@TronNhanh">
+    <meta name="twitter:creator" content="@TronNhanh">
+    <meta name="twitter:title" content="Giỏ Hàng | TRỌ NHANH">
+    <meta name="twitter:description"
+        content="Quản lý các dịch vụ và sản phẩm đã chọn một cách dễ dàng với trang giỏ hàng của TRỌ NHANH.">
+    <meta name="twitter:image" content="{{ asset('assets/images/tro-moi.png') }}">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="{{ url('/gio-hang') }}">
+    <meta property="og:title" content="Giỏ Hàng | TRỌ NHANH">
+    <meta property="og:description"
+        content="Trang giỏ hàng của TRỌ NHANH giúp bạn quản lý và theo dõi các dịch vụ và sản phẩm đã chọn, đảm bảo trải nghiệm thuê phòng thuận tiện nhất.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
 @endpush
@@ -187,241 +243,236 @@
     {{-- Notification - Pagination --}}
     {{-- <script src="{{ asset('assets/js/notification-list/notification-pagination.js') }}"></script> --}}
     <script>
-// document.addEventListener('DOMContentLoaded', function () {
-//     const checkboxes = document.querySelectorAll('.price-list-checkbox');  // Tất cả checkbox cho từng price list
-//     const selectAllCheckbox = document.getElementById('select-all');  // Checkbox tổng
-//     const totalPriceElement = document.getElementById('total-price');  // Phần tử hiển thị tổng tiền
-//     const totalPriceInput = document.getElementById('total-price-input'); // Input ẩn để lưu tổng tiền
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     const checkboxes = document.querySelectorAll('.price-list-checkbox');  // Tất cả checkbox cho từng price list
+        //     const selectAllCheckbox = document.getElementById('select-all');  // Checkbox tổng
+        //     const totalPriceElement = document.getElementById('total-price');  // Phần tử hiển thị tổng tiền
+        //     const totalPriceInput = document.getElementById('total-price-input'); // Input ẩn để lưu tổng tiền
 
-//     // Hàm tính tổng tiền
-//     function calculateTotalPrice() {
-//         let totalPrice = 0;
+        //     // Hàm tính tổng tiền
+        //     function calculateTotalPrice() {
+        //         let totalPrice = 0;
 
-//         // Lặp qua tất cả các checkbox
-//         checkboxes.forEach(function (checkbox) {
-//             if (checkbox.checked) {
-//                 // Lấy giá và số lượng từ thuộc tính data của checkbox
-//                 const price = parseFloat(checkbox.getAttribute('data-price')) || 0;
-//                 const quantity = parseInt(checkbox.getAttribute('data-quantity')) || 1;
+        //         // Lặp qua tất cả các checkbox
+        //         checkboxes.forEach(function (checkbox) {
+        //             if (checkbox.checked) {
+        //                 // Lấy giá và số lượng từ thuộc tính data của checkbox
+        //                 const price = parseFloat(checkbox.getAttribute('data-price')) || 0;
+        //                 const quantity = parseInt(checkbox.getAttribute('data-quantity')) || 1;
 
-//                 // Tính tổng cho sản phẩm này và cộng vào tổng toàn bộ
-//                 totalPrice += price * quantity;
-//             }
-//         });
+        //                 // Tính tổng cho sản phẩm này và cộng vào tổng toàn bộ
+        //                 totalPrice += price * quantity;
+        //             }
+        //         });
 
-//         // Làm tròn tổng tiền xuống số nguyên
-//         totalPrice = Math.round(totalPrice);
+        //         // Làm tròn tổng tiền xuống số nguyên
+        //         totalPrice = Math.round(totalPrice);
 
-//         // Cập nhật tổng tiền trên giao diện và thêm đơn vị "VND"
-//         totalPriceElement.textContent = new Intl.NumberFormat('vi-VN', {
-//             style: 'decimal',
-//             minimumFractionDigits: 0,
-//             maximumFractionDigits: 0
-//         }).format(totalPrice) + ' VND';
+        //         // Cập nhật tổng tiền trên giao diện và thêm đơn vị "VND"
+        //         totalPriceElement.textContent = new Intl.NumberFormat('vi-VN', {
+        //             style: 'decimal',
+        //             minimumFractionDigits: 0,
+        //             maximumFractionDigits: 0
+        //         }).format(totalPrice) + ' VND';
 
-//         // Cập nhật tổng tiền vào input ẩn để gửi qua form
-//         totalPriceInput.value = totalPrice;
-//     }
+        //         // Cập nhật tổng tiền vào input ẩn để gửi qua form
+        //         totalPriceInput.value = totalPrice;
+        //     }
 
-//     // Hàm kiểm tra trạng thái của tất cả checkbox và cập nhật trạng thái của checkbox tổng
-//     function updateSelectAllCheckbox() {
-//         const allChecked = Array.from(checkboxes).every(function (checkbox) {
-//             return checkbox.checked;
-//         });
-//         selectAllCheckbox.checked = allChecked;
-//     }
+        //     // Hàm kiểm tra trạng thái của tất cả checkbox và cập nhật trạng thái của checkbox tổng
+        //     function updateSelectAllCheckbox() {
+        //         const allChecked = Array.from(checkboxes).every(function (checkbox) {
+        //             return checkbox.checked;
+        //         });
+        //         selectAllCheckbox.checked = allChecked;
+        //     }
 
-//     // Gán sự kiện 'change' cho mỗi checkbox
-//     checkboxes.forEach(function (checkbox) {
-//         checkbox.addEventListener('change', function () {
-//             // Cập nhật tổng tiền khi chọn hoặc bỏ chọn checkbox
-//             calculateTotalPrice();
+        //     // Gán sự kiện 'change' cho mỗi checkbox
+        //     checkboxes.forEach(function (checkbox) {
+        //         checkbox.addEventListener('change', function () {
+        //             // Cập nhật tổng tiền khi chọn hoặc bỏ chọn checkbox
+        //             calculateTotalPrice();
 
-//             // Cập nhật trạng thái của checkbox tổng
-//             updateSelectAllCheckbox();
-//         });
-//     });
+        //             // Cập nhật trạng thái của checkbox tổng
+        //             updateSelectAllCheckbox();
+        //         });
+        //     });
 
-//     // Gán sự kiện 'change' cho checkbox tổng
-//     selectAllCheckbox.addEventListener('change', function () {
-//         const isChecked = selectAllCheckbox.checked;
+        //     // Gán sự kiện 'change' cho checkbox tổng
+        //     selectAllCheckbox.addEventListener('change', function () {
+        //         const isChecked = selectAllCheckbox.checked;
 
-//         // Chọn hoặc bỏ chọn tất cả các checkbox khác khi checkbox tổng được thay đổi
-//         checkboxes.forEach(function (checkbox) {
-//             checkbox.checked = isChecked;
-//         });
+        //         // Chọn hoặc bỏ chọn tất cả các checkbox khác khi checkbox tổng được thay đổi
+        //         checkboxes.forEach(function (checkbox) {
+        //             checkbox.checked = isChecked;
+        //         });
 
-//         // Tính toán lại tổng tiền
-//         calculateTotalPrice();
-//     });
+        //         // Tính toán lại tổng tiền
+        //         calculateTotalPrice();
+        //     });
 
-//     // Tính tổng tiền ngay khi trang được tải
-//     calculateTotalPrice();
+        //     // Tính tổng tiền ngay khi trang được tải
+        //     calculateTotalPrice();
 
-//     // Kiểm tra trạng thái của các checkbox khi bấm nút thanh toán
-//     checkoutButton.addEventListener('click', function (event) {
-//         const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+        //     // Kiểm tra trạng thái của các checkbox khi bấm nút thanh toán
+        //     checkoutButton.addEventListener('click', function (event) {
+        //         const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
 
-//         if (!anyChecked) {
-//             event.preventDefault(); // Ngăn chặn form submit
-//             noCheckboxSelected.style.display = 'block'; // Hiển thị thông báo
-//         } else {
-//             noCheckboxSelected.style.display = 'none'; // Ẩn thông báo nếu có checkbox được chọn
-//         }
-//     });
-// });
-document.addEventListener('DOMContentLoaded', function () {
-    const checkboxes = document.querySelectorAll('.price-list-checkbox');  // Tất cả checkbox cho từng price list
-    const selectAllCheckbox = document.getElementById('select-all');  // Checkbox tổng
-    const totalPriceElement = document.getElementById('total-price');  // Phần tử hiển thị tổng tiền
-    const totalPriceInput = document.getElementById('total-price-input'); // Input ẩn để lưu tổng tiền
-    const checkoutButton = document.getElementById('checkout-button'); // Nút thanh toán
-    const noCheckboxSelected = document.getElementById('no-checkbox-selected'); // Thông báo nếu không có checkbox nào được chọn
+        //         if (!anyChecked) {
+        //             event.preventDefault(); // Ngăn chặn form submit
+        //             noCheckboxSelected.style.display = 'block'; // Hiển thị thông báo
+        //         } else {
+        //             noCheckboxSelected.style.display = 'none'; // Ẩn thông báo nếu có checkbox được chọn
+        //         }
+        //     });
+        // });
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll(
+                '.price-list-checkbox'); // Tất cả checkbox cho từng price list
+            const selectAllCheckbox = document.getElementById('select-all'); // Checkbox tổng
+            const totalPriceElement = document.getElementById('total-price'); // Phần tử hiển thị tổng tiền
+            const totalPriceInput = document.getElementById('total-price-input'); // Input ẩn để lưu tổng tiền
+            const checkoutButton = document.getElementById('checkout-button'); // Nút thanh toán
+            const noCheckboxSelected = document.getElementById(
+                'no-checkbox-selected'); // Thông báo nếu không có checkbox nào được chọn
 
-    // Hàm tính tổng tiền
-    function calculateTotalPrice() {
-        let totalPrice = 0;
+            // Hàm tính tổng tiền
+            function calculateTotalPrice() {
+                let totalPrice = 0;
 
-        // Lặp qua tất cả các checkbox
-        checkboxes.forEach(function (checkbox) {
-            if (checkbox.checked) {
-                // Lấy giá và số lượng từ thuộc tính data của checkbox
-                const price = parseFloat(checkbox.getAttribute('data-price')) || 0;
-                const quantity = parseInt(checkbox.getAttribute('data-quantity')) || 1;
+                // Lặp qua tất cả các checkbox
+                checkboxes.forEach(function(checkbox) {
+                    if (checkbox.checked) {
+                        // Lấy giá và số lượng từ thuộc tính data của checkbox
+                        const price = parseFloat(checkbox.getAttribute('data-price')) || 0;
+                        const quantity = parseInt(checkbox.getAttribute('data-quantity')) || 1;
 
-                // Tính tổng cho sản phẩm này và cộng vào tổng toàn bộ
-                totalPrice += price * quantity;
+                        // Tính tổng cho sản phẩm này và cộng vào tổng toàn bộ
+                        totalPrice += price * quantity;
+                    }
+                });
+
+                // Làm tròn tổng tiền xuống số nguyên
+                totalPrice = Math.round(totalPrice);
+
+                // Cập nhật tổng tiền trên giao diện và thêm đơn vị "VND"
+                totalPriceElement.textContent = new Intl.NumberFormat('vi-VN', {
+                    style: 'decimal',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                }).format(totalPrice) + ' VND';
+
+                // Cập nhật tổng tiền vào input ẩn để gửi qua form
+                totalPriceInput.value = totalPrice;
             }
-        });
 
-        // Làm tròn tổng tiền xuống số nguyên
-        totalPrice = Math.round(totalPrice);
+            // Hàm kiểm tra trạng thái của tất cả checkbox và cập nhật trạng thái của checkbox tổng
+            // Hàm kiểm tra trạng thái của tất cả checkbox và cập nhật trạng thái của checkbox tổng
+            function updateSelectAllCheckbox() {
+                // Lọc các checkbox con, không bao gồm checkbox tổng
+                const childCheckboxes = Array.from(checkboxes).filter(function(checkbox) {
+                    return checkbox !== selectAllCheckbox;
+                });
 
-        // Cập nhật tổng tiền trên giao diện và thêm đơn vị "VND"
-        totalPriceElement.textContent = new Intl.NumberFormat('vi-VN', {
-            style: 'decimal',
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0
-        }).format(totalPrice) + ' VND';
+                // Kiểm tra xem tất cả checkbox con có được chọn hay không
+                const allChecked = childCheckboxes.every(function(checkbox) {
+                    return checkbox.checked;
+                });
 
-        // Cập nhật tổng tiền vào input ẩn để gửi qua form
-        totalPriceInput.value = totalPrice;
-    }
+                // Log ra giá trị từng checkbox con để kiểm tra trạng thái của nó
+                childCheckboxes.forEach(function(checkbox, index) {
+                    console.log(`Checkbox con ${index + 1}: `, checkbox.checked);
+                });
 
-    // Hàm kiểm tra trạng thái của tất cả checkbox và cập nhật trạng thái của checkbox tổng
-   // Hàm kiểm tra trạng thái của tất cả checkbox và cập nhật trạng thái của checkbox tổng
-   function updateSelectAllCheckbox() {
-    // Lọc các checkbox con, không bao gồm checkbox tổng
-    const childCheckboxes = Array.from(checkboxes).filter(function (checkbox) {
-        return checkbox !== selectAllCheckbox;
-    });
+                // Log ra giá trị của allChecked để kiểm tra
+                console.log("Tất cả checkbox con được chọn: ", allChecked);
 
-    // Kiểm tra xem tất cả checkbox con có được chọn hay không
-    const allChecked = childCheckboxes.every(function (checkbox) {
-        return checkbox.checked;
-    });
+                // Cập nhật trạng thái của checkbox tổng: chỉ chọn nếu tất cả checkbox con được chọn
+                selectAllCheckbox.checked = allChecked;
+            }
 
-    // Log ra giá trị từng checkbox con để kiểm tra trạng thái của nó
-    childCheckboxes.forEach(function (checkbox, index) {
-        console.log(`Checkbox con ${index + 1}: `, checkbox.checked);
-    });
+            // Gán sự kiện 'change' cho mỗi checkbox
+            checkboxes.forEach(function(checkbox) {
+                checkbox.addEventListener('change', function() {
+                    // Cập nhật tổng tiền khi chọn hoặc bỏ chọn checkbox
+                    calculateTotalPrice();
 
-    // Log ra giá trị của allChecked để kiểm tra
-    console.log("Tất cả checkbox con được chọn: ", allChecked);
+                    // Cập nhật trạng thái của checkbox tổng
+                    updateSelectAllCheckbox();
+                });
+            });
 
-    // Cập nhật trạng thái của checkbox tổng: chỉ chọn nếu tất cả checkbox con được chọn
-    selectAllCheckbox.checked = allChecked;
-}
+            // Gán sự kiện 'change' cho checkbox tổng
+            selectAllCheckbox.addEventListener('change', function() {
+                const isChecked = selectAllCheckbox.checked;
 
-    // Gán sự kiện 'change' cho mỗi checkbox
-    checkboxes.forEach(function (checkbox) {
-        checkbox.addEventListener('change', function () {
-            // Cập nhật tổng tiền khi chọn hoặc bỏ chọn checkbox
+                // Chọn hoặc bỏ chọn tất cả các checkbox khác khi checkbox tổng được thay đổi
+                checkboxes.forEach(function(checkbox) {
+                    checkbox.checked = isChecked;
+                });
+
+                // Tính toán lại tổng tiền
+                calculateTotalPrice();
+            });
+
+            // Tính tổng tiền ngay khi trang được tải
             calculateTotalPrice();
 
-            // Cập nhật trạng thái của checkbox tổng
-            updateSelectAllCheckbox();
-        });
-    });
+            // Kiểm tra trạng thái của các checkbox khi bấm nút thanh toán
+            checkoutButton.addEventListener('click', function(event) {
+                const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
 
-    // Gán sự kiện 'change' cho checkbox tổng
-    selectAllCheckbox.addEventListener('change', function () {
-        const isChecked = selectAllCheckbox.checked;
-
-        // Chọn hoặc bỏ chọn tất cả các checkbox khác khi checkbox tổng được thay đổi
-        checkboxes.forEach(function (checkbox) {
-            checkbox.checked = isChecked;
-        });
-
-        // Tính toán lại tổng tiền
-        calculateTotalPrice();
-    });
-
-    // Tính tổng tiền ngay khi trang được tải
-    calculateTotalPrice();
-
-    // Kiểm tra trạng thái của các checkbox khi bấm nút thanh toán
-    checkoutButton.addEventListener('click', function (event) {
-        const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
-
-        if (!anyChecked) {
-            event.preventDefault(); // Ngăn chặn form submit
-            noCheckboxSelected.style.display = 'block'; // Hiển thị thông báo
-        } else {
-            noCheckboxSelected.style.display = 'none'; // Ẩn thông báo nếu có checkbox được chọn
-        }
-    });
-});
-
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('.delete-item').forEach(function (button) {
-        button.addEventListener('click', function () {
-            const cartDetailId = this.getAttribute('data-id');
-
-            // Hiển thị thông báo đang xóa để người dùng biết rằng hành động đang được thực hiện
-            this.disabled = true; // Vô hiệu hóa nút xóa để tránh nhấn nhiều lần
-            this.innerText = 'Đang xóa...';
-
-            // Gửi yêu cầu xóa tới server
-            axios.delete(`{{ url('/gio-hang') }}/${cartDetailId}`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // CSRF token để bảo mật
-                }
-            })
-            .then(response => {
-                if (response.data.success) {
-                    // Chờ một thời gian ngắn để người dùng thấy phản hồi
-                    setTimeout(() => {
-                        // Tải lại trang để hiển thị kết quả mới
-                        window.location.reload();
-                    }, 300); // Thay đổi thời gian nếu cần
+                if (!anyChecked) {
+                    event.preventDefault(); // Ngăn chặn form submit
+                    noCheckboxSelected.style.display = 'block'; // Hiển thị thông báo
                 } else {
-                    alert('Có lỗi xảy ra khi xóa: ' + (response.data.message || ''));
-                    // Kích hoạt lại nút xóa
-                    this.disabled = false;
-                    this.innerText = 'Xóa';
+                    noCheckboxSelected.style.display = 'none'; // Ẩn thông báo nếu có checkbox được chọn
                 }
-            })
-            .catch(error => {
-                console.error('Lỗi:', error);
-                alert('Có lỗi xảy ra khi xóa.');
-                // Kích hoạt lại nút xóa
-                this.disabled = false;
-                this.innerText = 'Xóa';
             });
         });
-    });
-});
-</script>
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.delete-item').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const cartDetailId = this.getAttribute('data-id');
 
+                    // Hiển thị thông báo đang xóa để người dùng biết rằng hành động đang được thực hiện
+                    this.disabled = true; // Vô hiệu hóa nút xóa để tránh nhấn nhiều lần
+                    this.innerText = 'Đang xóa...';
 
-
-
-
-
-
+                    // Gửi yêu cầu xóa tới server
+                    axios.delete(`{{ url('/gio-hang') }}/${cartDetailId}`, {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}' // CSRF token để bảo mật
+                            }
+                        })
+                        .then(response => {
+                            if (response.data.success) {
+                                // Chờ một thời gian ngắn để người dùng thấy phản hồi
+                                setTimeout(() => {
+                                    // Tải lại trang để hiển thị kết quả mới
+                                    window.location.reload();
+                                }, 300); // Thay đổi thời gian nếu cần
+                            } else {
+                                alert('Có lỗi xảy ra khi xóa: ' + (response.data.message ||
+                                    ''));
+                                // Kích hoạt lại nút xóa
+                                this.disabled = false;
+                                this.innerText = 'Xóa';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Lỗi:', error);
+                            alert('Có lỗi xảy ra khi xóa.');
+                            // Kích hoạt lại nút xóa
+                            this.disabled = false;
+                            this.innerText = 'Xóa';
+                        });
+                });
+            });
+        });
+    </script>
 @endpush

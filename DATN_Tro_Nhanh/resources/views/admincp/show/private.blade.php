@@ -3189,8 +3189,7 @@
 
 @endsection
 @push('styleAdmin')
-    <base href="../../">
-    {{-- <title>Trò Chuyện | TRỌ NHANH</title> --}}
+    {{-- <base href="../../">
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"
@@ -3204,7 +3203,6 @@
     <meta property="og:url" content="https://keenthemes.com/metronic" />
     <meta property="og:site_name" content="Keenthemes | Metronic" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    {{-- <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" /> --}}
     <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
@@ -3213,7 +3211,32 @@
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
+    <link rel="stylesheet" href="{{ asset('assets/css/owners/style-owner-nht.css') }}"> --}}
+    <base href="{{ asset('') }}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Trang trò chuyện trên Trọ Nhanh cung cấp tính năng trò chuyện trực tiếp giữa người dùng và quản lý phòng. Tương tác nhanh chóng và dễ dàng để giải quyết các vấn đề và yêu cầu của bạn.">
+    <meta name="keywords" content="trò chuyện, chat trực tiếp, giao tiếp, người dùng, quản lý phòng, hỗ trợ trực tuyến">
+    <meta property="og:title" content="Trò Chuyện - Trọ Nhanh">
+    <meta property="og:description"
+        content="Trò chuyện trực tiếp với người quản lý phòng để giải quyết các yêu cầu và vấn đề của bạn một cách nhanh chóng và hiệu quả.">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:site_name" content="Trọ Nhanh">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}">
+    <!--begin::Fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+    <!--end::Fonts-->
+    <!--begin::Global Stylesheets Bundle(used by all pages)-->
+    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css">
+    <!--end::Global Stylesheets Bundle-->
+    <!--begin::Page Specific Stylesheet-->
     <link rel="stylesheet" href="{{ asset('assets/css/owners/style-owner-nht.css') }}">
+    <!--end::Page Specific Stylesheet-->
 @endpush
 
 

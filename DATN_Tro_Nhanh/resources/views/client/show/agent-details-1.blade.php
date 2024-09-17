@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('titleUs', 'Chi Tiết Người Đăng Tin | TRỌ NHANH')
+@section('titleUs', $user->name . ' | TRỌ NHANH')
 @section('contentUs')
     <main id="content">
         <section class="pb-7 page-title position-relative z-index-2">
@@ -369,7 +369,7 @@
 
 @endsection
 @push('styleUs')
-    <meta charset="utf-8">
+    {{-- <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
@@ -411,7 +411,56 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <link rel="stylesheet" href="{{ asset('assets/css/css-nht.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/css-nht.css') }}"> --}}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+        content="Tìm hiểu chi tiết về người đăng tin trên TRỌ NHANH. Khám phá thông tin và các tin tức mới nhất từ các người đăng tin uy tín. Xem ngay để kết nối với người đăng tin và tìm kiếm cơ hội tốt nhất.">
+    <meta name="author" content="TRỌ NHANH">
+    <meta name="generator" content="TRỌ NHANH">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS của người cung cấp -->
+    <link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/slick/slick.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/magnific-popup/magnific-popup.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/chartjs/Chart.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dropzone/css/dropzone.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
+    <!-- Themes core CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/mh.css') }}">
+    <!-- Favicons -->
+    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@TronNhanh">
+    <meta name="twitter:creator" content="@TronNhanh">
+    <meta name="twitter:title" content="Chi Tiết Người Đăng Tin | TRỌ NHANH">
+    <meta name="twitter:description"
+        content="Khám phá thông tin chi tiết về người đăng tin trên TRỌ NHANH. Tìm hiểu về các người đăng tin uy tín và các tin tức mới nhất. Kết nối với người đăng tin để không bỏ lỡ cơ hội tốt nhất.">
+    <meta name="twitter:image" content="{{ asset('assets/images/tro-moi.png') }}">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="Chi Tiết Người Đăng Tin | TRỌ NHANH">
+    <meta property="og:description"
+        content="Tìm hiểu chi tiết về người đăng tin trên TRỌ NHANH. Xem thông tin và các tin tức mới nhất từ các người đăng tin uy tín. Kết nối với người đăng tin và tìm kiếm cơ hội tốt nhất.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
 @endpush
 @push('scriptUs')
     {{-- <script>

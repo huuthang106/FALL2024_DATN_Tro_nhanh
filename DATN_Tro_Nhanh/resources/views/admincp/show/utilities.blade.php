@@ -60,8 +60,7 @@
     <!--end::Main-->
 @endsection
 @push('styleAdmin')
-    <base href="{{ asset('') }}">
-    {{-- <title>Danh Sách Tiện Ích | TRỌ NHANH</title> --}}
+    {{-- <base href="{{ asset('') }}">
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue & Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"
@@ -79,7 +78,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    {{-- <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" /> --}}
     <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
@@ -90,6 +88,41 @@
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <!--end::Global Stylesheets Bundle--> --}}
+    <base href="{{ asset('') }}">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Meta Tags for SEO -->
+    <meta name="description"
+        content="Danh sách tiện ích tại khu vực của bạn, bao gồm các dịch vụ và tiện nghi được cung cấp để cải thiện trải nghiệm sống của bạn. Tìm hiểu các tiện ích gần bạn và làm cho cuộc sống của bạn thoải mái hơn." />
+    <meta name="keywords"
+        content="tiện ích, dịch vụ, tiện nghi, khu vực, danh sách tiện ích, tiện ích gần bạn, dịch vụ địa phương" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="{{ url()->current() }}" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Danh Sách Tiện Ích - Tìm Các Tiện Nghi Gần Bạn" />
+    <meta property="og:description"
+        content="Khám phá danh sách tiện ích trong khu vực của bạn. Tìm các dịch vụ và tiện nghi để nâng cao chất lượng cuộc sống của bạn." />
+    <meta property="og:image" content="{{ asset('assets/images/thumbnail.jpg') }}" />
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:site_name" content="TRỌ NHANH" />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+
+    <!-- Stylesheets -->
+    <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
     <!--end::Global Stylesheets Bundle-->
 @endpush
 
