@@ -4,7 +4,7 @@
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
             <div class="mb-6">
-                <div class="row" style="height: 50px">
+                <div class="row">
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
                         <div class="d-flex form-group mb-0 align-items-center">
                             <label for="notification-list_length" class="d-block mr-2 mb-0">Kết quả:</label>
@@ -45,7 +45,7 @@
                 @csrf
                 <input type="hidden" id="selected-items" name="selected_items" value="" />
                 <div class="table-responsive">
-                    <table id="notification-list" class="table table-hover bg-white border rounded-lg">
+                    <table id="notification-list" class="table table-hover bg-white border rounded-lg table-header-nowrap">
                         <thead>
                             <tr role="row">
                                 <th class="no-sort py-6 pl-6">
@@ -100,29 +100,36 @@
                                     </td>
                                 </tr>
                             @endauth
-
                         </tbody>
                     </table>
                 </div>
                 <div id="no-checkbox-selected" class="alert alert-danger mt-4" style="display: none;">
                     Vui lòng chọn ít nhất một gói để thanh toán.
                 </div>
-                <div class="row">
-                    <div class="col-6 d-flex justify-content-start mt-4">
+                {{-- <div class="row">
+                    <div class="col-7 d-flex justify-content-start mt-4">
                         <input type="hidden" name="total_price" id="total-price-input" value="">
                         <h5 class="text-info">Tổng tiền: <span id="total-price" name="total-price" class="text-dark">0
                                 VND</span></h5>
-
                     </div>
-                    <!-- Thêm nút tiếp hành thanh toán -->
-                    <div class="col-6 d-flex justify-content-end mt-4">
+                    <div class="col-5 d-flex justify-content-end mt-4">
                         <button type="submit" class="btn btn-primary btn-lg" id="checkout-button">
-                            Tiếp hành thanh toán
+                            Thanh toán
+                        </button>
+                    </div>
+                </div> --}}
+                <div class="row mt-4">
+                    <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start">
+                        <input type="hidden" name="total_price" id="total-price-input" value="">
+                        <h5 class="text-info">Tổng tiền: <span id="total-price" name="total-price" class="text-dark">0
+                                VND</span></h5>
+                    </div>
+                    <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-end">
+                        <button type="submit" class="btn btn-primary btn-lg" id="checkout-button">
+                            Thanh toán
                         </button>
                     </div>
                 </div>
-                <!-- Div thông báo khi không có checkbox nào được chọn -->
-
             </form>
         </div>
     </main>
@@ -220,6 +227,11 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <style>
+        .table-header-nowrap th {
+            white-space: nowrap;
+        }
+    </style>
 @endpush
 
 @push('scriptUs')

@@ -27,53 +27,55 @@
             <div class="row">
                 <div class="col-md-6 col-lg-4 mb-6 mb-md-0">
                     <a class="d-block mb-2" href="#">
-                        <img src="{{ asset('assets/images/logo-white-primary.png') }}" alt="HomeID">
+                        <img src="{{ asset('assets/images/tro-moi.png') }}" alt="TRỌ NHANH">
                     </a>
                     <div class="lh-26 font-weight-500">
                         <p class="mb-0">Trường cao đẳng FPT Polytechnic Cần Thơ</p>
                         <a class="d-block text-muted hover-white"
-                            href="mailto:contact@homeid.com">contact@homeid.com</a>
-                        <a class="d-block text-lighter font-weight-bold fs-15 hover-white" href="#">(+68)1221
-                            09876</a>
-                        <a class="d-block text-muted hover-white" href=".">www.tronhanh.com</a>
+                            href="mailto:tronhanh@gmail.com">tronhanh@gmail.com</a>
+                        <a class="d-block text-lighter font-weight-bold fs-15 hover-white" href="#">(+84)
+                            394199646</a>
+                        <a class="d-block text-muted hover-white" href="https://tronhanh.com/">www.tronhanh.com</a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-2 mb-6 mb-md-0">
-                    <h4 class="text-white fs-16 my-4 font-weight-500">Tìm Kiếm Phổ Biến
+                    <h4 class="text-white fs-16 my-4 font-weight-500">Danh Sách
                     </h4>
                     <ul class="list-group list-group-flush list-group-no-border">
                         <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Căn hộ cho thuê</a>
+                            <a href="{{ route('client.room-listing') }}"
+                                class="text-muted lh-26 font-weight-500 hover-white">Danh sách trọ</a>
                         </li>
                         <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Căn hộ thấp</a>
+                            <a href="{{ route('client.client-list-zone') }}"
+                                class="text-muted lh-26 font-weight-500 hover-white">Danh sách khu trọ</a>
                         </li>
-                        <li class="list-group-item bg-transparent p-0">
+                        {{-- <li class="list-group-item bg-transparent p-0">
                             <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Căn họ để mua</a>
                         </li>
                         <li class="list-group-item bg-transparent p-0">
                             <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Phòng trọ cho
                                 thuê</a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
                 <div class="col-md-6 col-lg-2 mb-6 mb-md-0">
-                    <h4 class="text-white fs-16 my-4 font-weight-500">Liên Kết Nhanh</h4>
+                    <h4 class="text-white fs-16 my-4 font-weight-500">Liên Quan</h4>
                     <ul class="list-group list-group-flush list-group-no-border">
                         <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Điều khoản sử
-                                dụng</a>
+                            <a href="{{ route('client.client-agent') }}"
+                                class="text-muted lh-26 font-weight-500 hover-white">Người đưa tin</a>
                         </li>
                         <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Chính sách bảo
-                                mật</a>
+                            <a href="{{ route('client.client-blog') }}"
+                                class="text-muted lh-26 font-weight-500 hover-white">Blog</a>
                         </li>
-                        <li class="list-group-item bg-transparent p-0">
+                        {{-- <li class="list-group-item bg-transparent p-0">
                             <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Liên hệ hỗ trợ</a>
                         </li>
                         <li class="list-group-item bg-transparent p-0">
                             <a href="#" class="text-muted lh-26 hover-white font-weight-500">Nghề nghiệp</a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
                 <div class="col-md-6 col-lg-4 mb-6 mb-md-0">
@@ -83,9 +85,11 @@
                     <form>
                         <div class="input-group input-group-lg mb-6">
                             <input type="text" name="email" required
-                                class="form-control bg-white shadow-none border-0 z-index-1" placeholder="Email...">
+                                class="form-control bg-white shadow-none border-0 z-index-1"
+                                placeholder="Địa chỉ mail...">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit">Đăng Ký</button>
+                                <button class="btn btn-primary" type="submit" data-toggle="modal"
+                                    href="#login-register-modal">Đăng Ký</button>
                             </div>
                         </div>
                     </form>
