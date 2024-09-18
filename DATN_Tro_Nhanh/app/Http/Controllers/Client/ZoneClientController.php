@@ -22,7 +22,7 @@ class ZoneClientController extends Controller
         $this->CommentClientService = $CommentClientService;
     }
 
-    public function listZoneClient(Request $request)
+    public function listZoneClient(Request $request) 
     {
         $keyword = $request->input('keyword');
         $province = $request->input('province');
@@ -38,16 +38,21 @@ class ZoneClientController extends Controller
             $zones = $this->zoneServices->searchZones($keyword, $province);
             Log::info('2');
         } else {
-            // Lấy vị trí hiện tại của người dùng nếu không có từ khóa hoặc tỉnh/thành phố
-            if ($request->has('user_lat') && $request->has('user_lng')) {
-                $userLat = $request->input('user_lat');
-                $userLng = $request->input('user_lng');
+            // Lấy vị trí hiện tại của người dùng từ session
+            $userLat = session('userLat');
+            $userLng = session('userLng');
+    
+            if ($userLat && $userLng) {
+                // Nếu có vị trí trong session, tìm kiếm khu trọ trong bán kính 30 km
                 $zones = $this->zoneServices->searchZonesWithinRadius($userLat, $userLng, 30);
-                Log::info('3');
+                Log::info('3 - Lấy dữ liệu từ session: ' . $userLat . ', ' . $userLng);
             } else {
-                // Nếu không có vị trí người dùng, lấy danh sách khu trọ Client
+                // Nếu không có vị trí người dùng trong session, lấy danh sách khu trọ Client
                 $zones = $this->zoneServices->getMyZoneClient();
-                Log::info('hi');
+                Log::info('hi - Không có vị trí người dùng');
+                // Lấy kinh độ và vĩ độ từ session
+                $userLat = session('userLat', null); // Lấy từ session, nếu không có thì null
+                $userLng = session('userLng', null); // Lấy từ session, nếu không có thì null
             }
         }
 
@@ -87,5 +92,17 @@ class ZoneClientController extends Controller
             'comments' => $comments,
         ]);
     }
-    
+    public function saveLocation(Request $request)
+{
+    $request->validate([
+        'latitude' => 'required|numeric',
+        'longitude' => 'required|numeric',
+    ]);
+
+    // Lưu vị trí vào session
+    session(['userLat' => $request->latitude, 'userLng' => $request->longitude]);
+
+    return response()->json(['success' => true]);
+}
+
 }

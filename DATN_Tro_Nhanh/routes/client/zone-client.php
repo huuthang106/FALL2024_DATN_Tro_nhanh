@@ -10,3 +10,4 @@ Route::group(['prefix' => 'danh-sach-khu-tro'], function () {
     Route::get('/chi-tiet-khu-tro/{slug}', [ZoneClientController::class, 'showZoneDetailsBySlug'])->name('client-details-zone');
    
 });
+Route::post('/save-location', [ZoneClientController::class, 'saveLocation'])->name('saveLocation');
