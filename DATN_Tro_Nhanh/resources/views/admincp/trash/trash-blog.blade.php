@@ -208,8 +208,7 @@
     <!--end::Main-->
 @endsection
 @push('styleAdmin')
-    <base href="{{ asset('..') }}">
-    {{-- <title>Thùng Rác Blog | TRỌ NHANH</title> --}}
+    {{-- <base href="{{ asset('..') }}">
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"
@@ -223,7 +222,6 @@
     <meta property="og:url" content="https://keenthemes.com/metronic" />
     <meta property="og:site_name" content="Keenthemes | Metronic" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    {{-- <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" /> --}}
     <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <meta name="success" content="{{ session('success') }}">
     <meta name="error" content="{{ session('error') }}">
@@ -235,7 +233,37 @@
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <!--end::Global Stylesheets Bundle-->
+    <!--end::Global Stylesheets Bundle--> --}}
+    <base href="{{ asset('..') }}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+        content="Quản lý các bài viết blog đã bị xóa. Xem và khôi phục các bài viết đã được đưa vào thùng rác trên hệ thống blog của TRỌ NHANH.">
+    <meta name="keywords"
+        content="blog, quản lý blog, thùng rác blog, khôi phục bài viết, TRỌ NHANH, blog hệ thống, quản lý bài viết, khôi phục nội dung">
+    <meta name="author" content="TRỌ NHANH">
+    <meta property="og:locale" content="vi_VN">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Thùng Rác Blog - TRỌ NHANH">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:site_name" content="TRỌ NHANH">
+    <meta property="og:description"
+        content="Xem và khôi phục các bài viết đã bị xóa trên hệ thống blog TRỌ NHANH. Quản lý nội dung dễ dàng và hiệu quả.">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}">
+    <meta name="success" content="{{ session('success') }}">
+    <meta name="error" content="{{ session('error') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <!-- Global Stylesheets Bundle -->
+    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css">
 @endpush
 
 @push('scriptsAdmin')

@@ -124,10 +124,9 @@
                                     <!--end::Svg Icon-->Export</button>
                                 <!--end::Export-->
                                 <!--begin::Add user-->
-                                <a href="{{ route('admin.create-blog') }}">
+                                {{-- <a href="{{ route('admin.create-blog') }}">
                                     <button type="button" class="btn btn-primary" data-bs-toggle=""
                                         data-bs-target="#kt_modal_add_user">
-                                        {{-- type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user" --}}
                                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
                                         <span class="svg-icon svg-icon-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -141,7 +140,7 @@
                                         </span>
                                         <!--end::Svg Icon-->
                                         Add Blogs</button>
-                                </a>
+                                </a> --}}
                                 <!--end::Add user-->
                             </div>
                             <!--end::Toolbar-->
@@ -557,106 +556,109 @@
                                 <!--begin::Table body-->
                                 <tbody class="text-gray-600 fw-bold">
                                     @foreach ($blogs as $blog)
-                                    <tr>
-                                        <!--begin::Checkbox-->
-                                        <td>
-                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                                <input class="form-check-input" type="checkbox" value="1" />
-                                            </div>
-                                        </td>
-                                        <!--end::Checkbox-->
-                                        <!--begin::User=-->
-                                        <td class="d-flex align-items-center min-w-125px">
-                                            <!--begin:: Avatar -->
-                                            <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
-                                                <a href="{{ route('admin.show-blog', ['slug' => $blog->slug]) }}">
-                                                    <div class="symbol-label">
-                                                        @if ($blog->image)
-                                                            @foreach ($blog->image as $item)
-                                                                <img src="{{ asset('assets/images/' . $item->filename) }}"
-                                                                    alt="{{ $item->filename }}" class="img-fluid">
-                                                            @endforeach
-                                                        @else
-                                                            <p>No images available</p>
-                                                        @endif
+                                        <tr>
+                                            <!--begin::Checkbox-->
+                                            <td>
+                                                <div
+                                                    class="form-check form-check-sm form-check-custom form-check-solid">
+                                                    <input class="form-check-input" type="checkbox" value="1" />
+                                                </div>
+                                            </td>
+                                            <!--end::Checkbox-->
+                                            <!--begin::User=-->
+                                            <td class="d-flex align-items-center min-w-125px">
+                                                <!--begin:: Avatar -->
+                                                <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                                    <a href="{{ route('admin.show-blog', ['slug' => $blog->slug]) }}">
+                                                        <div class="symbol-label">
+                                                            @if ($blog->image)
+                                                                @foreach ($blog->image as $item)
+                                                                    <img src="{{ asset('assets/images/' . $item->filename) }}"
+                                                                        alt="{{ $item->filename }}" class="img-fluid">
+                                                                @endforeach
+                                                            @else
+                                                                <p>No images available</p>
+                                                            @endif
+                                                        </div>
+                                                    </a>
+
+                                                </div>
+                                                <!--end::Avatar-->
+                                                <!--begin::User details-->
+                                                <div class="d-flex flex-column">
+                                                    <a href="{{ route('client.detail-room', ['slug' => $blog->slug]) }}"
+                                                        class="text-gray-800 text-hover-primary mb-1"></a>
+                                                </div>
+                                                <!--begin::User details-->
+                                            </td>
+                                            <!--end::User=-->
+                                            <!--begin::Role=-->
+
+                                            <!--end::Role=-->
+                                            <!--begin::Last login=-->
+                                            <td>
+                                                {{ $blog->title }}
+                                            </td>
+                                            <!--end::Last login=-->
+                                            <!--begin::Two step=-->
+                                            <td>{{ $blog->description }}</td>
+                                            <!--end::Two step=-->
+                                            <!--begin::Joined-->
+                                            {{-- <td>{{ $blog->status }}</td> --}}
+                                            <td>
+                                                @if ($blog->status == 1)
+                                                    Đã xác nhận
+                                                @elseif($blog->status == 2)
+                                                    Chờ duyệt
+                                                @else
+                                                    Không xác định
+                                                @endif
+                                            </td>
+                                            <!--begin::Joined-->
+                                            <td>{{ $blog->created_at->format('d/m/Y') }}</td>
+                                            <!--begin::Action=-->
+                                            <td class="text-end">
+                                                <a href="#"
+                                                    class="btn btn-light btn-active-light-primary btn-sm"
+                                                    data-kt-menu-trigger="click"
+                                                    data-kt-menu-placement="bottom-end">Tác
+                                                    vụ
+                                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+                                                    <span class="svg-icon svg-icon-5 m-0">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="26"
+                                                            height="24" viewBox="0 0 24 24" fill="none">
+                                                            <path
+                                                                d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                                fill="black" />
+                                                        </svg>
+                                                    </span>
+                                                    <!--end::Svg Icon--></a>
+                                                <!--begin::Menu-->
+                                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                                                    data-kt-menu="true">
+                                                    <!--begin::Menu item-->
+                                                    <div class="menu-item px-3">
+                                                        <a href="{{ route('admin.sua-blog', ['slug' => $blog->slug]) }}"
+                                                            class="menu-link px-3">Chỉnh sửa</a>
                                                     </div>
-                                                </a>
-
-                                            </div>
-                                            <!--end::Avatar-->
-                                            <!--begin::User details-->
-                                            <div class="d-flex flex-column">
-                                                <a href="{{ route('client.detail-room', ['slug' => $blog->slug]) }}"
-                                                    class="text-gray-800 text-hover-primary mb-1"></a>
-                                            </div>
-                                            <!--begin::User details-->
-                                        </td>
-                                        <!--end::User=-->
-                                        <!--begin::Role=-->
-
-                                        <!--end::Role=-->
-                                        <!--begin::Last login=-->
-                                        <td>
-                                            {{ $blog->title }}
-                                        </td>
-                                        <!--end::Last login=-->
-                                        <!--begin::Two step=-->
-                                        <td>{{ $blog->description }}</td>
-                                        <!--end::Two step=-->
-                                        <!--begin::Joined-->
-                                        {{-- <td>{{ $blog->status }}</td> --}}
-                                        <td>
-                                            @if ($blog->status == 1)
-                                                Đã xác nhận
-                                            @elseif($blog->status == 2)
-                                                Chờ duyệt
-                                            @else
-                                                Không xác định
-                                            @endif
-                                        </td>
-                                        <!--begin::Joined-->
-                                        <td>{{ $blog->created_at->format('d/m/Y') }}</td>
-                                        <!--begin::Action=-->
-                                        <td class="text-end">
-                                            <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
-                                                data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Tác
-                                                vụ
-                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                                                <span class="svg-icon svg-icon-5 m-0">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <path
-                                                            d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                                            fill="black" />
-                                                    </svg>
-                                                </span>
-                                                <!--end::Svg Icon--></a>
-                                            <!--begin::Menu-->
-                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                                                data-kt-menu="true">
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <a href="{{ route('admin.sua-blog', ['slug' => $blog->slug]) }}"
-                                                        class="menu-link px-3">Chỉnh sửa</a>
+                                                    <!--end::Menu item-->
+                                                    <!--begin::Menu item-->
+                                                    <div class="menu-item px-3">
+                                                        <form action="{{ route('admin.destroy-blog', $blog->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="menu-link px-3 border-0 bg-transparent text-start">Xóa</button>
+                                                        </form>
+                                                    </div>
+                                                    <!--end::Menu item-->
                                                 </div>
-                                                <!--end::Menu item-->
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <form action="{{ route('admin.destroy-blog', $blog->id) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit"
-                                                            class="menu-link px-3 border-0 bg-transparent text-start">Xóa</button>
-                                                    </form>
-                                                </div>
-                                                <!--end::Menu item-->
-                                            </div>
-                                            <!--end::Menu-->
-                                        </td>
-                                        <!--end::Action=-->
-                                    </tr>
-                                @endforeach
+                                                <!--end::Menu-->
+                                            </td>
+                                            <!--end::Action=-->
+                                        </tr>
+                                    @endforeach
                                 </tbody>
 
                                 <!--end::Table body-->
@@ -665,111 +667,118 @@
                         <!--end::Table-->
                     </div>
                     @if ($blogs->total() > 0)
-    @if ($blogs->hasPages())
-        <nav class="mt-4">
-            <ul class="pagination rounded-active justify-content-center">
-                {{-- First Page Link --}}
-                @if ($blogs->onFirstPage())
-                    <li class="page-item disabled">
-                        <span class="page-link"><i class="fas fa-angle-double-left"></i></span>
-                    </li>
-                @else
-                    <li class="page-item">
-                        <a class="page-link" wire:click="gotoPage(1)" wire:loading.attr="disabled">
-                            <i class="fas fa-angle-double-left"></i>
-                        </a>
-                    </li>
-                @endif
+                        @if ($blogs->hasPages())
+                            <nav class="mt-4">
+                                <ul class="pagination rounded-active justify-content-center">
+                                    {{-- First Page Link --}}
+                                    @if ($blogs->onFirstPage())
+                                        <li class="page-item disabled">
+                                            <span class="page-link"><i class="fas fa-angle-double-left"></i></span>
+                                        </li>
+                                    @else
+                                        <li class="page-item">
+                                            <a class="page-link" wire:click="gotoPage(1)"
+                                                wire:loading.attr="disabled">
+                                                <i class="fas fa-angle-double-left"></i>
+                                            </a>
+                                        </li>
+                                    @endif
 
-                {{-- Previous Page Link --}}
-                @if ($blogs->onFirstPage())
-                    <li class="page-item disabled">
-                        <span class="page-link"><i class="fas fa-angle-left"></i></span>
-                    </li>
-                @else
-                    <li class="page-item">
-                        <a class="page-link" wire:click="previousPage" wire:loading.attr="disabled">
-                            <i class="fas fa-angle-left"></i>
-                        </a>
-                    </li>
-                @endif
+                                    {{-- Previous Page Link --}}
+                                    @if ($blogs->onFirstPage())
+                                        <li class="page-item disabled">
+                                            <span class="page-link"><i class="fas fa-angle-left"></i></span>
+                                        </li>
+                                    @else
+                                        <li class="page-item">
+                                            <a class="page-link" wire:click="previousPage"
+                                                wire:loading.attr="disabled">
+                                                <i class="fas fa-angle-left"></i>
+                                            </a>
+                                        </li>
+                                    @endif
 
-                {{-- Pagination Elements --}}
-                @php
-                    $currentPage = $blogs->currentPage();
-                    $totalPages = $blogs->lastPage();
-                    $pageRange = 2; // Number of pages to show before and after the current page
-                @endphp
+                                    {{-- Pagination Elements --}}
+                                    @php
+                                        $currentPage = $blogs->currentPage();
+                                        $totalPages = $blogs->lastPage();
+                                        $pageRange = 2; // Number of pages to show before and after the current page
+                                    @endphp
 
-                {{-- Show first and last page links --}}
-                @if ($currentPage > $pageRange + 1)
-                    <li class="page-item">
-                        <a class="page-link" wire:click="gotoPage(1)" wire:loading.attr="disabled">1</a>
-                    </li>
-                    @if ($currentPage > $pageRange + 2)
-                        <li class="page-item disabled">
-                            <span class="page-link">...</span>
-                        </li>
-                    @endif
-                @endif
+                                    {{-- Show first and last page links --}}
+                                    @if ($currentPage > $pageRange + 1)
+                                        <li class="page-item">
+                                            <a class="page-link" wire:click="gotoPage(1)"
+                                                wire:loading.attr="disabled">1</a>
+                                        </li>
+                                        @if ($currentPage > $pageRange + 2)
+                                            <li class="page-item disabled">
+                                                <span class="page-link">...</span>
+                                            </li>
+                                        @endif
+                                    @endif
 
-                {{-- Show pages around the current page --}}
-                @for ($page = max(1, $currentPage - $pageRange); $page <= min($totalPages, $currentPage + $pageRange); $page++)
-                    @if ($page == $currentPage)
-                        <li class="page-item active">
-                            <span class="page-link">{{ $page }}</span>
-                        </li>
+                                    {{-- Show pages around the current page --}}
+                                    @for ($page = max(1, $currentPage - $pageRange); $page <= min($totalPages, $currentPage + $pageRange); $page++)
+                                        @if ($page == $currentPage)
+                                            <li class="page-item active">
+                                                <span class="page-link">{{ $page }}</span>
+                                            </li>
+                                        @else
+                                            <li class="page-item">
+                                                <a class="page-link" wire:click="gotoPage({{ $page }})"
+                                                    wire:loading.attr="disabled">{{ $page }}</a>
+                                            </li>
+                                        @endif
+                                    @endfor
+
+                                    {{-- Show ellipsis and last page link if needed --}}
+                                    @if ($currentPage < $totalPages - $pageRange)
+                                        @if ($currentPage < $totalPages - $pageRange - 1)
+                                            <li class="page-item disabled">
+                                                <span class="page-link">...</span>
+                                            </li>
+                                        @endif
+                                        <li class="page-item">
+                                            <a class="page-link" wire:click="gotoPage({{ $totalPages }})"
+                                                wire:loading.attr="disabled">{{ $totalPages }}</a>
+                                        </li>
+                                    @endif
+
+                                    {{-- Next Page Link --}}
+                                    @if ($blogs->hasMorePages())
+                                        <li class="page-item">
+                                            <a class="page-link" wire:click="nextPage" wire:loading.attr="disabled">
+                                                <i class="fas fa-angle-right"></i>
+                                            </a>
+                                        </li>
+                                    @else
+                                        <li class="page-item disabled">
+                                            <span class="page-link"><i class="fas fa-angle-right"></i></span>
+                                        </li>
+                                    @endif
+
+                                    {{-- Last Page Link --}}
+                                    @if ($blogs->hasMorePages())
+                                        <li class="page-item">
+                                            <a class="page-link" wire:click="gotoPage({{ $totalPages }})"
+                                                wire:loading.attr="disabled">
+                                                <i class="fas fa-angle-double-right"></i>
+                                            </a>
+                                        </li>
+                                    @else
+                                        <li class="page-item disabled">
+                                            <span class="page-link"><i class="fas fa-angle-double-right"></i></span>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </nav>
+                        @endif
+                        <div class="text-center mt-2">{{ $blogs->firstItem() }}-{{ $blogs->lastItem() }} của
+                            {{ $blogs->total() }} kết quả</div>
                     @else
-                        <li class="page-item">
-                            <a class="page-link" wire:click="gotoPage({{ $page }})" wire:loading.attr="disabled">{{ $page }}</a>
-                        </li>
+                        <div class="text-center mt-4">Không có blog nào.</div>
                     @endif
-                @endfor
-
-                {{-- Show ellipsis and last page link if needed --}}
-                @if ($currentPage < $totalPages - $pageRange)
-                    @if ($currentPage < $totalPages - $pageRange - 1)
-                        <li class="page-item disabled">
-                            <span class="page-link">...</span>
-                        </li>
-                    @endif
-                    <li class="page-item">
-                        <a class="page-link" wire:click="gotoPage({{ $totalPages }})" wire:loading.attr="disabled">{{ $totalPages }}</a>
-                    </li>
-                @endif
-
-                {{-- Next Page Link --}}
-                @if ($blogs->hasMorePages())
-                    <li class="page-item">
-                        <a class="page-link" wire:click="nextPage" wire:loading.attr="disabled">
-                            <i class="fas fa-angle-right"></i>
-                        </a>
-                    </li>
-                @else
-                    <li class="page-item disabled">
-                        <span class="page-link"><i class="fas fa-angle-right"></i></span>
-                    </li>
-                @endif
-
-                {{-- Last Page Link --}}
-                @if ($blogs->hasMorePages())
-                    <li class="page-item">
-                        <a class="page-link" wire:click="gotoPage({{ $totalPages }})" wire:loading.attr="disabled">
-                            <i class="fas fa-angle-double-right"></i>
-                        </a>
-                    </li>
-                @else
-                    <li class="page-item disabled">
-                        <span class="page-link"><i class="fas fa-angle-double-right"></i></span>
-                    </li>
-                @endif
-            </ul>
-        </nav>
-    @endif
-    <div class="text-center mt-2">{{ $blogs->firstItem() }}-{{ $blogs->lastItem() }} của {{ $blogs->total() }} kết quả</div>
-@else
-    <div class="text-center mt-4">Không có blog nào.</div>
-@endif
 
                     <!--end::Card body-->
                 </div>

@@ -115,8 +115,7 @@
     </div>
 @endsection
 @push('styleAdmin')
-    <base href="{{ asset('') }}">
-    {{-- <title>Thùng Rác Khu Trọ | TRỌ NHANH</title> --}}
+    {{-- <base href="{{ asset('') }}">
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue & Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"
@@ -134,7 +133,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    {{-- <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" /> --}}
     <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <meta name="success" content="{{ session('success') }}">
     <meta name="error" content="{{ session('error') }}">
@@ -149,7 +147,40 @@
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <!--end::Global Stylesheets Bundle-->
+    <!--end::Global Stylesheets Bundle--> --}}
+    <base href="{{ asset('') }}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+        content="Trang quản lý các khu trọ đã xóa trên hệ thống TRỌ NHANH. Dễ dàng khôi phục và quản lý khu trọ hiệu quả." />
+    <meta name="keywords"
+        content="thùng rác khu trọ, quản lý khu trọ, khôi phục khu trọ, cho thuê khu trọ, TRỌ NHANH, quảng cáo cho thuê khu trọ, khu trọ đã xóa, khôi phục khu trọ" />
+    <meta name="author" content="TRỌ NHANH">
+    <meta property="og:locale" content="vi_VN">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Thùng Rác Khu Trọ - Quản Lý Khu Trọ Đã Xóa - TRỌ NHANH">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:site_name" content="TRỌ NHANH">
+    <meta property="og:description"
+        content="Trang quản lý khu trọ đã xóa, giúp bạn khôi phục và quản lý khu trọ một cách nhanh chóng và tiện lợi." />
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}">
+    <meta name="success" content="{{ session('success') }}">
+    <meta name="error" content="{{ session('error') }}">
+
+    <!-- Toastr Notifications -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+    <!-- Global Stylesheets Bundle -->
+    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css">
 @endpush
 
 

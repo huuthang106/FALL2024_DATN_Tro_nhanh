@@ -122,8 +122,8 @@
                                 <!--end::Svg Icon-->Export</button>
                             <!--end::Export-->
                             <!--begin::Add user-->
-                            <a type="button" href="{{ route('admin.trang-them-khu-tro') }}" class="btn btn-primary">
-                                Thêm khu trọ</a>
+                            {{-- <a type="button" href="{{ route('admin.trang-them-khu-tro') }}" class="btn btn-primary">
+                                Thêm khu trọ</a> --}}
 
                         </div>
                         <!--end::Toolbar-->

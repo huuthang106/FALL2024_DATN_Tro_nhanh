@@ -2,7 +2,7 @@
 @section('titleOwners', 'Thùng Rác Phòng Trọ | TRỌ NHANH')
 @section('contentOwners')
 
-  
+
 
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
@@ -121,19 +121,21 @@
                                     </td>
                                     <td class="align-middle">{{ $room->view }}</td>
                                     <td class="align-middle">
-                                    <div class="d-flex align-items-center justify-content-between">
-    <form action="{{ route('owners.restore', $room->id) }}" method="POST" class="">
-        @csrf
-        @method('PUT')
-        <button type="submit" class="btn btn-primary">Khôi phục</button>
-    </form>
-    
-    <form action="{{ route('owners.forceDelete-room', $room->id) }}" method="POST">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="btn btn-danger">Xóa</button>
-    </form>
-</div>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <form action="{{ route('owners.restore', $room->id) }}" method="POST"
+                                                class="">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="btn btn-primary">Khôi phục</button>
+                                            </form>
+
+                                            <form action="{{ route('owners.forceDelete-room', $room->id) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Xóa</button>
+                                            </form>
+                                        </div>
 
                                     </td>
                                 </tr>
@@ -157,8 +159,7 @@
 
 @endsection
 @push('styleOwners')
-    {{-- <title>Thùng Rác Phòng Trọ | TRỌ NHANH</title> --}}
-    <meta charset="utf-8">
+    {{-- <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
@@ -183,9 +184,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
 
     <!-- Favicons -->
-    {{-- <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}"> --}}
     <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
-    {{-- hien thi thong bao --}}
     <meta name="success" content="{{ session('success') }}">
     <meta name="error" content="{{ session('error') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -204,6 +203,55 @@
     <meta property="og:description" content="Real Estate Html Template">
     <meta property="og:type" content="website">
     <meta property="og:image" content="{{ asset('images/homeid-social.png') }}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630"> --}}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+        content="Quản lý các phòng trọ đã bị xóa trong hệ thống. Xem lại và khôi phục các phòng trọ đã bị đưa vào thùng rác.">
+    <meta name="author" content="TRỌ NHANH">
+    <meta name="generator" content="TRỌ NHANH">
+    <!-- Google fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/slick/slick.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/magnific-popup/magnific-popup.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/chartjs/Chart.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dropzone/css/dropzone.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
+    <!-- Themes core CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
+    <!-- Favicons -->
+    <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
+    <meta name="success" content="{{ session('success') }}">
+    <meta name="error" content="{{ session('error') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@TroNhanh">
+    <meta name="twitter:creator" content="@TroNhanh">
+    <meta name="twitter:title" content="Thùng Rác Phòng Trọ - TRỌ NHANH">
+    <meta name="twitter:description" content="Xem và khôi phục các phòng trọ đã bị xóa trong hệ thống TRỌ NHANH.">
+    <meta name="twitter:image" content="{{ asset('assets/images/tro-moi.png') }}">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="Thùng Rác Phòng Trọ - TRỌ NHANH">
+    <meta property="og:description"
+        content="Quản lý các phòng trọ đã bị xóa, khôi phục các phòng đã được đưa vào thùng rác trong hệ thống TRỌ NHANH.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">

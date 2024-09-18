@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Client;
+
 use App\Services\BlogServices;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;    
+use Illuminate\Http\Request;
 use App\Services\CommentClientService;
 
 class BlogClientController extends Controller

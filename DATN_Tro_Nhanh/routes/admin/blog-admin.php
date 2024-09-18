@@ -15,6 +15,6 @@ Route::group(['prefix' => ''], function () {
     Route::get('sua-blog/{slug}', [BlogAdminController::class, 'editBlog'])->name('sua-blog');
     Route::put('sua-blog/{id}', [BlogAdminController::class, 'updateBlog'])->name('update-blog');
 
-    route::post('them-blog-admin', [BlogAdminController::class, 'store'])->name('create-blog');
+    // route::post('them-blog-admin', [BlogAdminController::class, 'store'])->name('create-blog');
     Route::post('/upload-image', [BlogAdminController::class, 'uploadImage'])->name('upload-image');
 });

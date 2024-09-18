@@ -314,11 +314,14 @@
                                                                         <div class="text-danger">{{ $message }}</div>
                                                                     @enderror
                                                                     <div id="imagePreview" class="text-center mt-4">
-                                                                        @if(is_array($images) || is_object($images))
+                                                                        @if (is_array($images) || is_object($images))
                                                                             @foreach ($images as $image)
-                                                                                <div class="image-preview position-relative" data-id="{{ $image->id }}">
-                                                                                    <img src="{{ asset('assets/images/' . $image->filename) }}" alt="Image" class="img-thumbnail">
-                                                                                    
+                                                                                <div class="image-preview position-relative"
+                                                                                    data-id="{{ $image->id }}">
+                                                                                    <img src="{{ asset('assets/images/' . $image->filename) }}"
+                                                                                        alt="Image"
+                                                                                        class="img-thumbnail">
+
                                                                                 </div>
                                                                             @endforeach
                                                                         @else
@@ -326,8 +329,9 @@
                                                                         @endif
                                                                     </div>
                                                                     <div class="text-right mt-1">
-                                                                        <a href="{{ route('owners.room-images', ['id' => $room->id]) }}" class="btn btn-secondary">Quản lý ảnh</a>
-                                                                       
+                                                                        <a href="{{ route('owners.room-images', ['id' => $room->id]) }}"
+                                                                            class="btn btn-secondary">Quản lý ảnh</a>
+
                                                                     </div>
                                                                 </div>
                                                                 @error('images')
@@ -908,12 +912,11 @@
     </main>
 @endsection
 @push('styleOwners')
-    <meta charset="utf-8">
+    {{-- <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
     <meta name="generator" content="Jekyll">
-    {{-- <title>Chỉnh Sửa Phòng Trọ | TRỌ NHANH</title> --}}
     <!-- Google fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
@@ -930,16 +933,11 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
-    {{-- CSS Custom --}}
     <link rel="stylesheet" href="{{ asset('assets/css/toan.css') }}">
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-    {{-- <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}"> --}}
     <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
-    {{-- Link Alert --}}
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"> --}}
-    {{-- Link Map --}}
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
@@ -954,6 +952,52 @@
     <meta property="og:description" content="Real Estate Html Template">
     <meta property="og:type" content="website">
     <meta property="og:image" content="images/homeid-social.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630"> --}}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+        content="Chỉnh sửa thông tin phòng trọ một cách nhanh chóng và chính xác trên TRỌ NHANH. Cập nhật thông tin phòng trọ của bạn để thu hút nhiều khách thuê hơn.">
+    <meta name="author" content="TRỌ NHANH">
+    <meta name="generator" content="TRỌ NHANH">
+    <!-- Google fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/slick/slick.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/magnific-popup/magnific-popup.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/chartjs/Chart.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dropzone/css/dropzone.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/toan.css') }}">
+    <!-- Themes core CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
+    <!-- Favicons -->
+    <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@TroNhanh">
+    <meta name="twitter:creator" content="@TroNhanh">
+    <meta name="twitter:title" content="Chỉnh Sửa Phòng Trọ - TRỌ NHANH">
+    <meta name="twitter:description"
+        content="Cập nhật và chỉnh sửa thông tin phòng trọ của bạn trên TRỌ NHANH để thu hút khách thuê tiềm năng.">
+    <meta name="twitter:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <!-- Facebook -->
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="Chỉnh Sửa Phòng Trọ - TRỌ NHANH">
+    <meta property="og:description"
+        content="Chỉnh sửa thông tin phòng trọ của bạn để tiếp cận nhiều người thuê hơn trên TRỌ NHANH.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -1039,6 +1083,8 @@
                     alert('Có lỗi xảy ra khi xóa ảnh.');
                 });
             });
+
+            // ... existing code ...
         });
     
         // ... existing code ...

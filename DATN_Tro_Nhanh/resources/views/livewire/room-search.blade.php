@@ -120,10 +120,9 @@
                                 <!--end::Svg Icon-->Export</button>
                             <!--end::Export-->
                             <!--begin::Add user-->
-                            <a href="{{ route('admin.add-room-show') }}">
+                            {{-- <a href="{{ route('admin.add-room-show') }}">
                                 <button type="button" class="btn btn-primary" data-bs-toggle=""
                                     data-bs-target="#kt_modal_add_user">
-                                    {{-- type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user" --}}
                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
                                     <span class="svg-icon svg-icon-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -137,7 +136,7 @@
                                     </span>
                                     <!--end::Svg Icon-->
                                     Add Room</button>
-                            </a>
+                            </a> --}}
                             <!--end::Add user-->
                         </div>
                         <!--end::Toolbar-->

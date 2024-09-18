@@ -91,14 +91,15 @@
                             </div>
                             <!--end::Menu item-->
                             <div class="menu-item px-5">
-                              
-                                    <a href="{{ route('admin.admin.private-chat') }}" class="menu-link px-5"> Trò chuyện riêng
-                                        <span
-                                        class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2"> <livewire:unread-message-count /></span>
-                                    </a>    
-                                   
-                              
-                              
+
+                                <a href="{{ route('admin.admin.private-chat') }}" class="menu-link px-5"> Trò chuyện
+                                    riêng
+                                    <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">
+                                        <livewire:unread-message-count /></span>
+                                </a>
+
+
+
                             </div>
                             <!--begin::Menu item-->
 
@@ -1141,7 +1142,7 @@
                     </div>
                 </div>
 
-                <div id="phong-tro-menu" data-kt-menu-trigger="click"
+                {{-- <div id="phong-tro-menu" data-kt-menu-trigger="click"
                     class="menu-item menu-accordion menu-item-persistent">
                     <span class="menu-link">
                         <span class="menu-icon">
@@ -1200,7 +1201,7 @@
                             </a>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div id="don-dang-ky-menu" data-kt-menu-trigger="click"
                     class="menu-item menu-accordion menu-item-persistent">
                     <span class="menu-link">
@@ -1266,7 +1267,7 @@
                     </div>
                 </div>
 
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                {{-- <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">
@@ -1312,7 +1313,7 @@
                             </a>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <div id="tien-ich-menu" data-kt-menu-trigger="click"
                     class="menu-item menu-accordion menu-item-persistent">
@@ -1365,14 +1366,13 @@
                             <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none">
-                                    <rect x="2" y="2" width="9" height="9" rx="2"
+                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
                                         fill="black" />
-                                    <rect opacity="0.3" x="13" y="2" width="9" height="9"
-                                        rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="13" width="9" height="9"
-                                        rx="2" fill="black" />
-                                    <rect opacity="0.3" x="2" y="13" width="9" height="9"
-                                        rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
+                                        fill="black" />
+                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
+                                        fill="black" />
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
@@ -1411,7 +1411,7 @@
                     </div>
                 </div>
 
-                <div id="khu-vuc-menu" data-kt-menu-trigger="click"
+                {{-- <div id="khu-vuc-menu" data-kt-menu-trigger="click"
                     class="menu-item menu-accordion menu-item-persistent">
                     <span class="menu-link">
                         <span class="menu-icon">
@@ -1419,12 +1419,11 @@
                             <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none">
-                                    <rect x="2" y="2" width="9" height="9" rx="2"
+                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
                                         fill="black" />
-                                    <rect opacity="0.3" x="13" y="2" width="9" height="9"
-                                        rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="13" width="9" height="9"
-                                        rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
+                                        fill="black" />
                                     <rect opacity="0.3" x="2" y="13" width="9" height="9"
                                         rx="2" fill="black" />
                                 </svg>
@@ -1444,22 +1443,6 @@
                                 <span class="menu-title">Danh sách</span>
                             </a>
                         </div>
-                        {{-- <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.add-category') }}" style="text-decoration: none;">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Thêm</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.update-category', ['id' => $category->id]) }}" style="text-decoration: none;">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Chỉnh sửa</span>
-                            </a>
-                        </div> --}}
                         <div class="menu-item">
                             <a class="menu-link" href="{{ route('admin.trash-zone') }}"
                                 style="text-decoration: none;">
@@ -1470,7 +1453,7 @@
                             </a>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <div id="loai-phong-menu" data-kt-menu-trigger="click"
                     class="menu-item menu-accordion menu-item-persistent">
@@ -1480,12 +1463,11 @@
                             <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none">
-                                    <rect x="2" y="2" width="9" height="9" rx="2"
+                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
                                         fill="black" />
-                                    <rect opacity="0.3" x="13" y="2" width="9" height="9"
-                                        rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="13" width="9" height="9"
-                                        rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
+                                        fill="black" />
                                     <rect opacity="0.3" x="2" y="13" width="9" height="9"
                                         rx="2" fill="black" />
                                 </svg>
@@ -1630,70 +1612,70 @@
                             </a>
                         </div>
                     </div>
-                   
-                    
+
+
                 </div>
                 <div class="menu-item">
                     <div class="menu-content pt-8 pb-2">
                         <span class="menu-section text-light text-uppercase fs-8 ls-1">Duyệt Đơn</span>
                     </div>
-                    
+
                 </div>
                 <div id="goi-tin-menu" data-kt-menu-trigger="click"
-                class="menu-item menu-accordion menu-item-persistent">
-                <span class="menu-link">
-                    <span class="menu-icon">
-                        <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                        <span class="svg-icon svg-icon-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none">
-                                <rect x="2" y="2" width="9" height="9" rx="2"
-                                    fill="black" />
-                                <rect opacity="0.3" x="13" y="2" width="9" height="9"
-                                    rx="2" fill="black" />
-                                <rect opacity="0.3" x="13" y="13" width="9" height="9"
-                                    rx="2" fill="black" />
-                                <rect opacity="0.3" x="2" y="13" width="9" height="9"
-                                    rx="2" fill="black" />
-                            </svg>
-                        </span>
-                        <!--end::Svg Icon-->
-                    </span>
-                    <span class="menu-title">Danh Sách Duyệt Phòng</span>
-                    <span class="menu-arrow"></span>
-                </span>
-                <div class="menu-sub menu-sub-accordion menu-active-bg">
-                    <div class="menu-item">
-                        <a class="menu-link" href="{{ route('admin.accept-room') }}"
-                            style="text-decoration: none;">
-                            <span class="menu-bullet">
-                                <span class="bullet bullet-dot"></span>
+                    class="menu-item menu-accordion menu-item-persistent">
+                    <span class="menu-link">
+                        <span class="menu-icon">
+                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                            <span class="svg-icon svg-icon-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none">
+                                    <rect x="2" y="2" width="9" height="9" rx="2"
+                                        fill="black" />
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9"
+                                        rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9"
+                                        rx="2" fill="black" />
+                                    <rect opacity="0.3" x="2" y="13" width="9" height="9"
+                                        rx="2" fill="black" />
+                                </svg>
                             </span>
-                            <span class="menu-title">Danh sách</span>
-                        </a>
-                    </div>
-                    <div class="menu-item">
-                        {{-- <a class="menu-link" href="{{ route('admin.add-location-show') }}"
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-title">Danh Sách Duyệt Phòng</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion menu-active-bg">
+                        <div class="menu-item">
+                            <a class="menu-link" href="{{ route('admin.accept-room') }}"
+                                style="text-decoration: none;">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Danh sách</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            {{-- <a class="menu-link" href="{{ route('admin.add-location-show') }}"
                             style="text-decoration: none;">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
                             <span class="menu-title">Thêm gói tin</span>
                         </a> --}}
-                    </div>
-                    <div class="menu-item">
-                        {{-- <a class="menu-link" href="{{ route('admin.trash-location') }}"
+                        </div>
+                        <div class="menu-item">
+                            {{-- <a class="menu-link" href="{{ route('admin.trash-location') }}"
                             style="text-decoration: none;">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
                             <span class="menu-title">Thùng rác</span>
                         </a> --}}
+                        </div>
                     </div>
+
+
                 </div>
-               
-                
-            </div>
             </div>
             <!--end::Menu-->
         </div>
@@ -1711,9 +1693,8 @@
         <div class="header-brand">
             <!--begin::Logo-->
             <a href="../../demo8/dist/index.html">
-                <img alt="Logo" src="{{  asset('assets/images/tro-moi.png') }}"
-                    />
-                    {{-- class="h-25px h-lg-25px" --}}
+                <img alt="Logo" src="{{ asset('assets/images/tro-moi.png') }}" />
+                {{-- class="h-25px h-lg-25px" --}}
             </a>
             <!--end::Logo-->
             <!--begin::Aside minimize-->

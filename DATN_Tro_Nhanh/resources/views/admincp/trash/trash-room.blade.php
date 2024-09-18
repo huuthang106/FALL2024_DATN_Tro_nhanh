@@ -214,8 +214,7 @@
     <!--end::Main-->
 @endsection
 @push('styleAdmin')
-    <base href="{{ asset('..') }}">
-    {{-- <title>Thùng Rác Phòng Trọ | TRỌ NHANH</title> --}}
+    {{-- <base href="{{ asset('..') }}">
     <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"
@@ -229,9 +228,7 @@
     <meta property="og:url" content="https://keenthemes.com/metronic" />
     <meta property="og:site_name" content="Keenthemes | Metronic" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    {{-- <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" /> --}}
     <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
-    {{-- hien thi thong bao --}}
     <meta name="success" content="{{ session('success') }}">
     <meta name="error" content="{{ session('error') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -242,7 +239,40 @@
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <!--end::Global Stylesheets Bundle-->
+    <!--end::Global Stylesheets Bundle--> --}}
+    <base href="{{ asset('') }}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+        content="Trang quản lý các phòng trọ đã xóa trên hệ thống TRỌ NHANH. Dễ dàng khôi phục phòng trọ và quản lý hiệu quả." />
+    <meta name="keywords"
+        content="thùng rác phòng trọ, quản lý phòng trọ, khôi phục phòng trọ, cho thuê phòng trọ, TRỌ NHANH, quảng cáo cho thuê phòng, phòng trọ đã xóa, khôi phục phòng trọ" />
+    <meta name="author" content="TRỌ NHANH">
+    <meta property="og:locale" content="vi_VN">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Thùng Rác Phòng Trọ - Quản Lý Phòng Trọ Đã Xóa - TRỌ NHANH">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:site_name" content="TRỌ NHANH">
+    <meta property="og:description"
+        content="Trang quản lý phòng trọ đã xóa, giúp bạn khôi phục và quản lý phòng trọ một cách nhanh chóng và tiện lợi." />
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}">
+    <meta name="success" content="{{ session('success') }}">
+    <meta name="error" content="{{ session('error') }}">
+
+    <!-- Toastr Notifications -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+    <!-- Global Stylesheets Bundle -->
+    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css">
 @endpush
 
 @push('scriptsAdmin')

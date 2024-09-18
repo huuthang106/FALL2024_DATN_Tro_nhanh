@@ -448,12 +448,11 @@
 
 @endsection
 @push('styleOwners')
-    <meta charset="utf-8">
+    {{-- <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Real Estate Html Template">
     <meta name="author" content="">
     <meta name="generator" content="Jekyll">
-    {{-- <title>Thêm Hóa Đơn | TRỌ NHANH</title> --}}
     <!-- Google fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
@@ -473,7 +472,6 @@
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-    {{-- <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}"> --}}
     <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
@@ -488,6 +486,51 @@
     <meta property="og:description" content="Real Estate Html Template">
     <meta property="og:type" content="website">
     <meta property="og:image" content="images/homeid-social.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630"> --}}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+        content="Thêm hóa đơn vào hệ thống quản lý của bạn. Quản lý và theo dõi các hóa đơn một cách dễ dàng và hiệu quả trên TRỌ NHANH.">
+    <meta name="author" content="TRỌ NHANH">
+    <meta name="generator" content="TRỌ NHANH">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- Google fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/slick/slick.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/magnific-popup/magnific-popup.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/chartjs/Chart.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dropzone/css/dropzone.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
+    <!-- Themes core CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
+    <!-- Favicons -->
+    <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@TroNhanh">
+    <meta name="twitter:creator" content="@TroNhanh">
+    <meta name="twitter:title" content="Thêm Hóa Đơn - TRỌ NHANH">
+    <meta name="twitter:description"
+        content="Thêm và quản lý hóa đơn dễ dàng với hệ thống của TRỌ NHANH. Theo dõi và xử lý các hóa đơn một cách nhanh chóng và hiệu quả.">
+    <meta name="twitter:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <!-- Facebook -->
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="Thêm Hóa Đơn - TRỌ NHANH">
+    <meta property="og:description"
+        content="Thêm và quản lý hóa đơn trên hệ thống của TRỌ NHANH. Giải pháp hiệu quả để quản lý tài chính và hóa đơn.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
