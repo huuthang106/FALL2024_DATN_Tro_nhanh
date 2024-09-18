@@ -91,9 +91,11 @@
                                 <option value='96'>Tỉnh Cà Mau</option>
                             </select>
                             <div class="form-group mb-0 position-relative flex-md-3 mt-3 mt-md-0">
-                                <input type="text" class="form-control form-control-lg border-0 shadow-none rounded-left-md-0 pr-8 bg-white placeholder-muted"
+                                <input type="text"
+                                    class="form-control form-control-lg border-0 shadow-none rounded-left-md-0 pr-8 bg-white placeholder-muted"
                                     id="key-word-1" name="keyword" placeholder="Nhập địa chỉ...">
-                                <button type="submit" class="btn position-absolute pos-fixed-right-center p-0 text-heading fs-20 mr-4 shadow-none">
+                                <button type="submit"
+                                    class="btn position-absolute pos-fixed-right-center p-0 text-heading fs-20 mr-4 shadow-none">
                                     <i class="far fa-search"></i>
                                 </button>
                             </div>
@@ -157,11 +159,11 @@
                                         placeholder="Mã phòng trọ" name="">
                                 </div>
                             </div>
-                           
+
                         </div>
                     </div>
                 </form>
-               
+
             </div>
         </section>
 
@@ -172,7 +174,8 @@
                         <div class="row align-items-sm-center mb-6">
                             <div class="col-md-6 col-xl-5 col-xxl-6">
                                 <h2 class="fs-15 text-dark mb-0">Chúng tôi đã tìm thấy <span
-                                        class="text-primary">{{ $zones->total() > 0 ? $zones->total() : 0 }}</span> khu vực trọ
+                                        class="text-primary">{{ $zones->total() > 0 ? $zones->total() : 0 }}</span> khu vực
+                                    trọ
                                 </h2>
                             </div>
                             <div class="col-md-6 col-xl-7 col-xxl-6 mt-6 mt-md-0">
@@ -365,7 +368,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-xxl-7 order-1 order-xl-2 primary-map map-sticky overflow-hidden" id="map-sticky">
+                    <div class="col-xl-6 col-xxl-7 order-1 order-xl-2 primary-map map-sticky overflow-hidden"
+                        id="map-sticky">
                         <div class="primary-map-inner">
                             <div class="mapbox-gl map-grid-property-01 xl-vh-100" id="map"></div>
                         </div>
@@ -808,261 +812,146 @@
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
 
-   
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script src="{{ asset('assets/js/api-update-zone-nht.js') }}"></script>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-smooth-marker-bouncing@1.0.0/dist/leaflet.smoothmarkerbouncing.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC67NQzqFC2WplLzC_3PsL5gejG1_PZLDk&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC67NQzqFC2WplLzC_3PsL5gejG1_PZLDk&callback=initMap" async
+        defer></script>
     <script>
         function initMap() {
             var map = L.map('map').setView([0, 0], 2);
-    
+
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
-    
+
             var userMarker;
             var userLat, userLng;
-    
+
             var userIcon = L.icon({
-                iconUrl: 'path/to/your/custom-icon.png', // Đường dẫn đến biểu tượng tùy chỉnh của bạn
+                iconUrl: '{{ asset('assets/images/101-1015767_map-marker-circle-png.png') }}', // Đường dẫn đến biểu tượng tùy chỉnh của bạn
                 iconSize: [38, 38], // Kích thước của biểu tượng
                 iconAnchor: [22, 38], // Điểm neo của biểu tượng (tâm của biểu tượng)
                 popupAnchor: [-3, -38] // Điểm neo của popup so với biểu tượng
             });
-    
+
             function addMarkers(zones) {
                 zones.forEach(zone => {
                     var marker = L.marker([zone.latitude, zone.longitude])
                         .addTo(map)
                         .bindPopup(`<b>${zone.name}</b><br>${zone.address}`)
                         .openPopup();
-    
+
                     marker.on('click', function() {
-                        marker.bounce({duration: 500, height: 100});
+                        marker.bounce({
+                            duration: 500,
+                            height: 100
+                        });
                     });
                 });
             }
-    
+
             function setMapViewToCenter(zones) {
                 if (zones.length > 0) {
                     var latitudes = zones.map(zone => zone.latitude);
                     var longitudes = zones.map(zone => zone.longitude);
-    
+
                     if (userLat && userLng) {
                         latitudes.push(userLat);
                         longitudes.push(userLng);
                     }
-    
+
                     var avgLat = latitudes.reduce((a, b) => a + b, 0) / latitudes.length;
                     var avgLng = longitudes.reduce((a, b) => a + b, 0) / longitudes.length;
                     map.setView([avgLat, avgLng], 13);
                 }
             }
-    
-            function fetchZonesWithinRadius(lat, lng, radius = 10) { // radius in kilometers
-        console.log(`Fetching zones within radius: ${radius} km from (${lat}, ${lng})`);
-        $.ajax({
-            url: '{{ route("client.client-list-zone") }}',
-            method: 'GET',
-            data: {
-                latitude: lat,
-                longitude: lng,
-                radius: radius
-            },
-            success: function(response) {
-                console.log('Zones fetched successfully:', response.zones);
-                if (response.zones.length > 0) {
-                    addMarkers(response.zones);
-                    setMapViewToCenter(response.zones);
 
-                    // Hiển thị tên tất cả các khu trọ
-                    let zoneList = $('#zone-list');
-                    zoneList.empty();
-                    response.zones.forEach(zone => {
-                        zoneList.append(`
+            function fetchZonesWithinRadius(lat, lng, radius = 10) { // radius in kilometers
+
+                $.ajax({
+                    url: '{{ route('client.client-list-zone') }}',
+                    method: 'GET',
+                    data: {
+                        latitude: lat,
+                        longitude: lng,
+                        radius: radius
+                    },
+                    success: function(response) {
+
+                        if (response.zones.length > 0) {
+                            addMarkers(response.zones);
+                            setMapViewToCenter(response.zones);
+
+                            // Hiển thị tên tất cả các khu trọ
+                            let zoneList = $('#zone-list');
+                            zoneList.empty();
+                            response.zones.forEach(zone => {
+                                zoneList.append(`
                             <div class="zone-item">
                                 <h3>${zone.name}</h3>
                                 <p>${zone.address}</p>
                             </div>
                         `);
-                    });
-                } else {
-                    alert(response.message || 'Không tìm thấy khu trọ nào.');
-                }
-            },
-            error: function(error) {
-                console.error('Error fetching zones:', error);
+                            });
+                        } else {
+                            alert(response.message || 'Không tìm thấy khu trọ nào.');
+                        }
+                    },
+                    error: function(error) {
+                        console.error('Error fetching zones:', error);
+                    }
+                });
             }
-        });
-    }
 
-    
+
             function setUserMarker(lat, lng) {
                 if (userMarker) {
                     map.removeLayer(userMarker);
                 }
-                userMarker = L.marker([lat, lng], { icon: userIcon }).addTo(map)
+                userMarker = L.marker([lat, lng], {
+                        icon: userIcon
+                    }).addTo(map)
                     .bindPopup("Vị trí của bạn").openPopup();
                 map.setView([lat, lng], 13);
             }
-    
+            var returnButton = L.control({
+    position: 'topright'
+});
+returnButton.onAdd = function() {
+    var button = L.DomUtil.create('button', 'return-button');
+    button.innerHTML = '<i class="fas fa-location-arrow"></i>'; // Sử dụng biểu tượng Font Awesome
+    button.style.backgroundColor = 'white'; // Tùy chỉnh màu nền
+    button.style.border = 'none'; // Bỏ viền
+    button.style.borderRadius = '60%'; // Bo góc để tạo hình tròn
+    button.style.width = '50px'; // Đặt chiều rộng
+    button.style.height = '50px'; // Đặt chiều cao
+    button.style.display = 'flex'; // Sử dụng flexbox để căn giữa
+    button.style.alignItems = 'center'; // Căn giữa theo chiều dọc
+    button.style.justifyContent = 'center'; // Căn giữa theo chiều ngang
+    button.onclick = function(e) {
+        e.preventDefault(); // Ngăn chặn hành động mặc định
+        map.setView([userLat, userLng], 13); // Quay lại vị trí hiện tại
+        if (userMarker) {
+            userMarker.setLatLng([userLat, userLng]); // Đặt lại vị trí của marker
+        }
+    };
+    return button;
+};
+returnButton.addTo(map);
+
             function clearSearchStorage() {
                 localStorage.removeItem('searchKeyword');
                 localStorage.removeItem('searchProvince');
             }
+
             function fetchZones(keyword, province) {
-        $.ajax({
-            url: '{{ route("client.client-list-zone") }}',
-            method: 'GET',
-            data: {
-                keyword: keyword,
-                province: province
-            },
-            success: function(response) {
-                map.eachLayer(function(layer) {
-                    if (layer instanceof L.Marker && layer !== userMarker) {
-                        map.removeLayer(layer);
-                    }
-                });
-
-                if (response.zones.length > 0) {
-                    addMarkers(response.zones);
-                    setMapViewToCenter(response.zones);
-
-                    let zoneList = $('#zone-list');
-                    zoneList.empty();
-                    response.zones.forEach(zone => {
-                        zoneList.append(`
-                            <div class="zone-item">
-                                <h3>${zone.name}</h3>
-                                <p>${zone.address}</p>
-                            </div>
-                        `);
-                    });
-                } else {
-                    alert(response.message || 'Không tìm thấy khu trọ nào.');
-                }
-            }
-        });
-    }
-    function initializeMap() {
-        var urlParams = new URLSearchParams(window.location.search);
-        var keyword = urlParams.get('keyword');
-        var province = urlParams.get('province');
-
-        if (!keyword && !province) {
-            clearSearchStorage();
-        }
-
-        if (localStorage.getItem('userLat') && localStorage.getItem('userLng')) {
-            userLat = parseFloat(localStorage.getItem('userLat'));
-            userLng = parseFloat(localStorage.getItem('userLng'));
-
-            setUserMarker(userLat, userLng);
-
-            if (!keyword && !province) {
-                fetchZonesWithinRadius(userLat, userLng);
-            } else {
-                fetchZones(keyword, province);
-            }
-        } else {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    userLat = position.coords.latitude;
-                    userLng = position.coords.longitude;
-
-                    localStorage.setItem('userLat', userLat);
-                    localStorage.setItem('userLng', userLng);
-
-                    setUserMarker(userLat, userLng);
-
-                    if (!keyword && !province) {
-                        fetchZonesWithinRadius(userLat, userLng);
-                    } else {
-                        fetchZones(keyword, province);
-                    }
-                }, function() {
-                    alert("Không thể lấy vị trí của bạn.");
-                });
-            } else {
-                alert("Trình duyệt của bạn không hỗ trợ Geolocation.");
-            }
-        }
-
-        if (localStorage.getItem('mapLat') && localStorage.getItem('mapLng') && localStorage.getItem('mapZoom')) {
-            var mapLat = parseFloat(localStorage.getItem('mapLat'));
-            var mapLng = parseFloat(localStorage.getItem('mapLng'));
-            var mapZoom = parseInt(localStorage.getItem('mapZoom'));
-
-            map.setView([mapLat, mapLng], mapZoom);
-        }
-
-        var searchKeyword = localStorage.getItem('searchKeyword');
-        var searchProvince = localStorage.getItem('searchProvince');
-
-        if (searchKeyword || searchProvince) {
-            $('#key-word-1').val(searchKeyword);
-            $('#city-province').val(searchProvince);
-
-            $.ajax({
-                url: '{{ route("client.client-list-zone") }}',
-                method: 'GET',
-                data: {
-                    keyword: searchKeyword,
-                    province: searchProvince
-                },
-                success: function(response) {
-                    map.eachLayer(function(layer) {
-                        if (layer instanceof L.Marker && layer !== userMarker) {
-                            map.removeLayer(layer);
-                        }
-                    });
-
-                    if (response.zones.length > 0) {
-                        addMarkers(response.zones);
-                        setMapViewToCenter(response.zones);
-
-                        let zoneList = $('#zone-list');
-                        zoneList.empty();
-                        response.zones.forEach(zone => {
-                            zoneList.append(`
-                                <div class="zone-item">
-                                    <h3>${zone.name}</h3>
-                                    <p>${zone.address}</p>
-                                </div>
-                            `);
-                        });
-                    } else {
-                        alert(response.message || 'Không tìm thấy khu trọ nào.');
-                    }
-                }
-            });
-        }
-    }
-
-    
-            initializeMap();
-    
-            $('.property-search').on('submit', function(e) {
-                e.preventDefault();
-    
-                var keyword = $('#key-word-1').val();
-                var province = $('#city-province').val();
-    
-                localStorage.setItem('searchKeyword', keyword);
-                localStorage.setItem('searchProvince', province);
-    
-                var newUrl = new URL(window.location.href);
-                newUrl.searchParams.set('keyword', keyword);
-                newUrl.searchParams.set('province', province);
-                history.pushState(null, '', newUrl.toString());
-    
                 $.ajax({
-                    url: '{{ route("client.client-list-zone") }}',
+                    url: '{{ route('client.client-list-zone') }}',
                     method: 'GET',
                     data: {
                         keyword: keyword,
@@ -1074,17 +963,164 @@
                                 map.removeLayer(layer);
                             }
                         });
-    
+
                         if (response.zones.length > 0) {
                             addMarkers(response.zones);
                             setMapViewToCenter(response.zones);
-    
+
+                            let zoneList = $('#zone-list');
+                            zoneList.empty();
+                            response.zones.forEach(zone => {
+                                zoneList.append(`
+                            <div class="zone-item">
+                                <h3>${zone.name}</h3>
+                                <p>${zone.address}</p>
+                            </div>
+                        `);
+                            });
+                        } else {
+                            alert(response.message || 'Không tìm thấy khu trọ nào.');
+                        }
+                    }
+                });
+            }
+
+            function initializeMap() {
+                var urlParams = new URLSearchParams(window.location.search);
+                var keyword = urlParams.get('keyword');
+                var province = urlParams.get('province');
+
+                if (!keyword && !province) {
+                    clearSearchStorage();
+                }
+
+                if (localStorage.getItem('userLat') && localStorage.getItem('userLng')) {
+                    userLat = parseFloat(localStorage.getItem('userLat'));
+                    userLng = parseFloat(localStorage.getItem('userLng'));
+
+                    setUserMarker(userLat, userLng);
+
+                    if (!keyword && !province) {
+                        fetchZonesWithinRadius(userLat, userLng);
+                    } else {
+                        fetchZones(keyword, province);
+                    }
+                } else {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(function(position) {
+                            userLat = position.coords.latitude;
+                            userLng = position.coords.longitude;
+
+                            localStorage.setItem('userLat', userLat);
+                            localStorage.setItem('userLng', userLng);
+
+                            setUserMarker(userLat, userLng);
+
+                            if (!keyword && !province) {
+                                fetchZonesWithinRadius(userLat, userLng);
+                            } else {
+                                fetchZones(keyword, province);
+                            }
+                        }, function() {
+                            alert("Không thể lấy vị trí của bạn.");
+                        });
+                    } else {
+                        alert("Trình duyệt của bạn không hỗ trợ Geolocation.");
+                    }
+                }
+
+                if (localStorage.getItem('mapLat') && localStorage.getItem('mapLng') && localStorage.getItem('mapZoom')) {
+                    var mapLat = parseFloat(localStorage.getItem('mapLat'));
+                    var mapLng = parseFloat(localStorage.getItem('mapLng'));
+                    var mapZoom = parseInt(localStorage.getItem('mapZoom'));
+
+                    map.setView([mapLat, mapLng], mapZoom);
+                }
+
+                var searchKeyword = localStorage.getItem('searchKeyword');
+                var searchProvince = localStorage.getItem('searchProvince');
+
+                if (searchKeyword || searchProvince) {
+                    $('#key-word-1').val(searchKeyword);
+                    $('#city-province').val(searchProvince);
+
+                    $.ajax({
+                        url: '{{ route('client.client-list-zone') }}',
+                        method: 'GET',
+                        data: {
+                            keyword: searchKeyword,
+                            province: searchProvince
+                        },
+                        success: function(response) {
+                            map.eachLayer(function(layer) {
+                                if (layer instanceof L.Marker && layer !== userMarker) {
+                                    map.removeLayer(layer);
+                                }
+                            });
+
+                            if (response.zones.length > 0) {
+                                addMarkers(response.zones);
+                                setMapViewToCenter(response.zones);
+
+                                let zoneList = $('#zone-list');
+                                zoneList.empty();
+                                response.zones.forEach(zone => {
+                                    zoneList.append(`
+                                <div class="zone-item">
+                                    <h3>${zone.name}</h3>
+                                    <p>${zone.address}</p>
+                                </div>
+                            `);
+                                });
+                            } else {
+                                alert(response.message || 'Không tìm thấy khu trọ nào.');
+                            }
+                        }
+                    });
+                }
+            }
+
+
+            initializeMap();
+
+            $('.property-search').on('submit', function(e) {
+                e.preventDefault();
+
+                var keyword = $('#key-word-1').val();
+                var province = $('#city-province').val();
+
+                localStorage.setItem('searchKeyword', keyword);
+                localStorage.setItem('searchProvince', province);
+
+                var newUrl = new URL(window.location.href);
+                newUrl.searchParams.set('keyword', keyword);
+                newUrl.searchParams.set('province', province);
+                history.pushState(null, '', newUrl.toString());
+
+                $.ajax({
+                    url: '{{ route('client.client-list-zone') }}',
+                    method: 'GET',
+                    data: {
+                        keyword: keyword,
+                        province: province
+                    },
+                    success: function(response) {
+                        map.eachLayer(function(layer) {
+                            if (layer instanceof L.Marker && layer !== userMarker) {
+                                map.removeLayer(layer);
+                            }
+                        });
+
+                        if (response.zones.length > 0) {
+                            addMarkers(response.zones);
+                            setMapViewToCenter(response.zones);
+
                             var latitudes = response.zones.map(zone => zone.latitude);
                             var longitudes = response.zones.map(zone => zone.longitude);
                             var avgLat = latitudes.reduce((a, b) => a + b, 0) / latitudes.length;
                             var avgLng = longitudes.reduce((a, b) => a + b, 0) / longitudes.length;
                             map.setView([avgLat, avgLng], 13);
-    
+
                             let zoneList = $('#zone-list');
                             zoneList.empty();
                             response.zones.forEach(zone => {
@@ -1101,44 +1137,42 @@
                     }
                 });
             });
-    
+
             let updateUrlTimeout;
-    
+
             map.on('moveend', function() {
                 var center = map.getCenter();
-    
+
                 if (updateUrlTimeout) {
                     clearTimeout(updateUrlTimeout);
                 }
-    
+
                 updateUrlTimeout = setTimeout(function() {
                     var newUrl = new URL(window.location.href);
                     newUrl.searchParams.set('lat', center.lat);
                     newUrl.searchParams.set('lng', center.lng);
                     newUrl.searchParams.set('zoom', map.getZoom());
                     history.pushState(null, '', newUrl.toString());
-    
+
                     localStorage.setItem('mapLat', center.lat);
                     localStorage.setItem('mapLng', center.lng);
                     localStorage.setItem('mapZoom', map.getZoom());
                 }, 1000);
             });
-    
+
             window.addEventListener('popstate', function() {
                 var urlParams = new URLSearchParams(window.location.search);
                 var keyword = urlParams.get('keyword');
                 var province = urlParams.get('province');
-    
+
                 if (!keyword && !province) {
                     clearSearchStorage();
                 }
-    
+
                 initializeMap();
             });
         }
-    
+
         initMap();
     </script>
-    @endpush
-    
-
+@endpush

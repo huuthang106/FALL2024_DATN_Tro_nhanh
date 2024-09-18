@@ -674,6 +674,40 @@
             });
     }
 </script>
+<script>
+    $(document).ready(function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var userLat = position.coords.latitude;
+                var userLng = position.coords.longitude;
+
+                // Gửi vị trí đến server để lưu vào session
+                $.ajax({
+                    url: '{{route("client.saveLocation") }}', // Đường dẫn đến route lưu vị trí
+                    method: 'POST',
+                    data: {
+                        latitude: userLat,
+                        longitude: userLng,
+                        _token: '{{ csrf_token() }}' // CSRF token để bảo mật
+                    },
+                    success: function(response) {
+                        
+                        console.log("Vị trí đã được lưu vào session.");
+                        // Gọi hàm để lấy dữ liệu khu trọ
+                        fetchZones(userLat, userLng);
+                    },
+                    error: function() {
+                        alert("Không thể lưu vị trí vào session.");
+                    }
+                });
+            }, function() {
+                alert("Không thể lấy vị trí của bạn.");
+            });
+        } else {
+            alert("Trình duyệt của bạn không hỗ trợ Geolocation.");
+        }
+    });
+</script>
 @livewireScripts
 
 </html>
