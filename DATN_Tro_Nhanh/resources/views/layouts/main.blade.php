@@ -20,6 +20,7 @@
     @else
         <x-navbar-default />
     @endif
+ 
     @yield('contentUs')
     <footer class="bg-dark pt-8 pb-6 footer text-muted">
         <div class="container">

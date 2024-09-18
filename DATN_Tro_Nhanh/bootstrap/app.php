@@ -96,8 +96,13 @@ return Application::configure(basePath: dirname(__DIR__))
                 'auth.php',
                 'console.php',
                 'authstatus.php',
+                
 
             ];
+            $apiRoute = [
+                'api.php',
+            ];
+            
             foreach ($adminRoute as $route) {
                 Route::middleware(['web', 'admin_check_login'])->prefix('admin')->name('admin.')->group(base_path("routes/admin/{$route}"));
             }
@@ -110,6 +115,9 @@ return Application::configure(basePath: dirname(__DIR__))
             foreach ($webRoute as $route) {
                 Route::middleware('web')->prefix('')->group(base_path("routes/{$route}"));
             }
+              foreach ($apiRoute as $route) {
+                Route::prefix('api')->group(base_path("routes/{$route}"));
+            }
         },
     )
     ->withMiddleware(function (Middleware $middleware) {
@@ -117,6 +125,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'user_check_login' => '\App\Http\Middleware\UserAuthMiddleware',
             'admin_check_login' => '\App\Http\Middleware\AdminLoginMiddleware',
+            'api' => '\App\Http\Middleware\VerifyCsrfToken',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
