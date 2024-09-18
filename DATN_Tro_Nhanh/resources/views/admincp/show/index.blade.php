@@ -106,8 +106,8 @@
                             <!--begin::Header-->
                             <div class="card-header border-0 pt-5">
                                 <h3 class="card-title align-items-start flex-column">
-                                    <span class="card-label fw-bolder text-dark">Tổng quan về nhiệm vụ</span>
-                                    <span class="text-muted mt-1 fw-bold fs-7">Đang chờ xử lý 10 nhiệm vụ</span>
+                                    <span class="card-label fw-bolder text-dark">Đơn tốt cáo mới </span>
+                                    <span class="text-muted mt-1 fw-bold fs-7">Chưa xem 10 đơn</span>
                                 </h3>
                                 <div class="card-toolbar">
                                     <!--begin::Menu-->
@@ -650,7 +650,7 @@
                         <div class="card card-xl-stretch mb-xl-8">
                             <!--begin::Header-->
                             <div class="card-header border-0">
-                                <h3 class="card-title fw-bolder text-dark">Tất cả</h3>
+                                <h3 class="card-title fw-bolder text-dark">Người dùng mới</h3>
                                 <div class="card-toolbar">
                                     <!--begin::Menu-->
                                     <button type="button"
@@ -896,8 +896,8 @@
                             <div class="card-header border-0 pt-5">
                                 <!--begin::Title-->
                                 <h3 class="card-title align-items-start flex-column">
-                                    <span class="card-label fw-bolder fs-3 mb-1">Thống kê gần đây </span>
-                                    <span class="text-muted fw-bold fs-7">Hơn 400 thành viên mới </span>
+                                    <span class="card-label fw-bolder fs-3 mb-1">Thống kê doanh thu </span>
+                                    <span class="text-muted fw-bold fs-7">Doanh thu </span>
                                 </h3>
                                 <!--end::Title-->
                                 <!--begin::Toolbar-->
@@ -1037,7 +1037,7 @@
                             <!--begin::Header-->
                             <div class="card-header align-items-center border-0 mt-4">
                                 <h3 class="card-title align-items-start flex-column">
-                                    <span class="fw-bolder text-dark">Latest Media</span>
+                                    <span class="fw-bolder text-dark">Bản xếp hạng</span>
                                     <span class="text-muted mt-1 fw-bold fs-7">Articles and publications</span>
                                 </h3>
                                 <div class="card-toolbar">
@@ -1253,7 +1253,7 @@
                         <div class="card card-xl-stretch mb-5 mb-xl-8">
                             <!--begin::Header-->
                             <div class="card-header border-0">
-                                <h3 class="card-title fw-bolder text-dark">Thông báo</h3>
+                                <h3 class="card-title fw-bolder text-dark">Gói được yêu thích nhất</h3>
                                 <div class="card-toolbar">
                                     <!--begin::Menu-->
                                     <button type="button"

@@ -789,6 +789,15 @@
             /* Đảm bảo lớp phủ nằm trên bản đồ */
             display: none;
             /* Ẩn lớp phủ khi không cần thiết */
+
+        }
+
+        .leaflet-routing-geocoders {
+            display: none;
+        }
+
+        .leaflet-routing-alt table {
+            display: NONE;
         }
     </style>
 @endpush
@@ -821,6 +830,9 @@
     <script src="https://unpkg.com/leaflet-smooth-marker-bouncing@1.0.0/dist/leaflet.smoothmarkerbouncing.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC67NQzqFC2WplLzC_3PsL5gejG1_PZLDk&callback=initMap" async
         defer></script>
+
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script>
         function initMap() {
             var map = L.map('map').setView([0, 0], 2);
@@ -841,16 +853,50 @@
 
             function addMarkers(zones) {
                 zones.forEach(zone => {
-                    var marker = L.marker([zone.latitude, zone.longitude])
+                    console.log('Zone Latitude:', zone.latitude, 'Zone Longitude:', zone
+                    .longitude); // Kiểm tra tọa độ khu trọ
+
+                    var marker = L.marker([zone.latitude, zone.longitude], {
+                            draggable: false
+                        }) // Thêm tùy chọn draggable: false
                         .addTo(map)
                         .bindPopup(`<b>${zone.name}</b><br>${zone.address}`)
                         .openPopup();
 
                     marker.on('click', function() {
-                        marker.bounce({
-                            duration: 500,
-                            height: 100
-                        });
+                        console.log('User Latitude:', userLat, 'User Longitude:',
+                        userLng); // Kiểm tra tọa độ người dùng
+
+                        if (typeof marker.bounce === 'function') {
+                            marker.bounce({
+                                duration: 500,
+                                height: 100
+                            });
+                        } else {
+                            console.error('Bounce method not available on marker');
+                        }
+
+                        // Xóa tuyến đường cũ nếu đã có
+                        if (typeof routingControl !== 'undefined') {
+                            map.removeControl(routingControl);
+                        }
+
+                        // Vẽ tuyến đường từ vị trí của người dùng đến khu trọ
+                        routingControl = L.Routing.control({
+                            waypoints: [
+                                L.latLng(userLat, userLng), // Vị trí người dùng
+                                L.latLng(zone.latitude, zone.longitude) // Vị trí trọ
+                            ],
+                            routeWhileDragging: true,
+                            createMarker: function() {
+                                return null;
+                            }, // Tắt việc tạo marker mặc định
+                            geocoder: L.Control.Geocoder.nominatim()
+                        }).addTo(map);
+
+                        // Thêm marker tùy chỉnh cho điểm bắt đầu và kết thúc
+                        // L.marker([userLat, userLng], { icon: userIcon }).addTo(map); // Marker cho vị trí người dùng
+                        // L.marker([zone.latitude, zone.longitude], { icon: userIcon }).addTo(map); // Marker cho khu trọ
                     });
                 });
             }
@@ -920,29 +966,29 @@
                 map.setView([lat, lng], 13);
             }
             var returnButton = L.control({
-    position: 'topright'
-});
-returnButton.onAdd = function() {
-    var button = L.DomUtil.create('button', 'return-button');
-    button.innerHTML = '<i class="fas fa-location-arrow"></i>'; // Sử dụng biểu tượng Font Awesome
-    button.style.backgroundColor = 'white'; // Tùy chỉnh màu nền
-    button.style.border = 'none'; // Bỏ viền
-    button.style.borderRadius = '60%'; // Bo góc để tạo hình tròn
-    button.style.width = '50px'; // Đặt chiều rộng
-    button.style.height = '50px'; // Đặt chiều cao
-    button.style.display = 'flex'; // Sử dụng flexbox để căn giữa
-    button.style.alignItems = 'center'; // Căn giữa theo chiều dọc
-    button.style.justifyContent = 'center'; // Căn giữa theo chiều ngang
-    button.onclick = function(e) {
-        e.preventDefault(); // Ngăn chặn hành động mặc định
-        map.setView([userLat, userLng], 13); // Quay lại vị trí hiện tại
-        if (userMarker) {
-            userMarker.setLatLng([userLat, userLng]); // Đặt lại vị trí của marker
-        }
-    };
-    return button;
-};
-returnButton.addTo(map);
+                position: 'topright'
+            });
+            returnButton.onAdd = function() {
+                var button = L.DomUtil.create('button', 'return-button');
+                button.innerHTML = '<i class="fas fa-location-arrow"></i>'; // Sử dụng biểu tượng Font Awesome
+                button.style.backgroundColor = 'white'; // Tùy chỉnh màu nền
+                button.style.border = 'none'; // Bỏ viền
+                button.style.borderRadius = '60%'; // Bo góc để tạo hình tròn
+                button.style.width = '50px'; // Đặt chiều rộng
+                button.style.height = '50px'; // Đặt chiều cao
+                button.style.display = 'flex'; // Sử dụng flexbox để căn giữa
+                button.style.alignItems = 'center'; // Căn giữa theo chiều dọc
+                button.style.justifyContent = 'center'; // Căn giữa theo chiều ngang
+                button.onclick = function(e) {
+                    e.preventDefault(); // Ngăn chặn hành động mặc định
+                    map.setView([userLat, userLng], 13); // Quay lại vị trí hiện tại
+                    if (userMarker) {
+                        userMarker.setLatLng([userLat, userLng]); // Đặt lại vị trí của marker
+                    }
+                };
+                return button;
+            };
+            returnButton.addTo(map);
 
             function clearSearchStorage() {
                 localStorage.removeItem('searchKeyword');
@@ -1173,6 +1219,36 @@ returnButton.addTo(map);
             });
         }
 
+        function addMarkers(zones) {
+            zones.forEach(zone => {
+                var marker = L.marker([zone.latitude, zone.longitude])
+                    .addTo(map)
+                    .bindPopup(`<b>${zone.name}</b><br>${zone.address}`)
+                    .openPopup();
+
+                marker.on('click', function() {
+                    marker.bounce({
+                        duration: 500,
+                        height: 100
+                    });
+
+                    // Xóa tuyến đường cũ nếu đã có
+                    if (typeof routingControl !== 'undefined') {
+                        map.removeControl(routingControl);
+                    }
+
+                    // Vẽ tuyến đường từ vị trí của người dùng đến khu trọ
+                    routingControl = L.Routing.control({
+                        waypoints: [
+                            L.latLng(userLat, userLng), // Vị trí người dùng
+                            L.latLng(zone.latitude, zone.longitude) // Vị trí trọ
+                        ],
+                        routeWhileDragging: true,
+                        geocoder: L.Control.Geocoder.nominatim()
+                    }).addTo(map);
+                });
+            });
+        }
         initMap();
     </script>
 @endpush
