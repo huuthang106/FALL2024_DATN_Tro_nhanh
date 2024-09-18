@@ -504,6 +504,9 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+
 @endpush
 @push('scriptOwners')
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
@@ -629,9 +632,16 @@
 
 
     <script src="{{ asset('assets/js/theme.js') }}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC67NQzqFC2WplLzC_3PsL5gejG1_PZLDk&libraries=places">
-    </script>
+ 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{{ asset('assets/js/api-ggmap-nht.js') }}"></script>
     <script src="{{ asset('assets/js/api-update-zone-nht.js') }}"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script>
+        var roomData = @json($zone);
+    </script>
+    <script src="{{ asset('assets/js/openstreet-map-edit-form.js') }}"></script>
+
 @endpush
