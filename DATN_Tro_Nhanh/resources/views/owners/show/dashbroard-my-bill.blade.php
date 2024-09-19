@@ -61,17 +61,25 @@
                     <thead class="thead-sm thead-black">
                         <tr>
                             <th scope="col" class="border-top-0 pt-5 pb-4">Tên dịch vụ</th>
+                            <th scope="col" class="border-top-0 pt-5 pb-4">Mô tả</th>
                             <th scope="col" class="border-top-0 pt-5 pb-4">Ngày thanh toán</th>
                             <th scope="col" class="border-top-0 pt-5 pb-4">Số tiền</th>
-                            {{-- <th scope="col" class="border-top-0 pt-5 pb-4">Số tiền</th> --}}
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($bills as $bill)
                             <tr class="shadow-hover-xs-2 bg-hover-white">
-                                <td class="align-middle">{{ $bill->description }}</td>
-                                <td class="align-middle">{{ $bill->created_at->format('d/m/Y') }}</td>
-                                <td class="align-middle">{{ number_format($bill->total_price, 0, ',', '.') }} VND</td>
+                            <td class="align-middle">Thanh toán dịch vụ</td>
+                                <td class="align-middle">{{ $transaction->description ?? 'Chưa có dữ liệu' }}</td>
+                                <td class="align-middle">{{ $transaction->created_at->format('d/m/Y') }}</td>
+                                <td class="align-middle">
+                                    @php
+                                        $total_price = $transaction->total_price ?? 0;
+                                        $formattedPrice = number_format(abs($total_price), 0, ',', '.');
+                                        $sign = $total_price < 0 ? '-' : '+';
+                                    @endphp
+                                    {{ $sign }} {{ $formattedPrice }} VND
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
