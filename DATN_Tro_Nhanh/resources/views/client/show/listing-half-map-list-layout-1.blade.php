@@ -853,21 +853,33 @@
                 popupAnchor: [-3, -38]
             });
     
-    
+            var zoneIcon = L.icon({
+                iconUrl: '{{ asset('assets/images/10751558.png') }}',
+                iconSize: [25, 25],
+                iconAnchor: [22, 38],
+                popupAnchor: [-3, -38]
+            });
+
             function addMarkers(zones) {
                 zones.forEach(zone => {
-                    console.log('Zone Latitude:', zone.latitude, 'Zone Longitude:', zone.longitude); // Kiểm tra tọa độ khu trọ
-    
+                    console.log('Zone Latitude:', zone.latitude, 'Zone Longitude:', zone
+                    .longitude); // Kiểm tra tọa độ khu trọ
+
                     var marker = L.marker([zone.latitude, zone.longitude], {
+                            icon: zoneIcon,
                             draggable: false
-                        }) // Thêm tùy chọn draggable: false
+                        })
                         .addTo(map)
-                        .bindPopup(`<b>${zone.name}</b><br>${zone.address}`)
+                        .bindPopup(`
+                <b>${zone.name}</b><br>${zone.address}<br>
+              
+            `)
                         .openPopup();
-    
+
                     marker.on('click', function() {
-                        console.log('User Latitude:', userLat, 'User Longitude:', userLng); // Kiểm tra tọa độ người dùng
-    
+                        console.log('User Latitude:', userLat, 'User Longitude:',
+                        userLng); // Kiểm tra tọa độ người dùng
+
                         if (typeof marker.bounce === 'function') {
                             marker.bounce({
                                 duration: 500,
@@ -876,12 +888,12 @@
                         } else {
                             console.error('Bounce method not available on marker');
                         }
-    
+
                         // Xóa tuyến đường cũ nếu đã có
                         if (typeof routingControl !== 'undefined') {
                             map.removeControl(routingControl);
                         }
-    
+
                         // Vẽ tuyến đường từ vị trí của người dùng đến khu trọ
                         routingControl = L.Routing.control({
                             waypoints: [
@@ -894,7 +906,7 @@
                             }, // Tắt việc tạo marker mặc định
                             geocoder: L.Control.Geocoder.nominatim()
                         }).addTo(map);
-    
+
                         // Thêm marker tùy chỉnh cho điểm bắt đầu và kết thúc
                         // L.marker([userLat, userLng], { icon: userIcon }).addTo(map); // Marker cho vị trí người dùng
                         // L.marker([zone.latitude, zone.longitude], { icon: userIcon }).addTo(map); // Marker cho khu trọ
