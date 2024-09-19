@@ -21,7 +21,7 @@ class AdminLoginMiddleware
         return redirect()->route('client.home');
     }
 
-    if (Auth::user()->role !== 0) {
+    if (Auth::user()->role != 0) {
         // Nếu người dùng đã đăng nhập nhưng không phải admin, chuyển hướng về trang chủ
         return redirect()->route('client.home');
     }

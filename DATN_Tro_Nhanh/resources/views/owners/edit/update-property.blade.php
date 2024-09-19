@@ -271,7 +271,7 @@
                                     <div class="card-header d-block d-md-none bg-transparent px-0 py-1 border-bottom-0"
                                         id="heading-media">
                                         <h5 class="mb-0">
-                                            <button class="btn btn-lg collapse-parent btn-block border shadow-none"
+                                            <button type="button" class="btn btn-lg collapse-parent btn-block border shadow-none"
                                                 data-toggle="collapse" data-number="2." data-target="#media-collapse"
                                                 aria-expanded="true" aria-controls="media-collapse">
                                                 <span class="number">2.</span> Phương tiện truyền thông
@@ -405,7 +405,7 @@
                                     <div class="card-header d-block d-md-none bg-transparent px-0 py-1 border-bottom-0"
                                         id="heading-location">
                                         <h5 class="mb-0">
-                                            <button class="btn btn-block collapse-parent collapsed border shadow-none"
+                                            <button type="button" class="btn btn-block collapse-parent collapsed border shadow-none"
                                                 data-toggle="collapse" data-number="3." data-target="#location-collapse"
                                                 aria-expanded="true" aria-controls="location-collapse">
                                                 <span class="number">3.</span> Vị trí
@@ -795,7 +795,7 @@
                                     <div class="card-header d-block d-md-none bg-transparent px-0 py-1 border-bottom-0"
                                         id="heading-amenities">
                                         <h5 class="mb-0">
-                                            <button class="btn btn-block collapse-parent collapsed border shadow-none"
+                                            <button type="button" class="btn btn-block collapse-parent collapsed border shadow-none"
                                                 data-toggle="collapse" data-number="4." data-target="#amenities-collapse"
                                                 aria-expanded="true" aria-controls="amenities-collapse">
                                                 <span class="number">4.</span> TIện ích

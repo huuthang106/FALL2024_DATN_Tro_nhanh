@@ -326,8 +326,7 @@
                                 <div class="card-body px-6 py-6">
                                     <div class="media mb-4">
                                         <div class="image-container p-0 mr-2">
-                                            <img src="{{ $user->image ? asset('assets/images/' . $user->image) : asset('assets/images/agent-25.jpg') }}"
-                                                class="rounded-circle " alt="Blanche Gordon">
+                                            <img src="{{ $user->image ? asset('assets/images/' . $user->image) : asset('assets/images/agent-25.jpg') }}" class="rounded-circle " alt="Blanche Gordon">
                                         </div>
 
                                         <div class="media-body">
@@ -461,6 +460,8 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    
+    <link rel="stylesheet" href="{{ asset('assets/css/css-nht.css') }}">
 @endpush
 @push('scriptUs')
     {{-- <script>
