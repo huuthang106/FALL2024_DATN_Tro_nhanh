@@ -93,7 +93,7 @@
                             <div class="form-group mb-0 position-relative flex-md-3 mt-3 mt-md-0">
                                 <input type="text"
                                     class="form-control form-control-lg border-0 shadow-none rounded-left-md-0 pr-8 bg-white placeholder-muted"
-                                    id="key-word-1" name="keyword" placeholder="Nhập địa chỉ...">
+                                    id="key-word-1" name="keyword" placeholder="Nhập tên khu trọ...">
                                 <button type="submit"
                                     class="btn position-absolute pos-fixed-right-center p-0 text-heading fs-20 mr-4 shadow-none">
                                     <i class="far fa-search"></i>
@@ -749,7 +749,7 @@
 
     <!-- Favicons -->
     <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
-
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/osm.css') }}">
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@TronNhanh">
@@ -771,35 +771,7 @@
     <meta property="og:image:height" content="630">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
-    <style>
-        #map {
-            height: 600px;
-            width: 100%;
-        }
-
-        #overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            /* Màu nền mờ với độ mờ 50% */
-            z-index: 999;
-            /* Đảm bảo lớp phủ nằm trên bản đồ */
-            display: none;
-            /* Ẩn lớp phủ khi không cần thiết */
-
-        }
-
-        .leaflet-routing-geocoders {
-            display: none;
-        }
-
-        .leaflet-routing-alt table {
-            display: NONE;
-        }
-    </style>
+   
 @endpush
 @push('scriptUs')
     <!-- Vendors scripts -->
@@ -836,37 +808,66 @@
     <script>
         function initMap() {
             var map = L.map('map').setView([0, 0], 2);
-
+    
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
-
+    
             var userMarker;
             var userLat, userLng;
-
+            var osmMarkers = [];
+    
             var userIcon = L.icon({
                 iconUrl: '{{ asset('assets/images/101-1015767_map-marker-circle-png.png') }}', // Đường dẫn đến biểu tượng tùy chỉnh của bạn
                 iconSize: [38, 38], // Kích thước của biểu tượng
                 iconAnchor: [22, 38], // Điểm neo của biểu tượng (tâm của biểu tượng)
                 popupAnchor: [-3, -38] // Điểm neo của popup so với biểu tượng
             });
-
+    
+            // Define icons for different types of markers
+            var hospitalIcon = L.icon({
+                iconUrl: '{{ asset('assets/images/13297903.png') }}',
+                iconSize: [15, 15],
+                iconAnchor: [22, 38],
+                popupAnchor: [-3, -38]
+            });
+    
+            var schoolIcon = L.icon({
+                iconUrl: '{{ asset('assets/images/167707.png') }}',
+                iconSize: [15, 15],
+                iconAnchor: [22, 38],
+                popupAnchor: [-3, -38]
+            });
+    
+            var universityIcon = L.icon({
+                iconUrl: '{{ asset('assets/images/167707.png') }}',
+                iconSize: [15, 15],
+                iconAnchor: [22, 38],
+                popupAnchor: [-3, -38]
+            });
+    
+            var policeIcon = L.icon({
+                iconUrl: '{{ asset('assets/images/police-officer-icon-1797x2048-bai6ylf5.png') }}',
+                iconSize: [15, 15],
+                iconAnchor: [22, 38],
+                popupAnchor: [-3, -38]
+            });
+    
+    
             function addMarkers(zones) {
                 zones.forEach(zone => {
-                    console.log('Zone Latitude:', zone.latitude, 'Zone Longitude:', zone
-                    .longitude); // Kiểm tra tọa độ khu trọ
-
+                    console.log('Zone Latitude:', zone.latitude, 'Zone Longitude:', zone.longitude); // Kiểm tra tọa độ khu trọ
+    
                     var marker = L.marker([zone.latitude, zone.longitude], {
                             draggable: false
                         }) // Thêm tùy chọn draggable: false
                         .addTo(map)
                         .bindPopup(`<b>${zone.name}</b><br>${zone.address}`)
                         .openPopup();
-
+    
                     marker.on('click', function() {
-                        console.log('User Latitude:', userLat, 'User Longitude:',
-                        userLng); // Kiểm tra tọa độ người dùng
-
+                        console.log('User Latitude:', userLat, 'User Longitude:', userLng); // Kiểm tra tọa độ người dùng
+    
                         if (typeof marker.bounce === 'function') {
                             marker.bounce({
                                 duration: 500,
@@ -875,12 +876,12 @@
                         } else {
                             console.error('Bounce method not available on marker');
                         }
-
+    
                         // Xóa tuyến đường cũ nếu đã có
                         if (typeof routingControl !== 'undefined') {
                             map.removeControl(routingControl);
                         }
-
+    
                         // Vẽ tuyến đường từ vị trí của người dùng đến khu trọ
                         routingControl = L.Routing.control({
                             waypoints: [
@@ -893,32 +894,32 @@
                             }, // Tắt việc tạo marker mặc định
                             geocoder: L.Control.Geocoder.nominatim()
                         }).addTo(map);
-
+    
                         // Thêm marker tùy chỉnh cho điểm bắt đầu và kết thúc
                         // L.marker([userLat, userLng], { icon: userIcon }).addTo(map); // Marker cho vị trí người dùng
                         // L.marker([zone.latitude, zone.longitude], { icon: userIcon }).addTo(map); // Marker cho khu trọ
                     });
                 });
             }
-
+    
             function setMapViewToCenter(zones) {
                 if (zones.length > 0) {
                     var latitudes = zones.map(zone => zone.latitude);
                     var longitudes = zones.map(zone => zone.longitude);
-
+    
                     if (userLat && userLng) {
                         latitudes.push(userLat);
                         longitudes.push(userLng);
                     }
-
+    
                     var avgLat = latitudes.reduce((a, b) => a + b, 0) / latitudes.length;
                     var avgLng = longitudes.reduce((a, b) => a + b, 0) / longitudes.length;
                     map.setView([avgLat, avgLng], 13);
                 }
             }
-
+    
             function fetchZonesWithinRadius(lat, lng, radius = 10) { // radius in kilometers
-
+    
                 $.ajax({
                     url: '{{ route('client.client-list-zone') }}',
                     method: 'GET',
@@ -928,11 +929,11 @@
                         radius: radius
                     },
                     success: function(response) {
-
+    
                         if (response.zones.length > 0) {
                             addMarkers(response.zones);
                             setMapViewToCenter(response.zones);
-
+    
                             // Hiển thị tên tất cả các khu trọ
                             let zoneList = $('#zone-list');
                             zoneList.empty();
@@ -953,8 +954,7 @@
                     }
                 });
             }
-
-
+    
             function setUserMarker(lat, lng) {
                 if (userMarker) {
                     map.removeLayer(userMarker);
@@ -965,6 +965,7 @@
                     .bindPopup("Vị trí của bạn").openPopup();
                 map.setView([lat, lng], 13);
             }
+    
             var returnButton = L.control({
                 position: 'topright'
             });
@@ -989,12 +990,12 @@
                 return button;
             };
             returnButton.addTo(map);
-
+    
             function clearSearchStorage() {
                 localStorage.removeItem('searchKeyword');
                 localStorage.removeItem('searchProvince');
             }
-
+    
             function fetchZones(keyword, province) {
                 $.ajax({
                     url: '{{ route('client.client-list-zone') }}',
@@ -1009,11 +1010,11 @@
                                 map.removeLayer(layer);
                             }
                         });
-
+    
                         if (response.zones.length > 0) {
                             addMarkers(response.zones);
                             setMapViewToCenter(response.zones);
-
+    
                             let zoneList = $('#zone-list');
                             zoneList.empty();
                             response.zones.forEach(zone => {
@@ -1030,22 +1031,22 @@
                     }
                 });
             }
-
+    
             function initializeMap() {
                 var urlParams = new URLSearchParams(window.location.search);
                 var keyword = urlParams.get('keyword');
                 var province = urlParams.get('province');
-
+    
                 if (!keyword && !province) {
                     clearSearchStorage();
                 }
-
+    
                 if (localStorage.getItem('userLat') && localStorage.getItem('userLng')) {
                     userLat = parseFloat(localStorage.getItem('userLat'));
                     userLng = parseFloat(localStorage.getItem('userLng'));
-
+    
                     setUserMarker(userLat, userLng);
-
+    
                     if (!keyword && !province) {
                         fetchZonesWithinRadius(userLat, userLng);
                     } else {
@@ -1056,12 +1057,12 @@
                         navigator.geolocation.getCurrentPosition(function(position) {
                             userLat = position.coords.latitude;
                             userLng = position.coords.longitude;
-
+    
                             localStorage.setItem('userLat', userLat);
                             localStorage.setItem('userLng', userLng);
-
+    
                             setUserMarker(userLat, userLng);
-
+    
                             if (!keyword && !province) {
                                 fetchZonesWithinRadius(userLat, userLng);
                             } else {
@@ -1074,22 +1075,22 @@
                         alert("Trình duyệt của bạn không hỗ trợ Geolocation.");
                     }
                 }
-
+    
                 if (localStorage.getItem('mapLat') && localStorage.getItem('mapLng') && localStorage.getItem('mapZoom')) {
                     var mapLat = parseFloat(localStorage.getItem('mapLat'));
                     var mapLng = parseFloat(localStorage.getItem('mapLng'));
                     var mapZoom = parseInt(localStorage.getItem('mapZoom'));
-
+    
                     map.setView([mapLat, mapLng], mapZoom);
                 }
-
+    
                 var searchKeyword = localStorage.getItem('searchKeyword');
                 var searchProvince = localStorage.getItem('searchProvince');
-
+    
                 if (searchKeyword || searchProvince) {
                     $('#key-word-1').val(searchKeyword);
                     $('#city-province').val(searchProvince);
-
+    
                     $.ajax({
                         url: '{{ route('client.client-list-zone') }}',
                         method: 'GET',
@@ -1103,11 +1104,11 @@
                                     map.removeLayer(layer);
                                 }
                             });
-
+    
                             if (response.zones.length > 0) {
                                 addMarkers(response.zones);
                                 setMapViewToCenter(response.zones);
-
+    
                                 let zoneList = $('#zone-list');
                                 zoneList.empty();
                                 response.zones.forEach(zone => {
@@ -1125,24 +1126,24 @@
                     });
                 }
             }
-
-
+    
             initializeMap();
-
+    
             $('.property-search').on('submit', function(e) {
-                e.preventDefault();
+               
 
+    
                 var keyword = $('#key-word-1').val();
                 var province = $('#city-province').val();
-
+    
                 localStorage.setItem('searchKeyword', keyword);
                 localStorage.setItem('searchProvince', province);
-
+    
                 var newUrl = new URL(window.location.href);
                 newUrl.searchParams.set('keyword', keyword);
                 newUrl.searchParams.set('province', province);
                 history.pushState(null, '', newUrl.toString());
-
+    
                 $.ajax({
                     url: '{{ route('client.client-list-zone') }}',
                     method: 'GET',
@@ -1156,17 +1157,17 @@
                                 map.removeLayer(layer);
                             }
                         });
-
+    
                         if (response.zones.length > 0) {
                             addMarkers(response.zones);
                             setMapViewToCenter(response.zones);
-
+    
                             var latitudes = response.zones.map(zone => zone.latitude);
                             var longitudes = response.zones.map(zone => zone.longitude);
                             var avgLat = latitudes.reduce((a, b) => a + b, 0) / latitudes.length;
                             var avgLng = longitudes.reduce((a, b) => a + b, 0) / longitudes.length;
                             map.setView([avgLat, avgLng], 13);
-
+    
                             let zoneList = $('#zone-list');
                             zoneList.empty();
                             response.zones.forEach(zone => {
@@ -1183,72 +1184,128 @@
                     }
                 });
             });
-
+    
             let updateUrlTimeout;
-
+    
             map.on('moveend', function() {
                 var center = map.getCenter();
-
+    
                 if (updateUrlTimeout) {
                     clearTimeout(updateUrlTimeout);
                 }
-
+    
                 updateUrlTimeout = setTimeout(function() {
                     var newUrl = new URL(window.location.href);
                     newUrl.searchParams.set('lat', center.lat);
                     newUrl.searchParams.set('lng', center.lng);
                     newUrl.searchParams.set('zoom', map.getZoom());
                     history.pushState(null, '', newUrl.toString());
-
+    
                     localStorage.setItem('mapLat', center.lat);
                     localStorage.setItem('mapLng', center.lng);
                     localStorage.setItem('mapZoom', map.getZoom());
                 }, 1000);
             });
-
+    
             window.addEventListener('popstate', function() {
                 var urlParams = new URLSearchParams(window.location.search);
                 var keyword = urlParams.get('keyword');
                 var province = urlParams.get('province');
-
+    
                 if (!keyword && !province) {
                     clearSearchStorage();
                 }
-
+    
                 initializeMap();
             });
-        }
-
-        function addMarkers(zones) {
-            zones.forEach(zone => {
-                var marker = L.marker([zone.latitude, zone.longitude])
-                    .addTo(map)
-                    .bindPopup(`<b>${zone.name}</b><br>${zone.address}`)
-                    .openPopup();
-
-                marker.on('click', function() {
-                    marker.bounce({
-                        duration: 500,
-                        height: 100
+    
+            // Function to add OSM markers
+            function addOSMMarkers() {
+                var overpassUrl = 'https://overpass-api.de/api/interpreter?data=[out:json];(node["amenity"="hospital"](around:40000,' + userLat + ',' + userLng + ');node["amenity"="school"](around:40000,' + userLat + ',' + userLng + ');node["amenity"="university"](around:40000,' + userLat + ',' + userLng + ');node["amenity"="police"](around:40000,' + userLat + ',' + userLng + '););out body;';
+    
+                $.getJSON(overpassUrl, function(data) {
+                    data.elements.forEach(function(element) {
+                        var icon;
+                        var popupText = element.tags.name || 'No name';
+    
+                        if (element.tags.amenity === 'hospital') {
+                            icon = hospitalIcon;
+                            popupText = 'Bệnh viện: ' + popupText;
+                        } else if (element.tags.amenity === 'school') {
+                            icon = schoolIcon;
+                            popupText = 'Trường học: ' + popupText;
+                        } else if (element.tags.amenity === 'university') {
+                            icon = universityIcon;
+                            popupText = 'Đại học/Cao đẳng: ' + popupText;
+                        } else if (element.tags.amenity === 'police') {
+                            icon = policeIcon;
+                            popupText = 'Trụ sở công an: ' + popupText;
+                        }
+    
+                        if (icon) {
+                            var marker = L.marker([element.lat, element.lon], { icon: icon });
+                            osmMarkers.push(marker);
+                            marker.addTo(map).bindPopup(popupText);
+    
+                            // Add click event to draw route
+                            marker.on('click', function() {
+                                if (typeof routingControl !== 'undefined') {
+                                    map.removeControl(routingControl);
+                                }
+    
+                                routingControl = L.Routing.control({
+                                    waypoints: [
+                                        L.latLng(userLat, userLng), // Vị trí người dùng
+                                        L.latLng(element.lat, element.lon) // Vị trí marker
+                                    ],
+                                    routeWhileDragging: true,
+                                    createMarker: function() {
+                                        return null;
+                                    },
+                                    geocoder: L.Control.Geocoder.nominatim()
+                                }).addTo(map);
+                            });
+                        }
                     });
-
-                    // Xóa tuyến đường cũ nếu đã có
-                    if (typeof routingControl !== 'undefined') {
-                        map.removeControl(routingControl);
-                    }
-
-                    // Vẽ tuyến đường từ vị trí của người dùng đến khu trọ
-                    routingControl = L.Routing.control({
-                        waypoints: [
-                            L.latLng(userLat, userLng), // Vị trí người dùng
-                            L.latLng(zone.latitude, zone.longitude) // Vị trí trọ
-                        ],
-                        routeWhileDragging: true,
-                        geocoder: L.Control.Geocoder.nominatim()
-                    }).addTo(map);
                 });
+            }
+    
+            // Function to toggle OSM markers based on zoom level
+            function toggleOSMMarkers() {
+                if (map.getZoom() >= 14) {
+                    osmMarkers.forEach(marker => {
+                        if (!map.hasLayer(marker)) {
+                            map.addLayer(marker);
+                        }
+                    });
+                } else {
+                    osmMarkers.forEach(marker => {
+                        if (map.hasLayer(marker)) {
+                            map.removeLayer(marker);
+                        }
+                    });
+                }
+            }
+    
+            // Call addOSMMarkers after setting user marker
+            function setUserMarker(lat, lng) {
+                if (userMarker) {
+                    map.removeLayer(userMarker);
+                }
+                userMarker = L.marker([lat, lng], {
+                        icon: userIcon
+                    }).addTo(map)
+                    .bindPopup("Vị trí của bạn").openPopup();
+                map.setView([lat, lng], 13);
+                addOSMMarkers(); // Add OSM markers after setting user marker
+            }
+    
+            // Toggle OSM markers on zoom end
+            map.on('zoomend', function() {
+                toggleOSMMarkers();
             });
         }
+    
         initMap();
     </script>
 @endpush
