@@ -1,259 +1,9 @@
     @extends('layouts.main')
     @section('titleUs', 'Blog | TRỌ NHANH')
     @section('contentUs')
-        <main id="content">
-            <section class="pt-2 pb-13 page-title bg-img-cover-center bg-white-overlay"
-                style="background-image: url('{{ asset('assets/images/bg-title.jpg') }}');">
-                <div class="container">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb mb-0 p-0">
-                            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Blog</li>
-                        </ol>
-                    </nav>
-                    <h1 class="fs-30 lh-15 mb-0 text-heading font-weight-500 text-center pt-10" data-animate="fadeInDown">
-                        Bài Viết Thú Vị Được Cập Nhật Hàng Ngày</h1>
-                </div>
-            </section>
-            <section class="pt-11 pb-13">
-                <div class="container">
-                    <div class="row ml-xl-0 mr-xl-n6">
-                        <div class="col-lg-8 mb-8 mb-lg-0 pr-xl-6 pl-xl-0">
-                            @livewire('blog-list')
-
-                            {{-- <nav class="pt-4">
-                                <ul class="pagination rounded-active justify-content-center">
-                                    <li class="page-item"><a class="page-link" href="#"><i
-                                                class="far fa-angle-double-left"></i></a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item d-none d-sm-block"><a class="page-link" href="#">3</a>
-                                    </li>
-                                    <li class="page-item">...</li>
-                                    <li class="page-item"><a class="page-link" href="#">6</a></li>
-                                    <li class="page-item"><a class="page-link" href="#"><i
-                                                class="far fa-angle-double-right"></i></a></li>
-                                </ul>
-                            </nav> --}}
 
 
-                        </div>
-                        <div class="col-lg-4 pl-xl-6 pr-xl-0 primary-sidebar sidebar-sticky" id="sidebar">
-                            <div class="primary-sidebar-inner">
-                                <div class="card mb-4">
-                                    <div class="card-body px-6 pt-5 pb-6">
-                                        <h4 class="card-title fs-16 lh-2 text-dark mb-3">Loại</h4>
-                                        <form action="{{ route('client.client-blog') }}" method="GET">
-                                            <div class="position-relative">
-                                                <input type="text" id="search02"
-                                                    class="form-control form-control-lg border-0 shadow-none"
-                                                    placeholder="Tìm kiếm" name="search">
-                                                <div class="position-absolute pos-fixed-center-right">
-                                                    <button type="submit" class="btn fs-15 text-dark shadow-none"><i
-                                                            class="fal fa-search"></i></button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                                {{-- <div class="card mb-4">
-                                    <div class="card-body px-6 pt-5 pb-6">
-                                        <h4 class="card-title fs-16 lh-2 text-dark mb-3">Loại</h4>
-                                        <ul class="list-group list-group-no-border">
-                                            <li class="list-group-item p-0">
-                                                <a href="listing-with-left-sidebar.html" class="d-flex text-body hover-primary">
-                                                    <span class="lh-29">Sáng tạo</span>
-                                                    <span class="d-block ml-auto">13</span>
-                                                </a>
-                                            </li>
-                                            <li class="list-group-item p-0">
-                                                <a href="listing-with-left-sidebar.html"
-                                                    class="d-flex text-body hover-primary">
-                                                    <span class="lh-29">Cho thuê</span>
-                                                    <span class="d-block ml-auto">21</span>
-                                                </a>
-                                            </li>
-                                            <li class="list-group-item p-0">
-                                                <a href="listing-with-left-sidebar.html"
-                                                    class="d-flex text-body hover-primary">
-                                                    <span class="lh-29">Hình ảnh</span>
-                                                    <span class="d-block ml-auto">17</span>
-                                                </a>
-                                            </li>
-                                            <li class="list-group-item p-0">
-                                                <a href="listing-with-left-sidebar.html"
-                                                    class="d-flex text-body hover-primary">
-                                                    <span class="lh-29">Tin mới</span>
-                                                    <span class="d-block ml-auto">4</span>
-                                                </a>
-                                            </li>
-                                            <li class="list-group-item p-0">
-                                                <a href="listing-with-left-sidebar.html"
-                                                    class="d-flex text-body hover-primary">
-                                                    <span class="lh-29">Phòng trọ</span>
-                                                    <span class="d-block ml-auto">27</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div> --}}
-                                {{-- <div class="card mb-4">
-                                    <div class="card-body px-6 pt-5 pb-6">
-                                        <h4 class="card-title fs-16 lh-2 text-dark mb-3">Bài viết mới nhất</h4>
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item px-0 pt-0 pb-3">
-                                                <div class="media">
-                                                    <div class="position-relative mr-3">
-                                                        <a href="blog-details-1.html"
-                                                            class="d-block w-100px rounded pt-11 bg-img-cover-center"
-                                                            style="background-image: url('{{ asset('assets/images/post-02.jpg') }}')">
-                                                        </a>
-                                                        <a href="blog-grid-with-sidebar.html"
-                                                            class="badge text-white bg-dark-opacity-04 m-1 fs-13 font-weight-500 bg-hover-primary hover-white position-absolute pos-fixed-top">
-                                                            Sáng tạo
-                                                        </a>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <h4 class="fs-14 lh-186 mb-1">
-                                                            <a href="blog-details-1.html" class="text-dark hover-primary">
-                                                                Nhà Siêu Cấp Vip
-                                                                Pro
-                                                            </a>
-                                                        </h4>
-                                                        <div class="text-gray-light">
-                                                            16, Tháng 12,
-                                                            2024
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item px-0 pt-2 pb-3">
-                                                <div class="media">
-                                                    <div class="position-relative mr-3">
-                                                        <a href="blog-details-1.html"
-                                                            class="d-block w-100px rounded pt-11 bg-img-cover-center"
-                                                            style="background-image: url('{{ asset('assets/images/post-04.jpg') }}')">
-                                                        </a>
-                                                        <a href="blog-grid-with-sidebar.html"
-                                                            class="badge text-white bg-dark-opacity-04 m-1 fs-13 font-weight-500 bg-hover-primary hover-white position-absolute pos-fixed-top">
-                                                            Cho Thuê
-                                                        </a>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <h4 class="fs-14 lh-186 mb-1">
-                                                            <a href="blog-details-1.html" class="text-dark hover-primary">
-                                                                Nhà Siêu Cấp Vip
-                                                                Pro
-                                                            </a>
-                                                        </h4>
-                                                        <div class="text-gray-light">
-                                                            16, Tháng 12,
-                                                            2024
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item px-0 pt-2 pb-0">
-                                                <div class="media">
-                                                    <div class="position-relative mr-3">
-                                                        <a href="blog-details-1.html"
-                                                            class="d-block w-100px rounded pt-11 bg-img-cover-center"
-                                                            style="background-image: url('{{ asset('assets/images/post-07.jpg') }}')">
-                                                        </a>
-                                                        <a href="blog-grid-with-sidebar.html"
-                                                            class="badge text-white bg-dark-opacity-04 m-1 fs-13 font-weight-500 bg-hover-primary hover-white position-absolute pos-fixed-top">
-                                                            Cho Thuê
-                                                        </a>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <h4 class="fs-14 lh-186 mb-1">
-                                                            <a href="blog-details-1.html" class="text-dark hover-primary">
-                                                                Nhà Siêu Cấp Vip
-                                                                Pro
-                                                            </a>
-                                                        </h4>
-                                                        <div class="text-gray-light">
-                                                            16, Tháng 12,
-                                                            2024
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div> --}}
-                                {{-- <div class="card mb-4">
-                                    <div class="card-body px-6 pt-5 pb-6">
-                                        <h4 class="card-title fs-16 lh-2 text-dark mb-3">Tải xuống tài liệu</h4>
-                                        <img src="{{ asset('assets/images/download-brochure.png') }}"
-                                            alt="Tải xuống tài liệu">
-                                        <div class="text-center mt-10 mb-2">
-                                            <a href="#"
-                                                class="btn btn-lg bg-gray-01 bg-hover-accent btn-block text-heading">Tải
-                                                ngay<span class="text-primary d-inline-block ml-2"><i
-                                                        class="far fa-arrow-circle-down"></i></span></a>
-                                        </div>
-                                    </div>
-                                </div> --}}
-                                {{-- <div class="card mb-4">
-                                    <div class="card-body px-6 py-5">
-                                        <h4 class="card-title fs-16 lh-2 text-dark mb-3">Tags phổ biến</h4>
-                                        <ul class="list-inline mb-0">
-                                            <li class="list-inline-item mb-2">
-                                                <a href="#"
-                                                    class="px-2 py-1 d-block fs-13 lh-17 bg-gray-03 text-muted hover-white bg-hover-primary rounded">nhà
-                                                    thiết kế</a>
-                                            </li>
-                                            <li class="list-inline-item mb-2">
-                                                <a href="#"
-                                                    class="px-2 py-1 d-block fs-13 lh-17 bg-gray-03 text-muted hover-white bg-hover-primary rounded">mô
-                                                    hình mẫu</a>
-                                            </li>
-                                            <li class="list-inline-item mb-2">
-                                                <a href="#"
-                                                    class="px-2 py-1 d-block fs-13 lh-17 bg-gray-03 text-muted hover-white bg-hover-primary rounded">mẫu
-                                                    giao diện</a>
-                                            </li>
-                                            <li class="list-inline-item mb-2">
-                                                <a href="#"
-                                                    class="px-2 py-1 d-block fs-13 lh-17 bg-gray-03 text-muted hover-white bg-hover-primary rounded">Bảo
-                                                    mật CNTT</a>
-                                            </li>
-                                            <li class="list-inline-item mb-2">
-                                                <a href="#"
-                                                    class="px-2 py-1 d-block fs-13 lh-17 bg-gray-03 text-muted hover-white bg-hover-primary rounded">Dịch
-                                                    vụ CNTT</a>
-                                            </li>
-                                            <li class="list-inline-item mb-2">
-                                                <a href="#"
-                                                    class="px-2 py-1 d-block fs-13 lh-17 bg-gray-03 text-muted hover-white bg-hover-primary rounded">kinh
-                                                    doanh</a>
-                                            </li>
-                                            <li class="list-inline-item mb-2">
-                                                <a href="#"
-                                                    class="px-2 py-1 d-block fs-13 lh-17 bg-gray-03 text-muted hover-white bg-hover-primary rounded">video</a>
-                                            </li>
-                                            <li class="list-inline-item mb-2">
-                                                <a href="#"
-                                                    class="px-2 py-1 d-block fs-13 lh-17 bg-gray-03 text-muted hover-white bg-hover-primary rounded">giao
-                                                    diện wordpress</a>
-                                            </li>
-                                            <li class="list-inline-item mb-2">
-                                                <a href="#"
-                                                    class="px-2 py-1 d-block fs-13 lh-17 bg-gray-03 text-muted hover-white bg-hover-primary rounded">bản
-                                                    phác thảo</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div> --}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-        </main>
+        @livewire('blog-list')
 
         {{-- Modal Login - Register --}}
         <div class="modal fade login-register login-register-modal" id="login-register-modal" tabindex="-1" role="dialog"
@@ -310,8 +60,8 @@
                                     </div>
                                     <div class="d-flex mb-4">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                id="remember-me" name="remember-me">
+                                            <input class="form-check-input" type="checkbox" value="" id="remember-me"
+                                                name="remember-me">
                                             <label class="form-check-label" for="remember-me">
                                                 Remember me
                                             </label>
@@ -322,8 +72,8 @@
                                     </div>
                                     <div class="d-flex p-2 border re-capchar align-items-center mb-4">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                id="verify" name="verify">
+                                            <input class="form-check-input" type="checkbox" value="" id="verify"
+                                                name="verify">
                                             <label class="form-check-label" for="verify">
                                                 I'm not a robot
                                             </label>
@@ -1024,10 +774,8 @@
     @endpush
     @push('scriptUs')
         <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.js') }}">
-            < /s> <
-            script src = "{{ asset('assets/vendors/bootstrap/bootstrap.bundle.js') }}" >
-        </script>
+        <script src="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.js') }}"></script>
+        <script src="{{ asset('assets/vendors/bootstrap/bootstrap.bundle.js') }}"></script>
         <script src="{{ asset('assets/vendors/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
         <script src="{{ asset('assets/vendors/slick/slick.min.js') }}"></script>
         <script src="{{ asset('assets/vendors/waypoints/jquery.waypoints.min.js') }}"></script>
