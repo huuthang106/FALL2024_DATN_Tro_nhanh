@@ -8,7 +8,7 @@
                     <h2 class="mb-0 text-heading fs-22 lh-15">
                         Lịch sử giao dịch của tôi
                         <span class="badge badge-white badge-pill text-primary fs-18 font-weight-bold ml-2">
-                            {{ $bills->count() }}
+                            {{ $transactions->count() }}
                         </span>
                     </h2>
                 </div>
@@ -64,24 +64,35 @@
                             <th scope="col" class="border-top-0 pt-5 pb-4">Mô tả</th>
                             <th scope="col" class="border-top-0 pt-5 pb-4">Ngày thanh toán</th>
                             <th scope="col" class="border-top-0 pt-5 pb-4">Số tiền</th>
+                            <th scope="col" class="border-top-0 pt-5 pb-4">Số dư</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($bills as $bill)
-                            <tr class="shadow-hover-xs-2 bg-hover-white">
+                        @foreach ($transactions as $transaction)
+                        <tr class="shadow-hover-xs-2 bg-hover-white">
                             <td class="align-middle">Thanh toán dịch vụ</td>
-                                <td class="align-middle">{{ $transaction->description ?? 'Chưa có dữ liệu' }}</td>
-                                <td class="align-middle">{{ $transaction->created_at->format('d/m/Y') }}</td>
-                                <td class="align-middle">
-                                    @php
-                                        $total_price = $transaction->total_price ?? 0;
-                                        $formattedPrice = number_format(abs($total_price), 0, ',', '.');
-                                        $sign = $total_price < 0 ? '-' : '+';
-                                    @endphp
-                                    {{ $sign }} {{ $formattedPrice }} VND
-                                </td>
-                            </tr>
-                        @endforeach
+                            <td class="align-middle">{{ $transaction->description ?? 'Chưa có dữ liệu' }}</td>
+                            <td class="align-middle">{{ $transaction->created_at}}</td>
+                            
+                            <td class="align-middle">
+                                @php
+                                    $total_price = $transaction->added_funds ?? 0;
+                                    $formattedPrice = number_format(abs($total_price), 0, ',', '.');
+                                    $sign = $total_price < 0 ? '-' : '+';
+                                @endphp
+                                {{ $sign }} {{ $formattedPrice }} VND
+                            </td>
+                            <td class="align-middle">
+                                @php
+                                    $balance = $transaction->balance ?? 0;
+                                    $formattedPrice = number_format(abs($balance), 0, ',', '.');
+                                    $sign = $balance < 0 ? '-' : '+';
+                                @endphp
+                                {{ $sign }} {{ $formattedPrice }} VND
+                            </td>
+                        </tr>
+                    @endforeach
+                    
                     </tbody>
 
                 </table>

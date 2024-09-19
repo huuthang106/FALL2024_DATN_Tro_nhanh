@@ -15,11 +15,11 @@ class PaymentOwnersController extends Controller
     {
         $this->BillService = $BillService;
     }
-    public function showCurrentUserTransactions()
-    {
-        $bills = $this->BillService->getCurrentUserBills();
-        return view('owners.show.dashbroard-my-bill', compact('bills'));
-    }
+    // public function showCurrentUserTransactions()
+    // {
+    //     $bills = $this->BillService->getCurrentUserBills();
+    //     return view('owners.show.dashbroard-my-bill', compact('bills'));
+    // }
     public function page_add_invoice()
     {
         return view('owners.create.add-new-invoice');
