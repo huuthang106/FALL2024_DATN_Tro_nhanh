@@ -378,15 +378,27 @@
 
                 <nav class="mt-4">
                     <ul class="pagination rounded-active justify-content-center">
-                        {{-- Previous Page Link --}}
+                        {{-- Liên kết Trang Đầu --}}
                         @if ($users->onFirstPage())
                             <li class="page-item disabled">
                                 <span class="page-link"><i class="far fa-angle-double-left"></i></span>
                             </li>
                         @else
                             <li class="page-item">
+                                <a class="page-link" href="{{ $users->url(1) }}"><i
+                                        class="far fa-angle-left"></i></a>
+                            </li>
+                        @endif
+
+                        {{-- Liên kết Trang Trước --}}
+                        @if ($users->onFirstPage())
+                            <li class="page-item disabled">
+                                <span class="page-link"><i class="far fa-angle-left"></i></span>
+                            </li>
+                        @else
+                            <li class="page-item">
                                 <a class="page-link" href="{{ $users->previousPageUrl() }}"><i
-                                        class="far fa-angle-double-left"></i></a>
+                                        class="far fa-angle-left"></i></a>
                             </li>
                         @endif
 
@@ -403,11 +415,23 @@
                             @endif
                         @endforeach
 
-                        {{-- Next Page Link --}}
+                        {{-- Liên kết Trang Tiếp --}}
                         @if ($users->hasMorePages())
                             <li class="page-item">
                                 <a class="page-link" href="{{ $users->nextPageUrl() }}"><i
                                         class="far fa-angle-double-right"></i></a>
+                            </li>
+                        @else
+                            <li class="page-item disabled">
+                                <span class="page-link"><i class="far fa-angle-right"></i></span>
+                            </li>
+                        @endif
+
+                        {{-- Liên kết Trang Cuối --}}
+                        @if ($users->hasMorePages())
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $users->url($users->lastPage()) }}"><i
+                                        class="far fa-angle-right"></i></a>
                             </li>
                         @else
                             <li class="page-item disabled">
@@ -419,7 +443,6 @@
 
                 <div class="text-center mt-2"> {{ $users->firstItem() }}-{{ $users->lastItem() }} trên
                     {{ $users->total() }} Kết quả</div>
-            </div>
         </section>
         <section class="pt-12 pb-11 bg-overlay-secondary bg-img-cover-center"
             style="background-image: url('{{ asset('assets/images/BG3.jpg') }}');">

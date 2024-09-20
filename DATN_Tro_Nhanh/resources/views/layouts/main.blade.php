@@ -681,38 +681,58 @@
 </script>
 <script>
     $(document).ready(function() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var userLat = position.coords.latitude;
-                var userLng = position.coords.longitude;
+        // Kiểm tra biến đặc biệt
+        if (window.showLocationAlert) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var userLat = position.coords.latitude;
+                    var userLng = position.coords.longitude;
 
-                // Gửi vị trí đến server để lưu vào session
-                $.ajax({
-                    url: '{{route("client.saveLocation") }}', // Đường dẫn đến route lưu vị trí
-                    method: 'POST',
-                    data: {
-                        latitude: userLat,
-                        longitude: userLng,
-                        _token: '{{ csrf_token() }}' // CSRF token để bảo mật
-                    },
-                    success: function(response) {
-                        
-                        console.log("Vị trí đã được lưu vào session.");
-                        // Gọi hàm để lấy dữ liệu khu trọ
-                        fetchZones(userLat, userLng);
-                    },
-                    error: function() {
-                        alert("Không thể lưu vị trí vào session.");
-                    }
+                    // Gửi vị trí đến server để lưu vào session
+                    $.ajax({
+                        url: '{{route("client.saveLocation") }}', // Đường dẫn đến route lưu vị trí
+                        method: 'POST',
+                        data: {
+                            latitude: userLat,
+                            longitude: userLng,
+                            _token: '{{ csrf_token() }}' // CSRF token để bảo mật
+                        },
+                        success: function(response) {
+                            console.log("Vị trí đã được lưu vào session.");
+                            // Gọi hàm để lấy dữ liệu khu trọ
+                            fetchZones(userLat, userLng);
+                        },
+                        error: function() {
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Thông báo',
+                                text: 'Không thể lưu vị trí của bạn vào lúc này. Vui lòng thử lại sau.'
+                            });
+                        }
+                    });
+                }, function() {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Thông báo',
+                        text: 'Không thể lấy vị trí của bạn. Vui lòng bật vị trí trong cài đặt trình duyệt và thử lại.',
+                       
+                    });
+
+                    // Thêm sự kiện cho nút "Bật vị trí"
+                    $(document).on('click', '#enable-location', function() {
+                        location.reload();
+                    });
                 });
-            }, function() {
-                alert("Không thể lấy vị trí của bạn.");
-            });
-        } else {
-            alert("Trình duyệt của bạn không hỗ trợ Geolocation.");
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: 'Trình duyệt của bạn không hỗ trợ Geolocation.'
+                });
+            }
         }
     });
-</script>
+</script>>
 @livewireScripts
 
 </html>

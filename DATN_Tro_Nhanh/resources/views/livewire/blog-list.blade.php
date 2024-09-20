@@ -82,76 +82,77 @@
                             @endforeach
 
                             @if ($blogs->hasPages())
-                                <div>
-                                    <nav aria-label="Page navigation">
-                                        <ul class="pagination rounded-active justify-content-center">
-                                            {{-- Liên kết Trang Trước --}}
-                                            <li class="page-item {{ $blogs->onFirstPage() ? 'disabled' : '' }}">
-                                                <a class="page-link hover-white" wire:click="previousPage"
-                                                    wire:loading.attr="disabled" rel="prev"
-                                                    aria-label="@lang('pagination.previous')">
-                                                    <i class="far fa-angle-double-left"></i>
-                                                </a>
-                                            </li>
+    <div>
+        <nav aria-label="Page navigation">
+            <ul class="pagination pagination-sm rounded-active justify-content-center">
+                {{-- Liên kết Trang Đầu --}}
+                <li class="page-item {{ $blogs->onFirstPage() ? 'disabled' : '' }}">
+                    <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled" rel="first" aria-label="@lang('pagination.first')">
+                        <i class="far fa-angle-double-left"></i>
+                    </a>
+                </li>
 
-                                            @php
-                                                $totalPages = $blogs->lastPage();
-                                                $currentPage = $blogs->currentPage();
-                                                $visiblePages = 3; // Số trang hiển thị ở giữa
-                                                $startPage = max(
-                                                    2,
-                                                    min($currentPage - 1, $totalPages - $visiblePages + 1),
-                                                );
-                                                $endPage = min(max($currentPage + 1, $visiblePages), $totalPages - 1);
-                                            @endphp
+                {{-- Liên kết Trang Trước --}}
+                <li class="page-item {{ $blogs->onFirstPage() ? 'disabled' : '' }}">
+                    <a class="page-link hover-white" wire:click="previousPage" wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')">
+                        <i class="far fa-angle-left"></i>
+                    </a>
+                </li>
 
-                                            {{-- Trang đầu --}}
-                                            <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
-                                                <a class="page-link hover-white" wire:click="gotoPage(1)"
-                                                    wire:loading.attr="disabled">1</a>
-                                            </li>
+                @php
+                    $totalPages = $blogs->lastPage();
+                    $currentPage = $blogs->currentPage();
+                    $visiblePages = 2; // Số trang hiển thị ở giữa
+                    $startPage = max(2, min($currentPage - 1, $totalPages - $visiblePages + 1));
+                    $endPage = min(max($currentPage + 1, $visiblePages), $totalPages - 1);
+                @endphp
 
-                                            {{-- Dấu ba chấm đầu --}}
-                                            @if ($currentPage > $visiblePages)
-                                                <li class="page-item disabled"><span class="page-link">...</span></li>
-                                            @endif
+                {{-- Trang đầu --}}
+                <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                    <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled">1</a>
+                </li>
 
-                                            {{-- Các trang giữa --}}
-                                            @foreach (range($startPage, $endPage) as $i)
-                                                <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
-                                                    <a class="page-link hover-white"
-                                                        wire:click="gotoPage({{ $i }})"
-                                                        wire:loading.attr="disabled">{{ $i }}</a>
-                                                </li>
-                                            @endforeach
+                {{-- Dấu ba chấm đầu --}}
+                @if ($currentPage > $visiblePages)
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                @endif
 
-                                            {{-- Dấu ba chấm cuối --}}
-                                            @if ($currentPage < $totalPages - $visiblePages)
-                                                <li class="page-item disabled"><span class="page-link">...</span></li>
-                                            @endif
+                {{-- Các trang giữa --}}
+                @foreach (range($startPage, $endPage) as $i)
+                    <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                        <a class="page-link hover-white" wire:click="gotoPage({{ $i }})" wire:loading.attr="disabled">{{ $i }}</a>
+                    </li>
+                @endforeach
 
-                                            {{-- Trang cuối --}}
-                                            @if ($totalPages > 1)
-                                                <li
-                                                    class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
-                                                    <a class="page-link hover-white"
-                                                        wire:click="gotoPage({{ $totalPages }})"
-                                                        wire:loading.attr="disabled">{{ $totalPages }}</a>
-                                                </li>
-                                            @endif
+                {{-- Dấu ba chấm cuối --}}
+                @if ($currentPage < $totalPages - $visiblePages)
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                @endif
 
-                                            {{-- Liên kết Trang Tiếp --}}
-                                            <li class="page-item {{ !$blogs->hasMorePages() ? 'disabled' : '' }}">
-                                                <a class="page-link hover-white" wire:click="nextPage"
-                                                    wire:loading.attr="disabled" rel="next"
-                                                    aria-label="@lang('pagination.next')">
-                                                    <i class="far fa-angle-double-right"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            @endif
+                {{-- Trang cuối --}}
+                @if ($totalPages > 1)
+                    <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                        <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})" wire:loading.attr="disabled">{{ $totalPages }}</a>
+                    </li>
+                @endif
+
+                {{-- Liên kết Trang Tiếp --}}
+                <li class="page-item {{ !$blogs->hasMorePages() ? 'disabled' : '' }}">
+                    <a class="page-link hover-white" wire:click="nextPage" wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')">
+                        <i class="far fa-angle-right"></i>
+                    </a>
+                </li>
+
+                {{-- Liên kết Trang Cuối --}}
+                <li class="page-item {{ !$blogs->hasMorePages() ? 'disabled' : '' }}">
+                    <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})" wire:loading.attr="disabled" rel="last" aria-label="@lang('pagination.last')">
+                        <i class="far fa-angle-double-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+@endif
                         @endif
                         {{-- <nav class="pt-4">
                             <ul class="pagination rounded-active justify-content-center">

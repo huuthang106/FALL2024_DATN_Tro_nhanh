@@ -65,7 +65,6 @@ class ZoneClientController extends Controller
                 'pagination' => (string) $zones->links() // Thêm phần này để trả về pagination links
             ]);
         }
-
         return view('client.show.listing-half-map-list-layout-1', [
             'zones' => $zones,
             'totalZones' => $totalZones,
@@ -74,7 +73,8 @@ class ZoneClientController extends Controller
             'latitude' => $latitude, // Truyền latitude vào view
             'longitude' => $longitude, // Truyền longitude vào view
             'userLat' => $request->input('user_lat'), // Truyền user_lat vào view
-            'userLng' => $request->input('user_lng') // Truyền user_lng vào view
+            'userLng' => $request->input('user_lng'),
+            'showLocationAlert' => true // Truyền showLocationAlert vào view
         ]);
     }
     public function showZoneDetailsBySlug($slug)

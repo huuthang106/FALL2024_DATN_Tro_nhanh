@@ -16,10 +16,11 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
+
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users', 'email')->ignore($this->route('slug'), 'slug'),
+                Rule::unique('users', 'email')->ignore($this->route('id')), 
             ],
             'phone' => 'nullable|numeric|string',
             'address' => 'nullable|string|max:255',
@@ -32,7 +33,7 @@ class UpdateProfileRequest extends FormRequest
         return [
             'name.required' => 'Tên là bắt buộc.',
             'phone.numeric' => 'Số điện thoại phải là số.',
-            
+
             'email.required' => 'Email là bắt buộc.',
             'email.email' => 'Email không hợp lệ.',
             'image.image' => 'File phải là hình ảnh.',

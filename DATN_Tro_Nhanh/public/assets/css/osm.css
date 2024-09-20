@@ -46,5 +46,14 @@ top: auto;
 bottom: 25px;
 right: 10px;
 }
+.custom-popup .leaflet-popup-content-wrapper {
+    font-family: 'Poppins', sans-serif; /* Thay 'YourWebFont' bằng font chữ của trang web của bạn */
+}
+.leaflet-routing-container .leaflet-routing-alt {
+    display: none;
+}
 
+.leaflet-routing-container .leaflet-routing-summary {
+    display: none;
+}
 
