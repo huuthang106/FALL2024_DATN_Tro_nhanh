@@ -8,6 +8,7 @@
         "php": "^8.2",
         "algolia/algoliasearch-client-php": "^4.2",
         "cocur/slugify": "^4.5",
+        "endroid/qr-code": "^5.0",
         "laravel/framework": "^11.9",
         "laravel/scout": "^10.11",
         "laravel/socialite": "^5.15",
@@ -15,6 +16,7 @@
         "livewire/livewire": "^3.5",
         "maatwebsite/excel": "^3.1",
         "pusher/pusher-php-server": "^7.2",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-medialibrary": "^11.9"
     },
     "require-dev": {

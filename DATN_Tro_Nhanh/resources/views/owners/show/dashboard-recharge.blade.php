@@ -3,125 +3,56 @@
 @section('contentOwners')
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
-        <div class="mb-6">
-    <h3 class="ms-4">Số dư tài khoản: <span class="text-primary">100.000 đ</span></h4>
-    <div class="important-note">
-    <h6>Lưu ý quan trọng:</h6>
-    <h6 class=""> - Nội dung chuyển tiền bạn vui lòng ghi đúng thông tin sau:"GD123 - 0395950134"</h6><br>
-    <h6 class=""> Trong đó 144834 là mã thành viên, 0395950134 là số điện thoại của bạn đăng ký trên website tronhanh.com.</h6><br>
-    <h6>Xin cảm ơn!</h6>
-</div>
-    <div class="row mt-3 justify-content-center">
-        <!-- Chọn phương thức nạp tiền -->
-        <div class="col-12 col-md-12">
-            <h5 class="text-center">Mời bạn chọn phương thức nạp</h5>
-            <div class="row justify-content-center mt-3">
-               <!-- Khung chuyển khoản -->
-<div class="col-12 col-md-3 mb-4">
-    <div class="card border-primary">
-        <div class="card-body text-center">
-            <h6 class="card-title">Chuyển khoản</h6>
-            <img src="{{ asset('assets/images/bank-transfer.png') }}" alt="" class="img-fluid w-50">
-            <p class="card-text mt-2">Nạp tiền bằng cách chuyển khoản ngân hàng trực tiếp vào tài khoản của chúng tôi.</p>
-           <!-- Nút mở modal -->
-<button class="btn btn-primary" data-toggle="modal" data-target="#transferModal">Xem thông tin</button>
-        </div>
-    </div>
-</div>
+                <div class="mb-6">
+                    <h5 class="ms-4">Số dư tài khoản: <span class="text-primary"> {{$user->balance ?? 0}} đ</span></h5>
+                    <div class="important-note">
+                    <h6>Lưu ý quan trọng:</h6>
+                    <h6 class=""> - Nội dung chuyển tiền bạn vui lòng ghi đúng thông tin sau:"TN GD{{$user->id}}"</h6><br>
+                    <h6 class=""> Trong đó {{$user->id}} là mã thành viên của bạn đăng ký trên website tronhanh.com.</h6><br>
+                    <h6>Xin cảm ơn!</h6>
+                        </div>
+                            <div class="row mt-3 justify-content-center">
+                                <!-- Chọn phương thức nạp tiền -->
+                                <div class="col-12">
+                                    <div class="row justify-content-center mt-3 align-items-stretch">
+                                        <!-- Khung chuyển khoản -->
+                                        <div class="col-12 col-md-6 mb-4 d-flex">
+                                            <div class="p-3 border rounded bg-light shadow-sm w-100 h-100">
+                                            <h5 class="text-center mb-3">Thông tin thanh toán</h5>
+                                            <div class="text-center payment-info">
+                                                <div class="row">
+                                                    <div class="col-6 text-right"><strong>Số tài khoản:</strong></div>
+                                                    <div class="col-6 text-left">109882767243</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6 text-right"><strong>Chủ tài khoản:</strong></div>
+                                                    <div class="col-6 text-left">NGUYEN THAI TOAN</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6 text-right"><strong>Ngân hàng:</strong></div>
+                                                    <div class="col-6 text-left">VIETINBANK - NH TMCP CÔNG THƯƠNG VIỆT NAM</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6 text-right"><strong>Nội dung chuyển khoản:</strong></div>
+                                                    <div class="col-6 text-left">TN GD{{ $user->id }}</div>
+                                                </div>
+                                            </div>
 
-<!-- Modal -->
-<div class="modal fade" id="transferModal" tabindex="-1" role="dialog" aria-labelledby="transferModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="transferModalLabel">Thông tin chuyển khoản</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <p><strong>Số tài khoản:</strong>7020326951</p>
-                    <button class="btn btn-outline-primary btn-sm" onclick="copyToClipboard('0395950134')">Sao chép số tài khoản</button>
-                </div>
-                <div class="mb-3">
-                    <p><strong>Tên ngân hàng:</strong>Ngân hàng BIDV</p>
-                    <button class="btn btn-outline-primary btn-sm" onclick="copyToClipboard('Ngân hàng ABC')">Sao chép tên ngân hàng</button>
-                </div>
-                <div class="mb-3">
-                    <p><strong>Chủ tài khoản:</strong>NGUYEN THAI TOAN</p>
-                    <button class="btn btn-outline-primary btn-sm" onclick="copyToClipboard('Công ty XYZ')">Sao chép chủ tài khoản</button>
-                </div>
-                <div>
-                    <p><strong>Nội dung chuyển khoản:</strong>PT123 - 144834 - 0395950134</p>
-                    <button class="btn btn-outline-primary btn-sm" onclick="copyToClipboard('PT123 - 144834 - 0395950134')">Sao chép nội dung chuyển khoản</button>
+                                            </div>
+                                        </div>
+                                        <!-- QR Code -->
+                                        <div class="col-12 col-md-6 text-center d-flex">
+                                            <div class="p-3 border rounded bg-light shadow-sm w-100 h-100">
+                                                <h5 class="text-center mb-3">Quét mã QR tại đây</h5>
+                                                <img src="{{ $qrCodeUrl }}" alt="QR Code" class="img-fluid" style="max-width: 300px; height: auto;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
- <!-- Khung VietQR -->
-<div class="col-12 col-md-3 mb-4">
-    <div class="card border-success">
-        <div class="card-body text-center" style="max-height: 300px; overflow: hidden;">
-            <h6 class="card-title">VietQR</h6>
-            <img src="{{ asset('assets/images/vietqr.png') }}" alt="" class="img-fluid mb-5">
-            <p class="card-text mt-2">Sử dụng mã QR để nạp tiền nhanh chóng qua VietQR.</p>
-            <button class="btn btn-success mt-2" data-toggle="modal" data-target="#qrModal">Xem mã QR</button>
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="qrModal" tabindex="-1" role="dialog" aria-labelledby="qrModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="qrModalLabel">Vui lòng quét mã</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body text-center">
-                <img src="{{ asset('assets/images/macodeqr.png') }}" alt="Mã QR VietQR" class="img-fluid" style="max-width: 100%; height: auto;">
-            </div>
-        </div>
-    </div>
-</div>
-               <!-- Khung MoMo -->
-<div class="col-12 col-md-3 mb-4">
-    <div class="card border-primary">
-        <div class="card-body text-center">
-            <h6 class="card-title">MoMo</h6>
-            <img src="{{ asset('assets/images/momo.png') }}" alt="" class="img-fluid w-50">
-            <p class="card-text mt-2">Sử dụng mã QR để nạp tiền nhanh chóng qua MoMo.</p>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#momoModal">Xem mã QR</button>
-        </div>
-    </div>
-</div>
-
-<!-- Modal MoMo -->
-<div class="modal fade" id="momoModal" tabindex="-1" role="dialog" aria-labelledby="momoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="momoModalLabel">Mã QR MoMo</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body text-center">
-                <img src="{{ asset('assets/images/macodemom.jpg') }}" alt="Mã QR MoMo" class="img-fluid" style="max-width: 100%; height: auto;">
-            </div>
-        </div>
-    </div>
-</div>
-
-
-            </div>
-        </div>
-    </div>
-</div>
 
         </div>
     </main>

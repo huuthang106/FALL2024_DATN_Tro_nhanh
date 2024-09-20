@@ -10,6 +10,10 @@ use App\Models\CartDetail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\Writer\PngWriter;
+use App\Services\CassoService;
 
 class PaymentClientController extends Controller
 {
@@ -24,17 +28,41 @@ class PaymentClientController extends Controller
     // }
     protected $paymentService;
     protected $cartService;
+    protected $cassoService;
 
-    public function __construct(PaymentService $paymentService, CartService $cartService)
+    public function __construct(PaymentService $paymentService, CartService $cartService, CassoService $cassoService)
     {
         $this->paymentService = $paymentService;
         $this->cartService = $cartService;
+        $this->cassoService = $cassoService;
     }
 
     public function showRecharge()
     {
-        return view('owners.show.dashboard-recharge');
+        $user = Auth::user();
+        $qrCodeUrl = $this->cassoService->generateQrCodeUrl();
+    
+        return view('owners.show.dashboard-recharge', compact('qrCodeUrl','user'));
     }
+    
+    private function crc16($str)
+    {
+        $crc = 0xFFFF;
+        for ($i = 0; $i < strlen($str); $i++) {
+            $crc ^= ord($str[$i]);
+            for ($j = 0; $j < 8; $j++) {
+                if ($crc & 0x0001) {
+                    $crc = ($crc >> 1) ^ 0xA001;
+                } else {
+                    $crc >>= 1;
+                }
+            }
+        }
+        return $crc & 0xFFFF;
+    }
+
+    
+
     // Giao diện chuẩn bị thanh toán
     public function showCheckout(Request $request)
     {

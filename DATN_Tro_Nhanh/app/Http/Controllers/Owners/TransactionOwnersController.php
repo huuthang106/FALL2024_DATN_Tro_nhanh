@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Services\PaymentService;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
+
 class TransactionOwnersController extends Controller
 {
     protected $cassoService;
@@ -27,4 +30,6 @@ class TransactionOwnersController extends Controller
 
         return view('owners.show.dashbroard-my-bill', compact('transactions'));
     }
+
+
 }

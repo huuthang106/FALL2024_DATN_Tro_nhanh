@@ -11,24 +11,33 @@
     /* Tạo hiệu ứng bóng nhẹ */
 }
 
-.modal-content {
-    border-radius: 8px;
-    /* Bo góc modal */
+.payment-info .row {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
 }
 
-.modal-header {
-    background-color: #f8f9fa;
-    /* Màu nền của header modal */
-    border-bottom: 1px solid #dee2e6;
-    /* Viền dưới của header modal */
+.payment-info .col-6 {
+    white-space: normal;
+    /* Cho phép xuống dòng khi nội dung dài */
+    word-wrap: break-word;
+    /* Chia dòng khi cần */
 }
 
-.modal-body {
-    font-size: 16px;
-    /* Kích thước chữ của nội dung modal */
-}
+/* Điều chỉnh cho chế độ mobile */
+@media (max-width: 768px) {
+    .payment-info .row {
+        display: flex;
+        justify-content: space-between;
+    }
 
-.modal-body .btn {
-    margin-top: 10px;
-    /* Khoảng cách trên nút sao chép */
+    .payment-info .col-6.text-right {
+        text-align: left;
+        /* Căn trái cho chế độ mobile */
+    }
+
+    .payment-info .col-6.text-left {
+        text-align: right;
+        /* Căn phải cho chế độ mobile */
+    }
 }
