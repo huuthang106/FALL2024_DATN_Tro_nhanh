@@ -117,129 +117,12 @@
                                     </div>
                                     <!--end::User-->
                                     <!--begin::Actions-->
-                                    <div class="d-flex my-4">
-                                        <a href="#" class="btn btn-sm btn-light me-2" id="kt_user_follow_button">
-                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr012.svg-->
-                                            <span class="svg-icon svg-icon-3 d-none">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none">
-                                                    <path opacity="0.3"
-                                                        d="M10 18C9.7 18 9.5 17.9 9.3 17.7L2.3 10.7C1.9 10.3 1.9 9.7 2.3 9.3C2.7 8.9 3.29999 8.9 3.69999 9.3L10.7 16.3C11.1 16.7 11.1 17.3 10.7 17.7C10.5 17.9 10.3 18 10 18Z"
-                                                        fill="black" />
-                                                    <path
-                                                        d="M10 18C9.7 18 9.5 17.9 9.3 17.7C8.9 17.3 8.9 16.7 9.3 16.3L20.3 5.3C20.7 4.9 21.3 4.9 21.7 5.3C22.1 5.7 22.1 6.30002 21.7 6.70002L10.7 17.7C10.5 17.9 10.3 18 10 18Z"
-                                                        fill="black" />
-                                                </svg>
-                                            </span>
-                                            <!--end::Svg Icon-->
-                                            <!--begin::Indicator-->
-                                            <span class="indicator-label">Follow</span>
-                                            <span class="indicator-progress">Please wait...
-                                                <span
-                                                    class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                            <!--end::Indicator-->
-                                        </a>
-                                        <a href="#" class="btn btn-sm btn-primary me-3" data-bs-toggle="modal"
-                                            data-bs-target="#kt_modal_offer_a_deal">Hire Me</a>
-                                        <!--begin::Menu-->
-                                        <div class="me-0">
-                                            <button class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary"
-                                                data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                                <i class="bi bi-three-dots fs-3"></i>
-                                            </button>
-                                            <!--begin::Menu 3-->
-                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold w-200px py-3"
-                                                data-kt-menu="true">
-                                                <!--begin::Heading-->
-                                                <div class="menu-item px-3">
-                                                    <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">
-                                                        Payments</div>
-                                                </div>
-                                                <!--end::Heading-->
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <a href="#" class="menu-link px-3">Create Invoice</a>
-                                                </div>
-                                                <!--end::Menu item-->
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <a href="#" class="menu-link flex-stack px-3">Create Payment
-                                                        <i class="fas fa-exclamation-circle ms-2 fs-7"
-                                                            data-bs-toggle="tooltip"
-                                                            title="Specify a target name for future usage and reference"></i></a>
-                                                </div>
-                                                <!--end::Menu item-->
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <a href="#" class="menu-link px-3">Generate Bill</a>
-                                                </div>
-                                                <!--end::Menu item-->
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3" data-kt-menu-trigger="hover"
-                                                    data-kt-menu-placement="right-end">
-                                                    <a href="#" class="menu-link px-3">
-                                                        <span class="menu-title">Subscription</span>
-                                                        <span class="menu-arrow"></span>
-                                                    </a>
-                                                    <!--begin::Menu sub-->
-                                                    <div class="menu-sub menu-sub-dropdown w-175px py-4">
-                                                        <!--begin::Menu item-->
-                                                        <div class="menu-item px-3">
-                                                            <a href="#" class="menu-link px-3">Plans</a>
-                                                        </div>
-                                                        <!--end::Menu item-->
-                                                        <!--begin::Menu item-->
-                                                        <div class="menu-item px-3">
-                                                            <a href="#" class="menu-link px-3">Billing</a>
-                                                        </div>
-                                                        <!--end::Menu item-->
-                                                        <!--begin::Menu item-->
-                                                        <div class="menu-item px-3">
-                                                            <a href="#" class="menu-link px-3">Statements</a>
-                                                        </div>
-                                                        <!--end::Menu item-->
-                                                        <!--begin::Menu separator-->
-                                                        <div class="separator my-2"></div>
-                                                        <!--end::Menu separator-->
-                                                        <!--begin::Menu item-->
-                                                        <div class="menu-item px-3">
-                                                            <div class="menu-content px-3">
-                                                                <!--begin::Switch-->
-                                                                <label
-                                                                    class="form-check form-switch form-check-custom form-check-solid">
-                                                                    <!--begin::Input-->
-                                                                    <input class="form-check-input w-30px h-20px"
-                                                                        type="checkbox" value="1" checked="checked"
-                                                                        name="notifications" />
-                                                                    <!--end::Input-->
-                                                                    <!--end::Label-->
-                                                                    <span
-                                                                        class="form-check-label text-muted fs-6">Recuring</span>
-                                                                    <!--end::Label-->
-                                                                </label>
-                                                                <!--end::Switch-->
-                                                            </div>
-                                                        </div>
-                                                        <!--end::Menu item-->
-                                                    </div>
-                                                    <!--end::Menu sub-->
-                                                </div>
-                                                <!--end::Menu item-->
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3 my-1">
-                                                    <a href="#" class="menu-link px-3">Settings</a>
-                                                </div>
-                                                <!--end::Menu item-->
-                                            </div>
-                                            <!--end::Menu 3-->
-                                        </div>
-                                        <!--end::Menu-->
-                                    </div>
+
                                     <!--end::Actions-->
                                 </div>
                                 <!--end::Title-->
                                 <!--begin::Stats-->
-                                {{-- <div class="d-flex flex-wrap flex-stack">
+                                <div class="d-flex flex-wrap flex-stack">
                                     <!--begin::Wrapper-->
                                     <div class="d-flex flex-column flex-grow-1 pe-8">
                                         <!--begin::Stats-->
@@ -250,24 +133,26 @@
                                                 <!--begin::Number-->
                                                 <div class="d-flex align-items-center">
                                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
-                                                    <span class="svg-icon svg-icon-3 svg-icon-success me-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none">
-                                                            <rect opacity="0.5" x="13" y="6" width="13"
-                                                                height="2" rx="1" transform="rotate(90 13 6)"
-                                                                fill="black" />
-                                                            <path
-                                                                d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
-                                                                fill="black" />
-                                                        </svg>
-                                                    </span>
+                                                    {{-- <span class="svg-icon svg-icon-3 svg-icon-success me-2">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                height="24" viewBox="0 0 24 24" fill="none">
+                                                                <rect opacity="0.5" x="13" y="6" width="13" height="2"
+                                                                    rx="1" transform="rotate(90 13 6)" fill="black" />
+                                                                <path
+                                                                    d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
+                                                                    fill="black" />
+                                                            </svg>
+                                                        </span> --}}
                                                     <!--end::Svg Icon-->
                                                     <div class="fs-2 fw-bolder" data-kt-countup="true"
-                                                        data-kt-countup-value="4500" data-kt-countup-prefix="$">0</div>
+                                                        data-kt-countup-value="{{ $user->balance }}"
+                                                        data-kt-countup-prefix="">0</div>
+
+                                                    <span>đ</span>
                                                 </div>
                                                 <!--end::Number-->
                                                 <!--begin::Label-->
-                                                <div class="fw-bold fs-6 text-gray-400">Earnings</div>
+                                                <div class="fw-bold fs-6 text-gray-400">Số dư</div>
                                                 <!--end::Label-->
                                             </div>
                                             <!--end::Stat-->
@@ -280,9 +165,9 @@
                                                     <span class="svg-icon svg-icon-3 svg-icon-danger me-2">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                             height="24" viewBox="0 0 24 24" fill="none">
-                                                            <rect opacity="0.5" x="11" y="18" width="13"
-                                                                height="2" rx="1"
-                                                                transform="rotate(-90 11 18)" fill="black" />
+                                                            <rect opacity="0.5" x="11" y="18" width="13" height="2"
+                                                                rx="1" transform="rotate(-90 11 18)"
+                                                                fill="black" />
                                                             <path
                                                                 d="M11.4343 15.4343L7.25 11.25C6.83579 10.8358 6.16421 10.8358 5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75L11.2929 18.2929C11.6834 18.6834 12.3166 18.6834 12.7071 18.2929L18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25C17.8358 10.8358 17.1642 10.8358 16.75 11.25L12.5657 15.4343C12.2533 15.7467 11.7467 15.7467 11.4343 15.4343Z"
                                                                 fill="black" />
@@ -294,7 +179,7 @@
                                                 </div>
                                                 <!--end::Number-->
                                                 <!--begin::Label-->
-                                                <div class="fw-bold fs-6 text-gray-400">Projects</div>
+                                                <div class="fw-bold fs-6 text-gray-400">Bài đăng</div>
                                                 <!--end::Label-->
                                             </div>
                                             <!--end::Stat-->
@@ -321,7 +206,7 @@
                                                 </div>
                                                 <!--end::Number-->
                                                 <!--begin::Label-->
-                                                <div class="fw-bold fs-6 text-gray-400">Success Rate</div>
+                                                <div class="fw-bold fs-6 text-gray-400">Blog</div>
                                                 <!--end::Label-->
                                             </div>
                                             <!--end::Stat-->
@@ -330,7 +215,7 @@
                                     </div>
                                     <!--end::Wrapper-->
                                     <!--begin::Progress-->
-                                    <div class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3">
+                                    {{-- <div class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3">
                                         <div class="d-flex justify-content-between w-100 mt-auto mb-2">
                                             <span class="fw-bold fs-6 text-gray-400">Profile Compleation</span>
                                             <span class="fw-bolder fs-6">50%</span>
@@ -339,9 +224,9 @@
                                             <div class="bg-success rounded h-5px" role="progressbar" style="width: 50%;"
                                                 aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <!--end::Progress-->
-                                </div> --}}
+                                </div>
                                 <!--end::Stats-->
                             </div>
                             <!--end::Info-->
@@ -367,10 +252,10 @@
 
                                 <!--end::Nav item-->
                                 <!--begin::Nav item-->
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a class="nav-link text-active-primary me-6"
                                         href="../../demo8/dist/account/billing.html">Thanh toán</a>
-                                </li>
+                                </li> --}}
                                 <!--end::Nav item-->
                                 <!--begin::Nav item-->
 
@@ -383,17 +268,7 @@
                 <!--begin::details View-->
                 <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
                     <!--begin::Card header-->
-                    <div class="card-header cursor-pointer">
-                        <!--begin::Card title-->
-                        <div class="card-title m-0">
-                            <h3 class="fw-bolder m-0">Chi tiết hồ sơ</h3>
-                        </div>
-                        <!--end::Card title-->
-                        <!--begin::Action-->
-                        <a href="../../demo8/dist/account/settings.html" class="btn btn-primary align-self-center">Chỉnh
-                            sửa hồ sơ</a>
-                        <!--end::Action-->
-                    </div>
+
                     <!--begin::Card header-->
                     <!--begin::Card body-->
 
@@ -505,885 +380,7 @@
 
                 <!--end::Row-->
                 <!--begin::Row-->
-                {{-- <div class="row gy-5 gx-xl-10">
-                    <!--begin::Col-->
-                    <div class="col-xl-6">
-                        <!--begin::List Widget 5-->
-                        <div class="card card-xl-stretch mb-xl-10">
-                            <!--begin::Header-->
-                            <div class="card-header align-items-center border-0 mt-4">
-                                <h3 class="card-title align-items-start flex-column">
-                                    <span class="fw-bolder mb-2 text-dark">Activities</span>
-                                    <span class="text-muted fw-bold fs-7">890,344 Sales</span>
-                                </h3>
-                                <div class="card-toolbar">
-                                    <!--begin::Menu-->
-                                    <button type="button"
-                                        class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
-                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                        <!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
-                                        <span class="svg-icon svg-icon-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
-                                                viewBox="0 0 24 24">
-                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                    <rect x="5" y="5" width="5" height="5" rx="1"
-                                                        fill="#000000" />
-                                                    <rect x="14" y="5" width="5" height="5" rx="1"
-                                                        fill="#000000" opacity="0.3" />
-                                                    <rect x="5" y="14" width="5" height="5" rx="1"
-                                                        fill="#000000" opacity="0.3" />
-                                                    <rect x="14" y="14" width="5" height="5" rx="1"
-                                                        fill="#000000" opacity="0.3" />
-                                                </g>
-                                            </svg>
-                                        </span>
-                                        <!--end::Svg Icon-->
-                                    </button>
-                                    <!--begin::Menu 1-->
-                                    <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true"
-                                        id="kt_menu_614858aa4506a">
-                                        <!--begin::Header-->
-                                        <div class="px-7 py-5">
-                                            <div class="fs-5 text-dark fw-bolder">Filter Options</div>
-                                        </div>
-                                        <!--end::Header-->
-                                        <!--begin::Menu separator-->
-                                        <div class="separator border-gray-200"></div>
-                                        <!--end::Menu separator-->
-                                        <!--begin::Form-->
-                                        <div class="px-7 py-5">
-                                            <!--begin::Input group-->
-                                            <div class="mb-10">
-                                                <!--begin::Label-->
-                                                <label class="form-label fw-bold">Status:</label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <div>
-                                                    <select class="form-select form-select-solid" data-kt-select2="true"
-                                                        data-placeholder="Select option"
-                                                        data-dropdown-parent="#kt_menu_614858aa4506a"
-                                                        data-allow-clear="true">
-                                                        <option></option>
-                                                        <option value="1">Approved</option>
-                                                        <option value="2">Pending</option>
-                                                        <option value="2">In Process</option>
-                                                        <option value="2">Rejected</option>
-                                                    </select>
-                                                </div>
-                                                <!--end::Input-->
-                                            </div>
-                                            <!--end::Input group-->
-                                            <!--begin::Input group-->
-                                            <div class="mb-10">
-                                                <!--begin::Label-->
-                                                <label class="form-label fw-bold">Member Type:</label>
-                                                <!--end::Label-->
-                                                <!--begin::Options-->
-                                                <div class="d-flex">
-                                                    <!--begin::Options-->
-                                                    <label
-                                                        class="form-check form-check-sm form-check-custom form-check-solid me-5">
-                                                        <input class="form-check-input" type="checkbox" value="1" />
-                                                        <span class="form-check-label">Author</span>
-                                                    </label>
-                                                    <!--end::Options-->
-                                                    <!--begin::Options-->
-                                                    <label
-                                                        class="form-check form-check-sm form-check-custom form-check-solid">
-                                                        <input class="form-check-input" type="checkbox" value="2"
-                                                            checked="checked" />
-                                                        <span class="form-check-label">Customer</span>
-                                                    </label>
-                                                    <!--end::Options-->
-                                                </div>
-                                                <!--end::Options-->
-                                            </div>
-                                            <!--end::Input group-->
-                                            <!--begin::Input group-->
-                                            <div class="mb-10">
-                                                <!--begin::Label-->
-                                                <label class="form-label fw-bold">Notifications:</label>
-                                                <!--end::Label-->
-                                                <!--begin::Switch-->
-                                                <div
-                                                    class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        name="notifications" checked="checked" />
-                                                    <label class="form-check-label">Enabled</label>
-                                                </div>
-                                                <!--end::Switch-->
-                                            </div>
-                                            <!--end::Input group-->
-                                            <!--begin::Actions-->
-                                            <div class="d-flex justify-content-end">
-                                                <button type="reset"
-                                                    class="btn btn-sm btn-light btn-active-light-primary me-2"
-                                                    data-kt-menu-dismiss="true">Reset</button>
-                                                <button type="submit" class="btn btn-sm btn-primary"
-                                                    data-kt-menu-dismiss="true">Apply</button>
-                                            </div>
-                                            <!--end::Actions-->
-                                        </div>
-                                        <!--end::Form-->
-                                    </div>
-                                    <!--end::Menu 1-->
-                                    <!--end::Menu-->
-                                </div>
-                            </div>
-                            <!--end::Header-->
-                            <!--begin::Body-->
-                            <div class="card-body pt-5">
-                                <!--begin::Timeline-->
-                                <div class="timeline-label">
-                                    <!--begin::Item-->
-                                    <div class="timeline-item">
-                                        <!--begin::Label-->
-                                        <div class="timeline-label fw-bolder text-gray-800 fs-6">08:42</div>
-                                        <!--end::Label-->
-                                        <!--begin::Badge-->
-                                        <div class="timeline-badge">
-                                            <i class="fa fa-genderless text-warning fs-1"></i>
-                                        </div>
-                                        <!--end::Badge-->
-                                        <!--begin::Text-->
-                                        <div class="fw-mormal timeline-content text-muted ps-3">Outlines keep you honest.
-                                            And keep structure</div>
-                                        <!--end::Text-->
-                                    </div>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <div class="timeline-item">
-                                        <!--begin::Label-->
-                                        <div class="timeline-label fw-bolder text-gray-800 fs-6">10:00</div>
-                                        <!--end::Label-->
-                                        <!--begin::Badge-->
-                                        <div class="timeline-badge">
-                                            <i class="fa fa-genderless text-success fs-1"></i>
-                                        </div>
-                                        <!--end::Badge-->
-                                        <!--begin::Content-->
-                                        <div class="timeline-content d-flex">
-                                            <span class="fw-bolder text-gray-800 ps-3">AEOL meeting</span>
-                                        </div>
-                                        <!--end::Content-->
-                                    </div>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <div class="timeline-item">
-                                        <!--begin::Label-->
-                                        <div class="timeline-label fw-bolder text-gray-800 fs-6">14:37</div>
-                                        <!--end::Label-->
-                                        <!--begin::Badge-->
-                                        <div class="timeline-badge">
-                                            <i class="fa fa-genderless text-danger fs-1"></i>
-                                        </div>
-                                        <!--end::Badge-->
-                                        <!--begin::Desc-->
-                                        <div class="timeline-content fw-bolder text-gray-800 ps-3">Make deposit
-                                            <a href="#" class="text-primary">USD 700</a>. to ESL
-                                        </div>
-                                        <!--end::Desc-->
-                                    </div>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <div class="timeline-item">
-                                        <!--begin::Label-->
-                                        <div class="timeline-label fw-bolder text-gray-800 fs-6">16:50</div>
-                                        <!--end::Label-->
-                                        <!--begin::Badge-->
-                                        <div class="timeline-badge">
-                                            <i class="fa fa-genderless text-primary fs-1"></i>
-                                        </div>
-                                        <!--end::Badge-->
-                                        <!--begin::Text-->
-                                        <div class="timeline-content fw-mormal text-muted ps-3">Indulging in poorly driving
-                                            and keep structure keep great</div>
-                                        <!--end::Text-->
-                                    </div>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <div class="timeline-item">
-                                        <!--begin::Label-->
-                                        <div class="timeline-label fw-bolder text-gray-800 fs-6">21:03</div>
-                                        <!--end::Label-->
-                                        <!--begin::Badge-->
-                                        <div class="timeline-badge">
-                                            <i class="fa fa-genderless text-danger fs-1"></i>
-                                        </div>
-                                        <!--end::Badge-->
-                                        <!--begin::Desc-->
-                                        <div class="timeline-content fw-bold text-gray-800 ps-3">New order placed
-                                            <a href="#" class="text-primary">#XF-2356</a>.
-                                        </div>
-                                        <!--end::Desc-->
-                                    </div>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <div class="timeline-item">
-                                        <!--begin::Label-->
-                                        <div class="timeline-label fw-bolder text-gray-800 fs-6">16:50</div>
-                                        <!--end::Label-->
-                                        <!--begin::Badge-->
-                                        <div class="timeline-badge">
-                                            <i class="fa fa-genderless text-primary fs-1"></i>
-                                        </div>
-                                        <!--end::Badge-->
-                                        <!--begin::Text-->
-                                        <div class="timeline-content fw-mormal text-muted ps-3">Indulging in poorly driving
-                                            and keep structure keep great</div>
-                                        <!--end::Text-->
-                                    </div>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <div class="timeline-item">
-                                        <!--begin::Label-->
-                                        <div class="timeline-label fw-bolder text-gray-800 fs-6">21:03</div>
-                                        <!--end::Label-->
-                                        <!--begin::Badge-->
-                                        <div class="timeline-badge">
-                                            <i class="fa fa-genderless text-danger fs-1"></i>
-                                        </div>
-                                        <!--end::Badge-->
-                                        <!--begin::Desc-->
-                                        <div class="timeline-content fw-bold text-gray-800 ps-3">New order placed
-                                            <a href="#" class="text-primary">#XF-2356</a>.
-                                        </div>
-                                        <!--end::Desc-->
-                                    </div>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <div class="timeline-item">
-                                        <!--begin::Label-->
-                                        <div class="timeline-label fw-bolder text-gray-800 fs-6">10:30</div>
-                                        <!--end::Label-->
-                                        <!--begin::Badge-->
-                                        <div class="timeline-badge">
-                                            <i class="fa fa-genderless text-success fs-1"></i>
-                                        </div>
-                                        <!--end::Badge-->
-                                        <!--begin::Text-->
-                                        <div class="timeline-content fw-mormal text-muted ps-3">Finance KPI Mobile app
-                                            launch preparion meeting</div>
-                                        <!--end::Text-->
-                                    </div>
-                                    <!--end::Item-->
-                                </div>
-                                <!--end::Timeline-->
-                            </div>
-                            <!--end: Card Body-->
-                        </div>
-                        <!--end: List Widget 5-->
-                    </div>
-                    <!--end::Col-->
-                    <!--begin::Col-->
-                    <div class="col-xl-6">
-                        <!--begin::Tables Widget 5-->
-                        <div class="card card-xl-stretch mb-5 mb-xl-10">
-                            <!--begin::Header-->
-                            <div class="card-header border-0 pt-5">
-                                <h3 class="card-title align-items-start flex-column">
-                                    <span class="card-label fw-bolder fs-3 mb-1">Latest Products</span>
-                                    <span class="text-muted mt-1 fw-bold fs-7">More than 400 new products</span>
-                                </h3>
-                                <div class="card-toolbar">
-                                    <ul class="nav">
-                                        <li class="nav-item">
-                                            <a class="nav-link btn btn-sm btn-color-muted btn-active btn-active-dark active fw-bolder px-4 me-1"
-                                                data-bs-toggle="tab" href="#kt_table_widget_5_tab_1">Month</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link btn btn-sm btn-color-muted btn-active btn-active-dark fw-bolder px-4 me-1"
-                                                data-bs-toggle="tab" href="#kt_table_widget_5_tab_2">Week</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link btn btn-sm btn-color-muted btn-active btn-active-dark fw-bolder px-4"
-                                                data-bs-toggle="tab" href="#kt_table_widget_5_tab_3">Day</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!--end::Header-->
-                            <!--begin::Body-->
-                            <div class="card-body py-3">
-                                <div class="tab-content">
-                                    <!--begin::Tap pane-->
-                                    <div class="tab-pane fade show active" id="kt_table_widget_5_tab_1">
-                                        <!--begin::Table container-->
-                                        <div class="table-responsive">
-                                            <!--begin::Table-->
-                                            <table
-                                                class="table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4">
-                                                <!--begin::Table head-->
-                                                <thead>
-                                                    <tr class="border-0">
-                                                        <th class="p-0 w-50px"></th>
-                                                        <th class="p-0 min-w-150px"></th>
-                                                        <th class="p-0 min-w-140px"></th>
-                                                        <th class="p-0 min-w-110px"></th>
-                                                        <th class="p-0 min-w-50px"></th>
-                                                    </tr>
-                                                </thead>
-                                                <!--end::Table head-->
-                                                <!--begin::Table body-->
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="assets/media/svg/brand-logos/plurk.svg"
-                                                                        class="h-50 align-self-center" alt="" />
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Brad
-                                                                Simmons</a>
-                                                            <span class="text-muted fw-bold d-block">Movie Creator</span>
-                                                        </td>
-                                                        <td class="text-end text-muted fw-bold">React, HTML</td>
-                                                        <td class="text-end">
-                                                            <span class="badge badge-light-success">Approved</span>
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" viewBox="0 0 24 24"
-                                                                        fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13" width="13"
-                                                                            height="2" rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="assets/media/svg/brand-logos/telegram.svg"
-                                                                        class="h-50 align-self-center" alt="" />
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Popular
-                                                                Authors</a>
-                                                            <span class="text-muted fw-bold d-block">Most Successful</span>
-                                                        </td>
-                                                        <td class="text-end text-muted fw-bold">Python, MySQL</td>
-                                                        <td class="text-end">
-                                                            <span class="badge badge-light-warning">In Progress</span>
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" viewBox="0 0 24 24"
-                                                                        fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13" width="13"
-                                                                            height="2" rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="assets/media/svg/brand-logos/vimeo.svg"
-                                                                        class="h-50 align-self-center" alt="" />
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">New
-                                                                Users</a>
-                                                            <span class="text-muted fw-bold d-block">Awesome Users</span>
-                                                        </td>
-                                                        <td class="text-end text-muted fw-bold">Laravel,Metronic</td>
-                                                        <td class="text-end">
-                                                            <span class="badge badge-light-primary">Success</span>
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" viewBox="0 0 24 24"
-                                                                        fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13" width="13"
-                                                                            height="2" rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="assets/media/svg/brand-logos/bebo.svg"
-                                                                        class="h-50 align-self-center" alt="" />
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Active
-                                                                Customers</a>
-                                                            <span class="text-muted fw-bold d-block">Movie Creator</span>
-                                                        </td>
-                                                        <td class="text-end text-muted fw-bold">AngularJS, C#</td>
-                                                        <td class="text-end">
-                                                            <span class="badge badge-light-danger">Rejected</span>
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" viewBox="0 0 24 24"
-                                                                        fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13" width="13"
-                                                                            height="2" rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="assets/media/svg/brand-logos/kickstarter.svg"
-                                                                        class="h-50 align-self-center" alt="" />
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Bestseller
-                                                                Theme</a>
-                                                            <span class="text-muted fw-bold d-block">Best Customers</span>
-                                                        </td>
-                                                        <td class="text-end text-muted fw-bold">ReactJS, Ruby</td>
-                                                        <td class="text-end">
-                                                            <span class="badge badge-light-warning">In Progress</span>
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" viewBox="0 0 24 24"
-                                                                        fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13" width="13"
-                                                                            height="2" rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                                <!--end::Table body-->
-                                            </table>
-                                        </div>
-                                        <!--end::Table-->
-                                    </div>
-                                    <!--end::Tap pane-->
-                                    <!--begin::Tap pane-->
-                                    <div class="tab-pane fade" id="kt_table_widget_5_tab_2">
-                                        <!--begin::Table container-->
-                                        <div class="table-responsive">
-                                            <!--begin::Table-->
-                                            <table
-                                                class="table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4">
-                                                <!--begin::Table head-->
-                                                <thead>
-                                                    <tr class="border-0">
-                                                        <th class="p-0 w-50px"></th>
-                                                        <th class="p-0 min-w-150px"></th>
-                                                        <th class="p-0 min-w-140px"></th>
-                                                        <th class="p-0 min-w-110px"></th>
-                                                        <th class="p-0 min-w-50px"></th>
-                                                    </tr>
-                                                </thead>
-                                                <!--end::Table head-->
-                                                <!--begin::Table body-->
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="assets/media/svg/brand-logos/plurk.svg"
-                                                                        class="h-50 align-self-center" alt="" />
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Brad
-                                                                Simmons</a>
-                                                            <span class="text-muted fw-bold d-block">Movie Creator</span>
-                                                        </td>
-                                                        <td class="text-end text-muted fw-bold">React, HTML</td>
-                                                        <td class="text-end">
-                                                            <span class="badge badge-light-success">Approved</span>
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" viewBox="0 0 24 24"
-                                                                        fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13" width="13"
-                                                                            height="2" rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="assets/media/svg/brand-logos/telegram.svg"
-                                                                        class="h-50 align-self-center" alt="" />
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Popular
-                                                                Authors</a>
-                                                            <span class="text-muted fw-bold d-block">Most
-                                                                Successful</span>
-                                                        </td>
-                                                        <td class="text-end text-muted fw-bold">Python, MySQL</td>
-                                                        <td class="text-end">
-                                                            <span class="badge badge-light-warning">In Progress</span>
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                        width="24" height="24"
-                                                                        viewBox="0 0 24 24" fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13"
-                                                                            width="13" height="2"
-                                                                            rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="assets/media/svg/brand-logos/bebo.svg"
-                                                                        class="h-50 align-self-center" alt="" />
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Active
-                                                                Customers</a>
-                                                            <span class="text-muted fw-bold d-block">Movie Creator</span>
-                                                        </td>
-                                                        <td class="text-end text-muted fw-bold">AngularJS, C#</td>
-                                                        <td class="text-end">
-                                                            <span class="badge badge-light-danger">Rejected</span>
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                        width="24" height="24"
-                                                                        viewBox="0 0 24 24" fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13"
-                                                                            width="13" height="2"
-                                                                            rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                                <!--end::Table body-->
-                                            </table>
-                                        </div>
-                                        <!--end::Table-->
-                                    </div>
-                                    <!--end::Tap pane-->
-                                    <!--begin::Tap pane-->
-                                    <div class="tab-pane fade" id="kt_table_widget_5_tab_3">
-                                        <!--begin::Table container-->
-                                        <div class="table-responsive">
-                                            <!--begin::Table-->
-                                            <table
-                                                class="table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4">
-                                                <!--begin::Table head-->
-                                                <thead>
-                                                    <tr class="border-0">
-                                                        <th class="p-0 w-50px"></th>
-                                                        <th class="p-0 min-w-150px"></th>
-                                                        <th class="p-0 min-w-140px"></th>
-                                                        <th class="p-0 min-w-110px"></th>
-                                                        <th class="p-0 min-w-50px"></th>
-                                                    </tr>
-                                                </thead>
-                                                <!--end::Table head-->
-                                                <!--begin::Table body-->
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="assets/media/svg/brand-logos/kickstarter.svg"
-                                                                        class="h-50 align-self-center" alt="" />
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Bestseller
-                                                                Theme</a>
-                                                            <span class="text-muted fw-bold d-block">Best Customers</span>
-                                                        </td>
-                                                        <td class="text-end text-muted fw-bold">ReactJS, Ruby</td>
-                                                        <td class="text-end">
-                                                            <span class="badge badge-light-warning">In Progress</span>
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                        width="24" height="24"
-                                                                        viewBox="0 0 24 24" fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13"
-                                                                            width="13" height="2"
-                                                                            rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="assets/media/svg/brand-logos/bebo.svg"
-                                                                        class="h-50 align-self-center" alt="" />
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Active
-                                                                Customers</a>
-                                                            <span class="text-muted fw-bold d-block">Movie Creator</span>
-                                                        </td>
-                                                        <td class="text-end text-muted fw-bold">AngularJS, C#</td>
-                                                        <td class="text-end">
-                                                            <span class="badge badge-light-danger">Rejected</span>
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                        width="24" height="24"
-                                                                        viewBox="0 0 24 24" fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13"
-                                                                            width="13" height="2"
-                                                                            rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="assets/media/svg/brand-logos/vimeo.svg"
-                                                                        class="h-50 align-self-center" alt="" />
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">New
-                                                                Users</a>
-                                                            <span class="text-muted fw-bold d-block">Awesome Users</span>
-                                                        </td>
-                                                        <td class="text-end text-muted fw-bold">Laravel,Metronic</td>
-                                                        <td class="text-end">
-                                                            <span class="badge badge-light-primary">Success</span>
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                        width="24" height="24"
-                                                                        viewBox="0 0 24 24" fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13"
-                                                                            width="13" height="2"
-                                                                            rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="symbol symbol-45px me-2">
-                                                                <span class="symbol-label">
-                                                                    <img src="assets/media/svg/brand-logos/telegram.svg"
-                                                                        class="h-50 align-self-center" alt="" />
-                                                                </span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <a href="#"
-                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">Popular
-                                                                Authors</a>
-                                                            <span class="text-muted fw-bold d-block">Most
-                                                                Successful</span>
-                                                        </td>
-                                                        <td class="text-end text-muted fw-bold">Python, MySQL</td>
-                                                        <td class="text-end">
-                                                            <span class="badge badge-light-warning">In Progress</span>
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <a href="#"
-                                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                                <span class="svg-icon svg-icon-2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                        width="24" height="24"
-                                                                        viewBox="0 0 24 24" fill="none">
-                                                                        <rect opacity="0.5" x="18" y="13"
-                                                                            width="13" height="2"
-                                                                            rx="1"
-                                                                            transform="rotate(-180 18 13)"
-                                                                            fill="black" />
-                                                                        <path
-                                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                            fill="black" />
-                                                                    </svg>
-                                                                </span>
-                                                                <!--end::Svg Icon-->
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                                <!--end::Table body-->
-                                            </table>
-                                        </div>
-                                        <!--end::Table-->
-                                    </div>
-                                    <!--end::Tap pane-->
-                                </div>
-                            </div>
-                            <!--end::Body-->
-                        </div>
-                        <!--end::Tables Widget 5-->
-                    </div>
-                    <!--end::Col-->
-                </div> --}}
-                <!--end::Row-->
+
             </div>
             <!--end::Container-->
         </div>
@@ -1446,24 +443,43 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
     <!--end::Fonts-->
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
-    <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css">
-    <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css">
     <!--end::Global Stylesheets Bundle-->
 @endpush
+
 @push('scriptsAdmin')
     <script>
-        var hostUrl = "assets/";
+        var hostUrl = "{{ asset('assets/') }}";
     </script>
     <!--begin::Javascript-->
     <!--begin::Global Javascript Bundle(used by all pages)-->
-    <script src="assets/plugins/global/plugins.bundle.js"></script>
-    <script src="assets/js/scripts.bundle.js"></script>
+    <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
     <!--end::Global Javascript Bundle-->
     <!--begin::Page Custom Javascript(used by this page)-->
-    <script src="assets/js/custom/widgets.js"></script>
-    <script src="assets/js/custom/apps/chat/chat.js"></script>
-    <script src="assets/js/custom/modals/create-app.js"></script>
-    <script src="assets/js/custom/modals/upgrade-plan.js"></script>
+    <script src="{{ asset('assets/js/custom/account/settings/signin-methods.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/account/settings/profile-details.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/account/settings/deactivate-account.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/modals/two-factor-authentication.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/widgets.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/apps/chat/chat.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/modals/create-app.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/modals/upgrade-plan.js') }}"></script>
     <!--end::Page Custom Javascript-->
     <!--end::Javascript-->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="{{ asset('assets/js/api-new-map-ntt.js') }}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC67NQzqFC2WplLzC_3PsL5gejG1_PZLDk"></script>
+    <script src="{{ asset('assets/js/mapapi-ntt.js') }}"></script>
+    <script>
+        window.roomData = {
+            provinceId: '{{ $user->province }}',
+            districtId: '{{ $user->district }}',
+            communeId: '{{ $user->village }}'
+        };
+    </script>
+    <script>
+        window.successMessage = "{{ session('success') }}";
+    </script>
 @endpush

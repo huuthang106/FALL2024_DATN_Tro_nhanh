@@ -1,6 +1,6 @@
 @extends('layouts.admin')
-@section('titleAdmin', 'Danh Sách Tất Cả Chủ Trọ | TRỌ NHANH')
-@section('linkAdmin', 'Danh sách tất cả chù trọ')
+@section('titleAdmin', 'Danh sách tất cả chủ trọ | TRỌ NHANH')
+@section('linkAdmin', 'Danh sách tất cả chủ trọ')
 
 @section('contentAdmin')
 
@@ -17,33 +17,9 @@
     <!--end::Root-->
 
 
-    <!--begin::Drawers-->
-    <!--begin::Activities drawer-->
-
-    <!--end::Activities drawer-->
-    <!--begin::Chat drawer-->
-
-    <!--end::Chat drawer-->
-    <!--begin::Exolore drawer toggle-->
-
-    <!--end::Exolore drawer toggle-->
-    <!--begin::Exolore drawer-->
-
-    <!--end::Exolore drawer-->
-    <!--end::Drawers-->
-    <!--begin::Modals-->
-    <!--begin::Modal - Invite Friends-->
-
-    <!--end::Modal - Invite Friend-->
-    <!--begin::Modal - Create App-->
-
-    <!--end::Modal - Create App-->
-    <!--begin::Modal - Upgrade plan-->
-
-    <!--end::Modal - Upgrade plan-->
     <!--end::Modals-->
     <!--begin::Scrolltop-->
-    <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
+    {{-- <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
         <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
         <span class="svg-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -55,7 +31,7 @@
             </svg>
         </span>
         <!--end::Svg Icon-->
-    </div>
+    </div> --}}
     <!--end::Scrolltop-->
     <!--end::Main-->
 @endsection

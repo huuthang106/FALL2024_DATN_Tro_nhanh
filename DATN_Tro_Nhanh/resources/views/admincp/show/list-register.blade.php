@@ -73,6 +73,12 @@
                                 <!--end::Table head-->
                                 <!--begin::Table body-->
                                 <tbody class="text-gray-600 fw-bold">
+                                 
+                                    @if ($list->isEmpty())
+                                    <!-- Hiển thị khi không có dữ liệu -->
+                                    <tr>
+                                        <td colspan="7" class="text-center">Không có dữ liệu.</td>
+                                    </tr>  @else
                                     @foreach ($list as $register)
                                         <tr>
                                             <!--begin::Checkbox-->
@@ -153,6 +159,7 @@
                                             <!--end::Action=-->
                                         </tr>
                                     @endforeach
+                                    @endif
                                 </tbody>
                                 <!--end::Table body-->
                             </table>
@@ -224,6 +231,7 @@
                                 </ul>
                             </nav>
                         @endif
+                        
 
                     </div>
                     <!--end::Card-->

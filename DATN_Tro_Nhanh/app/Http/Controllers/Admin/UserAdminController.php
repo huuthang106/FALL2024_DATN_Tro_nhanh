@@ -15,6 +15,7 @@ use App\Http\Requests\AccoutnRequest;
 
 class UserAdminController extends Controller
 {
+    protected $userAdminService;
     protected $userService;
     protected $profileService;
 

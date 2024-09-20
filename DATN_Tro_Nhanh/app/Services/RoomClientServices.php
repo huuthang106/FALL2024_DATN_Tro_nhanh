@@ -52,7 +52,7 @@ class RoomClientServices
                 ->where('rooms.status', self::status)
                 ->withCount('images') // Đếm số lượng ảnh liên quan đến mỗi phòng
                 ->select('rooms.*') // Chọn tất cả các cột từ bảng rooms
-                ->orderBy('users.has_vip_badge', 'desc') // Ưu tiên phòng của người dùng có huy hiệu VIP
+                // ->orderBy('users.has_vip_badge', 'desc') // Ưu tiên phòng của người dùng có huy hiệu VIP
                 ->orderByDesc('rooms.created_at'); // Sắp xếp theo ngày tạo từ mới nhất đến cũ nhất
 
             // Nếu có từ khóa tìm kiếm, thêm điều kiện vào truy vấn

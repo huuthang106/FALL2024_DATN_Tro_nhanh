@@ -173,7 +173,7 @@
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Tin nổi bật</h4>
                                     <div class="slick-slider mx-0"
                                         data-slick-options='{"slidesToShow": 1, "autoplay":true}'>
-                                        @foreach ($rooms as $room)
+                                        @foreach ($rooms ?? [] as $room)
                                             <div class="box px-0">
                                                 <div class="card border-0">
                                                     @if ($room->images->isNotEmpty())

@@ -14,25 +14,25 @@ class ListRoomClient extends Component
     // }
     use WithPagination;
 
-    public $searchTerm;
+    public $search;
     public $province;
     public $district;
     public $village;
     public $perPage = 8;
     public $sortBy = 'default';
-    protected $queryString = ['searchTerm', 'province', 'district', 'village'];
+    protected $queryString = ['search', 'province', 'district', 'village'];
     public function render()
     {
         $query = Room::join('users', 'rooms.user_id', '=', 'users.id')
             ->where('rooms.status', 2)
             ->withCount('images')
-            ->select('rooms.*', 'users.has_vip_badge');
+          ;
 
-        if ($this->searchTerm) {
+        if ($this->search) {
             $query->where(function ($q) {
-                $q->where('rooms.title', 'like', '%' . $this->searchTerm . '%')
-                    ->orWhere('rooms.description', 'like', '%' . $this->searchTerm . '%')
-                    ->orWhere('rooms.address', 'like', '%' . $this->searchTerm . '%');
+                $q->where('rooms.title', 'like', '%' . $this->search . '%')
+                    ->orWhere('rooms.description', 'like', '%' . $this->search . '%')
+                    ->orWhere('rooms.address', 'like', '%' . $this->search . '%');
             });
         }
 

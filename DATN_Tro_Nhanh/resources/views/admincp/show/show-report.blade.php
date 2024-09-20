@@ -74,7 +74,12 @@
                                     <!--end::Table head-->
                                     <!--begin::Table body-->
                                     <tbody class="text-gray-600 fw-bold">
-
+                                        @if ($reports->isEmpty())
+                                            <!-- Hiển thị khi không có dữ liệu -->
+                                            <tr>
+                                                <td colspan="7" class="text-center">Không có dữ liệu.</td>
+                                            </tr>
+                                        @else
                                         @foreach ($reports as $report)
                                             <tr>
                                                 <!--begin::Checkbox-->
@@ -162,6 +167,7 @@
                                                 <!--end::Action=-->
                                             </tr>
                                         @endforeach
+                                        @endif
                                     </tbody>
                                     <!--end::Table body-->
                                 </table>

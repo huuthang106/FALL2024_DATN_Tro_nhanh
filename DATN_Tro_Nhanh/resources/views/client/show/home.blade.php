@@ -17,25 +17,25 @@
                                     data-default-value="">
                                 <ul class="nav nav-pills property-search-status-tab">
                                     {{-- <li class="nav-item bg-secondary rounded-top" role="presentation">
-                    <a href="#" role="tab" aria-selected="true"
-                        class="nav-link btn shadow-none rounded-bottom-0 text-white text-btn-focus-secondary text-uppercase d-flex align-items-center fs-13 rounded-bottom-0 bg-active-white text-active-secondary letter-spacing-087 flex-md-1 px-4 py-2 "
-                        data-toggle="pill" data-value="for-sale">
-                        <svg class="icon icon-villa fs-22 mr-2">
-                            <use xlink:href="#icon-villa"></use>
-                        </svg>
-                        Phòng
-                    </a>
-                </li> --}}
-                                    {{-- <li class="nav-item bg-secondary rounded-top" role="presentation">
-                    <a href="#" role="tab" aria-selected="true"
-                        class="nav-link btn shadow-none rounded-bottom-0 text-white text-btn-focus-secondary text-uppercase d-flex align-items-center fs-13 rounded-bottom-0 bg-active-white text-active-secondary letter-spacing-087 flex-md-1 px-4 py-2"
-                        data-toggle="pill" data-value="for-rent">
-                        <svg class="icon icon-building fs-22 mr-2">
-                            <use xlink:href="#icon-building"></use>
-                        </svg>
-                        Cho thuê
-                    </a>
-                </li>  --}}
+                                                <a href="#" role="tab" aria-selected="true"
+                                                    class="nav-link btn shadow-none rounded-bottom-0 text-white text-btn-focus-secondary text-uppercase d-flex align-items-center fs-13 rounded-bottom-0 bg-active-white text-active-secondary letter-spacing-087 flex-md-1 px-4 py-2 "
+                                                    data-toggle="pill" data-value="for-sale">
+                                                    <svg class="icon icon-villa fs-22 mr-2">
+                                                        <use xlink:href="#icon-villa"></use>
+                                                    </svg>
+                                                    Phòng
+                                                </a>
+                                            </li> --}}
+                                                                {{-- <li class="nav-item bg-secondary rounded-top" role="presentation">
+                                                <a href="#" role="tab" aria-selected="true"
+                                                    class="nav-link btn shadow-none rounded-bottom-0 text-white text-btn-focus-secondary text-uppercase d-flex align-items-center fs-13 rounded-bottom-0 bg-active-white text-active-secondary letter-spacing-087 flex-md-1 px-4 py-2"
+                                                    data-toggle="pill" data-value="for-rent">
+                                                    <svg class="icon icon-building fs-22 mr-2">
+                                                        <use xlink:href="#icon-building"></use>
+                                                    </svg>
+                                                    Cho thuê
+                                                </a>
+                                            </li>  --}}
                                 </ul>
                             </div>
                         </div>
