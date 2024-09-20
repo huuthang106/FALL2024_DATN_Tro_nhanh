@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 use App\Events\PaymentProcessed;
-
+use GuzzleHttp\Client; 
 class PaymentService
 {
     protected $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
