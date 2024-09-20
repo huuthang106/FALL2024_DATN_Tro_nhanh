@@ -1027,7 +1027,7 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Báo Cáo</span>
+                        <span class="menu-title">Thống kê</span>
                     </a>
                 </div>
                 <div class="menu-item">

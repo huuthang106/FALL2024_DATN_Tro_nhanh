@@ -11,13 +11,21 @@ use Illuminate\Support\Facades\Auth;
 
 class ReportAdminService
 {
-    public function getUserReports($userId, $perPage = 8)
+    // public function getUserReports($userId, $perPage = 8)
+    // {
+    //     return Report::with(['room', 'user'])
+    //         ->where('user_id', $userId)
+    //         ->paginate($perPage); // Số lượng bản ghi trên mỗi trang
+    // }
+    public function getUserReports($perPage = 8)
     {
         return Report::with(['room', 'user'])
-            ->where('user_id', $userId)
-            ->paginate($perPage); // Số lượng bản ghi trên mỗi trang
+            ->select('reports.*', 'users.name as user_name', 'rooms.title as room_title')
+            ->join('users', 'reports.user_id', '=', 'users.id')
+            ->leftJoin('rooms', 'reports.room_id', '=', 'rooms.id')
+            ->orderBy('reports.created_at', 'desc')
+            ->paginate($perPage);
     }
-
 
     // Hàm thay đổi trạng thái báo cáo
     // ReportService.php

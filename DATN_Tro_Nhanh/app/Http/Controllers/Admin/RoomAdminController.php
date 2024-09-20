@@ -11,24 +11,45 @@ use App\Events\RoomCreated;
 use Illuminate\Http\Request;
 use App\Models\Notification;
 use App\Services\CategoryAdminService;
+use App\Services\IndexAdminService;
 
 class RoomAdminController extends Controller
 {
     //
     protected $roomAdminService;
     protected $categoryAdminService;
-
-    public function __construct(RoomAdminService $roomAdminService, CategoryAdminService $categoryAdminService)
+    protected $indexAdminService;
+    public function __construct(RoomAdminService $roomAdminService, CategoryAdminService $categoryAdminService, IndexAdminService $indexAdminService)
     {
         $this->roomAdminService = $roomAdminService;
         $this->categoryAdminService = $categoryAdminService;
+        $this->indexAdminService = $indexAdminService;
     }
     public function index()
     {
         $roomsCountByCategoryType = $this->categoryAdminService->getRoomsCountByCategoryType();
-        return view('admincp.show.index', compact('roomsCountByCategoryType'));
+        // Lấy người dùng mới
+        $recentUsers = $this->indexAdminService->getRecentUsers();
+        // Lấy các gói được mua nhiều
+        $topPackages = $this->indexAdminService->getTopPackages();
+        // Lấy thống kê doanh thu theo tháng
+        $monthlyRevenue = $this->indexAdminService->getMonthlyRevenue();
+        // Lấy người đưa tin được đánh giá cao
+        $topRatedPosters = $this->indexAdminService->getTopRatedPosters();
+        // Lấy 4 báo cáo 
+        $latestReports = $this->indexAdminService->getLatestReports();
+        return view('admincp.show.index', compact('roomsCountByCategoryType', 'recentUsers', 'topPackages', 'monthlyRevenue', 'topRatedPosters', 'latestReports'));
     }
-
+    public function getDashboardStats(IndexAdminService $indexAdminService)
+    {
+        return response()->json([
+            'recentUsers' => $indexAdminService->getRecentUsers(),
+            'topPackages' => $indexAdminService->getTopPackages(),
+            'monthlyRevenue' => $indexAdminService->getMonthlyRevenue(),
+            'topRatedPosters' => $indexAdminService->getTopRatedPosters(),
+            'latestReports' => $indexAdminService->getLatestReports(),
+        ]);
+    }
     public function destroy($id)
     {
         $result = $this->roomAdminService->softDeleteRoom($id);

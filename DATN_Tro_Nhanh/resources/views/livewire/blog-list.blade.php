@@ -174,7 +174,7 @@
                         <div class="primary-sidebar-inner">
                             <div class="card mb-4">
                                 <div class="card-body px-6 pt-5 pb-6">
-                                    <h4 class="card-title fs-16 lh-2 text-dark mb-3">Loại</h4>
+                                    <h4 class="card-title fs-16 lh-2 text-dark mb-3">Tìm kiếm</h4>
                                     <form action="{{ route('client.client-blog') }}" method="GET">
                                         <div class="position-relative">
                                             <input type="text" id="search02"

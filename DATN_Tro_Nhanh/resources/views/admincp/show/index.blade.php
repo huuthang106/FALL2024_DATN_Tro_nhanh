@@ -106,8 +106,8 @@
                             <!--begin::Header-->
                             <div class="card-header border-0 pt-5">
                                 <h3 class="card-title align-items-start flex-column">
-                                    <span class="card-label fw-bolder text-dark">Đơn tốt cáo mới </span>
-                                    <span class="text-muted mt-1 fw-bold fs-7">Chưa xem 10 đơn</span>
+                                    <span class="card-label fw-bolder text-dark">Người dùng mới </span>
+                                    {{-- <span class="text-muted mt-1 fw-bold fs-7">Chưa xem 10 đơn</span> --}}
                                 </h3>
                                 <div class="card-toolbar">
                                     <!--begin::Menu-->
@@ -225,7 +225,7 @@
                             </div>
                             <!--end::Header-->
                             <!--begin::Body-->
-                            <div class="card-body pt-5">
+                            {{-- <div class="card-body pt-5">
                                 <!--begin::Item-->
                                 <div class="d-flex align-items-center mb-7">
                                     <!--begin::Symbol-->
@@ -249,9 +249,9 @@
                                     <!--end::Symbol-->
                                     <!--begin::Text-->
                                     <div class="d-flex flex-column">
-                                        <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Tóm tắt dự
-                                            án</a>
-                                        <span class="text-muted fw-bold">Người quản lý dự án</span>
+                                        <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Người dùng
+                                            1</a>
+                                        <span class="text-muted fw-bold">1 phút trước</span>
                                     </div>
                                     <!--end::Text-->
                                 </div>
@@ -279,9 +279,9 @@
                                     <!--end::Symbol-->
                                     <!--begin::Text-->
                                     <div class="d-flex flex-column">
-                                        <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Thiết kế ý
-                                            tưởng</a>
-                                        <span class="text-muted fw-bold">Giám đốc nghệ thuật</span>
+                                        <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Người dùng
+                                            2</a>
+                                        <span class="text-muted fw-bold">30 phút trước</span>
                                     </div>
                                     <!--end::Text-->
                                 </div>
@@ -310,9 +310,9 @@
                                     <!--end::Symbol-->
                                     <!--begin::Text-->
                                     <div class="d-flex flex-column">
-                                        <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Logic chức
-                                            năng</a>
-                                        <span class="text-muted fw-bold">Nhà phát triển chính</span>
+                                        <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Người dùng
+                                            3</a>
+                                        <span class="text-muted fw-bold">Hôm qua</span>
                                     </div>
                                     <!--end::Text-->
                                 </div>
@@ -340,9 +340,9 @@
                                     <!--end::Symbol-->
                                     <!--begin::Text-->
                                     <div class="d-flex flex-column">
-                                        <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Phát triển
+                                        <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Người dùng 4
                                         </a>
-                                        <span class="text-muted fw-bold">DevOps</span>
+                                        <span class="text-muted fw-bold">1 ngày trước</span>
                                     </div>
                                     <!--end::Text-->
                                 </div>
@@ -373,12 +373,41 @@
                                     <!--end::Symbol-->
                                     <!--begin::Text-->
                                     <div class="d-flex flex-column">
-                                        <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Kiểm tra</a>
-                                        <span class="text-muted fw-bold">Người quản lý QA</span>
+                                        <a href="#" class="text-dark text-hover-primary fs-6 fw-bolder">Người dùng
+                                            5</a>
+                                        <span class="text-muted fw-bold">1 tháng trước</span>
                                     </div>
                                     <!--end::Text-->
                                 </div>
                                 <!--end::Item-->
+                            </div> --}}
+                            <div class="card-body pt-5">
+                                @if ($recentUsers->isNotEmpty())
+                                    @foreach ($recentUsers as $user)
+                                        <div class="d-flex align-items-center mb-7">
+                                            <div class="symbol symbol-50px me-5">
+                                                <span class="symbol-label bg-light-success">
+                                                    @if ($user['image'])
+                                                        <img src="{{ asset('assets/images/' . $user['image']) }}"
+                                                            alt="{{ $user['name'] }}" class="hehe rounded-circle">
+                                                    @else
+                                                        <img src="{{ asset('assets/images/profile-11.jpeg') }}"
+                                                            alt="Default Avatar" class="hehe rounded-circle">
+                                                    @endif
+                                                </span>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <a href="#"
+                                                    class="text-dark text-hover-primary fs-6 fw-bolder">{{ $user['name'] }}</a>
+                                                <span class="text-muted fw-bold">{{ $user['time_ago'] }}</span>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <div class="text-center">
+                                        Chưa có dữ liệu.
+                                    </div>
+                                @endif
                             </div>
                             <!--end::Body-->
                         </div>
@@ -650,7 +679,7 @@
                         <div class="card card-xl-stretch mb-xl-8">
                             <!--begin::Header-->
                             <div class="card-header border-0">
-                                <h3 class="card-title fw-bolder text-dark">Người dùng mới</h3>
+                                <h3 class="card-title fw-bolder text-dark">Các gói được mua nhiều</h3>
                                 <div class="card-toolbar">
                                     <!--begin::Menu-->
                                     <button type="button"
@@ -762,8 +791,37 @@
                             <!--end::Header-->
                             <!--begin::Body-->
                             <div class="card-body pt-2">
+                                @if ($topPackages->isNotEmpty())
+                                    @foreach ($topPackages as $package)
+                                        <!--begin::Item-->
+                                        <div class="d-flex align-items-center mb-8">
+                                            <!--begin::Bullet-->
+                                            <span class="bullet bullet-vertical h-40px bg-success"></span>
+                                            <!--end::Bullet-->
+                                            <!--begin::Checkbox-->
+                                            <div class="form-check form-check-custom form-check-solid mx-5">
+                                                {{-- <input class="form-check-input" type="checkbox" value="" /> --}}
+                                            </div>
+                                            <!--end::Checkbox-->
+                                            <!--begin::Description-->
+                                            <div class="flex-grow-1">
+                                                <a href="#"
+                                                    class="text-gray-800 text-hover-primary fw-bolder fs-6">{{ $package->description }}</a>
+                                                <span class="text-muted fw-bold d-block">Số lượng mua:
+                                                    {{ $package->total_quantity }}</span>
+                                            </div>
+                                            <!--end::Description-->
+                                            <span class="badge badge-light-danger fs-8 fw-bolder">HOT</span>
+                                        </div>
+                                        <!--end::Item-->
+                                    @endforeach
+                                @else
+                                    <div class="text-center">
+                                        Chưa có dữ liệu.
+                                    </div>
+                                @endif
                                 <!--begin::Item-->
-                                <div class="d-flex align-items-center mb-8">
+                                {{-- <div class="d-flex align-items-center mb-8">
                                     <!--begin::Bullet-->
                                     <span class="bullet bullet-vertical h-40px bg-success"></span>
                                     <!--end::Bullet-->
@@ -774,15 +832,15 @@
                                     <!--end::Checkbox-->
                                     <!--begin::Description-->
                                     <div class="flex-grow-1">
-                                        <a href="#" class="text-gray-800 text-hover-primary fw-bolder fs-6">Create
-                                            FireStone Logo</a>
-                                        <span class="text-muted fw-bold d-block">Due in 2 Days</span>
+                                        <a href="#" class="text-gray-800 text-hover-primary fw-bolder fs-6">Nâng cấp
+                                            tài khoản</a>
+                                        <span class="text-muted fw-bold d-block">1 phút trước</span>
                                     </div>
                                     <!--end::Description-->
-                                    <span class="badge badge-light-success fs-8 fw-bolder">New</span>
-                                </div>
+                                    <span class="badge badge-light-success fs-8 fw-bolder">HOT</span>
+                                </div> --}}
                                 <!--end:Item-->
-                                <!--begin::Item-->
+                                {{-- <!--begin::Item-->
                                 <div class="d-flex align-items-center mb-8">
                                     <!--begin::Bullet-->
                                     <span class="bullet bullet-vertical h-40px bg-primary"></span>
@@ -883,7 +941,7 @@
                                     <!--end::Description-->
                                     <span class="badge badge-light-success fs-8 fw-bolder">New</span>
                                 </div>
-                                <!--end:Item-->
+                                <!--end:Item--> --}}
                             </div>
                             <!--end::Body-->
                         </div>
@@ -897,7 +955,7 @@
                                 <!--begin::Title-->
                                 <h3 class="card-title align-items-start flex-column">
                                     <span class="card-label fw-bolder fs-3 mb-1">Thống kê doanh thu </span>
-                                    <span class="text-muted fw-bold fs-7">Doanh thu </span>
+                                    <span class="text-muted fw-bold fs-7">Theo tháng </span>
                                 </h3>
                                 <!--end::Title-->
                                 <!--begin::Toolbar-->
@@ -1020,7 +1078,7 @@
                             <!--begin::Body-->
                             <div class="card-body">
                                 <!--begin::Chart-->
-                                <div id="kt_charts_widget_1_chart" style="height: 350px"></div>
+                                <div id="kt_charts_widget_1_chart_1" style="height: 350px"></div>
                                 <!--end::Chart-->
                             </div>
                             <!--end::Body-->
@@ -1037,8 +1095,8 @@
                             <!--begin::Header-->
                             <div class="card-header align-items-center border-0 mt-4">
                                 <h3 class="card-title align-items-start flex-column">
-                                    <span class="fw-bolder text-dark">Bản xếp hạng</span>
-                                    <span class="text-muted mt-1 fw-bold fs-7">Articles and publications</span>
+                                    <span class="fw-bolder text-dark">Người đăng tin được đánh giá cao</span>
+                                    {{-- <span class="text-muted mt-1 fw-bold fs-7">Articles and publications</span> --}}
                                 </h3>
                                 <div class="card-toolbar">
                                     <!--begin::Menu-->
@@ -1157,7 +1215,57 @@
                             <!--end::Header-->
                             <!--begin::Body-->
                             <div class="card-body pt-3">
-                                <!--begin::Item-->
+                                @if ($topRatedPosters->isNotEmpty())
+                                    @foreach ($topRatedPosters as $index => $user)
+                                        <div class="d-flex align-items-sm-center mb-7">
+                                            <!--begin::Symbol-->
+                                            {{-- <div class="symbol symbol-60px symbol-2by3 me-4">
+                                                <div class="symbol-label"
+                                                    style="background-image: url('{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('assets/media/avatars/blank.png') }}')">
+                                                </div>
+                                            </div> --}}
+                                            <div class="symbol symbol-60px symbol-2by3 me-4">
+                                                <div class="symbol-label"
+                                                    style="background-image: url('{{ $user->image ? asset('assets/images/' . $user->image) : asset('assets/images/profile-11.jpeg') }}')">
+                                                </div>
+                                            </div>
+                                            <!--end::Symbol-->
+                                            <!--begin::Title-->
+                                            <div class="d-flex flex-row-fluid flex-wrap align-items-center">
+                                                <div class="flex-grow-1 me-2">
+                                                    <a href="#"
+                                                        class="text-gray-800 fw-bolder text-hover-primary fs-6">{{ $user->name }}</a>
+                                                    <span class="text-muted fw-bold d-block pt-1">Đánh giá:
+                                                        {{ $user->average_rating }}/5 ({{ $user->total_reviews }}
+                                                        lượt)</span>
+                                                    {{-- <div class="d-flex align-items-center pt-2">
+                                                        @foreach ($user->ratings_distribution as $rating => $percentage)
+                                                            <div class="d-flex align-items-center me-2">
+                                                                <span
+                                                                    class="text-muted fs-7 me-1">{{ $rating }}★</span>
+                                                                <div class="progress h-5px w-50px bg-light-primary mb-0">
+                                                                    <div class="progress-bar bg-primary"
+                                                                        role="progressbar"
+                                                                        style="width: {{ $percentage }}%"
+                                                                        aria-valuenow="{{ $percentage }}"
+                                                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                    </div> --}}
+                                                </div>
+                                                <span class="badge badge-light-success fs-8 fw-bolder my-2">Top
+                                                    {{ $index + 1 }}</span>
+                                            </div>
+                                            <!--end::Title-->
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <div class="text-center">
+                                        Chưa có dữ liệu.
+                                    </div>
+                                @endif
+                                {{-- <!--begin::Item-->
                                 <div class="d-flex align-items-sm-center mb-7">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-60px symbol-2by3 me-4">
@@ -1169,11 +1277,11 @@
                                     <!--begin::Title-->
                                     <div class="d-flex flex-row-fluid flex-wrap align-items-center">
                                         <div class="flex-grow-1 me-2">
-                                            <a href="#" class="text-gray-800 fw-bolder text-hover-primary fs-6">Cup
-                                                &amp; Green</a>
-                                            <span class="text-muted fw-bold d-block pt-1">Size: 87KB</span>
+                                            <a href="#"
+                                                class="text-gray-800 fw-bolder text-hover-primary fs-6">Duy</a>
+                                            <span class="text-muted fw-bold d-block pt-1">Lượt đánh giá: 4.3/5</span>
                                         </div>
-                                        <span class="badge badge-light-success fs-8 fw-bolder my-2">Approved</span>
+                                        <span class="badge badge-light-success fs-8 fw-bolder my-2">Top 1</span>
                                     </div>
                                     <!--end::Title-->
                                 </div>
@@ -1195,8 +1303,7 @@
                                                 Background</a>
                                             <span class="text-muted fw-bold d-block pt-1">Size: 1.2MB</span>
                                         </div>
-                                        <span class="badge badge-light-warning fs-8 fw-bolder my-2">In
-                                            Progress</span>
+                                        <span class="badge badge-light-warning fs-8 fw-bolder my-2">Top 2</span>
                                     </div>
                                     <!--end::Title-->
                                 </div>
@@ -1238,11 +1345,11 @@
                                                 Boots</a>
                                             <span class="text-muted fw-bold d-block pt-1">Size: 345KB</span>
                                         </div>
-                                        <span class="badge badge-light-danger fs-8 fw-bolder my-2">Rejected</span>
+                                        <span class="badge badge-light-danger fs-8 fw-bolder my-2">Top 1</span>
                                     </div>
                                     <!--end::Title-->
                                 </div>
-                                <!--end::Item-->
+                                <!--end::Item--> --}}
                             </div>
                             <!--end::Body-->
                         </div>
@@ -1253,7 +1360,7 @@
                         <div class="card card-xl-stretch mb-5 mb-xl-8">
                             <!--begin::Header-->
                             <div class="card-header border-0">
-                                <h3 class="card-title fw-bolder text-dark">Gói được yêu thích nhất</h3>
+                                <h3 class="card-title fw-bolder text-dark">Các báo cáo mới</h3>
                                 <div class="card-toolbar">
                                     <!--begin::Menu-->
                                     <button type="button"
@@ -1365,7 +1472,53 @@
                             <!--end::Header-->
                             <!--begin::Body-->
                             <div class="card-body pt-0">
-                                <!--begin::Item-->
+                                @if ($latestReports->isNotEmpty())
+                                    @foreach ($latestReports as $report)
+                                        <div class="d-flex align-items-center bg-light-warning rounded p-5 mb-7">
+                                            <!--begin::Icon-->
+                                            <span class="svg-icon svg-icon-warning me-5">
+                                                <!-- SVG icon code -->
+                                            </span>
+                                            <!--end::Icon-->
+                                            <!--begin::Title-->
+                                            <div class="flex-grow-1 me-2">
+                                                <a href="{{ route('admin.show-report') }}"
+                                                    class="fw-bolder text-gray-800 text-hover-primary fs-6">
+                                                    Báo cáo của <span
+                                                        class="text-gray fw-boldest">{{ $report->user_name }}</span>
+                                                </a>
+                                                <span
+                                                    class="text-muted fw-bold d-block">{{ $report->created_at->format('d/m/Y H:i') }}</span>
+                                                {{-- <span class="text-muted fw-bold d-block">Người báo cáo:
+                                                {{ $report->user_name }}</span>
+                                            <span class="text-muted fw-bold d-block">Mô tả:
+                                                {{ Str::limit($report->description, 50) }}</span> --}}
+                                            </div>
+                                            <!--end::Title-->
+                                            <!--begin::Lable-->
+                                            <span class="fw-bolder py-1">
+                                                @if ($report->status == 1)
+                                                    <form action="{{ route('admin.approve-report', $report->id) }}"
+                                                        method="POST" class="d-inline">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <button type="submit" class="btn btn-sm btn-light-success">
+                                                            <i class="fas fa-check me-2"></i>Duyệt
+                                                        </button>
+                                                    </form>
+                                                @else
+                                                    <span class="badge badge-light-success">Đã duyệt</span>
+                                                @endif
+                                            </span>
+                                            <!--end::Lable-->
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <div class="text-center">
+                                        Chưa có dữ liệu.
+                                    </div>
+                                @endif
+                                {{-- <!--begin::Item-->
                                 <div class="d-flex align-items-center bg-light-warning rounded p-5 mb-7">
                                     <!--begin::Icon-->
                                     <span class="svg-icon svg-icon-warning me-5">
@@ -1386,14 +1539,13 @@
                                     <!--end::Icon-->
                                     <!--begin::Title-->
                                     <div class="flex-grow-1 me-2">
-                                        <a href="#" class="fw-bolder text-gray-800 text-hover-primary fs-6">Group
-                                            lunch
-                                            celebration</a>
-                                        <span class="text-muted fw-bold d-block">Due in 2 Days</span>
+                                        <a href="#" class="fw-bolder text-gray-800 text-hover-primary fs-6">Tiêu đề
+                                            báo cáo (title)</a>
+                                        <span class="text-muted fw-bold d-block">Thời gian</span>
                                     </div>
                                     <!--end::Title-->
                                     <!--begin::Lable-->
-                                    <span class="fw-bolder text-warning py-1">+28%</span>
+                                    <span class="fw-bolder text-warning py-1">Chưa duyệt</span>
                                     <!--end::Lable-->
                                 </div>
                                 <!--end::Item-->
@@ -1490,7 +1642,7 @@
                                     <span class="fw-bolder text-info py-1">+8%</span>
                                     <!--end::Lable-->
                                 </div>
-                                <!--end::Item-->
+                                <!--end::Item--> --}}
                             </div>
                             <!--end::Body-->
                         </div>
@@ -1558,6 +1710,17 @@
     <!--begin::Global Stylesheets Bundle (used by all pages)-->
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css">
+    <style>
+        .hehe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .rounded-circle {
+            border-radius: 50%;
+        }
+    </style>
 @endpush
 @push('scriptsAdmin')
     <script>
@@ -1572,10 +1735,224 @@
     <script src="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script>
     <!--end::Page Vendors Javascript-->
     <!--begin::Page Custom Javascript(used by this page)-->
-    <script src="{{ asset('assets/js/custom/widgets.js') }}"></script>I
+    <script src="{{ asset('assets/js/custom/widgets.js') }}"></script>
     <script src="{{ asset('assets/js/custom/apps/chat/chat.js') }}"></script>
     <script src="{{ asset('assets/js/custom/modals/create-app.js') }}"></script>
     <script src="{{ asset('assets/js/custom/modals/upgrade-plan.js') }}"></script>
     <!--end::Page Custom Javascript-->
     <!--end::Javascript-->
+    {{-- <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var options = {
+                series: [{
+                    name: 'Doanh thu',
+                    data: @json(array_values($monthlyRevenue))
+                }],
+                chart: {
+                    height: 350,
+                    type: 'bar',
+                },
+                plotOptions: {
+                    bar: {
+                        borderRadius: 10,
+                        dataLabels: {
+                            position: 'top',
+                        },
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    formatter: function(val) {
+                        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " VND";
+                    },
+                    offsetY: -20,
+                    style: {
+                        fontSize: '12px',
+                        colors: ["#304758"]
+                    }
+                },
+                xaxis: {
+                    categories: ["Th1", "Th2", "Th3", "Th4", "Th5", "Th6", "Th7", "Th8", "Th9", "Th10", "Th11",
+                        "Th12"
+                    ],
+                    position: 'bottom',
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    },
+                    crosshairs: {
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                colorFrom: '#D8E3F0',
+                                colorTo: '#BED1E6',
+                                stops: [0, 100],
+                                opacityFrom: 0.4,
+                                opacityTo: 0.5,
+                            }
+                        }
+                    },
+                    tooltip: {
+                        enabled: true,
+                    }
+                },
+                yaxis: {
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false,
+                    },
+                    labels: {
+                        show: true,
+                        formatter: function(val) {
+                            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " VND";
+                        }
+                    }
+                },
+                title: {
+                    text: 'Thống kê doanh thu theo tháng',
+                    floating: true,
+                    offsetY: 0,
+                    align: 'center',
+                    style: {
+                        color: '#444'
+                    }
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#kt_charts_widget_1_chart_1"), options);
+            chart.render();
+            console.log(@json(array_values($monthlyRevenue)));
+        });
+    </script> --}}
+    <!-- Biểu đồ -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var monthlyRevenue = @json($monthlyRevenue);
+            console.log('Monthly Revenue:', monthlyRevenue);
+
+            var categories = ["Th1", "Th2", "Th3", "Th4", "Th5", "Th6", "Th7", "Th8", "Th9", "Th10", "Th11",
+                "Th12"
+            ];
+            var data = categories.map(function(_, index) {
+                return monthlyRevenue[index + 1] || 0;
+            });
+
+            console.log('Categories:', categories);
+            console.log('Data:', data);
+
+            var options = {
+                series: [{
+                    name: 'Doanh thu',
+                    data: data
+                }],
+                chart: {
+                    height: 350,
+                    type: 'bar',
+                    toolbar: {
+                        show: false
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        borderRadius: 10,
+                        dataLabels: {
+                            position: 'top',
+                        },
+                        columnWidth: '60%',
+                    }
+                },
+                dataLabels: {
+                    enabled: false,
+                    formatter: function(val) {
+                        return val > 0 ? val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " VND" : "";
+                    },
+                    offsetY: -20,
+                    style: {
+                        fontSize: '12px',
+                        colors: ["#304758"]
+                    }
+                },
+                xaxis: {
+                    categories: categories,
+                    position: 'bottom',
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    },
+                    labels: {
+                        rotate: -45,
+                        rotateAlways: false,
+                        hideOverlappingLabels: true
+                    }
+                },
+                yaxis: {
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false,
+                    },
+                    labels: {
+                        show: true,
+                        formatter: function(val) {
+                            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " VND";
+                        }
+                    }
+                },
+                title: {
+                    text: 'Thống kê doanh thu theo tháng',
+                    floating: true,
+                    offsetY: 0,
+                    align: 'center',
+                    style: {
+                        color: '#444'
+                    }
+                },
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: '100%'
+                        },
+                        plotOptions: {
+                            bar: {
+                                columnWidth: '40%'
+                            }
+                        },
+                        dataLabels: {
+                            offsetY: -10,
+                            style: {
+                                fontSize: '8px'
+                            }
+                        },
+                        xaxis: {
+                            labels: {
+                                rotate: -90,
+                                style: {
+                                    fontSize: '8px'
+                                }
+                            }
+                        },
+                        yaxis: {
+                            labels: {
+                                style: {
+                                    fontSize: '8px'
+                                }
+                            }
+                        }
+                    }
+                }]
+            };
+
+            var chart = new ApexCharts(document.querySelector("#kt_charts_widget_1_chart_1"), options);
+            chart.render();
+        });
+    </script>
 @endpush

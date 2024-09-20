@@ -67,16 +67,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+    public function receivedComments()
+    {
+        return $this->hasMany(Comment::class, 'commented_user_id');
+    }
     public function contacts()
     {
         return $this->hasMany(Contact::class, 'user_id');
     }
 
-     // Quan hệ với bảng AccountLock
-     public function accountLock()
-     {
-         return $this->hasOne(AccountLock::class, 'user_id');
-     }
+    // Quan hệ với bảng AccountLock
+    public function accountLock()
+    {
+        return $this->hasOne(AccountLock::class, 'user_id');
+    }
 
     public function contactUsers()
     {
