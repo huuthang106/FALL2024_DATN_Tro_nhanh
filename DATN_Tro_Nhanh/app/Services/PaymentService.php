@@ -23,14 +23,23 @@ class PaymentService
     protected $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
     protected $vnp_TmnCode = "YZYXA9YP"; // Thay YOUR_TMNCODE bằng mã thực
     protected $vnp_HashSecret = "8NPEYEFICFTH31ZVMER5J4BVW09V8S0W"; // Thay YOUR_HASH_SECRET bằng khóa bí mật thực
-
+    private $cassoBaseUri = 'https://oauth.casso.vn/v2/';
     protected $vnpUrl;
     protected $vnpHashSecret;
+    private $apiKey;
 
     public function __construct()
     {
-        $this->vnpUrl = Config::get('payment.vnp_url'); // URL của VNPay
-        $this->vnpHashSecret = Config::get('payment.vnp_hash_secret'); // Secret key của VNPay
+        // $this->vnpUrl = Config::get('payment.vnp_url'); // URL của VNPay
+        // $this->vnpHashSecret = Config::get('payment.vnp_hash_secret'); // Secret key của VNPay
+        $this->client = new Client([
+            'base_uri' => $this->cassoBaseUri,
+            'timeout'  => 30,
+            'verify' => false // Tắt xác minh SSL
+        ]);
+
+        // Lấy API key từ file .env
+        $this->apiKey = env('CASSO_API_KEY');
     }
     // VNPay
     // public function createVNPayUrl($payment)
@@ -609,18 +618,12 @@ public function processVNPayReturn($request)
     //pay
 
     //
-    public function getTransactions($apiKey)
+    public function getTransactions()
     {
-        $client = new Client([
-            'base_uri' => 'https://oauth.casso.vn/v2/',
-            'timeout'  => 30,
-            'verify' => false // Tắt xác minh SSL
-        ]);
-    
         try {
-            $response = $client->request('GET', 'transactions', [
+            $response = $this->client->request('GET', 'transactions', [
                 'headers' => [
-                    'Authorization' => 'Apikey ' . $apiKey,
+                    'Authorization' => 'Apikey ' . $this->apiKey,
                     'Content-Type' => 'application/json'
                 ],
                 'query' => [
@@ -629,30 +632,24 @@ public function processVNPayReturn($request)
                     'pageSize' => 100,
                 ]
             ]);
-    
+
             $data = json_decode($response->getBody(), true);
             Log::info('Casso API response: ' . json_encode($data));
             
             $transactions = $data['data']['records'] ?? [];
-            $processedTransactions = $this->processAndSaveTransactions($transactions);
-            
-            return [
-                'raw_transactions' => $transactions,
-                'processed_transactions' => $processedTransactions
-            ];
-        } catch (RequestException $e) {
+            return $this->processAndSaveTransactions($transactions);
+
+        } catch (\Exception $e) {
             Log::error("Casso API error: " . $e->getMessage());
-            return [
-                'raw_transactions' => [],
-                'processed_transactions' => []
-            ];
+            return [];
         }
     }
+
     
     private function processAndSaveTransactions($transactions)
     {
         $processedTransactions = [];
-    
+
         foreach ($transactions as $transaction) {
             $description = $transaction['description'] ?? '';
             preg_match('/GD(\d+)/', $description, $matches);
@@ -671,33 +668,35 @@ public function processVNPayReturn($request)
                         if (!$existingTransaction) {
                             $user->balance += $amount;
                             $user->save();
-    
+
                             $newTransaction = new Transaction();
                             $newTransaction->id = $transactionId;
                             $newTransaction->user_id = $userId;
                             $newTransaction->description = $description;
                             $newTransaction->added_funds = $amount;
-                            // $newTransaction->total_price = $amount;
                             $newTransaction->balance = $user->balance;
                             $newTransaction->save();
-    
+
                             $processedTransactions[] = $newTransaction;
-    
+
                             Log::info("Giao dịch đã được xử lý và lưu: " . json_encode($newTransaction));
                         } else {
                             Log::info("Giao dịch đã tồn tại: " . $transactionId);
                         }
-                    } else {
-                        Log::warning("Không tìm thấy ID giao dịch trong dữ liệu API");
                     }
-                } else {
-                    Log::warning("Không tìm thấy người dùng với ID: $userId");
                 }
-            } else {
-                Log::warning("Không tìm thấy ID người dùng trong mô tả giao dịch: $description");
             }
         }
-    
+
         return $processedTransactions;
+    }
+
+    public function getUserTransactions()
+    {
+        $user = Auth::user();
+        return Transaction::where('user_id', $user->id)
+                            ->orderBy('created_at', 'desc')
+                            ->orderBy('id', 'desc')
+                            ->paginate(10);
     }
 }
