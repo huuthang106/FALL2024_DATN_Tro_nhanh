@@ -11,6 +11,7 @@
     <!-- Fonts -->
     <meta name="google-site-verification" content="S8_uq6Cve3CDUmFSZllcxo8BAPFlrpwmzUlZzwv0iR4" />
     <link href="{{ asset('assets/css/user.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('assets/css/style-ntt.css') }}">
     @livewireStyles
 </head>
 

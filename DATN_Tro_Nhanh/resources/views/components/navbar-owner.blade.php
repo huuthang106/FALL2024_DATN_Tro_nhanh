@@ -10,21 +10,19 @@
                 </a>
                 <div class="ml-auto d-flex align-items-center ">
                     <div class="d-flex align-items-center d-xl-none">
-                        <div class="dropdown px-3">
+                        <div class="dropdown px-3 d-none d-md-block">
                             <a href="#" class="dropdown-toggle d-flex align-items-center text-heading"
                                 data-toggle="dropdown">
                                 <div class="w-48px">
                                     @if ($user->image)
-                                        <img src="{{ asset('assets/images/' . $user->image) }}" alt="Admin"
-                                            class="hehe rounded-circle">
+                                        <img src="{{ asset('assets/images/' . $user->image) }}" alt="Admin" class="hehe rounded-circle">
                                     @else
-                                        <img src="{{ asset('assets/images/nhan.JPG') }}" alt="Admin"
-                                            class="hehe rounded-circle">
+                                        <img src="{{ asset('assets/images/nhan.JPG') }}" alt="Admin" class="hehe rounded-circle">
                                     @endif
                                     @if (Auth::check() &&
                                             Auth::user()->has_vip_badge &&
                                             \Carbon\Carbon::today()->lte(\Carbon\Carbon::parse(Auth::user()->vip_expiration_date)->endOfDay()))
-                                        <span class="badge badge-vip list">VIP</span>
+                                            <span class="badge badge-vip list">VIP</span>
                                     @endif
                                 </div>
                                 <span class="fs-13 font-weight-500 d-none d-sm-inline ml-2">

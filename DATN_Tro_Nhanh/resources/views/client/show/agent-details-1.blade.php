@@ -211,10 +211,9 @@
                                                     {{ number_format($averageRating, 1) }} <span
                                                         class="fs-18 text-gray-light font-weight-normal">/5</span>
                                                 </p>
-                                                <ul class="list-inline">
+                                                <ul class="list-inline d-flex flex-wrap justify-content-center">
                                                     @for ($i = 1; $i <= 5; $i++)
-                                                        <li
-                                                            class="list-inline-item w-46px h-46 rounded-lg d-inline-flex align-items-center justify-content-center fs-24 mb-1">
+                                                        <li class="list-inline-item star-item">
                                                             @if ($i <= floor($averageRating))
                                                                 <i class="fas fa-star text-warning"></i>
                                                             @elseif ($i == ceil($averageRating) && $averageRating - floor($averageRating) > 0)
@@ -225,6 +224,7 @@
                                                         </li>
                                                     @endfor
                                                 </ul>
+
                                             </div>
                                         </div>
 
@@ -462,6 +462,7 @@
     <meta property="og:image:height" content="630">
     
     <link rel="stylesheet" href="{{ asset('assets/css/css-nht.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style-ntt.css') }}">
 @endpush
 @push('scriptUs')
     {{-- <script>

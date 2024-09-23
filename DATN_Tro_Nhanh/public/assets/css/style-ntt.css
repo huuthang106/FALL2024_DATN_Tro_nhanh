@@ -198,19 +198,19 @@
     /* Đẩy badge lên phía trên một chút */
     left: 27px;
     /* Điều chỉnh vị trí theo nhu cầu */
-    background-color: rgb(14, 202, 212);
-    color: rgb(255, 255, 255);
+    background-color: rgb(244, 222, 222);
+    color: rgb(255, 0, 0);
     font-weight: bold;
-    padding: 5px 10px;
+    padding: 5px 7px;
     /* Tăng thêm khoảng trống cho badge */
-    border-radius: 20px;
+    border-radius: 5px;
     /* Làm badge có dạng hình elip */
-    font-size: 10px;
+    font-size: 11px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     /* Hiệu ứng đổ bóng */
     text-transform: uppercase;
     /* Chuyển chữ thành in hoa */
-    border: 2px solid white;
+    /* border: 2px solid white; */
     /* Thêm viền trắng cho badge */
 }
 
@@ -220,4 +220,44 @@
     object-fit: cover;
     border-radius: 50%;
     border: 2px solid white;
+}
+
+.star-item {
+    width: 46px;
+    height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 576px) {
+    .star-item {
+        width: 40px;
+        /* Giảm kích thước cho mobile */
+        height: 40px;
+        font-size: 20px;
+        /* Giảm kích thước icon cho mobile */
+    }
+}
+
+/* Đảm bảo rằng các icon luôn hiển thị, đặc biệt là trên màn hình nhỏ */
+a.d-block {
+    display: inline-block;
+    padding: 8px;
+    /* Điều chỉnh padding nếu cần */
+}
+
+/* Điều chỉnh kích thước icon trên màn hình nhỏ */
+@media (max-width: 576px) {
+    i.fal {
+        font-size: 24px;
+        /* Giảm kích thước icon cho màn hình nhỏ */
+    }
+
+    .badge-absolute {
+        font-size: 12px;
+        /* Điều chỉnh kích thước badge cho màn hình nhỏ */
+    }
 }

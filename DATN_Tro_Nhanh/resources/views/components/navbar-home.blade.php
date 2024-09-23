@@ -424,21 +424,22 @@
                                     </li>
 
                                     <div class="row ml-auto mr-4 p-0">
-                                        <a class="d-block d-xl-none mr-4 position-relative text-white p-2"
-                                            href="{{ Route('owners.chat-owners') }}">
+                                        <!-- Icon nhắn tin (chat icon) -->
+                                        <a class="d-block mr-4 position-relative text-white p-2" href="{{ Route('owners.chat-owners') }}">
                                             <i class="fal fa-comments-alt fs-large-4" style="color: #2f1f1f;"></i>
                                             <span class="badge badge-primary badge-circle badge-absolute">
-                                                <livewire:unread-message-count /></span>
+                                                <livewire:unread-message-count />
+                                            </span>
                                         </a>
 
-                                        <a class="d-block d-xl-none ml-auto mr-4 position-relative text-white p-2"
-                                            href="{{ route('owners.favorites') }}">
+                                        <!-- Icon yêu thích (heart icon) -->
+                                        <a class="d-block ml-auto mr-4 position-relative text-white p-2" href="{{ route('owners.favorites') }}">
                                             <i class="fal fa-heart fs-large-4" style="color: #2f1f1f;"></i>
-                                            <span class="badge badge-primary badge-circle badge-absolute"
-                                                id="favorite-count-2">{{ $favouriteCount }}</span>
+                                            <span class="badge badge-primary badge-circle badge-absolute" id="favorite-count-2">{{ $favouriteCount }}</span>
                                         </a>
                                     </div>
-                                @else
+
+                                     @else
                                     <a class="nav-link pr-3" data-toggle="modal" href="#login-register-modal">
                                         Đăng nhập
                                     </a>

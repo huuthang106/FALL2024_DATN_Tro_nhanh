@@ -456,50 +456,48 @@
                                             Đăng xuất
                                         </a>
                                     </ul>
-                            <li class="nav-item mr-auto mr-lg-6">
-                                <a class="nav-link px-2 position-relative" href="{{ Route('owners.chat-owners') }}">
-                                    <i class="fal fa-comments-alt fs-large-4"></i>
-                                    <span class="badge badge-primary badge-circle badge-absolute">
-                                        <livewire:unread-message-count /></span>
-                                </a>
-                            </li>
-                            <form id="logout-form" action="{{ route('client.logout') }}" method="POST"
-                                style="display: none;">
-                                @csrf
-                            </form>
-                        @else
-                            <a class="nav-link pl-3 pr-2" data-toggle="modal" href="#login-register-modal"> Đăng
-                                nhập</a>
-                            @endif
-                            </li>
+                                    <li class="nav-item mr-auto mr-lg-6">
+                                        <a class="nav-link px-2 position-relative" href="{{ Route('owners.chat-owners') }}">
+                                            <i class="fal fa-comments-alt fs-large-4"></i>
+                                            <span class="badge badge-primary badge-circle badge-absolute">
+                                                <livewire:unread-message-count /></span>
+                                        </a>
+                                    </li>
+                                    <form id="logout-form" action="{{ route('client.logout') }}" method="POST"
+                                        style="display: none;">
+                                        @csrf
+                                    </form>
+                                    @else
+                                    <a class="nav-link pl-3 pr-2" data-toggle="modal" href="#login-register-modal"> Đăng
+                                        nhập</a>
+                                    @endif
+                                    </li>
+
+                                    <!-- Icon giỏ hàng -->
+                                    <li class="nav-item mr-auto mr-lg-6">
+                                        <a class="nav-link px-2 position-relative" href="{{ route('client.carts-show') }}">
+                                            <i class="fal fa-shopping-cart fs-large-4"></i>
+                                            <span
+                                                class="badge badge-primary badge-circle badge-absolute">{{ $cartCount }}</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="divider"></li>
+
+                                    <!-- Icon yêu thích -->
 
 
+                                    <!-- Phần tử chat nằm ngoài dropdown -->
 
-                            <!-- Icon giỏ hàng -->
-                            <li class="nav-item mr-auto mr-lg-6">
-                                <a class="nav-link px-2 position-relative" href="{{ route('client.carts-show') }}">
-                                    <i class="fal fa-shopping-cart fs-large-4"></i>
-                                    <span
-                                        class="badge badge-primary badge-circle badge-absolute">{{ $cartCount }}</span>
-                                </a>
-                            </li>
-
-                            <li class="divider"></li>
-
-                            <!-- Icon yêu thích -->
-
-
-                            <!-- Phần tử chat nằm ngoài dropdown -->
-
-                            <li class="nav-item mr-auto mr-lg-6">
-                                <a class="nav-link px-2 position-relative" href="{{ route('owners.favorites') }}">
-                                    <i class="fal fa-heart fs-large-4"></i>
-                                    <span class="badge badge-primary badge-circle badge-absolute"
-                                        id="favorite-count">{{ $favouriteCount }}</span>
-                                </a>
-                            </li>
-                            @if (Auth::check())
-                                @if ($role != '1')
+                                    <li class="nav-item mr-auto mr-lg-6">
+                                        <a class="nav-link px-2 position-relative" href="{{ route('owners.favorites') }}">
+                                            <i class="fal fa-heart fs-large-4"></i>
+                                            <span class="badge badge-primary badge-circle badge-absolute"
+                                                id="favorite-count">{{ $favouriteCount }}</span>
+                                        </a>
+                                    </li>
+                                    @if (Auth::check())
+                                    @if ($role != '1')
                                     <li class="nav-item">
                                         <a class="btn btn-lg text-heading border bg-hover-primary border-hover-primary hover-white d-none d-lg-block"
                                             href="{{ route('owners.add-room') }}">
