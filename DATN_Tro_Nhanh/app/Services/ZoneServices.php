@@ -474,7 +474,7 @@ class ZoneServices
     }
     public function searchZonesWithinRadius($latitude = null, $longitude = null, $radius = 30, $perPage = 10)
     {
-        $query = Zone::query();
+        $query = Zone::with('utilities'); 
 
         if ($latitude && $longitude) {
             $haversine = "(6371 * acos(cos(radians($latitude)) * cos(radians(latitude)) * cos(radians(longitude) - radians($longitude)) + sin(radians($latitude)) * sin(radians(latitude))))";

@@ -293,34 +293,40 @@
                                                     <div class="card-footer pt-3 bg-transparent px-0 pb-0">
                                                         <ul
                                                             class="list-inline d-flex mb-0 flex-wrap justify-content-between mr-n2">
-                                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2"
+                                                            @foreach($zone->utilities as $utility)
+                                                            <!-- <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2"
                                                                 data-toggle="tooltip" title="3 Phòng">
                                                                 <svg class="icon icon-bedroom fs-18 text-primary mr-1">
                                                                     <use xlink:href="#icon-bedroom"></use>
                                                                 </svg>
                                                                 3 Phòng
-                                                            </li>
+                                                            </li> -->
                                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2"
                                                                 data-toggle="tooltip" title="3 Phòng tắm">
-                                                                <svg class="icon icon-shower fs-18 text-primary mr-1">
-                                                                    <use xlink:href="#icon-shower"></use>
-                                                                </svg>
-                                                                3 Phòng tắm
+                                                                @if($utility->bathrooms == 1)
+                                                                    <i class="fas fa-check fs-18 text-primary mr-1"></i> <!-- Icon check -->
+                                                                @endif
+                                                                <i class="fas fa-shower fs-18 text-primary mr-1"></i> <!-- Icon phòng tắm -->
+                                                                Phòng tắm
                                                             </li>
                                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2"
-                                                                data-toggle="tooltip" title="Diện tích">
-                                                                <svg class="icon icon-square fs-18 text-primary mr-1">
-                                                                    <use xlink:href="#icon-square"></use>
-                                                                </svg>
-                                                                2300 m²
+                                                                data-toggle="tooltip" title="WiFi">
+                                                                @if($utility->wifi) <!-- Kiểm tra điều kiện -->
+                                                                <i class="fas fa-check fs-18 text-primary mr-1"></i> <!-- Icon WiFi -->
+                                                                @endif
+                                                                <i class="fas fa-wifi fs-18 text-primary mr-1"></i>
+                                                                WiFi
                                                             </li>
+                                                           
                                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2"
                                                                 data-toggle="tooltip" title="1 Ga-ra">
-                                                                <svg class="icon icon-Garage fs-18 text-primary mr-1">
-                                                                    <use xlink:href="#icon-Garage"></use>
-                                                                </svg>
-                                                                1 Ga-ra
+                                                                @if($utility->garage) <!-- Kiểm tra điều kiện -->
+                                                                <i class="fas fa-check fs-18 text-primary mr-1"></i> <!-- Icon máy lạnh -->
+                                                                @endif
+                                                                <i class="fas fa-warehouse fs-18 text-primary mr-1"></i>
+                                                                Ga-ra
                                                             </li>
+                                                            @endforeach
                                                         </ul>
                                                     </div>
                                                 </div>
