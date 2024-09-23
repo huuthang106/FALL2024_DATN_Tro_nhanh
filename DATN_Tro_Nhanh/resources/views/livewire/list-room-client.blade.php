@@ -98,7 +98,7 @@
                                         </li> --}}
                                         <li class="list-inline-item">
                                             <a href="#"
-                                                class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center favorite-btn {{ $room->isFavoritedByUser(auth()->id()) ? 'favorited' : '' }}"
+                                                class="mr-3 w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center favorite-btn {{ $room->isFavoritedByUser(auth()->id()) ? 'favorited' : '' }}"
                                                 data-room-slug="{{ $room->slug }}">
                                                 <i class="fas fa-heart"></i>
                                             </a>

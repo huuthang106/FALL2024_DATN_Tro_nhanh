@@ -1,0 +1,6 @@
+.full-image {
+    width: 100%; /* Đặt chiều rộng bằng 100% của phần tử chứa */
+    height: auto; /* Giữ tỷ lệ khung hình của hình ảnh */
+    max-height: 400px; /* Đặt chiều cao tối đa nếu cần */
+    object-fit: contain; /* Đảm bảo hình ảnh được hiển thị đầy đủ mà không bị cắt */
+}

@@ -25,7 +25,7 @@
                                         <div class="form-group">
                                             <label for="key-word" class="sr-only">Từ khóa tìm kiếm...</label>
                                             <input type="search" class="form-control form-control-lg border-0 shadow-none"
-                                                id="key-word" placeholder="Nhập từ khóa...">
+                                                id="key-word" name="search" placeholder="Nhập từ khóa...">
                                         </div>
                                         <div class="form-group">
                                             <label for="location" class="sr-only">Tỉnh</label>
@@ -182,10 +182,10 @@
                                                             $image = $room->images->first();
                                                         @endphp
                                                         <img src="{{ asset('assets/images/' . $image->filename) }}"
-                                                            alt="{{ $room->title }}">
+                                                            alt="{{ $room->title }}" class="property-image">
                                                     @else
                                                         <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                                            alt="{{ $room->title }}">
+                                                            alt="{{ $room->title }}" class="property-image">
                                                     @endif
                                                     <div
                                                         class="card-img-overlay d-flex flex-column bg-gradient-3 rounded-lg">
@@ -480,6 +480,7 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <link rel="stylesheet" href="{{ asset('assets/css/css-nht.css') }}">
 @endpush
 @push('scriptUs')
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>

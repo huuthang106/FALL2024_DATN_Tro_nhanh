@@ -18,3 +18,14 @@
     height: auto; /* Giữ tỷ lệ khung hình */
     object-fit: cover; /* Cắt hình ảnh để phù hợp với kích thước */
 }
+/* Trong tệp CSS của bạn */
+.h-60 {
+    height: 60px; /* Đặt chiều cao là 60px */
+
+}
+.property-image {
+    width: 100%; /* Hoặc chiều rộng mong muốn */
+    height: 200px; /* Đặt chiều cao cố định */
+    object-fit: cover; /* Cắt hình ảnh để lấp đầy khung mà không bị biến dạng */
+    border-radius: 8px; /* Tùy chọn: bo góc hình ảnh */
+}

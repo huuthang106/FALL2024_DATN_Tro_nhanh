@@ -325,8 +325,8 @@
                             <div class="card mb-4">
                                 <div class="card-body px-6 py-6">
                                     <div class="media mb-4">
-                                        <div class="image-container p-0 mr-2">
-                                            <img src="{{ $user->image ? asset('assets/images/' . $user->image) : asset('assets/images/agent-25.jpg') }}" class="rounded-circle " alt="Blanche Gordon">
+                                        <div class="mr-4 ntt w-60px">
+                                            <img src="{{ $user->image ? asset('assets/images/' . $user->image) : asset('assets/images/agent-25.jpg') }}" class="rounded-circle w-60px h-60" alt="Blanche Gordon">
                                         </div>
 
                                         <div class="media-body">
@@ -500,5 +500,6 @@
     </script>
     <script src="{{ asset('assets/js/client/ajax-follow.js') }}"></script>
     <script src="{{ asset('assets/js/yeuthich.js') }}"></script>
+    <script src="{{ asset('assets/css/css-nht.css') }}"></script>
     @livewireScripts
 @endpush
