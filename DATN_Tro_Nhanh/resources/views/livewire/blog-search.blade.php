@@ -7,8 +7,8 @@
                 <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
                     <div class="d-flex form-group mb-0 align-items-center">
                         <label class="form-label fs-6 fw-bold mr-2 mb-0">Lọc:</label>
-                        <select class="form-control selectpicker form-control-lg mr-2"
-                            wire:model.lazy="timeFilter" data-style="bg-white btn-lg h-52 py-2 border">
+                        <select class="form-control selectpicker form-control-lg mr-2" wire:model.lazy="timeFilter"
+                            data-style="bg-white btn-lg h-52 py-2 border">
                             <option value="" selected>Thời Gian:</option>
                             <option value="1_day">1 ngày</option>
                             <option value="7_day">7 ngày</option>
@@ -44,13 +44,13 @@
         <table class="table table-hover bg-white border rounded-lg">
             <thead class="thead-sm thead-black">
                 <tr>
-                    <th scope="col" class="border-top-0 px-6 pt-5 pb-4 text-center">Ảnh</th>
-                    <th scope="col" class="border-top-0 pt-5 pb-4 text-center">Tiêu Đề</th>
-                    <th scope="col" class="border-top-0 pt-5 pb-4 text-center">Mô Tả</th>
-                    <th scope="col" class="border-top-0 pt-5 pb-4 text-center">Trạng thái</th>
-                    <th scope="col" class="border-top-0 pt-5 pb-4 text-center" style="white-space: nowrap;">Ngày xuất bản</th>
-                    <th scope="col" class="border-top-0 pt-5 pb-4 text-center" style="white-space: nowrap;">Hành động</th>
-                   
+                    <th scope="col" class="border-top-0 px-6 pt-5 pb-4 ">Ảnh</th>
+                    <th scope="col" class="border-top-0 pt-5 pb-4 ">Tiêu Đề</th>
+                    <th scope="col" class="border-top-0 pt-5 pb-4 " style="white-space: nowrap;">Mô Tả</th>
+                    <th scope="col" class="border-top-0 pt-5 pb-4 ">Trạng thái</th>
+                    <th scope="col" class="border-top-0 pt-5 pb-4 " style="white-space: nowrap;">Ngày xuất bản</th>
+                    <th scope="col" class="border-top-0 pt-5 pb-4 " style="white-space: nowrap;">Hành động</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -63,12 +63,13 @@
                         <tr class="shadow-hover-xs-2">
                             <td class="align-middle pt-6 pb-4 px-6">
                                 <div class="media d-flex align-items-center">
-                                    <div class="w-120px mr-4 position-relative">
+                                    <div class="w-150 mr-4 position-relative">
                                         <a href="{{ route('owners.show-blog', $blog->slug) }}">
                                             @if ($blog->image)
                                                 @foreach ($blog->image as $item)
                                                     <img src="{{ asset('assets/images/' . $item->filename) }}"
-                                                        alt="{{ $item->filename }}" class="img-fluid">
+                                                        alt="{{ $item->filename }}" class="img-fluid"
+                                                        style="max-height: 100px; object-fit: cover;">
                                                 @endforeach
                                             @else
                                                 <p>Không có ảnh</p>
@@ -92,7 +93,7 @@
                                 @endif
                             </td>
                             <td class="align-middle">{{ $blog->created_at->format('d-m-Y') }}</td>
-                            <td class="align-middle">
+                            <td class="align-middle text">
                                 <a href="{{ route('owners.sua-blog', ['slug' => $blog->slug]) }}" data-toggle="tooltip"
                                     title="Chỉnh sửa" class="d-inline-block fs-18 text-muted hover-primary ml-1 mr-5">
                                     <i class="fal fa-pencil-alt"></i>
@@ -115,75 +116,81 @@
         </table>
     </div>
     @if ($blogs->count() > 0)
-    <div id="pagination-section" class="mt-6">
-        <ul class="pagination rounded-active justify-content-center">
-            {{-- Nút quay về trang đầu tiên (<<) --}}
-            <li class="page-item {{ $blogs->onFirstPage() ? 'disabled' : '' }}">
-                <a class="page-link" wire:click="gotoPage(1)" wire:loading.attr="disabled" href="#pagination-section">
-                    <i class="far fa-angle-double-left"></i> {{-- Icon cho trang đầu tiên --}}
-                </a>
-            </li>
-
-            {{-- Nút quay lại trang trước (<) --}}
-            <li class="page-item {{ $blogs->onFirstPage() ? 'disabled' : '' }}">
-                <a class="page-link" wire:click="previousPage" wire:loading.attr="disabled" href="#pagination-section">
-                    <i class="fas fa-angle-left"></i> {{-- Icon cho trang trước --}}
-                </a>
-            </li>
-
-            {{-- Trang đầu tiên --}}
-            @if ($blogs->currentPage() > 2)
-                <li class="page-item">
-                    <a class="page-link" wire:click="gotoPage(1)" href="#pagination-section">1</a>
-                </li>
-            @endif
-
-            {{-- Dấu ba chấm ở đầu nếu cần --}}
-            @if ($blogs->currentPage() > 3)
-                <li class="page-item disabled">
-                    <span class="page-link">...</span>
-                </li>
-            @endif
-
-            {{-- Hiển thị các trang xung quanh trang hiện tại --}}
-            @for ($i = max(1, $blogs->currentPage() - 1); $i <= min($blogs->currentPage() + 1, $blogs->lastPage()); $i++)
-                <li class="page-item {{ $blogs->currentPage() == $i ? 'active' : '' }}">
-                    <a class="page-link" wire:click="gotoPage({{ $i }})" href="#pagination-section">{{ $i }}</a>
-                </li>
-            @endfor
-
-            {{-- Dấu ba chấm ở cuối nếu cần --}}
-            @if ($blogs->currentPage() < $blogs->lastPage() - 2)
-                <li class="page-item disabled">
-                    <span class="page-link">...</span>
-                </li>
-            @endif
-
-            {{-- Trang cuối cùng --}}
-            @if ($blogs->currentPage() < $blogs->lastPage() - 1)
-                <li class="page-item">
-                    <a class="page-link" wire:click="gotoPage({{ $blogs->lastPage() }})" href="#pagination-section">
-                        {{ $blogs->lastPage() }}
+        <div id="pagination-section" class="mt-6">
+            <ul class="pagination rounded-active justify-content-center">
+                {{-- Nút quay về trang đầu tiên (<<) --}}
+                <li class="page-item {{ $blogs->onFirstPage() ? 'disabled' : '' }}">
+                    <a class="page-link" wire:click="gotoPage(1)" wire:loading.attr="disabled"
+                        href="#pagination-section">
+                        <i class="far fa-angle-double-left"></i> {{-- Icon cho trang đầu tiên --}}
                     </a>
                 </li>
-            @endif
 
-            {{-- Nút tới trang kế tiếp (>) --}}
-            <li class="page-item {{ $blogs->currentPage() == $blogs->lastPage() ? 'disabled' : '' }}">
-                <a class="page-link" wire:click="nextPage" wire:loading.attr="disabled" href="#pagination-section">
-                    <i class="fas fa-angle-right"></i> {{-- Icon cho trang kế tiếp --}}
-                </a>
-            </li>
+                {{-- Nút quay lại trang trước (<) --}}
+                <li class="page-item {{ $blogs->onFirstPage() ? 'disabled' : '' }}">
+                    <a class="page-link" wire:click="previousPage" wire:loading.attr="disabled"
+                        href="#pagination-section">
+                        <i class="fas fa-angle-left"></i> {{-- Icon cho trang trước --}}
+                    </a>
+                </li>
 
-            {{-- Nút tới trang cuối cùng (>>) --}}
-            <li class="page-item {{ $blogs->currentPage() == $blogs->lastPage() ? 'disabled' : '' }}">
-                <a class="page-link" wire:click="gotoPage({{ $blogs->lastPage() }})" wire:loading.attr="disabled" href="#pagination-section">
-                    <i class="far fa-angle-double-right"></i> {{-- Icon cho trang cuối cùng --}}
-                </a>
-            </li>
-        </ul>
-    </div>
-@endif
+                {{-- Trang đầu tiên --}}
+                @if ($blogs->currentPage() > 2)
+                    <li class="page-item">
+                        <a class="page-link" wire:click="gotoPage(1)" href="#pagination-section">1</a>
+                    </li>
+                @endif
+
+                {{-- Dấu ba chấm ở đầu nếu cần --}}
+                @if ($blogs->currentPage() > 3)
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                @endif
+
+                {{-- Hiển thị các trang xung quanh trang hiện tại --}}
+                @for ($i = max(1, $blogs->currentPage() - 1); $i <= min($blogs->currentPage() + 1, $blogs->lastPage()); $i++)
+                    <li class="page-item {{ $blogs->currentPage() == $i ? 'active' : '' }}">
+                        <a class="page-link" wire:click="gotoPage({{ $i }})"
+                            href="#pagination-section">{{ $i }}</a>
+                    </li>
+                @endfor
+
+                {{-- Dấu ba chấm ở cuối nếu cần --}}
+                @if ($blogs->currentPage() < $blogs->lastPage() - 2)
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                @endif
+
+                {{-- Trang cuối cùng --}}
+                @if ($blogs->currentPage() < $blogs->lastPage() - 1)
+                    <li class="page-item">
+                        <a class="page-link" wire:click="gotoPage({{ $blogs->lastPage() }})"
+                            href="#pagination-section">
+                            {{ $blogs->lastPage() }}
+                        </a>
+                    </li>
+                @endif
+
+                {{-- Nút tới trang kế tiếp (>) --}}
+                <li class="page-item {{ $blogs->currentPage() == $blogs->lastPage() ? 'disabled' : '' }}">
+                    <a class="page-link" wire:click="nextPage" wire:loading.attr="disabled"
+                        href="#pagination-section">
+                        <i class="fas fa-angle-right"></i> {{-- Icon cho trang kế tiếp --}}
+                    </a>
+                </li>
+
+                {{-- Nút tới trang cuối cùng (>>) --}}
+                <li class="page-item {{ $blogs->currentPage() == $blogs->lastPage() ? 'disabled' : '' }}">
+                    <a class="page-link" wire:click="gotoPage({{ $blogs->lastPage() }})"
+                        wire:loading.attr="disabled" href="#pagination-section">
+                        <i class="far fa-angle-double-right"></i> {{-- Icon cho trang cuối cùng --}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    @endif
 
 
 

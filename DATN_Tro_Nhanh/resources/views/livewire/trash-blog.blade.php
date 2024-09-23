@@ -32,12 +32,12 @@
         <table class="table table-hover bg-white border rounded-lg">
             <thead class="thead-sm thead-black">
                 <tr>
-                    <th scope="col" class="border-top-0 px-6 pt-5 pb-4">Ảnh</th>
-                    <th scope="col" class="border-top-0 pt-5 pb-4">Tiêu Đề</th>
-                    <th scope="col" class="border-top-0 pt-5 pb-4">Mô Tả</th>
-                    <th scope="col" class="border-top-0 pt-5 pb-4">Trạng thái</th>
-                    <th scope="col" class="border-top-0 pt-5 pb-4">Ngày xuất bản</th>
-                    <th scope="col" class="border-top-0 pt-5 pb-4">Hành động</th>
+                    <th scope="col" class="border-top-0 px-6 pt-5 pb-4" style="white-space: nowrap;" >Ảnh</th>
+                    <th scope="col" class="border-top-0 pt-5 pb-4" style="white-space: nowrap;">Tiêu Đề</th>
+                   
+                    <th scope="col" class="border-top-0 pt-5 pb-4" style="white-space: nowrap;">Trạng thái</th>
+                    <th scope="col" class="border-top-0 pt-5 pb-4" style="white-space: nowrap;">Ngày xuất bản</th>
+                    <th scope="col" class="border-top-0 pt-5 pb-4" style="white-space: nowrap;">Hành động</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,7 +50,8 @@
                                         @if ($blog->image)
                                             @foreach ($blog->image as $item)
                                                 <img src="{{ asset('assets/images/' . $item->filename) }}"
-                                                    alt="{{ $item->filename }}" class="img-fluid">
+                                                    alt="{{ $item->filename }}"  class="img-fluid"
+                                                    style="max-height: 100px; object-fit: cover;">
                                             @endforeach
                                         @else
                                             <p>No images available</p>
@@ -59,8 +60,12 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="align-middle">{{ $blog->title }}</td>
-                        <td class="align-middle">{{ $blog->description }}</td>
+                        <td class="align-middle" style="white-space: nowrap;">
+                            {{ $blog->title }}
+                            <small class="d-block text-muted">
+                                {{ Str::limit($blog->description, 60) }} 
+                            </small>
+                        </td>
                         <td class="align-middle">
                             @if ($blog->status == 1)
                                 <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">Chờ xác
