@@ -22,11 +22,11 @@
                                             <div class="text-center payment-info">
                                                 <div class="row">
                                                     <div class="col-6 text-right"><strong>Số tài khoản:</strong></div>
-                                                    <div class="col-6 text-left">109882767243</div>
+                                                    <div class="col-6 text-left">101882785438</div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-6 text-right"><strong>Chủ tài khoản:</strong></div>
-                                                    <div class="col-6 text-left">NGUYEN THAI TOAN</div>
+                                                    <div class="col-6 text-left">TONG CHI NHAN</div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-6 text-right"><strong>Ngân hàng:</strong></div>

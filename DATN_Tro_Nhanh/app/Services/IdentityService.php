@@ -14,8 +14,8 @@ use App\Events\ImagesUploaded;
 
 class IdentityService
 {
-    protected const key_api_liveness = "BAhy9ifcWOV6Iv0KDpSMgDuuLCG3jW8C";
-    protected const key_ID_Recognition = "BAhy9ifcWOV6Iv0KDpSMgDuuLCG3jW8C";
+    protected const key_api_liveness = "NBq6wVP28BEVBiIR3NbyIZcA3yEQOaI0";
+    protected const key_ID_Recognition = "NBq6wVP28BEVBiIR3NbyIZcA3yEQOaI0";
     public function saveRegistrationData($data, $images)
     {
         // sau đó qua đay lưu dữ liệu bảng đăng ý 

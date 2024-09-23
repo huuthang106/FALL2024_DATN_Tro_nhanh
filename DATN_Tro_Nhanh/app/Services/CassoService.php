@@ -19,7 +19,7 @@
         $userId = Auth::user()->id; // Fixed method call to use parentheses
         // Thiết lập các thông tin cố định
         $bankId = 'vietinbank';
-        $accountNo = '109882767243';
+        $accountNo = '101882785438';
         $template = 'compact2';
         $amount = 10000; // Số tiền
 
