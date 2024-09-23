@@ -96,11 +96,11 @@ class BlogServices
 
         return $uploadedImages;
     }
-//    private function uploadImages(Request $request)
+    //    private function uploadImages(Request $request)
 //    {
 //        $uploadedImages = [];
-   
-//        if ($request->hasFile('images')) {
+
+    //        if ($request->hasFile('images')) {
 //            foreach ($request->file('images') as $image) {
 //                $filename = time() . '_' . $image->getClientOriginalName();
 //                $path = 'images'; // Thay đổi thư mục lưu trữ nếu cần
@@ -108,8 +108,8 @@ class BlogServices
 //                $uploadedImages[] = $filename;
 //            }
 //        }
-   
-//        return $uploadedImages;
+
+    //        return $uploadedImages;
 //    }
 
 
@@ -121,89 +121,89 @@ class BlogServices
 
 
     public function editBlog($slug)
-{
-    // Lấy blog với slug tương ứng
-    $blog = Blog::where('slug', $slug)->firstOrFail();
+    {
+        // Lấy blog với slug tương ứng
+        $blog = Blog::where('slug', $slug)->firstOrFail();
 
-    // Lấy tất cả các hình ảnh của blog
-    $images = Image::where('blog_id', $blog->id)->get(); // Sửa từ $blog->slug thành $blog->id
+        // Lấy tất cả các hình ảnh của blog
+        $images = Image::where('blog_id', $blog->id)->get(); // Sửa từ $blog->slug thành $blog->id
 
-    // Trả về dữ liệu dưới dạng mảng
-    return [
-        'blog' => $blog,
-        'images' => $images,
-    ];
-}
+        // Trả về dữ liệu dưới dạng mảng
+        return [
+            'blog' => $blog,
+            'images' => $images,
+        ];
+    }
     public function updateBlog(Request $request, $id)
-{
-    DB::beginTransaction();
+    {
+        DB::beginTransaction();
 
-    try {
-        $blog = Blog::findOrFail($id); // Lấy blog bằng id
+        try {
+            $blog = Blog::findOrFail($id); // Lấy blog bằng id
 
-        $data = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+            $data = $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'required|string',
+                'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
 
-        $blog->title = $data['title'];
-        $blog->description = $data['description'];
+            $blog->title = $data['title'];
+            $blog->description = $data['description'];
 
-        // Cập nhật slug nếu tiêu đề thay đổi
-        if ($blog->isDirty('title')) {
-            $blog->slug = $this->createSlug($data['title'], $blog->id);
-        }
+            // Cập nhật slug nếu tiêu đề thay đổi
+            if ($blog->isDirty('title')) {
+                $blog->slug = $this->createSlug($data['title'], $blog->id);
+            }
 
-        $blog->save();
+            $blog->save();
 
-       // Xử lý ảnh
-if ($request->hasFile('images')) {
-    // Lấy các ảnh cũ liên quan đến blog từ cơ sở dữ liệu
-    $oldImages = Image::where('blog_id', $blog->id)->get();
+            // Xử lý ảnh
+            if ($request->hasFile('images')) {
+                // Lấy các ảnh cũ liên quan đến blog từ cơ sở dữ liệu
+                $oldImages = Image::where('blog_id', $blog->id)->get();
 
-    // Xóa ảnh cũ khỏi thư mục và cơ sở dữ liệu
-    foreach ($oldImages as $oldImage) {
-        $oldImagePath = public_path('assets/images/' . $oldImage->filename);
+                // Xóa ảnh cũ khỏi thư mục và cơ sở dữ liệu
+                foreach ($oldImages as $oldImage) {
+                    $oldImagePath = public_path('assets/images/' . $oldImage->filename);
 
-                // Kiểm tra nếu file tồn tại và xóa nó
-                if (file_exists($oldImagePath)) {
-                    unlink($oldImagePath);
+                    // Kiểm tra nếu file tồn tại và xóa nó
+                    if (file_exists($oldImagePath)) {
+                        unlink($oldImagePath);
+                    }
+
+                    // Xóa bản ghi ảnh cũ khỏi cơ sở dữ liệu
+                    $oldImage->delete();
                 }
 
-                // Xóa bản ghi ảnh cũ khỏi cơ sở dữ liệu
-                $oldImage->delete();
+                // Lưu ảnh mới vào thư mục và cơ sở dữ liệu
+                foreach ($request->file('images') as $image) {
+                    // Lấy tên gốc và phần mở rộng của ảnh
+                    $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                    $extension = $image->getClientOriginalExtension();
+
+                    // Tạo tên file mới dựa trên slug của blog và thời gian hiện tại
+                    $filename = $blog->id . '-' . $originalName . '-' . time() . '.' . $extension;
+
+                    // Đường dẫn thư mục lưu ảnh
+                    $destinationPath = public_path('assets/images');
+                    $image->move($destinationPath, $filename);
+
+                    // Lưu thông tin ảnh mới vào cơ sở dữ liệu
+                    Image::create([
+                        'filename' => $filename,
+                        'blog_id' => $blog->id,
+                    ]);
+                }
             }
 
-            // Lưu ảnh mới vào thư mục và cơ sở dữ liệu
-            foreach ($request->file('images') as $image) {
-                // Lấy tên gốc và phần mở rộng của ảnh
-                $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                $extension = $image->getClientOriginalExtension();
+            DB::commit();
 
-                // Tạo tên file mới dựa trên slug của blog và thời gian hiện tại
-                $filename = $blog->id . '-' . $originalName . '-' . time() . '.' . $extension;
-
-                // Đường dẫn thư mục lưu ảnh
-                $destinationPath = public_path('assets/images');
-                $image->move($destinationPath, $filename);
-
-                // Lưu thông tin ảnh mới vào cơ sở dữ liệu
-                Image::create([
-                    'filename' => $filename,
-                    'blog_id' => $blog->id,
-                ]);
-            }
+            return ['success' => true, 'message' => 'Blog đã được cập nhật thành công!'];
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return ['success' => false, 'message' => 'Có lỗi xảy ra khi cập nhật blog: ' . $e->getMessage()];
         }
-
-        DB::commit();
-
-        return ['success' => true, 'message' => 'Blog đã được cập nhật thành công!'];
-    } catch (\Exception $e) {
-        DB::rollBack();
-        return ['success' => false, 'message' => 'Có lỗi xảy ra khi cập nhật blog: ' . $e->getMessage()];
     }
-}
     public function getAllBlogss(int $perPage = 10, $searchTerm = null)
     {
         try {
@@ -223,9 +223,9 @@ if ($request->hasFile('images')) {
     {
         try {
             $query = Blog::where('user_id', $userId);
-    
-         
-    
+
+
+
             return $query->paginate($perPage);
         } catch (\Exception $e) {
             Log::error('Error fetching blogs: ' . $e->getMessage());
@@ -306,11 +306,38 @@ if ($request->hasFile('images')) {
         return $blog;
     }
 
-    public function getTrashedBlogs()
-    {
-        return Blog::onlyTrashed()->get();
+    public function getTrashedBlogs($searchTerm = null, $timeFilter = null)
+{
+    $query = Blog::onlyTrashed();
+
+    // Tìm kiếm theo tiêu đề hoặc mô tả
+    if ($searchTerm) {
+        $query->where(function ($q) use ($searchTerm) {
+            $q->where('title', 'like', '%' . $searchTerm . '%')
+              ->orWhere('description', 'like', '%' . $searchTerm . '%');
+        });
     }
 
+    // Lọc theo thời gian
+    if ($timeFilter) {
+        switch ($timeFilter) {
+            case '1_day':
+                $query->where('deleted_at', '>=', now()->subDay());
+                break;
+            case '7_day':
+                $query->where('deleted_at', '>=', now()->subWeek());
+                break;
+            case '1_month':
+                $query->where('deleted_at', '>=', now()->subMonth());
+                break;
+            case '1_year':
+                $query->where('deleted_at', '>=', now()->subYear());
+                break;
+        }
+    }
+
+    return $query->paginate(10);
+}
     public function restoreBlogs($id)
     {
         $blog = Blog::withTrashed()->findOrFail($id);
@@ -324,4 +351,5 @@ if ($request->hasFile('images')) {
         $blog->forceDelete();
         return $blog;
     }
+
 }

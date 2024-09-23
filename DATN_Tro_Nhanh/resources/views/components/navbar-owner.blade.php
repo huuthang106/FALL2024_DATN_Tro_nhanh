@@ -252,40 +252,15 @@
                                     </div>
                                 </div>
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                    <a href="#invoice_collapse"
-                                        class="text-heading lh-1 sidebar-link d-flex align-items-center"
-                                        onclick="toggleDropdown('invoiceBill'); return false;">
+                                    <a href="{{ route('owners.invoice-bill') }}" class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                         <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                             <i class="fal fa-file-invoice"></i>
                                         </span>
                                         <span class="sidebar-item-text">Hóa đơn</span>
-                                        <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
                                     </a>
                                 </li>
                             </ul>
-                            <div class="collapse-content" id="invoiceBill">
-                                <div class="card card-body border-0 bg-transparent py-0 pl-6">
-                                    <ul class="list-group list-group-flush list-group-no-border">
-                                        <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                            <a class="text-heading lh-1 sidebar-link"
-                                                href="{{ route('owners.invoice-bill') }}">Hóa Đơn Đã Tạo</a>
-                                        </li>
-                                        <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                            <a class="text-heading lh-1 sidebar-link"
-                                                href="{{ route('owners.invoice-create') }}">Thêm mới
-                                                hóa đơn</a>
-                                        </li>
-                                        <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                            <a class="text-heading lh-1 sidebar-link"
-                                                href="{{ route('owners.invoice-edit') }}">Chỉnh sửa hóa đơn</a>
-                                        </li>
-                                        {{-- <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                            <a class="text-heading lh-1 sidebar-link"
-                                                href="{{ route('owners.invoice-preview') }}">Xem trước hóa đơn</a>
-                                        </li> --}}
-                                    </ul>
-                                </div>
-                            </div>
+                           
                         </li>
                     @endif
 
@@ -315,7 +290,7 @@
                                         </li>
                                         <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                             <a class="text-heading lh-1 sidebar-link"
-                                                href="{{ route('owners.watch-list') }}">Đang follower</a>
+                                                href="{{ route('owners.watch-list') }}">Đang follow</a>
                                         </li>
                                     </ul>
                                 </div>

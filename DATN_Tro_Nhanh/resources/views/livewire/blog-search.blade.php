@@ -44,12 +44,13 @@
         <table class="table table-hover bg-white border rounded-lg">
             <thead class="thead-sm thead-black">
                 <tr>
-                    <th scope="col" class="border-top-0 px-6 pt-5 pb-4">Ảnh</th>
-                    <th scope="col" class="border-top-0 pt-5 pb-4">Tiêu Đề</th>
-                    <th scope="col" class="border-top-0 pt-5 pb-4">Mô Tả</th>
-                    <th scope="col" class="border-top-0 pt-5 pb-4">Trạng thái</th>
-                    <th scope="col" class="border-top-0 pt-5 pb-4">Ngày xuất bản</th>
-                    <th scope="col" class="border-top-0 pt-5 pb-4">Hành động</th>
+                    <th scope="col" class="border-top-0 px-6 pt-5 pb-4 text-center">Ảnh</th>
+                    <th scope="col" class="border-top-0 pt-5 pb-4 text-center">Tiêu Đề</th>
+                    <th scope="col" class="border-top-0 pt-5 pb-4 text-center">Mô Tả</th>
+                    <th scope="col" class="border-top-0 pt-5 pb-4 text-center">Trạng thái</th>
+                    <th scope="col" class="border-top-0 pt-5 pb-4 text-center" style="white-space: nowrap;">Ngày xuất bản</th>
+                    <th scope="col" class="border-top-0 pt-5 pb-4 text-center" style="white-space: nowrap;">Hành động</th>
+                   
                 </tr>
             </thead>
             <tbody>
@@ -93,7 +94,7 @@
                             <td class="align-middle">{{ $blog->created_at->format('d-m-Y') }}</td>
                             <td class="align-middle">
                                 <a href="{{ route('owners.sua-blog', ['slug' => $blog->slug]) }}" data-toggle="tooltip"
-                                    title="Chỉnh sửa" class="d-inline-block fs-18 text-muted hover-primary mr-5">
+                                    title="Chỉnh sửa" class="d-inline-block fs-18 text-muted hover-primary ml-1 mr-5">
                                     <i class="fal fa-pencil-alt"></i>
                                 </a>
                                 <form action="{{ route('owners.destroy-blog', $blog->id) }}" method="POST"
