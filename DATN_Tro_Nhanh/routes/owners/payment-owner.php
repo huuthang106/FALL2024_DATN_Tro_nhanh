@@ -9,4 +9,5 @@ Route::group(['prefix' => ''], function () {
     // thai toan 
     Route::get('/them-hoa-don', [PaymentOwnersController::class, 'page_add_invoice'])->name('add-invoice');
     Route::get('/lich-su-giao-dich', [TransactionOwnersController::class, 'index'])->name('lich-su-giao-dich');
+    Route::post('/thanh-toan-goi', [PaymentOwnersController::class, 'paymentPrice'])->name('thanh-toan-vip');
 });

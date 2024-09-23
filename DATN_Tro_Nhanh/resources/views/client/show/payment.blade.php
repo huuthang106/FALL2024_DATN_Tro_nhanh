@@ -1,6 +1,17 @@
 @extends('layouts.main')
 @section('titleUs', 'Thanh Toán | TRỌ NHANH')
 @section('contentUs')
+@if (session('error'))
+         <div class="alert alert-danger">
+             {{ session('error') }}
+         </div>
+     @endif
+
+     @if (session('success'))
+         <div class="alert alert-success">
+             {{ session('success') }}
+         </div>
+     @endif 
     <main id="content">
         <section class="pb-4 shadow-xs-5">
             <div class="container">
@@ -56,36 +67,17 @@
                         </div>
                     </div>
                     <div class="col-md-7 offset-lg-1">
-                        <h4 class="text-heading fs-22 font-weight-500 lh-15">Chọn Phương Thức Thanh Toán</h4>
-
-                        {{-- <div class="custom-control custom-radio mb-2">
-                            <input type="radio" id="paypal" name="pay" value="paypal" checked
-                                class="custom-control-input">
-                            <label for="paypal" class="font-weight-500 mb-0 custom-control-label">
-                                <span class="fs-12 text-heading d-inline-block mr-1"><i class="fab fa-paypal"></i></span>
-                                Thanh Toán Bằng Paypal</label>
-                        </div> --}}
-                        <div class="custom-control custom-radio mb-2">
-                            <input type="radio" id="card" name="pay" value="card" class="custom-control-input">
-                            <label for="card" class="font-weight-500 mb-0 custom-control-label"><span
-                                    class="fs-12 text-heading d-inline-block mr-1"><i
-                                        class="fas fa-credit-card"></i></span>Thanh Toán Bằng VNPAY</label>
-                        </div>
-                        {{-- <div class="custom-control custom-radio mb-2">
-                            <input type="radio" id="wire" name="pay" value="wire" class="custom-control-input">
-                            <label for="wire" class="font-weight-500 mb-0 custom-control-label"><span
-                                    class="text-heading fs-12  d-inline-block mr-1"><i
-                                        class="fas fa-paper-plane"></i></span>Chuyển Khoản</label>
-                        </div> --}}
-                        <p class="text-heading font-weight-500 mb-0 pt-1">Xem Thêm</p>
-
+                        <h4 class="text-heading fs-22 font-weight-500 lh-15 mb-3">Thông tin thanh toán</h4>
+                        <p class="font-weight-500 text-heading h6 mb-4">Số dư tài khoản: <span class="font-weight-bold">{{ number_format($user->balance, 0, ',', '.') }} VND
+                        </span></h6>
+                        <p class="font-weight-500 text-heading h6 mb-4">Nội dung thanh toán: Thanh toán gói vip</h6>
                         <p class="mb-6">Vui lòng đọc <a href="#"
                                 class="text-heading font-weight-500 border-bottom hover-primary">Điều Khoản & Điều Kiện</a>
                             trước</p>
-                        {{-- <a href="checkout-complete-2.html" class="btn btn-primary px-8 py-2 lh-238">Thanh Toán Ngay</a> --}}
+                        <p class="text-heading font-weight-500">Lưu ý: <span class="text-danger">Khi thanh toán sẽ được trừ vào số tiền trong ví của quý khách nên hãy đảm bảo số dư ví đủ để thanh toán. Xin cảm ơn!</span></p>
                         <form action="{{ route('client.payment.process') }}" method="POST">
                             @csrf
-                            <button type="submit" id="payButton" class="btn btn-primary">Thanh toán</button>
+                            <button type="submit" class="btn btn-primary">Thanh toán</button>
                         </form>
                     </div>
                 </div>

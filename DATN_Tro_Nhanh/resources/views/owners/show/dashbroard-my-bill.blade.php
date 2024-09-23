@@ -72,23 +72,14 @@
                         <tr class="shadow-hover-xs-2 bg-hover-white">
                             <td class="align-middle">Thanh toán dịch vụ</td>
                             <td class="align-middle">{{ $transaction->description ?? 'Chưa có dữ liệu' }}</td>
-                            <td class="align-middle">{{ $transaction->created_at}}</td>
-                            
+                            <td class="align-middle">{{ $transaction->created_at}}</td>                           
                             <td class="align-middle">
-                                @php
-                                    $total_price = $transaction->added_funds ?? 0;
-                                    $formattedPrice = number_format(abs($total_price), 0, ',', '.');
-                                    $sign = $total_price < 0 ? '-' : '+';
-                                @endphp
-                                {{ $sign }} {{ $formattedPrice }} VND
+                            <span class="{{ $transaction->added_funds >= 0 ? 'text-success' : 'text-danger' }}">
+                                {{ number_format($transaction->added_funds, 0, ',', '.') }} VND
+                            </span>
                             </td>
                             <td class="align-middle">
-                                @php
-                                    $balance = $transaction->balance ?? 0;
-                                    $formattedPrice = number_format(abs($balance), 0, ',', '.');
-                                    $sign = $balance < 0 ? '-' : '+';
-                                @endphp
-                                {{ $sign }} {{ $formattedPrice }} VND
+                                {{ number_format($transaction->balance, 0, ',', '.') }} VND
                             </td>
                         </tr>
                     @endforeach

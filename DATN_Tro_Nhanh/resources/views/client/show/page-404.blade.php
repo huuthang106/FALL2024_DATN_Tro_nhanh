@@ -670,6 +670,17 @@
 @extends('layouts.main')
 @section('titleUs', 'Dịch Vụ | TRỌ NHANH')
 @section('contentUs')
+@if (session('error'))
+         <div class="alert alert-danger">
+             {{ session('error') }}
+         </div>
+     @endif
+
+     @if (session('success'))
+         <div class="alert alert-success">
+             {{ session('success') }}
+         </div>
+     @endif 
     <main id="content">
         <section class="pt-9 pb-10">
             <div class="container">
@@ -879,4 +890,8 @@
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        window.successMessage = "{{ session('success') }}";
+    </script>
 @endpush

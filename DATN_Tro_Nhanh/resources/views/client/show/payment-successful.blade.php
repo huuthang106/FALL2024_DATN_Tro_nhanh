@@ -1,6 +1,19 @@
 @extends('layouts.main')
 @section('titleUs', 'Trang chủ trọ nhanh')
 @section('contentUs')
+
+    @if (session('error'))
+         <div class="alert alert-danger">
+             {{ session('error') }}
+         </div>
+     @endif
+
+     @if (session('success'))
+         <div class="alert alert-success">
+             {{ session('success') }}
+         </div>
+     @endif 
+
     <main id="content">
         <section class="pb-4 shadow-xs-5">
             <div class="container">
@@ -41,7 +54,7 @@
                             </li>
                             <li class="d-flex justify-content-between lh-22">
                                 <p class="text-gray-light mb-0">Phương Thức Thanh Toán:</p>
-                                <p class="font-weight-500 text-heading mb-0">VNPay</p>
+                                <p class="font-weight-500 text-heading mb-0">Thanh toán bằng ví điện tử</p>
                             </li>
                             <li class="d-flex justify-content-between lh-22">
                                 <p class="text-gray-light mb-0">Loại Thanh Toán:</p>
@@ -181,4 +194,8 @@
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        window.successMessage = "{{ session('success') }}";
+    </script>
 @endpush

@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Room;
+use App\Models\PriceList;
 use Illuminate\Support\Facades\Auth;
 use App\Services\RoomOwnersService;
 
@@ -49,7 +50,8 @@ class RoomOwnersList extends Component
     public function render()
     {
         $userId = Auth::id();
-
+        $user = Auth::user();
+        $priceList = PriceList::all();
         $query = Room::where('user_id', $userId);
 
         if (!empty($this->search)) {
@@ -81,6 +83,8 @@ class RoomOwnersList extends Component
 
         return view('livewire.room-owners-list', [
             'rooms' => $rooms,
+            'priceList' => $priceList,
+            'user' => $user
         ]);
     }
 }

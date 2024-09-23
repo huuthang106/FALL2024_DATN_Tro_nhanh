@@ -13,21 +13,21 @@ class CartService
 {
     private const trangthai = 2;
 
-    public function getCartCollect($userId)
-    {
-        // Giả sử phương thức này trả về mảng, chuyển đổi nó thành Collection
-        return collect(Cart::where('user_id', $userId)->get());
-    }
+        public function getCartCollect($userId)
+        {
+            // Giả sử phương thức này trả về mảng, chuyển đổi nó thành Collection
+            return collect(Cart::where('user_id', $userId)->get());
+        }
 
-    public function addToCart($priceListId)
-    {
+        public function addToCart($priceListId)
+        {
       
-    //      // Kiểm tra xem người dùng đã đăng nhập chưa
-    // if (!Auth::check()) {
-    //     // Nếu người dùng chưa đăng nhập, ném ngoại lệ hoặc trả về thông báo
-    //     \Log::warning('User is not logged in.');
-    //     throw new \Exception('You must be logged in to add items to the cart.');
-    // }
+        //      // Kiểm tra xem người dùng đã đăng nhập chưa
+        // if (!Auth::check()) {
+        //     // Nếu người dùng chưa đăng nhập, ném ngoại lệ hoặc trả về thông báo
+        //     \Log::warning('User is not logged in.');
+        //     throw new \Exception('You must be logged in to add items to the cart.');
+        // }
 
         $userId = Auth::id();
         $priceList = PriceList::find($priceListId);
@@ -57,33 +57,33 @@ class CartService
         }
 
         return $cart;
-    }
+        }
 
-    public function getCart()
-    {
-        $userId = Auth::id();
-        $carts = Cart::where('user_id', $userId)->get();
+        public function getCart()
+        {
+            $userId = Auth::id();
+            $carts = Cart::where('user_id', $userId)->get();
 
-if ($carts->isEmpty()) {
-    return [];
-}
+        if ($carts->isEmpty()) {
+            return [];
+        }
 
-return $carts;
-    }
+        return $carts;
+            }
 
-    public function getCartDetails()
-    {
-        $userId = Auth::id();
-$carts = Cart::where('user_id', $userId)
-             ->where('status', self::trangthai) // Thêm điều kiện status = 2
-             ->get();
+            public function getCartDetails()
+            {
+                $userId = Auth::id();
+        $carts = Cart::where('user_id', $userId)
+                    ->where('status', self::trangthai) // Thêm điều kiện status = 2
+                    ->get();
 
-if ($carts->isEmpty()) {
-    return [];
-}
+        if ($carts->isEmpty()) {
+            return [];
+        }
 
-return $carts;
-    }
+        return $carts;
+        }
 
     /**
      * Xử lý thanh toán và cập nhật status của các cart

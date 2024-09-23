@@ -13,6 +13,7 @@ use App\Models\Zone;
 use App\Models\Image;
 use App\Models\Resident;
 use App\Models\Utility;
+use App\Models\PriceList;
 use Cocur\Slugify\Slugify;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
@@ -66,6 +67,11 @@ class RoomOwnersService
     {
         // Giả sử bạn đã có model `Utility`
         return Utility::where('room_id', $roomId)->first();
+    }
+
+    public function getPriceList()
+    {
+        return PriceList::all();
     }
 
     // public function create($request)

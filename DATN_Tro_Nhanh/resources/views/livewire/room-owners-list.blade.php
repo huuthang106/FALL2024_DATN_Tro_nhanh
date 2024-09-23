@@ -59,7 +59,7 @@
                         <th scope="col" class="border-top-0 pt-5 pb-4">Ngày xuất bản</th>
                         <th scope="col" class="border-top-0 pt-5 pb-4">Trạng thái</th>
                         <th scope="col" class="border-top-0 pt-5 pb-4">Xem</th>
-                        <th scope="col" class="border-top-0 pt-5 pb-4">Hành động</th>
+                        <th scope="col" class="border-top-0 pt-5 pb-4 text-center" style="width: 300px;">Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -83,8 +83,16 @@
                                     <div class="media">
                                         <div class="w-120px mr-4 position-relative">
                                             <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
-                                                <img src="{{ $this->getRoomImageUrl($room) }}" alt="{{ $room->title }}"
-                                                    class="img-fluid">
+                                            <div class="position-relative">
+                                                <img src="{{ $this->getRoomImageUrl($room) }}" alt="{{ $room->title }}" class="img-fluid">
+                                                
+                                                @if ($room->expiration_date > now())
+                                                    <span class="badge bg-danger text-white position-absolute" style="bottom: 1px; right: 1px;">
+                                                        VIP
+                                                    </span>
+                                                @endif
+                                            </div>
+
                                             </a>
                                             <span class="badge badge-indigo position-absolute pos-fixed-top">Cho
                                                 thuê</span>
@@ -116,18 +124,82 @@
                                 </td>
                                 <td class="align-middle">{{ $room->view }}</td>
                                 <td class="align-middle">
-                                    <a href="{{ route('owners.room-view-update', $room->slug) }}" data-toggle="tooltip"
-                                        title="Chỉnh sửa" class="d-inline-block fs-18 text-muted hover-primary mr-5">
+                                    <!-- Nút Mua Vip -->
+                                    <button type="button" class="btn btn-primary" data-id="{{ $room->id }}" data-toggle="modal" data-target="#vipModal" style="margin-right: 15px;">
+                                        Mua Vip
+                                    </button>
+                                    <!-- Icon Chỉnh sửa -->
+                                    <a href="{{ route('owners.room-view-update', $room->slug) }}" data-toggle="tooltip" title="Chỉnh sửa"
+                                        class="d-inline-block fs-18 text-muted hover-primary" style="margin-right: 15px;">
                                         <i class="fal fa-pencil-alt"></i>
                                     </a>
-                                    <form action="{{ route('owners.destroy', $room->id) }}" method="POST"
-                                        class="d-inline-block">
+                                    
+                                    <!-- Form Xóa -->
+                                    <form action="{{ route('owners.destroy', $room->id) }}" method="POST" class="d-inline-block">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit"
-                                            class="fs-18 text-muted hover-primary border-0 bg-transparent"><i
-                                                class="fal fa-trash-alt"></i></button>
+                                        <button type="submit" class="fs-18 text-muted hover-primary border-0 bg-transparent">
+                                            <i class="fal fa-trash-alt"></i>
+                                        </button>
                                     </form>
+                               
+                                    <!-- Modal Popup -->
+                                    <div class="modal fade" id="vipModal" tabindex="-1" aria-labelledby="vipModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <!-- Header của modal -->
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="vipModalLabel">Vui lòng chọn gói</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+
+                                                <!-- Nội dung của modal -->
+                                                <form id="vipForm" action="{{ route('owners.thanh-toan-vip') }}" method="POST">
+                                                    <div class="modal-body">
+                                                        @csrf
+                                                        <!-- Trường ẩn để lưu room_id -->
+                                                        <input type="hidden" id="roomId" name="room_id" value="{{$room->id}}">
+                                                        <!-- Dropdown chọn gói VIP -->
+                                                         <p>Mua gói vip cho phòng số: {{$room->id}}</p>
+                                                        <div class="form-group">
+                                                            <label for="vipPackage">Chọn gói:</label>
+                                                            <select class="form-control" id="vipPackage" name="vipPackage">
+                                                                @foreach($priceList as $price)
+                                                                    <option value="{{ $price->id }}">
+                                                                        {{ $price->location->name }} ({{ $price->duration_day }} ngày) - {{ number_format($price->price, 0, ',', '.') }} VND
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+
+                                                        <!-- Thông tin về tài khoản và phương thức thanh toán -->
+                                                        <div class="form-group mt-4">
+                                                            <label>Số dư tài khoản của bạn:</label>
+                                                            <p><strong>{{ number_format($user->balance, 0, ',', '.') }} VND</strong></p>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Phương thức thanh toán:</label>
+                                                            <p><strong>Trừ trực tiếp vào số dư tài khoản</strong></p>
+                                                        </div>
+
+                                                        <!-- Dòng lưu ý -->
+                                                        <div class="alert alert-danger mt-4" role="alert">
+                                                            Tiền sẽ được trừ vào số dư tài khoản nên quý khách cần đảm bảo số dư đủ để thực hiện giao dịch. Xin cảm ơn!
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Footer của modal với nút mua -->
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                        <button type="submit" class="btn btn-primary">Mua</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

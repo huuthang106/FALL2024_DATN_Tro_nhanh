@@ -7,6 +7,10 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
+
+    protected $commands = [
+        Commands\RemoveExpiredVIPs::class,
+    ];
     /**
      * Define the application's command schedule.
      *
@@ -20,6 +24,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('mails:send-service')->hourly();
         // Chạy lệnh này mỗi ngày
     $schedule->command('locks:handle-expired')->daily();
+
+    $schedule->command('vip:remove-expired')->daily();
     }
 
     /**
@@ -33,6 +39,8 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+
+    
 
     
 }
