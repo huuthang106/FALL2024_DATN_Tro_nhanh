@@ -25,15 +25,16 @@
                         <!--end::Svg Icon-->
                         <!--end::Icon-->
                         <!--begin::Input-->
-                        <input type="text" class="form-control form-control-solid px-15" name="search"
-                            value="" placeholder="Search by username or email..." />
+                        <input type="text" class="form-control form-control-solid px-15" value=""
+                            placeholder="Tìm kiếm..." wire:model.lazy="searchTerm"
+                            wire:keydown.debounce.300ms="$refresh" />
                         <!--end::Input-->
                     </form>
                     <!--end::Form-->
                 </div>
                 <!--end::Card header-->
                 <!--begin::Card body-->
-                <div class="card-body pt-5" id="kt_chat_contacts_body">
+                <div class="card-body pt-5" id="kt_chat_contacts_body" wire:poll="pollContacts">
                     <!--begin::List-->
                     <div class="scroll-y me-n5 pe-5 h-200px h-lg-auto" data-kt-scroll="true"
                         data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto"
@@ -43,49 +44,68 @@
 
                         <!--end::Separator-->
                         <!--begin::User-->
-                        @foreach ($contacts as $contact)
-                            <div class="d-flex flex-stack py-4 {{ $selectedContactId == $contact['id'] ? 'active-contact' : '' }}"
-                                wire:click="selectContact({{ $contact['id'] }})">
-                                <!--begin::Details-->
-                                <div class="d-flex align-items-center p-5" wire:key="item-{{ $contact['id'] }}">
-                                    <!--begin::Avatar-->
-                                    @if ($contact['image'])
-                                        <div class="symbol symbol-45px symbol-circle">
-                                            <img alt="Pic"
-                                                src="{{ asset('assets/images/' . $contact['image']) }}" />
-                                        </div>
-                                    @else
-                                        <div class="symbol symbol-45px symbol-circle">
-                                            <img alt="Pic" src="{{ asset('assets/images/agent-4-lg.jpg') }}" />
-                                        </div>
-                                    @endif
-
-                                    <!--end::Avatar-->
+                        @if ($contacts->isEmpty())
+                            <!-- Thông báo khi không tìm thấy kết quả -->
+                            <div class="text-center text-muted">
+                                Không tìm thấy kết quả.
+                            </div>
+                        @else
+                            @foreach ($contacts as $contact)
+                                <div class="d-flex flex-stack py-4 {{ $selectedContactId == $contact['id'] ? 'active-contact' : '' }}"
+                                    wire:click="selectContact({{ $contact['id'] }})">
                                     <!--begin::Details-->
-                                    <div class="ms-5">
-                                        <a wire:click="selectContact({{ $contact['id'] }})"
-                                            class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">{{ $contact['name'] }}</a>
-                                        <div class="fw-bold text-muted"><small>{{ $contact['email'] }}</small></div>
+                                    <div class="d-flex align-items-center p-5" wire:key="item-{{ $contact['id'] }}">
+                                        <!--begin::Avatar-->
+                                        @if ($contact['image'])
+                                            <div class="symbol symbol-45px symbol-circle">
+                                                <img alt="Pic"
+                                                    src="{{ asset('assets/images/' . $contact['image']) }}" />
+                                            </div>
+                                        @else
+                                            <div class="symbol symbol-45px symbol-circle">
+                                                <img alt="Pic" src="{{ asset('assets/images/agent-4-lg.jpg') }}" />
+                                            </div>
+                                        @endif
+
+                                        <!--end::Avatar-->
+                                        <!--begin::Details-->
+                                        <div class="ms-5">
+                                            <a wire:click="selectContact({{ $contact['id'] }})"
+                                                class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">{{ $contact['name'] }}</a>
+                                            <div class="fw-bold text-muted"><small>{{ $contact['email'] }}</small></div>
+                                        </div>
+                                        <!--end::Details-->
                                     </div>
                                     <!--end::Details-->
-                                </div>
-                                <!--end::Details-->
-                                <!--begin::Lat seen-->
-                                <div class="d-flex flex-column align-items-end ms-2">
-                                    <span
-                                        class="text-muted fs-7 mb-1">{{ $this->getRelativeTime($contact['last_message_time']) }}
-                                    </span>
-                                    @if ($contact['unread_count'] > 0)
+                                    <!--begin::Lat seen-->
+                                    <div class="d-flex flex-column align-items-end ms-2">
                                         <span
-                                            class="badge badge-sm badge-circle badge-light-warning">{{ $contact['unread_count'] }}</span>
-                                    @endif
+                                            class="text-muted fs-7 mb-1">{{ $this->getRelativeTime($contact['last_message_time']) }}
+                                        </span>
+                                        @if ($contact['unread_count'] > 0)
+                                            <span
+                                                class="badge badge-sm badge-circle badge-light-warning">{{ $contact['unread_count'] }}</span>
+                                        @endif
+                                        <!-- Xóa trực tiếp -->
+                                        {{-- <button
+                                                        wire:click.stop="deleteChatPermanently({{ $contact['id'] }})"
+                                                        class="btn btn-sm btn-icon btn-light-danger"
+                                                        title="Xóa đoạn chat">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button> --}}
+                                        <!-- Xác nhận mới xóa -->
+                                        <button wire:click.stop="confirmDelete({{ $contact['id'] }})"
+                                            class="btn btn-sm btn-link text-danger p-0" title="Xóa đoạn chat">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                    <!--end::Lat seen-->
                                 </div>
-                                <!--end::Lat seen-->
-                            </div>
-                            <!--end::User-->
-                            <!--begin::Separator-->
-                            <div class="separator separator-dashed d-none"></div>
-                        @endforeach
+                                <!--end::User-->
+                                <!--begin::Separator-->
+                                <div class="separator separator-dashed d-none"></div>
+                            @endforeach
+                        @endif
                         <!--end::User-->
                     </div>
                     <!--end::List-->

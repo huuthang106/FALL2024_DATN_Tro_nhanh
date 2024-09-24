@@ -3259,4 +3259,24 @@
     <script src="{{ asset('assets/js/scroll-chat-nht.js') }}"></script>
     <!--end::Page Custom Javascript-->
     <!--end::Javascript-->
+    <script>
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.on('confirmDelete', contactId => {
+                Swal.fire({
+                    title: 'Xác nhận xóa',
+                    text: "Bạn có chắc chắn muốn xóa đoạn chat này?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Đồng ý',
+                    cancelButtonText: 'Hủy bỏ'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Livewire.dispatch('deleteChatPermanently', contactId);
+                    }
+                });
+            });
+        });
+    </script>
 @endpush
