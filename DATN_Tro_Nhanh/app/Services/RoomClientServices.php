@@ -7,44 +7,14 @@ use App\Models\Favourite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 class RoomClientServices
 {
     // viết các hàm lấy giá trị của bản đó 
     private const trangthaiphong = 2;
     private const status = 2;
-    // public function getAllRoom(int $perPage = 10, $searchTerm = null, $province = null, $district = null, $village = null)
-    // {
-    //     try {
-    //         // $query = Room::where('status', self::status);
-    //         $query = Room::where('status', self::status)
-    //             ->withCount('images'); // Đếm số lượng ảnh liên quan đến mỗi phòng
-    //         // Nếu có từ khóa tìm kiếm, thêm điều kiện vào truy vấn
-    //         if ($searchTerm) {
-    //             $query->where(function ($q) use ($searchTerm) {
-    //                 $q->where('title', 'like', '%' . $searchTerm . '%')
-    //                     ->orWhere('description', 'like', '%' . $searchTerm . '%')
-    //                     ->orWhere('address', 'like', '%' . $searchTerm . '%');
-    //             });
-    //         }
-
-    //         // Nếu có tỉnh, huyện, xã, thêm điều kiện vào truy vấn
-    //         if ($province) {
-    //             $query->where('province', $province);
-    //         }
-    //         if ($district) {
-    //             $query->where('district', $district);
-    //         }
-    //         if ($village) {
-    //             $query->where('village', $village);
-    //         }
-    //         // Thêm điều kiện sắp xếp theo mới nhất
-    //         $query->orderByDesc('created_at');
-    //         return $query->paginate($perPage);
-    //     } catch (\Exception $e) {
-    //         return null;
-    //     }
-    // }
+    
     // ----------------------------------------------------------------Sắp Theo VIP
     public function getAllRoom(int $perPage = 10, $searchTerm = null, $province = null, $district = null, $village = null)
     {
@@ -123,14 +93,32 @@ class RoomClientServices
     // }
     // Lấy 5 phòng mới nhất
     public function getRoomWhere()
-    {
-        try {
-            $rooms = Room::orderBy('created_at', 'desc')->take(5)->get();
-            return $rooms;
-        } catch (\Exception $e) {
-            return null;
+    { 
+            $rooms = Room::orderBy('expiration_date', 'desc') // Sắp xếp theo expiration_date
+                         ->orderBy('created_at', 'desc') // Sắp xếp theo ngày tạo mới nhất
+                         ->orderBy('view', 'desc') // Sắp xếp theo lượt xem cao nhất
+                         ->take(5) // Lấy 5 phòng
+                         ->get();
+        
+            return $rooms; // Trả về danh sách phòng    
+    }
+
+    public function incrementViewCount($roomId)
+{
+    // Kiểm tra xem cookie đã tồn tại chưa
+    if (!request()->cookie('viewed_property_' . $roomId)) {
+        // Tìm phòng theo ID
+        $room = Room::find($roomId);
+        
+        if ($room) {
+            // Tăng số lượt xem
+            $room->increment('view');
+
+            // Đặt cookie cho 2 giờ
+            Cookie::queue('viewed_property_' . $roomId, true, 120);
         }
     }
+}
 
     // Lấy phòng theo slug
     public function getSlugRoom($slug)

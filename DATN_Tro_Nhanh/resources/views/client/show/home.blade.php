@@ -577,6 +577,11 @@
                                         <div>
                                             <span class="badge mr-2 badge-orange">nổi bật</span>
                                             <span class="badge mr-2 badge-primary">để bán</span>
+                                            @if ($room->expiration_date > now())
+                                                    <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
+                                                        VIP
+                                                    </span>
+                                            @endif
                                         </div>
                                         <ul class="list-inline mb-0 mt-auto hover-image">
                                             <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Hình ảnh">
@@ -781,6 +786,11 @@
                                         <div>
                                             <span class="badge mr-2 badge-orange">nổi bật</span>
                                             <span class="badge mr-2 badge-primary">để bán</span>
+                                            @if ($room->expiration_date > now())
+                                                    <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
+                                                        VIP
+                                                    </span>
+                                            @endif
                                         </div>
                                         <ul class="list-inline mb-0 mt-auto hover-image">
                                             <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Hình ảnh">

@@ -77,10 +77,10 @@
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label fw-bold fs-6 required">Trạng thái</label>
                                         <select name="status" class="form-select form-select-solid form-select-lg">
-                                            <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Kích hoạt
+                                            <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Gói nâng cấp tài khoản
                                             </option>
-                                            <option value="0" {{ old('status') == '2' ? 'selected' : '' }}>Không kích
-                                                hoạt</option>
+                                            <option value="2" {{ old('status') == '2' ? 'selected' : '' }}>Gói tin vip
+                                            </option>
                                         </select>
                                         @error('status')
                                             <div class="text-danger">{{ $message }}</div>

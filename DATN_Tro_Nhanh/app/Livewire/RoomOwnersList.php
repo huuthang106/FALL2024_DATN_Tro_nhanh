@@ -19,6 +19,8 @@ class RoomOwnersList extends Component
     public $roomCount;
     protected $roomOwnersService;
     protected $queryString = ['search', 'sortBy', 'perPage'];
+    public const Goitin = 2; // Đúng cú pháp
+
 
     public function updatingSearch()
     {
@@ -51,7 +53,7 @@ class RoomOwnersList extends Component
     {
         $userId = Auth::id();
         $user = Auth::user();
-        $priceList = PriceList::all();
+        $priceList = PriceList::where('status', self::Goitin)->get();
         $query = Room::where('user_id', $userId);
 
         if (!empty($this->search)) {

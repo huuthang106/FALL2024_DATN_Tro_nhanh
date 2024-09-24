@@ -56,9 +56,11 @@
                             <div class="card-img-overlay d-flex flex-column">
                                 {{-- <div><span class="badge badge-primary">Cần Bán</span></div> --}}
                                 <div>
-                                    @if ($room->user->has_vip_badge)
-                                        <span class="badge badge-primary">VIP</span>
-                                    @endif
+                                @if ($room->expiration_date > now())
+                                                    <span class="badge bg-danger text-white" style="bottom: 1px; right: 1px;">
+                                                        VIP
+                                                    </span>
+                                                @endif
                                     {{-- <span class="badge badge-primary">Cần Bán</span> --}}
                                 </div>
                                 <div class="mt-auto d-flex hover-image">

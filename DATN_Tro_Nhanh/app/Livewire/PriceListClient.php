@@ -15,10 +15,10 @@ class PriceListClient extends Component
     use WithPagination;
 
     public $perPage = 8;
-
+    public const Nangcaptaikhoan = 1;
     public function render()
     {
-        $priceLists = PriceList::orderBy('created_at', 'desc')->paginate($this->perPage);
+        $priceLists = PriceList::where('status', self::Nangcaptaikhoan)->orderBy('created_at', 'desc')->paginate($this->perPage);
         return view('livewire.price-list-client', [
             'priceLists' => $priceLists,
         ]);

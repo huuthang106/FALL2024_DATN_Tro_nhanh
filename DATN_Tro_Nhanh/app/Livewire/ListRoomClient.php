@@ -47,7 +47,9 @@ class ListRoomClient extends Component
         }
 
         // Sắp xếp ưu tiên VIP trước
-        $query->orderBy('users.has_vip_badge', 'desc');
+        $query->orderBy('rooms.expiration_date', 'desc') // Sắp xếp theo ngày hết hạn
+        ->orderBy('rooms.created_at', 'desc') // Sắp xếp theo ngày tạo mới nhất
+        ->orderBy('rooms.view', 'desc'); // Sắp xếp theo lượt xem cao nhất
 
         // Sau đó sắp xếp theo giá hoặc thời gian tạo
         switch ($this->sortBy) {

@@ -140,7 +140,7 @@
                                     <th class="min-w-100px">Vị trí</th>
                                     <th class="min-w-100px">Giá</th>
                                     <th class="min-w-100px">Số ngày</th>
-                                    <th class="min-w-100px">Trạng thái</th>
+                                    <th class="min-w-100px">Thể loại</th>
                                     <th class="text-end min-w-px">Hành động</th>
                                 </tr>
                             </thead>
@@ -163,7 +163,7 @@
                                         <!-- Use location name -->
                                         <td>{{ number_format($priceList->price, 0, ',', '.') }} ₫</td>
                                         <td>{{ $priceList->duration_day }}</td>
-                                        <td>{{ $priceList->status ? 'Kích hoạt' : 'Không kích hoạt' }}</td>
+                                        <td>{{ $priceList->status ? 'Gói nâng cấp tài khoản' : 'Gói tin vip' }}</td>
                                         <td class="text-end">
                                             <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
                                                 data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Hành

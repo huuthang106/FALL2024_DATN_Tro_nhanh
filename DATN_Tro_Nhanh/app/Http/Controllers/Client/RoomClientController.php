@@ -10,6 +10,7 @@ use App\Services\RoomClientServices;
 use App\Models\Favourite;
 use Illuminate\Support\Facades\Log;
 use App\Services\CommentClientService;
+use Illuminate\Support\Facades\Cookie;
 
 class RoomClientController extends Controller
 {
@@ -71,6 +72,9 @@ class RoomClientController extends Controller
 
         $utilities = $roomDetails['room']->utility;
         $province = $roomDetails['room']->province;
+
+        // Tăng lượt xem cho phòng
+        $this->roomClientService->incrementViewCount($roomDetails['room']->id);
         // Trong controller
         $similarRooms = $this->roomClientService->getRoomClient($province, $roomDetails['room']->id);
 

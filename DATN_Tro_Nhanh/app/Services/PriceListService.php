@@ -7,6 +7,8 @@ use App\Models\Location;
 
 class PriceListService
 {
+
+    public const Nangcaptaikhoan = 1;
     public function getLocations()
     {
         return Location::all();
@@ -18,7 +20,9 @@ class PriceListService
 
     public function getAllPriceLists($perPage = 10)
     {
-        return PriceList::orderBy('created_at', 'desc')->paginate($perPage);
+        return PriceList::where('status', self::Nangcaptaikhoan) // Thêm điều kiện where
+                 ->orderBy('created_at', 'desc') // Sắp xếp theo 'created_at'
+                 ->paginate($perPage); // Phân trang với số lượng bản ghi trên mỗi trang là $perPage
     }
 
 
