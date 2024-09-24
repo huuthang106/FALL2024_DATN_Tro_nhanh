@@ -52,7 +52,7 @@ class CommentClientService
     {
         try {
             $userId = Auth::id(); // Lấy ID của người dùng hiện tại
-            
+
             if ($userId) {
                 // Đếm tổng số đánh giá của người dùng hiện tại
                 return Comment::where('user_id', $userId)->count();
@@ -66,6 +66,36 @@ class CommentClientService
             return 0;
         }
     }
+    // public function submitBlogs($data)
+    // {
+    //     $blog = Blog::where('slug', $data['blog_slug'])->first();
+
+    //     if (!$blog) {
+    //         return null;
+    //     }
+
+    //     $comment = new Comment();
+    //     $comment->content = $data['content'];
+    //     $comment->user_id = Auth::id();
+
+    //     if (!$comment->user_id) {
+    //         return null;
+    //     }
+
+    //     $comment->blog_id = $blog->id;
+    //     $comment->save();
+
+    //     return $comment;
+    // }
+    public function checkExistingBlogComment($userId, $blogSlug)
+    {
+        $blog = Blog::where('slug', $blogSlug)->first();
+        if (!$blog) {
+            return false;
+        }
+        return Comment::where('user_id', $userId)->where('blog_id', $blog->id)->exists();
+    }
+
     public function submitBlogs($data)
     {
         $blog = Blog::where('slug', $data['blog_slug'])->first();
@@ -77,11 +107,6 @@ class CommentClientService
         $comment = new Comment();
         $comment->content = $data['content'];
         $comment->user_id = Auth::id();
-
-        if (!$comment->user_id) {
-            return null;
-        }
-
         $comment->blog_id = $blog->id;
         $comment->save();
 
@@ -90,23 +115,23 @@ class CommentClientService
     public function submitUsers($data)
     {
         $user = User::where('slug', $data['user_slug'])->first();
-    
+
         if (!$user) {
             return null;
         }
-    
+
         $comment = new Comment();
         $comment->rating = $data['rating'];
         $comment->content = $data['content'];
         $comment->user_id = Auth::id(); // Sửa lại để lấy user_id của người đang đăng nhập
-    
+
         if (!$comment->user_id) {
             return null;
         }
-    
+
         $comment->commented_user_id = $user->id; // Thêm trường này để lưu user_id của người được đánh giá
         $comment->save();
-    
+
         return $comment;
     }
     public function getBlogWithComments($slug)
@@ -175,10 +200,10 @@ class CommentClientService
     public function getUserDetailsWithRatings($slug)
     {
         $user = User::where('slug', $slug)->firstOrFail();
-    
+
         $totalReviews = Comment::where('commented_user_id', $user->id)->count();
         $averageRating = $totalReviews > 0 ? Comment::where('commented_user_id', $user->id)->avg('rating') : 0;
-    
+
         $ratingsDistribution = [];
         if ($totalReviews > 0) {
             for ($i = 5; $i >= 1; $i--) {
@@ -187,9 +212,9 @@ class CommentClientService
         } else {
             $ratingsDistribution = array_fill(1, 5, 0);
         }
-    
+
         $comments = Comment::where('commented_user_id', $user->id)->orderBy('created_at', 'desc')->get();
-    
+
         return [
             'user' => $user,
             'averageRating' => $averageRating,
