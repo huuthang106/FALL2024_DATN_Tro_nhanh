@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
     use HasFactory;
-    protected $fillable = ['sender_id', 'message','contact_id', 'is_read',];
+    protected $casts = [
+        'deleted_by' => 'array',
+    ];
+    protected $fillable = ['sender_id', 'message', 'contact_id', 'is_read',];
     public function contact()
     {
         return $this->belongsTo(Contact::class);

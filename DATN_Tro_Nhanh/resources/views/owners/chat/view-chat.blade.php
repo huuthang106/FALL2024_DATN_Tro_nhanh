@@ -117,4 +117,33 @@
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
 
     <script src="{{ asset('assets/js/scroll-chat-nht.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.on('confirmDelete', contactId => {
+                Swal.fire({
+                    title: 'Xác nhận xóa',
+                    text: "Bạn có chắc chắn muốn xóa đoạn chat này?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Đồng ý',
+                    cancelButtonText: 'Hủy bỏ'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Livewire.dispatch('deleteChatPermanently', contactId);
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('livewire:load', function() {
+            Livewire.on('contactsUpdated', function() {
+                // Làm mới danh sách liên hệ
+                Livewire.emit('refreshContacts');
+            });
+        });
+    </script>
 @endpush

@@ -4,11 +4,6 @@
             <!-- Contact List -->
             <div class="col-lg-5 col-xl-4 mb-4 mb-lg-0">
                 <div class="card">
-                    {{-- <div class="card-header">
-                        <form class="position-relative">
-                            <input type="text" class="form-control pl-4" placeholder="Tìm kiếm...">
-                        </form>
-                    </div> --}}
                     <div class="card-header">
                         <form class="position-relative">
                             <!-- Ô tìm kiếm liên kết với thuộc tính searchTerm trong Livewire -->
@@ -16,7 +11,12 @@
                                 wire:model.lazy="searchTerm" wire:keydown.debounce.300ms="$refresh">
                         </form>
                     </div>
-                    <div class="card-body p-0" wire:poll="pollContacts"style="height: 400px; overflow-y: auto;">
+                    @if (session()->has('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+                    <div class="card-body p-0" wire:poll="pollContacts" style="height: 400px; overflow-y: auto;">
                         <!-- ... existing code ... -->
                         <div class="list-group list-group-flush">
                             @if ($contacts->isEmpty())
@@ -26,25 +26,26 @@
                                 </div>
                             @else
                                 @foreach ($contacts as $contact)
-                                    <div wire:click="selectContact({{ $contact['id'] }})"
+                                    <div wire:click="selectContact({{ $contact['id'] }})" wire:poll.5s="getContacts"
                                         class="contact-item mt-2  {{ $selectedContactId == $contact['id'] ? 'active-contact' : '' }}">
                                         <div wire:key="item-{{ $contact['id'] }}" class="m-2 ">
                                             <div class="d-flex w-100 justify-content-between align-items-center mt-2">
                                                 <div class="col-lg-9 d-flex align-items-center p-0">
                                                     <small>
-                                                        @if ($contact['image'])
-                                                            <div class="symbol symbol-45px symbol-circle mr-2">
-                                                                <img src="{{ asset('assets/images/' . $contact['image']) }}"
-                                                                    class="rounded-circle "
-                                                                    style="width: 40px; height: 30px;" alt="Avatar">
+                                                        <div class="symbol symbol-45px symbol-circle mr-2">
+                                                            <div class="avatar-container"
+                                                                style="width: 45px; height: 45px; overflow: hidden; border-radius: 50%;">
+                                                                @if ($contact['image'])
+                                                                    <img src="{{ asset('assets/images/' . $contact['image']) }}"
+                                                                        alt="Avatar"
+                                                                        style="width: 100%; height: 100%; object-fit: cover;">
+                                                                @else
+                                                                    <img src="{{ asset('assets/images/agent-4-lg.jpg') }}"
+                                                                        alt="Avatar"
+                                                                        style="width: 100%; height: 100%; object-fit: cover;">
+                                                                @endif
                                                             </div>
-                                                        @else
-                                                            <div class="symbol symbol-45px symbol-circle mr-2">
-                                                                <img src="{{ asset('assets/images/agent-4-lg.jpg') }}"
-                                                                    class="rounded-circle"
-                                                                    style="width: 40px; height: 30px;" alt="Avatar">
-                                                            </div>
-                                                        @endif
+                                                        </div>
                                                     </small>
                                                     <div>
                                                         <small> <span
@@ -65,10 +66,22 @@
                                                     @endif
                                                 </div>
                                                 <div class="d-flex flex-column align-items-end">
-                                                    
                                                     <small class="text-muted d-block">
-                                                        {{ $contact['last_message_time'] ? $this->getRelativeTime($contact['last_message_time']) : 'Chưa có tin nhắn' }}
+                                                        {{ $contact['last_message_time'] ? $this->getRelativeTime($contact['last_message_time']) : 'Chưa có tin' }}
                                                     </small>
+                                                    <!-- Xóa trực tiếp -->
+                                                    {{-- <button
+                                                        wire:click.stop="deleteChatPermanently({{ $contact['id'] }})"
+                                                        class="btn btn-sm btn-icon btn-light-danger"
+                                                        title="Xóa đoạn chat">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button> --}}
+                                                    <!-- Xác nhận mới xóa -->
+                                                    <button wire:click.stop="confirmDelete({{ $contact['id'] }})"
+                                                        class="btn btn-sm btn-icon btn-light-danger"
+                                                        title="Xóa đoạn chat">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -112,16 +125,16 @@
                                                         class="text-muted d-block">{{ $message['relative_time'] }}</small>
                                                     <a href="#" class=" text-dark">Bạn</a>
                                                 </div>
-                                                <div class="rounded-circle overflow-hidden"
-                                                    style="width: 35px; height: 35px;">
+                                                <div class="avatar-container rounded-circle overflow-hidden"
+                                                    style="width: 35px; height: 35px; flex-shrink: 0;">
                                                     @if (auth()->user()->image)
                                                         <img src="{{ asset('assets/images/' . auth()->user()->image) }}"
-                                                            class="rounded-circle mb-2"
-                                                            style="width: 40px; height: 40px;" alt="Avatar">
+                                                            alt="Avatar"
+                                                            style="width: 100%; height: 100%; object-fit: cover;">
                                                     @else
                                                         <img src="{{ asset('assets/images/agent-4-lg.jpg') }}"
-                                                            class="rounded-circle mb-2"
-                                                            style="width: 40px; height: 40px;" alt="Avatar">
+                                                            alt="Avatar"
+                                                            style="width: 100%; height: 100%; object-fit: cover;">
                                                     @endif
                                                 </div>
                                             </div>
