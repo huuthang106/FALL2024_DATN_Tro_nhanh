@@ -311,6 +311,11 @@ class ZoneServices
         }
     }
 
+
+    
+    
+    
+    
     public function softDeleteZones($id)
     {
         // Tìm zone theo ID
@@ -354,8 +359,16 @@ class ZoneServices
 
     public function getTrashedZones()
     {
-        return Zone::onlyTrashed()->get();
+        $userId = Auth::id(); // Lấy ID của người dùng đang đăng nhập
+    
+        return Zone::onlyTrashed()
+            ->where('user_id', $userId) // Lọc theo user_id
+            ->orderBy('created_at', 'desc') // Sắp xếp từ mới nhất đến cũ nhất
+            ->get();
     }
+    
+    
+    
 
     public function restoreZones($id)
     {
@@ -433,5 +446,13 @@ class ZoneServices
         }
 
         return $query->paginate($perPage);
+    }
+     public function deleteZone($id)
+    {
+        // Tìm zone theo id hoặc trả về lỗi nếu không tìm thấy
+        $zone = Zone::findOrFail($id);
+
+        // Xóa zone
+        $zone->delete();
     }
 }

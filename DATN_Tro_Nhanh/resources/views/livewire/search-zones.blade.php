@@ -523,7 +523,7 @@
                                     <th class="min-w-100px">Địa chỉ</th>
                                     <th class="min-w-100px">Tổng số phòng</th>
                                     <th class="min-w-100px">Trạng thái</th>
-                                    <th class="text-end min-w-px">Hành động</th>
+                                
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
@@ -551,7 +551,7 @@
                                             <!--end::Zone details-->
                                             <!--begin::Actions-->
                                             <td class="text-end">
-                                                <a href="#"
+                                                {{-- <a href="#"
                                                     class="btn btn-light btn-active-light-primary btn-sm"
                                                     data-kt-menu-trigger="click"
                                                     data-kt-menu-placement="bottom-end">Hành
@@ -565,7 +565,7 @@
                                                                 fill="black" />
                                                         </svg>
                                                     </span>
-                                                    <!--end::Svg Icon--></a>
+                                                    <!--end::Svg Icon--></a> --}}
                                                 <!--begin::Menu-->
                                                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
                                                     data-kt-menu="true">

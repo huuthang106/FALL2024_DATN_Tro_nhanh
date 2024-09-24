@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Bill;
 use App\Events\ZoneCreated; // Import event
 use App\Http\Requests\BillRequest;
+use Illuminate\Support\Facades\Log;
 
 class ZoneOwnersController extends Controller
 {
@@ -127,6 +128,16 @@ class ZoneOwnersController extends Controller
 
         return redirect()->route('owners.trash-zone')->with('success', $result['message']);
     }
+    public function destroyy($id)
+    {
+        $result = $this->zoneServices->softDeleteZoness($id);
+
+        if ($result['status'] === 'error') {
+            return redirect()->back()->with('error', $result['message']);
+        }
+
+        return redirect()->route('owners.trash-zone')->with('success', $result['message']);
+    }
 
 
     public function trash()
@@ -154,4 +165,9 @@ class ZoneOwnersController extends Controller
         // Nếu xóa vĩnh viễn thành công, chuyển hướng đến trang danh sách khu trọ đã xóa với thông báo thành công
         return redirect()->route('owners.trash-zone')->with('success', 'Khu trọ đã được xóa vĩnh viễn.');
     }
+  
+    
+
+    
+    
 }

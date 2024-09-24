@@ -18,9 +18,15 @@ class ZoneAdminController extends Controller
 
     public function showDetailAdmin($slug)
     {
-        $zones = $this->zoneServices->showDetail($slug);
+        // You can set the status value here (e.g., 2, if that's what you need)
+        $status = 2; // Assuming '2' is the intended status for filtering residents
+    
+        // Pass both slug and status to the showDetail method
+        $zones = $this->zoneServices->showDetail($slug, $status);
+        
         return view('admincp.show.list-detail-zone', compact('zones'));
     }
+    
 
     public function addZoneForm()
     {
