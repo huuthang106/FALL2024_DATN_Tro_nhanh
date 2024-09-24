@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Client\RoomClientController;
+use App\Services\RoomClientServices;
 
 Route::group(['prefix' => 'danh-sach-phong-tro'], function () {
     Route::get('/', [RoomClientController::class, 'indexRoom'])->name('room-listing');
@@ -23,3 +24,7 @@ Route::group(['prefix' => ''], function () {
 use App\Http\Controllers\Client\HomeClientController;
 
 Route::get('/', [HomeClientController::class, 'index'])->name('home');
+Route::get('/locations', function () {
+    $locations = app(RoomClientServices::class)->getUniqueLocations();
+    return response()->json($locations);
+});

@@ -28,53 +28,44 @@ class ZoneClientController extends Controller
         $province = $request->input('province');
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
-
+    
         if ($latitude && $longitude) {
             $zones = $this->zoneServices->searchZonesWithinRadius($latitude, $longitude, 30);
-
-
-            Log::info('1');
         } elseif ($keyword || $province) {
             $zones = $this->zoneServices->searchZones($keyword, $province);
-            Log::info('2');
         } else {
-            // Lấy vị trí hiện tại của người dùng từ session
             $userLat = session('userLat');
             $userLng = session('userLng');
     
             if ($userLat && $userLng) {
-                // Nếu có vị trí trong session, tìm kiếm khu trọ trong bán kính 30 km
                 $zones = $this->zoneServices->searchZonesWithinRadius($userLat, $userLng, 30);
-                Log::info('3 - Lấy dữ liệu từ session: ' . $userLat . ', ' . $userLng);
             } else {
-                // Nếu không có vị trí người dùng trong session, lấy danh sách khu trọ Client
                 $zones = $this->zoneServices->getMyZoneClient();
-                Log::info('hi - Không có vị trí người dùng');
-                // Lấy kinh độ và vĩ độ từ session
-                $userLat = session('userLat', null); // Lấy từ session, nếu không có thì null
-                $userLng = session('userLng', null); // Lấy từ session, nếu không có thì null
             }
         }
-
-        $totalZones = $this->zoneServices->getTotalZones(); // Tổng khu trọ CLient
-
+    
+        $totalZones = $this->zoneServices->getTotalZones();
+        $provinces = $this->zoneServices->getProvinces()->pluck('province')->toArray(); // Chuyển đổi Collection thành mảng
+    
         if ($request->ajax()) {
             return response()->json([
                 'zones' => $zones->items(),
                 'totalZones' => $totalZones,
-                'pagination' => (string) $zones->links() // Thêm phần này để trả về pagination links
+                'pagination' => (string) $zones->links()
             ]);
         }
+    
         return view('client.show.listing-half-map-list-layout-1', [
             'zones' => $zones,
             'totalZones' => $totalZones,
-            'keyword' => $keyword, // Truyền keyword vào view
-            'province' => $province, // Truyền province vào view
-            'latitude' => $latitude, // Truyền latitude vào view
-            'longitude' => $longitude, // Truyền longitude vào view
-            'userLat' => $request->input('user_lat'), // Truyền user_lat vào view
+            'keyword' => $keyword,
+            'province' => $province,
+            'latitude' => $latitude,
+            'longitude' => $longitude,
+            'userLat' => $request->input('user_lat'),
             'userLng' => $request->input('user_lng'),
-            'showLocationAlert' => true // Truyền showLocationAlert vào view
+            'showLocationAlert' => true,
+            'provinces' => $provinces // Truyền danh sách các mã tỉnh vào view
         ]);
     }
     public function showZoneDetailsBySlug($slug)

@@ -24,9 +24,7 @@
                     {{-- <a class="fs-sm-18 text-dark opacity-2" href="listing-with-left-filter.html">
                         <i class="fas fa-list"></i>
                     </a> --}}
-                    <a class="fs-sm-18 text-dark ml-5" href="#">
-                        <i class="fa fa-th-large"></i>
-                    </a>
+                    
                 </div>
             </div>
         </div>

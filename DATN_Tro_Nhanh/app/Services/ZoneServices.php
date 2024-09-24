@@ -408,7 +408,10 @@ class ZoneServices
             ->get();
     }
     
-    
+    public function getProvinces()
+{
+    return Zone::select('province')->distinct()->get();
+}
     
 
     public function restoreZones($id)

@@ -68,23 +68,34 @@
                             <hr class="mb-4">
                             <div class="row align-items-center">
                                 <div class="col-sm-6 mb-6 mb-sm-0">
-                                    <ul class="list-inline mb-0">
-                                        <li class="list-inline-item fs-13 text-heading font-weight-500">
-                                            {{ $user->rating ?? 'Chưa có đánh giá' }}</li>
-                                        <li class="list-inline-item fs-13 text-heading font-weight-500 mr-1">
-                                            <ul class="list-inline mb-0">
-                                                @for ($i = 0; $i < 5; $i++)
-                                                    <li class="list-inline-item mr-0">
-                                                        <span class="text-warning fs-12 lh-2">
-                                                            <i class="fas fa-star"></i>
-                                                        </span>
-                                                    </li>
-                                                @endfor
-                                            </ul>
-                                        </li>
-                                        <li class="list-inline-item fs-13 text-gray-light">({{ $user->reviews_count ?? 0 }}
-                                            đánh giá)</li>
-                                    </ul>
+                                    @php
+                                    $averageRating = $user->receivedComments()->avg('rating') ?? 0;
+                                    $reviewsCount = $user->receivedComments()->count();
+                                @endphp
+                                
+                                <ul class="list-inline mb-0">
+                                    <li class="list-inline-item fs-13 text-heading font-weight-500">
+                                        {{ $averageRating > 0 ? number_format($averageRating, 1) : 'Chưa có đánh giá' }}
+                                    </li>
+                                    <li class="list-inline-item fs-13 text-heading font-weight-500 mr-1">
+                                        <ul class="list-inline mb-0">
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                <li class="list-inline-item mr-0">
+                                                    <span class="fs-12 lh-2">
+                                                        @if ($i <= floor($averageRating))
+                                                            <i class="fas fa-star text-warning"></i>
+                                                        @elseif ($i - 0.5 <= $averageRating)
+                                                            <i class="fas fa-star-half-alt text-warning"></i>
+                                                        @else
+                                                            <i class="far fa-star text-warning"></i>
+                                                        @endif
+                                                    </span>
+                                                </li>
+                                            @endfor
+                                        </ul>
+                                    </li>
+                                    <li class="list-inline-item fs-13 text-gray-light">({{ $reviewsCount }} đánh giá)</li>
+                                </ul>
                                 </div>
                                 <div class="col-sm-6">
                                     <ul class="list-inline text-gray-lighter m-0 p-0">
@@ -279,41 +290,47 @@
                             <div class="card border-0">
                                 <div class="card-body p-0">
                                     <h3 class="fs-16 lh-2 text-heading mb-4">Viết Đánh Giá</h3>
-                                    <form id="commentForm" action="{{ route('client.danh-gia-nguoi-dung') }}"
-                                        method="POST">
-                                        @csrf
-                                        <div class="form-group mb-4 d-flex justify-content-start">
-                                            <div class="rate-input">
-                                                <input type="radio" id="star5" name="rating" value="5">
-                                                <label for="star5" title="text" class="mb-0 mr-1 lh-1">
-                                                    <i class="fas fa-star"></i>
-                                                </label>
-                                                <input type="radio" id="star4" name="rating" value="4">
-                                                <label for="star4" title="text" class="mb-0 mr-1 lh-1">
-                                                    <i class="fas fa-star"></i>
-                                                </label>
-                                                <input type="radio" id="star3" name="rating" value="3">
-                                                <label for="star3" title="text" class="mb-0 mr-1 lh-1">
-                                                    <i class="fas fa-star"></i>
-                                                </label>
-                                                <input type="radio" id="star2" name="rating" value="2">
-                                                <label for="star2" title="text" class="mb-0 mr-1 lh-1">
-                                                    <i class="fas fa-star"></i>
-                                                </label>
-                                                <input type="radio" id="star1" name="rating" value="1">
-                                                <label for="star1" title="text" class="mb-0 mr-1 lh-1">
-                                                    <i class="fas fa-star"></i>
-                                                </label>
+                                    @if (Auth::check() && Auth::id() != $user->id)
+                                        <form id="commentForm" action="{{ route('client.danh-gia-nguoi-dung') }}"
+                                            method="POST">
+                                            @csrf
+                                            <div class="form-group mb-4 d-flex justify-content-start">
+                                                <div class="rate-input">
+                                                    <input type="radio" id="star5" name="rating" value="5">
+                                                    <label for="star5" title="text" class="mb-0 mr-1 lh-1">
+                                                        <i class="fas fa-star"></i>
+                                                    </label>
+                                                    <input type="radio" id="star4" name="rating" value="4">
+                                                    <label for="star4" title="text" class="mb-0 mr-1 lh-1">
+                                                        <i class="fas fa-star"></i>
+                                                    </label>
+                                                    <input type="radio" id="star3" name="rating" value="3">
+                                                    <label for="star3" title="text" class="mb-0 mr-1 lh-1">
+                                                        <i class="fas fa-star"></i>
+                                                    </label>
+                                                    <input type="radio" id="star2" name="rating" value="2">
+                                                    <label for="star2" title="text" class="mb-0 mr-1 lh-1">
+                                                        <i class="fas fa-star"></i>
+                                                    </label>
+                                                    <input type="radio" id="star1" name="rating" value="1">
+                                                    <label for="star1" title="text" class="mb-0 mr-1 lh-1">
+                                                        <i class="fas fa-star"></i>
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group mb-6">
-                                            <textarea class="form-control form-control-lg border-0" placeholder="Đánh giá của bạn" name="content"
-                                                rows="5"></textarea>
-                                        </div>
-                                        <input type="hidden" name="user_slug" value="{{ $user->slug }}">
+                                            <div class="form-group mb-6">
+                                                <textarea class="form-control form-control-lg border-0" placeholder="Đánh giá của bạn" name="content"
+                                                    rows="5"></textarea>
+                                            </div>
+                                            <input type="hidden" name="user_slug" value="{{ $user->slug }}">
 
-                                        <button type="submit" class="btn btn-lg btn-primary px-10">Gửi</button>
-                                    </form>
+                                            <button type="submit" class="btn btn-lg btn-primary px-10">Gửi</button>
+                                        </form>
+                                    @elseif(!Auth::check())
+                                        <p>Vui lòng <a href="{{ route('login') }}">đăng nhập</a> để viết đánh giá.</p>
+                                    @else
+                                        <p>Bạn không thể đánh giá chính mình.</p>
+                                    @endif
                                 </div>
                             </div>
                         </section>
@@ -326,7 +343,8 @@
                                 <div class="card-body px-6 py-6">
                                     <div class="media mb-4">
                                         <div class="mr-4 ntt w-60px">
-                                            <img src="{{ $user->image ? asset('assets/images/' . $user->image) : asset('assets/images/agent-25.jpg') }}" class="rounded-circle w-60px h-60" alt="Blanche Gordon">
+                                            <img src="{{ $user->image ? asset('assets/images/' . $user->image) : asset('assets/images/agent-25.jpg') }}"
+                                                class="rounded-circle w-60px h-60" alt="Blanche Gordon">
                                         </div>
 
                                         <div class="media-body">
@@ -460,9 +478,10 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    
+
     <link rel="stylesheet" href="{{ asset('assets/css/css-nht.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style-ntt.css') }}">
+    <style></style>
 @endpush
 @push('scriptUs')
     {{-- <script>

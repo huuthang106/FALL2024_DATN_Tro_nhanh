@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Room;
 use App\Models\Favourite;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
 class RoomClientServices
@@ -203,6 +204,32 @@ class RoomClientServices
         ->get();
 }
 
-    
+public function getUniqueLocations()
+{
+    try {
+        $provinces = Room::distinct()->whereNotNull('province')->pluck('province', 'province')->toArray();
+        $districts = Room::distinct()->whereNotNull('district')->select('province', 'district')->get()
+            ->groupBy('province')
+            ->map(function ($items) {
+                return $items->pluck('district')->toArray();
+            })
+            ->toArray();
+        $villages = Room::distinct()->whereNotNull('village')->select('district', 'village')->get()
+            ->groupBy('district')
+            ->map(function ($items) {
+                return $items->pluck('village')->toArray();
+            })
+            ->toArray();
+
+        return [
+            'provinces' => $provinces,
+            'districts' => $districts,
+            'villages' => $villages
+        ];
+    } catch (\Exception $e) {
+        Log::error('Không thể lấy danh sách địa điểm: ' . $e->getMessage());
+        return null;
+    }
+}
     
 }

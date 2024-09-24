@@ -28,7 +28,7 @@ class RoomClientController extends Controller
         $province = $request->input('province');
         $district = $request->input('district');
         $village = $request->input('village');
-
+    
         $rooms = $this->roomClientService->getAllRoom(
             (int) $perPage,
             $searchTerm,
@@ -36,15 +36,20 @@ class RoomClientController extends Controller
             $district,
             $village
         );
-
+    
+        $locations = $this->roomClientService->getUniqueLocations();
+    
         return view('client.show.listing-grid-with-left-filter', [
             'rooms' => $rooms,
             'searchTerm' => $searchTerm,
             'province' => $province,
             'district' => $district,
-            'village' => $village
+            'village' => $village,
+            'provinces' => $locations['provinces'],
+            'districts' => $locations['districts'],
+            'villages' => $locations['villages']
         ]);
-    }
+    } 
 
     //Hiển thị giao diện Danh sách phòng trọ có Map
     public function indexRoomMap()
