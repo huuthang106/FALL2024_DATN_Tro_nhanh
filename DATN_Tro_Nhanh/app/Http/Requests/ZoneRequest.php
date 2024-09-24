@@ -23,7 +23,7 @@ class ZoneRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'description'=>'required|string',
+            'description' => 'required|string',
             'status' => 'required|numeric',
             'total_rooms' => 'required|integer',
             'address' => 'required|string|max:255',
@@ -32,8 +32,9 @@ class ZoneRequest extends FormRequest
             'village' => 'required|string',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
-            
 
+            'images' => 'required|array|min:1',
+            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
         ];
     }
     public function messages()
@@ -50,7 +51,14 @@ class ZoneRequest extends FormRequest
             'village.required' => 'Địa chỉ là bắt buộc',
             'latitude.required' => 'Địa chỉ là bắt buộc',
             'longitude.required' => 'Địa chỉ là bắt buộc',
-            // Thêm các thông báo lỗi tùy chỉnh khác nếu cần
+
+            'images.required' => 'Vui lòng tải lên ít nhất một hình ảnh.',
+            'images.array' => 'Hình ảnh phải là một mảng.',
+
+            'images.min' => 'Bạn phải tải lên ít nhất một hình ảnh.',
+            'images.*.image' => 'Tệp tải lên phải là hình ảnh.',
+            'images.*.mimes' => 'Hình ảnh phải có định dạng jpeg, png, hoặc jpg.',
+            'images.*.max' => 'Kích thước hình ảnh không được vượt quá 2MB.',
         ];
     }
 }

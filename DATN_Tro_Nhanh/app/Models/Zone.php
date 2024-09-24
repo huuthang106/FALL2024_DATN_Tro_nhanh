@@ -50,4 +50,8 @@ class Zone extends Model
     {
         return $this->hasMany(Resident::class);
     }
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
 }

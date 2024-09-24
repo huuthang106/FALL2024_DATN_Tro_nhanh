@@ -11,6 +11,7 @@ use App\Models\Bill;
 use App\Events\ZoneCreated; // Import event
 use App\Http\Requests\BillRequest;
 use Illuminate\Support\Facades\Log;
+use App\Models\Image;
 
 class ZoneOwnersController extends Controller
 {
@@ -110,7 +111,7 @@ class ZoneOwnersController extends Controller
                 // Phát sự kiện ZoneCreated và truyền đối tượng Zone mới tạo
 
 
-                return redirect()->route('owners.zone-list')->with('success', 'Khu trọ đã được tạo thành công.');
+                return redirect()->route('owners.zone-list')->with('success', 'Khu trọ đã được cập nhật thành công.');
             }
         }
 
@@ -165,9 +166,19 @@ class ZoneOwnersController extends Controller
         // Nếu xóa vĩnh viễn thành công, chuyển hướng đến trang danh sách khu trọ đã xóa với thông báo thành công
         return redirect()->route('owners.trash-zone')->with('success', 'Khu trọ đã được xóa vĩnh viễn.');
     }
-  
-    
+    public function deleteImage($id)
+    {
+        $image = Image::findOrFail($id);
 
-    
-    
+        // Xóa file ảnh từ thư mục public
+        $imagePath = public_path('assets/images/' . $image->filename);
+        if (file_exists($imagePath)) {
+            unlink($imagePath);
+        }
+
+        // Xóa bản ghi từ database
+        $image->delete();
+
+        return response()->json(['success' => true]);
+    }
 }

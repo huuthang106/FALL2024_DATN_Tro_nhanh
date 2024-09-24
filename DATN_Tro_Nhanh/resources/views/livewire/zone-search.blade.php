@@ -38,79 +38,105 @@
         <span class="sr-only">Đang tải...</span>
     </div> --}}
 
-    <div class="table-responsive">
-        <table id="myTable" class="table table-hover bg-white border rounded-lg">
-            <thead>
-                <tr role="row">
-                    <th class="no-sort py-6 pl-6">
-                        <label class="new-control new-checkbox checkbox-primary m-auto">
-                            <input type="checkbox" class="new-control-input chk-parent select-customers-info">
-                        </label>
-                    </th>
-                    <th class="py-6">Tiêu đề</th>
-                    <th class="py-6 d-none d-md-table-cell">Mô tả</th> <!-- Ẩn trên mobile -->
-                    <th class="py-6 d-none d-md-table-cell">Địa chỉ</th> <!-- Ẩn trên mobile -->
-                    <th class="py-6">Ngày</th>
-                    <th class="py-6 d-none d-md-table-cell">Lượng phòng</th> <!-- Ẩn trên mobile -->
-                    <th class="py-6">Trạng thái</th>
-                    <th class="no-sort py-6">Thao tác</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if ($zones->isNotEmpty())
-                    @foreach ($zones as $zone)
-                        <tr role="row" wire:key="zone-{{ $zone->id }}">
-                            <td class="checkbox-column py-6 pl-6">
-                                <label class="new-control new-checkbox checkbox-primary m-auto">
-                                    <input type="checkbox" class="new-control-input child-chk select-customers-info">
-                                </label>
-                            </td>
-                            <td class="align-middle">
-                                <a href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}">
-                                    <span class="inv-number">{{ $zone->name }}</span>
-                                </a>
-                            </td>
-                            <td class="align-middle d-none d-md-table-cell">
-                                <div class="d-flex align-items-center">
-                                    <small class="align-self-center mb-0 user-name">{{ $zone->description }}</small>
+    <table id="myTable" class="table table-hover bg-white border rounded-lg">
+        <thead>
+            <tr role="row">
+                <th class="no-sort py-6 pl-6"><label class="new-control new-checkbox checkbox-primary m-auto">
+                        <input type="checkbox" class="new-control-input chk-parent select-customers-info">
+                    </label></th>
+                <th class="py-6">Tiêu đề</th>
+                <th class="py-6">Mô tả</th>
+                <th class="py-6">Địa chỉ</th>
+                <th class="py-6">Ngày</th>
+                <th class="py-6">Lượng phòng</th>
+                <th class="py-6">Trạng thái</th>
+                <th class="no-sort py-6">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if ($zones->isNotEmpty())
+                @foreach ($zones as $zone)
+                    <tr role="row" wire:key="zone-{{ $zone->id }}">
+                        <td class="checkbox-column py-6 pl-6"><label
+                                class="new-control new-checkbox checkbox-primary m-auto">
+                                <input type="checkbox" class="new-control-input child-chk select-customers-info">
+                            </label></td>
+                        {{-- <td class="align-middle"><a
+                                href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}"><span
+                                    class="inv-number">{{ $zone->name }}</span></a>
+                        </td> --}}
+                        {{-- <td class="align-middle pt-6 pb-4 px-6">
+                            <div class="media">
+                                <div class="w-120px mr-4 position-relative">
+                                    <a href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}">
+                                        <img src="{{ $this->getZoneImageUrl($zone) }}" alt="{{ $zone->name }}"
+                                            class="img-fluid">
+                                    </a>
                                 </div>
-                            </td>
-                            <td class="align-middle d-none d-md-table-cell">
-                                <span class="text-primary pr-1"></span><small>{{ $zone->address }}</small>
-                            </td>
-                            <td class="align-middle">
-                                <span class="text-success pr-1"><i class="fal fa-calendar"></i></span>{{ $zone->updated_at }}
-                            </td>
-                            <td class="align-middle d-none d-md-table-cell">
-                                <span class="inv-amount">{{ $zone->room_count }}</span>
-                            </td>
-                            <td class="align-middle">
-                                @if ($zone->status == 1)
-                                    <span class="badge badge-green text-capitalize">Đang hoạt động</span>
+                                <div class="media-body">
+                                    <a href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}">
+                                        <span
+                                            class="text-dark hover-primary mb-1 font-size-md">{{ $zone->name }}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </td> --}}
+                        <td class="align-middle pt-6 pb-4 px-6">
+                            <div class="media">
+                                <div class="mr-4 position-relative zone-image-container">
+                                    <a href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}">
+                                        <img src="{{ $this->getZoneImageUrl($zone) }}" alt="{{ $zone->name }}"
+                                            class="img-fluid zone-image">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <a href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}">
+                                        <span
+                                            class="text-dark hover-primary mb-1 font-size-md">{{ $zone->name }}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="align-middle">
+                            <div class="d-flex align-items-center">
+
+                                <small class="align-self-center mb-0 user-name">{{ $zone->description }}</small>
+                            </div>
+                        </td>
+                        <td class="align-middle"><span
+                                class="text-primary pr-1"></span><small>{{ $zone->address }}</small>
+                        </td>
+                        <td class="align-middle"><span class="text-success pr-1"><i
+                                    class="fal fa-calendar"></i></span>{{ $zone->updated_at }}</td>
+                        <td class="align-middle">
+                            <span class="inv-amount">
+                                @if ($zone->room_count < 0)
+                                    {{ -$zone->room_count }}
                                 @else
                                     <span class="badge badge-yellow text-capitalize">Chưa hoạt động</span>
                                 @endif
-                            </td>
-                            <td class="align-middle">
-                                <div class="d-inline-flex align-items-center">
-                                    <a href="{{ route('owners.zone-view-update', $zone->slug) }}" data-toggle="tooltip" title="Chỉnh sửa"
-                                        class="fs-18 text-muted hover-primary mr-3">
-                                        <i class="fal fa-pencil-alt"></i>
-                                    </a>
-                                    <form action="{{ route('owners.destroy-zone', $zone->id) }}" method="POST" class="m-0">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="fs-18 text-muted hover-primary border-0 bg-transparent p-0">
-                                            <i class="fal fa-trash-alt"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                @else
-                    <tr>
-                        <td colspan="8" class="text-center">Không tìm thấy kết quả nào.</td>
+                            </span>
+                        </td>
+
+                        <td class="align-middle">
+                            @if ($zone->status == 1)
+                                <span class="badge badge-green text-capitalize">Đang hoạt dộng</span>
+                            @else
+                                <span class="badge badge-yellow text-capitalize">Chưa hoạt động</span>
+                            @endif
+                        </td>
+                        <td class="align-middle">
+                            <a href="{{ route('owners.zone-view-update', $zone->slug) }}" data-toggle="tooltip"
+                                title="Chỉnh sửa" class="d-inline-block fs-18 text-muted hover-primary mr-5"><i
+                                    class="fal fa-pencil-alt"></i> </a>
+                            <form action="{{ route('owners.destroy-zone', $zone->id) }}" method="POST"
+                                class="d-inline-block">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="fs-18 text-muted hover-primary border-0 bg-transparent"><i
+                                        class="fal fa-trash-alt"></i></button>
+                            </form>
+                        </td>
                     </tr>
                 @endif
             </tbody>

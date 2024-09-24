@@ -57,9 +57,18 @@ class ZoneServices
                 // Lưu lại đối tượng với slug mới
                 if ($zone->save()) {
                     // Xử lý ảnh nếu có
+                    // if ($request->hasFile('images')) {
+                    //     foreach ($request->file('images') as $image) {
+                    //         $this->storeImage($zone, $image);
+                    //     }
+                    // }
                     if ($request->hasFile('images')) {
                         foreach ($request->file('images') as $image) {
-                            $this->storeImage($zone, $image);
+                            if ($image->isValid() && in_array($image->getClientOriginalExtension(), ['jpg', 'jpeg', 'png', 'gif'])) {
+                                if ($image->getSize() <= 5242880) { // 5MB
+                                    $this->storeImage($zone, $image);
+                                }
+                            }
                         }
                     }
                     $utilities = new Utility();
@@ -147,12 +156,27 @@ class ZoneServices
      * @param \Illuminate\Http\UploadedFile $image
      * @return void
      */
-    // protected function storeImage(Zone $zone, $image)
-    // {
-    //     $path = $image->store('zones', 'public');
-    //     // Giả sử bạn có mối quan hệ với bảng ảnh
-    //     $zone->images()->create(['path' => $path]);
-    // }
+    protected function storeImage(Zone $zone, $image)
+    {
+        // $path = $image->store('zones', 'public');
+        // // Giả sử bạn có mối quan hệ với bảng ảnh
+        // $zone->images()->create(['path' => $path]);
+        // Tạo tên file mới với timestamp
+        $timestamp = now()->format('YmdHis');
+        $originalName = $image->getClientOriginalName();
+        $extension = $image->getClientOriginalExtension();
+        $filename = $timestamp . '_' . pathinfo($originalName, PATHINFO_FILENAME) . '.' . $extension;
+
+        // Lưu ảnh vào thư mục public/assets/images với tên mới
+        $path = 'assets/images/' . $filename;
+        $image->move(public_path('assets/images'), $filename);
+
+        // Tạo bản ghi mới trong bảng images
+        $zone->images()->create([
+            'filename' => $filename,
+            'path' => $path
+        ]);
+    }
     public function getAllZones(int $perPage = 10, $searchTerm = null)
     {
         try {
@@ -287,6 +311,23 @@ class ZoneServices
             $zone->longitude = $request->input('longitude');
             $zone->status = $request->input('status');
             $zone->user_id = auth()->id(); // Cập nhật user_id từ thông tin đăng nhập
+
+            // Xử lý cập nhật hình ảnh
+            if ($request->hasFile('images')) {
+                // Xóa ảnh cũ
+                foreach ($zone->images as $oldImage) {
+                    $oldImagePath = public_path('assets/images/' . $oldImage->filename);
+                    if (file_exists($oldImagePath)) {
+                        unlink($oldImagePath);
+                    }
+                    $oldImage->delete();
+                }
+
+                // Thêm ảnh mới
+                foreach ($request->file('images') as $image) {
+                    $this->storeImage($zone, $image);
+                }
+            }
 
             // Lưu thông tin đã cập nhật vào cơ sở dữ liệu
             if ($zone->save()) {

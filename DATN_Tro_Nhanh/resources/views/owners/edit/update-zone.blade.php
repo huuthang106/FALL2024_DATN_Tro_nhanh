@@ -19,10 +19,15 @@
 
                     <li class="nav-item col">
                         <a class="nav-link bg-transparent shadow-none py-2 font-weight-500 text-center lh-214 d-block"
-                            id="location-tab" data-toggle="pill" data-number="2." href="#location" role="tab"
-                            aria-controls="location" aria-selected="false"><span class="number">2.</span>Vị trí</a>
+                            id="media-tab" data-toggle="pill" data-number="2. " href="#media" role="tab"
+                            aria-controls="media" aria-selected="false"><span class="number">2.</span> Hình ảnh</a>
                     </li>
 
+                    <li class="nav-item col">
+                        <a class="nav-link bg-transparent shadow-none py-2 font-weight-500 text-center lh-214 d-block"
+                            id="location-tab" data-toggle="pill" data-number="3." href="#location" role="tab"
+                            aria-controls="location" aria-selected="false"><span class="number">3.</span>Vị trí</a>
+                    </li>
                 </ul>
                 <div class="tab-content shadow-none p-0">
                     <form action="{{ route('owners.zone-start-update', $zone->id) }}" method="post"
@@ -118,7 +123,113 @@
                                 </div>
                             </div>
 
-                            <!-- Tab 2: Vị trí -->
+                            <!-- Tab 2: Hình ảnh -->
+                            <div class="tab-pane tab-pane-parent fade px-0" id="media" role="tabpanel"
+                                aria-labelledby="media-tab">
+                                <div class="card bg-transparent border-0">
+                                    <div class="card-header d-block d-md-none bg-transparent px-0 py-1 border-bottom-0"
+                                        id="heading-media">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-lg collapse-parent btn-block border shadow-none"
+                                                data-toggle="collapse" data-number="2." data-target="#media-collapse"
+                                                aria-expanded="true" aria-controls="media-collapse">
+                                                <span class="number">2.</span> Truyền thông
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="media-collapse" class="collapse collapsible" aria-labelledby="heading-media"
+                                        data-parent="#collapse-tabs-accordion">
+                                        <div class="card-body py-4 py-md-0 px-0">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="card mb-6">
+                                                        <div class="card-body p-6">
+                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">
+                                                                Tải lên hình ảnh bất động sản của bạn
+                                                            </h3>
+                                                            <hr>
+                                                            <div class="dropzone upload-file text-center py-5"
+                                                                id="myDropzone">
+                                                                <div class="dz-default dz-message">
+                                                                    <span class="upload-icon lh-1 d-inline-block mb-4">
+                                                                        <i class="fal fa-cloud-upload-alt"></i>
+                                                                    </span>
+                                                                    <p class="text-heading fs-22 lh-15 mb-4">
+                                                                        Kéo và thả hình ảnh hoặc
+                                                                    </p>
+                                                                    <button class="btn btn-indigo px-7 mb-2"
+                                                                        type="button"
+                                                                        onclick="document.getElementById('fileInput').click();">
+                                                                        Chọn thư mục
+                                                                    </button>
+                                                                    <input type="file" hidden id="fileInput" multiple
+                                                                        accept="image/jpeg, image/png" name="images[]"
+                                                                        onchange="previewImages();">
+                                                                </div>
+                                                                {{-- <div id="imagePreview" class="row mt-4">
+                                                                    @forelse ($zone->images as $image)
+                                                                        <div class="col-md-3 mb-3 image-preview"
+                                                                            data-id="{{ $image->id }}">
+                                                                            <div class="position-relative">
+                                                                                <img src="{{ asset('assets/images/' . $image->filename) }}"
+                                                                                    alt="Zone Image"
+                                                                                    class="img-fluid rounded"
+                                                                                    style="width: 100%; height: 200px; object-fit: cover;">
+                                                                            </div>
+                                                                        </div>
+                                                                    @empty
+                                                                        <div class="col-12">
+                                                                            <p class="text-center">Không có hình ảnh nào.
+                                                                            </p>
+                                                                        </div>
+                                                                    @endforelse
+                                                                </div> --}}
+                                                                <div id="imagePreview" class="text-center mt-4">
+                                                                    @if (is_array($zone->images) || is_object($zone->images))
+                                                                        @foreach ($zone->images as $image)
+                                                                            <div class="image-preview mx-auto"
+                                                                                data-id="{{ $image->id }}">
+                                                                                <img src="{{ asset('assets/images/' . $image->filename) }}"
+                                                                                    alt="Image" class="img-fluid"
+                                                                                    style="max-width: 100%; height: auto;">
+                                                                            </div>
+                                                                        @endforeach
+                                                                    @else
+                                                                        <p>Không có hình ảnh nào.</p>
+                                                                    @endif
+                                                                </div>
+                                                                @error('images')
+                                                                    <span class="error-message text-danger"
+                                                                        id="images-error">{{ $message }}</span>
+                                                                @enderror
+                                                                @foreach ($errors->get('images.*') as $key => $messages)
+                                                                    @foreach ($messages as $message)
+                                                                        <span
+                                                                            class="error-message text-danger">{{ $message }}</span>
+                                                                    @endforeach
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-wrap">
+                                                <a href="#"
+                                                    class="btn btn-lg bg-hover-white border rounded-lg mb-3 mr-auto prev-button">
+                                                    <span class="d-inline-block text-primary mr-2 fs-16"><i
+                                                            class="fal fa-long-arrow-left"></i></span>Phía trước
+                                                </a>
+                                                <button class="btn btn-lg btn-primary next-button mb-3">Tiếp theo
+                                                    <span class="d-inline-block ml-2 fs-16"><i
+                                                            class="fal fa-long-arrow-right"></i></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- Tab 3: Vị trí -->
                             <div class="tab-pane tab-pane-parent fade px-0" id="location" role="tabpanel"
                                 aria-labelledby="location-tab">
                                 <div class="card bg-transparent border-0">
@@ -548,7 +659,6 @@
     <meta property="og:image:height" content="630">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
-
 @endpush
 @push('scriptOwners')
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
@@ -573,6 +683,30 @@
             districtId: '{{ $zone->district }}',
             communeId: '{{ $zone->village }}'
         };
+    </script>
+    <script>
+        function previewImages(input) {
+            var preview = document.getElementById('imagePreview');
+
+            if (input.files) {
+                [].forEach.call(input.files, function(file) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        var div = document.createElement("div");
+                        div.className = "image-preview mx-auto";
+
+                        var img = document.createElement("img");
+                        img.src = e.target.result;
+                        img.className = "img-fluid";
+                        img.style = "max-width: 100%; height: auto;";
+
+                        div.appendChild(img);
+                        preview.insertBefore(div, preview.firstChild);
+                    }
+                    reader.readAsDataURL(file);
+                });
+            }
+        }
     </script>
     {{-- <script>
     const apiUrl = "https://vietnam-administrative-division-json-server-swart.vercel.app";
@@ -674,9 +808,10 @@
 
 
     <script src="{{ asset('assets/js/theme.js') }}"></script>
- 
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{{ asset('assets/js/api-ggmap-nht.js') }}"></script>
+    <script src="{{ asset('assets/js/alert/room-owners-alert.js') }}"></script>
     <script src="{{ asset('assets/js/api-update-zone-nht.js') }}"></script>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
@@ -685,5 +820,4 @@
         var roomData = @json($zone);
     </script>
     <script src="{{ asset('assets/js/openstreet-map-edit-form.js') }}"></script>
-
 @endpush

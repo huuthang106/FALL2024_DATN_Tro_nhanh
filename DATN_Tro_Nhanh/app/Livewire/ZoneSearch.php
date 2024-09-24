@@ -52,27 +52,32 @@ class ZoneSearch extends Component
     //     ]);
     // }
     public function render()
-{
-    Log::info('Đang tìm kiếm với từ khóa: "' . $this->search . '"');
+    {
+        Log::info('Đang tìm kiếm với từ khóa: "' . $this->search . '"');
 
-    $query = Zone::where('user_id', auth()->id())
-                 ->where(function($q) {
-                     $q->where('name', 'like', '%'.$this->search.'%')
-                       ->orWhere('description', 'like', '%'.$this->search.'%')
-                       ->orWhere('address', 'like', '%'.$this->search.'%');
-                 });
+        $query = Zone::where('user_id', auth()->id())
+            ->where(function ($q) {
+                $q->where('name', 'like', '%' . $this->search . '%')
+                    ->orWhere('description', 'like', '%' . $this->search . '%')
+                    ->orWhere('address', 'like', '%' . $this->search . '%');
+            });
 
-    $zones = $query->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
-                   ->paginate($this->perPage);
-                     // Đếm số lượng phòng cho từng zone
-    foreach ($zones as $zone) {
-        $zone->room_count = Room::where('zone_id', $zone->id)->count();
+        $zones = $query->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
+            ->paginate($this->perPage);
+        // Đếm số lượng phòng cho từng zone
+        foreach ($zones as $zone) {
+            $zone->room_count = Room::where('zone_id', $zone->id)->count();
+        }
+
+        Log::info('Tìm thấy ' . $zones->count() . ' khu vực');
+
+        return view('livewire.zone-search', [
+            'zones' => $zones
+        ]);
     }
-
-    Log::info('Tìm thấy ' . $zones->count() . ' khu vực');
-
-    return view('livewire.zone-search', [
-        'zones' => $zones
-    ]);
-}
+    public function getZoneImageUrl(Zone $zone): string
+    {
+        $image = $zone->images->first();
+        return $image ? asset('assets/images/' . $image->filename) : asset('assets/images/properties-grid-08.jpg');
+    }
 }

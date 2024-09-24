@@ -221,7 +221,9 @@
                                             <div class="row no-gutters">
                                                 <div class="col-md-6 mb-5 mb-md-0 pr-md-6">
                                                     <div class="position-relative hover-change-image bg-hover-overlay h-100 pt-75 bg-img-cover-center rounded-lg"
-                                                        style="background-image: url('{{ asset('assets/images/properties-list-06.jpg') }}');">
+                                                        style="background-image: url('{{ $zone->images->isNotEmpty()
+                                                            ? asset('assets/images/' . $zone->images->first()->filename)
+                                                            : asset('assets/images/properties-grid-08.jpg') }}');">
                                                         <div class="card-img-overlay p-2 d-flex flex-column">
                                                             <div>
                                                                 @if ($zone->status == 1)
@@ -332,49 +334,59 @@
                                     <ul class="pagination rounded-active justify-content-center">
                                         {{-- Liên kết Trang Đầu --}}
                                         <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
-                                            <a class="page-link" href="{{ $zones->url(1) }}"><i class="far fa-angle-double-left"></i></a>
+                                            <a class="page-link" href="{{ $zones->url(1) }}"><i
+                                                    class="far fa-angle-double-left"></i></a>
                                         </li>
-                            
+
                                         {{-- Liên kết Trang Trước --}}
                                         <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
-                                            <a class="page-link" href="{{ $zones->previousPageUrl() }}"><i class="far fa-angle-left"></i></a>
+                                            <a class="page-link" href="{{ $zones->previousPageUrl() }}"><i
+                                                    class="far fa-angle-left"></i></a>
                                         </li>
-                            
+
                                         {{-- Trang đầu tiên --}}
                                         @if ($zones->currentPage() > 2)
-                                            <li class="page-item"><a class="page-link" href="{{ $zones->url(1) }}">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="{{ $zones->url(1) }}">1</a>
+                                            </li>
                                         @endif
-                            
+
                                         {{-- Dấu ba chấm ở đầu nếu cần --}}
                                         @if ($zones->currentPage() > 3)
                                             <li class="page-item disabled"><span class="page-link">...</span></li>
                                         @endif
-                            
+
                                         {{-- Hiển thị các trang xung quanh trang hiện tại --}}
                                         @for ($i = max(1, $zones->currentPage() - 1); $i <= min($zones->currentPage() + 1, $zones->lastPage()); $i++)
                                             <li class="page-item {{ $zones->currentPage() == $i ? 'active' : '' }}">
-                                                <a class="page-link" href="{{ $zones->url($i) }}">{{ $i }}</a>
+                                                <a class="page-link"
+                                                    href="{{ $zones->url($i) }}">{{ $i }}</a>
                                             </li>
                                         @endfor
-                            
+
                                         {{-- Dấu ba chấm ở cuối nếu cần --}}
                                         @if ($zones->currentPage() < $zones->lastPage() - 2)
                                             <li class="page-item disabled"><span class="page-link">...</span></li>
                                         @endif
-                            
+
                                         {{-- Trang cuối cùng --}}
                                         @if ($zones->currentPage() < $zones->lastPage() - 1)
-                                            <li class="page-item"><a class="page-link" href="{{ $zones->url($zones->lastPage()) }}">{{ $zones->lastPage() }}</a></li>
+                                            <li class="page-item"><a class="page-link"
+                                                    href="{{ $zones->url($zones->lastPage()) }}">{{ $zones->lastPage() }}</a>
+                                            </li>
                                         @endif
-                            
+
                                         {{-- Liên kết Trang Tiếp --}}
-                                        <li class="page-item {{ $zones->currentPage() == $zones->lastPage() ? 'disabled' : '' }}">
-                                            <a class="page-link" href="{{ $zones->nextPageUrl() }}"><i class="far fa-angle-right"></i></a>
+                                        <li
+                                            class="page-item {{ $zones->currentPage() == $zones->lastPage() ? 'disabled' : '' }}">
+                                            <a class="page-link" href="{{ $zones->nextPageUrl() }}"><i
+                                                    class="far fa-angle-right"></i></a>
                                         </li>
-                            
+
                                         {{-- Liên kết Trang Cuối --}}
-                                        <li class="page-item {{ $zones->currentPage() == $zones->lastPage() ? 'disabled' : '' }}">
-                                            <a class="page-link" href="{{ $zones->url($zones->lastPage()) }}"><i class="far fa-angle-double-right"></i></a>
+                                        <li
+                                            class="page-item {{ $zones->currentPage() == $zones->lastPage() ? 'disabled' : '' }}">
+                                            <a class="page-link" href="{{ $zones->url($zones->lastPage()) }}"><i
+                                                    class="far fa-angle-double-right"></i></a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -831,9 +843,9 @@
 
             var userIcon = L.icon({
                 iconUrl: '{{ asset('assets/images/101-1015767_map-marker-circle-png.png') }}', // Đường dẫn đến biểu tượng tùy chỉnh của bạn
-                iconSize: [38, 38], 
-                iconAnchor: [22, 38], 
-                popupAnchor: [-3, -38] 
+                iconSize: [38, 38],
+                iconAnchor: [22, 38],
+                popupAnchor: [-3, -38]
             });
 
 
@@ -875,7 +887,7 @@
             function addMarkers(zones) {
                 zones.forEach(zone => {
                     console.log('Zone Latitude:', zone.latitude, 'Zone Longitude:', zone
-                        .longitude); 
+                        .longitude);
 
                     var marker = L.marker([zone.latitude, zone.longitude], {
                             icon: zoneIcon,
@@ -885,13 +897,13 @@
                         .bindPopup(`
                 <b>${zone.name}</b><br>${zone.address}<br>
             `, {
-                            className: 'custom-popup' 
+                            className: 'custom-popup'
                         })
                         .openPopup();
 
                     marker.on('click', function() {
                         console.log('User Latitude:', userLat, 'User Longitude:',
-                            userLng); 
+                            userLng);
 
                         if (typeof marker.bounce === 'function') {
                             marker.bounce({
@@ -908,13 +920,13 @@
 
                         routingControl = L.Routing.control({
                             waypoints: [
-                                L.latLng(userLat, userLng), 
-                                L.latLng(zone.latitude, zone.longitude) 
+                                L.latLng(userLat, userLng),
+                                L.latLng(zone.latitude, zone.longitude)
                             ],
                             routeWhileDragging: true,
                             createMarker: function() {
                                 return null;
-                            }, 
+                            },
                             geocoder: L.Control.Geocoder.nominatim(),
                             lineOptions: {
                                 styles: [{
@@ -982,7 +994,7 @@
                 }
             }
 
-            function fetchZonesWithinRadius(lat, lng, radius = 10) { 
+            function fetchZonesWithinRadius(lat, lng, radius = 10) {
 
                 $.ajax({
                     url: '{{ route('client.client-list-zone') }}',
@@ -1038,20 +1050,20 @@
             });
             returnButton.onAdd = function() {
                 var button = L.DomUtil.create('button', 'return-button');
-                button.innerHTML = '<i class="fas fa-location-arrow"></i>'; 
+                button.innerHTML = '<i class="fas fa-location-arrow"></i>';
                 button.style.backgroundColor = 'white';
-                button.style.border = 'none'; 
+                button.style.border = 'none';
                 button.style.borderRadius = '60%';
                 button.style.width = '50px';
-                button.style.height = '50px'; 
+                button.style.height = '50px';
                 button.style.display = 'flex';
-                button.style.alignItems = 'center'; 
-                button.style.justifyContent = 'center'; 
+                button.style.alignItems = 'center';
+                button.style.justifyContent = 'center';
                 button.onclick = function(e) {
-                    e.preventDefault(); 
-                    map.setView([userLat, userLng], 13); 
+                    e.preventDefault();
+                    map.setView([userLat, userLng], 13);
                     if (userMarker) {
-                        userMarker.setLatLng([userLat, userLng]); 
+                        userMarker.setLatLng([userLat, userLng]);
                     }
                 };
                 return button;
@@ -1318,7 +1330,7 @@
                             });
                             osmMarkers.push(marker);
                             marker.addTo(map).bindPopup(popupText, {
-                                className: 'custom-popup' 
+                                className: 'custom-popup'
                             });
 
                             marker.on('click', function() {
@@ -1328,9 +1340,9 @@
 
                                 routingControl = L.Routing.control({
                                     waypoints: [
-                                        L.latLng(userLat, userLng), 
+                                        L.latLng(userLat, userLng),
                                         L.latLng(element.lat, element
-                                            .lon) 
+                                            .lon)
                                     ],
                                     routeWhileDragging: true,
                                     createMarker: function() {
