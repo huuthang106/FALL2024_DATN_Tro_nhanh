@@ -271,7 +271,8 @@
                                     <div class="card-header d-block d-md-none bg-transparent px-0 py-1 border-bottom-0"
                                         id="heading-media">
                                         <h5 class="mb-0">
-                                            <button type="button" class="btn btn-lg collapse-parent btn-block border shadow-none"
+                                            <button type="button"
+                                                class="btn btn-lg collapse-parent btn-block border shadow-none"
                                                 data-toggle="collapse" data-number="2." data-target="#media-collapse"
                                                 aria-expanded="true" aria-controls="media-collapse">
                                                 <span class="number">2.</span> Phương tiện truyền thông
@@ -405,7 +406,8 @@
                                     <div class="card-header d-block d-md-none bg-transparent px-0 py-1 border-bottom-0"
                                         id="heading-location">
                                         <h5 class="mb-0">
-                                            <button type="button" class="btn btn-block collapse-parent collapsed border shadow-none"
+                                            <button type="button"
+                                                class="btn btn-block collapse-parent collapsed border shadow-none"
                                                 data-toggle="collapse" data-number="3." data-target="#location-collapse"
                                                 aria-expanded="true" aria-controls="location-collapse">
                                                 <span class="number">3.</span> Vị trí
@@ -795,7 +797,8 @@
                                     <div class="card-header d-block d-md-none bg-transparent px-0 py-1 border-bottom-0"
                                         id="heading-amenities">
                                         <h5 class="mb-0">
-                                            <button type="button" class="btn btn-block collapse-parent collapsed border shadow-none"
+                                            <button type="button"
+                                                class="btn btn-block collapse-parent collapsed border shadow-none"
                                                 data-toggle="collapse" data-number="4." data-target="#amenities-collapse"
                                                 aria-expanded="true" aria-controls="amenities-collapse">
                                                 <span class="number">4.</span> TIện ích
@@ -1003,7 +1006,6 @@
     <meta property="og:image:height" content="630">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
-
 @endpush
 @push('scriptOwners')
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
@@ -1044,7 +1046,7 @@
     {{-- <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="{{ asset('assets/js/map/map.js') }}"></script> --}}
 
-  
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{{ asset('assets/js/api-update-zone-nht.js') }}"></script>
     <script src="{{ asset('assets/js/api-ggmap-nht.js') }}"></script>
@@ -1052,47 +1054,47 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-    <Script>document.addEventListener('DOMContentLoaded', function() {
-        // ... existing code ...
-    
-        // Xử lý sự kiện submit form xóa ảnh
-        document.querySelectorAll('.delete-image-form').forEach(form => {
-            form.addEventListener('submit', function(event) {
-                event.preventDefault(); // Ngăn chặn sự kiện submit mặc định
-                const imagePreview = this.closest('.image-preview');
-    
-                fetch(this.action, {
-                    method: 'DELETE', // Sử dụng phương thức DELETE
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Xóa phần tử ảnh khỏi DOM
-                        imagePreview.remove();
-                    } else {
-                        alert('Có lỗi xảy ra khi xóa ảnh: ' + data.message);
-                    } 
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Có lỗi xảy ra khi xóa ảnh.');
+    <Script>
+        document.addEventListener('DOMContentLoaded', function() {
+  
+            // Xử lý sự kiện submit form xóa ảnh
+            document.querySelectorAll('.delete-image-form').forEach(form => {
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault(); // Ngăn chặn sự kiện submit mặc định
+                    const imagePreview = this.closest('.image-preview');
+
+                    fetch(this.action, {
+                            method: 'DELETE', // Sử dụng phương thức DELETE
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector(
+                                    'meta[name="csrf-token"]').getAttribute('content'),
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Xóa phần tử ảnh khỏi DOM
+                                imagePreview.remove();
+                            } else {
+                                alert('Có lỗi xảy ra khi xóa ảnh: ' + data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Có lỗi xảy ra khi xóa ảnh.');
+                        });
                 });
+
+                // ... existing code ...
             });
 
             // ... existing code ...
         });
-    
-        // ... existing code ...
-    });</Script>
+    </Script>
     <script>
         var roomData = @json($room);
     </script>
     <script src="{{ asset('assets/js/openstreet-map-edit-form.js') }}"></script>
-
-
 @endpush

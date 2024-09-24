@@ -138,6 +138,7 @@
                             </form>
                         </td>
                     </tr>
+                @endforeach
                 @endif
             </tbody>
         </table>

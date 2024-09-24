@@ -1,13 +1,11 @@
+// public/js/map.js
+
 var map;
-// Lấy kinh độ và vĩ độ từ dữ liệu PHP
-var currentPosition = [
-    parseFloat(roomData.latitude) || 10.0354, // Vĩ độ, mặc định là 10.0354
-    parseFloat(roomData.longitude) || 105.7553 // Kinh độ, mặc định là 105.7553
-];
+var currentPosition = [10.0354, 105.7553]; // Vị trí khởi tạo
 var marker; // Biến để lưu trữ marker
 
 function initMap() {
-    // Khởi tạo bản đồ với vị trí từ dữ liệu PHP
+    // Khởi tạo bản đồ với vị trí mặc định
     map = L.map('map').setView(currentPosition, 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -23,7 +21,7 @@ function initMap() {
     document.getElementById('longitude').value = currentPosition[1]; // Cập nhật kinh độ
 
     // Lắng nghe sự kiện khi marker được kéo thả
-    marker.on('dragend', function(event) {
+    marker.on('dragend', function (event) {
         var position = marker.getLatLng(); // Lấy vị trí mới
         console.log("Kinh độ: " + position.lng + ", Vĩ độ: " + position.lat); // In ra kinh độ và vĩ độ
 
@@ -36,7 +34,7 @@ function initMap() {
     var returnButton = L.control({
         position: 'topright'
     });
-    returnButton.onAdd = function() {
+    returnButton.onAdd = function () {
         var button = L.DomUtil.create('button', 'return-button');
         button.innerHTML = '<i class="fas fa-location-arrow"></i>'; // Sử dụng biểu tượng Font Awesome
         button.style.backgroundColor = 'white'; // Tùy chỉnh màu nền
@@ -47,13 +45,10 @@ function initMap() {
         button.style.display = 'flex'; // Sử dụng flexbox để căn giữa
         button.style.alignItems = 'center'; // Căn giữa theo chiều dọc
         button.style.justifyContent = 'center'; // Căn giữa theo chiều ngang
-        button.onclick = function(e) {
+        button.onclick = function (e) {
             e.preventDefault(); // Ngăn chặn hành động mặc định
             map.setView(currentPosition, 13); // Quay lại vị trí hiện tại
             marker.setLatLng(currentPosition); // Đặt lại vị trí của marker
-            
-            document.getElementById('latitude').value = currentPosition[0]; // Cập nhật vĩ độ
-            document.getElementById('longitude').value = currentPosition[1]; // Cập nhật kinh độ
         };
         return button;
     };
@@ -61,6 +56,26 @@ function initMap() {
 
     // Cập nhật kích thước bản đồ ngay sau khi khởi tạo
     updateMapSize();
+
+    // Kiểm tra xem trình duyệt có hỗ trợ Geolocation không
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            // Lấy vị trí hiện tại từ GPS
+            currentPosition = [position.coords.latitude, position.coords.longitude];
+            map.setView(currentPosition, 13); // Cập nhật vị trí bản đồ
+            marker.setLatLng(currentPosition); // Cập nhật vị trí của marker
+
+            // Cập nhật giá trị vào các trường input
+            document.getElementById('latitude').value = currentPosition[0]; // Cập nhật vĩ độ
+            document.getElementById('longitude').value = currentPosition[1]; // Cập nhật kinh độ
+        }, function () {
+            // Xử lý lỗi nếu không thể lấy vị trí
+            showErrorMessage("Không thể lấy vị trí hiện tại. Vui lòng bật vị trí trên thiết bị của bạn.");
+        });
+    } else {
+        // Trình duyệt không hỗ trợ Geolocation
+        showErrorMessage("Trình duyệt của bạn không hỗ trợ Geolocation. Vui lòng bật vị trí trên thiết bị của bạn.");
+    }
 }
 
 function updateMapSize() {
@@ -69,7 +84,7 @@ function updateMapSize() {
     }
 }
 
-// Hàm để tìm kiếm tọa độ từ tên tỉnh, huyện hoặc xã
+// Hàm để tìm kiếm tọa độ từ tên tỉnh
 function geocodeLocation(location) {
     var apiUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`;
 
@@ -107,7 +122,7 @@ function geocodeWard(ward, province) {
 }
 
 // Lắng nghe sự kiện thay đổi cho dropdown tỉnh
-document.getElementById('city-province').addEventListener('change', function() {
+document.getElementById('city-province').addEventListener('change', function () {
     var selectedProvince = this.options[this.selectedIndex].text; // Lấy tên tỉnh
     geocodeLocation(selectedProvince)
         .then(coords => {
@@ -123,7 +138,7 @@ document.getElementById('city-province').addEventListener('change', function() {
 });
 
 // Lắng nghe sự kiện thay đổi cho dropdown huyện
-document.getElementById('district-town').addEventListener('change', function() {
+document.getElementById('district-town').addEventListener('change', function () {
     var selectedDistrict = this.options[this.selectedIndex].text; // Lấy tên huyện
     geocodeLocation(selectedDistrict)
         .then(coords => {
@@ -139,7 +154,7 @@ document.getElementById('district-town').addEventListener('change', function() {
 });
 
 // Lắng nghe sự kiện thay đổi cho dropdown xã
-document.getElementById('ward-commune').addEventListener('change', function() {
+document.getElementById('ward-commune').addEventListener('change', function () {
     var selectedWard = this.options[this.selectedIndex].text.trim(); // Lấy tên xã và loại bỏ khoảng trắng
     var selectedProvince = document.getElementById('city-province').options[document.getElementById('city-province').selectedIndex].text.trim(); // Lấy tên tỉnh và loại bỏ khoảng trắng
 
@@ -156,7 +171,7 @@ document.getElementById('ward-commune').addEventListener('change', function() {
         });
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Khởi tạo bản đồ
     initMap();
 
@@ -186,11 +201,11 @@ function showErrorMessage(message) {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Khi tab location-tab được kích hoạt, cập nhật kích thước bản đồ
     var locationTab = document.querySelector('#location-tab');
     if (locationTab) {
-        locationTab.addEventListener('click', function(e) {
+        locationTab.addEventListener('click', function (e) {
             setTimeout(updateMapSize, 100); // Cập nhật kích thước bản đồ khi tab được nhấn
         });
     }
