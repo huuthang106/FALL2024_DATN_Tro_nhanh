@@ -768,7 +768,7 @@
 
                 <div class="slick-slider slick-dots-mt-0 custom-arrow-spacing-30"
                     data-slick-options='{"slidesToShow": 4,"dots":true,"arrows":false,"responsive":[{"breakpoint": 1600,"settings": {"slidesToShow":3}},{"breakpoint": 992,"settings": {"slidesToShow":2,"arrows":false}},{"breakpoint": 768,"settings": {"slidesToShow": 2,"arrows":false,"dots":true,"autoplay":true}},{"breakpoint": 576,"settings": {"slidesToShow": 1,"arrows":false,"dots":true,"autoplay":true}}]}'>
-                    @foreach ($rooms as $room)
+                    @foreach ($roomClient as $room)
                         <div class="box pb-7 pt-2">
                             <div class="card shadow-hover-2 h-100" data-animate="zoomIn">
                                 <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top"
@@ -867,7 +867,6 @@
                             </div>
                         </div>
                     @endforeach
-
                 </div>
 
             </div>

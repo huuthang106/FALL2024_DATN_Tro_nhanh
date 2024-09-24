@@ -27,7 +27,6 @@ class RoomOwnersRequest extends FormRequest
             'longitude' => 'required|numeric',
             'latitude' => 'required|numeric',
             'view' => 'required|integer|min:0',
-            'status' => 'required|integer|in:1,2',
             'user_id' => 'required|integer|exists:users,id',
             'category_id' => 'required|integer|exists:categories,id',
            'images' => 'required|array|min:1', // Ensure at least one image is uploaded
@@ -81,10 +80,6 @@ class RoomOwnersRequest extends FormRequest
             'view.required' => 'Vui lòng nhập số lượng view',
             'view.integer' => 'Số lượng view phải là số nguyên',
             'view.min' => 'Số lượng view không được âm',
-
-            'status.required' => 'Vui lòng chọn trạng thái',
-            'status.integer' => 'Trạng thái phải là số nguyên',
-            'status.in' => 'Trạng thái không hợp lệ',
 
             'user_id.required' => 'Vui lòng chọn người dùng',
             'user_id.exists' => 'Người dùng không tồn tại',

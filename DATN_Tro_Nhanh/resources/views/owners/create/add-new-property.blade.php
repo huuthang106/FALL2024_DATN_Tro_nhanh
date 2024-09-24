@@ -229,7 +229,7 @@
                                             aria-labelledby="heading-media" data-parent="#collapse-tabs-accordion">
                                             <div class="card-body py-4 py-md-0 px-0">
                                                 <div class="row">
-                                                    <div class="col-lg-6">
+                                                    <div class="col-lg-12">
                                                         <div class="card mb-6">
                                                             <div class="card-body p-6">
                                                                 <h3 class="card-title mb-0 text-heading fs-22 lh-15">
@@ -275,7 +275,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6">
+                                                   <!-- <div class="col-lg-6">
                                                         <div class="card mb-6">
                                                             <div class="card-body p-6">
                                                                 <h3 class="card-title mb-0 text-heading fs-22 lh-15">
@@ -306,8 +306,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <!-- Removed commented out "Virtual Tour" section -->
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                                 <div class="d-flex flex-wrap">
                                                     <a href="#"

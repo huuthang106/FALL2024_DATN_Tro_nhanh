@@ -162,6 +162,9 @@ class RoomOwnersService
         if (auth()->check()) {
             $room = new Room();
             $user_id = auth()->id();
+             // Kiểm tra nếu user có VIP
+            $user = auth()->user();
+            $room->status = ($user->has_vip_badge && $user->vip_expiration_date > now()) ? 2 : 1; // Cập nhật status dựa trên VIP
             $room->title = $request->input('title');
             $room->description = $request->input('description');
             $room->price = $request->input('price');
@@ -170,7 +173,6 @@ class RoomOwnersService
             $room->acreage = $request->input('acreage');
             $room->quantity = $request->input('quantity');
             $room->view = $request->input('view');
-            $room->status = $request->input('status');
             $room->province = $request->input('province');
             $room->district = $request->input('district');
             $room->village = $request->input('village');

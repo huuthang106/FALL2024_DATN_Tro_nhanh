@@ -103,22 +103,32 @@ class RoomClientServices
             return $rooms; // Trả về danh sách phòng    
     }
 
-    public function incrementViewCount($roomId)
-{
-    // Kiểm tra xem cookie đã tồn tại chưa
-    if (!request()->cookie('viewed_property_' . $roomId)) {
-        // Tìm phòng theo ID
-        $room = Room::find($roomId);
+    public function RoomClient()
+    { 
+            $rooms = Room::orderBy('view', 'desc') // Sắp xếp theo ngày tạo mới nhất
+                         ->orderBy('created_at', 'desc') // Sắp xếp theo lượt xem cao nhất
+                         ->take(5) // Lấy 5 phòng
+                         ->get();
         
-        if ($room) {
-            // Tăng số lượt xem
-            $room->increment('view');
+            return $rooms; // Trả về danh sách phòng    
+    }
 
-            // Đặt cookie cho 2 giờ
-            Cookie::queue('viewed_property_' . $roomId, true, 120);
+    public function incrementViewCount($roomId)
+    {
+        // Kiểm tra xem cookie đã tồn tại chưa
+        if (!request()->cookie('viewed_property_' . $roomId)) {
+            // Tìm phòng theo ID
+            $room = Room::find($roomId);
+            
+            if ($room) {
+                // Tăng số lượt xem
+                $room->increment('view');
+
+                // Đặt cookie cho 2 giờ
+                Cookie::queue('viewed_property_' . $roomId, true, 120);
+            }
         }
     }
-}
 
     // Lấy phòng theo slug
     public function getSlugRoom($slug)

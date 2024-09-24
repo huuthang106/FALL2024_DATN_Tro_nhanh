@@ -133,7 +133,7 @@ class RoomOwnersController extends Controller
                 // Phát sự kiện RoomOwners và truyền đối tượng Room mới tạo
                 event(new RoomOwnersEvent($room));
                 // Redirect to the desired route with a success message
-                return redirect()->route('owners.properties')->with('success', 'Zone đã được tạo thành công.');
+                return redirect()->route('owners.properties')->with('success', 'Room đã được tạo thành công.');
             } else {
                 // Handle the case where room creation failed
                 return redirect()->route('owners.add-room')->with('error', 'Đã xảy ra lỗi khi tạo Zone.');
