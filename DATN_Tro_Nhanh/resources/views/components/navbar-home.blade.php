@@ -414,7 +414,7 @@
                                         <ul class="dropdown-menu dropdown-sm dropdown-menu-end"
                                             aria-labelledby="bd-versions">
                                             <a class="dropdown-item"
-                                                href="{{ route('owners.profile.profile-admin-index') }}">Xem thông
+                                                href="{{ route('owners.profile.dashboard') }}">Xem thông
                                                 tin</a>
                                             <a class="dropdown-item" href="{{ route('client.logout') }}"
                                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -477,7 +477,7 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="bd-versions">
                                         <li><a class="dropdown-item"
-                                                href="{{ route('owners.profile.profile-admin-index') }}">Xem thông
+                                                href="{{ route('owners.profile.dashboard') }}">Xem thông
                                                 tin</a>
                                             </li>
                                                 <li>

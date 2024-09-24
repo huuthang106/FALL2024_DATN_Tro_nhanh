@@ -31,9 +31,12 @@
                                 </span>
                             </div>
                             <div class="col-7 text-center">
-                                <p class="fs-42 lh-12 mb-0 counterup" data-start="0" data-end="29" data-decimals="0"
-                                    data-duration="0" data-separator="">29</p>
-                                <p>Thuộc tính</p>
+                                <div style="white-space: nowrap;">
+                                    <p class="fs-22 lh-12 mb-0 counterup d-inline" data-start="0"
+                                        data-end="{{ $balance }}" data-decimals="0" data-duration="0"
+                                        data-separator="."></p> VNĐ
+                                </div>
+                                <p>Số Dư</p>
                             </div>
                         </div>
                     </div>
@@ -50,9 +53,12 @@
                                 </span>
                             </div>
                             <div class="col-7 text-center">
-                                <p class="fs-42 lh-12 mb-0">{{ $roomCount }}</p>
+                                <p class="fs-22 lh-12 mb-0 counterup d-inline" data-start="0"
+                                    data-end="{{ $roomCount }}" data-decimals="0" data-duration="0"
+                                    data-separator="."></p>
                                 <p>Tổng Số Trọ</p>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -68,9 +74,12 @@
                                 </span>
                             </div>
                             <div class="col-8 text-center">
-                                <p class="fs-42 lh-12 mb-0">{{ $totalReviews }}</p>
-                                <p>Tổng Số Lượt Đánh Gía</p>
+                                <p class="fs-22 lh-12 mb-0 counterup d-inline" data-start="0"
+                                    data-end="{{ $totalReviews }}" data-decimals="0" data-duration="0"
+                                    data-separator="."></p>
+                                <p>Tổng Số Lượt Đánh Giá</p>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -86,9 +95,12 @@
                                 </span>
                             </div>
                             <div class="col-7 text-center">
-                                <p class="fs-42 lh-12 mb-0">{{ $totalWatchLists }}</p>
+                                <p class="fs-22 lh-12 mb-0 counterup d-inline" data-start="0"
+                                    data-end="{{ $totalWatchLists }}" data-decimals="0" data-duration="0"
+                                    data-separator="."></p>
                                 <p>Tổng Số Lượt Theo Dõi</p>
                             </div>
+                            
                         </div>
                     </div>
                 </div>

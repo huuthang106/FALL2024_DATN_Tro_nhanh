@@ -11,7 +11,7 @@ use App\Services\RoomOwnersService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\Services\FavouritesServices;
-
+use App\Services\UserClientServices;
 use App\Services\CommentClientService;
 use App\Services\WatchListOwner;
 // use App\Services\RoomOwnersService;
@@ -44,7 +44,7 @@ class AppServiceProvider extends ServiceProvider
     //     //
     // }
     // Biến để xem thông báo
-    public function boot(NotificationOwnersService $notificationService,WatchListOwner $watchListService,CommentClientService $commentClientService,ZoneServices $zoneServices, BlogServices $blogServices, RoomOwnersService $roomOwnersService, FavouritesServices $favouriteService, MaintenanceRequestsServices $maintenanceRequestsService, CartService $cartService)
+    public function boot(UserClientServices $userClientServices,NotificationOwnersService $notificationService,WatchListOwner $watchListService,CommentClientService $commentClientService,ZoneServices $zoneServices, BlogServices $blogServices, RoomOwnersService $roomOwnersService, FavouritesServices $favouriteService, MaintenanceRequestsServices $maintenanceRequestsService, CartService $cartService)
     {
         // Cung cấp thông tin người dùng cho view 'components.navbar-owner'
         View::composer('components.navbar-owner', function ($view) use ($maintenanceRequestsService) { // Sử dụng biến đúng
@@ -221,6 +221,23 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('totalWatchLists', 0); // Truyền 0 nếu không có người dùng đăng nhập
             }
         });
+        View::composer('owners.show.dashboard', function ($view) use ($userClientServices) {
+            $userId = Auth::id(); // Lấy ID người dùng hiện tại
+        
+            if ($userId) {
+           
+                $balance = $userClientServices->getUserBalanceForAppProvider();
+        
+                // Chuyển đổi balance thành string nếu cần thiết
+                $view->with('balance', (string)$balance); // Truyền số dư vào view
+            } else {
+                // Nếu không có userId, truyền giá trị 0
+                $view->with('balance', '0'); // Truyền '0' nếu không có người dùng đăng nhập
+            }
+        });
+        
+        
+        
 
         // Trong ServiceProvider hoặc nơi bạn cấu hình View Composer
 // Trong ServiceProvider hoặc nơi bạn cấu hình View Composer

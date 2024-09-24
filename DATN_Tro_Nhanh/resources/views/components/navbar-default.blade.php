@@ -402,7 +402,7 @@
                                         <div class="dropdown-menu dropdown-menu-center" aria-labelledby="userDropdown">
                                             {{-- <a class="dropdown-item" href="#">Hồ sơ</a> --}}
                                             <a class="dropdown-item"
-                                                href="{{ route('owners.profile.profile-admin-index') }}">Xem thông tin</a>
+                                                href="{{ route('owners.profile.dashboard') }}">Xem thông tin</a>
                                             {{-- <a class="dropdown-item" href="#">Cài đặt</a> --}}
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="{{ route('client.logout') }}"
@@ -446,7 +446,7 @@
                                     <ul class="dropdown-menu dropdown-sm dropdown-menu-end"
                                         aria-labelledby="bd-versions">
                                         <a class="dropdown-item"
-                                            href="{{ route('owners.profile.profile-admin-index') }}">Xem thông tin</a>
+                                            href="{{ route('owners.profile.dashboard') }}">Xem thông tin</a>
                                           
                                                     <a class="dropdown-item"
                                                 href="{{route('client.payment-recharge')}}">Nạp tiền</a>

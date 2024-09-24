@@ -109,4 +109,20 @@ class UserClientServices
         ->where('is_read', false)
         ->count();
     }
+    public function getUserBalanceForAppProvider()
+    {
+        // Lấy user hiện tại
+        $user = Auth::user();
+    
+        // Kiểm tra nếu user tồn tại và lấy balance
+        if ($user) {
+            return $user->balance; // Trả về số dư của người dùng
+        }
+    
+        return '0'; // Trả về '0' nếu không có người dùng
+    }
+    
+    
+    
+    
 }   
