@@ -53,7 +53,7 @@ class Zone extends Model
     public function images()
     {
         return $this->hasMany(Image::class);
-
+    }
     public function utilities()
     {
         return $this->hasMany(Utility::class, 'zone_id');
