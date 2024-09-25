@@ -64,6 +64,7 @@ class UserClientController extends Controller
         $province = $request->input('province');
         $district = $request->input('district');
         $village = $request->input('village');
+        $locations = $this->userClientServices->getUniqueLocations();
 
         $users = $this->userClientServices->getUsersByRole(self::role_owners, $searchTerm, self::limit, $province,  $district, $village);
         if ($request->ajax() || $request->wantsJson()) {
@@ -75,7 +76,18 @@ class UserClientController extends Controller
                 'village' => $village,
             ]);
         }
-        return view('client.show.list-owners', compact('users'));
+    
+
+        return view('client.show.list-owners', [
+            'users' => $users,
+            'searchTerm' => $searchTerm,
+            'province' => $province,
+            'district' => $district,
+            'village' => $village,
+            'provinces' => $locations['provinces'],
+            'districts' => $locations['districts'],
+            'villages' => $locations['villages']
+        ]);
     }
     // public function agentDetail($slug)
     // {

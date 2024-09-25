@@ -3,12 +3,13 @@
 namespace App\Services;
 
 use App\Models\Room;
+use App\Models\Category;
 use App\Models\Favourite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
-
+use Exception;
 class RoomClientServices
 {
     // viết các hàm lấy giá trị của bản đó 
@@ -16,41 +17,53 @@ class RoomClientServices
     private const status = 2;
     
     // ----------------------------------------------------------------Sắp Theo VIP
-    public function getAllRoom(int $perPage = 10, $searchTerm = null, $province = null, $district = null, $village = null)
-    {
-        try {
-            $query = Room::join('users', 'rooms.user_id', '=', 'users.id') // Join bảng rooms và users
-                ->where('rooms.status', self::status)
-                ->withCount('images') // Đếm số lượng ảnh liên quan đến mỗi phòng
-                ->select('rooms.*') // Chọn tất cả các cột từ bảng rooms
-                // ->orderBy('users.has_vip_badge', 'desc') // Ưu tiên phòng của người dùng có huy hiệu VIP
-                ->orderByDesc('rooms.created_at'); // Sắp xếp theo ngày tạo từ mới nhất đến cũ nhất
+    public function getAllRoom(int $perPage = 10, $searchTerm = null, $province = null, $district = null, $village = null, $category = null)
+{
+    try {
+        $query = Room::join('users', 'rooms.user_id', '=', 'users.id')
+            ->where('rooms.status', self::status)
+            ->withCount('images')
+            ->select('rooms.*')
+            ->orderByDesc('rooms.created_at');
 
-            // Nếu có từ khóa tìm kiếm, thêm điều kiện vào truy vấn
-            if ($searchTerm) {
-                $query->where(function ($q) use ($searchTerm) {
-                    $q->where('rooms.title', 'like', '%' . $searchTerm . '%')
-                        ->orWhere('rooms.description', 'like', '%' . $searchTerm . '%')
-                        ->orWhere('rooms.address', 'like', '%' . $searchTerm . '%');
-                });
-            }
-
-            // Nếu có tỉnh, huyện, xã, thêm điều kiện vào truy vấn
-            if ($province) {
-                $query->where('rooms.province', $province);
-            }
-            if ($district) {
-                $query->where('rooms.district', $district);
-            }
-            if ($village) {
-                $query->where('rooms.village', $village);
-            }
-
-            return $query->paginate($perPage);
-        } catch (\Exception $e) {
-            return null;
+        if ($searchTerm) {
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('rooms.title', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('rooms.description', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('rooms.address', 'like', '%' . $searchTerm . '%');
+            });
         }
+
+        if ($province) {
+            $query->where('rooms.province', $province);
+        }
+        if ($district) {
+            $query->where('rooms.district', $district);
+        }
+        if ($village) {
+            $query->where('rooms.village', $village);
+        }
+
+        if ($category) {
+            Log::info('Applying category filter: ' . $category); // Thêm log để kiểm tra
+            $query->where('rooms.category_id', $category);
+        }
+
+        $result = $query->paginate($perPage);
+        Log::info('SQL Query: ' . $query->toSql());
+        Log::info('SQL Bindings: ' . json_encode($query->getBindings()));
+        return $result;
+    } catch (Exception $e) {
+        Log::error('Error in getAllRoom: ' . $e->getMessage());
+        return null;
     }
+}
+
+// Thêm phương thức mới để lấy danh sách categories
+public function getCategories()
+{
+    return Category::select('id', 'name')->get();
+}
     // ----------------------------------------------------------------Bổ sung đánh giá
     // public function getAllRoom(int $perPage = 10, $searchTerm = null, $province = null, $district = null, $village = null)
     // {

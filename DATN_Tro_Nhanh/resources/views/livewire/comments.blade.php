@@ -29,12 +29,19 @@
                             </div>
                         </div>
                         <p class="mb-3 pr-xl-17">{{ $comment->content }}</p>
-                        <div class="d-flex justify-content-sm-start justify-content-center">
+                       <div class="d-flex justify-content-sm-start justify-content-center">
                             <p class="mb-0 text-muted fs-13 lh-1">
                                 {{ $comment->created_at->format('d/m/Y h:i A') }}
                                 <a href="#"
                                     class="mb-0 text-heading border-left border-dark hover-primary lh-1 ml-2 pl-2">Trả
                                     lời</a>
+                                    @if (Auth::id() == $comment->user_id)
+    <a href="#"
+       class="mb-0 text-danger border-left border-dark hover-primary lh-1 ml-2 pl-2"
+       wire:click.prevent="deleteComment({{ $comment->id }})">
+        Xóa
+    </a>
+@endif
                             </p>
                         </div>
                     </div>
@@ -128,3 +135,14 @@
 
 
 </div>
+<script>
+    document.addEventListener('livewire:initialized', () => {
+        Livewire.on('showAlert', (event) => {
+            Swal.fire({
+                icon: event[0].type,
+                title: event[0].title,
+                text: event[0].text,
+            });
+        });
+    });
+</script>

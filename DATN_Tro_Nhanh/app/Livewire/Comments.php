@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Comment;
+use Illuminate\Support\Facades\Auth;
 
 class Comments extends Component
 {
@@ -28,5 +29,24 @@ class Comments extends Component
             ->paginate(2);
 
         return view('livewire.comments', compact('comments'));
+    }
+    public function deleteComment($commentId)
+    {
+        $comment = Comment::find($commentId);
+
+        if ($comment && $comment->user_id == Auth::id()) {
+            $comment->delete();
+            $this->dispatch('showAlert', [
+                'type' => 'success',
+                'title' => 'Thành công!',
+                'text' => 'Bình luận đã được xóa thành công.'
+            ]);
+        } else {
+            $this->dispatch('showAlert', [
+                'type' => 'error',
+                'title' => 'Lỗi!',
+                'text' => 'Không thể xóa bình luận này.'
+            ]);
+        }
     }
 }

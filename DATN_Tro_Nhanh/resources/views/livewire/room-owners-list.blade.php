@@ -57,10 +57,10 @@
                 <thead class="thead-sm thead-black">
                     <tr>
                         <th scope="col" class="border-top-0 px-6 pt-5 pb-4">Tiêu đề danh sách</th>
-                        <th scope="col" class="border-top-0 pt-5 pb-4">Ngày xuất bản</th>
+                        <th scope="col" class="border-top-0 pt-5 pb-4" style="white-space: nowrap;">Ngày xuất bản</th>
                         <th scope="col" class="border-top-0 pt-5 pb-4">Trạng thái</th>
                         <th scope="col" class="border-top-0 pt-5 pb-4">Xem</th>
-                        <th scope="col" class="border-top-0 pt-5 pb-4 text-center" style="width: 300px;">Hành động</th>
+                        <th scope="col" class="border-top-0 pt-5 pb-4" style="width: 300px;">Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -98,7 +98,7 @@
                                             <span class="badge badge-indigo position-absolute pos-fixed-top">Cho
                                                 thuê</span>
                                         </div>
-                                        <div class="media-body">
+                                        <div class="media-body" style="white-space: nowrap;">
                                             <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
                                                 class="text-dark hover-primary">
                                                 <h5 class="fs-16 mb-0 lh-18">{{ $room->title }}</h5>
@@ -122,7 +122,7 @@
                                     @endif
                                 </td>
                                 <td class="align-middle">{{ $room->view }}</td>
-                                <td class="align-middle">
+                                <td class="align-middle" style="white-space: nowrap;">
                                     <!-- Nút Mua Vip -->
                                   
                                     @if ($room->status == 2)

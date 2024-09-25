@@ -10,7 +10,7 @@ use App\Http\Requests\CommentBlogRequest;
 use App\Http\Requests\UserRequest;
 use App\Services\CommentClientService;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Comment;
 class CommentClientController extends Controller
 {
     protected $CommentClientService;
@@ -20,23 +20,32 @@ class CommentClientController extends Controller
         $this->CommentClientService = $CommentClientService;
     }
 
-    public function submitReview(CommentRequest $request)
+    public function submitReview(Request $request)
     {
-        $validated = $request->validated();
-
-        // Kiểm tra xem room_slug có được truyền đúng không
-        if (!$request->has('room_slug')) {
-            return response()->json(['success' => false, 'message' => 'Phòng không hợp lệ.'], 400);
-        }
-
-        $validated['room_slug'] = $request->input('room_slug');
-
-        $review = $this->CommentClientService->submitReview($validated);
-
-        if ($review) {
-            return response()->json(['success' => true, 'message' => 'Đánh giá của bạn đã được gửi thành công!']);
+        if ($request->input('action') === 'delete') {
+            $commentId = $request->input('comment_id');
+            $comment = Comment::find($commentId);
+    
+            if ($comment && $comment->user_id == Auth::id()) {
+                $comment->delete();
+                return response()->json(['success' => true, 'message' => 'Bình luận đã được xóa thành công.']);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Không thể xóa bình luận này.'], 400);
+            }
         } else {
-            return response()->json(['success' => false, 'message' => 'Đã xảy ra lỗi khi gửi đánh giá.'], 500);
+            $validated = $request->validate([
+                'rating' => 'required|integer|min:1|max:5',
+                'content' => 'required|string',
+                'room_slug' => 'required|string',
+            ]);
+    
+            $review = $this->CommentClientService->submitReview($validated);
+    
+            if ($review) {
+                return response()->json(['success' => true, 'message' => 'Đánh giá của bạn đã được gửi thành công!']);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Đã xảy ra lỗi khi gửi đánh giá.'], 500);
+            }
         }
     }
     public function submitZone(RatingZoneRequest $request)
@@ -119,4 +128,16 @@ class CommentClientController extends Controller
             return response()->json(['success' => false, 'message' => 'Đã xảy ra lỗi khi gửi bình luận.'], 500);
         }
     }
+    public function deleteComment(Request $request)
+{
+    $commentId = $request->input('comment_id');
+    $comment = Comment::find($commentId);
+
+    if ($comment && $comment->user_id == Auth::id()) {
+        $comment->delete();
+        return response()->json(['success' => true]);
+    }
+
+    return response()->json(['success' => false]);
+}
 }

@@ -11,6 +11,7 @@ use App\Models\Room;
 use Illuminate\Http\Request;
 use App\Models\Message;
 use App\Models\Contact;
+use Illuminate\Support\Facades\Log;
 
 class UserClientServices
 {
@@ -122,7 +123,33 @@ class UserClientServices
         return '0'; // Trả về '0' nếu không có người dùng
     }
     
-    
+    public function getUniqueLocations()
+{
+    try {
+        $provinces = User::distinct()->whereNotNull('province')->pluck('province', 'province')->toArray();
+        $districts = User::distinct()->whereNotNull('district')->select('province', 'district')->get()
+            ->groupBy('province')
+            ->map(function ($items) {
+                return $items->pluck('district')->toArray();
+            })
+            ->toArray();
+        $villages = User::distinct()->whereNotNull('village')->select('district', 'village')->get()
+            ->groupBy('district')
+            ->map(function ($items) {
+                return $items->pluck('village')->toArray();
+            })
+            ->toArray();
+
+        return [
+            'provinces' => $provinces,
+            'districts' => $districts,
+            'villages' => $villages
+        ];
+    } catch (\Exception $e) {
+        Log::error('Không thể lấy danh sách địa điểm: ' . $e->getMessage());
+        return null;
+    }
+}
     
     
 }   

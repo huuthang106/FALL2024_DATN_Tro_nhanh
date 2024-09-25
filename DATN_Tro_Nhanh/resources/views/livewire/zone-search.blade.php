@@ -32,10 +32,33 @@
                     <input wire:model.lazy="search" wire:keydown.debounce.300ms="$refresh" type="text"
                         class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..." aria-label=""
                         aria-describedby="basic-addon1">
-                    <div class="input-group-append position-absolute pos-fixed-right-center">
+                    <div class="input-group-append position-absolute pos-fixed-right-center" style="white-space: nowrap;">
                         <button class="btn bg-transparent border-0 text-gray lh-1" type="button"><i
                                 class="fal fa-search"></i></button>
                     </div>
+                </div>
+                <div class="p-2" wire:ignore>
+                    <div class="input-group input-group-lg bg-white border" style="white-space: nowrap;">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-transparent letter-spacing-093 border-0 pr-0">
+                                <i class="far fa-align-left mr-2"></i>Lọc theo:
+                            </span>
+                        </div>
+                        <select class="form-control bg-transparent pl-0 selectpicker d-flex align-items-center sortby"
+                                wire:model.lazy="timeFilter" id="timeFilter" 
+                            data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
+                            <option value="" selected>Thời Gian:</option>
+                                <option value="1_day">1 ngày</option>
+                                <option value="7_day">7 ngày</option>
+                                <option value="1_month">1 tháng</option>
+                                <option value="3_month">3 tháng</option>
+                                <option value="6_month">6 tháng</option>
+                                <option value="1_year">1 năm</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="align-self-center">
+                    <button class="btn btn-danger btn-lg" tabindex="0"><span>Xóa</span></button>
                 </div>
             </div>
 
@@ -147,26 +170,21 @@
     <table id="myTable" class="table table-hover bg-white border rounded-lg">
         <thead>
             <tr role="row">
-                <th class="no-sort py-6 pl-6"><label class="new-control new-checkbox checkbox-primary m-auto">
-                        <input type="checkbox" class="new-control-input chk-parent select-customers-info">
-                    </label></th>
-                <th class="py-6">Tiêu đề</th>
+                
+                <th class="py-6" >Tiêu đề</th>
                 <th class="py-6">Mô tả</th>
-                <th class="py-6">Địa chỉ</th>
+                <th class="py-6" style="white-space: nowrap;">Địa chỉ</th>
                 <th class="py-6">Ngày</th>
                 <th class="py-6">Lượng phòng</th>
                 <th class="py-6">Trạng thái</th>
-                <th class="no-sort py-6">Thao tác</th>
+                <th class="no-sort py-6" style="white-space: nowrap;">Thao tác</th>
             </tr>
         </thead>
         <tbody>
             @if ($zones->isNotEmpty())
                 @foreach ($zones as $zone)
                     <tr role="row" wire:key="zone-{{ $zone->id }}">
-                        <td class="checkbox-column py-6 pl-6"><label
-                                class="new-control new-checkbox checkbox-primary m-auto">
-                                <input type="checkbox" class="new-control-input child-chk select-customers-info">
-                            </label></td>
+                       
                         {{-- <td class="align-middle"><a
                                 href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}"><span
                                     class="inv-number">{{ $zone->name }}</span></a>
@@ -204,15 +222,15 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="d-flex align-items-center">
+                            <div class="d-flex align-items-center" >
 
-                                <small class="align-self-center mb-0 user-name">{{ $zone->description }}</small>
+                                <small  class="align-self-center mb-0 user-name">{{ $zone->description }}</small>
                             </div>
                         </td>
-                        <td class="align-middle"><span
+                        <td class="align-middle" style="white-space: nowrap;"><span
                                 class="text-primary pr-1"></span><small>{{ $zone->address }}</small>
                         </td>
-                        <td class="align-middle"><span class="text-success pr-1"><i
+                        <td class="align-middle" style="white-space: nowrap;"><span class="text-success pr-1"><i
                                     class="fal fa-calendar"></i></span>{{ $zone->updated_at }}</td>
                         <td class="align-middle">
                             <span class="inv-amount">

@@ -9,3 +9,4 @@ Route::post('/danh-gia', [CommentClientController::class, 'submitReview'])->name
 Route::post('/danh-gia-khu-tro', [CommentClientController::class, 'submitZone'])->name('danh-gia-khu-tro');
 Route::post('/binh-luan-blog', [CommentClientController::class, 'submitBlogs'])->name('binh-luan-blog');
 Route::post('/danh-gia-nguoi-dung', [CommentClientController::class, 'submitUsers'])->name('danh-gia-nguoi-dung');
+Route::post('/xoa-binh-luan', [CommentClientController::class, 'deleteOwnComment'])->name('xoa-binh-luan');

@@ -5,23 +5,21 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Room;
+use App\Models\Category;
 
 class ListRoomClient extends Component
 {
-    // public function render()
-    // {
-    //     return view('livewire.list-room-client');
-    // }
     use WithPagination;
 
     public $search;
     public $province;
     public $district;
     public $village;
+    public $category; // Thêm biến này
     public $perPage = 8;
     public $sortBy = 'default';
-    protected $queryString = ['search', 'province', 'district', 'village'];
-    const HIEN_THI = 2;
+    protected $queryString = ['search', 'province', 'district', 'village', 'category']; // Thêm 'category' vào đây
+
     public function render()
     {
         // $query = Room::join('users', 'rooms.user_id', '=', 'users.id')
@@ -47,12 +45,18 @@ class ListRoomClient extends Component
         if ($this->village) {
             $query->where('rooms.village', $this->village);
         }
+        if ($this->category) { // Thêm điều kiện lọc theo category
+            $query->where('rooms.category_id', $this->category);
+        }
 
         // Sắp xếp ưu tiên VIP trước
         // $query->orderBy('rooms.expiration_date', 'desc') // Sắp xếp theo ngày hết hạn
         //     ->orderBy('rooms.created_at', 'desc') // Sắp xếp theo ngày tạo mới nhất
         //     ->orderBy('rooms.view', 'desc'); // Sắp xếp theo lượt xem cao nhất
         $query->orderByRaw('CASE WHEN rooms.expiration_date > NOW() THEN 1 ELSE 0 END DESC');
+        $query->orderBy('rooms.expiration_date', 'desc')
+            ->orderBy('rooms.created_at', 'desc')
+            ->orderBy('rooms.view', 'desc');
 
         // Sau đó sắp xếp theo giá hoặc thời gian tạo
         // switch ($this->sortBy) {
@@ -82,9 +86,21 @@ class ListRoomClient extends Component
         }
 
         $rooms = $query->paginate($this->perPage);
+        $categories = Category::all(); // Lấy tất cả categories
 
         return view('livewire.list-room-client', [
-            'rooms' => $rooms
+            'rooms' => $rooms,
+            'categories' => $categories // Truyền categories vào view
         ]);
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingCategory()
+    {
+        $this->resetPage();
     }
 }

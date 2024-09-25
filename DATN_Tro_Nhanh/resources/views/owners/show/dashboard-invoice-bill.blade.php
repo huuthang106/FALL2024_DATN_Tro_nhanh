@@ -57,15 +57,15 @@
                             {{-- @if ($currentUserRole != 1)  
                                 <th class="py-6">Người Nhận</th>
                             @else --}}
-                            <th class="py-6">Tên Người Nhận</th>
+                            <th class="py-6" style="white-space: nowrap;">Tên Người Nhận</th>
                             {{-- @endif --}}
-                            <th class="py-6">Nội Dung</th>
-                            <th class="py-6">Giá</th>
+                            <th class="py-6" style="white-space: nowrap;"q>Nội Dung</th>
+                            <th class="py-6" style="white-space: nowrap;">Giá</th>
 
-                            <th class="py-6">Ngày tạo đơn</th>
-                            <th class="py-6">Ngày thanh toán</th>
-                            <th class="py-6">Trạng thái</th>
-                            <th class="no-sort py-6">Thao tác</th>
+                            <th class="py-6" style="white-space: nowrap;">Ngày tạo đơn</th>
+                            <th class="py-6" style="white-space: nowrap;">Ngày thanh toán</th>
+                            <th class="py-6" style="white-space: nowrap;">Trạng thái</th>
+                            <th class="no-sort py-6" style="white-space: nowrap;">Thao tác</th>
                         </tr>
                     </thead>
 
@@ -87,10 +87,10 @@
                                         </a>
                                     </div>
                                 </td>
-                                <td class="align-middle"><span class="inv-amount">{{ $bill->description }}</span></td>
+                                <td class="align-middle" style="white-space: nowrap;"><span class="inv-amount">{{ $bill->description }}</span></td>
                                 <td class="align-middle"><span class="inv-amount">{{ $bill->amount }} VNĐ</span></td>
 
-                                <td class="align-middle">
+                                <td class="align-middle" style="white-space: nowrap;">
                                     <span class="text-success pr-1"><i
                                             class="fal fa-calendar"></i></span>{{ $bill->created_at->format('d/m/Y') }}
                                 </td>
@@ -110,7 +110,7 @@
                                         <span class="badge badge-green text-capitalize">Đã thanh toán</span>
                                     @endif
                                 </td>
-                                <td class="align-middle">
+                                <td class="align-middle" style="white-space: nowrap;">
                                     <a href="#" data-toggle="tooltip" title="Chỉnh sửa"
                                         class="d-inline-block fs-18 text-muted hover-primary mr-5">
                                         <i class="fal fa-pencil-alt"></i>

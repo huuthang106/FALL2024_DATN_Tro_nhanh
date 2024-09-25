@@ -21,9 +21,10 @@ class HomeClientController extends Controller
         $rooms = $this->roomClientService->getRoomWhere();
         $roomClient = $this->roomClientService->RoomClient();
         $locations = $this->roomClientService->getUniqueLocations();
-    
+        $categories = $this->roomClientService->getCategories();
         return view('client.show.home', [
             'roomClient' => $roomClient,
+            'categories' => $categories,
             'rooms' => $rooms,
             'provinces' => $locations['provinces'],
             'districts' => $locations['districts'],

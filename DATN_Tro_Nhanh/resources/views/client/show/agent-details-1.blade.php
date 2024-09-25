@@ -37,31 +37,36 @@
                                     <p class="text-heading font-weight-500 mb-0 lh-13">{{ $user->email }}</p>
                                 </div>
                                 <div class="col-sm-6 mb-4">
-                                    @if ($isFollowing)
-                                        <form action="{{ route('client.follow', $user->id) }}" method="POST"
-                                            id="unfollowForm">
-                                            @csrf
-
-                                            <button type="submit" class="btn btn-sm btn-primary me-2" id="unfollowButton">
-                                                <span class="indicator-label">Đã theo dõi</span>
-                                                <span class="indicator-progress d-none">Vui lòng chờ...
-                                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                                                </span>
-                                            </button>
-                                        </form>
-                                    @else
-                                        <form action="{{ route('client.follow', $user->id) }}" method="POST"
-                                            id="followForm">
-                                            @csrf
-                                            <button type="submit" class="btn btn-sm btn-light me-2" id="followButton">
-                                                <span class="indicator-label">Theo dõi</span>
-                                                <span class="indicator-progress d-none">Vui lòng chờ...
-                                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                                                </span>
-                                            </button>
-                                        </form>
+                                    @if (Auth::id() != $user->id)
+                                        @if ($isFollowing)
+                                            <form action="{{ route('client.follow', $user->id) }}" method="POST"
+                                                id="unfollowForm">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-primary me-2"
+                                                    id="unfollowButton">
+                                                    <span class="indicator-label">Đã theo dõi</span>
+                                                    <span class="indicator-progress d-none">Vui lòng chờ...
+                                                        <span
+                                                            class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                    </span>
+                                                </button>
+                                            </form>
+                                        @else
+                                            <form action="{{ route('client.follow', $user->id) }}" method="POST"
+                                                id="followForm">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-light me-2" id="followButton">
+                                                    <span class="indicator-label">Theo dõi</span>
+                                                    <span class="indicator-progress d-none">Vui lòng chờ...
+                                                        <span
+                                                            class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                                    </span>
+                                                </button>
+                                            </form>
+                                        @endif
                                     @endif
                                 </div>
+
 
 
                             </div>
@@ -69,33 +74,34 @@
                             <div class="row align-items-center">
                                 <div class="col-sm-6 mb-6 mb-sm-0">
                                     @php
-                                    $averageRating = $user->receivedComments()->avg('rating') ?? 0;
-                                    $reviewsCount = $user->receivedComments()->count();
-                                @endphp
-                                
-                                <ul class="list-inline mb-0">
-                                    <li class="list-inline-item fs-13 text-heading font-weight-500">
-                                        {{ $averageRating > 0 ? number_format($averageRating, 1) : 'Chưa có đánh giá' }}
-                                    </li>
-                                    <li class="list-inline-item fs-13 text-heading font-weight-500 mr-1">
-                                        <ul class="list-inline mb-0">
-                                            @for ($i = 1; $i <= 5; $i++)
-                                                <li class="list-inline-item mr-0">
-                                                    <span class="fs-12 lh-2">
-                                                        @if ($i <= floor($averageRating))
-                                                            <i class="fas fa-star text-warning"></i>
-                                                        @elseif ($i - 0.5 <= $averageRating)
-                                                            <i class="fas fa-star-half-alt text-warning"></i>
-                                                        @else
-                                                            <i class="far fa-star text-warning"></i>
-                                                        @endif
-                                                    </span>
-                                                </li>
-                                            @endfor
-                                        </ul>
-                                    </li>
-                                    <li class="list-inline-item fs-13 text-gray-light">({{ $reviewsCount }} đánh giá)</li>
-                                </ul>
+                                        $averageRating = $user->receivedComments()->avg('rating') ?? 0;
+                                        $reviewsCount = $user->receivedComments()->count();
+                                    @endphp
+
+                                    <ul class="list-inline mb-0">
+                                        <li class="list-inline-item fs-13 text-heading font-weight-500">
+                                            {{ $averageRating > 0 ? number_format($averageRating, 1) : 'Chưa có đánh giá' }}
+                                        </li>
+                                        <li class="list-inline-item fs-13 text-heading font-weight-500 mr-1">
+                                            <ul class="list-inline mb-0">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    <li class="list-inline-item mr-0">
+                                                        <span class="fs-12 lh-2">
+                                                            @if ($i <= floor($averageRating))
+                                                                <i class="fas fa-star text-warning"></i>
+                                                            @elseif ($i - 0.5 <= $averageRating)
+                                                                <i class="fas fa-star-half-alt text-warning"></i>
+                                                            @else
+                                                                <i class="far fa-star text-warning"></i>
+                                                            @endif
+                                                        </span>
+                                                    </li>
+                                                @endfor
+                                            </ul>
+                                        </li>
+                                        <li class="list-inline-item fs-13 text-gray-light">({{ $reviewsCount }} đánh giá)
+                                        </li>
+                                    </ul>
                                 </div>
                                 <div class="col-sm-6">
                                     <ul class="list-inline text-gray-lighter m-0 p-0">
@@ -360,19 +366,22 @@
                                                     Người dùng
                                                 @endif
                                             </p>
-                                            <p class="text-heading font-weight-500 mb-0">
-                                                <span class="text-primary d-inline-block mr-1"><i
-                                                        class="fal fa-phone"></i></span>
-                                                {{ $user->phone }}
-                                            </p>
+                                            @if (Auth::id() != $user->id)
+                                                <p class="text-heading font-weight-500 mb-0">
+                                                    <span class="text-primary d-inline-block mr-1"><i
+                                                            class="fal fa-phone"></i></span>
+                                                    {{ $user->phone }}
+                                                </p>
                                         </div>
                                     </div>
+
                                     <form action="{{ route('owners.add-chat', $user->id) }}" method="POST">
                                         @csrf
                                         <button type="submit" class="btn btn-primary btn-lg btn-block shadow-none">Gửi
                                             tin nhắn
                                         </button>
                                     </form>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -521,5 +530,6 @@
     <script src="{{ asset('assets/js/client/ajax-follow.js') }}"></script>
     <script src="{{ asset('assets/js/yeuthich.js') }}"></script>
     <script src="{{ asset('assets/css/css-nht.css') }}"></script>
+    
     @livewireScripts
 @endpush

@@ -29,80 +29,82 @@
                                         id="city-province" name="province" data-style="bg-white pl-0 text-dark rounded-0">
                                         <option value='0'>&nbsp;Chọn Tỉnh/Thành Phố...
                                         </option>
-                                        <option value='01'>&nbspThành phố Hà Nội</option>
-                                        <option value='79'>&nbspThành phố Hồ Chí Minh
-                                        </option>
-                                        <option value='31'>&nbspThành phố Hải Phòng
-                                        </option>
-                                        <option value='48'>&nbspThành phố Đà Nẵng</option>
-                                        <option value='92'>&nbspThành phố Cần Thơ</option>
-                                        <option value='02'>&nbspTỉnh Hà Giang</option>
-                                        <option value='04'>&nbspTỉnh Cao Bằng</option>
-                                        <option value='06'>&nbspTỉnh Bắc Kạn</option>
-                                        <option value='08'>&nbspTỉnh Tuyên Quang</option>
-                                        <option value='10'>&nbspTỉnh Lào Cai</option>
-                                        <option value='11'>&nbspTỉnh Điện Biên</option>
-                                        <option value='12'>&nbspTỉnh Lai Châu</option>
-                                        <option value='14'>&nbspTỉnh Sơn La</option>
-                                        <option value='15'>&nbspTỉnh Yên Bái</option>
-                                        <option value='17'>&nbspTỉnh Hoà Bình</option>
-                                        <option value='19'>&nbspTỉnh Thái Nguyên</option>
-                                        <option value='20'>&nbspTỉnh Lạng Sơn</option>
-                                        <option value='22'>&nbspTỉnh Quảng Ninh</option>
-                                        <option value='24'>&nbspTỉnh Bắc Giang</option>
-                                        <option value='25'>&nbspTỉnh Phú Thọ</option>
-                                        <option value='26'>&nbspTỉnh Vĩnh Phúc</option>
-                                        <option value='27'>&nbspTỉnh Bắc Ninh</option>
-                                        <option value='30'>&nbspTỉnh Hải Dương</option>
-                                        <option value='33'>&nbspTỉnh Hưng Yên</option>
-                                        <option value='34'>&nbspTỉnh Thái Bình</option>
-                                        <option value='35'>&nbspTỉnh Hà Nam</option>
-                                        <option value='36'>&nbspTỉnh Nam Định</option>
-                                        <option value='37'>&nbspTỉnh Ninh Bình</option>
-                                        <option value='38'>&nbspTỉnh Thanh Hóa</option>
-                                        <option value='40'>&nbspTỉnh Nghệ An</option>
-                                        <option value='42'>&nbspTỉnh Hà Tĩnh</option>
-                                        <option value='44'>&nbspTỉnh Quảng Bình</option>
-                                        <option value='45'>&nbspTỉnh Quảng Trị</option>
-                                        <option value='46'>&nbspTỉnh Thừa Thiên Huế
-                                        </option>
-                                        <option value='49'>&nbspTỉnh Quảng Nam</option>
-                                        <option value='51'>&nbspTỉnh Quảng Ngãi</option>
-                                        <option value='52'>&nbspTỉnh Bình Định</option>
-                                        <option value='54'>&nbspTỉnh Phú Yên</option>
-                                        <option value='56'>&nbspTỉnh Khánh Hòa</option>
-                                        <option value='58'>&nbspTỉnh Ninh Thuận</option>
-                                        <option value='60'>&nbspTỉnh Bình Thuận</option>
-                                        <option value='62'>&nbspTỉnh Kon Tum</option>
-                                        <option value='64'>&nbspTỉnh Gia Lai</option>
-                                        <option value='66'>&nbspTỉnh Đắk Lắk</option>
-                                        <option value='67'>&nbspTỉnh Đắk Nông</option>
-                                        <option value='68'>&nbspTỉnh Lâm Đồng</option>
-                                        <option value='70'>&nbspTỉnh Bình Phước</option>
-                                        <option value='72'>&nbspTỉnh Tây Ninh</option>
-                                        <option value='74'>&nbspTỉnh Bình Dương</option>
-                                        <option value='75'>&nbspTỉnh Đồng Nai</option>
-                                        <option value='77'>&nbspTỉnh Bà Rịa - Vũng Tàu
-                                        </option>
-                                        <option value='80'>&nbspTỉnh Long An</option>
-                                        <option value='82'>&nbspTỉnh Tiền Giang</option>
-                                        <option value='83'>&nbspTỉnh Bến Tre</option>
-                                        <option value='84'>&nbspTỉnh Trà Vinh</option>
-                                        <option value='86'>&nbspTỉnh Vĩnh Long</option>
-                                        <option value='87'>&nbspTỉnh Đồng Tháp</option>
-                                        <option value='89'>&nbspTỉnh An Giang</option>
-                                        <option value='91'>&nbspTỉnh Kiên Giang</option>
-                                        <option value='93'>&nbspTỉnh Hậu Giang</option>
-                                        <option value='94'>&nbspTỉnh Sóc Trăng</option>
-                                        <option value='95'>&nbspTỉnh Bạc Liêu</option>
-                                        <option value='96'>&nbspTỉnh Cà Mau</option>
+                                        @foreach([
+                                                    '01' => 'Thành phố Hà Nội',
+                                                    '79' => 'Thành phố Hồ Chí Minh',
+                                                    '31' => 'Thành phố Hải Phòng',
+                                                    '48' => 'Thành phố Đà Nẵng',
+                                                    '92' => 'Thành phố Cần Thơ',
+                                                    '02' => 'Tỉnh Hà Giang',
+                                                    '04' => 'Tỉnh Cao Bằng',
+                                                    '06' => 'Tỉnh Bắc Kạn',
+                                                    '08' => 'Tỉnh Tuyên Quang',
+                                                    '10' => 'Tỉnh Lào Cai',
+                                                    '11' => 'Tỉnh Điện Biên',
+                                                    '12' => 'Tỉnh Lai Châu',
+                                                    '14' => 'Tỉnh Sơn La',
+                                                    '15' => 'Tỉnh Yên Bái',
+                                                    '17' => 'Tỉnh Hoà Bình',
+                                                    '19' => 'Tỉnh Thái Nguyên',
+                                                    '20' => 'Tỉnh Lạng Sơn',
+                                                    '22' => 'Tỉnh Quảng Ninh',
+                                                    '24' => 'Tỉnh Bắc Giang',
+                                                    '25' => 'Tỉnh Phú Thọ',
+                                                    '26' => 'Tỉnh Vĩnh Phúc',
+                                                    '27' => 'Tỉnh Bắc Ninh',
+                                                    '30' => 'Tỉnh Hải Dương',
+                                                    '33' => 'Tỉnh Hưng Yên',
+                                                    '34' => 'Tỉnh Thái Bình',
+                                                    '35' => 'Tỉnh Hà Nam',
+                                                    '36' => 'Tỉnh Nam Định',
+                                                    '37' => 'Tỉnh Ninh Bình',
+                                                    '38' => 'Tỉnh Thanh Hóa',
+                                                    '40' => 'Tỉnh Nghệ An',
+                                                    '42' => 'Tỉnh Hà Tĩnh',
+                                                    '44' => 'Tỉnh Quảng Bình',
+                                                    '45' => 'Tỉnh Quảng Trị',
+                                                    '46' => 'Tỉnh Thừa Thiên Huế',
+                                                    '49' => 'Tỉnh Quảng Nam',
+                                                    '51' => 'Tỉnh Quảng Ngãi',
+                                                    '52' => 'Tỉnh Bình Định',
+                                                    '54' => 'Tỉnh Phú Yên',
+                                                    '56' => 'Tỉnh Khánh Hòa',
+                                                    '58' => 'Tỉnh Ninh Thuận',
+                                                    '60' => 'Tỉnh Bình Thuận',
+                                                    '62' => 'Tỉnh Kon Tum',
+                                                    '64' => 'Tỉnh Gia Lai',
+                                                    '66' => 'Tỉnh Đắk Lắk',
+                                                    '67' => 'Tỉnh Đắk Nông',
+                                                    '68' => 'Tỉnh Lâm Đồng',
+                                                    '70' => 'Tỉnh Bình Phước',
+                                                    '72' => 'Tỉnh Tây Ninh',
+                                                    '74' => 'Tỉnh Bình Dương',
+                                                    '75' => 'Tỉnh Đồng Nai',
+                                                    '77' => 'Tỉnh Bà Rịa - Vũng Tàu',
+                                                    '80' => 'Tỉnh Long An',
+                                                    '82' => 'Tỉnh Tiền Giang',
+                                                    '83' => 'Tỉnh Bến Tre',
+                                                    '84' => 'Tỉnh Trà Vinh',
+                                                    '86' => 'Tỉnh Vĩnh Long',
+                                                    '87' => 'Tỉnh Đồng Tháp',
+                                                    '89' => 'Tỉnh An Giang',
+                                                    '91' => 'Tỉnh Kiên Giang',
+                                                    '93' => 'Tỉnh Hậu Giang',
+                                                    '94' => 'Tỉnh Sóc Trăng',
+                                                    '95' => 'Tỉnh Bạc Liêu',
+                                                    '96' => 'Tỉnh Cà Mau'
+                                                ] as $code => $name)
+                                                    @if(in_array($code, $provinces))
+                                                        <option value='{{ $code }}' {{ $province == $code ? 'selected' : '' }}>{{ $name }}</option>
+                                                    @endif
+                                                @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group mb-3 mb-md-0 col-md-4">
                                     <label for="district"
                                         class="mb-0 lh-1 text-uppercase fs-14 letter-spacing-093">Quận/Huyện</label>
                                     <select class="form-control font-weight-600 pl-0 bg-white form-control-sm "
-                                        id="district-town" name="district" data-style="bg-white pl-0 text-dark rounded-0">
+                                        id="district-town" name="district" data-style="bg-white pl-0 text-dark rounded-0" id="location">
                                         <option value='0'>&nbsp;Chọn Quận/Huyện...
                                         </option>
                                     </select>
@@ -111,7 +113,7 @@
                                     <label for="ward-commune"
                                         class="mb-0 lh-1 text-uppercase fs-14 letter-spacing-093">Xã</label>
                                     <select class="form-control font-weight-600 pl-0 bg-white form-control-sm "
-                                        id="ward-commune" name="village" data-style="bg-white pl-0 text-dark rounded-0">
+                                        id="ward-commune" name="village" data-style="bg-white pl-0 text-dark rounded-0" id="location">
                                         <option value='0'>&nbsp;Chọn Xã...
                                         </option>
                                     </select>
@@ -571,7 +573,11 @@
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
-
-    <script src="{{ asset('assets/js/api-country-vn-nht.js') }}"></script>
+    <script>
+        var districts = @json($districts);
+        var villages = @json($villages);
+    </script>
+   
+    <script src="{{ asset('assets/js/search-api-vn.js') }}"></script>
     {{-- @livewireScripts --}}
 @endpush

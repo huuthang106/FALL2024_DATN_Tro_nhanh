@@ -51,13 +51,13 @@
                                 <input type="checkbox" class="new-control-input chk-parent select-customers-info">
                             </label>
                         </th>
-                        <th class="py-6">Tiêu đề</th>
-                        <th class="py-6">Giá</th>
-                        <th class="py-6">Ngày tạo đơn</th>
-                        <th class="py-6">Hạn thanh toán</th>
-                        <th class="py-6">Ngày thanh toán</th>
-                        <th class="py-6">Trạng thái</th>
-                        <th class="no-sort py-6">Thao tác</th>
+                        <th class="py-6" style="white-space: nowrap;">Tiêu đề</th>
+                        <th class="py-6" style="white-space: nowrap;">Giá</th>
+                        <th class="py-6" style="white-space: nowrap;">Ngày tạo đơn</th>
+                        <th class="py-6" style="white-space: nowrap;">Hạn thanh toán</th>
+                        <th class="py-6" style="white-space: nowrap;">Ngày thanh toán</th>
+                        <th class="py-6" style="white-space: nowrap;">Trạng thái</th>
+                        <th class="no-sort py-6" style="white-space: nowrap;">Thao tác</th>
                     </tr>
                 </thead>
 

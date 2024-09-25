@@ -79,11 +79,8 @@
                                 </div>
                                 
                             </td>
-                            <td class="align-middle text-truncate" style="max-width: 150px;">{{ $blog->title }}</td>
-                            <td class="align-middle text-truncate" style="max-width: 150px;">
-                                <small>{{ \Illuminate\Support\Str::limit($blog->description, 20) }}</small>
-                            </td>
-                            <td class="align-middle">{{ $blog->view }}</td>
+                            <td class="align-middle" style="white-space: nowrap;">{{ $blog->title }}</td>
+                            <td class="align-middle" style="white-space: nowrap;">{{ $blog->description }}</td>
                             <td class="align-middle">
                                 @if ($blog->status == 1)
                                     <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">Chờ xác nhận</span>
@@ -94,7 +91,7 @@
                                 @endif
                             </td>
                             <td class="align-middle">{{ $blog->created_at->format('d-m-Y') }}</td>
-                            <td class="align-middle text">
+                            <td class="align-middle text" style="white-space: nowrap;">
                                 <a href="{{ route('owners.sua-blog', ['slug' => $blog->slug]) }}" data-toggle="tooltip"
                                    title="Chỉnh sửa" class="d-inline-block fs-18 text-muted hover-primary ml-1 mr-5">
                                     <i class="fal fa-pencil-alt"></i>

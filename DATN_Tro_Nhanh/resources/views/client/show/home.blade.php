@@ -45,11 +45,13 @@
                                     <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Loại phòng</label>
                                     <select
                                         class="form-control custom-select bg-transparent border-bottom rounded-0 border-color-input"
-                                        title="Chọn" data-style="p-0 h-24 lh-17 text-dark" name="type">
-                                        <option>Căn hộ</option>
-                                        <option>Nhà đơn lập</option>
-                                        <option>Nhà liên kế</option>
-                                        <option>Nhà nhiều tầng</option>
+                                        title="Chọn" data-style="p-0 h-24 lh-17 text-dark" name="category">
+                                        <option value="">Tất cả loại phòng</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                                                {{ $category->name }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-md-6 col-lg-4 col-xl-5 pt-6 pt-lg-0 order-2">
@@ -229,306 +231,121 @@
                                     <div class="col-sm-6 pt-4 px-2">
                                         {{-- <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Tất cả
                                             thành phố</label> --}}
-                                        <select
-                                            class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
-                                            id="city-province" title="Chọn Tỉnh/Thành Phố..." name="province"
-                                            data-style="btn-lg py-2 h-52 bg-transparent">
+                                            <select
+                                            class="form-control custom-select bg-transparent border-bottom rounded-0 border-color-input"
+                                            id="city-province" title="Tất cả thành phố" name="province"
+                                            data-style="p-0 h-24 lh-17 text-dark">
                                             <option value='0'>Chọn Tỉnh/Thành Phố...</option>
-                                            <option value='01'>Thành phố Hà Nội</option>
-                                            <option value='79'>Thành phố Hồ Chí Minh</option>
-                                            <option value='31'>Thành phố Hải Phòng</option>
-                                            <option value='48'>Thành phố Đà Nẵng</option>
-                                            <option value='92'>Thành phố Cần Thơ</option>
-                                            <option value='02'>Tỉnh Hà Giang</option>
-                                            <option value='04'>Tỉnh Cao Bằng</option>
-                                            <option value='06'>Tỉnh Bắc Kạn</option>
-                                            <option value='08'>Tỉnh Tuyên Quang</option>
-                                            <option value='10'>Tỉnh Lào Cai</option>
-                                            <option value='11'>Tỉnh Điện Biên</option>
-                                            <option value='12'>Tỉnh Lai Châu</option>
-                                            <option value='14'>Tỉnh Sơn La</option>
-                                            <option value='15'>Tỉnh Yên Bái</option>
-                                            <option value='17'>Tỉnh Hoà Bình</option>
-                                            <option value='19'>Tỉnh Thái Nguyên</option>
-                                            <option value='20'>Tỉnh Lạng Sơn</option>
-                                            <option value='22'>Tỉnh Quảng Ninh</option>
-                                            <option value='24'>Tỉnh Bắc Giang</option>
-                                            <option value='25'>Tỉnh Phú Thọ</option>
-                                            <option value='26'>Tỉnh Vĩnh Phúc</option>
-                                            <option value='27'>Tỉnh Bắc Ninh</option>
-                                            <option value='30'>Tỉnh Hải Dương</option>
-                                            <option value='33'>Tỉnh Hưng Yên</option>
-                                            <option value='34'>Tỉnh Thái Bình</option>
-                                            <option value='35'>Tỉnh Hà Nam</option>
-                                            <option value='36'>Tỉnh Nam Định</option>
-                                            <option value='37'>Tỉnh Ninh Bình</option>
-                                            <option value='38'>Tỉnh Thanh Hóa</option>
-                                            <option value='40'>Tỉnh Nghệ An</option>
-                                            <option value='42'>Tỉnh Hà Tĩnh</option>
-                                            <option value='44'>Tỉnh Quảng Bình</option>
-                                            <option value='45'>Tỉnh Quảng Trị</option>
-                                            <option value='46'>Tỉnh Thừa Thiên Huế</option>
-                                            <option value='49'>Tỉnh Quảng Nam</option>
-                                            <option value='51'>Tỉnh Quảng Ngãi</option>
-                                            <option value='52'>Tỉnh Bình Định</option>
-                                            <option value='54'>Tỉnh Phú Yên</option>
-                                            <option value='56'>Tỉnh Khánh Hòa</option>
-                                            <option value='58'>Tỉnh Ninh Thuận</option>
-                                            <option value='60'>Tỉnh Bình Thuận</option>
-                                            <option value='62'>Tỉnh Kon Tum</option>
-                                            <option value='64'>Tỉnh Gia Lai</option>
-                                            <option value='66'>Tỉnh Đắk Lắk</option>
-                                            <option value='67'>Tỉnh Đắk Nông</option>
-                                            <option value='68'>Tỉnh Lâm Đồng</option>
-                                            <option value='70'>Tỉnh Bình Phước</option>
-                                            <option value='72'>Tỉnh Tây Ninh</option>
-                                            <option value='74'>Tỉnh Bình Dương</option>
-                                            <option value='75'>Tỉnh Đồng Nai</option>
-                                            <option value='77'>Tỉnh Bà Rịa - Vũng Tàu</option>
-                                            <option value='80'>Tỉnh Long An</option>
-                                            <option value='82'>Tỉnh Tiền Giang</option>
-                                            <option value='83'>Tỉnh Bến Tre</option>
-                                            <option value='84'>Tỉnh Trà Vinh</option>
-                                            <option value='86'>Tỉnh Vĩnh Long</option>
-                                            <option value='87'>Tỉnh Đồng Tháp</option>
-                                            <option value='89'>Tỉnh An Giang</option>
-                                            <option value='91'>Tỉnh Kiên Giang</option>
-                                            <option value='93'>Tỉnh Hậu Giang</option>
-                                            <option value='94'>Tỉnh Sóc Trăng</option>
-                                            <option value='95'>Tỉnh Bạc Liêu</option>
-                                            <option value='96'>Tỉnh Cà Mau</option>
-                                            <!-- Các tỉnh thành khác... -->
+                                            @foreach([
+                                                '01' => 'Thành phố Hà Nội',
+                                                '79' => 'Thành phố Hồ Chí Minh',
+                                                '31' => 'Thành phố Hải Phòng',
+                                                '48' => 'Thành phố Đà Nẵng',
+                                                '92' => 'Thành phố Cần Thơ',
+                                                '02' => 'Tỉnh Hà Giang',
+                                                '04' => 'Tỉnh Cao Bằng',
+                                                '06' => 'Tỉnh Bắc Kạn',
+                                                '08' => 'Tỉnh Tuyên Quang',
+                                                '10' => 'Tỉnh Lào Cai',
+                                                '11' => 'Tỉnh Điện Biên',
+                                                '12' => 'Tỉnh Lai Châu',
+                                                '14' => 'Tỉnh Sơn La',
+                                                '15' => 'Tỉnh Yên Bái',
+                                                '17' => 'Tỉnh Hoà Bình',
+                                                '19' => 'Tỉnh Thái Nguyên',
+                                                '20' => 'Tỉnh Lạng Sơn',
+                                                '22' => 'Tỉnh Quảng Ninh',
+                                                '24' => 'Tỉnh Bắc Giang',
+                                                '25' => 'Tỉnh Phú Thọ',
+                                                '26' => 'Tỉnh Vĩnh Phúc',
+                                                '27' => 'Tỉnh Bắc Ninh',
+                                                '30' => 'Tỉnh Hải Dương',
+                                                '33' => 'Tỉnh Hưng Yên',
+                                                '34' => 'Tỉnh Thái Bình',
+                                                '35' => 'Tỉnh Hà Nam',
+                                                '36' => 'Tỉnh Nam Định',
+                                                '37' => 'Tỉnh Ninh Bình',
+                                                '38' => 'Tỉnh Thanh Hóa',
+                                                '40' => 'Tỉnh Nghệ An',
+                                                '42' => 'Tỉnh Hà Tĩnh',
+                                                '44' => 'Tỉnh Quảng Bình',
+                                                '45' => 'Tỉnh Quảng Trị',
+                                                '46' => 'Tỉnh Thừa Thiên Huế',
+                                                '49' => 'Tỉnh Quảng Nam',
+                                                '51' => 'Tỉnh Quảng Ngãi',
+                                                '52' => 'Tỉnh Bình Định',
+                                                '54' => 'Tỉnh Phú Yên',
+                                                '56' => 'Tỉnh Khánh Hòa',
+                                                '58' => 'Tỉnh Ninh Thuận',
+                                                '60' => 'Tỉnh Bình Thuận',
+                                                '62' => 'Tỉnh Kon Tum',
+                                                '64' => 'Tỉnh Gia Lai',
+                                                '66' => 'Tỉnh Đắk Lắk',
+                                                '67' => 'Tỉnh Đắk Nông',
+                                                '68' => 'Tỉnh Lâm Đồng',
+                                                '70' => 'Tỉnh Bình Phước',
+                                                '72' => 'Tỉnh Tây Ninh',
+                                                '74' => 'Tỉnh Bình Dương',
+                                                '75' => 'Tỉnh Đồng Nai',
+                                                '77' => 'Tỉnh Bà Rịa - Vũng Tàu',
+                                                '80' => 'Tỉnh Long An',
+                                                '82' => 'Tỉnh Tiền Giang',
+                                                '83' => 'Tỉnh Bến Tre',
+                                                '84' => 'Tỉnh Trà Vinh',
+                                                '86' => 'Tỉnh Vĩnh Long',
+                                                '87' => 'Tỉnh Đồng Tháp',
+                                                '89' => 'Tỉnh An Giang',
+                                                '91' => 'Tỉnh Kiên Giang',
+                                                '93' => 'Tỉnh Hậu Giang',
+                                                '94' => 'Tỉnh Sóc Trăng',
+                                                '95' => 'Tỉnh Bạc Liêu',
+                                                '96' => 'Tỉnh Cà Mau'
+                                            ] as $code => $name)
+                                                @if(in_array($code, $provinces))
+                                                    <option value='{{ $code }}' {{ $province == $code ? 'selected' : '' }}>{{ $name }}</option>
+                                                @endif
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col-sm-6 pt-4 px-2">
                                         {{-- <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Tất cả
                                             quận/huyện</label> --}}
-                                        <select
-                                            class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
-                                            id="district-town" name="district" title="Chọn Quận/Huyện..."
-                                            data-style="btn-lg py-2 h-52 bg-transparent">
+                                            <select
+                                            class="form-control custom-select bg-transparent border-bottom rounded-0 border-color-input"
+                                            id="district-town" name="district" title="Tất cả khu vực"
+                                            data-style="p-0 h-24 lh-17 text-dark" id="location">
                                             <option value="0">Chọn Quận/Huyện...</option>
                                         </select>
                                     </div>
                                     <div class="col-sm-6 pt-4 px-2">
                                         {{-- <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Tất cả
                                             xã/phường</label> --}}
-                                        <select
-                                            class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
-                                            id="ward-commune" name="village" title="Chọn Xã/Phường..."
-                                            data-style="btn-lg py-2 h-52 bg-transparent">
+                                            <select
+                                            class="form-control custom-select bg-transparent border-bottom rounded-0 border-color-input"
+                                            id="ward-commune" name="village" title="Tất cả khu vực"
+                                            data-style="p-0 h-24 lh-17 text-dark" id="location">
                                             <option value="0">Chọn Xã/Phường...</option>
                                         </select>
                                     </div>
 
-                                    <div class="col-sm-6 pt-4 px-2">
+                                 
+                                    <div class="col-sm-6 pt-4 px-2 pb-2">
                                         <select
-                                            class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
-                                            title="Chọn" data-style="btn-lg py-2 h-52 bg-transparent" name="type">
-                                            <option>Tất cả trạng thái</option>
-                                            <option>Cho thuê</option>
-                                            <option>Bán</option>
-                                        </select>
+                                        class="form-control custom-select bg-transparent border-bottom rounded-0 border-color-input"
+                                        title="Chọn" data-style="p-0 h-24 lh-17 text-dark" name="category">
+                                        <option value="">Tất cả loại phòng</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                                                {{ $category->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                     </div>
-                                    <div class="col-sm-6 pt-4 px-2">
-                                        <select
-                                            class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
-                                            title="Tất cả loại" data-style="btn-lg py-2 h-52 bg-transparent"
-                                            name="type">
-                                            <option>Căn hộ</option>
-                                            <option>Nhà đơn lập</option>
-                                            <option>Nhà liên kế</option>
-                                            <option>Nhà nhiều tầng</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-6 pt-4 px-2">
-                                        <select
-                                            class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
-                                            name="bathrooms" title="Phòng tắm"
-                                            data-style="btn-lg py-2 h-52 bg-transparent">
-                                            <option>Tất cả phòng tắm</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
-                                            <option>7</option>
-                                            <option>8</option>
-                                            <option>9</option>
-                                            <option>10</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-6 pt-4 px-2">
-                                        <select
-                                            class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
-                                            title="Tất cả thành phố" data-style="btn-lg py-2 h-52 bg-transparent"
-                                            name="city">
-                                            <option>Tất cả thành phố</option>
-                                            <option>New York</option>
-                                            <option>Los Angeles</option>
-                                            <option>Chicago</option>
-                                            <option>Houston</option>
-                                            <option>San Diego</option>
-                                            <option>Las Vegas</option>
-                                            <option>Atlanta</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-6 pt-4 px-2">
-                                        <select
-                                            class="form-control border shadow-none form-control-lg selectpicker bg-transparent"
-                                            name="areas" title="Tất cả khu vực"
-                                            data-style="btn-lg py-2 h-52 bg-transparent">
-                                            <option>Tất cả khu vực</option>
-                                            <option>Albany Park</option>
-                                            <option>Altgeld Gardens</option>
-                                            <option>Andersonville</option>
-                                            <option>Beverly</option>
-                                            <option>Brickel</option>
-                                            <option>Central City</option>
-                                            <option>Coconut Grove</option>
-                                        </select>
-                                    </div>
+                             
+                               
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6 pt-6 slider-range slider-range-secondary">
-                                        <label for="price-4-mobile" class="mb-4 text-white">Khoảng giá</label>
-                                        <div data-slider="true"
-                                            data-slider-options='{"min":0,"max":1000000,"values":[100000,700000],"type":"currency"}'>
-                                        </div>
-                                        <div class="text-center mt-2">
-                                            <input id="price-4-mobile" type="text" readonly
-                                                class="border-0 amount text-center bg-transparent font-weight-500"
-                                                name="price">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 pt-6 slider-range slider-range-secondary">
-                                        <label for="area-size-4-mobile" class="mb-4">Diện tích</label>
-                                        <div data-slider="true"
-                                            data-slider-options='{"min":0,"max":15000,"values":[0,12000],"type":"sqrt"}'>
-                                        </div>
-                                        <div class="text-center mt-2">
-                                            <input id="area-size-4-mobile" type="text" readonly
-                                                class="border-0 amount text-center bg-transparent font-weight-500"
-                                                name="area">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 pt-4 pb-2">
-                                        <a class="lh-17 d-inline-block other-feature collapsed" data-toggle="collapse"
-                                            href="#other-feature-4-mobile" role="button" aria-expanded="false"
-                                            aria-controls="other-feature-4-mobile">
-                                            <span class="fs-15 font-weight-500 hover-primary">Các tính năng khác</span>
-                                        </a>
-                                    </div>
-                                    <div class="collapse row mx-0 w-100" id="other-feature-4-mobile">
-                                        <div class="col-sm-6 py-2">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="features[]"
-                                                    id="check1-4-mobile">
-                                                <label class="custom-control-label" for="check1-4-mobile">Điều hòa</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 py-2">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="features[]"
-                                                    id="check2-4-mobile">
-                                                <label class="custom-control-label" for="check2-4-mobile">Giặt ủi</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 py-2">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="features[]"
-                                                    id="check4-4-mobile">
-                                                <label class="custom-control-label" for="check4-4-mobile">Máy giặt</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 py-2">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="features[]"
-                                                    id="check5-4-mobile">
-                                                <label class="custom-control-label" for="check5-4-mobile">BBQ</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 py-2">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="features[]"
-                                                    id="check6-4-mobile">
-                                                <label class="custom-control-label" for="check6-4-mobile">Sân vườn</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 py-2">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="features[]"
-                                                    id="check7-4-mobile">
-                                                <label class="custom-control-label" for="check7-4-mobile">Xông hơi</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 py-2">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="features[]"
-                                                    id="check8-4-mobile">
-                                                <label class="custom-control-label" for="check8-4-mobile">WiFi</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 py-2">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="features[]"
-                                                    id="check9-4-mobile">
-                                                <label class="custom-control-label" for="check9-4-mobile">Sấy khô</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 py-2">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="features[]"
-                                                    id="check10-4-mobile">
-                                                <label class="custom-control-label" for="check10-4-mobile">Lò vi
-                                                    sóng</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 py-2">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="features[]"
-                                                    id="check11-4-mobile">
-                                                <label class="custom-control-label" for="check11-4-mobile">Hồ bơi</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 py-2">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="features[]"
-                                                    id="check12-4-mobile">
-                                                <label class="custom-control-label" for="check12-4-mobile">Rèm cửa</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 py-2">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="features[]"
-                                                    id="check13-4-mobile">
-                                                <label class="custom-control-label" for="check13-4-mobile">Phòng
-                                                    gym</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 py-2">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="features[]"
-                                                    id="check14-4-mobile">
-                                                <label class="custom-control-label" for="check14-4-mobile">Vòi sen ngoài
-                                                    trời</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 py-2">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="features[]"
-                                                    id="check15-4-mobile">
-                                                <label class="custom-control-label" for="check15-4-mobile">Cáp TV</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 py-2">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="features[]"
-                                                    id="check16-4-mobile">
-                                                <label class="custom-control-label" for="check16-4-mobile">Tủ lạnh</label>
-                                            </div>
-                                        </div>
+                                    
                                     </div>
                                 </div>
                             </div>

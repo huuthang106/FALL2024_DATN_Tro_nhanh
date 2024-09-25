@@ -29,13 +29,15 @@ class RoomClientController extends Controller
         $province = $request->input('province');
         $district = $request->input('district');
         $village = $request->input('village');
+        $category = $request->input('category'); // Thêm tham số category
 
         $rooms = $this->roomClientService->getAllRoom(
             (int) $perPage,
             $searchTerm,
             $province,
             $district,
-            $village
+            $village,
+            $category // Thêm category vào phương thức getAllRoom
         );
 
         $locations = $this->roomClientService->getUniqueLocations();
@@ -52,6 +54,7 @@ class RoomClientController extends Controller
             ]);
         }
 
+        $categories = $this->roomClientService->getCategories(); // Lấy danh sách categories
 
         return view('client.show.listing-grid-with-left-filter', [
             'rooms' => $rooms,
@@ -59,9 +62,11 @@ class RoomClientController extends Controller
             'province' => $province,
             'district' => $district,
             'village' => $village,
+            'category' => $category, // Truyền category đã chọn vào view
             'provinces' => $locations['provinces'],
             'districts' => $locations['districts'],
-            'villages' => $locations['villages']
+            'villages' => $locations['villages'],
+            'categories' => $categories // Truyền danh sách categories vào view
         ]);
     }
 
@@ -85,7 +90,8 @@ class RoomClientController extends Controller
 
         $utilities = $roomDetails['room']->utility;
         $province = $roomDetails['room']->province;
-
+        $locations = $this->roomClientService->getUniqueLocations();
+        $categories = $this->roomClientService->getCategories();
         // Tăng lượt xem cho phòng
         $this->roomClientService->incrementViewCount($roomDetails['room']->id);
         // Trong controller
@@ -112,6 +118,7 @@ class RoomClientController extends Controller
 
         // Nếu không phải là AJAX, trả về view
         return view('client.show.single-propety', [
+            'categories' => $categories,
             'rooms' => $roomDetails['room'],
             'averageRating' => $roomDetails['averageRating'],
             'ratingsDistribution' => $roomDetails['ratingsDistribution'],
@@ -121,6 +128,8 @@ class RoomClientController extends Controller
             'zone' => $zone,  // Truyền thông tin zone sang view
             'utilities' => $utilities,
             'similarRooms' => $similarRooms,
+            'provinces' => $locations['provinces'],
+            'province' => request()->input('province', '')
         ]);
     }
 
