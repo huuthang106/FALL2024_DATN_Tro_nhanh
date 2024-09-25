@@ -19,7 +19,17 @@ class HomeClientController extends Controller
         $user = Auth::user();
         $rooms = $this->roomClientService->getRoomWhere();
         $roomClient = $this->roomClientService->RoomClient();
-        return view('client.show.home', ['rooms' => $rooms, 'roomClient' => $roomClient]);
+        $locations = $this->roomClientService->getUniqueLocations();
+    
+        return view('client.show.home', [
+            'roomClient' => $roomClient,
+            'rooms' => $rooms,
+            'provinces' => $locations['provinces'],
+            'districts' => $locations['districts'],
+            'villages' => $locations['villages'],
+            'province' => request()->input('province', '') // Truyền biến province từ request hoặc giá trị mặc định
+        ]);
+       
     }
     // Giao diện Về Chúng Tôi
     public function showAbout()
