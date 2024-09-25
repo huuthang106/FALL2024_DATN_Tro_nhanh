@@ -87,7 +87,7 @@ const HomePage = () => {
                 <meta property="og:image:width" content="1200" />
                 <meta property="og:image:height" content="630" />
                   {/* Các thẻ <script> */}
-                  <script src="/assets/vendors/jquery.min.js" />
+                  {/* <script src="/assets/vendors/jquery.min.js" />
                 <script src="/assets/vendors/jquery-ui/jquery-ui.min.js" />
                 <script src="/assets/vendors/bootstrap/bootstrap.bundle.js" />
                 <script src="/assets/vendors/bootstrap-select/js/bootstrap-select.min.js" />
@@ -111,7 +111,7 @@ const HomePage = () => {
                     `}
                 </script>
                 <script src="/assets/js/search-api-vn.js" />
-                <script src="/assets/js/yeuthich.js" />
+                <script src="/assets/js/yeuthich.js" /> */}
             </Helmet>
       <section className="d-flex flex-column">
         <div style={{ backgroundImage: `url('assets/images/bg-home-01.jpg')` }} className="bg-cover d-flex align-items-center custom-vh-100">
