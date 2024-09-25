@@ -18,7 +18,8 @@ class ListRoomClient extends Component
     public $category; // Thêm biến này
     public $perPage = 8;
     public $sortBy = 'default';
-
+    protected const HIEN_THI = 2;
+    
     protected $queryString = ['search', 'province', 'district', 'village', 'category']; // Thêm 'category' vào đây
 
 
