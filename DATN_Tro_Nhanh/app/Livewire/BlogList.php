@@ -17,15 +17,28 @@ class BlogList extends Component
     }
     public function render()
     {
-        // $blogs = Blog::with(['image', 'user'])->paginate(5); // Adjust the number per page as needed
-        // return view('livewire.blog-list', compact('blogs'));
+        // Lấy các bài viết mới nhất
         $blogs = Blog::with(['image', 'user'])
             ->where(function ($query) {
                 $query->where('title', 'like', '%' . $this->search . '%')
                     ->orWhere('description', 'like', '%' . $this->search . '%');
             })
-            ->paginate(5);
-
-        return view('livewire.blog-list', compact('blogs'));
+            ->orderBy('created_at', 'desc') // Sắp xếp theo ngày mới nhất
+            ->paginate(5); // Hiển thị 5 bài
+    
+        // Lấy 3 bài viết có lượt xem cao nhất
+        $topViewedBlogs = $this->getTopViewsBlogs(3); // Lấy 3 bài viết nhiều view nhất
+    
+        // Truyền cả hai loại dữ liệu vào view
+        return view('livewire.blog-list', compact('blogs', 'topViewedBlogs'));
     }
+    
+    public function getTopViewsBlogs($limit = 3)
+    {
+        return Blog::orderBy('view', 'desc') // Sắp xếp theo lượt xem (view) từ cao xuống thấp
+            ->take($limit) // Giới hạn số lượng bài viết
+            ->get(); // Lấy dữ liệu
+    }
+    
+    
 }

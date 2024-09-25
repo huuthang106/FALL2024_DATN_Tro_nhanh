@@ -9,7 +9,7 @@ use App\Models\Zone;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\Cookie;
 class CommentClientService
 {
     public function submitReview($data)
@@ -136,15 +136,31 @@ class CommentClientService
     }
     public function getBlogWithComments($slug)
     {
-
         $blog = Blog::where('slug', $slug)->with('comments')->first();
-
+    
         if (!$blog) {
             return null;
         }
-
+    
+        // Lưu cookie khi người dùng click vào xem blog
+        $cookieName = 'viewed_blogs'; // Tên cookie
+        $viewedBlogs = json_decode(request()->cookie($cookieName), true) ?: []; // Lấy danh sách ID blog đã xem từ cookie
+    
+        // Kiểm tra xem blog đã được xem chưa
+        if (!in_array($blog->id, $viewedBlogs)) {
+            // Tăng lượt xem cho blog
+            $blog->increment('view');
+            // Thêm ID blog vào danh sách đã xem
+            $viewedBlogs[] = $blog->id;
+    
+            // Cập nhật cookie với danh sách ID blog đã xem
+            $cookieValue = json_encode($viewedBlogs);
+            cookie()->queue($cookieName, $cookieValue, 60 * 6); // Thời gian sống cookie: 30 ngày
+        }
+    
         return $blog;
     }
+    
 
     public function getRoomDetailsWithRatings($slug)
     {

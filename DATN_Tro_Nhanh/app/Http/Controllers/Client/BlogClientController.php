@@ -37,17 +37,19 @@ class BlogClientController extends Controller
     }
 
     // Hiển thị Giao Diện Trang Blog Deital
-    public function blogDetail($slug)
-    {
-        $blog = $this->commentClientService->getBlogWithComments($slug);
-        // Kiểm tra xem yêu cầu có phải là AJAX hay không
-        if (request()->ajax() || request()->wantsJson()) {
-            return response()->json([
-                'blog' => $blog,
-            ]);
-        }
+ // Trong BlogController.php
+public function blogDetail($slug)
+{
+    $blog = $this->commentClientService->getBlogWithComments($slug);
+    
+    // Gọi phương thức từ service để lấy 3 blog có lượt xem cao nhất
+    $topViewedBlogs = $this->blogServices->getTopViewedBlogs(); // Gọi service để lấy top viewed blogs
 
-        // Nếu không phải là AJAX, trả về view
-        return view('client.show.blog-details-1', ['blog' => $blog]);
-    }
+    return view('client.show.blog-details-1', [
+        'blog' => $blog,
+        'topViewedBlogs' => $topViewedBlogs, // Truyền 3 blog có lượt xem cao nhất vào view
+    ]);
+}
+
+    
 }

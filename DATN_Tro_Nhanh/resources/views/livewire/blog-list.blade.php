@@ -25,10 +25,12 @@
                         @else
                             @foreach ($blogs as $blog)
                                 <div class="card border-0 pb-6 mb-6 border-bottom">
+
                                     <div class="position-relative d-flex align-items-end card-img-top">
                                         @php
                                             $image = $blog->image->first();
                                         @endphp
+
                                         @if ($blog->image)
                                             <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
                                                 class="hover-shine d-block">
@@ -42,24 +44,25 @@
                                                     alt="Ten Benefits Of Rentals That May Change Your Perspective">
                                             </a>
                                         @endif
-
                                         <a href="#"
-                                            class="badge text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white m-2 position-absolute letter-spacing-1 pos-fixed-bottom">
-                                            Cho Thuê
+                                            class="badge text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white position-absolute top-0 end-0 m-2">
+                                            Bài viết nổi bật
                                         </a>
+
                                     </div>
+
                                     <div class="card-body p-0">
                                         <ul class="list-inline mt-4">
                                             <li class="list-inline-item mr-4"><img class="mr-1"
                                                     src="{{ asset('assets/images/author-01.jpg') }}" alt="D. Warren">
                                                 {{ $blog->user->name }}
                                             </li>
-                                            <li class="list-inline-item mr-4"><i class="far fa-calendar mr-1"></i> 16,
-                                                Tháng
-                                                12,
-                                                2024
+                                            <li class="list-inline-item mr-4">
+                                                <i class="far fa-calendar mr-1"></i>
+                                                {{ $blog->created_at->format('d-m-Y') }}
                                             </li>
-                                            <li class="list-inline-item mr-4"><i class="far fa-eye mr-1"></i> 149 Lượt
+                                            <li class="list-inline-item mr-4"><i class="far fa-eye mr-1"></i>
+                                                {{ $blog->view }} Lượt
                                                 xem
                                             </li>
                                         </ul>
@@ -248,91 +251,39 @@
                                     </ul>
                                 </div>
                             </div> --}}
-                            {{-- <div class="card mb-4">
+                            <div class="card mb-4">
                                 <div class="card-body px-6 pt-5 pb-6">
-                                    <h4 class="card-title fs-16 lh-2 text-dark mb-3">Bài viết mới nhất</h4>
+                                    <h4 class="card-title fs-16 lh-2 text-dark mb-3">Bài viết nổi bật</h4>
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item px-0 pt-0 pb-3">
-                                            <div class="media">
-                                                <div class="position-relative mr-3">
-                                                    <a href="blog-details-1.html"
-                                                        class="d-block w-100px rounded pt-11 bg-img-cover-center"
-                                                        style="background-image: url('{{ asset('assets/images/post-02.jpg') }}')">
-                                                    </a>
-                                                    <a href="blog-grid-with-sidebar.html"
-                                                        class="badge text-white bg-dark-opacity-04 m-1 fs-13 font-weight-500 bg-hover-primary hover-white position-absolute pos-fixed-top">
-                                                        Sáng tạo
-                                                    </a>
-                                                </div>
-                                                <div class="media-body">
-                                                    <h4 class="fs-14 lh-186 mb-1">
-                                                        <a href="blog-details-1.html" class="text-dark hover-primary">
-                                                            Nhà Siêu Cấp Vip
-                                                            Pro
+                                        @foreach ($topViewedBlogs as $blog)
+                                            <li class="list-group-item px-0 pt-0 pb-3">
+                                                <div class="media">
+                                                    <div class="position-relative mr-3">
+                                                        <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
+                                                            class="d-block w-100px rounded pt-11 bg-img-cover-center"
+                                                            style="background-image: url('{{ asset('assets/images/' . ($blog->image->first()->filename ?? 'default.jpg')) }}')">
                                                         </a>
-                                                    </h4>
-                                                    <div class="text-gray-light">
-                                                        16, Tháng 12,
-                                                        2024
+                                                        <a href="blog-grid-with-sidebar.html"
+                                                            class="badge text-white bg-dark-opacity-04 m-1 fs-13 font-weight-500 bg-hover-primary hover-white position-absolute pos-fixed-top">
+                                                            Nổi Bật
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="fs-14 lh-186 mb-1">
+                                                            <a href="{{ route('client.client-blog-detail', $blog->slug) }}" class="text-dark hover-primary">
+                                                                {{ $blog->title }}
+                                                            </a>
+                                                        </h4>
+                                                        <div class="text-gray-light">
+                                                            {{ $blog->created_at->format('d, M, Y') }}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item px-0 pt-2 pb-3">
-                                            <div class="media">
-                                                <div class="position-relative mr-3">
-                                                    <a href="blog-details-1.html"
-                                                        class="d-block w-100px rounded pt-11 bg-img-cover-center"
-                                                        style="background-image: url('{{ asset('assets/images/post-04.jpg') }}')">
-                                                    </a>
-                                                    <a href="blog-grid-with-sidebar.html"
-                                                        class="badge text-white bg-dark-opacity-04 m-1 fs-13 font-weight-500 bg-hover-primary hover-white position-absolute pos-fixed-top">
-                                                        Cho Thuê
-                                                    </a>
-                                                </div>
-                                                <div class="media-body">
-                                                    <h4 class="fs-14 lh-186 mb-1">
-                                                        <a href="blog-details-1.html" class="text-dark hover-primary">
-                                                            Nhà Siêu Cấp Vip
-                                                            Pro
-                                                        </a>
-                                                    </h4>
-                                                    <div class="text-gray-light">
-                                                        16, Tháng 12,
-                                                        2024
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item px-0 pt-2 pb-0">
-                                            <div class="media">
-                                                <div class="position-relative mr-3">
-                                                    <a href="blog-details-1.html"
-                                                        class="d-block w-100px rounded pt-11 bg-img-cover-center"
-                                                        style="background-image: url('{{ asset('assets/images/post-07.jpg') }}')">
-                                                    </a>
-                                                    <a href="blog-grid-with-sidebar.html"
-                                                        class="badge text-white bg-dark-opacity-04 m-1 fs-13 font-weight-500 bg-hover-primary hover-white position-absolute pos-fixed-top">
-                                                        Cho Thuê
-                                                    </a>
-                                                </div>
-                                                <div class="media-body">
-                                                    <h4 class="fs-14 lh-186 mb-1">
-                                                        <a href="blog-details-1.html" class="text-dark hover-primary">
-                                                            Nhà Siêu Cấp Vip
-                                                            Pro
-                                                        </a>
-                                                    </h4>
-                                                    <div class="text-gray-light">
-                                                        16, Tháng 12,
-                                                        2024
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
-                            </div> --}}
+                            </div>
                             {{-- <div class="card mb-4">
                                 <div class="card-body px-6 pt-5 pb-6">
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Tải xuống tài liệu</h4>

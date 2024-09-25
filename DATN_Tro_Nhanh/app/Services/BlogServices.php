@@ -75,6 +75,12 @@ class BlogServices
             throw $e;
         }
     }
+// Trong BlogService.php
+public function getTopViewedBlogs($limit = 3)
+{
+    return Blog::orderBy('view', 'desc')->take($limit)->get();
+}
+
 
     private function uploadImages(Request $request)
     {
@@ -255,25 +261,27 @@ class BlogServices
     {
         try {
             $userId = Auth::id(); // Lấy ID của người dùng hiện tại
-
-            // Xây dựng truy vấn để lấy blog của người dùng cụ thể với thông tin liên quan
+    
+            // Xây dựng truy vấn để lấy blog có trạng thái 1
             $query = Blog::query()->where('status', 1);
-
+    
             if ($searchTerm) {
                 $query->where(function ($q) use ($searchTerm) {
                     $q->where('title', 'like', '%' . $searchTerm . '%')
                         ->orWhere('description', 'like', '%' . $searchTerm . '%');
                 });
             }
-            // Sắp xếp các blog theo ngày tạo mới nhất
-            $query->orderBy('created_at', 'desc');
-
+    
+            // Sắp xếp các blog theo lượt xem từ cao đến thấp
+            $query->orderBy('view', 'desc')->orderBy('created_at', 'desc');
+    
             // Phân trang và trả về kết quả
             return $query->paginate($perPage);
         } catch (\Exception $e) {
-            return null;
+            return null; // Xử lý lỗi nếu có
         }
     }
+    
 
 
 
