@@ -21,16 +21,7 @@ class HomeClientController extends Controller
         $rooms = $this->roomClientService->getRoomWhere();
         $roomClient = $this->roomClientService->RoomClient();
         $locations = $this->roomClientService->getUniqueLocations();
-        if (request()->ajax()) {
-            return response()->json([
-                'roomClient' => $roomClient,
-                'rooms' => $rooms,
-                'provinces' => $locations['provinces'],
-                'districts' => $locations['districts'],
-                'villages' => $locations['villages'],
-                'province' => request()->input('province', '') // Truyền biến province từ request hoặc giá trị mặc định
-            ]);
-        }
+    
         return view('client.show.home', [
             'roomClient' => $roomClient,
             'rooms' => $rooms,
@@ -39,6 +30,7 @@ class HomeClientController extends Controller
             'villages' => $locations['villages'],
             'province' => request()->input('province', '') // Truyền biến province từ request hoặc giá trị mặc định
         ]);
+       
     }
     // Giao diện Về Chúng Tôi
     public function showAbout()
