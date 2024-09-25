@@ -319,6 +319,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <!-- <div class="col-lg-3 col-sm-4 mb-6">                                                                                                                                                                                     </div> -->
                                 <div class="col-lg-3 col-sm-4 mb-6">
                                     <div class="media">
@@ -332,9 +333,10 @@
                                                 Phòng tắm</h5>
                                             <p class="mb-0 fs-13 font-weight-bold text-heading">
                                                 {{ $utilities->bathroom ?? '2' }}</p>
+
                                         </div>
                                     </div>
-                                @endif
+                               
                                 @if ($rooms->utility && $rooms->utility->garage == 1)
                                     <div class="col-lg-3 col-sm-4 mb-6">
                                         <div class="media align-items-center">
@@ -374,8 +376,10 @@
                                 @endif
                             </div>
                         </section>
+
                                                                                                                                                                             </section> -->
                         <section class="mt-2 pb-7 px-6 pt-5 bg-white rounded-lg">
+
                             <h4 class="fs-22 text-heading mb-4">Tiện ích văn phòng</h4>
                             <ul class="list-unstyled mb-0 row no-gutters">
                                 <li class="col-sm-3 col-6 mb-2">
@@ -399,8 +403,10 @@
                                 </li>
 
                             </ul>
+
                         </section>
                                                                                                                                                                                   </section> -->
+
                         <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
                             <h4 class="fs-22 text-heading lh-15 mb-5">Đánh giá & Nhận xét</h4>
                             <div class="card border-0">
@@ -706,7 +712,7 @@
                                                     {{ $utilities->bathroom ?? '2' }}</p>
                                             </div>
                                         </div>
-                                    @endif
+                                    
                                     <div class="col-6 mb-3">
                                         <div class="media">
                                             <div class="p-2 shadow-xxs-1 rounded-lg mr-2 lh-1">
