@@ -554,17 +554,23 @@
                             <span class="heading-divider"></span>
                             <p class="mb-6">Xem Thêm
                             </p>
-                            <a href="listing-grid-with-left-filter.html"
-                                class="btn btn-lg text-secondary btn-accent">+2300
-                                Tài Sản Có Sẵn
-                                <i class="far fa-long-arrow-right ml-1"></i>
-                            </a>
+                            <form action="{{ route('client.room-listing') }}" method="GET">
+                                <div class="input-group input-group-lg ">
+                                    <input type="text"
+                                        class="form-control fs-13 font-weight-500 text-gray-light rounded-lg rounded-right-0 border-0 shadow-none h-52 bg-white"
+                                        name="type" placeholder="Nhập loại phòng">
+                                    <button type="submit"
+                                        class="btn btn-primary fs-18 rounded-left-0 rounded-lg px-6 border-0">
+                                        <i class="far fa-search"></i>
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                         <div class="col-lg-8" data-animate="fadeInRight">
                             <div class="slick-slider arrow-haft-inner custom-arrow-xxl-hide mx-0"
                                 data-slick-options='{"slidesToShow": 4, "autoplay":true,"dots":false,"responsive":[{"breakpoint": 1200,"settings": {"slidesToShow":3,"arrows":false}},{"breakpoint": 992,"settings": {"slidesToShow":3,"arrows":false}},{"breakpoint": 768,"settings": {"slidesToShow": 3,"arrows":false,"autoplay":true}},{"breakpoint": 576,"settings": {"slidesToShow": 2,"arrows":false,"autoplay":true}}]}'>
                                 <div class="box px-0 py-6">
-                                    <a href="listing-grid-with-left-filter.html"
+                                    <a href="{{ route('client.room-listing', ['type' => 'Căn hộ']) }}"
                                         class="card border-0 align-items-center justify-content-center pt-7 pb-5 px-3 shadow-hover-3 bg-transparent bg-hover-white text-decoration-none">
                                         <img src="{{ asset('assets/images/verified.png') }}" class="card-img-top"
                                             alt="Căn hộ">
@@ -575,51 +581,40 @@
                                     </a>
                                 </div>
                                 <div class="box px-0 py-6">
-                                    <a href="listing-grid-with-left-filter.html"
+                                    <a href="{{ route('client.room-listing', ['type' => 'Nhà ở']) }}"
                                         class="card border-0 align-items-center justify-content-center pt-7 pb-5 px-3 shadow-hover-3 bg-transparent bg-hover-white text-decoration-none">
                                         <img src="{{ asset('assets/images/sofa.png') }}" class="card-img-top"
                                             alt="Nhà">
 
                                         <div class="card-body px-0 pt-5 pb-0">
-                                            <h4 class="card-title fs-16 lh-2 text-dark mb-0">Nhà</h4>
+                                            <h4 class="card-title fs-16 lh-2 text-dark mb-0">Nhà ở</h4>
                                         </div>
                                     </a>
                                 </div>
                                 <div class="box px-0 py-6">
-                                    <a href="listing-grid-with-left-filter.html"
+                                    <a href="{{ route('client.room-listing', ['type' => 'Chung cư']) }}"
                                         class="card border-0 align-items-center justify-content-center pt-7 pb-5 px-3 shadow-hover-3 bg-transparent bg-hover-white text-decoration-none">
                                         <img src="{{ asset('assets/images/architecture-and-city.png') }}"
                                             class="card-img-top" alt="Văn phòng">
 
                                         <div class="card-body px-0 pt-5 pb-0">
-                                            <h4 class="card-title fs-16 lh-2 text-dark mb-0">Văn Phòng</h4>
+                                            <h4 class="card-title fs-16 lh-2 text-dark mb-0">Chung cư</h4>
                                         </div>
                                     </a>
                                 </div>
                                 <div class="box px-0 py-6">
-                                    <a href="listing-grid-with-left-filter.html"
+                                    <a href="{{ route('client.room-listing', ['type' => 'Phòng trọ']) }}"
                                         class="card border-0 align-items-center justify-content-center pt-7 pb-5 px-3 shadow-hover-3 bg-transparent bg-hover-white text-decoration-none">
                                         <img src="{{ asset('assets/images/eco-house.png') }}" class="card-img-top"
                                             alt="Biệt thự">
 
                                         <div class="card-body px-0 pt-5 pb-0">
-                                            <h4 class="card-title fs-16 lh-2 text-dark mb-0">Biệt Thự</h4>
+                                            <h4 class="card-title fs-16 lh-2 text-dark mb-0">Phòng trọ</h4>
                                         </div>
                                     </a>
                                 </div>
-                                <div class="box px-0 py-6">
-                                    <a href="listing-grid-with-left-filter.html"
-                                        class="card border-0 align-items-center justify-content-center pt-7 pb-5 px-3 shadow-hover-3 bg-transparent bg-hover-white text-decoration-none">
-                                        <img src="{{ asset('assets/images/verified.png') }}" class="card-img-top"
-                                            alt="Căn hộ">
-
-                                        <div class="card-body px-0 pt-5 pb-0">
-                                            <h4 class="card-title fs-16 lh-2 text-dark mb-0">Căn Hộ</h4>
-                                        </div>
-                                    </a>
-                                </div>
+                
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -779,77 +774,121 @@
 
         <section class="pt-lg-12 pb-lg-15 py-11">
             <div class="container container-xxl">
-                <h2 class="text-heading">Các điểm đến mà chúng tôi yêu thích nhất</h2>
+                <h2 class="text-heading">Các phòng trọ nổi bật</h2>
                 <span class="heading-divider"></span>
                 <p class="mb-7">Xem Thêm</p>
-                <div class="slick-slider mx-n2"
-                    data-slick-options='{"slidesToShow": 5,"arrows":false, "autoplay":false,"dots":false,"responsive":[{"breakpoint": 1200,"settings": {"slidesToShow":3}},{"breakpoint": 992,"settings": {"slidesToShow":3}},{"breakpoint": 768,"settings": {"slidesToShow": 2}},{"breakpoint": 576,"settings": {"slidesToShow": 1}}]}'>
-                    <div class="box px-2" data-animate="fadeInUp">
-                        <div class="card text-white bg-overlay-gradient-8 hover-zoom-in">
-                            <img src="{{ asset('assets/images/properties-city-01.jpg') }}" class="card-img"
-                                alt="New York">
-
-                            <div class="card-img-overlay d-flex justify-content-end flex-column p-4">
-                                <h2 class="card-title mb-0 fs-20 lh-182"><a href="single-property-1.html"
-                                        class="text-white">New
-                                        York</a></h2>
-                                <p class="card-text fs-13 font-weight-500 letter-spacing-087">TỪ<span
-                                        class="ml-2 fs-15 font-weight-bold">$540.000 - $900.000</span></p>
+                <div class="slick-slider slick-dots-mt-0 custom-arrow-spacing-30"
+                    data-slick-options='{"slidesToShow": 4, "autoplay": true, "dots": true, "responsive": [
+        {"breakpoint": 1600, "settings": {"slidesToShow": 3, "arrows": false}},
+        {"breakpoint": 992, "settings": {"slidesToShow": 2, "arrows": false}},
+        {"breakpoint": 768, "settings": {"slidesToShow": 2, "arrows": false, "dots": true, "autoplay": true}},
+        {"breakpoint": 576, "settings": {"slidesToShow": 1, "arrows": false, "dots": true, "autoplay": true}}
+     ]}'>
+                    @foreach ($rooms as $room)
+                        <div class="box pb-7 pt-2">
+                            <div class="card shadow-hover-2 h-100" data-animate="zoomIn">
+                                <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top"
+                                    style="height: 200px; overflow: hidden;">
+                                    @if ($room->images->isNotEmpty())
+                                        <img src="{{ asset('assets/images/' . $room->images->first()->filename) }}"
+                                            alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;">
+                                    @else
+                                        <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                            alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;">
+                                    @endif
+                                    <div class="card-img-overlay p-2 d-flex flex-column">
+                                        <div>
+                                            @if ($room->expiration_date > now())
+                                                    <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
+                                                        VIP
+                                                    </span>
+                                            @endif
+                                        </div>
+                                        <ul class="list-inline mb-0 mt-auto hover-image">
+                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Hình ảnh">
+                                                <a href="#" class="text-white hover-primary">
+                                                    <i class="far fa-images"></i><span class="pl-1">9</span>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
+                                                <a href="#" class="text-white hover-primary">
+                                                    <i class="far fa-play-circle"></i><span class="pl-1">2</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body pt-3 d-flex flex-column">
+                                    <h2 class="card-title fs-16 lh-2 mb-0">
+                                        <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
+                                            class="text-dark hover-primary"><small>{{ Str::limit($room->title, 70) }}</small></a>
+                                    </h2>
+                                    <p class="card-text font-weight-500 text-gray-light mb-2">
+                                        {{ Str::limit($room->address, 100) }}</p>
+                                    <ul class="list-inline d-flex mb-0 flex-wrap mr-n5 mt-auto">
+                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                            data-toggle="tooltip" title="Phòng ngủ">
+                                            <svg class="icon icon-bedroom fs-18 text-primary mr-1">
+                                                <use xlink:href="#icon-bedroom"></use>
+                                            </svg>
+                                            {{ $room->bedroom ?? '3' }} Phòng
+                                        </li>
+                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                            data-toggle="tooltip" title="Phòng tắm">
+                                            <svg class="icon icon-shower fs-18 text-primary mr-1">
+                                                <use xlink:href="#icon-shower"></use>
+                                            </svg>
+                                            {{ $room->bathroom ?? '3' }} Phòng
+                                        </li>
+                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                            data-toggle="tooltip" title="Diện tích">
+                                            <svg class="icon icon-square fs-18 text-primary mr-1">
+                                                <use xlink:href="#icon-square"></use>
+                                            </svg>
+                                            {{ $room->acreage ?? '200' }}m²
+                                        </li>
+                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                            data-toggle="tooltip" title="Gara">
+                                            <svg class="icon icon-Garage fs-18 text-primary mr-1">
+                                                <use xlink:href="#icon-Garage"></use>
+                                            </svg>
+                                            {{ $room->garage ?? '1' }} Gara
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div
+                                    class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
+                                    <p class="fs-17 font-weight-bold text-heading mb-0">
+                                        {{ number_format($room->price, 0, ',', '.') }} VND
+                                    </p>
+                                    <ul class="list-inline mb-0">
+                                        {{-- <li class="list-inline-item">
+                                            <a href="{{ route('client.add.favourite', ['slug' => $room->slug]) }}"
+                                                class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                <i class="fas fa-heart"></i>
+                                            </a>
+                                        </li> --}}
+                                        <li class="list-inline-item">
+                                            <a href="#"
+                                                class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center favorite-btn {{ $room->isFavoritedByUser(auth()->id()) ? 'favorited' : '' }}"
+                                                data-room-slug="{{ $room->slug }}">
+                                                <i class="fas fa-heart"></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a href="#"
+                                                class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent"
+                                                data-toggle="tooltip" title="So sánh">
+                                                <i class="fas fa-exchange-alt"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="box px-2" data-animate="fadeInUp">
-                        <div class="card text-white bg-overlay-gradient-8 hover-zoom-in">
-                            <img src="{{ asset('assets/images/properties-city-02.jpg') }}" class="card-img"
-                                alt="Los Angeles">
-                            <div class="card-img-overlay d-flex justify-content-end flex-column p-4">
-                                <h2 class="card-title mb-0 fs-20 lh-182"><a href="single-property-1.html"
-                                        class="text-white">Los
-                                        Angeles</a></h2>
-                                <p class="card-text fs-13 font-weight-500 letter-spacing-087">TỪ<span
-                                        class="ml-2 fs-15 font-weight-bold">$520.000 - $700.000</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box px-2" data-animate="fadeInUp">
-                        <div class="card text-white bg-overlay-gradient-8 hover-zoom-in">
-                            <img src="{{ asset('assets/images/properties-city-03.jpg') }}" class="card-img"
-                                alt="San Jose">
-                            <div class="card-img-overlay d-flex justify-content-end flex-column p-4">
-                                <h2 class="card-title mb-0 fs-20 lh-182"><a href="single-property-1.html"
-                                        class="text-white">San
-                                        Jose</a></h2>
-                                <p class="card-text fs-13 font-weight-500 letter-spacing-087">TỪ<span
-                                        class="ml-2 fs-15 font-weight-bold">$340.000 - $600.000</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box px-2" data-animate="fadeInUp">
-                        <div class="card text-white bg-overlay-gradient-8 hover-zoom-in">
-                            <img src="{{ asset('assets/images/properties-city-04.jpg') }}" class="card-img"
-                                alt="Fort Worth">
-                            <div class="card-img-overlay d-flex justify-content-end flex-column p-4">
-                                <h2 class="card-title mb-0 fs-20 lh-182"><a href="single-property-1.html"
-                                        class="text-white">Fort
-                                        Worth</a></h2>
-                                <p class="card-text fs-13 font-weight-500 letter-spacing-087">TỪ<span
-                                        class="ml-2 fs-15 font-weight-bold">$240.000 - $660.000</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box px-2" data-animate="fadeInUp">
-                        <div class="card text-white bg-overlay-gradient-8 hover-zoom-in">
-                            <img src="{{ asset('assets/images/properties-city-05.jpg') }}" class="card-img"
-                                alt="Kansas City">
-                            <div class="card-img-overlay d-flex justify-content-end flex-column p-4">
-                                <h2 class="card-title mb-0 fs-20 lh-182"><a href="single-property-1.html"
-                                        class="text-white">Kansas
-                                        City</a></h2>
-                                <p class="card-text fs-13 font-weight-500 letter-spacing-087">TỪ<span
-                                        class="ml-2 fs-15 font-weight-bold">$380.000 - $680.000</span></p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>
@@ -870,9 +909,9 @@
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="card-body p-0 pl-0 pl-sm-5 pt-5 pt-sm-0">
-                                        <a href="single-property-1.html"
+                                        <a href="{{ route('client.room-listing') }}"
                                             class="d-flex align-items-center text-dark hover-secondary">
-                                            <h4 class="fs-20 lh-1625 mb-1">Mua nhà mới </h4>
+                                            <h4 class="fs-20 lh-1625 mb-1">Tìm trọ mới</h4>
                                             <span
                                                 class="ml-2 text-primary fs-42 lh-1 hover-image d-inline-flex align-items-center">
                                                 <svg class="icon icon-long-arrow">
@@ -895,11 +934,10 @@
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="card-body p-0 pl-0 pl-sm-5 pt-5 pt-sm-0">
-                                        <a href="single-property-1.html"
+                                        <a href="{{ auth()->check() && auth()->user()->role == 2 ? route('owners.add-room') : route('client.home') }}"
                                             class="d-flex align-items-center text-dark hover-secondary">
-                                            <h4 class="fs-20 lh-1625 mb-1">Bán nhà </h4>
-                                            <span
-                                                class="ml-2 text-primary fs-42 lh-1 hover-image d-inline-flex align-items-center">
+                                            <h4 class="fs-20 lh-1625 mb-1">Đăng tin</h4>
+                                            <span class="ml-2 text-primary fs-42 lh-1 hover-image d-inline-flex align-items-center">
                                                 <svg class="icon icon-long-arrow">
                                                     <use xlink:href="#icon-long-arrow"></use>
                                                 </svg>
@@ -920,9 +958,9 @@
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="card-body p-0 pl-0 pl-sm-5 pt-5 pt-sm-0">
-                                        <a href="single-property-1.html"
+                                        <a href="{{ route('client.client-list-zone') }}"
                                             class="d-flex align-items-center text-dark hover-secondary">
-                                            <h4 class="fs-20 lh-1625 mb-1">Thuê nhà </h4>
+                                            <h4 class="fs-20 lh-1625 mb-1">Tìm quanh đây</h4>
                                             <span
                                                 class="ml-2 text-primary fs-42 lh-1 hover-image d-inline-flex align-items-center">
                                                 <svg class="icon icon-long-arrow">

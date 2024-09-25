@@ -23,6 +23,9 @@ class ListRoomClient extends Component
     protected $queryString = ['search', 'province', 'district', 'village', 'category']; // Thêm 'category' vào đây
 
 
+    public $type;
+   
+    protected $queryString = ['search', 'province', 'district', 'village','type'];
     public function render()
     {
         // $query = Room::join('users', 'rooms.user_id', '=', 'users.id')
@@ -31,6 +34,14 @@ class ListRoomClient extends Component
         $query = Room::join('users', 'rooms.user_id', '=', 'users.id')
             ->where('rooms.status', self::HIEN_THI)
             ->withCount('images');
+     
+        
+          if ($this->type) {
+            $query->whereHas('category', function ($q) {
+                $q->where('name', $this->type); // Lọc theo tên loại phòng trong bảng category
+            });
+        }
+
         if ($this->search) {
             $query->where(function ($q) {
                 $q->where('rooms.title', 'like', '%' . $this->search . '%')
@@ -38,7 +49,7 @@ class ListRoomClient extends Component
                     ->orWhere('rooms.address', 'like', '%' . $this->search . '%');
             });
         }
-
+         
         if ($this->province) {
             $query->where('rooms.province', $this->province);
         }

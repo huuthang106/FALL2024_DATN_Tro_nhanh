@@ -31,8 +31,11 @@ class RoomClientController extends Controller
         $village = $request->input('village');
         $category = $request->input('category'); // Thêm tham số category
 
+        $type = $request->input('type');
+    
         $rooms = $this->roomClientService->getAllRoom(
             (int) $perPage,
+            $type,
             $searchTerm,
             $province,
             $district,
@@ -63,6 +66,7 @@ class RoomClientController extends Controller
             'district' => $district,
             'village' => $village,
             'category' => $category, // Truyền category đã chọn vào view
+            'type' => $type, // Truyền loại phòng sang view
             'provinces' => $locations['provinces'],
             'districts' => $locations['districts'],
             'villages' => $locations['villages'],
