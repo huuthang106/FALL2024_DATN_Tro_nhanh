@@ -11,6 +11,8 @@ use Exception;
 use App\Models\Acreage;
 use App\Models\Price;
 use App\Models\Category;
+use App\Models\PriceList;
+use App\Models\Transaction;
 
 use App\Models\Location;
 use App\Models\Zone;
@@ -200,6 +202,38 @@ class RoomOwnersController extends Controller
     }
     public function house_is_staying(){
         return view('owners.show.house_is_staying');
+    }
+
+    public function processPayment(Request $request)
+    {
+        // Lấy các giá trị từ request
+        $accommodationId = $request->input('room_id');
+        $vipPackageId = $request->input('vipPackage');
+
+        // Lấy thông tin phòng và người dùng hiện tại
+        $accommodation = Room::findOrFail($accommodationId);
+        $customer = auth()->user();
+
+        // Lấy thông tin gói VIP từ priceList
+        $pricing = PriceList::findOrFail($vipPackageId);
+        $cost = $pricing->price;
+
+        // Kiểm tra số dư tài khoản của user
+        if ($customer->balance < $cost) {
+            \Log::warning('Số dư tài khoản không đủ để thanh toán. User ID: ' . $customer->id);
+            return redirect()->back()->with('error', 'Số dư tài khoản không đủ để thanh toán.');
+        }
+
+      
+            // Gọi service để thực hiện thanh toán
+            $paymentStatus = $this->roomOwnersService->processRoomPayment($customer, $accommodation, $vipPackageId);
+            
+            if ($paymentStatus) {
+                return redirect()->back()->with('success', 'Thanh toán thành công và gói VIP đã được kích hoạt.');
+            } else {
+                \Log::error('Thanh toán không thành công. User ID: ' . $customer->id . ', Room ID: ' . $accommodationId);
+                return redirect()->back()->with('error', 'Có lỗi xảy ra trong quá trình thanh toán.');
+            }
     }
 
 }

@@ -124,9 +124,16 @@
                                 <td class="align-middle">{{ $room->view }}</td>
                                 <td class="align-middle">
                                     <!-- Nút Mua Vip -->
-                                    <button type="button" class="btn btn-primary" data-id="{{ $room->id }}" data-toggle="modal" data-target="#vipModal" style="margin-right: 15px;">
-                                        Mua Vip
-                                    </button>
+                                  
+                                    @if ($room->status == 2)
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#vipModal{{ $room->id }}" style="margin-right: 15px;">
+                                            Mua Vip
+                                        </button>
+                                    @else
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#notApprovedModal" style="margin-right: 15px;">
+                                            Bị khóa
+                                        </button>
+                                    @endif
                                     <!-- Icon Chỉnh sửa -->
                                     <a href="{{ route('owners.room-view-update', $room->slug) }}" data-toggle="tooltip" title="Chỉnh sửa"
                                         class="d-inline-block fs-18 text-muted hover-primary" style="margin-right: 15px;">
@@ -141,9 +148,9 @@
                                             <i class="fal fa-trash-alt"></i>
                                         </button>
                                     </form>
-                               
+                                    @foreach ($rooms as $room)
                                     <!-- Modal Popup -->
-                                    <div class="modal fade" id="vipModal" tabindex="-1" aria-labelledby="vipModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="vipModal{{ $room->id }}" tabindex="-1" aria-labelledby="vipModalLabel{{ $room->id }}" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <!-- Header của modal -->
@@ -155,7 +162,7 @@
                                                 </div>
 
                                                 <!-- Nội dung của modal -->
-                                                <form id="vipForm" action="{{ route('owners.thanh-toan-vip') }}" method="POST">
+                                                <form id="vipForm" action="{{ route('owners.room-vip') }}" method="POST">
                                                     <div class="modal-body">
                                                         @csrf
                                                         <!-- Trường ẩn để lưu room_id -->
@@ -199,6 +206,29 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endforeach
+
+                                    <!-- Modal thông báo không thể mua VIP -->
+                                    <div class="modal fade" id="notApprovedModal" tabindex="-1" aria-labelledby="notApprovedModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="notApprovedModalLabel">Thông báo</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Bạn không thể mua vip phòng của bạn chưa được duyệt.
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                 </td>
                             </tr>
                         @endforeach

@@ -28,6 +28,7 @@ Route::group(['prefix' => ''], function () {
         route::PUT('chinh-sua-phong-tro/{id}', [RoomOwnersController::class, 'update'])->name('room-start-update');
         Route::delete('/xoa-anh/{id}', [RoomOwnersController::class, 'deleteImage'])->name('delete-room-image');
         Route::get('anh/{id}', [RoomOwnersController::class, 'showImages'])->name('room-images');
+        Route::post('/thanh-toan-goi', [RoomOwnersController::class, 'processPayment'])->name('room-vip');
     });
     Route::get('danh-dach-phong-cua-toi', [RoomOwnersController::class, 'house_is_staying'])->name('house-is-staying');
 

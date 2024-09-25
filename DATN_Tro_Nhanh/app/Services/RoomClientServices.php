@@ -96,7 +96,6 @@ class RoomClientServices
     { 
             $rooms = Room::orderBy('expiration_date', 'desc') // Sắp xếp theo expiration_date
                          ->orderBy('created_at', 'desc') // Sắp xếp theo ngày tạo mới nhất
-                         ->orderBy('view', 'desc') // Sắp xếp theo lượt xem cao nhất
                          ->take(5) // Lấy 5 phòng
                          ->get();
         
@@ -229,5 +228,6 @@ public function getUniqueLocations()
         return null;
     }
 }
+
     
 }

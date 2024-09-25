@@ -19,7 +19,7 @@ class PriceListRequest extends FormRequest
             'price' => 'required|numeric|min:0',
             'description' => 'required|string|max:1000',
             'duration_day' => 'required|integer|min:1',
-            'status' => 'required|boolean',
+            'status' => 'required',
         ];
     }
     

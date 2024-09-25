@@ -139,9 +139,27 @@
          });
      </script>
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-     <script>
-         window.successMessage = "{{ session('success') }}";
-     </script>
+    <script>
+        // Hiển thị thông báo thành công nếu có
+        @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công!',
+                text: "{{ session('success') }}",
+                confirmButtonText: 'OK'
+            });
+        @endif
+
+        // Hiển thị thông báo lỗi nếu có
+        @if (session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi!',
+                text: "{{ session('error') }}",
+                confirmButtonText: 'OK'
+            });
+        @endif
+    </script>
      <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
      <script src="{{ asset('assets/js/alert-report.js') }}"></script>
  @endpush

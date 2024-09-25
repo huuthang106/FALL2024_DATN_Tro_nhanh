@@ -163,7 +163,7 @@
                                         <!-- Use location name -->
                                         <td>{{ number_format($priceList->price, 0, ',', '.') }} ₫</td>
                                         <td>{{ $priceList->duration_day }}</td>
-                                        <td>{{ $priceList->status ? 'Gói nâng cấp tài khoản' : 'Gói tin vip' }}</td>
+                                        <td>{{ $priceList->status === 1 ? 'Gói nâng cấp tài khoản' : ($priceList->status === 2 ? 'Gói tin vip' : 'Không xác định') }}</td>
                                         <td class="text-end">
                                             <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
                                                 data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Hành

@@ -13,9 +13,11 @@ use App\Models\Zone;
 use App\Models\Image;
 use App\Models\Resident;
 use App\Models\Utility;
-use App\Models\PriceList;
 use Cocur\Slugify\Slugify;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use App\Models\Transaction;
+use Carbon\Carbon;
+use App\Models\PriceList;
 
 class RoomOwnersService
 {
@@ -511,4 +513,42 @@ class RoomOwnersService
         $room->forceDelete();
         return $room;
     }
+
+        public function processRoomPayment($customer, $accommodation, $pricingId)
+        {
+            try {
+                // Lấy thông tin của gói VIP từ PriceList
+                $pricing = PriceList::findOrFail($pricingId);
+                $cost = $pricing->price;
+                $validity = $pricing->duration_day;
+
+                // Trừ tiền từ số dư tài khoản của người dùng
+                $customer->balance -= $cost;
+                $customer->save();
+
+                // Cộng thêm thời gian VIP cho phòng
+                $currentExpiry = $accommodation->expiration_date ? Carbon::parse($accommodation->expiration_date) : now();
+                $newExpiry = $currentExpiry->addDays($validity);
+                
+                // Cập nhật ngày hết hạn và lưu price_list_id cho phòng
+                $accommodation->expiration_date = $newExpiry;
+                $accommodation->location_id = $pricing->location->id;
+                $accommodation->save();
+
+                // Lưu lịch sử thanh toán
+                $lichsu = new Transaction();
+                $lichsu->balance = $customer->balance;
+                $lichsu->description = 'Thanh toán gói tin VIP';
+                $lichsu->added_funds = -$cost;
+                $lichsu->total_price = $cost;
+                $lichsu->user_id = $customer->id;
+                $lichsu->save();
+
+                return true;
+            } catch (\Exception $e) {
+                // Nếu có lỗi trong quá trình thanh toán, ghi log lỗi
+                \Log::error('Lỗi khi thực hiện thanh toán: ' . $e->getMessage());
+                return false;
+            }
+        }
 }

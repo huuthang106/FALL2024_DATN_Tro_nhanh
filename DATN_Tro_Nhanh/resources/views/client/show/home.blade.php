@@ -575,8 +575,6 @@
                                     @endif
                                     <div class="card-img-overlay p-2 d-flex flex-column">
                                         <div>
-                                            <span class="badge mr-2 badge-orange">nổi bật</span>
-                                            <span class="badge mr-2 badge-primary">để bán</span>
                                             @if ($room->expiration_date > now())
                                                     <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
                                                         VIP
@@ -784,8 +782,6 @@
                                     @endif
                                     <div class="card-img-overlay p-2 d-flex flex-column">
                                         <div>
-                                            <span class="badge mr-2 badge-orange">nổi bật</span>
-                                            <span class="badge mr-2 badge-primary">để bán</span>
                                             @if ($room->expiration_date > now())
                                                     <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
                                                         VIP

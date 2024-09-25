@@ -85,9 +85,6 @@
                                                 {{ old('status', $priceList->status) == '2' ? 'selected' : '' }}>Gói tin vip
                                             </option>
                                         </select>
-                                        @error('status')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
                                     </div>
                                 </div>
 

@@ -11,7 +11,6 @@ use App\Models\Room;
 use App\Models\PriceList;
 use App\Models\CartDetail;
 use App\Models\Transaction;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
@@ -20,6 +19,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 use App\Events\PaymentProcessed;
 use GuzzleHttp\Client; 
+
 class PaymentService
 {
     protected $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
@@ -220,39 +220,7 @@ class PaymentService
                             ->paginate(10);
     }
 
-    public function handlePayment($user, $room, $priceListId)
-    {
-        // Lấy thông tin của gói VIP từ PriceList
-        $priceList = PriceList::findOrFail($priceListId);
-        $price = $priceList->price;
-        $duration = $priceList->duration_day; // Số ngày của gói VIP
+    
+    
 
-        // Trừ tiền từ số dư tài khoản của người dùng
-        $user->balance -= $price;
-        $user->save();
-
-        // Cộng thêm thời gian VIP cho phòng
-        $currentExpiration = $room->expiration_date ? Carbon::parse($room->expiration_date) : now();
-        $newExpiration = $currentExpiration->addDays($duration);
-
-        // Cập nhật ngày hết hạn và lưu price_list_id cho phòng
-        $room->expiration_date = $newExpiration;
-        $room->location_id = $priceList->location->id;
-        $room->save();
-
-        // Lưu lịch sử thanh toán
-        $transaction = new Transaction();
-        $transaction->balance = $user->balance - $price; // Lưu lại số dư sau khi thanh toán
-        $transaction->description = 'Thanh toán gói tin';
-        $transaction->added_funds = - $price; // Thêm dấu trừ vào trước giá trị
-        $transaction->total_price = $price;
-        $transaction->user_id = $user->id;
-        $transaction->save();
-
-        // Trả về trạng thái thanh toán thành công
-        return [
-            'status' => true,
-            'message' => 'Thanh toán thành công.'
-        ];
-    }
 }
