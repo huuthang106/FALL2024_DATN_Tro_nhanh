@@ -18,13 +18,33 @@
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
-                <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
+            <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
                     <input wire:model.lazy="search" wire:keydown.debounce.300ms="$refresh" type="text"
                         class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..." aria-label=""
                         aria-describedby="basic-addon1">
                     <div class="input-group-append position-absolute pos-fixed-right-center">
                         <button class="btn bg-transparent border-0 text-gray lh-1" type="button"><i
                                 class="fal fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="p-2" wire:ignore>
+                    <div class="input-group input-group-lg bg-white border">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-transparent letter-spacing-093 border-0 pr-0">
+                                <i class="far fa-align-left mr-2"></i>Lọc theo:
+                            </span>
+                        </div>
+                        <select class="form-control bg-transparent pl-0 selectpicker d-flex align-items-center sortby"
+                                wire:model.lazy="timeFilter" id="timeFilter" 
+                            data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
+                            <option value="" selected>Thời Gian:</option>
+                                <option value="1_day">1 ngày</option>
+                                <option value="7_day">7 ngày</option>
+                                <option value="1_month">1 tháng</option>
+                                <option value="3_month">3 tháng</option>
+                                <option value="6_month">6 tháng</option>
+                                <option value="1_year">1 năm</option>
+                        </select>
                     </div>
                 </div>
                 <div class="align-self-center">
@@ -138,7 +158,7 @@
                             </form>
                         </td>
                     </tr>
-                @endforeach
+                    @endforeach
                 @endif
             </tbody>
         </table>

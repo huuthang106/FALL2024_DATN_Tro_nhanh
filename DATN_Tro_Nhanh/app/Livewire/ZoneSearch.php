@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Zone;
 use App\Models\Room;
 use Livewire\WithPagination;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
 class ZoneSearch extends Component
@@ -16,10 +17,15 @@ class ZoneSearch extends Component
     public $perPage = 10;
     public $orderBy = 'name';
     public $orderAsc = true;
-
+    public $timeFilter = '';
     protected $queryString = ['search', 'perPage', 'orderBy', 'orderAsc'];
 
     public function updatedSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingFilterByDate()
     {
         $this->resetPage();
     }
@@ -61,6 +67,31 @@ class ZoneSearch extends Component
                     ->orWhere('description', 'like', '%' . $this->search . '%')
                     ->orWhere('address', 'like', '%' . $this->search . '%');
             });
+        // Apply date filter if set
+        if ($this->timeFilter) {
+            $date = Carbon::now();
+            switch ($this->timeFilter) {
+                case '1_day':
+                    $date->subDays(1);
+                    break;
+                case '7_day':
+                    $date->subDays(7);
+                    break;
+                case '1_month':
+                    $date->subMonth();
+                    break;
+                case '3_month':
+                    $date->subMonths(3);
+                    break;
+                case '6_month':
+                    $date->subMonths(6);
+                    break;
+                case '1_year':
+                    $date->subYear();
+                    break;
+            }
+            $query->whereDate('created_at', '>=', $date); // Lọc theo ngày tạo
+        }
 
         $zones = $query->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
             ->paginate($this->perPage);

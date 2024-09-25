@@ -28,25 +28,26 @@
                 <div class="input-group input-group-lg bg-white border">
                     <div class="input-group-prepend">
                         <span class="input-group-text bg-transparent letter-spacing-093 border-0 pr-0">
-                            <i class="far fa-align-left mr-2"></i>Sắp xếp theo:
+                            <i class="far fa-align-left mr-2"></i>Lọc theo:
                         </span>
                     </div>
-                    {{-- selectpicker --}}
                     <select class="form-control bg-transparent pl-0 selectpicker d-flex align-items-center sortby"
-                        wire:model.lazy="sortBy" wire:key="sort-select"
+                        wire:model.lazy="timeFilter" id="timeFilter" 
                         data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
-                        <option value="name">Chữ cái</option>
-                        <option value="price_low_to_high">Giá - Thấp đến Cao</option>
-                        <option value="price_high_to_low">Giá - Cao đến Thấp</option>
-                        <option value="date_old_to_new">Ngày - Cũ đến Mới</option>
-                        <option value="date_new_to_old">Ngày - Mới đến Cũ</option>
+                        <option value="" selected>Thời Gian:</option>
+                                <option value="1_day">1 ngày</option>
+                                <option value="7_day">7 ngày</option>
+                                <option value="1_month">1 tháng</option>
+                                <option value="3_month">3 tháng</option>
+                                <option value="6_month">6 tháng</option>
+                                <option value="1_year">1 năm</option>
                     </select>
                 </div>
             </div>
         </div>
 
         {{-- Load --}}
-        <div wire:loading wire:target="search, sortBy, perPage" class="text-center my-2">
+        <div wire:loading wire:target="search, timeFilter, sortBy, perPage" class="text-center my-2">
             <div class="spinner-border text-primary" role="status">
                 <span class="sr-only">Đang tải...</span>
             </div>

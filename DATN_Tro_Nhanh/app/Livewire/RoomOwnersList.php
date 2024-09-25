@@ -8,6 +8,7 @@ use App\Models\Room;
 use App\Models\PriceList;
 use Illuminate\Support\Facades\Auth;
 use App\Services\RoomOwnersService;
+use Carbon\Carbon;
 
 class RoomOwnersList extends Component
 {
@@ -20,6 +21,7 @@ class RoomOwnersList extends Component
     protected $roomOwnersService;
     protected $queryString = ['search', 'sortBy', 'perPage'];
     public const Goitin = 2; // Đúng cú pháp
+    public $timeFilter = '';
 
 
     public function updatingSearch()
@@ -27,15 +29,20 @@ class RoomOwnersList extends Component
         $this->resetPage();
     }
 
-    public function updatingSortBy()
-    {
-        $this->resetPage();
-    }
+    // public function updatingSortBy()
+    // {
+    //     $this->resetPage();
+    // }
 
     public function updatingPerPage()
     {
         $this->resetPage();
     }
+
+    public function updatingFilterByDate()
+{
+    $this->resetPage();
+}
 
     public function mount(RoomOwnersService $roomOwnersService)
     {
@@ -54,7 +61,8 @@ class RoomOwnersList extends Component
         $userId = Auth::id();
         $user = Auth::user();
         $priceList = PriceList::where('status', self::Goitin)->get();
-        $query = Room::where('user_id', $userId);
+        $query = Room::where('user_id', $userId)
+        ->orderBy('created_at', 'desc'); // Thêm điều kiện sắp xếp từ ngày mới nhất tới cũ nhất
 
         if (!empty($this->search)) {
             $query->where(function ($q) {
@@ -62,25 +70,32 @@ class RoomOwnersList extends Component
                     ->orWhere('address', 'like', '%' . $this->search . '%');
             });
         }
-
-        switch ($this->sortBy) {
-            case 'name':
-                $query->orderBy('title', 'asc');
-                break;
-            case 'price_low_to_high':
-                $query->orderBy('price', 'asc');
-                break;
-            case 'price_high_to_low':
-                $query->orderBy('price', 'desc');
-                break;
-            case 'date_old_to_new':
-                $query->orderBy('created_at', 'asc');
-                break;
-            case 'date_new_to_old':
-            default:
-                $query->orderBy('created_at', 'desc');
-                break;
+        
+        if ($this->timeFilter) {
+            $date = Carbon::now();
+            switch ($this->timeFilter) {
+                case '1_day':
+                    $date->subDays(1);
+                    break;
+                case '7_day':
+                    $date->subDays(7);
+                    break;
+                case '1_month':
+                    $date->subMonth();
+                    break;
+                case '3_month':
+                    $date->subMonths(3);
+                    break;
+                case '6_month':
+                    $date->subMonths(6);
+                    break;
+                case '1_year':
+                    $date->subYear();
+                    break;
+            }
+            $query->whereDate('created_at', '>=', $date); // Lọc theo ngày tạo
         }
+
         $rooms = $query->paginate($this->perPage);
 
         return view('livewire.room-owners-list', [
