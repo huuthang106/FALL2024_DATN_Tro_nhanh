@@ -140,19 +140,16 @@
                                     <!--begin::Table row-->
                                     <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                         <th class="w-10px pe-2">
-                                            <div
-                                                class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                            <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                                 <input class="form-check-input" type="checkbox" data-kt-check="true"
-                                                    data-kt-check-target="#kt_table_utilities .form-check-input"
-                                                    value="1" />
+                                                    data-kt-check-target="#kt_table_utilities .form-check-input" value="1" />
                                             </div>
                                         </th>
-                                        <th class="min-w-100px">Phòng</th>
-                                        <th class="min-w-100px">Wi-Fi</th>
-                                        <th class="min-w-100px">Phòng tắm</th>
-                                        <th class="min-w-100px">Máy điều hòa</th>
-                                        <th class="min-w-100px">Ga-ra</th>
-                                        {{-- <th class="text-end min-w-px">Tác vụ</th> --}}
+                                        <th class="min-w-100px small text-nowrap">Phòng</th>
+                                        <th class="min-w-100px small text-nowrap">Wi-Fi</th>
+                                        <th class="min-w-100px small text-nowrap">Phòng tắm</th>
+                                        <th class="min-w-100px small text-nowrap">Máy điều hòa</th>
+                                        <th class="min-w-100px small text-nowrap">Ga-ra</th>
                                     </tr>
                                     <!--end::Table row-->
                                 </thead>
@@ -162,167 +159,119 @@
                                     @if ($utilities->isEmpty())
                                         <!-- Hiển thị khi không có dữ liệu -->
                                         <tr>
-                                            <td colspan="7" class="text-center">Không có dữ liệu.</td>
+                                            <td colspan="6" class="text-center">Không có dữ liệu.</td>
                                         </tr>
                                     @else
                                         @foreach ($utilities as $utility)
-                                            <tr>
-                                                <!--begin::Checkbox-->
-                                                <td>
-                                                    <div
-                                                        class="form-check form-check-sm form-check-custom form-check-solid">
-                                                        <input class="form-check-input" type="checkbox"
-                                                            value="{{ $utility->id }}" />
-                                                    </div>
-                                                </td>
-                                                <!--end::Checkbox-->
-                                                <!--begin::Utility details-->
-                                                {{-- <td>
-                                            @if ($utility->room && $utility->room->created_at)
-                                                {{ $utility->room->created_at->format('d-m-Y') }}
-                                            @else
-                                                Chưa có ngày
-                                            @endif
-                                        </td> --}}
-                                                <td>
-                                                    @if ($utility->room && $utility->room->title)
-                                                        {{ $utility->room->title }}
-                                                    @else
-                                                        Chưa có phòng
-                                                    @endif
-                                                </td>
-
-                                                <!-- Assuming there's a relationship to get room title -->
-                                                <td>{{ $utility->wifi == 1 ? 'Có' : ($utility->wifi == 2 ? 'Không' : 'Chưa xác định') }}
-                                                </td>
-                                                <td>{{ $utility->bathrooms == 1 ? 'Có' : ($utility->bathrooms == 2 ? 'Không' : 'Chưa xác định') }}
-                                                </td>
-                                                <td>{{ $utility->air_conditioning == 1 ? 'Có' : ($utility->air_conditioning == 2 ? 'Không' : 'Chưa xác định') }}
-                                                </td>
-                                                <td>{{ $utility->garage == 1 ? 'Có' : ($utility->garage == 2 ? 'Không' : 'Chưa xác định') }}
-                                                </td>
-                                                <!--end::Utility details-->
-                                                <!--begin::Actions-->
-                                                {{-- <td class="text-end">
-                                                    <a href="#"
-                                                        class="btn btn-light btn-active-light-primary btn-sm"
-                                                        data-kt-menu-trigger="click"data-kt-menu-placement="bottom-end">Thao
-                                                        tác
-                                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                                                        <span class="svg-icon svg-icon-5 m-0">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                height="24" viewBox="0 0 24 24" fill="none">
-                                                                <path
-                                                                    d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                                                    fill="black" />
-                                                            </svg>
-                                                        </span>
-                                                        <!--end::Svg Icon--></a>
-                                                    <!--begin::Menu-->
-                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                                                        data-kt-menu="true">
-                                                        <!--begin::Menu item-->
-                                                        <div class="menu-item px-3">
-                                                            <a href="{{ route('admin.edit-utility', $utility->id) }}"
-                                                    class="menu-link px-3">Edit</a>
-                                                        </div>
-                                                        <!--end::Menu item-->
-                                                        <!--begin::Menu item-->
-                                                        <div class="menu-item px-3">
-                                                            <a href="#" class="menu-link px-3"
-                                                    data-kt-users-table-filter="delete_row">Delete</a>
-                                                        </div>
-                                                        <!--end::Menu item-->
-                                                    </div>
-                                                    <!--end::Menu-->
-                                                </td> --}}
-                                                <!--end::Actions-->
-                                            </tr>
+                                        <tr>
+                                            <!--begin::Checkbox-->
+                                            <td>
+                                                <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                    <input class="form-check-input" type="checkbox" value="{{ $utility->id }}" />
+                                                </div>
+                                            </td>
+                                        
+                                            <td class="small text-nowrap">
+                                                @if ($utility->room && $utility->room->title)
+                                                    {{ $utility->room->title }}
+                                                @else
+                                                    Chưa có phòng
+                                                @endif
+                                            </td>
+                                        
+                                            <td class="small text-nowrap">{{ $utility->wifi == 1 ? 'Có' : ($utility->wifi == 2 ? 'Không' : 'Chưa xác định') }}</td>
+                                            <td class="small text-nowrap">{{ $utility->bathrooms == 1 ? 'Có' : ($utility->bathrooms == 2 ? 'Không' : 'Chưa xác định') }}</td>
+                                            <td class="small text-nowrap">{{ $utility->air_conditioning == 1 ? 'Có' : ($utility->air_conditioning == 2 ? 'Không' : 'Chưa xác định') }}</td>
+                                            <td class="small text-nowrap">{{ $utility->garage == 1 ? 'Có' : ($utility->garage == 2 ? 'Không' : 'Chưa xác định') }}</td>
+                                        </tr>
+                                        
                                         @endforeach
                                     @endif
                                 </tbody>
                                 <!--end::Table body-->
                             </table>
                         </div>
+                        
+                        
                         {{-- Phân trang --}}
                         @if ($utilities->hasPages())
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination rounded-active justify-content-center">
-                                    {{-- Nút về đầu --}}
-                                    {{-- <li class="page-item {{ $utilities->onFirstPage() ? 'disabled' : '' }}">
-                                     <a class="page-link hover-white" wire:click="gotoPage(1)"
-                                         wire:loading.attr="disabled" aria-label="First Page">
-                                         << </a>
-                                 </li> --}}
-
-                                    {{-- Liên kết Trang Trước --}}
-                                    <li class="page-item {{ $utilities->onFirstPage() ? 'disabled' : '' }}">
-                                        <a class="page-link hover-white" wire:click="previousPage"
-                                            wire:loading.attr="disabled" rel="prev"
-                                            aria-label="@lang('pagination.previous')">
-                                            < </a>
-                                    </li>
-
-                                    @php
-                                        $totalPages = $utilities->lastPage();
-                                        $currentPage = $utilities->currentPage();
-                                        $visiblePages = 3; // Số trang hiển thị ở giữa
-                                    @endphp
-
-                                    {{-- Trang đầu --}}
-                                    <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
-                                        <a class="page-link hover-white" wire:click="gotoPage(1)"
-                                            wire:loading.attr="disabled">1</a>
-                                    </li>
-
-                                    {{-- Dấu ba chấm đầu --}}
-                                    @if ($currentPage > $visiblePages)
-                                        <li class="page-item disabled"><span class="page-link">...</span></li>
-                                    @endif
-
-                                    {{-- Các trang giữa --}}
-                                    @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
-                                        @if ($i > 1 && $i < $totalPages)
-                                            <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
-                                                <a class="page-link hover-white"
-                                                    wire:click="gotoPage({{ $i }})"
-                                                    wire:loading.attr="disabled">{{ $i }}</a>
-                                            </li>
-                                        @endif
-                                    @endforeach
-
-                                    {{-- Dấu ba chấm cuối --}}
-                                    @if ($currentPage < $totalPages - ($visiblePages - 1))
-                                        <li class="page-item disabled"><span class="page-link">...</span></li>
-                                    @endif
-
-                                    {{-- Trang cuối --}}
-                                    @if ($totalPages > 1)
-                                        <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination rounded-active justify-content-center">
+                                {{-- Nút về đầu --}}
+                                <li class="page-item {{ $utilities->onFirstPage() ? 'disabled' : '' }}">
+                                    <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                        wire:loading.attr="disabled" aria-label="First Page">
+                                        << </a>
+                                </li>
+                    
+                                {{-- Liên kết Trang Trước --}}
+                                <li class="page-item {{ $utilities->onFirstPage() ? 'disabled' : '' }}">
+                                    <a class="page-link hover-white" wire:click="previousPage"
+                                        wire:loading.attr="disabled" rel="prev"
+                                        aria-label="@lang('pagination.previous')">
+                                        < </a>
+                                </li>
+                    
+                                @php
+                                    $totalPages = $utilities->lastPage();
+                                    $currentPage = $utilities->currentPage();
+                                    $visiblePages = 3; // Số trang hiển thị ở giữa
+                                @endphp
+                    
+                                {{-- Trang đầu --}}
+                                <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                                    <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                        wire:loading.attr="disabled">1</a>
+                                </li>
+                    
+                                {{-- Dấu ba chấm đầu --}}
+                                @if ($currentPage > $visiblePages)
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                @endif
+                    
+                                {{-- Các trang giữa --}}
+                                @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
+                                    @if ($i > 1 && $i < $totalPages)
+                                        <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
                                             <a class="page-link hover-white"
-                                                wire:click="gotoPage({{ $totalPages }})"
-                                                wire:loading.attr="disabled">{{ $totalPages }}</a>
+                                                wire:click="gotoPage({{ $i }})"
+                                                wire:loading.attr="disabled">{{ $i }}</a>
                                         </li>
                                     @endif
-
-                                    {{-- Liên kết Trang Tiếp --}}
-                                    <li class="page-item {{ !$utilities->hasMorePages() ? 'disabled' : '' }}">
-                                        <a class="page-link hover-white" wire:click="nextPage"
-                                            wire:loading.attr="disabled" rel="next"
-                                            aria-label="@lang('pagination.next')"> >
-                                        </a>
+                                @endforeach
+                    
+                                {{-- Dấu ba chấm cuối --}}
+                                @if ($currentPage < $totalPages - ($visiblePages - 1))
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                @endif
+                    
+                                {{-- Trang cuối --}}
+                                @if ($totalPages > 1)
+                                    <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                                        <a class="page-link hover-white"
+                                            wire:click="gotoPage({{ $totalPages }})"
+                                            wire:loading.attr="disabled">{{ $totalPages }}</a>
                                     </li>
-
-                                    {{-- Nút về cuối --}}
-                                    {{-- <li class="page-item {{ !$utilities->hasMorePages() ? 'disabled' : '' }}">
-                                     <a class="page-link hover-white"
-                                         wire:click="gotoPage({{ $utilities->lastPage() }})"
-                                         wire:loading.attr="disabled" aria-label="Last Page"> >>
-                                     </a>
-                                 </li> --}}
-                                </ul>
-                            </nav>
-                        @endif
+                                @endif
+                    
+                                {{-- Liên kết Trang Tiếp --}}
+                                <li class="page-item {{ !$utilities->hasMorePages() ? 'disabled' : '' }}">
+                                    <a class="page-link hover-white" wire:click="nextPage"
+                                        wire:loading.attr="disabled" rel="next"
+                                        aria-label="@lang('pagination.next')"> >
+                                    </a>
+                                </li>
+                    
+                                {{-- Nút về cuối --}}
+                                <li class="page-item {{ !$utilities->hasMorePages() ? 'disabled' : '' }}">
+                                    <a class="page-link hover-white" wire:click="gotoPage({{ $utilities->lastPage() }})"
+                                        wire:loading.attr="disabled" aria-label="Last Page"> >>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    @endif
+                    
                         {{-- <div class="text-center mt-2">{{ $utilities->firstItem() }}-{{ $utilities->lastItem() }}
                          của
                          {{ $utilities->total() }} kết quả

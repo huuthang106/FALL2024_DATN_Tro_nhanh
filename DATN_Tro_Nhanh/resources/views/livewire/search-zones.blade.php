@@ -523,7 +523,7 @@
                                     <th class="min-w-100px">Địa chỉ</th>
                                     <th class="min-w-100px">Tổng số phòng</th>
                                     <th class="min-w-100px">Trạng thái</th>
-                                
+
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
@@ -607,11 +607,11 @@
                         <nav aria-label="Page navigation">
                             <ul class="pagination rounded-active justify-content-center">
                                 {{-- Nút về đầu --}}
-                                {{-- <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
+                                <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
                                     <a class="page-link hover-white" wire:click="gotoPage(1)"
                                         wire:loading.attr="disabled" aria-label="First Page">
                                         << </a>
-                                </li> --}}
+                                </li>
 
                                 {{-- Liên kết Trang Trước --}}
                                 <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
@@ -669,15 +669,15 @@
                                 </li>
 
                                 {{-- Nút về cuối --}}
-                                {{-- <li class="page-item {{ !$zones->hasMorePages() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white"
-                                        wire:click="gotoPage({{ $zones->lastPage() }})"
+                                <li class="page-item {{ !$zones->hasMorePages() ? 'disabled' : '' }}">
+                                    <a class="page-link hover-white" wire:click="gotoPage({{ $zones->lastPage() }})"
                                         wire:loading.attr="disabled" aria-label="Last Page"> >>
                                     </a>
-                                </li> --}}
+                                </li>
                             </ul>
                         </nav>
                     @endif
+
                     <!--end::Table-->
                 </div>
                 {{-- <div class="text-center mt-2">{{ $zones->firstItem() }}-{{ $zones->lastItem() }} của

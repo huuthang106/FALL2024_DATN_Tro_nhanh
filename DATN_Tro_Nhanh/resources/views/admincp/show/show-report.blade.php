@@ -54,7 +54,7 @@
                                     <thead>
                                         <!--begin::Table row-->
                                         <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                          
+
                                             <th class="min-w-125px">Tiêu đề</th>
                                             <th class="min-w-125px">Người báo cáo</th>
                                             <th class="min-w-125px">Tên phòng</th>
@@ -73,78 +73,90 @@
                                                 <td colspan="7" class="text-center">Không có dữ liệu.</td>
                                             </tr>
                                         @else
-                                        @foreach ($reports as $report)
-                                            <tr>
-                                                <!--begin::Checkbox-->
-                                               
+                                            @foreach ($reports as $report)
+                                                <tr>
+                                                    <!--begin::Checkbox-->
 
-                                                <td>
-                                                    <small>{{ $report->description }}</small>
-                                                </td>
-
-                                                <td>
-                                                   <small> {{ $report->user->name }}</small>
-                                                </td>
-                                                <td>
-                                                  <small>  {{ $report->room->title }}</small>
-                                                </td>
-                                                <td>
-                                                   <small> {{ $report->created_at->format('d/m/Y') }}</small>
-                                                </td>
-                                                <td>
-                                                    <div
-                                                        class="badge {{ $report->status == 1 ? 'badge-light-warning' : ($report->status == 2 ? 'badge-light-success' : '') }}">
-                                                        <small>{{ $report->status == 1 ? 'Chưa duyệt' : ($report->status == 2 ? 'Đã duyệt' : '') }}</small>
-                                                    </div>
-
-                                                </td>
-
-                                                <td class="text-end">
-                                                    <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
-                                                    data-kt-menu-trigger="click"
-                                                    data-kt-menu-placement="bottom-end" style="line-height: 1;">
-                                                     Thao tác
-                                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                                                     <span class="svg-icon svg-icon-5 m-0 ms-1"> <!-- Thêm class ms-1 để tạo khoảng cách -->
-                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                             <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
-                                                         </svg>
-                                                     </span>
-                                                     <!--end::Svg Icon-->
-                                                 </a>
-                                                    <!--begin::Menu-->
-                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                                                        data-kt-menu="true">
-                                                        <!--begin::Menu item-->
-                                                        <div class="menu-item px-3">
-                                                            <a href="../../demo8/dist/apps/subscriptions/add.html"
-                                                                class="menu-link px-3">Xem chi tiết</a>
-                                                        </div>
-                                                    </td>
 
                                                     <td>
                                                         <small>{{ $report->description }}</small>
                                                     </td>
 
                                                     <td>
-                                                        {{ $report->user->name }}
+                                                        <small> {{ $report->user->name }}</small>
                                                     </td>
                                                     <td>
-                                                        {{ $report->room->title }}
+                                                        <small>{{ $report->room ? $report->room->title : 'Không có tiêu đề' }}</small>
                                                     </td>
+
                                                     <td>
-                                                        {{ $report->created_at->format('d/m/Y') }}
+                                                        <small> {{ $report->created_at->format('d/m/Y') }}</small>
                                                     </td>
                                                     <td>
                                                         <div
                                                             class="badge {{ $report->status == 1 ? 'badge-light-warning' : ($report->status == 2 ? 'badge-light-success' : '') }}">
-                                                            {{ $report->status == 1 ? 'Chưa duyệt' : ($report->status == 2 ? 'Đã duyệt' : '') }}
+                                                            <small>{{ $report->status == 1 ? 'Chưa duyệt' : ($report->status == 2 ? 'Đã duyệt' : '') }}</small>
                                                         </div>
 
                                                     </td>
 
                                                     <td class="text-end">
                                                         <a href="#"
+                                                            class="btn btn-light btn-active-light-primary btn-sm"
+                                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
+                                                            style="line-height: 1;">
+                                                            Thao tác
+                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+                                                            <span class="svg-icon svg-icon-5 m-0 ms-1">
+                                                                <!-- Thêm class ms-1 để tạo khoảng cách -->
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                    height="24" viewBox="0 0 24 24" fill="none">
+                                                                    <path
+                                                                        d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                                        fill="black" />
+                                                                </svg>
+                                                            </span>
+                                                            <!--end::Svg Icon-->
+                                                        </a>
+                                                        <!--begin::Menu-->
+                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                                                            data-kt-menu="true">
+                                                            <!--begin::Menu item-->
+                                                            <div class="menu-item px-3">
+                                                                <a href="../../demo8/dist/apps/subscriptions/add.html"
+                                                                    class="menu-link px-3">Xem chi tiết</a>
+                                                            </div>
+                                                            <div class="menu-item px-3">
+                                                                <a href="#"
+                                                                    data-kt-subscriptions-table-filter="delete_row"
+                                                                    class="menu-link px-3">Xóa</a>
+                                                            </div>
+                                                            <div class="menu-item px-3">
+                                                                @if ($report->status == 1)
+                                                                    <form
+                                                                        action="{{ route('admin.approve-report', $report->id) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        @method('PUT')
+                                                                        <button type="submit"
+                                                                            class="menu-link px-3 border-0 bg-transparent">Duyệt</button>
+                                                                    </form>
+                                                                @else
+                                                                @endif
+                                                            </div>
+                                                    </td>
+
+
+                                                    {{-- <td>
+                                                        <div
+                                                            class="badge {{ $report->status == 1 ? 'badge-light-warning' : ($report->status == 2 ? 'badge-light-success' : '') }}">
+                                                            {{ $report->status == 1 ? 'Chưa duyệt' : ($report->status == 2 ? 'Đã duyệt' : '') }}
+                                                        </div>
+
+                                                    </td> --}}
+
+                                                    <td class="text-end">
+                                                        {{-- <a href="#"
                                                             class="btn btn-light btn-active-light-primary btn-sm"
                                                             data-kt-menu-trigger="click"
                                                             data-kt-menu-placement="bottom-end">Thao
@@ -158,23 +170,25 @@
                                                                         fill="black" />
                                                                 </svg>
                                                             </span>
-                                                            <!--end::Svg Icon--></a>
+                                                            <!--end::Svg Icon--></a> --}}
                                                         <!--begin::Menu-->
-                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                                                        {{-- <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
                                                             data-kt-menu="true">
                                                             <!--begin::Menu item-->
                                                             <div class="menu-item px-3">
                                                                 <a href="../../demo8/dist/apps/subscriptions/add.html"
                                                                     class="menu-link px-3">Xem chi tiết</a>
+                                                                    <a href="../../demo8/dist/apps/subscriptions/add.html"
+                                                                    class="menu-link px-3">Xem chi tiết</a>
+                                                                <div class="menu-item px-3">
+                                                                    <a href="#"
+                                                                        data-kt-subscriptions-table-filter="delete_row"
+                                                                        class="menu-link px-3">Xóa</a>
+                                                                </div>
                                                             </div>
-                                                            <!--end::Menu item-->
-                                                            <!--begin::Menu item-->
-                                                            {{-- <div class="menu-item px-3">
-                                                        <a href="{{ route('admin.edit-category', ['slug' => $register->slug]) }}"
-                                                            class="menu-link px-3">Chỉnh sửa</a>
-                                                    </div> --}}
-                                                            <!--end::Menu item-->
-                                                            <!--begin::Menu item-->
+
+
+
                                                             <div class="menu-item px-3">
                                                                 @if ($report->status == 1)
                                                                     <form
@@ -194,7 +208,7 @@
                                                                     class="menu-link px-3">Xóa</a>
                                                             </div>
                                                             <!--end::Menu item-->
-                                                        </div>
+                                                        </div> --}}
                                                         <!--end::Menu-->
                                                     </td>
                                                     <!--end::Action=-->
@@ -209,83 +223,87 @@
                             <!--end::Card body-->
                             <!-- Hiển thị các liên kết phân trang -->
                             @if ($reports->total() > 0)
-                            @if ($reports->hasPages())
-                                <nav aria-label="Page navigation" class="mb-2">
-                                    <ul class="pagination pagination-sm rounded-active justify-content-center">
-                                        {{-- Liên kết Trang Đầu --}}
-                                        <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
-                                            <a class="page-link hover-white" wire:click="gotoPage(1)"
-                                                wire:loading.attr="disabled" rel="first" aria-label="@lang('pagination.first')"><i
-                                                    class="fas fa-angle-double-left"></i></a>
-                                        </li>
-        
-                                        {{-- Liên kết Trang Trước --}}
-                                        <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
-                                            <a class="page-link hover-white" wire:click="previousPage"
-                                                wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')"><i
-                                                    class="fas fa-angle-left"></i></a>
-                                        </li>
-        
-                                        @php
-                                            $totalPages = $rooms->lastPage();
-                                            $currentPage = $rooms->currentPage();
-                                            $visiblePages = 3; // Số trang giữa
-                                        @endphp
-        
-                                        {{-- Trang đầu --}}
-                                        <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
-                                            <a class="page-link hover-white" wire:click="gotoPage(1)"
-                                                wire:loading.attr="disabled">1</a>
-                                        </li>
-        
-                                        {{-- Dấu ba chấm đầu --}}
-                                        @if ($currentPage > 3)
-                                            <li class="page-item disabled"><span class="page-link">...</span></li>
-                                        @endif
-        
-                                        {{-- Các trang giữa --}}
-                                        @for ($i = max(2, $currentPage - 1); $i <= min($totalPages - 1, $currentPage + 1); $i++)
-                                            @if ($i > 1 && $i < $totalPages)
-                                                <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                @if ($reports->hasPages())
+                                    <nav aria-label="Page navigation" class="mb-2">
+                                        <ul class="pagination pagination-sm rounded-active justify-content-center">
+                                            {{-- Liên kết Trang Đầu --}}
+                                            <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
+                                                <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                                    wire:loading.attr="disabled" rel="first"
+                                                    aria-label="@lang('pagination.first')"><i
+                                                        class="fas fa-angle-double-left"></i></a>
+                                            </li>
+
+                                            {{-- Liên kết Trang Trước --}}
+                                            <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
+                                                <a class="page-link hover-white" wire:click="previousPage"
+                                                    wire:loading.attr="disabled" rel="prev"
+                                                    aria-label="@lang('pagination.previous')"><i class="fas fa-angle-left"></i></a>
+                                            </li>
+
+                                            @php
+                                                $totalPages = $rooms->lastPage();
+                                                $currentPage = $rooms->currentPage();
+                                                $visiblePages = 3; // Số trang giữa
+                                            @endphp
+
+                                            {{-- Trang đầu --}}
+                                            <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                                                <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                                    wire:loading.attr="disabled">1</a>
+                                            </li>
+
+                                            {{-- Dấu ba chấm đầu --}}
+                                            @if ($currentPage > 3)
+                                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                                            @endif
+
+                                            {{-- Các trang giữa --}}
+                                            @for ($i = max(2, $currentPage - 1); $i <= min($totalPages - 1, $currentPage + 1); $i++)
+                                                @if ($i > 1 && $i < $totalPages)
+                                                    <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                                        <a class="page-link hover-white"
+                                                            wire:click="gotoPage({{ $i }})"
+                                                            wire:loading.attr="disabled">{{ $i }}</a>
+                                                    </li>
+                                                @endif
+                                            @endfor
+
+                                            {{-- Dấu ba chấm cuối --}}
+                                            @if ($currentPage < $totalPages - 2)
+                                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                                            @endif
+
+                                            {{-- Trang cuối --}}
+                                            @if ($totalPages > 1)
+                                                <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
                                                     <a class="page-link hover-white"
-                                                        wire:click="gotoPage({{ $i }})"
-                                                        wire:loading.attr="disabled">{{ $i }}</a>
+                                                        wire:click="gotoPage({{ $totalPages }})"
+                                                        wire:loading.attr="disabled">{{ $totalPages }}</a>
                                                 </li>
                                             @endif
-                                        @endfor
-        
-                                        {{-- Dấu ba chấm cuối --}}
-                                        @if ($currentPage < $totalPages - 2)
-                                            <li class="page-item disabled"><span class="page-link">...</span></li>
-                                        @endif
-        
-                                        {{-- Trang cuối --}}
-                                        @if ($totalPages > 1)
-                                            <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
-                                                <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
-                                                    wire:loading.attr="disabled">{{ $totalPages }}</a>
+
+                                            {{-- Liên kết Trang Tiếp --}}
+                                            <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
+                                                <a class="page-link hover-white" wire:click="nextPage"
+                                                    wire:loading.attr="disabled" rel="next"
+                                                    aria-label="@lang('pagination.next')"><i class="fas fa-angle-right"></i></a>
                                             </li>
-                                        @endif
-        
-                                        {{-- Liên kết Trang Tiếp --}}
-                                        <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
-                                            <a class="page-link hover-white" wire:click="nextPage"
-                                                wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')"><i
-                                                    class="fas fa-angle-right"></i></a>
-                                        </li>
-        
-                                        {{-- Liên kết Trang Cuối --}}
-                                        <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
-                                            <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
-                                                wire:loading.attr="disabled" rel="last" aria-label="@lang('pagination.last')"><i
-                                                    class="fas fa-angle-double-right"></i></i></i></a>
-                                        </li>
-                                    </ul>
-                                </nav>
-        
+
+                                            {{-- Liên kết Trang Cuối --}}
+                                            <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
+                                                <a class="page-link hover-white"
+                                                    wire:click="gotoPage({{ $totalPages }})"
+                                                    wire:loading.attr="disabled" rel="last"
+                                                    aria-label="@lang('pagination.last')"><i
+                                                        class="fas fa-angle-double-right"></i></i></i></a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+
+                                @endif
+
                             @endif
-        
-                        @endif
                         </div>
                         <!--end::Card-->
                         <!--begin::Modals-->
