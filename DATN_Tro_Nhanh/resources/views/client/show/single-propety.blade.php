@@ -320,24 +320,23 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- <div class="col-lg-3 col-sm-4 mb-6">                                                                                                                                                                                     </div> -->
-                                <div class="col-lg-3 col-sm-4 mb-6">
-                                    <div class="media">
-                                        <div class="p-2 shadow-xxs-1 rounded-lg mr-2">
-                                            <svg class="icon icon-sofa fs-32 text-primary">
-                                                <use xlink:href="#icon-sofa"></use>
-                                            </svg>
-                                        </div>
-                                        <div class="media-body">
-                                            <h5 class="my-1 fs-14 text-uppercase letter-spacing-093 font-weight-normal">
-                                                Phòng tắm</h5>
-                                            <p class="mb-0 fs-13 font-weight-bold text-heading">
-                                                {{ $utilities->bathroom ?? '2' }}</p>
-
+                                @if ($rooms->utility && $rooms->utility->bathrooms == 1)
+                                    <div class="col-lg-3 col-sm-4 mb-6">
+                                        <div class="media align-items-center">
+                                            <div class="p-2 shadow-xxs-1 rounded-lg mr-2">
+                                                <svg class="icon icon-sofa fs-32 text-primary">
+                                                    <use xlink:href="#icon-sofa"></use>
+                                                </svg>
+                                            </div>
+                                            <div class="media-body">
+                                                <h5
+                                                    class="my-0 fs-14 text-uppercase letter-spacing-093 font-weight-normal">
+                                                    Phòng tắm
+                                                </h5>
+                                            </div>
                                         </div>
                                     </div>
-                               
+                                @endif
                                 @if ($rooms->utility && $rooms->utility->garage == 1)
                                     <div class="col-lg-3 col-sm-4 mb-6">
                                         <div class="media align-items-center">
@@ -377,10 +376,7 @@
                                 @endif
                             </div>
                         </section>
-
-                                                                                                                                                                            </section> -->
-                        <section class="mt-2 pb-7 px-6 pt-5 bg-white rounded-lg">
-
+                        {{-- <section class="mt-2 pb-7 px-6 pt-5 bg-white rounded-lg">
                             <h4 class="fs-22 text-heading mb-4">Tiện ích văn phòng</h4>
                             <ul class="list-unstyled mb-0 row no-gutters">
                                 <li class="col-sm-3 col-6 mb-2">
@@ -404,9 +400,7 @@
                                 </li>
 
                             </ul>
-
-                        </section>
-                                                                                                                                                                                  </section> -->
+                        </section> --}}
 
                         <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
                             <h4 class="fs-22 text-heading lh-15 mb-5">Đánh giá & Nhận xét</h4>
@@ -1267,33 +1261,22 @@
                                         {{ number_format($rooms->price, 0, ',', '.') }} VND</p>
                                 </div>
                                 <div class="row mt-5">
-                                    <!-- <div class="col-6 mb-3">
-                                                                                                                                                                                                                            <div class="media">
-                                                                                                                                                                                                                                <div class="p-2 shadow-xxs-1 rounded-lg mr-2 lh-1">
-                                                                                                                                                                                                                                    <svg class="icon icon-bedroom fs-18 text-primary">
-                                                                                                                                                                                                                                        <use xlink:href="#icon-bedroom"></use>
-                                                                                                                                                                                                                                    </svg>
-                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                <div class="media-body">
-                                                                                                                                                                                                                                    <h5 class="fs-13 font-weight-normal mb-0">Phòng ngủ</h5>
-                                                                                                                                                                                                                                    <p class="mb-0 fs-13 font-weight-bold text-dark">3</p>
-                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                        </div> -->
-                                    <div class="col-6 mb-3">
-                                        <div class="media">
-                                            <div class="p-2 shadow-xxs-1 rounded-lg mr-2 lh-1">
-                                                <svg class="icon icon-shower fs-18 text-primary">
-                                                    <use xlink:href="#icon-shower"></use>
-                                                </svg>
-                                            </div>
-                                            <div class="media-body">
-                                                <h5 class="fs-13 font-weight-normal mb-0">Phòng tắm</h5>
-                                                <p class="mb-0 fs-13 font-weight-bold text-dark">
-                                                    {{ $utilities->bathroom ?? '2' }}</p>
+                                    @if ($rooms->utility && $rooms->utility->bathrooms == 1)
+                                        <div class="col-6 mb-3">
+                                            <div class="media align-items-center">
+                                                <div class="p-2 shadow-xxs-1 rounded-lg mr-2 lh-1">
+                                                    <svg class="icon icon-shower fs-18 text-primary">
+                                                        <use xlink:href="#icon-shower"></use>
+                                                    </svg>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h5 class="fs-13 font-weight-normal mb-0">Phòng tắm</h5>
+                                                    {{-- <p class="mb-0 fs-13 font-weight-bold text-dark">
+                                                    {{ $utilities->bathroom ?? '2' }}</p> --}}
+                                                </div>
                                             </div>
                                         </div>
-                                    
+                                    @endif
                                     <div class="col-6 mb-3">
                                         <div class="media">
                                             <div class="p-2 shadow-xxs-1 rounded-lg mr-2 lh-1">
