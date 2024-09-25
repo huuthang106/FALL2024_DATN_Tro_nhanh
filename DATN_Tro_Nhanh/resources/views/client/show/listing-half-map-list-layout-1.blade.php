@@ -223,7 +223,7 @@
                                                                         động</span>
                                                                 @endif
                                                             </div>
-                                                            <div class="mt-auto d-flex hover-image">
+                                                            {{-- <div class="mt-auto d-flex hover-image">
                                                                 <ul
                                                                     class="list-inline mb-0 d-flex align-items-end mr-auto">
                                                                     <li class="list-inline-item mr-2"
@@ -259,7 +259,7 @@
                                                                         </a>
                                                                     </li>
                                                                 </ul>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -434,7 +434,7 @@
                 </div>
             </div>
         </section>
-        <div id="compare" class="compare">
+        {{-- <div id="compare" class="compare">
             <button
                 class="btn shadow btn-open bg-white bg-hover-accent text-secondary rounded-right-0 d-flex justify-content-center align-items-center w-30px h-140 p-0">
             </button>
@@ -479,7 +479,7 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="d-none" id="template-properties">
             <div class="marker-item" data-icon-marker="{{ asset('assets/images/googlle-market-02.png') }}"
                 data-position="[-73.9893691, 40.6751204]"

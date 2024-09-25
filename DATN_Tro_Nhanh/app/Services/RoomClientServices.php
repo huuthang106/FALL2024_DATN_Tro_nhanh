@@ -15,7 +15,7 @@ class RoomClientServices
     // viết các hàm lấy giá trị của bản đó 
     private const trangthaiphong = 2;
     private const status = 2;
-    
+
     // ----------------------------------------------------------------Sắp Theo VIP
     public function getAllRoom(int $perPage = 10, $searchTerm = null, $province = null, $district = null, $village = null, $category = null)
 {
@@ -106,23 +106,24 @@ public function getCategories()
     // }
     // Lấy 5 phòng mới nhất
     public function getRoomWhere()
-    { 
-            $rooms = Room::orderBy('expiration_date', 'desc') // Sắp xếp theo expiration_date
-                         ->orderBy('created_at', 'desc') // Sắp xếp theo ngày tạo mới nhất
-                         ->take(5) // Lấy 5 phòng
-                         ->get();
-        
-            return $rooms; // Trả về danh sách phòng    
+    {
+        $rooms = Room::orderBy('expiration_date', 'desc') // Sắp xếp theo expiration_date
+            ->orderBy('created_at', 'desc') // Sắp xếp theo ngày tạo mới nhất
+            ->orderBy('view', 'desc') // Sắp xếp theo lượt xem cao nhất
+            ->take(5) // Lấy 5 phòng
+            ->get();
+
+        return $rooms; // Trả về danh sách phòng    
     }
 
     public function RoomClient()
-    { 
-            $rooms = Room::orderBy('view', 'desc') // Sắp xếp theo ngày tạo mới nhất
-                         ->orderBy('created_at', 'desc') // Sắp xếp theo lượt xem cao nhất
-                         ->take(5) // Lấy 5 phòng
-                         ->get();
-        
-            return $rooms; // Trả về danh sách phòng    
+    {
+        $rooms = Room::orderBy('view', 'desc') // Sắp xếp theo ngày tạo mới nhất
+            ->orderBy('created_at', 'desc') // Sắp xếp theo lượt xem cao nhất
+            ->take(5) // Lấy 5 phòng
+            ->get();
+
+        return $rooms; // Trả về danh sách phòng    
     }
 
     public function incrementViewCount($roomId)
@@ -131,7 +132,7 @@ public function getCategories()
         if (!request()->cookie('viewed_property_' . $roomId)) {
             // Tìm phòng theo ID
             $room = Room::find($roomId);
-            
+
             if ($room) {
                 // Tăng số lượt xem
                 $room->increment('view');
@@ -205,42 +206,41 @@ public function getCategories()
         $userId = $userId ?? auth()->id();
         return Room::where('user_id', $userId)->count();
     }
-    
+
     public function getRoomClient($province, $currentRoomId)
-{
-    return Room::where('status', self::trangthaiphong)
-        ->where('province', $province) // Thay 'province' bằng 'province_id' nếu cần
-        ->where('id', '<>', $currentRoomId)
-        ->get();
-}
-
-public function getUniqueLocations()
-{
-    try {
-        $provinces = Room::distinct()->whereNotNull('province')->pluck('province', 'province')->toArray();
-        $districts = Room::distinct()->whereNotNull('district')->select('province', 'district')->get()
-            ->groupBy('province')
-            ->map(function ($items) {
-                return $items->pluck('district')->toArray();
-            })
-            ->toArray();
-        $villages = Room::distinct()->whereNotNull('village')->select('district', 'village')->get()
-            ->groupBy('district')
-            ->map(function ($items) {
-                return $items->pluck('village')->toArray();
-            })
-            ->toArray();
-
-        return [
-            'provinces' => $provinces,
-            'districts' => $districts,
-            'villages' => $villages
-        ];
-    } catch (\Exception $e) {
-        Log::error('Không thể lấy danh sách địa điểm: ' . $e->getMessage());
-        return null;
+    {
+        return Room::where('status', self::trangthaiphong)
+            ->where('province', $province) // Thay 'province' bằng 'province_id' nếu cần
+            ->where('id', '<>', $currentRoomId)
+            ->withCount('images')
+            ->get();
     }
-}
 
-    
+    public function getUniqueLocations()
+    {
+        try {
+            $provinces = Room::distinct()->whereNotNull('province')->pluck('province', 'province')->toArray();
+            $districts = Room::distinct()->whereNotNull('district')->select('province', 'district')->get()
+                ->groupBy('province')
+                ->map(function ($items) {
+                    return $items->pluck('district')->toArray();
+                })
+                ->toArray();
+            $villages = Room::distinct()->whereNotNull('village')->select('district', 'village')->get()
+                ->groupBy('district')
+                ->map(function ($items) {
+                    return $items->pluck('village')->toArray();
+                })
+                ->toArray();
+
+            return [
+                'provinces' => $provinces,
+                'districts' => $districts,
+                'villages' => $villages
+            ];
+        } catch (\Exception $e) {
+            Log::error('Không thể lấy danh sách địa điểm: ' . $e->getMessage());
+            return null;
+        }
+    }
 }

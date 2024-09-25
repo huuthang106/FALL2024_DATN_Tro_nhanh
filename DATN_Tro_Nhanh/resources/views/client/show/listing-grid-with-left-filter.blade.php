@@ -30,76 +30,78 @@
                                         <div class="form-group">
                                             <label for="location" class="sr-only">Tỉnh</label>
                                             <select class="form-control border-0 shadow-none form-control-lg"
-                                                    id="city-province" title="Tất cả thành phố" name="province"
-                                                    data-style="btn-lg py-2 h-52">
+                                                id="city-province" title="Tất cả thành phố" name="province"
+                                                data-style="btn-lg py-2 h-52">
                                                 <option value='0'>Chọn Tỉnh/Thành Phố...</option>
-                                                @foreach([
-                                                    '01' => 'Thành phố Hà Nội',
-                                                    '79' => 'Thành phố Hồ Chí Minh',
-                                                    '31' => 'Thành phố Hải Phòng',
-                                                    '48' => 'Thành phố Đà Nẵng',
-                                                    '92' => 'Thành phố Cần Thơ',
-                                                    '02' => 'Tỉnh Hà Giang',
-                                                    '04' => 'Tỉnh Cao Bằng',
-                                                    '06' => 'Tỉnh Bắc Kạn',
-                                                    '08' => 'Tỉnh Tuyên Quang',
-                                                    '10' => 'Tỉnh Lào Cai',
-                                                    '11' => 'Tỉnh Điện Biên',
-                                                    '12' => 'Tỉnh Lai Châu',
-                                                    '14' => 'Tỉnh Sơn La',
-                                                    '15' => 'Tỉnh Yên Bái',
-                                                    '17' => 'Tỉnh Hoà Bình',
-                                                    '19' => 'Tỉnh Thái Nguyên',
-                                                    '20' => 'Tỉnh Lạng Sơn',
-                                                    '22' => 'Tỉnh Quảng Ninh',
-                                                    '24' => 'Tỉnh Bắc Giang',
-                                                    '25' => 'Tỉnh Phú Thọ',
-                                                    '26' => 'Tỉnh Vĩnh Phúc',
-                                                    '27' => 'Tỉnh Bắc Ninh',
-                                                    '30' => 'Tỉnh Hải Dương',
-                                                    '33' => 'Tỉnh Hưng Yên',
-                                                    '34' => 'Tỉnh Thái Bình',
-                                                    '35' => 'Tỉnh Hà Nam',
-                                                    '36' => 'Tỉnh Nam Định',
-                                                    '37' => 'Tỉnh Ninh Bình',
-                                                    '38' => 'Tỉnh Thanh Hóa',
-                                                    '40' => 'Tỉnh Nghệ An',
-                                                    '42' => 'Tỉnh Hà Tĩnh',
-                                                    '44' => 'Tỉnh Quảng Bình',
-                                                    '45' => 'Tỉnh Quảng Trị',
-                                                    '46' => 'Tỉnh Thừa Thiên Huế',
-                                                    '49' => 'Tỉnh Quảng Nam',
-                                                    '51' => 'Tỉnh Quảng Ngãi',
-                                                    '52' => 'Tỉnh Bình Định',
-                                                    '54' => 'Tỉnh Phú Yên',
-                                                    '56' => 'Tỉnh Khánh Hòa',
-                                                    '58' => 'Tỉnh Ninh Thuận',
-                                                    '60' => 'Tỉnh Bình Thuận',
-                                                    '62' => 'Tỉnh Kon Tum',
-                                                    '64' => 'Tỉnh Gia Lai',
-                                                    '66' => 'Tỉnh Đắk Lắk',
-                                                    '67' => 'Tỉnh Đắk Nông',
-                                                    '68' => 'Tỉnh Lâm Đồng',
-                                                    '70' => 'Tỉnh Bình Phước',
-                                                    '72' => 'Tỉnh Tây Ninh',
-                                                    '74' => 'Tỉnh Bình Dương',
-                                                    '75' => 'Tỉnh Đồng Nai',
-                                                    '77' => 'Tỉnh Bà Rịa - Vũng Tàu',
-                                                    '80' => 'Tỉnh Long An',
-                                                    '82' => 'Tỉnh Tiền Giang',
-                                                    '83' => 'Tỉnh Bến Tre',
-                                                    '84' => 'Tỉnh Trà Vinh',
-                                                    '86' => 'Tỉnh Vĩnh Long',
-                                                    '87' => 'Tỉnh Đồng Tháp',
-                                                    '89' => 'Tỉnh An Giang',
-                                                    '91' => 'Tỉnh Kiên Giang',
-                                                    '93' => 'Tỉnh Hậu Giang',
-                                                    '94' => 'Tỉnh Sóc Trăng',
-                                                    '95' => 'Tỉnh Bạc Liêu',
-                                                    '96' => 'Tỉnh Cà Mau'
-                                                ] as $code => $name)
-                                                    @if(in_array($code, $provinces))
-                                                        <option value='{{ $code }}' {{ $province == $code ? 'selected' : '' }}>{{ $name }}</option>
+                                                @foreach ([
+            '01' => 'Thành phố Hà Nội',
+            '79' => 'Thành phố Hồ Chí Minh',
+            '31' => 'Thành phố Hải Phòng',
+            '48' => 'Thành phố Đà Nẵng',
+            '92' => 'Thành phố Cần Thơ',
+            '02' => 'Tỉnh Hà Giang',
+            '04' => 'Tỉnh Cao Bằng',
+            '06' => 'Tỉnh Bắc Kạn',
+            '08' => 'Tỉnh Tuyên Quang',
+            '10' => 'Tỉnh Lào Cai',
+            '11' => 'Tỉnh Điện Biên',
+            '12' => 'Tỉnh Lai Châu',
+            '14' => 'Tỉnh Sơn La',
+            '15' => 'Tỉnh Yên Bái',
+            '17' => 'Tỉnh Hoà Bình',
+            '19' => 'Tỉnh Thái Nguyên',
+            '20' => 'Tỉnh Lạng Sơn',
+            '22' => 'Tỉnh Quảng Ninh',
+            '24' => 'Tỉnh Bắc Giang',
+            '25' => 'Tỉnh Phú Thọ',
+            '26' => 'Tỉnh Vĩnh Phúc',
+            '27' => 'Tỉnh Bắc Ninh',
+            '30' => 'Tỉnh Hải Dương',
+            '33' => 'Tỉnh Hưng Yên',
+            '34' => 'Tỉnh Thái Bình',
+            '35' => 'Tỉnh Hà Nam',
+            '36' => 'Tỉnh Nam Định',
+            '37' => 'Tỉnh Ninh Bình',
+            '38' => 'Tỉnh Thanh Hóa',
+            '40' => 'Tỉnh Nghệ An',
+            '42' => 'Tỉnh Hà Tĩnh',
+            '44' => 'Tỉnh Quảng Bình',
+            '45' => 'Tỉnh Quảng Trị',
+            '46' => 'Tỉnh Thừa Thiên Huế',
+            '49' => 'Tỉnh Quảng Nam',
+            '51' => 'Tỉnh Quảng Ngãi',
+            '52' => 'Tỉnh Bình Định',
+            '54' => 'Tỉnh Phú Yên',
+            '56' => 'Tỉnh Khánh Hòa',
+            '58' => 'Tỉnh Ninh Thuận',
+            '60' => 'Tỉnh Bình Thuận',
+            '62' => 'Tỉnh Kon Tum',
+            '64' => 'Tỉnh Gia Lai',
+            '66' => 'Tỉnh Đắk Lắk',
+            '67' => 'Tỉnh Đắk Nông',
+            '68' => 'Tỉnh Lâm Đồng',
+            '70' => 'Tỉnh Bình Phước',
+            '72' => 'Tỉnh Tây Ninh',
+            '74' => 'Tỉnh Bình Dương',
+            '75' => 'Tỉnh Đồng Nai',
+            '77' => 'Tỉnh Bà Rịa - Vũng Tàu',
+            '80' => 'Tỉnh Long An',
+            '82' => 'Tỉnh Tiền Giang',
+            '83' => 'Tỉnh Bến Tre',
+            '84' => 'Tỉnh Trà Vinh',
+            '86' => 'Tỉnh Vĩnh Long',
+            '87' => 'Tỉnh Đồng Tháp',
+            '89' => 'Tỉnh An Giang',
+            '91' => 'Tỉnh Kiên Giang',
+            '93' => 'Tỉnh Hậu Giang',
+            '94' => 'Tỉnh Sóc Trăng',
+            '95' => 'Tỉnh Bạc Liêu',
+            '96' => 'Tỉnh Cà Mau',
+        ] as $code => $name)
+                                                    @if (in_array($code, $provinces))
+                                                        <option value='{{ $code }}'
+                                                            {{ $province == $code ? 'selected' : '' }}>{{ $name }}
+                                                        </option>
                                                     @endif
                                                 @endforeach
                                             </select>
@@ -137,8 +139,7 @@
                                                         <div class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input"
                                                                 id="check1">
-                                                            <label class="custom-control-label"
-                                                                for="check1">Wifi</label>
+                                                            <label class="custom-control-label" for="check1">Wifi</label>
                                                         </div>
                                                     </li>
                                                     <li class="list-group-item px-0 pt-0 pb-2">
@@ -168,18 +169,18 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <button type="submit"
-                                            class="btn btn-primary btn-lg btn-block shadow-none mt-4">Tìm kiếm
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block shadow-none mt-4">Tìm
+                                            kiếm
                                         </button>
                                     </form>
                                 </div>
                             </div>
                             <div class="card property-widget mb-4">
                                 <div class="card-body px-6 pt-5 pb-6">
-                                    <h4 class="card-title fs-16 lh-2 text-dark mb-3">Tin nổi bật</h4>
+                                    <h4 class="card-title fs-16 lh-2 text-dark mb-3">Phòng trọ nổi bật</h4>
                                     <div class="slick-slider mx-0"
                                         data-slick-options='{"slidesToShow": 1, "autoplay":true}'>
-                                        @foreach ($rooms ?? [] as $room)
+                                        {{-- @foreach ($rooms ?? [] as $room)
                                             <div class="box px-0">
                                                 <div class="card border-0">
                                                     @if ($room->images->isNotEmpty())
@@ -195,10 +196,11 @@
                                                     @endif
                                                     <div
                                                         class="card-img-overlay d-flex flex-column bg-gradient-3 rounded-lg">
-                                                        <div class="d-flex mb-auto">
-                                                            <a href="#" class="mr-1 badge badge-orange">Nổi bật</a>
-                                                            <a href="#" class="badge badge-indigo">Cho thuê</a>
-                                                        </div>
+                                                        @if ($room->expiration_date > now())
+                                                            <div class="d-flex mb-auto">
+                                                                <a href="#" class="mr-1 badge badge-danger">VIP</a>
+                                                            </div>
+                                                        @endif
                                                         <div class="px-2 pb-2">
                                                             <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
                                                                 class="text-white">
@@ -210,6 +212,45 @@
                                                                 {{ $room->address }}</p>
                                                             <p class="text-white mb-0"><span
                                                                     class="fs-17 font-weight-bold">{{ $room->price }}VND</span>/tháng
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach --}}
+                                        @foreach (($rooms ?? collect())->take(5) as $room)
+                                            <div class="box px-0">
+                                                <div class="card border-0">
+                                                    @if ($room->images->isNotEmpty())
+                                                        @php
+                                                            // Get the first image
+                                                            $image = $room->images->first();
+                                                        @endphp
+                                                        <img src="{{ asset('assets/images/' . $image->filename) }}"
+                                                            alt="{{ $room->title }}" class="property-image">
+                                                    @else
+                                                        <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                                            alt="{{ $room->title }}" class="property-image">
+                                                    @endif
+                                                    <div
+                                                        class="card-img-overlay d-flex flex-column bg-gradient-3 rounded-lg">
+                                                        @if ($room->expiration_date > now())
+                                                            <div class="d-flex mb-auto">
+                                                                <span class="mr-1 badge badge-danger">VIP</span>
+                                                            </div>
+                                                        @endif
+                                                        <div class="px-2 pb-2">
+                                                            <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
+                                                                class="text-white">
+                                                                <h5 class="card-title fs-16 lh-2 mb-0">
+                                                                    <small>{{ Str::limit($room->title, 50) }}</small>
+                                                                </h5>
+                                                            </a>
+                                                            <p class="card-text text-gray-light mb-0 font-weight-500">
+                                                                {{ Str::limit($room->address, 60) }}</p>
+                                                            <p class="text-white mb-0"><span
+                                                                    class="fs-17 font-weight-bold">{{ number_format($room->price, 0, ',', '.') }}
+                                                                    VND</span>/tháng
                                                             </p>
                                                         </div>
                                                     </div>

@@ -295,14 +295,14 @@
                                     <option value="1">Số lượng phòng trọ</option>
                                 </select>
                             </div>
-                            <div class="d-none d-md-block list-layout">
+                            {{-- <div class="d-none d-md-block list-layout">
                                 <a class="fs-sm-18 text-muted" href="agents-list.html">
                                     <i class="fas fa-list"></i>
                                 </a>
                                 <span class="fs-sm-18 text-muted ml-5 active">
                                     <i class="fa fa-th-large"></i>
                                 </span>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -352,10 +352,17 @@
                                             </a>
                                         </li>
                                         <li class="list-inline-item">
-                                            <a href="#"
-                                                class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary">
-                                                <i class="fab fa-facebook-f"></i>
-                                            </a>
+                                            @if ($item->facebook_url)
+                                                <a href="{{ $item->facebook_url }}" target="_blank"
+                                                    class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary">
+                                                    <i class="fab fa-facebook-f"></i>
+                                                </a>
+                                            @else
+                                                <span
+                                                    class="w-32px h-32 rounded-lg bg-light text-muted d-flex align-items-center justify-content-center border">
+                                                    <i class="fab fa-facebook-f"></i>
+                                                </span>
+                                            @endif
                                         </li>
                                         <li class="list-inline-item">
                                             <a href="#"
@@ -364,9 +371,9 @@
                                             </a>
                                         </li>
                                         <li class="list-inline-item">
-                                            <a href="#"
+                                            <a href="https://zalo.me/{{ $item->phone }}" target="_blank"
                                                 class="w-32px h-32 rounded-lg bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center border border-hover-primary">
-                                                <i class="fab fa-linkedin-in"></i>
+                                                <i class="fas fa-comment-alt"></i>
                                             </a>
                                         </li>
                                     </ul>
@@ -387,8 +394,7 @@
                             </li>
                         @else
                             <li class="page-item">
-                                <a class="page-link" href="{{ $users->url(1) }}"><i
-                                        class="far fa-angle-left"></i></a>
+                                <a class="page-link" href="{{ $users->url(1) }}"><i class="far fa-angle-left"></i></a>
                             </li>
                         @endif
 

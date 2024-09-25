@@ -552,11 +552,18 @@
                         </p>
                         <p class="letter-spacing-263 text-uppercase mb-4 font-weight-500 text-center">Đi Đến</p>
                         <div class="d-flex flex-wrap justify-content-center">
-                            <a href="#" class="btn btn-lg bg-gray-01 text-body mr-4 mb-4 hover-primary">Dịch Vụ</a>
-                            <a href="#" class="btn btn-lg bg-gray-01 text-body mr-4 mb-4 hover-primary">Nhóm
-                                Trưởng</a>
-                            <a href="#" class="btn btn-lg bg-gray-01 text-body mr-4 mb-4 hover-primary">Vị Trí</a>
-                            <a href="#" class="btn btn-lg bg-gray-01 text-body mr-4 mb-4 hover-primary">Làm Việc
+                            <a href="{{ route('client.client-service') }}"
+                                class="btn btn-lg bg-gray-01 text-body mr-4 mb-4 hover-primary">Dịch Vụ</a>
+                            <a href="https://zalo.me/0389454682" target="_blank"
+                                class="btn btn-lg bg-gray-01 text-body mr-4 mb-4 hover-primary">
+                                Nhóm Trưởng
+                            </a>
+                            <a href="https://www.google.com/maps/dir//Tr%C6%B0%E1%BB%9Dng+Cao+%C4%91%E1%BA%B3ng+FPT+Polytechnic/@9.9816219,105.7589878,18.07z/data=!4m9!4m8!1m0!1m5!1m1!1s0x31a08906415c355f:0x416815a99ebd841e!2m2!1d105.7582274!2d9.9820815!3e0"
+                                target="_blank" class="btn btn-lg bg-gray-01 text-body mr-4 mb-4 hover-primary">
+                                Vị Trí
+                            </a>
+                            <a href="https://zalo.me/0389454682" target="_blank"
+                                class="btn btn-lg bg-gray-01 text-body mr-4 mb-4 hover-primary">Làm Việc
                                 Với</a>
                         </div>
                     </div>

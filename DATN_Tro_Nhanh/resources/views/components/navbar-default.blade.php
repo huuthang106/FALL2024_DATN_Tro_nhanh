@@ -323,7 +323,7 @@
                                             Về chúng tôi
                                         </a>
                                     </li>
-                                    <li class="dropdown-item dropdown dropright">
+                                    {{-- <li class="dropdown-item dropdown dropright">
                                         <a id="navbar-link-service" class="dropdown-link"
                                             href="{{ route('client.client-service') }}">
                                             Dịch vụ
@@ -362,7 +362,7 @@
                                             href="{{ route('client.package') }}">
                                             Các Gói
                                         </a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </li>
 
@@ -401,8 +401,8 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-center" aria-labelledby="userDropdown">
                                             {{-- <a class="dropdown-item" href="#">Hồ sơ</a> --}}
-                                            <a class="dropdown-item"
-                                                href="{{ route('owners.profile.dashboard') }}">Xem thông tin</a>
+                                            <a class="dropdown-item" href="{{ route('owners.profile.dashboard') }}">Xem
+                                                thông tin</a>
                                             {{-- <a class="dropdown-item" href="#">Cài đặt</a> --}}
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="{{ route('client.logout') }}"
@@ -445,75 +445,75 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-sm dropdown-menu-end"
                                         aria-labelledby="bd-versions">
-                                        <a class="dropdown-item"
-                                            href="{{ route('owners.profile.dashboard') }}">Xem thông tin</a>
-                                          
-                                                    <a class="dropdown-item"
-                                                href="{{route('client.payment-recharge')}}">Nạp tiền</a>
-                                            </li>
-                                        <a class="dropdown-item" href="{{ route('client.logout') }}"
-                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            Đăng xuất
-                                        </a>
-                                    </ul>
-                                    <li class="nav-item mr-auto mr-lg-6">
-                                        <a class="nav-link px-2 position-relative" href="{{ Route('owners.chat-owners') }}">
-                                            <i class="fal fa-comments-alt fs-large-4"></i>
-                                            <span class="badge badge-primary badge-circle badge-absolute">
-                                                <livewire:unread-message-count /></span>
-                                        </a>
-                                    </li>
-                                    <form id="logout-form" action="{{ route('client.logout') }}" method="POST"
-                                        style="display: none;">
-                                        @csrf
-                                    </form>
-                                    @else
-                                    <a class="nav-link pl-3 pr-2" data-toggle="modal" href="#login-register-modal"> Đăng
-                                        nhập</a>
-                                    @endif
-                                    </li>
+                                        <a class="dropdown-item" href="{{ route('owners.profile.dashboard') }}">Xem
+                                            thông tin</a>
 
-                                    <!-- Icon giỏ hàng -->
-                                    <li class="nav-item mr-auto mr-lg-6">
-                                        <a class="nav-link px-2 position-relative" href="{{ route('client.carts-show') }}">
-                                            <i class="fal fa-shopping-cart fs-large-4"></i>
-                                            <span
-                                                class="badge badge-primary badge-circle badge-absolute">{{ $cartCount }}</span>
-                                        </a>
-                                    </li>
+                                        <a class="dropdown-item" href="{{ route('client.payment-recharge') }}">Nạp
+                                            tiền</a>
+                            </li>
+                            <a class="dropdown-item" href="{{ route('client.logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Đăng xuất
+                            </a>
+                        </ul>
+                        <li class="nav-item mr-auto mr-lg-6">
+                            <a class="nav-link px-2 position-relative" href="{{ Route('owners.chat-owners') }}">
+                                <i class="fal fa-comments-alt fs-large-4"></i>
+                                <span class="badge badge-primary badge-circle badge-absolute">
+                                    <livewire:unread-message-count /></span>
+                            </a>
+                        </li>
+                        <form id="logout-form" action="{{ route('client.logout') }}" method="POST"
+                            style="display: none;">
+                            @csrf
+                        </form>
+                    @else
+                        <a class="nav-link pl-3 pr-2" data-toggle="modal" href="#login-register-modal"> Đăng
+                            nhập</a>
+                        @endif
+                        </li>
 
-                                    <li class="divider"></li>
+                        <!-- Icon giỏ hàng -->
+                        <li class="nav-item mr-auto mr-lg-6">
+                            <a class="nav-link px-2 position-relative" href="{{ route('client.carts-show') }}">
+                                <i class="fal fa-shopping-cart fs-large-4"></i>
+                                <span
+                                    class="badge badge-primary badge-circle badge-absolute">{{ $cartCount }}</span>
+                            </a>
+                        </li>
 
-                                    <!-- Icon yêu thích -->
+                        <li class="divider"></li>
+
+                        <!-- Icon yêu thích -->
 
 
-                                    <!-- Phần tử chat nằm ngoài dropdown -->
+                        <!-- Phần tử chat nằm ngoài dropdown -->
 
-                                    <li class="nav-item mr-auto mr-lg-6">
-                                        <a class="nav-link px-2 position-relative" href="{{ route('owners.favorites') }}">
-                                            <i class="fal fa-heart fs-large-4"></i>
-                                            <span class="badge badge-primary badge-circle badge-absolute"
-                                                id="favorite-count">{{ $favouriteCount }}</span>
-                                        </a>
-                                    </li>
-                                    @if (Auth::check())
-                                    @if ($role != '1')
-                                    <li class="nav-item">
-                                        <a class="btn btn-lg text-heading border bg-hover-primary border-hover-primary hover-white d-none d-lg-block"
-                                            href="{{ route('owners.add-room') }}">
-                                            Cho thuê
-                                            <img src="{{ asset('assets/images/add-listing-icon-primary.png') }}"
-                                                alt="Add listing" class="ml-1">
-                                        </a>
-                                        <a class="btn btn-primary btn-lg d-block d-lg-none"
-                                            href="{{ route('owners.add-room') }}">
-                                            Cho thuê
-                                            <img src="{{ asset('assets/images/add-listing-icon.png') }}"
-                                                alt="Add listing" class="ml-1">
-                                        </a>
-                                    </li>
-                                @endif
+                        <li class="nav-item mr-auto mr-lg-6">
+                            <a class="nav-link px-2 position-relative" href="{{ route('owners.favorites') }}">
+                                <i class="fal fa-heart fs-large-4"></i>
+                                <span class="badge badge-primary badge-circle badge-absolute"
+                                    id="favorite-count">{{ $favouriteCount }}</span>
+                            </a>
+                        </li>
+                        @if (Auth::check())
+                            @if ($role != '1')
+                                <li class="nav-item">
+                                    <a class="btn btn-lg text-heading border bg-hover-primary border-hover-primary hover-white d-none d-lg-block"
+                                        href="{{ route('owners.add-room') }}">
+                                        Cho thuê
+                                        <img src="{{ asset('assets/images/add-listing-icon-primary.png') }}"
+                                            alt="Add listing" class="ml-1">
+                                    </a>
+                                    <a class="btn btn-primary btn-lg d-block d-lg-none"
+                                        href="{{ route('owners.add-room') }}">
+                                        Cho thuê
+                                        <img src="{{ asset('assets/images/add-listing-icon.png') }}"
+                                            alt="Add listing" class="ml-1">
+                                    </a>
+                                </li>
                             @endif
+                        @endif
 
                         </ul>
                     </div>

@@ -323,7 +323,7 @@
                                                 Về chúng tôi
                                             </a>
                                         </li>
-                                        <li class="dropdown-item dropdown dropright">
+                                        {{-- <li class="dropdown-item dropdown dropright">
                                             <a id="navbar-link-service" class="dropdown-link"
                                                 href="{{ route('client.client-service') }}">
                                                 Dịch vụ
@@ -362,7 +362,7 @@
                                                 href="{{ route('client.package') }}">
                                                 Các Gói
                                             </a>
-                                        </li>
+                                        </li> --}}
                                     </ul>
                                 </li>
 
@@ -425,7 +425,8 @@
 
                                     <div class="row ml-auto mr-4 p-0">
                                         <!-- Icon nhắn tin (chat icon) -->
-                                        <a class="d-block mr-4 position-relative text-white p-2" href="{{ Route('owners.chat-owners') }}">
+                                        <a class="d-block mr-4 position-relative text-white p-2"
+                                            href="{{ Route('owners.chat-owners') }}">
                                             <i class="fal fa-comments-alt fs-large-4" style="color: #2f1f1f;"></i>
                                             <span class="badge badge-primary badge-circle badge-absolute">
                                                 <livewire:unread-message-count />
@@ -433,13 +434,14 @@
                                         </a>
 
                                         <!-- Icon yêu thích (heart icon) -->
-                                        <a class="d-block ml-auto mr-4 position-relative text-white p-2" href="{{ route('owners.favorites') }}">
+                                        <a class="d-block ml-auto mr-4 position-relative text-white p-2"
+                                            href="{{ route('owners.favorites') }}">
                                             <i class="fal fa-heart fs-large-4" style="color: #2f1f1f;"></i>
-                                            <span class="badge badge-primary badge-circle badge-absolute" id="favorite-count-2">{{ $favouriteCount }}</span>
+                                            <span class="badge badge-primary badge-circle badge-absolute"
+                                                id="favorite-count-2">{{ $favouriteCount }}</span>
                                         </a>
                                     </div>
-
-                                     @else
+                                @else
                                     <a class="nav-link pr-3" data-toggle="modal" href="#login-register-modal">
                                         Đăng nhập
                                     </a>
@@ -479,11 +481,11 @@
                                         <li><a class="dropdown-item"
                                                 href="{{ route('owners.profile.dashboard') }}">Xem thông
                                                 tin</a>
-                                            </li>
-                                                <li>
-                                                    <a class="dropdown-item"
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item"
                                                 href="{{ route('client.payment-recharge') }}">Nạp tiền</a>
-                                            </li>
+                                        </li>
                                         <li>
                                             <a class="dropdown-item" href="{{ route('client.logout') }}"
                                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
