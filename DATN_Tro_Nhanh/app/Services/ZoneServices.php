@@ -118,10 +118,16 @@ class ZoneServices
         return $zones;
     }
     // Danh sách khu vực trọ Client
+    // public function getMyZoneClient()
+    // {
+    //     $perPage = 5;
+    //     $zones = Zone::orderByDesc('created_at')->paginate($perPage); // sắp xếp
+    //     return $zones;
+    // }
     public function getMyZoneClient()
     {
         $perPage = 5;
-        $zones = Zone::orderByDesc('created_at')->paginate($perPage); // sắp xếp
+        $zones = Zone::with('utility')->orderByDesc('created_at')->paginate($perPage);
         return $zones;
     }
     // Tổng só khu trọ Client
@@ -353,10 +359,10 @@ class ZoneServices
     }
 
 
-    
-    
-    
-    
+
+
+
+
     public function softDeleteZones($id)
     {
         // Tìm zone theo ID
@@ -401,18 +407,18 @@ class ZoneServices
     public function getTrashedZones()
     {
         $userId = Auth::id(); // Lấy ID của người dùng đang đăng nhập
-    
+
         return Zone::onlyTrashed()
             ->where('user_id', $userId) // Lọc theo user_id
             ->orderBy('created_at', 'desc') // Sắp xếp từ mới nhất đến cũ nhất
             ->get();
     }
-    
+
     public function getProvinces()
-{
-    return Zone::select('province')->distinct()->get();
-}
-    
+    {
+        return Zone::select('province')->distinct()->get();
+    }
+
 
     public function restoreZones($id)
     {
@@ -477,7 +483,7 @@ class ZoneServices
     }
     public function searchZonesWithinRadius($latitude = null, $longitude = null, $radius = 30, $perPage = 10)
     {
-        $query = Zone::with('utilities'); 
+        $query = Zone::with('utilities');
 
         if ($latitude && $longitude) {
             $haversine = "(6371 * acos(cos(radians($latitude)) * cos(radians(latitude)) * cos(radians(longitude) - radians($longitude)) + sin(radians($latitude)) * sin(radians(latitude))))";
@@ -491,7 +497,7 @@ class ZoneServices
 
         return $query->paginate($perPage);
     }
-     public function deleteZone($id)
+    public function deleteZone($id)
     {
         // Tìm zone theo id hoặc trả về lỗi nếu không tìm thấy
         $zone = Zone::findOrFail($id);

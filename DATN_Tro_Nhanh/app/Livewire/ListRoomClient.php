@@ -21,13 +21,15 @@ class ListRoomClient extends Component
     public $perPage = 8;
     public $sortBy = 'default';
     protected $queryString = ['search', 'province', 'district', 'village'];
+    const HIEN_THI = 2;
     public function render()
     {
+        // $query = Room::join('users', 'rooms.user_id', '=', 'users.id')
+        //     ->where('rooms.status', 2)
+        //     ->withCount('images');
         $query = Room::join('users', 'rooms.user_id', '=', 'users.id')
-            ->where('rooms.status', 2)
-            ->withCount('images')
-          ;
-
+            ->where('rooms.status', self::HIEN_THI)
+            ->withCount('images');
         if ($this->search) {
             $query->where(function ($q) {
                 $q->where('rooms.title', 'like', '%' . $this->search . '%')
@@ -47,11 +49,23 @@ class ListRoomClient extends Component
         }
 
         // Sắp xếp ưu tiên VIP trước
-        $query->orderBy('rooms.expiration_date', 'desc') // Sắp xếp theo ngày hết hạn
-        ->orderBy('rooms.created_at', 'desc') // Sắp xếp theo ngày tạo mới nhất
-        ->orderBy('rooms.view', 'desc'); // Sắp xếp theo lượt xem cao nhất
+        // $query->orderBy('rooms.expiration_date', 'desc') // Sắp xếp theo ngày hết hạn
+        //     ->orderBy('rooms.created_at', 'desc') // Sắp xếp theo ngày tạo mới nhất
+        //     ->orderBy('rooms.view', 'desc'); // Sắp xếp theo lượt xem cao nhất
+        $query->orderByRaw('CASE WHEN rooms.expiration_date > NOW() THEN 1 ELSE 0 END DESC');
 
         // Sau đó sắp xếp theo giá hoặc thời gian tạo
+        // switch ($this->sortBy) {
+        //     case 'price_asc':
+        //         $query->orderBy('rooms.price', 'asc');
+        //         break;
+        //     case 'price_desc':
+        //         $query->orderBy('rooms.price', 'desc');
+        //         break;
+        //     default:
+        //         $query->orderBy('rooms.created_at', 'desc');
+        //         break;
+        // }
         switch ($this->sortBy) {
             case 'price_asc':
                 $query->orderBy('rooms.price', 'asc');
@@ -59,6 +73,9 @@ class ListRoomClient extends Component
             case 'price_desc':
                 $query->orderBy('rooms.price', 'desc');
                 break;
+                // case 'most_viewed':
+                //     $query->orderBy('rooms.view', 'desc');
+                //     break;
             default:
                 $query->orderBy('rooms.created_at', 'desc');
                 break;

@@ -22,13 +22,13 @@ class ZoneClientController extends Controller
         $this->CommentClientService = $CommentClientService;
     }
 
-    public function listZoneClient(Request $request) 
+    public function listZoneClient(Request $request)
     {
         $keyword = $request->input('keyword');
         $province = $request->input('province');
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
-    
+
         if ($latitude && $longitude) {
             $zones = $this->zoneServices->searchZonesWithinRadius($latitude, $longitude, 30);
         } elseif ($keyword || $province) {
@@ -36,17 +36,17 @@ class ZoneClientController extends Controller
         } else {
             $userLat = session('userLat');
             $userLng = session('userLng');
-    
+
             if ($userLat && $userLng) {
                 $zones = $this->zoneServices->searchZonesWithinRadius($userLat, $userLng, 30);
             } else {
                 $zones = $this->zoneServices->getMyZoneClient();
             }
         }
-    
+
         $totalZones = $this->zoneServices->getTotalZones();
         $provinces = $this->zoneServices->getProvinces()->pluck('province')->toArray(); // Chuyển đổi Collection thành mảng
-    
+
         if ($request->ajax()) {
             return response()->json([
                 'zones' => $zones->items(),
@@ -54,7 +54,6 @@ class ZoneClientController extends Controller
                 'pagination' => (string) $zones->links()
             ]);
         }
-    
         return view('client.show.listing-half-map-list-layout-1', [
             'zones' => $zones,
             'totalZones' => $totalZones,
@@ -84,16 +83,15 @@ class ZoneClientController extends Controller
         ]);
     }
     public function saveLocation(Request $request)
-{
-    $request->validate([
-        'latitude' => 'required|numeric',
-        'longitude' => 'required|numeric',
-    ]);
+    {
+        $request->validate([
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+        ]);
 
-    // Lưu vị trí vào session
-    session(['userLat' => $request->latitude, 'userLng' => $request->longitude]);
+        // Lưu vị trí vào session
+        session(['userLat' => $request->latitude, 'userLng' => $request->longitude]);
 
-    return response()->json(['success' => true]);
-}
-
+        return response()->json(['success' => true]);
+    }
 }

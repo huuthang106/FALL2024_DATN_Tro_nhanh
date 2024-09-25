@@ -58,5 +58,8 @@ class Zone extends Model
     {
         return $this->hasMany(Utility::class, 'zone_id');
     }
+    public function utility()
+    {
+        return $this->hasOne(Utility::class);
+    }
 }
-

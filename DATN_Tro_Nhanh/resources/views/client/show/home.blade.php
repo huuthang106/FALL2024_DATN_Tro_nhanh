@@ -26,7 +26,7 @@
                                                     Phòng
                                                 </a>
                                             </li> --}}
-                                                                {{-- <li class="nav-item bg-secondary rounded-top" role="presentation">
+                                    {{-- <li class="nav-item bg-secondary rounded-top" role="presentation">
                                                 <a href="#" role="tab" aria-selected="true"
                                                     class="nav-link btn shadow-none rounded-bottom-0 text-white text-btn-focus-secondary text-uppercase d-flex align-items-center fs-13 rounded-bottom-0 bg-active-white text-active-secondary letter-spacing-087 flex-md-1 px-4 py-2"
                                                     data-toggle="pill" data-value="for-rent">
@@ -87,73 +87,75 @@
                                                 id="city-province" title="Tất cả thành phố" name="province"
                                                 data-style="p-0 h-24 lh-17 text-dark">
                                                 <option value='0'>Chọn Tỉnh/Thành Phố...</option>
-                                                @foreach([
-                                                    '01' => 'Thành phố Hà Nội',
-                                                    '79' => 'Thành phố Hồ Chí Minh',
-                                                    '31' => 'Thành phố Hải Phòng',
-                                                    '48' => 'Thành phố Đà Nẵng',
-                                                    '92' => 'Thành phố Cần Thơ',
-                                                    '02' => 'Tỉnh Hà Giang',
-                                                    '04' => 'Tỉnh Cao Bằng',
-                                                    '06' => 'Tỉnh Bắc Kạn',
-                                                    '08' => 'Tỉnh Tuyên Quang',
-                                                    '10' => 'Tỉnh Lào Cai',
-                                                    '11' => 'Tỉnh Điện Biên',
-                                                    '12' => 'Tỉnh Lai Châu',
-                                                    '14' => 'Tỉnh Sơn La',
-                                                    '15' => 'Tỉnh Yên Bái',
-                                                    '17' => 'Tỉnh Hoà Bình',
-                                                    '19' => 'Tỉnh Thái Nguyên',
-                                                    '20' => 'Tỉnh Lạng Sơn',
-                                                    '22' => 'Tỉnh Quảng Ninh',
-                                                    '24' => 'Tỉnh Bắc Giang',
-                                                    '25' => 'Tỉnh Phú Thọ',
-                                                    '26' => 'Tỉnh Vĩnh Phúc',
-                                                    '27' => 'Tỉnh Bắc Ninh',
-                                                    '30' => 'Tỉnh Hải Dương',
-                                                    '33' => 'Tỉnh Hưng Yên',
-                                                    '34' => 'Tỉnh Thái Bình',
-                                                    '35' => 'Tỉnh Hà Nam',
-                                                    '36' => 'Tỉnh Nam Định',
-                                                    '37' => 'Tỉnh Ninh Bình',
-                                                    '38' => 'Tỉnh Thanh Hóa',
-                                                    '40' => 'Tỉnh Nghệ An',
-                                                    '42' => 'Tỉnh Hà Tĩnh',
-                                                    '44' => 'Tỉnh Quảng Bình',
-                                                    '45' => 'Tỉnh Quảng Trị',
-                                                    '46' => 'Tỉnh Thừa Thiên Huế',
-                                                    '49' => 'Tỉnh Quảng Nam',
-                                                    '51' => 'Tỉnh Quảng Ngãi',
-                                                    '52' => 'Tỉnh Bình Định',
-                                                    '54' => 'Tỉnh Phú Yên',
-                                                    '56' => 'Tỉnh Khánh Hòa',
-                                                    '58' => 'Tỉnh Ninh Thuận',
-                                                    '60' => 'Tỉnh Bình Thuận',
-                                                    '62' => 'Tỉnh Kon Tum',
-                                                    '64' => 'Tỉnh Gia Lai',
-                                                    '66' => 'Tỉnh Đắk Lắk',
-                                                    '67' => 'Tỉnh Đắk Nông',
-                                                    '68' => 'Tỉnh Lâm Đồng',
-                                                    '70' => 'Tỉnh Bình Phước',
-                                                    '72' => 'Tỉnh Tây Ninh',
-                                                    '74' => 'Tỉnh Bình Dương',
-                                                    '75' => 'Tỉnh Đồng Nai',
-                                                    '77' => 'Tỉnh Bà Rịa - Vũng Tàu',
-                                                    '80' => 'Tỉnh Long An',
-                                                    '82' => 'Tỉnh Tiền Giang',
-                                                    '83' => 'Tỉnh Bến Tre',
-                                                    '84' => 'Tỉnh Trà Vinh',
-                                                    '86' => 'Tỉnh Vĩnh Long',
-                                                    '87' => 'Tỉnh Đồng Tháp',
-                                                    '89' => 'Tỉnh An Giang',
-                                                    '91' => 'Tỉnh Kiên Giang',
-                                                    '93' => 'Tỉnh Hậu Giang',
-                                                    '94' => 'Tỉnh Sóc Trăng',
-                                                    '95' => 'Tỉnh Bạc Liêu',
-                                                    '96' => 'Tỉnh Cà Mau'
-                                                ] as $code => $name)
-                                                    @if(in_array($code, $provinces))
-                                                        <option value='{{ $code }}' {{ $province == $code ? 'selected' : '' }}>{{ $name }}</option>
+                                                @foreach ([
+            '01' => 'Thành phố Hà Nội',
+            '79' => 'Thành phố Hồ Chí Minh',
+            '31' => 'Thành phố Hải Phòng',
+            '48' => 'Thành phố Đà Nẵng',
+            '92' => 'Thành phố Cần Thơ',
+            '02' => 'Tỉnh Hà Giang',
+            '04' => 'Tỉnh Cao Bằng',
+            '06' => 'Tỉnh Bắc Kạn',
+            '08' => 'Tỉnh Tuyên Quang',
+            '10' => 'Tỉnh Lào Cai',
+            '11' => 'Tỉnh Điện Biên',
+            '12' => 'Tỉnh Lai Châu',
+            '14' => 'Tỉnh Sơn La',
+            '15' => 'Tỉnh Yên Bái',
+            '17' => 'Tỉnh Hoà Bình',
+            '19' => 'Tỉnh Thái Nguyên',
+            '20' => 'Tỉnh Lạng Sơn',
+            '22' => 'Tỉnh Quảng Ninh',
+            '24' => 'Tỉnh Bắc Giang',
+            '25' => 'Tỉnh Phú Thọ',
+            '26' => 'Tỉnh Vĩnh Phúc',
+            '27' => 'Tỉnh Bắc Ninh',
+            '30' => 'Tỉnh Hải Dương',
+            '33' => 'Tỉnh Hưng Yên',
+            '34' => 'Tỉnh Thái Bình',
+            '35' => 'Tỉnh Hà Nam',
+            '36' => 'Tỉnh Nam Định',
+            '37' => 'Tỉnh Ninh Bình',
+            '38' => 'Tỉnh Thanh Hóa',
+            '40' => 'Tỉnh Nghệ An',
+            '42' => 'Tỉnh Hà Tĩnh',
+            '44' => 'Tỉnh Quảng Bình',
+            '45' => 'Tỉnh Quảng Trị',
+            '46' => 'Tỉnh Thừa Thiên Huế',
+            '49' => 'Tỉnh Quảng Nam',
+            '51' => 'Tỉnh Quảng Ngãi',
+            '52' => 'Tỉnh Bình Định',
+            '54' => 'Tỉnh Phú Yên',
+            '56' => 'Tỉnh Khánh Hòa',
+            '58' => 'Tỉnh Ninh Thuận',
+            '60' => 'Tỉnh Bình Thuận',
+            '62' => 'Tỉnh Kon Tum',
+            '64' => 'Tỉnh Gia Lai',
+            '66' => 'Tỉnh Đắk Lắk',
+            '67' => 'Tỉnh Đắk Nông',
+            '68' => 'Tỉnh Lâm Đồng',
+            '70' => 'Tỉnh Bình Phước',
+            '72' => 'Tỉnh Tây Ninh',
+            '74' => 'Tỉnh Bình Dương',
+            '75' => 'Tỉnh Đồng Nai',
+            '77' => 'Tỉnh Bà Rịa - Vũng Tàu',
+            '80' => 'Tỉnh Long An',
+            '82' => 'Tỉnh Tiền Giang',
+            '83' => 'Tỉnh Bến Tre',
+            '84' => 'Tỉnh Trà Vinh',
+            '86' => 'Tỉnh Vĩnh Long',
+            '87' => 'Tỉnh Đồng Tháp',
+            '89' => 'Tỉnh An Giang',
+            '91' => 'Tỉnh Kiên Giang',
+            '93' => 'Tỉnh Hậu Giang',
+            '94' => 'Tỉnh Sóc Trăng',
+            '95' => 'Tỉnh Bạc Liêu',
+            '96' => 'Tỉnh Cà Mau',
+        ] as $code => $name)
+                                                    @if (in_array($code, $provinces))
+                                                        <option value='{{ $code }}'
+                                                            {{ $province == $code ? 'selected' : '' }}>{{ $name }}
+                                                        </option>
                                                     @endif
                                                 @endforeach
                                             </select>
@@ -576,9 +578,9 @@
                                     <div class="card-img-overlay p-2 d-flex flex-column">
                                         <div>
                                             @if ($room->expiration_date > now())
-                                                    <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
-                                                        VIP
-                                                    </span>
+                                                <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
+                                                    VIP
+                                                </span>
                                             @endif
                                         </div>
                                         <ul class="list-inline mb-0 mt-auto hover-image">
@@ -603,34 +605,92 @@
                                     <p class="card-text font-weight-500 text-gray-light mb-2">
                                         {{ Str::limit($room->address, 100) }}</p>
                                     <ul class="list-inline d-flex mb-0 flex-wrap mr-n5 mt-auto">
-                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                        {{-- <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
                                             data-toggle="tooltip" title="Phòng ngủ">
                                             <svg class="icon icon-bedroom fs-18 text-primary mr-1">
                                                 <use xlink:href="#icon-bedroom"></use>
                                             </svg>
                                             {{ $room->bedroom ?? '3' }} Phòng
-                                        </li>
-                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                            data-toggle="tooltip" title="Phòng tắm">
-                                            <svg class="icon icon-shower fs-18 text-primary mr-1">
-                                                <use xlink:href="#icon-shower"></use>
-                                            </svg>
-                                            {{ $room->bathroom ?? '3' }} Phòng
-                                        </li>
+                                        </li> --}}
+                                        {{-- @if ($rooms->utility && $rooms->utility->bathrooms == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Phòng tắm">
+                                                <svg class="icon icon-shower fs-18 text-primary mr-1">
+                                                    <use xlink:href="#icon-shower"></use>
+                                                </svg>
+                                            </li>
+                                        @endif
                                         <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
                                             data-toggle="tooltip" title="Diện tích">
                                             <svg class="icon icon-square fs-18 text-primary mr-1">
                                                 <use xlink:href="#icon-square"></use>
                                             </svg>
-                                            {{ $room->acreage ?? '200' }}m²
+                                            @if ($rooms->acreage)
+                                                {{ $rooms->acreage }}m²
+                                            @else
+                                                Chưa có thông tin
+                                            @endif
                                         </li>
+                                        @if ($rooms->utility && $rooms->utility->air_conditioning == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Máy điều hòa">
+                                                <svg class="icon icon-heating fs-18 text-primary">
+                                                    <use xlink:href="#icon-heating"></use>
+                                                </svg>
+                                                Máy điều hòa
+                                            </li>
+                                        @endif
+                                        @if ($rooms->utility && $rooms->utility->wifi == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Wifi">
+                                                <svg class="icon fs-18 text-primary mr-1" xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 640 512">
+                                                    <path fill="currentColor"
+                                                        d="M634.91 154.88C457.74-8.99 182.19-8.93 5.09 154.88c-6.66 6.16-6.79 16.59-.35 22.98l34.24 33.97c6.14 6.1 16.02 6.23 22.4.38 145.92-133.68 371.3-133.71 517.25 0 6.38 5.85 16.26 5.71 22.4-.38l34.24-33.97c6.43-6.39 6.3-16.82-.36-22.98zM320 352c-35.35 0-64 28.65-64 64s28.65 64 64 64 64-28.65 64-64-28.65-64-64-64zm202.67-83.59c-115.26-101.93-290.21-101.82-405.34 0-6.9 6.1-7.12 16.69-.57 23.15l34.44 33.99c6 5.92 15.66 6.32 22.05.8 83.95-72.57 209.74-72.41 293.49 0 6.39 5.52 16.05 5.13 22.05-.8l34.44-33.99c6.56-6.46 6.33-17.06-.56-23.15z" />
+                                                </svg>
+                                                Wifi
+                                            </li>
+                                        @endif --}}
+                                        @if ($room->utility && $room->utility->bathrooms == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Phòng tắm">
+                                                <svg class="icon icon-shower fs-18 text-primary mr-1">
+                                                    <use xlink:href="#icon-shower"></use>
+                                                </svg>
+                                                Phòng tắm
+                                            </li>
+                                        @endif
                                         <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                            data-toggle="tooltip" title="Gara">
-                                            <svg class="icon icon-Garage fs-18 text-primary mr-1">
-                                                <use xlink:href="#icon-Garage"></use>
+                                            data-toggle="tooltip" title="Diện tích">
+                                            <svg class="icon icon-square fs-18 text-primary mr-1">
+                                                <use xlink:href="#icon-square"></use>
                                             </svg>
-                                            {{ $room->garage ?? '1' }} Gara
+                                            @if ($room->acreage)
+                                                {{ $room->acreage }}m²
+                                            @else
+                                                Chưa có thông tin
+                                            @endif
                                         </li>
+                                        @if ($room->utility && $room->utility->wifi == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Wifi">
+                                                <svg class="icon fs-18 text-primary mr-1"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                                    <path fill="currentColor"
+                                                        d="M634.91 154.88C457.74-8.99 182.19-8.93 5.09 154.88c-6.66 6.16-6.79 16.59-.35 22.98l34.24 33.97c6.14 6.1 16.02 6.23 22.4.38 145.92-133.68 371.3-133.71 517.25 0 6.38 5.85 16.26 5.71 22.4-.38l34.24-33.97c6.43-6.39 6.3-16.82-.36-22.98zM320 352c-35.35 0-64 28.65-64 64s28.65 64 64 64 64-28.65 64-64-28.65-64-64-64zm202.67-83.59c-115.26-101.93-290.21-101.82-405.34 0-6.9 6.1-7.12 16.69-.57 23.15l34.44 33.99c6 5.92 15.66 6.32 22.05.8 83.95-72.57 209.74-72.41 293.49 0 6.39 5.52 16.05 5.13 22.05-.8l34.44-33.99c6.56-6.46 6.33-17.06-.56-23.15z" />
+                                                </svg>
+                                                Wifi
+                                            </li>
+                                        @endif
+                                        @if ($room->utility && $room->utility->air_conditioning == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Máy điều hòa">
+                                                <svg class="icon icon-heating fs-18 text-primary">
+                                                    <use xlink:href="#icon-heating"></use>
+                                                </svg>
+                                                &nbsp;Máy điều hòa
+                                            </li>
+                                        @endif
                                     </ul>
                                 </div>
                                 <div
@@ -678,7 +738,8 @@
                             <p class="mb-6">Xem Thêm
                             </p>
                             <a href="listing-grid-with-left-filter.html"
-                                class="btn btn-lg text-secondary btn-accent">+2300 Tài Sản Có Sẵn
+                                class="btn btn-lg text-secondary btn-accent">+2300
+                                Tài Sản Có Sẵn
                                 <i class="far fa-long-arrow-right ml-1"></i>
                             </a>
                         </div>
@@ -783,9 +844,9 @@
                                     <div class="card-img-overlay p-2 d-flex flex-column">
                                         <div>
                                             @if ($room->expiration_date > now())
-                                                    <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
-                                                        VIP
-                                                    </span>
+                                                <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
+                                                    VIP
+                                                </span>
                                             @endif
                                         </div>
                                         <ul class="list-inline mb-0 mt-auto hover-image">
@@ -1416,5 +1477,4 @@
         //     }
         // });
     </script>
-    
 @endpush

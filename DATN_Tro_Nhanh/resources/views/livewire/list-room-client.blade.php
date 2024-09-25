@@ -18,13 +18,14 @@
                         <option value="default">Mặc định</option>
                         <option value="price_asc">Giá (thấp đến cao)</option>
                         <option value="price_desc">Giá (cao đến thấp)</option>
+                        {{-- <option value="most_viewed">Xem nhiều nhất</option> --}}
                     </select>
                 </div>
                 <div class="d-none d-md-block">
                     {{-- <a class="fs-sm-18 text-dark opacity-2" href="listing-with-left-filter.html">
                         <i class="fas fa-list"></i>
                     </a> --}}
-                    
+
                 </div>
             </div>
         </div>
@@ -56,11 +57,11 @@
                             <div class="card-img-overlay d-flex flex-column">
                                 {{-- <div><span class="badge badge-primary">Cần Bán</span></div> --}}
                                 <div>
-                                @if ($room->expiration_date > now())
-                                                    <span class="badge bg-danger text-white" style="bottom: 1px; right: 1px;">
-                                                        VIP
-                                                    </span>
-                                                @endif
+                                    @if ($room->expiration_date > now())
+                                        <span class="badge bg-danger text-white" style="bottom: 1px; right: 1px;">
+                                            VIP
+                                        </span>
+                                    @endif
                                     {{-- <span class="badge badge-primary">Cần Bán</span> --}}
                                 </div>
                                 <div class="mt-auto d-flex hover-image">
@@ -172,13 +173,10 @@
                                 @if ($room->utility && $room->utility->wifi == 1)
                                     <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
                                         data-toggle="tooltip" title="Wifi">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon fs-18 text-primary mr-1"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M2 12c4.97-4.97 13.03-4.97 18 0"></path>
-                                            <path d="M5 15c3.31-3.31 8.69-3.31 12 0"></path>
-                                            <path d="M8 18c1.66-1.66 4.34-1.66 6 0"></path>
-                                            <circle cx="12" cy="20" r="1"></circle>
+                                        <svg class="icon fs-18 text-primary mr-1" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 640 512">
+                                            <path fill="currentColor"
+                                                d="M634.91 154.88C457.74-8.99 182.19-8.93 5.09 154.88c-6.66 6.16-6.79 16.59-.35 22.98l34.24 33.97c6.14 6.1 16.02 6.23 22.4.38 145.92-133.68 371.3-133.71 517.25 0 6.38 5.85 16.26 5.71 22.4-.38l34.24-33.97c6.43-6.39 6.3-16.82-.36-22.98zM320 352c-35.35 0-64 28.65-64 64s28.65 64 64 64 64-28.65 64-64-28.65-64-64-64zm202.67-83.59c-115.26-101.93-290.21-101.82-405.34 0-6.9 6.1-7.12 16.69-.57 23.15l34.44 33.99c6 5.92 15.66 6.32 22.05.8 83.95-72.57 209.74-72.41 293.49 0 6.39 5.52 16.05 5.13 22.05-.8l34.44-33.99c6.56-6.46 6.33-17.06-.56-23.15z" />
                                         </svg>
                                         Wifi
                                     </li>
@@ -225,71 +223,72 @@
     </div>
     {{-- Phân trang --}}
     @if ($rooms->hasPages())
-    <nav aria-label="Page navigation">
-        <ul class="pagination pagination-sm rounded-active justify-content-center">
-            {{-- Liên kết Trang Đầu --}}
-            <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
-                <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled"
-                    rel="first" aria-label="@lang('pagination.first')"><i class="far fa-angle-double-left"></i></a>
-            </li>
+        <nav aria-label="Page navigation">
+            <ul class="pagination pagination-sm rounded-active justify-content-center">
+                {{-- Liên kết Trang Đầu --}}
+                <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
+                    <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled"
+                        rel="first" aria-label="@lang('pagination.first')"><i class="far fa-angle-double-left"></i></a>
+                </li>
 
-            {{-- Liên kết Trang Trước --}}
-            <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
-                <a class="page-link hover-white" wire:click="previousPage" wire:loading.attr="disabled"
-                    rel="prev" aria-label="@lang('pagination.previous')"><i class="far fa-angle-left"></i></a>
-            </li>
+                {{-- Liên kết Trang Trước --}}
+                <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
+                    <a class="page-link hover-white" wire:click="previousPage" wire:loading.attr="disabled"
+                        rel="prev" aria-label="@lang('pagination.previous')"><i class="far fa-angle-left"></i></a>
+                </li>
 
-            @php
-                $totalPages = $rooms->lastPage();
-                $currentPage = $rooms->currentPage();
-                $visiblePages = 2; // Số trang hiển thị ở giữa
-            @endphp
+                @php
+                    $totalPages = $rooms->lastPage();
+                    $currentPage = $rooms->currentPage();
+                    $visiblePages = 2; // Số trang hiển thị ở giữa
+                @endphp
 
-            {{-- Trang đầu --}}
-            <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
-                <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled">1</a>
-            </li>
+                {{-- Trang đầu --}}
+                <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                    <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled">1</a>
+                </li>
 
-            {{-- Dấu ba chấm đầu --}}
-            @if ($currentPage > $visiblePages)
-                <li class="page-item disabled"><span class="page-link">...</span></li>
-            @endif
+                {{-- Dấu ba chấm đầu --}}
+                @if ($currentPage > $visiblePages)
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                @endif
 
-            {{-- Các trang giữa --}}
-            @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
-                @if ($i > 1 && $i < $totalPages)
-                    <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
-                        <a class="page-link hover-white" wire:click="gotoPage({{ $i }})"
-                            wire:loading.attr="disabled">{{ $i }}</a>
+                {{-- Các trang giữa --}}
+                @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
+                    @if ($i > 1 && $i < $totalPages)
+                        <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                            <a class="page-link hover-white" wire:click="gotoPage({{ $i }})"
+                                wire:loading.attr="disabled">{{ $i }}</a>
+                        </li>
+                    @endif
+                @endforeach
+
+                {{-- Dấu ba chấm cuối --}}
+                @if ($currentPage < $totalPages - ($visiblePages - 1))
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                @endif
+
+                {{-- Trang cuối --}}
+                @if ($totalPages > 1)
+                    <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                        <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
+                            wire:loading.attr="disabled">{{ $totalPages }}</a>
                     </li>
                 @endif
-            @endforeach
 
-            {{-- Dấu ba chấm cuối --}}
-            @if ($currentPage < $totalPages - ($visiblePages - 1))
-                <li class="page-item disabled"><span class="page-link">...</span></li>
-            @endif
-
-            {{-- Trang cuối --}}
-            @if ($totalPages > 1)
-                <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
-                    <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
-                        wire:loading.attr="disabled">{{ $totalPages }}</a>
+                {{-- Liên kết Trang Tiếp --}}
+                <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
+                    <a class="page-link hover-white" wire:click="nextPage" wire:loading.attr="disabled"
+                        rel="next" aria-label="@lang('pagination.next')"><i class="far fa-angle-right"></i></a>
                 </li>
-            @endif
 
-            {{-- Liên kết Trang Tiếp --}}
-            <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
-                <a class="page-link hover-white" wire:click="nextPage" wire:loading.attr="disabled"
-                    rel="next" aria-label="@lang('pagination.next')"><i class="far fa-angle-right"></i></a>
-            </li>
-
-            {{-- Liên kết Trang Cuối --}}
-            <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
-                <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})" wire:loading.attr="disabled"
-                    rel="last" aria-label="@lang('pagination.last')"><i class="far fa-angle-double-right"></i></a>
-            </li>
-        </ul>
-    </nav>
-@endif
+                {{-- Liên kết Trang Cuối --}}
+                <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
+                    <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
+                        wire:loading.attr="disabled" rel="last" aria-label="@lang('pagination.last')"><i
+                            class="far fa-angle-double-right"></i></a>
+                </li>
+            </ul>
+        </nav>
+    @endif
 </div>
