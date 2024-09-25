@@ -44,15 +44,16 @@
         <table class="table table-hover bg-white border rounded-lg">
             <thead class="thead-sm thead-black">
                 <tr>
-                    <th scope="col" class="border-top-0 px-6 pt-5 pb-4">Ảnh</th>
-                    <th scope="col" class="border-top-0 pt-5 pb-4">Tiêu Đề</th>
-                    <th scope="col" class="border-top-0 pt-5 pb-4" style="white-space: nowrap;">Mô Tả</th>
-                    <th scope="col" class="border-top-0 pt-5 pb-4">Lượt Xem</th>
-                    <th scope="col" class="border-top-0 pt-5 pb-4">Trạng thái</th>
-                    <th scope="col" class="border-top-0 pt-5 pb-4" style="white-space: nowrap;">Ngày xuất bản</th>
-                    <th scope="col" class="border-top-0 pt-5 pb-4" style="white-space: nowrap;">Hành động</th>
+                    <th scope="col" class="border-top-0 px-3 pt-4 pb-3" style="white-space: nowrap;">Ảnh</th>
+                    <th scope="col" class="border-top-0 pt-4 pb-3" style="white-space: nowrap;">Tiêu Đề</th>
+                    <th scope="col" class="border-top-0 pt-4 pb-3" style="white-space: nowrap;">Mô Tả</th>
+                    <th scope="col" class="border-top-0 pt-4 pb-3" style="white-space: nowrap;">Lượt Xem</th>
+                    <th scope="col" class="border-top-0 pt-4 pb-3" style="white-space: nowrap;">Trạng thái</th>
+                    <th scope="col" class="border-top-0 pt-4 pb-3" style="white-space: nowrap;">Ngày xuất bản</th>
+                    <th scope="col" class="border-top-0 pt-4 pb-3" style="white-space: nowrap;">Hành động</th>
                 </tr>
             </thead>
+    
             <tbody>
                 @if ($blogs->isEmpty())
                     <tr>
@@ -61,15 +62,16 @@
                 @else
                     @foreach ($blogs as $blog)
                         <tr class="shadow-hover-xs-2">
-                            <td class="align-middle pt-6 pb-4 px-6">
+                            <td class="align-middle pt-3 pb-3 px-3">
                                 <div class="media d-flex align-items-center">
-                                    <div class="w-100 w-md-150 mr-4 position-relative">
+                                    <div class="w-100 w-md-150 mr-3 position-relative">
                                         <a href="{{ route('owners.show-blog', $blog->slug) }}">
                                             @if ($blog->image)
                                                 @foreach ($blog->image as $item)
-                                                    <img src="{{ asset('assets/images/' . $item->filename) }}"
-                                                         alt="{{ $item->filename }}" class="img-fluid"
-                                                         style="width: 150px; height: 150px; object-fit: cover;"> <!-- Cố định kích thước -->
+                                                    <img src="{{ asset('assets/images/' . $item->filename) }}" 
+                                                         alt="{{ $item->filename }}" 
+                                                         class="img-fluid" 
+                                                         style="max-width: 100px; object-fit: cover;">
                                                 @endforeach
                                             @else
                                                 <p>Không có ảnh</p>
@@ -77,10 +79,12 @@
                                         </a>
                                     </div>
                                 </div>
-                                
                             </td>
                             <td class="align-middle" style="white-space: nowrap;">{{ $blog->title }}</td>
-                            <td class="align-middle" style="white-space: nowrap;">{{ $blog->description }}</td>
+                            <td class="align-middle" style="white-space: nowrap;">
+                                {{ \Illuminate\Support\Str::limit($blog->description, 20) }}
+                            </td>
+                            <td class="align-middle" style="white-space: nowrap;">{{ $blog->view }}</td>
                             <td class="align-middle">
                                 @if ($blog->status == 1)
                                     <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">Chờ xác nhận</span>
@@ -93,14 +97,14 @@
                             <td class="align-middle">{{ $blog->created_at->format('d-m-Y') }}</td>
                             <td class="align-middle text" style="white-space: nowrap;">
                                 <a href="{{ route('owners.sua-blog', ['slug' => $blog->slug]) }}" data-toggle="tooltip"
-                                   title="Chỉnh sửa" class="d-inline-block fs-18 text-muted hover-primary ml-1 mr-5">
+                                   title="Chỉnh sửa" class="d-inline-block fs-16 text-muted hover-primary ml-1 mr-3">
                                     <i class="fal fa-pencil-alt"></i>
                                 </a>
                                 <form action="{{ route('owners.destroy-blog', $blog->id) }}" method="POST"
-                                      class="d-inline-block">
+                                      class="d-inline-block" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="fs-18 text-muted hover-primary border-0 bg-transparent">
+                                    <button type="submit" class="fs-16 text-muted hover-primary border-0 bg-transparent">
                                         <i class="fal fa-trash-alt"></i>
                                     </button>
                                 </form>
@@ -111,6 +115,7 @@
             </tbody>
         </table>
     </div>
+    
     
     <div id="pagination-section" class="mt-6">
         <ul class="pagination pagination-sm rounded-active justify-content-center">
