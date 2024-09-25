@@ -29,7 +29,7 @@ class RoomClientController extends Controller
         $province = $request->input('province');
         $district = $request->input('district');
         $village = $request->input('village');
-    
+
         $rooms = $this->roomClientService->getAllRoom(
             (int) $perPage,
             $searchTerm,
@@ -37,9 +37,22 @@ class RoomClientController extends Controller
             $district,
             $village
         );
-    
+
         $locations = $this->roomClientService->getUniqueLocations();
-    
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'rooms' => $rooms,
+                'searchTerm' => $searchTerm,
+                'province' => $province,
+                'district' => $district,
+                'village' => $village,
+                'provinces' => $locations['provinces'],
+                'districts' => $locations['districts'],
+                'villages' => $locations['villages']
+            ]);
+        }
+
+
         return view('client.show.listing-grid-with-left-filter', [
             'rooms' => $rooms,
             'searchTerm' => $searchTerm,
@@ -50,7 +63,7 @@ class RoomClientController extends Controller
             'districts' => $locations['districts'],
             'villages' => $locations['villages']
         ]);
-    } 
+    }
 
     //Hiển thị giao diện Danh sách phòng trọ có Map
     public function indexRoomMap()
@@ -82,7 +95,22 @@ class RoomClientController extends Controller
         foreach ($similarRooms as $room) {
             $utilitiesRoom[] = $room->utility;
         }
+        // Kiểm tra xem yêu cầu có phải là AJAX hay không
+        if (request()->ajax() || request()->wantsJson()) {
+            return response()->json([
+                'room' => $roomDetails['room'],
+                'averageRating' => $roomDetails['averageRating'],
+                'ratingsDistribution' => $roomDetails['ratingsDistribution'],
+                'comments' => $comments,
+                'user' => $user,
+                'identity' => $identity,
+                'zone' => $zone,
+                'utilities' => $utilities,
+                'similarRooms' => $similarRooms,
+            ]);
+        }
 
+        // Nếu không phải là AJAX, trả về view
         return view('client.show.single-propety', [
             'rooms' => $roomDetails['room'],
             'averageRating' => $roomDetails['averageRating'],

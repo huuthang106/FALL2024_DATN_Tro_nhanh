@@ -66,7 +66,15 @@ class UserClientController extends Controller
         $village = $request->input('village');
 
         $users = $this->userClientServices->getUsersByRole(self::role_owners, $searchTerm, self::limit, $province,  $district, $village);
-
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'users' => $users,
+                'searchTerm' => $searchTerm,
+                'province' => $province,
+                'district' => $district,
+                'village' => $village,
+            ]);
+        }
         return view('client.show.list-owners', compact('users'));
     }
     // public function agentDetail($slug)
@@ -149,7 +157,22 @@ class UserClientController extends Controller
 
     // Tính tổng cả rooms và zones
     $totalProperties = $totalRooms + $totalZones;
-
+ // Kiểm tra xem yêu cầu có phải là AJAX hay không
+ if (request()->ajax() || request()->wantsJson()) {
+    return response()->json([
+        'user' => $userDetails['user'],
+        'averageRating' => $userDetails['averageRating'],
+        'ratingsDistribution' => $userDetails['ratingsDistribution'],
+        'comments' => $comments,
+        'rooms' => $rooms,
+        'zones' => $zones,
+        'totalRooms' => $totalRooms,
+        'totalZones' => $totalZones,
+        'totalProperties' => $totalProperties,
+        'isFollowing' => $isFollowing,
+    ]);
+}
+  // Nếu không phải là AJAX, trả về view
     return view('client.show.agent-details-1', array_merge(
         compact('user', 'rooms', 'zones', 'totalRooms', 'totalZones', 'totalProperties', 'isFollowing'),
         [

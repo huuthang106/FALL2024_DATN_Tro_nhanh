@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Client\RoomClientController;
 use App\Services\RoomClientServices;
+use App\Http\Controllers\Client\HomeClientController;
 
 Route::group(['prefix' => 'danh-sach-phong-tro'], function () {
     Route::get('/', [RoomClientController::class, 'indexRoom'])->name('room-listing');
@@ -21,7 +22,6 @@ Route::group(['prefix' => ''], function () {
     Route::POST('/add-favourite/{slug}', [RoomClientController::class, 'addFavourite'])->name('add.favourite');
 });
 
-use App\Http\Controllers\Client\HomeClientController;
 
 Route::get('/', [HomeClientController::class, 'index'])->name('home');
 Route::get('/locations', function () {

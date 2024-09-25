@@ -24,6 +24,14 @@ class BlogClientController extends Controller
         $searchTerm = $request->input('search');
         // Lấy tất cả các blog từ dịch vụ
         $blogs = $this->blogServices->getAllBlogs((int) $perPage, $searchTerm);
+        // Kiểm tra xem yêu cầu có phải là AJAX hay không
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'blogs' => $blogs,
+                'searchTerm' => $searchTerm,
+            ]);
+        }
+
         // Truyền dữ liệu đến view
         return view('client.show.blog-classic', ['blogs' => $blogs, 'searchTerm' => $searchTerm]);
     }
@@ -32,7 +40,14 @@ class BlogClientController extends Controller
     public function blogDetail($slug)
     {
         $blog = $this->commentClientService->getBlogWithComments($slug);
+        // Kiểm tra xem yêu cầu có phải là AJAX hay không
+        if (request()->ajax() || request()->wantsJson()) {
+            return response()->json([
+                'blog' => $blog,
+            ]);
+        }
 
+        // Nếu không phải là AJAX, trả về view
         return view('client.show.blog-details-1', ['blog' => $blog]);
     }
 }
