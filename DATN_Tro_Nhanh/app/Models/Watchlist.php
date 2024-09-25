@@ -24,4 +24,8 @@ class Watchlist extends Model
     {
         return $this->belongsTo(User::class, 'follower'); // {{ edit_2 }}
     }
+    public function followedUser()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

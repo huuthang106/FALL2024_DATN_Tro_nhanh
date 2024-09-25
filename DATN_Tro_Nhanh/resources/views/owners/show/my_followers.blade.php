@@ -1,7 +1,7 @@
 @extends('layouts.owner')
-@section('titleOwner', 'Lượt Theo Dõi Của Tôi | TRỌ NHANH')
+@section('titleOwners', 'Lượt Theo Dõi Của Tôi | TRỌ NHANH')
 @section('contentOwners')
-@livewire('followings', ['id' => $user_id]) <!-- Thay đổi $userId thành ID người dùng thực tế -->
+    @livewire('followings', ['id' => $user_id]) <!-- Thay đổi $userId thành ID người dùng thực tế -->
 @endsection
 @push('styleOwners')
     {{-- <meta charset="utf-8">
@@ -114,13 +114,15 @@
     <script src="{{ asset('assets/js/theme.js') }}"></script>
     {{-- Notification - Pagination --}}
     <script src="{{ asset('assets/js/notification-list/notification-pagination.js') }}"></script>
-    <script>document.addEventListener('livewire:load', function () {
-        // Khởi tạo selectpicker
-        $('.selectpicker').selectpicker();
-    
-        // Cập nhật selectpicker khi Livewire cập nhật
-        Livewire.hook('message.processed', (message, component) => {
-            $('.selectpicker').selectpicker('refresh');
+    <script>
+        document.addEventListener('livewire:load', function() {
+            // Khởi tạo selectpicker
+            $('.selectpicker').selectpicker();
+
+            // Cập nhật selectpicker khi Livewire cập nhật
+            Livewire.hook('message.processed', (message, component) => {
+                $('.selectpicker').selectpicker('refresh');
+            });
         });
-    });</script>
+    </script>
 @endpush
