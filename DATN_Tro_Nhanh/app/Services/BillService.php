@@ -12,6 +12,7 @@ use App\Events\BlogCreated;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CreateBlogRequest;
 use App\Models\Transaction;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 class BillService
 {
     public function getCurrentUserBills(int $perPage = 10, $searchTerm = null)
@@ -113,35 +114,57 @@ class BillService
             'name' => $name,
             'address' => $address,
             'totalAmount' => $totalAmount
+            
         ];
     }
 
     public function processPayment($billId)
-    {
-        $user_id = Auth::user()->id;
-        $bill = Bill::findOrFail($billId);
+{
+    $user = Auth::user(); // Get the authenticated user
 
-        // Kiểm tra nếu có thông tin hóa đơn
-        if ($bill) {
-            $description = $bill->description; // Lấy mô tả từ hóa đơn
+    // Ensure the user is authenticated and is an instance of the User model
+    if (!$user instanceof \App\Models\User) {
+        return ['success' => false, 'message' => 'Người dùng không hợp lệ.'];
+    }
 
-            // Lưu vào bảng transactions
-            Transaction::create([
-                'user_id' => $user_id,
-                'bill_id' => $billId,
-                'balance' => 0,
-                'description' => $description,
-            ]);
-            // Cập nhật trạng thái của hóa đơn và ngày thanh toán
-            $bill->update([
-                'status' => 2,
-                'payment_date' => now(),
-            ]);
+    // Find the bill or fail
+    $bill = Bill::findOrFail($billId);
 
-            return ['success' => true];
+    // Check if the bill exists and retrieve its amount
+    if ($bill) {
+        $description = $bill->description; // Get the bill description
+        $billAmount = $bill->amount; // Assuming 'amount' is a field in the bills table
+
+        // Check user balance
+        if ($user->balance < $billAmount) {
+            return ['success' => false, 'message' => 'Không thể thanh toán: Số dư không đủ.'];
         }
 
-        return ['success' => false];
+        // Create the transaction record
+        Transaction::create([
+            'user_id' => $user->id,
+            'bill_id' => $billId,
+            'balance' => $user->balance - $billAmount, // New balance after payment
+            'description' => $description,
+        ]);
+
+        // Update the bill status and payment date
+        $bill->status = 2;
+        $bill->payment_date = now();
+        $bill->save(); // Use save method to update the bill
+
+        // Update the user's balance
+        $user->balance -= $billAmount; // Deduct the amount from user's balance
+        $user->save(); // Save the updated user instance
+
+        return ['success' => true];
     }
+
+    return ['success' => false];
+}
+
+
+
+    
 
 }

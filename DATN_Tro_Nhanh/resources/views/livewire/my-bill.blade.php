@@ -26,12 +26,11 @@
                         </div>
 
                     </div>
-                    <div
-                        class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
+                    <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
                         <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
                             <input wire:model.lazy="search" wire:keydown.debounce.300ms="$refresh" type="text"
-                                class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..."
-                                aria-label="" aria-describedby="basic-addon1">
+                                class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..." aria-label=""
+                                aria-describedby="basic-addon1">
                             <div class="input-group-append position-absolute pos-fixed-right-center">
                                 <button class="btn bg-transparent border-0 text-gray lh-1" type="button">
                                     <i class="fal fa-search"></i>
@@ -66,13 +65,17 @@
                                 <td class="align-middle" style="white-space: nowrap;">
                                     <small>Thanh toán dịch vụ</small>
                                 </td>
-                                
-                                <td class="align-middle text-truncate" style="max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+
+                                <td class="align-middle text-truncate"
+                                    style="max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                     <small>{{ $transaction->description ?? 'Chưa có dữ liệu' }}</small>
                                 </td>
-                                <td class="align-middle"><small>{{ $transaction->created_at->format('d/m/Y H:i') }}</small></td>
                                 <td class="align-middle">
-                                    <small class="{{ $transaction->added_funds >= 0 ? 'text-success' : 'text-danger' }}" style="white-space: nowrap;">
+                                    <small>{{ $transaction->created_at->format('d/m/Y H:i') }}</small>
+                                </td>
+                                <td class="align-middle">
+                                    <small class="{{ $transaction->added_funds >= 0 ? 'text-success' : 'text-danger' }}"
+                                        style="white-space: nowrap;">
                                         {{ number_format($transaction->added_funds, 0, ',', '.') }} VND
                                     </small>
                                 </td>
@@ -81,133 +84,97 @@
                                         {{ number_format($transaction->balance, 0, ',', '.') }} VND
                                     </small>
                                 </td>
-                                
+
                             </tr>
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="5" class="text-center align-middle"><small>Không có giao dịch nào.</small></td>
+                            <td colspan="5" class="text-center align-middle"><small>Không có giao dịch nào.</small>
+                            </td>
                         </tr>
                     @endif
                 </tbody>
             </table>
         </div>
+        @if ($transactions->count() > 0)
+        <div id="pagination-section" class="mt-6">
+            <ul class="pagination pagination-sm rounded-active justify-content-center">
+                {{-- Nút quay về trang đầu tiên (<<) --}}
+                <li class="page-item {{ $transactions->onFirstPage() ? 'disabled' : '' }}">
+                    <a class="page-link" wire:click="gotoPage(1)" wire:loading.attr="disabled" href="#pagination-section">
+                        <i class="far fa-angle-double-left"></i>
+                    </a>
+                </li>
         
+                {{-- Nút quay lại trang trước (<) --}}
+                <li class="page-item {{ $transactions->onFirstPage() ? 'disabled' : '' }}">
+                    <a class="page-link" wire:click="previousPage" wire:loading.attr="disabled" href="#pagination-section">
+                        <i class="fas fa-angle-left"></i>
+                    </a>
+                </li>
         
+                {{-- Trang đầu tiên --}}
+                @if ($transactions->currentPage() > 2)
+                    <li class="page-item">
+                        <a class="page-link" wire:click="gotoPage(1)" href="#pagination-section">1</a>
+                    </li>
+                @endif
         
-
-        @if ($transactions->total() > 0)
-            @if ($transactions->hasPages())
-                <nav class="mt-4">
-                    <ul class="pagination rounded-active justify-content-center">
-                        {{-- First Page Link --}}
-                        @if ($transactions->onFirstPage())
-                            <li class="page-item disabled">
-                                <span class="page-link"><i class="fas fa-angle-double-left"></i></span>
-                            </li>
-                        @else
-                            <li class="page-item">
-                                <a class="page-link" wire:click="gotoPage(1)" wire:loading.attr="disabled">
-                                    <i class="fas fa-angle-double-left"></i>
-                                </a>
-                            </li>
-                        @endif
-
-                        {{-- Previous Page Link --}}
-                        @if ($transactions->onFirstPage())
-                            <li class="page-item disabled">
-                                <span class="page-link"><i class="fas fa-angle-left"></i></span>
-                            </li>
-                        @else
-                            <li class="page-item">
-                                <a class="page-link" wire:click="previousPage" wire:loading.attr="disabled">
-                                    <i class="fas fa-angle-left"></i>
-                                </a>
-                            </li>
-                        @endif
-
-                        {{-- Pagination Elements --}}
-                        @php
-                            $currentPage = $transactions->currentPage();
-                            $totalPages = $transactions->lastPage();
-                            $pageRange = 2; // Number of pages to show before and after the current page
-                        @endphp
-
-                        {{-- Show first and last page links --}}
-                        @if ($currentPage > $pageRange + 1)
-                            <li class="page-item">
-                                <a class="page-link" wire:click="gotoPage(1)" wire:loading.attr="disabled">1</a>
-                            </li>
-                            @if ($currentPage > $pageRange + 2)
-                                <li class="page-item disabled">
-                                    <span class="page-link">...</span>
-                                </li>
-                            @endif
-                        @endif
-
-                        {{-- Show pages around the current page --}}
-                        @for ($page = max(1, $currentPage - $pageRange); $page <= min($totalPages, $currentPage + $pageRange); $page++)
-                            @if ($page == $currentPage)
-                                <li class="page-item active">
-                                    <span class="page-link">{{ $page }}</span>
-                                </li>
-                            @else
-                                <li class="page-item">
-                                    <a class="page-link" wire:click="gotoPage({{ $page }})"
-                                        wire:loading.attr="disabled">{{ $page }}</a>
-                                </li>
-                            @endif
-                        @endfor
-
-                        {{-- Show ellipsis and last page link if needed --}}
-                        @if ($currentPage < $totalPages - $pageRange)
-                            @if ($currentPage < $totalPages - $pageRange - 1)
-                                <li class="page-item disabled">
-                                    <span class="page-link">...</span>
-                                </li>
-                            @endif
-                            <li class="page-item">
-                                <a class="page-link" wire:click="gotoPage({{ $totalPages }})"
-                                    wire:loading.attr="disabled">{{ $totalPages }}</a>
-                            </li>
-                        @endif
-
-                        {{-- Next Page Link --}}
-                        @if ($transactions->hasMorePages())
-                            <li class="page-item">
-                                <a class="page-link" wire:click="nextPage" wire:loading.attr="disabled">
-                                    <i class="fas fa-angle-right"></i>
-                                </a>
-                            </li>
-                        @else
-                            <li class="page-item disabled">
-                                <span class="page-link"><i class="fas fa-angle-right"></i></span>
-                            </li>
-                        @endif
-
-                        {{-- Last Page Link --}}
-                        @if ($transactions->hasMorePages())
-                            <li class="page-item">
-                                <a class="page-link" wire:click="gotoPage({{ $totalPages }})"
-                                    wire:loading.attr="disabled">
-                                    <i class="fas fa-angle-double-right"></i>
-                                </a>
-                            </li>
-                        @else
-                            <li class="page-item disabled">
-                                <span class="page-link"><i class="fas fa-angle-double-right"></i></span>
-                            </li>
-                        @endif
-                    </ul>
-                </nav>
-            @endif
-            <div class="text-center mt-2">
-                {{ $transactions->firstItem() }}-{{ $transactions->lastItem() }} của {{ $transactions->total() }} kết
-                quả
-            </div>
+                {{-- Dấu ba chấm ở đầu nếu cần --}}
+                @if ($transactions->currentPage() > 3)
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                @endif
+        
+                {{-- Hiển thị các trang xung quanh trang hiện tại --}}
+                @for ($i = max(1, $transactions->currentPage() - 1); $i <= min($transactions->currentPage() + 1, $transactions->lastPage()); $i++)
+                    <li class="page-item {{ $transactions->currentPage() == $i ? 'active' : '' }}">
+                        <a class="page-link" wire:click="gotoPage({{ $i }})" href="#pagination-section">{{ $i }}</a>
+                    </li>
+                @endfor
+        
+                {{-- Dấu ba chấm ở cuối nếu cần --}}
+                @if ($transactions->currentPage() < $transactions->lastPage() - 2)
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                @endif
+        
+                {{-- Trang cuối cùng --}}
+                @if ($transactions->currentPage() < $transactions->lastPage() - 1)
+                    <li class="page-item">
+                        <a class="page-link" wire:click="gotoPage({{ $transactions->lastPage() }})" href="#pagination-section">
+                            {{ $transactions->lastPage() }}
+                        </a>
+                    </li>
+                @endif
+        
+                {{-- Nút tới trang kế tiếp (>) --}}
+                <li class="page-item {{ $transactions->currentPage() == $transactions->lastPage() ? 'disabled' : '' }}">
+                    <a class="page-link" wire:click="nextPage" wire:loading.attr="disabled" href="#pagination-section">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                </li>
+        
+                {{-- Nút tới trang cuối cùng (>>) --}}
+                <li class="page-item {{ $transactions->currentPage() == $transactions->lastPage() ? 'disabled' : '' }}">
+                    <a class="page-link" wire:click="gotoPage({{ $transactions->lastPage() }})" wire:loading.attr="disabled" href="#pagination-section">
+                        <i class="far fa-angle-double-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
         @else
             <div class="text-center mt-4">Không có giao dịch nào.</div>
         @endif
+
+
+
+
+
+
 
     </div>
 

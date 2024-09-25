@@ -98,8 +98,8 @@
                                 @endif
                             </td>
                             <td class="align-middle">
-                                <a href="#" data-toggle="tooltip" title="Chỉnh sửa" class="d-inline-block fs-18 text-muted hover-primary mr-5">
-                                    <i class="fal fa-pencil-alt"></i>
+                                <a href="{{ route('owners.invoice-preview', $bill->id) }}" data-toggle="tooltip" title="Thanh Toán" class="d-inline-block fs-18 text-muted hover-primary mr-5">
+                                    <i class="fas fa-credit-card"></i>
                                 </a>
                                 <a href="#" data-toggle="tooltip" title="Xóa" class="d-inline-block fs-18 text-muted hover-primary">
                                     <i class="fal fa-trash-alt"></i>

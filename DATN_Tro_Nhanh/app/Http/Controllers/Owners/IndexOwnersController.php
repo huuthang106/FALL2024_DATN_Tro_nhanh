@@ -65,17 +65,18 @@ public function indexBill()
     
 
     public function pay(Request $request, $billId)
-    {
-        // Gọi hàm processPayment từ service
-        $result = $this->BillService->processPayment($billId);
+{
+    // Gọi hàm processPayment từ service
+    $result = $this->BillService->processPayment($billId);
 
-        // Kiểm tra kết quả từ service
-        if ($result['success']) {
-            // Redirect hoặc trả về thông báo thành công
-            return redirect()->route('owners.invoice-listing')->with('success', 'Thanh toán thành công');
-        }
-
-        // Xử lý nếu không thành công
-        return redirect()->back()->with('error', 'Thanh toán thất bại.');
+    // Kiểm tra kết quả từ service
+    if ($result['success']) {
+        // Redirect hoặc trả về thông báo thành công
+        return redirect()->route('owners.invoice-listing')->with('success', 'Thanh toán thành công');
     }
+
+    // Xử lý nếu không thành công
+    return redirect()->back()->with('error', 'Số dư không đủ để thanh toán !');
+}
+
 }

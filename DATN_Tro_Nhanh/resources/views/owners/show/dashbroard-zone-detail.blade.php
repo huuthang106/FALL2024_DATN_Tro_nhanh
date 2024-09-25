@@ -41,7 +41,7 @@
                                     <th class="py-6 text-start">Tên phòng</th>
                                     <th class="py-6 text-start">Tên người ở</th>
                                     <th class="py-6 text-start">Số điện thoại</th>
-                                    <th class="py-6 text-start">Lý do từ chối</th>
+                                    {{-- <th class="py-6 text-start">Lý do từ chối</th> --}}
                                     <th class="py-6 text-start">Trạng thái</th>
                                     <th class="py-6 text-start">Thao tác</th>
                                 </tr>
@@ -78,6 +78,16 @@
                                                         Phòng trống
                                                     @endif
                                                 </small></td>
+                                           
+                                                {{-- <td class="align-middle">
+                                                    <small>
+                                                        @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
+                                                            <span class="badge badge-green text-capitalize">Đang tạm trú</span>
+                                                        @else
+                                                            <span class="badge badge-yellow text-capitalize">Trống</span>
+                                                        @endif
+                                                    </small>
+                                                </td> --}}
                                             <td class="align-middle">
                                                 <small>
                                                     @if ($room->residents->where('status', $user_is_in)->isNotEmpty())

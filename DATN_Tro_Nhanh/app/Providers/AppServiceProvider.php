@@ -208,7 +208,7 @@ class AppServiceProvider extends ServiceProvider
             }
         });
         View::composer('owners.show.dashboard', function ($view) use ($watchListService) {
-            $userId = Auth::id(); // Lấy ID người dùng hiện tại
+            $userId = Auth::id(); // Lấy ID người dùng hiện fatại
 
             if ($userId) {
                 // Gọi hàm getTotalWatchListsByUser từ service để đếm tổng số lượng watchlists

@@ -1,6 +1,7 @@
 @extends('layouts.owner')
 @section('titleOwners', 'Xem Trước Hóa Đơn | TRỌ NHANH')
 @section('contentOwners')
+
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 add-new-invoice">
             <form action="{{ route('owners.payment-bill', $bill->id) }}" method="POST">
@@ -138,40 +139,31 @@
                         <div class="card card-body p-6">
                             <div class="row">
                                 @if (Auth::user()->role == 1)
-                                    <!-- Chỉ hiển thị nút "Tải xuống" nếu role là 1 -->
-                                    <div class="col-xl-12 col-md-3 col-sm-6 mb-3">
-                                        <a href="javascript:void(0);" class="btn btn-success btn-download btn-block">Tải
-                                            xuống</a>
+                                    <div class="col-12 mb-3">
+                                        <a href="javascript:void(0);" class="btn btn-success btn-download btn-block">Tải xuống</a>
                                     </div>
                                 @else
-                                    <!-- Hiển thị tất cả các nút nếu role không phải là 1 -->
-                                    <div class="col-xl-12 col-md-3 col-sm-6 mb-3">
-                                        <a href="javascript:void(0);" class="btn btn-success btn-download btn-block">Tải
-                                            xuống</a>
+                                    <div class="col-12 mb-3">
+                                        <a href="javascript:void(0);" class="btn btn-success btn-download btn-block">Tải xuống</a>
                                     </div>
                                     @if ($status == 1)
-                                        <!-- Hiển thị nút "Chỉ sửa hóa đơn" nếu status là 1 -->
-                                        <div class="col-xl-12 col-md-3 col-sm-6 mb-3">
-                                            <a href="dashboard-edit-invoice.html"
-                                                class="btn btn-dark btn-edit btn-block">Chỉnh sửa hóa đơn</a>
+                                        <div class="col-12 mb-3">
+                                            <a href="dashboard-edit-invoice.html" class="btn btn-dark btn-edit btn-block">Chỉnh sửa hóa đơn</a>
                                         </div>
                                     @endif
-
                                 @endif
                             </div>
-
-
+                    
                             @if (Auth::user()->role == 1 && $bill->status != 2)
-                                <div class="row flex-grow-1">
-                                    <div class="col-xl-12 col-md-3 col-sm-6 mb-3 d-flex flex-column justify-content-end"
-                                        style="min-height: 100vh;">
-                                        <button type="submit" class="btn btn-danger btn-print btn-block">Thanh
-                                            Toán</button>
+                                <div class="row mt-3"> 
+                                    <div class="col-12 d-flex flex-column justify-content-end">
+                                        <button type="submit" class="btn btn-danger btn-print btn-block">Thanh Toán</button>
+                                        @if (session('error'))
+                                            <p class="text-danger mt-2 text-center">{{ session('error') }}</p>
+                                        @endif
                                     </div>
                                 </div>
                             @endif
-
-
                         </div>
                     </div>
                 </div>
@@ -268,6 +260,8 @@
 @endpush
 @push('scriptOwners')
     <!-- Vendors scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/bootstrap/bootstrap.bundle.js') }}"></script>
@@ -285,6 +279,29 @@
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
+    <script>
+        // Kiểm tra và hiển thị thông báo thành công
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công!',
+                text: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 3000
+            });
+        @endif
+    
+        // Kiểm tra và hiển thị thông báo lỗi
+        @if(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi!',
+                text: '{{ session('error') }}',
+                showConfirmButton: false,
+                timer: 3000
+            });
+        @endif
+    </script>
     {{-- <div class="modal fade login-register login-register-modal" id="login-register-modal" tabindex="-1" role="dialog"
         aria-labelledby="login-register-modal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
