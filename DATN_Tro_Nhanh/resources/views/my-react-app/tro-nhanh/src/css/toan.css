@@ -1,0 +1,44 @@
+.img-s {
+    width: 100px;
+    /* Điều chỉnh kích thước */
+    height: auto;
+    /* Để giữ tỷ lệ khung hình của ảnh */
+    object-fit: cover;
+    /* Để ảnh phù hợp với khung */
+}
+
+.min-w-125px {
+    min-width: 125px;
+    /* Đặt chiều rộng tối thiểu cho cột */
+    white-space: normal;
+    /* Cho phép văn bản xuống dòng */
+    overflow: hidden;
+    /* Ẩn nội dung tràn */
+    text-overflow: ellipsis;
+    /* Hiển thị dấu ba chấm nếu văn bản quá dài */
+}
+
+#imagePreview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    /* Khoảng cách giữa các hình ảnh */
+    justify-content: center;
+    /* Căn giữa các hình ảnh */
+}
+
+.image-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 150px;
+    max-height: 150px;
+    overflow: hidden;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    /* Giữ tỷ lệ khung hình và không bị bóp méo */
+}

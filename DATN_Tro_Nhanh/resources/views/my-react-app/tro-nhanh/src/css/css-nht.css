@@ -1,0 +1,31 @@
+.fixed-image {
+    width: 100%; /* Đặt chiều rộng cố định */
+    height: 340px; /* Đặt chiều cao cố định */
+    object-fit: cover; /* Đảm bảo hình ảnh không bị biến dạng và giữ tỷ lệ khung hình */
+    border-radius: 8px; /* Nếu bạn muốn hình ảnh có góc bo tròn */
+    overflow: hidden; /* Đảm bảo phần ngoài vùng hình ảnh bị cắt bỏ */
+}
+.image-container {
+    width: 80px; /* Chiều rộng tối đa của hình ảnh */
+    height: 80px; /* Chiều cao tối đa của hình ảnh */
+    overflow: hidden; /* Ẩn phần hình ảnh vượt ra ngoài */
+    border-radius: 50%; /* Để tạo hình tròn */
+   
+}
+
+.image-container img {
+    width: 100%; /* Đặt chiều rộng hình ảnh 100% */
+    height: auto; /* Giữ tỷ lệ khung hình */
+    object-fit: cover; /* Cắt hình ảnh để phù hợp với kích thước */
+}
+/* Trong tệp CSS của bạn */
+.h-60 {
+    height: 60px; /* Đặt chiều cao là 60px */
+
+}
+.property-image {
+    width: 100%; /* Hoặc chiều rộng mong muốn */
+    height: 200px; /* Đặt chiều cao cố định */
+    object-fit: cover; /* Cắt hình ảnh để lấp đầy khung mà không bị biến dạng */
+    border-radius: 8px; /* Tùy chọn: bo góc hình ảnh */
+}

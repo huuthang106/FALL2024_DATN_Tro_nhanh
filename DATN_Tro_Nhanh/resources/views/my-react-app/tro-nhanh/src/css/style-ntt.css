@@ -1,0 +1,263 @@
+@import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+.main-container {
+    width: 90%;
+    max-width: 350px;
+    margin: 50px auto;
+}
+
+.select-item {
+    width: 100%;
+    font-family: "Montserrat", sans-serif;
+    margin: 15px auto;
+    position: relative;
+}
+
+.select-item>label {
+    display: block;
+    font-size: 18px;
+}
+
+.select-item>select {
+    margin-top: 10px;
+    width: 100%;
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    line-height: 36px;
+    height: 36px;
+    border-radius: 3px;
+    outline: none;
+    background: none;
+    box-shadow: none;
+    border: 1px solid rgb(175, 175, 175);
+}
+
+.select-item>span {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    right: 22px;
+    top: 38px;
+    display: none;
+    z-index: 5;
+}
+
+.select-item>span>img {
+    width: 100%;
+    height: 100%;
+}
+
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+}
+
+.custom-checkbox .form-check-input {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border-radius: 4px;
+    border: 1px solid #727272;
+    /* Đổi màu viền của checkbox */
+    transition: all 0.3s ease-in-out;
+}
+
+.custom-checkbox .form-check-input:checked {
+    background-color: #0064a6;
+    /* Màu nền khi checkbox được chọn */
+    border-color: #0064a6;
+}
+
+.custom-checkbox .form-check-label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    /* Đổi màu chữ của label */
+    transition: color 0.3s ease-in-out;
+}
+
+.custom-checkbox .form-check-input:checked+.form-check-label {
+    color: #000000;
+    /* Màu chữ khi checkbox được chọn */
+}
+
+.custom-bathroom {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Khoảng cách giữa input và label */
+    justify-content: flex-start;
+    /* Căn chỉnh các phần tử về bên trái */
+}
+
+.bathroom-label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0;
+}
+
+.bathroom-input {
+    width: 40px;
+    /* Đặt chiều rộng vừa đủ để nhập số */
+    padding: 2px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+}
+
+.bathroom-input:focus {
+    border-color: #0d6efd;
+    /* Đổi màu viền khi input được focus */
+    outline: none;
+    box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
+    /* Tạo hiệu ứng khi input được focus */
+}
+
+.collapse-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.8s ease-in-out, transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+    transform: translateY(20px);
+    /* Dịch chuyển xuống dưới */
+    opacity: 0;
+    /* Bắt đầu với độ trong suốt */
+}
+
+.collapse-content.show {
+    max-height: 500px;
+    /* Đặt chiều cao tối đa */
+    transform: translateY(0);
+    /* Đưa về vị trí ban đầu */
+    opacity: 1;
+    /* Hiển thị dần */
+}
+
+.collapse-content ul {
+    opacity: 0;
+    transition: opacity 0.7s ease-in-out;
+    /* Hiệu ứng xuất hiện dần */
+}
+
+.collapse-content.show ul {
+    opacity: 1;
+}
+
+/* Upload ảnh thêm trọ Owners */
+#imagePreview {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    max-height: 300px;
+    /* Hoặc kích thước bạn muốn */
+    /* border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #f9f9f9; */
+}
+
+#imagePreview div {
+    position: relative;
+    margin: 5px;
+    width: 100px;
+    /* Kích thước của mỗi ảnh */
+    height: 100px;
+    /* Kích thước của mỗi ảnh */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+#imagePreview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    /* Đảm bảo ảnh không bị biến dạng */
+}
+
+#imagePreview button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 2px 5px;
+    font-size: 12px;
+}
+
+.ntt {
+    position: relative;
+}
+
+.list {
+    position: absolute;
+    top: -5px;
+    /* Đẩy badge lên phía trên một chút */
+    left: 27px;
+    /* Điều chỉnh vị trí theo nhu cầu */
+    background-color: rgb(244, 222, 222);
+    color: rgb(255, 0, 0);
+    font-weight: bold;
+    padding: 5px 7px;
+    /* Tăng thêm khoảng trống cho badge */
+    border-radius: 5px;
+    /* Làm badge có dạng hình elip */
+    font-size: 11px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Hiệu ứng đổ bóng */
+    text-transform: uppercase;
+    /* Chuyển chữ thành in hoa */
+    /* border: 2px solid white; */
+    /* Thêm viền trắng cho badge */
+}
+
+.hehe {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.star-item {
+    width: 46px;
+    height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 576px) {
+    .star-item {
+        width: 40px;
+        /* Giảm kích thước cho mobile */
+        height: 40px;
+        font-size: 20px;
+        /* Giảm kích thước icon cho mobile */
+    }
+}
+
+/* Đảm bảo rằng các icon luôn hiển thị, đặc biệt là trên màn hình nhỏ */
+a.d-block {
+    display: inline-block;
+    padding: 8px;
+    /* Điều chỉnh padding nếu cần */
+}
+
+/* Điều chỉnh kích thước icon trên màn hình nhỏ */
+@media (max-width: 576px) {
+    i.fal {
+        font-size: 24px;
+        /* Giảm kích thước icon cho màn hình nhỏ */
+    }
+
+    .badge-absolute {
+        font-size: 12px;
+        /* Điều chỉnh kích thước badge cho màn hình nhỏ */
+    }
+}
