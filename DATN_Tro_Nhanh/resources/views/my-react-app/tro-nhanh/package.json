@@ -25,6 +25,8 @@
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router": "^6.26.2",
+    "react-router-dom": "^6.26.2",
     "recoil": "^0.7.6",
     "swiper": "^8.4.5",
     "zmp-sdk": "^2.27.1",
