@@ -18,14 +18,15 @@ class ListRoomClient extends Component
     public $category; // Thêm biến này
     public $perPage = 8;
     public $sortBy = 'default';
+    public $type;
     protected const HIEN_THI = 2;
     
-    protected $queryString = ['search', 'province', 'district', 'village', 'category']; // Thêm 'category' vào đây
+    protected $queryString = ['search', 'province', 'district', 'village', 'category','type']; // Thêm 'category' vào đây
 
 
-    public $type;
+    
    
-    protected $queryString = ['search', 'province', 'district', 'village','type'];
+    // protected $queryString = ['search', 'province', 'district', 'village',];
     public function render()
     {
         // $query = Room::join('users', 'rooms.user_id', '=', 'users.id')
