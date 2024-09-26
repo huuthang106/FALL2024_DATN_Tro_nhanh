@@ -3,9 +3,12 @@
 @section('contentOwners')
 
 
-   
-            @livewire('zone-search')
-   
+
+        @livewire('zone-search')
+
+</div>
+</div>
+</div>
 @endsection
 
 @push('styleOwners')
