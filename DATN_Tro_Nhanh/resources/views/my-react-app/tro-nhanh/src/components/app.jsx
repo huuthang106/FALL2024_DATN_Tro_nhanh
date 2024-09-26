@@ -6,6 +6,8 @@ import HomePage from '../pages';
 import About from '../pages/about';
 import Form from '../pages/form';
 import User from '../pages/user';
+import ListingHalfMapListLayout1 from '../pages/listing-half-map-list-layout-1';
+
 
 
 const MyApp = () => {
@@ -19,6 +21,8 @@ const MyApp = () => {
             <Route path="/about" element={<About></About>}></Route>
           <Route path="/form" element={<Form></Form>}></Route>
           <Route path="/user" element={<User></User>}></Route>
+          <Route path="/khu-tro" element={<ListingHalfMapListLayout1></ListingHalfMapListLayout1>}></Route>
+
           </AnimationRoutes>
         </ZMPRouter>
       </SnackbarProvider>
