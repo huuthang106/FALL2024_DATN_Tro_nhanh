@@ -1,0 +1,122 @@
+@import "./tailwind.css";
+
+/* Your app custom styles here */
+:root {
+  --zmp-primary-color: #0068ff;
+  --zmp-secondary-color: #ff8a00;
+  --zmp-page-bg-color: #f4f5f6;
+}
+body {
+  background-color: var(--zmp-page-bg-color);
+}
+hr {
+  width: 100%;
+  background-color: #E4EEEF;;
+  height: 0.5px;
+  border: none;
+}
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .zaui-routes {
+    flex: 1;
+    .zaui-routes-item {
+      display: flex;
+      .zaui-page {
+        min-height: 0;
+        flex: 1;
+      }
+    }
+  }
+}
+#bottom-nav .zaui-bottom-navigation-content {
+  height: 64px;
+}
+.zaui-bottom-navigation-content::after {
+  top: 0;
+}
+.zaui-btn-primary, .zaui-btn-primary.zaui-btn-highlight {
+  background-color: var(--zmp-primary-color);
+}
+.zaui-btn-tertiary, .zaui-btn-tertiary.zaui-btn-highlight {
+  color: var(--zmp-primary-color);
+}
+.zaui-btn-secondary, .zaui-btn-secondary.zaui-btn-highlight {
+  background-color: white;
+  color: black;
+}
+.zaui-page, .no-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+.zaui-tabs-tabbar {
+  overflow-x: auto;
+}
+.zaui-input-prefix {
+  .zaui-btn-icon-only .zaui-btn-icon {
+    width: 16px;
+    height: 16px;
+  }
+  + .zaui-input {
+    padding-left: 0;
+  }
+}
+.zaui-btn-prefix-icon.zaui-btn-small .zaui-icon {
+  vertical-align: unset;
+}
+.date-booker {
+  .swiper-slide-active > .bg-white {
+    background-color: var(--zmp-secondary-color);
+    color: white;
+  }
+  &.fade-corner {
+    position: relative;
+    &:before {
+      content: " ";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 80px;
+      z-index: 10;
+      opacity: 0.5;
+      background: linear-gradient(to right, var(--zmp-page-bg-color) 80%, transparent);
+      pointer-events: none;
+    }
+    &::after {
+      content: " ";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      width: 80px;
+      z-index: 10;
+      opacity: 0.5;
+      background: linear-gradient(to left, var(--zmp-page-bg-color) 80%, transparent);
+      pointer-events: none;
+    }
+  }
+}
+.swiper-slide-active {
+  font-weight: 600;
+}
+.cart-preview {
+  &, .zaui-mask, .zaui-modal-wrapper {
+    z-index: 10;
+  }
+  &.collapsed {
+    .zaui-sheet-wrapper {
+      pointer-events: none;
+    }
+    .zaui-sheet-content {
+      pointer-events: initial;
+    }
+  }
+}
+.table-booker {
+  .zaui-picker-input {
+    border: none;
+  }
+}
