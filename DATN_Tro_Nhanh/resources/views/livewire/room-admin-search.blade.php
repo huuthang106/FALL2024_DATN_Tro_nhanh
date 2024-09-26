@@ -125,7 +125,7 @@
 
                                     <th class="min-w-125px">Ảnh</th>
                                     <th class="min-w-125px">Tiêu Đề</th>
-                                    <th class="min-w-125px">Mô Tả</th>
+                                  
                                     {{-- <th class="min-w-125px">Số lượng</th> --}}
                                     <th class="min-w-125px">Giá</th>
                                     <th class="min-w-125px">Địa chỉ</th>
@@ -188,7 +188,7 @@
                                             </td>
                                             <!--end::Last login=-->
                                             <!--begin::Two step=-->
-                                            <td><small>{{ $room->description }}</small></td>
+                                          
                                             <!--end::Two step=-->
                                             <!--begin::Joined-->
                                             <td><small>{{ $room->price }} VND</small></td>

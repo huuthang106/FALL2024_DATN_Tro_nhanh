@@ -46,7 +46,7 @@
                 <tr>
                     <th scope="col" class="border-top-0 px-3 pt-4 pb-3" style="white-space: nowrap;">Ảnh</th>
                     <th scope="col" class="border-top-0 pt-4 pb-3" style="white-space: nowrap;">Tiêu Đề</th>
-                    <th scope="col" class="border-top-0 pt-4 pb-3" style="white-space: nowrap;">Mô Tả</th>
+                    <!-- <th scope="col" class="border-top-0 pt-4 pb-3" style="white-space: nowrap;">Mô Tả</th> -->
                     <th scope="col" class="border-top-0 pt-4 pb-3" style="white-space: nowrap;">Lượt Xem</th>
                     <th scope="col" class="border-top-0 pt-4 pb-3" style="white-space: nowrap;">Trạng thái</th>
                     <th scope="col" class="border-top-0 pt-4 pb-3" style="white-space: nowrap;">Ngày xuất bản</th>
@@ -81,9 +81,9 @@
                                 </div>
                             </td>
                             <td class="align-middle" style="white-space: nowrap;">{{ $blog->title }}</td>
-                            <td class="align-middle" style="white-space: nowrap;">
+                            <!-- <td class="align-middle" style="white-space: nowrap;">
                                 {{ \Illuminate\Support\Str::limit($blog->description, 20) }}
-                            </td>
+                            </td> -->
                             <td class="align-middle" style="white-space: nowrap;">{{ $blog->view }}</td>
                             <td class="align-middle">
                                 @if ($blog->status == 1)
