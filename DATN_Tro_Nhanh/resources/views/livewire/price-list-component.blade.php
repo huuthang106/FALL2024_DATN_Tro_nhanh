@@ -101,7 +101,7 @@
                                     <!--end::Content-->
                                 </div>
                                 <!--end::Menu 1-->
-                           
+
                                 <!--end::Export-->
                                 <!--begin::Add user-->
                                 <a type="button" href="{{ route('admin.trang-them-bang-gia') }}"
@@ -111,13 +111,13 @@
                             </div>
                             <!--end::Toolbar-->
                             <!--begin::Group actions-->
-                           
+
                             <!--end::Group actions-->
                             <!--begin::Modal - Adjust Balance-->
-                           
+
                             <!--end::Modal - New Card-->
                             <!--begin::Modal - Add task-->
-                          
+
                             <!--end::Modal - Add task-->
                         </div>
                         <!--end::Card toolbar-->
@@ -146,173 +146,182 @@
                             </thead>
                             <tbody class="text-gray-600 fw-bold">
                                 @if ($priceLists->isEmpty())
-                                <!-- Hiển thị khi không có dữ liệu -->
-                                <tr>
-                                    <td colspan="7" class="text-center">Không có dữ liệu.</td>
-                                </tr>
-                                @else
-                                @foreach ($priceLists as $priceList)
+                                    <!-- Hiển thị khi không có dữ liệu -->
                                     <tr>
-                                        <td>
-                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                                <input class="form-check-input" type="checkbox"
-                                                    value="{{ $priceList->id }}" />
-                                            </div>
-                                        </td>
-                                        <td>{{ $priceList->location->name ?? 'Location không còn tồn tại' }}</td>
-                                        <!-- Use location name -->
-                                        <td>{{ number_format($priceList->price, 0, ',', '.') }} ₫</td>
-                                        <td>{{ $priceList->duration_day }}</td>
-                                        <td>{{ $priceList->status === 1 ? 'Gói nâng cấp tài khoản' : ($priceList->status === 2 ? 'Gói tin vip' : 'Không xác định') }}</td>
-                                        <td class="text-end">
-                                            <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
-                                                data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Hành
-                                                động
-                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                                                <span class="svg-icon svg-icon-5 m-0">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <path
-                                                            d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                                            fill="black" />
-                                                    </svg>
-                                                </span>
-                                                <!--end::Svg Icon--></a>
-                                            <!--begin::Menu-->
-                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                                                data-kt-menu="true">
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <a href="{{ route('admin.chinh-sua-bang-gia', $priceList->id) }}"
-                                                        class="menu-link px-3">Sửa</a>
-                                                </div>
-                                                <!--end::Menu item-->
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <form
-                                                        action="{{ route('admin.destroy-price-list', $priceList->id) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit"
-                                                            class="menu-link px-3 border-0 bg-transparent text-start">Xóa</button>
-                                                    </form>
-                                                </div>
-                                                <!--end::Menu item-->
-                                            </div>
-                                            <!--end::Menu-->
-
-                                        </td>
+                                        <td colspan="7" class="text-center">Không có dữ liệu.</td>
                                     </tr>
-                                @endforeach
+                                @else
+                                    @foreach ($priceLists as $priceList)
+                                        <tr>
+                                            <td>
+                                                <div
+                                                    class="form-check form-check-sm form-check-custom form-check-solid">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        value="{{ $priceList->id }}" />
+                                                </div>
+                                            </td>
+                                            <td>{{ $priceList->location->name ?? 'Location không còn tồn tại' }}</td>
+                                            <!-- Use location name -->
+                                            <td>{{ number_format($priceList->price, 0, ',', '.') }} ₫</td>
+                                            <td>{{ $priceList->duration_day }}</td>
+                                            <td>{{ $priceList->status === 1 ? 'Gói nâng cấp tài khoản' : ($priceList->status === 2 ? 'Gói tin vip' : 'Không xác định') }}
+                                            </td>
+                                            <td class="text-end">
+                                                <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
+                                                    data-kt-menu-trigger="click"
+                                                    data-kt-menu-placement="bottom-end">Hành
+                                                    động
+                                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+                                                    <span class="svg-icon svg-icon-5 m-0">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                            height="24" viewBox="0 0 24 24" fill="none">
+                                                            <path
+                                                                d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                                fill="black" />
+                                                        </svg>
+                                                    </span>
+                                                    <!--end::Svg Icon--></a>
+                                                <!--begin::Menu-->
+                                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                                                    data-kt-menu="true">
+                                                    <!--begin::Menu item-->
+                                                    <div class="menu-item px-3">
+                                                        <a href="{{ route('admin.chinh-sua-bang-gia', $priceList->id) }}"
+                                                            class="menu-link px-3">Sửa</a>
+                                                    </div>
+                                                    <!--end::Menu item-->
+                                                    <!--begin::Menu item-->
+                                                    <div class="menu-item px-3">
+                                                        <form
+                                                            action="{{ route('admin.destroy-price-list', $priceList->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="menu-link px-3 border-0 bg-transparent text-start">Xóa</button>
+                                                        </form>
+                                                    </div>
+                                                    <!--end::Menu item-->
+                                                </div>
+                                                <!--end::Menu-->
+
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 @endif
                             </tbody>
                         </table>
                         @if ($priceLists->hasPages())
-                        <nav class="mt-4">
-                            <ul class="pagination rounded-active justify-content-center">
-                                {{-- First Page Link --}}
-                                @if ($priceLists->onFirstPage())
-                                    <li class="page-item disabled">
-                                        <span class="page-link"><i class="fas fa-angle-double-left"></i></span>
-                                    </li>
-                                @else
-                                    <li class="page-item">
-                                        <a class="page-link" wire:click="gotoPage(1)" wire:loading.attr="disabled">
-                                            <i class="fas fa-angle-double-left"></i>
-                                        </a>
-                                    </li>
-                                @endif
-                    
-                                {{-- Previous Page Link --}}
-                                @if ($priceLists->onFirstPage())
-                                    <li class="page-item disabled">
-                                        <span class="page-link"><i class="fas fa-angle-left"></i></span>
-                                    </li>
-                                @else
-                                    <li class="page-item">
-                                        <a class="page-link" wire:click="previousPage" wire:loading.attr="disabled">
-                                            <i class="fas fa-angle-left"></i>
-                                        </a>
-                                    </li>
-                                @endif
-                    
-                                {{-- Pagination Elements --}}
-                                @php
-                                    $maxPages = 5; // Số lượng trang hiển thị tối đa
-                                    $startPage = max(1, $priceLists->currentPage() - floor($maxPages / 2));
-                                    $endPage = min($priceLists->lastPage(), $startPage + $maxPages - 1);
-                    
-                                    if ($endPage - $startPage < $maxPages - 1) {
-                                        $startPage = max(1, $endPage - $maxPages + 1);
-                                    }
-                                @endphp
-                    
-                                @if ($startPage > 1)
-                                    <li class="page-item">
-                                        <a class="page-link" wire:click="gotoPage(1)" wire:loading.attr="disabled">1</a>
-                                    </li>
-                                    @if ($startPage > 2)
+                            <nav class="mt-4">
+                                <ul class="pagination rounded-active justify-content-center">
+                                    {{-- First Page Link --}}
+                                    @if ($priceLists->onFirstPage())
                                         <li class="page-item disabled">
-                                            <span class="page-link">...</span>
-                                        </li>
-                                    @endif
-                                @endif
-                    
-                                @for ($page = $startPage; $page <= $endPage; $page++)
-                                    @if ($page == $priceLists->currentPage())
-                                        <li class="page-item active">
-                                            <span class="page-link">{{ $page }}</span>
+                                            <span class="page-link"><i class="fas fa-angle-double-left"></i></span>
                                         </li>
                                     @else
                                         <li class="page-item">
-                                            <a class="page-link" wire:click="gotoPage({{ $page }})" wire:loading.attr="disabled">{{ $page }}</a>
+                                            <a class="page-link" wire:click="gotoPage(1)"
+                                                wire:loading.attr="disabled">
+                                                <i class="fas fa-angle-double-left"></i>
+                                            </a>
                                         </li>
                                     @endif
-                                @endfor
-                    
-                                @if ($endPage < $priceLists->lastPage())
-                                    @if ($endPage < $priceLists->lastPage() - 1)
+
+                                    {{-- Previous Page Link --}}
+                                    @if ($priceLists->onFirstPage())
                                         <li class="page-item disabled">
-                                            <span class="page-link">...</span>
+                                            <span class="page-link"><i class="fas fa-angle-left"></i></span>
+                                        </li>
+                                    @else
+                                        <li class="page-item">
+                                            <a class="page-link" wire:click="previousPage"
+                                                wire:loading.attr="disabled">
+                                                <i class="fas fa-angle-left"></i>
+                                            </a>
                                         </li>
                                     @endif
-                                    <li class="page-item">
-                                        <a class="page-link" wire:click="gotoPage({{ $priceLists->lastPage() }})" wire:loading.attr="disabled">{{ $priceLists->lastPage() }}</a>
-                                    </li>
-                                @endif
-                    
-                                {{-- Next Page Link --}}
-                                @if ($priceLists->hasMorePages())
-                                    <li class="page-item">
-                                        <a class="page-link" wire:click="nextPage" wire:loading.attr="disabled">
-                                            <i class="fas fa-angle-right"></i>
-                                        </a>
-                                    </li>
-                                @else
-                                    <li class="page-item disabled">
-                                        <span class="page-link"><i class="fas fa-angle-right"></i></span>
-                                    </li>
-                                @endif
-                    
-                                {{-- Last Page Link --}}
-                                @if ($priceLists->hasMorePages())
-                                    <li class="page-item">
-                                        <a class="page-link" wire:click="gotoPage({{ $priceLists->lastPage() }})" wire:loading.attr="disabled">
-                                            <i class="fas fa-angle-double-right"></i>
-                                        </a>
-                                    </li>
-                                @else
-                                    <li class="page-item disabled">
-                                        <span class="page-link"><i class="fas fa-angle-double-right"></i></span>
-                                    </li>
-                                @endif
-                            </ul>
-                        </nav>
-                    @endif
-                    
-                    
-                    
+
+                                    {{-- Pagination Elements --}}
+                                    @php
+                                        $maxPages = 5; // Số lượng trang hiển thị tối đa
+                                        $startPage = max(1, $priceLists->currentPage() - floor($maxPages / 2));
+                                        $endPage = min($priceLists->lastPage(), $startPage + $maxPages - 1);
+
+                                        if ($endPage - $startPage < $maxPages - 1) {
+                                            $startPage = max(1, $endPage - $maxPages + 1);
+                                        }
+                                    @endphp
+
+                                    @if ($startPage > 1)
+                                        <li class="page-item">
+                                            <a class="page-link" wire:click="gotoPage(1)"
+                                                wire:loading.attr="disabled">1</a>
+                                        </li>
+                                        @if ($startPage > 2)
+                                            <li class="page-item disabled">
+                                                <span class="page-link">...</span>
+                                            </li>
+                                        @endif
+                                    @endif
+
+                                    @for ($page = $startPage; $page <= $endPage; $page++)
+                                        @if ($page == $priceLists->currentPage())
+                                            <li class="page-item active">
+                                                <span class="page-link">{{ $page }}</span>
+                                            </li>
+                                        @else
+                                            <li class="page-item">
+                                                <a class="page-link" wire:click="gotoPage({{ $page }})"
+                                                    wire:loading.attr="disabled">{{ $page }}</a>
+                                            </li>
+                                        @endif
+                                    @endfor
+
+                                    @if ($endPage < $priceLists->lastPage())
+                                        @if ($endPage < $priceLists->lastPage() - 1)
+                                            <li class="page-item disabled">
+                                                <span class="page-link">...</span>
+                                            </li>
+                                        @endif
+                                        <li class="page-item">
+                                            <a class="page-link" wire:click="gotoPage({{ $priceLists->lastPage() }})"
+                                                wire:loading.attr="disabled">{{ $priceLists->lastPage() }}</a>
+                                        </li>
+                                    @endif
+
+                                    {{-- Next Page Link --}}
+                                    @if ($priceLists->hasMorePages())
+                                        <li class="page-item">
+                                            <a class="page-link" wire:click="nextPage" wire:loading.attr="disabled">
+                                                <i class="fas fa-angle-right"></i>
+                                            </a>
+                                        </li>
+                                    @else
+                                        <li class="page-item disabled">
+                                            <span class="page-link"><i class="fas fa-angle-right"></i></span>
+                                        </li>
+                                    @endif
+
+                                    {{-- Last Page Link --}}
+                                    @if ($priceLists->hasMorePages())
+                                        <li class="page-item">
+                                            <a class="page-link" wire:click="gotoPage({{ $priceLists->lastPage() }})"
+                                                wire:loading.attr="disabled">
+                                                <i class="fas fa-angle-double-right"></i>
+                                            </a>
+                                        </li>
+                                    @else
+                                        <li class="page-item disabled">
+                                            <span class="page-link"><i class="fas fa-angle-double-right"></i></span>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </nav>
+                        @endif
+
+
+
                         <!--end::Table-->
                     </div>
                     <!--end::Card body-->

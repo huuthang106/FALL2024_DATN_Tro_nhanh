@@ -26,7 +26,7 @@ class PriceListComponent extends Component
         // Lọc theo từ khóa tìm kiếm
         if ($this->search) {
             $query->where('price', 'like', '%' . $this->search . '%')
-                  ->orWhere('description', 'like', '%' . $this->search . '%');
+                ->orWhere('description', 'like', '%' . $this->search . '%');
         }
 
         // Lọc theo khoảng thời gian
@@ -64,4 +64,3 @@ class PriceListComponent extends Component
         $this->resetPage();
     }
 }
-

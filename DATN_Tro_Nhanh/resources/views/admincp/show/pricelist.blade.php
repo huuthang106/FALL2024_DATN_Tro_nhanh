@@ -106,6 +106,8 @@
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:site_name" content="Trọ Nhanh">
     <meta property="og:type" content="website">
+    <meta name="success" content="{{ session('success') }}">
+    <meta name="error" content="{{ session('error') }}">
     <link rel="canonical" href="{{ url()->current() }}">
     <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">

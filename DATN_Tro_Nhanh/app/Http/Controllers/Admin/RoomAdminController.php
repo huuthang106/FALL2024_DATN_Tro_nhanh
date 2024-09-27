@@ -38,7 +38,16 @@ class RoomAdminController extends Controller
         $topRatedPosters = $this->indexAdminService->getTopRatedPosters();
         // Lấy 4 báo cáo 
         $latestReports = $this->indexAdminService->getLatestReports();
-        return view('admincp.show.index', compact('roomsCountByCategoryType', 'recentUsers', 'topPackages', 'monthlyRevenue', 'topRatedPosters', 'latestReports'));
+        // Lấy danh sách loại phòng
+        $roomsCountByCategoryType = $this->indexAdminService->getRoomsCountByCategoryType();
+        // Lấy tổng số phòng
+        $totalRooms = $this->indexAdminService->getTotalRooms();
+        // Lấy tổng số loại phòng
+        $totalCategories = $this->indexAdminService->getTotalCategories();
+        $topCategories = $this->indexAdminService->getTopCategories();
+        // Lấy tổng số lượng mua gói trong năm và so sánh giữa các tháng
+        $packageStatistics = $this->indexAdminService->getPackagePurchaseStatistics();
+        return view('admincp.show.index', compact('roomsCountByCategoryType', 'recentUsers', 'topPackages', 'monthlyRevenue', 'topRatedPosters', 'latestReports', 'roomsCountByCategoryType', 'totalRooms', 'totalCategories', 'topCategories', 'packageStatistics'));
     }
     public function getDashboardStats(IndexAdminService $indexAdminService)
     {
@@ -73,7 +82,7 @@ class RoomAdminController extends Controller
     public function restore($id)
     {
         $this->roomAdminService->restoreRoom($id);
-        return redirect()->route('admin.show-room')->with('success', 'Phòng đã được khôi phục.');
+        return redirect()->route('admin.room-available-all')->with('success', 'Phòng đã được khôi phục.');
     }
 
     public function forceDelete($id)

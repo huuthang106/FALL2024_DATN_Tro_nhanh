@@ -63,10 +63,10 @@ class BlogAdminController extends Controller
         $result = $this->BlogService->updateBlog($request, $id);
         if ($result) {
             // Cập nhật thành công, chuyển hướng hoặc thông báo
-            return redirect()->route('admin.show-blog')->with('success', 'Cập nhật phòng thành công.');
+            return redirect()->route('admin.show-blog')->with('success', 'Cập nhật Blog thành công.');
         } else {
             // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
-            return back()->with('error', 'Cập nhật phòng thất bại.');
+            return back()->with('error', 'Cập nhật Blog thất bại.');
         }
     }
 

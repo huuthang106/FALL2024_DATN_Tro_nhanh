@@ -7,6 +7,8 @@ use Carbon\Carbon;
 use App\Models\CartDetail;
 use App\Models\Comment;
 use App\Models\Report;
+use App\Models\Room;
+use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -30,7 +32,8 @@ class IndexAdminService
                     'email' => $user->email,
                     'created_at' => $user->created_at,
                     'time_ago' => $this->getTimeAgo($user->created_at),
-                    'image' => $user->image
+                    'image' => $user->image,
+                    'slug' => $user->slug,
                 ];
             });
     }
@@ -152,5 +155,76 @@ class IndexAdminService
             ->orderBy('reports.created_at', 'desc')
             ->take($limit)
             ->get();
+    }
+    // Danh sách loại phòng
+    public function getRoomsCountByCategoryType()
+    {
+        return Room::join('categories', 'rooms.category_id', '=', 'categories.id')
+            ->selectRaw('categories.name as category_name, count(*) as count')
+            ->groupBy('categories.id', 'categories.name')
+            ->orderByDesc('count')  // Sắp xếp theo số lượng phòng giảm dần
+            ->pluck('count', 'category_name')
+            ->toArray();
+    }
+    // Tổng số phòng
+    public function getTotalRooms()
+    {
+        return Room::count();
+    }
+    // Tổng số loại phòng
+    public function getTotalCategories()
+    {
+        return Category::count();
+    }
+    public function getTopCategories($limit = 2)
+    {
+        return Category::withCount('rooms')
+            ->orderByDesc('rooms_count')
+            ->take($limit)
+            ->pluck('name');
+    }
+    // số lượng mua gói theo tháng trong năm hiện tại, cho phép so sánh giữa các tháng và tính toán tỷ lệ tăng trưởng.
+    public function getPackagePurchaseStatistics()
+    {
+        // Lấy năm và tháng hiện tại
+        $currentYear = Carbon::now()->year;
+        $currentMonth = Carbon::now()->month;
+
+        // Truy vấn database để lấy số lượng mua gói theo tháng trong năm hiện tại
+        $result = CartDetail::selectRaw('MONTH(created_at) as month, COUNT(*) as purchases')
+            ->whereYear('created_at', $currentYear)
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get()
+            ->pluck('purchases', 'month')
+            ->toArray();
+
+        // Khởi tạo mảng chứa số lượng mua gói cho 12 tháng, mặc định là 0
+        $monthlyPurchases = array_fill(1, 12, 0);
+
+        // Cập nhật số lượng mua gói cho các tháng có dữ liệu
+        foreach ($result as $month => $purchases) {
+            $monthlyPurchases[$month] = (int) $purchases;
+        }
+
+        // Tính tổng số lượng mua gói trong năm
+        $totalPurchases = array_sum($monthlyPurchases);
+
+        // Lấy số lượng mua gói của tháng hiện tại và tháng trước
+        $currentMonthPurchases = $monthlyPurchases[$currentMonth] ?? 0;
+        $lastMonthPurchases = $monthlyPurchases[$currentMonth - 1] ?? 0;
+
+        // Tính phần trăm tăng trưởng so với tháng trước
+        $increasePercentage = $lastMonthPurchases > 0
+            ? round((($currentMonthPurchases - $lastMonthPurchases) / $lastMonthPurchases) * 100, 2)
+            : ($currentMonthPurchases > 0 ? 100 : 0);
+
+        // Trả về mảng chứa các thông tin thống kê
+        return [
+            'totalPurchases' => $totalPurchases,            // Tổng số lượt mua gói trong năm
+            'currentMonthPurchases' => $currentMonthPurchases,  // Số lượt mua gói tháng hiện tại
+            'purchaseIncreasePercentage' => $increasePercentage,  // Phần trăm tăng trưởng so với tháng trước
+            'monthlyPurchases' => $monthlyPurchases         // Mảng chứa số lượng mua gói của từng tháng
+        ];
     }
 }
