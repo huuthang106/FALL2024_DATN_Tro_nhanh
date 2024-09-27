@@ -147,3 +147,19 @@
         </div>
     @endif
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('livewire:initialized', () => {
+        Livewire.on('showAlert', (data) => {
+            Swal.fire({
+                icon: data[0].type,
+                title: data[0].title,
+                text: data[0].message,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.dispatch('$refresh');
+                }
+            });
+        });
+    });
+    </script>

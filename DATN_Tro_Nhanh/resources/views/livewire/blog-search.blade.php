@@ -33,9 +33,7 @@
                                     class="fal fa-search"></i></button>
                         </div>
                     </div>
-                    <div class="align-self-center">
-                        <button class="btn btn-danger btn-lg" tabindex="0"><span>Xóa</span></button>
-                    </div>
+                    
                 </div>
             </div>
         </div>

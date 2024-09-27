@@ -37,11 +37,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="align-self-center">
-                            <button class="btn btn-danger btn-lg" tabindex="0" aria-controls="invoice-list">
-                                <span>Xóa</span>
-                            </button>
-                        </div>
+                       
                     </div>
                 </div>
             </div>

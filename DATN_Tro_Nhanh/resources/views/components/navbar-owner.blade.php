@@ -78,9 +78,9 @@
                         <ul class="list-group list-group-no-border rounded-lg">
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                 <a href="{{ route('owners.profile.dashboard') }}"
-                                    class="text-heading lh-1 sidebar-link">
-                                    <span class="sidebar-item-icon d-inline-block mr-3 fs-20"><i
-                                            class="fal fa-cog"></i></span>
+                                    class="text-heading lh-1 sidebar-link"
+                                    data-route="owners.profile.dashboard">
+                                    <span class="sidebar-item-icon d-inline-block mr-3 fs-20"><i class="fal fa-cog"></i></span>
                                     <span class="sidebar-item-text">Trang điều khiển</span>
                                 </a>
                             </li>
@@ -109,15 +109,16 @@
                                         <ul class="list-group list-group-flush list-group-no-border">
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"
-                                                    href="{{ route('owners.properties') }}">Danh sách trọ</a>
+                                                    href="{{ route('owners.properties') }}"
+                                                    data-route="owners.properties">Danh sách trọ</a>
                                             </li>
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"
-                                                    href="{{ route('owners.add-room') }}">Thêm mới trọ</a>
+                                                    href="{{ route('owners.add-room') }}"  data-route="owners.add-room">Thêm mới trọ</a>
                                             </li>
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"
-                                                    href="{{ route('owners.trash') }}">Thùng rác</a>
+                                                    href="{{ route('owners.trash') }}" data-route="owners.trash">Thùng rác</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -125,10 +126,10 @@
 
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                     <a href="#collapseKhuTrọ"
-                                        class="text-heading lh-1 sidebar-link d-flex align-items-center" d
+                                        class="text-heading lh-1 sidebar-link d-flex align-items-center"
                                         onclick="toggleDropdown('collapseKhuTrọ'); return false;">
                                         <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                            <svg class="icon icon-my-properties">
+                                            <svg  class="icon icon-my-properties">
                                                 <use xlink:href="#icon-my-properties"></use>
                                             </svg>
                                         </span>
@@ -136,27 +137,20 @@
                                         <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
                                     </a>
                                 </li>
-
                                 <div class="collapse-content" id="collapseKhuTrọ">
                                     <div class="card card-body border-0 bg-transparent py-0 pl-6">
                                         <ul class="list-group list-group-flush list-group-no-border">
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"
-                                                    href="{{ route('owners.zone-list') }}">Danh sách khu trọ</a>
+                                                    href="{{ route('owners.zone-list') }}" data-route="owners.zone-list">Danh sách khu trọ</a>
                                             </li>
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"
-                                                    href="{{ route('owners.participation-list') }}">Danh đơn khu
-                                                    trọ</a>
+                                                    href="{{ route('owners.participation-list') }}" data-route="owners.participation-list">Danh đơn khu trọ</a>
                                             </li>
-                                            {{-- <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                                <a class="text-heading lh-1 sidebar-link"
-                                                    href="{{ route('owners.zone-post') }}">Thêm mới
-                                                    khu trọ</a>
-                                            </li> --}}
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"
-                                                    href="{{ route('owners.trash-zone') }}">Thùng rác</a>
+                                                    href="{{ route('owners.trash-zone') }}" data-route="owners.trash-zone">Thùng rác</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -179,16 +173,16 @@
                                         <ul class="list-group list-group-flush list-group-no-border">
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"
-                                                    href="{{ route('owners.show-blog') }}">Danh sách blog</a>
+                                                    href="{{ route('owners.show-blog') }}" data-route="owners.show-blog">Danh sách blog</a>
                                             </li>
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"
-                                                    href="{{ route('owners.blog') }}">Thêm mới
+                                                    href="{{ route('owners.blog') }}" data-route="owners.blog">Thêm mới
                                                     blog</a>
                                             </li>
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"
-                                                    href="{{ route('owners.trash-blog') }}">Thùng rác</a>
+                                                    href="{{ route('owners.trash-blog') }}" data-route="owners.trash-blog">Thùng rác</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -211,11 +205,11 @@
                                         <ul class="list-group list-group-flush list-group-no-border">
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"
-                                                    href="{{ route('owners.list-owner-fix') }}">Danh sách sửa chữa</a>
+                                                    href="{{ route('owners.list-owner-fix') }}" data-route="owners.list-owner-fix">Danh sách sửa chữa</a>
                                             </li>
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"
-                                                    href="{{ route('owners.trash-maintenances') }}">Thùng rác</a>
+                                                    href="{{ route('owners.trash-maintenances') }}" data-route="owners.trash-maintenances">Thùng rác</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -244,13 +238,13 @@
                                         <ul class="list-group list-group-flush list-group-no-border">
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"
-                                                    href="{{ route('owners.danhgia') }}">Danh sách đánh giá</a>
+                                                    href="{{ route('owners.danhgia') }}" data-route="owners.danhgia">Danh sách đánh giá</a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                    <a href="{{ route('owners.invoice-bill') }}" class="text-heading lh-1 sidebar-link d-flex align-items-center">
+                                    <a href="{{ route('owners.invoice-bill') }}" data-route="owners.invoice-bill" class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                         <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                             <i class="fal fa-file-invoice"></i>
                                         </span>
@@ -284,11 +278,11 @@
                                     <ul class="list-group list-group-flush list-group-no-border">
                                         <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                             <a class="text-heading lh-1 sidebar-link"
-                                                href="{{ route('owners.is-following') }}">Follower</a>
+                                                href="{{ route('owners.is-following') }}" data-route="owners.is-following">Follower</a>
                                         </li>
                                         <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                             <a class="text-heading lh-1 sidebar-link"
-                                                href="{{ route('owners.watch-list') }}">Đang follow</a>
+                                                href="{{ route('owners.watch-list') }}" data-route="owners.watch-list">Đang follow</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -312,15 +306,15 @@
                                     <ul class="list-group list-group-flush list-group-no-border">
                                         <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                             <a class="text-heading lh-1 sidebar-link"
-                                                href="{{ route('owners.house-is-staying') }}">Phòng đang ở </a>
+                                                href="{{ route('owners.house-is-staying') }}" data-route="owners.house-is-staying">Phòng đang ở </a>
                                         </li>
                                         <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                             <a class="text-heading lh-1 sidebar-link"
-                                                href="{{ route('owners.application-form') }}">Đơn tham gia trọ</a>
+                                                href="{{ route('owners.application-form') }}" data-route="owners.application-form">Đơn tham gia trọ</a>
                                         </li>
                                         <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                             <a class="text-heading lh-1 sidebar-link"
-                                                href="{{ route('owners.show-fix') }}">Đơn sửa chữa</a>
+                                                href="{{ route('owners.show-fix') }}" data-route="owners.show-fix">Đơn sửa chữa</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -343,12 +337,12 @@
                                     <ul class="list-group list-group-flush list-group-no-border">
                                         <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                             <a class="text-heading lh-1 sidebar-link"
-                                                href="{{ route('owners.profile.resigter-ekyc') }}">Bổ sung thông
+                                                href="{{ route('owners.profile.resigter-ekyc') }}" data-route="owners.profile.resigter-ekyc">Bổ sung thông
                                                 tin</a>
                                         </li>
                                         <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                             <a class="text-heading lh-1 sidebar-link"
-                                                href="{{ route('owners.profile.information-ekyc') }}">Chi tiết thông
+                                                href="{{ route('owners.profile.information-ekyc') }}" data-route="owners.profile.information-ekyc">Chi tiết thông
                                                 tin</a>
                                         </li>
                                     </ul>
@@ -368,7 +362,7 @@
                                 </a>
                             </li> --}}
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{ route('owners.invoice-listing') }}"
+                                <a href="{{ route('owners.invoice-listing') }}" data-route="owners.invoice-listing"
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-heart">
@@ -379,7 +373,7 @@
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{ route('owners.profile.resigter-owner') }}"
+                                <a href="{{ route('owners.profile.resigter-owner') }}" data-route="owners.profile.resigter-owner"
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-heart">
@@ -401,7 +395,7 @@
                                 </a>
                             </li> -->
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{ Route('owners.favorites') }}"
+                                <a href="{{ Route('owners.favorites') }}" data-route="owners.favorites"
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-heart">
@@ -414,7 +408,7 @@
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{ Route('owners.chat-owners') }}"
+                                <a href="{{ Route('owners.chat-owners') }}" data-route="owners.chat-owners"
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-heart">
@@ -428,7 +422,7 @@
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{ route('owners.lich-su-giao-dich') }}"
+                                <a href="{{ route('owners.lich-su-giao-dich') }}" data-route="owners.lich-su-giao-dich"
                                     class="text-heading lh-1 sidebar-link">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-my-profile">
@@ -440,7 +434,7 @@
                             </li>
 
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{ route('owners.profile.profile-admin-index') }}"
+                                <a href="{{ route('owners.profile.profile-admin-index') }}" data-route="owners.profile.profile-admin-index"
                                     class="text-heading lh-1 sidebar-link">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-my-profile">
@@ -451,7 +445,7 @@
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{ route('client.payment-recharge') }}"
+                                <a href="{{ route('client.payment-recharge') }}" data-route="client.payment-recharge"
                                     class="text-heading lh-1 sidebar-link">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-my-profile">
@@ -462,7 +456,7 @@
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{ route('client.home') }}" class="text-heading lh-1 sidebar-link">
+                                <a href="{{ route('client.home') }}" data-route="client.home" class="text-heading lh-1 sidebar-link">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-my-profile">
                                             <use xlink:href="#icon-my-profile"></use>
@@ -473,7 +467,7 @@
                             </li>
 
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                <a href="{{ route('client.logout') }}" class="text-heading lh-1 sidebar-link"
+                                <a href="{{ route('client.logout') }}" data-route="client.logout" class="text-heading lh-1 sidebar-link"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                         <svg class="icon icon-log-out">
@@ -537,12 +531,12 @@
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right w-100">
-                            <a class="dropdown-item" href="{{ route('owners.profile.profile-admin-index') }}">Thông
+                            <a class="dropdown-item" href="{{ route('owners.profile.profile-admin-index') }}" data-route="owners.profile.profile-admin-index">Thông
                                 tin</a>
                             <a class="dropdown-item"
-                                href="{{ route('owners.profile.reset-password-admin-index') }}">Đổi mật khẩu</a>
+                                href="{{ route('owners.profile.reset-password-admin-index') }}" data-route="owners.profile.reset-password-admin-index">Đổi mật khẩu</a>
                             <a class="dropdown-item" href="#"
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();" >Đăng
                                 xuất</a>
                         </div>
                     </div>
@@ -587,3 +581,7 @@
             </nav>
         </div>
     </header>
+   
+
+
+

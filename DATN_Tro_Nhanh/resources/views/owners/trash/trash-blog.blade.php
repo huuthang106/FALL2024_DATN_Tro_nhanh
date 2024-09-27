@@ -131,6 +131,7 @@
     </script>
     <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
     <script src="{{ asset('assets/js/alert-report.js') }}"></script>
-    
+   
+   
     @livewireScripts
 @endpush

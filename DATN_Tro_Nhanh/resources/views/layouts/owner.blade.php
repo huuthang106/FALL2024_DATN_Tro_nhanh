@@ -9,6 +9,20 @@
     @stack('styleOwners')
     <link rel="stylesheet" href="{{ asset('assets/css/mh.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style-ntt.css') }}">
+    <style>
+
+       
+
+        .active-item {
+            
+            color: #18dfe6 !important;
+      
+        }
+
+        .active-item>a {
+            color: #18dfe6 !important;
+        }
+    </style>
     @livewireStyles
 </head>
 
@@ -518,5 +532,41 @@
 </body>
 @stack('scriptOwners')
 @livewireScripts
+<script>
+    function toggleDropdown(id) {
+        const element = document.getElementById(id);
+        if (element) {
+            element.classList.toggle('show');
+            localStorage.setItem(id, element.classList.contains('show'));
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdowns = [
+            'collapseTrọ', 'collapseKhuTrọ', 'collapseBlog', 'collapseEdit',
+            'collapseCmt', 'collapseLike', 'collapseEditUnique', 'collapseAccount'
+        ];
+
+     
+
+        const currentRoute = '{{ Route::currentRouteName() }}';
+    const menuItems = document.querySelectorAll('.sidebar-link');
+    menuItems.forEach(item => {
+        const itemRoute = item.getAttribute('data-route');
+        if (itemRoute && (currentRoute === itemRoute || currentRoute.startsWith(itemRoute + '.'))) {
+            item.classList.add('active-item');
+            // Mở dropdown chứa mục active (nếu có)
+            const parentDropdown = item.closest('.collapse-content');
+            if (parentDropdown) {
+                parentDropdown.classList.add('show');
+                const parentToggle = parentDropdown.previousElementSibling;
+                if (parentToggle) {
+                    parentToggle.classList.add('active-item');
+                }
+            }
+        }
+    });
+    });
+</script>
 
 </html>

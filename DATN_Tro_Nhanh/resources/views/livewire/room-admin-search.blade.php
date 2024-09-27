@@ -23,7 +23,7 @@
                             </span>
                             <!--end::Svg Icon-->
                             <input type="text" wire:model.lazy="search" wire:keydown.debounce.300ms="$refresh"
-                                name="search" placeholder="Search room"
+                                name="search" placeholder="Tìm trọ"
                                 class="form-control form-control-solid w-250px ps-14" />
                         </div>
                         <!--end::Search-->

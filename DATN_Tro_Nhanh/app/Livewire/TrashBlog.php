@@ -72,6 +72,11 @@ public function forceDeleteBlog($id)
 {
     $blog = Blog::withTrashed()->findOrFail($id);
     $blog->forceDelete(); // Xóa vĩnh viễn blog
-    session()->flash('message', 'Blog đã được xóa vĩnh viễn!'); // Thông báo thành công
+    
+    $this->dispatch('showAlert', [
+        'type' => 'success',
+        'title' => 'Thành công!',
+        'message' => 'Blog đã được xóa vĩnh viễn!'
+    ]); // Gửi sự kiện để hiển thị SweetAlert
 }
 }
