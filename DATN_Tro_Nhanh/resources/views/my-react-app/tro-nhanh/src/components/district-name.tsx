@@ -1,17 +1,17 @@
 import React from "react";
 import { FunctionComponent, useMemo } from "react";
 import { useRecoilValue } from "recoil";
-import { districtsState } from "../state";
+import { categories_State } from "../state";
 
 interface DistrictNameProps {
   id: number;
 }
 
 const DistrictName: FunctionComponent<DistrictNameProps> = ({ id }) => {
-  const districts = useRecoilValue(districtsState);
+  const categories = useRecoilValue(categories_State);
   const name = useMemo(() => {
-    return districts.find((d) => d.id === id)?.name ?? "";
-  }, [id, districts]);
+    return categories.find((d) => d.id === id)?.name ?? "";
+  }, [id, categories]);
   return <>{name}</>;
 };
 

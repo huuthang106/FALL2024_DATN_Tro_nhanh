@@ -21,12 +21,12 @@ function Popular() {
   return (
     <>
       <Box mx={4} mt={6}>
-        <Header className="mt-6 mb-3 font-semibold">Địa điểm phổ biến</Header>
+        <Header className="mt-6 mb-3 font-semibold">Các tin nổi bật</Header>
       </Box>
       {populars.length ? (
         <div className="overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar">
           <Box m={0} pr={4} flex className="w-max">
-            {populars.map((restaurant) => (
+          {populars.map((restaurant) => (
               <Box
                 key={restaurant.id}
                 ml={4}
@@ -81,7 +81,7 @@ function Welcome() {
       </Avatar>
       <Text size="small">{user.name ? <>Chào, {user.name}!</> : "..."}</Text>
       <Text className="text-[25px] leading-[29px] font-bold">
-        Hôm nay bạn muốn ăn ở đâu?
+        TÌm nơi ở cùng chúng tôi
       </Text>
     </>
   );

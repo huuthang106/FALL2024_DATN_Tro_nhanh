@@ -253,4 +253,57 @@ class RoomClientServices
             return null;
         }
     }
+
+    public function getAllRoomInCategory(int $perPage = 10,  $type = null,$searchTerm = null, $province = null, $district = null, $village = null, $category = null)
+    {
+        try {
+            $query = Room::join('users', 'rooms.user_id', '=', 'users.id')
+                ->leftJoin('images', 'rooms.id', '=', 'images.room_id') // Thêm join với bảng images
+                ->where('rooms.status', self::status)
+                ->withCount('images')
+                ->select('rooms.*', 'images.filename as image_url') // Lấy thêm trường hình ảnh
+                ->orderByDesc('rooms.created_at');
+                // Nếu có loại phòng, thêm điều kiện vào truy vấn
+             if ($type) {
+                $query->whereHas('category', function ($q) use ($type) {
+                    $q->where('name', $type); // Lọc theo tên loại phòng trong bảng category
+                });
+            }
+
+            if ($searchTerm) {
+                $query->where(function ($q) use ($searchTerm) {
+                    $q->where('rooms.title', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('rooms.description', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('rooms.address', 'like', '%' . $searchTerm . '%');
+                });
+            }
+
+
+            // Nếu có tỉnh, huyện, xã, thêm điều kiện vào truy vấn
+            if ($province) {
+                $query->where('rooms.province', $province);
+            }
+            if ($district) {
+                $query->where('rooms.district', $district);
+            }
+            if ($village) {
+                $query->where('rooms.village', $village);
+            }
+
+            if ($category) {
+                Log::info('Applying category filter: ' . $category); // Thêm log để kiểm tra
+                $query->where('rooms.category_id', $category);
+            }
+
+            $result = $query->get();
+            Log::info('SQL Query: ' . $query->toSql());
+            Log::info('SQL Bindings: ' . json_encode($query->getBindings()));
+            return $result;
+        } catch (Exception $e) {
+            Log::error('Error in getAllRoom: ' . $e->getMessage());
+            return null;
+        }
+    }
+
+
 }

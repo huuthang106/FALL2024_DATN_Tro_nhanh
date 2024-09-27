@@ -1,22 +1,33 @@
 export interface Restaurant {
-  id: number;
-  name: string;
-  districtId: number;
+  id: number; // ID của sản phẩm
+  title: string; // Tiêu đề của sản phẩm
+  description: string; // Mô tả của sản phẩm
+  expiration_date: string; // Ngày hết hạn
+  price: number; // Giá của sản phẩm
+  phone: string; // Số điện thoại liên hệ
+  address: string; // Địa chỉ của sản phẩm
+  quantity: number; // Số lượng sản phẩm
+  longitude: string; // Kinh độ
+  latitude: string; // Vĩ độ
+  view: number; // Số lượt xem
+  slug: string; // Slug cho sản phẩm
+  status: number; // Trạng thái của sản phẩm
+  user_id: number; // ID của người dùng
+  acreages_id: number | null; // ID của diện tích (có thể null)
+  acreage: string; // Diện tích
+  price_id: number | null; // ID của giá (có thể null)
+  category_id: number; // ID của danh mục
+  location_id: number; // ID của vị trí
+  zone_id: number | null; // ID của khu vực (có thể null)
+  tenant_id: number | null; // ID của người thuê (có thể null)
+  deleted_at: string | null; // Thời gian xóa (có thể null)
+  created_at: string; // Thời gian tạo
+  updated_at: string; // Thời gian cập nhật
+  province: string; // ID của tỉnh
+  district: string; // ID của quận
+  village: string; // ID của làng
   location: Location;
-  views: number;
-  image: string;
-  address: string;
-  hours: {
-    opening: Hours;
-    closing: Hours;
-  };
-  days: {
-    opening: number;
-    closing: number;
-  };
-  hotline: string;
-  map: string;
-  rating: number;
+  image_url: string;
 }
 
 export interface District {

@@ -15,13 +15,25 @@ class HomeClientController extends Controller
     {
         $this->roomClientService = $roomClientService;
     }
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         $rooms = $this->roomClientService->getRoomWhere();
         $roomClient = $this->roomClientService->RoomClient();
         $locations = $this->roomClientService->getUniqueLocations();
         $categories = $this->roomClientService->getCategories();
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'roomClient' => $roomClient,
+                'categories' => $categories,
+                'rooms' => $rooms,
+                'provinces' => $locations['provinces'],
+                'districts' => $locations['districts'],
+                'villages' => $locations['villages'],
+                'province' => request()->input('province', '')
+            ]);
+        }
+        
         return view('client.show.home', [
             'roomClient' => $roomClient,
             'categories' => $categories,
@@ -33,6 +45,7 @@ class HomeClientController extends Controller
         ]);
        
     }
+    
     // Giao diện Về Chúng Tôi
     public function showAbout()
     {

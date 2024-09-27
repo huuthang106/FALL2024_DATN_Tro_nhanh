@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Restaurant } from "../models";
 import Distance from "./distance";
 import DistrictName from "./district-name";
+const apiEndpoint ='https://b982-117-3-121-91.ngrok-free.app';
 
 const { Title } = Text;
 
@@ -41,16 +42,16 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
       >
         <div className="aspect-cinema relative w-full">
           <img
-            src={restaurant.image}
+            src={`${apiEndpoint}/assets/images/${restaurant.image_url}`}
             className="absolute w-full h-full object-cover"
           />
         </div>
-        <div className="absolute left-3 top-3 py-1 px-3 space-x-1 flex items-center font-semibold text-sm text-white bg-primary rounded-full">
+        {/* <div className="absolute left-3 top-3 py-1 px-3 space-x-1 flex items-center font-semibold text-sm text-white bg-primary rounded-full">
           <Icon icon="zi-star-solid" className="text-yellow-400" size={16} />
           <span>{restaurant.rating}</span>
-        </div>
+        </div> */}
         <Title size="small" className="mt-2 mb-0 mx-4">
-          {restaurant.name}
+          {restaurant.title}
         </Title>
         <Box flex mt={0} mb={2}>
           <Button
@@ -62,7 +63,7 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
             variant="tertiary"
           >
             <span className="text-gray-500">
-              <DistrictName id={restaurant.districtId} />
+              <DistrictName id={restaurant.id} />
             </span>
           </Button>
           <Button
@@ -86,13 +87,13 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
       <Box m={0} flex>
         <div className="flex-none aspect-card relative w-32">
           <img
-            src={restaurant.image}
+            src={`${apiEndpoint}/assets/images/${restaurant.image_url}`}
             className="absolute w-full h-full object-cover rounded-xl"
           />
         </div>
         <Box my={4} mx={5} className="min-w-0">
           {before}
-          <Title size="small">{restaurant.name}</Title>
+          <Title size="small">{restaurant.title}</Title>
           {after}
           <Box mx={0} mb={0} flex>
             <Button
@@ -104,7 +105,7 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
               variant="tertiary"
             >
               <span className="text-gray-500 font-semibold">
-                {restaurant.rating}
+                {restaurant.view}
               </span>
             </Button>
             <Button

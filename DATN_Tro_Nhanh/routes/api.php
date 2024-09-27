@@ -9,6 +9,8 @@ use App\Http\Controllers\Client\HomeClientController;
 use App\Http\Controllers\Client\UserClientController;
 use App\Http\Controllers\Client\ZoneClientController;
 use App\Http\Controllers\Client\BlogClientController;
+use App\Http\Controllers\Client\CategoryClientController;
+
 
 
 
@@ -32,4 +34,6 @@ Route::post('/credit', [TransactionOwnersController::class, 'index']);  // api t
     
     Route::get('/get-data-room-detail/{slug}', [RoomClientController::class, 'page_detail']); // lấy dữ liệu xem chi tiết room
    
+    Route::get('/get-data-category', [CategoryClientController::class, 'getCategory']); // lấy dữ liệu xem chi tiết room
+    Route::get('/get-data-room-category', [RoomClientController::class, 'getRoomInCategory']); // lấy dữ liệu xem chi tiết room
 

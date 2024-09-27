@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Button, Input } from "zmp-ui";
-import { districtsState, keywordState, selectedDistrictState } from "../state";
+import { categories_State, keywordState, selectedCategoryState } from "../state";
 
 function Inquiry() {
   const [localKeyword, setLocalKeyword] = useState("");
@@ -20,9 +20,9 @@ function Inquiry() {
 
 export function QuickFilter() {
   const [selectedDistrict, setSelectedDistrict] = useRecoilState(
-    selectedDistrictState
+    selectedCategoryState
   );
-  const districts = useRecoilValue(districtsState);
+  const caterories = useRecoilValue(categories_State);
 
   return (
     <div className="overflow-auto no-scrollbar snap-x snap-mandatory mt-4">
@@ -36,16 +36,16 @@ export function QuickFilter() {
         >
           Tất cả
         </Button>
-        {districts.map((district) => (
+        {caterories.map((category) => (
           <Button
-            key={district.id}
+            key={category.id}
             size="small"
             type="highlight"
-            variant={selectedDistrict === district.id ? "primary" : "secondary"}
+            variant={selectedDistrict === category.id ? "primary" : "secondary"}
             className="mr-3 snap-start"
-            onClick={() => setSelectedDistrict(district.id)}
+            onClick={() => setSelectedDistrict(category.id)}
           >
-            {district.name}
+            {category.name}
           </Button>
         ))}
       </div>

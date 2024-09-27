@@ -223,4 +223,11 @@ class RoomClientController extends Controller
             'message' => $status === 'added' ? 'Phòng đã được thêm vào danh sách yêu thích!' : 'Phòng đã được xóa khỏi danh sách yêu thích!'
         ]);
     }
+
+
+    public function getRoomInCategory(Request $request){
+        $rooms = $this->roomClientService->getAllRoomInCategory();
+        return response()->json(['rooms' => $rooms]);
+    }
+
 }

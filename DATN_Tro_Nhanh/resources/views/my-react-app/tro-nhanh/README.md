@@ -1,4 +1,4 @@
-# ZaUI Restaurant
+# Trọ Nhanh
 
 <p style="display: flex; flex-wrap: wrap; gap: 4px">
   <img alt="react" src="https://img.shields.io/github/package-json/dependency-version/Zalo-MiniApp/zaui-restaurant/react" />
@@ -90,7 +90,7 @@ Just change the `app.title` property in `app-config.json`:
 ```json
 {
   "app": {
-    "title": "ZaUI Restaurant"
+    "title": "Trọ Nhanh"
   }
 }
 ```

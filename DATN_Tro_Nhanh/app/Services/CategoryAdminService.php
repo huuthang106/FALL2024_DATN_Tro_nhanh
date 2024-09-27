@@ -192,4 +192,8 @@ class CategoryAdminService
             'message' => 'Loại phòng đã được xóa vĩnh viễn thành công.'
         ];
     }
+
+    public function getCategoryClient($status){
+        return Category::where('status', $status)->get();
+    }
 }
