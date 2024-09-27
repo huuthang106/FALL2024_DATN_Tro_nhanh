@@ -47,8 +47,9 @@
                                         class="form-control custom-select bg-transparent border-bottom rounded-0 border-color-input"
                                         title="Chọn" data-style="p-0 h-24 lh-17 text-dark" name="category">
                                         <option value="">Tất cả loại phòng</option>
-                                        @foreach($categories as $category)
-                                            <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}"
+                                                {{ request('category') == $category->id ? 'selected' : '' }}>
                                                 {{ $category->name }}
                                             </option>
                                         @endforeach
@@ -231,78 +232,80 @@
                                     <div class="col-sm-6 pt-4 px-2">
                                         {{-- <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Tất cả
                                             thành phố</label> --}}
-                                            <select
+                                        <select
                                             class="form-control custom-select bg-transparent border-bottom rounded-0 border-color-input"
                                             id="city-province" title="Tất cả thành phố" name="province"
                                             data-style="p-0 h-24 lh-17 text-dark">
                                             <option value='0'>Chọn Tỉnh/Thành Phố...</option>
-                                            @foreach([
-                                                '01' => 'Thành phố Hà Nội',
-                                                '79' => 'Thành phố Hồ Chí Minh',
-                                                '31' => 'Thành phố Hải Phòng',
-                                                '48' => 'Thành phố Đà Nẵng',
-                                                '92' => 'Thành phố Cần Thơ',
-                                                '02' => 'Tỉnh Hà Giang',
-                                                '04' => 'Tỉnh Cao Bằng',
-                                                '06' => 'Tỉnh Bắc Kạn',
-                                                '08' => 'Tỉnh Tuyên Quang',
-                                                '10' => 'Tỉnh Lào Cai',
-                                                '11' => 'Tỉnh Điện Biên',
-                                                '12' => 'Tỉnh Lai Châu',
-                                                '14' => 'Tỉnh Sơn La',
-                                                '15' => 'Tỉnh Yên Bái',
-                                                '17' => 'Tỉnh Hoà Bình',
-                                                '19' => 'Tỉnh Thái Nguyên',
-                                                '20' => 'Tỉnh Lạng Sơn',
-                                                '22' => 'Tỉnh Quảng Ninh',
-                                                '24' => 'Tỉnh Bắc Giang',
-                                                '25' => 'Tỉnh Phú Thọ',
-                                                '26' => 'Tỉnh Vĩnh Phúc',
-                                                '27' => 'Tỉnh Bắc Ninh',
-                                                '30' => 'Tỉnh Hải Dương',
-                                                '33' => 'Tỉnh Hưng Yên',
-                                                '34' => 'Tỉnh Thái Bình',
-                                                '35' => 'Tỉnh Hà Nam',
-                                                '36' => 'Tỉnh Nam Định',
-                                                '37' => 'Tỉnh Ninh Bình',
-                                                '38' => 'Tỉnh Thanh Hóa',
-                                                '40' => 'Tỉnh Nghệ An',
-                                                '42' => 'Tỉnh Hà Tĩnh',
-                                                '44' => 'Tỉnh Quảng Bình',
-                                                '45' => 'Tỉnh Quảng Trị',
-                                                '46' => 'Tỉnh Thừa Thiên Huế',
-                                                '49' => 'Tỉnh Quảng Nam',
-                                                '51' => 'Tỉnh Quảng Ngãi',
-                                                '52' => 'Tỉnh Bình Định',
-                                                '54' => 'Tỉnh Phú Yên',
-                                                '56' => 'Tỉnh Khánh Hòa',
-                                                '58' => 'Tỉnh Ninh Thuận',
-                                                '60' => 'Tỉnh Bình Thuận',
-                                                '62' => 'Tỉnh Kon Tum',
-                                                '64' => 'Tỉnh Gia Lai',
-                                                '66' => 'Tỉnh Đắk Lắk',
-                                                '67' => 'Tỉnh Đắk Nông',
-                                                '68' => 'Tỉnh Lâm Đồng',
-                                                '70' => 'Tỉnh Bình Phước',
-                                                '72' => 'Tỉnh Tây Ninh',
-                                                '74' => 'Tỉnh Bình Dương',
-                                                '75' => 'Tỉnh Đồng Nai',
-                                                '77' => 'Tỉnh Bà Rịa - Vũng Tàu',
-                                                '80' => 'Tỉnh Long An',
-                                                '82' => 'Tỉnh Tiền Giang',
-                                                '83' => 'Tỉnh Bến Tre',
-                                                '84' => 'Tỉnh Trà Vinh',
-                                                '86' => 'Tỉnh Vĩnh Long',
-                                                '87' => 'Tỉnh Đồng Tháp',
-                                                '89' => 'Tỉnh An Giang',
-                                                '91' => 'Tỉnh Kiên Giang',
-                                                '93' => 'Tỉnh Hậu Giang',
-                                                '94' => 'Tỉnh Sóc Trăng',
-                                                '95' => 'Tỉnh Bạc Liêu',
-                                                '96' => 'Tỉnh Cà Mau'
-                                            ] as $code => $name)
-                                                @if(in_array($code, $provinces))
-                                                    <option value='{{ $code }}' {{ $province == $code ? 'selected' : '' }}>{{ $name }}</option>
+                                            @foreach ([
+            '01' => 'Thành phố Hà Nội',
+            '79' => 'Thành phố Hồ Chí Minh',
+            '31' => 'Thành phố Hải Phòng',
+            '48' => 'Thành phố Đà Nẵng',
+            '92' => 'Thành phố Cần Thơ',
+            '02' => 'Tỉnh Hà Giang',
+            '04' => 'Tỉnh Cao Bằng',
+            '06' => 'Tỉnh Bắc Kạn',
+            '08' => 'Tỉnh Tuyên Quang',
+            '10' => 'Tỉnh Lào Cai',
+            '11' => 'Tỉnh Điện Biên',
+            '12' => 'Tỉnh Lai Châu',
+            '14' => 'Tỉnh Sơn La',
+            '15' => 'Tỉnh Yên Bái',
+            '17' => 'Tỉnh Hoà Bình',
+            '19' => 'Tỉnh Thái Nguyên',
+            '20' => 'Tỉnh Lạng Sơn',
+            '22' => 'Tỉnh Quảng Ninh',
+            '24' => 'Tỉnh Bắc Giang',
+            '25' => 'Tỉnh Phú Thọ',
+            '26' => 'Tỉnh Vĩnh Phúc',
+            '27' => 'Tỉnh Bắc Ninh',
+            '30' => 'Tỉnh Hải Dương',
+            '33' => 'Tỉnh Hưng Yên',
+            '34' => 'Tỉnh Thái Bình',
+            '35' => 'Tỉnh Hà Nam',
+            '36' => 'Tỉnh Nam Định',
+            '37' => 'Tỉnh Ninh Bình',
+            '38' => 'Tỉnh Thanh Hóa',
+            '40' => 'Tỉnh Nghệ An',
+            '42' => 'Tỉnh Hà Tĩnh',
+            '44' => 'Tỉnh Quảng Bình',
+            '45' => 'Tỉnh Quảng Trị',
+            '46' => 'Tỉnh Thừa Thiên Huế',
+            '49' => 'Tỉnh Quảng Nam',
+            '51' => 'Tỉnh Quảng Ngãi',
+            '52' => 'Tỉnh Bình Định',
+            '54' => 'Tỉnh Phú Yên',
+            '56' => 'Tỉnh Khánh Hòa',
+            '58' => 'Tỉnh Ninh Thuận',
+            '60' => 'Tỉnh Bình Thuận',
+            '62' => 'Tỉnh Kon Tum',
+            '64' => 'Tỉnh Gia Lai',
+            '66' => 'Tỉnh Đắk Lắk',
+            '67' => 'Tỉnh Đắk Nông',
+            '68' => 'Tỉnh Lâm Đồng',
+            '70' => 'Tỉnh Bình Phước',
+            '72' => 'Tỉnh Tây Ninh',
+            '74' => 'Tỉnh Bình Dương',
+            '75' => 'Tỉnh Đồng Nai',
+            '77' => 'Tỉnh Bà Rịa - Vũng Tàu',
+            '80' => 'Tỉnh Long An',
+            '82' => 'Tỉnh Tiền Giang',
+            '83' => 'Tỉnh Bến Tre',
+            '84' => 'Tỉnh Trà Vinh',
+            '86' => 'Tỉnh Vĩnh Long',
+            '87' => 'Tỉnh Đồng Tháp',
+            '89' => 'Tỉnh An Giang',
+            '91' => 'Tỉnh Kiên Giang',
+            '93' => 'Tỉnh Hậu Giang',
+            '94' => 'Tỉnh Sóc Trăng',
+            '95' => 'Tỉnh Bạc Liêu',
+            '96' => 'Tỉnh Cà Mau',
+        ] as $code => $name)
+                                                @if (in_array($code, $provinces))
+                                                    <option value='{{ $code }}'
+                                                        {{ $province == $code ? 'selected' : '' }}>{{ $name }}
+                                                    </option>
                                                 @endif
                                             @endforeach
                                         </select>
@@ -310,7 +313,7 @@
                                     <div class="col-sm-6 pt-4 px-2">
                                         {{-- <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Tất cả
                                             quận/huyện</label> --}}
-                                            <select
+                                        <select
                                             class="form-control custom-select bg-transparent border-bottom rounded-0 border-color-input"
                                             id="district-town" name="district" title="Tất cả khu vực"
                                             data-style="p-0 h-24 lh-17 text-dark" id="location">
@@ -320,7 +323,7 @@
                                     <div class="col-sm-6 pt-4 px-2">
                                         {{-- <label class="text-uppercase font-weight-500 letter-spacing-093 mb-1">Tất cả
                                             xã/phường</label> --}}
-                                            <select
+                                        <select
                                             class="form-control custom-select bg-transparent border-bottom rounded-0 border-color-input"
                                             id="ward-commune" name="village" title="Tất cả khu vực"
                                             data-style="p-0 h-24 lh-17 text-dark" id="location">
@@ -328,31 +331,32 @@
                                         </select>
                                     </div>
 
-                                 
+
                                     <div class="col-sm-6 pt-4 px-2 pb-2">
                                         <select
-                                        class="form-control custom-select bg-transparent border-bottom rounded-0 border-color-input"
-                                        title="Chọn" data-style="p-0 h-24 lh-17 text-dark" name="category">
-                                        <option value="">Tất cả loại phòng</option>
-                                        @foreach($categories as $category)
-                                            <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
-                                                {{ $category->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                            class="form-control custom-select bg-transparent border-bottom rounded-0 border-color-input"
+                                            title="Chọn" data-style="p-0 h-24 lh-17 text-dark" name="category">
+                                            <option value="">Tất cả loại phòng</option>
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}"
+                                                    {{ request('category') == $category->id ? 'selected' : '' }}>
+                                                    {{ $category->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
-                             
-                               
+
+
                                 </div>
                                 <div class="row">
-                                    
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
-                    </form>
-
                 </div>
+                </form>
+
+            </div>
             </div>
         </section>
         <section class="pt-lg-12 pb-lg-10 py-11">
@@ -613,11 +617,11 @@
                                         </div>
                                     </a>
                                 </div>
-                
+
                             </div>
+                        </div>
                     </div>
                 </div>
-            </div>
         </section>
 
         <section class="pt-lg-12 pb-lg-11 py-11">
@@ -801,9 +805,9 @@
                                     <div class="card-img-overlay p-2 d-flex flex-column">
                                         <div>
                                             @if ($room->expiration_date > now())
-                                                    <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
-                                                        VIP
-                                                    </span>
+                                                <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
+                                                    VIP
+                                                </span>
                                             @endif
                                         </div>
                                         <ul class="list-inline mb-0 mt-auto hover-image">
@@ -937,7 +941,8 @@
                                         <a href="{{ auth()->check() && auth()->user()->role == 2 ? route('owners.add-room') : route('client.home') }}"
                                             class="d-flex align-items-center text-dark hover-secondary">
                                             <h4 class="fs-20 lh-1625 mb-1">Đăng tin</h4>
-                                            <span class="ml-2 text-primary fs-42 lh-1 hover-image d-inline-flex align-items-center">
+                                            <span
+                                                class="ml-2 text-primary fs-42 lh-1 hover-image d-inline-flex align-items-center">
                                                 <svg class="icon icon-long-arrow">
                                                     <use xlink:href="#icon-long-arrow"></use>
                                                 </svg>
