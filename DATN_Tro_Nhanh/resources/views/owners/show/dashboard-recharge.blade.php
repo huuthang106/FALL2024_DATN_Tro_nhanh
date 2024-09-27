@@ -41,10 +41,14 @@
                                             </div>
                                         </div>
                                         <!-- QR Code -->
-                                        <div class="col-12 col-md-6 text-center d-flex">
-                                            <div class="p-3 border rounded bg-light shadow-sm w-100 h-100">
-                                                <h5 class="text-center mb-3">Quét mã QR tại đây</h5>
-                                                <img src="{{ $qrCodeUrl }}" alt="QR Code" class="img-fluid" style="max-width: 300px; height: auto;">
+                                        <div class="col-12 col-md-6 mb-4">
+                                            <div class="p-4 border rounded bg-light shadow-sm h-100 d-flex flex-column justify-content-between">
+                                                <div>
+                                                    <h5 class="text-center mb-4">Quét mã QR tại đây</h5>
+                                                    <div class="text-center">
+                                                        <img src="{{ $qrCodeUrl }}" alt="QR Code" class="img-fluid" style="max-width: 250px; height: auto;">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

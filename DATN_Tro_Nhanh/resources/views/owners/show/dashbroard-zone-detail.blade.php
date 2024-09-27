@@ -38,30 +38,30 @@
                                                 class="new-control-input chk-parent select-customers-info">
                                         </label>
                                     </th>
-                                    <th class="py-6 text-start">Tên phòng</th>
-                                    <th class="py-6 text-start">Tên người ở</th>
-                                    <th class="py-6 text-start">Số điện thoại</th>
+                                    <th class="py-6 text-start" style="white-space: nowrap;">Tên phòng</th>
+                                    <th class="py-6 text-start" style="white-space: nowrap;">Tên người ở</th>
+                                    <th class="py-6 text-start" style="white-space: nowrap;">Số điện thoại</th>
                                     {{-- <th class="py-6 text-start">Lý do từ chối</th> --}}
-                                    <th class="py-6 text-start">Trạng thái</th>
-                                    <th class="py-6 text-start">Thao tác</th>
+                                    <th class="py-6 text-start" style="white-space: nowrap;">Trạng thái</th>
+                                    <th class="py-6 text-start text-center">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if ($rooms->isEmpty())
                                     <tr>
-                                        <td colspan="6" class="text-center">Khu vực chưa có phòng trọ nào.</td>
+                                        <td colspan="6" class="text-center" style="white-space: nowrap;">Khu vực chưa có phòng trọ nào.</td>
                                     </tr>
                                 @else
                                     @foreach ($rooms as $room)
                                         <tr>
-                                            <td class="py-6 pl-6">
+                                            <td class="py-6 pl-6" style="white-space: nowrap;">
                                                 <label class="new-control new-checkbox checkbox-primary m-auto">
                                                     <input type="checkbox"
                                                         class="new-control-input chk-parent select-customers-info">
                                                 </label>
                                             </td>
-                                            <td class="align-middle"><small>{{ $room->title }}</small></td>
-                                            <td class="align-middle">
+                                            <td class="align-middle" style="white-space: nowrap;"><small>{{ $room->title }}</small></td>
+                                            <td class="align-middle" style="white-space: nowrap;">
                                                 <small>
                                                     @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
                                                         {{ $room->residents->where('status', $user_is_in)->first()->tenant->name ?? 'Không có tên' }}
@@ -71,7 +71,7 @@
                                                 </small>
 
                                             </td>
-                                            <td class="align-middle"> <small>
+                                            <td class="align-middle" style="white-space: nowrap;"> <small>
                                                     @if ($room->residents && $room->residents->isNotEmpty())
                                                         {{ $room->residents->first()->tenant->phone ?? 'Không có' }}
                                                     @else
@@ -88,7 +88,7 @@
                                                         @endif
                                                     </small>
                                                 </td> --}}
-                                            <td class="align-middle">
+                                            <td class="align-middle" style="white-space: nowrap;">
                                                 <small>
                                                     @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
                                                         <span class="badge badge-green text-capitalize">Đang tạm trú</span>
@@ -97,7 +97,7 @@
                                                     @endif
                                                 </small>
                                             </td>
-                                            <td class="align-middle">
+                                            <td class="align-middle" style="white-space: nowrap;">
                                                 @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
                                                     @php
                                                         $resident = $room->residents->first();

@@ -32,15 +32,15 @@
                         <table id="myTable" class="table table-hover bg-white border rounded-lg">
                             <thead>
                                 <tr role="row">
-                                    <th class="no-sort py-6 pl-6">
+                                    <th class="no-sort py-6 pl-6" style="white-space: nowrap;">
                                         <label class="new-control new-checkbox checkbox-primary m-auto">
                                             <input type="checkbox"
                                                 class="new-control-input chk-parent select-customers-info">
                                         </label>
                                     </th>
-                                    <th class="py-6 text-start">Tên phòng</th>
-                                    <th class="py-6 text-start">Tên người ở</th>
-                                    <th class="py-6 text-start">Số điện thoại</th>
+                                    <th class="py-6 text-start" style="white-space: nowrap;">Tên phòng</th>
+                                    <th class="py-6 text-start" style="white-space: nowrap;">Tên người ở</th>
+                                    <th class="py-6 text-start" style="white-space: nowrap;">Số điện thoại</th>
                                     <th
                                         class="py-6 text-start {{ $residents->where('status', $user_is_in)->isEmpty() ? 'd-none' : '' }}">
                                         Lý do</th>
@@ -48,28 +48,28 @@
                                         <th class="py-6 text-start">Từ Chối</th>
                                     @endif
 
-                                    <th class="py-6 text-start">Khu trọ</th>
-                                    <th class="py-6 text-start">Thao tác</th>
+                                    <th class="py-6 text-start" style="white-space: nowrap;">Khu trọ</th>
+                                    <th class="py-6 text-start" style="white-space: nowrap;">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if ($residents->isEmpty())
                                     <tr>
-                                        <td colspan="6" class="text-center">Không có đơn</td>
+                                        <td colspan="6" class="text-center" style="white-space: nowrap;">Không có đơn</td>
                                     </tr>
                                 @else
                                     @foreach ($residents as $resident)
                                         <tr>
-                                            <td class="py-6 pl-6 align-middle text-center">
+                                            <td class="py-6 pl-6 align-middle text-center" style="white-space: nowrap;">
                                                 <label class="new-control new-checkbox checkbox-primary m-auto">
                                                     <input type="checkbox"
                                                         class="new-control-input chk-parent select-customers-info">
                                                 </label>
                                             </td>
-                                            <td class="align-middle">
+                                            <td class="align-middle" style="white-space: nowrap;">
                                                 <small class="text">{{ $resident->room->title }}</small>
                                             </td>
-                                            <td class="align-middle">
+                                            <td class="align-middle" style="white-space: nowrap;">
                                                 <small>
                                                     <a href="{{ route('client.client-agent-detail', $resident->tenant->slug) }}"
                                                         class="text-primary">
@@ -77,19 +77,20 @@
                                                     </a>
                                                 </small>
                                             </td>
-                                            <td class="align-middle">
+                                            <td class="align-middle" style="white-space: nowrap;">
                                                 <small class="text">{{ $resident->tenant->phone }}</small>
                                             </td>
                                             <td
-                                                class="align-middle description-column {{ empty($resident->description) ? 'd-none' : '' }}">
+                                                class="align-middle description-column {{ empty($resident->description) ? 'd-none' : '' }}"
+                                                style="white-space: nowrap;">
                                                 <small class="text">{{ $resident->description }}</small>
                                             </td>
 
 
-                                            <td class="align-middle">
+                                            <td class="align-middle" style="white-space: nowrap;">
                                                 <small class="text">{{ $resident->zone->name }}</small>
                                             </td>
-                                            <td class="align-middle text-center">
+                                            <td class="align-middle text-center" style="white-space: nowrap;">
                                                 <form action="{{ route('owners.cancel-order', $resident->id) }}"
                                                     method="POST" style="display:inline;">
                                                     @csrf

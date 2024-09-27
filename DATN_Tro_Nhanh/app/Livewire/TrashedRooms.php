@@ -12,7 +12,7 @@ class TrashedRooms extends Component
 
     public $search = '';
     public $timeFilter = ''; // Add timeFilter property
-    public $perPage = 1; // Set the number of items per page
+    public $perPage = 8; // Set the number of items per page
     public $sortBy = 'updated_at'; // Default to sorting by updated_at
     public $sortDirection = 'desc'; // Show newest first
 

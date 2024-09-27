@@ -34,16 +34,16 @@
             <table id="notification-list" class="table table-hover bg-white border rounded-lg">
                 <thead>
                     <tr role="row">
-                        <th class="no-sort py-6 pl-6">
+                        <th class="no-sort py-6 pl-6" style="white-space: nowrap;">
                             <label class="new-control new-checkbox checkbox-primary m-auto">
                                 <input type="checkbox" class="new-control-input chk-parent select-customers-info">
                             </label>
                         </th>
-                        <th class="py-6">Hình ảnh</th>
+                        <th class="py-6" style="white-space: nowrap;">Hình ảnh</th>
 
-                        <th class="py-6">Tên</th>
-                        <th class="py-6">Chức năng</th>
-                        <th class="py-6">Thao tác</th>
+                        <th class="py-6" style="white-space: nowrap;">Tên</th>
+                        <th class="py-6" style="white-space: nowrap;">Chức năng</th>
+                        <th class="py-6 text-center" style="white-space: nowrap;">Thao tác</th>
 
 
                     </tr>
@@ -51,18 +51,18 @@
                 <tbody>
                     @if ($myFollowings->isEmpty())
                         <tr>
-                            <td colspan="8" class="text-center">Danh sách trống</td>
+                            <td colspan="5" class="text-center">Danh sách trống</td>
                         </tr>
                     @else
                         @foreach ($myFollowings as $item)
                             <tr role="row">
-                                <td class="checkbox-column py-6 pl-6">
+                                <td class="checkbox-column py-6 pl-6" style="white-space: nowrap;">
                                     <label class="new-control new-checkbox checkbox-primary m-auto">
                                         <input type="checkbox"
                                             class="new-control-input child-chk select-customers-info">
                                     </label>
                                 </td>
-                                <td class="align-middle pt-6 pb-4 px-6">
+                                <td class="align-middle pt-6 pb-4 px-6" style="white-space: nowrap;">
                                     <div class="media d-flex align-items-center">
                                         <div class="w-120px mr-4 position-relative">
                                             <a href="{{ route('owners.show-blog', $item->followers->slug) }}">
@@ -77,10 +77,10 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="align-middle">
+                                <td class="align-middle" style="white-space: nowrap;">
                                     {{ $item->followers->name }}
                                 </td>
-                                <td class="align-middle">
+                                <td class="align-middle" style="white-space: nowrap;">
                                     @if ($item->followers->role == '2')
                                         <span>Người đưa tin</span>
                                     @elseif ($item->followers->role == '0')
@@ -88,17 +88,16 @@
                                     @else
                                         <span>Người dùng</span>
                                     @endif
-
                                 </td>
-
-                                <td class="align-middle">
-                                    <a href="#" data-toggle="tooltip" title="Xóa"
-                                        class="d-inline-block fs-18 text-muted hover-primary">
+                                <td class="align-middle text-center" style="white-space: nowrap;">
+                                    <button wire:click="deleteFollowing({{ $item->id }})"
+                                            data-toggle="tooltip" 
+                                            title="Xóa"
+                                            class="btn btn-link p-0 d-inline-block fs-18 text-muted hover-primary">
                                         <i class="fal fa-trash-alt"></i>
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
-                            {{-- 1 --}}
                         @endforeach
                     @endif
                 </tbody>

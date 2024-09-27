@@ -46,32 +46,32 @@
             <table class="table table-hover bg-white border rounded-lg">
                 <thead>
                     <tr role="row">
-                        <th class="no-sort py-6 pl-6">
+                        <th class="no-sort py-6 pl-6" style="white-space: nowrap;">
                             <label class="new-control new-checkbox checkbox-primary m-auto">
                                 <input type="checkbox" class="new-control-input chk-parent select-customers-info">
                             </label>
                         </th>
-                        <th class="py-6">Người Yêu Cầu</th>
-                        <th class="py-6">Số Phòng</th>
-                        <th class="py-6">Ngày</th>
-                        <th class="py-6">Trạng thái</th>
-                        <th class="no-sort py-6">Rời Khỏi</th>
+                        <th class="py-6" style="white-space: nowrap;">Người Yêu Cầu</th>
+                        <th class="py-6" style="white-space: nowrap;">Số Phòng</th>
+                        <th class="py-6" style="white-space: nowrap;">Ngày</th>
+                        <th class="py-6" style="white-space: nowrap;">Trạng thái</th>
+                        <th class="no-sort py-6" style="white-space: nowrap;">Rời Khỏi</th>
                     </tr>
                 </thead>
 
                 @forelse ($maintenanceRequests as $item)
                 <tr class="shadow-hover-xs-2">
-                    <td class="checkbox-column align-middle py-4 pl-6">
+                    <td class="checkbox-column align-middle py-4 pl-6" style="white-space: nowrap;">
                         <label class="new-control new-checkbox checkbox-primary m-auto">
                             <input type="checkbox" class="new-control-input child-chk select-customers-info">
                         </label>
                     </td>
-                    <td class="align-middle p-4 text-primary">{{ $item->user->name ?? 'N/A' }}
+                    <td class="align-middle p-4 text-primary" style="white-space: nowrap;">{{ $item->user->name ?? 'N/A' }}
                         <br><small>Yêu cầu: {{ $item->title }}</small>
                     </td>
-                    <td class="align-middle p-4">{{ $item->room->title ?? 'N/A' }}</td>
-                    <td class="align-middle p-4">{{ $item->created_at->format('d-m-Y') }}</td>
-                    <td class="align-middle p-4">
+                    <td class="align-middle p-4" style="white-space: nowrap;">{{ $item->room->title ?? 'N/A' }}</td>
+                    <td class="align-middle p-4" style="white-space: nowrap;">{{ $item->created_at->format('d-m-Y') }}</td>
+                    <td class="align-middle p-4" style="white-space: nowrap;">
                         @if ($item->status == 1)
                             <span class="badge badge-yellow text-capitalize font-weight-normal fs-12">Đang xử lý</span>
                         @elseif ($item->status == 2)
@@ -82,7 +82,7 @@
                             <span class="badge badge-light text-capitalize font-weight-normal fs-12">Không xác định</span>
                         @endif
                     </td>
-                    <td class="align-middle p-4">
+                    <td class="align-middle p-4" style="white-space: nowrap;">
                         <form action="{{ route('owners.destroy-maintenances', $item->id) }}" method="POST" class="d-inline-block mb-0">
                             @csrf
                             @method('DELETE')
@@ -94,7 +94,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="6" class="text-center py-4">Không có yêu cầu bảo trì nào!</td>
+                    <td colspan="6" class="text-center py-4" style="white-space: nowrap;">Không có yêu cầu bảo trì nào!</td>
                 </tr>
             @endforelse
             </table>

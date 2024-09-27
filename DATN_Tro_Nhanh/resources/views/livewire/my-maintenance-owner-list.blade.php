@@ -52,23 +52,23 @@
                 <table class="table table-hover bg-white border rounded-lg">
                     <thead>
                         <tr role="row">
-                            <th class="no-sort py-6 pl-6">
+                            <th class="no-sort py-6 pl-6" style="white-space: nowrap;">
                                 <label class="new-control new-checkbox checkbox-primary m-auto">
                                     <input type="checkbox" class="new-control-input chk-parent select-customers-info">
                                 </label>
                             </th>
-                            <th class="py-6">Tên phòng</th>
-                            <th class="py-6">Giá</th>
-                            <th class="py-6">Ngày tham gia</th>
-                            <th class="no-sort py-6">Bảo trì</th>
+                            <th class="py-6" style="white-space: nowrap;">Tên phòng</th>
+                            <th class="py-6" style="white-space: nowrap;">Giá</th>
+                            <th class="py-6" style="white-space: nowrap;">Ngày tham gia</th>
+                            <th class="no-sort py-6" style="white-space: nowrap;">Bảo trì</th>
 
-                            <th class="no-sort py-6">Rời Khỏi</th>
+                            <th class="no-sort py-6" style="white-space: nowrap;">Rời Khỏi</th>
                         </tr>
                     </thead>
 
                     @forelse ($rooms as $item)
                         <tr class="shadow-hover-xs-2">
-                            <td class="checkbox-column align-middle py-4 pl-6">
+                            <td class="checkbox-column align-middle py-4 pl-6" style="white-space: nowrap;">
                                 <label class="new-control new-checkbox checkbox-primary m-auto">
                                     <input type="checkbox" class="new-control-input child-chk select-customers-info">
                                 </label>
@@ -76,21 +76,21 @@
                             {{-- <td class="align-middle p-4 text-primary">{{ $item->tenant->name ?? 'N/A' }} --}}
                             <br>
                             </td>
-                            <td class="align-middle p-4"><small>{{ $item->room->title }}</small></td>
-                            <td class="align-middle p-4">
+                            <td class="align-middle p-4" style="white-space: nowrap;"><small>{{ $item->room->title }}</small></td>
+                            <td class="align-middle p-4" style="white-space: nowrap;">
                                 <small>{{ number_format($item->room->price, 0, ',', '.') }}</small>
                             </td>
-                            <td class="align-middle p-4">
+                            <td class="align-middle p-4" style="white-space: nowrap;">
                                 {{ $item->updated_at }}
                             </td>
-                            <td class="align-middle p-4">
+                            <td class="align-middle p-4" style="white-space: nowrap;">
                                 <button data-toggle="modal" href="#maintenance"
                                     class="fs-18 text-muted hover-primary border-0 bg-transparent"> <i
                                     class="fal fa-pencil-alt"></i> </button>
 
 
                             </td>
-                            <td class="align-middle p-4">
+                            <td class="align-middle p-4" style="white-space: nowrap;">
                                 <form action="{{ route('owners.leave-the-room', $item->id) }}" method="POST"
                                     class="d-inline-block mb-0" id="leave-room-form-{{ $item->id }}">
                                     @csrf

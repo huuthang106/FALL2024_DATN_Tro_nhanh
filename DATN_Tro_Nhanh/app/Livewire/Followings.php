@@ -66,4 +66,17 @@ class Followings extends Component
             'myFollowings' => $myFollowings,
         ]);
     }
+    public function deleteFollowing($followingId)
+    {
+        $watchList = WatchList::where('user_id', $this->userId)
+                              ->where('id', $followingId)
+                              ->first();
+
+        if ($watchList) {
+            $watchList->delete();
+            session()->flash('message', 'Đã xóa người theo dõi thành công.');
+        } else {
+            session()->flash('error', 'Không tìm thấy người theo dõi để xóa.');
+        }
+    }
 }
