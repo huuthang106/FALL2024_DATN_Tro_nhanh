@@ -270,7 +270,8 @@
                                                     </div>
                                                     <div class="media-body">
                                                         <h4 class="fs-14 lh-186 mb-1">
-                                                            <a href="{{ route('client.client-blog-detail', $blog->slug) }}" class="text-dark hover-primary">
+                                                            <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
+                                                                class="text-dark hover-primary">
                                                                 {{ $blog->title }}
                                                             </a>
                                                         </h4>

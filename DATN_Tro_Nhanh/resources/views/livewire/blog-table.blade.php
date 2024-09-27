@@ -48,7 +48,7 @@
                                                 fill="black" />
                                         </svg>
                                     </span>
-                                    <!--end::Svg Icon-->Filter</button>
+                                    <!--end::Svg Icon-->Lọc</button>
                                 <!--begin::Menu 1-->
                                 <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
                                     <!--begin::Header-->
@@ -105,7 +105,7 @@
                                 <!--end::Menu 1-->
                                 <!--end::Filter-->
                                 <!--begin::Export-->
-                                <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal"
+                                {{-- <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal"
                                     data-bs-target="#kt_modal_export_users">
                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                                     <span class="svg-icon svg-icon-2">
@@ -121,7 +121,7 @@
                                                 fill="#C4C4C4" />
                                         </svg>
                                     </span>
-                                    <!--end::Svg Icon-->Export</button>
+                                    <!--end::Svg Icon-->Xuất</button> --}}
                                 <!--end::Export-->
                                 <!--begin::Add user-->
                                 {{-- <a href="{{ route('admin.create-blog') }}">
