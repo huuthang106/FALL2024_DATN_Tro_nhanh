@@ -309,31 +309,40 @@
                                                 <!--end::Table head-->
                                                 <!--begin::Table body-->
                                                 <tbody>
-                                                    @foreach ($roomsCountByCategoryType as $categoryName => $count)
+                                                    @if (count($roomsCountByCategoryType) > 0)
+                                                        @foreach ($roomsCountByCategoryType as $categoryName => $count)
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="symbol symbol-45px me-2"
+                                                                        style="background: none; border: none;">
+                                                                        <span class="symbol-label" style="padding: 0;">
+                                                                            <img src="{{ asset('assets/images/properties-grid-' . ($loop->index + 13) . '.jpg') }}"
+                                                                                class="h-100 w-100 object-fit-cover"
+                                                                                style="border-radius: 0; display: block;"
+                                                                                alt="" />
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="{{ route('admin.list-category') }}"
+                                                                        class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{ ucfirst($categoryName) }}</a>
+                                                                </td>
+                                                                <td class="text-start text-muted fw-bold">
+                                                                    {{ $count }} phòng
+                                                                </td>
+                                                                <td class="text-end">
+                                                                    <span class="badge badge-light-success">Hoạt
+                                                                        động</span>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @else
                                                         <tr>
-                                                            <td>
-                                                                <div class="symbol symbol-45px me-2"
-                                                                    style="background: none; border: none;">
-                                                                    <span class="symbol-label" style="padding: 0;">
-                                                                        <img src="{{ asset('assets/images/properties-grid-' . ($loop->index + 13) . '.jpg') }}"
-                                                                            class="h-100 w-100 object-fit-cover"
-                                                                            style="border-radius: 0; display: block;"
-                                                                            alt="" />
-                                                                    </span>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <a href="{{ route('admin.list-category') }}"
-                                                                    class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{ ucfirst($categoryName) }}</a>
-                                                            </td>
-                                                            <td class="text-start text-muted fw-bold">
-                                                                {{ $count }} phòng
-                                                            </td>
-                                                            <td class="text-end">
-                                                                <span class="badge badge-light-success">Hoạt động</span>
+                                                            <td colspan="4" class="text-center">
+                                                                <span class="text-muted">Chưa có dữ liệu.</span>
                                                             </td>
                                                         </tr>
-                                                    @endforeach
+                                                    @endif
                                                 </tbody>
                                                 <!--end::Table body-->
                                             </table>

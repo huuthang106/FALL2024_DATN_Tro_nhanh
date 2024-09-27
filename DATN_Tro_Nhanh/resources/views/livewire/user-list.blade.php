@@ -162,14 +162,13 @@
                                                     value="1" />
                                             </div>
                                         </th> --}}
-                                        <th class="min-w-125px">Ảnh</th>
+                                        <th class="w-50px">Ảnh</th>
                                         <th class="min-w-125px">Tên</th>
                                         <th class="min-w-125px">Email</th>
-                                        {{-- <th class="min-w-125px">Mật Khẩu</th>s --}}
                                         <th class="min-w-125px">Số Điện Thoại</th>
-                                        <th class="min-w-125px">Địa Chỉ</th>
+                                        <th class="min-w-100px">Địa Chỉ</th>
                                         <th class="min-w-100px">Trạng thái</th>
-                                        <th class="text-center min-w-300px">Tác vụ</th>
+                                        <th class="text-end min-w-150px">Tác vụ</th>
                                     </tr>
                                     <!--end::Table row-->
                                 </thead>
@@ -193,19 +192,22 @@
                                                 <!--begin::User=-->
                                                 <td class="d-flex align-items-center min-w-125px">
                                                     <!--begin:: Avatar -->
-                                                   <small> <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
-                                                    <a
-                                                        href="{{ route('admin.show-blog', ['slug' => $user->slug]) }}">
-                                                        <div class="symbol-label">
-                                                            @if ($user->image)
-                                                                <img src="{{ asset('assets/images/' . $user->image) }}"
-                                                                    alt="User Image" class="img-fluid">
-                                                            @else
-                                                                <p>No image available</p>
-                                                            @endif
+                                                    <small>
+                                                        <div
+                                                            class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                                            <a
+                                                                href="{{ route('admin.show-blog', ['slug' => $user->slug]) }}">
+                                                                <div class="symbol-label">
+                                                                    @if ($user->image)
+                                                                        <img src="{{ asset('assets/images/' . $user->image) }}"
+                                                                            alt="User Image" class="img-fluid">
+                                                                    @else
+                                                                        <p>No image available</p>
+                                                                    @endif
+                                                                </div>
+                                                            </a>
                                                         </div>
-                                                    </a>
-                                                </div></small>
+                                                    </small>
                                                     <!--end::Avatar-->
                                                 </td>
                                                 <!--end::User=-->
@@ -216,11 +218,13 @@
                                                 <td><small>{{ $user->phone ?: 'Trống' }}</small></td>
                                                 <td><small>{{ $user->address ?: 'Trống' }}</small></td>
                                                 <td>
-                                                  <small>  @if ($user->status == 3)
-                                                    <span class="badge badge-warning">Tài khoản hạn chế</span>
-                                                @else
-                                                    <span class="badge badge-primary">Hoạt động</span>
-                                                @endif</small>
+                                                    <small>
+                                                        @if ($user->status == 3)
+                                                            <span class="badge badge-warning">Tài khoản hạn chế</span>
+                                                        @else
+                                                            <span class="badge badge-primary">Hoạt động</span>
+                                                        @endif
+                                                    </small>
                                                 </td>
                                                 <!--end::User Details-->
                                                 <!--begin::Joined-->
@@ -271,65 +275,17 @@
                                                             </form>
                                                         </div>
                                                         <!--end::Menu item-->
-                                                    </div>
-                                                    <button type="button" class="btn btn-danger btn-sm"
-                                                        data-bs-toggle="modal" data-bs-target="#blockAccountModal"
-                                                        data-user-id="{{ $user->id }}">
-                                                        Khóa
-                                                    </button>
-
-                                                    <!-- Modal -->
-                                                    <div class="modal fade" id="blockAccountModal" tabindex="-1"
-                                                        aria-labelledby="blockAccountModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title"
-                                                                        id="blockAccountModalLabel">Khóa tài khoản</h5>
-                                                                    <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal"
-                                                                        aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <!-- Form để gửi dữ liệu -->
-                                                                    <form id="blockAccountForm" method="POST"
-                                                                        action="{{ route('admin.lock-account', $user->id) }}">
-                                                                        @csrf <!-- Thêm token bảo mật -->
-                                                                        <div class="mb-3">
-                                                                            <label for="blockDays"
-                                                                                class="form-label text-start d-block">Số
-                                                                                ngày khóa tài khoản</label>
-                                                                            <input type="number" class="form-control"
-                                                                                id="blockDays" name="blockDays"
-                                                                                required>
-                                                                            @error('blockDays')
-                                                                                <div class="text-danger">
-                                                                                    {{ $message }}
-                                                                                </div>
-                                                                            @enderror
-                                                                        </div>
-                                                                        <div class="mb-3">
-                                                                            <label for="blockReason"
-                                                                                class="form-label text-start d-block">Lý
-                                                                                do khóa tài khoản</label>
-                                                                            <textarea class="form-control" id="blockReason" name="blockReason" rows="3" required></textarea>
-                                                                            @error('blockReason')
-                                                                                <div class="text-danger">
-                                                                                    {{ $message }}
-                                                                                </div>
-                                                                            @enderror
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal">Hủy</button>
-                                                                    <!-- Nút submit form -->
-                                                                    <button type="submit" form="blockAccountForm"
-                                                                        class="btn btn-danger">Xác nhận khóa</button>
-                                                                </div>
-                                                            </div>
+                                                        <!--begin::Menu item-->
+                                                        <div class="menu-item px-3">
+                                                            <button type="button" class="menu-link px-3"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#blockAccountModal"
+                                                                data-user-id="{{ $user->id }}"
+                                                                style="border:none; background:none; cursor:pointer;">
+                                                                Khóa
+                                                            </button>
                                                         </div>
+                                                        <!--end::Menu item-->
                                                     </div>
                                                     <!--end::Menu-->
                                                 </td>
@@ -346,6 +302,56 @@
                                 <!--end::Table body-->
 
                             </table>
+                        </div>
+
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="blockAccountModal" tabindex="-1"
+                            aria-labelledby="blockAccountModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="blockAccountModalLabel">Khóa tài khoản</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Form để gửi dữ liệu -->
+                                        <form id="blockAccountForm" method="POST"
+                                            action="{{ route('admin.lock-account', $user->id) }}">
+                                            @csrf <!-- Thêm token bảo mật -->
+                                            <div class="mb-3">
+                                                <label for="blockDays" class="form-label text-start d-block">Số
+                                                    ngày khóa tài khoản</label>
+                                                <input type="number" class="form-control" id="blockDays"
+                                                    name="blockDays" required>
+                                                @error('blockDays')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="blockReason" class="form-label text-start d-block">Lý
+                                                    do khóa tài khoản</label>
+                                                <textarea class="form-control" id="blockReason" name="blockReason" rows="3" required></textarea>
+                                                @error('blockReason')
+                                                    <div class="text-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Hủy</button>
+                                        <!-- Nút submit form -->
+                                        <button type="submit" form="blockAccountForm" class="btn btn-danger">Xác
+                                            nhận khóa</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!--end::Table-->
                         @if ($users->hasPages())

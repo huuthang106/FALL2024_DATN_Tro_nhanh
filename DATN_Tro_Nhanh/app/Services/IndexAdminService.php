@@ -147,11 +147,14 @@ class IndexAdminService
     // 4 báo cáo mới nhất
     public function getLatestReports($limit = 4)
     {
+        $today = now()->startOfDay();
+
         return Report::with(['user', 'room'])
             ->select('reports.*', 'users.name as user_name', 'rooms.title as room_title')
             ->join('users', 'reports.user_id', '=', 'users.id')
             ->leftJoin('rooms', 'reports.room_id', '=', 'rooms.id')
             ->where('reports.status', self::Chua_Duyet)
+            ->where('reports.created_at', '>=', $today)
             ->orderBy('reports.created_at', 'desc')
             ->take($limit)
             ->get();

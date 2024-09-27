@@ -29,7 +29,7 @@
                                 </span>
                                 <!--end::Svg Icon-->
                                 <input type="text" data-kt-user-table-filter="search"
-                                    class="form-control form-control-solid w-250px ps-14" placeholder="Search acreage" />
+                                    class="form-control form-control-solid w-250px ps-14" placeholder="Tìm kiếm..." />
                             </div>
                             <!--end::Search-->
                         </div>

@@ -114,7 +114,7 @@
                             <!--end::Menu 1-->
                             <!--end::Filter-->
                             <!--begin::Export-->
-                            <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal"
+                            {{-- <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal"
                                 data-bs-target="#kt_modal_export_users">
                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                                 <span class="svg-icon svg-icon-2">
@@ -131,7 +131,7 @@
                                     </svg>
                                 </span>
                                 <!--end::Svg Icon-->Export</button>
-                            <!--end::Export-->
+                            <!--end::Export--> --}}
                             <!--begin::Add user-->
                             {{-- <a type="button" href="{{ route('admin.trang-them-khu-tro') }}" class="btn btn-primary">
                                 Thêm khu trọ</a> --}}
@@ -166,12 +166,11 @@
                                             <span class="svg-icon svg-icon-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24" fill="none">
-                                                    <rect opacity="0.5" x="6" y="17.3137" width="16"
-                                                        height="2" rx="1"
-                                                        transform="rotate(-45 6 17.3137)" fill="black" />
-                                                    <rect x="7.41422" y="6" width="16" height="2"
-                                                        rx="1" transform="rotate(45 7.41422 6)"
+                                                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
+                                                        rx="1" transform="rotate(-45 6 17.3137)"
                                                         fill="black" />
+                                                    <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                                        transform="rotate(45 7.41422 6)" fill="black" />
                                                 </svg>
                                             </span>
                                             <!--end::Svg Icon-->

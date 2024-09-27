@@ -37,17 +37,31 @@ class UserAdminServices
         }
     }
 
-    public function updateRoleAdmin($id)
+    // public function updateRoleAdmin($id)
+    // {
+    //     $user = User::find($id);
+    //     if ($user) {
+    //         $currentDate = now(); // Ngày hiện tại
+    //         $lockUntil = $currentDate->addDays($days)->setTime(23, 59, 59); // Cộng thêm số ngày khóa và đặt giờ kết thúc là 23:59:59
+    //         $user->role = self::vaitroadmin; // Cập nhật vai trò thành admin (hoặc một vai trò khác)
+    //         $user->save();
+    //     }
+    // }
+    public function updateRoleAdmin($id, $days = 0)
     {
         $user = User::find($id);
         if ($user) {
             $currentDate = now(); // Ngày hiện tại
-            $lockUntil = $currentDate->addDays($days)->setTime(23, 59, 59); // Cộng thêm số ngày khóa và đặt giờ kết thúc là 23:59:59
-            $user->role = self::vaitroadmin; // Cập nhật vai trò thành admin (hoặc một vai trò khác)
+            if ($days > 0) {
+                $lockUntil = $currentDate->addDays($days)->setTime(23, 59, 59); // Cộng thêm số ngày khóa và đặt giờ kết thúc là 23:59:59
+                // Ở đây bạn có thể thêm logic để lưu $lockUntil vào cơ sở dữ liệu nếu cần
+            }
+            $user->role = self::vaitroadmin; // Cập nhật vai trò thành admin
             $user->save();
+            return true;
         }
+        return false;
     }
-
     public function updateRoleUser($id)
     {
         $user = User::find($id);
@@ -64,33 +78,33 @@ class UserAdminServices
         $blockReason = $request->input('blockReason');
 
         // Kiểm tra xem user đã có trong bảng AccountLock hay chưa
-    $lock = AccountLock::where('user_id', $user)->first();
+        $lock = AccountLock::where('user_id', $user)->first();
 
-    if ($lock) {
-        // Nếu user đã bị khóa, cộng thêm số ngày khóa vào ngày hết hạn hiện tại
-        $currentLockUntil = $lock->lock_until > now() ? $lock->lock_until : now();
-        $newLockUntil = $currentLockUntil->addDays($blockDays)->setTime(23, 59, 59);
+        if ($lock) {
+            // Nếu user đã bị khóa, cộng thêm số ngày khóa vào ngày hết hạn hiện tại
+            $currentLockUntil = $lock->lock_until > now() ? $lock->lock_until : now();
+            $newLockUntil = $currentLockUntil->addDays($blockDays)->setTime(23, 59, 59);
 
-        // Cập nhật ngày hết hạn khóa và lý do khóa
-        $lock->lock_until = $newLockUntil;
-        $lock->lock_reason = $blockReason;
-        $lock->save();
-    } else {
-        // Nếu user chưa bị khóa, tạo mới bản ghi trong bảng AccountLock
-        $newLockUntil = now()->addDays($blockDays)->setTime(23, 59, 59);
+            // Cập nhật ngày hết hạn khóa và lý do khóa
+            $lock->lock_until = $newLockUntil;
+            $lock->lock_reason = $blockReason;
+            $lock->save();
+        } else {
+            // Nếu user chưa bị khóa, tạo mới bản ghi trong bảng AccountLock
+            $newLockUntil = now()->addDays($blockDays)->setTime(23, 59, 59);
 
-        // Tạo mới thông tin khóa
-        AccountLock::create([
-            'user_id' => $userId,
-            'lock_until' => $newLockUntil,
-            'lock_reason' => $blockReason,
-        ]);
+            // Tạo mới thông tin khóa
+            AccountLock::create([
+                'user_id' => $userId,
+                'lock_until' => $newLockUntil,
+                'lock_reason' => $blockReason,
+            ]);
+        }
+        $user->status = 3; // Status = 3: Tài khoản bị khóa
+        $user->save();
     }
-    $user->status = 3; // Status = 3: Tài khoản bị khóa
-    $user->save();
-    }
 
-    
+
     public function lockOwner($request, $userId)
     {
         $user = User::find($userId);
@@ -98,29 +112,29 @@ class UserAdminServices
         $blockReason = $request->input('blockReason');
 
         // Kiểm tra xem user đã có trong bảng AccountLock hay chưa
-    $lock = AccountLock::where('user_id', $user)->first();
+        $lock = AccountLock::where('user_id', $user)->first();
 
-    if ($lock) {
-        // Nếu user đã bị khóa, cộng thêm số ngày khóa vào ngày hết hạn hiện tại
-        $currentLockUntil = $lock->lock_until > now() ? $lock->lock_until : now();
-        $newLockUntil = $currentLockUntil->addDays($blockDays)->setTime(23, 59, 59);
+        if ($lock) {
+            // Nếu user đã bị khóa, cộng thêm số ngày khóa vào ngày hết hạn hiện tại
+            $currentLockUntil = $lock->lock_until > now() ? $lock->lock_until : now();
+            $newLockUntil = $currentLockUntil->addDays($blockDays)->setTime(23, 59, 59);
 
-        // Cập nhật ngày hết hạn khóa và lý do khóa
-        $lock->lock_until = $newLockUntil;
-        $lock->lock_reason = $blockReason;
-        $lock->save();
-    } else {
-        // Nếu user chưa bị khóa, tạo mới bản ghi trong bảng AccountLock
-        $newLockUntil = now()->addDays($blockDays)->setTime(23, 59, 59);
+            // Cập nhật ngày hết hạn khóa và lý do khóa
+            $lock->lock_until = $newLockUntil;
+            $lock->lock_reason = $blockReason;
+            $lock->save();
+        } else {
+            // Nếu user chưa bị khóa, tạo mới bản ghi trong bảng AccountLock
+            $newLockUntil = now()->addDays($blockDays)->setTime(23, 59, 59);
 
-        // Tạo mới thông tin khóa
-        AccountLock::create([
-            'user_id' => $userId,
-            'lock_until' => $newLockUntil,
-            'lock_reason' => $blockReason,
-        ]);
-    }
-    $user->status = 3; // Status = 3: Tài khoản bị khóa
-    $user->save();
+            // Tạo mới thông tin khóa
+            AccountLock::create([
+                'user_id' => $userId,
+                'lock_until' => $newLockUntil,
+                'lock_reason' => $blockReason,
+            ]);
+        }
+        $user->status = 3; // Status = 3: Tài khoản bị khóa
+        $user->save();
     }
 }

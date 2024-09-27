@@ -1,6 +1,6 @@
 // public/js/toastr-handler.js
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Cấu hình Toastr với Progress Bar
     toastr.options = {
         "closeButton": true,

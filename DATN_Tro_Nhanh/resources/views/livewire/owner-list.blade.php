@@ -128,14 +128,14 @@
                                 <!--end::Menu 1-->
                                 <!--end::Filter-->
                                 <!--begin::Export-->
-                               
+
                             </div>
                             <!--end::Toolbar-->
                             <!--begin::Group actions-->
-                           
+
                             <!--end::Group actions-->
                             <!--begin::Modal - Adjust Balance-->
-                          
+
                             <!--end::Modal - New Card-->
                             <!--begin::Modal - Add task-->
                             <div class="modal fade" id="kt_modal_add_user" tabindex="-1" aria-hidden="true">
@@ -435,7 +435,7 @@
                         <div class="table-responsive">
                             <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
                                 <!--begin::Table head-->
-                                <thead>
+                                <thead class="table text-nowrap">
                                     <!--begin::Table row-->
                                     <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                         <th class="w-10px pe-2">
@@ -446,22 +446,20 @@
                                                     value="1" />
                                             </div>
                                         </th>
-                                        <th class="min-w-125px">Ảnh</th>
-                                        <th class="min-w-125px">Tên</th>
-                                        <th class="min-w-125px">Email</th>
-                                        <th class="min-w-125px">Số Điện Thoại</th>
-                                        <th class="min-w-125px">Địa Chỉ</th>
-                                        <th class="text-center w-40">Trạng thái</th>
-                                        <th class="text-center min-w-110px">Tác vụ</th>
-                                        {{-- <th class="text-center w-10">Ảnh</th>
+                                        <th class="w-10 text-nowrap">Ảnh</th>
+                                        <th class="w-15 text-nowrap">Tên</th>
+                                        <th class="w-20 text-nowrap">Email</th>
+                                        <th class="w-15 text-nowrap">Số Điện Thoại</th>
+                                        <th class="w-20 text-nowrap">Địa Chỉ</th>
+                                        <th class="w-10 text-center text-nowrap">Trạng thái</th>
+                                        <th class="w-10 text-center text-nowrap">Tác vụ</ {{-- <th class="text-center w-10">Ảnh</th>
                                         <th class="text-center w-15">Tên</th>
                                         <th class="text-center w-15">Email</th>
                                         <th class="text-center w-10">Số điện thoại</th>
                                         <th class="text-center w-40">Địa chỉ</th>
                                         <th class="text-center w-100">Trạng thái</th>
-                                        <th class="text-center w-10">Tác vụ</th> --}}
-                                    </tr>
-                                    <!--end::Table row-->
+                                        <th class="text-center w-10">Tác vụ</th> --}} </tr>
+                                            <!--end::Table row-->
                                 </thead>
                                 <!--end::Table head-->
                                 <!--begin::Table body-->
@@ -522,11 +520,11 @@
                                                 <!--end::Joined-->
                                                 <!--begin::Action=-->
                                                 <td class="text-end">
-                                                  
+
                                                     <button type="button" class="btn btn-danger btn-sm"
                                                         data-bs-toggle="modal" data-bs-target="#blockAccountModal"
                                                         data-user-id="{{ $user->id }}">
-                                                     Khóa
+                                                        Khóa
                                                     </button>
 
                                                     <!-- Modal -->

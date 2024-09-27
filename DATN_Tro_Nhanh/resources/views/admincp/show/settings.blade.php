@@ -1906,14 +1906,14 @@
     </div>
     <!--end::Chat drawer-->
     <!--begin::Exolore drawer toggle-->
-    <button id="kt_explore_toggle"
+    {{-- <button id="kt_explore_toggle"
         class="explore-toggle btn btn-sm bg-body btn-color-gray-700 btn-active-primary shadow-sm position-fixed px-5 fw-bolder zindex-2 top-50 mt-10 end-0 transform-90 fs-6 rounded-top-0"
         title="Explore Metronic" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="hover">
         <span id="kt_explore_toggle_label">Explore</span>
-    </button>
+    </button> --}}
     <!--end::Exolore drawer toggle-->
     <!--begin::Exolore drawer-->
-    <div id="kt_explore" class="bg-body" data-kt-drawer="true" data-kt-drawer-name="explore"
+    {{-- <div id="kt_explore" class="bg-body" data-kt-drawer="true" data-kt-drawer-name="explore"
         data-kt-drawer-activate="true" data-kt-drawer-overlay="true"
         data-kt-drawer-width="{default:'350px', 'lg': '475px'}" data-kt-drawer-direction="end"
         data-kt-drawer-toggle="#kt_explore_toggle" data-kt-drawer-close="#kt_explore_close">
@@ -2343,7 +2343,7 @@
             <!--end::Body-->
         </div>
         <!--end::Card-->
-    </div>
+    </div> --}}
     <!--end::Exolore drawer-->
     <!--end::Drawers-->
     <!--begin::Modals-->

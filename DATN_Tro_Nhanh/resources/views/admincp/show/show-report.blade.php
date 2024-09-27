@@ -1,6 +1,6 @@
     @extends('layouts.admin')
     @section('titleAdmin', 'Danh Sách Báo Cáo | TRỌ NHANH')
-    @section('linkAdmin', 'Danh sách Báo Cáo')
+    @section('linkAdmin', 'Danh sách báo cáo')
     @section('contentAdmin')
         <!--begin::Content-->
         <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -79,7 +79,8 @@
 
 
                                                     <td>
-                                                        <small>{{ $report->description }}</small>
+                                                        {{-- <small>{{ $report->description }}</small> --}}
+                                                        <small>{{ Str::limit($report->description, 20, '...') }}</small>
                                                     </td>
 
                                                     <td>
@@ -100,7 +101,7 @@
 
                                                     </td>
 
-                                                    <td class="text-end">
+                                                    <td class="text-end text-nowrap">
                                                         <a href="#"
                                                             class="btn btn-light btn-active-light-primary btn-sm"
                                                             data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
@@ -123,8 +124,10 @@
                                                             data-kt-menu="true">
                                                             <!--begin::Menu item-->
                                                             <div class="menu-item px-3">
-                                                                <a href="../../demo8/dist/apps/subscriptions/add.html"
-                                                                    class="menu-link px-3">Xem chi tiết</a>
+                                                                <a href="#" class="menu-link px-3 view-report-detail"
+                                                                    data-report-id="{{ $report->id }}">
+                                                                    Xem chi tiết
+                                                                </a>
                                                             </div>
                                                             <div class="menu-item px-3">
                                                                 <a href="#"
@@ -144,6 +147,7 @@
                                                                 @else
                                                                 @endif
                                                             </div>
+                                                        </div>
                                                     </td>
 
 
@@ -219,7 +223,48 @@
                                     <!--end::Table body-->
                                 </table>
                             </div>
+                            <div class="modal fade" id="reportDetailModal" tabindex="-1"
+                                aria-labelledby="reportDetailModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="reportDetailModalLabel">Chi tiết báo cáo</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body" id="reportDetailContent">
+                                            <!-- Nội dung sẽ được load vào đây -->
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Đóng</button>
+                                            <button type="button" class="btn btn-primary" id="approveReportBtn"
+                                                style="display: none;">Duyệt báo cáo</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <!--end::Table-->
+                            <!-- Modal -->
+                            <div class="modal fade" id="reportDetailModal" tabindex="-1"
+                                aria-labelledby="reportDetailModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="reportDetailModalLabel">Chi tiết báo cáo</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body" id="reportDetailContent">
+                                            <!-- Nội dung chi tiết sẽ được load vào đây -->
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Đóng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <!--end::Card body-->
                             <!-- Hiển thị các liên kết phân trang -->
                             @if ($reports->total() > 0)
@@ -401,4 +446,101 @@
             {{-- Show - Alert --}}
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script src="{{ asset('assets/js/alert/category-admin-alert.js') }}"></script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const viewDetailButtons = document.querySelectorAll('.view-report-detail');
+                    const modal = new bootstrap.Modal(document.getElementById('reportDetailModal'));
+                    const modalContent = document.getElementById('reportDetailContent');
+                    const approveButton = document.getElementById('approveReportBtn');
+
+                    viewDetailButtons.forEach(button => {
+                        button.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            const reportId = this.getAttribute('data-report-id');
+
+                            // Hiển thị loading spinner
+                            modalContent.innerHTML =
+                                '<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">Đang tải...</span></div></div>';
+
+                            // Hiển thị modal
+                            modal.show();
+
+                            // Gửi request AJAX để lấy dữ liệu
+                            fetch(`/admin/chi-tiet-bao-cao/${reportId}`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    // Cập nhật nội dung modal
+                                    modalContent.innerHTML = `
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label fw-bold">Tiêu đề:</label>
+                                                <textarea class="form-control" rows="3" readonly>${data.description}</textarea>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label fw-bold">Người báo cáo:</label>
+                                                <input type="text" class="form-control" value="${data.user.name}" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label fw-bold">Tên phòng:</label>
+                                                <input type="text" class="form-control" value="${data.room ? data.room.title : 'Không có tiêu đề'}" readonly>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label fw-bold">Ngày báo cáo:</label>
+                                                <input type="text" class="form-control" value="${new Date(data.created_at).toLocaleString('vi-VN')}" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label fw-bold">Trạng thái:</label>
+                                                <input type="text" class="form-control ${data.status == 1 ? 'bg-warning text-dark' : 'bg-success text-white'}" value="${data.status == 1 ? 'Chưa duyệt' : 'Đã duyệt'}" readonly>
+                                            </div>
+                                        </div>
+                                    `;
+
+                                    // Hiển thị hoặc ẩn nút duyệt
+                                    if (data.status == 1) {
+                                        approveButton.style.display = 'block';
+                                        approveButton.onclick = function() {
+                                            approveReport(reportId);
+                                        };
+                                    } else {
+                                        approveButton.style.display = 'none';
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    modalContent.innerHTML =
+                                        '<div class="alert alert-danger">Có lỗi xảy ra khi tải dữ liệu. Vui lòng thử lại sau.</div>';
+                                });
+                        });
+                    });
+
+                    function approveReport(reportId) {
+                        fetch(`/admin/duyet-bao-cao/${reportId}`, {
+                                method: 'PUT',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                        'content'),
+                                    'X-Requested-With': 'XMLHttpRequest'
+                                },
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    // Thay vì hiển thị alert, chúng ta sẽ chuyển hướng
+                                    window.location.href = data.redirect;
+                                } else {
+                                    alert('Có lỗi xảy ra khi duyệt báo cáo.');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert('Có lỗi xảy ra khi duyệt báo cáo.');
+                            });
+                    }
+                });
+            </script>
         @endpush

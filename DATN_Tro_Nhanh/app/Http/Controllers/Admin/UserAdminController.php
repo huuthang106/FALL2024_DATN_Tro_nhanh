@@ -82,20 +82,29 @@ class UserAdminController extends Controller
     {
         return view('admincp.show.private');
     }
+    // public function updateRoleAdmin($id)
+    // {
+    //     $result = $this->userAdminService->updateRoleAdmin($id);
+    //     if (!$result) {
+    //         // Cập nhật thành công, chuyển hướng hoặc thông báo
+    //         return redirect()->route('admin.list-user')->with('success', 'Cập nhật role admin thành công.');
+    //     } else {
+    //         // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
+    //         return redirect()->back()->with('error', 'Cập nhật thất bại Admin.');
+    //     }
+    //     // else {
+    //     //     // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
+    //     //     return back()->with('error', 'Cập nhật role admin thất bại.');
+    //     // }
+    // }
     public function updateRoleAdmin($id)
     {
         $result = $this->userAdminService->updateRoleAdmin($id);
-        if (!$result) {
-            // Cập nhật thành công, chuyển hướng hoặc thông báo
+        if ($result) {
             return redirect()->route('admin.list-user')->with('success', 'Cập nhật role admin thành công.');
         } else {
-            // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
-            return redirect()->back()->with('error', 'Cập nhật thất bại Admin.');
+            return redirect()->back()->with('error', 'Cập nhật thất bại. Không thể cấp quyền Admin.');
         }
-        // else {
-        //     // Cập nhật thất bại, chuyển hướng hoặc thông báo lỗi
-        //     return back()->with('error', 'Cập nhật role admin thất bại.');
-        // }
     }
     public function updateRoleUser($id)
     {

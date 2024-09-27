@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\ReportAdminService;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Report;
+use Illuminate\Support\Facades\Log;
 
 class ReportAdminController extends Controller
 {
@@ -26,14 +28,36 @@ class ReportAdminController extends Controller
 
         return view('admincp.show.show-report', compact('reports'));
     }
-
+    public function show($id)
+    {
+        $report = Report::with(['user', 'room'])->findOrFail($id);
+        return response()->json($report);
+    }
     // Hàm thay đổi trạng thái báo cáo
     // ReportController.php
     public function approve($reportId)
     {
-        $this->reportService->approveReport($reportId);
+        try {
+            $result = $this->reportService->approveReport($reportId);
 
-        return redirect()->route('admin.show-report')->with('success', 'Báo cáo đã được duyệt.');
+            if (request()->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Báo cáo đã được duyệt.',
+                    'redirect' => route('admin.show-report')
+                ]);
+            }
+
+            return redirect()->route('admin.show-report')->with('success', 'Báo cáo đã được duyệt.');
+        } catch (\Exception $e) {
+            if (request()->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Có lỗi xảy ra: ' . $e->getMessage()
+                ], 500);
+            }
+
+            return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $e->getMessage());
+        }
     }
-
 }

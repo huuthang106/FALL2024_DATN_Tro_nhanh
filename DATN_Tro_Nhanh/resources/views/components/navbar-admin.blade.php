@@ -1072,7 +1072,7 @@
                         <span class="menu-title">Danh Sách Chủ Trọ</span>
                     </a>
                 </div>
-           
+
                 <div class="menu-item">
                     <a class="menu-link text-decoration-none" href="{{ route('admin.list-user') }}">
                         <span class="menu-icon">
@@ -1091,7 +1091,7 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Danh Sách User</span>
+                        <span class="menu-title">Danh Sách Người Dùng</span>
                     </a>
                 </div>
                 <div class="menu-item">
@@ -1486,11 +1486,12 @@
                             <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none">
-                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
+                                    <rect x="2" y="2" width="9" height="9" rx="2"
                                         fill="black" />
-                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
-                                        fill="black" />
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9"
+                                        rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9"
+                                        rx="2" fill="black" />
                                     <rect opacity="0.3" x="2" y="13" width="9" height="9"
                                         rx="2" fill="black" />
                                 </svg>
@@ -1634,8 +1635,8 @@
                         </div>
                     </div>
                 </div>
-               
-                
+
+
             </div>
             <!--end::Menu-->
         </div>
@@ -1727,7 +1728,7 @@
                     <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 pt-1">
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-muted">
-                            <a href="{{ route('admin.admin') }}" class="text-muted text-hover-primary">Admin</a>
+                            <a href="{{ route('admin.admin') }}" class="text-muted text-hover-primary">Quản trị</a>
                         </li>
                         <!--end::Item-->
                         <!--begin::Item-->
