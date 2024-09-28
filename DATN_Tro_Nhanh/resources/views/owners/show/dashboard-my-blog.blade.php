@@ -46,7 +46,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
 
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">
@@ -93,7 +93,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
 
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">

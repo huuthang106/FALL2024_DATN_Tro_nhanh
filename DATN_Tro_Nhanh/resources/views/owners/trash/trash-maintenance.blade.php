@@ -144,7 +144,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
 
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">
@@ -187,7 +187,7 @@
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('assets/images/tro-moi.png') }}" />
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@TroNhanh">

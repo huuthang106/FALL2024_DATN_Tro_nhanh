@@ -73,7 +73,7 @@
     <meta property="og:url" content="https://keenthemes.com/metronic" />
     <meta property="og:site_name" content="Keenthemes | Metronic" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
     <meta name="success" content="{{ session('success') }}">
     <meta name="error" content="{{ session('error') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -97,7 +97,7 @@
     <meta property="og:title" content="Danh Sách Loại Phòng - Trọ Nhanh">
     <meta property="og:description"
         content="Xem danh sách các loại phòng trọ có sẵn và tìm kiếm phòng trọ phù hợp với nhu cầu của bạn trong hệ thống Trọ Nhanh.">
-    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <meta property="og:image" content="{{ asset('assets/images/logo-nav.png') }}">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -106,7 +106,7 @@
     <meta name="success" content="{{ session('success') }}">
     <meta name="error" content="{{ session('error') }}">
     <link rel="canonical" href="{{ url()->current() }}">
-    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}">
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
     <!--end::Fonts-->

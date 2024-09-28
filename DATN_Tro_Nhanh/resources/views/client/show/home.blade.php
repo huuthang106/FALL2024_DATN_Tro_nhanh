@@ -7,8 +7,8 @@
                 class="bg-cover d-flex align-items-center custom-vh-100">
                 <div class="container pt-lg-15 py-8" data-animate="zoomIn">
                     <p class="text-white fs-md-22 fs-18 font-weight-500 letter-spacing-367 mb-6 text-center text-uppercase">
-                        Hãy để chúng tôi hướng dẫn ngôi nhà của bạn</p>
-                    <h2 class="text-white display-2 text-center mb-sm-13 mb-8">Tìm Ngôi Nhà Mơ Ước của bạn</h2>
+                    Chúng tôi giúp bạn tìm nơi ở hoàn hảo ngay lập tức</p>
+                    <h2 class="text-white display-2 text-center mb-sm-13 mb-8">Tìm nơi ở lý tưởng chỉ trong tích tắc</h2>
                     <form action="{{ route('client.room-listing') }}" method="GET"
                         class="property-search py-lg-0 z-index-2 position-relative d-none d-lg-block">
                         <div class="row no-gutters">
@@ -756,11 +756,12 @@
                             </a>
                         </div>
                         <div class="col-lg-6 pl-xl-8" data-animate="fadeInRight">
-                            <h2 class="text-white lh-1625">Tìm khu phố của bạn<br />
+                            <h2 class="text-white lh-1625">Tìm phòng trọ của bạn<br />
                             </h2>
                             <span class="heading-divider"></span>
                             <p class="mb-6 text-white">Xem Thêm
                             </p>
+                            <form action="{{ route('client.room-listing') }}" method="GET">
                             <div class="input-group input-group-lg pr-sm-17">
                                 <input type="text"
                                     class="form-control fs-13 font-weight-500 text-gray-light rounded-lg rounded-right-0 border-0 shadow-none h-52 bg-white"
@@ -770,6 +771,7 @@
                                     <i class="far fa-search"></i>
                                 </button>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -1036,55 +1038,7 @@
             </div>
         </section>
 
-        <div id="compare" class="compare">
-            <button
-                class="btn shadow btn-open bg-white bg-hover-accent text-secondary rounded-right-0 d-flex justify-content-center align-items-center w-30px h-140 p-0">
-            </button>
-            <div class="list-group list-group-no-border bg-dark py-3">
-                <a href="#" class="list-group-item bg-transparent text-white fs-22 text-center py-0">
-                    <i class="far fa-bars"></i>
-                </a>
-                <div class="list-group-item card bg-transparent">
-                    <div class="position-relative hover-change-image bg-hover-overlay">
-                        <img src="{{ asset('assets/images/compare-01.jpg') }}" class="card-img" alt="tài sản">
-
-                        <div class="card-img-overlay">
-                            <a href="#"
-                                class="text-white hover-image fs-16 lh-1 pos-fixed-top-right position-absolute m-2"><i
-                                    class="fal fa-minus-circle"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="list-group-item card bg-transparent">
-                    <div class="position-relative hover-change-image bg-hover-overlay">
-                        <img src="{{ asset('assets/images/compare-02.jpg') }}" class="card-img" alt="tài sản">
-
-                        <div class="card-img-overlay">
-                            <a href="#"
-                                class="text-white hover-image fs-16 lh-1 pos-fixed-top-right position-absolute m-2"><i
-                                    class="fal fa-minus-circle"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="list-group-item card card bg-transparent">
-                    <div class="position-relative hover-change-image bg-hover-overlay ">
-                        <img src="{{ asset('assets/images/compare-03.jpg') }}" class="card-img" alt="tài sản">
-
-                        <div class="card-img-overlay">
-                            <a href="#"
-                                class="text-white hover-image fs-16 lh-1 pos-fixed-top-right position-absolute m-2"><i
-                                    class="fal fa-minus-circle"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="list-group-item bg-transparent">
-                    <a href="compare-details.html"
-                        class="btn btn-lg btn-primary w-100 px-0 d-flex justify-content-center">
-                        So sánh
-                    </a>
-                </div>
-            </div>
-        </div>
+     
 
     </main>
 
@@ -1120,7 +1074,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/hoangtuchile.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" witdh=300px; href="{{ asset('assets/images/logo-nav.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">
@@ -1167,7 +1121,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
 
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">

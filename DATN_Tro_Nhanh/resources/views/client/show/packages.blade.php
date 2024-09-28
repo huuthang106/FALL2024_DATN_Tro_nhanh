@@ -33,7 +33,7 @@
     <!-- CSS cốt lõi của chủ đề -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Biểu tượng yêu thích -->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">

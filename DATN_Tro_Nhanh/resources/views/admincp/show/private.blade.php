@@ -3203,7 +3203,7 @@
     <meta property="og:url" content="https://keenthemes.com/metronic" />
     <meta property="og:site_name" content="Keenthemes | Metronic" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
@@ -3221,12 +3221,12 @@
     <meta property="og:title" content="Trò Chuyện - Trọ Nhanh">
     <meta property="og:description"
         content="Trò chuyện trực tiếp với người quản lý phòng để giải quyết các yêu cầu và vấn đề của bạn một cách nhanh chóng và hiệu quả.">
-    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <meta property="og:image" content="{{ asset('assets/images/logo-nav.png') }}">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:site_name" content="Trọ Nhanh">
     <meta property="og:type" content="website">
     <link rel="canonical" href="{{ url()->current() }}">
-    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}">
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
     <!--end::Fonts-->

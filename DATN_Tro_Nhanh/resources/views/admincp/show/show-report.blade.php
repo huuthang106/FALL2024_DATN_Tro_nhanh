@@ -375,7 +375,7 @@
             <meta property="og:url" content="https://keenthemes.com/metronic" />
             <meta property="og:site_name" content="Keenthemes | Metronic" />
             <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-            <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
+            <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
             <meta name="success" content="{{ session('success') }}">
             <meta name="error" content="{{ session('error') }}">
             <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -400,12 +400,12 @@
             <meta property="og:title" content="Danh Sách Báo Cáo - Trọ Nhanh">
             <meta property="og:description"
                 content="Xem và quản lý các báo cáo liên quan đến khu vực và phòng trọ trên Trọ Nhanh. Theo dõi và xử lý các vấn đề báo cáo một cách hiệu quả từ bảng điều khiển quản trị.">
-            <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+            <meta property="og:image" content="{{ asset('assets/images/logo-nav.png') }}">
             <meta property="og:url" content="{{ url()->current() }}">
             <meta property="og:site_name" content="Trọ Nhanh">
             <meta property="og:type" content="website">
             <link rel="canonical" href="{{ url()->current() }}">
-            <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}">
+            <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}">
             <meta name="success" content="{{ session('success') }}">
             <meta name="error" content="{{ session('error') }}">
             <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

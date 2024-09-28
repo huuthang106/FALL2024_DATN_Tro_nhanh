@@ -6,14 +6,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\RoomClientServices;
+use App\Services\PremiumService;
+
 
 class HomeClientController extends Controller
 {
     protected $roomClientService;
+    protected $premiumService;
 
-    public function __construct(RoomClientServices $roomClientService)
+    public function __construct(RoomClientServices $roomClientService, PremiumService $premiumService)
     {
         $this->roomClientService = $roomClientService;
+        $this->premiumService = $premiumService;
     }
     public function index(Request $request)
     {
@@ -34,6 +38,8 @@ class HomeClientController extends Controller
             ]);
         }
         
+        $updatedCount = $this->premiumService->updateStatusAndRemoveExpiredPremiumUsers();
+        $updatedRoomCount = $this->roomClientService->checkAndUpdateExpiredRooms();
         return view('client.show.home', [
             'roomClient' => $roomClient,
             'categories' => $categories,

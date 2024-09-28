@@ -1241,7 +1241,7 @@
     <meta property="og:url" content="" />
     <meta property="og:site_name" content="" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
@@ -1262,12 +1262,12 @@
     <meta property="og:title" content="Thống Kê - Trọ Nhanh">
     <meta property="og:description"
         content="Khám phá các số liệu thống kê chi tiết và phân tích hoạt động của hệ thống phòng trọ Trọ Nhanh.">
-    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <meta property="og:image" content="{{ asset('assets/images/logo-nav.png') }}">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <link rel="canonical" href="{{ url()->current() }}">
-    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}">
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
     <!--end::Fonts-->

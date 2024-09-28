@@ -259,7 +259,7 @@
         <meta property="og:url" content="https://keenthemes.com/metronic" />
         <meta property="og:site_name" content="Keenthemes | Metronic" />
         <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-        <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
+        <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
         <meta name="success" content="{{ session('success') }}">
         <meta name="error" content="{{ session('error') }}">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -284,14 +284,14 @@
         <meta property="og:title" content="Danh Sách Đơn Đăng Ký - Trọ Nhanh">
         <meta property="og:description"
             content="Xem và quản lý tất cả các đơn đăng ký trên Trọ Nhanh. Trang này cung cấp cái nhìn tổng quan về các đơn đăng ký và cho phép bạn theo dõi và xử lý chúng dễ dàng.">
-        <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+        <meta property="og:image" content="{{ asset('assets/images/logo-nav.png') }}">
         <meta property="og:image:type" content="image/png">
         <meta property="og:image:width" content="1200">
         <meta property="og:image:height" content="630">
         <meta property="og:url" content="{{ url()->current() }}">
         <meta property="og:site_name" content="Trọ Nhanh">
         <link rel="canonical" href="{{ url()->current() }}">
-        <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}">
+        <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}">
         <!--begin::Fonts-->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
         <!--end::Fonts-->

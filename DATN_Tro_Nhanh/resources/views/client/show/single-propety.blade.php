@@ -1346,9 +1346,9 @@
                                             class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Đăng
                                             nhập để gửi báo cáo</a>
                                     @endauth
-                                    <a href="#"
+                                    <!-- <a href="#"
                                         class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Yêu
-                                        cầu thông tin</a>
+                                        cầu thông tin</a> -->
 
                                     @if ($zone)
                                         <!-- Nút để mở modal -->
@@ -1519,7 +1519,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/mh.css') }}">
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">
@@ -1565,7 +1565,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/mh.css') }}">
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@TroNanh">

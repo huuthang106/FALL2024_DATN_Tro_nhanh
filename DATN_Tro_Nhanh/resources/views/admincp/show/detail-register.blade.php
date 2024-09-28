@@ -448,7 +448,7 @@
     <meta property="og:url" content="" />
     <meta property="og:site_name" content="" />
     <link rel="canonical" href="" />
-    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}" />
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
     <meta name="success" content="{{ session('success') }}">
     <meta name="error" content="{{ session('error') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -469,12 +469,12 @@
     <meta property="og:title" content="Chi Tiết Đơn Đăng Ký - Trọ Nhanh">
     <meta property="og:description"
         content="Khám phá chi tiết các đơn đăng ký trên hệ thống Trọ Nhanh. Theo dõi trạng thái và thông tin liên quan đến đơn đăng ký.">
-    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <meta property="og:image" content="{{ asset('assets/images/logo-nav.png') }}">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <link rel="canonical" href="{{ url()->current() }}">
-    <link rel="shortcut icon" href="{{ asset('assets/images/tro-moi.png') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="{{ asset('assets/js/toastr-notification.js') }}"></script>
     <!--begin::Fonts-->

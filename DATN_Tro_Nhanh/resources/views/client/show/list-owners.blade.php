@@ -386,6 +386,7 @@
 
 
                 <nav class="mt-4">
+                    @if ($users->count() > 0) {{-- Kiểm tra nếu có dữ liệu --}}
                     <ul class="pagination rounded-active justify-content-center">
                         {{-- Liên kết Trang Đầu --}}
                         @if ($users->onFirstPage())
@@ -447,6 +448,7 @@
                             </li>
                         @endif
                     </ul>
+                    @endif {{-- Kết thúc kiểm tra --}}
                 </nav>
 
                 <div class="text-center mt-2"> {{ $users->firstItem() }}-{{ $users->lastItem() }} trên
@@ -490,7 +492,7 @@
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">
@@ -538,7 +540,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
 
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">

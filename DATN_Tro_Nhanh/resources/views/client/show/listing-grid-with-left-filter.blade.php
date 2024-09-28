@@ -137,41 +137,32 @@
                                                 <ul class="list-group list-group-no-border">
                                                     <li class="list-group-item px-0 pt-0 pb-2">
                                                         <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="check1">
+                                                            <input type="checkbox" class="custom-control-input" id="check1" name="features[]" value="wifi">
                                                             <label class="custom-control-label" for="check1">Wifi</label>
                                                         </div>
                                                     </li>
                                                     <li class="list-group-item px-0 pt-0 pb-2">
                                                         <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="check2">
-                                                            <label class="custom-control-label" for="check2">Máy điều
-                                                                hòa</label>
+                                                            <input type="checkbox" class="custom-control-input" id="check2" name="features[]" value="air_conditioner">
+                                                            <label class="custom-control-label" for="check2">Máy điều hòa</label>
                                                         </div>
                                                     </li>
                                                     <li class="list-group-item px-0 pt-0 pb-2">
                                                         <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="check3">
-                                                            <label class="custom-control-label" for="check3">Phòng
-                                                                tắm</label>
+                                                            <input type="checkbox" class="custom-control-input" id="check3" name="features[]" value="bathroom">
+                                                            <label class="custom-control-label" for="check3">Phòng tắm</label>
                                                         </div>
                                                     </li>
                                                     {{-- <li class="list-group-item px-0 pt-0 pb-2">
                                                         <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="check4">
-                                                            <label class="custom-control-label" for="check4">Máy
-                                                                giặt</label>
+                                                            <input type="checkbox" class="custom-control-input" id="check4">
+                                                            <label class="custom-control-label" for="check4">Máy giặt</label>
                                                         </div>
                                                     </li> --}}
                                                 </ul>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block shadow-none mt-4">Tìm
-                                            kiếm
-                                        </button>
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block shadow-none mt-4">Tìm kiếm</button>
                                     </form>
                                 </div>
                             </div>
@@ -460,7 +451,7 @@
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-    <link rel="icon" href="images/favicon.ico">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">
@@ -506,7 +497,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
 
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">

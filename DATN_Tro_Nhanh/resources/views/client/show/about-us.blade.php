@@ -980,7 +980,7 @@
                 <h2 class="text-dark lh-1625 text-center mb-8 fs-22 fs-md-32 pt-lg-10">Tiếp tục khám phá</h2>
                 <div class="row">
                     <div class="col-sm-6 col-lg-3 mb-6 mb-lg-0">
-                        <a href="agents-grid-with-sidebar.html"
+                        <a href="{{ auth()->check() && auth()->user()->role == 2 ? route('owners.add-room') : route('client.home') }}"
                             class="card border-0 shadow-2 px-7 py-5 h-100 shadow-hover-lg-1">
                             <div class="card-img-top d-flex align-items-end justify-content-center">
                                 <img src="{{ asset('assets/images/icon-box-4.png') }}"
@@ -993,7 +993,7 @@
                         </a>
                     </div>
                     <div class="col-sm-6 col-lg-3 mb-6 mb-lg-0">
-                        <a href="dashboard-add-new-property.html"
+                        <a href="{{ auth()->check() && auth()->user()->role == 2 ? route('owners.add-room') : route('client.home') }}"
                             class="card border-0 shadow-2 px-7 py-5 h-100 shadow-hover-lg-1">
                             <div class="card-img-top d-flex align-items-end justify-content-center">
                                 <img src="{{ asset('assets/images/icon-box-5.png') }}" alt="Bán căn nhà của bạn">
@@ -1004,7 +1004,7 @@
                         </a>
                     </div>
                     <div class="col-sm-6 col-lg-3 mb-6 mb-lg-0">
-                        <a href="blog-grid-with-sidebar.html"
+                        <a href="{{ route('client.client-blog') }}"
                             class="card border-0 shadow-2 px-7 py-5 h-100 shadow-hover-lg-1">
                             <div class="card-img-top d-flex align-items-end justify-content-center">
                                 <img src="{{ asset('assets/images/icon-box-6.png') }}" alt="Tin tức mới nhất">
@@ -1015,7 +1015,7 @@
                         </a>
                     </div>
                     <div class="col-sm-6 col-lg-3 mb-6 mb-lg-0">
-                        <a href="contact-us-1.html" class="card border-0 shadow-2 px-7 py-5 h-100 shadow-hover-lg-1">
+                        <a href="{{ route('client.client-service') }}" class="card border-0 shadow-2 px-7 py-5 h-100 shadow-hover-lg-1">
                             <div class="card-img-top d-flex align-items-end justify-content-center">
                                 <img src="{{ asset('assets/images/icon-box-7.png') }}" alt="Liên hệ với chúng tôi">
                             </div>
@@ -1055,7 +1055,7 @@
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">
@@ -1099,7 +1099,7 @@
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">

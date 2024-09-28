@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Carbon\Carbon;
 use Exception;
 
 class RoomClientServices
@@ -26,7 +27,7 @@ class RoomClientServices
                 ->withCount('images')
                 ->select('rooms.*')
                 ->orderByDesc('rooms.created_at');
-         
+            
                 // Nếu có loại phòng, thêm điều kiện vào truy vấn
              if ($type) {
                 $query->whereHas('category', function ($q) use ($type) {
@@ -58,6 +59,15 @@ class RoomClientServices
                 Log::info('Applying category filter: ' . $category); // Thêm log để kiểm tra
                 $query->where('rooms.category_id', $category);
             }
+
+            // Nếu có tiện ích, thêm điều kiện vào truy vấn
+        if (!empty($features)) { // Kiểm tra nếu $features không rỗng
+            $query->where(function ($q) use ($features) {
+                foreach ($features as $feature) {
+                    $q->orWhere($feature, 2); // Kiểm tra giá trị cột tiện ích là 2
+                }
+            });
+        }
 
             $result = $query->paginate($perPage);
             Log::info('SQL Query: ' . $query->toSql());
@@ -306,4 +316,26 @@ class RoomClientServices
     }
 
 
+    public function checkAndUpdateExpiredRooms()
+    {
+        // Lấy ngày hiện tại
+        $currentDate = Carbon::now();
+
+        // Tìm các phòng có expiration_date nhỏ hơn ngày hiện tại
+        $expiredRooms = Room::where('expiration_date', '<=', $currentDate)->get();
+
+        $updatedCount = 0;
+
+        if ($expiredRooms->isNotEmpty()) {
+            foreach ($expiredRooms as $room) {
+                // Cập nhật expiration_date thành null cho các phòng hết hạn
+                $room->expiration_date = null;
+                $room->save();
+
+                $updatedCount++;
+            }
+        }
+
+        return $updatedCount; // Trả về số lượng phòng đã được cập nhật
+    }
 }

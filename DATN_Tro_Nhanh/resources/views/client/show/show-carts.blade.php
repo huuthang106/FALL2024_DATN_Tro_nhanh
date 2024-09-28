@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
-                        <form method="GET" action="" id="search-form" class="w-100 h-100" style="height: 1000px">
+                        <!-- <form method="GET" action="" id="search-form" class="w-100 h-100" style="height: 1000px">
                             <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
                                 <input type="text" name="query" value="" id="search-input"
                                     class="form-control bg-transparent border-1x" placeholder="Tìm..." aria-label=""
@@ -37,7 +37,7 @@
                                     </button>
                                 </div>
                             </div>
-                        </form>
+                        </form> -->
                     </div>
                 </div>
             </div>
@@ -160,7 +160,7 @@
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">
@@ -206,7 +206,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
 
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">

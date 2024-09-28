@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Room;
 use App\Models\PriceList;
+use App\Models\Utility;
 use Illuminate\Support\Facades\Auth;
 use App\Services\RoomOwnersService;
 use Carbon\Carbon;
@@ -66,10 +67,12 @@ class RoomOwnersList extends Component
 
         if (!empty($this->search)) {
             $query->where(function ($q) {
+                // Tìm kiếm theo tên hoặc địa chỉ
                 $q->where('title', 'like', '%' . $this->search . '%')
                     ->orWhere('address', 'like', '%' . $this->search . '%');
             });
         }
+        
         
         if ($this->timeFilter) {
             $date = Carbon::now();

@@ -141,7 +141,7 @@
                         </div>
                     </div>
                 </div>
-                <hr class="mb-11">
+                <!-- <hr class="mb-11">
                 <h2 class="text-heading mb-2 fs-22 fs-md-32 text-center lh-16 mxw-571 px-lg-8">
                     Bạn Đang Tìm Phòng Trọ?
                 </h2>
@@ -191,7 +191,7 @@
                     <div class="text-center">
                         <button type="submit" class="btn btn-lg btn-primary px-9">Gửi</button>
                     </div>
-                </form>
+                </form> -->
             </div>
         </section>
     </main>
@@ -222,7 +222,7 @@
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">
@@ -268,7 +268,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
 
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
