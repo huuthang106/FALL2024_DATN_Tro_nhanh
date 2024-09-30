@@ -9,10 +9,11 @@
     /* Cỡ chữ hơi lớn hơn */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     /* Tạo hiệu ứng bóng nhẹ */
+    margin-top: -3px;
 }
 
 .payment-info .row {
-    margin-bottom: 10px;
+    margin-bottom: 1px;
     display: flex;
     align-items: center;
 }
@@ -22,6 +23,10 @@
     /* Cho phép xuống dòng khi nội dung dài */
     word-wrap: break-word;
     /* Chia dòng khi cần */
+}
+
+.text-note {
+    margin-top: -40px;
 }
 
 /* Điều chỉnh cho chế độ mobile */

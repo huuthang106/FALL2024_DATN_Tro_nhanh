@@ -279,7 +279,7 @@
                                                             {{ $zone->address }}</p>
                                                         <p class="card-text mb-2 ml-0">{{ $zone->description }}</p>
                                                         <p class="card-text fs-17 font-weight-bold text-heading mb-3">
-                                                            Tổng số phòng: {{ $zone->total_rooms }}
+                                                            Tổng số phòng: {{ $zoneServices->countRoomsInZone($zone->id) }}
                                                         </p>
                                                     </div>
                                                     <div class="card-footer pt-3 bg-transparent px-0 pb-0">

@@ -1010,7 +1010,7 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link text-decoration-none" href="{{ route('admin.admin') }}">
+                    <a class="menu-link text-decoration-none {{ request()->routeIs('admin.admin') ? 'selected' : '' }}"  href="{{ route('admin.admin') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -1031,7 +1031,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link text-decoration-none" href="     {{ route('admin.accept-room') }}">
+                    <a class="menu-link text-decoration-none {{ request()->routeIs('admin.accept-room') ? 'selected' : '' }}" href="{{ route('admin.accept-room') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -1052,7 +1052,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link text-decoration-none" href="{{ route('admin.listOwner') }}">
+                    <a class="menu-link text-decoration-none {{ request()->routeIs('admin.listOwner') ? 'selected' : '' }}" href="{{ route('admin.listOwner') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -1074,7 +1074,7 @@
                 </div>
 
                 <div class="menu-item">
-                    <a class="menu-link text-decoration-none" href="{{ route('admin.list-user') }}">
+                    <a class="menu-link text-decoration-none {{ request()->routeIs('admin.list-user') ? 'selected' : '' }}" href="{{ route('admin.list-user') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -1095,7 +1095,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link text-decoration-none" href="{{ route('admin.show-blog-admin') }}">
+                    <a class="menu-link text-decoration-none {{ request()->routeIs('admin.show-blog-admin') ? 'selected' : '' }}" href="{{ route('admin.show-blog-admin') }}">
                         {{-- <a class="menu-link text-decoration-none" href="{{ route('admin.admin.profile-user') }}"> --}}
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
@@ -1117,7 +1117,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link text-decoration-none" href="{{ route('admin.danh-sach-khutro') }}">
+                    <a class="menu-link text-decoration-none {{ request()->routeIs('admin.danh-sach-khutro') ? 'selected' : '' }}" href="{{ route('admin.danh-sach-khutro') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -1138,7 +1138,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link text-decoration-none" href="{{ route('admin.room-available-all') }}">
+                    <a class="menu-link text-decoration-none {{ request()->routeIs('admin.room-available-all') ? 'selected' : '' }}" href="{{ route('admin.room-available-all') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -1164,66 +1164,7 @@
                     </div>
                 </div>
 
-                {{-- <div id="phong-tro-menu" data-kt-menu-trigger="click"
-                    class="menu-item menu-accordion menu-item-persistent">
-                    <span class="menu-link">
-                        <span class="menu-icon">
-                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                            <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none">
-                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
-                                        fill="black" />
-                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
-                                        fill="black" />
-                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
-                                        fill="black" />
-                                </svg>
-                            </span>
-                            <!--end::Svg Icon-->
-                        </span>
-                        <span class="menu-title">Phòng trọ</span>
-                        <span class="menu-arrow"></span>
-                    </span>
-                    <div class="menu-sub menu-sub-accordion menu-active-bg">
-                        <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.show-room') }}"
-                                style="text-decoration: none;">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Danh sách</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.add-room-show') }}"
-                                style="text-decoration: none;">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Thêm phòng</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link" href="" style="text-decoration: none;">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Chỉnh sửa</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.trash-room') }}"
-                                style="text-decoration: none;">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Thùng rác</span>
-                            </a>
-                        </div>
-                    </div>
-                </div> --}}
+               
                 <div id="don-dang-ky-menu" data-kt-menu-trigger="click"
                     class="menu-item menu-accordion menu-item-persistent">
                     <span class="menu-link">
@@ -1247,7 +1188,7 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link text-decoration-none" href="{{ route('admin.list-registers') }}">
+                            <a class="menu-link text-decoration-none {{ request()->routeIs('admin.list-registers') ? 'selected' : '' }}" href="{{ route('admin.list-registers') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1280,7 +1221,7 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link text-decoration-none" href="{{ route('admin.show-report') }}">
+                            <a class="menu-link text-decoration-none {{ request()->routeIs('admin.show-report') ? 'selected' : '' }}" href="{{ route('admin.show-report') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1289,54 +1230,6 @@
                         </div>
                     </div>
                 </div>
-
-                {{-- <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                    <span class="menu-link">
-                        <span class="menu-icon">
-                            <span class="svg-icon svg-icon-2">
-                                <!-- SVG icon here -->
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none">
-                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
-                                        fill="black" />
-                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
-                                        fill="black" />
-                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2"
-                                        fill="black" />
-                                </svg>
-                            </span>
-                        </span>
-                        <span class="menu-title">Blogs</span>
-                        <span class="menu-arrow"></span>
-                    </span>
-                    <div class="menu-sub menu-sub-accordion menu-active-bg">
-                        <div class="menu-item">
-                            <a class="menu-link text-decoration-none" href="{{ route('admin.show-blog') }}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Danh sách blog</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link text-decoration-none" href="{{ route('admin.create-blog') }}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Thêm blog</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link text-decoration-none" href="{{ route('admin.trash-blog') }}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Thùng rác</span>
-                            </a>
-                        </div>
-                    </div>
-                </div> --}}
 
                 <div id="tien-ich-menu" data-kt-menu-trigger="click"
                     class="menu-item menu-accordion menu-item-persistent">
@@ -1362,7 +1255,7 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.danh-sach-tien-ich') }}"
+                            <a class="menu-link {{ request()->routeIs('admin.danh-sach-tien-ich') ? 'selected' : '' }}" href="{{ route('admin.danh-sach-tien-ich') }}"
                                 style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
@@ -1405,7 +1298,7 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.danh-sach-bang-gia') }}"
+                            <a class="menu-link {{ request()->routeIs('admin.danh-sach-bang-gia') ? 'selected' : '' }}" href="{{ route('admin.danh-sach-bang-gia') }}"
                                 style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
@@ -1414,7 +1307,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.trang-them-bang-gia') }}"
+                            <a class="menu-link {{ request()->routeIs('admin.trang-them-bang-gia') ? 'selected' : '' }}" href="{{ route('admin.trang-them-bang-gia') }}"
                                 style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
@@ -1423,7 +1316,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.trash-price-list') }}"
+                            <a class="menu-link {{ request()->routeIs('admin.trash-price-list') ? 'selected' : '' }}" href="{{ route('admin.trash-price-list') }}"
                                 style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
@@ -1433,50 +1326,6 @@
                         </div>
                     </div>
                 </div>
-
-                {{-- <div id="khu-vuc-menu" data-kt-menu-trigger="click"
-                    class="menu-item menu-accordion menu-item-persistent">
-                    <span class="menu-link">
-                        <span class="menu-icon">
-                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                            <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none">
-                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
-                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2"
-                                        fill="black" />
-                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2"
-                                        fill="black" />
-                                    <rect opacity="0.3" x="2" y="13" width="9" height="9"
-                                        rx="2" fill="black" />
-                                </svg>
-                            </span>
-                            <!--end::Svg Icon-->
-                        </span>
-                        <span class="menu-title">Khu trọ</span>
-                        <span class="menu-arrow"></span>
-                    </span>
-                    <div class="menu-sub menu-sub-accordion menu-active-bg">
-                        <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.all_zone') }}"
-                                style="text-decoration: none;">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Danh sách</span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.trash-zone') }}"
-                                style="text-decoration: none;">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Thùng rác</span>
-                            </a>
-                        </div>
-                    </div>
-                </div> --}}
 
                 <div id="loai-phong-menu" data-kt-menu-trigger="click"
                     class="menu-item menu-accordion menu-item-persistent">
@@ -1503,7 +1352,7 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.list-category') }}"
+                            <a class="menu-link {{ request()->routeIs('admin.list-category') ? 'selected' : '' }}" href="{{ route('admin.list-category') }}"
                                 style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
@@ -1512,7 +1361,7 @@
                             </a>
                         </div>
                         {{-- <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.add-category') }}" style="text-decoration: none;">
+                            <a class="menu-link {{ request()->routeIs('admin.add-category') ? 'selected' : '' }}" href="{{ route('admin.add-category') }}" style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1520,7 +1369,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.update-category', ['id' => $category->id]) }}" style="text-decoration: none;">
+                            <a class="menu-link {{ request()->routeIs('admin.update-category', ['id' => $category->id])) ? 'selected' : '' }}" href="{{ route('admin.update-category', ['id' => $category->id]) }}" style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -1528,7 +1377,7 @@
                             </a>
                         </div> --}}
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.trash-category') }}"
+                            <a class="menu-link {{ request()->routeIs('admin.trash-category') ? 'selected' : '' }}" href="{{ route('admin.trash-category') }}"
                                 style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
@@ -1564,7 +1413,7 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.show-acreage') }}"
+                            <a class="menu-link {{ request()->routeIs('admin.show-acreage') ? 'selected' : '' }}" href="{{ route('admin.show-acreage') }}"
                                 style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
@@ -1607,7 +1456,7 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.show-location') }}"
+                            <a class="menu-link {{ request()->routeIs('admin.show-location') ? 'selected' : '' }}" href="{{ route('admin.show-location') }}"
                                 style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
@@ -1616,7 +1465,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.add-location-show') }}"
+                            <a class="menu-link {{ request()->routeIs('admin.add-location-show') ? 'selected' : '' }}" href="{{ route('admin.add-location-show') }}"
                                 style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
@@ -1625,7 +1474,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link" href="{{ route('admin.trash-location') }}"
+                            <a class="menu-link {{ request()->routeIs('admin.trash-location') ? 'selected' : '' }}" href="{{ route('admin.trash-location') }}"
                                 style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
@@ -1635,7 +1484,6 @@
                         </div>
                     </div>
                 </div>
-
 
             </div>
             <!--end::Menu-->

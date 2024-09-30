@@ -261,3 +261,15 @@ a.d-block {
         /* Điều chỉnh kích thước badge cho màn hình nhỏ */
     }
 }
+
+/* Khi menu được chọn (có class selected) */
+.menu-link.selected .menu-title {
+    color: #ffffff !important;
+    /* Ép buộc thay đổi màu chữ */
+}
+
+
+.menu-link.selected .svg-icon svg rect {
+    fill: #ffffff !important;
+    /* Màu icon đậm hơn */
+}

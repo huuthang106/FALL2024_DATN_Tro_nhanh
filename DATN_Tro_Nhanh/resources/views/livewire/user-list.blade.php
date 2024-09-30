@@ -177,8 +177,13 @@
 
                                 <tbody class="text-gray-600 fw-bold">
                                     <!--begin::Table row-->
-                                    @if ($users->count() > 0)
-                                        @foreach ($users as $user)
+                                    @if ($users->isEmpty())
+                                        <!-- Hiển thị khi không có dữ liệu -->
+                                        <tr>
+                                            <td colspan="7" class="text-center">Không có dữ liệu.</td>
+                                        </tr>
+                                    @else
+                                    @foreach ($users as $user)
                                             <tr>
                                                 <!--begin::Checkbox-->
                                                 {{-- <td>
@@ -292,12 +297,56 @@
                                                 <!--end::Action=-->
                                             </tr>
                                         @endforeach
+                                          <!-- Modal -->
+                                        <div class="modal fade" id="blockAccountModal" tabindex="-1"
+                                            aria-labelledby="blockAccountModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="blockAccountModalLabel">Khóa tài khoản</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <!-- Form để gửi dữ liệu -->
+                                                        <form id="blockAccountForm" method="POST"
+                                                            action="{{ route('admin.lock-account', $user->id) }}">
+                                                            @csrf <!-- Thêm token bảo mật -->
+                                                            <div class="mb-3">
+                                                                <label for="blockDays" class="form-label text-start d-block">Số
+                                                                    ngày khóa tài khoản</label>
+                                                                <input type="number" class="form-control" id="blockDays"
+                                                                    name="blockDays" required>
+                                                                @error('blockDays')
+                                                                    <div class="text-danger">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="blockReason" class="form-label text-start d-block">Lý
+                                                                    do khóa tài khoản</label>
+                                                                <textarea class="form-control" id="blockReason" name="blockReason" rows="3" required></textarea>
+                                                                @error('blockReason')
+                                                                    <div class="text-danger">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Hủy</button>
+                                                        <!-- Nút submit form -->
+                                                        <button type="submit" form="blockAccountForm" class="btn btn-danger">Xác
+                                                            nhận khóa</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <!--end::Table row-->
-                                    @else
-                                        <tr>
-                                            <td colspan="8" class="text-center">Không có dữ liệu.</td>
-                                        </tr>
-                                    @endif
+                                        @endif
                                 </tbody>
                                 <!--end::Table body-->
 
@@ -305,54 +354,6 @@
                         </div>
 
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="blockAccountModal" tabindex="-1"
-                            aria-labelledby="blockAccountModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="blockAccountModalLabel">Khóa tài khoản</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <!-- Form để gửi dữ liệu -->
-                                        <form id="blockAccountForm" method="POST"
-                                            action="{{ route('admin.lock-account', $user->id) }}">
-                                            @csrf <!-- Thêm token bảo mật -->
-                                            <div class="mb-3">
-                                                <label for="blockDays" class="form-label text-start d-block">Số
-                                                    ngày khóa tài khoản</label>
-                                                <input type="number" class="form-control" id="blockDays"
-                                                    name="blockDays" required>
-                                                @error('blockDays')
-                                                    <div class="text-danger">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="blockReason" class="form-label text-start d-block">Lý
-                                                    do khóa tài khoản</label>
-                                                <textarea class="form-control" id="blockReason" name="blockReason" rows="3" required></textarea>
-                                                @error('blockReason')
-                                                    <div class="text-danger">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Hủy</button>
-                                        <!-- Nút submit form -->
-                                        <button type="submit" form="blockAccountForm" class="btn btn-danger">Xác
-                                            nhận khóa</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <!--end::Table-->
                         @if ($users->hasPages())
                             <!-- Phân trang -->

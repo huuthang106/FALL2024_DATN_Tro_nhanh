@@ -110,19 +110,16 @@
                     
                                     <!-- Cột Trạng thái -->
                                     <td class="align-middle">
-                                        @if ($room->status === 1)
-                                            <span
-                                                class="badge text-capitalize font-weight-normal fs-12 badge-yellow"><small>Còn
-                                                    trống</small></span>
-                                        @elseif ($room->status === 2)
-                                            <span
-                                                class="badge text-capitalize font-weight-normal fs-12 badge-pink"><small>Đã
-                                                    thuê</small></span>
-                                        @else
-                                            <span
-                                                class="badge text-capitalize font-weight-normal fs-12 badge-gray"><small>Không
-                                                    xác định</small></span>
-                                        @endif
+                                    @if ($room->status === 1)
+                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">Chờ
+                                            duyệt</span>
+                                    @elseif ($room->status === 2)
+                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-pink">Đã
+                                            duyệt</span>
+                                    @else
+                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-gray">Không
+                                            xác định</span>
+                                    @endif
                                     </td>
                     
                                     <!-- Cột Lượt Xem -->

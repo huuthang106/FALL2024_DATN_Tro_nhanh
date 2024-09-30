@@ -555,7 +555,7 @@
                                                 <td>{{ $priceList->location->name ?? 'Location không còn tồn tại' }}
                                                 </td>
                                                 <!-- Use location name -->
-                                                <td>{{ number_format($priceList->price, 0, ',', '.') }} ₫</td>
+                                                <td>{{ number_format($priceList->price, 0, ',', '.') }} VND</td>
                                                 <td>{{ $priceList->duration_day }}</td>
                                                 <td>{{ $priceList->status ? 'Kích hoạt' : 'Không kích hoạt' }}</td>
                                                 <td class="text-end">

@@ -131,9 +131,10 @@ class ZoneServices
         return $zones;
     }
     // Tổng só khu trọ Client
-    public function getTotalZones()
+    public function countRoomsInZone($zone_id)
     {
-        return Zone::count(); // Đếm tổng số khu vực trọ
+        // Đếm số phòng trong zone_id cụ thể
+        return Room::where('zone_id', $zone_id)->count();
     }
     public function getTotalZonesByUser($userId = null)
     {

@@ -138,7 +138,7 @@
                                     @else
                                         <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                                             data-target="#notApprovedModal">
-                                            Bị khóa
+                                            Chưa mở
                                         </button>
                                     @endif
                                 </td>

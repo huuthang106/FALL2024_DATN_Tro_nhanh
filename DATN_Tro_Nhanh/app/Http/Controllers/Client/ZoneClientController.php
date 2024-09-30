@@ -44,7 +44,7 @@ class ZoneClientController extends Controller
             }
         }
 
-        $totalZones = $this->zoneServices->getTotalZones();
+        // $totalZones = $this->zoneServices->getTotalZones();
         $provinces = $this->zoneServices->getProvinces()->pluck('province')->toArray(); // Chuyển đổi Collection thành mảng
 
         if ($request->ajax()) {
@@ -56,7 +56,7 @@ class ZoneClientController extends Controller
         }
         return view('client.show.listing-half-map-list-layout-1', [
             'zones' => $zones,
-            'totalZones' => $totalZones,
+            // 'totalZones' => $totalZones,
             'keyword' => $keyword,
             'province' => $province,
             'latitude' => $latitude,
@@ -64,7 +64,8 @@ class ZoneClientController extends Controller
             'userLat' => $request->input('user_lat'),
             'userLng' => $request->input('user_lng'),
             'showLocationAlert' => true,
-            'provinces' => $provinces // Truyền danh sách các mã tỉnh vào view
+            'provinces' => $provinces,
+            'zoneServices' => $this->zoneServices // Truyền danh sách các mã tỉnh vào view
         ]);
     }
     public function showZoneDetailsBySlug($slug)

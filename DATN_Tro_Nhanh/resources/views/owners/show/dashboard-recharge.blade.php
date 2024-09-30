@@ -2,63 +2,58 @@
 @section('titleOwners', 'Nạp tiền | TRỌ NHANH')
 @section('contentOwners')
     <main id="content" class="bg-gray-01">
-        <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
-                <div class="mb-6">
-                    <h5 class="ms-4">Số dư tài khoản: <span class="text-primary"> {{$user->balance ?? 0}} đ</span></h5>
-                    <div class="important-note">
-                    <h6>Lưu ý quan trọng:</h6>
-                    <h6 class=""> - Nội dung chuyển tiền bạn vui lòng ghi đúng thông tin sau:"TN GD{{$user->id}}"</h6><br>
-                    <h6 class=""> Trong đó {{$user->id}} là mã thành viên của bạn đăng ký trên website tronhanh.com.</h6><br>
-                    <h6>Xin cảm ơn!</h6>
+            <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
+                        <div class="">
+                            <h5 class="ms-4 text-note">Số dư tài khoản: <span class="text-primary"> {{$user->balance ?? 0}} đ</span></h5>
+                            <div class="important-note">
+                            <h6>Lưu ý quan trọng:</h6>
+                            <h6> - Nội dung chuyển tiền bạn vui lòng ghi đúng thông tin sau:"TN GD{{$user->id}}"</h6><br>
+                            <h6> Trong đó {{$user->id}} là mã thành viên của bạn đăng ký trên website tronhanh.com.</h6><br>
+                            <h6>Xin cảm ơn!</h6>
                         </div>
-                            <div class="row mt-3 justify-content-center">
-                                <!-- Chọn phương thức nạp tiền -->
-                                <div class="col-12">
-                                    <div class="row justify-content-center mt-3 align-items-stretch">
-                                        <!-- Khung chuyển khoản -->
-                                        <div class="col-12 col-md-6 mb-4 d-flex">
-                                            <div class="p-3 border rounded bg-light shadow-sm w-100 h-100">
-                                            <h5 class="text-center mb-3">Thông tin thanh toán</h5>
-                                            <div class="text-center payment-info">
-                                                <div class="row">
-                                                    <div class="col-6 text-right"><strong>Số tài khoản:</strong></div>
-                                                    <div class="col-6 text-left">101882785438</div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-6 text-right"><strong>Chủ tài khoản:</strong></div>
-                                                    <div class="col-6 text-left">TONG CHI NHAN</div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-6 text-right"><strong>Ngân hàng:</strong></div>
-                                                    <div class="col-6 text-left">VIETINBANK - NH TMCP CÔNG THƯƠNG VIỆT NAM</div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-6 text-right"><strong>Nội dung chuyển khoản:</strong></div>
-                                                    <div class="col-6 text-left">TN GD{{ $user->id }}</div>
-                                                </div>
-                                            </div>
+                       
 
+                            <div class="row justify-content-center mt-3 align-items-stretch">
+                                <!-- Khung chuyển khoản -->
+                                <div class="col-12 col-md-6 mb-4 d-flex">
+                                    <div class="p-3 border rounded bg-light shadow-sm w-100 h-100">
+                                        <h5 class="text-center mb-3">Thông tin thanh toán</h5>
+                                        <div class="text-center payment-info">
+                                            <div class="row">
+                                                <div class="col-6 text-right"><strong>Số tài khoản:</strong></div>
+                                                <div class="col-6 text-left">101882785438</div>
                                             </div>
-                                        </div>
-                                        <!-- QR Code -->
-                                        <div class="col-12 col-md-6 mb-4">
-                                            <div class="p-4 border rounded bg-light shadow-sm h-100 d-flex flex-column justify-content-between">
-                                                <div>
-                                                    <h5 class="text-center mb-4">Quét mã QR tại đây</h5>
-                                                    <div class="text-center">
-                                                        <img src="{{ $qrCodeUrl }}" alt="QR Code" class="img-fluid" style="max-width: 250px; height: auto;">
-                                                    </div>
-                                                </div>
+                                            <div class="row">
+                                                <div class="col-6 text-right"><strong>Chủ tài khoản:</strong></div>
+                                                <div class="col-6 text-left">TONG CHI NHAN</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 text-right"><strong>Ngân hàng:</strong></div>
+                                                <div class="col-6 text-left">VIETINBANK - NH TMCP CÔNG THƯƠNG VIỆT NAM</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 text-right"><strong>Nội dung chuyển khoản:</strong></div>
+                                                <div class="col-6 text-left">TN GD{{ $user->id }}</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                    </div>
-                </div>
-            </div>
+                                
+                                <!-- QR Code -->
+                                <div class="col-12 col-md-6 mb-4">
+                                    <div class="p-4 border rounded bg-light shadow-sm h-100 d-flex flex-column justify-content-between">
+                                        <div>
+                                            <!-- <h5 class="text-center mb-4">Quét mã QR tại đây</h5> -->
+                                            <div class="text-center">
+                                                <img src="{{ $qrCodeUrl }}" alt="QR Code" class="img-fluid" style="max-width: 250px; height: auto;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-        </div>
+                            </div>
+
+            </div>
     </main>
 @endsection
 

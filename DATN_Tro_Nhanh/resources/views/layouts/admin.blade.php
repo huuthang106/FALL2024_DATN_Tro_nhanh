@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('titleAdmin')</title>
     @stack('styleAdmin')
+    <link rel="stylesheet" href="{{ asset('assets/css/style-ntt.css') }}">
     @livewireStyles
 </head>
 

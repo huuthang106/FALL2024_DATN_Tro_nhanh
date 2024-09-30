@@ -164,10 +164,10 @@
     @endif
 
 
-        <div class="text-center mt-2">
+        <!-- <div class="text-center mt-2">
             {{ $maintenanceRequests->firstItem() }}-{{ $maintenanceRequests->lastItem() }} của
             {{ $maintenanceRequests->total() }} kết quả
-        </div>
+        </div> -->
     </div>
 
 
