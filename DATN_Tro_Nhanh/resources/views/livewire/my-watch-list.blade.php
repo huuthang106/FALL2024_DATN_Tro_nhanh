@@ -1,12 +1,12 @@
 <div>
     {{-- Do your work, then step back. --}}
     <main id="content" class="bg-gray-01">
-        <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
+        <div class="px-3 px-lg-6 px-xxl-13 py-5 invoice-listing">
             <div class="mb-6">
                 <div class="row">
-                    <div wire:ignore class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
-                        <div class="d-flex form-group mb-0 align-items-center">
-                            <label for="invoice-list_length" class="d-block mr-2 mb-0">Kết quả:</label>
+                    <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
+                        <div wire:ignore class="d-flex form-group mb-0 align-items-center ml-3">
+                            <label class="form-label fs-6 fw-bold mr-2 mb-0">Lọc:</label>
                             <select wire:model.lazy="timeFilter" id="timeFilter"
                                 class="form-control form-control-lg selectpicker"
                                 data-style="bg-white btn-lg h-52 py-2 border">
@@ -19,7 +19,6 @@
                                 <option value="1_year">1 năm</option>
                             </select>
                         </div>
-
                     </div>
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
                         <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
@@ -30,87 +29,84 @@
                                         class="fal fa-search"></i></button>
                             </div>
                         </div>
-                        <div class="align-self-center">
-                            <button class="btn btn-danger btn-lg" tabindex="0"
-                                aria-controls="invoice-list"><span>Xóa</span></button>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="table-responsive">
-            <table id="notification-list" class="table table-hover bg-white border rounded-lg">
-                <thead>
-                    <tr role="row">
-                        <th class="no-sort py-6 pl-6">
-                            <label class="new-control new-checkbox checkbox-primary m-auto">
-                                <input type="checkbox" class="new-control-input chk-parent select-customers-info">
-                            </label>
-                        </th>
-                        <th class="py-6">Hình ảnh</th>
+            <div class="table-responsive">
+                <table id="notification-list" class="table table-hover bg-white border rounded-lg">
+                    <thead>
+                        <tr role="row">
+                            <th class="no-sort py-6 pl-6">
+                                <label class="new-control new-checkbox checkbox-primary m-auto">
+                                    <input type="checkbox" class="new-control-input chk-parent select-customers-info">
+                                </label>
+                            </th>
+                            <th class="py-6" style="white-space: nowrap;">Hình ảnh</th>
 
-                        <th class="py-6">Tên</th>
-                        <th class="py-6">Chức năng</th>
-                        <th class="py-6">Thao tác</th>
-
-
-                    </tr>
-                </thead>
-                <tbody>
-                    @if ($myFollowings->isEmpty())
-                        <tr>
-                            <td colspan="8" class="text-center">Danh sách trống</td>
+                            <th class="py-6" style="white-space: nowrap;">Tên</th>
+                            <th class="py-6" style="white-space: nowrap;">Chức năng</th>
+                            <th class="py-6 text-center" style="white-space: nowrap;">Thao tác</th>
                         </tr>
-                    @else
-                        @foreach ($myFollowings as $item)
-                            <tr role="row">
-                                <td class="checkbox-column py-6 pl-6">
-                                    <label class="new-control new-checkbox checkbox-primary m-auto">
-                                        <input type="checkbox"
-                                            class="new-control-input child-chk select-customers-info">
-                                    </label>
-                                </td>
-                                <td class="align-middle pt-6 pb-4 px-6">
-                                    <div class="media d-flex align-items-center">
-                                        <div class="w-120px mr-4 position-relative">
-                                            <a href="{{ route('owners.show-blog', $item->personBeingFollowed->slug) }}">
-                                                @if ($item->personBeingFollowed->image)
-                                                    <img src="{{ asset('assets/images/' . $item->personBeingFollowed->image) }}"
-                                                        alt="{{ $item->personBeingFollowed->image }}"
-                                                        class="img-fluid rounded-image">
-                                                @else
-                                                    <img src="{{ asset('assets/images/testimonial-2.jpg') }}"
-                                                        alt="">
-                                                @endif
-                                            </a>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="align-middle">
-                                    {{ $item->personBeingFollowed->name }}
-                                </td>
-                                <td class="align-middle">
-                                    @if ($item->personBeingFollowed->role == '2')
-                                        <span>Người đưa tin</span>
-                                    @elseif ($item->personBeingFollowed->role == '0')
-                                        <span>Người quản trị</span>
-                                    @else
-                                        <span>Người dùng</span>
-                                    @endif
-
-                                </td>
-
-                                <td class="align-middle">
-                                    <a href="#" data-toggle="tooltip" title="Xóa"
-                                        class="d-inline-block fs-18 text-muted hover-primary">
-                                        <i class="fal fa-trash-alt"></i>
-                                    </a>
-                                </td>
+                    </thead>
+                    <tbody>
+                        @if ($myFollowings->isEmpty())
+                            <tr>
+                                <td colspan="8" class="text-center">Danh sách trống</td>
                             </tr>
-                        @endforeach
-                    @endif
-                </tbody>
-            </table>
+                        @else
+                            @foreach ($myFollowings as $item)
+                                <tr role="row">
+                                    <td class="checkbox-column py-6 pl-6">
+                                        <label class="new-control new-checkbox checkbox-primary m-auto">
+                                            <input type="checkbox"
+                                                class="new-control-input child-chk select-customers-info">
+                                        </label>
+                                    </td>
+                                    <td class="align-middle pt-6 pb-4 px-6">
+                                        <div class="media d-flex align-items-center">
+                                            <div class="w-120px mr-4 position-relative">
+                                                <a
+                                                    href="{{ route('owners.show-blog', $item->personBeingFollowed->slug) }}">
+                                                    @if ($item->personBeingFollowed->image)
+                                                        <img src="{{ asset('assets/images/' . $item->personBeingFollowed->image) }}"
+                                                            alt="{{ $item->personBeingFollowed->image }}"
+                                                            class="img-fluid rounded-image">
+                                                    @else
+                                                        <p>Chưa có ảnh</p>
+                                                    @endif
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle">
+                                        {{ $item->personBeingFollowed->name }}
+                                    </td>
+                                    <td class="align-middle">
+                                        @if ($item->personBeingFollowed->role == '2')
+                                            <span>Người đưa tin</span>
+                                        @elseif ($item->personBeingFollowed->role == '0')
+                                            <span>Người quản trị</span>
+                                        @else
+                                            <span>Người dùng</span>
+                                        @endif
+
+                                    </td>
+
+                                    <td class="align-middle text-center">
+                                        <button wire:click="xoaNguoiTheoDoi({{ $item->id }})" data-toggle="tooltip"
+                                            title="Xóa"
+                                            class="btn btn-link p-0 d-inline-block fs-18 text-muted hover-primary">
+                                            <i class="fal fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
+                    </tbody>
+                </table>
+            </div>
             <!-- Phân trang 1-->
             @if ($myFollowings->hasPages())
                 <nav aria-label="Page navigation">

@@ -7,7 +7,7 @@
                 class="bg-cover d-flex align-items-center custom-vh-100">
                 <div class="container pt-lg-15 py-8" data-animate="zoomIn">
                     <p class="text-white fs-md-22 fs-18 font-weight-500 letter-spacing-367 mb-6 text-center text-uppercase">
-                    Chúng tôi giúp bạn tìm nơi ở hoàn hảo ngay lập tức</p>
+                        Chúng tôi giúp bạn tìm nơi ở hoàn hảo ngay lập tức</p>
                     <h2 class="text-white display-2 text-center mb-sm-13 mb-8">Tìm nơi ở lý tưởng chỉ trong tích tắc</h2>
                     <form action="{{ route('client.room-listing') }}" method="GET"
                         class="property-search py-lg-0 z-index-2 position-relative d-none d-lg-block">
@@ -723,8 +723,9 @@
                                         {{ number_format($room->price, 0, ',', '.') }} VND</p>
                                     <ul class="list-inline mb-0">
                                         <li class="list-inline-item">
-                                            <a href="{{ route('client.add.favourite', ['slug' => $room->slug]) }}"
-                                                class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center">
+                                            <a href="#"
+                                                class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center favorite-btn {{ $room->isFavoritedByUser(auth()->id()) ? 'favorited' : '' }}"
+                                                data-room-slug="{{ $room->slug }}">
                                                 <i class="fas fa-heart"></i>
                                             </a>
                                         </li>
@@ -762,15 +763,15 @@
                             <p class="mb-6 text-white">Xem Thêm
                             </p>
                             <form action="{{ route('client.room-listing') }}" method="GET">
-                            <div class="input-group input-group-lg pr-sm-17">
-                                <input type="text"
-                                    class="form-control fs-13 font-weight-500 text-gray-light rounded-lg rounded-right-0 border-0 shadow-none h-52 bg-white"
-                                    name="search" placeholder="Nhập địa chỉ, khu phố">
-                                <button type="submit"
-                                    class="btn btn-primary fs-18 rounded-left-0 rounded-lg px-6 border-0">
-                                    <i class="far fa-search"></i>
-                                </button>
-                            </div>
+                                <div class="input-group input-group-lg pr-sm-17">
+                                    <input type="text"
+                                        class="form-control fs-13 font-weight-500 text-gray-light rounded-lg rounded-right-0 border-0 shadow-none h-52 bg-white"
+                                        name="search" placeholder="Nhập địa chỉ, khu phố">
+                                    <button type="submit"
+                                        class="btn btn-primary fs-18 rounded-left-0 rounded-lg px-6 border-0">
+                                        <i class="far fa-search"></i>
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -1038,7 +1039,7 @@
             </div>
         </section>
 
-     
+
 
     </main>
 

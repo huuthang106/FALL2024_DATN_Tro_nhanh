@@ -64,4 +64,17 @@ class MyWatchList extends Component
             'myFollowings' => $myFollowings,
         ]);
     }
+    public function xoaNguoiTheoDoi($idNguoiTheoDoi)
+    {
+        $nguoiTheoDoi = WatchList::where('follower', $this->userId)
+            ->where('id', $idNguoiTheoDoi)
+            ->first();
+
+        if ($nguoiTheoDoi) {
+            $nguoiTheoDoi->delete();
+            session()->flash('thongBao', 'Đã xóa người theo dõi thành công.');
+        } else {
+            session()->flash('loiThongBao', 'Không tìm thấy người theo dõi để xóa.');
+        }
+    }
 }
