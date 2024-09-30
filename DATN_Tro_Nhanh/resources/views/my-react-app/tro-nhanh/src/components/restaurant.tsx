@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Restaurant } from "../models";
 import Distance from "./distance";
 import DistrictName from "./district-name";
-const apiEndpoint ='https://b982-117-3-121-91.ngrok-free.app';
+const apiEndpoint ='https://4807-14-241-183-136.ngrok-free.app';
 
 const { Title } = Text;
 
@@ -33,7 +33,10 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
       }).toString(),
     });
   };
-
+  const location = {
+    lat: parseFloat(restaurant.latitude), // Chuyển đổi latitude thành số
+    long: parseFloat(restaurant.longitude), // Chuyển đổi longitude thành số
+  };
   if (layout === "cover") {
     return (
       <div
@@ -66,15 +69,15 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
               <DistrictName id={restaurant.id} />
             </span>
           </Button>
-          <Button
+          {/* <Button
             prefixIcon={<Icon icon="zi-send-solid" />}
             size="small"
             variant="tertiary"
           >
             <span className="text-gray-500">
-              <Distance location={restaurant.location} />
+              <Distance location={location} />
             </span>
-          </Button>
+          </Button> */}
         </Box>
       </div>
     );
@@ -108,15 +111,15 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
                 {restaurant.view}
               </span>
             </Button>
-            <Button
+            {/* <Button
               prefixIcon={<Icon icon="zi-send-solid" />}
               size="small"
               variant="tertiary"
             >
               <span className="text-gray-500">
-                <Distance location={restaurant.location} />
+                <Distance location={location} />
               </span>
-            </Button>
+            </Button> */}
           </Box>
         </Box>
       </Box>

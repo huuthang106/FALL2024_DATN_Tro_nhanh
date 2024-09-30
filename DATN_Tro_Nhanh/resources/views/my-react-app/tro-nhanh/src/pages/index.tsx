@@ -40,7 +40,7 @@ function Popular() {
           </Box>
         </div>
       ) : (
-        <Box mx={4}>Không có địa điểm nào ở khu vực này</Box>
+        <Box mx={4}>Không có địa điểm nào ở loại phòng này!</Box>
       )}
     </>
   );

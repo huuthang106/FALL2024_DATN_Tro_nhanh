@@ -3,7 +3,12 @@ import { getLocation, getUserInfo,  } from "zmp-sdk";
 import { Booking, Cart, Location, Restaurant, TabType } from "./models";
 import { calcCrowFliesDistance } from "./utils/location";
 import axios from 'axios';
-const apiEndpoint ='https://b982-117-3-121-91.ngrok-free.app/api';
+const apiEndpoint ='https://4807-14-241-183-136.ngrok-free.app';
+export const restaurantsDataState = atom<Restaurant[]>({
+  key: "restaurantsData",
+  default: [],
+});
+
 export const userState = selector({
   key: "user",
   get: async () => {
@@ -104,7 +109,7 @@ export const restaurantsState = selector<Restaurant[]>({
   get: async () => {
     try {
       console.log('REACT_APP_API_ENDPOINT:', apiEndpoint);
-      const response = await axios.get(`${apiEndpoint}/get-data-room-category`, {
+      const response = await axios.get(`${apiEndpoint}/api/get-data-room-category`, {
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
           'Accept': 'application/json',
@@ -379,7 +384,7 @@ export const categories_State = selector({
 
       console.log('REACT_APP_API_ENDPOINT:', apiEndpoint);
       // const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
-      const response = await axios.get(`${apiEndpoint}/get-data-category`, {
+      const response = await axios.get(`${apiEndpoint}/api/get-data-category`, {
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
           'Accept': 'application/json',
