@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\ValidationException;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -24,22 +26,43 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    // public function store(LoginRequest $request): JsonResponse
+    // {
+    //     try {
+    //         $request->authenticate();
+    //         $request->session()->regenerate();
+
+    //         // Lấy URL trước đó (trang mà người dùng ở trước khi đăng nhập)
+    //         $previousUrl = url()->previous();
+
+    //         // Trả về URL trước đó trong phản hồi JSON
+    //         return response()->json(['redirect' => $previousUrl]);
+    //     } catch (ValidationException $e) {
+    //         return response()->json(['errors' => $e->errors()], 422);
+    //     }
+    // }
+
+    public function store(LoginRequest $request): JsonResponse|RedirectResponse
     {
         try {
             $request->authenticate();
             $request->session()->regenerate();
-    
-            // Lấy URL trước đó (trang mà người dùng ở trước khi đăng nhập)
+
             $previousUrl = url()->previous();
-    
-            // Trả về URL trước đó trong phản hồi JSON
-            return response()->json(['redirect' => $previousUrl]);
+
+            if ($request->wantsJson()) {
+                return response()->json(['redirect' => $previousUrl]);
+            }
+
+            return redirect()->intended($previousUrl);
         } catch (ValidationException $e) {
-            return response()->json(['errors' => $e->errors()], 422);
+            if ($request->wantsJson()) {
+                return response()->json(['errors' => $e->errors()], 422);
+            }
+
+            return back()->withErrors($e->errors())->withInput();
         }
     }
-
     /**
      * Destroy an authenticated session.
      */
