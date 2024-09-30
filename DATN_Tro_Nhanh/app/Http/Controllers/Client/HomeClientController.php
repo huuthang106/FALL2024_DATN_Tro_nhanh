@@ -7,17 +7,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\RoomClientServices;
 use App\Services\PremiumService;
+use App\Services\AccountService;
+use App\Events\ExpiredEntitiesUpdateEvent;
 
 
 class HomeClientController extends Controller
 {
     protected $roomClientService;
     protected $premiumService;
+    protected $accountService;
 
-    public function __construct(RoomClientServices $roomClientService, PremiumService $premiumService)
+    public function __construct(RoomClientServices $roomClientService, PremiumService $premiumService, AccountService $accountService)
     {
         $this->roomClientService = $roomClientService;
         $this->premiumService = $premiumService;
+        $this->accountService = $accountService;
     }
     public function index(Request $request)
     {
@@ -38,8 +42,8 @@ class HomeClientController extends Controller
             ]);
         }
         
-        $updatedCount = $this->premiumService->updateStatusAndRemoveExpiredPremiumUsers();
-        $updatedRoomCount = $this->roomClientService->checkAndUpdateExpiredRooms();
+        event(new ExpiredEntitiesUpdateEvent());
+
         return view('client.show.home', [
             'roomClient' => $roomClient,
             'categories' => $categories,

@@ -18,6 +18,10 @@ use App\Events\Owners\RoomOwnersEvent;
 use App\Listeners\Owners\HandleRoomOwner;
 use App\Events\Owners\PaymentProcessed;
 use App\Listeners\Owners\ProcessPayment;
+use App\Events\ExpiredEntitiesUpdateEvent;
+use App\Listeners\UpdateExpiredPremiumUsersListener;
+use App\Listeners\CheckAndUpdateExpiredRoomsListener;
+use App\Listeners\HandleExpiredLocksListener;
 
 class EventServiceProvider extends BaseEventServiceProvider
 {
@@ -35,6 +39,11 @@ class EventServiceProvider extends BaseEventServiceProvider
         ],
         CategoryAdminEvent::class => [
             HandleCategoryAdmin::class,
+        ],
+        ExpiredEntitiesUpdateEvent::class => [
+            UpdateExpiredPremiumUsersListener::class,
+            CheckAndUpdateExpiredRoomsListener::class,
+            HandleExpiredLocksListener::class,
         ],
       
         BlogCreated::class => [
