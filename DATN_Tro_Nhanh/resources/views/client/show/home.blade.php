@@ -405,9 +405,10 @@
                                             @endif
                                         </div>
                                         <ul class="list-inline mb-0 mt-auto hover-image">
-                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Hình ảnh">
+                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="Hình ảnh">
                                                 <a href="#" class="text-white hover-primary">
-                                                    <i class="far fa-images"></i><span class="pl-1">9</span>
+                                                    <i class="far fa-images"></i><span
+                                                        class="pl-1">{{ $room->images()->count() }}</span>
                                                 </a>
                                             </li>
                                             <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
@@ -666,9 +667,10 @@
                                             @endif
                                         </div>
                                         <ul class="list-inline mb-0 mt-auto hover-image">
-                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Hình ảnh">
+                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="Hình ảnh">
                                                 <a href="#" class="text-white hover-primary">
-                                                    <i class="far fa-images"></i><span class="pl-1">9</span>
+                                                    <i class="far fa-images"></i><span
+                                                        class="pl-1">{{ $room->images()->count() }}</span>
                                                 </a>
                                             </li>
                                             <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
@@ -814,9 +816,10 @@
                                             @endif
                                         </div>
                                         <ul class="list-inline mb-0 mt-auto hover-image">
-                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Hình ảnh">
+                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="Hình ảnh">
                                                 <a href="#" class="text-white hover-primary">
-                                                    <i class="far fa-images"></i><span class="pl-1">9</span>
+                                                    <i class="far fa-images"></i><span
+                                                        class="pl-1">{{ $room->images()->count() }}</span>
                                                 </a>
                                             </li>
                                             <li class="list-inline-item" data-toggle="tooltip" title="2 Video">

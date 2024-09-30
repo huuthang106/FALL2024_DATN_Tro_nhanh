@@ -19,7 +19,7 @@ class RoomClientServices
     private const status = 2;
 
     // ----------------------------------------------------------------Sắp Theo VIP
-    public function getAllRoom(int $perPage = 10,  $type = null,$searchTerm = null, $province = null, $district = null, $village = null, $category = null)
+    public function getAllRoom(int $perPage = 10,  $type = null, $searchTerm = null, $province = null, $district = null, $village = null, $category = null)
     {
         try {
             $query = Room::join('users', 'rooms.user_id', '=', 'users.id')
@@ -27,9 +27,9 @@ class RoomClientServices
                 ->withCount('images')
                 ->select('rooms.*')
                 ->orderByDesc('rooms.created_at');
-            
-                // Nếu có loại phòng, thêm điều kiện vào truy vấn
-             if ($type) {
+
+            // Nếu có loại phòng, thêm điều kiện vào truy vấn
+            if ($type) {
                 $query->whereHas('category', function ($q) use ($type) {
                     $q->where('name', $type); // Lọc theo tên loại phòng trong bảng category
                 });
@@ -61,13 +61,13 @@ class RoomClientServices
             }
 
             // Nếu có tiện ích, thêm điều kiện vào truy vấn
-        if (!empty($features)) { // Kiểm tra nếu $features không rỗng
-            $query->where(function ($q) use ($features) {
-                foreach ($features as $feature) {
-                    $q->orWhere($feature, 2); // Kiểm tra giá trị cột tiện ích là 2
-                }
-            });
-        }
+            if (!empty($features)) { // Kiểm tra nếu $features không rỗng
+                $query->where(function ($q) use ($features) {
+                    foreach ($features as $feature) {
+                        $q->orWhere($feature, 2); // Kiểm tra giá trị cột tiện ích là 2
+                    }
+                });
+            }
 
             $result = $query->paginate($perPage);
             Log::info('SQL Query: ' . $query->toSql());
@@ -264,7 +264,7 @@ class RoomClientServices
         }
     }
 
-    public function getAllRoomInCategory(int $perPage = 10,  $type = null,$searchTerm = null, $province = null, $district = null, $village = null, $category = null)
+    public function getAllRoomInCategory(int $perPage = 10,  $type = null, $searchTerm = null, $province = null, $district = null, $village = null, $category = null)
     {
         try {
             $query = Room::join('users', 'rooms.user_id', '=', 'users.id')
@@ -273,8 +273,8 @@ class RoomClientServices
                 ->withCount('images')
                 ->select('rooms.*', 'images.filename as image_url') // Lấy thêm trường hình ảnh
                 ->orderByDesc('rooms.created_at');
-                // Nếu có loại phòng, thêm điều kiện vào truy vấn
-             if ($type) {
+            // Nếu có loại phòng, thêm điều kiện vào truy vấn
+            if ($type) {
                 $query->whereHas('category', function ($q) use ($type) {
                     $q->where('name', $type); // Lọc theo tên loại phòng trong bảng category
                 });
