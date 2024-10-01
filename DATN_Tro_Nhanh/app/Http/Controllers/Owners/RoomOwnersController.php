@@ -32,7 +32,7 @@ class RoomOwnersController extends Controller
     protected $roomService;
     protected $roomOwnersService;
     protected $zoneServices;
-    
+
 
 
 
@@ -96,7 +96,7 @@ class RoomOwnersController extends Controller
     public function trash()
     {
         $trashedRooms = $this->roomOwnersService->getTrashedRooms();
-        return view('owners.trash.trash-room', ['trashedRooms'=> $trashedRooms, 'roomOwnersService' => $this->roomOwnersService]);
+        return view('owners.trash.trash-room', ['trashedRooms' => $trashedRooms, 'roomOwnersService' => $this->roomOwnersService]);
     }
 
     public function restore($id)
@@ -123,26 +123,26 @@ class RoomOwnersController extends Controller
         $userLock = auth()->user();
 
         // Lấy trạng thái của người dùng hiện tại
-     $userStatus =  $userLock ?  $userLock->status : null;
+        $userStatus = $userLock ? $userLock->status : null;
 
-        return view('owners.create.add-new-property', compact('acreages', 'prices', 'categories', 'locations', 'zones','userStatus'));
+        return view('owners.create.add-new-property', compact('acreages', 'prices', 'categories', 'locations', 'zones', 'userStatus'));
     }
     public function store(RoomOwnersRequest $request)
     {
-        if ($request->isMethod('post')) {
-            $room = $this->roomOwnersService->create($request);
-            if ($room) {
-                // Phát sự kiện RoomOwners và truyền đối tượng Room mới tạo
-                event(new RoomOwnersEvent($room));
-                // Redirect to the desired route with a success message
-                return redirect()->route('owners.properties')->with('success', 'Phòng trọ đã được tạo thành công.');
-            } else {
-                // Handle the case where room creation failed
-                return redirect()->route('owners.add-room')->with('error', 'Đã xảy ra lỗi khi tạo Zone.');
+        try {
+            if ($request->isMethod('post')) {
+                $room = $this->roomOwnersService->create($request);
+                if ($room) {
+                    event(new RoomOwnersEvent($room));
+                    return redirect()->route('owners.properties')->with('success', 'Phòng trọ đã được tạo thành công.');
+                } else {
+                    throw new \Exception('Không thể tạo phòng');
+                }
             }
+        } catch (\Exception $e) {
+            Log::error('Lỗi khi tạo phòng: ' . $e->getMessage());
+            return redirect()->route('owners.add-room')->with('error', 'Đã xảy ra lỗi khi tạo phòng: ' . $e->getMessage());
         }
-        // Return a proper view if the request method is not POST
-        return view('owners.properties');
     }
     // Trang chỉnh sửa
     public function viewUpdate($slug)
@@ -175,7 +175,7 @@ class RoomOwnersController extends Controller
     public function update(UpdateroomRequests $request, $roomId)
     {
         // dd('hi');
-            // Gọi phương thức update từ service
+        // Gọi phương thức update từ service
         $room = $this->roomOwnersService->update($request, $roomId);
         if ($room) {
             // Phát sự kiện RoomOwners và truyền đối tượng phòng đã cập nhật
@@ -200,7 +200,8 @@ class RoomOwnersController extends Controller
             return redirect()->back()->with('error', 'Có lỗi xảy ra khi lấy danh sách phòng.');
         }
     }
-    public function house_is_staying(){
+    public function house_is_staying()
+    {
         return view('owners.show.house_is_staying');
     }
 
@@ -224,16 +225,16 @@ class RoomOwnersController extends Controller
             return redirect()->back()->with('error', 'Số dư tài khoản không đủ để thanh toán.');
         }
 
-      
-            // Gọi service để thực hiện thanh toán
-            $paymentStatus = $this->roomOwnersService->processRoomPayment($customer, $accommodation, $vipPackageId);
-            
-            if ($paymentStatus) {
-                return redirect()->back()->with('success', 'Thanh toán thành công và gói VIP đã được kích hoạt.');
-            } else {
-                \Log::error('Thanh toán không thành công. User ID: ' . $customer->id . ', Room ID: ' . $accommodationId);
-                return redirect()->back()->with('error', 'Có lỗi xảy ra trong quá trình thanh toán.');
-            }
+
+        // Gọi service để thực hiện thanh toán
+        $paymentStatus = $this->roomOwnersService->processRoomPayment($customer, $accommodation, $vipPackageId);
+
+        if ($paymentStatus) {
+            return redirect()->back()->with('success', 'Thanh toán thành công và gói VIP đã được kích hoạt.');
+        } else {
+            \Log::error('Thanh toán không thành công. User ID: ' . $customer->id . ', Room ID: ' . $accommodationId);
+            return redirect()->back()->with('error', 'Có lỗi xảy ra trong quá trình thanh toán.');
+        }
     }
 
 }

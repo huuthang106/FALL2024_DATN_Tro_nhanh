@@ -18,7 +18,8 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use App\Models\Transaction;
 use Carbon\Carbon;
 use App\Models\PriceList;
-
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Log;
 class RoomOwnersService
 {
     /**
@@ -202,55 +203,39 @@ class RoomOwnersService
                 return false;
             }
 
-            // Xử lý tải hình ảnh
             if ($request->hasFile('images')) {
                 $images = $request->file('images');
-                $uploadedFilenames = []; // Để lưu trữ các tên file đã được tải lên
-
-                // Kiểm tra nếu hình ảnh là đơn lẻ hoặc nhiều hình ảnh
-                if ($images instanceof \Illuminate\Http\UploadedFile) {
-                    // Xử lý hình ảnh đơn lẻ
-                    $image = $images;
+                $uploadedFilenames = [];
+                foreach ($images as $image) {
+                    Log::info('Đang xử lý hình ảnh: ' . $image->getClientOriginalName());
+                    
                     $timestamp = now()->format('YmdHis');
                     $originalName = $image->getClientOriginalName();
                     $extension = $image->getClientOriginalExtension();
                     $filename = $timestamp . '_' . pathinfo($originalName, PATHINFO_FILENAME) . '.' . $extension;
+                    
+                    $tempPath = $image->storeAs('temp', $filename, 'local');
+                    $fullTempPath = storage_path('app/' . $tempPath);
+                    Log::info('Đường dẫn tạm thời: ' . $fullTempPath);
 
-                    // Lưu ảnh vào thư mục public/assets/images
-                    $image->move(public_path('assets/images'), $filename);
+                    if (!$this->checkImageContent($fullTempPath)) {
+                        Log::warning('Hình ảnh không phù hợp, đang xóa: ' . $fullTempPath);
+                        unlink($fullTempPath);
+                        throw new Exception('Hình ảnh có nội dung không phù hợp không được phép.');
+                    }
 
-                    // Lưu thông tin ảnh vào cơ sở dữ liệu
+                    Log::info('Hình ảnh an toàn, đang di chuyển: ' . $fullTempPath);
+                    rename($fullTempPath, public_path('assets/images/' . $filename));
+
                     $imageModel = new Image();
-                    $imageModel->room_id = $roomId;
+                    $imageModel->room_id = $room->id;
                     $imageModel->filename = $filename;
                     $imageModel->save();
-                } else {
-                    // Xử lý nhiều hình ảnh
-                    foreach ($images as $image) {
-                        // Tạo tên file mới với timestamp
-                        $timestamp = now()->format('YmdHis');
-                        $originalName = $image->getClientOriginalName();
-                        $extension = $image->getClientOriginalExtension();
-                        $filename = $timestamp . '_' . pathinfo($originalName, PATHINFO_FILENAME) . '.' . $extension;
+                    Log::info('Đã lưu thông tin hình ảnh vào database: ' . $filename);
 
-                        // Kiểm tra xem ảnh đã tồn tại trong cơ sở dữ liệu chưa
-                        if (!in_array($filename, $uploadedFilenames)) {
-                            // Lưu ảnh vào thư mục public/assets/images
-                            $image->move(public_path('assets/images'), $filename);
-
-                            // Lưu thông tin ảnh vào cơ sở dữ liệu
-                            $imageModel = new Image();
-                            $imageModel->room_id = $roomId;
-                            $imageModel->filename = $filename;
-                            $imageModel->save();
-
-                            // Thêm tên file vào danh sách đã tải lên
-                            $uploadedFilenames[] = $filename;
-                        }
-                    }
+                    $uploadedFilenames[] = $filename;
                 }
             }
-
             // Xử lý tiện ích
             $utilities = new Utility();
             $utilities->room_id = $roomId;
@@ -548,6 +533,42 @@ class RoomOwnersService
             } catch (\Exception $e) {
                 // Nếu có lỗi trong quá trình thanh toán, ghi log lỗi
                 \Log::error('Lỗi khi thực hiện thanh toán: ' . $e->getMessage());
+                return false;
+            }
+        }
+        private function checkImageContent($imagePath)
+        {
+            Log::info('Bắt đầu kiểm tra nội dung hình ảnh: ' . $imagePath);
+            try {
+                $client = new Client();
+                $apiKey = env('WEBPURIFY_API_KEY');
+                $imageData = base64_encode(file_get_contents($imagePath));
+        
+                $response = $client->post('https://api1.webpurify.com/services/rest/', [
+                    'form_params' => [
+                        'method' => 'webpurify.live.imgcheck',
+                        'api_key' => $apiKey,
+                        'format' => 'json',
+                        'imgbase64' => $imageData,
+                        'categories' => 'violence'
+                    ]
+                ]);
+        
+                $result = json_decode($response->getBody(), true);
+        
+                Log::info('WebPurify API response: ' . json_encode($result));
+        
+                // Kiểm tra kết quả
+                if (isset($result['rsp']['violence']) && $result['rsp']['violence'] == 1) {
+                    Log::warning('Phát hiện nội dung bạo lực trong hình ảnh: ' . $imagePath);
+                    return false; // Nội dung không phù hợp
+                }else{
+                    Log::info('Hình ảnh không chứa nội dung bạo lực: ' . $imagePath);
+                    return true; // Nội dung an toàn
+                }
+            } catch (\Exception $e) {
+                Log::error('Lỗi khi kiểm tra nội dung hình ảnh: ' . $e->getMessage());
+                // Trong trường hợp lỗi, từ chối hình ảnh để đảm bảo an toàn
                 return false;
             }
         }
