@@ -14,38 +14,53 @@ import {
 } from "../state";
 
 const { Title, Header } = Text;
-
+import { } from 'recoil';
+import {  selectedCategoryState } from '../state'; // Đảm bảo import selector và state
+import { useEffect, useState } from 'react';
 function Popular() {
   const populars = useRecoilValue(popularRestaurantsState);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    const timer = setTimeout(() => {  
+      setLoading(false);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [populars]);
 
   return (
     <>
       <Box mx={4} mt={6}>
         <Header className="mt-6 mb-3 font-semibold">Các tin nổi bật</Header>
       </Box>
-      {populars.length ? (
-        <div className="overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar">
-          <Box m={0} pr={4} flex className="w-max">
-          {populars.map((restaurant) => (
-              <Box
-                key={restaurant.id}
-                ml={4}
-                mr={0}
-                className="snap-start"
-                style={{ width: "calc(100vw - 120px)" }}
-              >
-                <RestaurantItem layout="cover" restaurant={restaurant} />
-              </Box>
-            ))}
-          </Box>
-        </div>
+      {loading ? (
+        <div className="overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar"></div> // Hiệu ứng loading
       ) : (
-        <Box mx={4}>Không có địa điểm nào ở loại phòng này!</Box>
+        <div className="overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar">
+          {populars.length ? (
+            <Box m={0} pr={4} flex className="w-max">
+              {populars.map((restaurant) => (
+                <Box
+                  key={restaurant.id}
+                  ml={4}
+                  mr={0}
+                  className="snap-start transition-transform duration-300 transform hover:scale-105" // Hiệu ứng khi hover
+                  style={{ width: "calc(100vw - 120px)" }}
+                >
+                  <RestaurantItem layout="cover" restaurant={restaurant} />
+                </Box>
+              ))}
+            </Box>
+          ) : (
+            <Box mx={4}>Không có địa điểm nào ở loại phòng này!</Box>
+          )}
+        </div>
       )}
     </>
   );
 }
-
 function Nearest() {
   const nearests = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(
     nearestRestaurantsState
@@ -81,13 +96,14 @@ function Welcome() {
       </Avatar>
       <Text size="small">{user.name ? <>Chào, {user.name}!</> : "..."}</Text>
       <Text className="text-[25px] leading-[29px] font-bold">
-        TÌm nơi ở cùng chúng tôi
+        Tìm nơi ở cùng chúng tôi
       </Text>
     </>
   );
 }
 
 const HomePage = () => {
+  
   return (
     <Page>
       <Box mx={4} mb={4} mt={5}>

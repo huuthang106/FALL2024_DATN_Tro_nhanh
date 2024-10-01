@@ -1,18 +1,34 @@
 import { atom, selector } from "recoil";
-import { getLocation, getUserInfo,  } from "zmp-sdk";
+import { getLocation, getUserInfo  } from "zmp-sdk";
 import { Booking, Cart, Location, Restaurant, TabType } from "./models";
 import { calcCrowFliesDistance } from "./utils/location";
-import axios from 'axios';
-const apiEndpoint ='https://4807-14-241-183-136.ngrok-free.app';
+
+// import { authorize } from "zmp-sdk/apis";
+
+// const authorize = async () => {
+//   try {
+//     const data = await authorize({
+//       scopes: ["scope.getUserInfo"]
+//     });
+//     console.log(data);
+//   } catch (error) {
+//     // xử lý khi gọi api thất bại
+//     console.log(error);
+//   }
+// };
+const apiEndpoint ='https://tronhanh.com';
 export const restaurantsDataState = atom<Restaurant[]>({
   key: "restaurantsData",
   default: [],
 });
 
+
 export const userState = selector({
   key: "user",
   get: async () => {
     const { userInfo } = await getUserInfo({});
+    console.log('userInfo', userInfo);
+    
     return userInfo;
   },
 });
@@ -51,65 +67,13 @@ export const positionState = selector<Location | undefined>({
   },
 });
 
-// export const restaurantsState = selector<Restaurant[]>({
-//   key: "restaurants",
-//   get: () => [
-//     {
-//       id: 1,
-//       name: "Chi nhánh - Lê Thánh Tôn",
-//       districtId: 1,
-//       rating: 4.5,
-//       location: {
-//         lat: 10.776463610730223,
-//         long: 106.70098038648123,
-//       },
-//       address: "15A Lê Thánh Tôn, Quận 1, Hồ Chí Minh",
-//       views: 100,
-//       image:
-//         "https://images.unsplash.com/photo-1537047902294-62a40c20a6ae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80",
-//       hours: {
-//         opening: [9, 0, "AM"],
-//         closing: [22, 0, "PM"],
-//       },
-//       days: {
-//         opening: 1,
-//         closing: 7,
-//       },
-//       hotline: "0123 456 789",
-//       map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.394868527438!2d106.70554879999999!3d10.781038700000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f492daac79b%3A0x16e334e4778de0c1!2zMTVhIEzDqiBUaMOhbmggVMO0biwgQuG6v24gTmdow6ksIFF14bqtbiAxLCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmg!5e0!3m2!1svi!2s!4v1655781904560!5m2!1svi!2s",
-//     },
-//     {
-//       id: 2,
-//       name: "Chi nhánh - Trần Hưng Đạo",
-//       address: "15A Trần Hưng Đạo, Đa Kao, Quận 1, Hồ Chí Minh",
-//       districtId: 1,
-//       rating: 4.5,
-//       location: {
-//         lat: 10.755009040272618,
-//         long: 106.67897941334107,
-//       },
-//       views: 50,
-//       image:
-//         "https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80",
-//       hours: {
-//         opening: [9, 0, "AM"],
-//         closing: [22, 0, "PM"],
-//       },
-//       days: {
-//         opening: 1,
-//         closing: 7,
-//       },
-//       hotline: "0123 456 789",
-//       map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.585876004013!2d106.69000821538795!3d10.766364992328358!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f1640b88ca3%3A0x8d9f87825b5b807!2zMTIxLzE1IMSQLiBUcuG6p24gSMawbmcgxJDhuqFvLCBQaMaw4budbmcgUGjhuqFtIE5nxakgTMOjbywgUXXhuq1uIDEsIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1655782080310!5m2!1svi!2s",
-//     },
-//   ],
-// });
 export const restaurantsState = selector<Restaurant[]>({
   key: "restaurants",
   get: async () => {
     try {
       console.log('REACT_APP_API_ENDPOINT:', apiEndpoint);
-      const response = await axios.get(`${apiEndpoint}/api/get-data-room-category`, {
+      const response = await fetch(`${apiEndpoint}/api/get-data-room-category`, {
+        method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
           'Accept': 'application/json',
@@ -119,17 +83,12 @@ export const restaurantsState = selector<Restaurant[]>({
       });
 
       console.log('Response status:', response.status);
-      const data = response.data;
-      console.log('Parsed data:', data);
+      const data = await response.json(); // Phân tích dữ liệu JSON từ phản hồi
+      // console.log('Parsed data:', data.rooms);
 
-      // Giả sử API trả về mảng nhà hàng
       return data.rooms || []; // Trả về mảng rỗng nếu không có nhà hàng
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error("Axios error:", error.response?.status, error.response?.data);
-      } else {
-        console.error("Error fetching data:", error);
-      }
+      console.error("Error fetching data:", error);
       return []; // Trả về mảng rỗng nếu có lỗi
     }
   },
@@ -377,14 +336,54 @@ export const keywordState = atom({
 // import axios from 'axios';
 // import { selector } from 'recoil';
 
+// export const categories_State = selector({
+//   key: "caterories",
+//   get: async () => {
+//     try {
+
+//       console.log('REACT_APP_API_ENDPOINT:', apiEndpoint);
+//       // const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+//       const response = await axios.get(`${apiEndpoint}/api/get-data-category`, {
+//         headers: {
+//           'X-Requested-With': 'XMLHttpRequest',
+//           'Accept': 'application/json',
+//           'Content-Type': 'application/json',
+//           'Ngrok-Skip-Browser-Warning': 'true'
+//         },
+//       });
+   
+//       // console.log('Full response:', JSON.stringify(response, null, 2));
+//       // console.log('Response received');
+//       // console.log('Response status:', response.status);
+//       // console.log('Response headers:', response.headers);
+//       // console.log('Full response data:', response.data);
+
+//       // Axios tự động parse JSON, nên không cần gọi response.json()
+//       const data = response.data;
+//       // console.log('Parsed data:', data);
+
+//       // Đảm bảo bạn đang trả về đúng thuộc tính
+//       return data.categories ; // Trả về mảng rỗng nếu không có roomClient
+//     } catch (error) {
+//       if (axios.isAxiosError(error)) {
+//         console.error("Axios error:", error.response?.status, error.response?.data);
+//       } else {
+//         console.error("Error fetching data:", error);
+//       }
+//       return [{
+//         id: 1,
+//         name: "Quận 1",
+//       }]; // Trả về mảng rỗng nếu có lỗi
+//     }
+//   },
+// });
 export const categories_State = selector({
   key: "caterories",
   get: async () => {
     try {
-
       console.log('REACT_APP_API_ENDPOINT:', apiEndpoint);
-      // const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
-      const response = await axios.get(`${apiEndpoint}/api/get-data-category`, {
+      const response = await fetch(`${apiEndpoint}/api/get-data-category`, {
+        method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
           'Accept': 'application/json',
@@ -392,25 +391,11 @@ export const categories_State = selector({
           'Ngrok-Skip-Browser-Warning': 'true'
         },
       });
-   
-      // console.log('Full response:', JSON.stringify(response, null, 2));
-      // console.log('Response received');
-      // console.log('Response status:', response.status);
-      // console.log('Response headers:', response.headers);
-      // console.log('Full response data:', response.data);
 
-      // Axios tự động parse JSON, nên không cần gọi response.json()
-      const data = response.data;
-      // console.log('Parsed data:', data);
-
-      // Đảm bảo bạn đang trả về đúng thuộc tính
-      return data.categories ; // Trả về mảng rỗng nếu không có roomClient
+      const data = await response.json(); // Phân tích dữ liệu JSON từ phản hồi
+      return data.categories; // Trả về mảng rỗng nếu không có roomClient
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error("Axios error:", error.response?.status, error.response?.data);
-      } else {
-        console.error("Error fetching data:", error);
-      }
+      console.error("Error fetching data:", error);
       return [{
         id: 1,
         name: "Quận 1",
@@ -429,15 +414,17 @@ export const popularRestaurantsState = selector<Restaurant[]>({
     const restaurants = get(restaurantsState);
     const keyword = get(keywordState);
     const selectedCategory = get(selectedCategoryState);
+    console.log('selectedCategory', restaurants);
     return restaurants
+
       .filter((restaurant) =>
-        restaurant.title.toLowerCase().includes(keyword.toLowerCase())
+        restaurant.address.toLowerCase().includes(keyword.toLowerCase())
       )
       .filter(
         (restaurant) =>
-          selectedCategory === 0|| restaurant.category_id === selectedCategory
+          selectedCategory == 0|| restaurant.category_id == selectedCategory
       )       
-    
+      
       
   },
 });

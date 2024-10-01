@@ -1,11 +1,22 @@
 import { defineConfig } from "vite";
-import reactRefresh from "@vitejs/plugin-react-refresh";
+import react from "@vitejs/plugin-react";
+import { config } from "process";
 
 // https://vitejs.dev/config/
 export default () => {
   return defineConfig({
     root: "./src",
     base: "",
-    plugins: [reactRefresh()],
+    plugins: [react(),
+    {
+      name: "override-config",
+      config: () => ({
+        build: {
+          target: "esnext",
+        },
+      }),
+    }
+    ],
+
   });
 };

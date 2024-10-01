@@ -27,15 +27,7 @@ export function QuickFilter() {
   return (
     <div className="overflow-auto no-scrollbar snap-x snap-mandatory mt-4">
       <div className="flex w-max">
-        <Button
-          onClick={() => setSelectedDistrict(0)}
-          size="small"
-          type="highlight"
-          variant={!selectedDistrict ? "primary" : "secondary"}
-          className="mr-3 snap-start"
-        >
-          Tất cả
-        </Button>
+    
         {caterories.map((category) => (
           <Button
             key={category.id}

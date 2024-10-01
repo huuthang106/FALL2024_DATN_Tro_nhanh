@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Restaurant } from "../models";
 import Distance from "./distance";
 import DistrictName from "./district-name";
-const apiEndpoint ='https://4807-14-241-183-136.ngrok-free.app';
+const apiEndpoint ='https://tronhanh.com';
 
 const { Title } = Text;
 
@@ -57,7 +57,7 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
           {restaurant.title}
         </Title>
         <Box flex mt={0} mb={2}>
-          <Button
+          {/* <Button
             className="text-red-500"
             prefixIcon={
               <Icon className="text-red-500" icon="zi-location-solid" />
@@ -66,18 +66,18 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
             variant="tertiary"
           >
             <span className="text-gray-500">
-              <DistrictName id={restaurant.id} />
+            {restaurant.phone}
             </span>
-          </Button>
-          {/* <Button
+          </Button> */}
+          <Button
             prefixIcon={<Icon icon="zi-send-solid" />}
             size="small"
             variant="tertiary"
           >
             <span className="text-gray-500">
-              <Distance location={location} />
+            {restaurant.phone}
             </span>
-          </Button> */}
+          </Button>
         </Box>
       </div>
     );

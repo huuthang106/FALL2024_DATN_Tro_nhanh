@@ -11,7 +11,7 @@ import { currentRestaurantTabState } from "../../state";
 import React from "react";
 import { useRestaurant } from "../../hooks";
 import { categories_State, keywordState, selectedCategoryState } from "../../state";
-const apiEndpoint ='https://4807-14-241-183-136.ngrok-free.app';
+const apiEndpoint ='https://tronhanh.com';
 
 function RestaurantDetail() {
   const restaurant = useRestaurant();
@@ -29,7 +29,7 @@ function RestaurantDetail() {
   }) => (
     <Button
       size="small"
-      variant={currentTab === tab ? "primary" : "tertiary"}
+      variant={currentTab == tab ? "primary" : "tertiary"}
       onClick={() => setCurrentTab(tab)}
       className="mx-1 flex-none"
     >
@@ -39,11 +39,18 @@ function RestaurantDetail() {
 
   if (restaurant) {
     const filteredCategories = caterories.filter((category) =>
-      category.id === restaurant.category_id // So sánh với category_id của room hiện tại
+      category.id == restaurant.category_id // So sánh với category_id của room hiện tại
     );
+  
     const location = {
       lat: parseFloat(restaurant.latitude), // Chuyển đổi latitude thành số
       long: parseFloat(restaurant.longitude), // Chuyển đổi longitude thành số
+    };
+    const formatCurrency = (amount) => {
+      return new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+      }).format(amount);
     };
     return (
       <>
@@ -64,12 +71,10 @@ function RestaurantDetail() {
             <Text className="text-gray-500">{restaurant.address}</Text>
             <Box flex justifyContent="center" mt={0} py={3}>
               <Button
-                prefixIcon={
-                  <Icon icon="zi-location-solid" className="text-red-500" />
-                }
+              
                 variant="tertiary"
               >
-                <span className="text-gray-500">
+                <span className="text-primary">
                 {filteredCategories.map((category) => (
                     <span key={category.id} className="mr-3">
                       {category.name} {/* Hiển thị tên category */}
@@ -78,11 +83,11 @@ function RestaurantDetail() {
                 </span>
               </Button>
               <Button
-                prefixIcon={<Icon icon="zi-send-solid" />}
+               
                 variant="tertiary"
               >
-                <span className="text-gray-500">
-                  <Distance location={location} />
+                <span className="text-primary">
+                {formatCurrency(restaurant.price)}
                 </span>
               </Button>
             </Box>
