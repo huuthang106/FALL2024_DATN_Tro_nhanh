@@ -7,7 +7,7 @@
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
-                        <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('client.home')}}">Trang chủ</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('client.client-blog-detail', $blog->slug) }}">Blog</a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">Chi tiết Blog</li>
@@ -153,11 +153,13 @@
                                     <form>
                                         <div class="position-relative">
                                             <input type="text" id="search02"
-                                                class="form-control form-control-lg border-0 shadow-none"
-                                                placeholder="Tìm kiếm" name="search">
-                                            <div class="position-absolute pos-fixed-center-right">
-                                                <button type="submit" class="btn fs-15 text-dark shadow-none"><i
-                                                        class="fal fa-search"></i></button>
+                                                   class="form-control form-control-lg border-0 shadow-none pr-5"
+                                                   placeholder="Tìm kiếm" name="search"
+                                                   style="padding-right: 40px; text-overflow: ellipsis;">
+                                            <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
+                                                <button type="submit" class="btn fs-15 text-dark shadow-none p-0">
+                                                    <i class="fal fa-search"></i>
+                                                </button>
                                             </div>
                                         </div>
                                     </form>

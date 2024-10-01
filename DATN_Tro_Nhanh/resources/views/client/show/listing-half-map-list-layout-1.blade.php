@@ -273,6 +273,7 @@
                                                                 data-lat="{{ $zone->latitude }}"
                                                                 data-lng="{{ $zone->longitude }}">
                                                                 {{ $zone->name }}
+                                                              
                                                             </a>
                                                         </h2>
                                                         <p class="card-text mb-1 font-weight-500 text-gray-light">
@@ -361,67 +362,60 @@
                                 @endif
                             </div>
                             <div class="col-12">
-                                <nav class="pt-2 pt-lg-4">
-                                    <ul class="pagination rounded-active justify-content-center">
-                                        {{-- Liên kết Trang Đầu --}}
-                                        <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
-                                            <a class="page-link" href="{{ $zones->url(1) }}"><i
-                                                    class="far fa-angle-double-left"></i></a>
-                                        </li>
-
-                                        {{-- Liên kết Trang Trước --}}
-                                        <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
-                                            <a class="page-link" href="{{ $zones->previousPageUrl() }}"><i
-                                                    class="far fa-angle-left"></i></a>
-                                        </li>
-
-                                        {{-- Trang đầu tiên --}}
-                                        @if ($zones->currentPage() > 2)
-                                            <li class="page-item"><a class="page-link" href="{{ $zones->url(1) }}">1</a>
+                                @if ($zones->hasPages()) {{-- Only show pagination if there are multiple pages --}}
+                                    <nav class="pt-2 pt-lg-4">
+                                        <ul class="pagination rounded-active justify-content-center">
+                                            {{-- First Page Link --}}
+                                            <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
+                                                <a class="page-link" href="{{ $zones->url(1) }}"><i class="far fa-angle-double-left"></i></a>
                                             </li>
-                                        @endif
-
-                                        {{-- Dấu ba chấm ở đầu nếu cần --}}
-                                        @if ($zones->currentPage() > 3)
-                                            <li class="page-item disabled"><span class="page-link">...</span></li>
-                                        @endif
-
-                                        {{-- Hiển thị các trang xung quanh trang hiện tại --}}
-                                        @for ($i = max(1, $zones->currentPage() - 1); $i <= min($zones->currentPage() + 1, $zones->lastPage()); $i++)
-                                            <li class="page-item {{ $zones->currentPage() == $i ? 'active' : '' }}">
-                                                <a class="page-link"
-                                                    href="{{ $zones->url($i) }}">{{ $i }}</a>
+                            
+                                            {{-- Previous Page Link --}}
+                                            <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
+                                                <a class="page-link" href="{{ $zones->previousPageUrl() }}"><i class="far fa-angle-left"></i></a>
                                             </li>
-                                        @endfor
-
-                                        {{-- Dấu ba chấm ở cuối nếu cần --}}
-                                        @if ($zones->currentPage() < $zones->lastPage() - 2)
-                                            <li class="page-item disabled"><span class="page-link">...</span></li>
-                                        @endif
-
-                                        {{-- Trang cuối cùng --}}
-                                        @if ($zones->currentPage() < $zones->lastPage() - 1)
-                                            <li class="page-item"><a class="page-link"
-                                                    href="{{ $zones->url($zones->lastPage()) }}">{{ $zones->lastPage() }}</a>
+                            
+                                            {{-- First page if not on it --}}
+                                            @if ($zones->currentPage() > 2)
+                                                <li class="page-item"><a class="page-link" href="{{ $zones->url(1) }}">1</a></li>
+                                            @endif
+                            
+                                            {{-- Dots before current pages --}}
+                                            @if ($zones->currentPage() > 3)
+                                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                                            @endif
+                            
+                                            {{-- Show pages around current --}}
+                                            @for ($i = max(1, $zones->currentPage() - 1); $i <= min($zones->currentPage() + 1, $zones->lastPage()); $i++)
+                                                <li class="page-item {{ $zones->currentPage() == $i ? 'active' : '' }}">
+                                                    <a class="page-link" href="{{ $zones->url($i) }}">{{ $i }}</a>
+                                                </li>
+                                            @endfor
+                            
+                                            {{-- Dots after current pages --}}
+                                            @if ($zones->currentPage() < $zones->lastPage() - 2)
+                                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                                            @endif
+                            
+                                            {{-- Last page if not on it --}}
+                                            @if ($zones->currentPage() < $zones->lastPage() - 1)
+                                                <li class="page-item"><a class="page-link" href="{{ $zones->url($zones->lastPage()) }}">{{ $zones->lastPage() }}</a></li>
+                                            @endif
+                            
+                                            {{-- Next Page Link --}}
+                                            <li class="page-item {{ $zones->currentPage() == $zones->lastPage() ? 'disabled' : '' }}">
+                                                <a class="page-link" href="{{ $zones->nextPageUrl() }}"><i class="far fa-angle-right"></i></a>
                                             </li>
-                                        @endif
-
-                                        {{-- Liên kết Trang Tiếp --}}
-                                        <li
-                                            class="page-item {{ $zones->currentPage() == $zones->lastPage() ? 'disabled' : '' }}">
-                                            <a class="page-link" href="{{ $zones->nextPageUrl() }}"><i
-                                                    class="far fa-angle-right"></i></a>
-                                        </li>
-
-                                        {{-- Liên kết Trang Cuối --}}
-                                        <li
-                                            class="page-item {{ $zones->currentPage() == $zones->lastPage() ? 'disabled' : '' }}">
-                                            <a class="page-link" href="{{ $zones->url($zones->lastPage()) }}"><i
-                                                    class="far fa-angle-double-right"></i></a>
-                                        </li>
-                                    </ul>
-                                </nav>
+                            
+                                            {{-- Last Page Link --}}
+                                            <li class="page-item {{ $zones->currentPage() == $zones->lastPage() ? 'disabled' : '' }}">
+                                                <a class="page-link" href="{{ $zones->url($zones->lastPage()) }}"><i class="far fa-angle-double-right"></i></a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                @endif
                             </div>
+                            
                         </div>
                     </div>
                     <div class="col-xl-6 col-xxl-7 order-1 order-xl-2 primary-map map-sticky overflow-hidden"

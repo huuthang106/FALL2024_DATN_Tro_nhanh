@@ -137,8 +137,7 @@
                                                                             type="button"
                                                                             onclick="document.getElementById('fileInput').click();">Tải
                                                                             lên</button>
-                                                                        <input id="fileInput" name="images[]"
-                                                                            type="file" hidden >
+                                                                            <input id="fileInput" name="images[]" type="file" hidden multiple accept="image/*">
                                                                     </div>
                                                                     <div id="imagePreview" class="mt-4">
                                                                         <!-- Nơi ảnh sẽ hiển thị sau khi upload -->

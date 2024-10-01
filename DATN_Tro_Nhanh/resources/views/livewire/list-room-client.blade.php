@@ -114,62 +114,20 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body pt-3 px-0 pb-1 d-flex flex-column" style="height: 150px;">
+                        <div class="card-body pt-3 px-0 pb-1">
                             <h2 class="fs-16 mb-1">
                                 <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
                                     class="text-dark hover-primary">
-                                    <small>{{ Str::limit($room->title, 50) }}</small>
+                                    {{ Str::limit($room->title, 50) }}
                                 </a>
                             </h2>
-                            <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}" class="flex-grow-1">
-                                <p class="font-weight-500 text-gray-light mb-0">
-                                    <small>{{ Str::limit($room->address, 70) }}</small>
-                                </p>
-                            </a>
-                            <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}" class="mt-auto">
-                                <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">
-                                    {{ number_format($room->price, 0, ',', '.') }} VND
-                                </p>
-                            </a>
+                            <p class="font-weight-500 text-gray-light mb-0 fs-13">{{ Str::limit($room->address, 70) }}</p>
+                            <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">
+                                {{ number_format($room->price, 0, ',', '.') }} VND
+                            </p>
                         </div>
                         <div class="card-footer bg-transparent px-0 pb-0 pt-2">
                             <ul class="list-inline mb-0">
-                                {{-- @if ($room->utility && $room->utility->wifi)
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                        data-toggle="tooltip" title="Wifi">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="icon fs-18 text-primary mr-1" viewBox="0 0 24 24"
-                                            fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M2 12c4.97-4.97 13.03-4.97 18 0"></path>
-                                            <path d="M5 15c3.31-3.31 8.69-3.31 12 0"></path>
-                                            <path d="M8 18c1.66-1.66 4.34-1.66 6 0"></path>
-                                            <circle cx="12" cy="20" r="1"></circle>
-                                        </svg>
-                                        Wifi
-                                    </li>
-                                @endif
-
-                                @if ($room->utility && $room->utility->air_conditioning)
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                        data-toggle="tooltip" title="Máy điều hòa">
-                                        <svg class="icon icon-heating fs-32 text-primary">
-                                            <use xlink:href="#icon-heating"></use>
-                                        </svg>
-                                        Máy điều hòa
-                                    </li>
-                                @endif
-
-                                @if ($room->utility && $room->utility->bathrooms)
-                                    <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
-                                        data-toggle="tooltip" title="Phòng tắm">
-                                        <svg class="icon icon-shower fs-18 text-primary mr-1">
-                                            <use xlink:href="#icon-shower">
-                                            </use>
-                                        </svg>
-                                        Phòng tắm
-                                    </li>
-                                @endif --}}
                                 @if ($room->utility && $room->utility->wifi == 1)
                                     <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
                                         data-toggle="tooltip" title="Wifi">
@@ -181,17 +139,15 @@
                                         Wifi
                                     </li>
                                 @endif
-
                                 @if ($room->utility && $room->utility->air_conditioning == 1)
                                     <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
                                         data-toggle="tooltip" title="Máy điều hòa">
-                                        <svg class="icon icon-heating fs-32 text-primary">
+                                        <svg class="icon icon-heating fs-18 text-primary mr-1">
                                             <use xlink:href="#icon-heating"></use>
                                         </svg>
                                         Máy điều hòa
                                     </li>
                                 @endif
-
                                 @if ($room->utility && $room->utility->bathrooms == 1)
                                     <li class="list-inline-item text-gray font-weight-500 fs-13 mr-sm-7"
                                         data-toggle="tooltip" title="Phòng tắm">
@@ -201,12 +157,10 @@
                                         Phòng tắm
                                     </li>
                                 @endif
-
                                 <li class="list-inline-item text-gray font-weight-500 fs-13" data-toggle="tooltip"
                                     title="{{ $room->acreage }}m²">
                                     <svg class="icon icon-square fs-18 text-primary mr-1">
-                                        <use xlink:href="#icon-square">
-                                        </use>
+                                        <use xlink:href="#icon-square"></use>
                                     </svg>
                                     {{ $room->acreage }}m²
                                 </li>

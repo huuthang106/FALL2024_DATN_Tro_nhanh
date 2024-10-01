@@ -64,15 +64,16 @@
                                 <div class="media d-flex align-items-center">
                                     <div class="w-100 w-md-150 mr-3 position-relative">
                                         <a href="{{ route('owners.show-blog', $blog->slug) }}">
-                                            @if ($blog->image)
-                                                @foreach ($blog->image as $item)
-                                                    <img src="{{ asset('assets/images/' . $item->filename) }}" 
-                                                         alt="{{ $item->filename }}" 
-                                                         class="img-fluid" 
-                                                         style="max-width: 100px; object-fit: cover;">
-                                                @endforeach
+                                            @if ($blog->image && $blog->image->isNotEmpty())
+                                                <img src="{{ asset('assets/images/' . $blog->image->first()->filename) }}" 
+                                                     alt="{{ $blog->image->first()->filename }}" 
+                                                     class="img-fluid" 
+                                                     style="width: 100px; height: 100px; object-fit: cover;">
                                             @else
-                                                <p>Không có ảnh</p>
+                                                <img src="{{ asset('path/to/default/image.jpg') }}" 
+                                                     alt="Default Image" 
+                                                     class="img-fluid" 
+                                                     style="width: 100px; height: 100px; object-fit: cover;">
                                             @endif
                                         </a>
                                     </div>

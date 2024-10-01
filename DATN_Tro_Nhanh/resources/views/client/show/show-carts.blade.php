@@ -26,18 +26,18 @@
 
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
                         <!-- <form method="GET" action="" id="search-form" class="w-100 h-100" style="height: 1000px">
-                            <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
-                                <input type="text" name="query" value="" id="search-input"
-                                    class="form-control bg-transparent border-1x" placeholder="Tìm..." aria-label=""
-                                    aria-describedby="basic-addon1">
-                                <div class="input-group-append position-absolute pos-fixed-right-center">
-                                    <button id="search-button" class="btn bg-transparent border-0 text-gray lh-1"
-                                        type="submit">
-                                        <i class="fal fa-search"></i>
-                                    </button>
+                                <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
+                                    <input type="text" name="query" value="" id="search-input"
+                                        class="form-control bg-transparent border-1x" placeholder="Tìm..." aria-label=""
+                                        aria-describedby="basic-addon1">
+                                    <div class="input-group-append position-absolute pos-fixed-right-center">
+                                        <button id="search-button" class="btn bg-transparent border-0 text-gray lh-1"
+                                            type="submit">
+                                            <i class="fal fa-search"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form> -->
+                            </form> -->
                     </div>
                 </div>
             </div>
@@ -75,13 +75,15 @@
                                                     data-quantity="{{ $detail->quantity }}">
                                             </label>
                                         </td>
-                                        <td name="name_price_list">{{ $detail->priceList->description }}</td>
-                                        <td name="description">{{ $detail->priceList->description }}</td>
-                                        <td name="price">{{ number_format($detail->priceList->price, 0, ',', '.') }} VND</td>
-                                        <td>
+                                        <td name="name_price_list" class="align-middle">{{ $detail->priceList->description }}
+                                        </td>
+                                        <td name="description" class="align-middle">{{ $detail->priceList->description }}</td>
+                                        <td name="price" class="align-middle">
+                                            {{ number_format($detail->priceList->price, 0, ',', '.') }} VND</td>
+                                        <td class="align-middle">
                                             {{ $detail->quantity }}
                                         </td>
-                                        <td>
+                                        <td class="align-middle">
                                             <button type="button" class="btn btn-danger btn-sm delete-item"
                                                 data-id="{{ $detail->id }}">Xóa</button>
                                         </td>

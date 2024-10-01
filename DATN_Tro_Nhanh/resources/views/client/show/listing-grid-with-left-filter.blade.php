@@ -209,7 +209,7 @@
                                                 </div>
                                             </div>
                                         @endforeach --}}
-                                        @foreach (($rooms ?? collect())->take(5) as $room)
+                                        @foreach (($rooms ?? collect())->take(3) as $room)
                                             <div class="box px-0">
                                                 <div class="card border-0">
                                                     @if ($room->images->isNotEmpty())

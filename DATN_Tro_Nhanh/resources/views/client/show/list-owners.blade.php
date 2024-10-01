@@ -29,82 +29,84 @@
                                         id="city-province" name="province" data-style="bg-white pl-0 text-dark rounded-0">
                                         <option value='0'>&nbsp;Chọn Tỉnh/Thành Phố...
                                         </option>
-                                        @foreach([
-                                                    '01' => 'Thành phố Hà Nội',
-                                                    '79' => 'Thành phố Hồ Chí Minh',
-                                                    '31' => 'Thành phố Hải Phòng',
-                                                    '48' => 'Thành phố Đà Nẵng',
-                                                    '92' => 'Thành phố Cần Thơ',
-                                                    '02' => 'Tỉnh Hà Giang',
-                                                    '04' => 'Tỉnh Cao Bằng',
-                                                    '06' => 'Tỉnh Bắc Kạn',
-                                                    '08' => 'Tỉnh Tuyên Quang',
-                                                    '10' => 'Tỉnh Lào Cai',
-                                                    '11' => 'Tỉnh Điện Biên',
-                                                    '12' => 'Tỉnh Lai Châu',
-                                                    '14' => 'Tỉnh Sơn La',
-                                                    '15' => 'Tỉnh Yên Bái',
-                                                    '17' => 'Tỉnh Hoà Bình',
-                                                    '19' => 'Tỉnh Thái Nguyên',
-                                                    '20' => 'Tỉnh Lạng Sơn',
-                                                    '22' => 'Tỉnh Quảng Ninh',
-                                                    '24' => 'Tỉnh Bắc Giang',
-                                                    '25' => 'Tỉnh Phú Thọ',
-                                                    '26' => 'Tỉnh Vĩnh Phúc',
-                                                    '27' => 'Tỉnh Bắc Ninh',
-                                                    '30' => 'Tỉnh Hải Dương',
-                                                    '33' => 'Tỉnh Hưng Yên',
-                                                    '34' => 'Tỉnh Thái Bình',
-                                                    '35' => 'Tỉnh Hà Nam',
-                                                    '36' => 'Tỉnh Nam Định',
-                                                    '37' => 'Tỉnh Ninh Bình',
-                                                    '38' => 'Tỉnh Thanh Hóa',
-                                                    '40' => 'Tỉnh Nghệ An',
-                                                    '42' => 'Tỉnh Hà Tĩnh',
-                                                    '44' => 'Tỉnh Quảng Bình',
-                                                    '45' => 'Tỉnh Quảng Trị',
-                                                    '46' => 'Tỉnh Thừa Thiên Huế',
-                                                    '49' => 'Tỉnh Quảng Nam',
-                                                    '51' => 'Tỉnh Quảng Ngãi',
-                                                    '52' => 'Tỉnh Bình Định',
-                                                    '54' => 'Tỉnh Phú Yên',
-                                                    '56' => 'Tỉnh Khánh Hòa',
-                                                    '58' => 'Tỉnh Ninh Thuận',
-                                                    '60' => 'Tỉnh Bình Thuận',
-                                                    '62' => 'Tỉnh Kon Tum',
-                                                    '64' => 'Tỉnh Gia Lai',
-                                                    '66' => 'Tỉnh Đắk Lắk',
-                                                    '67' => 'Tỉnh Đắk Nông',
-                                                    '68' => 'Tỉnh Lâm Đồng',
-                                                    '70' => 'Tỉnh Bình Phước',
-                                                    '72' => 'Tỉnh Tây Ninh',
-                                                    '74' => 'Tỉnh Bình Dương',
-                                                    '75' => 'Tỉnh Đồng Nai',
-                                                    '77' => 'Tỉnh Bà Rịa - Vũng Tàu',
-                                                    '80' => 'Tỉnh Long An',
-                                                    '82' => 'Tỉnh Tiền Giang',
-                                                    '83' => 'Tỉnh Bến Tre',
-                                                    '84' => 'Tỉnh Trà Vinh',
-                                                    '86' => 'Tỉnh Vĩnh Long',
-                                                    '87' => 'Tỉnh Đồng Tháp',
-                                                    '89' => 'Tỉnh An Giang',
-                                                    '91' => 'Tỉnh Kiên Giang',
-                                                    '93' => 'Tỉnh Hậu Giang',
-                                                    '94' => 'Tỉnh Sóc Trăng',
-                                                    '95' => 'Tỉnh Bạc Liêu',
-                                                    '96' => 'Tỉnh Cà Mau'
-                                                ] as $code => $name)
-                                                    @if(in_array($code, $provinces))
-                                                        <option value='{{ $code }}' {{ $province == $code ? 'selected' : '' }}>{{ $name }}</option>
-                                                    @endif
-                                                @endforeach
+                                        @foreach ([
+            '01' => 'Thành phố Hà Nội',
+            '79' => 'Thành phố Hồ Chí Minh',
+            '31' => 'Thành phố Hải Phòng',
+            '48' => 'Thành phố Đà Nẵng',
+            '92' => 'Thành phố Cần Thơ',
+            '02' => 'Tỉnh Hà Giang',
+            '04' => 'Tỉnh Cao Bằng',
+            '06' => 'Tỉnh Bắc Kạn',
+            '08' => 'Tỉnh Tuyên Quang',
+            '10' => 'Tỉnh Lào Cai',
+            '11' => 'Tỉnh Điện Biên',
+            '12' => 'Tỉnh Lai Châu',
+            '14' => 'Tỉnh Sơn La',
+            '15' => 'Tỉnh Yên Bái',
+            '17' => 'Tỉnh Hoà Bình',
+            '19' => 'Tỉnh Thái Nguyên',
+            '20' => 'Tỉnh Lạng Sơn',
+            '22' => 'Tỉnh Quảng Ninh',
+            '24' => 'Tỉnh Bắc Giang',
+            '25' => 'Tỉnh Phú Thọ',
+            '26' => 'Tỉnh Vĩnh Phúc',
+            '27' => 'Tỉnh Bắc Ninh',
+            '30' => 'Tỉnh Hải Dương',
+            '33' => 'Tỉnh Hưng Yên',
+            '34' => 'Tỉnh Thái Bình',
+            '35' => 'Tỉnh Hà Nam',
+            '36' => 'Tỉnh Nam Định',
+            '37' => 'Tỉnh Ninh Bình',
+            '38' => 'Tỉnh Thanh Hóa',
+            '40' => 'Tỉnh Nghệ An',
+            '42' => 'Tỉnh Hà Tĩnh',
+            '44' => 'Tỉnh Quảng Bình',
+            '45' => 'Tỉnh Quảng Trị',
+            '46' => 'Tỉnh Thừa Thiên Huế',
+            '49' => 'Tỉnh Quảng Nam',
+            '51' => 'Tỉnh Quảng Ngãi',
+            '52' => 'Tỉnh Bình Định',
+            '54' => 'Tỉnh Phú Yên',
+            '56' => 'Tỉnh Khánh Hòa',
+            '58' => 'Tỉnh Ninh Thuận',
+            '60' => 'Tỉnh Bình Thuận',
+            '62' => 'Tỉnh Kon Tum',
+            '64' => 'Tỉnh Gia Lai',
+            '66' => 'Tỉnh Đắk Lắk',
+            '67' => 'Tỉnh Đắk Nông',
+            '68' => 'Tỉnh Lâm Đồng',
+            '70' => 'Tỉnh Bình Phước',
+            '72' => 'Tỉnh Tây Ninh',
+            '74' => 'Tỉnh Bình Dương',
+            '75' => 'Tỉnh Đồng Nai',
+            '77' => 'Tỉnh Bà Rịa - Vũng Tàu',
+            '80' => 'Tỉnh Long An',
+            '82' => 'Tỉnh Tiền Giang',
+            '83' => 'Tỉnh Bến Tre',
+            '84' => 'Tỉnh Trà Vinh',
+            '86' => 'Tỉnh Vĩnh Long',
+            '87' => 'Tỉnh Đồng Tháp',
+            '89' => 'Tỉnh An Giang',
+            '91' => 'Tỉnh Kiên Giang',
+            '93' => 'Tỉnh Hậu Giang',
+            '94' => 'Tỉnh Sóc Trăng',
+            '95' => 'Tỉnh Bạc Liêu',
+            '96' => 'Tỉnh Cà Mau',
+        ] as $code => $name)
+                                            @if (in_array($code, $provinces))
+                                                <option value='{{ $code }}'
+                                                    {{ $province == $code ? 'selected' : '' }}>{{ $name }}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group mb-3 mb-md-0 col-md-4">
                                     <label for="district"
                                         class="mb-0 lh-1 text-uppercase fs-14 letter-spacing-093">Quận/Huyện</label>
                                     <select class="form-control font-weight-600 pl-0 bg-white form-control-sm "
-                                        id="district-town" name="district" data-style="bg-white pl-0 text-dark rounded-0" id="location">
+                                        id="district-town" name="district" data-style="bg-white pl-0 text-dark rounded-0"
+                                        id="location">
                                         <option value='0'>&nbsp;Chọn Quận/Huyện...
                                         </option>
                                     </select>
@@ -113,7 +115,8 @@
                                     <label for="ward-commune"
                                         class="mb-0 lh-1 text-uppercase fs-14 letter-spacing-093">Xã</label>
                                     <select class="form-control font-weight-600 pl-0 bg-white form-control-sm "
-                                        id="ward-commune" name="village" data-style="bg-white pl-0 text-dark rounded-0" id="location">
+                                        id="ward-commune" name="village" data-style="bg-white pl-0 text-dark rounded-0"
+                                        id="location">
                                         <option value='0'>&nbsp;Chọn Xã...
                                         </option>
                                     </select>
@@ -386,73 +389,56 @@
 
 
                 <nav class="mt-4">
-                    @if ($users->count() > 0) {{-- Kiểm tra nếu có dữ liệu --}}
-                    <ul class="pagination rounded-active justify-content-center">
-                        {{-- Liên kết Trang Đầu --}}
-                        @if ($users->onFirstPage())
-                            <li class="page-item disabled">
-                                <span class="page-link"><i class="far fa-angle-double-left"></i></span>
-                            </li>
-                        @else
-                            <li class="page-item">
-                                <a class="page-link" href="{{ $users->url(1) }}"><i class="far fa-angle-left"></i></a>
-                            </li>
-                        @endif
-
-                        {{-- Liên kết Trang Trước --}}
-                        @if ($users->onFirstPage())
-                            <li class="page-item disabled">
-                                <span class="page-link"><i class="far fa-angle-left"></i></span>
-                            </li>
-                        @else
-                            <li class="page-item">
-                                <a class="page-link" href="{{ $users->previousPageUrl() }}"><i
-                                        class="far fa-angle-left"></i></a>
-                            </li>
-                        @endif
-
-                        {{-- Pagination Elements --}}
-                        @foreach ($users->getUrlRange(1, $users->lastPage()) as $page => $url)
-                            @if ($page == $users->currentPage())
-                                <li class="page-item active">
-                                    <span class="page-link">{{ $page }}</span>
+                    @if ($users->count() > 0 && $users->lastPage() > 1)
+                    <nav class="mt-4">
+                        <ul class="pagination rounded-active justify-content-center">
+                            {{-- Trang đầu và Trang trước --}}
+                            @if ($users->onFirstPage())
+                                <li class="page-item disabled">
+                                    <span class="page-link"><i class="far fa-angle-double-left"></i></span>
+                                </li>
+                                <li class="page-item disabled">
+                                    <span class="page-link"><i class="far fa-angle-left"></i></span>
                                 </li>
                             @else
                                 <li class="page-item">
-                                    <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                    <a class="page-link" href="{{ $users->url(1) }}"><i class="far fa-angle-double-left"></i></a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ $users->previousPageUrl() }}"><i class="far fa-angle-left"></i></a>
                                 </li>
                             @endif
-                        @endforeach
-
-                        {{-- Liên kết Trang Tiếp --}}
-                        @if ($users->hasMorePages())
-                            <li class="page-item">
-                                <a class="page-link" href="{{ $users->nextPageUrl() }}"><i
-                                        class="far fa-angle-double-right"></i></a>
-                            </li>
-                        @else
-                            <li class="page-item disabled">
-                                <span class="page-link"><i class="far fa-angle-right"></i></span>
-                            </li>
-                        @endif
-
-                        {{-- Liên kết Trang Cuối --}}
-                        @if ($users->hasMorePages())
-                            <li class="page-item">
-                                <a class="page-link" href="{{ $users->url($users->lastPage()) }}"><i
-                                        class="far fa-angle-right"></i></a>
-                            </li>
-                        @else
-                            <li class="page-item disabled">
-                                <span class="page-link"><i class="far fa-angle-double-right"></i></span>
-                            </li>
-                        @endif
-                    </ul>
-                    @endif {{-- Kết thúc kiểm tra --}}
+                
+                            {{-- Các trang số --}}
+                            @foreach ($users->getUrlRange(max($users->currentPage() - 2, 1), min($users->currentPage() + 2, $users->lastPage())) as $page => $url)
+                                <li class="page-item {{ $page == $users->currentPage() ? 'active' : '' }}">
+                                    <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                </li>
+                            @endforeach
+                
+                            {{-- Trang tiếp và Trang cuối --}}
+                            @if ($users->hasMorePages())
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ $users->nextPageUrl() }}"><i class="far fa-angle-right"></i></a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ $users->url($users->lastPage()) }}"><i class="far fa-angle-double-right"></i></a>
+                                </li>
+                            @else
+                                <li class="page-item disabled">
+                                    <span class="page-link"><i class="far fa-angle-right"></i></span>
+                                </li>
+                                <li class="page-item disabled">
+                                    <span class="page-link"><i class="far fa-angle-double-right"></i></span>
+                                </li>
+                            @endif
+                        </ul>
+                    </nav>
+                @endif
                 </nav>
 
-                <div class="text-center mt-2"> {{ $users->firstItem() }}-{{ $users->lastItem() }} trên
-                    {{ $users->total() }} Kết quả</div>
+                {{-- <div class="text-center mt-2"> {{ $users->firstItem() }}-{{ $users->lastItem() }} trên
+                    {{ $users->total() }} Kết quả</div> --}}
         </section>
         <section class="pt-12 pb-11 bg-overlay-secondary bg-img-cover-center"
             style="background-image: url('{{ asset('assets/images/BG3.jpg') }}');">
@@ -585,7 +571,7 @@
         var districts = @json($districts);
         var villages = @json($villages);
     </script>
-   
+
     <script src="{{ asset('assets/js/search-api-vn.js') }}"></script>
     {{-- @livewireScripts --}}
 @endpush

@@ -3,7 +3,7 @@
     <main id="content">
         <section class="pt-2 pb-13 page-title bg-img-cover-center bg-white-overlay"
             style="background-image: url('{{ asset('assets/images/bg-title.jpg') }}');">
-            <div class="container">
+            <div class="container"wire:ignore>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
@@ -199,12 +199,14 @@
                                     <form action="{{ route('client.client-blog') }}" method="GET">
                                         <div class="position-relative">
                                             <input type="text" id="search02"
-                                                class="form-control form-control-lg border-0 shadow-none"
-                                                placeholder="Tìm kiếm" name="search" wire:model.lazy="search"
-                                                wire:keydown.debounce.300ms="$refresh">
-                                            <div class="position-absolute pos-fixed-center-right">
-                                                <button type="submit" class="btn fs-15 text-dark shadow-none"><i
-                                                        class="fal fa-search"></i></button>
+                                                   class="form-control form-control-lg border-0 shadow-none pr-5"
+                                                   placeholder="Tìm kiếm" name="search" wire:model.lazy="search"
+                                                   wire:keydown.debounce.300ms="$refresh"
+                                                   style="padding-right: 40px; text-overflow: ellipsis;">
+                                            <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
+                                                <button type="submit" class="btn fs-15 text-dark shadow-none p-0">
+                                                    <i class="fal fa-search"></i>
+                                                </button>
                                             </div>
                                         </div>
                                     </form>

@@ -105,7 +105,10 @@ class CartService
 
         return true;
     }
-    
+    public function removeAllFromCart($userId)
+{
+    return Cart::where('user_id', $userId)->delete();
+}
     
 
     public function addCartDetail(Request $request, $cartDetailId)
