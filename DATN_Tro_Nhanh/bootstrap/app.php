@@ -36,6 +36,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 'watchlist-admin.php',
                 'zone-admin.php',
                 'utilities-admin.php',
+                'payout-history.php',
 
             ];
             $userRoute = [
