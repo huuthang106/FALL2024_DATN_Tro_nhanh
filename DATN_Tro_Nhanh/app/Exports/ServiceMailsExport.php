@@ -3,53 +3,56 @@
 namespace App\Exports;
 
 use App\Models\ServiceMail;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Carbon\Carbon;
 
-class ServiceMailsExport implements FromCollection, WithHeadings, WithMapping
+class ServiceMailsExport implements FromQuery, WithHeadings, WithMapping
 {
-    const CHUA_GUI = 0;
-    const DA_GUI = 1;
-    private $stt = 1;
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    private $data;
-    public function __construct($data)
-    {
-        $this->data = $data;
-    }
-    public function collection()
-    {
-        // return ServiceMail::all();
+    use Exportable;
 
-        // return ServiceMail::where('is_sent', self::CHUA_GUI)
-        //     ->where('created_at', '>=', now()->subMinute())
-        //     ->get();
-        return $this->data;
-    }
-    public function map($serviceMail): array
+    protected $query;
+    protected $rowNumber = 0;
+
+    public function __construct($query = null)
     {
-        return [
-            $this->stt++,
-            $serviceMail->name,
-            $serviceMail->email,
-            $serviceMail->phone,
-            $serviceMail->message,
-            $serviceMail->created_at->format('Y-m-d H:i:s'), // Định dạng ngày giờ theo ý muốn
-        ];
+        $yesterday = Carbon::yesterday();
+        $this->query = $query ?? ServiceMail::query()
+            ->whereDate('created_at', $yesterday)
+            ->where('is_sent', 0);
     }
+
+    public function query()
+    {
+        return $this->query;
+    }
+
     public function headings(): array
     {
         return [
             'STT',
-            'Họ và Tên',
+            'Tên',
             'Email',
             'Số điện thoại',
             'Nội dung',
-            'Ngày gửi',
+            'Trạng thái',
+            'Ngày tạo'
+        ];
+    }
+
+    public function map($row): array
+    {
+        $this->rowNumber++;
+        return [
+            $this->rowNumber,
+            $row->name,
+            $row->email,
+            $row->phone,
+            $row->message,
+            '',
+            $row->created_at->format('d/m/Y H:i:s')
         ];
     }
 }

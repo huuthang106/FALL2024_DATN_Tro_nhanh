@@ -9,7 +9,7 @@ use App\Services\RoomClientServices;
 use App\Services\PremiumService;
 use App\Services\AccountService;
 use App\Events\ExpiredEntitiesUpdateEvent;
-
+use App\Events\ServiceMailsSummaryEvent;
 
 class HomeClientController extends Controller
 {
@@ -41,9 +41,8 @@ class HomeClientController extends Controller
                 'province' => request()->input('province', '')
             ]);
         }
-        
         event(new ExpiredEntitiesUpdateEvent());
-
+        event(new ServiceMailsSummaryEvent());
         return view('client.show.home', [
             'roomClient' => $roomClient,
             'categories' => $categories,
@@ -53,9 +52,8 @@ class HomeClientController extends Controller
             'villages' => $locations['villages'],
             'province' => request()->input('province', '') // Truyền biến province từ request hoặc giá trị mặc định
         ]);
-       
     }
-    
+
     // Giao diện Về Chúng Tôi
     public function showAbout()
     {

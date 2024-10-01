@@ -6,108 +6,117 @@ use App\Models\ServiceMail;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ServiceMailsExport;
-use App\Mail\ServiceMailNotification;
+use App\Mail\DailyServiceMailSummary;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class ServiceMailService
 {
     const CHUA_GUI = 0;
     const DA_GUI = 1;
-    // public function sendEmail()
-    // {
-    //     $data = ServiceMail::where('is_sent', self::CHUA_GUI)
-    //         ->where('created_at', '>=', now()->subMinute())
-    //         ->get();
-    //     // Kiểm tra nếu không có dữ liệu để gửi email
-    //     if ($data->isEmpty()) {
-    //         return;
-    //     }
-    //     // Lấy email admin từ .env
-    //     $adminEmail = env('ADMIN_EMAIL', 'votanluon194@gmail.com');
-    //     // Gửi email đến admin với tệp đính kèm
-    //     Mail::to($adminEmail)->send(new ServiceMailNotification($data));
-    //     // Send email to admin with attachment
-    //     // Mail::to('votanluon194@gmail.com')->send(new \App\Mail\ServiceMailNotification($data));
-
-    //     // Cập nhật các bản ghi đã gửi để đặt `is_sent` thành true
-    //     ServiceMail::whereIn('id', $data->pluck('id'))->update(['is_sent' => self::DA_GUI]);
-    // }
 
     public function store(array $validatedData)
     {
-        $serviceMail = ServiceMail::create($validatedData);
-
-        // Đặt lịch gửi mail
-        dispatch(function () {
-            sleep(30); // Chờ 30 giây
-            $this->sendEmail();
-        });
-        // Đặt lịch gửi mail sau 24 giờ
-        // dispatch(function () {
-        //     $this->sendEmail();
-        // })->delay(now()->addDay());
-
-        return $serviceMail;
+        return ServiceMail::create($validatedData);
     }
+    // Gửi mail queue
+    // public function sendDailySummary(Carbon $date)
+    // {
+    //     try {
+    //         Log::info('Bắt đầu gửi email tổng hợp cho ngày ' . $date->format('Y-m-d'));
 
-    public function sendEmail()
+    //         $query = ServiceMail::whereDate('created_at', $date)
+    //             ->where('is_sent', self::CHUA_GUI);
+    //         $data = $query->get();
+
+    //         if ($data->isEmpty()) {
+    //             Log::info('Không có dữ liệu mới (chưa gửi) cho ngày ' . $date->format('Y-m-d'));
+    //             return;
+    //         }
+
+    //         Log::info('Số lượng bản ghi chưa gửi: ' . $data->count());
+
+    //         $fileName = 'service_mails_summary_' . $date->format('Y-m-d') . '.xlsx';
+    //         $filePath = storage_path('app/public/' . $fileName);
+
+    //         Excel::store(new ServiceMailsExport($query), $fileName, 'public');
+    //         Log::info('File Excel đã được tạo: ' . $filePath);
+
+    //         $adminEmail = config('mail.admin_email', 'votanluon194@gmail.com');
+    //         Mail::to($adminEmail)->send(new DailyServiceMailSummary($filePath, $date));
+
+    //         $query->update(['is_sent' => self::DA_GUI]);
+
+    //         Log::info('Đã gửi email tổng hợp thành công và cập nhật trạng thái.');
+    //     } catch (\Exception $e) {
+    //         Log::error('Lỗi khi gửi email tổng hợp: ' . $e->getMessage());
+    //     }
+    // }
+    // Gửi mail test
+    // public function sendDailySummary()
+    // {
+    //     try {
+    //         Log::info('Bắt đầu gửi email tổng hợp hàng ngày');
+
+    //         $query = ServiceMail::where('is_sent', self::CHUA_GUI);
+    //         $data = $query->get();
+
+    //         if ($data->isEmpty()) {
+    //             Log::info('Không có dữ liệu mới (chưa gửi) để tổng hợp.');
+    //             return;
+    //         }
+
+    //         Log::info('Số lượng bản ghi chưa gửi được lấy: ' . $data->count());
+
+    //         $fileName = 'danh_sach_dich_vu_' . now()->format('Y-m-d_H-i') . '.xlsx';
+    //         $filePath = storage_path('app/public/' . $fileName);
+
+    //         Excel::store(new ServiceMailsExport($query), $fileName, 'public');
+    //         Log::info('File Excel chứa dữ liệu chưa gửi đã được tạo: ' . $filePath);
+
+    //         $adminEmail = config('mail.admin_email', 'votanluon194@gmail.com');
+    //         Mail::to($adminEmail)->send(new DailyServiceMailSummary($filePath));
+    //         Log::info('Email tổng hợp dữ liệu chưa gửi đã được gửi đến: ' . $adminEmail);
+
+    //         $query->update(['is_sent' => self::DA_GUI]);
+
+    //         Log::info('Đã gửi email tổng hợp thành công và cập nhật trạng thái.');
+    //     } catch (\Exception $e) {
+    //         Log::error('Lỗi khi gửi email tổng hợp: ' . $e->getMessage());
+    //     }
+    // }
+    // Gửi mail 1day
+    public function sendDailySummary()
     {
         try {
-            // Log::info('Bắt đầu hàm sendEmail');
+            Log::info('Bắt đầu gửi email tổng hợp hàng ngày');
 
-            // $query = ServiceMail::where('is_sent', self::CHUA_GUI)
-            //     ->orderBy('created_at', 'asc');
-
-            // Log::info('SQL Query: ' . $query->toSql());
-            // Log::info('Query Bindings: ' . json_encode($query->getBindings()));
-
-            // $data = $query->get();
-
-            // Log::info('Số lượng bản ghi tìm thấy: ' . $data->count());
-            Log::info('Bắt đầu hàm sendEmail');
-
-            $query = ServiceMail::where('is_sent', self::CHUA_GUI)
-                ->where('created_at', '<=', now()->subHours(24))
-                ->orderBy('created_at', 'asc');
-
-            Log::info('SQL Query: ' . $query->toSql());
-            Log::info('Query Bindings: ' . json_encode($query->getBindings()));
-
+            $yesterday = Carbon::yesterday();
+            $query = ServiceMail::whereDate('created_at', $yesterday)
+                ->where('is_sent', self::CHUA_GUI);
             $data = $query->get();
 
-            Log::info('Số lượng bản ghi tìm thấy: ' . $data->count());
-            // Kiểm tra nếu không có dữ liệu để gửi email
             if ($data->isEmpty()) {
-                Log::info('Không có email mới để gửi.');
+                Log::info('Không có dữ liệu mới (chưa gửi) của ngày hôm qua để tổng hợp.');
                 return;
             }
 
-            // Giới hạn số lượng bản ghi để gửi trong một lần (để tránh quá tải)
-            $chunkSize = 100; // Bạn có thể điều chỉnh số này tùy theo nhu cầu
-            $chunks = $data->chunk($chunkSize);
+            Log::info('Số lượng bản ghi chưa gửi của ngày hôm qua được lấy: ' . $data->count());
 
-            foreach ($chunks as $chunk) {
-                // Tạo file Excel cho mỗi chunk
-                $fileName = 'service_mails_' . now()->format('Y-m-d_H-i-s') . '.xlsx';
-                $filePath = storage_path('app/public/' . $fileName);
-                Excel::store(new ServiceMailsExport($chunk), $fileName, 'public');
+            $fileName = 'danh_sach_dich_vu_' . $yesterday->format('Y-m-d') . '.xlsx';
+            $filePath = storage_path('app/public/' . $fileName);
 
-                // Lấy email admin từ config
-                $adminEmail = config('mail.admin_email', 'votanluon194@gmail.com');
+            Excel::store(new ServiceMailsExport($query), $fileName, 'public');
+            Log::info('File Excel chứa dữ liệu chưa gửi của ngày hôm qua đã được tạo: ' . $filePath);
 
-                // Gửi email đến admin với tệp đính kèm
-                Mail::to($adminEmail)->send(new ServiceMailNotification($chunk, $filePath));
+            $adminEmail = config('mail.admin_email', 'votanluon194@gmail.com');
+            Mail::to($adminEmail)->send(new DailyServiceMailSummary($filePath, $yesterday));
 
-                // Cập nhật các bản ghi đã gửi để đặt `is_sent` thành DA_GUI
-                ServiceMail::whereIn('id', $chunk->pluck('id'))->update(['is_sent' => self::DA_GUI]);
+            $query->update(['is_sent' => self::DA_GUI]);
 
-                Log::info('Đã gửi email báo cáo với ' . $chunk->count() . ' bản ghi.');
-
-                // Tạm dừng một chút giữa các lần gửi để tránh quá tải
-                sleep(5); // Tạm dừng 5 giây, bạn có thể điều chỉnh thời gian này
-            }
+            Log::info('Đã gửi email tổng hợp thành công và cập nhật trạng thái.');
         } catch (\Exception $e) {
-            Log::error('Lỗi khi gửi email báo cáo: ' . $e->getMessage());
+            Log::error('Lỗi khi gửi email tổng hợp: ' . $e->getMessage());
         }
     }
 }

@@ -22,6 +22,8 @@ use App\Events\ExpiredEntitiesUpdateEvent;
 use App\Listeners\UpdateExpiredPremiumUsersListener;
 use App\Listeners\CheckAndUpdateExpiredRoomsListener;
 use App\Listeners\HandleExpiredLocksListener;
+use App\Events\ServiceMailsSummaryEvent;
+use App\Listeners\SendServiceMailsSummaryListener;
 
 class EventServiceProvider extends BaseEventServiceProvider
 {
@@ -45,7 +47,7 @@ class EventServiceProvider extends BaseEventServiceProvider
             CheckAndUpdateExpiredRoomsListener::class,
             HandleExpiredLocksListener::class,
         ],
-      
+
         BlogCreated::class => [
             SendBlogCreatedNotification::class,
         ],
@@ -60,6 +62,9 @@ class EventServiceProvider extends BaseEventServiceProvider
         ],
         PaymentProcessed::class => [
             ProcessPayment::class,
+        ],
+        ServiceMailsSummaryEvent::class => [
+            SendServiceMailsSummaryListener::class,
         ],
     ];
 
@@ -80,7 +85,7 @@ class EventServiceProvider extends BaseEventServiceProvider
      */
     public function boot(): void
     {
-       
+
         parent::boot(); // Đăng ký sự kiện hoặc thực hiện các hành động khác khi ứng dụng khởi động
     }
 }

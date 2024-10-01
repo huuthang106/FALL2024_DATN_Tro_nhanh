@@ -162,7 +162,7 @@
                     Trọ Nhanh giúp bạn dễ dàng tìm kiếm phòng trọ phù hợp với nhu cầu của bạn. Hãy khám phá các tùy chọn của
                     chúng tôi và tìm cho mình không gian sống lý tưởng.
                 </p>
-                <form class="mxw-774" method="POST" action="{{ route('client.service-mail-store') }}">
+                <form class="mxw-774" method="POST" action="{{ route('client.service-mail-store') }}" id="serviceMailForm">
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
@@ -321,4 +321,42 @@
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        window.successMessage = "{{ session('success') }}";
+    </script>
+    <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
+    <script src="{{ asset('assets/js/alert-report.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#serviceMailForm').on('submit', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "{{ route('client.service-mail-store') }}",
+                    method: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thành công!',
+                            text: response.message,
+                        });
+                        $('#serviceMailForm')[0].reset();
+                    },
+                    error: function(xhr) {
+                        let errors = xhr.responseJSON.errors;
+                        let errorMessage = '';
+                        for (let field in errors) {
+                            errorMessage += errors[field][0] + '\n';
+                        }
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi!',
+                            text: errorMessage,
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 @endpush
