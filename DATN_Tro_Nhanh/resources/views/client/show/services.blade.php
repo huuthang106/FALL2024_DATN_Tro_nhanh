@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="row mb-9">
-                    {{-- <div class="col-sm-6 col-lg-4 mb-6">
+                    <div class="col-sm-6 col-lg-4 mb-6">
                         <div class="card border-hover shadow-hover-lg-1 px-7 pb-6 pt-4 h-100 bg-transparent bg-hover-white">
                             <div class="card-img-top d-flex align-items-end justify-content-center">
                                 <span class="text-primary fs-90 lh-1"><svg class="icon icon-e1">
@@ -44,8 +44,8 @@
                                 </p>
                             </div>
                         </div>
-                    </div> --}}
-                    {{-- <div class="col-sm-6 col-lg-4 mb-6">
+                    </div>
+                    <div class="col-sm-6 col-lg-4 mb-6">
                         <div class="card border-hover shadow-hover-lg-1 px-7 pb-6 pt-4 h-100 bg-transparent bg-hover-white">
                             <div class="card-img-top d-flex align-items-end justify-content-center">
                                 <span class="text-primary fs-90 lh-1">
@@ -63,7 +63,7 @@
                                 </p>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
                     <div class="col-sm-6 col-lg-4 mb-6">
                         <div class="card border-hover shadow-hover-lg-1 px-7 pb-6 pt-4 h-100 bg-transparent bg-hover-white">
                             <div class="card-img-top d-flex align-items-end justify-content-center">
@@ -74,11 +74,15 @@
                                 </span>
                             </div>
                             <div class="card-body px-0 pt-6 text-center pb-0">
-                                <a href="https://zalo.me/0389454682" class="card-body px-0 pt-6 text-center pb-0 d-block text-decoration-none" target="_blank" rel="noopener noreferrer">
+                                <a href="https://zalo.me/0389454682"
+                                    class="card-body px-0 pt-6 text-center pb-0 d-block text-decoration-none"
+                                    target="_blank" rel="noopener noreferrer">
                                     <h4 class="card-title fs-18 lh-17 text-dark mb-2">Dịch Vụ Tư Vấn Thuê Trọ</h4>
                                     <p class="card-text px-2 text-body">
-                                        Trọ Nhanh cung cấp dịch vụ tư vấn chuyên nghiệp để giúp bạn lựa chọn phòng trọ phù hợp
-                                        với nhu cầu và ngân sách của mình. Chúng tôi cung cấp thông tin chi tiết và hỗ trợ bạn
+                                        Trọ Nhanh cung cấp dịch vụ tư vấn chuyên nghiệp để giúp bạn lựa chọn phòng trọ phù
+                                        hợp
+                                        với nhu cầu và ngân sách của mình. Chúng tôi cung cấp thông tin chi tiết và hỗ trợ
+                                        bạn
                                         trong mọi bước của quy trình thuê trọ.
                                     </p>
                                 </a>
@@ -86,7 +90,8 @@
                         </div>
                     </div>
                     <div class="col-sm-6 col-lg-4 mb-6">
-                        <a href="{{ route('client.room-listing') }}" class="card border-hover shadow-hover-lg-1 px-7 pb-6 pt-4 h-100 bg-transparent bg-hover-white text-decoration-none d-block">
+                        <a href="{{ route('client.room-listing') }}"
+                            class="card border-hover shadow-hover-lg-1 px-7 pb-6 pt-4 h-100 bg-transparent bg-hover-white text-decoration-none d-block">
                             <div class="card-img-top d-flex align-items-end justify-content-center">
                                 <span class="text-primary fs-90 lh-1">
                                     <svg class="icon icon-e4">
@@ -105,26 +110,31 @@
                         </a>
                     </div>
                     <div class="col-sm-6 col-lg-4 mb-6">
-                        <a href="{{ route('client.package') }}" class="card border-hover shadow-hover-lg-1 px-7 pb-6 pt-4 h-100 bg-transparent bg-hover-white text-decoration-none d-block">
+                        <a href="{{ route('client.package') }}"
+                            class="card border-hover shadow-hover-lg-1 px-7 pb-6 pt-4 h-100 bg-transparent bg-hover-white text-decoration-none d-block">
                             <div class="card-img-top d-flex align-items-end justify-content-center">
                                 <span class="text-primary fs-90 lh-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="currentColor" class="bi bi-cash-stack" viewBox="0 0 16 16">
-                                        <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1H1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
-                                        <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V5zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2H3z"/>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90"
+                                        fill="currentColor" class="bi bi-cash-stack" viewBox="0 0 16 16">
+                                        <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1H1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
+                                        <path
+                                            d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V5zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2H3z" />
                                     </svg>
                                 </span>
                             </div>
                             <div class="card-body px-0 pt-6 pb-0 text-center">
                                 <h4 class="card-title fs-18 lh-17 text-dark mb-2">Gói Dịch Vụ</h4>
                                 <p class="card-text px-2 text-body">
-                                    Trọ Nhanh cung cấp các gói dịch vụ đa dạng để hỗ trợ bạn trong việc quảng bá và cho thuê phòng trọ. 
-                                    Từ gói cơ bản đến gói cao cấp, chúng tôi có nhiều lựa chọn phù hợp với nhu cầu và ngân sách của bạn, 
+                                    Trọ Nhanh cung cấp các gói dịch vụ đa dạng để hỗ trợ bạn trong việc quảng bá và cho thuê
+                                    phòng trọ.
+                                    Từ gói cơ bản đến gói cao cấp, chúng tôi có nhiều lựa chọn phù hợp với nhu cầu và ngân
+                                    sách của bạn,
                                     giúp tối ưu hóa hiệu quả quảng cáo và tìm kiếm khách thuê.
                                 </p>
                             </div>
                         </a>
                     </div>
-                    {{-- <div class="col-sm-6 col-lg-4 mb-6">
+                    <div class="col-sm-6 col-lg-4 mb-6">
                         <div class="card border-hover shadow-hover-lg-1 px-7 pb-6 pt-4 h-100 bg-transparent bg-hover-white">
                             <div class="card-img-top d-flex align-items-end justify-content-center">
                                 <span class="text-primary fs-90 lh-1">
@@ -142,9 +152,9 @@
                                 </p>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
                 </div>
-                <!-- <hr class="mb-11">
+                <hr class="mb-11">
                 <h2 class="text-heading mb-2 fs-22 fs-md-32 text-center lh-16 mxw-571 px-lg-8">
                     Bạn Đang Tìm Phòng Trọ?
                 </h2>
@@ -194,7 +204,7 @@
                     <div class="text-center">
                         <button type="submit" class="btn btn-lg btn-primary px-9">Gửi</button>
                     </div>
-                </form> -->
+                </form>
             </div>
         </section>
     </main>

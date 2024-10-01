@@ -531,29 +531,30 @@
                             <!--begin::Table body-->
                             <tbody class="text-gray-600 fw-bold">
                                 @foreach ($zones['rooms'] as $room)
-                                <tr>
-                                    <!--begin::Checkbox-->
-                                    <td>
-                                        <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                            <input class="form-check-input" type="checkbox" value="{{ $room->id }}" />
-                                        </div>
-                                    </td>
-                                    <!--end::Checkbox-->
-                                    <!--begin::Zone details-->
-                                    <td>{{ $room->title }}</td>
-                                    <td>
-                                        @if ($room->user)
-                                            {{ $room->user->name }}
-                                        @else
-                                            No user assigned
-                                        @endif
-                                    </td>
-                                    <td>{{ $room->created_at->format('d/m/Y') }}</td>
-                                    <td>{{ $room->status ? 'Đang tạm trú' : 'Đã dọn đi' }}</td>
-                                    <!--end::Zone details-->
-                                </tr>
-                            @endforeach
-                            
+                                    <tr>
+                                        <!--begin::Checkbox-->
+                                        <td>
+                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                <input class="form-check-input" type="checkbox"
+                                                    value="{{ $room->id }}" />
+                                            </div>
+                                        </td>
+                                        <!--end::Checkbox-->
+                                        <!--begin::Zone details-->
+                                        <td>{{ $room->title }}</td>
+                                        <td>
+                                            @if ($room->user)
+                                                {{ $room->user->name }}
+                                            @else
+                                                No user assigned
+                                            @endif
+                                        </td>
+                                        <td>{{ $room->created_at->format('d/m/Y') }}</td>
+                                        <td>{{ $room->status ? 'Đang tạm trú' : 'Đã dọn đi' }}</td>
+                                        <!--end::Zone details-->
+                                    </tr>
+                                @endforeach
+
                             </tbody>
                             <!--end::Table body-->
                         </table>
@@ -616,7 +617,7 @@
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:site_name" content="Trọ Nhanh">
     <link rel="canonical" href="{{ url()->current() }}">
-    <link rel="shortcut icon" href="{{ asset(''assets/images/logo-nav.png'') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}">
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
     <!--end::Fonts-->
