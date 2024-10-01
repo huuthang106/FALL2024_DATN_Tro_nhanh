@@ -3,11 +3,51 @@
 @section('contentOwners')
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
-            <div class="mb-6">
-                <h2 class="mb-0 text-heading fs-22 lh-15">THÔNG TIN TÀI KHOẢN
+            <div class="mb-6 d-flex justify-content-between align-items-center">
+               <div>
+               <h2 class="mb-0 text-heading fs-22 lh-15">THÔNG TIN TÀI KHOẢN
                 </h2>
                 <p class="mb-1">Dịch vụ khách hàng rất quan trọng, do đó, khách hàng phải chịu trách nhiệm. Cần có hy vọng
                 </p>
+               </div>
+               <button class="btn btn-primary" data-toggle="modal" data-target="#withdrawModal">Rút tiền</button>
+             
+
+<!-- Modal -->
+<div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog" aria-labelledby="withdrawModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="withdrawModalLabel">Thông Tin Rút Tiền</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Số dư hiện tại: {{ $user->balance }}</p>
+                <div class="form-group">
+                    <label for="bank-name">Tên Ngân Hàng</label>
+                    <select class="form-control" id="bank-name">
+                        <!-- Các ngân hàng sẽ được lấy từ API -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="account-number">Số Tài Khoản</label>
+                    <input type="text" class="form-control" id="account-number" placeholder="Nhập số tài khoản">
+                </div>
+                <div class="form-group">
+                    <label for="withdraw-amount">Số Tiền Cần Rút</label>
+                    <input type="number" class="form-control" id="withdraw-amount" placeholder="Nhập số tiền">
+                </div>
+                <p class="text-warning">Lưu ý: Ngày hệ thống chuyển sẽ là cuối tháng vào ngày 30 hoặc 31. Tiền sẽ được trừ vào số dư của quý khách.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary">Xác Nhận Rút Tiền</button>
+            </div>
+        </div>
+    </div>
+</div>
             </div>
             <form method="POST" action="{{ route('owners.profile.update-profile', $user->id) }}"
                 enctype="multipart/form-data">
@@ -368,6 +408,31 @@
             communeId: '{{ $user->village }}'
         };
     </script>
+   <script>
+    // Lấy danh sách ngân hàng từ API
+    async function fetchBanks() {
+        try {
+            const response = await axios.get('https://api.vietqr.io/v2/banks');
+            const banks = response.data.data;
+
+            // Cập nhật danh sách ngân hàng vào select
+            const bankSelect = document.getElementById('bank-name');
+            banks.forEach(bank => {
+                const option = document.createElement('option');
+                option.value = bank.code; // Hoặc bank.id tùy theo yêu cầu
+                option.textContent = bank.name;
+                bankSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error('Error fetching banks:', error);
+        }
+    }
+
+    // Gọi hàm khi modal mở
+    $('#withdrawModal').on('show.bs.modal', function () {
+        fetchBanks();
+    });
+</script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/js/theme.js') }}"></script>
 

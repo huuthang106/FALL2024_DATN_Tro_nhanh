@@ -434,6 +434,18 @@
                             </li>
 
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                <a href="{{ route('owners.don-rut-tien') }}" data-route="owners.don-rut-tien"
+                                    class="text-heading lh-1 sidebar-link">
+                                    <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
+                                        <svg class="icon icon-my-profile">
+                                            <use xlink:href="#icon-my-profile"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="sidebar-item-text">Danh sách đơn rút tiền</span>
+                                </a>
+                            </li>
+
+                            <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                 <a href="{{ route('owners.profile.profile-admin-index') }}" data-route="owners.profile.profile-admin-index"
                                     class="text-heading lh-1 sidebar-link">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">

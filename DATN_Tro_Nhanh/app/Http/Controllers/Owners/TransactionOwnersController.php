@@ -31,5 +31,10 @@ class TransactionOwnersController extends Controller
         return view('owners.show.dashbroard-my-bill', compact('transactions'));
     }
 
+    public function getWithdrawMomny()
+    {
+        return view('owners.show.dashboard-my-withdrawmoney');
+    }
+
 
 }
