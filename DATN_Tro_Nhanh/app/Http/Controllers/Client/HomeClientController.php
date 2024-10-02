@@ -10,15 +10,17 @@ use App\Services\PremiumService;
 use App\Services\AccountService;
 use App\Events\ExpiredEntitiesUpdateEvent;
 use App\Events\ServiceMailsSummaryEvent;
+use App\Services\ZoneServices;
 
 class HomeClientController extends Controller
 {
     protected $roomClientService;
     protected $premiumService;
     protected $accountService;
-
-    public function __construct(RoomClientServices $roomClientService, PremiumService $premiumService, AccountService $accountService)
+    protected $zoneServices;
+    public function __construct(ZoneServices $zoneServices, RoomClientServices $roomClientService, PremiumService $premiumService, AccountService $accountService)
     {
+        $this->zoneServices = $zoneServices;
         $this->roomClientService = $roomClientService;
         $this->premiumService = $premiumService;
         $this->accountService = $accountService;
@@ -55,9 +57,52 @@ class HomeClientController extends Controller
     }
 
     // Giao diện Về Chúng Tôi
-    public function showAbout()
+    public function showAbout(Request $request)
     {
-        return view('client.show.about-us');
+        $keyword = $request->input('keyword');
+        $province = $request->input('province');
+        $latitude = $request->input('latitude');
+        $longitude = $request->input('longitude');
+
+        if ($latitude && $longitude) {
+            $zones = $this->zoneServices->searchZonesWithinRadius($latitude, $longitude, 30);
+        } elseif ($keyword || $province) {
+            $zones = $this->zoneServices->searchZones($keyword, $province);
+        } else {
+            $userLat = session('userLat');
+            $userLng = session('userLng');
+
+            if ($userLat && $userLng) {
+                $zones = $this->zoneServices->searchZonesWithinRadius($userLat, $userLng, 30);
+            } else {
+                $zones = $this->zoneServices->getMyZoneClient();
+            }
+        }
+
+        // $totalZones = $this->zoneServices->getTotalZones();
+        $provinces = $this->zoneServices->getProvinces()->pluck('province')->toArray(); // Chuyển đổi Collection thành mảng
+
+        if ($request->ajax()) {
+            return response()->json([
+                'zones' => $zones->items(),
+                'totalZones' => $totalZones,
+                'pagination' => (string) $zones->links()
+            ]);
+        }
+        return view('client.show.about-us', [
+            'zones' => $zones,
+            // 'totalZones' => $totalZones,
+            'keyword' => $keyword,
+            'province' => $province,
+            'latitude' => $latitude,
+            'longitude' => $longitude,
+            'userLat' => $request->input('user_lat'),
+            'userLng' => $request->input('user_lng'),
+            'showLocationAlert' => true,
+            'provinces' => $provinces,
+            'zoneServices' => $this->zoneServices // Truyền danh sách các mã tỉnh vào view
+        ]);
+        // return view('client.show.about-us');
     }
     // Giao diện Dịch Vụ
     public function showService()

@@ -137,20 +137,25 @@
                                                 <ul class="list-group list-group-no-border">
                                                     <li class="list-group-item px-0 pt-0 pb-2">
                                                         <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="check1" name="features[]" value="wifi">
+                                                            <input type="checkbox" class="custom-control-input"
+                                                                id="check1" name="features[]" value="wifi">
                                                             <label class="custom-control-label" for="check1">Wifi</label>
                                                         </div>
                                                     </li>
                                                     <li class="list-group-item px-0 pt-0 pb-2">
                                                         <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="check2" name="features[]" value="air_conditioner">
-                                                            <label class="custom-control-label" for="check2">Máy điều hòa</label>
+                                                            <input type="checkbox" class="custom-control-input"
+                                                                id="check2" name="features[]" value="air_conditioner">
+                                                            <label class="custom-control-label" for="check2">Máy điều
+                                                                hòa</label>
                                                         </div>
                                                     </li>
                                                     <li class="list-group-item px-0 pt-0 pb-2">
                                                         <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="check3" name="features[]" value="bathroom">
-                                                            <label class="custom-control-label" for="check3">Phòng tắm</label>
+                                                            <input type="checkbox" class="custom-control-input"
+                                                                id="check3" name="features[]" value="bathroom">
+                                                            <label class="custom-control-label" for="check3">Phòng
+                                                                tắm</label>
                                                         </div>
                                                     </li>
                                                     {{-- <li class="list-group-item px-0 pt-0 pb-2">
@@ -162,7 +167,8 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block shadow-none mt-4">Tìm kiếm</button>
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block shadow-none mt-4">Tìm
+                                            kiếm</button>
                                     </form>
                                 </div>
                             </div>
@@ -209,12 +215,11 @@
                                                 </div>
                                             </div>
                                         @endforeach --}}
-                                        @foreach (($rooms ?? collect())->take(3) as $room)
+                                        @foreach ($popularRooms as $room)
                                             <div class="box px-0">
                                                 <div class="card border-0">
                                                     @if ($room->images->isNotEmpty())
                                                         @php
-                                                            // Get the first image
                                                             $image = $room->images->first();
                                                         @endphp
                                                         <img src="{{ asset('assets/images/' . $image->filename) }}"

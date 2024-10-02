@@ -670,21 +670,21 @@
 @extends('layouts.main')
 @section('titleUs', 'Dịch Vụ | TRỌ NHANH')
 @section('contentUs')
-@if (session('error'))
-         <div class="alert alert-danger">
-             {{ session('error') }}
-         </div>
-     @endif
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
 
-     @if (session('success'))
-         <div class="alert alert-success">
-             {{ session('success') }}
-         </div>
-     @endif 
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <main id="content">
         <section class="pt-9 pb-10">
             <div class="container">
-                <div class="text-center mb-15">
+                {{-- <div class="text-center mb-15">
                     <img src="{{ asset('assets/images/page-404.jpg') }}" alt="Page 404" class="mb-5">
                     <h1 class="fs-30 lh-16 text-dark font-weight-600 mb-5">Ối! Không thể tìm thấy trang đó.</h1>
                     <p class="mb-8">Có vẻ như không có gì được tìm thấy ở vị trí này. Có thể thử một trong các liên kết
@@ -702,8 +702,11 @@
                             </div>
                         </div>
                     </form>
-                </div>
-                <div class="row">
+                </div> --}}
+
+                @livewire('search-page404')
+
+                {{-- <div class="row">
                     <div class="col-lg-6 mb-6">
                         <h2 class="fs-22 lh-15 text-dark border-bottom pb-2 mb-2 pr-lg-7">Danh sách Mới Nhất</h2>
                         <ul class="list-unstyled row">
@@ -824,7 +827,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </section>
     </main>
@@ -871,6 +874,51 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <style>
+        .image-container {
+            width: 120px;
+            height: 120px;
+            overflow: hidden;
+        }
+
+        .room-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .media-body {
+            max-height: 200px;
+            overflow: hidden;
+        }
+
+        .latest-room-image {
+            width: 60px;
+            height: 60px;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .latest-room-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .title-truncate {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 150px;
+        }
+
+        @media (max-width: 767.98px) {
+            .title-truncate {
+                max-width: 350px;
+            }
+        }
+    </style>
 @endpush
 @push('scriptUs')
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
@@ -893,5 +941,28 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         window.successMessage = "{{ session('success') }}";
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function adjustTitleLength() {
+                const titles = document.querySelectorAll('.title-truncate');
+                const isMobile = window.innerWidth <= 767.98;
+
+                titles.forEach(title => {
+                    const fullText = title.textContent;
+                    if (isMobile) {
+                        title.textContent = fullText.length > 200 ? fullText.substring(0, 27) + '...' :
+                            fullText;
+                    } else {
+                        title.textContent = fullText.length > 20 ? fullText.substring(0, 17) + '...' :
+                            fullText;
+                    }
+                });
+            }
+
+            // Chạy khi trang được tải và khi thay đổi kích thước màn hình
+            adjustTitleLength();
+            window.addEventListener('resize', adjustTitleLength);
+        });
     </script>
 @endpush

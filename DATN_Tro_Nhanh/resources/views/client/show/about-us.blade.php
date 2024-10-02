@@ -2,7 +2,7 @@
 @section('titleUs', 'Về Chúng Tôi | TRỌ NHANH')
 @section('contentUs')
     <main id="content">
-        <section class="bg-secondary">
+        {{-- <section class="bg-secondary">
             <div class="container">
                 <form class="property-search d-none d-lg-block">
                     <div class="row align-items-lg-center" id="accordion-2">
@@ -518,6 +518,171 @@
                     </div>
                 </form>
             </div>
+        </section> --}}
+        <section class="bg-secondary">
+            <div class="container">
+                <form action="{{ route('client.client-list-zone') }}" class="property-search d-none d-lg-block">
+                    <div class="row align-items-lg-center" id="accordion-2">
+                        <div class="col-xl-1 col-lg-1 col-md-4">
+                            <div class="property-search-status-tab d-flex flex-row">
+                                <input class="search-field" type="hidden" name="status" value="for-rent"
+                                    data-default-value="">
+
+                            </div>
+                        </div>
+                        <div class="col-xl-9 col-lg-9 d-md-flex">
+                            <select
+                                class="form-control shadow-none form-control-lg selectpicker rounded-right-md-0 rounded-md-top-left-0 rounded-lg-top-left flex-md-1 mt-3 mt-md-0"
+                                title="Chọn Thành Phố" data-style="btn-lg py-2 h-52 border-right bg-white" name="province"
+                                id="city-province">
+                                <option value='0'>Chọn Tỉnh/Thành Phố...</option>
+                                @foreach ([
+            '01' => 'Thành phố Hà Nội',
+            '79' => 'Thành phố Hồ Chí Minh',
+            '31' => 'Thành phố Hải Phòng',
+            '48' => 'Thành phố Đà Nẵng',
+            '92' => 'Thành phố Cần Thơ',
+            '02' => 'Tỉnh Hà Giang',
+            '04' => 'Tỉnh Cao Bằng',
+            '06' => 'Tỉnh Bắc Kạn',
+            '08' => 'Tỉnh Tuyên Quang',
+            '10' => 'Tỉnh Lào Cai',
+            '11' => 'Tỉnh Điện Biên',
+            '12' => 'Tỉnh Lai Châu',
+            '14' => 'Tỉnh Sơn La',
+            '15' => 'Tỉnh Yên Bái',
+            '17' => 'Tỉnh Hoà Bình',
+            '19' => 'Tỉnh Thái Nguyên',
+            '20' => 'Tỉnh Lạng Sơn',
+            '22' => 'Tỉnh Quảng Ninh',
+            '24' => 'Tỉnh Bắc Giang',
+            '25' => 'Tỉnh Phú Thọ',
+            '26' => 'Tỉnh Vĩnh Phúc',
+            '27' => 'Tỉnh Bắc Ninh',
+            '30' => 'Tỉnh Hải Dương',
+            '33' => 'Tỉnh Hưng Yên',
+            '34' => 'Tỉnh Thái Bình',
+            '35' => 'Tỉnh Hà Nam',
+            '36' => 'Tỉnh Nam Định',
+            '37' => 'Tỉnh Ninh Bình',
+            '38' => 'Tỉnh Thanh Hóa',
+            '40' => 'Tỉnh Nghệ An',
+            '42' => 'Tỉnh Hà Tĩnh',
+            '44' => 'Tỉnh Quảng Bình',
+            '45' => 'Tỉnh Quảng Trị',
+            '46' => 'Tỉnh Thừa Thiên Huế',
+            '49' => 'Tỉnh Quảng Nam',
+            '51' => 'Tỉnh Quảng Ngãi',
+            '52' => 'Tỉnh Bình Định',
+            '54' => 'Tỉnh Phú Yên',
+            '56' => 'Tỉnh Khánh Hòa',
+            '58' => 'Tỉnh Ninh Thuận',
+            '60' => 'Tỉnh Bình Thuận',
+            '62' => 'Tỉnh Kon Tum',
+            '64' => 'Tỉnh Gia Lai',
+            '66' => 'Tỉnh Đắk Lắk',
+            '67' => 'Tỉnh Đắk Nông',
+            '68' => 'Tỉnh Lâm Đồng',
+            '70' => 'Tỉnh Bình Phước',
+            '72' => 'Tỉnh Tây Ninh',
+            '74' => 'Tỉnh Bình Dương',
+            '75' => 'Tỉnh Đồng Nai',
+            '77' => 'Tỉnh Bà Rịa - Vũng Tàu',
+            '80' => 'Tỉnh Long An',
+            '82' => 'Tỉnh Tiền Giang',
+            '83' => 'Tỉnh Bến Tre',
+            '84' => 'Tỉnh Trà Vinh',
+            '86' => 'Tỉnh Vĩnh Long',
+            '87' => 'Tỉnh Đồng Tháp',
+            '89' => 'Tỉnh An Giang',
+            '91' => 'Tỉnh Kiên Giang',
+            '93' => 'Tỉnh Hậu Giang',
+            '94' => 'Tỉnh Sóc Trăng',
+            '95' => 'Tỉnh Bạc Liêu',
+            '96' => 'Tỉnh Cà Mau',
+        ] as $code => $name)
+                                    @if (in_array($code, $provinces))
+                                        <option value='{{ $code }}' {{ $province == $code ? 'selected' : '' }}>
+                                            {{ $name }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                            <div class="form-group mb-0 position-relative flex-md-3 mt-3 mt-md-0">
+                                <input type="text"
+                                    class="form-control form-control-lg border-0 shadow-none rounded-left-md-0 pr-8 bg-white placeholder-muted"
+                                    id="key-word-1" name="keyword" placeholder="Nhập tên khu trọ...">
+                                <button type="submit"
+                                    class="btn position-absolute pos-fixed-right-center p-0 text-heading fs-20 mr-4 shadow-none">
+                                    <i class="far fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <span class="p-5 d-flex align-items-center">
+                                &#8203;
+                            </span>
+                            {{-- <a href="#advanced-search-filters-2"
+                                class="icon-primary btn advanced-search w-100 shadow-none text-white text-left rounded-0 fs-14 font-weight-600 position-relative collapsed px-0 d-flex align-items-center"
+                                data-toggle="collapse" data-target="#advanced-search-filters-2" aria-expanded="true"
+                                aria-controls="advanced-search-filters-2">
+                                Tìm kiếm
+                            </a> --}}
+                        </div>
+                        {{-- <div id="advanced-search-filters-2" class="col-12 pb-6 pt-lg-2 collapse" data-parent="#accordion-2">
+                            <div class="row mx-n2">
+                                <div class="col-sm-6 col-md-4 col-lg-3 pt-4 px-2">
+                                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
+                                        name="status" title="Trạng thái" data-style="btn-lg py-2 h-52 bg-white">
+                                        <option>Trạng thái</option>
+                                        <option>Cho thuê</option>
+                                        <option>Cho mướn</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6 col-md-4 col-lg-3 pt-4 px-2">
+                                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
+                                        name="bedroom" title="Phòng ngủ" data-style="btn-lg py-2 h-52 bg-white">
+                                        <option>Phòng ngủ</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                        <option>10</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6 col-md-4 col-lg-3 pt-4 px-2">
+                                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
+                                        name="bathrooms" title="Phòng tắm" data-style="btn-lg py-2 h-52 bg-white">
+                                        <option>Phòng tắm</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                        <option>10</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="col-sm-6 col-md-4 col-lg-3 pt-4 px-2">
+                                    <input type="text" class="form-control form-control-lg border-0 shadow-none bg-white"
+                                        placeholder="Mã phòng trọ" name="">
+                                </div>
+                            </div>
+
+                        </div> --}}
+                    </div>
+                </form>
+
+            </div>
         </section>
         <section style="background-image: url('{{ asset('assets/images/bg-about-us.jpg') }}')"
             class="bg-img-cover-center py-10 pt-md-16 pb-md-17 bg-overlay">
@@ -894,24 +1059,42 @@
             </div>
         </section>
         <section>
-            <div>
+            {{-- <div>
                 <div class="position-relative">
                     <div id="map" class="mapbox-gl map-point-animate" style="height: 550px"
                         data-mapbox-access-token="pk.eyJ1IjoiZHVvbmdsaCIsImEiOiJjanJnNHQ4czExMzhyNDVwdWo5bW13ZmtnIn0.f1bmXQsS6o4bzFFJc8RCcQ"
                         data-mapbox-options='{"center":[-73.981566, 40.739011],"setLngLat":[-73.981566, 40.739011]}'
-                        data-mapbox-marker='[{"position":[-73.981566, 40.739011],"className":"marker","backgroundImage":"{{ asset('assets/images/googlle-market-01.png') }}","backgroundRepeat":"no-repeat","width":"32px","height":"40px"}]'>
+                        data-mapbox-marker='[{"position":[-73.981566, 40.739011],"className":"marker","backgroundImage":"images/googlle-market-01.png","backgroundRepeat":"no-repeat","width":"32px","height":"40px"}]'>
                     </div>
                     <div class="container">
                         <div class="map-info position-absolute">
                             <div class="card border-0 shadow-xs-4">
                                 <div class="card-body pl-7 pr-6 pt-7 pb-10">
-                                    <h4 class="fs-22 lh-238 mb-0">Vị Trí Văn Phòng</h4>
-                                    <p class="mb-8">Chúng tôi nằm ở vị trí thuận tiện, dễ dàng tiếp cận. Đội ngũ của
-                                        chúng tôi luôn sẵn sàng phục vụ bạn với những dịch vụ tốt nhất.</p>
-                                    <h5 class="fs-16 lh-2 mb-0">Ghé thăm văn phòng của chúng tôi tại</h5>
-                                    <p class="mb-0">Quận Cái Răng, Thành phố Cần Thơ,
-                                        Việt Nam</p>
+                                    <h4 class="fs-22 lh-238 mb-0">Offices Location</h4>
+                                    <p class="mb-8">Lorem ipsum dolor sit amet, consec tetur cing elit. Suspe ndisse
+                                        suscorem
+                                        ipsum dolor sit
+                                        ametcipsum ipsumg elit. consec tetur cing elitipsum dozlpsmg elit.</p>
+                                    <h5 class="fs-16 lh-2 mb-0">Visit our office at</h5>
+                                    <p class="mb-0">2005 Stokes Isle Apt. 896, Venaville, New York</p>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
+            <div>
+                <div class="map-container">
+                    <div id="map"></div>
+                    <div class="map-info">
+                        <div class="card border-0 shadow-xs-4 pb-10">
+                            <div class="card-body pl-7 pr-6 pt-7">
+                                <h4 class="fs-22 lh-238 mb-0">Vị Trí Văn Phòng</h4>
+                                <p class="mb-8">Chúng tôi nằm ở vị trí thuận tiện, dễ dàng tiếp cận. Đội ngũ của
+                                    chúng tôi luôn sẵn sàng phục vụ bạn với những dịch vụ tốt nhất.</p>
+                                <h5 class="fs-16 lh-2 mb-0">Ghé thăm văn phòng của chúng tôi tại</h5>
+                                <p class="mb-0">Quận Cái Răng, Thành phố Cần Thơ,
+                                    Việt Nam</p>
                             </div>
                         </div>
                     </div>
@@ -1015,7 +1198,8 @@
                         </a>
                     </div>
                     <div class="col-sm-6 col-lg-3 mb-6 mb-lg-0">
-                        <a href="{{ route('client.client-service') }}" class="card border-0 shadow-2 px-7 py-5 h-100 shadow-hover-lg-1">
+                        <a href="{{ route('client.client-service') }}"
+                            class="card border-0 shadow-2 px-7 py-5 h-100 shadow-hover-lg-1">
                             <div class="card-img-top d-flex align-items-end justify-content-center">
                                 <img src="{{ asset('assets/images/icon-box-7.png') }}" alt="Liên hệ với chúng tôi">
                             </div>
@@ -1100,7 +1284,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
     <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@TronNhanh">
@@ -1120,6 +1304,70 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <style>
+        .map-container {
+            position: relative;
+            height: 550px;
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+
+        .map-info {
+            position: absolute;
+            left: 176px;
+            max-width: 350px;
+            z-index: 1000;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .leaflet-control-directions,
+        .leaflet-control-center {
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            font-size: 16px;
+            color: #333;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+        }
+
+        .leaflet-control-directions:hover,
+        .leaflet-control-center:hover {
+            background-color: #f8f8f8;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .leaflet-control-directions i,
+        .leaflet-control-center i {
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .map-container {
+                height: auto;
+            }
+
+            #map {
+                height: 300px;
+            }
+
+            .map-info {
+                position: static;
+                max-width: 100%;
+                margin-top: 20px;
+            }
+        }
+    </style>
 @endpush
 @push('scriptUs')
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
@@ -1139,4 +1387,134 @@
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var latitude = 9.9820815;
+            var longitude = 105.7582274;
+            var officeName = "Trường Cao đẳng FPT Polytechnic";
+
+            var map = L.map('map', {
+                center: [latitude, longitude],
+                zoom: 18, // Tăng mức zoom lên
+                zoomControl: false,
+                scrollWheelZoom: false,
+                dragging: true,
+                touchZoom: false,
+                doubleClickZoom: true,
+                boxZoom: false,
+                tap: false
+            });
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // Thêm marker
+            var marker = L.marker([latitude, longitude]).addTo(map)
+                .bindPopup(officeName)
+                .openPopup();
+
+            // Tạo hiệu ứng sóng
+            function createWaveEffect() {
+                var waveLayer = L.layerGroup().addTo(map);
+                var waveCount = 3;
+                var waveDuration = 5000; // 5 giây mỗi đợt
+                var maxRadius = 75; // Tăng bán kính tối đa
+                var waveOpacity = 0.3; // Độ mờ của sóng
+
+                function addWave(delay) {
+                    setTimeout(function() {
+                        var wave = L.circleMarker([latitude, longitude], {
+                            radius: 0,
+                            color: '#3388ff',
+                            fillColor: '#3388ff',
+                            fillOpacity: waveOpacity,
+                            weight: 2
+                        }).addTo(waveLayer);
+
+                        var startTime = Date.now();
+
+                        function animateWave() {
+                            var elapsedTime = Date.now() - startTime;
+                            var progress = elapsedTime / waveDuration;
+
+                            if (progress >= 1) {
+                                waveLayer.removeLayer(wave);
+                                return;
+                            }
+
+                            var easedProgress = easeOutQuad(progress);
+                            var currentRadius = easedProgress * maxRadius;
+                            wave.setRadius(currentRadius);
+                            wave.setStyle({
+                                opacity: waveOpacity * (1 - easedProgress),
+                                fillOpacity: waveOpacity * (1 - easedProgress)
+                            });
+
+                            requestAnimationFrame(animateWave);
+                        }
+
+                        animateWave();
+                    }, delay);
+                }
+
+                // Chức năng làm dịu cho hoạt ảnh mượt mà hơn
+                function easeOutQuad(t) {
+                    return t * (2 - t);
+                }
+
+                // Thêm nhiều sóng có độ trễ
+                for (var i = 0; i < waveCount; i++) {
+                    addWave(i * (waveDuration / waveCount));
+                }
+
+                // Lặp lại
+                setInterval(function() {
+                    for (var i = 0; i < waveCount; i++) {
+                        addWave(i * (waveDuration / waveCount));
+                    }
+                }, waveDuration);
+            }
+
+            createWaveEffect();
+
+            var zoomControl = L.control.zoom({
+                position: 'bottomright'
+            });
+            zoomControl.addTo(map);
+
+            var directionsButton = L.control({
+                position: 'topright'
+            });
+
+            directionsButton.onAdd = function(map) {
+                var div = L.DomUtil.create('div', 'leaflet-control-directions leaflet-bar leaflet-control');
+                div.innerHTML = '<i class="fas fa-directions" title="Chỉ đường"></i>';
+                div.onclick = function() {
+                    var url = 'https://www.google.com/maps/dir/?api=1&destination=' + latitude + ',' +
+                        longitude;
+                    window.open(url, '_blank');
+                };
+                return div;
+            };
+
+            directionsButton.addTo(map);
+
+            var centerButton = L.control({
+                position: 'topright'
+            });
+
+            centerButton.onAdd = function(map) {
+                var div = L.DomUtil.create('div', 'leaflet-control-center leaflet-bar leaflet-control');
+                div.innerHTML = '<i class="fas fa-crosshairs" title="Quay về giữa"></i>';
+                div.onclick = function() {
+                    map.setView([latitude, longitude], 18); // Cập nhật mức zoom
+                };
+                return div;
+            };
+
+            centerButton.addTo(map);
+        });
+    </script>
 @endpush

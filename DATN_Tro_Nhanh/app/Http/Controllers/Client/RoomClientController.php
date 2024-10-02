@@ -44,10 +44,19 @@ class RoomClientController extends Controller
         );
 
         $locations = $this->roomClientService->getUniqueLocations();
+        // Lấy phòng nổi bật
+        $popularRooms = $this->roomClientService->getPopularRooms();
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
                 'rooms' => $rooms,
-
+                'searchTerm' => $searchTerm,
+                'province' => $province,
+                'district' => $district,
+                'village' => $village,
+                'provinces' => $locations['provinces'],
+                'districts' => $locations['districts'],
+                'villages' => $locations['villages'],
+                'popularRooms' => $popularRooms
             ]);
         }
 
@@ -64,7 +73,8 @@ class RoomClientController extends Controller
             'provinces' => $locations['provinces'],
             'districts' => $locations['districts'],
             'villages' => $locations['villages'],
-            'categories' => $categories // Truyền danh sách categories vào view
+            'categories' => $categories, // Truyền danh sách categories vào view
+            'popularRooms' => $popularRooms
         ]);
     }
 

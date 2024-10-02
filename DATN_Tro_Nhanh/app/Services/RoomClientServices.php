@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Carbon\Carbon;
 use Exception;
-use Illuminate\Support\Facades\DB; 
+use Illuminate\Support\Facades\DB;
 
 class RoomClientServices
 {
@@ -349,14 +349,14 @@ class RoomClientServices
                 ->select('rooms.*', DB::raw('MIN(images.filename) as image_url'))
                 ->groupBy('rooms.id')
                 ->orderByDesc('rooms.created_at');
-    
+
             // Thêm điều kiện lọc
             if ($type) {
                 $query->whereHas('category', function ($q) use ($type) {
                     $q->where('name', $type);
                 });
             }
-    
+
             if ($searchTerm) {
                 $query->where(function ($q) use ($searchTerm) {
                     $q->where('rooms.title', 'like', '%' . $searchTerm . '%')
@@ -364,7 +364,7 @@ class RoomClientServices
                         ->orWhere('rooms.address', 'like', '%' . $searchTerm . '%');
                 });
             }
-    
+
             if ($province) {
                 $query->where('rooms.province', $province);
             }
@@ -378,7 +378,7 @@ class RoomClientServices
                 Log::info('Applying category filter: ' . $category);
                 $query->where('rooms.category_id', $category);
             }
-    
+
             if (!empty($features)) {
                 $query->where(function ($q) use ($features) {
                     foreach ($features as $feature) {
@@ -386,7 +386,7 @@ class RoomClientServices
                     }
                 });
             }
-    
+
             $result = $query->get();
             Log::info('SQL Query: ' . $query->toSql());
             Log::info('SQL Bindings: ' . json_encode($query->getBindings()));
@@ -395,5 +395,36 @@ class RoomClientServices
             Log::error('Error in getAllRoom: ' . $e->getMessage());
             return null;
         }
+    }
+    // Phòng nổi bật
+    // public function getPopularRooms($limit = 3)
+    // {
+    //     return Room::with('images')
+    //         ->where('status', self::status)
+    //         ->orderBy('view', 'desc')
+    //         ->take($limit)
+    //         ->get();
+    // }
+    public function getPopularRooms($limit = 3)
+    {
+        $currentDate = Carbon::now();
+
+        return Room::with('images')
+            ->where('status', self::status)
+            ->where(function ($query) use ($currentDate) {
+                $query->where('expiration_date', '>', $currentDate)
+                    ->orWhereNull('expiration_date');
+            })
+            ->orderByRaw('CASE 
+                WHEN expiration_date > ? THEN 0 
+                ELSE 1 
+            END', [$currentDate])
+            ->orderByRaw('CASE 
+                WHEN expiration_date > ? THEN view 
+                ELSE 0 
+            END DESC', [$currentDate])
+            ->orderBy('view', 'desc')
+            ->take($limit)
+            ->get();
     }
 }
