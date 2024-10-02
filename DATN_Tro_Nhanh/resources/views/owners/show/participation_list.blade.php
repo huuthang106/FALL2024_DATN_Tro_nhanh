@@ -19,10 +19,7 @@
                                         class="fal fa-search"></i></button>
                             </div>
                         </div>
-                        <div class="align-self-center">
-                            <button class="btn btn-danger btn-lg" tabindex="0"
-                                aria-controls="invoice-list"><span>Xóa</span></button>
-                        </div>
+                       
                     </div>
                 </div>
             </div>
@@ -32,12 +29,7 @@
                         <table id="myTable" class="table table-hover bg-white border rounded-lg">
                             <thead>
                                 <tr role="row">
-                                    <th class="no-sort py-6 pl-6">
-                                        <label class="new-control new-checkbox checkbox-primary m-auto">
-                                            <input type="checkbox"
-                                                class="new-control-input chk-parent select-customers-info">
-                                        </label>
-                                    </th>
+                                 
                                     <th class="py-6 text-start">Tên phòng</th>
                                     <th class="py-6 text-start">Tên người ở</th>
                                     <th class="py-6 text-start">Số điện thoại</th>
@@ -53,12 +45,7 @@
                                 @else
                                     @foreach ($residents as $resident)
                                         <tr>
-                                            <td class="py-6 pl-6">
-                                                <label class="new-control new-checkbox checkbox-primary m-auto">
-                                                    <input type="checkbox"
-                                                        class="new-control-input chk-parent select-customers-info">
-                                                </label>
-                                            </td>
+                                        
                                             <td class="align-middle"><small>{{ $resident->room->title }}</small></td>
                                             <td class="align-middle">
                                                 <small>

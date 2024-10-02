@@ -66,8 +66,8 @@
                                     <div class="col-sm-8 col-xl-12 col-xxl-5">
                                         <!-- Hiển thị ảnh hiện tại hoặc ảnh mặc định nếu không có ảnh -->
                                         <div class="profile-image-container">
-                                            <img id="profileImagePreview" src="{{ asset('assets/images/' . $user->image) }}"
-                                                alt="My Profile">
+                                            <img id="profileImagePreview" src="{{ $user->image ? asset('assets/images/' . $user->image) : asset('assets/images/agent-25.jpg') }}"
+                                            alt="{{$user->name}}">
                                         </div>
 
                                         <div class="custom-file mt-4 h-auto">
@@ -77,7 +77,7 @@
                                                         class="fal fa-cloud-upload"></i></span>Tải lên hình ảnh hồ sơ
                                             </label>
                                         </div>
-                                        <p class="mb-0 mt-2">*tối thiểu 500px x 500px</p>
+                                        {{-- <p class="mb-0 mt-2">*tối thiểu 500px x 500px</p> --}}
                                     </div>
                                 </div>
                             </div>

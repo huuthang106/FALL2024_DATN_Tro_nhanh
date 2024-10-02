@@ -249,7 +249,7 @@
                                                         <img src="{{ asset('assets/images/' . $user['image']) }}"
                                                             alt="{{ $user['name'] }}" class="hehe rounded-circle">
                                                     @else
-                                                        <img src="{{ asset('assets/images/profile-11.jpeg') }}"
+                                                        <img src="{{ asset('assets/images/agent-43.jpg') }}"
                                                             alt="Default Avatar" class="hehe rounded-circle">
                                                     @endif
                                                 </span>

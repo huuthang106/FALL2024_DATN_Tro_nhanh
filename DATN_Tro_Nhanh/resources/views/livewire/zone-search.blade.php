@@ -49,14 +49,15 @@
                 <table id="myTable" class="table table-hover table-sm bg-white border rounded-lg">
                     <thead>
                         <tr role="row">
+                            <th class="py-3 text-nowrap text-center col-2">Ảnh</th>
 
                             <th class="py-3 text-nowrap text-center col-2">Tiêu đề</th>
-                            <th class="py-3 text-nowrap d-none d-md-table-cell col-3">Mô tả</th>
-                            <th class="py-3 text-nowrap d-none d-lg-table-cell col-3">Địa chỉ</th>
-                            <th class="py-3 text-nowrap col-2">Ngày</th>
-                            <th class="py-3 text-nowrap col-2">Lượng phòng</th>
-                            <th class="py-3 text-nowrap col-2">Trạng thái</th>
-                            <th class="no-sort py-3 text-nowrap col-2">Thao tác</th>
+                            <th class="py-3 text-nowrap text-center d-none d-md-table-cell col-3">Mô tả</th>
+                            <th class="py-3 text-nowrap text-center d-none d-lg-table-cell col-3">Địa chỉ</th>
+                            <th class="py-3 text-nowrap text-center col-2">Ngày</th>
+                            <th class="py-3 text-nowrap text-center col-2">Lượng phòng</th>
+                            <th class="py-3 text-nowrap text-center col-2">Trạng thái</th>
+                            <th class="no-sort py-3 text-nowrap text-center col-2">Thao tác</th>
                         </tr>
                     </thead>
 
@@ -64,15 +65,18 @@
                         @if ($zones->isNotEmpty())
                             @foreach ($zones as $zone)
                                 <tr role="row" wire:key="zone-{{ $zone->id }}">
+                                    <td class="align-middle d-md-table-cell text-nowrap p-4">
+                                        <div class="mr-2 position-relative zone-image-container">
+                                            <a href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}">
+                                                <img src="{{ $this->getZoneImageUrl($zone) ?: asset('assets/images/default-image.jpg') }}"
+                                                    alt="{{ $zone->name }}" class="img-fluid zone-image">
+                                            </a>
+                                        </div>
+                                    </td>
 
                                     <td class="align-middle pt-3 pb-2 px-3 text-nowrap">
                                         <div class="d-flex align-items-center">
-                                            <div class="mr-2 position-relative zone-image-container">
-                                                <a href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}">
-                                                    <img src="{{ $this->getZoneImageUrl($zone) }}"
-                                                        alt="{{ $zone->name }}" class="img-fluid zone-image">
-                                                </a>
-                                            </div>
+
                                             <div class="media-body">
                                                 <a href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}">
                                                     <span

@@ -9,7 +9,8 @@
             <!--begin::Symbol-->
             <!-- resources/views/components/navbar-admin.blade.php -->
             <div class="symbol symbol-50px">
-                <img src="{{ asset('assets/images/' . $user->image) }}" alt="{{ $user->name }}" />
+                <img src="{{ $user['image'] ? asset('assets/images/' . $user['image']) : asset('assets/images/agent-43.jpg') }}"
+                alt="{{ $user['name'] }}" class="hehe rounded-circle">
             </div>
 
             <!--end::Symbol-->
@@ -64,8 +65,8 @@
                                 <div class="menu-content d-flex align-items-center px-3">
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-50px me-5">
-                                        <img src="{{ asset('assets/images/' . $user->image) }}"
-                                            alt="{{ $user->name }}" />
+                                        <img src="{{ $user['image'] ? asset('assets/images/' . $user['image']) : asset('assets/images/agent-43.jpg') }}"
+                                        alt="{{ $user['name'] }}" class="hehe rounded-circle">
                                     </div>
                                     <!--end::Avatar-->
                                     <!--begin::Username-->

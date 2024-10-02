@@ -15,9 +15,9 @@
                                 data-toggle="dropdown">
                                 <div class="w-48px">
                                     @if ($user->image)
-                                        <img src="{{ asset('assets/images/' . $user->image) }}" alt="Admin" class="hehe rounded-circle">
+                                        <img src="{{ asset('assets/images/' . $user->image) }}" alt="{{$user->name}}" class="hehe rounded-circle">
                                     @else
-                                        <img src="{{ asset('assets/images/nhan.JPG') }}" alt="Admin" class="hehe rounded-circle">
+                                        <img src="{{ asset('assets/images/agent-43.jpg') }}" alt="Admin" class="hehe rounded-circle">
                                     @endif
                                     @if (Auth::check() &&
                                             Auth::user()->has_vip_badge &&
@@ -146,7 +146,7 @@
                                             </li>
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"
-                                                    href="{{ route('owners.participation-list') }}" data-route="owners.participation-list">Danh đơn khu trọ</a>
+                                                    href="{{ route('owners.participation-list') }}" data-route="owners.participation-list">Danh sách đơn khu trọ</a>
                                             </li>
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"
@@ -527,7 +527,7 @@
                                     <img src="{{ asset('assets/images/' . $user->image) }}"
                                         alt="{{ $user->name }}" class="hehe rounded-circle">
                                 @else
-                                    <img src="{{ asset('assets/images/nhan.jpg') }}" alt="Default Image"
+                                    <img src="{{ asset('assets/images/agent-43.jpg') }}" alt="Default Image"
                                         class="hehe rounded-circle">
                                 @endif
                                 @if (Auth::check() &&
