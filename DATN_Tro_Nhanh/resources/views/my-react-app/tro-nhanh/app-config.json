@@ -12,7 +12,7 @@
     "actionBarHidden": false,
     "hideAndroidBottomNavigationBar": false,
     "hideIOSSafeAreaBottom": false,
-    "selfControlLoading": true,
+    "selfControlLoading": false,
     "statusBar": "transparent"
   },
   "template": {

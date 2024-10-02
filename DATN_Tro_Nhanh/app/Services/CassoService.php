@@ -20,14 +20,14 @@
         // Thiết lập các thông tin cố định
         $bankId = 'vietinbank';
         $accountNo = '101882785438';
-        $template = 'compact2';
-        $amount = 10000; // Số tiền
-
+        $template = 'YMhjhkj';
+        $amount = ""; // Số tiền
+        $logoUrl = asset('assets/images/tro-moi.png'); 
         $description = 'TN GD ' . $userId; // Lời nhắn
-        $accountName = 'Nạp tiền tài khoản'; // Tên tài khoản
+        $accountName = 'Tong Chi Nhan'; // Tên tài khoản
 
-        $url = "https://img.vietqr.io/image/{$bankId}-{$accountNo}-{$template}.png?amount={$amount}&addInfo=" . urlencode($description) . "&accountName=" . urlencode($accountName);
-
+        // $url = "https://img.vietqr.io/image/{$bankId}-{$accountNo}-{$template}.png?amount={$amount}&addInfo=" . urlencode($description) . "&accountName=" . urlencode($accountName);
+        $url = "https://img.vietqr.io/image/{$bankId}-{$accountNo}-{$template}.png?amount={$amount}&addInfo=" . urlencode($description) . "&accountName=" . urlencode($accountName) . "&logo=" . urlencode($logoUrl);
         return $url;
     }
     
