@@ -365,8 +365,6 @@
                     <div class="col-md-6">
                         <h2 class="text-heading">Những Tài Sản Tốt Nhất Để Bán</h2>
                         <span class="heading-divider"></span>
-                        <p class="mb-6">Xem Thêm
-                        </p>
                     </div>
                     <div class="col-md-6 text-md-right">
                         <a href="{{ route('client.room-listing') }}"
@@ -405,15 +403,10 @@
                                             @endif
                                         </div>
                                         <ul class="list-inline mb-0 mt-auto hover-image">
-                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="Hình ảnh">
+                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
                                                 <a href="#" class="text-white hover-primary">
                                                     <i class="far fa-images"></i><span
                                                         class="pl-1">{{ $room->images()->count() }}</span>
-                                                </a>
-                                            </li>
-                                            <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
-                                                <a href="#" class="text-white hover-primary">
-                                                    <i class="far fa-play-circle"></i><span class="pl-1">2</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -534,13 +527,6 @@
                                                 <i class="fas fa-heart"></i>
                                             </a>
                                         </li>
-                                        <li class="list-inline-item">
-                                            <a href="#"
-                                                class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent"
-                                                data-toggle="tooltip" title="So sánh">
-                                                <i class="fas fa-exchange-alt"></i>
-                                            </a>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -557,8 +543,6 @@
                         <div class="col-lg-4 pr-xl-13" data-animate="fadeInLeft">
                             <h2 class="text-heading lh-1625">Khám Phá <br> Theo Loại Tài Sản</h2>
                             <span class="heading-divider"></span>
-                            <p class="mb-6">Xem Thêm
-                            </p>
                             <form action="{{ route('client.room-listing') }}" method="GET">
                                 <div class="input-group input-group-lg ">
                                     <input type="text"
@@ -631,7 +615,6 @@
                     <div class="col-md-6">
                         <h2 class="text-heading">Những Bất Động Sản Tốt Nhất Để Thuê</h2>
                         <span class="heading-divider"></span>
-                        <p class="mb-6">Xem Thêm</p>
                     </div>
                     <div class="col-md-6 text-md-right">
                         <a href="{{ route('client.room-listing') }}"
@@ -667,15 +650,10 @@
                                             @endif
                                         </div>
                                         <ul class="list-inline mb-0 mt-auto hover-image">
-                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="Hình ảnh">
+                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
                                                 <a href="#" class="text-white hover-primary">
                                                     <i class="far fa-images"></i><span
                                                         class="pl-1">{{ $room->images()->count() }}</span>
-                                                </a>
-                                            </li>
-                                            <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
-                                                <a href="#" class="text-white hover-primary">
-                                                    <i class="far fa-play-circle"></i><span class="pl-1">2</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -743,13 +721,6 @@
                                                 <i class="fas fa-heart"></i>
                                             </a>
                                         </li>
-                                        <li class="list-inline-item">
-                                            <a href="#"
-                                                class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent"
-                                                data-toggle="tooltip" title="So sánh">
-                                                <i class="fas fa-exchange-alt"></i>
-                                            </a>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -774,8 +745,6 @@
                             <h2 class="text-white lh-1625">Tìm phòng trọ của bạn<br />
                             </h2>
                             <span class="heading-divider"></span>
-                            <p class="mb-6 text-white">Xem Thêm
-                            </p>
                             <form action="{{ route('client.room-listing') }}" method="GET">
                                 <div class="input-group input-group-lg pr-sm-17">
                                     <input type="text"
@@ -797,7 +766,6 @@
             <div class="container container-xxl">
                 <h2 class="text-heading">Các phòng trọ nổi bật</h2>
                 <span class="heading-divider"></span>
-                <p class="mb-7">Xem Thêm</p>
                 <div class="slick-slider slick-dots-mt-0 custom-arrow-spacing-30"
                     data-slick-options='{"slidesToShow": 4, "autoplay": true, "dots": true, "responsive": [
         {"breakpoint": 1600, "settings": {"slidesToShow": 3, "arrows": false}},
@@ -828,15 +796,10 @@
                                             @endif
                                         </div>
                                         <ul class="list-inline mb-0 mt-auto hover-image">
-                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="Hình ảnh">
+                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
                                                 <a href="#" class="text-white hover-primary">
                                                     <i class="far fa-images"></i><span
                                                         class="pl-1">{{ $room->images()->count() }}</span>
-                                                </a>
-                                            </li>
-                                            <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
-                                                <a href="#" class="text-white hover-primary">
-                                                    <i class="far fa-play-circle"></i><span class="pl-1">2</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -911,13 +874,6 @@
                                                 <i class="fas fa-heart"></i>
                                             </a>
                                         </li>
-                                        <li class="list-inline-item">
-                                            <a href="#"
-                                                class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center text-body hover-secondary bg-hover-accent border-hover-accent"
-                                                data-toggle="tooltip" title="So sánh">
-                                                <i class="fas fa-exchange-alt"></i>
-                                            </a>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -953,7 +909,6 @@
                                                 </svg>
                                             </span>
                                         </a>
-                                        <p class="mb-0">Xem thêm</p>
                                     </div>
                                 </div>
                             </div>
@@ -978,7 +933,6 @@
                                                 </svg>
                                             </span>
                                         </a>
-                                        <p class="mb-0">Xem Thêm</p>
                                     </div>
                                 </div>
                             </div>
@@ -1003,7 +957,6 @@
                                                 </svg>
                                             </span>
                                         </a>
-                                        <p class="mb-0">Xem Thêm</p>
                                     </div>
                                 </div>
                             </div>

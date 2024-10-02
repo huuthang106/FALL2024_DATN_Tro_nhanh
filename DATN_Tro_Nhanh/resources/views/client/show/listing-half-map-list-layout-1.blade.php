@@ -101,14 +101,17 @@
                             </div>
                         </div>
                         <div class="col-lg-2">
-                            <a href="#advanced-search-filters-2"
+                            <span class="p-5 d-flex align-items-center">
+                                &#8203;
+                            </span>
+                            {{-- <a href="#advanced-search-filters-2"
                                 class="icon-primary btn advanced-search w-100 shadow-none text-white text-left rounded-0 fs-14 font-weight-600 position-relative collapsed px-0 d-flex align-items-center"
                                 data-toggle="collapse" data-target="#advanced-search-filters-2" aria-expanded="true"
                                 aria-controls="advanced-search-filters-2">
                                 Tìm kiếm
-                            </a>
+                            </a> --}}
                         </div>
-                        <div id="advanced-search-filters-2" class="col-12 pb-6 pt-lg-2 collapse" data-parent="#accordion-2">
+                        {{-- <div id="advanced-search-filters-2" class="col-12 pb-6 pt-lg-2 collapse" data-parent="#accordion-2">
                             <div class="row mx-n2">
                                 <div class="col-sm-6 col-md-4 col-lg-3 pt-4 px-2">
                                     <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
@@ -158,7 +161,7 @@
                                 </div>
                             </div>
 
-                        </div>
+                        </div> --}}
                     </div>
                 </form>
 
@@ -176,7 +179,7 @@
                                     trọ
                                 </h2>
                             </div>
-                            <div class="col-md-6 col-xl-7 col-xxl-6 mt-6 mt-md-0">
+                            {{-- <div class="col-md-6 col-xl-7 col-xxl-6 mt-6 mt-md-0">
                                 <div class="d-flex justify-content-md-end align-items-center">
                                     <div class="input-group border rounded input-group-lg w-auto bg-white mr-3">
                                         <label
@@ -195,7 +198,7 @@
                                     </div>
 
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="row">
                             <div class="col-12" id="zone-list">
@@ -273,7 +276,7 @@
                                                                 data-lat="{{ $zone->latitude }}"
                                                                 data-lng="{{ $zone->longitude }}">
                                                                 {{ $zone->name }}
-                                                              
+
                                                             </a>
                                                         </h2>
                                                         <p class="card-text mb-1 font-weight-500 text-gray-light">
@@ -347,8 +350,7 @@
                                                             @if ($zone->utility && $zone->utility->garage == 1)
                                                                 <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2"
                                                                     data-toggle="tooltip" title="Ga-ra">
-                                                                    <i
-                                                                        class="fas fa-warehouse fs-10 text-primary mr-1"></i>
+                                                                    <i class="fas fa-warehouse fs-10 text-primary mr-1"></i>
                                                                     <!-- Icon Ga-ra -->
                                                                     Ga-ra
                                                                 </li>
@@ -367,55 +369,65 @@
                                         <ul class="pagination rounded-active justify-content-center">
                                             {{-- First Page Link --}}
                                             <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
-                                                <a class="page-link" href="{{ $zones->url(1) }}"><i class="far fa-angle-double-left"></i></a>
+                                                <a class="page-link" href="{{ $zones->url(1) }}"><i
+                                                        class="far fa-angle-double-left"></i></a>
                                             </li>
-                            
+
                                             {{-- Previous Page Link --}}
                                             <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
-                                                <a class="page-link" href="{{ $zones->previousPageUrl() }}"><i class="far fa-angle-left"></i></a>
+                                                <a class="page-link" href="{{ $zones->previousPageUrl() }}"><i
+                                                        class="far fa-angle-left"></i></a>
                                             </li>
-                            
+
                                             {{-- First page if not on it --}}
                                             @if ($zones->currentPage() > 2)
-                                                <li class="page-item"><a class="page-link" href="{{ $zones->url(1) }}">1</a></li>
+                                                <li class="page-item"><a class="page-link"
+                                                        href="{{ $zones->url(1) }}">1</a></li>
                                             @endif
-                            
+
                                             {{-- Dots before current pages --}}
                                             @if ($zones->currentPage() > 3)
                                                 <li class="page-item disabled"><span class="page-link">...</span></li>
                                             @endif
-                            
+
                                             {{-- Show pages around current --}}
                                             @for ($i = max(1, $zones->currentPage() - 1); $i <= min($zones->currentPage() + 1, $zones->lastPage()); $i++)
                                                 <li class="page-item {{ $zones->currentPage() == $i ? 'active' : '' }}">
-                                                    <a class="page-link" href="{{ $zones->url($i) }}">{{ $i }}</a>
+                                                    <a class="page-link"
+                                                        href="{{ $zones->url($i) }}">{{ $i }}</a>
                                                 </li>
                                             @endfor
-                            
+
                                             {{-- Dots after current pages --}}
                                             @if ($zones->currentPage() < $zones->lastPage() - 2)
                                                 <li class="page-item disabled"><span class="page-link">...</span></li>
                                             @endif
-                            
+
                                             {{-- Last page if not on it --}}
                                             @if ($zones->currentPage() < $zones->lastPage() - 1)
-                                                <li class="page-item"><a class="page-link" href="{{ $zones->url($zones->lastPage()) }}">{{ $zones->lastPage() }}</a></li>
+                                                <li class="page-item"><a class="page-link"
+                                                        href="{{ $zones->url($zones->lastPage()) }}">{{ $zones->lastPage() }}</a>
+                                                </li>
                                             @endif
-                            
+
                                             {{-- Next Page Link --}}
-                                            <li class="page-item {{ $zones->currentPage() == $zones->lastPage() ? 'disabled' : '' }}">
-                                                <a class="page-link" href="{{ $zones->nextPageUrl() }}"><i class="far fa-angle-right"></i></a>
+                                            <li
+                                                class="page-item {{ $zones->currentPage() == $zones->lastPage() ? 'disabled' : '' }}">
+                                                <a class="page-link" href="{{ $zones->nextPageUrl() }}"><i
+                                                        class="far fa-angle-right"></i></a>
                                             </li>
-                            
+
                                             {{-- Last Page Link --}}
-                                            <li class="page-item {{ $zones->currentPage() == $zones->lastPage() ? 'disabled' : '' }}">
-                                                <a class="page-link" href="{{ $zones->url($zones->lastPage()) }}"><i class="far fa-angle-double-right"></i></a>
+                                            <li
+                                                class="page-item {{ $zones->currentPage() == $zones->lastPage() ? 'disabled' : '' }}">
+                                                <a class="page-link" href="{{ $zones->url($zones->lastPage()) }}"><i
+                                                        class="far fa-angle-double-right"></i></a>
                                             </li>
                                         </ul>
                                     </nav>
                                 @endif
                             </div>
-                            
+
                         </div>
                     </div>
                     <div class="col-xl-6 col-xxl-7 order-1 order-xl-2 primary-map map-sticky overflow-hidden"
