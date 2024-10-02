@@ -14,12 +14,24 @@ use Illuminate\Support\Facades\Auth;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use App\Events\BillCreated;
-
+use GuzzleHttp\Client;
 class ZoneServices
 {
     const CO = 1; // Có tiện ích
     const CHUA_CO = 2; // Chưa có tiện ích
     const DA_TAO = 1; // Trạng thái tạo hóa đơn
+      protected $client;
+
+    public function __construct()
+    {
+        $this->client = new Client([
+            'base_uri' => 'https://api.clarifai.com/v2/',
+            'headers' => [
+                'Authorization' => 'Key ' . env('CLARIFAI_API_KEY'),
+                'Content-Type' => 'application/json',
+            ]
+        ]);
+    }
     public function getRoomUtilities($zoneId)
     {
         // Giả sử bạn đã có model `Utility`
@@ -33,7 +45,6 @@ class ZoneServices
             $zone->name = $request->input('name');
             $zone->description = $request->input('description');
             $zone->total_rooms = $request->input('total_rooms');
-
             $zone->address = $request->input('address');
             $zone->province = $request->input('province');
             $zone->district = $request->input('district');
@@ -42,59 +53,84 @@ class ZoneServices
             $zone->longitude = $request->input('longitude');
             $zone->status = $request->input('status');
             $zone->user_id = $user_id;
-
-            // Lưu đối tượng vào cơ sở dữ liệu
+    
             if ($zone->save()) {
-                // Lấy ID của đối tượng mới tạo
                 $zoneId = $zone->id;
-
-                // Tạo slug từ title và id
                 $slug = $this->createSlug($request->input('name')) . '-' . $zoneId;
-
-                // Cập nhật slug cho đối tượng
                 $zone->slug = $slug;
-
-                // Lưu lại đối tượng với slug mới
+    
                 if ($zone->save()) {
-                    // Xử lý ảnh nếu có
-                    // if ($request->hasFile('images')) {
-                    //     foreach ($request->file('images') as $image) {
-                    //         $this->storeImage($zone, $image);
-                    //     }
-                    // }
                     if ($request->hasFile('images')) {
+                        $violentImages = [];
+    
                         foreach ($request->file('images') as $image) {
                             if ($image->isValid() && in_array($image->getClientOriginalExtension(), ['jpg', 'jpeg', 'png', 'gif'])) {
                                 if ($image->getSize() <= 5242880) { // 5MB
-                                    $this->storeImage($zone, $image);
+                                    $imageContent = base64_encode(file_get_contents($image->getRealPath()));
+                                    try {
+                                        $response = $this->client->post('models/moderation-recognition/outputs', [
+                                            'json' => [
+                                                'inputs' => [
+                                                    [
+                                                        'data' => [
+                                                            'image' => [
+                                                                'base64' => $imageContent
+                                                            ]
+                                                        ]
+                                                    ]
+                                                ]
+                                            ]
+                                        ]);
+    
+                                        $result = json_decode($response->getBody(), true);
+                                        $concepts = $result['outputs'][0]['data']['concepts'] ?? [];
+                                        $violenceScore = 0;
+                                        
+                                        $inappropriateContent = ['gore', 'explicit', 'drug', 'suggestive', 'weapon'];
+    
+                                        foreach ($concepts as $concept) {
+                                            if (in_array($concept['name'], $inappropriateContent)) {
+                                                $violenceScore += $concept['value'];
+                                            }
+                                        }
+    
+                                        if ($violenceScore > 0.5) {
+                                            $violentImages[] = $image->getClientOriginalName();
+                                        } else {
+                                            $this->storeImage($zone, $image);
+                                        }
+                                    } catch (\Exception $e) {
+                                        \Log::error("Error processing image: " . $e->getMessage());
+                                        return ['success' => false, 'message' => 'Có lỗi xảy ra khi xử lý ảnh: ' . $e->getMessage()];
+                                    }
                                 }
                             }
                         }
+    
+                        if (!empty($violentImages)) {
+                            $zone->delete(); // Xóa zone nếu có ảnh không phù hợp
+                            return ['success' => false, 'message' => 'Phát hiện ảnh không phù hợp: ' . implode(', ', $violentImages) . '. Vui lòng kiểm tra lại ảnh của bạn.'];
+                        }
                     }
+    
                     $utilities = new Utility();
                     $utilities->zone_id = $zoneId;
-
-                    // Kiểm tra tiện ích từ request
                     $utilities->wifi = $request->has('wifi') ? self::CO : self::CHUA_CO;
                     $utilities->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
                     $utilities->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
-
-                    // Xử lý số lượng phòng tắm
-                    $utilities->bathrooms = $request->input('bathrooms', 0); // Số lượng phòng tắm
-
-                    // Lưu thông tin tiện ích
+                    $utilities->bathrooms = $request->input('bathrooms', 0);
                     $utilities->save();
-                    return $zone;
+    
+                    return ['success' => true, 'zone' => $zone];
                 } else {
-                    // Nếu không thể lưu slug, xóa đối tượng vừa thêm
                     $zone->delete();
-                    return false;
+                    return ['success' => false, 'message' => 'Không thể lưu slug cho khu trọ.'];
                 }
             } else {
-                return false;
+                return ['success' => false, 'message' => 'Không thể lưu thông tin khu trọ.'];
             }
         } else {
-            return false;
+            return ['success' => false, 'message' => 'Người dùng chưa đăng nhập.'];
         }
     }
 
@@ -299,14 +335,12 @@ class ZoneServices
     public function update($request, $zoneId)
     {
         if (auth()->check()) {
-            // Tìm đối tượng Zone theo ID
             $zone = Zone::find($zoneId);
-
+    
             if (!$zone) {
-                return false; // Nếu không tìm thấy, trả về false
+                return ['success' => false, 'message' => 'Không tìm thấy khu trọ.'];
             }
-
-            // Cập nhật thông tin đối tượng
+    
             $zone->name = $request->input('name');
             $zone->description = $request->input('description');
             $zone->total_rooms = $request->input('total_rooms');
@@ -317,10 +351,57 @@ class ZoneServices
             $zone->latitude = $request->input('latitude');
             $zone->longitude = $request->input('longitude');
             $zone->status = $request->input('status');
-            $zone->user_id = auth()->id(); // Cập nhật user_id từ thông tin đăng nhập
-
-            // Xử lý cập nhật hình ảnh
+            $zone->user_id = auth()->id();
+    
             if ($request->hasFile('images')) {
+                $violentImages = [];
+    
+                foreach ($request->file('images') as $image) {
+                    if ($image->isValid() && in_array($image->getClientOriginalExtension(), ['jpg', 'jpeg', 'png', 'gif'])) {
+                        if ($image->getSize() <= 5242880) { // 5MB
+                            $imageContent = base64_encode(file_get_contents($image->getRealPath()));
+                            try {
+                                $response = $this->client->post('models/moderation-recognition/outputs', [
+                                    'json' => [
+                                        'inputs' => [
+                                            [
+                                                'data' => [
+                                                    'image' => [
+                                                        'base64' => $imageContent
+                                                    ]
+                                                ]
+                                            ]
+                                        ]
+                                    ]
+                                ]);
+    
+                                $result = json_decode($response->getBody(), true);
+                                $concepts = $result['outputs'][0]['data']['concepts'] ?? [];
+                                $violenceScore = 0;
+                                
+                                $inappropriateContent = ['gore', 'explicit', 'drug', 'suggestive', 'weapon'];
+    
+                                foreach ($concepts as $concept) {
+                                    if (in_array($concept['name'], $inappropriateContent)) {
+                                        $violenceScore += $concept['value'];
+                                    }
+                                }
+    
+                                if ($violenceScore > 0.5) {
+                                    $violentImages[] = $image->getClientOriginalName();
+                                }
+                            } catch (\Exception $e) {
+                                \Log::error("Error processing image: " . $e->getMessage());
+                                return ['success' => false, 'message' => 'Có lỗi xảy ra khi xử lý ảnh: ' . $e->getMessage()];
+                            }
+                        }
+                    }
+                }
+    
+                if (!empty($violentImages)) {
+                    return ['success' => false, 'message' => 'Phát hiện ảnh không phù hợp: ' . implode(', ', $violentImages) . '. Vui lòng kiểm tra lại ảnh của bạn.'];
+                }
+    
                 // Xóa ảnh cũ
                 foreach ($zone->images as $oldImage) {
                     $oldImagePath = public_path('assets/images/' . $oldImage->filename);
@@ -329,33 +410,27 @@ class ZoneServices
                     }
                     $oldImage->delete();
                 }
-
+    
                 // Thêm ảnh mới
                 foreach ($request->file('images') as $image) {
                     $this->storeImage($zone, $image);
                 }
             }
-
-            // Lưu thông tin đã cập nhật vào cơ sở dữ liệu
+    
             if ($zone->save()) {
-                // Tạo slug từ name và id
                 $slug = $this->createSlug($request->input('name')) . '-' . $zone->id;
-
-                // Cập nhật slug cho đối tượng
                 $zone->slug = $slug;
-
-                // Lưu lại đối tượng với slug mới
+    
                 if ($zone->save()) {
-
-                    return $zone;
+                    return ['success' => true, 'zone' => $zone];
                 } else {
-                    return false; // Nếu không thể lưu slug, trả về false
+                    return ['success' => false, 'message' => 'Không thể lưu slug cho khu trọ.'];
                 }
             } else {
-                return false; // Nếu không thể lưu thông tin cập nhật, trả về false
+                return ['success' => false, 'message' => 'Không thể lưu thông tin cập nhật khu trọ.'];
             }
         } else {
-            return false; // Nếu người dùng chưa đăng nhập, trả về false
+            return ['success' => false, 'message' => 'Người dùng chưa đăng nhập.'];
         }
     }
 

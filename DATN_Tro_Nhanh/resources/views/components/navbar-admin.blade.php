@@ -26,13 +26,13 @@
                         <!--begin::Description-->
                         <a href="#" class="text-white text-hover-primary fs-6 fw-bold">{{ $user->name }}</a>
                         <span class="text-gray-600 fw-bold d-block fs-8 mb-1">
-                            {{ $user->role == 0 ? 'Admin' : 'User' }}
+                            {{ $user->role == 0 ? 'Người quản trị' : 'User' }}
                             <!-- Bạn có thể thay thế 'User' bằng vai trò khác nếu cần -->
                         </span>
                         <!--end::Description-->
                         <!--begin::Label-->
                         <div class="d-flex align-items-center text-success fs-9">
-                            <span class="bullet bullet-dot bg-success me-1"></span>online
+                            <span class="bullet bullet-dot bg-success me-1"></span>Đang hoạt động
                         </div>
                         <!--end::Label-->
                     </div>
@@ -1007,7 +1007,7 @@
                 id="#kt_aside_menu" data-kt-menu="true">
                 <div class="menu-item">
                     <div class="menu-content pt-8 pb-2">
-                        <span class="menu-section text-light text-uppercase fs-8 ls-1">Dashboard</span>
+                        <span class="menu-section text-light text-uppercase fs-8 ls-1">Danh sách quản</span>
                     </div>
                 </div>
                 <div class="menu-item">

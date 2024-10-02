@@ -131,17 +131,26 @@ class RoomOwnersController extends Controller
     {
         try {
             if ($request->isMethod('post')) {
-                $room = $this->roomOwnersService->create($request);
-                if ($room) {
-                    event(new RoomOwnersEvent($room));
-                    return redirect()->route('owners.properties')->with('success', 'Phòng trọ đã được tạo thành công.');
+                $result = $this->roomOwnersService->create($request);
+
+                if ($result instanceof \Illuminate\Http\JsonResponse) {
+                    return $result;
+                } elseif ($result) {
+                    event(new RoomOwnersEvent($result));
+                    return response()->json([
+                        'status' => 'success',
+                        'message' => 'Phòng trọ đã được tạo thành công.'
+                    ]);
                 } else {
                     throw new \Exception('Không thể tạo phòng');
                 }
             }
         } catch (\Exception $e) {
             Log::error('Lỗi khi tạo phòng: ' . $e->getMessage());
-            return redirect()->route('owners.add-room')->with('error', 'Đã xảy ra lỗi khi tạo phòng: ' . $e->getMessage());
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Đã xảy ra lỗi khi tạo phòng: ' . $e->getMessage()
+            ]);
         }
     }
     // Trang chỉnh sửa
@@ -174,17 +183,27 @@ class RoomOwnersController extends Controller
     // Cập nhật
     public function update(UpdateroomRequests $request, $roomId)
     {
-        // dd('hi');
-        // Gọi phương thức update từ service
-        $room = $this->roomOwnersService->update($request, $roomId);
-        if ($room) {
-            // Phát sự kiện RoomOwners và truyền đối tượng phòng đã cập nhật
-            // event(new RoomOwnersEvent($room));
-            // Điều hướng đến trang hiển thị phòng
-            return redirect()->route('owners.properties')->with('success', 'Phòng đã được cập nhật thành công.');
-        } else {
-            // Điều hướng đến trang cập nhật với thông báo lỗi
-            return redirect()->back()->with('error', 'Có lỗi xảy ra khi cập nhật phòng.');
+        try {
+            $result = $this->roomOwnersService->update($request, $roomId);
+            
+            if ($result['success']) {
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Phòng đã được cập nhật thành công.',
+                    'redirect' => route('owners.properties')
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $result['message'] ?? 'Có lỗi xảy ra khi cập nhật phòng.'
+                ]);
+            }
+        } catch (\Exception $e) {
+            \Log::error('Lỗi khi cập nhật phòng: ' . $e->getMessage());
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Có lỗi xảy ra khi cập nhật phòng: ' . $e->getMessage()
+            ]);
         }
     }
     // Hiển thị tất cả phòng

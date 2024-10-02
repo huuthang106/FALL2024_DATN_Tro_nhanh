@@ -61,19 +61,33 @@ class ZoneOwnersController extends Controller
 
     public function store(ZoneRequest $request)
     {
-
         if ($request->isMethod('post')) {
-            $zone = $this->zoneServices->store($request);
-
-            if ($zone) {
-                // Phát sự kiện ZoneCreated và truyền đối tượng Zone mới tạo
-                event(new ZoneCreated($zone));
-
-                return redirect()->route('owners.zone-list')->with('success', 'Khu trọ đã được tạo thành công.');
+            try {
+                $result = $this->zoneServices->store($request);
+    
+                if ($result['success']) {
+                    event(new ZoneCreated($result['zone']));
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Khu trọ đã được tạo thành công.',
+                        'redirect' => route('owners.zone-list')
+                    ]);
+                } else {
+                    Log::error('Lỗi khi tạo khu trọ: ' . ($result['message'] ?? 'Không có thông báo lỗi'));
+                    return response()->json([
+                        'success' => false,
+                        'message' => $result['message'] ?? 'Đã xảy ra lỗi khi tạo khu trọ.'
+                    ], 400);
+                }
+            } catch (\Exception $e) {
+                Log::error('Exception khi tạo khu trọ: ' . $e->getMessage());
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Đã xảy ra lỗi không mong muốn khi tạo khu trọ.'
+                ], 500);
             }
         }
-
-
+    
         return view('owners.zone-post');
     }
 
@@ -102,22 +116,35 @@ class ZoneOwnersController extends Controller
         }
     }
     public function update(ZoneRequest $request, $id)
-    {
+{
+    if ($request->isMethod('PUT')) {
+        try {
+            $result = $this->zoneServices->update($request, $id);
 
-        if ($request->isMethod('PUT')) {
-            $zone = $this->zoneServices->update($request, $id);
-
-            if ($zone) {
-                // Phát sự kiện ZoneCreated và truyền đối tượng Zone mới tạo
-
-
-                return redirect()->route('owners.zone-list')->with('success', 'Khu trọ đã được cập nhật thành công.');
+            if ($result['success']) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Khu trọ đã được cập nhật thành công.',
+                    'redirect' => route('owners.zone-list')
+                ]);
+            } else {
+                Log::error('Lỗi khi cập nhật khu trọ: ' . ($result['message'] ?? 'Không có thông báo lỗi'));
+                return response()->json([
+                    'success' => false,
+                    'message' => $result['message'] ?? 'Đã xảy ra lỗi khi cập nhật khu trọ.'
+                ], 400);
             }
+        } catch (\Exception $e) {
+            Log::error('Exception khi cập nhật khu trọ: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Đã xảy ra lỗi không mong muốn khi cập nhật khu trọ.'
+            ], 500);
         }
-
-
-        return view('owners.zone-post');
     }
+
+    return view('owners.zone-post');
+}
 
     public function destroy($id)
     {

@@ -762,7 +762,10 @@
                                                                 class="fal fa-long-arrow-left"></i></span>Phía
                                                         trước
                                                     </a>
-                                                    <button class="btn btn-lg btn-primary mb-3" type="submit">Thêm phòng
+                                                    <button class="btn btn-lg btn-primary mb-3" type="submit" id="submitButton">
+                                                        <span class="button-text">Thêm phòng</span>
+                                                        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                                        <span class="sr-only d-none">Đang xử lý...</span>
                                                     </button>
                                                 </div>
                                             </div>
@@ -902,9 +905,72 @@
     <script src="{{ asset('assets/js/api-country-vn-nht.js') }}"></script>
     <script src="{{ asset('assets/js/alert/room-owners-alert.js') }}"></script>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script src="{{ asset('assets/js/owners/form-map.js') }}"></script>
-
     
+    
+    <script>
+   $(document).ready(function() {
+    $('form').on('submit', function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+ $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                beforeSend: function() {
+                    Swal.fire({
+                        title: 'Đang xử lý...',
+                        text: 'Vui lòng đợi trong giây lát!',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+                },
+                success: function(response) {
+                    Swal.close();
+                    if (response.status === 'success') {
+                        Swal.fire({
+                            title: 'Thành công!',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = '{{ route("owners.properties") }}';
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Lỗi!',
+                            text: response.message,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                },
+                error: function(xhr) {
+                    Swal.close();
+                    let errorMessage = 'Đã xảy ra lỗi khi xử lý yêu cầu.';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    }
+                    Swal.fire({
+                        title: 'Lỗi!',
+                        text: errorMessage,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+    });
+});
+    </script>
 @endpush

@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.2",
         "algolia/algoliasearch-client-php": "^4.2",
+        "clarifai/clarifai-php": "^0.7.0",
         "cocur/slugify": "^4.5",
         "endroid/qr-code": "^5.0",
         "fruitcake/php-cors": "^1.3",

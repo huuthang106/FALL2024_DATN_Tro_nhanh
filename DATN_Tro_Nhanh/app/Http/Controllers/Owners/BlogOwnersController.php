@@ -62,17 +62,26 @@ class BlogOwnersController extends Controller
 
     public function updateBlog(CreateBlogRequest $request, $id)
     {
-        $request->validate([
-            'images' => 'array|max:1', // Giới hạn số lượng ảnh là 1
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
-        $result = $this->BlogService->updateBlog($request, $id);
-
-        if ($result['success']) {
-            return redirect()->route('owners.show-blog')->with('success', 'Sửa thành công');
-        } else {
-            return redirect()->route('owners.show-blog')->with('error', 'Sửa thất bại');
+        try {
+            $result = $this->BlogService->updateBlog($request, $id);
+    
+            if ($result['success']) {
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Blog đã được cập nhật thành công!'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $result['message'] ?? 'Có lỗi xảy ra khi cập nhật blog.'
+                ]);
+            }
+        } catch (\Exception $e) {
+            Log::error('Không thể cập nhật blog: ' . $e->getMessage());
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Có lỗi xảy ra khi cập nhật blog: ' . $e->getMessage()
+            ]);
         }
     }
 
@@ -81,19 +90,25 @@ class BlogOwnersController extends Controller
     {
         try {
             $blog = $this->BlogService->handleBlogCreation($request);
-
+    
+            if ($blog instanceof \Illuminate\Http\JsonResponse) {
+                return $blog; // Trả về response JSON nếu có lỗi từ service
+            }
+    
             event(new BlogCreated($blog));
-
-            return redirect()->route('owners.show-blog')->with('success', 'Blog đã được tạo thành công!');
+    
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Blog đã được tạo thành công!'
+            ]);
         } catch (\Exception $e) {
             Log::error('Không thể tạo blog: ' . $e->getMessage());
-            return redirect()->back()->withInput()->with('error', 'Có lỗi xảy ra khi tạo blog.');
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Có lỗi xảy ra khi tạo blog: ' . $e->getMessage()
+            ]);
         }
     }
-
-
-
-
 
 
     public function destroy($id)
