@@ -6,10 +6,10 @@
         @livewire('blog-list')
 
         {{-- Modal Login - Register --}}
-        
-    
+
+
         {{-- Nút quay lại đầu trang --}}
-      
+
     @endsection
     @push('styleUs')
         {{-- <meta charset="utf-8">

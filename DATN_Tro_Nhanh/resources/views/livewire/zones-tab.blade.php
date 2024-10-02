@@ -12,8 +12,19 @@
                 @foreach ($zones as $zone)
                     <div class="col-md-6 mb-7">
                         <div class="card border-0">
-                            <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                <img src="{{ asset('assets/images/properties-grid-35.jpg') }}" alt="{{ $zone->name }}">
+                            <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top"
+                                style="height: 200px; overflow: hidden;">
+                                @if ($zone->images->isNotEmpty())
+                                    @php
+                                        $image = $zone->images->first();
+                                    @endphp
+                                    <img src="{{ asset('assets/images/' . $image->filename) }}"
+                                        alt="{{ $zone->title }}">
+                                @else
+                                    <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
+                                        alt="{{ $zone->title }}">
+                                @endif
+                                {{-- <img src="{{ asset('assets/images/properties-grid-35.jpg') }}" alt="{{ $zone->name }}"> --}}
                                 <div class="card-img-overlay d-flex flex-column">
                                     <div class="mb-auto">
                                         <span class="badge badge-indigo">Khu trọ</span>
@@ -21,9 +32,12 @@
                                 </div>
                             </div>
                             <div class="card-body pt-3 px-0 pb-1">
-                                <h2 class="fs-16 mb-1"><a href="{{ route('client.client-details-zone', ['slug' => $zone->slug]) }}" class="text-dark hover-primary">{{ $zone->name }}</a></h2>
+                                <h2 class="fs-16 mb-1"><a
+                                        href="{{ route('client.client-details-zone', ['slug' => $zone->slug]) }}"
+                                        class="text-dark hover-primary">{{ $zone->name }}</a></h2>
                                 <p class="font-weight-500 text-gray-light mb-0">{{ $zone->address }}</p>
-                                <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">{{ $zone->total_rooms }} Phòng</p>
+                                <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">{{ $zone->total_rooms }} Phòng
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -40,31 +54,40 @@
                         </li>
                     @else
                         <li class="page-item">
-                            <a class="page-link" wire:click="gotoPage(1, 'khu-tro')" wire:loading.attr="disabled"><i class="far fa-angle-double-left"></i></a>
+                            <a class="page-link" wire:click="gotoPage(1, 'khu-tro')" wire:loading.attr="disabled"><i
+                                    class="far fa-angle-double-left"></i></a>
                         </li>
                         <li class="page-item">
-                            <a class="page-link" wire:click="previousPage('khu-tro')" wire:loading.attr="disabled"><i class="far fa-angle-left"></i></a>
+                            <a class="page-link" wire:click="previousPage('khu-tro')" wire:loading.attr="disabled"><i
+                                    class="far fa-angle-left"></i></a>
                         </li>
                     @endif
-                
+
                     {{-- Pagination Elements --}}
                     @foreach (range(1, $zones->lastPage()) as $page)
                         @if ($page == $zones->currentPage())
                             <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
-                        @elseif ($page == 1 || $page == $zones->lastPage() || ($page >= $zones->currentPage() - 1 && $page <= $zones->currentPage() + 1))
-                            <li class="page-item"><a class="page-link" wire:click="gotoPage({{ $page }}, 'khu-tro')" wire:loading.attr="disabled">{{ $page }}</a></li>
+                        @elseif (
+                            $page == 1 ||
+                                $page == $zones->lastPage() ||
+                                ($page >= $zones->currentPage() - 1 && $page <= $zones->currentPage() + 1))
+                            <li class="page-item"><a class="page-link"
+                                    wire:click="gotoPage({{ $page }}, 'khu-tro')"
+                                    wire:loading.attr="disabled">{{ $page }}</a></li>
                         @elseif ($page == $zones->currentPage() - 2 || $page == $zones->currentPage() + 2)
                             <li class="page-item disabled"><span class="page-link">...</span></li>
                         @endif
                     @endforeach
-                
+
                     {{-- Next Page Link --}}
                     @if ($zones->hasMorePages())
                         <li class="page-item">
-                            <a class="page-link" wire:click="nextPage('khu-tro')" wire:loading.attr="disabled"><i class="far fa-angle-right"></i></a>
+                            <a class="page-link" wire:click="nextPage('khu-tro')" wire:loading.attr="disabled"><i
+                                    class="far fa-angle-right"></i></a>
                         </li>
                         <li class="page-item">
-                            <a class="page-link" wire:click="gotoPage({{ $zones->lastPage() }}, 'khu-tro')" wire:loading.attr="disabled"><i class="far fa-angle-double-right"></i></a>
+                            <a class="page-link" wire:click="gotoPage({{ $zones->lastPage() }}, 'khu-tro')"
+                                wire:loading.attr="disabled"><i class="far fa-angle-double-right"></i></a>
                         </li>
                     @else
                         <li class="page-item disabled">

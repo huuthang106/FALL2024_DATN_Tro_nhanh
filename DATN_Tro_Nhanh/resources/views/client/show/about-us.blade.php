@@ -1104,7 +1104,7 @@
         <section class="pt-12">
             <div class="container">
                 <h2 class="text-heading mb-4 fs-22 fs-md-32 text-center lh-16 px-md-13">
-                    GrandHome là một đơn vị môi giới giúp mọi người sống trong những không gian trọ tinh tế và đẹp mắt hơn.
+                    TRỌ NHANH là một đơn vị môi giới giúp mọi người sống trong những không gian trọ tinh tế và đẹp mắt hơn.
                 </h2>
                 <p class="text-center px-md-17 fs-15 lh-17 mb-8">
                     Ngôi nhà trọ của chúng tôi là trung tâm của thiết kế, cho phép chúng tôi kết nối với cộng đồng qua các
@@ -1112,7 +1112,8 @@
                     bữa trưa cùng đội ngũ.
                 </p>
                 <div class="text-center mb-11">
-                    <a href="#" class="btn btn-lg btn-primary">Tham gia vào nhóm của chúng tôi</a>
+                    <a href="mailto:thangcachep106@gmail.com" class="btn btn-lg btn-primary">Tham gia vào nhóm của chúng
+                        tôi</a>
                 </div>
                 <div class="row galleries mb-lg-n16">
                     <div class="col-sm-8 mb-6">
@@ -1163,14 +1164,13 @@
                 <h2 class="text-dark lh-1625 text-center mb-8 fs-22 fs-md-32 pt-lg-10">Tiếp tục khám phá</h2>
                 <div class="row">
                     <div class="col-sm-6 col-lg-3 mb-6 mb-lg-0">
-                        <a href="{{ auth()->check() && auth()->user()->role == 2 ? route('owners.add-room') : route('client.home') }}"
+                        <a href="{{ route('client.room-listing') }}"
                             class="card border-0 shadow-2 px-7 py-5 h-100 shadow-hover-lg-1">
                             <div class="card-img-top d-flex align-items-end justify-content-center">
-                                <img src="{{ asset('assets/images/icon-box-4.png') }}"
-                                    alt="Gặp gỡ các đại lý của chúng tôi">
+                                <img src="{{ asset('assets/images/icon-box-4.png') }}" alt="Danh sách trọ">
                             </div>
                             <div class="card-body px-0 pt-2 pb-0 text-center">
-                                <h4 class="card-title fs-16 lh-186 text-dark hover-primary">Gặp gỡ các đại lý của chúng tôi
+                                <h4 class="card-title fs-16 lh-186 text-dark hover-primary">Danh sách trọ
                                 </h4>
                             </div>
                         </a>
@@ -1179,10 +1179,10 @@
                         <a href="{{ auth()->check() && auth()->user()->role == 2 ? route('owners.add-room') : route('client.home') }}"
                             class="card border-0 shadow-2 px-7 py-5 h-100 shadow-hover-lg-1">
                             <div class="card-img-top d-flex align-items-end justify-content-center">
-                                <img src="{{ asset('assets/images/icon-box-5.png') }}" alt="Bán căn nhà của bạn">
+                                <img src="{{ asset('assets/images/icon-box-5.png') }}" alt="Đăng bài">
                             </div>
                             <div class="card-body px-0 pt-2 pb-0 text-center">
-                                <h4 class="card-title fs-16 lh-186 text-dark hover-primary">Bán căn nhà của bạn</h4>
+                                <h4 class="card-title fs-16 lh-186 text-dark hover-primary">Đăng bài</h4>
                             </div>
                         </a>
                     </div>
@@ -1319,7 +1319,7 @@
             position: absolute;
             left: 176px;
             max-width: 350px;
-            z-index: 1000;
+            z-index: 999;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }

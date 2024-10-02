@@ -234,7 +234,7 @@
                                             thành phố</label> --}}
                                         <select
                                             class="form-control custom-select bg-transparent border-bottom rounded-0 border-color-input"
-                                            id="city-province" title="Tất cả thành phố" name="province"
+                                            id="city-province02" title="Tất cả thành phố" name="province"
                                             data-style="p-0 h-24 lh-17 text-dark">
                                             <option value='0'>Chọn Tỉnh/Thành Phố...</option>
                                             @foreach ([
@@ -315,7 +315,7 @@
                                             quận/huyện</label> --}}
                                         <select
                                             class="form-control custom-select bg-transparent border-bottom rounded-0 border-color-input"
-                                            id="district-town" name="district" title="Tất cả khu vực"
+                                            id="district-town02" name="district" title="Tất cả khu vực"
                                             data-style="p-0 h-24 lh-17 text-dark" id="location">
                                             <option value="0">Chọn Quận/Huyện...</option>
                                         </select>
@@ -325,7 +325,7 @@
                                             xã/phường</label> --}}
                                         <select
                                             class="form-control custom-select bg-transparent border-bottom rounded-0 border-color-input"
-                                            id="ward-commune" name="village" title="Tất cả khu vực"
+                                            id="ward-commune02" name="village" title="Tất cả khu vực"
                                             data-style="p-0 h-24 lh-17 text-dark" id="location">
                                             <option value="0">Chọn Xã/Phường...</option>
                                         </select>

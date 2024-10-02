@@ -7,7 +7,7 @@
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
-                        <li class="breadcrumb-item"><a href="{{ route('client.home')}}">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('client.home') }}">Trang chủ</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('client.client-blog-detail', $blog->slug) }}">Blog</a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">Chi tiết Blog</li>
@@ -57,8 +57,9 @@
                                 <i class="far fa-calendar mr-1"></i>
                                 {{ $blog->created_at->format('d-m-Y') }}
                             </li>
-                            
-                            <li class="list-inline-item mr-4"><i class="far fa-eye mr-1"></i> {{$blog->view}} Lượt xem</li>
+
+                            <li class="list-inline-item mr-4"><i class="far fa-eye mr-1"></i> {{ $blog->view }} Lượt xem
+                            </li>
                         </ul>
                         <h3 class="fs-md-32 text-heading lh-141 mb-2">
                             {{ $blog->title }}
@@ -87,22 +88,11 @@
                         </div>
                         <div class="row pb-7 mb-6 border-bottom">
                             <div class="col-sm-6 d-flex">
-                                <span class="d-inline-block mr-2"><i class="fal fa-tags"></i></span>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item mr-0"><a href="#" class="text-muted hover-dark">cho
-                                            thuê,</a>
-                                    </li>
-                                    <li class="list-inline-item mr-0"><a href="#"
-                                            class="text-muted hover-dark">trọ,</a>
-                                    </li>
-                                    <li class="list-inline-item mr-0"><a href="#" class="text-muted hover-dark">phòng
-                                            trọ</a>
-                                    </li>
-                                </ul>
+                                <span class="d-inline-block mr-2"></span>
                             </div>
                             <div class="col-sm-6 text-left text-sm-right">
                                 <span class="d-inline-block text-heading font-weight-500 lh-17 mr-1">Chia sẻ bài viết</span>
-                                <button type="button"
+                                {{-- <button type="button"
                                     class="btn btn-primary rounded-circle w-52px h-52 fs-20 d-inline-flex align-items-center justify-content-center"
                                     data-container="body" data-toggle="popover" data-placement="top" data-html="true"
                                     data-content=' <ul class="list-inline mb-0">
@@ -125,7 +115,10 @@
                                         </ul>
                                         '>
                                     <i class="fad fa-share-alt"></i>
-                                </button>
+                                </button> --}}
+                                <button id="share-btn" title="Chia sẻ"
+                                    class="btn btn-primary rounded-circle w-52px h-52 fs-20 d-inline-flex align-items-center justify-content-center"><i
+                                        class="fad fa-share-alt text-white"></i></button>
                             </div>
                         </div>
 
@@ -153,10 +146,11 @@
                                     <form>
                                         <div class="position-relative">
                                             <input type="text" id="search02"
-                                                   class="form-control form-control-lg border-0 shadow-none pr-5"
-                                                   placeholder="Tìm kiếm" name="search"
-                                                   style="padding-right: 40px; text-overflow: ellipsis;">
-                                            <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
+                                                class="form-control form-control-lg border-0 shadow-none pr-5"
+                                                placeholder="Tìm kiếm" name="search"
+                                                style="padding-right: 40px; text-overflow: ellipsis;">
+                                            <div class="position-absolute"
+                                                style="top: 50%; right: 10px; transform: translateY(-50%);">
                                                 <button type="submit" class="btn fs-15 text-dark shadow-none p-0">
                                                     <i class="fal fa-search"></i>
                                                 </button>
@@ -226,7 +220,8 @@
                                                     </div>
                                                     <div class="media-body">
                                                         <h4 class="fs-14 lh-186 mb-1">
-                                                            <a href="{{ route('client.client-blog-detail', $blog->slug) }}" class="text-dark hover-primary">
+                                                            <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
+                                                                class="text-dark hover-primary">
                                                                 {{ $blog->title }}
                                                             </a>
                                                         </h4>
@@ -240,7 +235,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            
+
                             {{-- <div class="card mb-4">
                                 <div class="card-body px-6 pt-5 pb-6">
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Tải xuống tài liệu</h4>
@@ -391,21 +386,25 @@
     <link rel="stylesheet" href="{{ asset('assets/css/mh.css') }}">
 
     <!-- Twitter -->
+    <meta name="twitter:image" content="{{ asset('assets/images/tro-moi.png') }}">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $blog->title }}">
+    <meta name="twitter:description"
+        content="{{ Str::limit($blog->description, 200) ?? 'Bài viết blog trên Trọ Nhanh.' }}">
+    <meta name="twitter:image"
+        content="{{ asset('assets/images/' . ($blog->image->isNotEmpty() ? $blog->image->first()->filename : 'default-blog-image.jpg')) }}">
     <meta name="twitter:site" content="@TronNhanh">
     <meta name="twitter:creator" content="@TronNhanh">
-    <meta name="twitter:title" content="Chi Tiết Blog | TRỌ NHANH">
-    <meta name="twitter:description"
-        content="Đọc chi tiết bài viết trên blog của TRỌ NHANH để khám phá các thông tin và mẹo mới nhất về thị trường bất động sản. Nâng cao kiến thức và đưa ra quyết định thông minh với các phân tích từ các chuyên gia trong ngành.">
-    <meta name="twitter:image" content="{{ asset('assets/images/tro-moi.png') }}">
 
     <!-- Facebook -->
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="Chi Tiết Blog | TRỌ NHANH">
+    <meta property="og:title" content="{{ $blog->title }}">
     <meta property="og:description"
-        content="Đọc chi tiết bài viết trên blog của TRỌ NHANH để khám phá các thông tin và mẹo mới nhất về thị trường bất động sản. Nâng cao kiến thức và đưa ra quyết định thông minh với các phân tích từ các chuyên gia trong ngành.">
+        content="{{ Str::limit($blog->description, 200) ?? 'Bài viết blog trên Trọ Nhanh.' }}">
     <meta property="og:type" content="article">
-    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <meta property="og:url" content="{{ route('client.client-blog-detail', $blog->slug) }}">
+    <meta property="og:image"
+        content="{{ asset('assets/images/' . ($blog->image->isNotEmpty() ? $blog->image->first()->filename : 'default-blog-image.jpg')) }}">
+    <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -434,5 +433,27 @@
     <script src="{{ asset('assets/js/comment-blog.js') }}"></script>
     <script>
         var userIsLoggedIn = @json(auth()->check());
+    </script>
+    <script>
+        const shareBtn = document.getElementById('share-btn');
+        shareBtn.addEventListener('click', async () => {
+            const shareData = {
+                title: '{{ $blog->title }}',
+                text: `{!! $blog->description ?? 'Thông tin chi tiết về phòng trọ.' !!}`,
+                url: '{{ url()->current() }}'
+            };
+            if (navigator.share) {
+                try {
+                    await navigator.share(shareData);
+                } catch (error) {
+                    console.log('Lỗi chia sẻ:', error);
+                }
+            } else {
+                // Nếu không hỗ trợ navigator.share, hiển thị liên kết chia sẻ
+                const fallbackUrl =
+                    `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareData.url)}`;
+                window.open(fallbackUrl, '_blank');
+            }
+        });
     </script>
 @endpush

@@ -70,16 +70,17 @@
                                             <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
                                                 class="text-heading hover-primary">{{ $blog->title }}</a>
                                         </h3>
-                                        <p class="mb-4 lh-214">{{ $blog->description }}
+                                        <p class="mb-4 lh-214">
+                                            {{ Str::limit($blog->description, 150, '...') }}
                                         </p>
                                     </div>
                                     <div class="card-footer bg-transparent p-0 border-0">
                                         <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
                                             class="btn text-heading border btn-lg shadow-none btn-outline-light border-hover-light">Xem
                                             thêm <i class="far fa-long-arrow-right text-primary ml-1"></i></a>
-                                        <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
+                                        {{-- <button id="share-btn"
                                             class="btn text-heading btn-lg w-52px px-2 border shadow-none btn-outline-light border-hover-light rounded-circle ml-auto float-right"><i
-                                                class="fad fa-share-alt text-primary"></i></a>
+                                                class="fad fa-share-alt text-primary"></i></button> --}}
                                     </div>
                                 </div>
                             @endforeach
@@ -191,7 +192,7 @@
                             </ul>
                         </nav> --}}
                     </div>
-                    <div class="col-lg-4 pl-xl-6 pr-xl-0 primary-sidebar sidebar-sticky" id="sidebar">
+                    <div class="col-lg-4 pl-xl-6 pr-xl-0 primary-sidebar sidebar-sticky" id="sidebar" wire:ignore>
                         <div class="primary-sidebar-inner">
                             <div class="card mb-4">
                                 <div class="card-body px-6 pt-5 pb-6">
@@ -199,11 +200,12 @@
                                     <form action="{{ route('client.client-blog') }}" method="GET">
                                         <div class="position-relative">
                                             <input type="text" id="search02"
-                                                   class="form-control form-control-lg border-0 shadow-none pr-5"
-                                                   placeholder="Tìm kiếm" name="search" wire:model.lazy="search"
-                                                   wire:keydown.debounce.300ms="$refresh"
-                                                   style="padding-right: 40px; text-overflow: ellipsis;">
-                                            <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
+                                                class="form-control form-control-lg border-0 shadow-none pr-5"
+                                                placeholder="Tìm kiếm" name="search" wire:model.lazy="search"
+                                                wire:keydown.debounce.300ms="$refresh"
+                                                style="padding-right: 40px; text-overflow: ellipsis;">
+                                            <div class="position-absolute"
+                                                style="top: 50%; right: 10px; transform: translateY(-50%);">
                                                 <button type="submit" class="btn fs-15 text-dark shadow-none p-0">
                                                     <i class="fal fa-search"></i>
                                                 </button>
@@ -278,7 +280,7 @@
                                                             </a>
                                                         </h4>
                                                         <div class="text-gray-light">
-                                                            {{ $blog->created_at->format('d, M, Y') }}
+                                                            {{ $blog->created_at->locale('vi')->isoFormat('D MMMM, YYYY') }}
                                                         </div>
                                                     </div>
                                                 </div>
