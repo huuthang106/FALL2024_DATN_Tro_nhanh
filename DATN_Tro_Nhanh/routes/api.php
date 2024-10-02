@@ -20,7 +20,7 @@ Route::post('/credit', [TransactionOwnersController::class, 'index']);  // api t
 
     Route::get('/get-data-room-home', [HomeClientController::class, 'index']);  // api lấy dữ liệu trọ về cho client home
 
-    Route::get('/get-data-room-listing', [RoomClientController::class, 'indexRoom']);// api lấy dữ liệu danh sách ỷoj 
+    Route::get('/get-data-room-listing', [RoomClientController::class, 'indexRoomAPI']);// api lấy dữ liệu danh sách ỷoj 
     
     Route::get('/get-data-owners', [UserClientController::class, 'indexAgent']);// api lấy dư liệu người đăng tin 
     

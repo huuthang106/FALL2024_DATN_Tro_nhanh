@@ -33,7 +33,7 @@ function Popular() {
   return (
     <>
       <Box mx={4} mt={6}>
-        <Header className="mt-6 mb-3 font-semibold">Các tin nổi bật</Header>
+        <Header className="mt-6 mb-3 font-semibold">Tìm kiếm nhanh</Header>
       </Box>
       {loading ? (
         <div className="overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar"></div> // Hiệu ứng loading

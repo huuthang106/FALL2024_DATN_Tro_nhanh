@@ -32,7 +32,7 @@ class RoomClientController extends Controller
         $category = $request->input('category'); // Thêm tham số category
 
         $type = $request->input('type');
-    
+
         $rooms = $this->roomClientService->getAllRoom(
             (int) $perPage,
             $type,
@@ -47,13 +47,7 @@ class RoomClientController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
                 'rooms' => $rooms,
-                'searchTerm' => $searchTerm,
-                'province' => $province,
-                'district' => $district,
-                'village' => $village,
-                'provinces' => $locations['provinces'],
-                'districts' => $locations['districts'],
-                'villages' => $locations['villages']
+
             ]);
         }
 
@@ -225,9 +219,16 @@ class RoomClientController extends Controller
     }
 
 
-    public function getRoomInCategory(Request $request){
+    public function getRoomInCategory(Request $request)
+    {
         $rooms = $this->roomClientService->getAllRoomInCategory();
         return response()->json(['rooms' => $rooms]);
     }
-
+    public function indexRoomAPI(Request $request, $perPage = 10)
+    {
+        $rooms = $this->roomClientService->getAllRoomAPI();
+        return response()->json([
+            'rooms' => $rooms,
+        ]);
+    }
 }

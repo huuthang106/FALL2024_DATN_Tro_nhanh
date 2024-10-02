@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Facades\DB; 
 
 class RoomClientServices
 {
@@ -337,5 +338,62 @@ class RoomClientServices
         }
 
         return $updatedCount; // Trả về số lượng phòng đã được cập nhật
+    }
+    public function getAllRoomAPI(int $perPage = 10, $type = null, $searchTerm = null, $province = null, $district = null, $village = null, $category = null, $features = null)
+    {
+        try {
+            $query = Room::join('users', 'rooms.user_id', '=', 'users.id')
+                ->leftJoin('images', 'rooms.id', '=', 'images.room_id')
+                ->where('rooms.status', self::status)
+                ->withCount('images')
+                ->select('rooms.*', DB::raw('MIN(images.filename) as image_url'))
+                ->groupBy('rooms.id')
+                ->orderByDesc('rooms.created_at');
+    
+            // Thêm điều kiện lọc
+            if ($type) {
+                $query->whereHas('category', function ($q) use ($type) {
+                    $q->where('name', $type);
+                });
+            }
+    
+            if ($searchTerm) {
+                $query->where(function ($q) use ($searchTerm) {
+                    $q->where('rooms.title', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('rooms.description', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('rooms.address', 'like', '%' . $searchTerm . '%');
+                });
+            }
+    
+            if ($province) {
+                $query->where('rooms.province', $province);
+            }
+            if ($district) {
+                $query->where('rooms.district', $district);
+            }
+            if ($village) {
+                $query->where('rooms.village', $village);
+            }
+            if ($category) {
+                Log::info('Applying category filter: ' . $category);
+                $query->where('rooms.category_id', $category);
+            }
+    
+            if (!empty($features)) {
+                $query->where(function ($q) use ($features) {
+                    foreach ($features as $feature) {
+                        $q->orWhere($feature, 2);
+                    }
+                });
+            }
+    
+            $result = $query->get();
+            Log::info('SQL Query: ' . $query->toSql());
+            Log::info('SQL Bindings: ' . json_encode($query->getBindings()));
+            return $result;
+        } catch (Exception $e) {
+            Log::error('Error in getAllRoom: ' . $e->getMessage());
+            return null;
+        }
     }
 }

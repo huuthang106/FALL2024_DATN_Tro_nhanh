@@ -3,20 +3,22 @@ import { getLocation, getUserInfo  } from "zmp-sdk";
 import { Booking, Cart, Location, Restaurant, TabType } from "./models";
 import { calcCrowFliesDistance } from "./utils/location";
 
-// import { authorize } from "zmp-sdk/apis";
+import { authorize } from "zmp-sdk";
 
-// const authorize = async () => {
-//   try {
-//     const data = await authorize({
-//       scopes: ["scope.getUserInfo"]
-//     });
-//     console.log(data);
-//   } catch (error) {
-//     // xử lý khi gọi api thất bại
-//     console.log(error);
-//   }
-// };
-const apiEndpoint ='https://tronhanh.com';
+authorize({
+  scopes: ["scope.getUserInfo", "scope.userPhonenumber"],
+  success: (data) => {
+    // xử lý khi gọi api thành công
+    console.log(data);
+  },
+  fail: (error) => {
+    // xử lý khi gọi api thất bại
+    console.log(error);
+  }
+});
+
+
+const apiEndpoint ='https://debb-14-241-166-117.ngrok-free.app';
 export const restaurantsDataState = atom<Restaurant[]>({
   key: "restaurantsData",
   default: [],
@@ -72,7 +74,7 @@ export const restaurantsState = selector<Restaurant[]>({
   get: async () => {
     try {
       console.log('REACT_APP_API_ENDPOINT:', apiEndpoint);
-      const response = await fetch(`${apiEndpoint}/api/get-data-room-category`, {
+      const response = await fetch(`${apiEndpoint}/api/get-data-room-listing`, {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
