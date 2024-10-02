@@ -2,14 +2,23 @@
   "app": {
     "title": "Trọ Nhanh",
     "headerColor": "",
-    "textColor": "black",
-    "statusBarColor": "#f4f5f6",
-    "leftButton": "back"
+    "textColor": {
+      "light": "white",
+      "dark": "white"
+    },
+    "statusBarColor": "",
+    "leftButton": "back",
+    "textAlign": "left",
+    "actionBarHidden": false,
+    "hideAndroidBottomNavigationBar": false,
+    "hideIOSSafeAreaBottom": false,
+    "selfControlLoading": true,
+    "statusBar": "transparent"
   },
   "template": {
     "primaryColor": "",
     "secondaryColor": "",
-    "serviceFee": 25000,
+    "serviceFee": "25000",
     "searchBar": true
   },
   "debug": false,

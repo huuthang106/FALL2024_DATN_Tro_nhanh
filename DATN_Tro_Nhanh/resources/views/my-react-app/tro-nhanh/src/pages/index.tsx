@@ -95,9 +95,9 @@ function Welcome() {
         Hi
       </Avatar>
       <Text size="small">{user.name ? <>Chào, {user.name}!</> : "..."}</Text>
-      <Text className="text-[25px] leading-[29px] font-bold">
-        Tìm nơi ở cùng chúng tôi
-      </Text>
+      <Text className="text-[20px] leading-[29px] font-bold "> {/* Thêm lớp text-primary */}
+      Trọ Nhanh - Xu hướng thời đại mới  
+</Text>
     </>
   );
 }

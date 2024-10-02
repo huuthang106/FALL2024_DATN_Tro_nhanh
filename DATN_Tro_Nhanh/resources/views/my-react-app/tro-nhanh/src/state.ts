@@ -3,22 +3,22 @@ import { getLocation, getUserInfo  } from "zmp-sdk";
 import { Booking, Cart, Location, Restaurant, TabType } from "./models";
 import { calcCrowFliesDistance } from "./utils/location";
 
-import { authorize } from "zmp-sdk";
+// import { authorize } from "zmp-sdk";
 
-authorize({
-  scopes: ["scope.getUserInfo", "scope.userPhonenumber"],
-  success: (data) => {
-    // xử lý khi gọi api thành công
-    console.log(data);
-  },
-  fail: (error) => {
-    // xử lý khi gọi api thất bại
-    console.log(error);
-  }
-});
+// authorize({
+//   scopes: ["scope.userPhonenumber"],
+//   success: () => {
+//     // xử lý khi gọi api thành công
+//     console.log('o');
+//   },
+//   fail: (error) => {
+//     // xử lý khi gọi api thất bại
+//     console.log(error);
+//   }
+// });
 
 
-const apiEndpoint ='https://debb-14-241-166-117.ngrok-free.app';
+const apiEndpoint ='https://tronhanh.com';
 export const restaurantsDataState = atom<Restaurant[]>({
   key: "restaurantsData",
   default: [],
@@ -28,7 +28,7 @@ export const restaurantsDataState = atom<Restaurant[]>({
 export const userState = selector({
   key: "user",
   get: async () => {
-    const { userInfo } = await getUserInfo({});
+    const { userInfo } = await getUserInfo({autoRequestPermission : true});
     console.log('userInfo', userInfo);
     
     return userInfo;
