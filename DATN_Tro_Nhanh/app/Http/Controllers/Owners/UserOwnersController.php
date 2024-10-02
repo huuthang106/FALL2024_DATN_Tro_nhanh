@@ -39,10 +39,17 @@ class UserOwnersController extends Controller
 
     public function updateProfile(UpdateProfileRequest $request, $id)
     {
-        $data = $request->all();
-        $this->profileService->updateProfileBySlug($id, $data);
-
-        return redirect()->back()->with('success', 'Thông tin đã cập nhật thành công.');
+        try {
+            $data = $request->validated();
+            $result = $this->profileService->updateProfileBySlug($id, $data);
+    
+            return response()->json($result, $result['success'] ? 200 : 400);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Đã xảy ra lỗi: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
 

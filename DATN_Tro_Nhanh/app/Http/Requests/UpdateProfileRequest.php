@@ -18,7 +18,7 @@ class UpdateProfileRequest extends FormRequest
             'name' => 'required|string|max:255',
 
             'email' => [
-                'required',
+              
                 'email',
                 Rule::unique('users', 'email')->ignore($this->route('id')), 
             ],
@@ -34,7 +34,7 @@ class UpdateProfileRequest extends FormRequest
             'name.required' => 'Tên là bắt buộc.',
             'phone.numeric' => 'Số điện thoại phải là số.',
 
-            'email.required' => 'Email là bắt buộc.',
+           
             'email.email' => 'Email không hợp lệ.',
             'image.image' => 'File phải là hình ảnh.',
             'image.mimes' => 'Ảnh chỉ hỗ trợ định dạng jpeg, png, jpg, gif, svg.',

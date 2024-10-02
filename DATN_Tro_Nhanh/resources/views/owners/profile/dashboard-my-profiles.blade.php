@@ -49,7 +49,7 @@
     </div>
 </div>
             </div>
-            <form method="POST" action="{{ route('owners.profile.update-profile', $user->id) }}"
+            <form id="updateProfileForm" method="POST" action="{{ route('owners.profile.update-profile', $user->id) }}"
                 enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -59,22 +59,23 @@
                         <div class="card mb-6">
                             <div class="card-body px-6 pt-6 pb-5">
                                 <div class="row">
-                                    <div class="col-sm-4 col-xl-12 col-xxl-7 mb-6">
+                                    <div>
                                         <h3 class="card-title mb-0 text-heading fs-22 lh-15">Ảnh đại diện</h3>
-                                        <p class="card-text">Tải lên ảnh hồ sơ của bạn.</p>
+                                        <p>Ảnh đại diện sẽ được sử dụng để xác thực tài khoản của bạn.</p>
                                     </div>
-                                    <div class="col-sm-8 col-xl-12 col-xxl-5">
+                                    <div class="custom-css col-lg-12">
                                         <!-- Hiển thị ảnh hiện tại hoặc ảnh mặc định nếu không có ảnh -->
                                         <div class="profile-image-container">
                                             <img id="profileImagePreview" src="{{ $user->image ? asset('assets/images/' . $user->image) : asset('assets/images/agent-25.jpg') }}"
                                             alt="{{$user->name}}">
                                         </div>
-
-                                        <div class="custom-file mt-4 h-auto">
+                                        <div class="custom-file  h-auto">
                                             <input type="file" class="custom-file-input" id="customFile" name="image">
                                             <label class="btn btn-secondary btn-lg btn-block" for="customFile">
                                                 <span class="d-inline-block mr-1"><i
-                                                        class="fal fa-cloud-upload"></i></span>Tải lên hình ảnh hồ sơ
+                                                        class="fal fa-cloud-upload flex-center"></i></span>Tải lên hình ảnh
+                                                hồ
+                                                sơ
                                             </label>
                                         </div>
                                         {{-- <p class="mb-0 mt-2">*tối thiểu 500px x 500px</p> --}}
@@ -83,9 +84,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
                     <div class="col-lg-6">
                         <div class="card mb-6">
                             <div class="card-body px-6 pt-6 pb-5">
@@ -95,25 +93,25 @@
                                 <div class="form-group">
                                     <label for="name" class="text-heading">Tên</label>
                                     <input type="text" class="form-control form-control-lg border-0" id="name"
-                                        name="name" value="{{ old('name', $user->name) }}">
+                                        name="name" title="Tên" value="{{ old('name', $user->name) }}">
                                     @error('name')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
 
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="email" class="text-heading">Email</label>
                                     <input type="email" class="form-control form-control-lg border-0" id="email"
                                         name="email" value="{{ old('email', $user->email) }}">
                                     @error('email')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group">
                                     <label for="phone" class="text-heading">Số điện thoại</label>
                                     <input type="text" class="form-control form-control-lg border-0" id="phone"
-                                        name="phone" value="{{ old('phone', $user->phone) }}">
+                                        name="phone" title="Số điện thoại" value="{{ old('phone', $user->phone) }}">
                                     @error('phone')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -122,7 +120,7 @@
                                 <div class="form-group">
                                     <label for="address" class="text-heading">Địa chỉ</label>
                                     <input type="text" class="form-control form-control-lg border-0" id="address"
-                                        name="address" value="{{ old('address', $user->address) }}">
+                                        name="address" title="Địa chỉ" value="{{ old('address', $user->address) }}">
                                     @error('address')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -281,7 +279,7 @@
                                 </div>
 
                                 <div class="d-flex justify-content-end flex-wrap">
-                                    <button class="btn btn-lg btn-danger mb-3" type="button">Xóa tài khoản</button>
+                                    {{-- <button class="btn btn-lg btn-danger mb-3" type="button">Xóa tài khoản</button> --}}
                                     <button class="btn btn-lg btn-primary ml-4 mb-3" type="submit">Cập nhật tài
                                         khoản</button>
                                 </div>
@@ -443,6 +441,67 @@
     <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{{ asset('assets/js/api-update-zone-nht.js') }}"></script>
+    <script>
+        $('#updateProfileForm').on('submit', function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: $(this).attr('action'),
+                method: $(this).attr('method'),
+                data: formData,
+                processData: false,
+                contentType: false,
+                beforeSend: function() {
+                    Swal.fire({
+                        title: 'Đang xử lý...',
+                        text: 'Vui lòng đợi trong giây lát!',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+                },
+                success: function(response) {
+                    Swal.close();
+                    if (response.success) {
+                        Swal.fire({
+                            title: 'Thành công!',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Lỗi!',
+                            text: response.message,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                },
+                error: function(xhr) {
+                    Swal.close();
+                    let errorMessage = 'Đã xảy ra lỗi khi xử lý yêu cầu.';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    }
+                    Swal.fire({
+                        title: 'Lỗi!',
+                        text: errorMessage,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+        });
+    </script>
     <div class="modal fade login-register login-register-modal" id="login-register-modal" tabindex="-1" role="dialog"
         aria-labelledby="login-register-modal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
