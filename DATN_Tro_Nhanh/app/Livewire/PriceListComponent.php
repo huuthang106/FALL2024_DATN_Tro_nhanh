@@ -13,15 +13,31 @@ class PriceListComponent extends Component
     use WithPagination;
 
     public $search = ''; // Từ khóa tìm kiếm
+    public $sortBy = 'date_new_to_old';
     public $perPage = 5; // Số lượng bản ghi trên mỗi trang
+    protected $queryString = ['search', 'sortBy', 'perPage'];
     public $timeFilter = ''; // Bộ lọc khoảng thời gian
+    
+    public function updatedSearch()
+    {
+        $this->resetPage();
+    }
 
-    protected $queryString = ['search', 'perPage', 'timeFilter'];
 
+    public function updatingPerPage()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingFilterByDate()
+    {
+        $this->resetPage();
+    }
+    
     public function render()
     {
         // Xây dựng truy vấn để lọc dữ liệu
-        $query = PriceList::query();
+        $query = PriceList::query()->orderBy('created_at', 'desc');
 
         // Lọc theo từ khóa tìm kiếm
         if ($this->search) {
@@ -31,26 +47,43 @@ class PriceListComponent extends Component
 
         // Lọc theo khoảng thời gian
         if ($this->timeFilter) {
-            $dateFrom = Carbon::now();
+            $startDate = Carbon::now();  // Thời gian bắt đầu của bộ lọc
+        
+            \Log::info("Current date before filter: " . Carbon::now()->toDateTimeString());
+        
+            // Xử lý bộ lọc thời gian
             switch ($this->timeFilter) {
                 case '1_day':
-                    $dateFrom = Carbon::now()->subDay();
+                    $startDate = Carbon::now()->subDay()->startOfDay();  // Bắt đầu của ngày hôm qua
                     break;
                 case '7_day':
-                    $dateFrom = Carbon::now()->subDays(7);
+                    $startDate = Carbon::now()->subDays(7)->startOfDay();  // Bắt đầu của 7 ngày trước
+                    break;
+                case '1_month':
+                    $startDate = Carbon::now()->subMonth()->startOfDay();  // Bắt đầu của 1 tháng trước
                     break;
                 case '3_month':
-                    $dateFrom = Carbon::now()->subMonths(3);
+                    $startDate = Carbon::now()->subMonths(3)->startOfDay();  // Bắt đầu của 3 tháng trước
                     break;
                 case '6_month':
-                    $dateFrom = Carbon::now()->subMonths(6);
+                    $startDate = Carbon::now()->subMonths(6)->startOfDay();  // Bắt đầu của 6 tháng trước
                     break;
                 case '1_year':
-                    $dateFrom = Carbon::now()->subYear();
+                    $startDate = Carbon::now()->subYear()->startOfDay();  // Bắt đầu của 1 năm trước
                     break;
             }
-            $query->whereDate('created_at', '>=', $dateFrom);
+        
+            \Log::info("Lọc dữ liệu trước ngày: " . $startDate->toDateTimeString());
+        
+            // Lọc dữ liệu với created_at nhỏ hơn ngày bắt đầu
+            $query->whereDate('created_at', '<=', $startDate);
+        
+            // Log số lượng bản ghi sau khi lọc
+            \Log::info("Số lượng bản ghi sau khi lọc: " . $query->count());
         }
+
+         // Sắp xếp kết quả từ mới nhất đến cũ nhất
+    $query->orderBy('created_at', 'desc');
 
         // Phân trang dữ liệu
         $priceLists = $query->paginate($this->perPage);
@@ -58,9 +91,4 @@ class PriceListComponent extends Component
         return view('livewire.price-list-component', compact('priceLists'));
     }
 
-    // Reset trang khi thay đổi số lượng bản ghi trên mỗi trang
-    public function updatedPerPage()
-    {
-        $this->resetPage();
-    }
 }

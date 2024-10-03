@@ -10,16 +10,27 @@ use Carbon\Carbon;
 class OwnerList extends Component
 {
     use WithPagination;
+
     const CHU_TRO = 2;
     public $search = '';
+    public $sortBy = 'date_new_to_old';
     public $timeFilter = ''; // Mặc định là không lọc
-    public $orderBy = 'created_at'; // Mặc định sắp xếp theo ngày tạo mới nhất
-    public $orderAsc = false; // Giảm dần
+    protected $queryString = ['search', 'sortBy', 'perPage'];
     public $perPage = 10;
 
-    public function updatingSearch()
+    public function updatedSearch()
     {
-        // Reset pagination khi tìm kiếm
+        $this->resetPage();
+    }
+
+
+    public function updatingPerPage()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingFilterByDate()
+    {
         $this->resetPage();
     }
 
@@ -27,34 +38,41 @@ class OwnerList extends Component
     {
         // $query = User::query();
         $query = User::where('role', self::CHU_TRO);
-        // Lấy khoảng thời gian dựa trên giá trị của selectpicker
-        $now = Carbon::now();
+
         if ($this->timeFilter) {
+            $startDate = Carbon::now();  // Thời gian bắt đầu của bộ lọc
+        
+            \Log::info("Current date before filter: " . Carbon::now()->toDateTimeString());
+        
+            // Xử lý bộ lọc thời gian
             switch ($this->timeFilter) {
-                case "1_day":
-                    $startDate = $now->subDays(1);
+                case '1_day':
+                    $startDate = Carbon::now()->subDay()->startOfDay();  // Bắt đầu của ngày hôm qua
                     break;
                 case '7_day':
-                    $startDate = $now->subDays(7);
+                    $startDate = Carbon::now()->subDays(7)->startOfDay();  // Bắt đầu của 7 ngày trước
+                    break;
+                case '1_month':
+                    $startDate = Carbon::now()->subMonth()->startOfDay();  // Bắt đầu của 1 tháng trước
                     break;
                 case '3_month':
-                    $startDate = $now->subMonths(3);
+                    $startDate = Carbon::now()->subMonths(3)->startOfDay();  // Bắt đầu của 3 tháng trước
                     break;
                 case '6_month':
-                    $startDate = $now->subMonths(6);
+                    $startDate = Carbon::now()->subMonths(6)->startOfDay();  // Bắt đầu của 6 tháng trước
                     break;
                 case '1_year':
-                    $startDate = $now->subYear();
+                    $startDate = Carbon::now()->subYear()->startOfDay();  // Bắt đầu của 1 năm trước
                     break;
-                default:
-                    $startDate = $now->subDays(7);
             }
-
-            // Áp dụng khoảng thời gian cho các cột ngày cụ thể (ngày tạo, ngày cập nhật, ngày sinh)
-            $query->where(function ($q) use ($startDate) {
-                $q->where('created_at', '>=', $startDate)
-                    ->orWhere('updated_at', '>=', $startDate);
-            });
+        
+            \Log::info("Lọc dữ liệu trước ngày: " . $startDate->toDateTimeString());
+        
+            // Lọc dữ liệu với created_at nhỏ hơn ngày bắt đầu
+            $query->whereDate('created_at', '<=', $startDate);
+        
+            // Log số lượng bản ghi sau khi lọc
+            \Log::info("Số lượng bản ghi sau khi lọc: " . $query->count());
         }
 
         if ($this->search) {
@@ -65,7 +83,7 @@ class OwnerList extends Component
         }
 
         // Sắp xếp theo ngày tạo mới nhất mặc định
-        $query->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc');
+        $query->orderBy('created_at', 'desc');
 
         $users = $query->paginate($this->perPage);
 

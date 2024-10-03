@@ -93,28 +93,19 @@ class PaymentClientController extends Controller
         // Gọi service để xử lý thanh toán
         $result = $this->paymentService->processCheckout();
         
-        // Kiểm tra kết quả thanh toán
         if ($result['success']) {
-            // Lấy thông tin thanh toán
             $payment = $this->paymentService->getPaymentDetails();
             
-            // Kiểm tra nếu thông tin thanh toán không có giá trị null
             if ($payment) {
-                // Trả về view hiển thị thông báo thanh toán thành công
-                return view('client.show.payment-successful', [
-                    'payment' => $payment,
-                    'message' => 'Thanh toán thành công!',
-                ]);
+                session()->flash('success', 'Thanh toán thành công!');
+                return view('client.show.payment-successful', ['payment' => $payment]);
             } else {
-                // Trường hợp không lấy được thông tin thanh toán
-                // Trường hợp không lấy được thông tin thanh toán
-            return redirect()->route('client.payment.failure')->with('error', 'Không thể lấy thông tin thanh toán.');
+                session()->flash('error', 'Không thể lấy thông tin thanh toán');
+                return redirect()->route('client.carts-show')->with('error', 'Không thể lấy thông tin thanh toán');
             }
         } else {
-            // Redirect với thông báo lỗi nếu thanh toán thất bại
-        // Redirect đến trang thanh toán với thông báo lỗi
-        return redirect()->route('client.payment.failure')->with('error', $result['message']);
-
+            session()->flash('error', $result['message']);
+            return redirect()->route('client.carts-show')->with('error', $result['message']);
         }
     }
 
