@@ -27,7 +27,7 @@
                 <tr role="row">
                     <th class="py-6" style="white-space:nowrap">Loại</th>
                     <th class="py-6" style="white-space:nowrap">Dữ liệu</th>
-                    <th class="py-6">Trạng thái</th>
+                    <!-- <th class="py-6">Trạng thái</th> -->
                     <th class="py-6" style="white-space:nowrap">Ngày tạo</th>
                     <th class=" py-6 " style="white-space:nowrap">Thao tác</th>
                 </tr>
@@ -54,11 +54,11 @@
                                     <span class="text-dark">{{ $notification->data }}</span>
                                 @endif
                             </td>
-                            <td class="align-middle">
+                            <!-- <td class="align-middle">
                                 <span class="badge badge-{{ $notification->status === 2 ? 'green' : 'red' }} text-capitalize">
                                     {{ $notification->status === 2 ? 'Đã xem' : 'Chưa xem' }}
                                 </span>
-                            </td>
+                            </td> -->
                             <td class="align-middle" style="white-space:nowrap">{{ $notification->created_at->format('d-m-Y') }}</td>
                             <td class="align-middle">
                                 <a href="#" wire:click.prevent="deleteNotification({{ $notification->id }})" data-toggle="tooltip" title="Xóa"

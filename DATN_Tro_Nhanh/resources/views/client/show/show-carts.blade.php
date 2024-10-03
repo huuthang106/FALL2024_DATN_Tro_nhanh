@@ -1,6 +1,17 @@
 @extends('layouts.main')
 @section('titleUs', 'Giỏ Hàng | TRỌ NHANH')
 @section('contentUs')
+<!-- @if (session('error'))
+         <div class="alert alert-danger">
+             {{ session('error') }}
+         </div>
+     @endif
+
+     @if (session('success'))
+         <div class="alert alert-success">
+             {{ session('success') }}
+         </div>
+     @endif  -->
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
             <div class="mb-6">
@@ -489,4 +500,11 @@
             });
         });
     </script>
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        window.successMessage = "{{ session('success') }}";
+        window.errorMessage = "{{ session('error') }}";
+        console.log('Error message:', window.errorMessage); // Add this line
+    </script>
+    <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
 @endpush

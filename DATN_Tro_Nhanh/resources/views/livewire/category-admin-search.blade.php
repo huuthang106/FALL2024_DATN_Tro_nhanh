@@ -44,10 +44,10 @@
                         <div class="card-toolbar">
                             <!--begin::Toolbar-->
                             <div class="d-flex justify-content-end" data-kt-subscription-table-toolbar="base">
-                                <!--begin::Filter-->
-                                <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click"
+                               
+                                <!-- <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click"
                                     data-kt-menu-placement="bottom-end">
-                                    <!--begin::Svg Icon | path: icons/duotune/general/gen031.svg-->
+                                    
                                     <span class="svg-icon svg-icon-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none">
@@ -56,7 +56,7 @@
                                                 fill="black" />
                                         </svg>
                                     </span>
-                                    <!--end::Svg Icon-->Lọc</button>
+                                   Lọc</button> -->
                                 <!--begin::Menu 1-->
                                 <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
                                     <!--begin::Header-->
@@ -70,7 +70,7 @@
                                     <!--begin::Content-->
                                     <div class="px-7 py-5" data-kt-subscription-table-filter="form">
                                         <!--begin::Input group-->
-                                        <div class="mb-10" wire:ignore>
+                                        <!-- <div class="mb-10" wire:ignore>
                                             <label class="form-label fs-6 fw-bold">Lọc theo khoảng thời gian:</label>
                                             <select class="form-select form-select-solid fw-bolder"
                                                 wire:model.lazy="timeFilter" wire:key="time-select"
@@ -82,7 +82,7 @@
                                                 <option value="6_month">6 tháng</option>
                                                 <option value="1_year">1 năm</option>
                                             </select>
-                                        </div>
+                                        </div> -->
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         {{-- <div class="mb-10">

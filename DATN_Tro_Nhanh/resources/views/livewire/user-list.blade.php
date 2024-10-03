@@ -85,19 +85,20 @@
                                     <!--begin::Content-->
                                     <div class="px-7 py-5" data-kt-user-table-filter="form">
                                         <!--begin::Input group-->
-                                        <div class="mb-10" wire:ignore>
-                                            <label class="form-label fs-6 fw-bold">Lọc theo khoảng thời gian:</label>
-                                            <select class="form-select form-select-solid fw-bolder"
-                                                wire:model.lazy="timeFilter" wire:key="time-select"
-                                                data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
-                                                <option value="" selected>Chọn khoảng thời gian</option>
-                                                <option value="1_day">1 ngày</option>
-                                                <option value="7_day">7 ngày</option>
-                                                <option value="3_month">3 tháng</option>
-                                                <option value="6_month">6 tháng</option>
-                                                <option value="1_year">1 năm</option>
-                                            </select>
-                                        </div>
+                                        <div class="mb-10">
+                                        <label class="form-label fs-6 fw-bold">Lọc theo:</label>
+                                        <select class="form-select form-select-solid fw-bolder sortby"
+                                            wire:model.lazy="timeFilter" id="timeFilter"
+                                            data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
+                                            <option value="" selected>Chọn khoảng thời gian:</option>
+                                            <option value="1_day">1 ngày</option>
+                                            <option value="7_day">7 ngày</option>
+                                            <option value="1_month">1 tháng</option>
+                                            <option value="3_month">3 tháng</option>
+                                            <option value="6_month">6 tháng</option>
+                                            <option value="1_year">1 năm</option>
+                                        </select>
+                                    </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <!-- <div class="mb-10">
@@ -112,15 +113,7 @@
                                         </div> -->
                                         <!--end::Input group-->
                                         <!--begin::Actions-->
-                                        <div class="d-flex justify-content-end">
-                                            <button type="reset"
-                                                class="btn btn-light btn-active-light-primary fw-bold me-2 px-6"
-                                                data-kt-menu-dismiss="true"
-                                                data-kt-user-table-filter="reset">Reset</button>
-                                            <button type="submit" class="btn btn-primary fw-bold px-6"
-                                                data-kt-menu-dismiss="true"
-                                                data-kt-user-table-filter="filter">Apply</button>
-                                        </div>
+                                        
                                         <!--end::Actions-->
                                     </div>
                                     <!--end::Content-->
@@ -168,7 +161,7 @@
                                         <th class="min-w-125px">Số Điện Thoại</th>
                                         <th class="min-w-100px">Địa Chỉ</th>
                                         <th class="min-w-100px">Trạng thái</th>
-                                        <th class="text-end min-w-150px">Tác vụ</th>
+                                        <th class="text-center min-w-30px">Tác vụ</th>
                                     </tr>
                                     <!--end::Table row-->
                                 </thead>
@@ -236,7 +229,7 @@
                                                 {{-- <td>{{ $user->created_at->format('d/m/Y') }}</td> --}}
                                                 <!--end::Joined-->
                                                 <!--begin::Action=-->
-                                                <td class="text-end">
+                                                <td class="text-center">
                                                     <a href="#"
                                                         class="btn btn-light btn-active-light-primary btn-sm"
                                                         data-kt-menu-trigger="click"

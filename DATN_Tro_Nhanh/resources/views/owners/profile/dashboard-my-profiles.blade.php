@@ -68,7 +68,7 @@
                                                     style="display: none;">
                                                     <input type="text" class="form-control" id="custom-description"
                                                         name="custom_description" placeholder="Nhập nội dung khác">
-                                                </div> --}}
+                                                </div> 
                                             </div>
                                         </div>
                                     </div>
@@ -1327,3 +1327,4 @@
         </defs>
     </svg>
 @endpush
+

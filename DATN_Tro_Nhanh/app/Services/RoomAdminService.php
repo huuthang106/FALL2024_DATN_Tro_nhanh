@@ -13,6 +13,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Image;
 use App\Models\Utility;
+use App\Models\Notification;
 use App\Models\Resident;
 use Illuminate\Support\Facades\Log;
 use App\Events\RoomStatusUpdated;
@@ -342,8 +343,17 @@ class RoomAdminService
     {
         $room = Room::withTrashed()->findOrFail($id);
         $room->forceDelete();
+
+        // Create notification
+        $notification = new Notification(); // Tạo đối tượng Notification
+        $notification->user_id = $room->user_id; // Lấy user_id từ payout
+        $notification->data = 'Phòng trọ ' . $room->title . ' của bạn đã bị xóa';
+        $notification->type = 'Phòng bị xóa';
+        $notification->save();
+
         return $room;
     }
+
     public function getRoomsWithStatus(int $status, int $perPage = 10)
     {
         try {
@@ -353,6 +363,7 @@ class RoomAdminService
             return null;
         }
     }
+
     public function updateRoomStatus(int $id, int $newStatus)
     {
         try {

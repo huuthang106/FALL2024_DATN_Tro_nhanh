@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Events\BlogCreated;
+use App\Models\Notification;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CreateBlogRequest;
 use GuzzleHttp\Client;
@@ -407,37 +408,37 @@ public function getTopViewedBlogs($limit = 3)
     }
 
     public function getTrashedBlogs($searchTerm = null, $timeFilter = null)
-{
-    $query = Blog::onlyTrashed();
+    {
+        $query = Blog::onlyTrashed();
 
-    // Tìm kiếm theo tiêu đề hoặc mô tả
-    if ($searchTerm) {
-        $query->where(function ($q) use ($searchTerm) {
-            $q->where('title', 'like', '%' . $searchTerm . '%')
-              ->orWhere('description', 'like', '%' . $searchTerm . '%');
-        });
-    }
-
-    // Lọc theo thời gian
-    if ($timeFilter) {
-        switch ($timeFilter) {
-            case '1_day':
-                $query->where('deleted_at', '>=', now()->subDay());
-                break;
-            case '7_day':
-                $query->where('deleted_at', '>=', now()->subWeek());
-                break;
-            case '1_month':
-                $query->where('deleted_at', '>=', now()->subMonth());
-                break;
-            case '1_year':
-                $query->where('deleted_at', '>=', now()->subYear());
-                break;
+        // Tìm kiếm theo tiêu đề hoặc mô tả
+        if ($searchTerm) {
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('title', 'like', '%' . $searchTerm . '%')
+                ->orWhere('description', 'like', '%' . $searchTerm . '%');
+            });
         }
-    }
 
-    return $query->paginate(10);
-}
+        // Lọc theo thời gian
+        if ($timeFilter) {
+            switch ($timeFilter) {
+                case '1_day':
+                    $query->where('deleted_at', '>=', now()->subDay());
+                    break;
+                case '7_day':
+                    $query->where('deleted_at', '>=', now()->subWeek());
+                    break;
+                case '1_month':
+                    $query->where('deleted_at', '>=', now()->subMonth());
+                    break;
+                case '1_year':
+                    $query->where('deleted_at', '>=', now()->subYear());
+                    break;
+            }
+        }
+
+        return $query->paginate(10);
+    }
     public function restoreBlogs($id)
     {
         $blog = Blog::withTrashed()->findOrFail($id);
@@ -449,6 +450,14 @@ public function getTopViewedBlogs($limit = 3)
     {
         $blog = Blog::withTrashed()->findOrFail($id);
         $blog->forceDelete();
+
+         // Create notification
+         $notification = new Notification(); // Tạo đối tượng Notification
+         $notification->user_id = $blog->user_id; // Lấy user_id từ payout
+         $notification->data = 'Blog ' . $blog->title . ' của bạn đã bị xóa';
+         $notification->type = 'Blog bị xóa';
+         $notification->save();
+
         return $blog;
     }
 

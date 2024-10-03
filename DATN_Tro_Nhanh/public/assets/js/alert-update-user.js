@@ -7,5 +7,12 @@ document.addEventListener('DOMContentLoaded', function () {
             text: window.successMessage,
             showConfirmButton: true
         });
+    } else if (window.errorMessage) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi!',
+            text: window.errorMessage,
+            showConfirmButton: true
+        });
     }
 });
