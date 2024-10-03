@@ -9,8 +9,7 @@ use App\Services\RoomClientServices;
 use App\Services\PremiumService;
 use App\Services\AccountService;
 use App\Events\ExpiredEntitiesUpdateEvent;
-use App\Events\ServiceMailsSummaryEvent;
-use App\Services\ZoneServices;
+use App\Services\UserClientServices;
 
 class HomeClientController extends Controller
 {
@@ -18,10 +17,13 @@ class HomeClientController extends Controller
     protected $premiumService;
     protected $accountService;
     protected $zoneServices;
-    public function __construct(ZoneServices $zoneServices, RoomClientServices $roomClientService, PremiumService $premiumService, AccountService $accountService)
+ 
+    protected $userClientServices;
+    public function __construct(UserClientServices $userClientServices,RoomClientServices $roomClientService, PremiumService $premiumService, AccountService $accountService)
     {
         $this->zoneServices = $zoneServices;
         $this->roomClientService = $roomClientService;
+        $this->userClientServices = $userClientServices;
         $this->premiumService = $premiumService;
         $this->accountService = $accountService;
     }
@@ -89,6 +91,7 @@ class HomeClientController extends Controller
                 'pagination' => (string) $zones->links()
             ]);
         }
+        $usersWithRoleZero = $this->userClientServices->getUsersWithRoleZero();
         return view('client.show.about-us', [
             'zones' => $zones,
             // 'totalZones' => $totalZones,
@@ -100,9 +103,11 @@ class HomeClientController extends Controller
             'userLng' => $request->input('user_lng'),
             'showLocationAlert' => true,
             'provinces' => $provinces,
-            'zoneServices' => $this->zoneServices // Truyền danh sách các mã tỉnh vào view
+            'zoneServices' => $this->zoneServices, // Truyền danh sách các mã tỉnh vào view
+            'usersWithRoleZero'=>$usersWithRoleZero
         ]);
         // return view('client.show.about-us');
+
     }
     // Giao diện Dịch Vụ
     public function showService()

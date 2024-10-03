@@ -13,43 +13,81 @@
                <button class="btn btn-primary" data-toggle="modal" data-target="#withdrawModal">Rút tiền</button>
              
 
-<!-- Modal -->
-<div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog" aria-labelledby="withdrawModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="withdrawModalLabel">Thông Tin Rút Tiền</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Số dư hiện tại: {{ $user->balance }}</p>
-                <div class="form-group">
-                    <label for="bank-name">Tên Ngân Hàng</label>
-                    <select class="form-control" id="bank-name">
-                        <!-- Các ngân hàng sẽ được lấy từ API -->
-                    </select>
+
+                <!-- Modal -->
+                <div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog" aria-labelledby="withdrawModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <p class="modal-title font-weight-bold fs-2" id="withdrawModalLabel">Thông Tin Rút Tiền</p>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form id="withdrawForm" action="{{ route('owners.request-payout') }}" method="POST">
+                                @csrf
+                                <div class="modal-body">
+                                    <p class="fs-7 mb-4">Số dư hiện tại:
+                                        <strong>{{ number_format($user->balance, 0, ',', '.') }} VNĐ</strong>
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <div class="form-group">
+                                                <label for="bank-name" class="fs-10">Tên Ngân Hàng</label>
+                                                <select class="form-control" id="bank-name" name="bank_name" required>
+                                                    <!-- Các ngân hàng sẽ được lấy từ API -->
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="account-number" class="fs-10">Số Tài Khoản</label>
+                                                <input type="text" class="form-control" id="account-number"
+                                                    name="account_number" placeholder="Nhập số tài khoản" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="withdraw-amount" class="fs-10">Số Tiền Cần Rút</label>
+                                                <input type="number" class="form-control" id="withdraw-amount"
+                                                    name="amount" placeholder="Nhập số tiền"
+                                                    value="{{ Auth::user()->balance }}" max="{{ Auth::user()->balance }}"
+                                                    required>
+                                                <small class="form-text text-muted">Số dư hiện tại:
+                                                    {{ number_format(Auth::user()->balance, 0, ',', '.') }} VNĐ</small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="withdraw-amount" class="fs-10">Tên Chủ Tài Khoản</label>
+                                                <input type="text" class="form-control" id="card_holder_name"
+                                                    name="card_holder_name" placeholder="Nhập tên chủ tài khoản" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="withdraw-description" class="fs-10">Nội Dung</label>
+                                                <input type="text" class="form-control" id="withdraw-description"
+                                                    name="description" value="Rút tiền về tài khoản">
+                                                <div class="mt-2" id="custom-description-container"
+                                                    style="display: none;">
+                                                    <input type="text" class="form-control" id="custom-description"
+                                                        name="custom_description" placeholder="Nhập nội dung khác">
+                                                </div> --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="text-dark mt-3"><strong class="text-danger">Lưu ý:</strong> Ngày hệ thống
+                                        chuyển sẽ là cuối
+                                        tháng vào ngày 07
+                                        tiền sẽ được trừ vào số dư của quý khách.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                    <button type="submit" class="btn btn-primary">Xác Nhận Rút Tiền</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="account-number">Số Tài Khoản</label>
-                    <input type="text" class="form-control" id="account-number" placeholder="Nhập số tài khoản">
-                </div>
-                <div class="form-group">
-                    <label for="withdraw-amount">Số Tiền Cần Rút</label>
-                    <input type="number" class="form-control" id="withdraw-amount" placeholder="Nhập số tiền">
-                </div>
-                <p class="text-warning">Lưu ý: Ngày hệ thống chuyển sẽ là cuối tháng vào ngày 30 hoặc 31. Tiền sẽ được trừ vào số dư của quý khách.</p>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary">Xác Nhận Rút Tiền</button>
-            </div>
-        </div>
-    </div>
-</div>
-            </div>
-            <form id="updateProfileForm" method="POST" action="{{ route('owners.profile.update-profile', $user->id) }}"
+
+            <form method="POST" action="{{ route('owners.profile.update-profile', $user->id) }}"
                 enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -84,6 +122,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-6">
                         <div class="card mb-6">
                             <div class="card-body px-6 pt-6 pb-5">
@@ -380,6 +419,9 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <link rel="stylesheet" href="{{ asset('assets/css/mh.css') }}">
+    <!-- CSS của Select2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('assets/css/payout-api.css') }}">
 @endpush
 @push('scriptOwners')
     <!-- Vendors scripts -->
@@ -431,6 +473,121 @@
         fetchBanks();
     });
 </script>
+    <script src="{{ asset('assets/js/payout-api.js') }}"></script>
+    <script>
+        document.getElementById('withdrawForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    var formData = new FormData(this);
+
+                    // Thêm option mặc định
+                    const defaultOption = document.createElement('option');
+                    defaultOption.value = '';
+                    defaultOption.textContent = 'Chọn ngân hàng';
+                    bankSelect.appendChild(defaultOption);
+
+                    // Thêm các ngân hàng
+                    banks.forEach(bank => {
+                        const option = document.createElement('option');
+                        option.value = bank.name; // Sử dụng tên đầy đủ làm giá trị
+                        option.textContent = bank.name;
+                        option.dataset.code = bank.code; // Lưu mã ngân hàng vào data attribute
+                        bankSelect.appendChild(option);
+                    });
+
+                    // Đặt size cho select
+                    bankSelect.size = Math.min(5, banks.length + 1);
+
+                    // Thêm sự kiện để đóng select khi chọn
+                    bankSelect.addEventListener('change', function() {
+                        this.size = 1;
+                        this.blur();
+                    });
+
+                    // Thêm sự kiện để mở rộng select khi focus
+                    bankSelect.addEventListener('focus', function() {
+                        this.size = Math.min(5, banks.length + 1);
+                    });
+
+                } catch (error) {
+                    console.error('Error fetching banks:', error);
+                }
+
+                // Gọi hàm khi modal mở
+                $('#withdrawModal').on('show.bs.modal', function() {
+                    fetchBanks();
+                });
+
+                // Xử lý submit form
+                document.getElementById('withdrawForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    var formData = new FormData(this);
+
+                    if (formData.get('description') === 'Rút tiền khác') {
+                        formData.set('description', formData.get('custom_description'));
+                    }
+
+                    // Lấy mã ngân hàng từ data attribute
+                    const bankSelect = document.getElementById('bank-name');
+                    const selectedOption = bankSelect.options[bankSelect.selectedIndex];
+                    formData.set('bank_code', selectedOption.dataset.code);
+
+                    // ... phần còn lại của code xử lý submit ...
+                });
+    </script>
+    <script>
+        document.getElementById('withdrawForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var formData = new FormData(this);
+
+            if (formData.get('description') === 'Rút tiền khác') {
+                formData.set('description', formData.get('custom_description'));
+            }
+
+            fetch('{{ route('owners.request-payout') }}', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thành công!',
+                            text: data.message,
+                            confirmButtonText: 'Đóng'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Đóng modal hoặc làm mới trang nếu cần
+                                $('#withdrawModal').modal('hide');
+                                // Có thể thêm code để cập nhật UI ở đây
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi!',
+                            text: data.message,
+                            confirmButtonText: 'Đóng'
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi!',
+                        text: 'Có lỗi xảy ra khi xử lý yêu cầu.',
+                        confirmButtonText: 'Đóng'
+                    });
+                });
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/js/theme.js') }}"></script>
 

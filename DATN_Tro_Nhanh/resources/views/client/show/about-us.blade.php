@@ -801,116 +801,131 @@
                     đến chất lượng dịch vụ tốt nhất. Với đội ngũ chuyên nghiệp và kinh nghiệm lâu năm, chúng tôi luôn nỗ lực
                     để đáp ứng mọi nhu cầu của khách hàng.</p>
                 <div class="row mx-lg-n6 mt-8">
-                    <div class="col-md-4 col-sm-12 mb-md-7 mb-4 px-lg-6">
-                        <div class="card border-0 our-team text-center">
-                            <div class="rounded overflow-hidden bg-hover-overlay d-inline-block">
-                                <img class="card-img" src="{{ asset('assets/images/our-team-01.jpg') }}"
-                                    alt="Dollie Horton">
-                                <ul class="list-inline text-gray-lighter position-absolute w-100 m-0 p-0 z-index-2">
-                                    <li class="list-inline-item m-0">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mr-0 ml-2">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mr-0 ml-2">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-instagram"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mr-0 ml-2">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-linkedin-in"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="card-body pt-5">
-                                <h3 class="fs-22 text-heading lh-164 mb-0">
-                                    <a href="#" class="text-heading hover-primary">Nguyễn Hữu Thắng</a>
-                                </h3>
-                                <p class="m-0">Nhóm trưởng</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-12 mb-md-7 mb-4 px-lg-6">
-                        <div class="card border-0 our-team text-center">
-                            <div class="rounded overflow-hidden bg-hover-overlay d-inline-block">
-                                <img class="card-img" src="{{ asset('assets/images/our-team-02.jpg') }}"
-                                    alt="Dollie Horton">
-                                <ul class="list-inline text-gray-lighter position-absolute w-100 m-0 p-0 z-index-2">
-                                    <li class="list-inline-item m-0">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mr-0 ml-2">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mr-0 ml-2">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-instagram"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mr-0 ml-2">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-linkedin-in"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="card-body pt-5">
-                                <h3 class="fs-22 text-heading lh-164 mb-0">
-                                    <a href="#" class="text-heading hover-primary">Lê Minh Huy</a>
-                                </h3>
-                                <p class="m-0">Thành viên</p>
+                    @foreach ($usersWithRoleZero as $user)
+                        <div class="col-md-4 col-sm-12 mb-md-7 mb-4 px-lg-6">
+                            <div class="card border-0 our-team text-center h-100">
+                                <div class="rounded overflow-hidden bg-hover-overlay d-inline-block">
+                                    <div style="height: 300px; overflow: hidden;">
+                                        <img class="card-img-top img-fluid h-100 w-100" style="object-fit: cover;"
+                                            src="{{ $user->image && !is_string($user->image)
+                                                ? asset('assets/images/' . $user->image->first()->filename)
+                                                : ($user->image && is_string($user->image)
+                                                    ? asset('assets/images/' . $user->image)
+                                                    : asset('assets/images/our-team-04.jpg')) }}"
+                                            alt="{{ $user->name }}">
+                                    </div>
+                                    <ul class="list-inline text-gray-lighter position-absolute w-100 m-0 p-0 z-index-2">
+                                        <li class="list-inline-item m-0">
+                                            <a href="#"
+                                                class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
+                                                    class="fab fa-twitter"></i></a>
+                                        </li>
+                                        <li class="list-inline-item mr-0 ml-2">
+                                            <a href="#"
+                                                class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
+                                                    class="fab fa-facebook-f"></i></a>
+                                        </li>
+                                        <li class="list-inline-item mr-0 ml-2">
+                                            <a href="#"
+                                                class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
+                                                    class="fab fa-instagram"></i></a>
+                                        </li>
+                                        <li class="list-inline-item mr-0 ml-2">
+                                            <a href="#"
+                                                class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
+                                                    class="fab fa-linkedin-in"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-body pt-5">
+                                    <h3 class="fs-22 text-heading lh-164 mb-0">
+                                        <a href="#" class="text-heading hover-primary">{{ $user->name }}</a>
+                                    </h3>
+                                    <p class="m-0">{{ $user->email }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4 col-sm-12 mb-md-7 mb-4 px-lg-6">
-                        <div class="card border-0 our-team text-center">
-                            <div class="rounded overflow-hidden bg-hover-overlay d-inline-block">
-                                <img class="card-img" src="{{ asset('assets/images/our-team-03.jpg') }}"
-                                    alt="Dollie Horton">
-                                <ul class="list-inline text-gray-lighter position-absolute w-100 m-0 p-0 z-index-2">
-                                    <li class="list-inline-item m-0">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mr-0 ml-2">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mr-0 ml-2">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-instagram"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mr-0 ml-2">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-linkedin-in"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="card-body pt-5">
-                                <h3 class="fs-22 text-heading lh-164 mb-0">
-                                    <a href="#" class="text-heading hover-primary">Nguyễn Thái Toàn</a>
-                                </h3>
-                                <p class="m-0">Thành viên</p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
-                <div class="row">
+                @if ($usersWithRoleZero->hasPages())
+                    <div>
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination pagination-sm rounded-active justify-content-center">
+                                {{-- Liên kết Trang Đầu --}}
+                                <li class="page-item {{ $usersWithRoleZero->onFirstPage() ? 'disabled' : '' }}">
+                                    <a class="page-link hover-white" href="{{ $usersWithRoleZero->url(1) }}"
+                                        rel="first" aria-label="@lang('pagination.first')">
+                                        <i class="far fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+
+                                {{-- Liên kết Trang Trước --}}
+                                <li class="page-item {{ $usersWithRoleZero->onFirstPage() ? 'disabled' : '' }}">
+                                    <a class="page-link hover-white" href="{{ $usersWithRoleZero->previousPageUrl() }}"
+                                        rel="prev" aria-label="@lang('pagination.previous')">
+                                        <i class="far fa-angle-left"></i>
+                                    </a>
+                                </li>
+
+                                @php
+                                    $totalPages = $usersWithRoleZero->lastPage();
+                                    $currentPage = $usersWithRoleZero->currentPage();
+                                    $visiblePages = 2; // Số trang hiển thị ở giữa
+                                    $startPage = max(2, min($currentPage - 1, $totalPages - $visiblePages + 1));
+                                    $endPage = min(max($currentPage + 1, $visiblePages), $totalPages - 1);
+                                @endphp
+
+                                {{-- Trang đầu --}}
+                                <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                                    <a class="page-link hover-white" href="{{ $usersWithRoleZero->url(1) }}">1</a>
+                                </li>
+
+                                {{-- Dấu ba chấm đầu --}}
+                                @if ($currentPage > $visiblePages)
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                @endif
+
+                                {{-- Các trang giữa --}}
+                                @foreach (range($startPage, $endPage) as $i)
+                                    <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                        <a class="page-link hover-white"
+                                            href="{{ $usersWithRoleZero->url($i) }}">{{ $i }}</a>
+                                    </li>
+                                @endforeach
+
+                                {{-- Dấu ba chấm cuối --}}
+                                @if ($currentPage < $totalPages - $visiblePages)
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                @endif
+
+                                {{-- Trang cuối --}}
+                                @if ($totalPages > 1)
+                                    <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                                        <a class="page-link hover-white"
+                                            href="{{ $usersWithRoleZero->url($totalPages) }}">{{ $totalPages }}</a>
+                                    </li>
+                                @endif
+
+                                {{-- Liên kết Trang Tiếp --}}
+                                <li class="page-item {{ !$usersWithRoleZero->hasMorePages() ? 'disabled' : '' }}">
+                                    <a class="page-link hover-white" href="{{ $usersWithRoleZero->nextPageUrl() }}"
+                                        rel="next" aria-label="@lang('pagination.next')">
+                                        <i class="far fa-angle-right"></i>
+                                    </a>
+                                </li>
+
+                                {{-- Liên kết Trang Cuối --}}
+                                <li class="page-item {{ !$usersWithRoleZero->hasMorePages() ? 'disabled' : '' }}">
+                                    <a class="page-link hover-white" href="{{ $usersWithRoleZero->url($totalPages) }}"
+                                        rel="last" aria-label="@lang('pagination.last')">
+                                        <i class="far fa-angle-double-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                @endif
+                {{-- <div class="row">
                     <div class="col-lg-3 col-sm-6 mb-sm-0 mb-7">
                         <div class="card border-0 our-team text-center">
                             <div class="rounded overflow-hidden bg-hover-overlay d-inline-block">
@@ -947,115 +962,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-6 mb-sm-0 mb-7">
-                        <div class="card border-0 our-team text-center">
-                            <div class="rounded overflow-hidden bg-hover-overlay d-inline-block">
-                                <img class="card-img" src="{{ asset('assets/images/our-team-06.jpg') }}"
-                                    alt="Dollie Horton">
-                                <ul class="list-inline text-gray-lighter position-absolute w-100 m-0 p-0 z-index-2">
-                                    <li class="list-inline-item m-0">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mr-0 ml-2">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mr-0 ml-2">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-instagram"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mr-0 ml-2">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-linkedin-in"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="card-body pt-5">
-                                <h3 class="fs-16 text-heading mb-1 lh-2">
-                                    <a href="#" class="text-heading hover-primary">Võ Tấn Luôn</a>
-                                </h3>
-                                <p>Thành viên</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 mb-sm-0 mb-7">
-                        <div class="card border-0 our-team text-center">
-                            <div class="rounded overflow-hidden bg-hover-overlay d-inline-block">
-                                <img class="card-img" src="{{ asset('assets/images/our-team-05.jpg') }}"
-                                    alt="Dollie Horton">
-                                <ul class="list-inline text-gray-lighter position-absolute w-100 m-0 p-0 z-index-2">
-                                    <li class="list-inline-item m-0">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mr-0 ml-2">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mr-0 ml-2">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-instagram"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mr-0 ml-2">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-linkedin-in"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="card-body pt-5">
-                                <h3 class="fs-16 text-heading mb-1 lh-2">
-                                    <a href="#" class="text-heading hover-primary">Thành viên ảo 1</a>
-                                </h3>
-                                <p>Thành viên ảo 1</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 mb-sm-0 mb-7">
-                        <div class="card border-0 our-team text-center">
-                            <div class="rounded overflow-hidden bg-hover-overlay d-inline-block">
-                                <img class="card-img" src="{{ asset('assets/images/our-team-07.jpg') }}"
-                                    alt="Dollie Horton">
-                                <ul class="list-inline text-gray-lighter position-absolute w-100 m-0 p-0 z-index-2">
-                                    <li class="list-inline-item m-0">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mr-0 ml-2">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mr-0 ml-2">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-instagram"></i></a>
-                                    </li>
-                                    <li class="list-inline-item mr-0 ml-2">
-                                        <a href="#"
-                                            class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
-                                                class="fab fa-linkedin-in"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="card-body pt-5">
-                                <h3 class="fs-16 text-heading mb-1 lh-2">
-                                    <a href="#" class="text-heading hover-primary">Thành viên ảo 2</a>
-                                </h3>
-                                <p>Thành viên ảo 2</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
+                </div> --}}
             </div>
         </section>
         <section>

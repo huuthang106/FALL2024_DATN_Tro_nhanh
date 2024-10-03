@@ -37,14 +37,167 @@ class PaymentService
         // $this->vnpHashSecret = Config::get('payment.vnp_hash_secret'); // Secret key của VNPay
         $this->client = new Client([
             'base_uri' => $this->cassoBaseUri,
-            'timeout'  => 30,
+            'timeout' => 30,
             'verify' => false // Tắt xác minh SSL
         ]);
 
         // Lấy API key từ file .env
         $this->apiKey = env('CASSO_API_KEY');
     }
-    
+
+
+
+    public function createPayout($data)
+    {
+        DB::beginTransaction();
+
+        try {
+            $user = User::findOrFail($data['user_id']);
+
+            // Kiểm tra số dư
+            if ($user->balance < $data['amount']) {
+                throw new \Exception('Số dư không đủ để thực hiện giao dịch.');
+            }
+
+            // Cập nhật thông tin ngân hàng của user
+            $user->bank_name = $data['bank_name']; // Đã là tên đầy đủ của ngân hàng
+            $user->bank_account = $data['account_number'];
+            $user->card_holder_name = $data['card_holder_name'];
+            $user->save();
+
+            // Tạo yêu cầu rút tiền mới
+            $payout = new PayoutHistory();
+            $payout->fill($data);
+            $payout->status = '1'; // Đang xử lý
+            $payout->requested_at = now();
+
+            // Xử lý nội dung rút tiền
+            if (isset($data['description'])) {
+                $payout->description = $data['description'];
+            } elseif (isset($data['content'])) {
+                $payout->description = $data['content'];
+            }
+            $payout->save();
+
+            $notification = new Notification(); // Tạo đối tượng Notification
+            $notification->user_id = $user->id; // Lấy user_id từ payout
+            $notification->data = 'Đơn rút tiền của bạn đã được tạo';
+            $notification->type = 'Rút tiền';
+            $notification->save();
+
+            $transaction = new Transaction();
+            $transaction->user_id = $data['user_id'];
+            $transaction->added_funds = -$data['amount'];
+            $transaction->balance = $user->balance - $data['amount']; // Cập nhật số dư mới
+            $transaction->description = 'Rút tiền: ' . ($data['content'] ?? $data['description'] ?? '');
+            $transaction->save();
+
+            // Cập nhật số dư của user
+            $user->balance -= $data['amount'];
+            $user->save();
+
+            DB::commit();
+
+            return [
+                'success' => true,
+                'message' => 'Yêu cầu rút tiền đã được ghi nhận và số dư đã được cập nhật.',
+                'payout' => $payout,
+                'transaction' => $transaction
+            ];
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Lỗi chi tiết khi tạo yêu cầu rút tiền: ' . $e->getMessage());
+            return [
+                'success' => false,
+                'message' => 'Có lỗi xảy ra: ' . $e->getMessage()
+            ];
+        }
+    }
+
+    public function getUserBank()
+    {
+        $userId = Auth::user()->id;
+        $bankInformation = PayoutHistory::where('user_id', $userId)->get();
+        return $bankInformation;
+    }
+
+    public function getUserPayouts($userId)
+    {
+        return PayoutHistory::where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+    }
+
+    public function getPayouts()
+    {
+        return PayoutHistory::where('status', '!=', self::Dachuyentien) // Thêm điều kiện loại trừ status = 4
+            ->where('status', '!=', self::Dondatchoi) // Thêm điều kiện loại trừ status = 3
+            ->orderBy('created_at', 'desc') // Sắp xếp từ mới nhất tới cũ nhất
+            ->paginate(10);
+    }
+
+    public function rejectPayout(Request $request, $payoutID)
+    {
+        $request->validate([
+            'rejectionReason' => 'required|string|max:255',
+        ]);
+
+        try {
+            // Lấy thông tin payout
+            $payout = PayoutHistory::findOrFail($payoutID);
+
+            // Cập nhật trạng thái
+            $payout->status = 3; // Trạng thái từ chối
+            $payout->save();
+
+            // Cập nhật số dư cho người dùng
+            $user = User::findOrFail($payout->user_id);
+            $user->balance += $payout->amount; // Cộng số tiền vào balance
+            $user->save();
+
+            // Tạo thông báo cho người dùng
+            $notification = new Notification(); // Tạo đối tượng Notification
+            $notification->user_id = $user->id; // Lấy user_id từ payout
+            $notification->data = 'Đơn rút tiền của bạn đã bị từ chối. Lý do: ' . $request->rejectionReason;
+            $notification->type = 'Rút tiền';
+            $notification->save();
+            $addPay = $payout->amount;
+            // Lưu vào bảng transactions
+            $transaction = new Transaction(); // Tạo đối tượng Transaction
+            $transaction->user_id = $user->id; // Lấy user_id
+            $transaction->added_funds = '+' . $addPay; // Chuyển $addPay thành chuỗi với dấu +
+            $transaction->balance = $user->balance; // Lấy balance sau khi cập nhật
+            $transaction->description = 'Từ chối đơn rút tiền'; // Mô tả giao dịch
+            $transaction->save(); // Lưu giao dịch
+
+            return true; // Trả về true nếu thành công
+        } catch (\Exception $e) {
+            // Xử lý lỗi nếu có
+            return false; // Trả về false nếu có lỗi
+        }
+    }
+
+    public function statusPayouts($payoutID)
+    {
+        try {
+            $payoutMoved = PayoutHistory::findOrFail($payoutID); // Lấy đối tượng PayoutHistory
+            $payoutMoved->status = self::Dachuyentien; // Cập nhật status
+            $payoutMoved->save(); // Lưu thay đổi
+
+            // Tạo notification cho user
+            $userId = $payoutMoved->user_id; // Lấy user_id từ payout
+            $notification = new Notification(); // Tạo đối tượng Notification
+            $notification->user_id = $userId;
+            $notification->data = 'Đơn rút tiền của bạn đã được duyệt và tiền đã được chuyển.';
+            $notification->type = 'Rút tiền';
+            $notification->save(); // Lưu thông báo
+            return true; // Trả về true nếu thành công
+        } catch (\Exception $e) {
+            // Xử lý lỗi nếu có
+            return false; // Trả về false nếu có lỗi
+        }
+    }
+
 
     public function processCheckout()
     {

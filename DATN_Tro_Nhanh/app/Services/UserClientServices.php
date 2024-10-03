@@ -115,7 +115,7 @@ class UserClientServices
         // Lấy user hiện tại
         $user = Auth::user();
     
-        // Kiểm tra nếu user tồn tại và lấy balance
+        // Kiểm tra nếu user tồn tại và lấy balanceviết se
         if ($user) {
             return $user->balance; // Trả về số dư của người dùng
         }
@@ -150,6 +150,11 @@ class UserClientServices
         return null;
     }
 }
-    
+public function getUsersWithRoleZero($limit = 10)
+{
+    return User::where('role', 0)
+        ->orderBy('created_at', 'desc')
+        ->paginate($limit);
+}
     
 }   
