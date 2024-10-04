@@ -100,4 +100,8 @@ class User extends Authenticatable
             'id' // Local key on Contact table
         );
     }
+    public function identity()
+{
+    return $this->hasOne(Identity::class);
+}
 }

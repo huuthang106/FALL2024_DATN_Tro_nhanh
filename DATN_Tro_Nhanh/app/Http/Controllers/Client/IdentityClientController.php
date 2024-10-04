@@ -81,4 +81,5 @@ class IdentityClientController extends Controller
             return redirect()->back()->with(['error' => 'Đã xảy ra lỗi, dịch vụ không được khởi tạo thành công.']);
         }
     }
+   
 }

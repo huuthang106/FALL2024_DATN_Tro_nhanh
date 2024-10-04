@@ -22,4 +22,6 @@ Route::group(['prefix' => '', 'as' => 'profile.'], function () {
     Route::get('/dang-ky-ekyc', [UserOwnersController::class, 'page_resigter_ekyc'])->name('resigter-ekyc');
     Route::get('/thong-tin-ekyc', [UserOwnersController::class, 'information_page_ekyc'])->name('information-ekyc');
     Route::delete('/xoa-thong-tin-ekyc', [UserOwnersController::class, 'clear_information'])->name('clear-information');
+    Route::post('/cong-khai-thong-tin', [UserOwnersController::class, 'toggleVisibility'])->name('toggle-visibility');
+    Route::get('/check-identity-status/{id}', [UserOwnersController::class, 'checkStatus']);
 });

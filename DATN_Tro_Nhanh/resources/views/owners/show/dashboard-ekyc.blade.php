@@ -1,17 +1,7 @@
 @extends('layouts.owner')
 @section('titleOwners', 'Thông Tin Đăng Ký | TRỌ NHANH')
 @section('contentOwners')
-    @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
-
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+    
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
             <div class="mb-6">
@@ -44,15 +34,70 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <form action="{{ route('owners.profile.clear-information') }}" method="POST">
-                                        @csrf
-                                        @method('DELETE') <!-- Sử dụng phương thức DELETE -->
-
-                                        <div class="form-group d-flex justify-content-end">
+                                    <div class="form-group d-flex justify-content-end">
+                                        <button type="button" class="btn btn-primary mr-2" data-toggle="modal"
+                                            data-target="#imageModal">
+                                            Xem ảnh định danh
+                                        </button>
+                                        <form id="toggleVisibilityForm" action="{{ route('owners.profile.toggle-visibility') }}" method="POST" class="mr-2">
+                                            @csrf
+                                            @method('POST')
+                                            <button type="button" onclick="confirmToggleVisibility({{ $information->status }})" class="btn {{ $information->status == 1 ? 'btn-primary' : 'btn-primary' }}">
+                                                {{ $information->status == 1 ? 'Công khai thông tin' : 'Ẩn thông tin' }}
+                                            </button>
+                                        </form>
+                                        @if(session('success'))
+                                        <div id="successMessage" data-message="{{ session('success') }}" style="display: none;"></div>
+                                    @endif
+                                
+                                    @if(session('error'))
+                                        <div id="errorMessage" data-message="{{ session('error') }}" style="display: none;"></div>
+                                    @endif
+                                        <form action="{{ route('owners.profile.clear-information') }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
                                             <button type="submit" class="btn btn-danger">Xóa thông tin</button>
-                                        </div>
-                                    </form>
+                                        </form>
+                                    </div>
 
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog"
+                                        aria-labelledby="imageModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="imageModalLabel">Ảnh định danh</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    @if (!empty($images))
+                                                        <div class="row">
+                                                            @foreach ($images as $image)
+                                                                <div class="col-12 col-md-6 mb-4">
+                                                                    <div class="image-wrapper">
+                                                                        <a href="{{ asset('assets/images/register_owner/' . $image) }}" data-fancybox="gallery">
+                                                                            <img src="{{ asset('assets/images/register_owner/' . $image) }}"
+                                                                                 alt="Identity Image"
+                                                                                 class="img-fluid rounded shadow-sm w-100">
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    @else
+                                                        <p class="text-muted">Không có ảnh định danh.</p>
+                                                    @endif
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Đóng</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             @else
                                 <div class="text-center d-flex justify-content-center">
@@ -156,6 +201,19 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
+    <style>
+        .image-wrapper {
+            height: 300px; /* Hoặc bất kỳ chiều cao cố định nào bạn muốn */
+            overflow: hidden;
+            background-color: #f8f9fa; /* Màu nền cho khoảng trống */
+        }
+        .image-wrapper img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+    </style>
 @endpush
 @push('scriptOwners')
     <!-- Vendors scripts -->
@@ -174,4 +232,12 @@
     <script src="{{ asset('assets/vendors/jparallax/TweenMax.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    <script src="{{ asset('assets/js/public-information.js') }}"></script>
+    <script>
+        Fancybox.bind("[data-fancybox]", {
+            // Tùy chọn của Fancybox
+        });
+    </script>
 @endpush

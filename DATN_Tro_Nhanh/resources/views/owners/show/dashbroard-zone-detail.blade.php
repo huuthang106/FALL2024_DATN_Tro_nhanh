@@ -19,10 +19,7 @@
                                         class="fal fa-search"></i></button>
                             </div>
                         </div>
-                        <div class="align-self-center">
-                            <button class="btn btn-danger btn-lg" tabindex="0"
-                                aria-controls="invoice-list"><span>Xóa</span></button>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -43,13 +40,15 @@
                                     <th class="py-6 text-start" style="white-space: nowrap;">Số điện thoại</th>
                                     {{-- <th class="py-6 text-start">Lý do từ chối</th> --}}
                                     <th class="py-6 text-start" style="white-space: nowrap;">Trạng thái</th>
-                                    <th class="py-6 text-start text-center">Thao tác</th>
+                                    <th class="py-6 text-start" style="white-space: nowrap;">Xem hồ sơ</th>
+                                    <th class="py-6 text-start ">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if ($rooms->isEmpty())
                                     <tr>
-                                        <td colspan="6" class="text-center" style="white-space: nowrap;">Khu vực chưa có phòng trọ nào.</td>
+                                        <td colspan="6" class="text-center" style="white-space: nowrap;">Khu vực chưa có
+                                            phòng trọ nào.</td>
                                     </tr>
                                 @else
                                     @foreach ($rooms as $room)
@@ -60,17 +59,23 @@
                                                         class="new-control-input chk-parent select-customers-info">
                                                 </label>
                                             </td>
-                                            <td class="align-middle" style="white-space: nowrap;"><small>{{ $room->title }}</small></td>
                                             <td class="align-middle" style="white-space: nowrap;">
-                                                <small>
-                                                    @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
-                                                        {{ $room->residents->where('status', $user_is_in)->first()->tenant->name ?? 'Không có tên' }}
-                                                    @else
-                                                        Không có người ở
-                                                    @endif
-                                                </small>
-
-                                            </td>
+                                                <small>{{ $room->title }}</small></td>
+                                                <td class="align-middle" style="white-space: nowrap;">
+                                                    <small>
+                                                        @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
+                                                            @php
+                                                                $resident = $room->residents
+                                                                    ->where('status', $user_is_in)
+                                                                    ->first();
+                                                                $tenant = $resident->tenant;
+                                                            @endphp
+                                                            {{ $tenant->name ?? 'Không có tên' }}
+                                                        @else
+                                                            Không có người ở
+                                                        @endif
+                                                    </small>
+                                                </td>
                                             <td class="align-middle" style="white-space: nowrap;"> <small>
                                                     @if ($room->residents && $room->residents->isNotEmpty())
                                                         {{ $room->residents->first()->tenant->phone ?? 'Không có' }}
@@ -78,8 +83,8 @@
                                                         Phòng trống
                                                     @endif
                                                 </small></td>
-                                           
-                                                {{-- <td class="align-middle">
+
+                                            {{-- <td class="align-middle">
                                                     <small>
                                                         @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
                                                             <span class="badge badge-green text-capitalize">Đang tạm trú</span>
@@ -103,6 +108,18 @@
                                                         $resident = $room->residents->first();
                                                     @endphp
                                                     @if ($resident->status == $user_is_in)
+                                                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#identityModal{{ $resident->tenant->id }}">
+                                                            Xem hồ sơ
+                                                        </button>
+                                                    @endif
+                                                @endif
+                                            </td>
+                                            <td class="align-middle" style="white-space: nowrap;">
+                                                @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
+                                                    @php
+                                                        $resident = $room->residents->first();
+                                                    @endphp
+                                                    @if ($resident->status == $user_is_in)
                                                         <button type="button" class="btn btn-primary btn-sm"
                                                             data-toggle="modal"
                                                             data-target="#invoiceModal{{ $resident->id }}">
@@ -117,7 +134,6 @@
                                                         </form>
                                                     @endif
                                                 @endif
-
                                             </td>
                                         </tr>
                                     @endforeach
@@ -189,7 +205,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="invoiceModalLabel{{ $resident->tenant->id }}">Tạo hóa đơn cho
-                            {{ $resident->tenant->id }}
+
                             {{ $resident->tenant->name }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -263,6 +279,52 @@
                 </div>
             </div>
         </div>
+    @endforeach
+    @foreach ($rooms as $room)
+        @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
+            @php
+                $resident = $room->residents->where('status', $user_is_in)->first();
+                $tenant = $resident->tenant;
+            @endphp
+            <div class="modal fade" id="identityModal{{ $tenant->id }}" tabindex="-1" role="dialog"
+                aria-labelledby="identityModalLabel{{ $tenant->id }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="identityModalLabel{{ $tenant->id }}">Ảnh định danh của
+                                {{ $tenant->name }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            @php
+                                $images = $tenant->identity ? $tenant->identity->imgmember : collect();
+                            @endphp
+                            @if ($tenant->identity && $tenant->identity->status == 2 && $images->isNotEmpty())
+                                <div class="row">
+                                    @foreach ($images as $image)
+                                        <div class="col-md-6 mb-3">
+                                            <a href="{{ asset('assets/images/register_owner/' . $image->filename) }}"
+                                                data-fancybox="gallery">
+                                                <img src="{{ asset('assets/images/register_owner/' . $image->filename) }}"
+                                                    alt="Identity Image" class="img-fluid">
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <div class="text-center mt-3">
+                                    <button class="btn btn-primary download-all-images"
+                                        data-tenant-id="{{ $tenant->id }}">Tải tất cả ảnh</button>
+                                </div>
+                            @else
+                                <p>Không có ảnh định danh hoặc thông tin chưa được công khai.</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     @endforeach
 @endsection
 
@@ -350,6 +412,7 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
 @endpush
 @push('scriptOwners')
     <!-- Vendors scripts -->
@@ -367,6 +430,7 @@
     <script src="{{ asset('assets/vendors/hc-sticky/hc-sticky.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/jparallax/TweenMax.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
     {{-- <script src="{{ asset('assets/js/jquery.dataTables.min.js') }}"></script> --}}
     {{-- <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script>
@@ -384,4 +448,57 @@
     </script>
     <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
     {{-- <script src="{{ asset('assets/js/alert-report.js') }}"></script> --}}
+    <script>
+        Fancybox.bind("[data-fancybox]", {
+            // Tùy chọn của Fancybox
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script>
+         document.addEventListener('DOMContentLoaded', function() {
+            var downloadButtons = document.querySelectorAll('.download-all-images');
+            downloadButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var tenantId = this.getAttribute('data-tenant-id');
+                    downloadImages(tenantId);
+                });
+            });
+        });
+
+        function downloadImages(tenantId) {
+            var zip = new JSZip();
+            var imagePromises = [];
+
+            // Tìm tất cả các ảnh trong modal của tenant cụ thể
+            var modal = document.getElementById('identityModal' + tenantId);
+            var images = modal.querySelectorAll('img');
+
+            images.forEach(function(img, index) {
+                var imageUrl = img.src;
+                var fileExtension = imageUrl.split('.').pop().split(/\#|\?/)[0];
+                var imageName = 'anh_' + (index + 1) + '.' + fileExtension;
+
+                imagePromises.push(
+                    fetch(imageUrl)
+                        .then(response => response.blob())
+                        .then(blob => {
+                            // Sử dụng MIME type của blob để xác định định dạng file
+                            var mimeType = blob.type;
+                            var fileExtension = mimeType.split('/')[1];
+                            if (fileExtension === 'jpeg') fileExtension = 'jpg';
+                            imageName = 'anh_' + (index + 1) + '.' + fileExtension;
+                            return zip.file(imageName, blob);
+                        })
+                );
+            });
+            Promise.all(imagePromises).then(() => {
+                zip.generateAsync({
+                    type: 'blob'
+                }).then(function(content) {
+                    saveAs(content, '{{ $tenant->name }}_identity_images.zip');
+                });
+            });
+        }
+    </script>
 @endpush

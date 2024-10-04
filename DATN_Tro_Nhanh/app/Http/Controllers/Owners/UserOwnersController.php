@@ -13,7 +13,7 @@ use App\Services\RegistrationService;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Identity;
 use App\Models\RegistrationList;
-
+use App\Models\Image;
 class UserOwnersController extends Controller
 {
     protected $userClientServices;
@@ -42,7 +42,7 @@ class UserOwnersController extends Controller
         try {
             $data = $request->validated();
             $result = $this->profileService->updateProfileBySlug($id, $data);
-    
+
             return response()->json($result, $result['success'] ? 200 : 400);
         } catch (\Exception $e) {
             return response()->json([
@@ -91,7 +91,28 @@ class UserOwnersController extends Controller
     {
         $userId = auth()->id();
         $information = Identity::where('user_id', $userId)->first();
-        return view('owners.show.dashboard-ekyc', compact('information'));
+
+        $images = [];
+        if ($information) {
+            $images = Image::where('identity_id', $information->id)->pluck('filename')->toArray();
+        }
+
+        return view('owners.show.dashboard-ekyc', compact('information', 'images'));
+    }
+    public function toggleVisibility()
+    {
+        $userId = auth()->id();
+        $identity = Identity::where('user_id', $userId)->first();
+
+        if ($identity) {
+            $identity->status = $identity->status == 1 ? 2 : 1;
+            $identity->save();
+
+            $message = $identity->status == 2 ? 'Thông tin đã được công khai.' : 'Thông tin đã được ẩn.';
+            return redirect()->back()->with('success', $message);
+        }
+
+        return redirect()->back()->with('error', 'Không tìm thấy thông tin để thay đổi trạng thái.');
     }
 
     public function clear_information()
