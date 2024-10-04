@@ -50,7 +50,7 @@
                                 </div>
 
                                 <div class="form-group mb-4">
-                                    <label for="password" class="sr-only">Mật khẩu</label>
+                                    <label for="login-password" class="sr-only">Mật khẩu</label>
                                     <div class="input-group input-group-lg">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
@@ -59,15 +59,14 @@
                                         </div>
                                         <input type="password"
                                             class="form-control border-0 shadow-none fs-13 @error('password') is-invalid @enderror"
-                                            id="password" name="password" required placeholder="Mật khẩu">
+                                            id="login-password" name="password" required placeholder="Mật khẩu">
                                         <div class="input-group-append">
-                                            <span class="input-group-text bg-gray-01 border-0 text-body fs-18">
+                                            <span class="input-group-text bg-gray-01 border-0 text-body fs-18 toggle-password" style="cursor: pointer;">
                                                 <i class="far fa-eye-slash"></i>
                                             </span>
                                         </div>
                                     </div>
                                     <div id="login-password-error" class="text-danger custom-margin-l"></div>
-                                    <!-- ID khác cho lỗi -->
                                 </div>
                                 <div></div>
                                 <a href="{{ route('password.request') }}" class="d-block text-right ">Quên mật khẩu?</a>
@@ -143,7 +142,7 @@
                                 </div>
 
                                 <div class="form-group mb-4">
-                                    <label for="password01" class="sr-only">Mật khẩu</label>
+                                    <label for="register-password" class="sr-only">Mật khẩu</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text bg-gray-01 border-0 text-muted fs-18">
@@ -152,10 +151,14 @@
                                         </div>
                                         <input type="password"
                                             class="form-control border-0 shadow-none fs-13 @error('password') is-invalid @enderror"
-                                            id="password01" name="password" required placeholder="Mật khẩu">
+                                            id="register-password" name="password" required placeholder="Mật khẩu">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text bg-gray-01 border-0 text-body fs-18 toggle-password" style="cursor: pointer;">
+                                                <i class="far fa-eye-slash"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                     <div id="register-password-error" class="text-danger custom-margin-left"></div>
-                                    <!-- Phần tử lỗi dưới input -->
                                 </div>
 
                                 <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng ký</button>
@@ -192,7 +195,7 @@
                             </div>
                             <div class="mt-2">Bằng cách tạo tài khoản, bạn đồng ý với <a class="text-heading"
                                     href="#"><u>Các điều khoản sử dụng</u></a> và <a class="text-heading"
-                                    href="#"><u>Chính sách bảo mật</u></a> của HomeID.
+                                    href="#"><u>Chính sách bảo mật</u></a> của TroNhanh.
                             </div>
                         </div>
                     </div>
@@ -553,3 +556,4 @@
         </div>
     </header>
 </div>
+

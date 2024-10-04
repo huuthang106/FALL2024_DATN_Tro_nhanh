@@ -568,5 +568,32 @@
     });
     });
 </script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('navSearchForm');
+    if (form) {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            console.log('Form submitted');
+            searchNav();
+        });
+    } else {
+        console.error('Form with id navSearchForm not found');
+    }
+});
+
+function searchNav() {
+    console.log('searchNav function called');
+    const searchTerm = document.getElementById('navSearchInput').value.toLowerCase();
+    const navItems = document.querySelectorAll('.list-group-item');
+
+    navItems.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        if (text.includes(searchTerm)) {
+            item.style.display = '';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}</script>
 
 </html>

@@ -25,3 +25,4 @@ Route::group(['prefix' => 'nguoi-dang-tin'], function () {
 
 Route::get('/auth/google', [UserClientController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/google/callback', [UserClientController::class, 'handleGoogleCallback']);
+Route::get('/auth/google/cancel', [UserClientController::class, 'handleGoogleCancel'])->name('cancel');

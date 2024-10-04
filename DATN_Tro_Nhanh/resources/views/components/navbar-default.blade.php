@@ -48,7 +48,6 @@
                                     <div id="login-email-error" class="text-danger custom-margin-l"></div>
                                     <!-- ID khác cho lỗi -->
                                 </div>
-
                                 <div class="form-group mb-4">
                                     <label for="password" class="sr-only">Mật khẩu</label>
                                     <div class="input-group input-group-lg">
@@ -61,7 +60,7 @@
                                             class="form-control border-0 shadow-none fs-13 @error('password') is-invalid @enderror"
                                             id="password" name="password" required placeholder="Mật khẩu">
                                         <div class="input-group-append">
-                                            <span class="input-group-text bg-gray-01 border-0 text-body fs-18">
+                                            <span class="input-group-text bg-gray-01 border-0 text-body fs-18 toggle-password" style="cursor: pointer;">
                                                 <i class="far fa-eye-slash"></i>
                                             </span>
                                         </div>
@@ -152,6 +151,11 @@
                                         <input type="password"
                                             class="form-control border-0 shadow-none fs-13 @error('password') is-invalid @enderror"
                                             id="password01" name="password" required placeholder="Mật khẩu">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text bg-gray-01 border-0 text-body fs-18 toggle-password" style="cursor: pointer;">
+                                                <i class="far fa-eye-slash"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                     <div id="register-password-error" class="text-danger custom-margin-left"></div>
                                     <!-- Phần tử lỗi dưới input -->

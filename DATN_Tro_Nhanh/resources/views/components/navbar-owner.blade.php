@@ -257,7 +257,7 @@
                     @endif
 
                     <li class="list-group-item pt-6 pb-4">
-                        <h5 class="fs-13 letter-spacing-087 text-muted mb-3 text-uppercase px-3">QUẢN LÝ TÀI KHOẢN
+                        <h5 class="fs-13 letter-spacing-087 text-muted mb-3 text-uppercase px-3">Quản lý tài khoản
                         </h5>
                         <ul class="list-group list-group-no-border rounded-lg">
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
@@ -506,14 +506,15 @@
         <div class="container-fluid">
             <nav class="navbar navbar-light py-0 row no-gutters px-3 px-lg-0">
                 <div class="col-md-4 px-0 px-md-6 order-1 order-md-0">
-                    <form>
+                    <form id="navSearchForm" onsubmit="event.preventDefault(); searchNav();">
                         <div class="input-group">
                             <div class="input-group-prepend mr-0">
-                                <button class="btn border-0 shadow-none fs-20 text-muted p-0" type="submit"><i
-                                        class="far fa-search"></i></button>
+                                <button class="btn border-0 shadow-none fs-20 text-muted p-0" type="submit">
+                                    <i class="far fa-search"></i>
+                                </button>
                             </div>
-                            <input type="text" class="form-control border-0 bg-transparent shadow-none"
-                                placeholder="Tìm  kiếm..." name="search">
+                            <input type="text" id="navSearchInput" class="form-control border-0 bg-transparent shadow-none"
+                                placeholder="Tìm kiếm..." name="search">
                         </div>
                     </form>
                 </div>

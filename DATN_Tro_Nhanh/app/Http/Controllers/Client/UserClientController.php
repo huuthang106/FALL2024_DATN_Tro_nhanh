@@ -196,21 +196,30 @@ class UserClientController extends Controller
     ));
 }
 
-    public function redirectToGoogle()
-    {
-        return Socialite::driver('google')->redirect();
-    }
+public function redirectToGoogle()
+{
+    return Socialite::driver('google')
+        ->with(['cancel_url' => route('client.cancel')])
+        ->redirect();
+}
 
-    public function handleGoogleCallback()
-    {
-        try {
-            $this->socialAuthService->handleGoogleCallback();
-            return redirect()->route('home')->with('success', 'Login successful with Google!');
-        } catch (\Exception $e) {
-            return redirect()->route('login')->withErrors(['error' => $e->getMessage()]);
+public function handleGoogleCallback()
+{
+    try {
+        $this->socialAuthService->handleGoogleCallback();
+        return redirect()->route('home')->with('success', 'Đăng nhập thành công bằng Google!');
+    } catch (\Exception $e) {
+        if ($e->getCode() == 100) { // Mã lỗi tùy chỉnh cho việc hủy đăng nhập
+            return redirect()->route('client.cancel');
         }
+        return redirect()->route('client.home')->withErrors(['error' => 'Có lỗi xảy ra khi đăng nhập bằng Google. Vui lòng thử lại.']);
     }
-
+}
+    public function handleGoogleCancel()
+    {
+        return redirect()->route('home')->with('info', 'Bạn đã hủy đăng nhập bằng Google. Vui lòng thử lại nếu bạn muốn đăng nhập.');
+    }
+    
     public function register_user(RegisterRequest $request)
     {
         try {

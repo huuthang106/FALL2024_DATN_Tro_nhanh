@@ -81,4 +81,20 @@ $(document).ready(function () {
         });
     });
 });
-
+document.addEventListener('DOMContentLoaded', function() {
+    const togglePasswordButtons = document.querySelectorAll('.toggle-password');
+    
+    togglePasswordButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const passwordField = this.closest('.input-group').querySelector('input');
+            
+            // Chuyển đổi loại input
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            
+            // Chuyển đổi biểu tượng
+            this.querySelector('i').classList.toggle('fa-eye-slash');
+            this.querySelector('i').classList.toggle('fa-eye');
+        });
+    });
+});

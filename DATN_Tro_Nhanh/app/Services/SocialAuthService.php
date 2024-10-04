@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class SocialAuthService
 {
@@ -18,7 +19,20 @@ class SocialAuthService
     public function handleGoogleCallback()
     {
         try {
-            $google_user = Socialite::driver('google')->user();
+              // Kiểm tra xem người dùng đã hủy quá trình đăng nhập chưa
+        if (request()->has('error') && request()->get('error') == 'access_denied') {
+            Log::info('Người dùng đã hủy đăng nhập Google');
+            throw new \Exception('Đăng nhập bằng Google đã bị hủy bởi người dùng');
+        }
+
+        // Kiểm tra xem có tham số 'code' trong request không
+        if (!request()->has('code')) {
+            Log::error('Google callback: Thiếu tham số code');
+            throw new \Exception('Thiếu tham số xác thực từ Google');
+        }
+
+        $google_user = Socialite::driver('google')->user();
+        
             $user = User::where('google_id', $google_user->getId())->first();
 
             if (!$user) {
