@@ -27,10 +27,10 @@ class IndexOwnersController extends Controller
 public function indexBill()
 {
     $currentUserRole = Auth::user()->role; // Lấy role của user hiện tại
-    $bills = $this->BillService->getBillsByCreatorId(); // Lấy danh sách hóa đơn của user hiện tại
+
 
     // Truyền biến $bills và $currentUserRole sang view
-    return view('owners.show.dashboard-invoice-bill', compact('bills', 'currentUserRole'));
+    return view('owners.show.dashboard-invoice-bill', compact('currentUserRole'));
 }
 
 

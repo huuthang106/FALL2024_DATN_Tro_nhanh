@@ -17,7 +17,7 @@ class ResidentService
 
         if ($existingResident) {
             // Nếu cư dân đã tồn tại, ném lỗi
-            throw new Exception("Bạn đã đăng ký khu trọ khác");
+            throw new Exception("Bạn đã gửi đơn rồi!");
         }
 
         // Tạo thông tin cư dân mới

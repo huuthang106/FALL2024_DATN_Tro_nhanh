@@ -114,7 +114,11 @@
     <script src="{{ asset('assets/vendors/jparallax/TweenMax.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
-
+    <script>
+        Livewire.on('filterUpdated', () => {
+            // Thực hiện hành động khi bộ lọc được cập nhật
+        });
+    </script>
     <!-- Theme scripts -->
     <script></script>
     <script src="{{ asset('assets/js/theme.js') }}"></script>
@@ -126,4 +130,9 @@
     <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
     <script src="{{ asset('assets/js/alert-report.js') }}"></script>
     <script src="{{ asset('assets/js/confirm.js') }}"></script>
+    <script>
+        Livewire.on('updated', () => {
+            console.log('Livewire updated event fired!');
+        });
+    </script>
 @endpush

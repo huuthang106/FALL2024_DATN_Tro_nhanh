@@ -100,12 +100,12 @@
 
                                     <td class="align-middle text-nowrap">
                                         <span class="inv-amount">
-                                            @if ($zone->room_count < 0)
-                                                {{ -$zone->room_count }}
-                                            @else
+                                            {{-- @if ($zone->room_count < 0) --}}
+                                                {{ $zone->room_count }}
+                                            {{-- @else
                                                 <span class="badge badge-yellow text-capitalize">Chưa hoạt
                                                     động</span>
-                                            @endif
+                                            @endif --}}
                                         </span>
                                     </td>
                                     <td class="align-middle text-nowrap">

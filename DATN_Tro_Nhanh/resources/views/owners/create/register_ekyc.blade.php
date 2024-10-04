@@ -4,7 +4,7 @@
     @if ($isRegistered)
         <div class="text-center my-5">
             <h2 class="text-heading fs-22 lh-15 mb-3">Cảm ơn bạn!</h2>
-            <p class="mb-4 text-muted">Bạn đã đăng ký eKYC.</p>
+            <p class="mb-4 text-muted">Bạn bổ sung đur thông tin.</p>
         </div>
     @else
         <main id="content" class="bg-gray-01">

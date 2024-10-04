@@ -106,6 +106,7 @@ class BillService
         $address = $user->address;
         // Lấy thông tin bill theo slug
         $bill = Bill::where('id', $id)->first();
+        // dd($bill);
         $totalAmount = $bill->sum('amount');
         return [
             'bill' => $bill,

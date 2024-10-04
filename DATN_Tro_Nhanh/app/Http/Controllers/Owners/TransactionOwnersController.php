@@ -20,10 +20,11 @@ class TransactionOwnersController extends Controller
     }
 
     
-    public function index()
+    public function index(Request $request)
     {
+        $payload = $request->json()->all();
         // Gọi service để lấy giao dịch từ Casso
-        $apiResponse = $this->cassoService->getTransactions();
+        $apiResponse = $this->cassoService->getTransactions($payload);
 
         // Lấy danh sách giao dịch của người dùng
         $transactions = $this->cassoService->getUserTransactions();

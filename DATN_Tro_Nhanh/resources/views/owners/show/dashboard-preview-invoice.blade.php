@@ -148,13 +148,13 @@
                                     </div>
                                     @if ($status == 1)
                                         <div class="col-12 mb-3">
-                                            <a href="dashboard-edit-invoice.html" class="btn btn-dark btn-edit btn-block">Chỉnh sửa hóa đơn</a>
+                                            <a href="#" class="btn btn-dark btn-edit btn-block">Chỉnh sửa hóa đơn</a>
                                         </div>
                                     @endif
                                 @endif
                             </div>
                     
-                            @if (Auth::user()->role == 1 && $bill->status != 2)
+                            @if (Auth::id() != $bill->creator_id && $bill->status != 2)
                                 <div class="row mt-3"> 
                                     <div class="col-12 d-flex flex-column justify-content-end">
                                         <button type="submit" class="btn btn-danger btn-print btn-block">Thanh Toán</button>

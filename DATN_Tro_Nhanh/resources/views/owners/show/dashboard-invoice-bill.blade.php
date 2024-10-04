@@ -1,7 +1,7 @@
 @extends('layouts.owner')
 @section('titleOwners', 'Danh Sách Hóa Đơn | TRỌ NHANH')
 @section('contentOwners')
-    @if (session('error'))
+    {{-- @if (session('error'))
         <div class="alert alert-danger">
             {{ session('error') }}
         </div>
@@ -11,171 +11,8 @@
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
-    @endif
-    <main id="content" class="bg-gray-01">
-        <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
-            <div class="mb-6">
-                <div class="row">
-                    <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
-                        <div class="d-flex form-group mb-0 align-items-center">
-                            <label for="invoice-list_length" class="d-block mr-2 mb-0">Kết quả:</label>
-                            <select name="invoice-list_length" id="invoice-list_length" aria-controls="invoice-list"
-                                class="form-control form-control-lg mr-2 selectpicker"
-                                data-style="bg-white btn-lg h-52 py-2 border">
-                                <option value="7">7</option>
-                                <option value="10">10</option>
-                                <option value="20">20</option>
-                                <option value="50">50</option>
-                            </select>
-                        </div>
-
-                    </div>
-                    <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
-                        <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
-                            <input type="text" class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..."
-                                aria-label="" aria-describedby="basic-addon1">
-                            <div class="input-group-append position-absolute pos-fixed-right-center">
-                                <button class="btn bg-transparent border-0 text-gray lh-1" type="button"><i
-                                        class="fal fa-search"></i></button>
-                            </div>
-                        </div>
-                        <div class="align-self-center">
-                            <button class="btn btn-danger btn-lg" tabindex="0"
-                                aria-controls="invoice-list"><span>Xóa</span></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="table-responsive">
-                <table id="invoice-list" class="table table-hover bg-white border rounded-lg">
-                    <thead>
-                        <tr role="row">
-                            <th class="no-sort py-6 pl-6"><label class="new-control new-checkbox checkbox-primary m-auto">
-                                    <input type="checkbox" class="new-control-input chk-parent select-customers-info">
-                                </label></th>
-
-                            {{-- @if ($currentUserRole != 1)  
-                                <th class="py-6">Người Nhận</th>
-                            @else --}}
-                            <th class="py-6" style="white-space: nowrap;">Tên Người Nhận</th>
-                            {{-- @endif --}}
-                            <th class="py-6" style="white-space: nowrap;"q>Nội Dung</th>
-                            <th class="py-6" style="white-space: nowrap;">Giá</th>
-
-                            <th class="py-6" style="white-space: nowrap;">Ngày tạo đơn</th>
-                            <th class="py-6" style="white-space: nowrap;">Ngày thanh toán</th>
-                            <th class="py-6" style="white-space: nowrap;">Trạng thái</th>
-                            <th class="no-sort py-6" style="white-space: nowrap;">Thao tác</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @foreach ($bills as $bill)
-                            <tr role="row">
-                                <td class="checkbox-column py-6 pl-6">
-                                    <label class="new-control new-checkbox checkbox-primary m-auto">
-                                        <input type="checkbox" class="new-control-input child-chk select-customers-info"
-                                            value="{{ $bill->id }}">
-                                    </label>
-                                </td>
-                                <td class="align-middle">
-                                    <div class="d-flex align-items-center">
-                                        <a href="{{ route('owners.invoice-preview', $bill->id) }}">
-
-                                            <p class="align-self-center mb-0 user-name">{{ $bill->payer->name }}</p>
-
-                                        </a>
-                                    </div>
-                                </td>
-                                <td class="align-middle" style="white-space: nowrap;"><span class="inv-amount">{{ $bill->description }}</span></td>
-                                <td class="align-middle"><span class="inv-amount">{{ $bill->amount }} VNĐ</span></td>
-
-                                <td class="align-middle" style="white-space: nowrap;">
-                                    <span class="text-success pr-1"><i
-                                            class="fal fa-calendar"></i></span>{{ $bill->created_at->format('d/m/Y') }}
-                                </td>
-                                <td class="align-middle">
-                                    @if ($bill->status == 1)
-                                        <span class="text-primary pr-1"><i class="fal fa-calendar"></i></span>Chưa có dữ
-                                        liệu
-                                    @elseif($bill->status == 2)
-                                        <span class="text-primary pr-1"><i
-                                                class="fal fa-calendar"></i></span>{{ \Carbon\Carbon::parse($bill->payment_date)->format('d/m/Y') }}
-                                    @endif
-                                </td>
-                                <td class="align-middle">
-                                    @if ($bill->status == 1)
-                                        <span class="badge badge-warning text-capitalize">Chưa thanh toán</span>
-                                    @elseif($bill->status == 2)
-                                        <span class="badge badge-green text-capitalize">Đã thanh toán</span>
-                                    @endif
-                                </td>
-                                <td class="align-middle" style="white-space: nowrap;">
-                                    <a href="#" data-toggle="tooltip" title="Chỉnh sửa"
-                                        class="d-inline-block fs-18 text-muted hover-primary mr-5">
-                                        <i class="fal fa-pencil-alt"></i>
-                                    </a>
-                                    <a href="#" data-toggle="tooltip" title="Xóa"
-                                        class="d-inline-block fs-18 text-muted hover-primary">
-                                        <i class="fal fa-trash-alt"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-
-                </table>
-            </div>
-            @if ($bills->isNotEmpty())
-                <div class="mt-6">
-                    <nav class="mt-4">
-                        <ul class="pagination rounded-active justify-content-center">
-                            {{-- Previous Page Link --}}
-                            @if ($bills->onFirstPage())
-                                <li class="page-item disabled">
-                                    <span class="page-link"><i class="far fa-angle-double-left"></i></span>
-                                </li>
-                            @else
-                                <li class="page-item">
-                                    <a class="page-link" href="{{ $bills->previousPageUrl() }}"><i
-                                            class="far fa-angle-double-left"></i></a>
-                                </li>
-                            @endif
-
-                            {{-- Pagination Elements --}}
-                            @foreach ($bills->getUrlRange(1, $bills->lastPage()) as $page => $url)
-                                @if ($page == $bills->currentPage())
-                                    <li class="page-item active">
-                                        <span class="page-link">{{ $page }}</span>
-                                    </li>
-                                @else
-                                    <li class="page-item">
-                                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
-                                    </li>
-                                @endif
-                            @endforeach
-
-                            {{-- Next Page Link --}}
-                            @if ($bills->hasMorePages())
-                                <li class="page-item">
-                                    <a class="page-link" href="{{ $bills->nextPageUrl() }}"><i
-                                            class="far fa-angle-double-right"></i></a>
-                                </li>
-                            @else
-                                <li class="page-item disabled">
-                                    <span class="page-link"><i class="far fa-angle-double-right"></i></span>
-                                </li>
-                            @endif
-                        </ul>
-                    </nav>
-                    <div class="text-center mt-2">{{ $bills->firstItem() }}-{{ $bills->lastItem() }} của
-                        {{ $bills->total() }} kết quả</div>
-                </div>
-            @else<div class="text-center mt-2">
-                    Không có dữ liệu</div>
-            @endif
-        </div>
-    </main>
+    @endif --}}
+   @livewire('BillList')
 @endsection
 
 @push('styleOwners')
@@ -288,4 +125,10 @@
     <script src="{{ asset('assets/vendors/jparallax/TweenMax.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        window.successMessage = "{{ session('success') }}";
+    </script>
+    <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
+    <script src="{{ asset('assets/js/alert-report.js') }}"></script>
 @endpush
