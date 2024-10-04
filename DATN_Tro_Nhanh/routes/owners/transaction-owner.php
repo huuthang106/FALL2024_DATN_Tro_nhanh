@@ -6,5 +6,5 @@ use App\Http\Controllers\Owners\TransactionOwnersController;
 
 Route::group(['prefix' => ''], function () {
     // thai toan 
-    Route::get('/đơn-rút-tiền', [TransactionOwnersController::class, 'getWithdrawMomny'])->name('don-rut-tien');
+    Route::get('/don-rut-tien', [TransactionOwnersController::class, 'getWithdrawMomny'])->name('don-rut-tien');
 });

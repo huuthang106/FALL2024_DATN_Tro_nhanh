@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Restaurant } from "../models";
 import Distance from "./distance";
 import DistrictName from "./district-name";
-const apiEndpoint ='https://tronhanh.com';
+const apiEndpoint = 'https://tronhanh.com';
 
 const { Title } = Text;
 
@@ -75,7 +75,7 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
             variant="tertiary"
           >
             <span className="text-gray-500">
-            {restaurant.phone}
+              {restaurant.phone}
             </span>
           </Button>
         </Box>
@@ -101,8 +101,7 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
           <Box mx={0} mb={0} flex>
             <Button
               prefixIcon={
-                <Icon className="text-yellow-400" icon="zi-star-solid" />
-              }
+                <Icon className="text-gray-400" icon="zi-unhide" />}
               size="small"
               className="pl-0"
               variant="tertiary"
