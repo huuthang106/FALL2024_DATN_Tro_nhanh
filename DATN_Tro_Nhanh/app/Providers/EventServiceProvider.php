@@ -24,6 +24,8 @@ use App\Listeners\CheckAndUpdateExpiredRoomsListener;
 use App\Listeners\HandleExpiredLocksListener;
 use App\Events\ServiceMailsSummaryEvent;
 use App\Listeners\SendServiceMailsSummaryListener;
+use App\Events\PasswordResetRequestEvent;
+use App\Listeners\SendPasswordResetLinkListener;
 
 class EventServiceProvider extends BaseEventServiceProvider
 {
@@ -65,6 +67,9 @@ class EventServiceProvider extends BaseEventServiceProvider
         ],
         ServiceMailsSummaryEvent::class => [
             SendServiceMailsSummaryListener::class,
+        ],
+        PasswordResetRequestEvent::class => [
+            SendPasswordResetLinkListener::class,
         ],
     ];
 

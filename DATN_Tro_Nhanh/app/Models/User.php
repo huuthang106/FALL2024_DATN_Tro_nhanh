@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
+use App\Notifications\CustomResetPasswordNotification;
 
 class User extends Authenticatable
 {
@@ -104,4 +105,8 @@ class User extends Authenticatable
 {
     return $this->hasOne(Identity::class);
 }
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new CustomResetPasswordNotification($token));
+    }
 }

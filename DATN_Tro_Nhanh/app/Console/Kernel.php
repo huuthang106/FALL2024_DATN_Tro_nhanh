@@ -30,6 +30,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('locks:handle-expired')->daily();
 
         $schedule->command('vip:remove-expired')->daily();
+        // QMK
+        // Chạy queue worker mỗi phút
+        $schedule->command('queue:work --queue=emails --stop-when-empty')->everyMinute();
         // Gửi mail thường sau 1day
         // $schedule->command('service-mails:send-daily-summary')->dailyAt('01:00');
         // Gửi mail queue sau 1day
