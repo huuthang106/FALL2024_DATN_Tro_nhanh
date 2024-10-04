@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 use App\Events\PaymentProcessed;
-use GuzzleHttp\Client; 
+use GuzzleHttp\Client;
 
 class PaymentService
 {
@@ -217,7 +217,7 @@ class PaymentService
         $amount = $carts->sum(function ($cart) {
             return $cart->priceList->price * $cart->quantity;
         });
-        
+
         // Kiểm tra số dư của người dùng
         if ($user->balance < $amount) {
             Log::warning('Số dư tài khoản không đủ.', ['user_id' => $user->id]);
@@ -256,7 +256,7 @@ class PaymentService
         });
 
         return [
-            'carts' => $carts,  
+            'carts' => $carts,
             'totalAmount' => $totalAmount
         ];
     }
@@ -268,7 +268,7 @@ class PaymentService
             ->orderBy('created_at', 'desc') // Sắp xếp theo ngày tạo giao dịch
             ->first(); // Lấy giao dịch đầu tiên (mới nhất)
     }
-    
+
 
 
     public function clearPaidPriceLists($paymentId)
@@ -291,89 +291,80 @@ class PaymentService
     //pay
 
     //
-    public function getTransactions()
+    public function getTransactions($request)
     {
         try {
-            $response = $this->client->request('GET', 'transactions', [
-                'headers' => [
-                    'Authorization' => 'Apikey ' . $this->apiKey,
-                    'Content-Type' => 'application/json'
-                ],
-                'query' => [
-                    'fromDate' => date('Y-m-d', strtotime('-30 days')),
-                    'page' => 1,
-                    'pageSize' => 100,
-                ]
-            ]);
 
-            $data = json_decode($response->getBody(), true);
-            Log::info('Casso API response: ' . json_encode($data));
-            
-            $transactions = $data['data']['records'] ?? [];
+
+            $transactions = $request;
+            Log::error("Casso API error: " . json_encode($transactions));
+
             return $this->processAndSaveTransactions($transactions);
-
         } catch (\Exception $e) {
             Log::error("Casso API error: " . $e->getMessage());
             return [];
         }
     }
 
-    
+
     private function processAndSaveTransactions($transactions)
     {
-        $processedTransactions = [];
-
-        foreach ($transactions as $transaction) {
-            $description = $transaction['description'] ?? '';
-            preg_match('/GD(\d+)/', $description, $matches);
-            
-            if (isset($matches[1])) {
-                $userId = intval($matches[1]);
-                $user = User::find($userId);
-                
-                if ($user) {
-                    $amount = $transaction['amount'] ?? 0;
-                    $transactionId = $transaction['id'] ?? null;
-                    
-                    if ($transactionId) {
-                        $existingTransaction = Transaction::find($transactionId);
-                        
-                        if (!$existingTransaction) {
-                            $user->balance += $amount;
-                            $user->save();
-
-                            $newTransaction = new Transaction();
-                            $newTransaction->id = $transactionId;
-                            $newTransaction->user_id = $userId;
-                            $newTransaction->description = $description;
-                            $newTransaction->added_funds = $amount;
-                            $newTransaction->balance = $user->balance;
-                            $newTransaction->save();
-
-                            $processedTransactions[] = $newTransaction;
-
-                            Log::info("Giao dịch đã được xử lý và lưu: " . json_encode($newTransaction));
-                        } else {
-                            Log::info("Giao dịch đã tồn tại: " . $transactionId);
-                        }
-                    }
-                }
-            }
+        // return $transactions;
+        if (empty($transactions)) {
+            Log::info('Không có dữ liệu giao dịch để xử lý.');
+            return 'Không có dữ liệu giao dịch để xử lý.'; // Trả về một mảng rỗng nếu không có dữ liệu
         }
 
-        return $processedTransactions;
+        $description = $transactions['mo_ta'];
+        preg_match('/GD\s+(\d+)/', $description, $matches);
+        // Log::info('Băm mô tả'.$matches);
+        // return $matches;
+        if (isset($matches[1])) {
+            $userId = intval($matches[1]);
+            $user = User::find($userId);
+
+
+            if ($user) {
+                $amount = $transactions['gia_tri'] ?? 0;
+                $transactionId = $transactions['ma_gd'] ?? null;
+
+                if ($transactionId) {
+                    $existingTransaction = Transaction::find($transactionId);
+
+                    if (!$existingTransaction) {
+                        $user->balance += $amount;
+                        $user->save();
+
+                        $newTransaction = new Transaction();
+                        $newTransaction->id = $transactionId;
+                        $newTransaction->user_id = $userId;
+                        $newTransaction->description = $description;
+                        $newTransaction->added_funds = '+' . $amount;
+                        $newTransaction->balance = $user->balance;
+                        
+                        $newTransaction->save();
+
+                        $processedTransactions[] = $newTransaction;
+
+                        Log::info("Giao dịch đã được xử lý và lưu: " . json_encode($newTransaction));
+                        return 'Giao dịch thành công';
+                    } else {
+                        Log::info("Giao dịch đã tồn tại: " . $transactionId);
+                    }
+                    return 'Có dữ liệu mã giao dịch nhưng giao dịch thất bại';
+                }
+                return 'Có dữ liệu nhưng giao dịch thất bại ';
+            }
+        }
+        return 'Giao thất bại';
     }
 
     public function getUserTransactions()
     {
         $user = Auth::user();
         return Transaction::where('user_id', $user->id)
-                            ->orderBy('created_at', 'desc')
-                            ->orderBy('id', 'desc')
-                            ->paginate(10);
+            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc')
+            ->paginate(10);
     }
-
-    
-    
-
 }

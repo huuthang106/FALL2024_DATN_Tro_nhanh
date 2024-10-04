@@ -70,10 +70,10 @@
                                     <small>{{ $transaction->created_at->format('d/m/Y H:i') }}</small>
                                 </td>
                                 <td class="align-middle">
-                                    <small class="{{ $transaction->added_funds >= 0 ? 'text-success' : 'text-danger' }}"
+                                    <small class="{{ $transaction->status == 1 ? 'text-success' : 'text-danger' }}"
                                         style="white-space: nowrap;">
-                                        {{ number_format($transaction->added_funds, 0, ',', '.') }} VND
-                                    </small>
+                                     {{ ($transaction->status == 1 ? '+' : '-') . number_format(abs($transaction->added_funds), 0, ',', '.') }} VND
+                                 </small>
                                 </td>
                                 <td class="align-middle">
                                     <small style="white-space: nowrap;">

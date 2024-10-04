@@ -4,7 +4,7 @@
     <main id="content" class="bg-gray-01">
             <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
                         <div class="">
-                            <h5 class="ms-4 text-note">Số dư tài khoản: <span class="text-primary"> {{$user->balance ?? 0}} đ</span></h5>
+                            <h5 class="ms-4 text-note">Số dư tài khoản: <span class="text-primary"> {{ number_format($user->balance ?? 0, 0, ',', '.') }}đ</span></h5>
                             <div class="important-note">
                             <h6>Lưu ý quan trọng:</h6>
                             <h6> - Nội dung chuyển tiền bạn vui lòng ghi đúng thông tin sau:"TN GD{{$user->id}}"</h6><br>

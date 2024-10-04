@@ -455,7 +455,7 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-    <script>
+    {{-- <script>
          document.addEventListener('DOMContentLoaded', function() {
             var downloadButtons = document.querySelectorAll('.download-all-images');
             downloadButtons.forEach(function(button) {
@@ -497,6 +497,68 @@
                     type: 'blob'
                 }).then(function(content) {
                     saveAs(content, '{{ $tenant->name }}_identity_images.zip');
+                });
+            });
+        }
+    </script> --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var downloadButtons = document.querySelectorAll('.download-all-images');
+            downloadButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var tenantId = this.getAttribute('data-tenant-id');
+                    // Kiểm tra xem tenantId có tồn tại không
+                    if (tenantId) {
+                        downloadImages(tenantId);
+                    } else {
+                        alert('Không có thông tin người ở để tải ảnh.');
+                    }
+                });
+            });
+        });
+    
+        function downloadImages(tenantId) {
+            var zip = new JSZip();
+            var imagePromises = [];
+    
+            // Tìm tất cả các ảnh trong modal của tenant cụ thể
+            var modal = document.getElementById('identityModal' + tenantId);
+            if (!modal) {
+                alert('Không tìm thấy modal cho tenant này.');
+                return; // Dừng hàm nếu không tìm thấy modal
+            }
+    
+            var images = modal.querySelectorAll('img');
+    
+            if (images.length === 0) {
+                alert('Không có ảnh định danh để tải xuống.');
+                return; // Dừng hàm nếu không có ảnh
+            }
+    
+            images.forEach(function(img, index) {
+                var imageUrl = img.src;
+                var fileExtension = imageUrl.split('.').pop().split(/\#|\?/)[0];
+                var imageName = 'anh_' + (index + 1) + '.' + fileExtension;
+    
+                imagePromises.push(
+                    fetch(imageUrl)
+                        .then(response => response.blob())
+                        .then(blob => {
+                            // Sử dụng MIME type của blob để xác định định dạng file
+                            var mimeType = blob.type;
+                            var fileExtension = mimeType.split('/')[1];
+                            if (fileExtension === 'jpeg') fileExtension = 'jpg';
+                            imageName = 'anh_' + (index + 1) + '.' + fileExtension;
+                            return zip.file(imageName, blob);
+                        })
+                );
+            });
+    
+            Promise.all(imagePromises).then(() => {
+                zip.generateAsync({
+                    type: 'blob'
+                }).then(function(content) {
+                    saveAs(content, '{{ $tenant->name ?? "tenant" }}_identity_images.zip');
                 });
             });
         }

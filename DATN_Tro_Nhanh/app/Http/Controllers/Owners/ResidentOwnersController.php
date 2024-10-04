@@ -96,18 +96,8 @@ class ResidentOwnersController extends Controller
     public function application_form()
 {
     if (Auth::check()) {
-        $user_id = Auth::id(); // Lấy ID người dùng đã đăng nhập
-
-        // Gọi hàm lấy dữ liệu residents
-        $residents = $this->residentOwnersService->getmyResdent($user_id,  self::not_yet_approved);
-
-        // Đặt giá trị cho biến $user_is_in
-        $user_is_in = 'some_status_value'; // Giá trị phù hợp của status mà bạn muốn kiểm tra
-
-        return view('owners.show.application-form', [
-            'residents' => $residents,
-            'user_is_in' => $user_is_in, // Truyền biến vào view
-        ]);
+      
+        return view('owners.show.application-form');
     }
 }
 
