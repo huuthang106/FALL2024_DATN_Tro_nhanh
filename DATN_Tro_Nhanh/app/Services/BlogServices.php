@@ -446,6 +446,7 @@ public function getTopViewedBlogs($limit = 3)
         return $blog;
     }
 
+
     public function forceDeleteBlogs($id)
     {
         $blog = Blog::withTrashed()->findOrFail($id);

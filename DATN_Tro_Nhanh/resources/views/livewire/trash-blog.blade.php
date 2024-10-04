@@ -18,7 +18,7 @@
 
             </div>
             <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
-                <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
+                <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2" style="width: 60%">
                     <input wire:model.lazy="search" wire:keydown.debounce.100ms="$refresh" type="text"
                         class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..." aria-label=""
                         aria-describedby="basic-addon1">
@@ -27,7 +27,9 @@
                                 class="fal fa-search"></i></button>
                     </div>
                 </div>
-
+                <div class="align-self-center">
+                    <button id="restoreSelected" class="btn btn-success btn-lg ml-2">Khôi phục đã chọn</button>
+                </div>
             </div>
         </div>
         {{-- <div class="row">
@@ -66,6 +68,9 @@
         <table class="table table-hover bg-white border rounded-lg">
             <thead class="thead-sm thead-black">
                 <tr>
+                    <th>
+                        <input type="checkbox" id="checkAll"> <!-- Checkbox tổng -->
+                    </th>
                     <th scope="col" class="border-top-0 px-6 pt-5 pb-4" style="white-space: nowrap;">Ảnh</th>
                     <th scope="col" class="border-top-0 pt-5 pb-4" style="white-space: nowrap;">Tiêu Đề</th>
 
@@ -82,6 +87,10 @@
                 @else
                     @foreach ($trashedBlogs as $blog)
                         <tr class="shadow-hover-xs-2 bg-hover-white">
+                        <td>
+                        <input type="checkbox" class="blog-checkbox" value="{{ $blog->id }}" 
+                        wire:model="selectedBlogs">
+                        </td>
                             <td class="align-middle pt-6 pb-4 px-6">
                                 <div class="media d-flex align-items-center">
                                     <div class="w-120px mr-4 position-relative">
@@ -197,7 +206,7 @@
     @endif
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
+<!-- <script>
     document.addEventListener('livewire:initialized', () => {
         Livewire.on('showAlert', (data) => {
             Swal.fire({
@@ -211,4 +220,86 @@
             });
         });
     });
-</script>
+</script> -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const checkAll = document.getElementById('checkAll');
+        const restoreSelectedBtn = document.getElementById('restoreSelected');
+        const blogCheckboxes = document.querySelectorAll('.blog-checkbox');
+
+        checkAll.addEventListener('change', function() {
+            blogCheckboxes.forEach(checkbox => {
+                checkbox.checked = this.checked;
+            });
+            updateRestoreButtonVisibility();
+        });
+
+        blogCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateRestoreButtonVisibility);
+        });
+
+        restoreSelectedBtn.addEventListener('click', function() {
+            const selectedBlogIds = Array.from(blogCheckboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.valu  e);
+
+            if (selectedBlogIds.length === 0) {
+                Swal.fire({
+                    title: 'Lỗi!',
+                    text: 'Vui lòng chọn ít nhất một blog để khôi phục',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            Swal.fire({
+                title: 'Bạn có chắc chắn?',
+                text: "Bạn có muốn khôi phục các blog đã chọn?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Có, khôi phục!',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    @this.call('restoreSelectedBlogs', selectedBlogIds);
+                }
+            });
+        });
+
+        function updateRestoreButtonVisibility() {
+            const selectedCount = document.querySelectorAll('.blog-checkbox:checked').length;
+            restoreSelectedBtn.style.display = selectedCount > 0 ? 'inline-block' : 'none';
+            checkAll.checked = selectedCount === blogCheckboxes.length;
+        }
+
+        updateRestoreButtonVisibility();
+    });
+
+    document.addEventListener('livewire:initialized', () => {
+        Livewire.on('blog-restored', () => {
+            Swal.fire({
+                title: 'Thành công!',
+                text: 'Các blog đã chọn đã được khôi phục thành công',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                location.reload();
+            });
+        });
+
+        Livewire.on('showAlert', (data) => {
+            Swal.fire({
+                icon: data[0].type,
+                title: data[0].title,
+                text: data[0].message,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.dispatch('$refresh');
+                }
+            });
+        });
+    });
+    </script>

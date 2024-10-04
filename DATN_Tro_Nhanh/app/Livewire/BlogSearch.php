@@ -15,6 +15,20 @@ class BlogSearch extends Component
     public $search = ''; // Từ khóa tìm kiếm
     public $perPage = 10; // Số lượng blog trên mỗi trang
     public $timeFilter = ''; // Khoảng thời gian lọc
+    public $selectedBlogs = []; // Biến lưu trữ các blog được chọn
+    
+
+    // Hàm để xóa các blog đã chọn
+    public function deleteSelectedBlogs()
+    {
+        if (count($this->selectedBlogs) > 0) {
+            Blog::whereIn('id', $this->selectedBlogs)->delete();
+            $this->selectedBlogs = []; // Reset lại sau khi xóa
+            $this->dispatch('blog-deleted', ['message' => 'Các thông báo đã chọn đã được xóa thành công']);
+        }
+    }
+
+    
 
     public function render()
     {

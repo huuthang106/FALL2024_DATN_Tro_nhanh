@@ -110,6 +110,20 @@ class BlogOwnersController extends Controller
         }
     }
 
+    public function deleteMultiple(Request $request)
+    {
+        $ids = $request->input('ids');
+
+        if (is_array($ids)) {
+            // Gọi service để xử lý việc xóa
+            $this->blogService->deleteMultiple($ids);
+
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false], 400);
+    }
+
 
     public function destroy($id)
     {

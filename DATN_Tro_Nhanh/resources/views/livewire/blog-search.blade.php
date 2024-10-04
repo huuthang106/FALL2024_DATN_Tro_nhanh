@@ -1,8 +1,6 @@
 <div>
     {{-- Stop trying to control. --}}
-    <form action="{{ route('owners.properties') }}" method="GET">
-
-        <div class="mb-6" wire:ignore>
+    <div class="mb-6" wire:ignore>
             <div class="row">
                 <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
                     <div class="d-flex form-group mb-0 align-items-center">
@@ -24,24 +22,29 @@
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
-                    <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
+                    <div class="input-group input-group-lg bg-white mb-0 position-relative flex-grow-1 mr-2" style="width: 60%">
                         <input wire:model.lazy="search" wire:keydown.debounce.100ms="$refresh" type="text"
                             class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..." aria-label=""
                             aria-describedby="basic-addon1">
                         <div class="input-group-append position-absolute pos-fixed-right-center">
-                            <button class="btn bg-transparent border-0 text-gray lh-1" type="button"><i
-                                    class="fal fa-search"></i></button>
+                            <button class="btn bg-transparent border-0 text-gray lh-1" type="button">
+                                <i class="fal fa-search"></i>
+                            </button>
                         </div>
                     </div>
-                    
+                    <div class="align-self-center">
+                        <button id="deleteSelected" class="btn btn-danger btn-lg ml-2">Xóa đã chọn</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </form>
     <div class="table-responsive">
         <table class="table table-hover bg-white border rounded-lg">
             <thead class="thead-sm thead-black">
                 <tr>
+                <th>
+                    <input type="checkbox" id="checkAll"> <!-- Checkbox tổng -->
+                </th>
                     <th scope="col" class="border-top-0 px-3 pt-4 pb-3" style="white-space: nowrap;">Ảnh</th>
                     <th scope="col" class="border-top-0 pt-4 pb-3" style="white-space: nowrap;">Tiêu Đề</th>
                     <!-- <th scope="col" class="border-top-0 pt-4 pb-3" style="white-space: nowrap;">Mô Tả</th> -->
@@ -60,6 +63,10 @@
                 @else
                     @foreach ($blogs as $blog)
                         <tr class="shadow-hover-xs-2">
+                        <td>
+                    <input type="checkbox" class="blog-checkbox" value="{{ $blog->id }}" 
+                           wire:model="selectedBlogs"> <!-- Checkbox cho mỗi blog -->
+                </td>
                             <td class="align-middle pt-3 pb-3 px-3">
                                 <div class="media d-flex align-items-center">
                                     <div class="w-100 w-md-150 mr-3 position-relative">
@@ -190,3 +197,75 @@
     {{-- <div class="text-center mt-2">{{ $blogs->firstItem() }}-{{ $blogs->lastItem() }} của {{ $blogs->total() }}
         kết quả</div> --}}
 </div>
+<script>
+            document.addEventListener('DOMContentLoaded', function() {
+            const checkAll = document.getElementById('checkAll');
+            const deleteSelectedBtn = document.getElementById('deleteSelected');
+
+            // Bắt sự kiện thay đổi cho checkbox tổng
+            checkAll.addEventListener('change', function() {
+                const checkboxes = document.querySelectorAll('.blog-checkbox');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = this.checked;
+                    checkbox.dispatchEvent(new Event('change', { 'bubbles': true }));  // Kích hoạt sự kiện thay đổi để Livewire bắt được
+                });
+            });
+
+            // Bắt sự kiện nhấn nút "Xóa đã chọn"
+            deleteSelectedBtn.addEventListener('click', function() {
+                if (@this.selectedBlogs.length === 0) {
+                    Swal.fire({
+                        title: 'Lỗi!',
+                        text: 'Vui lòng chọn ít nhất một bài blog để xóa',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                    return;
+                }
+
+                Swal.fire({
+                    title: 'Bạn có chắc chắn?',
+                    text: "Bạn sẽ không thể hoàn tác hành động này!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Có, xóa!',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        @this.call('deleteSelectedBlogs');  // Gọi hàm Livewire để xóa blog
+                    }
+                });
+            });
+
+            // Cập nhật hiển thị nút xóa dựa vào số lượng blog đã chọn
+            function updateDeleteButtonVisibility() {
+                deleteSelectedBtn.style.display = @this.selectedBlogs.length > 0 ? 'block' : 'none';
+                checkAll.checked = @this.selectedBlogs.length === document.querySelectorAll('.blog-checkbox').length;
+            }
+
+            // Gọi hàm updateDeleteButtonVisibility mỗi khi có sự thay đổi trong selectedBlogs
+            @this.$watch('selectedBlogs', () => {
+                updateDeleteButtonVisibility();
+            });
+
+            // Khởi tạo trạng thái ban đầu
+            updateDeleteButtonVisibility();
+        });
+
+        // Xử lý thông báo sau khi xóa thành công
+        document.addEventListener('livewire:initialized', () => {
+        Livewire.on('blog-deleted', (event) => {
+            Swal.fire({
+                title: 'Thành công!',
+                text: 'Xóa blog thành công',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                location.reload();
+            });
+        });
+    });
+
+    </script>

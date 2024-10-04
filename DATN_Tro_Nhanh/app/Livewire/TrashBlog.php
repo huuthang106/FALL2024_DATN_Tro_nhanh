@@ -15,6 +15,24 @@ class TrashBlog extends Component
     public $search = ''; // Từ khóa tìm kiếm
     public $perPage = 4; // Số lượng blog trên mỗi trang
     public $timeFilter = ''; // Khoảng thời gian lọc
+    public $selectedBlogs = []; // Biến lưu trữ các blog được chọn
+
+    // Hàm để lấy các blog đã bị xóa mềm
+    public function getTrashedBlogs()
+    {
+        return Blog::onlyTrashed()->get();
+    }
+
+    // Hàm để khôi phục các blog đã chọn
+    public function restoreSelectedBlogs()
+    {
+        Log::info('Selected Blogs:', $this->selectedBlogs);
+        if (count($this->selectedBlogs) > 0) {
+            Blog::withTrashed()->whereIn('id', $this->selectedBlogs)->restore();
+            $this->selectedBlogs = []; // Reset lại sau khi khôi phục
+            $this->dispatch('blog-restored', ['message' => 'Các blog đã chọn đã được khôi phục thành công']);
+        }
+    }
 
     public function render()
     {
@@ -67,16 +85,5 @@ class TrashBlog extends Component
 public function updatedTimeFilter()
 {
     $this->resetPage(); // Reset trang khi thay đổi khoảng thời gian
-}
-public function forceDeleteBlog($id)
-{
-    $blog = Blog::withTrashed()->findOrFail($id);
-    $blog->forceDelete(); // Xóa vĩnh viễn blog
-    
-    $this->dispatch('showAlert', [
-        'type' => 'success',
-        'title' => 'Thành công!',
-        'message' => 'Blog đã được xóa vĩnh viễn!'
-    ]); // Gửi sự kiện để hiển thị SweetAlert
 }
 }
