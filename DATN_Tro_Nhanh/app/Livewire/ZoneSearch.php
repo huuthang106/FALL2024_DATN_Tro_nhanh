@@ -8,6 +8,8 @@ use App\Models\Room;
 use Livewire\WithPagination;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use App\Models\Notification;
+use Illuminate\Support\Facades\Auth;
 
 class ZoneSearch extends Component
 {
@@ -39,6 +41,38 @@ class ZoneSearch extends Component
         }
         $this->orderBy = $field;
     }
+    public $selectedZones = [];
+
+    public function deleteSelectedZones()
+{
+    $zonesWithRooms = Zone::whereIn('id', $this->selectedZones)
+        ->withCount('rooms')
+        ->having('rooms_count', '>', 0)
+        ->pluck('name')
+        ->toArray();
+
+    if (!empty($zonesWithRooms)) {
+        $this->dispatch('zones-with-rooms', implode(', ', $zonesWithRooms));
+        return;
+    }
+
+    $count = count($this->selectedZones);
+    $deletedZones = Zone::whereIn('id', $this->selectedZones)->pluck('name')->toArray();
+    Zone::whereIn('id', $this->selectedZones)->delete();
+
+    // Tạo thông báo
+    Notification::create([
+        'user_id' => Auth::id(),
+        'title' => 'Xóa khu vực',
+        'content' => 'Đã xóa thành công ' . $count . ' khu vực: ' . implode(', ', $deletedZones),
+        'data' => 'Khu Trọ đã được xóa thành công',
+        'type' => 'Khu Trọ đã được xóa thành công',
+        'is_read' => false
+    ]);
+
+    $this->selectedZones = [];
+    $this->dispatch('zones-deleted', ['message' => 'Đã xóa thành công ' . $count . ' khu vực.']);
+}
 
     // public function render()
     // {

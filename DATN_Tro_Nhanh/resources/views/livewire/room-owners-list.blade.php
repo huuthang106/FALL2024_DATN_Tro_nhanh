@@ -10,17 +10,23 @@
                 </h2>
                 <p>Danh sách phòng trọ của bạn ở đây</p>
             </div>
-            <div class="p-2">
-
-                <div class="input-group input-group-lg bg-white border" style="width: 300px;">
+            <div class="p-2 d-flex align-items-center">
+                <div class="input-group input-group-lg bg-white border mr-2" style="width: 300px;">
                     <div class="input-group-prepend">
                         <button class="btn pr-0 shadow-none" type="button">
                             <i class="far fa-search"></i>
                         </button>
                     </div>
                     <input type="text" class="form-control bg-transparent border-0 shadow-none text-body"
-                        placeholder="Nhập tên phòng trọ" wire:keydown.debounce.300ms="$refresh"
-                        wire:model.lazy="search">
+                    placeholder="Nhập tên phòng trọ" wire:keydown.debounce.300ms="$refresh"
+                    wire:model.lazy="search">
+                </div>
+
+                <div>
+                    <button wire:click="deleteSelected" class="btn btn-danger btn-lg" tabindex="0"
+                            {{ $this->getSelectedRoomsCount() === 0 ? 'disabled' : '' }}>
+                        <span>Xóa {{ $this->getSelectedRoomsCount() > 0 ? '(' . $this->getSelectedRoomsCount() . ')' : '' }}</span>
+                    </button>
                 </div>
             </div>
 
@@ -54,15 +60,21 @@
         </div>
         <div wire:loading.remove wire:target="search, sortBy, perPage" class="table-responsive">
             <table class="table table-hover bg-white border rounded-lg">
-                <thead class="thead-sm thead-black">
-                    <tr>
-                        <th scope="col" class="border-top-0 px-6 pt-5 pb-4">Tiêu đề danh sách</th>
-                        <th scope="col" class="border-top-0 pt-5 pb-4" style="white-space: nowrap;">Ngày xuất bản
+                <thead>
+                    <tr class="align-middle">
+                        <th class="no-sort py-6 pl-6" style="white-space: nowrap;">
+                            <label class="new-control new-checkbox checkbox-primary m-auto">
+                                <input type="checkbox" class="new-control-input chk-parent select-customers-info"
+                                       wire:model="selectAll" wire:click="toggleSelectAll">
+                                <label class="new-control-label" for="selectAll"></label>
+                            </label>
                         </th>
-                        <th scope="col" class="border-top-0 pt-5 pb-4">Trạng thái</th>
-                        <th scope="col" class="border-top-0 pt-5 pb-4">Xem</th>
-                        <th scope="col" class="border-top-0 pt-5 pb-4 text-center">Vip</th>
-                        <th scope="col" class="border-top-0 pt-5 pb-4" style="width: 300px; white-space: nowrap;">Hành động</th>
+                        <th class="py-6 px-6 align-middle" style="white-space: nowrap;">Tiêu đề danh sách</th>
+                        <th class="py-6 align-middle" style="white-space: nowrap;">Ngày xuất bản</th>
+                        <th class="py-6 align-middle" style="white-space: nowrap;">Trạng thái</th>
+                        <th class="py-6 align-middle" style="white-space: nowrap;">Xem</th>
+                        <th class="py-6 align-middle text-center" style="white-space: nowrap;">Vip</th>
+                        <th class="py-6 align-middle" style="white-space: nowrap;">Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -82,6 +94,15 @@
                     @else
                         @foreach ($rooms as $room)
                             <tr class="shadow-hover-xs-2 bg-hover-white">
+                                <td class="checkbox-column align-middle py-4 pl-6" style="white-space: nowrap;">
+                                    <label class="new-control new-checkbox checkbox-primary m-auto">
+                                        <input type="checkbox" class="new-control-input child-chk select-customers-info"
+                                               wire:model="selectedRooms.{{ $room->id }}"
+                                               wire:click="toggleRoom('{{ $room->id }}')"
+                                               {{ isset($selectedRooms[$room->id]) && $selectedRooms[$room->id] ? 'checked' : '' }}>
+                                        <label class="new-control-label" for="room-{{ $room->id }}"></label>
+                                    </label>
+                                </td>
                                 <td class="align-middle pt-6 pb-4 px-6">
                                     <div class="media">
                                         <div class="w-120px mr-4 position-relative">
@@ -149,7 +170,7 @@
                                         class="d-inline-block fs-18 text-muted hover-primary mr-2">
                                         <i class="fal fa-pencil-alt"></i>
                                     </a>
-                                
+
                                     <!-- Form Xóa -->
                                     <form action="{{ route('owners.destroy', $room->id) }}" method="POST"
                                         class="d-inline-block">
@@ -161,7 +182,7 @@
                                         </button>
                                     </form>
                                 </td>
-                                
+
                                 <!-- Modal Popup cho Mua VIP -->
                                 @foreach ($rooms as $room)
                                     <div class="modal fade" id="vipModal{{ $room->id }}" tabindex="-1"
@@ -171,52 +192,57 @@
                                                 <!-- Header của modal -->
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="vipModalLabel">Vui lòng chọn gói</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
-                                
+
                                                 <!-- Nội dung của modal -->
-                                                <form id="vipForm" action="{{ route('owners.room-vip') }}" method="POST">
+                                                <form id="vipForm" action="{{ route('owners.room-vip') }}"
+                                                    method="POST">
                                                     <div class="modal-body">
                                                         @csrf
                                                         <!-- Trường ẩn để lưu room_id -->
-                                                        <input type="hidden" id="roomId" name="room_id" value="{{ $room->id }}">
+                                                        <input type="hidden" id="roomId" name="room_id"
+                                                            value="{{ $room->id }}">
                                                         <!-- Dropdown chọn gói VIP -->
                                                         <p>Mua gói vip cho phòng số: {{ $room->id }}</p>
                                                         <div class="form-group">
                                                             <label for="vipPackage">Chọn gói:</label>
-                                                            <select class="form-control" id="vipPackage" name="vipPackage">
+                                                            <select class="form-control" id="vipPackage"
+                                                                name="vipPackage">
                                                                 @foreach ($priceList as $price)
                                                                     <option value="{{ $price->id }}">
                                                                         {{ $price->location->name }}
-                                                                        ({{ $price->duration_day }} ngày) -
+                                                                        ({{ $price->duration_day }} ngày)
+                                                                        -
                                                                         {{ number_format($price->price, 0, ',', '.') }}
                                                                         VND
                                                                     </option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
-                                
+
                                                         <!-- Thông tin về tài khoản và phương thức thanh toán -->
                                                         <div class="form-group mt-4">
                                                             <label>Số dư tài khoản của bạn:</label>
                                                             <p><strong>{{ number_format($user->balance, 0, ',', '.') }}
                                                                     VND</strong></p>
                                                         </div>
-                                
+
                                                         <div class="form-group">
                                                             <label>Phương thức thanh toán:</label>
                                                             <p><strong>Trừ trực tiếp vào số dư tài khoản</strong></p>
                                                         </div>
-                                
+
                                                         <!-- Dòng lưu ý -->
                                                         <div class="alert alert-danger mt-4" role="alert">
                                                             Tiền sẽ được trừ vào số dư tài khoản nên quý khách cần
                                                             đảm bảo số dư đủ để thực hiện giao dịch. Xin cảm ơn!
                                                         </div>
                                                     </div>
-                                
+
                                                     <!-- Footer của modal với nút mua -->
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
@@ -228,7 +254,7 @@
                                         </div>
                                     </div>
                                 @endforeach
-                                
+
                                 <!-- Modal thông báo không thể mua VIP -->
                                 <div class="modal fade" id="notApprovedModal" tabindex="-1"
                                     aria-labelledby="notApprovedModalLabel" aria-hidden="true">
@@ -253,9 +279,11 @@
                                 </div>
                             </tr>
                         @endforeach
-                    @endif
-                </tbody>
+
             </table>
+            @endif
+            </tbody>
+
         </div>
         {{-- Phân trang --}}
         @if ($rooms->hasPages())

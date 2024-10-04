@@ -4,14 +4,15 @@
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
             <div class="mb-6 d-flex justify-content-between align-items-center">
-               <div>
-               <h2 class="mb-0 text-heading fs-22 lh-15">THÔNG TIN TÀI KHOẢN
-                </h2>
-                <p class="mb-1">Dịch vụ khách hàng rất quan trọng, do đó, khách hàng phải chịu trách nhiệm. Cần có hy vọng
-                </p>
-               </div>
-               <button class="btn btn-primary" data-toggle="modal" data-target="#withdrawModal">Rút tiền</button>
-             
+                <div>
+                    <h2 class="mb-0 text-heading fs-22 lh-15">THÔNG TIN TÀI KHOẢN
+                    </h2>
+                    <p class="mb-1">Dịch vụ khách hàng rất quan trọng, do đó, khách hàng phải chịu trách nhiệm. Cần có hy
+                        vọng
+                    </p>
+                </div>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#withdrawModal">Rút tiền</button>
+
 
 
                 <!-- Modal -->
@@ -68,7 +69,7 @@
                                                     style="display: none;">
                                                     <input type="text" class="form-control" id="custom-description"
                                                         name="custom_description" placeholder="Nhập nội dung khác">
-                                                </div> 
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -104,11 +105,13 @@
                                     <div class="custom-css col-lg-12">
                                         <!-- Hiển thị ảnh hiện tại hoặc ảnh mặc định nếu không có ảnh -->
                                         <div class="profile-image-container">
-                                            <img id="profileImagePreview" src="{{ $user->image ? asset('assets/images/' . $user->image) : asset('assets/images/agent-25.jpg') }}"
-                                            alt="{{$user->name}}">
+                                            <img id="profileImagePreview"
+                                                src="{{ $user->image ? asset('assets/images/' . $user->image) : asset('assets/images/agent-25.jpg') }}"
+                                                alt="{{ $user->name }}">
                                         </div>
                                         <div class="custom-file  h-auto">
-                                            <input type="file" class="custom-file-input" id="customFile" name="image">
+                                            <input type="file" class="custom-file-input" id="customFile"
+                                                name="image">
                                             <label class="btn btn-secondary btn-lg btn-block" for="customFile">
                                                 <span class="d-inline-block mr-1"><i
                                                         class="fal fa-cloud-upload flex-center"></i></span>Tải lên hình ảnh
@@ -169,7 +172,8 @@
                                 <div class="form-group">
                                     <label for="city-province" class="text-heading">Tỉnh</label>
                                     <select class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                        title="Lựa chọn" data-style="btn-lg py-2 h-52" id="city-province" name="province">
+                                        title="Lựa chọn" data-style="btn-lg py-2 h-52" id="city-province"
+                                        name="province">
                                         <option value='0'>&nbsp;Chọn Tỉnh/Thành Phố...
                                         </option>
                                         <option value='01' {{ $user->province == '01' ? 'selected' : '' }}>
@@ -448,31 +452,31 @@
             communeId: '{{ $user->village }}'
         };
     </script>
-   <script>
-    // Lấy danh sách ngân hàng từ API
-    async function fetchBanks() {
-        try {
-            const response = await axios.get('https://api.vietqr.io/v2/banks');
-            const banks = response.data.data;
+    <script>
+        // Lấy danh sách ngân hàng từ API
+        async function fetchBanks() {
+            try {
+                const response = await axios.get('https://api.vietqr.io/v2/banks');
+                const banks = response.data.data;
 
-            // Cập nhật danh sách ngân hàng vào select
-            const bankSelect = document.getElementById('bank-name');
-            banks.forEach(bank => {
-                const option = document.createElement('option');
-                option.value = bank.code; // Hoặc bank.id tùy theo yêu cầu
-                option.textContent = bank.name;
-                bankSelect.appendChild(option);
-            });
-        } catch (error) {
-            console.error('Error fetching banks:', error);
+                // Cập nhật danh sách ngân hàng vào select
+                const bankSelect = document.getElementById('bank-name');
+                banks.forEach(bank => {
+                    const option = document.createElement('option');
+                    option.value = bank.code; // Hoặc bank.id tùy theo yêu cầu
+                    option.textContent = bank.name;
+                    bankSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error fetching banks:', error);
+            }
         }
-    }
 
-    // Gọi hàm khi modal mở
-    $('#withdrawModal').on('show.bs.modal', function () {
-        fetchBanks();
-    });
-</script>
+        // Gọi hàm khi modal mở
+        $('#withdrawModal').on('show.bs.modal', function() {
+            fetchBanks();
+        });
+    </script>
     <script src="{{ asset('assets/js/payout-api.js') }}"></script>
     <script>
         document.getElementById('withdrawForm').addEventListener('submit', function(e) {
@@ -663,4 +667,3 @@
     </script>
    
 @endpush
-

@@ -31,12 +31,14 @@
                                     class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..."
                                     aria-label="" aria-describedby="basic-addon1">
                                 <div class="input-group-append position-absolute pos-fixed-right-center">
-                                    <button class="btn bg-transparent border-0 text-gray lh-1" type="button">
-                                        <i class="fal fa-search"></i>
-                                    </button>
                                 </div>
                             </div>
-
+                            <div class="mb-3 ml-2">
+                                <button id="deleteSelected" wire:click="deleteSelectedZones"
+                                    class="btn btn-danger btn-lg" tabindex="0">
+                                    <span>Xóa</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -49,6 +51,9 @@
                 <table id="myTable" class="table table-hover table-sm bg-white border rounded-lg">
                     <thead>
                         <tr role="row">
+                            <th class="py-3 text-nowrap text-center px-6">
+                                <input type="checkbox" id="checkAll">
+                            </th>
                             <th class="py-3 text-nowrap text-center col-2">Ảnh</th>
 
                             <th class="py-3 text-nowrap text-center col-2">Tiêu đề</th>
@@ -65,6 +70,10 @@
                         @if ($zones->isNotEmpty())
                             @foreach ($zones as $zone)
                                 <tr role="row" wire:key="zone-{{ $zone->id }}">
+                                    <td class="align-middle  px-6">
+                                        <input type="checkbox" class="zone-checkbox" wire:model="selectedZones"
+                                            value="{{ $zone->id }}">
+                                    </td>
                                     <td class="align-middle d-md-table-cell text-nowrap p-4">
                                         <div class="mr-2 position-relative zone-image-container">
                                             <a href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}">
@@ -101,7 +110,7 @@
                                     <td class="align-middle text-nowrap">
                                         <span class="inv-amount">
                                             {{-- @if ($zone->room_count < 0) --}}
-                                                {{ $zone->room_count }}
+                                            {{ $zone->room_count }}
                                             {{-- @else
                                                 <span class="badge badge-yellow text-capitalize">Chưa hoạt
                                                     động</span>
@@ -219,4 +228,82 @@
 
 
 </main>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('livewire:initialized', function() {
+        const checkAll = document.getElementById('checkAll');
+        const deleteSelectedBtn = document.getElementById('deleteSelected');
+
+        checkAll.addEventListener('change', function() {
+            const checkboxes = document.querySelectorAll('.zone-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = this.checked;
+                checkbox.dispatchEvent(new Event('change', {
+                    'bubbles': true
+                }));
+            });
+        });
+
+        deleteSelectedBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            if (Livewire.find('zone-search').selectedZones.length === 0) {
+                Swal.fire({
+                    title: 'Lỗi!',
+                    text: 'Vui lòng chọn ít nhất một khu vực để xóa',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            Swal.fire({
+                title: 'Bạn có chắc chắn?',
+                text: "Bạn sẽ không thể hoàn tác hành động này!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Có, xóa!',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.find('zone-search').deleteSelectedZones();
+                }
+            });
+        });
+
+        function updateDeleteButtonVisibility() {
+            const selectedZonesCount = Livewire.find('zone-search').selectedZones.length;
+            deleteSelectedBtn.style.display = selectedZonesCount > 0 ? 'block' : 'none';
+            checkAll.checked = selectedZonesCount === document.querySelectorAll('.zone-checkbox').length;
+        }
+
+        Livewire.find('zone-search').$watch('selectedZones', () => {
+            updateDeleteButtonVisibility();
+        });
+
+        updateDeleteButtonVisibility();
+
+        Livewire.on('zones-deleted', (data) => {
+            console.log('Zones deleted event received:', data);
+            Swal.fire({
+                title: 'Thành công!',
+                text: data.message,
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                location.reload();
+            });
+        });
+
+        Livewire.on('zones-with-rooms', (zonesWithRooms) => {
+            Swal.fire({
+                title: 'Không thể xóa!',
+                html: `Các khu vực sau có phòng và không thể xóa:<br><strong>${zonesWithRooms}</strong><br>Vui lòng xóa tất cả phòng trong khu vực trước khi xóa khu vực.`,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        });
+    });
+</script>
 </div>

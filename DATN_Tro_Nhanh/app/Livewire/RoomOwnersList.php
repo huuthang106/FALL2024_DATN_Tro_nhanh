@@ -14,7 +14,8 @@ use Carbon\Carbon;
 class RoomOwnersList extends Component
 {
     use WithPagination;
-
+    public $selectedRooms = [];
+    public $selectAll = false;
     public $search = '';
     public $sortBy = 'date_new_to_old';
     public $perPage = 10;
@@ -41,9 +42,9 @@ class RoomOwnersList extends Component
     }
 
     public function updatingFilterByDate()
-{
-    $this->resetPage();
-}
+    {
+        $this->resetPage();
+    }
 
     public function mount(RoomOwnersService $roomOwnersService)
     {
@@ -63,7 +64,7 @@ class RoomOwnersList extends Component
         $user = Auth::user();
         $priceList = PriceList::where('status', self::Goitin)->get();
         $query = Room::where('user_id', $userId)
-        ->orderBy('created_at', 'desc'); // Thêm điều kiện sắp xếp từ ngày mới nhất tới cũ nhất
+            ->orderBy('created_at', 'desc'); // Thêm điều kiện sắp xếp từ ngày mới nhất tới cũ nhất
 
         if (!empty($this->search)) {
             $query->where(function ($q) {
@@ -72,8 +73,8 @@ class RoomOwnersList extends Component
                     ->orWhere('address', 'like', '%' . $this->search . '%');
             });
         }
-        
-        
+
+
         if ($this->timeFilter) {
             $date = Carbon::now();
             switch ($this->timeFilter) {
@@ -106,5 +107,60 @@ class RoomOwnersList extends Component
             'priceList' => $priceList,
             'user' => $user
         ]);
+    }
+  public function toggleRoom($roomId)
+{
+    if (isset($this->selectedRooms[$roomId])) {
+        unset($this->selectedRooms[$roomId]);
+    } else {
+        $this->selectedRooms[$roomId] = true;
+    }
+    $this->updateSelectAllState();
+}
+
+    public function updateSelectAllState()
+    {
+        $totalRooms = Room::where('user_id', Auth::id())->count();
+        $this->selectAll = count($this->selectedRooms) === $totalRooms && $totalRooms > 0;
+    }
+    public function toggleSelectAll()
+    {
+        $rooms = Room::where('user_id', Auth::id())->pluck('id')->toArray();
+        
+        if (count($this->selectedRooms) < count($rooms)) {
+            $this->selectedRooms = array_fill_keys($rooms, true);
+            $this->selectAll = true;
+        } else {
+            $this->selectedRooms = [];
+            $this->selectAll = false;
+        }
+    }
+    public function deleteSelected()
+    {
+        if (empty($this->selectedRooms)) {
+            $this->dispatch('showAlert', ['type' => 'error', 'message' => 'Vui lòng chọn ít nhất một phòng để xóa.']);
+            return;
+        }
+    
+        $deletedCount = Room::whereIn('id', array_keys($this->selectedRooms))
+                            ->where('user_id', Auth::id())
+                            ->delete();
+    
+        $this->selectedRooms = [];
+        $this->selectAll = false;
+        $this->dispatch('showAlert', ['type' => 'success', 'message' => "$deletedCount phòng đã được xóa thành công."]);
+        $this->dispatch('roomsDeleted');
+    }
+    public function hydrate()
+    {
+        $this->selectedRooms = is_array($this->selectedRooms) ? array_filter($this->selectedRooms) : [];
+    }
+    public function updatedSelectedRooms($value, $key)
+    {
+        $this->updateSelectAllState();
+    }
+    public function getSelectedRoomsCount()
+    {
+        return count($this->selectedRooms);
     }
 }
