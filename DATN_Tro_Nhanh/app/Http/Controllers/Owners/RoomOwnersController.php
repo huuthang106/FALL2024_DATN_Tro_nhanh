@@ -104,7 +104,12 @@ class RoomOwnersController extends Controller
         $this->roomOwnersService->restoreRoom($id);
         return redirect()->route('owners.properties')->with('success', 'Phòng đã được khôi phục.');
     }
-
+    public function restoreMultiple(Request $request)
+    {
+        $ids = $request->input('ids', []);
+        $this->roomOwnersService->restoreMultipleRooms($ids);
+        return redirect()->route('owners.properties')->with('success', 'Các phòng đã được khôi phục.');
+    }
     public function forceDelete($id)
     {
         $this->roomOwnersService->forceDeleteRoom($id);
@@ -185,7 +190,7 @@ class RoomOwnersController extends Controller
     {
         try {
             $result = $this->roomOwnersService->update($request, $roomId);
-            
+
             if ($result['success']) {
                 return response()->json([
                     'status' => 'success',
@@ -255,5 +260,4 @@ class RoomOwnersController extends Controller
             return redirect()->back()->with('error', 'Có lỗi xảy ra trong quá trình thanh toán.');
         }
     }
-
 }

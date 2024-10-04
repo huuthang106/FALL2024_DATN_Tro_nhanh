@@ -15,12 +15,13 @@ use Exception;
 use Illuminate\Support\Facades\Log;
 use App\Events\BillCreated;
 use GuzzleHttp\Client;
+
 class ZoneServices
 {
     const CO = 1; // Có tiện ích
     const CHUA_CO = 2; // Chưa có tiện ích
     const DA_TAO = 1; // Trạng thái tạo hóa đơn
-      protected $client;
+    protected $client;
 
     public function __construct()
     {
@@ -53,16 +54,16 @@ class ZoneServices
             $zone->longitude = $request->input('longitude');
             $zone->status = $request->input('status');
             $zone->user_id = $user_id;
-    
+
             if ($zone->save()) {
                 $zoneId = $zone->id;
                 $slug = $this->createSlug($request->input('name')) . '-' . $zoneId;
                 $zone->slug = $slug;
-    
+
                 if ($zone->save()) {
                     if ($request->hasFile('images')) {
                         $violentImages = [];
-    
+
                         foreach ($request->file('images') as $image) {
                             if ($image->isValid() && in_array($image->getClientOriginalExtension(), ['jpg', 'jpeg', 'png', 'gif'])) {
                                 if ($image->getSize() <= 5242880) { // 5MB
@@ -81,19 +82,19 @@ class ZoneServices
                                                 ]
                                             ]
                                         ]);
-    
+
                                         $result = json_decode($response->getBody(), true);
                                         $concepts = $result['outputs'][0]['data']['concepts'] ?? [];
                                         $violenceScore = 0;
-                                        
+
                                         $inappropriateContent = ['gore', 'explicit', 'drug', 'suggestive', 'weapon'];
-    
+
                                         foreach ($concepts as $concept) {
                                             if (in_array($concept['name'], $inappropriateContent)) {
                                                 $violenceScore += $concept['value'];
                                             }
                                         }
-    
+
                                         if ($violenceScore > 0.5) {
                                             $violentImages[] = $image->getClientOriginalName();
                                         } else {
@@ -106,13 +107,13 @@ class ZoneServices
                                 }
                             }
                         }
-    
+
                         if (!empty($violentImages)) {
                             $zone->delete(); // Xóa zone nếu có ảnh không phù hợp
                             return ['success' => false, 'message' => 'Phát hiện ảnh không phù hợp: ' . implode(', ', $violentImages) . '. Vui lòng kiểm tra lại ảnh của bạn.'];
                         }
                     }
-    
+
                     $utilities = new Utility();
                     $utilities->zone_id = $zoneId;
                     $utilities->wifi = $request->has('wifi') ? self::CO : self::CHUA_CO;
@@ -120,7 +121,7 @@ class ZoneServices
                     $utilities->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
                     $utilities->bathrooms = $request->input('bathrooms', 0);
                     $utilities->save();
-    
+
                     return ['success' => true, 'zone' => $zone];
                 } else {
                     $zone->delete();
@@ -336,11 +337,11 @@ class ZoneServices
     {
         if (auth()->check()) {
             $zone = Zone::find($zoneId);
-    
+
             if (!$zone) {
                 return ['success' => false, 'message' => 'Không tìm thấy khu trọ.'];
             }
-    
+
             $zone->name = $request->input('name');
             $zone->description = $request->input('description');
             $zone->total_rooms = $request->input('total_rooms');
@@ -352,10 +353,10 @@ class ZoneServices
             $zone->longitude = $request->input('longitude');
             $zone->status = $request->input('status');
             $zone->user_id = auth()->id();
-    
+
             if ($request->hasFile('images')) {
                 $violentImages = [];
-    
+
                 foreach ($request->file('images') as $image) {
                     if ($image->isValid() && in_array($image->getClientOriginalExtension(), ['jpg', 'jpeg', 'png', 'gif'])) {
                         if ($image->getSize() <= 5242880) { // 5MB
@@ -374,19 +375,19 @@ class ZoneServices
                                         ]
                                     ]
                                 ]);
-    
+
                                 $result = json_decode($response->getBody(), true);
                                 $concepts = $result['outputs'][0]['data']['concepts'] ?? [];
                                 $violenceScore = 0;
-                                
+
                                 $inappropriateContent = ['gore', 'explicit', 'drug', 'suggestive', 'weapon'];
-    
+
                                 foreach ($concepts as $concept) {
                                     if (in_array($concept['name'], $inappropriateContent)) {
                                         $violenceScore += $concept['value'];
                                     }
                                 }
-    
+
                                 if ($violenceScore > 0.5) {
                                     $violentImages[] = $image->getClientOriginalName();
                                 }
@@ -397,11 +398,11 @@ class ZoneServices
                         }
                     }
                 }
-    
+
                 if (!empty($violentImages)) {
                     return ['success' => false, 'message' => 'Phát hiện ảnh không phù hợp: ' . implode(', ', $violentImages) . '. Vui lòng kiểm tra lại ảnh của bạn.'];
                 }
-    
+
                 // Xóa ảnh cũ
                 foreach ($zone->images as $oldImage) {
                     $oldImagePath = public_path('assets/images/' . $oldImage->filename);
@@ -410,17 +411,17 @@ class ZoneServices
                     }
                     $oldImage->delete();
                 }
-    
+
                 // Thêm ảnh mới
                 foreach ($request->file('images') as $image) {
                     $this->storeImage($zone, $image);
                 }
             }
-    
+
             if ($zone->save()) {
                 $slug = $this->createSlug($request->input('name')) . '-' . $zone->id;
                 $zone->slug = $slug;
-    
+
                 if ($zone->save()) {
                     return ['success' => true, 'zone' => $zone];
                 } else {
@@ -494,7 +495,10 @@ class ZoneServices
     {
         return Zone::select('province')->distinct()->get();
     }
-
+    public function restoreMultipleZones($ids)
+    {
+        return Zone::withTrashed()->whereIn('id', $ids)->restore();
+    }
 
     public function restoreZones($id)
     {

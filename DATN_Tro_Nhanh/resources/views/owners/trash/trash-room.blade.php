@@ -4,7 +4,7 @@
 
 
 
-@livewire('trashed-rooms')
+    @livewire('trashed-rooms')
 
 
     </div>
@@ -89,7 +89,7 @@
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-   <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
     <meta name="success" content="{{ session('success') }}">
     <meta name="error" content="{{ session('error') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -139,4 +139,19 @@
     </script>
     <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
     <script src="{{ asset('assets/js/alert-report.js') }}"></script>
+    <script>
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.on('showAlert', (data) => {
+                Swal.fire({
+                    icon: data[0].type,
+                    title: 'Thông báo',
+                    text: data[0].message,
+                    timer: 3000,
+                    showConfirmButton: true
+                }).then(() => {
+                    location.reload();
+                });;
+            });
+        });
+    </script>
 @endpush

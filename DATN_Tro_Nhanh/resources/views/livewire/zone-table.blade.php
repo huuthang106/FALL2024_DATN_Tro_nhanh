@@ -1,11 +1,14 @@
 <div>
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
-
-            <div class="mb-6" wire:ignore>
+            <div class="mr-0 mr-md-auto">
+                <h2 class="mb-0 text-heading fs-22 lh-15 mb-6">Thùng rác khu trọ
+                </h2>
+            </div>
+            <div class="mb-6">
                 <div class="row">
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
-                        <div class="d-flex form-group mb-0 align-items-center">
+                        <div class="d-flex form-group mb-0 align-items-center" wire:ignore>
                             <label class="form-label fs-6 fw-bold mr-2 mb-0">Lọc:</label>
                             <select class="form-control selectpicker form-control-lg mr-2" wire:model.lazy="timeFilter"
                                 data-style="bg-white btn-lg h-52 py-2 border">
@@ -18,29 +21,48 @@
                                 <option value="1_year">1 năm</option>
                             </select>
                         </div>
-
-
+                        {{-- @if ($selectedZones)
+                            <button wire:click="restoreSelected" class="btn btn-success btn-lg text-nowrap">
+                                <i class="fas fa-undo mr-1"></i> Khôi phục
+                            </button>
+                        @endif --}}
                     </div>
 
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
                         <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
                             <input type="text" class="form-control bg-transparent border-1x"
-                                placeholder="Tìm kiếm..." aria-label="" aria-describedby="basic-addon1">
+                                placeholder="Tìm kiếm..." aria-label="" aria-describedby="basic-addon1"
+                                wire:model.lazy="search" wire:keydown.debounce.100ms="$refresh">
                             <div class="input-group-append position-absolute pos-fixed-right-center">
                                 <button class="btn bg-transparent border-0 text-gray lh-1" type="button"><i
                                         class="fal fa-search"></i></button>
                             </div>
                         </div>
-
+                        <div class="align-self-center">
+                            <button id="deleteButton" class="btn btn-danger btn-lg text-nowrap" tabindex="0"
+                                wire:click="deleteSelected" @if (!$this->hasSelectedZones) disabled @endif>
+                                <span>Xóa</span>
+                                @if ($this->hasSelectedZones)
+                                    <small class="text-white text-nowrap">({{ count($selectedZones) }})</small>
+                                @endif
+                            </button>
+                        </div>
                     </div>
 
                 </div>
             </div>
             <div class="table-responsive">
-                <table id="myTable" class="table table-hover table-sm bg-white border rounded-lg">
+                <table id="myTable" class="table table-hover bg-white border rounded-lg">
                     <thead class="thead-sm thead-black">
                         <tr role="row">
-
+                            <th scope="col" class="border-top-0 px-6 pt-5 pb-4">
+                                <div class="custom-control custom-checkbox pb-6">
+                                    <input type="checkbox" class="custom-control-input" id="checkAll"
+                                        wire:model.lazy="selectAll">
+                                    <label class="custom-control-label" for="checkAll"></label>
+                                </div>
+                            </th>
+                            <th class="py-3 text-nowrap text-center col-2">Hình ảnh</th>
                             <th class="py-3 text-nowrap text-center col-2">Tiêu đề</th>
                             <th class="py-3 text-nowrap text-center col-2">Mô tả</th>
                             <th class="py-3 text-nowrap text-center col-2">Địa chỉ</th>
@@ -56,8 +78,23 @@
                         {{-- Nội dung table --}}
                         @if ($trashedZones->isNotEmpty())
                             @foreach ($trashedZones as $zone)
-                                <tr role="row">
-
+                                <tr role="row" class="shadow-hover-xs-2 bg-hover-white">
+                                    <td class="align-middle pt-6 pb-4 px-6">
+                                        <div class="custom-control custom-checkbox pb-6">
+                                            <input type="checkbox" class="custom-control-input"
+                                                id="zone-{{ $zone->id }}" wire:model.lazy="selectedZones"
+                                                wire:key="zone-{{ $zone->id }}" value="{{ $zone->id }}">
+                                            <label class="custom-control-label" for="zone-{{ $zone->id }}"></label>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle d-md-table-cell text-nowrap p-4">
+                                        <div class="mr-2 position-relative zone-image-container">
+                                            <a href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}">
+                                                <img src="{{ $this->getZoneImageUrl($zone) ?: asset('assets/images/default-image.jpg') }}"
+                                                    alt="{{ $zone->name }}" class="img-fluid zone-image">
+                                            </a>
+                                        </div>
+                                    </td>
                                     <td class="align-middle d-md-table-cell text-nowrap ">
                                         <a href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}">
                                             <small class="inv-number">{{ $zone->name }}</small>
@@ -114,7 +151,7 @@
                         @else
                             <!-- Hiển thị khi không có dữ liệu -->
                             <tr>
-                                <td colspan="7" class="text-center">Không có dữ liệu.</td>
+                                <td colspan="9" class="text-center">Không có dữ liệu.</td>
                             </tr>
                         @endif
                     </tbody>
@@ -147,45 +184,40 @@
                                     $currentPage = $trashedZones->currentPage();
                                 @endphp
 
-                                {{-- Nếu số trang nhỏ hơn hoặc bằng 3, hiển thị tất cả trang --}}
-                                @if ($totalPages <= 3)
-                                    @foreach (range(1, $totalPages) as $i)
+                                {{-- Hiển thị trang đầu tiên --}}
+                                <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                                    <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                        wire:loading.attr="disabled">1</a>
+                                </li>
+
+                                {{-- Dấu ba chấm nếu cần --}}
+                                @if ($currentPage > 3)
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                @endif
+
+                                {{-- Hiển thị trang thứ hai và ba nếu có --}}
+                                @for ($i = max(2, $currentPage - 1); $i <= min($totalPages - 1, $currentPage + 1); $i++)
+                                    @if ($i != 1 && $i != $totalPages)
+                                        {{-- Bỏ qua trang đầu và trang cuối --}}
                                         <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
-                                            <a class="page-link hover-white" wire:click="gotoPage({{ $i }})"
+                                            <a class="page-link hover-white"
+                                                wire:click="gotoPage({{ $i }})"
                                                 wire:loading.attr="disabled">{{ $i }}</a>
                                         </li>
-                                    @endforeach
-                                @else
-                                    {{-- Trang đầu --}}
-                                    <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
-                                        <a class="page-link hover-white" wire:click="gotoPage(1)"
-                                            wire:loading.attr="disabled">1</a>
-                                    </li>
-
-                                    {{-- Dấu ba chấm đầu --}}
-                                    @if ($currentPage > 3)
-                                        <li class="page-item disabled"><span class="page-link">...</span></li>
                                     @endif
+                                @endfor
 
-                                    {{-- Trang giữa --}}
-                                    @if ($currentPage > 2 && $currentPage < $totalPages - 1)
-                                        <li class="page-item {{ $currentPage - 1 == $currentPage ? 'active' : '' }}">
-                                            <a class="page-link hover-white"
-                                                wire:click="gotoPage({{ $currentPage - 1 }})"
-                                                wire:loading.attr="disabled">{{ $currentPage - 1 }}</a>
-                                        </li>
-                                    @endif
+                                {{-- Dấu ba chấm nếu cần --}}
+                                @if ($currentPage < $totalPages - 2)
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                @endif
 
-                                    {{-- Trang cuối --}}
+                                {{-- Hiển thị trang cuối cùng --}}
+                                @if ($totalPages > 1)
                                     <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
                                         <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
                                             wire:loading.attr="disabled">{{ $totalPages }}</a>
                                     </li>
-
-                                    {{-- Dấu ba chấm cuối --}}
-                                    @if ($currentPage < $totalPages - 2)
-                                        <li class="page-item disabled"><span class="page-link">...</span></li>
-                                    @endif
                                 @endif
 
                                 {{-- Liên kết Trang Tiếp --}}
@@ -207,10 +239,68 @@
                         </nav>
                     </div>
                 @endif
-
-
             </div>
         </div>
     </main>
+    <script>
+        document.addEventListener('livewire:initialized', () => {
+            const checkboxes = document.querySelectorAll('.custom-control-input:not(#checkAll)');
+            const selectAllCheckbox = document.getElementById('checkAll');
+            const deleteButton = document.getElementById('deleteButton');
 
+            function updateSelectAllState() {
+                const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+                selectAllCheckbox.checked = allChecked;
+                updateDeleteButtonState();
+            }
+
+            function updateDeleteButtonState() {
+                const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+                deleteButton.disabled = checkedCount === 0;
+                deleteButton.querySelector('small').textContent = checkedCount > 0 ? `(${checkedCount})` : '';
+            }
+
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', () => {
+                    updateSelectAllState();
+                    @this.set('selectedZones', Array.from(checkboxes)
+                        .filter(cb => cb.checked)
+                        .map(cb => cb.value)
+                    );
+                });
+            });
+
+            selectAllCheckbox.addEventListener('change', () => {
+                const isChecked = selectAllCheckbox.checked;
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = isChecked;
+                });
+                updateDeleteButtonState();
+                @this.set('selectedZones', isChecked ? Array.from(checkboxes).map(cb => cb.value) : []);
+            });
+
+            // Khởi tạo trạng thái ban đầu
+            updateSelectAllState();
+        });
+    </script>
+    <script>
+        document.addEventListener('livewire:initialized', () => {
+            @this.on('confirmDelete', () => {
+                Swal.fire({
+                    title: 'Bạn có chắc chắn?',
+                    text: "Bạn sẽ không thể khôi phục lại khu trọ này!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Đồng ý',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        @this.call('confirmDelete');
+                    }
+                });
+            });
+        });
+    </script>
 </div>

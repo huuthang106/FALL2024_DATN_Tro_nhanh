@@ -224,23 +224,23 @@ class RoomOwnersService
                 $room->delete();
                 return false;
             }
-            
+
             if ($request->hasFile('images')) {
                 $images = $request->file('images');
                 $uploadedFilenames = [];
                 $violentImages = [];
-    
+
                 foreach ($images as $image) {
                     try {
                         $timestamp = now()->format('YmdHis');
                         $originalName = $image->getClientOriginalName();
                         $extension = $image->getClientOriginalExtension();
                         $filename = $timestamp . '_' . pathinfo($originalName, PATHINFO_FILENAME) . '.' . $extension;
-            
+
                         Log::info("Checking image with Clarifai: " . $filename);
-            
+
                         $imageContent = base64_encode(file_get_contents($image->getRealPath()));
-            
+
                         $response = $this->client->post('models/moderation-recognition/outputs', [
                             'json' => [
                                 'inputs' => [
@@ -254,24 +254,24 @@ class RoomOwnersService
                                 ]
                             ]
                         ]);
-            
+
                         $result = json_decode($response->getBody(), true);
                         Log::info("Clarifai response: " . json_encode($result));
-            
+
                         $concepts = $result['outputs'][0]['data']['concepts'] ?? [];
                         $violenceScore = 0;
-                        
+
                         $inappropriateContent = ['gore', 'explicit', 'drug', 'suggestive', 'weapon'];
-            
+
                         foreach ($concepts as $concept) {
                             if (in_array($concept['name'], $inappropriateContent)) {
                                 $violenceScore += $concept['value'];
                                 Log::info("Inappropriate content detected: " . $concept['name'] . " with score: " . $concept['value']);
                             }
                         }
-                        
+
                         Log::info("Total inappropriate content score for image: " . $violenceScore);
-                        
+
                         if ($violenceScore > 0.5) {
                             Log::warning("Image rejected due to high inappropriate content score: " . $filename);
                             $violentImages[] = $filename;
@@ -279,12 +279,12 @@ class RoomOwnersService
                             // Lưu hình ảnh nếu an toàn
                             if ($image->move(public_path('assets/images'), $filename)) {
                                 Log::info("Image uploaded successfully: " . $filename);
-            
+
                                 $imageModel = new \App\Models\Image();
                                 $imageModel->room_id = $roomId;
                                 $imageModel->filename = $filename;
                                 $imageModel->save();
-            
+
                                 $uploadedFilenames[] = $filename;
                             } else {
                                 Log::error("Failed to move image: " . $filename);
@@ -305,7 +305,7 @@ class RoomOwnersService
                         ]);
                     }
                 }
-    
+
                 if (!empty($violentImages)) {
                     // Xóa các ảnh đã upload
                     foreach ($uploadedFilenames as $filename) {
@@ -314,16 +314,16 @@ class RoomOwnersService
                             unlink($path);
                         }
                     }
-                    
+
                     // Xóa phòng
                     $room->delete();
-                    
+
                     return response()->json([
                         'status' => 'error',
                         'message' => 'Phát hiện ảnh không phù hợp: ' . implode(', ', $violentImages) . '. Vui lòng kiểm tra lại ảnh của bạn.'
                     ]);
                 }
-    
+
                 if (empty($uploadedFilenames)) {
                     $room->delete();
                     return response()->json([
@@ -523,7 +523,7 @@ class RoomOwnersService
                 $images = $request->file('images');
                 $uploadedFilenames = []; // Để lưu trữ các tên file đã được tải lên
                 $violentImages = []; // Để lưu trữ tên các ảnh bạo lực
-    
+
                 // Xóa tất cả ảnh cũ của phòng
                 $oldImages = Image::where('room_id', $roomId)->get();
                 foreach ($oldImages as $oldImage) {
@@ -533,14 +533,14 @@ class RoomOwnersService
                     }
                     $oldImage->delete();
                 }
-            
+
                 foreach ($images as $image) {
                     // Tạo tên file mới với timestamp
                     $timestamp = now()->format('YmdHis');
                     $originalName = $image->getClientOriginalName();
                     $extension = $image->getClientOriginalExtension();
                     $filename = $timestamp . '_' . pathinfo($originalName, PATHINFO_FILENAME) . '.' . $extension;
-            
+
                     // Kiểm tra nội dung bạo lực
                     $imageContent = base64_encode(file_get_contents($image->getRealPath()));
                     try {
@@ -557,24 +557,24 @@ class RoomOwnersService
                                 ]
                             ]
                         ]);
-            
+
                         $result = json_decode($response->getBody(), true);
                         $concepts = $result['outputs'][0]['data']['concepts'] ?? [];
                         $violenceScore = 0;
-                        
+
                         $inappropriateContent = ['gore', 'explicit', 'drug', 'suggestive', 'weapon'];
-            
+
                         foreach ($concepts as $concept) {
                             if (in_array($concept['name'], $inappropriateContent)) {
                                 $violenceScore += $concept['value'];
                             }
                         }
-                        
+
                         if ($violenceScore > 0.5) {
                             $violentImages[] = $originalName;
                             continue; // Bỏ qua ảnh này và chuyển sang ảnh tiếp theo
                         }
-            
+
                         // Kiểm tra xem ảnh đã tồn tại trong cơ sở dữ liệu chưa
                         if (!in_array($filename, $uploadedFilenames)) {
                             // Lưu ảnh vào thư mục public/assets/images
@@ -595,7 +595,7 @@ class RoomOwnersService
                         ];
                     }
                 }
-            
+
                 if (!empty($violentImages)) {
                     // Xóa các ảnh đã upload
                     foreach ($uploadedFilenames as $filename) {
@@ -606,14 +606,14 @@ class RoomOwnersService
                         // Xóa bản ghi trong cơ sở dữ liệu
                         Image::where('room_id', $roomId)->where('filename', $filename)->delete();
                     }
-                    
+
                     return [
                         'success' => false,
                         'message' => 'Phát hiện ảnh không phù hợp: ' . implode(', ', $violentImages) . '. Vui lòng kiểm tra lại ảnh của bạn.'
                     ];
                 }
             }
-            
+
             return ['success' => true];
         } else {
             return false; // Nếu người dùng chưa đăng nhập, trả về false
@@ -659,7 +659,10 @@ class RoomOwnersService
         $room->restore();
         return $room;
     }
-
+    public function restoreMultipleRooms($ids)
+    {
+        return Room::withTrashed()->whereIn('id', $ids)->restore();
+    }
     public function forceDeleteRoom($id)
     {
         $room = Room::withTrashed()->findOrFail($id);
@@ -704,5 +707,4 @@ class RoomOwnersService
             return false;
         }
     }
-
 }
