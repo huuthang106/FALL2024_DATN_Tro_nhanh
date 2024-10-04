@@ -10,7 +10,7 @@ use App\Services\PremiumService;
 use App\Services\AccountService;
 use App\Events\ExpiredEntitiesUpdateEvent;
 use App\Services\UserClientServices;
-
+use App\Services\ZoneServices;
 class HomeClientController extends Controller
 {
     protected $roomClientService;
@@ -19,7 +19,7 @@ class HomeClientController extends Controller
     protected $zoneServices;
  
     protected $userClientServices;
-    public function __construct(UserClientServices $userClientServices,RoomClientServices $roomClientService, PremiumService $premiumService, AccountService $accountService)
+    public function __construct(UserClientServices $userClientServices,RoomClientServices $roomClientService, PremiumService $premiumService, AccountService $accountService ,ZoneServices $zoneServices)
     {
         $this->zoneServices = $zoneServices;
         $this->roomClientService = $roomClientService;
@@ -46,7 +46,7 @@ class HomeClientController extends Controller
             ]);
         }
         event(new ExpiredEntitiesUpdateEvent());
-        event(new ServiceMailsSummaryEvent());
+        // event(new ServiceMailsSummaryEvent());
         return view('client.show.home', [
             'roomClient' => $roomClient,
             'categories' => $categories,
