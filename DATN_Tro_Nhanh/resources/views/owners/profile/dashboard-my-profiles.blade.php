@@ -452,6 +452,7 @@
             communeId: '{{ $user->village }}'
         };
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         // Lấy danh sách ngân hàng từ API
         async function fetchBanks() {
@@ -461,15 +462,91 @@
 
                 // Cập nhật danh sách ngân hàng vào select
                 const bankSelect = document.getElementById('bank-name');
+
+                // Xóa tất cả các option hiện tại
+                bankSelect.innerHTML = '';
+
+                // Thêm option mặc định
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Chọn ngân hàng';
+                bankSelect.appendChild(defaultOption);
+
+                // Thêm các ngân hàng
                 banks.forEach(bank => {
                     const option = document.createElement('option');
-                    option.value = bank.code; // Hoặc bank.id tùy theo yêu cầu
+                    option.value = bank.code;
                     option.textContent = bank.name;
+                    option.dataset.name = bank.name;
                     bankSelect.appendChild(option);
                 });
+
             } catch (error) {
                 console.error('Error fetching banks:', error);
             }
+        }
+
+        // Gọi hàm khi modal mở
+        $('#withdrawModal').on('show.bs.modal', fetchBanks);
+
+        // Xử lý submit form
+        document.getElementById('withdrawForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var formData = new FormData(this);
+
+            if (formData.get('description') === 'Rút tiền khác') {
+                formData.set('description', formData.get('custom_description'));
+            }
+
+            // Lấy mã ngân hàng và tên ngân hàng
+            const bankSelect = document.getElementById('bank-name');
+            const selectedOption = bankSelect.options[bankSelect.selectedIndex];
+            if (selectedOption && selectedOption.value) {
+                formData.set('bank_code', selectedOption.value);
+                formData.set('bank_name', selectedOption.dataset.name);
+            } else {
+                alert('Vui lòng chọn ngân hàng');
+                return;
+            }
+
+            // Gửi request
+            fetch('{{ route('owners.submit-payout-request') }}', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        $('#withdrawModal').modal('hide');
+                    } else {
+                        alert(data.message || 'Có lỗi xảy ra');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Có lỗi xảy ra khi xử lý yêu cầu');
+                });
+        });
+    </script>
+    <script>
+        // Cập nhật danh sách ngân hàng vào select
+        const bankSelect = document.getElementById('bank-name');
+        banks.forEach(bank => {
+            const option = document.createElement('option');
+            option.value = bank.code; // Hoặc bank.id tùy theo yêu cầu
+            option.textContent = bank.name;
+            bankSelect.appendChild(option);
+        });
+        }
+        catch (error) {
+            console.error('Error fetching banks:', error);
+        }
         }
 
         // Gọi hàm khi modal mở
@@ -480,68 +557,68 @@
     <script src="{{ asset('assets/js/payout-api.js') }}"></script>
     <script>
         document.getElementById('withdrawForm').addEventListener('submit', function(e) {
-                    e.preventDefault();
+                e.preventDefault();
 
-                    var formData = new FormData(this);
+                var formData = new FormData(this);
 
-                    // Thêm option mặc định
-                    const defaultOption = document.createElement('option');
-                    defaultOption.value = '';
-                    defaultOption.textContent = 'Chọn ngân hàng';
-                    bankSelect.appendChild(defaultOption);
+                // Thêm option mặc định
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Chọn ngân hàng';
+                bankSelect.appendChild(defaultOption);
 
-                    // Thêm các ngân hàng
-                    banks.forEach(bank => {
-                        const option = document.createElement('option');
-                        option.value = bank.name; // Sử dụng tên đầy đủ làm giá trị
-                        option.textContent = bank.name;
-                        option.dataset.code = bank.code; // Lưu mã ngân hàng vào data attribute
-                        bankSelect.appendChild(option);
-                    });
+                // Thêm các ngân hàng
+                banks.forEach(bank => {
+                    const option = document.createElement('option');
+                    option.value = bank.name; // Sử dụng tên đầy đủ làm giá trị
+                    option.textContent = bank.name;
+                    option.dataset.code = bank.code; // Lưu mã ngân hàng vào data attribute
+                    bankSelect.appendChild(option);
+                });
 
-                    // Đặt size cho select
-                    bankSelect.size = Math.min(5, banks.length + 1);
+                // Đặt size cho select
+                bankSelect.size = Math.min(5, banks.length + 1);
 
-                    // Thêm sự kiện để đóng select khi chọn
-                    bankSelect.addEventListener('change', function() {
-                        this.size = 1;
-                        this.blur();
-                    });
+                // Thêm sự kiện để đóng select khi chọn
+                bankSelect.addEventListener('change', function() {
+                    this.size = 1;
+                    this.blur();
+                });
 
-                    // Thêm sự kiện để mở rộng select khi focus
-                    bankSelect.addEventListener('focus', function() {
-                        this.size = Math.min(5, banks.length + 1);
-                    });
+                // Thêm sự kiện để mở rộng select khi focus
+                bankSelect.addEventListener('focus', function() {
+                    this.size = Math.min(5, banks.length + 1);
+                });
 
-                } catch (error) {
-                    console.error('Error fetching banks:', error);
+            } catch (error) {
+                console.error('Error fetching banks:', error);
+            }
+
+            // Gọi hàm khi modal mở
+            $('#withdrawModal').on('show.bs.modal', function() {
+                fetchBanks();
+            });
+
+            // Xử lý submit form
+            document.getElementById('withdrawForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                var formData = new FormData(this);
+
+                if (formData.get('description') === 'Rút tiền khác') {
+                    formData.set('description', formData.get('custom_description'));
                 }
 
-                // Gọi hàm khi modal mở
-                $('#withdrawModal').on('show.bs.modal', function() {
-                    fetchBanks();
-                });
+                // Lấy mã ngân hàng từ data attribute
+                const bankSelect = document.getElementById('bank-name');
+                const selectedOption = bankSelect.options[bankSelect.selectedIndex];
+                formData.set('bank_code', selectedOption.dataset.code);
 
-                // Xử lý submit form
-                document.getElementById('withdrawForm').addEventListener('submit', function(e) {
-                    e.preventDefault();
-
-                    var formData = new FormData(this);
-
-                    if (formData.get('description') === 'Rút tiền khác') {
-                        formData.set('description', formData.get('custom_description'));
-                    }
-
-                    // Lấy mã ngân hàng từ data attribute
-                    const bankSelect = document.getElementById('bank-name');
-                    const selectedOption = bankSelect.options[bankSelect.selectedIndex];
-                    formData.set('bank_code', selectedOption.dataset.code);
-
-                    // ... phần còn lại của code xử lý submit ...
-                });
-            );
+                // ... phần còn lại của code xử lý submit ...
+            });
+        );
     </script>
-    
+
     {{-- <script>
         document.getElementById('withdrawForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -665,5 +742,4 @@
             });
         });
     </script>
-   
 @endpush
