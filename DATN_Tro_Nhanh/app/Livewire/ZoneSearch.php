@@ -43,7 +43,7 @@ class ZoneSearch extends Component
     }
     public $selectedZones = [];
 
-    public function deleteSelectedZones()
+   public function deleteSelectedZones()
 {
     $zonesWithRooms = Zone::whereIn('id', $this->selectedZones)
         ->withCount('rooms')

@@ -108,15 +108,15 @@ class RoomOwnersList extends Component
             'user' => $user
         ]);
     }
-  public function toggleRoom($roomId)
-{
-    if (isset($this->selectedRooms[$roomId])) {
-        unset($this->selectedRooms[$roomId]);
-    } else {
-        $this->selectedRooms[$roomId] = true;
+ 
+    public function toggleRoom($roomId)
+    {
+        if (isset($this->selectedRooms[$roomId])) {
+            unset($this->selectedRooms[$roomId]);
+        } else {
+            $this->selectedRooms[$roomId] = true;
+        }
     }
-    $this->updateSelectAllState();
-}
 
     public function updateSelectAllState()
     {
@@ -137,19 +137,17 @@ class RoomOwnersList extends Component
     }
     public function deleteSelected()
     {
-        if (empty($this->selectedRooms)) {
-            $this->dispatch('showAlert', ['type' => 'error', 'message' => 'Vui lòng chọn ít nhất một phòng để xóa.']);
+        $roomIds = array_keys(array_filter($this->selectedRooms));
+        if (empty($roomIds)) {
+            session()->flash('error', 'Vui lòng chọn ít nhất một phòng để xóa.');
             return;
         }
-    
-        $deletedCount = Room::whereIn('id', array_keys($this->selectedRooms))
-                            ->where('user_id', Auth::id())
-                            ->delete();
-    
+
+        // Thực hiện xóa các phòng đã chọn
+        Room::whereIn('id', $roomIds)->delete();
+
         $this->selectedRooms = [];
-        $this->selectAll = false;
-        $this->dispatch('showAlert', ['type' => 'success', 'message' => "$deletedCount phòng đã được xóa thành công."]);
-        $this->dispatch('roomsDeleted');
+        session()->flash('success', 'Các phòng đã chọn đã được xóa thành công.');
     }
     public function hydrate()
     {
@@ -159,8 +157,13 @@ class RoomOwnersList extends Component
     {
         $this->updateSelectAllState();
     }
+ 
     public function getSelectedRoomsCount()
     {
-        return count($this->selectedRooms);
+        return count(array_filter($this->selectedRooms));
+    }
+    public function isRoomSelected($roomId)
+    {
+        return isset($this->selectedRooms[$roomId]) && $this->selectedRooms[$roomId];
     }
 }

@@ -19,6 +19,7 @@ class MaintenanceOwnerList extends Component
     public $timeFilter = ''; // Khoảng thời gian lọc
     public $startDate = ''; // Ngày bắt đầu lọc
     public $endDate = ''; // Ngày kết thúc lọc
+    protected $listeners = ['delete-selected-maintenances' => 'deleteSelectedMaintenances'];
 
     protected $queryString = ['search', 'perPage', 'timeFilter', 'startDate', 'endDate'];
 
@@ -77,7 +78,18 @@ class MaintenanceOwnerList extends Component
     {
         $this->resetPage();
     }
-
+    public function deleteSelectedMaintenances($data)
+    {
+        $ids = $data['ids'];
+        if (empty($ids)) {
+            $this->dispatch('error', ['message' => 'Không có yêu cầu bảo trì nào được chọn để xóa.']);
+            return;
+        }
+    
+        $deletedCount = MaintenanceRequest::whereIn('id', $ids)->delete();
+    
+        $this->dispatch('maintenances-deleted', ['message' => "Đã xóa thành công $deletedCount yêu cầu bảo trì."]);
+    }
     // Reset trang khi thay đổi khoảng thời gian
     public function updatedTimeFilter()
     {

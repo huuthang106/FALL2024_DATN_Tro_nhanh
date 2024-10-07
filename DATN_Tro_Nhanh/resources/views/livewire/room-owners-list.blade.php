@@ -59,7 +59,7 @@
             </div>
         </div>
         <div wire:loading.remove wire:target="search, sortBy, perPage" class="table-responsive">
-            <table class="table table-hover bg-white border rounded-lg">
+            <table class="table table-hover bg-white border rounded-lg" wire:ignore>
                 <thead>
                     <tr class="align-middle">
                         <th class="no-sort py-6 pl-6" style="white-space: nowrap;">
@@ -93,14 +93,13 @@
                         </tr>
                     @else
                         @foreach ($rooms as $room)
-                            <tr class="shadow-hover-xs-2 bg-hover-white">
+                            <tr class="shadow-hover-xs-2 bg-hover-white" wire:ignore>
                                 <td class="checkbox-column align-middle py-4 pl-6" style="white-space: nowrap;">
                                     <label class="new-control new-checkbox checkbox-primary m-auto">
                                         <input type="checkbox" class="new-control-input child-chk select-customers-info"
-                                            wire:model="selectedRooms.{{ $room->id }}"
-                                            wire:click="toggleRoom('{{ $room->id }}')"
-                                            {{ isset($selectedRooms[$room->id]) && $selectedRooms[$room->id] ? 'checked' : '' }}>
-                                        <label class="new-control-label" for="room-{{ $room->id }}"></label>
+                                            wire:click.stop="toggleRoom('{{ $room->id }}')"
+                                            {{ $this->isRoomSelected($room->id) ? 'checked' : '' }}>
+                                        <span class="new-control-indicator"></span>
                                     </label>
                                 </td>
                                 <td class="align-middle pt-6 pb-4 px-6">
@@ -150,7 +149,7 @@
                                     @endif
                                 </td>
                                 <td class="align-middle">{{ $room->view }}</td>
-                                <td class="align-middle" style="white-space: nowrap;">
+                                <td class="align-middle " style="white-space: nowrap;">
                                     <!-- Nút Mua Vip -->
                                     @if ($room->status == 2)
                                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"

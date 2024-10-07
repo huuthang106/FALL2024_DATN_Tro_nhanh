@@ -69,7 +69,7 @@
                     <tbody>
                         @if ($zones->isNotEmpty())
                             @foreach ($zones as $zone)
-                                <tr role="row" wire:key="zone-{{ $zone->id }}">
+                                <tr role="row" wire:key="zone-{{ $zone->id }}" data-room-count="{{ $zone->room_count }}">
                                     <td class="align-middle  px-6">
                                         <input type="checkbox" class="zone-checkbox" wire:model="selectedZones"
                                             value="{{ $zone->id }}">
@@ -237,19 +237,47 @@
         checkAll.addEventListener('change', function() {
             const checkboxes = document.querySelectorAll('.zone-checkbox');
             checkboxes.forEach(checkbox => {
-                checkbox.checked = this.checked;
-                checkbox.dispatchEvent(new Event('change', {
-                    'bubbles': true
-                }));
+                const row = checkbox.closest('tr');
+                const roomCount = parseInt(row.getAttribute('data-room-count'));
+                if (roomCount === 0) {
+                    checkbox.checked = this.checked;
+                    checkbox.dispatchEvent(new Event('change', {
+                        'bubbles': true
+                    }));
+                } else {
+                    checkbox.checked = false;
+                }
             });
+            updateCheckAllState();
         });
 
         deleteSelectedBtn.addEventListener('click', function(event) {
             event.preventDefault();
-            if (Livewire.find('zone-search').selectedZones.length === 0) {
+            const selectedCheckboxes = document.querySelectorAll('.zone-checkbox:checked');
+            if (selectedCheckboxes.length === 0) {
                 Swal.fire({
                     title: 'Lỗi!',
                     text: 'Vui lòng chọn ít nhất một khu vực để xóa',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            // Kiểm tra xem có khu vực nào đang có phòng không
+            const zonesWithRooms = Array.from(selectedCheckboxes).filter(checkbox => {
+                const row = checkbox.closest('tr');
+                return parseInt(row.getAttribute('data-room-count')) > 0;
+            });
+
+            if (zonesWithRooms.length > 0) {
+                const zonesWithRoomsNames = zonesWithRooms.map(checkbox => {
+                    return checkbox.closest('tr').querySelector('td:nth-child(3)').textContent.trim();
+                }).join(', ');
+
+                Swal.fire({
+                    title: 'Không thể xóa!',
+                    html: `Các khu vực sau có phòng và không thể xóa:<br><strong>${zonesWithRoomsNames}</strong><br>Vui lòng xóa tất cả phòng trong khu vực trước khi xóa khu vực.`,
                     icon: 'error',
                     confirmButtonText: 'OK'
                 });
@@ -272,17 +300,25 @@
             });
         });
 
-        function updateDeleteButtonVisibility() {
-            const selectedZonesCount = Livewire.find('zone-search').selectedZones.length;
-            deleteSelectedBtn.style.display = selectedZonesCount > 0 ? 'block' : 'none';
-            checkAll.checked = selectedZonesCount === document.querySelectorAll('.zone-checkbox').length;
+        function updateCheckAllState() {
+            const totalCheckboxes = document.querySelectorAll('.zone-checkbox').length;
+            const emptyZonesCount = Array.from(document.querySelectorAll('.zone-checkbox')).filter(checkbox => {
+                const row = checkbox.closest('tr');
+                return parseInt(row.getAttribute('data-room-count')) === 0;
+            }).length;
+            const selectedEmptyZonesCount = Array.from(document.querySelectorAll('.zone-checkbox:checked')).filter(checkbox => {
+                const row = checkbox.closest('tr');
+                return parseInt(row.getAttribute('data-room-count')) === 0;
+            }).length;
+            
+            checkAll.checked = selectedEmptyZonesCount === emptyZonesCount && emptyZonesCount > 0;
         }
 
-        Livewire.find('zone-search').$watch('selectedZones', () => {
-            updateDeleteButtonVisibility();
+        document.querySelectorAll('.zone-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', updateCheckAllState);
         });
 
-        updateDeleteButtonVisibility();
+        updateCheckAllState();
 
         Livewire.on('zones-deleted', (data) => {
             console.log('Zones deleted event received:', data);
@@ -293,15 +329,6 @@
                 confirmButtonText: 'OK'
             }).then(() => {
                 location.reload();
-            });
-        });
-
-        Livewire.on('zones-with-rooms', (zonesWithRooms) => {
-            Swal.fire({
-                title: 'Không thể xóa!',
-                html: `Các khu vực sau có phòng và không thể xóa:<br><strong>${zonesWithRooms}</strong><br>Vui lòng xóa tất cả phòng trong khu vực trước khi xóa khu vực.`,
-                icon: 'error',
-                confirmButtonText: 'OK'
             });
         });
     });
