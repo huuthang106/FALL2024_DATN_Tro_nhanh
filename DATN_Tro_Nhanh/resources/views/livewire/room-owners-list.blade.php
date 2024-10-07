@@ -25,7 +25,7 @@
                 <div>
                     <button wire:click="deleteSelected" class="btn btn-danger btn-lg" tabindex="0"
                             {{ $this->getSelectedRoomsCount() === 0 ? 'disabled' : '' }}>
-                        <span>Xóa {{ $this->getSelectedRoomsCount() > 0 ? '(' . $this->getSelectedRoomsCount() . ')' : '' }}</span>
+                        <span>Xóa</span>
                     </button>
                 </div>
             </div>
