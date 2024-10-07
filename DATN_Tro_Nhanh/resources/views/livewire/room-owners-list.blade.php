@@ -18,13 +18,13 @@
                         </button>
                     </div>
                     <input type="text" class="form-control bg-transparent border-0 shadow-none text-body"
-                    placeholder="Nhập tên phòng trọ" wire:keydown.debounce.300ms="$refresh"
-                    wire:model.lazy="search">
+                        placeholder="Nhập tên phòng trọ" wire:keydown.debounce.300ms="$refresh"
+                        wire:model.lazy="search">
                 </div>
 
                 <div>
                     <button wire:click="deleteSelected" class="btn btn-danger btn-lg" tabindex="0"
-                            {{ $this->getSelectedRoomsCount() === 0 ? 'disabled' : '' }}>
+                        {{ $this->getSelectedRoomsCount() === 0 ? 'disabled' : '' }}>
                         <span>Xóa</span>
                     </button>
                 </div>
@@ -65,7 +65,7 @@
                         <th class="no-sort py-6 pl-6" style="white-space: nowrap;">
                             <label class="new-control new-checkbox checkbox-primary m-auto">
                                 <input type="checkbox" class="new-control-input chk-parent select-customers-info"
-                                       wire:model="selectAll" wire:click="toggleSelectAll">
+                                    wire:model="selectAll" wire:click="toggleSelectAll">
                                 <label class="new-control-label" for="selectAll"></label>
                             </label>
                         </th>
@@ -97,9 +97,9 @@
                                 <td class="checkbox-column align-middle py-4 pl-6" style="white-space: nowrap;">
                                     <label class="new-control new-checkbox checkbox-primary m-auto">
                                         <input type="checkbox" class="new-control-input child-chk select-customers-info"
-                                               wire:model="selectedRooms.{{ $room->id }}"
-                                               wire:click="toggleRoom('{{ $room->id }}')"
-                                               {{ isset($selectedRooms[$room->id]) && $selectedRooms[$room->id] ? 'checked' : '' }}>
+                                            wire:model="selectedRooms.{{ $room->id }}"
+                                            wire:click="toggleRoom('{{ $room->id }}')"
+                                            {{ isset($selectedRooms[$room->id]) && $selectedRooms[$room->id] ? 'checked' : '' }}>
                                         <label class="new-control-label" for="room-{{ $room->id }}"></label>
                                     </label>
                                 </td>
@@ -120,8 +120,9 @@
                                                 </div>
 
                                             </a>
-                                            <span class="badge badge-indigo position-absolute pos-fixed-top">Cho
-                                                thuê</span>
+                                            <span class="badge {{ $room->residents->isNotEmpty() ? 'mr-2 badge-orange' : 'badge-indigo' }} position-absolute pos-fixed-top">
+                                                {{ $room->residents->isNotEmpty() ? 'Hết phòng' : 'Còn phòng' }}
+                                            </span>
                                         </div>
                                         <div class="media-body" style="white-space: nowrap;">
                                             <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"

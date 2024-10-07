@@ -14,7 +14,7 @@
                                 <option value="2">Đã thanh toán</option>
                                
                             </select>
-                        </div>Ư
+                        </div>
 
                     </div>
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
