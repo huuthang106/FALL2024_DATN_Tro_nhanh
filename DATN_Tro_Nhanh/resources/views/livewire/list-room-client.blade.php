@@ -55,7 +55,12 @@
                                 </a>
                             @endif
                             <div class="card-img-overlay d-flex flex-column">
-                                {{-- <div><span class="badge badge-primary">Cần Bán</span></div> --}}
+                                @if ($room->residents->isNotEmpty())
+                                <div><span class="badge badge-orange">Hết phòng</span></div>
+                                @else
+                                <div><span class="badge badge-primary">Còn phòng</span></div>
+
+                                @endif
                                 <div>
                                     @if ($room->expiration_date > now())
                                         <span class="badge bg-danger text-white" style="bottom: 1px; right: 1px;">
@@ -121,7 +126,8 @@
                                     {{ Str::limit($room->title, 50) }}
                                 </a>
                             </h2>
-                            <p class="font-weight-500 text-gray-light mb-0 fs-13">{{ Str::limit($room->address, 70) }}</p>
+                            <p class="font-weight-500 text-gray-light mb-0 fs-13">{{ Str::limit($room->address, 70) }}
+                            </p>
                             <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">
                                 {{ number_format($room->price, 0, ',', '.') }} VND
                             </p>
