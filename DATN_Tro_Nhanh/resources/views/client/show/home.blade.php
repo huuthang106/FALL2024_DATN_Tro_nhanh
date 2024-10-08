@@ -396,12 +396,13 @@
                                             style="object-fit: cover;">
                                     @endif
                                     <div class="card-img-overlay p-2 d-flex flex-column">
-                                        @if ($room->residents->isNotEmpty())
-                                            <div><span class="badge badge-orange">Hết phòng</span></div>
-                                        @else
-                                            <div><span class="badge badge-primary">Còn phòng</span></div>
-                                        @endif
+                                   
                                         <div>
+                                            @if ($room->residents->isNotEmpty())
+                                            <span class="badge badge-orange">Hết phòng</span>
+                                         @else
+                                           <span class="badge badge-primary">Còn phòng</span>
+                                         @endif
                                             @if ($room->expiration_date > now())
                                                 <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
                                                     VIP
@@ -648,12 +649,13 @@
                                             style="object-fit: cover;">
                                     @endif
                                     <div class="card-img-overlay p-2 d-flex flex-column">
-                                        @if ($room->residents->isNotEmpty())
-                                            <div><span class="badge badge-orange">Hết phòng</span></div>
-                                        @else
-                                            <div><span class="badge badge-primary">Còn phòng</span></div>
-                                        @endif
+                                     
                                         <div>
+                                            @if ($room->residents->isNotEmpty())
+                                            <span class="badge badge-orange">Hết phòng</span>
+                                         @else
+                                             <span class="badge badge-primary">Còn phòng</span>
+                                         @endif
                                             @if ($room->expiration_date > now())
                                                 <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
                                                     VIP
