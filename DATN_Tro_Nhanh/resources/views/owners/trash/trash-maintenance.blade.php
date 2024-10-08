@@ -57,52 +57,65 @@
             </form>
             <div class="table-responsive">
                 <table class="table table-hover bg-white border rounded-lg">
-                    <thead class="thead-sm thead-black">
-                        <tr>
-                            <th scope="col" class="border-top-0 px-6 pt-5 pb-4">Ảnh</th>
-                            <th scope="col" class="border-top-0 pt-5 pb-4">Tiêu Đề</th>
-                            <th scope="col" class="border-top-0 pt-5 pb-4">Mô Tả</th>
-                            <th scope="col" class="border-top-0 pt-5 pb-4">Trạng thái</th>
-                            <th scope="col" class="border-top-0 pt-5 pb-4">Ngày xuất bản</th>
-                            <th scope="col" class="border-top-0 pt-5 pb-4">Hành động</th>
+                    <thead>
+                        <tr role="row">
+                            <th class="no-sort py-6 pl-6" style="white-space: nowrap;">
+                                <label class="new-control new-checkbox checkbox-primary m-auto">
+                                    <input type="checkbox" class="new-control-input chk-parent select-customers-info" id="selectAll">
+                                </label>
+                            </th>
+                            <th class="py-6" style="white-space: nowrap;">Người Yêu Cầu</th>
+                            <th class="py-6" style="white-space: nowrap;">Số Phòng</th>
+                            <th class="py-6" style="white-space: nowrap;">Ngày</th>
+                            <th class="py-6" style="white-space: nowrap;">Trạng thái</th>
+                            <th class="no-sort py-6" style="white-space: nowrap;">Khôi Phục</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($trashedMaintenances as $item)
-                            <tr class="shadow-hover-xs-2 bg-hover-white">
-                                <td class="align-middle p-3">{{ $item->user->name ?? 'N/A' }}</td>
-                                <td class="align-middle p-3">{{ $item->room->id ?? 'N/A' }}</td>
-                                <td class="align-middle p-3">{{ $item->title }}</td>
-                                <td class="align-middle p-3">{{ $item->description }}</td>
-                                <td class="align-middle p-3">
-                                    @if ($item->status == 1)
-                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">Đang xử
-                                            lý</span>
-                                    @elseif ($item->status == 2)
-                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-green">Đã
-                                            duyệt</span>
-                                    @elseif ($item->status == 3)
-                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-blue">Đã hoàn
-                                            thành</span>
-                                    @else
-                                        <span class="badge text-capitalize font-weight-normal fs-12 badge-gray">Không xác
-                                            định</span>
-                                    @endif
-                                </td>
-                                <td class="align-middle p-3">{{ $item->created_at->format('d-m-Y') }}</td>
-
-                                <td class="align-middle p-3">
-                                    <form action="{{ route('owners.restore-maintenance', $item->id) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        <button type="submit" class="btn btn-primary">Khôi phục</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-
-
+            
+                    @forelse ($trashedMaintenances as $item)
+                        <tr class="shadow-hover-xs-2" data-id="{{ $item->id }}">
+                            <td class="checkbox-column align-middle py-4 pl-6" style="white-space: nowrap;">
+                                <label class="new-control new-checkbox checkbox-primary m-auto">
+                                    <input type="checkbox" class="new-control-input child-chk select-customers-info">
+                                </label>
+                            </td>
+                            <td class="align-middle p-4 text-primary" style="white-space: nowrap;">
+                                {{ $item->user->name ?? 'N/A' }}
+                                <br><small>Yêu cầu: {{ $item->title }}</small>
+                            </td>
+                            <td class="align-middle p-4" style="white-space: nowrap;">{{ $item->room->title ?? 'N/A' }}</td>
+                            <td class="align-middle p-4" style="white-space: nowrap;">
+                                {{ $item->created_at->format('d-m-Y') }}</td>
+                            <td class="align-middle p-4" style="white-space: nowrap;">
+                                @if ($item->status == 1)
+                                    <span class="badge badge-yellow text-capitalize font-weight-normal fs-12">Đang xử
+                                        lý</span>
+                                @elseif ($item->status == 2)
+                                    <span class="badge badge-green text-capitalize font-weight-normal fs-12">Đã duyệt</span>
+                                @elseif ($item->status == 3)
+                                    <span class="badge badge-blue text-capitalize font-weight-normal fs-12">Đã hoàn
+                                        thành</span>
+                                @else
+                                    <span class="badge badge-light text-capitalize font-weight-normal fs-12">Không xác
+                                        định</span>
+                                @endif
+                            </td>
+                            <td class="align-middle p-3">
+                                <form action="{{ route('owners.restore-maintenance', $item->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" class="border-0 bg-transparent"> <!-- Xóa border -->
+                                        <i class="fas fa-undo"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center py-4" style="white-space: nowrap;">Không có yêu cầu bảo
+                                trì nào!</td>
+                        </tr>
+                    @endforelse
                 </table>
             </div>
         </div>

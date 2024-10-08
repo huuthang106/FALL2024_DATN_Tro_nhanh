@@ -57,7 +57,7 @@ class MaintenanceRequestOwnersController extends Controller
     public function restore($id)
     {
         $this->MaintenanceRequestsServices->restoreMaintenances($id);
-        return redirect()->route('owners.show-fix')->with('success', 'Phòng bảo trì đã được khôi phục.');
+        return redirect()->route('owners.list-owner-fix')->with('success', 'Phòng bảo trì đã được khôi phục.');
     }
 
     public function sent_for_maintenance(MaintenanceRequest $request){

@@ -48,7 +48,7 @@
                     <tr role="row">
                         <th class="no-sort py-6 pl-6" style="white-space: nowrap;">
                             <label class="new-control new-checkbox checkbox-primary m-auto">
-                                <input type="checkbox" class="new-control-input chk-parent select-customers-info">
+                                <input type="checkbox" class="new-control-input chk-parent select-customers-info" id="selectAll">
                             </label>
                         </th>
                         <th class="py-6" style="white-space: nowrap;">Người Yêu Cầu</th>
@@ -58,7 +58,7 @@
                         <th class="no-sort py-6" style="white-space: nowrap;">Rời Khỏi</th>
                     </tr>
                 </thead>
-
+        
                 @forelse ($maintenanceRequests as $item)
                     <tr class="shadow-hover-xs-2" data-id="{{ $item->id }}">
                         <td class="checkbox-column align-middle py-4 pl-6" style="white-space: nowrap;">
@@ -182,12 +182,13 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.addEventListener('livewire:initialized', function() {
-            const checkAll = document.querySelector('.chk-parent');
+            const checkAll = document.getElementById('selectAll'); // Checkbox "Chọn tất cả"
             const deleteSelectedBtn = document.getElementById('deleteSelected');
-        
+            const childCheckboxes = document.querySelectorAll('.child-chk'); // Tất cả checkbox con
+    
+            // Sự kiện cho checkbox "Chọn tất cả"
             checkAll.addEventListener('change', function() {
-                const checkboxes = document.querySelectorAll('.child-chk');
-                checkboxes.forEach(checkbox => {
+                childCheckboxes.forEach(checkbox => {
                     checkbox.checked = this.checked;
                     checkbox.dispatchEvent(new Event('change', {
                         'bubbles': true
@@ -195,7 +196,22 @@
                 });
                 updateDeleteButtonState();
             });
-        
+    
+            // Sự kiện cho từng checkbox con
+            childCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    // Nếu một checkbox con không được chọn, bỏ chọn checkbox "Chọn tất cả"
+                    if (!this.checked) {
+                        checkAll.checked = false;
+                    } else if (Array.from(childCheckboxes).every(chk => chk.checked)) {
+                        // Nếu tất cả checkbox con được chọn, đánh dấu checkbox "Chọn tất cả"
+                        checkAll.checked = true;
+                    }
+                    updateDeleteButtonState();
+                });
+            });
+    
+            // Sự kiện cho nút xóa
             deleteSelectedBtn.addEventListener('click', function(event) {
                 event.preventDefault();
                 const selectedCheckboxes = document.querySelectorAll('.child-chk:checked');
@@ -208,7 +224,7 @@
                     });
                     return;
                 }
-        
+    
                 Swal.fire({
                     title: 'Bạn có chắc chắn?',
                     text: "Bạn sẽ không thể hoàn tác hành động này!",
@@ -227,18 +243,21 @@
                     }
                 });
             });
-        
+    
+            // Cập nhật trạng thái nút xóa
             function updateDeleteButtonState() {
                 const selectedCount = document.querySelectorAll('.child-chk:checked').length;
                 deleteSelectedBtn.disabled = selectedCount === 0;
             }
-        
+    
+            // Gán sự kiện cho các checkbox con
             document.querySelectorAll('.child-chk').forEach(checkbox => {
                 checkbox.addEventListener('change', updateDeleteButtonState);
             });
-        
-            updateDeleteButtonState();
-        
+    
+            updateDeleteButtonState(); // Cập nhật trạng thái nút xóa ban đầu
+    
+            // Sự kiện khi xóa thành công
             Livewire.on('maintenances-deleted', (data) => {
                 console.log('Maintenances deleted event received:', data);
                 Swal.fire({
@@ -250,7 +269,8 @@
                     location.reload();
                 });
             });
-        
+    
+            // Sự kiện khi có lỗi
             Livewire.on('error', (data) => {
                 Swal.fire({
                     title: 'Lỗi!',
@@ -260,6 +280,6 @@
                 });
             });
         });
-        </script>
+    </script>
 
 </div>

@@ -25,15 +25,18 @@
                             </div>
                         </div>
                         <div
-                            class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
-                            <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
-                                <input wire:model.lazy="search" wire:keydown.debounce.300ms="$refresh" type="text"
-                                    class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..."
-                                    aria-label="" aria-describedby="basic-addon1">
-                                <div class="input-group-append position-absolute pos-fixed-right-center">
+                            class="p-2 d-flex align-items-center">
+                            <div class="input-group input-group-lg bg-white border mr-2" style="width: 300px;">
+                                <div class="input-group-prepend">
+                                    <button class="btn pr-0 shadow-none" type="button">
+                                        <i class="far fa-search"></i>
+                                    </button>
                                 </div>
+                                <input wire:model.lazy="search" wire:keydown.debounce.300ms="$refresh" type="text"
+                                    class="form-control bg-transparent border-0 shadow-none text-body"
+                                    placeholder="Tìm kiếm..." aria-label="" aria-describedby="basic-addon1">
                             </div>
-                            <div class="mb-3 ml-2">
+                            <div class="ml-2">
                                 <button id="deleteSelected" wire:click="deleteSelectedZones"
                                     class="btn btn-danger btn-lg" tabindex="0">
                                     <span>Xóa</span>
@@ -69,7 +72,8 @@
                     <tbody>
                         @if ($zones->isNotEmpty())
                             @foreach ($zones as $zone)
-                                <tr role="row" wire:key="zone-{{ $zone->id }}" data-room-count="{{ $zone->room_count }}">
+                                <tr role="row" wire:key="zone-{{ $zone->id }}"
+                                    data-room-count="{{ $zone->room_count }}">
                                     <td class="align-middle  px-6">
                                         <input type="checkbox" class="zone-checkbox" wire:model="selectedZones"
                                             value="{{ $zone->id }}">
@@ -272,7 +276,8 @@
 
             if (zonesWithRooms.length > 0) {
                 const zonesWithRoomsNames = zonesWithRooms.map(checkbox => {
-                    return checkbox.closest('tr').querySelector('td:nth-child(3)').textContent.trim();
+                    return checkbox.closest('tr').querySelector('td:nth-child(3)').textContent
+                        .trim();
                 }).join(', ');
 
                 Swal.fire({
@@ -306,11 +311,12 @@
                 const row = checkbox.closest('tr');
                 return parseInt(row.getAttribute('data-room-count')) === 0;
             }).length;
-            const selectedEmptyZonesCount = Array.from(document.querySelectorAll('.zone-checkbox:checked')).filter(checkbox => {
-                const row = checkbox.closest('tr');
-                return parseInt(row.getAttribute('data-room-count')) === 0;
-            }).length;
-            
+            const selectedEmptyZonesCount = Array.from(document.querySelectorAll('.zone-checkbox:checked'))
+                .filter(checkbox => {
+                    const row = checkbox.closest('tr');
+                    return parseInt(row.getAttribute('data-room-count')) === 0;
+                }).length;
+
             checkAll.checked = selectedEmptyZonesCount === emptyZonesCount && emptyZonesCount > 0;
         }
 
