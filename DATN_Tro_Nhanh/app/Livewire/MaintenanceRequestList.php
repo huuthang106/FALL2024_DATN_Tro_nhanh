@@ -7,95 +7,98 @@ use Livewire\WithPagination;
 use App\Models\MaintenanceRequest;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class MaintenanceRequestList extends Component
 {
     use WithPagination;
 
-    public $search = ''; // Từ khóa tìm kiếm
-    public $perPage = 10; // Số lượng bản ghi trên mỗi trang
-    public $timeFilter = ''; // Khoảng thời gian lọc
-    public $startDate = ''; // Ngày bắt đầu lọc
-    public $endDate = ''; // Ngày kết thúc lọc
+    public $search = '';
+    public $perPage = 10;
+    public $timeFilter = '';
+    public $selectedRequests = [];
+    protected $queryString = ['search', 'perPage', 'timeFilter'];
 
-    protected $queryString = ['search', 'perPage', 'timeFilter', 'startDate', 'endDate'];
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingTimeFilter()
+    {
+        $this->resetPage();
+    }
 
     public function render()
     {
-        $userId = Auth::id(); // Lấy ID của người dùng hiện tại
+        Log::info('Đang tìm kiếm yêu cầu bảo trì với từ khóa: "' . $this->search . '"');
 
-        // Xây dựng truy vấn để lọc yêu cầu bảo trì của người dùng hiện tại
-        $query = MaintenanceRequest::where('user_id', $userId);
-
-        // Lọc theo từ khóa tìm kiếm
-        if ($this->search) {
-            $query->where(function ($q) {
+        $query = MaintenanceRequest::where('user_id', Auth::id())
+            ->where(function ($q) {
                 $q->where('title', 'like', '%' . $this->search . '%')
-                  ->orWhere('description', 'like', '%' . $this->search . '%');
+                    ->orWhere('description', 'like', '%' . $this->search . '%');
             });
-        }
 
-        // Lọc theo khoảng thời gian
+        // Áp dụng bộ lọc thời gian nếu được đặt
         if ($this->timeFilter) {
-            $date = Carbon::now()->copy(); // Tạo một bản sao mới của Carbon
+            $startDate = Carbon::now();
             switch ($this->timeFilter) {
                 case '1_day':
-                    $date->subDays(1);
+                    $startDate = Carbon::now()->subDay()->startOfDay();
                     break;
                 case '7_day':
-                    $date->subDays(7);
+                    $startDate = Carbon::now()->subDays(7)->startOfDay();
                     break;
                 case '1_month':
-                    $date->subMonth();
+                    $startDate = Carbon::now()->subMonth()->startOfDay();
                     break;
                 case '3_month':
-                    $date->subMonths(3);
+                    $startDate = Carbon::now()->subMonths(3)->startOfDay();
                     break;
                 case '6_month':
-                    $date->subMonths(6);
+                    $startDate = Carbon::now()->subMonths(6)->startOfDay();
                     break;
-                case '1_year':  
-                    $date->subYear();
+                case '1_year':
+                    $startDate = Carbon::now()->subYear()->startOfDay();
                     break;
             }
-            $query->where('created_at', '>=', $date);
+
+            $query->whereDate('created_at', '<=', $startDate);
+            Log::info('Thời gian bắt đầu lọc', [
+                'startDate' => $startDate,
+                'data' => $query,
+            ]);
+            Log::info('Truy vấn SQL', ['sql' => $query->toSql(), 'bindings' => $query->getBindings()]);
         }
-        $maintenanceRequests = $query->paginate($this->perPage);
 
-   
+        $maintenanceRequests = $query->orderBy('created_at', 'desc')
+            ->paginate($this->perPage);
 
-        return view('livewire.maintenance-request-list', compact('maintenanceRequests'));
-    }
+        Log::info('Tìm thấy ' . $maintenanceRequests->count() . ' yêu cầu bảo trì');
 
-    // Reset trang khi thay đổi số lượng bản ghi trên mỗi trang
-    public function updatedPerPage()
-    {
-        $this->resetPage();
-    }
-
-    // Reset trang khi thay đổi khoảng thời gian
-    public function updatedTimeFilter()
-    {
-        $this->resetPage();
+        return view('livewire.maintenance-request-list', [
+            'maintenanceRequests' => $maintenanceRequests
+        ]);
     }
     public function deleteMaintenanceRequest($id)
     {
         try {
-            // Find the maintenance request by ID
-            $maintenanceRequest = MaintenanceRequest::find($id);
-    
-            // Check if the request exists and belongs to the current user
-            if ($maintenanceRequest && $maintenanceRequest->user_id == Auth::id()) {
-                // Delete the maintenance request from the database
+            $maintenanceRequest = MaintenanceRequest::findOrFail($id);
+            if ($maintenanceRequest->user_id == Auth::id()) {
                 $maintenanceRequest->delete();
+                $this->dispatch('maintenance-request-deleted', ['message' => 'Yêu cầu bảo trì đã được xóa thành công.']);
             }
-    
-            // Reset pagination after deletion
-            $this->resetPage();
         } catch (\Exception $e) {
-            // Handle errors silently
+            Log::error('Lỗi khi xóa yêu cầu bảo trì: ' . $e->getMessage());
         }
     }
-    
-    
+
+    public function deleteSelectedRequests()
+    {
+        MaintenanceRequest::whereIn('id', $this->selectedRequests)
+            ->where('user_id', Auth::id())
+            ->delete();
+        $this->selectedRequests = [];
+        $this->dispatch('maintenance-requests-deleted', ['message' => 'Các yêu cầu bảo trì đã chọn đã được xóa thành công']);
+    }
 }

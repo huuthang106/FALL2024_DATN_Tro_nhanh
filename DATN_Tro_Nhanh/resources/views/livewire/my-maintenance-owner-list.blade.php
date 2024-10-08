@@ -7,8 +7,8 @@
                         <div class="d-flex form-group mb-0 align-items-center">
                             <label for="invoice-list_length" class="d-block mr-2 mb-0">Lọc:</label>
                             <select wire:model.lazy="timeFilter" name="invoice-list_length" id="invoice-list_length"
-                                aria-controls="invoice-list" class="form-control form-control-lg mr-2 selectpicker"
-                                data-style="bg-white btn-lg h-52 py-2 border">
+                            aria-controls="invoice-list" class="form-control form-control-lg mr-2 selectpicker"
+                            data-style="bg-white btn-lg h-52 py-2 border">
                                 <option value="">Mặc định</option>
 
                                 <option value="1_day">Hôm qua</option>
