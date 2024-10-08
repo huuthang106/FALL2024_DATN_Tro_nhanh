@@ -10,7 +10,7 @@
                             <div class="property-search-status-tab d-flex flex-row">
                                 <input class="search-field" type="hidden" name="status" value="for-rent"
                                     data-default-value="">
-
+                              
                             </div>
                         </div>
                         <div class="col-xl-9 col-lg-9 d-md-flex">
@@ -19,74 +19,73 @@
                                 title="Chọn Thành Phố" data-style="btn-lg py-2 h-52 border-right bg-white" name="province"
                                 id="city-province">
                                 <option value='0'>Chọn Tỉnh/Thành Phố...</option>
-                                @foreach ([
-            '01' => 'Thành phố Hà Nội',
-            '79' => 'Thành phố Hồ Chí Minh',
-            '31' => 'Thành phố Hải Phòng',
-            '48' => 'Thành phố Đà Nẵng',
-            '92' => 'Thành phố Cần Thơ',
-            '02' => 'Tỉnh Hà Giang',
-            '04' => 'Tỉnh Cao Bằng',
-            '06' => 'Tỉnh Bắc Kạn',
-            '08' => 'Tỉnh Tuyên Quang',
-            '10' => 'Tỉnh Lào Cai',
-            '11' => 'Tỉnh Điện Biên',
-            '12' => 'Tỉnh Lai Châu',
-            '14' => 'Tỉnh Sơn La',
-            '15' => 'Tỉnh Yên Bái',
-            '17' => 'Tỉnh Hoà Bình',
-            '19' => 'Tỉnh Thái Nguyên',
-            '20' => 'Tỉnh Lạng Sơn',
-            '22' => 'Tỉnh Quảng Ninh',
-            '24' => 'Tỉnh Bắc Giang',
-            '25' => 'Tỉnh Phú Thọ',
-            '26' => 'Tỉnh Vĩnh Phúc',
-            '27' => 'Tỉnh Bắc Ninh',
-            '30' => 'Tỉnh Hải Dương',
-            '33' => 'Tỉnh Hưng Yên',
-            '34' => 'Tỉnh Thái Bình',
-            '35' => 'Tỉnh Hà Nam',
-            '36' => 'Tỉnh Nam Định',
-            '37' => 'Tỉnh Ninh Bình',
-            '38' => 'Tỉnh Thanh Hóa',
-            '40' => 'Tỉnh Nghệ An',
-            '42' => 'Tỉnh Hà Tĩnh',
-            '44' => 'Tỉnh Quảng Bình',
-            '45' => 'Tỉnh Quảng Trị',
-            '46' => 'Tỉnh Thừa Thiên Huế',
-            '49' => 'Tỉnh Quảng Nam',
-            '51' => 'Tỉnh Quảng Ngãi',
-            '52' => 'Tỉnh Bình Định',
-            '54' => 'Tỉnh Phú Yên',
-            '56' => 'Tỉnh Khánh Hòa',
-            '58' => 'Tỉnh Ninh Thuận',
-            '60' => 'Tỉnh Bình Thuận',
-            '62' => 'Tỉnh Kon Tum',
-            '64' => 'Tỉnh Gia Lai',
-            '66' => 'Tỉnh Đắk Lắk',
-            '67' => 'Tỉnh Đắk Nông',
-            '68' => 'Tỉnh Lâm Đồng',
-            '70' => 'Tỉnh Bình Phước',
-            '72' => 'Tỉnh Tây Ninh',
-            '74' => 'Tỉnh Bình Dương',
-            '75' => 'Tỉnh Đồng Nai',
-            '77' => 'Tỉnh Bà Rịa - Vũng Tàu',
-            '80' => 'Tỉnh Long An',
-            '82' => 'Tỉnh Tiền Giang',
-            '83' => 'Tỉnh Bến Tre',
-            '84' => 'Tỉnh Trà Vinh',
-            '86' => 'Tỉnh Vĩnh Long',
-            '87' => 'Tỉnh Đồng Tháp',
-            '89' => 'Tỉnh An Giang',
-            '91' => 'Tỉnh Kiên Giang',
-            '93' => 'Tỉnh Hậu Giang',
-            '94' => 'Tỉnh Sóc Trăng',
-            '95' => 'Tỉnh Bạc Liêu',
-            '96' => 'Tỉnh Cà Mau',
-        ] as $code => $name)
-                                    @if (in_array($code, $provinces))
-                                        <option value='{{ $code }}' {{ $province == $code ? 'selected' : '' }}>
-                                            {{ $name }}</option>
+                                @foreach([
+                                    '01' => 'Thành phố Hà Nội',
+                                    '79' => 'Thành phố Hồ Chí Minh',
+                                    '31' => 'Thành phố Hải Phòng',
+                                    '48' => 'Thành phố Đà Nẵng',
+                                    '92' => 'Thành phố Cần Thơ',
+                                    '02' => 'Tỉnh Hà Giang',
+                                    '04' => 'Tỉnh Cao Bằng',
+                                    '06' => 'Tỉnh Bắc Kạn',
+                                    '08' => 'Tỉnh Tuyên Quang',
+                                    '10' => 'Tỉnh Lào Cai',
+                                    '11' => 'Tỉnh Điện Biên',
+                                    '12' => 'Tỉnh Lai Châu',
+                                    '14' => 'Tỉnh Sơn La',
+                                    '15' => 'Tỉnh Yên Bái',
+                                    '17' => 'Tỉnh Hoà Bình',
+                                    '19' => 'Tỉnh Thái Nguyên',
+                                    '20' => 'Tỉnh Lạng Sơn', 
+                                    '22' => 'Tỉnh Quảng Ninh',
+                                    '24' => 'Tỉnh Bắc Giang',
+                                    '25' => 'Tỉnh Phú Thọ',
+                                    '26' => 'Tỉnh Vĩnh Phúc',
+                                    '27' => 'Tỉnh Bắc Ninh',
+                                    '30' => 'Tỉnh Hải Dương',
+                                    '33' => 'Tỉnh Hưng Yên',
+                                    '34' => 'Tỉnh Thái Bình',
+                                    '35' => 'Tỉnh Hà Nam',
+                                    '36' => 'Tỉnh Nam Định',
+                                    '37' => 'Tỉnh Ninh Bình',
+                                    '38' => 'Tỉnh Thanh Hóa',
+                                    '40' => 'Tỉnh Nghệ An',
+                                    '42' => 'Tỉnh Hà Tĩnh',
+                                    '44' => 'Tỉnh Quảng Bình',
+                                    '45' => 'Tỉnh Quảng Trị',
+                                    '46' => 'Tỉnh Thừa Thiên Huế',
+                                    '49' => 'Tỉnh Quảng Nam',
+                                    '51' => 'Tỉnh Quảng Ngãi',
+                                    '52' => 'Tỉnh Bình Định',
+                                    '54' => 'Tỉnh Phú Yên',
+                                    '56' => 'Tỉnh Khánh Hòa',
+                                    '58' => 'Tỉnh Ninh Thuận',
+                                    '60' => 'Tỉnh Bình Thuận',
+                                    '62' => 'Tỉnh Kon Tum',
+                                    '64' => 'Tỉnh Gia Lai',
+                                    '66' => 'Tỉnh Đắk Lắk',
+                                    '67' => 'Tỉnh Đắk Nông',
+                                    '68' => 'Tỉnh Lâm Đồng',
+                                    '70' => 'Tỉnh Bình Phước',
+                                    '72' => 'Tỉnh Tây Ninh',
+                                    '74' => 'Tỉnh Bình Dương',
+                                    '75' => 'Tỉnh Đồng Nai',
+                                    '77' => 'Tỉnh Bà Rịa - Vũng Tàu',
+                                    '80' => 'Tỉnh Long An',
+                                    '82' => 'Tỉnh Tiền Giang',
+                                    '83' => 'Tỉnh Bến Tre',
+                                    '84' => 'Tỉnh Trà Vinh',
+                                    '86' => 'Tỉnh Vĩnh Long',
+                                    '87' => 'Tỉnh Đồng Tháp',
+                                    '89' => 'Tỉnh An Giang',
+                                    '91' => 'Tỉnh Kiên Giang',
+                                    '93' => 'Tỉnh Hậu Giang',
+                                    '94' => 'Tỉnh Sóc Trăng',
+                                    '95' => 'Tỉnh Bạc Liêu',
+                                    '96' => 'Tỉnh Cà Mau'
+                                ] as $code => $name)
+                                    @if(in_array($code, $provinces))
+                                        <option value='{{ $code }}' {{ $province == $code ? 'selected' : '' }}>{{ $name }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -101,17 +100,15 @@
                             </div>
                         </div>
                         <div class="col-lg-2">
-                            <span class="p-5 d-flex align-items-center">
-                                &#8203;
-                            </span>
-                            {{-- <a href="#advanced-search-filters-2"
+                            <a href="#advanced-search-filters-2"
                                 class="icon-primary btn advanced-search w-100 shadow-none text-white text-left rounded-0 fs-14 font-weight-600 position-relative collapsed px-0 d-flex align-items-center"
                                 data-toggle="collapse" data-target="#advanced-search-filters-2" aria-expanded="true"
                                 aria-controls="advanced-search-filters-2">
                                 Tìm kiếm
-                            </a> --}}
+                            </a>
                         </div>
-                        {{-- <div id="advanced-search-filters-2" class="col-12 pb-6 pt-lg-2 collapse" data-parent="#accordion-2">
+                        <div id="advanced-search-filters-2" class="col-12 pb-6 pt-lg-2 collapse"
+                            data-parent="#accordion-2">
                             <div class="row mx-n2">
                                 <div class="col-sm-6 col-md-4 col-lg-3 pt-4 px-2">
                                     <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
@@ -156,12 +153,13 @@
 
 
                                 <div class="col-sm-6 col-md-4 col-lg-3 pt-4 px-2">
-                                    <input type="text" class="form-control form-control-lg border-0 shadow-none bg-white"
+                                    <input type="text"
+                                        class="form-control form-control-lg border-0 shadow-none bg-white"
                                         placeholder="Mã phòng trọ" name="">
                                 </div>
                             </div>
 
-                        </div> --}}
+                        </div>
                     </div>
                 </form>
 
@@ -179,10 +177,10 @@
                                     trọ
                                 </h2>
                             </div>
-                            {{-- <div class="col-md-6 col-xl-7 col-xxl-6 mt-6 mt-md-0">
+                            <div class="col-md-6 col-xl-7 col-xxl-6 mt-6 mt-md-0">
                                 <div class="d-flex justify-content-md-end align-items-center">
                                     <div class="input-group border rounded input-group-lg w-auto bg-white mr-3">
-                                        <label
+                                        {{-- <label
                                             class="input-group-text bg-transparent border-0 text-uppercase letter-spacing-093 pr-1 pl-3"
                                             for="inputGroupSelect01"><i class="fas fa-align-left fs-16 pr-2"></i>SẮP
                                             XẾP:</label>
@@ -194,11 +192,11 @@
                                             <option value="1">Xem nhiều nhất</option>
                                             <option value="2">Giá (thấp đến cao)</option>
                                             <option value="3">Giá (cao đến thấp)</option>
-                                        </select>
+                                        </select> --}}
                                     </div>
-
+                                   
                                 </div>
-                            </div> --}}
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-12" id="zone-list">
@@ -226,7 +224,7 @@
                                                                         động</span>
                                                                 @endif
                                                             </div>
-                                                            {{-- <div class="mt-auto d-flex hover-image">
+                                                            <div class="mt-auto d-flex hover-image">
                                                                 <ul
                                                                     class="list-inline mb-0 d-flex align-items-end mr-auto">
                                                                     <li class="list-inline-item mr-2"
@@ -262,7 +260,7 @@
                                                                         </a>
                                                                     </li>
                                                                 </ul>
-                                                            </div> --}}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -276,7 +274,6 @@
                                                                 data-lat="{{ $zone->latitude }}"
                                                                 data-lng="{{ $zone->longitude }}">
                                                                 {{ $zone->name }}
-
                                                             </a>
                                                         </h2>
                                                         <p class="card-text mb-1 font-weight-500 text-gray-light">
@@ -289,7 +286,7 @@
                                                     <div class="card-footer pt-3 bg-transparent px-0 pb-0">
                                                         <ul
                                                             class="list-inline d-flex mb-0 flex-wrap justify-content-start mr-n2">
-                                                            {{-- @foreach ($zone->utilities as $utility)
+                                                            @foreach ($zone->utilities as $utility)
                                                                 @if ($utility->wifi)
                                                                     <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2"
                                                                         data-toggle="tooltip" title="WiFi">
@@ -316,45 +313,7 @@
                                                                         Ga-ra
                                                                     </li>
                                                                 @endif
-                                                            @endforeach --}}
-                                                            @if ($zone->utility && $zone->utility->bathrooms == 1)
-                                                                <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                                                    data-toggle="tooltip" title="Phòng tắm">
-                                                                    <svg class="icon icon-shower fs-18 text-primary mr-1">
-                                                                        <use xlink:href="#icon-shower"></use>
-                                                                    </svg>
-                                                                    Phòng tắm
-                                                                </li>
-                                                            @endif
-                                                            @if ($zone->utility && $zone->utility->wifi == 1)
-                                                                <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                                                    data-toggle="tooltip" title="Wifi">
-                                                                    <svg class="icon fs-18 text-primary mr-1"
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                        viewBox="0 0 640 512">
-                                                                        <path fill="currentColor"
-                                                                            d="M634.91 154.88C457.74-8.99 182.19-8.93 5.09 154.88c-6.66 6.16-6.79 16.59-.35 22.98l34.24 33.97c6.14 6.1 16.02 6.23 22.4.38 145.92-133.68 371.3-133.71 517.25 0 6.38 5.85 16.26 5.71 22.4-.38l34.24-33.97c6.43-6.39 6.3-16.82-.36-22.98zM320 352c-35.35 0-64 28.65-64 64s28.65 64 64 64 64-28.65 64-64-28.65-64-64-64zm202.67-83.59c-115.26-101.93-290.21-101.82-405.34 0-6.9 6.1-7.12 16.69-.57 23.15l34.44 33.99c6 5.92 15.66 6.32 22.05.8 83.95-72.57 209.74-72.41 293.49 0 6.39 5.52 16.05 5.13 22.05-.8l34.44-33.99c6.56-6.46 6.33-17.06-.56-23.15z" />
-                                                                    </svg>
-                                                                    Wifi
-                                                                </li>
-                                                            @endif
-                                                            @if ($zone->utility && $zone->utility->air_conditioning == 1)
-                                                                <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                                                    data-toggle="tooltip" title="Máy điều hòa">
-                                                                    <svg class="icon icon-heating fs-18 text-primary">
-                                                                        <use xlink:href="#icon-heating"></use>
-                                                                    </svg>
-                                                                    &nbsp;Máy điều hòa
-                                                                </li>
-                                                            @endif
-                                                            @if ($zone->utility && $zone->utility->garage == 1)
-                                                                <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2"
-                                                                    data-toggle="tooltip" title="Ga-ra">
-                                                                    <i class="fas fa-warehouse fs-10 text-primary mr-1"></i>
-                                                                    <!-- Icon Ga-ra -->
-                                                                    Ga-ra
-                                                                </li>
-                                                            @endif
+                                                            @endforeach
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -364,70 +323,67 @@
                                 @endif
                             </div>
                             <div class="col-12">
-                                @if ($zones->hasPages()) {{-- Only show pagination if there are multiple pages --}}
-                                    <nav class="pt-2 pt-lg-4">
-                                        <ul class="pagination rounded-active justify-content-center">
-                                            {{-- First Page Link --}}
-                                            <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
-                                                <a class="page-link" href="{{ $zones->url(1) }}"><i
-                                                        class="far fa-angle-double-left"></i></a>
+                                <nav class="pt-2 pt-lg-4">
+                                    <ul class="pagination rounded-active justify-content-center">
+                                        {{-- Liên kết Trang Đầu --}}
+                                        <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
+                                            <a class="page-link" href="{{ $zones->url(1) }}"><i
+                                                    class="far fa-angle-double-left"></i></a>
+                                        </li>
+
+                                        {{-- Liên kết Trang Trước --}}
+                                        <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
+                                            <a class="page-link" href="{{ $zones->previousPageUrl() }}"><i
+                                                    class="far fa-angle-left"></i></a>
+                                        </li>
+
+                                        {{-- Trang đầu tiên --}}
+                                        @if ($zones->currentPage() > 2)
+                                            <li class="page-item"><a class="page-link" href="{{ $zones->url(1) }}">1</a>
                                             </li>
+                                        @endif
 
-                                            {{-- Previous Page Link --}}
-                                            <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
-                                                <a class="page-link" href="{{ $zones->previousPageUrl() }}"><i
-                                                        class="far fa-angle-left"></i></a>
+                                        {{-- Dấu ba chấm ở đầu nếu cần --}}
+                                        @if ($zones->currentPage() > 3)
+                                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                                        @endif
+
+                                        {{-- Hiển thị các trang xung quanh trang hiện tại --}}
+                                        @for ($i = max(1, $zones->currentPage() - 1); $i <= min($zones->currentPage() + 1, $zones->lastPage()); $i++)
+                                            <li class="page-item {{ $zones->currentPage() == $i ? 'active' : '' }}">
+                                                <a class="page-link"
+                                                    href="{{ $zones->url($i) }}">{{ $i }}</a>
                                             </li>
+                                        @endfor
 
-                                            {{-- First page if not on it --}}
-                                            @if ($zones->currentPage() > 2)
-                                                <li class="page-item"><a class="page-link"
-                                                        href="{{ $zones->url(1) }}">1</a></li>
-                                            @endif
+                                        {{-- Dấu ba chấm ở cuối nếu cần --}}
+                                        @if ($zones->currentPage() < $zones->lastPage() - 2)
+                                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                                        @endif
 
-                                            {{-- Dots before current pages --}}
-                                            @if ($zones->currentPage() > 3)
-                                                <li class="page-item disabled"><span class="page-link">...</span></li>
-                                            @endif
-
-                                            {{-- Show pages around current --}}
-                                            @for ($i = max(1, $zones->currentPage() - 1); $i <= min($zones->currentPage() + 1, $zones->lastPage()); $i++)
-                                                <li class="page-item {{ $zones->currentPage() == $i ? 'active' : '' }}">
-                                                    <a class="page-link"
-                                                        href="{{ $zones->url($i) }}">{{ $i }}</a>
-                                                </li>
-                                            @endfor
-
-                                            {{-- Dots after current pages --}}
-                                            @if ($zones->currentPage() < $zones->lastPage() - 2)
-                                                <li class="page-item disabled"><span class="page-link">...</span></li>
-                                            @endif
-
-                                            {{-- Last page if not on it --}}
-                                            @if ($zones->currentPage() < $zones->lastPage() - 1)
-                                                <li class="page-item"><a class="page-link"
-                                                        href="{{ $zones->url($zones->lastPage()) }}">{{ $zones->lastPage() }}</a>
-                                                </li>
-                                            @endif
-
-                                            {{-- Next Page Link --}}
-                                            <li
-                                                class="page-item {{ $zones->currentPage() == $zones->lastPage() ? 'disabled' : '' }}">
-                                                <a class="page-link" href="{{ $zones->nextPageUrl() }}"><i
-                                                        class="far fa-angle-right"></i></a>
+                                        {{-- Trang cuối cùng --}}
+                                        @if ($zones->currentPage() < $zones->lastPage() - 1)
+                                            <li class="page-item"><a class="page-link"
+                                                    href="{{ $zones->url($zones->lastPage()) }}">{{ $zones->lastPage() }}</a>
                                             </li>
+                                        @endif
 
-                                            {{-- Last Page Link --}}
-                                            <li
-                                                class="page-item {{ $zones->currentPage() == $zones->lastPage() ? 'disabled' : '' }}">
-                                                <a class="page-link" href="{{ $zones->url($zones->lastPage()) }}"><i
-                                                        class="far fa-angle-double-right"></i></a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                @endif
+                                        {{-- Liên kết Trang Tiếp --}}
+                                        <li
+                                            class="page-item {{ $zones->currentPage() == $zones->lastPage() ? 'disabled' : '' }}">
+                                            <a class="page-link" href="{{ $zones->nextPageUrl() }}"><i
+                                                    class="far fa-angle-right"></i></a>
+                                        </li>
+
+                                        {{-- Liên kết Trang Cuối --}}
+                                        <li
+                                            class="page-item {{ $zones->currentPage() == $zones->lastPage() ? 'disabled' : '' }}">
+                                            <a class="page-link" href="{{ $zones->url($zones->lastPage()) }}"><i
+                                                    class="far fa-angle-double-right"></i></a>
+                                        </li>
+                                    </ul>
+                                </nav>
                             </div>
-
                         </div>
                     </div>
                     <div class="col-xl-6 col-xxl-7 order-1 order-xl-2 primary-map map-sticky overflow-hidden"
@@ -440,7 +396,7 @@
                 </div>
             </div>
         </section>
-        {{-- <div id="compare" class="compare">
+        <div id="compare" class="compare">
             <button
                 class="btn shadow btn-open bg-white bg-hover-accent text-secondary rounded-right-0 d-flex justify-content-center align-items-center w-30px h-140 p-0">
             </button>
@@ -485,7 +441,7 @@
                     </a>
                 </div>
             </div>
-        </div> --}}
+        </div>
         <div class="d-none" id="template-properties">
             <div class="marker-item" data-icon-marker="{{ asset('assets/images/googlle-market-02.png') }}"
                 data-position="[-73.9893691, 40.6751204]"
@@ -764,7 +720,7 @@
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
+    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">
@@ -810,7 +766,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
 
     <!-- Favicons -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
+    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/osm.css') }}">
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">

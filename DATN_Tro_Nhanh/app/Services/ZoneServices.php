@@ -148,6 +148,12 @@ class ZoneServices
         $slug = trim($slug, '-');
         return $slug;
     }
+    public function countRoomsInZone($zone_id)
+    {
+        // Đếm số phòng trong zone_id cụ thể
+        return Room::where('zone_id', $zone_id)->count();
+    } 
+
     public function getMyZone($user_id)
     {
         $perPage = 10;
@@ -168,11 +174,11 @@ class ZoneServices
         return $zones;
     }
     // Tổng só khu trọ Client
-    public function countRoomsInZone($zone_id)
+    public function getTotalZones()
     {
-        // Đếm số phòng trong zone_id cụ thể
-        return Room::where('zone_id', $zone_id)->count();
-    }
+        return Zone::count(); // Đếm tổng số khu vực trọ
+    } 
+    
     public function getTotalZonesByUser($userId = null)
     {
         try {
