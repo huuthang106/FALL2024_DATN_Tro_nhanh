@@ -8,11 +8,11 @@ const navItems = [
     label: "Trang chủ",
     icon: <Icon icon="zi-home" />,
   },
-  // {
-  //   path: "/calendar",
-  //   label: "Lịch của tôi",
-  //   icon: <Icon icon="zi-calendar" />,
-  // },
+  {
+    path: "/calendar",
+    label: "Danh sách chủ trọ",
+    icon: <Icon icon="zi-user" />,
+  },
 ];
 
 function NavigationBar() {

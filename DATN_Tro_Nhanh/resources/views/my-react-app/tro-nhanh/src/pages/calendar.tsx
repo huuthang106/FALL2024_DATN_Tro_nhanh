@@ -1,23 +1,29 @@
-import React from "react";
-import { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { useRecoilValue } from "recoil";
-import { Box, Page, Tabs } from "zmp-ui";
+import { Box, Page, Tabs, Spinner } from "zmp-ui";
 import BookingItem from "../components/book/booking";
 import { bookingsState } from "../state";
 
 const labels = {
-  upcoming: "Sắp đến",
-  finished: "Hoàn thành",
+  upcoming: "Danh sách chủ trọ",
 };
 
 function CalendarPage() {
   const [status, setStatus] = useState<"upcoming" | "finished">("upcoming");
+  const [loading, setLoading] = useState(true);
   const allBookings = useRecoilValue(bookingsState);
+
+  useEffect(() => {
+    if (allBookings.length > 0) {
+      setLoading(false);
+    }
+  }, [allBookings]);
+
   const bookings = useMemo(() => {
+    const startOfToday = new Date();
+    startOfToday.setHours(0, 0, 0, 0);
     return allBookings.filter((b) => {
-      const startOfToday = new Date();
-      startOfToday.setHours(0, 0, 0, 0);
-      if (status == "finished") {
+      if (status === "finished") {
         return b.bookingInfo && b.bookingInfo.date < startOfToday;
       } else {
         return !b.bookingInfo || b.bookingInfo.date >= startOfToday;
@@ -27,13 +33,17 @@ function CalendarPage() {
 
   return (
     <Page className="min-h-0">
-      <Tabs activeKey={status} onChange={setStatus as any}>
-        {["upcoming", "finished"].map((status) => (
-          <Tabs.Tab key={status} label={labels[status]}>
-            {bookings.length === 0 ? (
+      <Tabs activeKey={status} onChange={(key) => setStatus(key as any)}>
+        {["upcoming", "finished"].map((tabStatus) => (
+          <Tabs.Tab key={tabStatus} label={labels[tabStatus]}>
+            {loading ? (
+              <Box className="text-center" mt={10}>
+                <Spinner /> Đang tải dữ liệu...
+              </Box>
+            ) : bookings.length === 0 ? (
               <Box className="text-center" mt={10}>
                 Bạn chưa có booking nào{" "}
-                {status === "upcoming" ? "sắp đến" : "hoàn thành"}!
+                {tabStatus === "upcoming" ? "sắp đến" : "hoàn thành"}!
               </Box>
             ) : (
               <>

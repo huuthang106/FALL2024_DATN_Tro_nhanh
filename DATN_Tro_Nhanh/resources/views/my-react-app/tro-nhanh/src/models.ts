@@ -34,6 +34,16 @@ export interface District {
   id: number;
   name: string;
 }
+// models.ts
+export interface Booking {
+  id: string;
+  name: string; // Tên owner
+  email: string; // Email owner
+  balance: string;
+  phone: string; 
+  image_url: string; // Số dư owner
+  // Thêm các trường khác nếu cần
+}
 
 export interface Location {
   lat: number;
@@ -90,15 +100,18 @@ export interface CartItem {
 export type Hours = [number, number, "AM" | "PM"];
 
 export interface Booking {
-  id: string;
-  restaurant: Restaurant;
-  cart?: Cart;
-  bookingInfo?: {
-    date: Date;
-    hour: Hours;
-    table: string;
-    seats: number;
-  };
+  id: string;        // ID của owner
+  name: string;      // Tên owner
+  email: string;     // Email owner
+  balance: string;   // Số dư owner
+  // Thêm các trường khác nếu cần
 }
 
 export type TabType = "info" | "menu" | "book";
+export interface Owner {
+  id: number;
+  name: string;
+  email: string;
+  balance: string;
+  // Thêm các trường khác nếu cần
+}
