@@ -8,6 +8,8 @@ use App\Models\Room;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use App\Services\RoomOwnersService;
+use App\Models\Notification;
+use Illuminate\Support\Facades\Auth;
 
 class TrashedRooms extends Component
 {
@@ -122,6 +124,44 @@ class TrashedRooms extends Component
 
         $this->dispatch('refreshComponent');
     }
+    // public function confirmDelete()
+    // {
+    //     $rooms = Room::onlyTrashed()->whereIn('id', $this->selectedRooms)->get();
+    //     $deletedRoomNames = [];
+
+    //     foreach ($rooms as $room) {
+    //         // Lưu tên phòng trọ trước khi xóa
+    //         $deletedRoomNames[] = $room->title;
+
+    //         foreach ($room->images as $image) {
+    //             $imagePath = public_path('assets/images/' . $image->filename);
+    //             if (File::exists($imagePath)) {
+    //                 File::delete($imagePath);
+    //             }
+    //             $image->delete();
+    //         }
+    //         $room->forceDelete();
+    //     }
+
+    //     $count = count($deletedRoomNames);
+
+    //     // Tạo thông báo
+    //     Notification::create([
+    //         'user_id' => Auth::id(),
+    //         'data' => 'Đã xóa vĩnh viễn ' . $count . ' phòng trọ: ' . implode(', ', $deletedRoomNames),
+    //         'type' => 'Xóa vĩnh viễn phòng trọ',
+    //         'is_read' => false
+    //     ]);
+
+    //     $this->selectedRooms = [];
+    //     $this->selectAll = false;
+    //     $this->dispatch('showAlert', [
+    //         'type' => 'success',
+    //         'message' => 'Phòng trọ đã chọn đã được xóa vĩnh viễn.'
+    //     ]);
+
+    //     $this->dispatch('refreshComponent');
+    // }
     public function restoreSelected()
     {
         $roomOwnersService = new RoomOwnersService();
@@ -136,6 +176,32 @@ class TrashedRooms extends Component
 
         $this->dispatch('refreshComponent');
     }
+    // public function restoreSelected()
+    // {
+    //     $roomOwnersService = new RoomOwnersService();
+    //     $restoredRooms = $roomOwnersService->restoreMultipleRooms($this->selectedRooms);
+
+    //     // Lấy tên của các phòng trọ đã được khôi phục
+    //     $restoredRoomNames = Room::whereIn('id', $this->selectedRooms)->pluck('title')->toArray();
+    //     $count = count($restoredRoomNames);
+
+    //     // Tạo thông báo
+    //     Notification::create([
+    //         'user_id' => Auth::id(),
+    //         'data' => 'Đã khôi phục ' . $count . ' phòng trọ: ' . implode(', ', $restoredRoomNames),
+    //         'type' => 'Khôi phục phòng trọ',
+    //         'is_read' => false
+    //     ]);
+
+    //     $this->selectedRooms = [];
+    //     $this->selectAll = false;
+    //     $this->dispatch('showAlert', [
+    //         'type' => 'success',
+    //         'message' => 'Phòng trọ đã chọn đã được khôi phục.'
+    //     ]);
+
+    //     $this->dispatch('refreshComponent');
+    // }
     public function render()
     {
         $trashedRoomsQuery = $this->getFilteredQuery();

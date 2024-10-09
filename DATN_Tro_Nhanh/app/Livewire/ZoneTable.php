@@ -8,6 +8,8 @@ use App\Models\Zone;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use App\Services\ZoneServices;
+use App\Models\Notification;
+use Illuminate\Support\Facades\Auth;
 
 class ZoneTable extends Component
 {
@@ -108,6 +110,47 @@ class ZoneTable extends Component
 
         $this->dispatch('refreshComponent');
     }
+    // public function confirmDelete()
+    // {
+    //     $zones = Zone::onlyTrashed()->whereIn('id', $this->selectedZones)->get();
+    //     $deletedZoneNames = [];
+
+    //     foreach ($zones as $zone) {
+    //         // Lưu tên khu trọ trước khi xóa
+    //         $deletedZoneNames[] = $zone->name;
+
+    //         // Xóa hình ảnh liên quan đến khu trọ
+    //         foreach ($zone->images as $image) {
+    //             $imagePath = public_path('assets/images/' . $image->filename);
+    //             if (File::exists($imagePath)) {
+    //                 File::delete($imagePath);
+    //             }
+    //             $image->delete();
+    //         }
+
+    //         // Xóa vĩnh viễn khu trọ
+    //         $zone->forceDelete();
+    //     }
+
+    //     $count = count($deletedZoneNames);
+
+    //     // Tạo thông báo
+    //     Notification::create([
+    //         'user_id' => Auth::id(),
+    //         'data' => 'Đã xóa vĩnh viễn ' . $count . ' khu trọ: ' . implode(', ', $deletedZoneNames),
+    //         'type' => 'Xóa vĩnh viễn khu trọ',
+    //         'is_read' => false
+    //     ]);
+
+    //     $this->selectedZones = [];
+    //     $this->selectAll = false;
+    //     $this->dispatch('showAlert', [
+    //         'type' => 'success',
+    //         'message' => 'Khu trọ đã chọn đã được xóa vĩnh viễn.'
+    //     ]);
+
+    //     $this->dispatch('refreshComponent');
+    // }
     public function restoreSelected()
     {
         $zoneServices = new ZoneServices();
@@ -121,6 +164,31 @@ class ZoneTable extends Component
         ]);
         $this->dispatch('refreshComponent');
     }
+    // public function restoreSelected()
+    // {
+    //     $zoneServices = new ZoneServices();
+    //     $restoredZones = $zoneServices->restoreMultipleZones($this->selectedZones);
+
+    //     // Lấy tên của các khu trọ đã được khôi phục
+    //     $restoredZoneNames = Zone::whereIn('id', $this->selectedZones)->pluck('name')->toArray();
+    //     $count = count($restoredZoneNames);
+
+    //     // Tạo thông báo
+    //     Notification::create([
+    //         'user_id' => Auth::id(),
+    //         'data' => 'Đã khôi phục thành công ' . $count . ' khu trọ: ' . implode(', ', $restoredZoneNames),
+    //         'type' => 'Khôi phục khu trọ',
+    //         'is_read' => false
+    //     ]);
+
+    //     $this->selectedZones = [];
+    //     $this->selectAll = false;
+    //     $this->dispatch('showAlert', [
+    //         'type' => 'success',
+    //         'message' => 'Khu trọ đã chọn đã được khôi phục.'
+    //     ]);
+    //     $this->dispatch('refreshComponent');
+    // }
     private function getFilteredQuery()
     {
         $query = Zone::onlyTrashed();

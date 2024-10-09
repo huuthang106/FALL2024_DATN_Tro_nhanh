@@ -24,11 +24,6 @@
                                     <option value="1_year">1 năm</option>
                                 </select>
                             </div>
-                            {{-- @if ($selectedRooms)
-                                <button wire:click="restoreSelected" class="btn btn-success btn-lg text-nowrap">
-                                    <i class="fas fa-undo mr-1"></i> Khôi phục
-                                </button>
-                            @endif --}}
                         </div>
                         <div
                             class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
@@ -46,16 +41,35 @@
                                     wire:click="deleteSelected" @if (!$this->hasSelectedRooms) disabled @endif>
                                     <span>Xóa</span>
                                 </button>
+                                @if ($selectedRooms)
+                                    <button wire:click="restoreSelected" class="btn btn-success btn-lg text-nowrap">
+                                        <i class="fas fa-undo mr-1"></i> Khôi phục
+                                    </button>
+                                @endif
                             </div> --}}
                             <div class="align-self-center">
-                                <button id="deleteButton" class="btn btn-danger btn-lg text-nowrap" tabindex="0"
-                                    wire:click="deleteSelected" @if (!$this->hasSelectedRooms) disabled @endif>
-                                    <span>Xóa</span>
-                                    @if ($this->hasSelectedRooms)
-                                        <small class="text-white text-nowrap">({{ count($selectedRooms) }})</small>
-                                    @endif
-                                </button>
-
+                                <div class="dropdown">
+                                    {{-- <button class="btn btn-secondary btn-lg dropdown-toggle" type="button"
+                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false" @if (!$this->hasSelectedRooms) disabled @endif>
+                                        Hành động
+                                    </button> --}}
+                                    <button class="btn btn-secondary btn-lg dropdown-toggle" type="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                        @if (!$this->hasSelectedRooms) disabled @endif>
+                                        Hành động
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item text-danger" href="#"
+                                            wire:click.prevent="deleteSelected">
+                                            <i class="fas fa-trash mr-2"></i> Xóa vĩnh viễn
+                                        </a>
+                                        <a class="dropdown-item text-success" href="#"
+                                            wire:click.prevent="restoreSelected">
+                                            <i class="fas fa-undo mr-2"></i> Khôi phục
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -66,10 +80,10 @@
                     <thead class="thead-sm thead-black">
                         <tr>
                             <th scope="col" class="border-top-0 px-6 pt-5 pb-4">
-                                <div class="custom-control custom-checkbox pb-6">
-                                    <input type="checkbox" class="custom-control-input" id="checkAll"
+                                <div class="control custom-checkbox">
+                                    <input type="checkbox" class="control-input" id="checkAll"
                                         wire:model.lazy="selectAll">
-                                    <label class="custom-control-label" for="checkAll"></label>
+                                    <label class="control-label" for="checkAll"></label>
                                 </div>
                             </th>
                             <th scope="col" class="border-top-0 px-6 pt-5 pb-4 text-nowrap">
@@ -102,11 +116,11 @@
                             @foreach ($trashedRooms as $room)
                                 <tr class="shadow-hover-xs-2 bg-hover-white">
                                     <td class="align-middle pt-6 pb-4 px-6">
-                                        <div class="custom-control custom-checkbox pb-6">
-                                            <input type="checkbox" class="custom-control-input"
-                                                id="room-{{ $room->id }}" wire:model.lazy="selectedRooms"
-                                                wire:key="room-{{ $room->id }}" value="{{ $room->id }}">
-                                            <label class="custom-control-label" for="room-{{ $room->id }}"></label>
+                                        <div class="control custom-checkbox">
+                                            <input type="checkbox" class="control-input" id="room-{{ $room->id }}"
+                                                wire:model.lazy="selectedRooms" wire:key="room-{{ $room->id }}"
+                                                value="{{ $room->id }}">
+                                            <label class="control-label" for="room-{{ $room->id }}"></label>
                                         </div>
                                     </td>
                                     <!-- Cột Tiêu đề và Hình ảnh -->
@@ -276,6 +290,63 @@
     </main>
     <script>
         document.addEventListener('livewire:initialized', () => {
+            const checkboxes = document.querySelectorAll('.control-input:not(#checkAll)');
+            const selectAllCheckbox = document.getElementById('checkAll');
+            const roomActionDropdown = document.getElementById('dropdownMenuButton');
+
+            function updateSelectAllState() {
+                if (checkboxes.length === 0) {
+                    // Nếu không có checkbox nào, vô hiệu hóa nút "Chọn tất cả" và dropdown
+                    if (selectAllCheckbox) selectAllCheckbox.disabled = true;
+                    if (roomActionDropdown) roomActionDropdown.disabled = true;
+                    return;
+                }
+
+                const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+                if (selectAllCheckbox) {
+                    selectAllCheckbox.checked = allChecked;
+                    selectAllCheckbox.disabled = false;
+                }
+                updateRoomActionDropdownState();
+            }
+
+            function updateRoomActionDropdownState() {
+                if (!roomActionDropdown) return;
+
+                const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+                roomActionDropdown.disabled = checkedCount === 0;
+                roomActionDropdown.textContent = `Hành động ${checkedCount > 0 ? `(${checkedCount})` : ''}`;
+            }
+
+            if (checkboxes.length > 0) {
+                checkboxes.forEach(checkbox => {
+                    checkbox.addEventListener('change', () => {
+                        updateSelectAllState();
+                        @this.set('selectedRooms', Array.from(checkboxes)
+                            .filter(cb => cb.checked)
+                            .map(cb => cb.value)
+                        );
+                    });
+                });
+            }
+
+            if (selectAllCheckbox) {
+                selectAllCheckbox.addEventListener('change', () => {
+                    const isChecked = selectAllCheckbox.checked;
+                    checkboxes.forEach(checkbox => {
+                        checkbox.checked = isChecked;
+                    });
+                    updateRoomActionDropdownState();
+                    @this.set('selectedRooms', isChecked ? Array.from(checkboxes).map(cb => cb.value) : []);
+                });
+            }
+
+            // Khởi tạo trạng thái ban đầu
+            updateSelectAllState();
+        });
+    </script>
+    <script>
+        document.addEventListener('livewire:initialized', () => {
             @this.on('confirmDelete', () => {
                 Swal.fire({
                     title: 'Bạn có chắc chắn?',
@@ -292,65 +363,6 @@
                     }
                 });
             });
-        });
-    </script>
-    <script>
-        document.addEventListener('livewire:initialized', () => {
-            const checkboxes = document.querySelectorAll('.custom-control-input:not(#checkAll)');
-            const selectAllCheckbox = document.getElementById('checkAll');
-            const deleteButton = document.getElementById('deleteButton');
-            const restoreButton = document.getElementById('restoreButton');
-
-            function updateSelectAllState() {
-                const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
-                selectAllCheckbox.checked = allChecked;
-                updateButtonsState();
-            }
-
-            function updateButtonsState() {
-                const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
-                deleteButton.disabled = checkedCount === 0;
-                deleteButton.querySelector('small').textContent = checkedCount > 0 ? `(${checkedCount})` : '';
-
-                if (checkedCount > 0) {
-                    restoreButton.style.display = 'inline-block';
-                    restoreButton.querySelector('small').textContent = `(${checkedCount})`;
-                } else {
-                    restoreButton.style.display = 'none';
-                }
-            }
-
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', () => {
-                    updateSelectAllState();
-                    @this.set('selectedRooms', Array.from(checkboxes)
-                        .filter(cb => cb.checked)
-                        .map(cb => cb.value)
-                    );
-                });
-            });
-
-            selectAllCheckbox.addEventListener('change', () => {
-                const isChecked = selectAllCheckbox.checked;
-                checkboxes.forEach(checkbox => {
-                    checkbox.checked = isChecked;
-                });
-                updateButtonsState();
-                @this.set('selectedRooms', isChecked ? Array.from(checkboxes).map(cb => cb.value) : []);
-            });
-
-            // deleteButton.addEventListener('click', () => {
-            //     if (confirm('Bạn có chắc chắn muốn xóa vĩnh viễn các phòng đã chọn?')) {
-            //         @this.call('deleteSelected');
-            //     }
-            // });
-
-            restoreButton.addEventListener('click', () => {
-                @this.call('restoreSelected');
-            });
-
-            // Khởi tạo trạng thái ban đầu
-            updateSelectAllState();
         });
     </script>
 </div>

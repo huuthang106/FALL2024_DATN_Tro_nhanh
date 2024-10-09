@@ -21,11 +21,6 @@
                                 <option value="1_year">1 năm</option>
                             </select>
                         </div>
-                        {{-- @if ($selectedZones)
-                            <button wire:click="restoreSelected" class="btn btn-success btn-lg text-nowrap">
-                                <i class="fas fa-undo mr-1"></i> Khôi phục
-                            </button>
-                        @endif --}}
                     </div>
 
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
@@ -38,14 +33,43 @@
                                         class="fal fa-search"></i></button>
                             </div>
                         </div>
-                        <div class="align-self-center">
-                            <button id="deleteButton" class="btn btn-danger btn-lg text-nowrap" tabindex="0"
+                        {{-- <div class="align-self-center">
+                            <button id="zoneActionDropdown" class="btn btn-danger btn-lg text-nowrap" tabindex="0"
                                 wire:click="deleteSelected" @if (!$this->hasSelectedZones) disabled @endif>
                                 <span>Xóa</span>
-                                @if ($this->hasSelectedZones)
-                                    <small class="text-white text-nowrap">({{ count($selectedZones) }})</small>
-                                @endif
                             </button>
+
+                            @if ($selectedZones)
+                                <button wire:click="restoreSelected" class="btn btn-success btn-lg text-nowrap">
+                                    <i class="fas fa-undo mr-1"></i> Khôi phục
+                                </button>
+                            @endif
+                        </div> --}}
+                        <div class="align-self-center">
+                            <div class="dropdown">
+                                {{-- <button class="btn btn-secondary btn-lg dropdown-toggle" type="button"
+                                    id="zoneActionDropdown" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" @if (!$this->hasSelectedZones) disabled @endif>
+                                    Hành động
+                                </button> --}}
+                                <button class="btn btn-secondary btn-lg dropdown-toggle" type="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                    @if (!$this->hasSelectedZones) disabled @endif>
+                                    Hành động
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="zoneActionDropdown">
+                                    <a class="dropdown-item text-danger" href="#"
+                                        wire:click.prevent="deleteSelected">
+                                        <i class="fas fa-trash mr-2"></i> Xóa vĩnh viễn
+                                    </a>
+                                    @if ($selectedZones)
+                                        <a class="dropdown-item text-success" href="#"
+                                            wire:click.prevent="restoreSelected">
+                                            <i class="fas fa-undo mr-2"></i> Khôi phục
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -56,10 +80,10 @@
                     <thead class="thead-sm thead-black">
                         <tr role="row">
                             <th scope="col" class="border-top-0 px-6 pt-5 pb-4">
-                                <div class="custom-control custom-checkbox pb-6">
-                                    <input type="checkbox" class="custom-control-input" id="checkAll"
+                                <div class="control custom-checkbox">
+                                    <input type="checkbox" class="control-input" id="checkAll"
                                         wire:model.lazy="selectAll">
-                                    <label class="custom-control-label" for="checkAll"></label>
+                                    <label class="control-label" for="checkAll"></label>
                                 </div>
                             </th>
                             <th class="py-3 text-nowrap text-center col-2">Hình ảnh</th>
@@ -80,11 +104,11 @@
                             @foreach ($trashedZones as $zone)
                                 <tr role="row" class="shadow-hover-xs-2 bg-hover-white">
                                     <td class="align-middle pt-6 pb-4 px-6">
-                                        <div class="custom-control custom-checkbox pb-6">
-                                            <input type="checkbox" class="custom-control-input"
-                                                id="zone-{{ $zone->id }}" wire:model.lazy="selectedZones"
-                                                wire:key="zone-{{ $zone->id }}" value="{{ $zone->id }}">
-                                            <label class="custom-control-label" for="zone-{{ $zone->id }}"></label>
+                                        <div class="control custom-checkbox">
+                                            <input type="checkbox" class="control-input" id="zone-{{ $zone->id }}"
+                                                wire:model.lazy="selectedZones" wire:key="zone-{{ $zone->id }}"
+                                                value="{{ $zone->id }}">
+                                            <label class="control-label" for="zone-{{ $zone->id }}"></label>
                                         </div>
                                     </td>
                                     <td class="align-middle d-md-table-cell text-nowrap p-4">
@@ -130,8 +154,8 @@
                                     <td class="align-middle d-md-table-cell text-nowrap ">
                                         <div class="d-flex align-items-center">
                                             <!-- Nút Khôi Phục -->
-                                            <form action="{{ route('owners.restore-zone', $zone->id) }}" method="POST"
-                                                class="mx-2">
+                                            <form action="{{ route('owners.restore-zone', $zone->id) }}"
+                                                method="POST" class="mx-2">
                                                 @csrf
                                                 @method('PUT')
                                                 <button type="submit"
@@ -244,40 +268,56 @@
     </main>
     <script>
         document.addEventListener('livewire:initialized', () => {
-            const checkboxes = document.querySelectorAll('.custom-control-input:not(#checkAll)');
+            const checkboxes = document.querySelectorAll('.control-input:not(#checkAll)');
             const selectAllCheckbox = document.getElementById('checkAll');
-            const deleteButton = document.getElementById('deleteButton');
+            const zoneActionDropdown = document.querySelector('.dropdown-toggle[data-toggle="dropdown"]');
 
             function updateSelectAllState() {
+                if (checkboxes.length === 0) {
+                    // Nếu không có checkbox nào, vô hiệu hóa nút "Chọn tất cả" và dropdown
+                    if (selectAllCheckbox) selectAllCheckbox.disabled = true;
+                    if (zoneActionDropdown) zoneActionDropdown.disabled = true;
+                    return;
+                }
+
                 const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
-                selectAllCheckbox.checked = allChecked;
-                updateDeleteButtonState();
+                if (selectAllCheckbox) {
+                    selectAllCheckbox.checked = allChecked;
+                    selectAllCheckbox.disabled = false;
+                }
+                updateZoneActionDropdownState();
             }
 
-            function updateDeleteButtonState() {
+            function updateZoneActionDropdownState() {
+                if (!zoneActionDropdown) return;
+
                 const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
-                deleteButton.disabled = checkedCount === 0;
-                deleteButton.querySelector('small').textContent = checkedCount > 0 ? `(${checkedCount})` : '';
+                zoneActionDropdown.disabled = checkedCount === 0;
+                zoneActionDropdown.textContent = `Hành động ${checkedCount > 0 ? `(${checkedCount})` : ''}`;
             }
 
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', () => {
-                    updateSelectAllState();
-                    @this.set('selectedZones', Array.from(checkboxes)
-                        .filter(cb => cb.checked)
-                        .map(cb => cb.value)
-                    );
-                });
-            });
-
-            selectAllCheckbox.addEventListener('change', () => {
-                const isChecked = selectAllCheckbox.checked;
+            if (checkboxes.length > 0) {
                 checkboxes.forEach(checkbox => {
-                    checkbox.checked = isChecked;
+                    checkbox.addEventListener('change', () => {
+                        updateSelectAllState();
+                        @this.set('selectedZones', Array.from(checkboxes)
+                            .filter(cb => cb.checked)
+                            .map(cb => cb.value)
+                        );
+                    });
                 });
-                updateDeleteButtonState();
-                @this.set('selectedZones', isChecked ? Array.from(checkboxes).map(cb => cb.value) : []);
-            });
+            }
+
+            if (selectAllCheckbox) {
+                selectAllCheckbox.addEventListener('change', () => {
+                    const isChecked = selectAllCheckbox.checked;
+                    checkboxes.forEach(checkbox => {
+                        checkbox.checked = isChecked;
+                    });
+                    updateZoneActionDropdownState();
+                    @this.set('selectedZones', isChecked ? Array.from(checkboxes).map(cb => cb.value) : []);
+                });
+            }
 
             // Khởi tạo trạng thái ban đầu
             updateSelectAllState();
