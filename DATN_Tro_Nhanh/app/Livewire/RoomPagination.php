@@ -91,5 +91,14 @@ class RoomPagination extends Component
             'rooms' => $rooms,
         ]);
     }
+    public function approveSelectedRooms($selectedIds)
+    {
+        if (!empty($selectedIds)) {
+            Room::whereIn('id', $selectedIds)->update(['status' => 2]); // Cập nhật trạng thái thành 2
+            session()->flash('message', 'Các yêu cầu đã được duyệt thành công.'); // Thông báo thành công
+        } else {
+            session()->flash('error', 'Không có yêu cầu nào được chọn để duyệt.'); // Thông báo lỗi
+        }
+    }
 
 }

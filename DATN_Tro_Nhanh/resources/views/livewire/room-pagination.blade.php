@@ -48,6 +48,9 @@
                                         </svg>
                                     </span>
                                     <!--end::Svg Icon-->Lọc</button>
+                                    <div class="d-flex justify-content-end">
+                                        <button class="btn btn-primary" id="approveSelected" onclick="approveSelected()">Duyệt</button>
+                                    </div>
                                 <!--begin::Menu 1-->
                                 <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
                                     <!--begin::Header-->
@@ -517,7 +520,12 @@
                                 <thead>
                                     <!--begin::Table row-->
                                     <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-
+                                        <th class="min-w-125px">
+                                            <label class="new-control new-checkbox checkbox-primary m-auto">
+                                                <input type="checkbox" class="new-control-input" id="selectAll" onclick="toggleCheckboxes(this)">
+                                                <span class="new-control-indicator"></span>
+                                            </label>
+                                        </th>
                                         <th class="min-w-125px">Ảnh</th>
                                         <th class="min-w-125px">Tiêu Đề</th>
 
@@ -544,6 +552,12 @@
 
                                                 <!--end::Checkbox-->
                                                 <!--begin::User=-->
+                                                <td>
+                                                    <label class="new-control new-checkbox checkbox-primary m-auto">
+                                                        <input type="checkbox" class="child-chk new-control-input" data-id="{{ $room->id }}" onclick="updateSelectAll()">
+                                                        <span class="new-control-indicator"></span>
+                                                    </label>
+                                                </td>
                                                 <td class="d-flex align-items-center min-w-125px">
                                                     <!--begin:: Avatar -->
                                                     <div class="symbol symbol-100px overflow-hidden me-3">
@@ -736,4 +750,68 @@
             <!--end::Container-->
         </div>
     </div>
+    <script>
+        function toggleCheckboxes(selectAllCheckbox) {
+            const checkboxes = document.querySelectorAll('.child-chk');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked; // Đặt trạng thái checkbox theo trạng thái của checkbox "Chọn tất cả"
+            });
+        }
+    
+        function updateSelectAll() {
+            const checkboxes = document.querySelectorAll('.child-chk');
+            const selectAllCheckbox = document.getElementById('selectAll');
+            selectAllCheckbox.checked = Array.from(checkboxes).every(checkbox => checkbox.checked); // Kiểm tra xem tất cả checkbox đã được chọn hay chưa
+        }
+    
+        function approveSelected() {
+            const selectedCheckboxes = document.querySelectorAll('.child-chk:checked'); // Lấy tất cả checkbox đã chọn
+            if (selectedCheckboxes.length === 0) {
+                Swal.fire({
+                    title: 'Lỗi!',
+                    text: 'Vui lòng chọn ít nhất một yêu cầu để duyệt.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+    
+            Swal.fire({
+                title: 'Bạn có chắc chắn?',
+                text: "Bạn muốn duyệt tất cả các yêu cầu đã chọn?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Có, duyệt!',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const selectedIds = Array.from(selectedCheckboxes).map(checkbox => {
+                        return checkbox.dataset.id; // Lấy ID từ thuộc tính data-id
+                    });
+    
+                    // Gọi phương thức duyệt trên server
+                    @this.call('approveSelectedRooms', selectedIds).then(() => {
+                        Swal.fire(
+                            'Duyệt thành công!',
+                            'Các yêu cầu đã được duyệt.',
+                            'success'
+                        );
+                        // Bỏ chọn tất cả checkbox sau khi duyệt thành công
+                        selectedCheckboxes.forEach(checkbox => {
+                            checkbox.checked = false; // Bỏ chọn checkbox
+                        });
+                        document.getElementById('selectAll').checked = false; // Bỏ chọn checkbox "Chọn tất cả"
+                    }).catch(error => {
+                        Swal.fire(
+                            'Lỗi!',
+                            'Có lỗi xảy ra khi duyệt các yêu cầu.',
+                            'error'
+                        );
+                    });
+                }
+            });
+        }
+    </script>
 </div>
