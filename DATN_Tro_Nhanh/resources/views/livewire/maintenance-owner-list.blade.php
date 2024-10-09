@@ -32,7 +32,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="mb-3 ml-2">
+                        <div class="ml-2">
                             <button id="deleteSelected" class="btn btn-danger btn-lg" tabindex="0">
                                 <span>Xóa</span>
                             </button>
@@ -60,50 +60,45 @@
                 </thead>
         
                 @forelse ($maintenanceRequests as $item)
-                    <tr class="shadow-hover-xs-2" data-id="{{ $item->id }}">
-                        <td class="checkbox-column align-middle py-4 pl-6" style="white-space: nowrap;">
-                            <label class="new-control new-checkbox checkbox-primary m-auto">
-                                <input type="checkbox" class="new-control-input child-chk select-customers-info">
-                            </label>
-                        </td>
-                        <td class="align-middle p-4 text-primary" style="white-space: nowrap;">
-                            {{ $item->user->name ?? 'N/A' }}
-                            <br><small>Yêu cầu: {{ $item->title }}</small>
-                        </td>
-                        <td class="align-middle p-4" style="white-space: nowrap;">{{ $item->room->title ?? 'N/A' }}</td>
-                        <td class="align-middle p-4" style="white-space: nowrap;">
-                            {{ $item->created_at->format('d-m-Y') }}</td>
-                        <td class="align-middle p-4" style="white-space: nowrap;">
-                            @if ($item->status == 1)
-                                <span class="badge badge-yellow text-capitalize font-weight-normal fs-12">Đang xử
-                                    lý</span>
-                            @elseif ($item->status == 2)
-                                <span class="badge badge-green text-capitalize font-weight-normal fs-12">Đã duyệt</span>
-                            @elseif ($item->status == 3)
-                                <span class="badge badge-blue text-capitalize font-weight-normal fs-12">Đã hoàn
-                                    thành</span>
-                            @else
-                                <span class="badge badge-light text-capitalize font-weight-normal fs-12">Không xác
-                                    định</span>
-                            @endif
-                        </td>
-                        <td class="align-middle p-4" style="white-space: nowrap;">
-                            <form action="{{ route('owners.destroy-maintenances', $item->id) }}" method="POST"
-                                class="d-inline-block mb-0">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="fs-18 text-muted hover-primary border-0 bg-transparent">
-                                    <i class="fal fa-trash-alt"></i>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="6" class="text-center py-4" style="white-space: nowrap;">Không có yêu cầu bảo
-                            trì nào!</td>
-                    </tr>
-                @endforelse
+                <tr class="shadow-hover-xs-2" data-id="{{ $item->id }}">
+                    <td class="checkbox-column align-middle py-4 pl-6" style="white-space: nowrap;">
+                        <label class="new-control new-checkbox checkbox-primary m-auto">
+                            <input type="checkbox" class="new-control-input child-chk select-customers-info" data-id="{{ $item->id }}">
+                        </label>
+                    </td>
+                    <td class="align-middle p-4 text-primary" style="white-space: nowrap;">
+                        {{ $item->user->name ?? 'N/A' }}
+                        <br><small>Yêu cầu: {{ $item->title }}</small>
+                    </td>
+                    <td class="align-middle p-4" style="white-space: nowrap;">{{ $item->room->title ?? 'N/A' }}</td>
+                    <td class="align-middle p-4" style="white-space: nowrap;">
+                        {{ $item->created_at->format('d-m-Y') }}</td>
+                    <td class="align-middle p-4" style="white-space: nowrap;">
+                        @if ($item->status == 1)
+                            <span class="badge badge-yellow text-capitalize font-weight-normal fs-12">Đang xử lý</span>
+                        @elseif ($item->status == 2)
+                            <span class="badge badge-green text-capitalize font-weight-normal fs-12">Đã duyệt</span>
+                        @elseif ($item->status == 3)
+                            <span class="badge badge-blue text-capitalize font-weight-normal fs-12">Đã hoàn thành</span>
+                        @else
+                            <span class="badge badge-light text-capitalize font-weight-normal fs-12">Không xác định</span>
+                        @endif
+                    </td>
+                    <td class="align-middle p-4" style="white-space: nowrap;">
+                        <form action="{{ route('owners.destroy-maintenances', $item->id) }}" method="POST" class="d-inline-block mb-0">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="fs-18 text-muted hover-primary border-0 bg-transparent">
+                                <i class="fal fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="6" class="text-center py-4" style="white-space: nowrap;">Không có yêu cầu bảo trì nào!</td>
+                </tr>
+            @endforelse
             </table>
         </div>
 
@@ -261,7 +256,7 @@
             Livewire.on('maintenances-deleted', (data) => {
                 console.log('Maintenances deleted event received:', data);
                 Swal.fire({
-                    title: 'Thành công!',
+                    title: 'Xóa Thành công!',
                     text: data.message,
                     icon: 'success',
                     confirmButtonText: 'OK'

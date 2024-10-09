@@ -24,8 +24,7 @@
                                         mới</span></a>
                             </div>
                         </div>
-                        <div
-                            class="p-2 d-flex align-items-center">
+                        <div class="p-2 d-flex align-items-center">
                             <div class="input-group input-group-lg bg-white border mr-2" style="width: 300px;">
                                 <div class="input-group-prepend">
                                     <button class="btn pr-0 shadow-none" type="button">

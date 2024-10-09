@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\Room;
 
-
 class MaintenanceOwnerList extends Component
 {
     use WithPagination;
@@ -66,9 +65,17 @@ class MaintenanceOwnerList extends Component
             }
             $query->where('created_at', '>=', $date);
         }
-        $maintenanceRequests = $query->paginate($this->perPage);
 
-   
+        // Thêm điều kiện lọc theo ngày bắt đầu và kết thúc nếu có
+        if ($this->startDate) {
+            $query->where('created_at', '>=', Carbon::parse($this->startDate));
+        }
+
+        if ($this->endDate) {
+            $query->where('created_at', '<=', Carbon::parse($this->endDate));
+        }
+
+        $maintenanceRequests = $query->paginate($this->perPage);
 
         return view('livewire.maintenance-owner-list', compact('maintenanceRequests'));
     }
@@ -78,6 +85,7 @@ class MaintenanceOwnerList extends Component
     {
         $this->resetPage();
     }
+
     public function deleteSelectedMaintenances($data)
     {
         $ids = $data['ids'];
@@ -90,6 +98,7 @@ class MaintenanceOwnerList extends Component
     
         $this->dispatch('maintenances-deleted', ['message' => "Đã xóa thành công $deletedCount yêu cầu bảo trì."]);
     }
+
     // Reset trang khi thay đổi khoảng thời gian
     public function updatedTimeFilter()
     {
