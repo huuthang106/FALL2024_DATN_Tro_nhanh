@@ -8,6 +8,7 @@ use App\Models\PayoutHistory;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use App\Models\Transaction;
 
 class PayoutTable extends Component
 {
@@ -113,6 +114,14 @@ class PayoutTable extends Component
             $payout->status = '3';
             $payout->canceled_at = now();
             $payout->save();
+
+            $transaction = new Transaction();
+            $transaction->user_id = Auth::id();
+            $transaction->added_funds = $payout->amount;
+            $transaction->balance = Auth::user()->balance + $payout->amount;
+            $transaction->description = 'Hủy đơn rút tiền có mã đơn là ' . $payout->single_code;
+            $transaction->save();
+
             session()->flash('message', 'Yêu cầu rút tiền đã được hủy thành công.');
             $this->emit('refreshComponent');
         } catch (\Exception $e) {

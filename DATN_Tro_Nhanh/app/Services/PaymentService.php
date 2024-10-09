@@ -107,7 +107,7 @@ class PaymentService
             $transaction->added_funds = -$data['amount'];
             $transaction->balance = $user->balance - $data['amount']; // Cập nhật số dư mới
             $transaction->status = '2'; // Đang xử lý
-            $transaction->description = 'Rút tiền: ' . ($data['content'] ?? $data['description'] ?? '');
+            $transaction->description = 'Rút tiền về tài khoản với mã đơn là ' . $payout->single_code;
             $transaction->save();
 
             // Cập nhật số dư của user
@@ -199,7 +199,7 @@ class PaymentService
             $transaction->user_id = $user->id; // Lấy user_id
             $transaction->added_funds = '+' . $addPay; // Chuyển $addPay thành chuỗi với dấu +
             $transaction->balance = $user->balance; // Lấy balance sau khi cập nhật
-            $transaction->description = 'Từ chối đơn rút tiền'; // Mô tả giao dịch
+            $transaction->description = 'Từ chối đơn rút tiền có mã đơn là ' . $payout->single_code; // Mô tả giao dịch
             $transaction->save(); // Lưu giao dịch
 
             return true; // Trả về true nếu thành công

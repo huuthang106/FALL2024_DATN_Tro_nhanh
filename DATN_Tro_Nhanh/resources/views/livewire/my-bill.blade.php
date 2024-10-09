@@ -47,6 +47,7 @@
             <table class="table table-hover bg-white border rounded-lg">
                 <thead>
                     <tr>
+                        <th class="text-nowrap">ID</th>
                         <th scope="col" class="text-nowrap">Tên dịch vụ</th>
                         <th scope="col" class="text-nowrap">Mô tả</th>
                         <th scope="col" class="text-nowrap">Ngày thanh toán</th>
@@ -59,11 +60,14 @@
                         @foreach ($transactions as $transaction)
                             <tr class="shadow-hover-xs-2 bg-hover-white">
                                 <td class="align-middle" style="white-space: nowrap;">
+                                    {{ $transaction->id }}
+                                </td>
+                                <td class="align-middle" style="white-space: nowrap;">
                                    Thanh toán dịch vụ
                                 </td>
 
                                 <td class="align-middle text-truncate"
-                                    style="max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    style="max-width: 280px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                     {{ $transaction->description ?? 'Chưa có dữ liệu' }}
                                 </td>
                                 <td class="align-middle">

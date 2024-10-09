@@ -43,7 +43,8 @@ class ShowPayoutHistory extends Component
             $query->where(function ($q) {
                 $q->where('card_holder_name', 'like', '%' . $this->search . '%')
                   ->orWhere('account_number', 'like', '%' . $this->search . '%')
-                  ->orWhere('bank_name', 'like', '%' . $this->search . '%');
+                  ->orWhere('bank_name', 'like', '%' . $this->search . '%')
+                  ->orWhere('single_code', 'like', '%' . $this->search . '%');
             });
         }
 

@@ -403,6 +403,7 @@
                             <thead class="table text-nowrap">
                                 <!--begin::Table row-->
                                 <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                    <th class="w-10 text-nowrap">Mã đơn</th>
                                     <th class="w-10 text-nowrap">Tên tài khoản</th>
                                     <th class="w-15 text-nowrap">Số tài khoản</th>
                                     <th class="w-20 text-nowrap">Tên ngân hàng</th>
@@ -422,6 +423,7 @@
                                 @else
                                 @foreach ($payouts as $payout)
                                 <tr>
+                                    <td>{{ $payout->single_code }}</td>
                                     <td>{{ $payout->card_holder_name }}</td>
                                     <td>{{ $payout->account_number }}</td>
                                     <td>{{ $payout->bank_name }}</td>
