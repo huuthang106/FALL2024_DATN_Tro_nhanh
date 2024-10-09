@@ -1,9 +1,10 @@
 @extends('layouts.owner')
 @section('titleOwners', 'Đơn rút tiền | TRỌ NHANH')
 @section('contentOwners')
-    @livewire('payout-table')
-@endsection
 
+    @livewire('payout-table')
+    
+@endsection
 @push('styleOwners')
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

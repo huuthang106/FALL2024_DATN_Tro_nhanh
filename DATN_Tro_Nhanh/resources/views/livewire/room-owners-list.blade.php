@@ -1,5 +1,4 @@
 {{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
-
 <main id="content" class="bg-gray-01">
     <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
 
@@ -58,6 +57,7 @@
                 <span class="sr-only">Đang tải...</span>
             </div>
         </div>
+        
         <div wire:loading.remove wire:target="search, sortBy, perPage" class="table-responsive">
             <table class="table table-hover bg-white border rounded-lg" wire:ignore>
                 <thead>
@@ -346,7 +346,4 @@
         @endif
     </div>
 </main>
-{{-- 
-</div>
-</div>
-</div> --}}
+

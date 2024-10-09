@@ -62,6 +62,13 @@ class PaymentService
                 throw new \Exception('Số dư không đủ để thực hiện giao dịch.');
             }
 
+            if ($data['amount'] <= 10000) {
+                return [
+                    'success' => false,
+                    'message' => 'Số tiền rút phải lớn hơn 10,000 VND.'
+                ];
+            }
+
             // Cập nhật thông tin ngân hàng của user
             if (isset($data['bank_code'])) {
                 $user->bank_name = $data['bank_code']; // Sử dụng bank_code thay vì bank_name
