@@ -68,15 +68,5 @@
     <script src="{{ asset('assets/vendors/jparallax/TweenMax.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
-    <!-- jQuery (Bootstrap 4 yêu cầu) -->
-    <!-- <script>
-function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(() => {
-        alert('Đã sao chép: ' + text);
-    }).catch(err => {
-        console.error('Lỗi sao chép: ', err);
-    });
-}
-</script> -->
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endpush

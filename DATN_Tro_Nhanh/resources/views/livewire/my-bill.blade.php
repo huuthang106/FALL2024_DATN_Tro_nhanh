@@ -43,9 +43,9 @@
             </div>
         </form>
 
-        <div class="table-responsive p-3">
+        <div class="table-responsive">
             <table class="table table-hover bg-white border rounded-lg">
-                <thead class="thead-light">
+                <thead>
                     <tr>
                         <th scope="col" class="text-nowrap">Tên dịch vụ</th>
                         <th scope="col" class="text-nowrap">Mô tả</th>
@@ -59,35 +59,32 @@
                         @foreach ($transactions as $transaction)
                             <tr class="shadow-hover-xs-2 bg-hover-white">
                                 <td class="align-middle" style="white-space: nowrap;">
-                                    <small>Thanh toán dịch vụ</small>
+                                   Thanh toán dịch vụ
                                 </td>
 
                                 <td class="align-middle text-truncate"
                                     style="max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                    <small>{{ $transaction->description ?? 'Chưa có dữ liệu' }}</small>
+                                    {{ $transaction->description ?? 'Chưa có dữ liệu' }}
                                 </td>
                                 <td class="align-middle">
-                                    <small>{{ $transaction->created_at->format('d/m/Y H:i') }}</small>
+                                   {{ $transaction->created_at->format('d/m/Y H:i') }}
+                                </td>
+                                <td class="align-middle  @if($transaction->status == 1)
+                                                            text-success
+                                                        @elseif($transaction->status == 2)
+                                                            text-danger
+                                                        @endif">
+                                    @if($transaction->status == 1)
+                                        +
+                                    @endif
+                                    {{ number_format(($transaction->added_funds), 0, ',', '.') }} VND
                                 </td>
                                 <td class="align-middle">
-                                    <small class="{{ $transaction->status == 1 ? 'text-success' : 'text-danger' }}"
-                                        style="white-space: nowrap;">
-                                     {{ ($transaction->status == 1 ? '+' : '-') . number_format(abs($transaction->added_funds), 0, ',', '.') }} VND
-                                 </small>
-                                </td>
-                                <td class="align-middle">
-                                    <small style="white-space: nowrap;">
-                                        {{ number_format($transaction->balance, 0, ',', '.') }} VND
-                                    </small>
+                                    {{ number_format($transaction->balance, 0, ',', '.') }} VND
                                 </td>
 
                             </tr>
                         @endforeach
-                    @else
-                        <tr>
-                            <td colspan="5" class="text-center align-middle"><small>Không có giao dịch nào.</small>
-                            </td>
-                        </tr>
                     @endif
                 </tbody>
             </table>
@@ -159,19 +156,11 @@
                         <i class="far fa-angle-double-right"></i>
                     </a>
                 </li>
-            </ul>
-        </div>
-        
+                </ul>
+            </div>
         @else
             <div class="text-center mt-4">Không có giao dịch nào.</div>
         @endif
-
-
-
-
-
-
-
     </div>
 
 </div>

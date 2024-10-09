@@ -8,6 +8,8 @@ use App\Models\Blog;
 use App\Services\BlogServices;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
 class TrashBlog extends Component
 {
     use WithPagination;
@@ -17,12 +19,18 @@ class TrashBlog extends Component
     public $timeFilter = ''; // Khoảng thời gian lọc
     public $selectedBlogs = []; // Biến lưu trữ các blog được chọn
 
-    // Hàm để lấy các blog đã bị xóa mềm
-    public function getTrashedBlogs()
+    protected $listeners = ['restoreSelectedBlogs', 'forceDeleteSelectedBlogs'];
+    
+    // Hàm để xóa vĩnh viễn các blog đã chọn
+    public function forceDeleteSelectedBlogs()
     {
-        return Blog::onlyTrashed()->get();
+        Log::info('Blogs to be permanently deleted:', $this->selectedBlogs);
+        if (count($this->selectedBlogs) > 0) {
+            Blog::withTrashed()->whereIn('id', $this->selectedBlogs)->forceDelete();
+            $this->selectedBlogs = []; // Reset lại sau khi xóa
+            $this->dispatch('blogs-force-deleted', ['message' => 'Các blog đã chọn đã được xóa vĩnh viễn']);
+        }
     }
-
     // Hàm để khôi phục các blog đã chọn
     public function restoreSelectedBlogs()
     {
@@ -73,17 +81,15 @@ class TrashBlog extends Component
     
         $trashedBlogs = $query->paginate($this->perPage);
     
-        return view('livewire.trash-blog', [
-            'trashedBlogs' => $trashedBlogs, // Đảm bảo biến này được truyền đến view
-        ]);
+        return view('livewire.trash-blog',compact('trashedBlogs'));
     }
     public function updatedSearch()
-{
-    $this->resetPage(); // Reset trang khi thay đổi từ khóa tìm kiếm
-}
+    {
+        $this->resetPage(); // Reset trang khi thay đổi từ khóa tìm kiếm
+    }
 
-public function updatedTimeFilter()
-{
-    $this->resetPage(); // Reset trang khi thay đổi khoảng thời gian
-}
+    public function updatedTimeFilter()
+    {
+        $this->resetPage(); // Reset trang khi thay đổi khoảng thời gian
+    }
 }

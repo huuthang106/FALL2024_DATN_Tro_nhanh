@@ -38,7 +38,7 @@ class BlogAdminSearch extends Component
     public function render()
     {
         Log::info('Searching for blogs with: ' . $this->search);
-        $query = Blog::query()->orderBy('created_at', 'desc');;
+        $query = Blog::query()->orderBy('created_at', 'desc');
         
         if ($this->search) {
             $query->where(function ($q) {

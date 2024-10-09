@@ -29,24 +29,4 @@ class PaymentOwnersController extends Controller
         return view('owners.create.request-payout');
     }
 
-    public function createPayout(Request $request)
-    {
-        $data = $request->validate([
-            'amount' => 'required|numeric|min:0',
-            'bank_name' => 'required|string',
-            'account_number' => 'required|string',
-            'card_holder_name' => 'required|string',
-            'description' => 'nullable|string',
-        ]);
-
-        $data['user_id'] = Auth::id();
-
-        $result = $this->paymentService->createPayout($data);
-
-        if ($result['success']) {
-            return redirect()->route('don-rut-tien')->with('success', $result['message']);
-        } else {
-            return back()->withErrors($result['message'])->withInput();
-        }
-    }
 }

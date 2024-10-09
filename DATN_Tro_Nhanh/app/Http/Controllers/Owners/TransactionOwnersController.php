@@ -42,7 +42,8 @@ class TransactionOwnersController extends Controller
     }
     public function getWithdrawMomny()
     {
-        return view('owners.show.dashboard-my-withdrawmoney');
+        $bankInformation = $this->cassoService->getUserBank();
+        return view('owners.show.dashboard-my-withdrawmoney', compact('bankInformation'));
     }
 
 

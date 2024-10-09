@@ -118,6 +118,31 @@ class NotificationOwnersService
             ->where('status', self::CHUA_XEM) // Chỉ lấy các thông báo chưa đọc
             ->count();
     }
+
+    public function updateNotificationStatusByPage($perPage = 10)
+    {
+    $userId = auth()->id();
+    
+    // Lấy số trang từ URL hoặc mặc định là trang 1
+    $page = request()->get('page', 1);
+
+    // Lấy thông báo của người dùng, sắp xếp mới nhất lên đầu và phân trang
+    $notifications = Notification::where('user_id', $userId)
+        ->where('status', self::CHUA_XEM)
+        ->orderBy('created_at', 'desc') // Sắp xếp từ mới đến cũ
+        ->paginate($perPage, ['*'], 'page', $page); // Phân trang
+
+    // Lấy danh sách id các thông báo trong trang hiện tại
+    $notificationIds = $notifications->pluck('id');
+
+    // Cập nhật trạng thái của những thông báo đó thành DA_XEM
+    Notification::whereIn('id', $notificationIds)
+        ->update(['status' => self::DA_XEM]);
+    }
+
+
+
+
     // Tìm kiếm
     public function searchNotifications($query, $perPage = 10)
     {

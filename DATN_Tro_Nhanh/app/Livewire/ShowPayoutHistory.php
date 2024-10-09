@@ -3,38 +3,47 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use Livewire\WithPagination;
 use App\Models\PayoutHistory;
-use Illuminate\Support\Facades\Auth;
+use Livewire\WithPagination;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
 
-class PayoutTable extends Component
+class ShowPayoutHistory extends Component
 {
     use WithPagination;
-    public $confirmingDelete = false;
-    public $payoutToDelete;
-    public $perPage = 5;
+
     public $search = '';
     public $sortBy = 'date_new_to_old';
-    public $orderBy = 'requested_at';
-    public $timeFilter = '';
-    public $hasData = true;
+    public $perPage = 5; // Số lượng kết quả mỗi trang
     protected $queryString = ['search', 'sortBy', 'perPage'];
-    public function confirmDelete($payoutId)
+    public $timeFilter = '';
+
+    public function updatedSearch()
     {
-        $this->confirmingDelete = true;
-        $this->payoutToDelete = $payoutId;
+        $this->resetPage();
     }
+
+
+    public function updatingPerPage()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingFilterByDate()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
-        $query = PayoutHistory::where('user_id', Auth::id())
+        $query = PayoutHistory::query()
+        ->where('status', 1)
         ->orderBy('created_at', 'desc');
 
         if ($this->search) {
             $query->where(function ($q) {
-                $q->where('description', 'like', '%' . $this->search . '%')
-                    ->orWhere('bank_name', 'like', '%' . $this->search . '%');
+                $q->where('card_holder_name', 'like', '%' . $this->search . '%')
+                  ->orWhere('account_number', 'like', '%' . $this->search . '%')
+                  ->orWhere('bank_name', 'like', '%' . $this->search . '%');
             });
         }
 
@@ -78,45 +87,9 @@ class PayoutTable extends Component
 
         $payouts = $query->paginate($this->perPage);
 
-        $this->hasData = $payouts->total() > 0;
-
-        return view('livewire.payout-table', [
-            'payouts' => $payouts,
+        return view('livewire.show-payout-history', [
+            'payouts' => $payouts
         ]);
     }
 
-    public function updatingSearch()
-    {
-        $this->resetPage();
-    }
-
-    public function updatingTimeFilter()
-    {
-        $this->resetPage();
-    }
-
-    public function sortBy($field)
-    {
-        if ($this->orderBy === $field) {
-            $this->orderAsc = !$this->orderAsc;
-        } else {
-            $this->orderAsc = true;
-        }
-        $this->orderBy = $field;
-    }
-
-   
-    public function deletePayout($payoutId)
-    {
-        try {
-            $payout = PayoutHistory::findOrFail($payoutId);
-            $payout->status = '3';
-            $payout->canceled_at = now();
-            $payout->save();
-            session()->flash('message', 'Yêu cầu rút tiền đã được hủy thành công.');
-            $this->emit('refreshComponent');
-        } catch (\Exception $e) {
-            session()->flash('error', 'Có lỗi xảy ra khi hủy yêu cầu rút tiền: ' . $e->getMessage());
-        }
-    }
 }

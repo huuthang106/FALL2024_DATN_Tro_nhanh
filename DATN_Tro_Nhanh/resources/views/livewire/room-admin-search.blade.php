@@ -255,8 +255,6 @@
                                             <!--end::Action=-->
                                         </tr>
                                     @endforeach
-                                    <!--end::Table row-->
-                                    <!--begin::Table row-->
 
                                 @endif
                             </tbody>
@@ -344,9 +342,6 @@
                     @endif
 
                 @endif
-
-
-
                 <!--end::Card body-->
             </div>
             <!--end::Card-->

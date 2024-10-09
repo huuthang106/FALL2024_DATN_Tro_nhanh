@@ -33,8 +33,20 @@
                         </button>
                     </div>
                 </div>
-                <div class="align-self-center">
-                    <button id="deleteSelected" class="btn btn-danger btn-lg ml-2">Xóa đã chọn</button>
+                <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
+                    <div class="input-group input-group-lg bg-white mb-0 position-relative flex-grow-1 mr-2" style="width: 60%">
+                        <input wire:model.lazy="search" wire:keydown.debounce.100ms="$refresh" type="text"
+                            class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..." aria-label=""
+                            aria-describedby="basic-addon1">
+                        <div class="input-group-append position-absolute pos-fixed-right-center">
+                            <button class="btn bg-transparent border-0 text-gray lh-1" type="button">
+                                <i class="fal fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="align-self-center">
+                        <button id="deleteSelected" class="btn btn-danger btn-lg ml-2">Xóa</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -65,7 +77,7 @@
                     @foreach ($blogs as $blog)
                         <tr class="shadow-hover-xs-2">
                             <td>
-                                <input type="checkbox" class="blog-checkbox" value="{{ $blog->id }}"
+                                <input type="checkbox" class="blog-checkbox" value="{{ $blog->id }}" 
                                     wire:model="selectedBlogs"> <!-- Checkbox cho mỗi blog -->
                             </td>
                             <td class="align-middle pt-3 pb-3 px-3">
@@ -205,21 +217,83 @@
         kết quả</div> --}}
 </div>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const checkAll = document.getElementById('checkAll');
-        const deleteSelectedBtn = document.getElementById('deleteSelected');
-        const checkboxes = document.querySelectorAll('.blog-checkbox');
+            document.addEventListener('DOMContentLoaded', function() {
+            const checkAll = document.getElementById('checkAll');
+            const deleteSelectedBtn = document.getElementById('deleteSelected');
+            const checkboxes = document.querySelectorAll('.blog-checkbox');
 
-        // Bắt sự kiện thay đổi cho checkbox tổng
-        checkAll.addEventListener('change', function() {
-            const isChecked = this.checked; // Lưu trạng thái của checkbox "Chọn tất cả"
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = isChecked; // Chọn hoặc bỏ chọn tất cả checkbox
-                checkbox.dispatchEvent(new Event('change', {
-                    'bubbles': true
-                })); // Kích hoạt sự kiện thay đổi để Livewire bắt được
+            // Hàm cập nhật trạng thái của checkbox tổng
+            function capNhatTrangThaiCheckAll() {
+                checkAll.checked = checkboxes.length > 0 && Array.from(checkboxes).every(checkbox => checkbox.checked);
+            }
+
+            // Bắt sự kiện thay đổi cho checkbox tổng
+            checkAll.addEventListener('change', function() {
+                const isChecked = this.checked;
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = isChecked;
+                    checkbox.dispatchEvent(new Event('change', { 'bubbles': true }));
+                });
+                @this.set('selectedBlogs', isChecked ? Array.from(checkboxes).map(cb => cb.value) : []);
             });
-            updateDeleteButtonVisibility(); // Cập nhật trạng thái nút xóa
+
+            // Bắt sự kiện thay đổi cho các checkbox con
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    capNhatTrangThaiCheckAll();
+                    let selectedBlogs = @this.get('selectedBlogs');
+                    if (this.checked) {
+                        if (!selectedBlogs.includes(this.value)) {
+                            selectedBlogs.push(this.value);
+                        }
+                    } else {
+                        selectedBlogs = selectedBlogs.filter(id => id !== this.value);
+                    }
+                    @this.set('selectedBlogs', selectedBlogs);
+                });
+            });
+
+            // Bắt sự kiện nhấn nút "Xóa đã chọn"
+            deleteSelectedBtn.addEventListener('click', function() {
+                if (@this.selectedBlogs.length === 0) {
+                    Swal.fire({
+                        title: 'Lỗi!',
+                        text: 'Vui lòng chọn ít nhất một bài blog để xóa',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                    return;
+                }
+
+                Swal.fire({
+                    title: 'Bạn có chắc chắn?',
+                    text: "Bạn có muốn xóa các blog đã chọn?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Có, xóa!',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        @this.call('deleteSelectedBlogs');  // Gọi hàm Livewire để xóa blog
+                    }
+                });
+            });
+
+            // Cập nhật hiển thị nút xóa dựa vào số lượng blog đã chọn
+            function updateDeleteButtonVisibility() {
+                deleteSelectedBtn.style.display = @this.selectedBlogs.length > 0 ? 'block' : 'none';
+                capNhatTrangThaiCheckAll();
+            }
+
+            // Gọi hàm updateDeleteButtonVisibility mỗi khi có sự thay đổi trong selectedBlogs
+            @this.$watch('selectedBlogs', () => {
+                updateDeleteButtonVisibility();
+            });
+
+            // Khởi tạo trạng thái ban đầu
+            updateDeleteButtonVisibility();
         });
 
         // Bắt sự kiện nhấn nút "Xóa đã chọn"

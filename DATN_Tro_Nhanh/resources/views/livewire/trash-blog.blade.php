@@ -28,41 +28,22 @@
                     </div>
                 </div>
                 <div class="align-self-center">
-                    <button id="restoreSelected" class="btn btn-success btn-lg ml-2">Khôi phục đã chọn</button>
+                    <div class="dropdown">
+                        <button class="btn btn-primary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           Tác vụ
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <button class="dropdown-item" type="button" id="restoreSelected">
+                                <i class="fas fa-undo"></i> Khôi phục
+                            </button>
+                            <button class="dropdown-item" type="button" id="deleteSelected">
+                                <i class="fas fa-trash-alt"></i> Xóa vĩnh viễn
+                            </button>
+                        </div>                       
+                    </div>
                 </div>
             </div>
         </div>
-        {{-- <div class="row">
-            <div class="mr-0 mr-md-auto">
-                <h2 class="mb-0 text-heading fs-22 lh-15">
-                    Thùng rác
-                </h2>
-            </div>
-            <div class="form-inline justify-content-md-end mx-n2">
-                <div class="p-2">
-                    <div class="input-group input-group-lg bg-white border">
-                        <div class="input-group-prepend">
-                            <button class="btn pr-0 shadow-none" type="button"><i class="far fa-search"></i></button>
-                        </div>
-                        <input type="text" class="form-control bg-transparent border-0 shadow-none text-body"
-                            placeholder="Tìm kiếm danh sách" wire:model.lazy="search"
-                            wire:keydown.debounce.300ms="$refresh">
-                    </div>
-                </div>
-                <div class="p-2 ml-2" wire:ignore>
-                    <select class="form-control selectpicker form-control-lg mr-2" wire:model.lazy="timeFilter"
-                        data-style="bg-white btn-lg h-52 py-2 border">
-                        <option value="" selected>Thời Gian:</option> <!-- Tùy chọn mặc định -->
-                        <option value="1_day">1 ngày</option>
-                        <option value="7_day">7 ngày</option>
-                        <option value="1_month">1 tháng</option>
-                        <option value="3_month">3 tháng</option>
-                        <option value="6_month">6 tháng</option>
-                        <option value="1_year">1 năm</option>
-                    </select>
-                </div>
-            </div>
-        </div> --}}
     </div>
     <div class="table-responsive">
         <table class="table table-hover bg-white border rounded-lg">
@@ -87,10 +68,10 @@
                 @else
                     @foreach ($trashedBlogs as $blog)
                         <tr class="shadow-hover-xs-2 bg-hover-white">
-                        <td>
-                        <input type="checkbox" class="blog-checkbox" value="{{ $blog->id }}" 
-                        wire:model="selectedBlogs">
-                        </td>
+                            <td>
+                            <input type="checkbox" class="blog-checkbox" value="{{ $blog->id }}" 
+                                    wire:model="selectedBlogs">
+                            </td>
                             <td class="align-middle pt-6 pb-4 px-6">
                                 <div class="media d-flex align-items-center">
                                     <div class="w-120px mr-4 position-relative">
@@ -206,44 +187,52 @@
     @endif
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- <script>
-    document.addEventListener('livewire:initialized', () => {
-        Livewire.on('showAlert', (data) => {
-            Swal.fire({
-                icon: data[0].type,
-                title: data[0].title,
-                text: data[0].message,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Livewire.dispatch('$refresh');
-                }
-            });
-        });
-    });
-</script> -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const checkAll = document.getElementById('checkAll');
         const restoreSelectedBtn = document.getElementById('restoreSelected');
-        const blogCheckboxes = document.querySelectorAll('.blog-checkbox');
+        const deleteSelectedBtn = document.getElementById('deleteSelected');
+        const checkboxes = document.querySelectorAll('.blog-checkbox');
+       
+        function capNhatTrangThaiCheckAll() {
+                checkAll.checked = checkboxes.length > 0 && Array.from(checkboxes).every(checkbox => checkbox.checked);
+        }
+
+        
+        if (typeof Livewire === 'undefined') {
+        console.log('Livewire chưa được khởi tạo');
+            return;
+        }
 
         checkAll.addEventListener('change', function() {
-            blogCheckboxes.forEach(checkbox => {
-                checkbox.checked = this.checked;
-            });
-            updateRestoreButtonVisibility();
+                const isChecked = this.checked;
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = isChecked;
+                    checkbox.dispatchEvent(new Event('change', { 'bubbles': true }));
+                });
+                @this.set('selectedBlogs', isChecked ? Array.from(checkboxes).map(cb => cb.value) : []);
         });
 
-        blogCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', updateRestoreButtonVisibility);
+        // Bắt sự kiện thay đổi cho các checkbox con
+        checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    capNhatTrangThaiCheckAll();
+                    let selectedBlogs = @this.get('selectedBlogs');
+                    if (this.checked) {
+                        if (!selectedBlogs.includes(this.value)) {
+                            selectedBlogs.push(this.value);
+                        }
+                    } else {
+                        selectedBlogs = selectedBlogs.filter(id => id !== this.value);
+                    }
+                    @this.set('selectedBlogs', selectedBlogs);
+            });
         });
+
 
         restoreSelectedBtn.addEventListener('click', function() {
-            const selectedBlogIds = Array.from(blogCheckboxes)
-                .filter(cb => cb.checked)
-                .map(cb => cb.valu  e);
-
-            if (selectedBlogIds.length === 0) {
+            if (@this.selectedBlogs.length === 0) {
+                console.log('Selected Blogs:', @this.selectedBlogs);
                 Swal.fire({
                     title: 'Lỗi!',
                     text: 'Vui lòng chọn ít nhất một blog để khôi phục',
@@ -264,22 +253,53 @@
                 cancelButtonText: 'Hủy'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    @this.call('restoreSelectedBlogs', selectedBlogIds);
+                    @this.call('restoreSelectedBlogs');
+                }
+            });
+        });
+        
+        deleteSelectedBtn.addEventListener('click', function() {
+            if (@this.selectedBlogs.length === 0) {
+                Swal.fire({
+                    title: 'Lỗi!',
+                    text: 'Vui lòng chọn ít nhất một blog để xóa vĩnh viễn',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            Swal.fire({
+                title: 'Bạn có chắc chắn?',
+                text: "Bạn có muốn xóa vĩnh viễn các blog đã chọn?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Có, xóa vĩnh viễn!',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    @this.call('forceDeleteSelectedBlogs');
                 }
             });
         });
 
+
         function updateRestoreButtonVisibility() {
-            const selectedCount = document.querySelectorAll('.blog-checkbox:checked').length;
-            restoreSelectedBtn.style.display = selectedCount > 0 ? 'inline-block' : 'none';
-            checkAll.checked = selectedCount === blogCheckboxes.length;
+            restoreSelectedBtn.style.display = @this.selectedBlogs.length > 0 ? 'block' : 'none';
+            capNhatTrangThaiCheckAll();
         }
+
+        @this.$watch('selectedBlogs', () => {
+                updateRestoreButtonVisibility();
+            });
 
         updateRestoreButtonVisibility();
     });
 
     document.addEventListener('livewire:initialized', () => {
-        Livewire.on('blog-restored', () => {
+        Livewire.on('blog-restored', (event) => {
             Swal.fire({
                 title: 'Thành công!',
                 text: 'Các blog đã chọn đã được khôi phục thành công',
@@ -289,16 +309,14 @@
                 location.reload();
             });
         });
-
-        Livewire.on('showAlert', (data) => {
-            Swal.fire({
-                icon: data[0].type,
-                title: data[0].title,
-                text: data[0].message,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Livewire.dispatch('$refresh');
-                }
+        Livewire.on('blogs-force-deleted', (event) => {
+        Swal.fire({
+            title: 'Thành công!',
+            text: 'Các blog đã chọn đã được xóa vĩnh viễn',
+            icon: 'success',
+            confirmButtonText: 'OK'
+            }).then(() => {
+                location.reload();
             });
         });
     });

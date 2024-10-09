@@ -9,7 +9,8 @@ use App\Models\Premium;
 use App\Models\User;
 use App\Models\Room;
 use App\Models\PriceList;
-use App\Models\CartDetail;
+use App\Models\PayoutHistory;
+use App\Models\Notification;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 use App\Events\PaymentProcessed;
+use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 
 class PaymentService
@@ -30,6 +32,7 @@ class PaymentService
     protected $vnpHashSecret;
     private $apiKey;
     private $Giohang = 2;
+    private $Donchuaduyet = 1;
 
     public function __construct()
     {
@@ -60,14 +63,21 @@ class PaymentService
             }
 
             // Cập nhật thông tin ngân hàng của user
-            $user->bank_name = $data['bank_name']; // Đã là tên đầy đủ của ngân hàng
-            $user->bank_account = $data['account_number'];
-            $user->card_holder_name = $data['card_holder_name'];
+            if (isset($data['bank_code'])) {
+                $user->bank_name = $data['bank_code']; // Sử dụng bank_code thay vì bank_name
+            }
+            if (isset($data['account_number'])) {
+                $user->bank_account = $data['account_number'];
+            }
+            if (isset($data['card_holder_name'])) {
+                $user->card_holder_name = $data['card_holder_name'];
+            }
             $user->save();
 
             // Tạo yêu cầu rút tiền mới
             $payout = new PayoutHistory();
             $payout->fill($data);
+            $payout->bank_name = $data['bank_code'];
             $payout->status = '1'; // Đang xử lý
             $payout->requested_at = now();
 
@@ -81,7 +91,7 @@ class PaymentService
 
             $notification = new Notification(); // Tạo đối tượng Notification
             $notification->user_id = $user->id; // Lấy user_id từ payout
-            $notification->data = 'Đơn rút tiền của bạn đã được tạo';
+            $notification->data = 'Đơn rút tiền có mã đơn là ' . $payout->single_code . ' đã được tạo';
             $notification->type = 'Rút tiền';
             $notification->save();
 
@@ -89,6 +99,7 @@ class PaymentService
             $transaction->user_id = $data['user_id'];
             $transaction->added_funds = -$data['amount'];
             $transaction->balance = $user->balance - $data['amount']; // Cập nhật số dư mới
+            $transaction->status = '2'; // Đang xử lý
             $transaction->description = 'Rút tiền: ' . ($data['content'] ?? $data['description'] ?? '');
             $transaction->save();
 
@@ -121,6 +132,20 @@ class PaymentService
         return $bankInformation;
     }
 
+    public function transferStatusPayout($id)
+    {
+        $payout = PayoutHistory::findOrFail($id);
+        $payout->status = '2';
+        $payout->save();
+
+        $notification = new Notification();
+        $notification->user_id = $payout->user_id;
+        $notification->data = 'Đơn rút tiền có mã đơn là ' . $payout->single_code . ' đã được duyệt và tiền đã được chuyển.';
+        $notification->type = 'Rút tiền';
+        $notification->save();  
+        return $payout;
+    }
+
     public function getUserPayouts($userId)
     {
         return PayoutHistory::where('user_id', $userId)
@@ -130,8 +155,7 @@ class PaymentService
 
     public function getPayouts()
     {
-        return PayoutHistory::where('status', '!=', self::Dachuyentien) // Thêm điều kiện loại trừ status = 4
-            ->where('status', '!=', self::Dondatchoi) // Thêm điều kiện loại trừ status = 3
+        return PayoutHistory::where('status', $this->Donchuaduyet)
             ->orderBy('created_at', 'desc') // Sắp xếp từ mới nhất tới cũ nhất
             ->paginate(10);
     }
@@ -147,7 +171,7 @@ class PaymentService
             $payout = PayoutHistory::findOrFail($payoutID);
 
             // Cập nhật trạng thái
-            $payout->status = 3; // Trạng thái từ chối
+            $payout->status = 4; // Trạng thái từ chối
             $payout->save();
 
             // Cập nhật số dư cho người dùng
@@ -158,9 +182,10 @@ class PaymentService
             // Tạo thông báo cho người dùng
             $notification = new Notification(); // Tạo đối tượng Notification
             $notification->user_id = $user->id; // Lấy user_id từ payout
-            $notification->data = 'Đơn rút tiền của bạn đã bị từ chối. Lý do: ' . $request->rejectionReason;
+            $notification->data = 'Đơn rút tiền có mã đơn là ' . $payout->single_code . ' đã bị từ chối. Lý do: ' . $request->rejectionReason;
             $notification->type = 'Rút tiền';
             $notification->save();
+
             $addPay = $payout->amount;
             // Lưu vào bảng transactions
             $transaction = new Transaction(); // Tạo đối tượng Transaction

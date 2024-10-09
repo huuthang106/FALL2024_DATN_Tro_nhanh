@@ -27,4 +27,15 @@ class PayoutHistory extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    protected static function booted()
+    {
+        // Sự kiện tạo mới record
+        static::creating(function ($table) {
+            // Kiểm tra nếu chưa có giá trị single_code thì tự động tạo
+            if (empty($table->single_code)) {
+                $table->single_code = '#' . str_pad(rand(0, 9999), 4, '0', STR_PAD_LEFT);
+            }
+        });
+    }
 }

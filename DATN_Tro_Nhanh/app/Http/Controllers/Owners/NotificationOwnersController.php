@@ -18,9 +18,10 @@ class NotificationOwnersController extends Controller
     {
         $query = $request->query('query', '');
         $perPage = $request->query('notification-list_length', 10); // Default to 10 if not provided
-    
+        $this->notificationOwnersService->updateNotificationStatusByPage(); // Gọi hàm để cập nhật trạng
         // Retrieve paginated notifications based on the search query and perPage value
         $notifications = $this->notificationOwnersService->searchNotifications($query, $perPage);
+
     
         if ($request->ajax()) {
             return response()->json([

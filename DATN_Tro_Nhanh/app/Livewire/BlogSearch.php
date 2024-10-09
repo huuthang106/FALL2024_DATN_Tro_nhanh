@@ -7,6 +7,7 @@ use Livewire\WithPagination;
 use App\Models\Blog;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class BlogSearch extends Component
 {
@@ -22,6 +23,7 @@ class BlogSearch extends Component
     public function deleteSelectedBlogs()
     {
         if (count($this->selectedBlogs) > 0) {
+            Log::info('Selected Blogs:', $this->selectedBlogs);
             Blog::whereIn('id', $this->selectedBlogs)->delete();
             $this->selectedBlogs = []; // Reset lại sau khi xóa
             $this->dispatch('blog-deleted', ['message' => 'Các thông báo đã chọn đã được xóa thành công']);

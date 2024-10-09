@@ -12,9 +12,6 @@
                     </p>
                 </div>
                 <button class="btn btn-primary" data-toggle="modal" data-target="#withdrawModal">Rút tiền</button>
-
-
-
                 <!-- Modal -->
                 <div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog" aria-labelledby="withdrawModalLabel"
                     aria-hidden="true">
@@ -36,35 +33,44 @@
                                         <div class="col-md-7">
                                             <div class="form-group">
                                                 <label for="bank-name" class="fs-10">Tên Ngân Hàng</label>
-                                                <select class="form-control" id="bank-name" name="bank_name" required>
-                                                    <!-- Các ngân hàng sẽ được lấy từ API -->
-                                                </select>
+                                                <div class="custom-select-wrapper">
+                                                    <select class="form-control custom-select" id="bank-name" name="bank_name" required data-placeholder="Chọn ngân hàng">
+                                                        <option value="" disabled selected>Chọn ngân hàng</option>
+                                                        <!-- Các ngân hàng sẽ được lấy từ API -->
+                                                    </select>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="account-number" class="fs-10">Số Tài Khoản</label>
                                                 <input type="text" class="form-control" id="account-number"
-                                                    name="account_number" placeholder="Nhập số tài khoản" required>
+                                                    name="account_number" value="{{ Auth::user()->bank_account }}"
+                                                    placeholder="Nhập số tài khoản" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="account-number" class="fs-10">Mã ngân hàng</label>
+                                                <input type="text" class="form-control" id="bank_code" name="bank_code" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-5">
                                             <div class="form-group">
                                                 <label for="withdraw-amount" class="fs-10">Số Tiền Cần Rút</label>
-                                                <input type="number" class="form-control" id="withdraw-amount"
+                                                <input type="number" class="form-control" id="added_funds"
                                                     name="amount" placeholder="Nhập số tiền"
                                                     value="{{ Auth::user()->balance }}" max="{{ Auth::user()->balance }}"
                                                     required>
-                                                <small class="form-text text-muted">Số dư hiện tại:
-                                                    {{ number_format(Auth::user()->balance, 0, ',', '.') }} VNĐ</small>
+                                                <!-- <small class="form-text text-muted">Số dư hiện tại:
+                                                    {{ number_format(Auth::user()->balance, 0, ',', '.') }} VNĐ</small> -->
                                             </div>
                                             <div class="form-group">
                                                 <label for="withdraw-amount" class="fs-10">Tên Chủ Tài Khoản</label>
                                                 <input type="text" class="form-control" id="card_holder_name"
-                                                    name="card_holder_name" placeholder="Nhập tên chủ tài khoản" required>
+                                                    name="card_holder_name" value="{{ Auth::user()->card_holder_name }}"
+                                                    placeholder="Nhập tên chủ tài khoản" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="withdraw-description" class="fs-10">Nội Dung</label>
                                                 <input type="text" class="form-control" id="withdraw-description"
-                                                    name="description" value="Rút tiền về tài khoản">
+                                                    name="description" value="Rút tiền về tài khoản" readonly>
                                                 <div class="mt-2" id="custom-description-container"
                                                     style="display: none;">
                                                     <input type="text" class="form-control" id="custom-description"
@@ -444,6 +450,17 @@
     <script src="{{ asset('assets/vendors/jparallax/TweenMax.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var cardHolderNameInput = document.getElementById('card_holder_name');
+        
+        cardHolderNameInput.addEventListener('input', function(e) {
+            this.value = this.value.toUpperCase();
+        });
+    });
+    </script>
+
+// ... existing code ...
     <!-- Theme scripts -->
     <script>
         window.zoneData = {
@@ -454,40 +471,52 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        // Lấy danh sách ngân hàng từ API
-        async function fetchBanks() {
-            try {
-                const response = await axios.get('https://api.vietqr.io/v2/banks');
-                const banks = response.data.data;
+         // Lấy danh sách ngân hàng từ API
+            async function fetchBanks() {
+                try {
+                    const response = await axios.get('https://api.vietqr.io/v2/banks');
+                    const banks = response.data.data;
 
-                // Cập nhật danh sách ngân hàng vào select
-                const bankSelect = document.getElementById('bank-name');
+                    // Cập nhật danh sách ngân hàng vào select
+                    const bankSelect = document.getElementById('bank-name');
 
-                // Xóa tất cả các option hiện tại
-                bankSelect.innerHTML = '';
+                    // Xóa tất cả các option hiện tại
+                    bankSelect.innerHTML = '';
 
-                // Thêm option mặc định
-                const defaultOption = document.createElement('option');
-                defaultOption.value = '';
-                defaultOption.textContent = 'Chọn ngân hàng';
-                bankSelect.appendChild(defaultOption);
+                    // Thêm option mặc định
+                    const defaultOption = document.createElement('option');
+                    defaultOption.value = '';
+                    defaultOption.textContent = 'Chọn ngân hàng';
+                    bankSelect.appendChild(defaultOption);
 
-                // Thêm các ngân hàng
-                banks.forEach(bank => {
-                    const option = document.createElement('option');
-                    option.value = bank.code;
-                    option.textContent = bank.name;
-                    option.dataset.name = bank.name;
-                    bankSelect.appendChild(option);
-                });
+                    // Thêm các ngân hàng
+                    banks.forEach(bank => {
+                        const option = document.createElement('option');
+                        option.value = bank.code;
+                        option.textContent = bank.name;
+                        option.dataset.name = bank.name;
+                        option.dataset.shortName = bank.shortName;
+                        bankSelect.appendChild(option);
+                    });
 
-            } catch (error) {
-                console.error('Error fetching banks:', error);
+                } catch (error) {
+                    console.error('Error fetching banks:', error);
+                }
             }
-        }
 
         // Gọi hàm khi modal mở
         $('#withdrawModal').on('show.bs.modal', fetchBanks);
+
+         // Thêm event listener cho select
+        document.getElementById('bank-name').addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            const shortNameInput = document.getElementById('bank_code');
+            if (selectedOption && selectedOption.value) {
+            shortNameInput.value = selectedOption.dataset.shortName;
+        } else {
+            shortNameInput.value = '';
+            }
+        });
 
         // Xử lý submit form
         document.getElementById('withdrawForm').addEventListener('submit', function(e) {
@@ -503,8 +532,8 @@
             const bankSelect = document.getElementById('bank-name');
             const selectedOption = bankSelect.options[bankSelect.selectedIndex];
             if (selectedOption && selectedOption.value) {
-                formData.set('bank_code', selectedOption.value);
-                formData.set('bank_name', selectedOption.dataset.name);
+                formData.set('bank_code', selectedOption.value); // Đảm bảo bank_code được set
+                formData.set('bank_name', selectedOption.dataset.shortName);
             } else {
                 alert('Vui lòng chọn ngân hàng');
                 return;
@@ -512,168 +541,52 @@
 
             // Gửi request
             fetch('{{ route('owners.submit-payout-request') }}', {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert(data.message);
-                        $('#withdrawModal').modal('hide');
-                    } else {
-                        alert(data.message || 'Có lỗi xảy ra');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Có lỗi xảy ra khi xử lý yêu cầu');
-                });
-        });
-    </script>
-    <script>
-        // Cập nhật danh sách ngân hàng vào select
-        const bankSelect = document.getElementById('bank-name');
-        banks.forEach(bank => {
-            const option = document.createElement('option');
-            option.value = bank.code; // Hoặc bank.id tùy theo yêu cầu
-            option.textContent = bank.name;
-            bankSelect.appendChild(option);
-        });
-        }
-        catch (error) {
-            console.error('Error fetching banks:', error);
-        }
-        }
-
-        // Gọi hàm khi modal mở
-        $('#withdrawModal').on('show.bs.modal', function() {
-            fetchBanks();
-        });
-    </script>
-    <script src="{{ asset('assets/js/payout-api.js') }}"></script>
-    <script>
-        document.getElementById('withdrawForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                var formData = new FormData(this);
-
-                // Thêm option mặc định
-                const defaultOption = document.createElement('option');
-                defaultOption.value = '';
-                defaultOption.textContent = 'Chọn ngân hàng';
-                bankSelect.appendChild(defaultOption);
-
-                // Thêm các ngân hàng
-                banks.forEach(bank => {
-                    const option = document.createElement('option');
-                    option.value = bank.name; // Sử dụng tên đầy đủ làm giá trị
-                    option.textContent = bank.name;
-                    option.dataset.code = bank.code; // Lưu mã ngân hàng vào data attribute
-                    bankSelect.appendChild(option);
-                });
-
-                // Đặt size cho select
-                bankSelect.size = Math.min(5, banks.length + 1);
-
-                // Thêm sự kiện để đóng select khi chọn
-                bankSelect.addEventListener('change', function() {
-                    this.size = 1;
-                    this.blur();
-                });
-
-                // Thêm sự kiện để mở rộng select khi focus
-                bankSelect.addEventListener('focus', function() {
-                    this.size = Math.min(5, banks.length + 1);
-                });
-
-            } catch (error) {
-                console.error('Error fetching banks:', error);
-            }
-
-            // Gọi hàm khi modal mở
-            $('#withdrawModal').on('show.bs.modal', function() {
-                fetchBanks();
-            });
-
-            // Xử lý submit form
-            document.getElementById('withdrawForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                var formData = new FormData(this);
-
-                if (formData.get('description') === 'Rút tiền khác') {
-                    formData.set('description', formData.get('custom_description'));
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
                 }
-
-                // Lấy mã ngân hàng từ data attribute
-                const bankSelect = document.getElementById('bank-name');
-                const selectedOption = bankSelect.options[bankSelect.selectedIndex];
-                formData.set('bank_code', selectedOption.dataset.code);
-
-                // ... phần còn lại của code xử lý submit ...
-            });
-        );
-    </script>
-
-    {{-- <script>
-        document.getElementById('withdrawForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            var formData = new FormData(this);
-
-            if (formData.get('description') === 'Rút tiền khác') {
-                formData.set('description', formData.get('custom_description'));
-            }
-
-            fetch('{{ route('owners.request-payout') }}', {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Thành công!',
-                            text: data.message,
-                            confirmButtonText: 'Đóng'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                // Đóng modal hoặc làm mới trang nếu cần
-                                $('#withdrawModal').modal('hide');
-                                // Có thể thêm code để cập nhật UI ở đây
-                            }
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Lỗi!',
-                            text: data.message,
-                            confirmButtonText: 'Đóng'
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error('Lỗi:', error);
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Thành công',
+                        text: data.message,
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Đóng modal hoặc chuyển hướng nếu cần
+                            $('#withdrawModal').modal('hide');
+                            // Hoặc: window.location.href = '/trang-chu';
+                        }
+                    });
+                } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Lỗi!',
-                        text: 'Có lỗi xảy ra khi xử lý yêu cầu.',
-                        confirmButtonText: 'Đóng'
+                        text: data.message || 'Có lỗi xảy ra khi xử lý yêu cầu',
+                        confirmButtonText: 'OK'
                     });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi!',
+                    text: 'Có lỗi xảy ra khi xử lý yêu cầu',
+                    confirmButtonText: 'OK'
                 });
+            });
         });
-    </script> --}}
+    </script>
+   
+    <script src="{{ asset('assets/js/payout-api.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/js/theme.js') }}"></script>
-
     <script src="{{ asset('assets/js/load-file.js') }}"></script>
     <script>
         window.successMessage = "{{ session('success') }}";
