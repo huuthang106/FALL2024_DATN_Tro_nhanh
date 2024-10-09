@@ -40,18 +40,17 @@
                             </div>
                         </div>
                         <div class="dropdown no-caret py-4 px-3 d-flex align-items-center notice mr-3">
-                            <a href="#" class="dropdown-toggle text-heading fs-20 font-weight-500 lh-1"
-                                data-toggle="dropdown">
+                            <a href="{{ route('owners.notification-owners') }}" class="dropdown-toggle text-heading fs-20 font-weight-500 lh-1"
+                                data-toggle="">
                                 <i class="far fa-bell"></i>
                                 <span
                                     class="badge badge-primary badge-circle badge-absolute font-weight-bold fs-13">{{ $unreadNotificationCount }}</span>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right">
+                            {{-- <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="{{ route('owners.notification-owners') }}">Danh sách
                                     thông báo</a>
-                                <a class="dropdown-item" href="#">Thao tác khác</a>
-                                <a class="dropdown-item" href="#">Tùy chọn khác</a>
-                            </div>
+                              
+                            </div> --}}
                         </div>
                     </div>
                     <button class="navbar-toggler border-0 px-0" type="button" data-toggle="collapse"
@@ -160,8 +159,8 @@
                                         class="text-heading lh-1 sidebar-link d-flex align-items-center"
                                         onclick="toggleDropdown('collapseBlog'); return false;">
                                         <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                            <svg class="icon icon-my-properties">
-                                                <use xlink:href="#icon-my-properties"></use>
+                                            <svg class="icon icon-review">
+                                                <use xlink:href="#icon-review"></use>
                                             </svg>
                                         </span>
                                         <span class="sidebar-item-text">Blog</span>
@@ -192,9 +191,7 @@
                                         class="text-heading lh-1 sidebar-link d-flex align-items-center"
                                         onclick="toggleDropdown('collapseEdit'); return false;">
                                         <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                            <svg class="icon icon-my-properties">
-                                                <use xlink:href="#icon-my-properties"></use>
-                                            </svg>
+                                            <i class="far fa-tasks"></i> <!-- Biểu tượng tasks từ FontAwesome -->
                                         </span>
                                         <span class="sidebar-item-text">Sửa Chữa</span>
                                         <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
@@ -265,9 +262,7 @@
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center"
                                     onclick="toggleDropdown('collapseLike'); return false;">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                        <svg class="icon icon-my-properties">
-                                            <use xlink:href="#icon-my-properties"></use>
-                                        </svg>
+                                        <i class="far fa-user"></i> <!-- Biểu tượng follower với viền thoi từ FontAwesome -->
                                     </span>
                                     <span class="sidebar-item-text">Follower</span>
                                     <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
@@ -293,11 +288,9 @@
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center"
                                     onclick="toggleDropdown('collapseEditUnique'); return false;">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                        <svg class="icon icon-my-properties">
-                                            <use xlink:href="#icon-my-properties"></use>
-                                        </svg>
+                                        <i class="far fa-cogs"></i> <!-- Biểu tượng cogs rỗng từ FontAwesome -->
                                     </span>
-                                    <span class="sidebar-item-text">Quản lý đơn</span>
+                                    <span class="sidebar-item-text">Quản lý chung</span>
                                     <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
                                 </a>
                             </li>
@@ -324,9 +317,7 @@
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center"
                                     onclick="toggleDropdown('collapseAccount'); return false;">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                        <svg class="icon icon-my-profile">
-                                            <use xlink:href="#icon-my-profile"></use>
-                                        </svg>
+                                        <i class="far fa-info-circle"></i> <!-- Biểu tượng bổ sung thông tin từ FontAwesome -->
                                     </span>
                                     <span class="sidebar-item-text">Thông tin thêm</span>
                                     <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
@@ -365,22 +356,18 @@
                                 <a href="{{ route('owners.invoice-listing') }}" data-route="owners.invoice-listing"
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                        <svg class="icon icon-heart">
-                                            <use xlink:href="#icon-heart"></use>
-                                        </svg>
+                                        <i class="fal fa-file-invoice"></i>
                                     </span>
-                                    <span class="sidebar-item-text">Hóa Đơn Của Bạn</span>
+                                    <span class="sidebar-item-text">Hóa đơn của tôi</span>
                                 </a>
                             </li>
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                 <a href="{{ route('owners.profile.resigter-owner') }}" data-route="owners.profile.resigter-owner"
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                        <svg class="icon icon-heart">
-                                            <use xlink:href="#icon-heart"></use>
-                                        </svg>
+                                        <i class="far fa-user-plus"></i> <!-- Biểu tượng đăng ký role từ FontAwesome -->
                                     </span>
-                                    <span class="sidebar-item-text">Người đưa tin</span>
+                                    <span class="sidebar-item-text">Yêu cầu quyền</span>
                                 </a>
                             </li>
                             <!-- <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
@@ -411,9 +398,7 @@
                                 <a href="{{ Route('owners.chat-owners') }}" data-route="owners.chat-owners"
                                     class="text-heading lh-1 sidebar-link d-flex align-items-center">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                        <svg class="icon icon-heart">
-                                            <use xlink:href="#icon-heart"></use>
-                                        </svg>
+                                        <i class="far fa-comments"></i> <!-- Biểu tượng chat từ FontAwesome -->
                                     </span>
                                     <span class="sidebar-item-text">Chat</span>
                                     <!-- Số lượng yêu thích nằm sau chữ "Yêu thích" -->
@@ -425,9 +410,7 @@
                                 <a href="{{ route('owners.lich-su-giao-dich') }}" data-route="owners.lich-su-giao-dich"
                                     class="text-heading lh-1 sidebar-link">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                        <svg class="icon icon-my-profile">
-                                            <use xlink:href="#icon-my-profile"></use>
-                                        </svg>
+                                        <i class="far fa-history"></i> <!-- Biểu tượng lịch sử giao dịch từ FontAwesome -->
                                     </span>
                                     <span class="sidebar-item-text">Lịch sử giao dịch</span>
                                 </a>
@@ -437,9 +420,7 @@
                                 <a href="{{ route('owners.don-rut-tien') }}" data-route="owners.don-rut-tien"
                                     class="text-heading lh-1 sidebar-link">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                        <svg class="icon icon-my-profile">
-                                            <use xlink:href="#icon-my-profile"></use>
-                                        </svg>
+                                        <i class="far fa-money-bill-wave"></i> <!-- Biểu tượng danh sách rút tiền từ FontAwesome -->
                                     </span>
                                     <span class="sidebar-item-text">Danh sách đơn rút tiền</span>
                                 </a>
@@ -460,9 +441,7 @@
                                 <a href="{{ route('client.payment-recharge') }}" data-route="client.payment-recharge"
                                     class="text-heading lh-1 sidebar-link">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                        <svg class="icon icon-my-profile">
-                                            <use xlink:href="#icon-my-profile"></use>
-                                        </svg>
+                                        <i class="far fa-money-bill-wave"></i> <!-- Hoặc sử dụng <i class="fas fa-credit-card"></i> -->
                                     </span>
                                     <span class="sidebar-item-text">Nạp tiền</span>
                                 </a>
@@ -470,9 +449,7 @@
                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                 <a href="{{ route('client.home') }}" data-route="client.home" class="text-heading lh-1 sidebar-link">
                                     <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
-                                        <svg class="icon icon-my-profile">
-                                            <use xlink:href="#icon-my-profile"></use>
-                                        </svg>
+                                        <i class="far fa-home"></i> <!-- Biểu tượng quay về trang chủ từ FontAwesome -->
                                     </span>
                                     <span class="sidebar-item-text">Về trang chủ</span>
                                 </a>
@@ -573,21 +550,20 @@
                             </div>
                         </div> --}}
                         <div
-                            class="dropdown no-caret py-3 px-3 px-sm-6 d-flex align-items-center justify-content-end notice">
-                            <a href="#" class="dropdown-toggle text-heading fs-20 font-weight-500 lh-1"
-                                data-toggle="dropdown">
+                            class=" no-caret py-3 px-3 px-sm-6 d-flex align-items-center justify-content-end notice mt-2">
+                            <a href="{{ route('owners.notification-owners') }}" class=" text-heading fs-20 font-weight-500 lh-1"
+                                data-toggle="">
                                 <i class="far fa-bell"></i>
                                 <span class="badge badge-primary badge-circle badge-absolute font-weight-bold fs-13">
                                     {{ $unreadNotificationCount }}
                                 </span>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right">
+                            {{-- <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="{{ route('owners.notification-owners') }}">Danh sách
                                     thông
                                     báo</a>
-                                <a class="dropdown-item" href="#">Thao tác khác</a>
-                                <a class="dropdown-item" href="#">Tùy chọn khác</a>
-                            </div>
+                           
+                            </div> --}}
                         </div>
                     </div>
                 </div>

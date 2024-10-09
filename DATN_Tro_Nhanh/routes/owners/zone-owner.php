@@ -17,6 +17,7 @@ Route::group(['prefix' => ''], function () {
         route::Put('chinh-sua-khu-tro/{id}', [ZoneOwnersController::class, 'update'])->name('zone-start-update');
         Route::delete('/xoa/{id}', [ZoneOwnersController::class, 'destroyResident'])->name('resident-destroy');
         Route::post('/tao-hoa-don', [ZoneOwnersController::class, 'storeBill'])->name('bills-store');
+        route::Put('xoa-phong/{id}', [ZoneOwnersController::class, 'deleteRoomInZone'])->name('delete-room-in-zone');
   
 
 

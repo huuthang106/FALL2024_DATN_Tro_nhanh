@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Owners;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\ZoneServices;
+use App\Services\RoomOwnersService;
 use App\Http\Requests\ZoneRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Bill;
@@ -18,13 +19,14 @@ class ZoneOwnersController extends Controller
     protected $zoneServices;
     protected const show = 2;
     protected const user_is_in = 2;
-
+    protected $roomOwnersService;
 
     //
 
-    public function __construct(ZoneServices $zoneServices)
+    public function __construct(ZoneServices $zoneServices, RoomOwnersService $roomOwnersService)
     {
         $this->zoneServices = $zoneServices;
+        $this->roomOwnersService = $roomOwnersService;
     }
     public function index()
     {
@@ -39,9 +41,10 @@ class ZoneOwnersController extends Controller
         // dd($data);
         return view('owners.show.dashbroard-zone-detail', [
             'zone' => $data['zone'],
-            'rooms' => $data['rooms'],
-            'residents' => $data['residents'],
-            'user_is_in' => self::user_is_in,
+            // 'rooms' => $data['rooms'],
+            // 'residents' => $data['residents'],
+            // 'user_is_in' => self::user_is_in,
+            'slug'=>$slug
         ]);
     }
     // Xóa mềm Residents
@@ -207,5 +210,11 @@ class ZoneOwnersController extends Controller
         $image->delete();
 
         return response()->json(['success' => true]);
+    }
+    
+    public function deleteRoomInZone($id)
+    {
+        $this->roomOwnersService->clearZoneId($id);
+        return redirect()->back()->with('success', 'Phòng đã được xóa thành công.');
     }
 }

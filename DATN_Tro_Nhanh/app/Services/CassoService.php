@@ -19,12 +19,12 @@
         $userId = Auth::user()->id; // Fixed method call to use parentheses
         // Thiết lập các thông tin cố định
         $bankId = 'vietinbank';
-        $accountNo = '106878243505';
+        $accountNo = '101882785438';
         $template = 'YMhjhkj';
         $amount = ""; // Số tiền
         $logoUrl = asset('assets/images/tro-moi.png'); 
         $description = 'TN GD ' . $userId; // Lời nhắn
-        $accountName = 'NGUYEN HUU THANG'; // Tên tài khoản
+        $accountName = 'TONG CHI NHAN'; // Tên tài khoản
 
         // $url = "https://img.vietqr.io/image/{$bankId}-{$accountNo}-{$template}.png?amount={$amount}&addInfo=" . urlencode($description) . "&accountName=" . urlencode($accountName);
         $url = "https://img.vietqr.io/image/{$bankId}-{$accountNo}-{$template}.png?amount={$amount}&addInfo=" . urlencode($description) . "&accountName=" . urlencode($accountName) . "&logo=" . urlencode($logoUrl);

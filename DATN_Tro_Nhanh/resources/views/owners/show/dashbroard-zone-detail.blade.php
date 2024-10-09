@@ -1,331 +1,8 @@
 @extends('layouts.owner')
 @section('titleOwners', $zone->name . ' | TRỌ NHANH')
 @section('contentOwners')
-    <main id="content" class="bg-gray-01">
-        <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
-            <div class="mb-6">
-                <div class="row">
-                    <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
-                        <div class="d-flex form-group mb-0 align-items-center">
-                            <h5 for="invoice-list_length" class="d-block mr-2 mb-0">Tên khu: {{ $zone->name }}</h5>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
-                        <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
-                            <input type="text" class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..."
-                                aria-label="" aria-describedby="basic-addon1">
-                            <div class="input-group-append position-absolute pos-fixed-right-center">
-                                <button class="btn bg-transparent border-0 text-gray lh-1" type="button"><i
-                                        class="fal fa-search"></i></button>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="table-responsive">
-                        <table id="myTable" class="table table-hover bg-white border rounded-lg">
-                            <thead>
-                                <tr role="row">
-                                    <th class="no-sort py-6 pl-6">
-                                        <label class="new-control new-checkbox checkbox-primary m-auto">
-                                            <input type="checkbox"
-                                                class="new-control-input chk-parent select-customers-info">
-                                        </label>
-                                    </th>
-                                    <th class="py-6 text-start" style="white-space: nowrap;">Tên phòng</th>
-                                    <th class="py-6 text-start" style="white-space: nowrap;">Tên người ở</th>
-                                    <th class="py-6 text-start" style="white-space: nowrap;">Số điện thoại</th>
-                                    {{-- <th class="py-6 text-start">Lý do từ chối</th> --}}
-                                    <th class="py-6 text-start" style="white-space: nowrap;">Trạng thái</th>
-                                    <th class="py-6 text-start" style="white-space: nowrap;">Xem hồ sơ</th>
-                                    <th class="py-6 text-start ">Thao tác</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if ($rooms->isEmpty())
-                                    <tr>
-                                        <td colspan="6" class="text-center" style="white-space: nowrap;">Khu vực chưa có
-                                            phòng trọ nào.</td>
-                                    </tr>
-                                @else
-                                    @foreach ($rooms as $room)
-                                        <tr>
-                                            <td class="py-6 pl-6" style="white-space: nowrap;">
-                                                <label class="new-control new-checkbox checkbox-primary m-auto">
-                                                    <input type="checkbox"
-                                                        class="new-control-input chk-parent select-customers-info">
-                                                </label>
-                                            </td>
-                                            <td class="align-middle" style="white-space: nowrap;">
-                                                <small>{{ $room->title }}</small></td>
-                                                <td class="align-middle" style="white-space: nowrap;">
-                                                    <small>
-                                                        @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
-                                                            @php
-                                                                $resident = $room->residents
-                                                                    ->where('status', $user_is_in)
-                                                                    ->first();
-                                                                $tenant = $resident->tenant;
-                                                            @endphp
-                                                            {{ $tenant->name ?? 'Không có tên' }}
-                                                        @else
-                                                            Không có người ở
-                                                        @endif
-                                                    </small>
-                                                </td>
-                                            <td class="align-middle" style="white-space: nowrap;"> <small>
-                                                    @if ($room->residents && $room->residents->isNotEmpty())
-                                                        {{ $room->residents->first()->tenant->phone ?? 'Không có' }}
-                                                    @else
-                                                        Phòng trống
-                                                    @endif
-                                                </small></td>
 
-                                            {{-- <td class="align-middle">
-                                                    <small>
-                                                        @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
-                                                            <span class="badge badge-green text-capitalize">Đang tạm trú</span>
-                                                        @else
-                                                            <span class="badge badge-yellow text-capitalize">Trống</span>
-                                                        @endif
-                                                    </small>
-                                                </td> --}}
-                                            <td class="align-middle" style="white-space: nowrap;">
-                                                <small>
-                                                    @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
-                                                        <span class="badge badge-green text-capitalize">Đang tạm trú</span>
-                                                    @else
-                                                        <span class="badge badge-yellow text-capitalize">Trống</span>
-                                                    @endif
-                                                </small>
-                                            </td>
-                                            <td class="align-middle" style="white-space: nowrap;">
-                                                @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
-                                                    @php
-                                                        $resident = $room->residents->first();
-                                                    @endphp
-                                                    @if ($resident->status == $user_is_in)
-                                                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#identityModal{{ $resident->tenant->id }}">
-                                                            Xem hồ sơ
-                                                        </button>
-                                                    @endif
-                                                @endif
-                                            </td>
-                                            <td class="align-middle" style="white-space: nowrap;">
-                                                @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
-                                                    @php
-                                                        $resident = $room->residents->first();
-                                                    @endphp
-                                                    @if ($resident->status == $user_is_in)
-                                                        <button type="button" class="btn btn-primary btn-sm"
-                                                            data-toggle="modal"
-                                                            data-target="#invoiceModal{{ $resident->id }}">
-                                                            Viết hóa đơn
-                                                        </button>
-                                                        <form action="{{ route('owners.erase-tenant', $resident->id) }}"
-                                                            method="POST" style="display:inline;">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                class="btn btn-danger btn-sm">Xóa</button>
-                                                        </form>
-                                                    @endif
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endif
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="mt-6">
-                        @if ($rooms->lastPage() > 1)
-                            <ul class="pagination rounded-active justify-content-center">
-                                {{-- Trang trước --}}
-                                <li class="page-item {{ $residents->onFirstPage() ? 'disabled' : '' }}">
-                                    <a class="page-link" href="{{ $residents->previousPageUrl() }}" aria-label="Previous">
-                                        <i class="far fa-angle-double-left"></i>
-                                    </a>
-                                </li>
-
-                                {{-- Trang đầu tiên --}}
-                                @if ($residents->currentPage() > 2)
-                                    <li class="page-item">
-                                        <a class="page-link" href="{{ $residents->url(1) }}">1</a>
-                                    </li>
-                                @endif
-
-                                {{-- Dấu ba chấm ở đầu nếu cần --}}
-                                @if ($residents->currentPage() > 3)
-                                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                                @endif
-
-                                {{-- Hiển thị các trang xung quanh trang hiện tại --}}
-                                @for ($i = max(1, $residents->currentPage() - 1); $i <= min($residents->currentPage() + 1, $residents->lastPage()); $i++)
-                                    <li class="page-item {{ $residents->currentPage() == $i ? 'active' : '' }}">
-                                        <a class="page-link" href="{{ $residents->url($i) }}">{{ $i }}</a>
-                                    </li>
-                                @endfor
-
-                                {{-- Dấu ba chấm ở cuối nếu cần --}}
-                                @if ($residents->currentPage() < $residents->lastPage() - 2)
-                                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                                @endif
-
-                                {{-- Trang cuối cùng --}}
-                                @if ($residents->currentPage() < $residents->lastPage() - 1)
-                                    <li class="page-item">
-                                        <a class="page-link"
-                                            href="{{ $residents->url($residents->lastPage()) }}">{{ $residents->lastPage() }}</a>
-                                    </li>
-                                @endif
-
-                                {{-- Trang tiếp theo --}}
-                                <li
-                                    class="page-item {{ $residents->currentPage() == $residents->lastPage() ? 'disabled' : '' }}">
-                                    <a class="page-link" href="{{ $residents->nextPageUrl() }}" aria-label="Next">
-                                        <i class="far fa-angle-double-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        @endif
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-    <!-- Modal -->
-    @foreach ($zone->residents as $resident)
-        <div class="modal fade" id="invoiceModal{{ $resident->id }}" tabindex="-1" role="dialog"
-            aria-labelledby="invoiceModalLabel{{ $resident->id }}" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="invoiceModalLabel{{ $resident->tenant->id }}">Tạo hóa đơn cho
-
-                            {{ $resident->tenant->name }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="formBills" action="{{ route('owners.bills-store') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="payer_id" value="{{ $resident->tenant_id }}">
-                            <input type="hidden" name="creator_id" value="{{ auth()->user()->id }}">
-                            <div class="row">
-                                <!-- Cột trái -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="name">Tên người ở:</label>
-                                        <input type="text" class="form-control" id="name"
-                                            value="{{ $resident->tenant->name }}" readonly>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="room">Tên phòng:</label>
-                                        <input type="text" class="form-control" id="room"
-                                            value="{{ $resident->room->title }}" readonly>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="payment_due_date">Hạn thanh toán:</label>
-                                        <input type="date" class="form-control" id="payment_due_date"
-                                            name="payment_due_date" min="{{ date('Y-m-d') }}">
-                                        <span class="text-danger" id="payment_due_date-error"></span>
-                                    </div>
-
-
-
-                                </div>
-
-                                <!-- Cột phải -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="title">Tiêu đề:</label>
-                                        <input type="text" class="form-control" id="title" name="title"
-                                            required autocomplete="off" placeholder="Nhập tiêu đề hóa đơn">
-                                        <span class="text-danger" id="title-error"></span>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="amount">Số tiền:</label>
-                                        <input type="number" class="form-control" id="amount" name="amount"
-                                            required min="0" step="0.01" placeholder="Nhập số tiền">
-                                        <span class="text-danger" id="amount-error"></span>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="description">Mô tả:</label>
-                                        <textarea class="form-control" id="description" name="description" rows="3"
-                                            placeholder="Nhập mô tả chi tiết về hóa đơn" required></textarea>
-                                        <span class="text-danger" id="description-error"></span>
-                                    </div>
-                                    {{-- <div class="form-group">
-                                        <label for="payment_date">Ngày và giờ thanh toán:</label>
-                                        <input type="datetime-local" class="form-control" id="payment_date"
-                                            name="payment_date" required>
-                                        <span class="text-danger" id="payment_date-error"></span>
-                                    </div> --}}
-
-
-                                </div>
-                            </div>
-                            <div class="modal-footer text-right">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                                <button type="submit" class="btn btn-primary">Tạo hóa đơn</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach
-    @foreach ($rooms as $room)
-        @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
-            @php
-                $resident = $room->residents->where('status', $user_is_in)->first();
-                $tenant = $resident->tenant;
-            @endphp
-            <div class="modal fade" id="identityModal{{ $tenant->id }}" tabindex="-1" role="dialog"
-                aria-labelledby="identityModalLabel{{ $tenant->id }}" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="identityModalLabel{{ $tenant->id }}">Ảnh định danh của
-                                {{ $tenant->name }}</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            @php
-                                $images = $tenant->identity ? $tenant->identity->imgmember : collect();
-                            @endphp
-                            @if ($tenant->identity && $tenant->identity->status == 2 && $images->isNotEmpty())
-                                <div class="row">
-                                    @foreach ($images as $image)
-                                        <div class="col-md-6 mb-3">
-                                            <a href="{{ asset('assets/images/register_owner/' . $image->filename) }}"
-                                                data-fancybox="gallery">
-                                                <img src="{{ asset('assets/images/register_owner/' . $image->filename) }}"
-                                                    alt="Identity Image" class="img-fluid">
-                                            </a>
-                                        </div>
-                                    @endforeach
-                                </div>
-                                <div class="text-center mt-3">
-                                    <button class="btn btn-primary download-all-images"
-                                        data-tenant-id="{{ $tenant->id }}">Tải tất cả ảnh</button>
-                                </div>
-                            @else
-                                <p>Không có ảnh định danh hoặc thông tin chưa được công khai.</p>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
-    @endforeach
+  @livewire('zone-detail', ['slug' => $slug])
 @endsection
 
 @push('styleOwners')
@@ -516,49 +193,49 @@
                 });
             });
         });
-    
+
         function downloadImages(tenantId) {
             var zip = new JSZip();
             var imagePromises = [];
-    
+
             // Tìm tất cả các ảnh trong modal của tenant cụ thể
             var modal = document.getElementById('identityModal' + tenantId);
             if (!modal) {
                 alert('Không tìm thấy modal cho tenant này.');
                 return; // Dừng hàm nếu không tìm thấy modal
             }
-    
+
             var images = modal.querySelectorAll('img');
-    
+
             if (images.length === 0) {
                 alert('Không có ảnh định danh để tải xuống.');
                 return; // Dừng hàm nếu không có ảnh
             }
-    
+
             images.forEach(function(img, index) {
                 var imageUrl = img.src;
                 var fileExtension = imageUrl.split('.').pop().split(/\#|\?/)[0];
                 var imageName = 'anh_' + (index + 1) + '.' + fileExtension;
-    
+
                 imagePromises.push(
                     fetch(imageUrl)
-                        .then(response => response.blob())
-                        .then(blob => {
-                            // Sử dụng MIME type của blob để xác định định dạng file
-                            var mimeType = blob.type;
-                            var fileExtension = mimeType.split('/')[1];
-                            if (fileExtension === 'jpeg') fileExtension = 'jpg';
-                            imageName = 'anh_' + (index + 1) + '.' + fileExtension;
-                            return zip.file(imageName, blob);
-                        })
+                    .then(response => response.blob())
+                    .then(blob => {
+                        // Sử dụng MIME type của blob để xác định định dạng file
+                        var mimeType = blob.type;
+                        var fileExtension = mimeType.split('/')[1];
+                        if (fileExtension === 'jpeg') fileExtension = 'jpg';
+                        imageName = 'anh_' + (index + 1) + '.' + fileExtension;
+                        return zip.file(imageName, blob);
+                    })
                 );
             });
-    
+
             Promise.all(imagePromises).then(() => {
                 zip.generateAsync({
                     type: 'blob'
                 }).then(function(content) {
-                    saveAs(content, '{{ $tenant->name ?? "tenant" }}_identity_images.zip');
+                    saveAs(content, '{{ $tenant->name ?? 'tenant' }}_identity_images.zip');
                 });
             });
         }

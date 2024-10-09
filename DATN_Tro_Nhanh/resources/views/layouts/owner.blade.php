@@ -9,6 +9,7 @@
     @stack('styleOwners')
     <link rel="stylesheet" href="{{ asset('assets/css/mh.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style-ntt.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/fontawesome.min.css">
     <style>
 
        

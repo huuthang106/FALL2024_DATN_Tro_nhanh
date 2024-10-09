@@ -707,4 +707,15 @@ class RoomOwnersService
             return false;
         }
     }
+
+    public function clearZoneId($id)
+    {
+        $room = Room::findOrFail(id: $id);
+        
+        // Thiết lập zone_id thành null
+        $room->zone_id = null;
+        $room->save(); // Lưu thay đổi vào cơ sở dữ liệu
+    
+        return $room; // Trả về phòng đã được cập nhật
+    }
 }

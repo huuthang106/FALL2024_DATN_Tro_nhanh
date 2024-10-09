@@ -20,8 +20,7 @@
                     </select>
                 </div>
                 <div class="ml-2 align-self-center">
-                    <a href="" class="btn btn-primary btn-lg"
-                        tabindex="0"><span>Thêm
+                    <a href="" class="btn btn-primary btn-lg" tabindex="0"><span>Thêm
                             mới</span></a>
                 </div>
             </div>
@@ -37,20 +36,21 @@
                     </div>
                 </div>
                 <div class="align-self-center">
-                    <button id="deleteSelected" class="btn btn-danger btn-lg" tabindex="0" aria-controls="invoice-list"><span>Xóa</span></button>
-                  
+                    <button id="deleteSelected" class="btn btn-danger btn-lg" tabindex="0"
+                        aria-controls="invoice-list"><span>Xóa</span></button>
+
                 </div>
             </div>
-           
+
         </div>
-    
+
     </div>
     <div class="table-responsive">
         <table id="notification-list" class="table table-hover bg-white border rounded-lg">
             <thead>
                 <tr role="row">
                     <th class="py-6">
-                        <input type="checkbox" id="checkAll" >
+                        <input type="checkbox" id="checkAll">
                     </th>
                     <th class="py-6" style="white-space:nowrap">Loại</th>
                     <th class="py-6" style="white-space:nowrap">Dữ liệu</th>
@@ -68,17 +68,19 @@
                     @foreach ($notifications as $notification)
                         <tr role="row">
                             <td class="align-middle">
-                                <input type="checkbox" class="notification-checkbox" 
-                                       wire:model="selectedNotifications" value="{{ $notification->id }}">
+                                <input type="checkbox" class="notification-checkbox" wire:model="selectedNotifications"
+                                    value="{{ $notification->id }}">
                             </td>
                             <td class="align-middle" style="white-space:nowrap">{{ $notification->type }}</td>
                             <td class="align-middle" style="white-space:nowrap">
                                 @if ($notification->blog)
-                                    <a href="{{ route('owners.notification-update', ['slug' => $notification->blog->slug]) }}">
+                                    <a
+                                        href="{{ route('owners.notification-update', ['slug' => $notification->blog->slug]) }}">
                                         {{ $notification->data }}
                                     </a>
                                 @elseif ($notification->room)
-                                    <a href="{{ route('owners.notification-update', ['slug' => $notification->room->slug]) }}">
+                                    <a
+                                        href="{{ route('owners.notification-update', ['slug' => $notification->room->slug]) }}">
                                         {{ $notification->data }}
                                     </a>
                                 @else
@@ -90,9 +92,11 @@
                                     {{ $notification->status === 2 ? 'Đã xem' : 'Chưa xem' }}
                                 </span>
                             </td> -->
-                            <td class="align-middle" style="white-space:nowrap">{{ $notification->created_at->format('d-m-Y') }}</td>
+                            <td class="align-middle" style="white-space:nowrap">
+                                {{ $notification->created_at->format('d-m-Y') }}</td>
                             <td class="align-middle">
-                                <a href="#" wire:click.prevent="deleteNotification({{ $notification->id }})" data-toggle="tooltip" title="Xóa"
+                                <a href="#" wire:click.prevent="deleteNotification({{ $notification->id }})"
+                                    data-toggle="tooltip" title="Xóa"
                                     class="d-inline-block fs-18 text-muted hover-primary">
                                     <i class="fal fa-trash-alt"></i>
                                 </a>
@@ -104,93 +108,137 @@
         </table>
         <!-- Phân trang -->
         @if ($notifications->hasPages())
-        <nav aria-label="Page navigation">
-            <ul class="pagination rounded-active justify-content-center">
-                {{-- Nút đến trang đầu tiên --}}
-                <li class="page-item {{ $notifications->onFirstPage() ? 'disabled' : '' }}">
-                    <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled" rel="first" aria-label="First">
-                        <i class="far fa-angle-double-left"></i>
-                    </a>
-                </li>
-    
-                {{-- Nút đến trang trước --}}
-                <li class="page-item {{ $notifications->onFirstPage() ? 'disabled' : '' }}">
-                    <a class="page-link hover-white" wire:click="previousPage" wire:loading.attr="disabled" rel="prev" aria-label="Previous">
-                        <i class="far fa-angle-left"></i>
-                    </a>
-                </li>
-    
-                @php
-                    $totalPages = $notifications->lastPage();
-                    $currentPage = $notifications->currentPage();
-                    $visiblePages = 3; // Số trang hiển thị ở giữa
-                @endphp
-    
-                {{-- Trang đầu --}}
-                <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
-                    <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled">1</a>
-                </li>
-    
-                {{-- Dấu ba chấm đầu --}}
-                @if ($currentPage > $visiblePages)
-                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                @endif
-    
-                {{-- Các trang giữa --}}
-                @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
-                    @if ($i > 1 && $i < $totalPages)
-                        <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
-                            <a class="page-link hover-white" wire:click="gotoPage({{ $i }})" wire:loading.attr="disabled">{{ $i }}</a>
+            <nav aria-label="Page navigation">
+                <ul class="pagination rounded-active justify-content-center">
+                    {{-- Nút đến trang đầu tiên --}}
+                    <li class="page-item {{ $notifications->onFirstPage() ? 'disabled' : '' }}">
+                        <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled"
+                            rel="first" aria-label="First">
+                            <i class="far fa-angle-double-left"></i>
+                        </a>
+                    </li>
+
+                    {{-- Nút đến trang trước --}}
+                    <li class="page-item {{ $notifications->onFirstPage() ? 'disabled' : '' }}">
+                        <a class="page-link hover-white" wire:click="previousPage" wire:loading.attr="disabled"
+                            rel="prev" aria-label="Previous">
+                            <i class="far fa-angle-left"></i>
+                        </a>
+                    </li>
+
+                    @php
+                        $totalPages = $notifications->lastPage();
+                        $currentPage = $notifications->currentPage();
+                        $visiblePages = 3; // Số trang hiển thị ở giữa
+                    @endphp
+
+                    {{-- Trang đầu --}}
+                    <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                        <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled">1</a>
+                    </li>
+
+                    {{-- Dấu ba chấm đầu --}}
+                    @if ($currentPage > $visiblePages)
+                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                    @endif
+
+                    {{-- Các trang giữa --}}
+                    @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
+                        @if ($i > 1 && $i < $totalPages)
+                            <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                <a class="page-link hover-white" wire:click="gotoPage({{ $i }})"
+                                    wire:loading.attr="disabled">{{ $i }}</a>
+                            </li>
+                        @endif
+                    @endforeach
+
+                    {{-- Dấu ba chấm cuối --}}
+                    @if ($currentPage < $totalPages - ($visiblePages - 1))
+                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                    @endif
+
+                    {{-- Trang cuối --}}
+                    @if ($totalPages > 1)
+                        <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                            <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
+                                wire:loading.attr="disabled">{{ $totalPages }}</a>
                         </li>
                     @endif
-                @endforeach
-    
-                {{-- Dấu ba chấm cuối --}}
-                @if ($currentPage < $totalPages - ($visiblePages - 1))
-                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                @endif
-    
-                {{-- Trang cuối --}}
-                @if ($totalPages > 1)
-                    <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
-                        <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})" wire:loading.attr="disabled">{{ $totalPages }}</a>
+
+                    {{-- Nút đến trang kế tiếp --}}
+                    <li class="page-item {{ !$notifications->hasMorePages() ? 'disabled' : '' }}">
+                        <a class="page-link hover-white" wire:click="nextPage" wire:loading.attr="disabled"
+                            rel="next" aria-label="Next">
+                            <i class="far fa-angle-right"></i>
+                        </a>
                     </li>
-                @endif
-    
-                {{-- Nút đến trang kế tiếp --}}
-                <li class="page-item {{ !$notifications->hasMorePages() ? 'disabled' : '' }}">
-                    <a class="page-link hover-white" wire:click="nextPage" wire:loading.attr="disabled" rel="next" aria-label="Next">
-                        <i class="far fa-angle-right"></i>
-                    </a>
-                </li>
-    
-                {{-- Nút đến trang cuối cùng --}}
-                <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
-                    <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})" wire:loading.attr="disabled" rel="last" aria-label="Last">
-                        <i class="far fa-angle-double-right"></i>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    @endif  
+
+                    {{-- Nút đến trang cuối cùng --}}
+                    <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
+                        <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
+                            wire:loading.attr="disabled" rel="last" aria-label="Last">
+                            <i class="far fa-angle-double-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        @endif
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const checkAll = document.getElementById('checkAll');
+    document.addEventListener('livewire:initialized', () => {
+        const checkboxes = document.querySelectorAll('.notification-checkbox');
+        const selectAllCheckbox = document.getElementById('checkAll');
         const deleteSelectedBtn = document.getElementById('deleteSelected');
-    
-        checkAll.addEventListener('change', function() {
-            const checkboxes = document.querySelectorAll('.notification-checkbox');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = this.checked;
-                checkbox.dispatchEvent(new Event('change', { 'bubbles': true }));
+
+        function updateSelectAllState() {
+            if (checkboxes.length === 0) {
+                // Nếu không có checkbox nào, vô hiệu hóa nút "Chọn tất cả"
+                if (selectAllCheckbox) selectAllCheckbox.disabled = true;
+                return;
+            }
+
+            const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+            if (selectAllCheckbox) {
+                selectAllCheckbox.checked = allChecked;
+                selectAllCheckbox.disabled = false;
+            }
+            updateDeleteButtonVisibility();
+        }
+
+        function updateDeleteButtonVisibility() {
+            deleteSelectedBtn.style.display = Array.from(checkboxes).some(checkbox => checkbox.checked) ? 'block' : 'none';
+        }
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                updateSelectAllState();
+                @this.set('selectedNotifications', Array.from(checkboxes)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.value)
+                );
             });
         });
-    
-        deleteSelectedBtn.addEventListener('click', function() {
-            if (@this.selectedNotifications.length === 0) {
+
+        if (selectAllCheckbox) {
+            selectAllCheckbox.addEventListener('change', () => {
+                const isChecked = selectAllCheckbox.checked;
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = isChecked;
+                });
+                updateDeleteButtonVisibility();
+                @this.set('selectedNotifications', isChecked ? Array.from(checkboxes).map(cb => cb.value) : []);
+            });
+        }
+
+        // Sự kiện cho nút xóa
+        deleteSelectedBtn.addEventListener('click', () => {
+            const selectedIds = Array.from(checkboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
+
+            if (selectedIds.length === 0) {
                 Swal.fire({
                     title: 'Lỗi!',
                     text: 'Vui lòng chọn ít nhất một thông báo để xóa',
@@ -199,7 +247,7 @@
                 });
                 return;
             }
-    
+
             Swal.fire({
                 title: 'Bạn có chắc chắn?',
                 text: "Bạn sẽ không thể hoàn tác hành động này!",
@@ -211,23 +259,15 @@
                 cancelButtonText: 'Hủy'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    @this.call('deleteSelectedNotifications');
+                    @this.call('deleteSelectedNotifications', selectedIds); // Gọi hàm xóa với các ID đã chọn
                 }
             });
         });
-    
-        function updateDeleteButtonVisibility() {
-            deleteSelectedBtn.style.display = @this.selectedNotifications.length > 0 ? 'block' : 'none';
-            checkAll.checked = @this.selectedNotifications.length === document.querySelectorAll('.notification-checkbox').length;
-        }
-    
-        @this.$watch('selectedNotifications', () => {
-            updateDeleteButtonVisibility();
-        });
-    
-        updateDeleteButtonVisibility();
+
+        // Khởi tạo trạng thái ban đầu
+        updateSelectAllState();
     });
-    
+
     // Xử lý thông báo sau khi xóa thành công
     document.addEventListener('livewire:initialized', () => {
         Livewire.on('notifications-deleted', (event) => {
@@ -241,4 +281,4 @@
             });
         });
     });
-    </script>
+</script>
