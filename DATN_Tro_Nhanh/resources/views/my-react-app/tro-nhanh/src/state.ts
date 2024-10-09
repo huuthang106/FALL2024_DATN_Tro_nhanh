@@ -18,7 +18,7 @@ import { calcCrowFliesDistance } from "./utils/location";
 // });
 
 
-const apiEndpoint ='https://tronhanh.com';
+const apiEndpoint ='https://fd72-14-241-183-136.ngrok-free.app';
 export const restaurantsDataState = atom<Restaurant[]>({
   key: "restaurantsData",
   default: [],
@@ -469,44 +469,43 @@ export const totalState = selector({
     );
   },
 });
-
 export const bookingsState = atom<Booking[]>({
   key: "bookings",
   default: [],
   effects: [
-    ({ setSelf, getPromise }) => {
-      // generate a demo booking item, can be safely deleted if you don't need it
-      Promise.all([getPromise(restaurantsState), getPromise(foodsState)]).then(
-        ([restaurants, foods]) => {
-          setSelf((bookings) => [
-            ...(Array.isArray(bookings) ? bookings : []),
-            {
-              id: "1234567890",
-              restaurant: restaurants[0],
-              cart: {
-                items: [
-                  {
-                    quantity: 1,
-                    food: foods[0],
-                    note: "",
-                  },
-                  {
-                    quantity: 2,
-                    food: foods[1],
-                    note: "Kèm ớt trái",
-                  },
-                ],
-              },
-              bookingInfo: {
-                date: new Date(),
-                hour: [20, 0, "PM"],
-                table: "05",
-                seats: 4,
-              },
+    ({ setSelf }) => {
+      const fetchBookings = async () => {
+        try {
+          const response = await fetch(`${apiEndpoint}/api/get-data-owners-listing`, {
+            method: 'GET',
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Ngrok-Skip-Browser-Warning': 'true'
             },
-          ]);
+          });
+
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+
+          const data = await response.json();
+          console.log('Fetched bookings:', data.users);
+
+          setSelf(data.users.map(user => ({
+            id: user.id.toString(),
+            name: user.name,
+            email: user.email,
+            balance: user.balance,
+          })));
+        } catch (error) {
+          console.error("Error fetching bookings:", error);
+          setSelf([]); // Trả về mảng rỗng nếu có lỗi
         }
-      );
+      };
+
+      fetchBookings();
     },
   ],
 });

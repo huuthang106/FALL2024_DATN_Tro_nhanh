@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Restaurant } from "../models";
 import Distance from "./distance";
 import DistrictName from "./district-name";
-const apiEndpoint = 'https://tronhanh.com';
+const apiEndpoint = 'https://fd72-14-241-183-136.ngrok-free.app';
 
 const { Title } = Text;
 

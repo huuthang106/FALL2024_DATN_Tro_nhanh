@@ -65,6 +65,26 @@ class UserClientServices
 
     return $query->paginate($limit);
 }
+public function getUsersByRoleNoLimit($role)
+{
+    $query = User::where('role', $role)
+        ->leftJoin('rooms', 'users.id', '=', 'rooms.user_id')
+        ->leftJoin('comments', 'users.id', '=', 'comments.commented_user_id')
+        ->select('users.*')
+        ->selectRaw('COUNT(DISTINCT rooms.id) as rooms_count')
+        ->selectRaw('AVG(comments.rating) as average_rating')
+        ->selectRaw('COUNT(DISTINCT comments.id) as review_count')
+        ->groupBy('users.id')
+        ->orderBy('has_vip_badge', 'desc')
+        ->orderBy('average_rating', 'desc')
+        ->orderBy('review_count', 'desc')
+        ->orderBy('rooms_count', 'desc')
+        ->orderBy('users.created_at', 'desc');
+
+   
+
+    return $query->get();
+}
     // public function getUsersByRole2($role, $searchTerm = null, $limit)
     // {
     //     // Khởi tạo query để lọc người dùng theo vai trò

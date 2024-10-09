@@ -89,6 +89,22 @@ class UserClientController extends Controller
             'villages' => $locations['villages']
         ]);
     }
+  
+    
+
+        
+    public function indexAgentJson(Request $request)
+    {
+     
+    
+        $users = $this->userClientServices->getUsersByRoleNoLimit(self::role_owners);
+        
+        return response()->json([
+            'users' => $users,
+           
+        ]);
+    }
+    
     // public function agentDetail($slug)
     // {
     //     // Get user details and ratings from the service
