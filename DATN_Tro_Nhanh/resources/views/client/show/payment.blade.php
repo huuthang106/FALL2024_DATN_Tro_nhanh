@@ -71,9 +71,37 @@
                         <p class="font-weight-500 text-heading h6 mb-4">Số dư tài khoản: <span class="font-weight-bold">{{ number_format($user->balance, 0, ',', '.') }} VND
                         </span></h6>
                         <p class="font-weight-500 text-heading h6 mb-4">Nội dung thanh toán: Thanh toán gói vip</h6>
-                        <p class="mb-6">Vui lòng đọc <a href="#"
-                                class="text-heading font-weight-500 border-bottom hover-primary">Điều Khoản & Điều Kiện</a>
-                            trước</p>
+                        <p class="mb-6">Vui lòng đọc <a href="#" class="text-heading font-weight-500 border-bottom hover-primary" data-toggle="modal" data-target="#termsModal">Điều Khoản & Điều Kiện</a> trước</p>
+                        <!-- Terms and Conditions Modal -->
+                        <div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-md" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="termsModalLabel">Điều Khoản & Điều Kiện</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" style="max-height: 400px; overflow-y: auto;" id="termsContent">
+                                    <!-- Add your terms and conditions content here -->
+                                    <p>Khi mua gói VIP để đăng tin trọ trên hệ thống, người dùng cần tuân thủ các điều khoản và điều kiện sau: Gói VIP chỉ áp dụng cho người dùng đã đăng ký tài khoản và xác thực thông tin cá nhân. Người dùng cam kết tuân thủ đầy đủ các quy định và chính sách khi sử dụng hệ thống để đăng tin. Gói VIP sẽ giúp tin đăng của bạn được ưu tiên hiển thị ở vị trí nổi bật trên kết quả tìm kiếm và trang chủ, với thời gian hiệu lực là [Số ngày] kể từ thời điểm kích hoạt. Sau thời gian này, tin đăng sẽ trở về trạng thái bình thường.
+
+                                        Thanh toán cho gói VIP được thực hiện qua các phương thức điện tử như thẻ tín dụng, ví điện tử hoặc chuyển khoản ngân hàng. Lưu ý rằng sau khi thanh toán thành công, gói VIP sẽ không được hoàn tiền trong bất kỳ trường hợp nào, trừ khi xảy ra lỗi kỹ thuật từ hệ thống. Người dùng phải chịu trách nhiệm hoàn toàn về tính chính xác và hợp pháp của nội dung tin đăng. Hệ thống không chịu trách nhiệm đối với các tranh chấp phát sinh từ nội dung do người dùng cung cấp. Trong trường hợp người dùng lạm dụng gói VIP để đăng tin sai sự thật, spam hoặc vi phạm quy định, tin đăng sẽ bị xóa và tài khoản có thể bị khóa vĩnh viễn mà không cần thông báo trước.
+
+                                        Ngoài ra, hệ thống có quyền chỉnh sửa hoặc gỡ bỏ tin đăng nếu phát hiện nội dung không phù hợp. Trong trường hợp hệ thống bảo trì hoặc gặp sự cố kỹ thuật, thời gian hiển thị của gói VIP có thể được gia hạn tương ứng.</p>
+                                    <!-- Add more paragraphs as needed -->
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                    <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="agreeTerms" disabled>
+                                    <label class="form-check-label" for="agreeTerms">Tôi đồng ý</label>
+                                    </div>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <p class="text-heading font-weight-500">Lưu ý: <span class="text-danger">Khi thanh toán sẽ được trừ vào số tiền trong ví của quý khách nên hãy đảm bảo số dư ví đủ để thanh toán. Xin cảm ơn!</span></p>
                         <form action="{{ route('client.payment.process') }}" method="POST">
                             @csrf
@@ -199,4 +227,25 @@
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            var termsContent = document.getElementById('termsContent');
+            var agreeCheckbox = document.getElementById('agreeTerms');
+            var hasScrolledToBottom = false;
+
+            termsContent.addEventListener('scroll', function() {
+                if (termsContent.scrollHeight - termsContent.scrollTop <= termsContent.clientHeight + 1) {
+                    agreeCheckbox.disabled = false;
+                    agreeCheckbox.checked = true;
+                    hasScrolledToBottom = true;
+                }
+            });
+
+            termsContent.addEventListener('scroll', function() {
+                if (hasScrolledToBottom && termsContent.scrollTop < termsContent.scrollHeight - termsContent.clientHeight) {
+                    agreeCheckbox.checked = true;
+                }
+            });
+        });
+    </script>
 @endpush

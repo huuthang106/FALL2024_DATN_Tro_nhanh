@@ -53,6 +53,16 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <link rel="stylesheet" href="{{ asset('assets/css/mh.css') }}">
+    <style>
+        .custom-packages {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 50px;
+                height: 19px;
+                white-space: nowrap; /* Ngăn chữ xuống dòng */
+            }
+    </style>
 @endpush
 
 @push('scriptUs')

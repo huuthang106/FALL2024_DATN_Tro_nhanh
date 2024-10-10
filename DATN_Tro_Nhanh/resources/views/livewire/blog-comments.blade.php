@@ -31,16 +31,20 @@
                         <p class="text-heading fs-16 font-weight-500 mb-0">
                             {{ $item->user->name ?? 'Người dùng' }}
                         </p>
-                        @if (Auth::id() == $item->user_id)
-                            <button wire:click="deleteComment({{ $item->id }})" class="btn btn-sm btn-white">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        @endif
                     </div>
                     <p class="mb-4">{{ $item->content }}</p>
                     <ul class="list-inline">
                         <li class="list-inline-item text-muted">
                             {{ $item->created_at->format('d/m/Y h:i A') }}
+                        </li>
+                        <li class="list-inline-item">
+                        @if (Auth::id() == $item->user_id)
+                        <a href="#"
+                                        class="mb-0 text-danger border-left border-dark hover-primary lh-1 ml-2 pl-2"
+                                        wire:click="deleteComment({{ $item->id }})">
+                                        Xóa
+                                    </a>
+                            @endif
                         </li>
                     </ul>
                 </div>

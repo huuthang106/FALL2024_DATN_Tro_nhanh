@@ -8,9 +8,12 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="{{ route('client.home') }}">Trang chủ</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('client.client-blog-detail', $blog->slug) }}">Blog</a>
+                        <li class="breadcrumb-item"><a href="{{ route('client.client-blog') }}">Blog</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Chi tiết Blog</li>
+                        <li class="breadcrumb-item">Chi tiết Blog</li>
+                        <li class="breadcrumb-item active" aria-current="page"><a
+                                href="{{ route('client.client-blog-detail', $blog->slug) }}">{{ $blog->title }}</a>
+                        </li>
                     </ol>
                 </nav>
                 <h1 class="fs-30 lh-15 mb-0 text-heading font-weight-500 text-center pt-10" data-animate="fadeInDown">
@@ -34,12 +37,6 @@
                                 <img class="rounded-lg d-block" src="{{ asset('assets/images/default.jpg') }}"
                                     alt="Default Image">
                             @endif
-
-
-                            <a href="#"
-                                class="badge text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white m-2 position-absolute letter-spacing-1 pos-fixed-bottom">
-                                Cho Thuê
-                            </a>
                         </div>
                         <ul class="list-inline mt-4">
                             <li class="list-inline-item mr-4">

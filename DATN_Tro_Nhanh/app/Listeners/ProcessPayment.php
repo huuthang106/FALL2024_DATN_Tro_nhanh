@@ -85,17 +85,19 @@ class ProcessPayment
             $user->save();
             Log::info('User VIP badge và expiration date đã được cập nhật.', ['vip_expiration_date' => $user->vip_expiration_date]);
     
-            // Cập nhật giao dịch trong bảng Transaction
-            $transaction = new Transaction();
-            $transaction->balance = $user->balance - $event->amount; // Lưu lại số dư sau khi thanh toán
-            $transaction->description = 'Thanh toán hóa đơn';
-            $transaction->added_funds = -$event->amount; // Thêm dấu trừ vào trước giá trị
-            $transaction->total_price = $event->amount;
-            $transaction->user_id = $user_id;
-    
-            $transaction->save(); // Lưu trước khi truy cập id
-            Log::info('Transaction đã được tạo.', ['transaction_id' => $transaction->id]);
         }
+
+         // Cập nhật giao dịch trong bảng Transaction
+         $transaction = new Transaction();
+         $transaction->balance = $user->balance - $event->amount; // Lưu lại số dư sau khi thanh toán
+         $transaction->description = 'Thanh toán hóa đơn';
+         $transaction->added_funds = -$event->amount; // Thêm dấu trừ vào trước giá trị
+         $transaction->total_price = $event->amount;
+         $transaction->status = '2';
+        $transaction->user_id = $user_id;
+ 
+        $transaction->save(); // Lưu trước khi truy cập id
+        Log::info('Transaction đã được tạo.', ['transaction_id' => $transaction->id]);
     
         // Sau khi hoàn tất quá trình, xóa các cart
         foreach ($event->carts as $cart) {   
