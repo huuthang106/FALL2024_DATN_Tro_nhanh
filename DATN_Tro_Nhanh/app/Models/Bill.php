@@ -22,6 +22,8 @@ class Bill extends Model
         'status',
         'payment_due_date'
     ];
+    // App\Models\Bill.php
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id'); // Giả sử 'user_id' là khóa ngoại trong bảng bills
@@ -39,4 +41,6 @@ public function resident()
     {
         return $this->belongsTo(User::class, 'payer_id');
     }
+    // App\Models\Bill.php
+
 }
