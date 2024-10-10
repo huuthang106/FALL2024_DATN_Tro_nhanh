@@ -18,7 +18,7 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
                         <div class="d-flex form-group mb-0 align-items-center">
-                            <label for="notification-list_length" class="d-block mr-2 mb-0">Kết quả:</label>
+                            <!-- <label for="notification-list_length" class="d-block mr-2 mb-0">Kết quả:</label>
                             <select name="notification-list_length" id="notification-list_length"
                                 aria-controls="invoice-list" class="form-control form-control-lg mr-2 selectpicker"
                                 data-style="bg-white btn-lg h-52 py-2 border">
@@ -31,7 +31,7 @@
                                 <option value="50" {{ request('notification-list_length') == '50' ? 'selected' : '' }}>
                                     50
                                 </option>
-                            </select>
+                            </select> -->
                         </div>
                     </div>
 
@@ -119,18 +119,6 @@
                 <div id="no-checkbox-selected" class="alert alert-danger mt-4" style="display: none;">
                     Vui lòng chọn ít nhất một gói để thanh toán.
                 </div>
-                {{-- <div class="row">
-                    <div class="col-7 d-flex justify-content-start mt-4">
-                        <input type="hidden" name="total_price" id="total-price-input" value="">
-                        <h5 class="text-info">Tổng tiền: <span id="total-price" name="total-price" class="text-dark">0
-                                VND</span></h5>
-                    </div>
-                    <div class="col-5 d-flex justify-content-end mt-4">
-                        <button type="submit" class="btn btn-primary btn-lg" id="checkout-button">
-                            Thanh toán
-                        </button>
-                    </div>
-                </div> --}}
                 <div class="row mt-4">
                     <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start">
                         <input type="hidden" name="total_price" id="total-price-input" value="">
@@ -268,89 +256,6 @@
     {{-- Notification - Pagination --}}
     {{-- <script src="{{ asset('assets/js/notification-list/notification-pagination.js') }}"></script> --}}
     <script>
-        // document.addEventListener('DOMContentLoaded', function () {
-        //     const checkboxes = document.querySelectorAll('.price-list-checkbox');  // Tất cả checkbox cho từng price list
-        //     const selectAllCheckbox = document.getElementById('select-all');  // Checkbox tổng
-        //     const totalPriceElement = document.getElementById('total-price');  // Phần tử hiển thị tổng tiền
-        //     const totalPriceInput = document.getElementById('total-price-input'); // Input ẩn để lưu tổng tiền
-
-        //     // Hàm tính tổng tiền
-        //     function calculateTotalPrice() {
-        //         let totalPrice = 0;
-
-        //         // Lặp qua tất cả các checkbox
-        //         checkboxes.forEach(function (checkbox) {
-        //             if (checkbox.checked) {
-        //                 // Lấy giá và số lượng từ thuộc tính data của checkbox
-        //                 const price = parseFloat(checkbox.getAttribute('data-price')) || 0;
-        //                 const quantity = parseInt(checkbox.getAttribute('data-quantity')) || 1;
-
-        //                 // Tính tổng cho sản phẩm này và cộng vào tổng toàn bộ
-        //                 totalPrice += price * quantity;
-        //             }
-        //         });
-
-        //         // Làm tròn tổng tiền xuống số nguyên
-        //         totalPrice = Math.round(totalPrice);
-
-        //         // Cập nhật tổng tiền trên giao diện và thêm đơn vị "VND"
-        //         totalPriceElement.textContent = new Intl.NumberFormat('vi-VN', {
-        //             style: 'decimal',
-        //             minimumFractionDigits: 0,
-        //             maximumFractionDigits: 0
-        //         }).format(totalPrice) + ' VND';
-
-        //         // Cập nhật tổng tiền vào input ẩn để gửi qua form
-        //         totalPriceInput.value = totalPrice;
-        //     }
-
-        //     // Hàm kiểm tra trạng thái của tất cả checkbox và cập nhật trạng thái của checkbox tổng
-        //     function updateSelectAllCheckbox() {
-        //         const allChecked = Array.from(checkboxes).every(function (checkbox) {
-        //             return checkbox.checked;
-        //         });
-        //         selectAllCheckbox.checked = allChecked;
-        //     }
-
-        //     // Gán sự kiện 'change' cho mỗi checkbox
-        //     checkboxes.forEach(function (checkbox) {
-        //         checkbox.addEventListener('change', function () {
-        //             // Cập nhật tổng tiền khi chọn hoặc bỏ chọn checkbox
-        //             calculateTotalPrice();
-
-        //             // Cập nhật trạng thái của checkbox tổng
-        //             updateSelectAllCheckbox();
-        //         });
-        //     });
-
-        //     // Gán sự kiện 'change' cho checkbox tổng
-        //     selectAllCheckbox.addEventListener('change', function () {
-        //         const isChecked = selectAllCheckbox.checked;
-
-        //         // Chọn hoặc bỏ chọn tất cả các checkbox khác khi checkbox tổng được thay đổi
-        //         checkboxes.forEach(function (checkbox) {
-        //             checkbox.checked = isChecked;
-        //         });
-
-        //         // Tính toán lại tổng tiền
-        //         calculateTotalPrice();
-        //     });
-
-        //     // Tính tổng tiền ngay khi trang được tải
-        //     calculateTotalPrice();
-
-        //     // Kiểm tra trạng thái của các checkbox khi bấm nút thanh toán
-        //     checkoutButton.addEventListener('click', function (event) {
-        //         const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
-
-        //         if (!anyChecked) {
-        //             event.preventDefault(); // Ngăn chặn form submit
-        //             noCheckboxSelected.style.display = 'block'; // Hiển thị thông báo
-        //         } else {
-        //             noCheckboxSelected.style.display = 'none'; // Ẩn thông báo nếu có checkbox được chọn
-        //         }
-        //     });
-        // });
         document.addEventListener('DOMContentLoaded', function() {
             const checkboxes = document.querySelectorAll(
                 '.price-list-checkbox'); // Tất cả checkbox cho từng price list

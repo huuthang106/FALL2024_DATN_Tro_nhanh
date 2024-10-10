@@ -82,6 +82,8 @@
         <!-- Favicons -->
         <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
 
+        <link rel="stylesheet" href="{{ asset('assets/css/paginate-ntt.css') }}">
+
         <!-- Twitter -->
         <meta name="twitter:card" content="summary">
         <meta name="twitter:site" content="@TronNhanh">

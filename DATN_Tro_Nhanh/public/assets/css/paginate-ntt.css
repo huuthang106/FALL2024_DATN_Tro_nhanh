@@ -1,0 +1,11 @@
+.pagination {
+    flex-wrap: nowrap;
+}
+
+.page-item {
+    display: inline-block;
+}
+
+.page-link {
+    padding: 0.25rem 0.5rem;
+}

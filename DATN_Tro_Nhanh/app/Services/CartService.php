@@ -97,18 +97,27 @@ class CartService
         if (empty($selectedCartIds)) {
             return false;
         }
-
-        // Cập nhật status của các cart được chọn thành 2 (status = 2)
+    
+        // Đặt lại trạng thái của tất cả giỏ hàng về 1 (chưa thanh toán)
+        $this->resetCartStatus($userId);
+    
+        // Cập nhật trạng thái của các giỏ hàng được chọn thành 2 (chờ thanh toán)
         Cart::whereIn('id', $selectedCartIds)
             ->where('user_id', $userId)
             ->update(['status' => 2]);
-
+    
         return true;
     }
+    
+    private function resetCartStatus(int $userId): void
+    {
+        Cart::where('user_id', $userId)->update(['status' => 1]);
+    }
+
     public function removeAllFromCart($userId)
-{
-    return Cart::where('user_id', $userId)->delete();
-}
+    {
+        return Cart::where('user_id', $userId)->delete();
+    }
     
 
     public function addCartDetail(Request $request, $cartDetailId)

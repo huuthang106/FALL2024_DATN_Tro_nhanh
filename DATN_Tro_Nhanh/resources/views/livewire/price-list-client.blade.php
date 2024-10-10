@@ -19,14 +19,19 @@
                     @foreach ($priceLists as $priceList)
                         <div class="col-xl-3 col-sm-6 mb-6">
                             <div class="card bg-gray-01 border-0 p-4 overflow-hidden d-flex flex-column">
-                                <div class="card-header bg-transparent p-0">
-                                    <p class="fs-15 font-weight-bold text-heading mb-0">Gói <span
-                                            class="font-weight-500">{{ $priceList->name }}</span></p>
-                                    <p class="fs-32 font-weight-bold text-heading lh-15 mb-1">
-                                        {{ number_format($priceList->price, 0, ',', '.') }} VND</p>
-                                    <span class="fs-13 font-weight-500 text-white text-uppercase custom-packages">
-                                        {{ $priceList->location->name }}
-                                    </span>
+                                <div class="card-header bg-transparent p-0 d-flex flex-column align-items-center">
+                                    <p class="fs-15 font-weight-bold text-heading mb-1">Gói</p>
+                                    <p class="fs-18 font-weight-500 text-heading mb-2 text-truncate text-center" title="{{ $priceList->name }}">{{ $priceList->name }}</p>
+                                    <div class="d-flex justify-content-between align-items-center w-100">
+                                        <p class="fs-32 font-weight-bold text-heading lh-15 mb-0">
+                                            {{ number_format($priceList->price, 0, ',', '.') }} VND
+                                        </p>
+                                        <div class="d-flex justify-content-center w-100">
+                                            <span class="fs-13 font-weight-500 text-white text-uppercase custom-packages text-center">
+                                                {{ $priceList->location->name }}
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="card-body p-0 flex-grow-1">
                                     <ul class="list-unstyled pt-2 mb-2">
