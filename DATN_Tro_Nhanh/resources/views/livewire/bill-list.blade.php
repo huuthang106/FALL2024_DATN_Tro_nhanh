@@ -2,17 +2,17 @@
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
             <div class="mb-6">
-                <div class="row"  wire:ignore>
+                <div class="row" wire:ignore>
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
                         <div class="d-flex form-group mb-0 align-items-center">
                             <label for="invoice-list_length" class="d-block mr-2 mb-0">Lọc:</label>
-                            <select wire:model.lazy="status"  name="invoice-list_length" id="invoice-list_length" aria-controls="invoice-list"
-                                class="form-control form-control-lg mr-2 selectpicker"
+                            <select wire:model.lazy="status" name="invoice-list_length" id="invoice-list_length"
+                                aria-controls="invoice-list" class="form-control form-control-lg mr-2 selectpicker"
                                 data-style="bg-white btn-lg h-52 py-2 border">
                                 <option value="">Tất cả</option>
                                 <option value="1">Chưa thanh toán</option>
                                 <option value="2">Đã thanh toán</option>
-                               
+
                             </select>
                         </div>
 
@@ -96,13 +96,15 @@
                                             <span class="badge badge-green text-capitalize">Đã thanh toán</span>
                                         @endif
                                     </td>
-                                    <td class="align-middle" style="white-space: nowrap;">
-                                        <a href="#" data-toggle="tooltip" title="Chỉnh sửa"
+                                    <td>
+                                        <a href="{{ route('owners.invoice-preview', $bill->id) }}" data-toggle="tooltip" title="Chỉnh sửa"
                                             class="d-inline-block fs-18 text-muted hover-primary mr-5">
                                             <i class="fal fa-pencil-alt"></i>
                                         </a>
+                                    
                                         <a href="#" data-toggle="tooltip" title="Xóa"
-                                            class="d-inline-block fs-18 text-muted hover-primary">
+                                            class="d-inline-block fs-18 text-muted hover-primary"
+                                            wire:click="deleteBill({{ $bill->id }})" onclick="return confirm('Bạn có chắc chắn muốn xóa hóa đơn này?');">
                                             <i class="fal fa-trash-alt"></i>
                                         </a>
                                     </td>
@@ -113,6 +115,7 @@
 
                 </table>
             </div>
+           
             @if ($bills->hasPages())
                 <nav aria-label="Page navigation">
                     <ul class="pagination pagination-sm rounded-active justify-content-center">
@@ -184,4 +187,13 @@
             @endif
         </div>
     </main>
+    <script>
+        window.addEventListener('show-edit-modal', event => {
+            $('#maintenance').modal('show');
+        });
+    
+        window.addEventListener('hide-edit-modal', event => {
+            $('#maintenance').modal('hide');
+        });
+    </script>
 </div>
