@@ -25,16 +25,36 @@ class InvoicePreview extends Component
     public function mount($billId)
 {
     $this->billId = $billId;
-    $this->bill = Bill::with('user')->find($this->billId); // Lấy hóa đơn cùng với thông tin người dùng
+    $this->bill = Bill::with('payer')->find($this->billId); // Lấy hóa đơn cùng với thông tin người dùng
 
-    // Khởi tạo các thuộc tính khác nếu cần
-    $this->recipient_name = $this->bill->recipient_name;
-    $this->room_number = $this->bill->room_number;
-    $this->amount = $this->bill->amount;
-    $this->description = $this->bill->description;
-    $this->title = $this->bill->title;
-    $this->status = $this->bill->status;
-    $this->payment_due_date = $this->bill->payment_due_date;
+    // Kiểm tra xem hóa đơn có tồn tại không
+    if ($this->bill) {
+        // Khởi tạo các thuộc tính khác nếu cần
+        $this->recipient_name = $this->bill->recipient_name;
+        $this->room_number = $this->bill->room_number;
+        $this->amount = $this->bill->amount;
+        $this->description = $this->bill->description;
+        $this->title = $this->bill->title;
+        $this->status = $this->bill->status;
+        $this->payment_due_date = $this->bill->payment_due_date;
+
+        // Lưu thông tin địa chỉ của người dùng
+        if ($this->bill->payer) {
+            $this->address = $this->bill->payer->address; // Giả sử có thuộc tính address trong model User
+        } else {
+            $this->address = ''; // Nếu không có thông tin người dùng
+        }
+    } else {
+        // Nếu hóa đơn không tồn tại
+        $this->recipient_name = '';
+        $this->room_number = '';
+        $this->amount = '';
+        $this->description = '';
+        $this->title = '';
+        $this->status = '';
+        $this->payment_due_date = '';
+        $this->address = ''; // Đặt địa chỉ thành rỗng
+    }
 }
     public function editBill($billId)
     {
