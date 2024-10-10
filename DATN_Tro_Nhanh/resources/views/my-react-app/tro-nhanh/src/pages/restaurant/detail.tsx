@@ -11,7 +11,7 @@ import { currentRestaurantTabState } from "../../state";
 import React from "react";
 import { useRestaurant } from "../../hooks";
 import { categories_State, keywordState, selectedCategoryState } from "../../state";
-const apiEndpoint ='https://0216-2001-ee0-1b21-3a54-952c-ae20-42de-e7ed.ngrok-free.app';
+const apiEndpoint ='https://tronhanh.com';
 
 function RestaurantDetail() {
   const restaurant = useRestaurant();

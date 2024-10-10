@@ -21,3 +21,4 @@ Route::get('/get-data-room-listing', [RoomClientController::class, 'indexRoomAPI
 Route::get('/get-data-category', [CategoryClientController::class, 'getCategory']); // lấy dữ liệu xem chi tiết room
 Route::post('/check-images', [RoomOwnersController::class, 'checkImages']);
 Route::get('/get-data-owners-listing', [UserClientController::class, 'indexAgentJson']);
+Route::get('/get-data-owners-detail/{slug}', [UserClientController::class, 'agentDetails']);

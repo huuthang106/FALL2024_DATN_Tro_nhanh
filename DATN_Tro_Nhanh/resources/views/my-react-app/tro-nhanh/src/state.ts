@@ -18,7 +18,7 @@ import { calcCrowFliesDistance } from "./utils/location";
 // });
 
 
-const apiEndpoint ='https://0216-2001-ee0-1b21-3a54-952c-ae20-42de-e7ed.ngrok-free.app';
+const apiEndpoint ='https://tronhanh.com';
 export const restaurantsDataState = atom<Restaurant[]>({
   key: "restaurantsData",
   default: [],
@@ -493,14 +493,42 @@ export const bookingsState = atom<Booking[]>({
           const data = await response.json();
           console.log('Fetched bookings:', data.users);
 
-          setSelf(data.users.map(user => ({
-            id: user.id.toString(),
-            name: user.name,
-            email: user.email,
-            phone: user.phone,  
-            image: user.image,
-            address: user.address,
-          })));
+          const detailedBookings = await Promise.all(data.users.map(async (user) => {
+            const detailResponse = await fetch(`${apiEndpoint}/api/get-data-owners-detail/${user.slug}`, {
+              method: 'GET',
+              headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Ngrok-Skip-Browser-Warning': 'true'
+              },
+            });
+
+            if (!detailResponse.ok) {
+              throw new Error('Network response was not ok');
+            }
+
+            const detailData = await detailResponse.json();
+            const totalRatings = detailData.comments
+              ? detailData.comments.filter(comment => comment.commented_user_id == user.id).length
+              : 0;
+
+            return {
+              id: user.id.toString(),
+              name: user.name,
+              email: user.email,
+              phone: user.phone,
+              image: user.image,
+              address: user.address,
+              has_vip_badge: user.has_vip_badge,
+              averageRating: detailData.averageRating,
+              totalRatings: totalRatings,
+              totalRooms: detailData.totalRooms, // Thêm totalRooms
+              totalZones: detailData.totalZones, // Thêm totalZones
+            };
+          }));
+
+          setSelf(detailedBookings);
         } catch (error) {
           console.error("Error fetching bookings:", error);
           setSelf([]); // Trả về mảng rỗng nếu có lỗi
