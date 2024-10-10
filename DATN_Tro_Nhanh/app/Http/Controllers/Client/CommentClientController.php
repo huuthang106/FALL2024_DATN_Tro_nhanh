@@ -30,7 +30,7 @@ class CommentClientController extends Controller
                 $comment->delete();
                 return response()->json(['success' => true, 'message' => 'Bình luận đã được xóa thành công.']);
             } else {
-                return response()->json(['success' => false, 'message' => 'Không thể xóa bình luận này.'], 400);
+                return response()->json(['error' => false, 'message' => 'Không thể xóa bình luận này.'], 400);
             }
         } else {
             $validated = $request->validate([
@@ -38,13 +38,15 @@ class CommentClientController extends Controller
                 'content' => 'required|string',
                 'room_slug' => 'required|string',
             ]);
-    
+        
+            // Gọi phương thức submitReview từ CommentClientService
             $review = $this->CommentClientService->submitReview($validated);
-    
-            if ($review) {
-                return response()->json(['success' => true, 'message' => 'Đánh giá của bạn đã được gửi thành công!']);
+        
+            // Kiểm tra kết quả trả về từ submitReview
+            if ($review == true) {
+                return response()->json(['success' => true, 'message' => 'Đánh giá của bạn đã được gửi thành công!', 'review' => $review]);
             } else {
-                return response()->json(['success' => false, 'message' => 'Đã xảy ra lỗi khi gửi đánh giá.'], 500);
+                return response()->json(['success' => false, 'message' => 'Bạn đã đánh giá bài viết này.'], 409); // Sử dụng mã trạng thái 409 cho xung đột
             }
         }
     }
@@ -122,10 +124,10 @@ class CommentClientController extends Controller
         $validated['user_slug'] = $request->input('user_slug');
         $user = $this->CommentClientService->submitUsers($validated);
 
-        if ($user) {
+        if ($user==true) {
             return response()->json(['success' => true, 'message' => 'Bình luận của bạn đã được gửi thành công!']);
         } else {
-            return response()->json(['success' => false, 'message' => 'Đã xảy ra lỗi khi gửi bình luận.'], 500);
+            return response()->json(['success' => false, 'message' => 'Bạn đã đánh giá người dùng này.'], 500);
         }
     }
     public function deleteComment(Request $request)

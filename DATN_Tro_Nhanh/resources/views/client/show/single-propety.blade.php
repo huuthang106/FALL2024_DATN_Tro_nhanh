@@ -470,7 +470,7 @@
 
 
                         <section class="mt-2 pb-2 px-6 pt-6 bg-white rounded-lg">
-                           @livewire('RoomReview', ['slug' => $rooms->slug])
+                           @livewire('room-review', ['slug' => $rooms->slug])
                         </section>
 
                         <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
@@ -1622,6 +1622,7 @@
     </script>
     <script>
         window.successMessage = "{{ session('success') }}";
+        window.errorMessage = "{{ session('error') }}";
     </script>
 
     <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
@@ -1694,7 +1695,7 @@
             }
         });
     </script>
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('.delete-comment').on('click', function(e) {
                 e.preventDefault();
@@ -1747,5 +1748,6 @@
                 });
             });
         });
-    </script>
+    </script> --}}
+    
 @endpush

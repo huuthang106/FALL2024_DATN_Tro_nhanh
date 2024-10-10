@@ -5,16 +5,18 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Room;
-
+use App\Models\Comment;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 class RoomReview extends Component
 {
     use WithPagination;
 
-    public $slug; // Chỉ cần slug là public
-    public $room; // Thuộc tính để lưu trữ thông tin phòng
-    public $averageRating; // Thuộc tính để lưu trữ đánh giá trung bình
-    public $ratingsDistribution; // Thuộc tính để lưu trữ phân phối đánh giá
-
+    public $slug;
+    public $room;
+    public $averageRating;
+    public $ratingsDistribution;
+   
     public function mount($slug)
     {
         $this->slug = $slug;
@@ -26,7 +28,6 @@ class RoomReview extends Component
         $room = Room::where('slug', $this->slug)->first();
 
         if (!$room) {
-            // Xử lý khi không tìm thấy phòng
             $this->room = null;
             return;
         }
@@ -43,6 +44,25 @@ class RoomReview extends Component
             }
         } else {
             $this->ratingsDistribution = array_fill(1, 5, 0);
+        }
+    }
+
+
+    public function confirmDelete($commentId)
+    {
+                // Ghi log vào đây
+                Log::info("Xóa bình luận với ID: " . $commentId);
+        $this->deleteComment($commentId);
+    }
+
+    public function deleteComment($commentId)
+    {
+        $comment = Comment::find($commentId);
+        if ($comment) {
+            $comment->forceDelete();
+            $this->dispatch('commentDeleted', ['message' => 'Bình luận đã được xóa thành công.']);
+        } else {
+            $this->dispatch('commentDeleted', ['message' => 'Bình luận không tồn tại.']);
         }
     }
 

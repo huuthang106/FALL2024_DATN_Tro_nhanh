@@ -16,19 +16,29 @@ class CommentClientService
     {
         // Tìm phòng theo slug
         $room = Room::where('slug', $data['room_slug'])->first();
-
+    
         if (!$room) {
-            return null;
+            return null; // Trả về null nếu không tìm thấy phòng
         }
-
+    
+        // Kiểm tra xem người dùng đã đánh giá phòng này chưa
+        $existingReview = Comment::where('room_id', $room->id)
+            ->where('user_id', Auth::id())
+            ->first();
+    
+        if ($existingReview) {
+            return false; // Hoặc xử lý theo cách khác
+        }
+    
+        // Tạo bình luận mới
         $review = new Comment();
         $review->rating = $data['rating'];
         $review->content = $data['content'];
         $review->user_id = Auth::id();
         $review->room_id = $room->id;
         $review->save();
-
-        return $review;
+    
+        return true; // Trả về bình luận mới
     }
     public function submitZone($data)
     {
@@ -112,29 +122,61 @@ class CommentClientService
 
         return $comment;
     }
+    // public function submitUsers($data)
+    // {
+    //     $user = User::where('slug', $data['user_slug'])->first();
+
+    //     if (!$user) {
+    //         return null;
+    //     }
+
+    //     $comment = new Comment();
+    //     $comment->rating = $data['rating'];
+    //     $comment->content = $data['content'];
+    //     $comment->user_id = Auth::id(); // Sửa lại để lấy user_id của người đang đăng nhập
+
+    //     if (!$comment->user_id) {
+    //         return null;
+    //     }
+
+    //     $comment->commented_user_id = $user->id; // Thêm trường này để lưu user_id của người được đánh giá
+    //     $comment->save();
+
+    //     return $comment;
+    // }
     public function submitUsers($data)
-    {
-        $user = User::where('slug', $data['user_slug'])->first();
+{
+    $user = User::where('slug', $data['user_slug'])->first();
 
-        if (!$user) {
-            return null;
-        }
-
-        $comment = new Comment();
-        $comment->rating = $data['rating'];
-        $comment->content = $data['content'];
-        $comment->user_id = Auth::id(); // Sửa lại để lấy user_id của người đang đăng nhập
-
-        if (!$comment->user_id) {
-            return null;
-        }
-
-        $comment->commented_user_id = $user->id; // Thêm trường này để lưu user_id của người được đánh giá
-        $comment->save();
-
-        return $comment;
+    if (!$user) {
+        return null; // Người dùng không tồn tại
     }
+
+    // Kiểm tra xem người dùng đã đánh giá người dùng này chưa
+    $existingComment = Comment::where('user_id', Auth::id())
+        ->where('commented_user_id', $user->id)
+        ->first();
+
+    if ($existingComment) {
+        return false; // Người dùng đã đánh giá, trả về false
+    }
+
+    $comment = new Comment();
+    $comment->rating = $data['rating'];
+    $comment->content = $data['content'];
+    $comment->user_id = Auth::id(); // Lấy user_id của người đang đăng nhập
+
+    if (!$comment->user_id) {
+        return null; // Nếu không có user_id, trả về null
+    }
+
+    $comment->commented_user_id = $user->id; // Lưu user_id của người được đánh giá
+    $comment->save();
+
+    return true; // Trả về true nếu bình luận được lưu thành công
+}
     public function getBlogWithComments($slug)
+
     {
         $blog = Blog::where('slug', $slug)->with('comments')->first();
     

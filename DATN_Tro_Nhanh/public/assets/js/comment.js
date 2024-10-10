@@ -4,16 +4,16 @@ $(document).ready(function () {
 
         var form = $(this);
         var content = form.find('textarea[name="content"]').val();
-        var rating = form.find('input[name="rating"]:checked').val(); 
-     
-        if (!userIsLoggedIn) { 
+        var rating = form.find('input[name="rating"]:checked').val();
+
+        if (!userIsLoggedIn) {
             Swal.fire({
                 title: 'Bạn chưa đăng nhập',
                 text: 'Vui lòng đăng nhập để thực hiện hành động này.',
                 icon: 'warning',
                 confirmButtonText: 'Đăng nhập',
                 preConfirm: () => {
-                    location.reload(); 
+                    location.reload();
                 }
             });
             return;
@@ -36,9 +36,6 @@ $(document).ready(function () {
             });
             return;
         }
-
-      
-
         $.ajax({
             type: 'POST',
             url: form.attr('action'),
@@ -51,7 +48,7 @@ $(document).ready(function () {
                         icon: 'success',
                         confirmButtonText: 'OK'
                     }).then(() => {
-                        location.reload(); 
+                        location.reload();
                     });
                 } else {
                     Swal.fire({
@@ -63,15 +60,25 @@ $(document).ready(function () {
                 }
             },
             error: function (xhr, status, error) {
-                console.error('Có lỗi xảy ra:', xhr.responseText); // In ra nội dung lỗi chi tiết từ server
+                let errorMessage = 'Vui lòng thử lại.'; // Thông báo mặc định
+
+                // Kiểm tra xem phản hồi có phải là JSON không
+                try {
+                    const response = JSON.parse(xhr.responseText);
+                    errorMessage = response.message || errorMessage; // Lấy thông báo từ phản hồi nếu có
+                } catch (e) {
+                    console.error('Không thể phân tích cú pháp phản hồi:', e);
+                }
+
+                // Hiển thị thông báo lỗi bằng SweetAlert
                 Swal.fire({
                     title: 'Có lỗi xảy ra',
-                    text: xhr.responseText || 'Vui lòng thử lại.',
+                    text: errorMessage,
                     icon: 'error',
                     confirmButtonText: 'OK'
                 });
             }
-            
+
         });
     });
 });
