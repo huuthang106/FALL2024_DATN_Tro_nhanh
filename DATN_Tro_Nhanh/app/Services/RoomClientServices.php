@@ -20,7 +20,7 @@ class RoomClientServices
     private const status = 2;
 
     // ----------------------------------------------------------------Sắp Theo VIP
-    public function getAllRoom(int $perPage = 10,  $type = null, $searchTerm = null, $province = null, $district = null, $village = null, $category = null)
+    public function getAllRoom(int $perPage = 10, $type = null, $searchTerm = null, $province = null, $district = null, $village = null, $category = null, $features = null)
     {
         try {
             $query = Room::join('users', 'rooms.user_id', '=', 'users.id')
@@ -28,14 +28,14 @@ class RoomClientServices
                 ->withCount('images')
                 ->select('rooms.*')
                 ->orderByDesc('rooms.created_at');
-
+    
             // Nếu có loại phòng, thêm điều kiện vào truy vấn
             if ($type) {
                 $query->whereHas('category', function ($q) use ($type) {
                     $q->where('name', $type); // Lọc theo tên loại phòng trong bảng category
                 });
             }
-
+    
             if ($searchTerm) {
                 $query->where(function ($q) use ($searchTerm) {
                     $q->where('rooms.title', 'like', '%' . $searchTerm . '%')
@@ -43,8 +43,7 @@ class RoomClientServices
                         ->orWhere('rooms.address', 'like', '%' . $searchTerm . '%');
                 });
             }
-
-
+    
             // Nếu có tỉnh, huyện, xã, thêm điều kiện vào truy vấn
             if ($province) {
                 $query->where('rooms.province', $province);
@@ -55,21 +54,28 @@ class RoomClientServices
             if ($village) {
                 $query->where('rooms.village', $village);
             }
-
+    
             if ($category) {
                 Log::info('Applying category filter: ' . $category); // Thêm log để kiểm tra
                 $query->where('rooms.category_id', $category);
             }
-
+    
             // Nếu có tiện ích, thêm điều kiện vào truy vấn
             if (!empty($features)) { // Kiểm tra nếu $features không rỗng
-                $query->where(function ($q) use ($features) {
+                $query->whereHas('utilities', function ($q) use ($features) {
                     foreach ($features as $feature) {
-                        $q->orWhere($feature, 2); // Kiểm tra giá trị cột tiện ích là 2
+                        if ($feature == 'bathroom') {
+                            $q->where('bathrooms', '>', 0); // Kiểm tra nếu bathrooms > 0
+                        } elseif ($feature == 'wifi') {
+                            $q->where('wifi', '>', 0); // Kiểm tra nếu wifi > 0
+                        } elseif ($feature == 'air_conditioning') {
+                            $q->where('air_conditioning', '>', 0); // Kiểm tra nếu air_conditioning > 0
+                        } elseif ($feature == 'garage') {
+                            $q->where('garage', '>', 0); // Kiểm tra nếu garage > 0
+                        }
                     }
                 });
             }
-
             $result = $query->paginate($perPage);
             Log::info('SQL Query: ' . $query->toSql());
             Log::info('SQL Bindings: ' . json_encode($query->getBindings()));

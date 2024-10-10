@@ -16927,6 +16927,7 @@ a.text-indigo:hover, a.text-indigo:focus {
   border-radius: 50%;
   -ms-flex-pack: center;
       justify-content: center;
+      
 }
 
 .pagination.rounded-active .page-item {
@@ -16935,7 +16936,7 @@ a.text-indigo:hover, a.text-indigo:focus {
 }
 
 .pagination.rounded-active .page-item:not(:last-child) {
-  margin-right: 15px;
+  margin-right: 1%;
 }
 
 .badge-circle {
@@ -22887,5 +22888,7 @@ button:focus {
     right: -9%;
   }
 }
-
+.leaflet-top.leaflet-right, .leaflet-top.leaflet-left, .leaflet-bottom{
+  z-index: 500 !important; 
+}
 /*# sourceMappingURL=themes.css.map */

@@ -7,8 +7,8 @@
                 class="bg-cover d-flex align-items-center custom-vh-100">
                 <div class="container pt-lg-15 py-8" data-animate="zoomIn">
                     <p class="text-white fs-md-22 fs-18 font-weight-500 letter-spacing-367 mb-6 text-center text-uppercase">
-                        Chúng tôi giúp bạn tìm nơi ở hoàn hảo ngay lập tức</p>
-                    <h2 class="text-white display-2 text-center mb-sm-13 mb-8">Tìm nơi ở lý tưởng chỉ trong tích tắc</h2>
+                        Xu hướng tìm nơi ở 2024</p>
+                    <h2 class="text-white display-2 text-center mb-sm-13 mb-8">Trọ Nhanh công cụ hữu ích cho bạn</h2>
                     <form action="{{ route('client.room-listing') }}" method="GET"
                         class="property-search py-lg-0 z-index-2 position-relative d-none d-lg-block">
                         <div class="row no-gutters">
@@ -363,7 +363,7 @@
             <div class="container container-xxl">
                 <div class="row">
                     <div class="col-md-6">
-                        <h2 class="text-heading">Những Tài Sản Tốt Nhất Để Bán</h2>
+                        <h2 class="text-heading">Nơi ở lý tưởng</h2>
                         <span class="heading-divider"></span>
                     </div>
                     <div class="col-md-6 text-md-right">
@@ -396,13 +396,13 @@
                                             style="object-fit: cover;">
                                     @endif
                                     <div class="card-img-overlay p-2 d-flex flex-column">
-                                   
+
                                         <div>
                                             @if ($room->residents->isNotEmpty())
-                                            <span class="badge badge-orange">Hết phòng</span>
-                                         @else
-                                           <span class="badge badge-primary">Còn phòng</span>
-                                         @endif
+                                                <span class="badge badge-orange">Hết phòng</span>
+                                            @else
+                                                <span class="badge badge-primary">Còn phòng</span>
+                                            @endif
                                             @if ($room->expiration_date > now())
                                                 <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
                                                     VIP
@@ -548,7 +548,7 @@
                 <div class="container container-xxl">
                     <div class="row">
                         <div class="col-lg-4 pr-xl-13" data-animate="fadeInLeft">
-                            <h2 class="text-heading lh-1625">Khám Phá <br> Theo Loại Tài Sản</h2>
+                            <h2 class="text-heading lh-1625">Xem thêm <br> Phân loại</h2>
                             <span class="heading-divider"></span>
                             <form action="{{ route('client.room-listing') }}" method="GET">
                                 <div class="input-group input-group-lg ">
@@ -616,11 +616,44 @@
                 </div>
         </section>
 
+        
+
+        <section>
+            <div class="bg-single-image pt-lg-13 pb-lg-12 py-11 bg-secondary">
+                <div class="container container-xxl">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 pr-xl-8 pb-lg-0 pb-6" data-animate="fadeInLeft">
+                            <a href="#" class="hover-shine d-block">
+                                <img src="{{ asset('assets/images/single-image-01.jpg') }}" class="rounded-lg w-100"
+                                    alt="Tìm khu phố của bạn">
+                            </a>
+                        </div>
+                        <div class="col-lg-6 pl-xl-8" data-animate="fadeInRight">
+                            <h2 class="text-white lh-1625">Tìm phòng trọ của bạn<br />
+                            </h2>
+                            <span class="heading-divider"></span>
+                            <form action="{{ route('client.room-listing') }}" method="GET">
+                                <div class="input-group input-group-lg pr-sm-17">
+                                    <input type="text"
+                                        class="form-control fs-13 font-weight-500 text-gray-light rounded-lg rounded-right-0 border-0 shadow-none h-52 bg-white"
+                                        name="search" placeholder="Nhập địa chỉ, khu phố">
+                                    <button type="submit"
+                                        class="btn btn-primary fs-18 rounded-left-0 rounded-lg px-6 border-0">
+                                        <i class="far fa-search"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="pt-lg-12 pb-lg-11 py-11">
             <div class="container container-xxl">
                 <div class="row">
                     <div class="col-md-6">
-                        <h2 class="text-heading">Những Bất Động Sản Tốt Nhất Để Thuê</h2>
+                        <h2 class="text-heading">Được quan tâm nhiều nhất</h2>
                         <span class="heading-divider"></span>
                     </div>
                     <div class="col-md-6 text-md-right">
@@ -649,13 +682,13 @@
                                             style="object-fit: cover;">
                                     @endif
                                     <div class="card-img-overlay p-2 d-flex flex-column">
-                                     
+
                                         <div>
                                             @if ($room->residents->isNotEmpty())
-                                            <span class="badge badge-orange">Hết phòng</span>
-                                         @else
-                                             <span class="badge badge-primary">Còn phòng</span>
-                                         @endif
+                                                <span class="badge badge-orange">Hết phòng</span>
+                                            @else
+                                                <span class="badge badge-primary">Còn phòng</span>
+                                            @endif
                                             @if ($room->expiration_date > now())
                                                 <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
                                                     VIP
@@ -741,158 +774,6 @@
                     @endforeach
                 </div>
 
-            </div>
-        </section>
-
-        <section>
-            <div class="bg-single-image pt-lg-13 pb-lg-12 py-11 bg-secondary">
-                <div class="container container-xxl">
-                    <div class="row align-items-center">
-                        <div class="col-lg-6 pr-xl-8 pb-lg-0 pb-6" data-animate="fadeInLeft">
-                            <a href="#" class="hover-shine d-block">
-                                <img src="{{ asset('assets/images/single-image-01.jpg') }}" class="rounded-lg w-100"
-                                    alt="Tìm khu phố của bạn">
-                            </a>
-                        </div>
-                        <div class="col-lg-6 pl-xl-8" data-animate="fadeInRight">
-                            <h2 class="text-white lh-1625">Tìm phòng trọ của bạn<br />
-                            </h2>
-                            <span class="heading-divider"></span>
-                            <form action="{{ route('client.room-listing') }}" method="GET">
-                                <div class="input-group input-group-lg pr-sm-17">
-                                    <input type="text"
-                                        class="form-control fs-13 font-weight-500 text-gray-light rounded-lg rounded-right-0 border-0 shadow-none h-52 bg-white"
-                                        name="search" placeholder="Nhập địa chỉ, khu phố">
-                                    <button type="submit"
-                                        class="btn btn-primary fs-18 rounded-left-0 rounded-lg px-6 border-0">
-                                        <i class="far fa-search"></i>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="pt-lg-12 pb-lg-15 py-11">
-            <div class="container container-xxl">
-                <h2 class="text-heading">Các phòng trọ nổi bật</h2>
-                <span class="heading-divider"></span>
-                <div class="slick-slider slick-dots-mt-0 custom-arrow-spacing-30"
-                    data-slick-options='{"slidesToShow": 4, "autoplay": true, "dots": true, "responsive": [
-        {"breakpoint": 1600, "settings": {"slidesToShow": 3, "arrows": false}},
-        {"breakpoint": 992, "settings": {"slidesToShow": 2, "arrows": false}},
-        {"breakpoint": 768, "settings": {"slidesToShow": 2, "arrows": false, "dots": true, "autoplay": true}},
-        {"breakpoint": 576, "settings": {"slidesToShow": 1, "arrows": false, "dots": true, "autoplay": true}}
-     ]}'>
-                    @foreach ($rooms as $room)
-                        <div class="box pb-7 pt-2">
-                            <div class="card shadow-hover-2 h-100" data-animate="zoomIn">
-                                <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top"
-                                    style="height: 200px; overflow: hidden;">
-                                    @if ($room->images->isNotEmpty())
-                                        <img src="{{ asset('assets/images/' . $room->images->first()->filename) }}"
-                                            alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
-                                            style="object-fit: cover;">
-                                    @else
-                                        <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                            alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
-                                            style="object-fit: cover;">
-                                    @endif
-                                    <div class="card-img-overlay p-2 d-flex flex-column">
-                                        <div>
-                                            @if ($room->expiration_date > now())
-                                                <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
-                                                    VIP
-                                                </span>
-                                            @endif
-                                        </div>
-                                        <ul class="list-inline mb-0 mt-auto hover-image">
-                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
-                                                <a href="#" class="text-white hover-primary">
-                                                    <i class="far fa-images"></i><span
-                                                        class="pl-1">{{ $room->images()->count() }}</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="card-body pt-3 d-flex flex-column">
-                                    <h2 class="card-title fs-16 lh-2 mb-0">
-                                        <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
-                                            class="text-dark hover-primary"><small>{{ Str::limit($room->title, 70) }}</small></a>
-                                    </h2>
-                                    <p class="card-text font-weight-500 text-gray-light mb-2">
-                                        {{ Str::limit($room->address, 100) }}</p>
-                                    <ul class="list-inline d-flex mb-0 flex-wrap mr-n5 mt-auto">
-                                        @if ($room->utility && $room->utility->bathrooms == 1)
-                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                                data-toggle="tooltip" title="Phòng tắm">
-                                                <svg class="icon icon-shower fs-18 text-primary mr-1">
-                                                    <use xlink:href="#icon-shower"></use>
-                                                </svg>
-                                                Phòng tắm
-                                            </li>
-                                        @endif
-                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                            data-toggle="tooltip" title="Diện tích">
-                                            <svg class="icon icon-square fs-18 text-primary mr-1">
-                                                <use xlink:href="#icon-square"></use>
-                                            </svg>
-                                            @if ($room->acreage)
-                                                {{ $room->acreage }}m²
-                                            @else
-                                                Chưa có thông tin
-                                            @endif
-                                        </li>
-                                        @if ($room->utility && $room->utility->wifi == 1)
-                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                                data-toggle="tooltip" title="Wifi">
-                                                <svg class="icon fs-18 text-primary mr-1"
-                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
-                                                    <path fill="currentColor"
-                                                        d="M634.91 154.88C457.74-8.99 182.19-8.93 5.09 154.88c-6.66 6.16-6.79 16.59-.35 22.98l34.24 33.97c6.14 6.1 16.02 6.23 22.4.38 145.92-133.68 371.3-133.71 517.25 0 6.38 5.85 16.26 5.71 22.4-.38l34.24-33.97c6.43-6.39 6.3-16.82-.36-22.98zM320 352c-35.35 0-64 28.65-64 64s28.65 64 64 64 64-28.65 64-64-28.65-64-64-64zm202.67-83.59c-115.26-101.93-290.21-101.82-405.34 0-6.9 6.1-7.12 16.69-.57 23.15l34.44 33.99c6 5.92 15.66 6.32 22.05.8 83.95-72.57 209.74-72.41 293.49 0 6.39 5.52 16.05 5.13 22.05-.8l34.44-33.99c6.56-6.46 6.33-17.06-.56-23.15z" />
-                                                </svg>
-                                                Wifi
-                                            </li>
-                                        @endif
-                                        @if ($room->utility && $room->utility->air_conditioning == 1)
-                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                                data-toggle="tooltip" title="Máy điều hòa">
-                                                <svg class="icon icon-heating fs-18 text-primary">
-                                                    <use xlink:href="#icon-heating"></use>
-                                                </svg>
-                                                &nbsp;Máy điều hòa
-                                            </li>
-                                        @endif
-                                    </ul>
-                                </div>
-                                <div
-                                    class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
-                                    <p class="fs-17 font-weight-bold text-heading mb-0">
-                                        {{ number_format($room->price, 0, ',', '.') }} VND
-                                    </p>
-                                    <ul class="list-inline mb-0">
-                                        {{-- <li class="list-inline-item">
-                                            <a href="{{ route('client.add.favourite', ['slug' => $room->slug]) }}"
-                                                class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center">
-                                                <i class="fas fa-heart"></i>
-                                            </a>
-                                        </li> --}}
-                                        <li class="list-inline-item">
-                                            <a href="#"
-                                                class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center favorite-btn {{ $room->isFavoritedByUser(auth()->id()) ? 'favorited' : '' }}"
-                                                data-room-slug="{{ $room->slug }}">
-                                                <i class="fas fa-heart"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
             </div>
         </section>
 

@@ -178,7 +178,7 @@ class CommentClientService
             $ratingsDistribution = array_fill(1, 5, 0);
         }
 
-        $comments = $room->comments()->orderBy('created_at', 'desc')->get();
+        $comments = $room->comments()->orderBy('created_at', 'desc')->paginate(5);
 
         return [
             'room' => $room,

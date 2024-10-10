@@ -30,9 +30,9 @@ class RoomClientController extends Controller
         $district = $request->input('district');
         $village = $request->input('village');
         $category = $request->input('category'); // Thêm tham số category
-
+        $features = $request->input('features');
         $type = $request->input('type');
-
+// dd($features);
         $rooms = $this->roomClientService->getAllRoom(
             (int) $perPage,
             $type,
@@ -40,7 +40,8 @@ class RoomClientController extends Controller
             $province,
             $district,
             $village,
-            $category // Thêm category vào phương thức getAllRoom
+            $category,
+            $features
         );
 
         $locations = $this->roomClientService->getUniqueLocations();
@@ -74,7 +75,8 @@ class RoomClientController extends Controller
             'districts' => $locations['districts'],
             'villages' => $locations['villages'],
             'categories' => $categories, // Truyền danh sách categories vào view
-            'popularRooms' => $popularRooms
+            'popularRooms' => $popularRooms,
+            'features' => $features
         ]);
     }
 
@@ -115,12 +117,13 @@ class RoomClientController extends Controller
                 'room' => $roomDetails['room'],
                 'averageRating' => $roomDetails['averageRating'],
                 'ratingsDistribution' => $roomDetails['ratingsDistribution'],
-                'comments' => $comments,
+                // 'comments' => $comments,
                 'user' => $user,
                 'identity' => $identity,
                 'zone' => $zone,
                 'utilities' => $utilities,
                 'similarRooms' => $similarRooms,
+                'slug' => $slug
             ]);
         }
 

@@ -2,9 +2,9 @@
 @section('titleUs', 'Danh Sách Khu Trọ | TRỌ NHANH')
 @section('contentUs')
     <main id="content">
-        <section class="bg-secondary">
+        <section class="bg-secondary p-3">
             <div class="container">
-                <form action="{{ route('client.client-list-zone') }}" class="property-search d-none d-lg-block">
+                <form action="{{ route('client.client-list-zone') }}" class="property-search  d-lg-block">
                     <div class="row align-items-lg-center" id="accordion-2">
                         <div class="col-xl-1 col-lg-1 col-md-4">
                             <div class="property-search-status-tab d-flex flex-row">
@@ -99,67 +99,15 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="col-lg-2">
-                            <a href="#advanced-search-filters-2"
+                        <div class="col-lg-2 d-none d-lg-block">
+                            <button
                                 class="icon-primary btn advanced-search w-100 shadow-none text-white text-left rounded-0 fs-14 font-weight-600 position-relative collapsed px-0 d-flex align-items-center"
                                 data-toggle="collapse" data-target="#advanced-search-filters-2" aria-expanded="true"
                                 aria-controls="advanced-search-filters-2">
                                 Tìm kiếm
-                            </a>
+                            </button>
                         </div>
-                        <div id="advanced-search-filters-2" class="col-12 pb-6 pt-lg-2 collapse"
-                            data-parent="#accordion-2">
-                            <div class="row mx-n2">
-                                <div class="col-sm-6 col-md-4 col-lg-3 pt-4 px-2">
-                                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
-                                        name="status" title="Trạng thái" data-style="btn-lg py-2 h-52 bg-white">
-                                        <option>Trạng thái</option>
-                                        <option>Cho thuê</option>
-                                        <option>Cho mướn</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-6 col-md-4 col-lg-3 pt-4 px-2">
-                                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
-                                        name="bedroom" title="Phòng ngủ" data-style="btn-lg py-2 h-52 bg-white">
-                                        <option>Phòng ngủ</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
-                                        <option>10</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-6 col-md-4 col-lg-3 pt-4 px-2">
-                                    <select class="form-control border-0 shadow-none form-control-lg selectpicker bg-white"
-                                        name="bathrooms" title="Phòng tắm" data-style="btn-lg py-2 h-52 bg-white">
-                                        <option>Phòng tắm</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
-                                        <option>10</option>
-                                    </select>
-                                </div>
 
-
-                                <div class="col-sm-6 col-md-4 col-lg-3 pt-4 px-2">
-                                    <input type="text"
-                                        class="form-control form-control-lg border-0 shadow-none bg-white"
-                                        placeholder="Mã phòng trọ" name="">
-                                </div>
-                            </div>
-
-                        </div>
                     </div>
                 </form>
 
@@ -332,10 +280,10 @@
                                         </li>
 
                                         {{-- Liên kết Trang Trước --}}
-                                        <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
+                                        {{-- <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
                                             <a class="page-link" href="{{ $zones->previousPageUrl() }}"><i
                                                     class="far fa-angle-left"></i></a>
-                                        </li>
+                                        </li> --}}
 
                                         {{-- Trang đầu tiên --}}
                                         @if ($zones->currentPage() > 2)
@@ -369,11 +317,11 @@
                                         @endif
 
                                         {{-- Liên kết Trang Tiếp --}}
-                                        <li
+                                        {{-- <li
                                             class="page-item {{ $zones->currentPage() == $zones->lastPage() ? 'disabled' : '' }}">
                                             <a class="page-link" href="{{ $zones->nextPageUrl() }}"><i
                                                     class="far fa-angle-right"></i></a>
-                                        </li>
+                                        </li> --}}
 
                                         {{-- Liên kết Trang Cuối --}}
                                         <li
@@ -396,52 +344,7 @@
                 </div>
             </div>
         </section>
-        <div id="compare" class="compare">
-            <button
-                class="btn shadow btn-open bg-white bg-hover-accent text-secondary rounded-right-0 d-flex justify-content-center align-items-center w-30px h-140 p-0">
-            </button>
-            <div class="list-group list-group-no-border bg-dark py-3">
-                <a href="#" class="list-group-item bg-transparent text-white fs-22 text-center py-0">
-                    <i class="far fa-bars"></i>
-                </a>
-                <div class="list-group-item card bg-transparent">
-                    <div class="position-relative hover-change-image bg-hover-overlay">
-                        <img src="{{ asset('assets/images/compare-01.jpg') }}" class="card-img" alt="properties">
-                        <div class="card-img-overlay">
-                            <a href="#"
-                                class="text-white hover-image fs-16 lh-1 pos-fixed-top-right position-absolute m-2"><i
-                                    class="fal fa-minus-circle"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="list-group-item card bg-transparent">
-                    <div class="position-relative hover-change-image bg-hover-overlay">
-                        <img src="{{ asset('assets/images/compare-02.jpg') }}" class="card-img" alt="properties">
-                        <div class="card-img-overlay">
-                            <a href="#"
-                                class="text-white hover-image fs-16 lh-1 pos-fixed-top-right position-absolute m-2"><i
-                                    class="fal fa-minus-circle"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="list-group-item card card bg-transparent">
-                    <div class="position-relative hover-change-image bg-hover-overlay ">
-                        <img src="{{ asset('assets/images/compare-03.jpg') }}" class="card-img" alt="properties">
-                        <div class="card-img-overlay">
-                            <a href="#"
-                                class="text-white hover-image fs-16 lh-1 pos-fixed-top-right position-absolute m-2"><i
-                                    class="fal fa-minus-circle"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="list-group-item bg-transparent">
-                    <a href="compare-details.html"
-                        class="btn btn-lg btn-primary w-100 px-0 d-flex justify-content-center">
-                        So sánh
-                    </a>
-                </div>
-            </div>
-        </div>
+      
         <div class="d-none" id="template-properties">
             <div class="marker-item" data-icon-marker="{{ asset('assets/images/googlle-market-02.png') }}"
                 data-position="[-73.9893691, 40.6751204]"
@@ -766,7 +669,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
 
     <!-- Favicons -->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="icon" href="{{ asset('assets/images/logo-nav.png') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/osm.css') }}">
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
@@ -789,6 +692,10 @@
     <meta property="og:image:height" content="630">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+    <style>
+      
+      
+    </style>
 @endpush
 @push('scriptUs')
     <!-- Vendors scripts -->
