@@ -86,6 +86,13 @@
                                         <div class="input-group input-group-lg">
                                             <input type="password" class="form-control border-0 shadow-none fs-13"
                                                 id="password-1" name="password" placeholder="Mật khẩu" required>
+                                            <div class="input-group-append">
+                                                <span
+                                                    class="input-group-text bg-gray-01 border-0 text-body fs-18 toggle-password"
+                                                    style="cursor: pointer;">
+                                                    <i class="far fa-eye-slash"></i>
+                                                </span>
+                                            </div>
                                         </div>
                                         @error('password')
                                             <span class="text-danger">{{ $message }}</span>
@@ -97,6 +104,13 @@
                                             <input type="password" class="form-control border-0 shadow-none fs-13"
                                                 id="re-password" name="password_confirmation"
                                                 placeholder="Nhập lại mật khẩu" required>
+                                            <div class="input-group-append">
+                                                <span
+                                                    class="input-group-text bg-gray-01 border-0 text-body fs-18 toggle-password"
+                                                    style="cursor: pointer;">
+                                                    <i class="far fa-eye-slash"></i>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-lg btn-block rounded">Đăng ký</button>
@@ -115,7 +129,7 @@
                                         </a>
                                     </div>
                                     <div class="col-sm-6 px-2 mb-4">
-                                        <a href="#"
+                                        <a href="{{ route('client.auth.google') }}"
                                             class="btn btn-lg btn-block text-heading border px-0 bg-hover-accent">
                                             <img src="{{ asset('assets/images/google.png') }}" alt="Google"> Google
                                         </a>

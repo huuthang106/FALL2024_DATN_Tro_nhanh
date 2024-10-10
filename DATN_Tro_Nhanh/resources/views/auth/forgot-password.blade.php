@@ -34,7 +34,7 @@
                         <div class="card border-0 shadow-xxs-2 login-register">
                             <div class="card-body p-6">
                                 <h2 class="card-title fs-30 font-weight-600 text-dark lh-16 mb-2">Quên mật khẩu?</h2>
-                                <p class="mb-4">Chưa có tài khoản? <a href="signup-and-login.html"
+                                <p class="mb-4">Chưa có tài khoản? <a href="{{ route('client.register') }}"
                                         class="text-heading hover-primary"><u>Đăng ký miễn phí</u></a></p>
                                 <form id="password-reset-form" class="form" method="POST"
                                     action="{{ route('password.email') }}">
@@ -66,7 +66,7 @@
                                         </a>
                                     </div>
                                     <div class="col-sm-6 px-2 mb-4">
-                                        <a href="#"
+                                        <a href="{{ route('client.auth.google') }}"
                                             class="btn btn-lg btn-block text-heading border px-0 rounded bg-hover-accent">
                                             <img src="{{ asset('assets/images/google.png') }}" alt="Google">
                                             Google
