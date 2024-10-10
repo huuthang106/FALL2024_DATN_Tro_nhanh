@@ -1,7 +1,7 @@
 <div>
     {{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
     <!-- resources/views/livewire/maintenance-request-list.blade.php -->
-    <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing"wire:ignore>
+    <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
         <form action="#" method="GET">
             <div class="mb-6">
                 <div class="row" wire:ignore>

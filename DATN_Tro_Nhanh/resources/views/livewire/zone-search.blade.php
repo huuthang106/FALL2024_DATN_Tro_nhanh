@@ -24,16 +24,16 @@
                                         mới</span></a>
                             </div>
                         </div>
-                        <div class="p-2 d-flex align-items-center">
-                            <div class="input-group input-group-lg bg-white border mr-2" style="width: 300px;">
-                                <div class="input-group-prepend">
-                                    <button class="btn pr-0 shadow-none" type="button">
-                                        <i class="far fa-search"></i>
+                        <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
+                            <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
+                                <input wire:model.lazy="search" wire:keydown.debounce.300ms="$refresh" type="text"
+                                    class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..." aria-label=""
+                                    aria-describedby="basic-addon1">
+                                <div class="input-group-append position-absolute pos-fixed-right-center">
+                                    <button class="btn bg-transparent border-0 text-gray lh-1" type="button">
+                                        <i class="fal fa-search"></i>
                                     </button>
                                 </div>
-                                <input wire:model.lazy="search" wire:keydown.debounce.300ms="$refresh" type="text"
-                                    class="form-control bg-transparent border-0 shadow-none text-body"
-                                    placeholder="Tìm kiếm..." aria-label="" aria-describedby="basic-addon1">
                             </div>
                             <div class="ml-2">
                                 <button id="deleteSelected" wire:click="deleteSelectedZones"
@@ -54,7 +54,7 @@
                     <thead>
                         <tr role="row">
                             <th class="py-3 text-nowrap text-center px-6">
-                                <input type="checkbox" id="checkAll">
+                                <input type="checkbox" id="checkAll" wire:model="selectAll">
                             </th>
                             <th class="py-3 text-nowrap text-center col-2">Ảnh</th>
 
@@ -73,9 +73,12 @@
                             @foreach ($zones as $zone)
                                 <tr role="row" wire:key="zone-{{ $zone->id }}"
                                     data-room-count="{{ $zone->room_count }}">
-                                    <td class="align-middle  px-6">
-                                        <input type="checkbox" class="zone-checkbox" wire:model="selectedZones"
-                                            value="{{ $zone->id }}">
+                                    <td class="align-middle px-6">
+                                        <input type="checkbox" class="zone-checkbox" 
+                                               wire:model="selectedZones" 
+                                               value="{{ $zone->id }}" 
+                                               {{ $zone->room_count > 0 ? 'disabled' : '' }}
+                                               wire:key="zone-checkbox-{{ $zone->id }}">
                                     </td>
                                     <td class="align-middle d-md-table-cell text-nowrap p-4">
                                         <div class="mr-2 position-relative zone-image-container">
@@ -148,6 +151,9 @@
                         @endif
                     </tbody>
                 </table>
+                <div wire:ignore>
+                    <span id="emptyZonesCount" data-count="{{ $emptyZonesCount }}"></span>
+                </div>
             </div>
             @if ($zones->hasPages())
                 <nav aria-label="Page navigation">
@@ -236,95 +242,39 @@
     document.addEventListener('livewire:initialized', function() {
         const checkAll = document.getElementById('checkAll');
         const deleteSelectedBtn = document.getElementById('deleteSelected');
-
-        checkAll.addEventListener('change', function() {
-            const checkboxes = document.querySelectorAll('.zone-checkbox');
-            checkboxes.forEach(checkbox => {
-                const row = checkbox.closest('tr');
-                const roomCount = parseInt(row.getAttribute('data-room-count'));
-                if (roomCount === 0) {
-                    checkbox.checked = this.checked;
-                    checkbox.dispatchEvent(new Event('change', {
-                        'bubbles': true
-                    }));
-                } else {
-                    checkbox.checked = false;
-                }
+        const emptyZonesCountElement = document.getElementById('emptyZonesCount');
+        const emptyZonesCount = parseInt(emptyZonesCountElement.dataset.count);
+    
+        function updateCheckAllState() {
+            const checkedCheckboxes = document.querySelectorAll('.zone-checkbox:checked:not(:disabled)').length;
+            checkAll.checked = checkedCheckboxes === emptyZonesCount && emptyZonesCount > 0;
+            checkAll.indeterminate = checkedCheckboxes > 0 && checkedCheckboxes < emptyZonesCount;
+        }
+    
+        function initializeCheckboxes() {
+            document.querySelectorAll('.zone-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', updateCheckAllState);
             });
             updateCheckAllState();
+        }
+    
+        checkAll.addEventListener('change', function() {
+            const isChecked = this.checked;
+            document.querySelectorAll('.zone-checkbox:not(:disabled)').forEach(checkbox => {
+                checkbox.checked = isChecked;
+                checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+            });
         });
-
+    
         deleteSelectedBtn.addEventListener('click', function(event) {
             event.preventDefault();
-            const selectedCheckboxes = document.querySelectorAll('.zone-checkbox:checked');
-            if (selectedCheckboxes.length === 0) {
-                Swal.fire({
-                    title: 'Lỗi!',
-                    text: 'Vui lòng chọn ít nhất một khu vực để xóa',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-                return;
-            }
-
-            // Kiểm tra xem có khu vực nào đang có phòng không
-            const zonesWithRooms = Array.from(selectedCheckboxes).filter(checkbox => {
-                const row = checkbox.closest('tr');
-                return parseInt(row.getAttribute('data-room-count')) > 0;
-            });
-
-            if (zonesWithRooms.length > 0) {
-                const zonesWithRoomsNames = zonesWithRooms.map(checkbox => {
-                    return checkbox.closest('tr').querySelector('td:nth-child(3)').textContent
-                        .trim();
-                }).join(', ');
-
-                Swal.fire({
-                    title: 'Không thể xóa!',
-                    html: `Các khu vực sau có phòng và không thể xóa:<br><strong>${zonesWithRoomsNames}</strong><br>Vui lòng xóa tất cả phòng trong khu vực trước khi xóa khu vực.`,
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-                return;
-            }
-
-            Swal.fire({
-                title: 'Bạn có chắc chắn?',
-                text: "Bạn sẽ không thể hoàn tác hành động này!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Có, xóa!',
-                cancelButtonText: 'Hủy'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Livewire.find('zone-search').deleteSelectedZones();
-                }
-            });
+            Livewire.find('zone-search').deleteSelectedZones();
         });
-
-        function updateCheckAllState() {
-            const totalCheckboxes = document.querySelectorAll('.zone-checkbox').length;
-            const emptyZonesCount = Array.from(document.querySelectorAll('.zone-checkbox')).filter(checkbox => {
-                const row = checkbox.closest('tr');
-                return parseInt(row.getAttribute('data-room-count')) === 0;
-            }).length;
-            const selectedEmptyZonesCount = Array.from(document.querySelectorAll('.zone-checkbox:checked'))
-                .filter(checkbox => {
-                    const row = checkbox.closest('tr');
-                    return parseInt(row.getAttribute('data-room-count')) === 0;
-                }).length;
-
-            checkAll.checked = selectedEmptyZonesCount === emptyZonesCount && emptyZonesCount > 0;
-        }
-
-        document.querySelectorAll('.zone-checkbox').forEach(checkbox => {
-            checkbox.addEventListener('change', updateCheckAllState);
-        });
-
-        updateCheckAllState();
-
+    
+        initializeCheckboxes();
+    
+        Livewire.on('zonesUpdated', initializeCheckboxes);
+    
         Livewire.on('zones-deleted', (data) => {
             console.log('Zones deleted event received:', data);
             Swal.fire({
@@ -337,5 +287,5 @@
             });
         });
     });
-</script>
+    </script>
 </div>

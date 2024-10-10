@@ -8,7 +8,7 @@
                     <ol class="breadcrumb pt-6 pt-lg-0 pb-0">
                         <li class="breadcrumb-item"><a href="{{ route('client.home') }}">Trang chủ</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('client.client-agent') }}">Người đăng tin</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Chi tiết</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{$user->name}}</li>
                     </ol>
                 </nav>
             </div>
@@ -103,7 +103,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="col-sm-6">
+                                {{-- <div class="col-sm-6">
                                     <ul class="list-inline text-gray-lighter m-0 p-0">
                                         <li class="list-inline-item mx-0 my-1">
                                             <a href="#"
@@ -130,7 +130,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>

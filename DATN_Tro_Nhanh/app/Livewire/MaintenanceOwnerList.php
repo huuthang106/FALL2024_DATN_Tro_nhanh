@@ -104,4 +104,23 @@ class MaintenanceOwnerList extends Component
     {
         $this->resetPage();
     }
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingTimeFilter()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingStartDate()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingEndDate()
+    {
+        $this->resetPage();
+    }
 }
