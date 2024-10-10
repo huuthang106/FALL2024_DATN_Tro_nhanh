@@ -16,6 +16,9 @@ function AppHeader() {
     if (location.pathname === "/calendar") {
       return "Danh sách chủ trọ";
     }
+    if (location.pathname === "/booking/:id") {
+      return "Chi tiết chủ trọ";
+    }
     if (location.pathname === "/restaurant") {
       if (restaurant) {
         return restaurant.title;
