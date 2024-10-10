@@ -1,7 +1,8 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { Box, Page, Tabs, Spinner } from "zmp-ui";
+import { Box, Page, Tabs } from "zmp-ui";
 import BookingItem from "../components/book/booking";
+import BookingDetail from "./booking-detail";
 import { bookingsState } from "../state";
 
 const labels = {
@@ -10,14 +11,9 @@ const labels = {
 
 function CalendarPage() {
   const [status, setStatus] = useState<"upcoming" | "finished">("upcoming");
-  const [loading, setLoading] = useState(true);
+  const [selectedBooking, setSelectedBooking] = useState(null);
+  const [visible, setVisible] = useState(false);
   const allBookings = useRecoilValue(bookingsState);
-
-  useEffect(() => {
-    if (allBookings.length > 0) {
-      setLoading(false);
-    }
-  }, [allBookings]);
 
   const bookings = useMemo(() => {
     const startOfToday = new Date();
@@ -35,28 +31,36 @@ function CalendarPage() {
     <Page className="min-h-0">
       <Tabs activeKey={status} onChange={(key) => setStatus(key as any)}>
         {["upcoming", "finished"].map((tabStatus) => (
-          <Tabs.Tab key={tabStatus} label={labels[tabStatus]}>
-            {loading ? (
-              <Box className="text-center" mt={10}>
-                <Spinner /> Đang tải dữ liệu...
+        <Tabs.Tab key={tabStatus} label={labels[tabStatus]}>
+        {bookings.length === 0 ? (
+          <Box className="text-center" mt={10}>
+           Chưa có chủ trọ nào
+           
+          </Box>
+        ) : (
+          <>
+            {bookings.map((booking) => (
+              <Box key={booking.id} my={4}>
+                <BookingItem
+                  booking={booking}
+                  onClick={() => {
+                    setSelectedBooking(booking);
+                    setVisible(true);
+                  }}
+                />
               </Box>
-            ) : bookings.length === 0 ? (
-              <Box className="text-center" mt={10}>
-                Bạn chưa có booking nào{" "}
-                {tabStatus === "upcoming" ? "sắp đến" : "hoàn thành"}!
-              </Box>
-            ) : (
-              <>
-                {bookings.map((booking) => (
-                  <Box key={booking.id} my={4}>
-                    <BookingItem booking={booking} />
-                  </Box>
-                ))}
-              </>
-            )}
-          </Tabs.Tab>
+            ))}
+          </>
+        )}
+      </Tabs.Tab>
         ))}
       </Tabs>
+      {selectedBooking && visible && (
+        <BookingDetail
+          booking={selectedBooking}
+          onClose={() => setVisible(false)} // Đóng BookingDetail khi cần
+        />
+      )}
     </Page>
   );
 }

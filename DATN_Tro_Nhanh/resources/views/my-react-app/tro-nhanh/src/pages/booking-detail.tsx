@@ -1,98 +1,83 @@
-import { FC, ReactNode, useState } from "react";
-import { Box, Button, Sheet, Text } from "zmp-ui";
-import Price from "../components/format/price";
-import { useBookingTotal } from "../hooks";
-import Time from "../components/format/time";
-import CartItem from "../components/cart/cart-item";
+import { FC } from "react";
+import { Box, Button, Sheet, Text, Icon } from "zmp-ui";
 import React from "react";
 import { Booking } from "../models";
 import { createPortal } from "react-dom";
 
 const { Title } = Text;
 
-function Section({ left, right }: { left: ReactNode; right: ReactNode }) {
-  return (
-    <>
-      <Box m={0} flex justifyContent="space-between" alignItems="center">
-        <Title size="small" className="mx-6 my-4">
-          {left}
-        </Title>
-        <Title size="small" className="mx-6 my-4">
-          {right}
-        </Title>
-      </Box>
-      <hr />
-    </>
-  );
-}
 const BookingDetail: FC<{
-  children: (open: () => void) => ReactNode;
   booking: Booking;
-}> = ({ children, booking }) => {
-  const [total] = useBookingTotal(booking);
-  const [visible, setVisible] = useState(false);
+  onClose: () => void; // Thêm hàm onClose
+}> = ({ booking, onClose }) => {
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(booking.address)}`;
 
   return (
     <>
-      {children(() => setVisible(true))}
       {createPortal(
-        <Sheet visible={visible} onClose={() => setVisible(false)}>
+        <Sheet visible={true} onClose={onClose}>
           {booking && (
             <>
-              <Box
-                className="swiper-handler"
-                p={4}
-                flex
-                justifyContent="center"
-              >
-                <Title size="small" className="font-semibold">
-                  {booking.bookingInfo ? "Thông tin đặt bàn" : "Pizza"}
-                </Title>
-              </Box>
-              <hr />
-              <div className="swiper-handler">
-                {booking.bookingInfo && (
-                  <>
-                    <Section
-                      left="Ngày, giờ"
-                      right={
-                        <>
-                          {booking.bookingInfo.date.toLocaleDateString()} -{" "}
-                          <Time time={booking.bookingInfo.hour} />
-                        </>
-                      }
-                    />
-                    <Section left="Bàn số" right={booking.bookingInfo.seats} />
-                    <Section left="Số ghế" right={booking.bookingInfo.table} />
-                  </>
-                )}
-                <Section left="Chi tiết" right={<Price amount={total} />} />
-              </div>
-              {booking.cart && booking.cart.items.length ? (
+              <Box m={5}>
+                <div className="relative aspect-video w-full">
+                  <img
+                    src={booking.image} // Đảm bảo rằng bạn có thuộc tính image trong dữ liệu booking
+                    className="absolute w-full h-full object-cover rounded-xl"
+                  />
+                </div>
                 <Box
-                  m={0}
-                  p={2}
-                  className="overflow-y-auto"
-                  style={{
-                    maxHeight: `calc(50vh - ${
-                      booking.bookingInfo ? 54 * 4 : 0
-                    }px)`,
-                    minHeight: 120,
-                  }}
+                  mx={4}
+                  className="bg-white rounded-2xl text-center relative"
+                  p={4}
+                  style={{ marginTop: -60 }}
                 >
-                  {booking.cart.items.map((item, i) => (
-                    <CartItem key={i} item={item} />
-                  ))}
+                  <Title className="font-bold">{booking.name}</Title>
+                  <Text className="text-gray-500">{booking.address}</Text>
+                  <Box flex justifyContent="center" mt={0} py={3}>
+                    <Button variant="tertiary">
+                      <span className="text-primary">{booking.email}</span>
+                    </Button>
+                  
+                  </Box>
                 </Box>
-              ) : (
-                <Box my={4} flex justifyContent="center">
-                  Không có món ăn
+              </Box>
+              <Box mx={2}>
+              
+              
+                <Box mx={2} mt={6}>
+                  <Title className="font-semibold mb-2" size="small">
+                    Hotline liên hệ
+                  </Title>
+                  <Box flex mx={0} alignItems="center" justifyContent="space-between">
+                    <a onClick={() => openPhone({ phoneNumber: booking.phone })}>
+                      <Icon icon="zi-call" className="text-green-500 mr-1" />
+                      <span className="text-primary">{booking.phone}</span>
+                    </a>
+                  </Box>
                 </Box>
-              )}
-              <hr />
+                <Box mx={2} mt={6}>
+                  <Title className="font-semibold mb-2" size="small">
+                    Địa chỉ
+                  </Title>
+                  <Box
+                    flex
+                    mx={0}
+                    alignItems="center"
+                    justifyContent="space-between"
+                    mb={5}
+                  >
+                    <span>
+                      <Icon icon="zi-location-solid" className="text-red-500 mr-1" />
+                      {booking.address}
+                    </span>
+                  </Box>
+                  
+                
+                </Box>
+              </Box>
               <Box className="m-6 mt-4">
                 <Button
-                  onClick={() => setVisible(false)}
+                  onClick={onClose} // Đóng khi nhấn nút
                   variant="secondary"
                   fullWidth
                 >
