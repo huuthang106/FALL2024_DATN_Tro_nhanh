@@ -115,9 +115,9 @@
                                     <td class="align-middle text-nowrap">{{ number_format($payout->amount, 0, ',', '.') }} VNĐ</td>
                                     <td class="align-middle p-4">
                                         @if ($payout->status == '1')
-                                            <span class="badge badge-yellow text-capitalize font-weight-normal fs-12">Đang xử lý</span>
+                                            <span class="badge badge-warning text-capitalize font-weight-normal fs-12">Đang xử lý</span>
                                         @elseif ($payout->status == '2')
-                                            <span class="badge badge-green text-capitalize font-weight-normal fs-12">Đã chuyển</span>
+                                            <span class="badge badge-primary text-capitalize font-weight-normal fs-12">Đã chuyển</span>
                                         @elseif ($payout->status == '3')
                                             <span class="badge badge-success text-capitalize font-weight-normal fs-12">Đã hủy</span>
                                         @elseif ($payout->status == '4')

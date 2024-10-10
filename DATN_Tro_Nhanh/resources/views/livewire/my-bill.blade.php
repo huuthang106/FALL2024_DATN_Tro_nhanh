@@ -47,7 +47,6 @@
             <table class="table table-hover bg-white border rounded-lg">
                 <thead>
                     <tr>
-                        <th class="text-nowrap">ID</th>
                         <th scope="col" class="text-nowrap">Tên dịch vụ</th>
                         <th scope="col" class="text-nowrap">Mô tả</th>
                         <th scope="col" class="text-nowrap">Ngày thanh toán</th>
@@ -59,9 +58,7 @@
                     @if ($transactions->count() > 0)
                         @foreach ($transactions as $transaction)
                             <tr class="shadow-hover-xs-2 bg-hover-white">
-                                <td class="align-middle" style="white-space: nowrap;">
-                                    {{ $transaction->id }}
-                                </td>
+                                
                                 <td class="align-middle" style="white-space: nowrap;">
                                    Thanh toán dịch vụ
                                 </td>
