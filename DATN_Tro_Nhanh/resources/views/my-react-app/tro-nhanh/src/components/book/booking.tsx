@@ -1,103 +1,54 @@
-import React from "react";
-import { FunctionComponent, useState } from "react";
-import { Box, Button, Text } from "zmp-ui";
-import { useBookingTotal } from "../../hooks";
-import { Booking } from "../../models";
-import Price from "../format/price";
-import Time from "../format/time";
-import RestaurantItem from "../restaurant";
-import Swipeable from "../swipeable";
-import BookingDetail from "../../pages/booking-detail";
-import { useSetRecoilState } from "recoil";
-import { bookingsState } from "../../state";
-
-interface BookingItemProps {
-  booking: Booking;
-}
+import React, { FunctionComponent } from "react";
+import { Box, Text, Button, Icon } from "zmp-ui";
 
 const { Title } = Text;
 
-const BookingItem: FunctionComponent<BookingItemProps> = ({ booking }) => {
-  const [total] = useBookingTotal(booking);
-  const setBooking = useSetRecoilState(bookingsState);
-  const [selectingState, setSelectingState] = useState(false);
-  const unbook = (id: string) => {
-    setBooking((bs) => bs.filter((booking) => booking.id !== id));
+interface BookingProps {
+  booking: {
+    id: string;
+    name: string;
+    email: string;
+    phone: string;
+    image: string;
   };
+  onClick: () => void;
+}
 
+const BookingItem: FunctionComponent<BookingProps> = React.memo(({ booking, onClick }) => {
   return (
-    <Box flex alignItems="center" px={4}>
-      <Swipeable
-        onClick={(e) => {
-          if (e.currentTarget === e.target) {
-            setSelectingState((s) => !s);
-          }
-        }}
-        onSwipeLeft={() => setSelectingState(true)}
-        onSwipeRight={() => setSelectingState(false)}
-        className="bg-white rounded-xl pb-8 pt-4 px-4 relative duration-200 w-full z-10 min-w-0"
-        style={{
-          left: selectingState ? -64 : 0,
-        }}
-      >
-        <Box
-          mx={0}
-          my={4}
-          flex
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Title size="small" className="whitespace-nowrap mb-0">
-            Booking ID: {booking.id}
-          </Title>
-          <Text
-            className="ml-6 text-secondary mb-0 whitespace-nowrap font-semibold"
-            size="large"
-          >
-            <Price amount={total} />
+    <div
+      onClick={onClick}
+      className="bg-white rounded-xl shadow-md overflow-hidden p-4 mb-4 transition-transform transform hover:scale-105"
+    >
+      <Box m={0} flex alignItems="center">
+        <div className="flex-none w-16 h-16 rounded-full overflow-hidden mr-4">
+          <img
+            src={booking.image || 'default-image-url'}
+            alt={booking.name}
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <Box className="min-w-0 flex-1">
+          <Title size="medium" className="font-semibold">{booking.name}</Title>
+          <Text size="small" className="text-gray-500">
+            <Icon className="text-gray-400 mr-1" icon="zi-mail" />
+            {booking.email}
+          </Text>
+          <Text size="small" className="text-gray-500">
+            <Icon className="text-gray-400 mr-1" icon="zi-phone" />
+            {booking.phone}
           </Text>
         </Box>
-        <div className="border border-solid border-gray-100 rounded-xl">
-          <BookingDetail booking={booking}>
-            {(open) => (
-              <RestaurantItem
-                layout="list-item"
-                restaurant={booking.restaurant}
-                before={
-                  booking.bookingInfo ? (
-                    <Text size="small" className="text-gray-500">
-                      <Time time={booking.bookingInfo?.hour} />
-                      {" - "}
-                      {booking.bookingInfo.date.toLocaleDateString()}
-                    </Text>
-                  ) : (
-                    <Text size="small" className="text-gray-500">
-                      Chỉ đặt thức ăn
-                    </Text>
-                  )
-                }
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setSelectingState(false);
-                  open();
-                }}
-              />
-            )}
-          </BookingDetail>
-        </div>
-      </Swipeable>
-      <Button
-        onClick={() => unbook(booking.id)}
-        variant="secondary"
-        className={`absolute right-4 min-w-min p-3 ${
-          selectingState ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        Huỷ
-      </Button>
-    </Box>
+        <Button
+          size="small"
+          className="ml-auto"
+          variant="primary"
+        >
+          Chi tiết
+        </Button>
+      </Box>
+    </div>
   );
-};
+});
 
 export default BookingItem;

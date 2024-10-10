@@ -14,7 +14,7 @@ function AppHeader() {
 
   const title = useMemo(() => {
     if (location.pathname === "/calendar") {
-      return "Lịch của tôi";
+      return "Danh sách chủ trọ";
     }
     if (location.pathname === "/restaurant") {
       if (restaurant) {

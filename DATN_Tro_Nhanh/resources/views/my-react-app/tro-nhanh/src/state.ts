@@ -18,7 +18,7 @@ import { calcCrowFliesDistance } from "./utils/location";
 // });
 
 
-const apiEndpoint ='https://fd72-14-241-183-136.ngrok-free.app';
+const apiEndpoint ='https://0216-2001-ee0-1b21-3a54-952c-ae20-42de-e7ed.ngrok-free.app';
 export const restaurantsDataState = atom<Restaurant[]>({
   key: "restaurantsData",
   default: [],
@@ -497,7 +497,9 @@ export const bookingsState = atom<Booking[]>({
             id: user.id.toString(),
             name: user.name,
             email: user.email,
-            balance: user.balance,
+            phone: user.phone,  
+            image: user.image,
+            address: user.address,
           })));
         } catch (error) {
           console.error("Error fetching bookings:", error);
