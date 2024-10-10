@@ -145,7 +145,7 @@
                                         </a>
                                     </div>
                                     <div class="col-sm-6 px-2 mb-4">
-                                        <a href="#"
+                                        <a href="{{ route('client.auth.google') }}"
                                             class="btn btn-lg btn-block text-heading border px-0 bg-hover-accent">
                                             <img src="{{ asset('assets/images/google.png') }}" alt="Google">
                                             Google

@@ -149,7 +149,9 @@
                                             <input type="password" class="form-control border-0 shadow-none fs-13"
                                                 id="password" name="password" placeholder="Mật khẩu" required>
                                             <div class="input-group-append">
-                                                <span class="input-group-text bg-gray-01 border-0 text-body fs-18">
+                                                <span
+                                                    class="input-group-text bg-gray-01 border-0 text-body fs-18 toggle-password"
+                                                    style="cursor: pointer;">
                                                     <i class="far fa-eye-slash"></i>
                                                 </span>
                                             </div>
@@ -195,7 +197,7 @@
                                         </a>
                                     </div>
                                     <div class="col-sm-6 px-2 mb-4">
-                                        <a href="{{ url('auth/google') }}"
+                                        <a href="{{ route('client.auth.google') }}"
                                             class="btn btn-lg btn-block text-heading border px-0 bg-hover-accent">
                                             <img src="{{ asset('assets/images/google.png') }}" alt="Google">
                                             Google
