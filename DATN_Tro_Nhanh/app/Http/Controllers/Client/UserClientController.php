@@ -24,7 +24,7 @@ use App\Services\WatchListOwner;
 class UserClientController extends Controller
 {
     private const role_owners = 2;
-    private const limit = 8;
+    private const limit = 1;
 
     protected $userClientServices;
     protected $registerService;

@@ -48,83 +48,75 @@
                 </div>
             @endforeach
         @endif
-
         @if ($comments->hasPages())
-            <nav aria-label="Page navigation">
-                <ul class="pagination rounded-active justify-content-center">
-                    @php
-                        $totalPages = $comments->lastPage(); // Total number of pages
-                        $currentPage = $comments->currentPage(); // Current page number
-                        $visiblePages = 3; // Number of middle pages to show
-                    @endphp
-
-                    {{-- First Page Link --}}
-                    <li class="page-item {{ $currentPage == 1 ? 'disabled' : '' }}">
-                        <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled"
-                            aria-label="First">
-                            <span aria-hidden="true">«</span> {{-- Double less than sign for first page --}}
-                        </a>
+        <nav aria-label="Page navigation">
+            <ul class="pagination rounded-active justify-content-center">
+                @php
+                    $totalPages = $comments->lastPage(); // Tổng số trang
+                    $currentPage = $comments->currentPage(); // Trang hiện tại
+                    $visiblePages = 3; // Số trang giữa cần hiển thị
+                @endphp
+    
+                {{-- Liên kết đến Trang đầu --}} 
+                <li class="page-item {{ $currentPage == 1 ? 'disabled' : '' }}">
+                    <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled" aria-label="First">
+                        <span aria-hidden="true">«</span> {{-- Dấu kép nhỏ hơn cho trang đầu tiên --}}
+                    </a>
+                </li>
+    
+                {{-- Liên kết đến Trang trước --}}
+                <li class="page-item {{ $currentPage == 1 ? 'disabled' : '' }}">
+                    <a class="page-link hover-white" wire:click="gotoPage({{ $currentPage - 1 }})" wire:loading.attr="disabled" aria-label="Previous">
+                        <span aria-hidden="true">&lt;</span> {{-- Dấu nhỏ hơn cho trang trước --}}
+                    </a>
+                </li>
+    
+                {{-- Trang đầu tiên --}}
+                <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                    <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled">1</a>
+                </li>
+    
+                {{-- Hiển thị Dấu 3 chấm nếu cần trước các trang giữa --}}
+                @if ($currentPage > $visiblePages + 1)
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                @endif
+    
+                {{-- Hiển thị các trang giữa --}}
+                @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, 2), $totalPages - 1)) as $i)
+                    <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                        <a class="page-link hover-white" wire:click="gotoPage({{ $i }})" wire:loading.attr="disabled">{{ $i }}</a>
                     </li>
-
-                    {{-- Previous Page Link --}}
-                    <li class="page-item {{ $currentPage == 1 ? 'disabled' : '' }}">
-                        <a class="page-link hover-white" wire:click="gotoPage({{ $currentPage - 1 }})"
-                            wire:loading.attr="disabled" aria-label="Previous">
-                            <span aria-hidden="true">&lt;</span> {{-- Single less than sign for previous page --}}
-                        </a>
+                @endforeach
+    
+                {{-- Hiển thị Dấu 3 chấm nếu cần sau các trang giữa --}}
+                @if ($currentPage < $totalPages - $visiblePages)
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                @endif
+    
+                {{-- Trang cuối cùng --}}
+                @if ($totalPages > 1)
+                    <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                        <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})" wire:loading.attr="disabled">{{ $totalPages }}</a>
                     </li>
-
-                    {{-- First Page --}}
-                    <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
-                        <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled">1</a>
-                    </li>
-
-                    {{-- Leading Dots --}}
-                    @if ($currentPage > $visiblePages + 1)
-                        <li class="page-item disabled"><span class="page-link">...</span></li>
-                    @endif
-
-                    {{-- Middle Pages --}}
-                    @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, 2), $totalPages - 1)) as $i)
-                        @if ($i > 1 && $i < $totalPages)
-                            <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
-                                <a class="page-link hover-white" wire:click="gotoPage({{ $i }})"
-                                    wire:loading.attr="disabled">{{ $i }}</a>
-                            </li>
-                        @endif
-                    @endforeach
-
-                    {{-- Trailing Dots --}}
-                    @if ($currentPage < $totalPages - $visiblePages)
-                        <li class="page-item disabled"><span class="page-link">...</span></li>
-                    @endif
-
-                    {{-- Last Page --}}
-                    @if ($totalPages > 1)
-                        <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
-                            <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
-                                wire:loading.attr="disabled">{{ $totalPages }}</a>
-                        </li>
-                    @endif
-
-                    {{-- Next Page Link --}}
-                    <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
-                        <a class="page-link hover-white" wire:click="gotoPage({{ $currentPage + 1 }})"
-                            wire:loading.attr="disabled" aria-label="Next">
-                            <span aria-hidden="true">&gt;</span> {{-- Single greater than sign for next page --}}
-                        </a>
-                    </li>
-
-                    {{-- Last Page Link --}}
-                    <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
-                        <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
-                            wire:loading.attr="disabled" aria-label="Last">
-                            <span aria-hidden="true">»</span> {{-- Double greater than sign for last page --}}
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        @endif
+                @endif
+    
+                {{-- Liên kết đến Trang tiếp theo --}}
+                <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
+                    <a class="page-link hover-white" wire:click="gotoPage({{ $currentPage + 1 }})" wire:loading.attr="disabled" aria-label="Next">
+                        <span aria-hidden="true">&gt;</span> {{-- Dấu lớn hơn cho trang tiếp theo --}}
+                    </a>
+                </li>
+    
+                {{-- Liên kết đến Trang cuối --}}
+                <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
+                    <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})" wire:loading.attr="disabled" aria-label="Last">
+                        <span aria-hidden="true">»</span> {{-- Dấu kép lớn hơn cho trang cuối --}}
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    @endif
+    
 
 
 

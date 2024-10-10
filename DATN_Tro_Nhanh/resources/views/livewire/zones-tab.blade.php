@@ -36,7 +36,7 @@
                                         href="{{ route('client.client-details-zone', ['slug' => $zone->slug]) }}"
                                         class="text-dark hover-primary">{{ $zone->name }}</a></h2>
                                 <p class="font-weight-500 text-gray-light mb-0">{{ $zone->address }}</p>
-                                <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">{{ $zone->total_rooms }} Phòng
+                                <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">{{ $zone->total_zones }} Phòng
                                 </p>
                             </div>
                         </div>
@@ -44,58 +44,56 @@
                 @endforeach
             @endif
         </div>
-        @if (!$zones->isEmpty())
-            <div class="mt-4">
-                <ul class="pagination rounded-active justify-content-center">
-                    {{-- Previous Page Link --}}
-                    @if ($zones->onFirstPage())
-                        <li class="page-item disabled">
-                            <span class="page-link"><i class="far fa-angle-double-left"></i></span>
-                        </li>
-                    @else
-                        <li class="page-item">
-                            <a class="page-link" wire:click="gotoPage(1, 'khu-tro')" wire:loading.attr="disabled"><i
-                                    class="far fa-angle-double-left"></i></a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" wire:click="previousPage('khu-tro')" wire:loading.attr="disabled"><i
-                                    class="far fa-angle-left"></i></a>
-                        </li>
-                    @endif
+        @if (!$zones->isEmpty() && $zones->lastPage() > 1) {{-- Kiểm tra nếu không có dữ liệu và có nhiều hơn 1 trang --}}
+        <div class="mt-4">
+            <ul class="pagination rounded-active justify-content-center">
+                {{-- Previous Page Link --}}
+                @if ($zones->onFirstPage())
+                    <li class="page-item disabled">
+                        <span class="page-link"><i class="far fa-angle-double-left"></i></span>
+                    </li>
+                @else
+                    <li class="page-item">
+                        <a class="page-link" wire:click="gotoPage(1, 'phong')" wire:loading.attr="disabled"><i
+                                class="far fa-angle-double-left"></i></a>
+                    </li>
+                    {{-- <li class="page-item">
+                <a class="page-link" wire:click="previousPage('phong')" wire:loading.attr="disabled"><i
+                        class="far fa-angle-left"></i></a>
+            </li> --}}
+                @endif
 
-                    {{-- Pagination Elements --}}
-                    @foreach (range(1, $zones->lastPage()) as $page)
-                        @if ($page == $zones->currentPage())
-                            <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
-                        @elseif (
-                            $page == 1 ||
-                                $page == $zones->lastPage() ||
-                                ($page >= $zones->currentPage() - 1 && $page <= $zones->currentPage() + 1))
-                            <li class="page-item"><a class="page-link"
-                                    wire:click="gotoPage({{ $page }}, 'khu-tro')"
-                                    wire:loading.attr="disabled">{{ $page }}</a></li>
-                        @elseif ($page == $zones->currentPage() - 2 || $page == $zones->currentPage() + 2)
-                            <li class="page-item disabled"><span class="page-link">...</span></li>
-                        @endif
-                    @endforeach
-
-                    {{-- Next Page Link --}}
-                    @if ($zones->hasMorePages())
-                        <li class="page-item">
-                            <a class="page-link" wire:click="nextPage('khu-tro')" wire:loading.attr="disabled"><i
-                                    class="far fa-angle-right"></i></a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" wire:click="gotoPage({{ $zones->lastPage() }}, 'khu-tro')"
-                                wire:loading.attr="disabled"><i class="far fa-angle-double-right"></i></a>
-                        </li>
-                    @else
-                        <li class="page-item disabled">
-                            <span class="page-link"><i class="far fa-angle-double-right"></i></span>
-                        </li>
+                {{-- Pagination Elements --}}
+                @foreach (range(1, $zones->lastPage()) as $page)
+                    @if ($page == $zones->currentPage())
+                        <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
+                    @elseif (
+                        $page == 1 ||
+                            $page == $zones->lastPage() ||
+                            ($page >= $zones->currentPage() - 1 && $page <= $zones->currentPage() + 1) ||
+                            ($zones->currentPage() == 2 && $page <= 3) // Hiển thị trang 1, 2, 3 khi đang ở trang 2
+                    )
+                        <li class="page-item"><a class="page-link"
+                                wire:click="gotoPage({{ $page }}, 'phong')"
+                                wire:loading.attr="disabled">{{ $page }}</a></li>
+                    @elseif ($page == $zones->currentPage() - 2 || $page == $zones->currentPage() + 2)
+                        <li class="page-item disabled"><span class="page-link">...</span></li>
                     @endif
-                </ul>
-            </div>
-        @endif
+                @endforeach
+
+                {{-- Next Page Link --}}
+                @if ($zones->hasMorePages())
+                    <li class="page-item">
+                        <a class="page-link" wire:click="gotoPage({{ $zones->lastPage() }}, 'phong')"
+                            wire:loading.attr="disabled"><i class="far fa-angle-double-right"></i></a>
+                    </li>
+                @else
+                    <li class="page-item disabled">
+                        <span class="page-link"><i class="far fa-angle-double-right"></i></span>
+                    </li>
+                @endif
+            </ul>
+        </div>
+    @endif
     </div>
 </div>

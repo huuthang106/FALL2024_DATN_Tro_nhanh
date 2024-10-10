@@ -128,7 +128,7 @@
                 @endforeach
             @endif
         </div>
-        @if (!$rooms->isEmpty())
+        @if (!$rooms->isEmpty() && $rooms->lastPage() > 1) {{-- Kiểm tra nếu không có dữ liệu và có nhiều hơn 1 trang --}}
             <div class="mt-4">
                 <ul class="pagination rounded-active justify-content-center">
                     {{-- Previous Page Link --}}
@@ -141,10 +141,10 @@
                             <a class="page-link" wire:click="gotoPage(1, 'phong')" wire:loading.attr="disabled"><i
                                     class="far fa-angle-double-left"></i></a>
                         </li>
-                        <li class="page-item">
-                            <a class="page-link" wire:click="previousPage('phong')" wire:loading.attr="disabled"><i
-                                    class="far fa-angle-left"></i></a>
-                        </li>
+                        {{-- <li class="page-item">
+                    <a class="page-link" wire:click="previousPage('phong')" wire:loading.attr="disabled"><i
+                            class="far fa-angle-left"></i></a>
+                </li> --}}
                     @endif
 
                     {{-- Pagination Elements --}}
@@ -154,7 +154,9 @@
                         @elseif (
                             $page == 1 ||
                                 $page == $rooms->lastPage() ||
-                                ($page >= $rooms->currentPage() - 1 && $page <= $rooms->currentPage() + 1))
+                                ($page >= $rooms->currentPage() - 1 && $page <= $rooms->currentPage() + 1) ||
+                                ($rooms->currentPage() == 2 && $page <= 3) // Hiển thị trang 1, 2, 3 khi đang ở trang 2
+                        )
                             <li class="page-item"><a class="page-link"
                                     wire:click="gotoPage({{ $page }}, 'phong')"
                                     wire:loading.attr="disabled">{{ $page }}</a></li>
@@ -165,10 +167,6 @@
 
                     {{-- Next Page Link --}}
                     @if ($rooms->hasMorePages())
-                        <li class="page-item">
-                            <a class="page-link" wire:click="nextPage('phong')" wire:loading.attr="disabled"><i
-                                    class="far fa-angle-right"></i></a>
-                        </li>
                         <li class="page-item">
                             <a class="page-link" wire:click="gotoPage({{ $rooms->lastPage() }}, 'phong')"
                                 wire:loading.attr="disabled"><i class="far fa-angle-double-right"></i></a>

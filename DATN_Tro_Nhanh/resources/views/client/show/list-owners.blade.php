@@ -328,12 +328,26 @@
                                     <div
                                         class="card-img-overlay bg-dark-opacity-06 hover-image d-flex flex-column rounded-lg p-4">
                                         <div class="mt-auto">
-                                            <a href="tel:{{ $item->phone }}" class="text-white">
-                                                <span class="text-primary"><i class="fal fa-phone"></i></span>
-                                                <span class="d-inline-block ml-2">{{ $item->phone }}</span>
-                                            </a>
-                                            <a href="mailto:{{ $item->email }}"
-                                                class="d-block text-center text-white">{{ $item->email }}</a>
+                                            @if ($item->phone)
+                                                <div class="d-flex align-items-center mb-2">
+                                                    <!-- Sử dụng Flexbox để căn chỉnh -->
+                                                    <a href="tel:{{ $item->phone }}"
+                                                        class="text-white d-flex align-items-center">
+                                                        <span class="text-primary"><i class="fal fa-phone"></i></span>
+                                                        <span class="d-inline-block ml-2">{{ $item->phone }}</span>
+                                                    </a>
+                                                </div>
+                                            @endif
+                                            @if ($item->email)
+                                                <div class="d-flex align-items-center">
+                                                    <!-- Sử dụng Flexbox để căn chỉnh -->
+                                                    <a href="mailto:{{ $item->email }}"
+                                                        class="text-white d-flex align-items-center">
+                                                        <span class="text-primary"><i class="fal fa-envelope"></i></span>
+                                                        <span class="d-inline-block ml-2">{{ $item->email }}</span>
+                                                    </a>
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -387,60 +401,82 @@
                 </div>
 
 
-
                 <nav class="mt-4">
-                    @if ($users->count() > 0 && $users->lastPage() > 1)
-                        <nav class="mt-4">
-                            <ul class="pagination rounded-active justify-content-center">
-                                {{-- Trang đầu và Trang trước --}}
-                                @if ($users->onFirstPage())
-                                    <li class="page-item disabled">
-                                        <span class="page-link"><i class="far fa-angle-double-left"></i></span>
+                    @if ($users->hasPages())
+                        <div>
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination pagination-sm rounded-active justify-content-center flex-nowrap">
+                                    {{-- Liên kết Trang Đầu --}}
+                                    <li class="page-item {{ $users->onFirstPage() ? 'disabled' : '' }}">
+                                        <a class="page-link hover-white" href="{{ $users->url(1) }}" rel="first" aria-label="@lang('pagination.first')">
+                                            <i class="far fa-angle-double-left"></i>
+                                        </a>
                                     </li>
-                                    <li class="page-item disabled">
-                                        <span class="page-link"><i class="far fa-angle-left"></i></span>
+                
+                                    {{-- Liên kết Trang Trước --}}
+                                    <li class="page-item {{ $users->onFirstPage() ? 'disabled' : '' }}">
+                                        <a class="page-link hover-white" href="{{ $users->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')">
+                                            <i class="far fa-angle-left"></i>
+                                        </a>
                                     </li>
-                                @else
-                                    <li class="page-item">
-                                        <a class="page-link" href="{{ $users->url(1) }}"><i
-                                                class="far fa-angle-double-left"></i></a>
+                
+                                    @php
+                                        $totalPages = $users->lastPage();
+                                        $currentPage = $users->currentPage();
+                                        $visiblePages = 2; // Số trang hiển thị ở giữa
+                                        $startPage = max(2, min($currentPage - 1, $totalPages - $visiblePages + 1));
+                                        $endPage = min(max($currentPage + 1, $visiblePages), $totalPages - 1);
+                                    @endphp
+                
+                                    {{-- Hiển thị trang 1 --}}
+                                    <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                                        <a class="page-link hover-white" href="{{ $users->url(1) }}">1</a>
                                     </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="{{ $users->previousPageUrl() }}"><i
-                                                class="far fa-angle-left"></i></a>
+                
+                                    {{-- Dấu ba chấm đầu --}}
+                                    @if ($currentPage > $visiblePages + 1 && $totalPages > 2)
+                                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                                    @endif
+                
+                                    {{-- Các trang giữa --}}
+                                    @if ($totalPages > 2)
+                                        @foreach (range($startPage, $endPage) as $i)
+                                            <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                                <a class="page-link hover-white" href="{{ $users->url($i) }}">{{ $i }}</a>
+                                            </li>
+                                        @endforeach
+                                    @endif
+                
+                                    {{-- Dấu ba chấm cuối --}}
+                                    @if ($currentPage < $totalPages - $visiblePages && $totalPages > 2)
+                                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                                    @endif
+                
+                                    {{-- Hiển thị trang cuối --}}
+                                    @if ($totalPages > 1)
+                                        <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                                            <a class="page-link hover-white" href="{{ $users->url($totalPages) }}">{{ $totalPages }}</a>
+                                        </li>
+                                    @endif
+                
+                                    {{-- Liên kết Trang Tiếp --}}
+                                    <li class="page-item {{ !$users->hasMorePages() ? 'disabled' : '' }}">
+                                        <a class="page-link hover-white" href="{{ $users->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')">
+                                            <i class="far fa-angle-right"></i>
+                                        </a>
                                     </li>
-                                @endif
-
-                                {{-- Các trang số --}}
-                                @foreach ($users->getUrlRange(max($users->currentPage() - 2, 1), min($users->currentPage() + 2, $users->lastPage())) as $page => $url)
-                                    <li class="page-item {{ $page == $users->currentPage() ? 'active' : '' }}">
-                                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                
+                                    {{-- Liên kết Trang Cuối --}}
+                                    <li class="page-item {{ !$users->hasMorePages() ? 'disabled' : '' }}">
+                                        <a class="page-link hover-white" href="{{ $users->url($totalPages) }}" rel="last" aria-label="@lang('pagination.last')">
+                                            <i class="far fa-angle-double-right"></i>
+                                        </a>
                                     </li>
-                                @endforeach
-
-                                {{-- Trang tiếp và Trang cuối --}}
-                                @if ($users->hasMorePages())
-                                    <li class="page-item">
-                                        <a class="page-link" href="{{ $users->nextPageUrl() }}"><i
-                                                class="far fa-angle-right"></i></a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="{{ $users->url($users->lastPage()) }}"><i
-                                                class="far fa-angle-double-right"></i></a>
-                                    </li>
-                                @else
-                                    <li class="page-item disabled">
-                                        <span class="page-link"><i class="far fa-angle-right"></i></span>
-                                    </li>
-                                    <li class="page-item disabled">
-                                        <span class="page-link"><i class="far fa-angle-double-right"></i></span>
-                                    </li>
-                                @endif
-                            </ul>
-                        </nav>
+                                </ul>
+                            </nav>
+                        </div>
                     @endif
                 </nav>
-
                 {{-- <div class="text-center mt-2"> {{ $users->firstItem() }}-{{ $users->lastItem() }} trên
                     {{ $users->total() }} Kết quả</div> --}}
         </section>

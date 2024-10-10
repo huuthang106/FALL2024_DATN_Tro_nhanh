@@ -20,8 +20,10 @@ class ZoneSearch extends Component
     public $orderBy = 'name';
     public $orderAsc = true;
     public $timeFilter = '';
+    public $selectedZones = [];
     protected $queryString = ['search', 'perPage', 'orderBy', 'orderAsc'];
 
+    public $selectAll = false;
     public function updatedSearch()
     {
         $this->resetPage();
@@ -41,56 +43,58 @@ class ZoneSearch extends Component
         }
         $this->orderBy = $field;
     }
-    public $selectedZones = [];
 
-   public function deleteSelectedZones()
-{
-    $zonesWithRooms = Zone::whereIn('id', $this->selectedZones)
-        ->withCount('rooms')
-        ->having('rooms_count', '>', 0)
-        ->pluck('name')
-        ->toArray();
+    public function toggleZone($zoneId, $isChecked)
+    {
+        if ($isChecked) {
+            $this->selectedZones[] = $zoneId;
+        } else {
+            $this->selectedZones = array_diff($this->selectedZones, [$zoneId]);
+        }
+    }
+    public function toggleAllZones($isChecked)
+    {
+        $emptyZones = Zone::where('user_id', auth()->id())
+            ->whereDoesntHave('rooms')
+            ->pluck('id')
+            ->toArray();
+    
+        if ($isChecked) {
+            $this->selectedZones = $emptyZones;
+        } else {
+            $this->selectedZones = [];
+        }
+    }
+    public function deleteSelectedZones()
+    {
+        $zonesWithRooms = Zone::whereIn('id', $this->selectedZones)
+            ->withCount('rooms')
+            ->having('rooms_count', '>', 0)
+            ->pluck('name')
+            ->toArray();
 
-    if (!empty($zonesWithRooms)) {
-        $this->dispatch('zones-with-rooms', implode(', ', $zonesWithRooms));
-        return;
+        if (!empty($zonesWithRooms)) {
+            $this->dispatch('zones-with-rooms', implode(', ', $zonesWithRooms));
+            return;
+        }
+
+        $count = count($this->selectedZones);
+        $deletedZones = Zone::whereIn('id', $this->selectedZones)->pluck('name')->toArray();
+        Zone::whereIn('id', $this->selectedZones)->delete();
+
+        Notification::create([
+            'user_id' => Auth::id(),
+            'title' => 'Xóa khu vực',
+            'content' => 'Đã xóa thành công ' . $count . ' khu vực: ' . implode(', ', $deletedZones),
+            'data' => 'Khu Trọ đã được xóa thành công',
+            'type' => 'Khu Trọ đã được xóa thành công',
+            'is_read' => false
+        ]);
+
+        $this->selectedZones = [];
+        $this->dispatch('zones-deleted', ['message' => 'Đã xóa thành công ' . $count . ' khu vực.']);
     }
 
-    $count = count($this->selectedZones);
-    $deletedZones = Zone::whereIn('id', $this->selectedZones)->pluck('name')->toArray();
-    Zone::whereIn('id', $this->selectedZones)->delete();
-
-    // Tạo thông báo
-    Notification::create([
-        'user_id' => Auth::id(),
-        'title' => 'Xóa khu vực',
-        'content' => 'Đã xóa thành công ' . $count . ' khu vực: ' . implode(', ', $deletedZones),
-        'data' => 'Khu Trọ đã được xóa thành công',
-        'type' => 'Khu Trọ đã được xóa thành công',
-        'is_read' => false
-    ]);
-
-    $this->selectedZones = [];
-    $this->dispatch('zones-deleted', ['message' => 'Đã xóa thành công ' . $count . ' khu vực.']);
-}
-
-    // public function render()
-    // {
-    //     Log::info('Rendering with search: "' . $this->search . '"');
-
-    //     $query = Zone::where('name', 'like', '%'.$this->search.'%')
-    //                  ->orWhere('description', 'like', '%'.$this->search.'%')
-    //                  ->orWhere('address', 'like', '%'.$this->search.'%');
-
-    //     $zones = $query->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
-    //                    ->paginate($this->perPage);
-
-    //     Log::info('Found ' . $zones->count() . ' zones');
-
-    //     return view('livewire.zone-search', [
-    //         'zones' => $zones
-    //     ]);
-    // }
     public function render()
     {
         Log::info('Đang tìm kiếm với từ khóa: "' . $this->search . '"');
@@ -101,7 +105,7 @@ class ZoneSearch extends Component
                     ->orWhere('description', 'like', '%' . $this->search . '%')
                     ->orWhere('address', 'like', '%' . $this->search . '%');
             });
-        // Apply date filter if set
+
         if ($this->timeFilter) {
             $date = Carbon::now();
             switch ($this->timeFilter) {
@@ -124,25 +128,41 @@ class ZoneSearch extends Component
                     $date->subYear();
                     break;
             }
-            $query->whereDate('created_at', '>=', $date); // Lọc theo ngày tạo
+            $query->whereDate('created_at', '>=', $date);
         }
 
         $zones = $query->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
             ->paginate($this->perPage);
-        // Đếm số lượng phòng cho từng zone
+
         foreach ($zones as $zone) {
             $zone->room_count = Room::where('zone_id', $zone->id)->count();
         }
 
         Log::info('Tìm thấy ' . $zones->count() . ' khu vực');
+        $emptyZonesCount = Zone::where('user_id', auth()->id())
+        ->whereDoesntHave('rooms')
+        ->count();
 
-        return view('livewire.zone-search', [
-            'zones' => $zones
-        ]);
+    return view('livewire.zone-search', [
+        'zones' => $zones,
+        'emptyZonesCount' => $emptyZonesCount
+    ]);
     }
+
     public function getZoneImageUrl(Zone $zone): string
     {
         $image = $zone->images->first();
         return $image ? asset('assets/images/' . $image->filename) : asset('assets/images/properties-grid-08.jpg');
+    }
+    public function updatedSelectAll($value)
+    {
+        if ($value) {
+            $this->selectedZones = Zone::where('user_id', auth()->id())
+                ->whereDoesntHave('rooms')
+                ->pluck('id')
+                ->toArray();
+        } else {
+            $this->selectedZones = [];
+        }
     }
 }
