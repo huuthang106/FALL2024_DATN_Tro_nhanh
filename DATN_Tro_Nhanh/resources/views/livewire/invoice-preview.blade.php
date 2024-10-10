@@ -10,7 +10,7 @@
                             <div class="row mb-7">
                                 <div class="col-sm-6 col-12 mr-auto mb-6">
                                     <div class="d-flex align-items-center">
-                                        <img class="company-logo" src="{{ asset('assets/images/logo.png') }}"
+                                        <img class="company-logo" src="{{ asset('assets/images/tro-moi.png') }}"
                                             alt="company">
                                         <h3 class="mb-0 ml-2 fs-18">Tìm trọ nhanh</h3>
                                     </div>
@@ -20,7 +20,7 @@
                                             class="text-primary">#000{{ $bill->id }}</span></p>
                                 </div>
                                 <div class="col-sm-6 align-self-center mt-3">
-                                    <p class="mb-0">Quận Cái Răng, TP.Cần Thơ</p>
+                                    {{-- <p class="mb-0">Quận Cái Răng, TP.Cần Thơ</p> --}}
                                     @if ($bill && $bill->payer) <!-- Kiểm tra xem hóa đơn và người dùng có tồn tại không -->
                                         <p class="mb-0 text-truncate" style="max-width: 100%;">Địa chỉ: {{ $bill->payer->address }}</p> <!-- Hiển thị địa chỉ của người dùng -->
                                         <p class="mb-0">{{ $bill->payer->email }}</p> <!-- Hiển thị email của người dùng -->
