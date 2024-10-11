@@ -105,9 +105,9 @@
 
                                 <!--end::Export-->
                                 <!--begin::Add user-->
-                                <a type="button" href="{{ route('admin.trang-them-bang-gia') }}"
+                                {{-- <a type="button" href="{{ route('admin.trang-them-bang-gia') }}"
                                     class="btn btn-primary">
-                                    Thêm bảng giá</a>
+                                    Thêm bảng giá</a> --}}
 
                             </div>
                             <!--end::Toolbar-->
@@ -170,8 +170,8 @@
                                                 <td>{{ $priceList->duration_day }}</td>
                                                 <td>{{ $priceList->status === 1 ? 'Gói nâng cấp tài khoản' : ($priceList->status === 2 ? 'Gói tin vip' : 'Không xác định') }}
                                                 </td>
-                                                <td class="text-end text-nowrap">
-                                                    <a href="#"
+                                                {{-- <td class="text-end text-nowrap">
+                                                    <a href="{{ route('admin.danh-sach-bang-gia') }}"
                                                         class="btn btn-light btn-active-light-primary btn-sm"
                                                         data-kt-menu-trigger="click"
                                                         data-kt-menu-placement="bottom-end">Tác vụ
@@ -209,6 +209,45 @@
                                                     </div>
                                                     <!--end::Menu-->
 
+                                                </td> --}}
+                                                <td class="text-end">
+                                                    <div class="dropdown">
+                                                        <button
+                                                            class="btn btn-light btn-active-light-primary btn-sm dropdown-toggle"
+                                                            type="button" id="dropdownMenuButton-{{ $priceList->id }}"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            Tác vụ
+                                                            {{-- <span class="svg-icon svg-icon-5 m-0">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="26"
+                                                                    height="24" viewBox="0 0 24 24" fill="none">
+                                                                    <path
+                                                                        d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                                        fill="black" />
+                                                                </svg>
+                                                            </span> --}}
+                                                        </button>
+                                                        <ul class="dropdown-menu menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                                                            aria-labelledby="dropdownMenuButton-{{ $priceList->id }}">
+                                                            {{-- <li class="menu-item px-3">
+                                                                <a href="{{ route('admin.update-room-show', ['slug' => $room->slug]) }}"
+                                                                    class="dropdown-item menu-link px-3">Chỉnh sửa</a>
+                                                            </li> --}}
+                                                            <li class="menu-item px-3">
+                                                                <a href="{{ route('admin.chinh-sua-bang-gia', $priceList->id) }}"
+                                                                    class="menu-link px-3">Sửa</a>
+                                                            </li>
+                                                            <li class="menu-item px-3">
+                                                                <form
+                                                                action="{{ route('admin.destroy-price-list', $priceList->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="menu-link px-3 border-0 bg-transparent text-start">Xóa</button>
+                                                            </form>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -234,18 +273,7 @@
                                     @endif
 
                                     {{-- Previous Page Link --}}
-                                    @if ($priceLists->onFirstPage())
-                                        <li class="page-item disabled">
-                                            <span class="page-link"><i class="fas fa-angle-left"></i></span>
-                                        </li>
-                                    @else
-                                        <li class="page-item">
-                                            <a class="page-link" wire:click="previousPage"
-                                                wire:loading.attr="disabled">
-                                                <i class="fas fa-angle-left"></i>
-                                            </a>
-                                        </li>
-                                    @endif
+                                    
 
                                     {{-- Pagination Elements --}}
                                     @php
@@ -296,17 +324,7 @@
                                     @endif
 
                                     {{-- Next Page Link --}}
-                                    @if ($priceLists->hasMorePages())
-                                        <li class="page-item">
-                                            <a class="page-link" wire:click="nextPage" wire:loading.attr="disabled">
-                                                <i class="fas fa-angle-right"></i>
-                                            </a>
-                                        </li>
-                                    @else
-                                        <li class="page-item disabled">
-                                            <span class="page-link"><i class="fas fa-angle-right"></i></span>
-                                        </li>
-                                    @endif
+                                  
 
                                     {{-- Last Page Link --}}
                                     @if ($priceLists->hasMorePages())

@@ -60,17 +60,17 @@ class RoomAdminController extends Controller
         ]);
     }
     public function destroy($id)
-    {
-        $result = $this->roomAdminService->softDeleteRoom($id);
+{
+    $result = $this->roomAdminService->softDeleteRoom($id);
 
-        if ($result['status'] === 'error') {
-            // Nếu có người ở, quay lại trang hiện tại với thông báo lỗi
-            return redirect()->back()->with('error', $result['message']);
-        }
-
-        // Nếu xóa thành công, chuyển hướng đến trang thùng rác với thông báo thành công
-        return redirect()->route('admin.trash-room')->with('success', 'Phòng đã được chuyển vào thùng rác.');
+    if ($result['status'] === 'error') {
+        // Nếu có người ở, quay lại trang hiện tại với thông báo lỗi
+        return redirect()->back()->with('error', $result['message']);
     }
+
+    // Nếu xóa thành công, quay lại trang trước đó với thông báo thành công
+    return redirect()->back()->with('success', $result['message']);
+}
 
 
     public function trash()

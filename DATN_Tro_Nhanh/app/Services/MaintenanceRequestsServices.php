@@ -75,6 +75,7 @@ class MaintenanceRequestsServices
             'description' => $request->input('description'),
             'user_id' => $user_id, // Gán user_id cho yêu cầu
             'room_id'=> $request->input('room_id'),
+            'status' => 1,
         ]);
     
         return $maintenanceRequest;

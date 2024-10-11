@@ -6,7 +6,6 @@ use App\Http\Controllers\Owners\UserOwnersController;
 use App\Http\Controllers\Auth\PasswordController;
 
 
-// Route::get('danh-sach-hoa-don', [InvoiceAdminController::class, 'index'])->name('invoice-listing');
 Route::group(['prefix' => '', 'as' => 'profile.'], function () {
     Route::get('/', [UserOwnersController::class, 'indexProfileAdmin'])->name('profile-admin-index');
     Route::put('/sua-ho-so/{id}', [UserOwnersController::class, 'updateProfile'])->name('update-profile');

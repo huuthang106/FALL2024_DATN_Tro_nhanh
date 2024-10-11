@@ -131,11 +131,7 @@
                     </li>
 
                     {{-- Nút tới trang trước (<) --}}
-                    <li class="page-item {{ $trashedMaintenances->onFirstPage() ? 'disabled' : '' }}">
-                        <a class="page-link" wire:click.prevent="previousPage">
-                            <i class="fas fa-angle-left"></i>
-                        </a>
-                    </li>
+                  
 
                     {{-- Trang đầu tiên --}}
                     @if ($trashedMaintenances->currentPage() > 2)
@@ -167,13 +163,7 @@
                         </li>
                     @endif
 
-                    {{-- Nút tới trang kế tiếp (>) --}}
-                    <li
-                        class="page-item {{ $trashedMaintenances->currentPage() == $trashedMaintenances->lastPage() ? 'disabled' : '' }}">
-                        <a class="page-link" wire:click.prevent="nextPage">
-                            <i class="fas fa-angle-right"></i>
-                        </a>
-                    </li>
+                
 
                     {{-- Nút tới trang cuối cùng (>>) --}}
                     <li

@@ -206,12 +206,7 @@
                                 </li>
                     
                                 {{-- Liên kết Trang Trước --}}
-                                <li class="page-item {{ $utilities->onFirstPage() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="previousPage"
-                                        wire:loading.attr="disabled" rel="prev"
-                                        aria-label="@lang('pagination.previous')">
-                                        < </a>
-                                </li>
+                                
                     
                                 @php
                                     $totalPages = $utilities->lastPage();
@@ -256,12 +251,7 @@
                                 @endif
                     
                                 {{-- Liên kết Trang Tiếp --}}
-                                <li class="page-item {{ !$utilities->hasMorePages() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="nextPage"
-                                        wire:loading.attr="disabled" rel="next"
-                                        aria-label="@lang('pagination.next')"> >
-                                    </a>
-                                </li>
+                              
                     
                                 {{-- Nút về cuối --}}
                                 <li class="page-item {{ !$utilities->hasMorePages() ? 'disabled' : '' }}">

@@ -6,7 +6,6 @@ use App\Http\Controllers\Owners\IndexOwnersController;
 use App\Http\Controllers\Owners\RoomOwnersController;
 
 
-// Route::get('danh-sach-hoa-don', [InvoiceAdminController::class, 'index'])->name('invoice-listing');
 Route::group(['prefix' => ''], function () {
     Route::get('hoa-don-cua-ban', [IndexOwnersController::class, 'indexInvoice'])->name('invoice-listing');
     Route::get('danh-sach-hoa-don', [IndexOwnersController::class, 'indexBill'])->name('invoice-bill');

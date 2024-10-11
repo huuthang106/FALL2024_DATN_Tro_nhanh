@@ -35,6 +35,13 @@
                 <table id="invoice-list" class="table table-hover bg-white border rounded-lg">
                     <thead>
                         <tr role="row">
+
+
+                            {{-- @if ($currentUserRole != 1)  
+                                <th class="py-6">Người Nhận</th>
+                            @else --}}
+                            <th class="py-6 p-3" style="white-space: nowrap;">Tên Người Nhận</th>
+                            {{-- @endif --}}
                             <th class="py-6" style="white-space: nowrap;"q>Nội Dung</th>
                             <th class="py-6" style="white-space: nowrap;">Giá</th>
 
@@ -55,7 +62,7 @@
                                 <tr role="row">
 
                                     <td class="align-middle">
-                                        <div class="d-flex align-items-center">
+                                        <div class="d-flex align-items-center p-3">
                                             <a href="{{ route('owners.invoice-preview', $bill->id) }}">
 
                                                 <p class="align-self-center mb-0 user-name">{{ $bill->payer->name }}</p>
@@ -89,17 +96,18 @@
                                             <span class="badge badge-green text-capitalize">Đã thanh toán</span>
                                         @endif
                                     </td>
-                                    <td>
-                                        <a href="{{ route('owners.invoice-preview', $bill->id) }}" data-toggle="tooltip" title="Chỉnh sửa"
-                                            class="d-inline-block fs-18 text-muted hover-primary mr-5">
-                                            <i class="fal fa-pencil-alt"></i>
-                                        </a>
-                                    
-                                        <a href="#" data-toggle="tooltip" title="Xóa"
-                                            class="d-inline-block fs-18 text-muted hover-primary"
-                                            wire:click="deleteBill({{ $bill->id }})" onclick="return confirm('Bạn có chắc chắn muốn xóa hóa đơn này?');">
-                                            <i class="fal fa-trash-alt"></i>
-                                        </a>
+                                    <td class="pt-5">
+                                        <div class="d-flex flex-row justify-content-start align-items-center">
+                                            <a href="{{ route('owners.invoice-preview', $bill->id) }}" data-toggle="tooltip" title="Chỉnh sửa"
+                                                class="d-inline-block fs-18 text-muted hover-primary mr-2">
+                                                <i class="fal fa-pencil-alt btn btn-primary btn-sm"></i>
+                                            </a>
+                                            <a href="#" data-toggle="tooltip" title="Xóa"
+                                                class="d-inline-block fs-4 text-muted hover-primary"
+                                                onclick="confirmDelete({{ $bill->id }})">
+                                                <i class="fal fa-trash-alt btn btn-danger btn-sm"></i>
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -189,4 +197,33 @@
             $('#maintenance').modal('hide');
         });
     </script>
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+ <script>
+     function confirmDelete(billId) {
+         Swal.fire({
+             title: 'Bạn có chắc chắn muốn xóa?',
+             text: "Hành động này không thể hoàn tác!",
+             icon: 'warning',
+             showCancelButton: true,
+             confirmButtonColor: '#3085d6',
+             cancelButtonColor: '#d33',
+             confirmButtonText: 'Đồng ý, xóa!',
+             cancelButtonText: 'Hủy'
+         }).then((result) => {
+             if (result.isConfirmed) {
+                 // This will call the Livewire deleteBill function
+                 @this.deleteBill(billId);
+                 
+                 Swal.fire(
+                     'Đã xóa!',
+                     'Hóa đơn đã được xóa thành công.',
+                     'success'
+                 );
+             }
+         });
+     }
+ </script>
+ 
+ 
+    
 </div>

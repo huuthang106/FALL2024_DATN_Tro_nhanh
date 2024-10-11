@@ -19,7 +19,7 @@
                                 <option value="1_year">1 năm</option>
                             </select>
                         </div>
-                     
+
                     </div>
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
                         <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
@@ -53,7 +53,7 @@
                         </th>
                         <th class="py-6" style="white-space: nowrap;">Người gửi</th>
                         <th class="py-6" style="white-space: nowrap;">Tiêu đề</th>
-                        
+
                         <th class="py-6" style="white-space: nowrap;">Ngày gửi</th>
                         <th class="py-6" style="white-space: nowrap;">Trạng thái</th>
                         <th class="no-sort py-6" style="white-space: nowrap;">Rời Khỏi</th>
@@ -61,120 +61,116 @@
                 </thead>
 
                 @forelse ($maintenanceRequests as $item)
-                <tr class="shadow-hover-xs-2">
-                    <td class="checkbox-column align-middle py-4 pl-6" style="white-space: nowrap;">
-                        <label class="new-control new-checkbox checkbox-primary m-auto">
-                            <input type="checkbox" class="new-control-input child-chk select-customers-info">
-                        </label>
-                    </td>
-                    <td class="align-middle p-4 text-primary" style="white-space: nowrap;">{{ $item->user->name ?? 'N/A' }}
-                        <br><small>Phòng: {{ $item->room->title }}</small>
-                    </td>
-                    <td class="align-middle p-4" style="white-space: nowrap;">{{ $item->title }}</td>
-                 
-                    <td class="align-middle p-4" style="white-space: nowrap;">{{ $item->created_at->format('d-m-Y') }}</td>
-                    <td class="align-middle p-4" style="white-space: nowrap;">
-                        @if ($item->status == 1)
-                            <span class="badge badge-yellow text-capitalize font-weight-normal fs-12">Đang xử lý</span>
-                        @elseif ($item->status == 2)
-                            <span class="badge badge-green text-capitalize font-weight-normal fs-12">Đã duyệt</span>
-                        @elseif ($item->status == 3)
-                            <span class="badge badge-blue text-capitalize font-weight-normal fs-12">Đã hoàn thành</span>
-                        @else
-                            <span class="badge badge-light text-capitalize font-weight-normal fs-12">Không xác định</span>
-                        @endif
-                    </td>
-                    <td class="align-middle p-4" style="white-space: nowrap;">
-                        <button type="button" class="fs-18 text-muted hover-primary border-0 bg-transparent" 
-                                wire:click="deleteMaintenanceRequest({{ $item->id }})"
-                                onclick="">
-                            <i class="fal fa-trash-alt"></i>
-                        </button>
-                        {{-- <button type="button" class="fs-18 text-muted hover-primary border-0 bg-transparent" 
+                    <tr class="shadow-hover-xs-2">
+                        <td class="checkbox-column align-middle py-4 pl-6" style="white-space: nowrap;">
+                            <label class="new-control new-checkbox checkbox-primary m-auto">
+                                <input type="checkbox" class="new-control-input child-chk select-customers-info">
+                            </label>
+                        </td>
+                        <td class="align-middle p-4 text-primary" style="white-space: nowrap;">
+                            {{ $item->user->name ?? 'N/A' }}
+                            <br><small>Phòng: {{ $item->room->title }}</small>
+                        </td>
+                        <td class="align-middle p-4" style="white-space: nowrap;">{{ $item->title }}</td>
+
+                        <td class="align-middle p-4" style="white-space: nowrap;">
+                            {{ $item->created_at->format('d-m-Y') }}</td>
+                        <td class="align-middle p-4" style="white-space: nowrap;">
+                            @if ($item->status == 1)
+                                <span class="badge badge-yellow text-capitalize font-weight-normal fs-12">Đang xử
+                                    lý</span>
+                            @elseif ($item->status == 2)
+                                <span class="badge badge-green text-capitalize font-weight-normal fs-12">Đã duyệt</span>
+                            @elseif ($item->status == 3)
+                                <span class="badge badge-blue text-capitalize font-weight-normal fs-12">Đã hoàn
+                                    thành</span>
+                            @else
+                                <span class="badge badge-light text-capitalize font-weight-normal fs-12">Không xác
+                                    định</span>
+                            @endif
+                        </td>
+                        <td class="align-middle p-4" style="white-space: nowrap;">
+                            <button type="button" class="fs-18 text-muted hover-primary border-0 bg-transparent"
+                                wire:click="deleteMaintenanceRequest({{ $item->id }})" onclick="">
+                                <i class="fal fa-trash-alt"></i>
+                            </button>
+                            {{-- <button type="button" class="fs-18 text-muted hover-primary border-0 bg-transparent" 
                         wire:click="deleteMaintenanceRequest({{ $item->id }})"
                         onclick="v">
                         <i class="fa-solid fa-wrench"></i>
                 </button> --}}
-                    </td>
-                    
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="6" class="text-center py-4" style="white-space: nowrap;">Không có yêu cầu bảo trì nào!</td>
-                </tr>
-            @endforelse
+                        </td>
+
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="text-center py-4" style="white-space: nowrap;">Không có yêu cầu bảo
+                            trì nào!</td>
+                    </tr>
+                @endforelse
             </table>
         </div>
 
         @if ($maintenanceRequests->hasPages())
-        <nav aria-label="Page navigation">
-            <ul class="pagination pagination-sm rounded-active justify-content-center">
-                {{-- Liên kết Trang Đầu --}}
-                <li class="page-item {{ $maintenanceRequests->onFirstPage() ? 'disabled' : '' }}">
-                    <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled">
-                        &lt;&lt;
-                    </a>
-                </li>
-    
-                {{-- Liên kết Trang Trước --}}
-                <li class="page-item {{ $maintenanceRequests->onFirstPage() ? 'disabled' : '' }}">
-                    <a class="page-link hover-white" wire:click="previousPage" wire:loading.attr="disabled">
-                        &lt;
-                    </a>
-                </li>
-    
-                @php
-                    $window = 2; // Số trang hiển thị ở mỗi bên của trang hiện tại
-                    $totalPages = $maintenanceRequests->lastPage();
-                    $currentPage = $maintenanceRequests->currentPage();
-                    $startPage = max($currentPage - $window, 1);
-                    $endPage = min($currentPage + $window, $totalPages);
-                @endphp
-    
-                @if ($startPage > 1)
-                    <li class="page-item">
+            <nav aria-label="Page navigation">
+                <ul class="pagination pagination-sm rounded-active justify-content-center">
+
+                    {{-- Nút Trang Đầu --}}
+                    <li class="page-item {{ $maintenanceRequests->onFirstPage() ? 'disabled' : '' }}">
                         <a class="page-link hover-white" wire:click="gotoPage(1)"
-                            wire:loading.attr="disabled">1</a>
+                            wire:loading.attr="disabled">&lt;&lt;</a>
                     </li>
+
+                    @php
+                        $window = 1; // Hiển thị 1 trang trước và sau trang hiện tại
+                        $totalPages = $maintenanceRequests->lastPage();
+                        $currentPage = $maintenanceRequests->currentPage();
+                        $startPage = max($currentPage - $window, 1);
+                        $endPage = min($currentPage + $window, $totalPages);
+                    @endphp
+
+                    {{-- Nút Trang Đầu tiên --}}
+                    @if ($startPage > 1)
+                        <li class="page-item">
+                            <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled">1</a>
+                        </li>
+                    @endif
+
+                    {{-- Dấu ... trước --}}
                     @if ($startPage > 2)
                         <li class="page-item disabled"><span class="page-link">...</span></li>
                     @endif
-                @endif
-    
-                @for ($i = $startPage; $i <= $endPage; $i++)
-                    <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
-                        <a class="page-link hover-white" wire:click="gotoPage({{ $i }})"
-                            wire:loading.attr="disabled">{{ $i }}</a>
-                    </li>
-                @endfor
-    
-                @if ($endPage < $totalPages)
+
+                    {{-- Hiển thị các trang hiện tại và xung quanh --}}
+                    @for ($i = $startPage; $i <= $endPage; $i++)
+                        <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                            <a class="page-link hover-white" wire:click="gotoPage({{ $i }})"
+                                wire:loading.attr="disabled">{{ $i }}</a>
+                        </li>
+                    @endfor
+
+                    {{-- Dấu ... sau --}}
                     @if ($endPage < $totalPages - 1)
                         <li class="page-item disabled"><span class="page-link">...</span></li>
                     @endif
-                    <li class="page-item">
+
+                    {{-- Nút Trang Cuối cùng --}}
+                    @if ($endPage < $totalPages)
+                        <li class="page-item">
+                            <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
+                                wire:loading.attr="disabled">{{ $totalPages }}</a>
+                        </li>
+                    @endif
+
+                    {{-- Nút Trang Cuối --}}
+                    <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
                         <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
-                            wire:loading.attr="disabled">{{ $totalPages }}</a>
+                            wire:loading.attr="disabled">&gt;&gt;</a>
                     </li>
-                @endif
-    
-                {{-- Liên kết Trang Tiếp --}}
-                <li class="page-item {{ !$maintenanceRequests->hasMorePages() ? 'disabled' : '' }}">
-                    <a class="page-link hover-white" wire:click="nextPage" wire:loading.attr="disabled">
-                        &gt;
-                    </a>
-                </li>
-    
-                {{-- Liên kết Trang Cuối --}}
-                <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
-                    <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
-                        wire:loading.attr="disabled">
-                        &gt;&gt;
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    @endif
+                </ul>
+            </nav>
+        @endif
+
 
 
 

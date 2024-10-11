@@ -350,22 +350,22 @@
                                 <span class="menu-title">Đơn tố cáo</span>
                             </a>
                         </div>
-                        <div class="menu-item" data-nav-item="Danh sách tiện ích">
+                        {{-- <div class="menu-item">
                             <a class="menu-link {{ request()->routeIs('admin.show-acreage') ? 'selected' : '' }}"
                                 href="{{ route('admin.show-acreage') }}" style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Danh sách tiện ích</span>
+                                <span class="menu-title">Danh sách diện tích</span>
                             </a>
-                        </div>
+                        </div> --}}
                         <div class="menu-item">
                             <a class="menu-link {{ request()->routeIs('admin.danh-sach-tien-ich') ? 'selected' : '' }}"
                                 href="{{ route('admin.danh-sach-tien-ich') }}" style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Danh sách diện tích</span>
+                                <span class="menu-title">Danh sách tiện ích</span>
                             </a>
                         </div>
                     </div>

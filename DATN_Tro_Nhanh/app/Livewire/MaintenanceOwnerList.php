@@ -24,14 +24,11 @@ class MaintenanceOwnerList extends Component
 
     public function render()
     {
-        $userId = Auth::id(); // Lấy ID của người dùng hiện tại
-
-        // Lấy các phòng mà người dùng sở hữu
-        $rooms = Room::where('user_id', $userId)->pluck('id'); // Giả sử bạn có model Room
-    
-        // Xây dựng truy vấn để lọc yêu cầu bảo trì của các phòng thuộc người dùng hiện tại
+        $userId = Auth::id();
+        $rooms = Room::where('user_id', $userId)->pluck('id');
+        
         $query = MaintenanceRequest::whereIn('room_id', $rooms);
-    
+        
         // Lọc theo từ khóa tìm kiếm
         if ($this->search) {
             $query->where(function ($q) {
@@ -39,44 +36,35 @@ class MaintenanceOwnerList extends Component
                   ->orWhere('description', 'like', '%' . $this->search . '%');
             });
         }
-
+    
         // Lọc theo khoảng thời gian
         if ($this->timeFilter) {
-            $date = Carbon::now()->copy(); // Tạo một bản sao mới của Carbon
-            switch ($this->timeFilter) {
-                case '1_day':
-                    $date->subDays(1);
-                    break;
-                case '7_day':
-                    $date->subDays(7);
-                    break;
-                case '1_month':
-                    $date->subMonth();
-                    break;
-                case '3_month':
-                    $date->subMonths(3);
-                    break;
-                case '6_month':
-                    $date->subMonths(6);
-                    break;
-                case '1_year':
-                    $date->subYear();
-                    break;
+            $date = match($this->timeFilter) {
+                '1_day' => Carbon::now()->subDay(),
+                '7_day' => Carbon::now()->subDays(7),
+                '1_month' => Carbon::now()->subMonth(),
+                '3_month' => Carbon::now()->subMonths(3),
+                '6_month' => Carbon::now()->subMonths(6),
+                '1_year' => Carbon::now()->subYear(),
+                default => null,
+            };
+            
+            if ($date) {
+                $query->where('created_at', '>=', $date);
             }
-            $query->where('created_at', '>=', $date);
         }
-
+    
         // Thêm điều kiện lọc theo ngày bắt đầu và kết thúc nếu có
         if ($this->startDate) {
-            $query->where('created_at', '>=', Carbon::parse($this->startDate));
+            $query->where('created_at', '>=', Carbon::parse($this->startDate)->startOfDay());
         }
-
+    
         if ($this->endDate) {
-            $query->where('created_at', '<=', Carbon::parse($this->endDate));
+            $query->where('created_at', '<=', Carbon::parse($this->endDate)->endOfDay());
         }
-
-        $maintenanceRequests = $query->paginate($this->perPage);
-
+    
+        $maintenanceRequests = $query->orderBy('created_at', 'desc')->paginate($this->perPage);
+    
         return view('livewire.maintenance-owner-list', compact('maintenanceRequests'));
     }
 

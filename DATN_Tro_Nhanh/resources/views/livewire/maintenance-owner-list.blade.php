@@ -53,6 +53,7 @@
                         </th>
                         <th class="py-6" style="white-space: nowrap;">Người Yêu Cầu</th>
                         <th class="py-6" style="white-space: nowrap;">Số Phòng</th>
+                        <th class="py-6" style="white-space: nowrap;">Nội Dung</th>
                         <th class="py-6" style="white-space: nowrap;">Ngày</th>
                         <th class="py-6" style="white-space: nowrap;">Trạng thái</th>
                         <th class="no-sort py-6" style="white-space: nowrap;">Rời Khỏi</th>
@@ -70,7 +71,8 @@
                         {{ $item->user->name ?? 'N/A' }}
                         <br><small>Yêu cầu: {{ $item->title }}</small>
                     </td>
-                    <td class="align-middle p-4" style="white-space: nowrap;">{{ $item->room->title ?? 'N/A' }}</td>
+                    <td class="align-middle p-4" style="white-space: nowrap;">{{ $item->room->id ?? 'N/A' }}</td>
+                    <td class="align-middle p-4" style="white-space: nowrap;">{{ Str::limit($item->description, 40) }}</td>
                     <td class="align-middle p-4" style="white-space: nowrap;">
                         {{ $item->created_at->format('d-m-Y') }}</td>
                     <td class="align-middle p-4" style="white-space: nowrap;">
@@ -112,13 +114,8 @@
                 </a>
             </li>
 
-            {{-- Nút quay lại trang trước (<) --}}
-            <li class="page-item {{ $maintenanceRequests->onFirstPage() ? 'disabled' : '' }}">
-                <a class="page-link" wire:click="previousPage" wire:loading.attr="disabled"
-                    href="#pagination-section">
-                    <i class="fas fa-angle-left"></i>
-                </a>
-            </li>
+                    {{-- Nút tới trang trước (<) --}}
+                  
 
             {{-- Hiển thị các trang chỉ trên kích thước md trở lên --}}
             @if ($maintenanceRequests->currentPage() > 2)
@@ -155,12 +152,7 @@
                 </li>
             @endif
 
-            {{-- Nút tới trang kế tiếp (>) --}}
-            <li class="page-item {{ $maintenanceRequests->currentPage() == $maintenanceRequests->lastPage() ? 'disabled' : '' }}">
-                <a class="page-link" wire:click="nextPage" wire:loading.attr="disabled" href="#pagination-section">
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
+                 
 
             {{-- Nút tới trang cuối cùng (>>) --}}
             <li class="page-item {{ $maintenanceRequests->currentPage() == $maintenanceRequests->lastPage() ? 'disabled' : '' }}">

@@ -53,7 +53,7 @@ class AcreageTable extends Component
         }
 
         return view('livewire.acreage-table', [
-            'acreages' => $query->paginate(10),
+            'acreages' => $query->paginate(1),
         ]);
     }public function deleteAcreage($id)
     {

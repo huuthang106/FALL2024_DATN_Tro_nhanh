@@ -105,9 +105,9 @@
 
                                 <!--end::Export-->
                                 <!--begin::Add user-->
-                                <a type="button" href="{{ route('admin.trang-them-bang-gia') }}"
+                                {{-- <a type="button" href="{{ route('admin.trang-them-bang-gia') }}"
                                     class="btn btn-primary">
-                                    Thêm Diện Tích</a>
+                                    Thêm Diện Tích</a> --}}
 
                             </div>
                             <!--end::Toolbar-->

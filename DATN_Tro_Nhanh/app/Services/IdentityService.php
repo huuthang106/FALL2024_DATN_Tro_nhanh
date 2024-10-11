@@ -49,7 +49,11 @@ class IdentityService
         // đến đay nó sẽ kết thúc câu lệnh nhưng hiện tại nó lại đi qua thằng loi 1
         return $registration;
     }
-
+    public function getIdIdentity($userId)
+    {
+        $identity = Identity::where('user_id', $userId)->first();
+        return $identity ? $identity->id : null;
+    }
 
 
 

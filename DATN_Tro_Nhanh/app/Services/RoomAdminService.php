@@ -302,6 +302,7 @@ class RoomAdminService
     public function softDeleteRoom($id)
     {
         // Tìm phòng theo ID
+        // Tìm phòng theo ID
         $room = Room::findOrFail($id);
 
         // Kiểm tra xem room_id có trong bảng residents hay không
@@ -315,13 +316,13 @@ class RoomAdminService
             ];
         }
 
-        // Nếu không có người ở, tiến hành xóa mềm
-        $room->delete();
+        // Nếu không có người ở, tiến hành xóa hoàn toàn
+        $room->forceDelete();
 
         // Trả về thông báo thành công
         return [
             'status' => 'success',
-            'message' => 'Phòng đã được chuyển vào thùng rác thành công.'
+            'message' => 'Phòng đã được xóa thành công.'
         ];
     }
 

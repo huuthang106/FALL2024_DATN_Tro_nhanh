@@ -79,4 +79,6 @@ class BillList extends Component
         Bill::destroy($billId);
         session()->flash('message', 'Hóa đơn đã được xóa thành công.');
     }
+    
+    
 }
