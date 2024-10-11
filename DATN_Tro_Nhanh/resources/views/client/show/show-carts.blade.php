@@ -1,17 +1,7 @@
 @extends('layouts.main')
 @section('titleUs', 'Giỏ Hàng | TRỌ NHANH')
 @section('contentUs')
-<!-- @if (session('error'))
-         <div class="alert alert-danger">
-             {{ session('error') }}
-         </div>
-     @endif
 
-     @if (session('success'))
-         <div class="alert alert-success">
-             {{ session('success') }}
-         </div>
-     @endif  -->
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
             <div class="mb-6">
@@ -116,9 +106,9 @@
                         </tbody>
                     </table>
                 </div>
-                <div id="no-checkbox-selected" class="alert alert-danger mt-4" style="display: none;">
+                {{-- <div id="no-checkbox-selected" class="alert alert-danger mt-4" style="display: none;">
                     Vui lòng chọn ít nhất một gói để thanh toán.
-                </div>
+                </div> --}}
                 <div class="row mt-4">
                     <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start">
                         <input type="hidden" name="total_price" id="total-price-input" value="">
@@ -354,7 +344,13 @@
 
                 if (!anyChecked) {
                     event.preventDefault(); // Ngăn chặn form submit
-                    noCheckboxSelected.style.display = 'block'; // Hiển thị thông báo
+                    // noCheckboxSelected.style.display = 'block'; // Hiển thị thông báo
+                    Swal.fire({
+        icon: 'warning',
+        title: 'Cảnh báo!',
+        text: 'Vui lòng chọn ít nhất một gói để thanh toán.',
+        confirmButtonText: 'OK'
+    });
                 } else {
                     noCheckboxSelected.style.display = 'none'; // Ẩn thông báo nếu có checkbox được chọn
                 }
@@ -405,11 +401,10 @@
             });
         });
     </script>
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        window.successMessage = "{{ session('success') }}";
-        window.errorMessage = "{{ session('error') }}";
-        console.log('Error message:', window.errorMessage); // Add this line
-    </script>
-    <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
+      {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script>
+          window.successMessage = "{{ session('success') }}";
+      </script>
+      <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
+      <script src="{{ asset('assets/js/alert-report.js') }}"></script> --}}
 @endpush

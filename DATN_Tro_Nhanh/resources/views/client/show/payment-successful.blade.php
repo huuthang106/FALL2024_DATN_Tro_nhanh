@@ -2,7 +2,7 @@
 @section('titleUs', 'Trang chủ trọ nhanh')
 @section('contentUs')
 
-    @if (session('error'))
+    {{-- @if (session('error'))
          <div class="alert alert-danger">
              {{ session('error') }}
          </div>
@@ -12,7 +12,7 @@
          <div class="alert alert-success">
              {{ session('success') }}
          </div>
-     @endif 
+     @endif  --}}
 
     <main id="content">
         <section class="pb-4 shadow-xs-5">
@@ -198,4 +198,6 @@
     <script>
         window.successMessage = "{{ session('success') }}";
     </script>
+    <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
+    <script src="{{ asset('assets/js/alert-report.js') }}"></script>
 @endpush
