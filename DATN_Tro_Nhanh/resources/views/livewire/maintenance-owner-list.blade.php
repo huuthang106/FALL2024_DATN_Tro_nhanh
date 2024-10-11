@@ -88,7 +88,7 @@
                         <form action="{{ route('owners.destroy-maintenances', $item->id) }}" method="POST" class="d-inline-block mb-0">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="fs-18 text-muted hover-primary border-0 bg-transparent">
+                            <button type="submit" class="btn btn-danger btn-sm">
                                 <i class="fal fa-trash-alt"></i>
                             </button>
                         </form>

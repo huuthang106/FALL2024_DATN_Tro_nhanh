@@ -50,5 +50,31 @@
 </body>
 @stack('scriptsAdmin')
 <script src="{{ asset('assets/js/save-dropdown-nav-admin.js') }}"></script>
+<script>
+    document.getElementById('navSearch').addEventListener('input', function() {
+        const query = this.value.toLowerCase();
+        const menuItems = document.querySelectorAll('.menu-item');
 
+        menuItems.forEach(item => {
+            const navItem = item.getAttribute('data-nav-item');
+            if (navItem) {
+                if (navItem.toLowerCase().includes(query)) {
+                    item.style.display = 'block';
+                    // Mở dropdown nếu có
+                    const dropdown = item.querySelector('.menu-sub');
+                    if (dropdown) {
+                        dropdown.classList.add('show'); // Thêm lớp để mở dropdown
+                    }
+                } else {
+                    item.style.display = 'none';
+                    // Đóng dropdown nếu có
+                    const dropdown = item.querySelector('.menu-sub');
+                    if (dropdown) {
+                        dropdown.classList.remove('show'); // Loại bỏ lớp để đóng dropdown
+                    }
+                }
+            }
+        });
+    });
+</script>
 </html>

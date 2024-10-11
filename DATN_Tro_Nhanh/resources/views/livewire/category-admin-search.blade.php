@@ -33,7 +33,7 @@
                                         <button type="submit" class="btn btn-primary">Tìm kiếm</button>
                                     </div>
                                 </form> --}}
-                                <input type="text" wire:model.lazy="search" wire:keydown.debounce.300ms="$refresh"
+                                <input type="text" wire:model.lazy="search" wire:keydown.debounce.500ms="$refresh"
                                     name="search" placeholder="Tìm kiếm loại phòng"
                                     class="form-control form-control-solid w-250px ps-14" />
                             </div>
@@ -206,11 +206,8 @@
                                     <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                         
                                         <th class="min-w-125px">Tên loại</th>
-                                        <th class="min-w-125px">Trạng thái</th>
-                                        {{-- <th class="min-w-125px">Billing</th>
-                                    <th class="min-w-125px">Product</th>
-                                    <th class="min-w-125px">Created Date</th> --}}
-                                        <th class="text-end min-w-70px">Thao tác</th>
+                                        <th class="min-w-100px">Trạng thái</th>
+                                        <th class="text-end min-w-70px">Tác vụ</th>
                                     </tr>
                                     <!--end::Table row-->
                                 </thead>
@@ -244,48 +241,30 @@
                                                 <!--end::Status=-->
                                                 <!--begin::Action=-->
                                                 <td class="text-end">
-                                                    <a href="#"
-                                                        class="btn btn-light btn-active-light-primary btn-sm"
-                                                        data-kt-menu-trigger="click"
-                                                        data-kt-menu-placement="bottom-end">Thao
-                                                        tác
-                                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                                                        <span class="svg-icon svg-icon-5 m-0">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                height="24" viewBox="0 0 24 24" fill="none">
-                                                                <path
-                                                                    d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                                                    fill="black" />
-                                                            </svg>
-                                                        </span>
-                                                        <!--end::Svg Icon--></a>
-                                                    <!--begin::Menu-->
-                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                                                        data-kt-menu="true">
-                                                        <!--begin::Menu item-->
-                                                        {{-- <div class="menu-item px-3">
-                                                    <a href="../../demo8/dist/apps/subscriptions/add.html"
-                                                        class="menu-link px-3">Xem chi tiết</a>
-                                                </div> --}}
-                                                        <!--end::Menu item-->
-                                                        <!--begin::Menu item-->
-                                                        <div class="menu-item px-3">
+                                                    <div class="dropdown">
+                                                        <button
+                                                            class="btn btn-light btn-active-light-primary btn-sm dropdown-toggle"
+                                                            type="button" id="dropdownMenuButton-{{ $category->id }}"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            Tác vụ
+                                                        </button>
+                                                        <ul class="dropdown-menu menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                                                            aria-labelledby="dropdownMenuButton-{{ $category->id }}">
+                                                            <li class="menu-item px-3">
                                                             <a href="{{ route('admin.edit-category', ['slug' => $category->slug]) }}"
-                                                                class="menu-link px-3">Chỉnh sửa</a>
-                                                        </div>
-                                                        <!--end::Menu item-->
-                                                        <!--begin::Menu item-->
-                                                        <div class="menu-item px-3">
+                                                            class="menu-link px-3">Chỉnh sửa</a>
+                                                            </li> 
+                                                            <li class="menu-item px-3">
                                                             <form
-                                                                action="{{ route('admin.destroy-category', $category->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    class="menu-link px-3 border-0 bg-transparent text-start">Xóa</button>
-                                                            </form>
-                                                        </div>
-                                                        <!--end::Menu item-->
+                                                                    action="{{ route('admin.destroy-category', $category->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="menu-link px-3 border-0 bg-transparent text-start">Xóa</button>
+                                                                </form>
+                                                            </li>
+                                                        </ul>
                                                     </div>
                                                     <!--end::Menu-->
                                                 </td>
@@ -301,95 +280,95 @@
                         <!--end::Card body-->
                         <!-- Hiển thị các liên kết phân trang -->
                         {{-- Phân trang --}}
-                        @if ($categories->hasPages())
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination rounded-active justify-content-center">
-                                    {{-- Nút về đầu --}}
-                                    {{-- <li class="page-item {{ $categories->onFirstPage() ? 'disabled' : '' }}">
-                                        <a class="page-link hover-white" wire:click="gotoPage(1)"
-                                            wire:loading.attr="disabled" aria-label="First Page">
-                                            << </a>
-                                    </li> --}}
+                        @if ($categories->total() > 0)
+                    @if ($categories->hasPages())
+                        <nav aria-label="Page navigation" class="mb-2">
+                            <ul class="pagination pagination-sm rounded-active justify-content-center">
+                                {{-- Liên kết Trang Đầu --}}
+                                <li class="page-item {{ $categories->onFirstPage() ? 'disabled' : '' }}">
+                                    <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                        wire:loading.attr="disabled" rel="first" aria-label="@lang('pagination.first')"><i
+                                            class="fas fa-angle-double-left"></i></a>
+                                </li>
 
-                                    {{-- Liên kết Trang Trước --}}
-                                    <li class="page-item {{ $categories->onFirstPage() ? 'disabled' : '' }}">
-                                        <a class="page-link hover-white" wire:click="previousPage"
-                                            wire:loading.attr="disabled" rel="prev"
-                                            aria-label="@lang('pagination.previous')">
-                                            < </a>
-                                    </li>
+                                {{-- Liên kết Trang Trước --}}
+                                <li class="page-item {{ $categories->onFirstPage() ? 'disabled' : '' }}">
+                                    <a class="page-link hover-white" wire:click="previousPage"
+                                        wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')"><i
+                                            class="fas fa-angle-left"></i></a>
+                                </li>
 
-                                    @php
-                                        $totalPages = $categories->lastPage();
-                                        $currentPage = $categories->currentPage();
-                                        $visiblePages = 3; // Số trang hiển thị ở giữa
-                                    @endphp
+                                @php
+                                    $totalPages = $categories->lastPage();
+                                    $currentPage = $categories->currentPage();
+                                    $visiblePages = 3; // Số trang giữa
+                                @endphp
 
-                                    {{-- Trang đầu --}}
-                                    <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
-                                        <a class="page-link hover-white" wire:click="gotoPage(1)"
-                                            wire:loading.attr="disabled">1</a>
-                                    </li>
+                                {{-- Trang đầu --}}
+                                <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                                    <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                        wire:loading.attr="disabled">1</a>
+                                </li>
 
-                                    {{-- Dấu ba chấm đầu --}}
-                                    @if ($currentPage > $visiblePages)
-                                        <li class="page-item disabled"><span class="page-link">...</span></li>
-                                    @endif
+                                {{-- Dấu ba chấm đầu --}}
+                                @if ($currentPage > 3)
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                @endif
 
-                                    {{-- Các trang giữa --}}
-                                    @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
-                                        @if ($i > 1 && $i < $totalPages)
-                                            <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
-                                                <a class="page-link hover-white"
-                                                    wire:click="gotoPage({{ $i }})"
-                                                    wire:loading.attr="disabled">{{ $i }}</a>
-                                            </li>
-                                        @endif
-                                    @endforeach
-
-                                    {{-- Dấu ba chấm cuối --}}
-                                    @if ($currentPage < $totalPages - ($visiblePages - 1))
-                                        <li class="page-item disabled"><span class="page-link">...</span></li>
-                                    @endif
-
-                                    {{-- Trang cuối --}}
-                                    @if ($totalPages > 1)
-                                        <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                                {{-- Các trang giữa --}}
+                                @for ($i = max(2, $currentPage - 1); $i <= min($totalPages - 1, $currentPage + 1); $i++)
+                                    @if ($i > 1 && $i < $totalPages)
+                                        <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
                                             <a class="page-link hover-white"
-                                                wire:click="gotoPage({{ $totalPages }})"
-                                                wire:loading.attr="disabled">{{ $totalPages }}</a>
+                                                wire:click="gotoPage({{ $i }})"
+                                                wire:loading.attr="disabled">{{ $i }}</a>
                                         </li>
                                     @endif
+                                @endfor
 
-                                    {{-- Liên kết Trang Tiếp --}}
-                                    <li class="page-item {{ !$categories->hasMorePages() ? 'disabled' : '' }}">
-                                        <a class="page-link hover-white" wire:click="nextPage"
-                                            wire:loading.attr="disabled" rel="next"
-                                            aria-label="@lang('pagination.next')"> >
-                                        </a>
+                                {{-- Dấu ba chấm cuối --}}
+                                @if ($currentPage < $totalPages - 2)
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                @endif
+
+                                {{-- Trang cuối --}}
+                                @if ($totalPages > 1)
+                                    <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                                        <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
+                                            wire:loading.attr="disabled">{{ $totalPages }}</a>
                                     </li>
+                                @endif
 
-                                    {{-- Nút về cuối --}}
-                                    {{-- <li class="page-item {{ !$categories->hasMorePages() ? 'disabled' : '' }}">
-                                        <a class="page-link hover-white"
-                                            wire:click="gotoPage({{ $categories->lastPage() }})"
-                                            wire:loading.attr="disabled" aria-label="Last Page"> >>
-                                        </a>
-                                    </li> --}}
-                                </ul>
-                            </nav>
+                                {{-- Liên kết Trang Tiếp --}}
+                                <li class="page-item {{ !$categories->hasMorePages() ? 'disabled' : '' }}">
+                                    <a class="page-link hover-white" wire:click="nextPage"
+                                        wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')"><i
+                                            class="fas fa-angle-right"></i></a>
+                                </li>
+
+                                {{-- Liên kết Trang Cuối --}}
+                                <li class="page-item {{ !$categories    ->hasMorePages() ? 'disabled' : '' }}">
+                                    <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
+                                        wire:loading.attr="disabled" rel="last" aria-label="@lang('pagination.last')"><i
+                                            class="fas fa-angle-double-right"></i></i></i></a>
+                                </li>
+                            </ul>
+                        </nav>
+
                         @endif
-                        {{-- <div class="text-center mt-2">{{ $categories->firstItem() }}-{{ $categories->lastItem() }}
-                            của
-                            {{ $categories->total() }} kết quả
-                        </div> --}}
-                    </div>
-                    <!--end::Card-->
-                    <!--begin::Modals-->
-                    <!--begin::Modal - Adjust Balance-->
-                    <div class="modal fade" id="kt_subscriptions_export_modal" tabindex="-1" aria-hidden="true">
-                        <!--begin::Modal dialog-->
-                        <div class="modal-dialog modal-dialog-centered mw-650px">
+
+                        @endif
+                            {{-- <div class="text-center mt-2">{{ $categories->firstItem() }}-{{ $categories->lastItem() }}
+                                của
+                                {{ $categories->total() }} kết quả
+                            </div> --}}
+                        </div>
+                        <!--end::Card-->
+                        <!--begin::Modals-->
+                        <!--begin::Modal - Adjust Balance-->
+                        <div class="modal fade" id="kt_subscriptions_export_modal" tabindex="-1" aria-hidden="true">
+                            <!--begin::Modal dialog-->
+                            <div class="modal-dialog modal-dialog-centered mw-650px">
                             <!--begin::Modal content-->
                             <div class="modal-content">
                                 <!--begin::Modal header-->

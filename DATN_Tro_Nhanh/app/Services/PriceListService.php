@@ -9,9 +9,11 @@ class PriceListService
 {
 
     public const Nangcaptaikhoan = 1;
+    public const Hoatdong = 1;
+    
     public function getLocations()
     {
-        return Location::all();
+        return Location::where('status', self::Hoatdong)->get();
     }
     public function createPriceList(array $data)
     {

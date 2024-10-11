@@ -133,21 +133,11 @@
         <!--end::User-->
         <!--begin::Aside search-->
         <div class="aside-search py-5">
-            <!--begin::Search-->
-            <div id="kt_header_search" class="d-flex align-items-center" data-kt-search-keypress="true"
-                data-kt-search-min-length="2" data-kt-search-enter="enter" data-kt-search-layout="menu"
-                data-kt-menu-trigger="auto" data-kt-menu-permanent="true" data-kt-menu-placement="bottom-start"
-                data-kt-menu-flip="bottom">
-                <!--begin::Form-->
-                <form data-kt-search-element="form" class="w-100 position-relative" autocomplete="off">
-                    <!--begin::Hidden input(Added to disable form autocomplete)-->
-                    <input type="hidden" />
-                    <!--end::Hidden input-->
+    <!--begin::Search-->
+                <div id="kt_header_search" class="d-flex align-items-center position-relative">
                     <!--begin::Icon-->
-                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                     <span class="svg-icon svg-icon-2 search-icon position-absolute top-50 translate-middle-y ms-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                            fill="none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1"
                                 transform="rotate(45 17.0365 15.1223)" fill="black" />
                             <path
@@ -155,43 +145,14 @@
                                 fill="black" />
                         </svg>
                     </span>
-                    <!--end::Svg Icon-->
                     <!--end::Icon-->
                     <!--begin::Input-->
-                    <input type="text" class="form-control ps-13 fs-7 h-40px" name="search" value=""
-                        placeholder="Quick Search" data-kt-search-element="input" />
+                    <input type="text" id="navSearch" class="form-control ps-13 fs-7 h-40px" name="search" value=""
+                        placeholder="Tìm kiếm chức năng" />
                     <!--end::Input-->
-                    <!--begin::Spinner-->
-                    <span class="position-absolute top-50 end-0 translate-middle-y lh-0 d-none me-5"
-                        data-kt-search-element="spinner">
-                        <span class="spinner-border h-15px w-15px align-middle text-gray-400"></span>
-                    </span>
-                    <!--end::Spinner-->
-                    <!--begin::Reset-->
-                    <span
-                        class="btn btn-flush btn-active-color-primary position-absolute top-50 end-0 translate-middle-y lh-0 d-none me-4"
-                        data-kt-search-element="clear">
-                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-                        <span class="svg-icon svg-icon-2 svg-icon-lg-1 me-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none">
-                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
-                                    transform="rotate(-45 6 17.3137)" fill="black" />
-                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
-                                    transform="rotate(45 7.41422 6)" fill="black" />
-                            </svg>
-                        </span>
-                        <!--end::Svg Icon-->
-                    </span>
-                    <!--end::Reset-->
-                </form>
-                <!--end::Form-->
-                <!--begin::Menu-->
-
-                <!--end::Menu-->
+                </div>
+                <!--end::Search-->
             </div>
-            <!--end::Search-->
-        </div>
         <!--end::Aside search-->
         <!--end::Aside user-->
     </div>
@@ -211,7 +172,7 @@
                         <span class="menu-section text-light text-uppercase fs-8 ls-1">Quản lý dữ liệu</span>
                     </div>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" data-nav-item="Thống kê">
                     <a class="menu-link text-decoration-none {{ request()->routeIs('admin.admin') ? 'selected' : '' }}"
                         href="{{ route('admin.admin') }}">
                         <span class="menu-icon">
@@ -233,7 +194,7 @@
                         <span class="menu-title">Thống kê</span>
                     </a>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" date-nav-item="Duyệt bài">
                     <a class="menu-link text-decoration-none {{ request()->routeIs('admin.accept-room') ? 'selected' : '' }}"
                         href="{{ route('admin.accept-room') }}">
                         <span class="menu-icon">
@@ -248,7 +209,7 @@
                         <span class="menu-title">Duyệt bài</span>
                     </a>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" data-nav-item="Danh sách chủ trọ">
                     <a class="menu-link text-decoration-none {{ request()->routeIs('admin.listOwner') ? 'selected' : '' }}"
                         href="{{ route('admin.listOwner') }}">
                         <span class="menu-icon">
@@ -263,7 +224,7 @@
                         <span class="menu-title">Danh Sách Chủ Trọ</span>
                     </a>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" data-nav-item="Danh sách rút tiền">
                     <a class="menu-link text-decoration-none {{ request()->routeIs('admin.list-payout') ? 'selected' : '' }}"
                         href="{{ route('admin.list-payout') }}">
                         <span class="menu-icon">
@@ -284,7 +245,7 @@
                         <span class="menu-title">Danh Sách Rút Tiền</span>
                     </a>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" data-nav-item="Danh sách người dùng">
                     <a class="menu-link text-decoration-none {{ request()->routeIs('admin.list-user') ? 'selected' : '' }}"
                         href="{{ route('admin.list-user') }}">
                         <span class="menu-icon">
@@ -299,7 +260,7 @@
                         <span class="menu-title">Danh Sách Người Dùng</span>
                     </a>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" data-nav-item="Danh sách blog">
                     <a class="menu-link text-decoration-none {{ request()->routeIs('admin.show-blog-admin') ? 'selected' : '' }}"
                         href="{{ route('admin.show-blog-admin') }}">
                         {{-- <a class="menu-link text-decoration-none" href="{{ route('admin.admin.profile-user') }}"> --}}
@@ -316,7 +277,7 @@
                         <span class="menu-title">Danh Sách Blog</span>
                     </a>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" data-nav-item="Danh sách khu trọ">
                     <a class="menu-link text-decoration-none {{ request()->routeIs('admin.danh-sach-khutro') ? 'selected' : '' }}"
                         href="{{ route('admin.danh-sach-khutro') }}">
                         <span class="menu-icon">
@@ -332,7 +293,7 @@
                         <span class="menu-title">Danh Sách Khu Trọ</span>
                     </a>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item" data-nav-item="Danh sách phòng trọ">
                     <a class="menu-link text-decoration-none {{ request()->routeIs('admin.room-available-all') ? 'selected' : '' }}"
                         href="{{ route('admin.room-available-all') }}">
                         <span class="menu-icon">
@@ -371,7 +332,7 @@
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
-                        <div class="menu-item">
+                        <div class="menu-item" data-nav-item="Đơn đăng ký">
                             <a class="menu-link text-decoration-none {{ request()->routeIs('admin.list-registers') ? 'selected' : '' }}"
                                 href="{{ route('admin.list-registers') }}">
                                 <span class="menu-bullet">
@@ -380,7 +341,7 @@
                                 <span class="menu-title">Đơn đăng ký</span>
                             </a>
                         </div>
-                        <div class="menu-item">
+                        <div class="menu-item" data-nav-item="Đơn tố cáo">
                             <a class="menu-link text-decoration-none {{ request()->routeIs('admin.show-report') ? 'selected' : '' }}"
                                 href="{{ route('admin.show-report') }}">
                                 <span class="menu-bullet">
@@ -389,7 +350,7 @@
                                 <span class="menu-title">Đơn tố cáo</span>
                             </a>
                         </div>
-                        <div class="menu-item">
+                        <div class="menu-item" data-nav-item="Danh sách tiện ích">
                             <a class="menu-link {{ request()->routeIs('admin.show-acreage') ? 'selected' : '' }}"
                                 href="{{ route('admin.show-acreage') }}" style="text-decoration: none;">
                                 <span class="menu-bullet">
@@ -412,7 +373,7 @@
 
                 <div id="gia-menu" data-kt-menu-trigger="click"
                     class="menu-item menu-accordion menu-item-persistent">
-                    <span class="menu-link">
+                    <span class="menu-link" data-nav-item="Vị trí gói">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -459,7 +420,7 @@
 
                 <div id="loai-phong-menu" data-kt-menu-trigger="click"
                     class="menu-item menu-accordion menu-item-persistent">
-                    <span class="menu-link">
+                    <span class="menu-link" data-nav-item="Loại">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -514,7 +475,7 @@
 
                 <div id="goi-tin-menu" data-kt-menu-trigger="click"
                     class="menu-item menu-accordion menu-item-persistent">
-                    <span class="menu-link">
+                    <span class="menu-link" data-nav-item="Gói tin">
                         <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -535,7 +496,7 @@
                                 <span class="menu-title">Danh sách</span>
                             </a>
                         </div>
-                        <div class="menu-item">
+                        <!-- <div class="menu-item">
                             <a class="menu-link {{ request()->routeIs('admin.add-location-show') ? 'selected' : '' }}"
                                 href="{{ route('admin.add-location-show') }}" style="text-decoration: none;">
                                 <span class="menu-bullet">
@@ -543,7 +504,7 @@
                                 </span>
                                 <span class="menu-title">Thêm gói tin</span>
                             </a>
-                        </div>
+                        </div> -->
                         <div class="menu-item">
                             <a class="menu-link {{ request()->routeIs('admin.trash-location') ? 'selected' : '' }}"
                                 href="{{ route('admin.trash-location') }}" style="text-decoration: none;">

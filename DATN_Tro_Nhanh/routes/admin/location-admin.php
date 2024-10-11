@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\LocationAdminController;
 
 
 Route::prefix('goi-tin')->group(function () {
-    Route::get('/danh-sach', [LocationAdminController::class, 'show_location'])->name('show-location');
+    Route::get('/danh-sach-goi-tin', [LocationAdminController::class, 'show_location'])->name('show-location');
     Route::delete('/xoa-goi-tin/{id}', [LocationAdminController::class, 'destroy'])->name('destroy-location');
     Route::put('/khoi-phuc-goi/{id}', [LocationAdminController::class, 'restore'])->name('restore-location');
     Route::get('/thung-rac-goi', [LocationAdminController::class, 'trash'])->name('trash-location');

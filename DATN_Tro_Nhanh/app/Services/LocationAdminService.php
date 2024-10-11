@@ -11,7 +11,7 @@ class LocationAdminService
     private const status = 1;
     public function showLocation($perPage = 10)
     {
-        $locations = Location::where('status', self::status)->paginate($perPage);
+        $locations = Location::paginate($perPage);
         return $locations;
     }
 
