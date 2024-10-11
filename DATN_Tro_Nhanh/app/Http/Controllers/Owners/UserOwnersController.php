@@ -45,6 +45,7 @@ class UserOwnersController extends Controller
     {
         try {
             $data = $request->validated();
+            Log::info($data);
             $result = $this->profileService->updateProfileBySlug($id, $data);
 
             if (is_array($result) && isset($result['success'])) {
