@@ -125,7 +125,7 @@
                                                 <!--begin::Number-->
                                                 <div class="d-flex align-items-center">
                                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
-                                                        {{-- <span class="svg-icon svg-icon-3 svg-icon-success me-2">
+                                                    {{-- <span class="svg-icon svg-icon-3 svg-icon-success me-2">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                                 height="24" viewBox="0 0 24 24" fill="none">
                                                                 <rect opacity="0.5" x="13" y="6" width="13" height="2"
@@ -149,7 +149,7 @@
                                             </div>
                                             <!--end::Stat-->
                                             <!--begin::Stat-->
-                                            <div
+                                            {{-- <div
                                                 class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                                 <!--begin::Number-->
                                                 <div class="d-flex align-items-center">
@@ -173,10 +173,10 @@
                                                 <!--begin::Label-->
                                                 <div class="fw-bold fs-6 text-gray-400">Bài đăng</div>
                                                 <!--end::Label-->
-                                            </div>
+                                            </div> --}}
                                             <!--end::Stat-->
                                             <!--begin::Stat-->
-                                            <div
+                                            {{-- <div
                                                 class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                                 <!--begin::Number-->
                                                 <div class="d-flex align-items-center">
@@ -200,7 +200,7 @@
                                                 <!--begin::Label-->
                                                 <div class="fw-bold fs-6 text-gray-400">Blog</div>
                                                 <!--end::Label-->
-                                            </div>
+                                            </div> --}}
                                             <!--end::Stat-->
                                         </div>
                                         <!--end::Stats-->
@@ -271,8 +271,7 @@
                     <!--begin::Content-->
                     <div id="kt_account_profile_details" class="collapse show">
                         <!--begin::Form-->
-                        <form class="form" method="POST"
-                            action="{{ route('owners.profile.update-profile', $user->id) }}"
+                        <form class="form" method="POST" action="{{ route('owners.profile.update-profile', $user->id) }}"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -324,7 +323,7 @@
                                         </div>
                                         <!--end::Image input-->
                                         <!--begin::Hint-->
-                                        <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                                        <div class="form-text">Các loại tệp được phép: png, jpg, jpeg.</div>
                                         <!--end::Hint-->
                                     </div>
                                     <!--end::Col-->
@@ -617,7 +616,7 @@
                 </div>
                 <!--end::Basic info-->
                 <!--begin::Sign-in Method-->
-                <div class="card mb-5 mb-xl-10">
+                {{-- <div class="card mb-5 mb-xl-10">
                     <!--begin::Card header-->
                     <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
                         data-bs-target="#kt_account_signin_method">
@@ -750,7 +749,7 @@
                         <!--end::Card body-->
                     </div>
                     <!--end::Content-->
-                </div>
+                </div> --}}
                 <!--end::Sign-in Method-->
 
 
@@ -1648,8 +1647,7 @@
                                 <!--begin::Details-->
                                 <div class="me-3">
                                     <span class="text-muted fs-7 mb-1">5 mins</span>
-                                    <a href="#"
-                                        class="fs-5 fw-bolder text-gray-900 text-hover-primary ms-1">You</a>
+                                    <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary ms-1">You</a>
                                 </div>
                                 <!--end::Details-->
                                 <!--begin::Avatar-->
@@ -1705,8 +1703,7 @@
                                 <!--begin::Details-->
                                 <div class="me-3">
                                     <span class="text-muted fs-7 mb-1">2 Hours</span>
-                                    <a href="#"
-                                        class="fs-5 fw-bolder text-gray-900 text-hover-primary ms-1">You</a>
+                                    <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary ms-1">You</a>
                                 </div>
                                 <!--end::Details-->
                                 <!--begin::Avatar-->
@@ -1765,8 +1762,7 @@
                                 <!--begin::Details-->
                                 <div class="me-3">
                                     <span class="text-muted fs-7 mb-1">4 Hours</span>
-                                    <a href="#"
-                                        class="fs-5 fw-bolder text-gray-900 text-hover-primary ms-1">You</a>
+                                    <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary ms-1">You</a>
                                 </div>
                                 <!--end::Details-->
                                 <!--begin::Avatar-->
@@ -1822,8 +1818,7 @@
                                 <!--begin::Details-->
                                 <div class="me-3">
                                     <span class="text-muted fs-7 mb-1">Just now</span>
-                                    <a href="#"
-                                        class="fs-5 fw-bolder text-gray-900 text-hover-primary ms-1">You</a>
+                                    <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary ms-1">You</a>
                                 </div>
                                 <!--end::Details-->
                                 <!--begin::Avatar-->
@@ -2359,8 +2354,8 @@
                     <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                         <span class="svg-icon svg-icon-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none">
                                 <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
                                     transform="rotate(-45 6 17.3137)" fill="black" />
                                 <rect x="7.41422" y="6" width="16" height="2" rx="1"
@@ -2478,8 +2473,8 @@
                                     <!--end::Avatar-->
                                     <!--begin::Details-->
                                     <div class="ms-5">
-                                        <a href="#"
-                                            class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Max Smith</a>
+                                        <a href="#" class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">Max
+                                            Smith</a>
                                         <div class="fw-bold text-muted">max@kt.com</div>
                                     </div>
                                     <!--end::Details-->
@@ -4433,10 +4428,12 @@
     <base href="{{ asset('..') }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Trang chỉnh sửa hồ sơ trên Trọ Nhanh cho phép người dùng cập nhật thông tin cá nhân của họ một cách dễ dàng và nhanh chóng. Quản lý hồ sơ của bạn và đảm bảo thông tin luôn chính xác.">
+    <meta name="description"
+        content="Trang chỉnh sửa hồ sơ trên Trọ Nhanh cho phép người dùng cập nhật thông tin cá nhân của họ một cách dễ dàng và nhanh chóng. Quản lý hồ sơ của bạn và đảm bảo thông tin luôn chính xác.">
     <meta name="keywords" content="chỉnh sửa hồ sơ, cập nhật thông tin, thông tin cá nhân, quản lý hồ sơ, Trọ Nhanh">
     <meta property="og:title" content="Chỉnh Sửa Hồ Sơ - Trọ Nhanh">
-    <meta property="og:description" content="Chỉnh sửa hồ sơ cá nhân của bạn trên Trọ Nhanh để cập nhật thông tin mới nhất và quản lý thông tin cá nhân của bạn một cách hiệu quả.">
+    <meta property="og:description"
+        content="Chỉnh sửa hồ sơ cá nhân của bạn trên Trọ Nhanh để cập nhật thông tin mới nhất và quản lý thông tin cá nhân của bạn một cách hiệu quả.">
     <meta property="og:image" content="{{ asset('assets/images/logo-nav.png') }}">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:site_name" content="Trọ Nhanh">
@@ -4486,4 +4483,69 @@
     <script>
         window.successMessage = "{{ session('success') }}";
     </script>
+    <script>
+        $(document).ready(function() {
+            $('form').on('submit', function(e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function() {
+                        Swal.fire({
+                            title: 'Đang xử lý...',
+                            text: 'Vui lòng đợi trong giây lát!',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            allowEnterKey: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
+                    },
+                    success: function(response) {
+                        Swal.close();
+                        if (response.success) {
+                            Swal.fire({
+                                title: 'Thành công!',
+                                text: 'Cập nhật tài khoản thành công.',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href =
+                                        '{{ route('admin.admin.setting-profile') }}';
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Lỗi!',
+                                text: response.message ||
+                                    'Đã xảy ra lỗi khi cập nhật tài khoản.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    },
+                    error: function(xhr) {
+                        Swal.close();
+                        let errorMessage = 'Đã xảy ra lỗi khi xử lý yêu cầu.';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMessage = xhr.responseJSON.message;
+                        }
+                        Swal.fire({
+                            title: 'Lỗi!',
+                            text: errorMessage,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            });
+        });
+    </script>'
 @endpush

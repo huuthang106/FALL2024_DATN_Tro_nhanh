@@ -43,90 +43,90 @@ class BlogServices
 
     // In BlogServices.php
     public function handleBlogCreation(Request $request)
-{
-    try {
-        // Lấy dữ liệu từ request
-        $data = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]);
-
-        // Xác thực người dùng
-        $userId = Auth::id();
-        if (!$userId) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Người dùng chưa đăng nhập.'
+    {
+        try {
+            // Lấy dữ liệu từ request
+            $data = $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'required|string',
+                'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
             ]);
-        }
 
-        // Kiểm tra và tải lên ảnh
-        $images = $request->file('images');
-        $uploadedFilenames = [];
-        $violentImages = [];
-
-        foreach ($images as $image) {
-            $filename = time() . '_' . $image->getClientOriginalName();
-            
-            // Kiểm tra ảnh bạo lực
-            $imageContent = base64_encode(file_get_contents($image->getRealPath()));
-            $violenceScore = $this->checkViolentContent($imageContent);
-
-            if ($violenceScore > 0.5) {
-                $violentImages[] = $filename;
-            } else {
-                // Lưu ảnh nếu an toàn
-                $image->move(public_path('assets/images'), $filename);
-                $uploadedFilenames[] = $filename;
+            // Xác thực người dùng
+            $userId = Auth::id();
+            if (!$userId) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Người dùng chưa đăng nhập.'
+                ]);
             }
-        }
 
-        // Nếu có ảnh bạo lực, trả về lỗi
-        if (!empty($violentImages)) {
-            // Xóa các ảnh đã upload
-            foreach ($uploadedFilenames as $filename) {
-                $path = public_path('assets/images/' . $filename);
-                if (file_exists($path)) {
-                    unlink($path);
+            // Kiểm tra và tải lên ảnh
+            $images = $request->file('images');
+            $uploadedFilenames = [];
+            $violentImages = [];
+
+            foreach ($images as $image) {
+                $filename = time() . '_' . $image->getClientOriginalName();
+
+                // Kiểm tra ảnh bạo lực
+                $imageContent = base64_encode(file_get_contents($image->getRealPath()));
+                $violenceScore = $this->checkViolentContent($imageContent);
+
+                if ($violenceScore > 0.5) {
+                    $violentImages[] = $filename;
+                } else {
+                    // Lưu ảnh nếu an toàn
+                    $image->move(public_path('assets/images'), $filename);
+                    $uploadedFilenames[] = $filename;
                 }
             }
 
+            // Nếu có ảnh bạo lực, trả về lỗi
+            if (!empty($violentImages)) {
+                // Xóa các ảnh đã upload
+                foreach ($uploadedFilenames as $filename) {
+                    $path = public_path('assets/images/' . $filename);
+                    if (file_exists($path)) {
+                        unlink($path);
+                    }
+                }
+
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Phát hiện ảnh không phù hợp: ' . implode(', ', $violentImages) . '. Vui lòng kiểm tra lại ảnh của bạn.'
+                ]);
+            }
+
+            // Tạo blog mới
+            $blog = new Blog();
+            $blog->title = $data['title'];
+            $blog->description = $data['description'];
+            $blog->user_id = $userId;
+            $blog->save();
+
+            // Tạo slug cho blog và lưu vào cơ sở dữ liệu
+            $slug = $this->createSlug($data['title'], $blog->id);
+            $blog->slug = $slug;
+            $blog->save();
+
+            // Lưu ảnh liên kết với blog
+            foreach ($uploadedFilenames as $filename) {
+                Image::create([
+                    'filename' => $filename,
+                    'blog_id' => $blog->id
+                ]);
+            }
+
+            return $blog;
+        } catch (\Exception $e) {
+            Log::error('Lỗi khi xử lý tạo blog: ' . $e->getMessage());
             return response()->json([
                 'status' => 'error',
-                'message' => 'Phát hiện ảnh không phù hợp: ' . implode(', ', $violentImages) . '. Vui lòng kiểm tra lại ảnh của bạn.'
+                'message' => 'Có lỗi xảy ra khi tạo blog: ' . $e->getMessage()
             ]);
         }
-
-        // Tạo blog mới
-        $blog = new Blog();
-        $blog->title = $data['title'];
-        $blog->description = $data['description'];
-        $blog->user_id = $userId;
-        $blog->save();
-
-        // Tạo slug cho blog và lưu vào cơ sở dữ liệu
-        $slug = $this->createSlug($data['title'], $blog->id);
-        $blog->slug = $slug;
-        $blog->save();
-
-        // Lưu ảnh liên kết với blog
-        foreach ($uploadedFilenames as $filename) {
-            Image::create([
-                'filename' => $filename,
-                'blog_id' => $blog->id
-            ]);
-        }
-
-        return $blog;
-    } catch (\Exception $e) {
-        Log::error('Lỗi khi xử lý tạo blog: ' . $e->getMessage());
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Có lỗi xảy ra khi tạo blog: ' . $e->getMessage()
-        ]);
     }
-}
 
     private function checkViolentContent($imageContent)
     {
@@ -148,7 +148,7 @@ class BlogServices
             $result = json_decode($response->getBody(), true);
             $concepts = $result['outputs'][0]['data']['concepts'] ?? [];
             $violenceScore = 0;
-            
+
             $inappropriateContent = ['gore', 'explicit', 'drug', 'suggestive', 'weapon'];
 
             foreach ($concepts as $concept) {
@@ -156,18 +156,18 @@ class BlogServices
                     $violenceScore += $concept['value'];
                 }
             }
-            
+
             return $violenceScore;
         } catch (\Exception $e) {
             Log::error("Clarifai API error: " . $e->getMessage());
             throw $e;
         }
     }
-// Trong BlogService.php
-public function getTopViewedBlogs($limit = 3)
-{
-    return Blog::orderBy('view', 'desc')->take($limit)->get();
-}
+    // Trong BlogService.php
+    public function getTopViewedBlogs($limit = 3)
+    {
+        return Blog::orderBy('view', 'desc')->take($limit)->get();
+    }
 
 
     private function uploadImages(Request $request)
@@ -191,20 +191,20 @@ public function getTopViewedBlogs($limit = 3)
         return $uploadedImages;
     }
     //    private function uploadImages(Request $request)
-//    {
-//        $uploadedImages = [];
+    //    {
+    //        $uploadedImages = [];
 
     //        if ($request->hasFile('images')) {
-//            foreach ($request->file('images') as $image) {
-//                $filename = time() . '_' . $image->getClientOriginalName();
-//                $path = 'images'; // Thay đổi thư mục lưu trữ nếu cần
-//                $image->storeAs($path, $filename, 'public'); // Sử dụng Storage facade
-//                $uploadedImages[] = $filename;
-//            }
-//        }
+    //            foreach ($request->file('images') as $image) {
+    //                $filename = time() . '_' . $image->getClientOriginalName();
+    //                $path = 'images'; // Thay đổi thư mục lưu trữ nếu cần
+    //                $image->storeAs($path, $filename, 'public'); // Sử dụng Storage facade
+    //                $uploadedImages[] = $filename;
+    //            }
+    //        }
 
     //        return $uploadedImages;
-//    }
+    //    }
 
 
     // In CreateBlogRequest.php
@@ -231,27 +231,27 @@ public function getTopViewedBlogs($limit = 3)
     public function updateBlog(Request $request, $id)
     {
         DB::beginTransaction();
-    
+
         try {
             $blog = Blog::findOrFail($id);
-    
+
             $data = $request->validate([
                 'title' => 'required|string|max:255',
                 'description' => 'required|string',
                 'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
-    
+
             $blog->title = $data['title'];
             $blog->description = $data['description'];
-    
+
             if ($blog->isDirty('title')) {
                 $blog->slug = $this->createSlug($data['title'], $blog->id);
             }
-    
+
             $blog->save();
-    
+
             $violentImages = [];
-    
+
             if ($request->hasFile('images')) {
                 // Xóa ảnh cũ
                 $oldImages = Image::where('blog_id', $blog->id)->get();
@@ -262,23 +262,23 @@ public function getTopViewedBlogs($limit = 3)
                     }
                     $oldImage->delete();
                 }
-    
+
                 // Xử lý ảnh mới
                 foreach ($request->file('images') as $image) {
                     // Kiểm tra ảnh bạo lực
                     $imageContent = base64_encode(file_get_contents($image->getRealPath()));
                     $violenceScore = $this->checkViolentContent($imageContent);
-    
+
                     if ($violenceScore > 0.5) {
                         $violentImages[] = $image->getClientOriginalName();
                     } else {
                         $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
                         $extension = $image->getClientOriginalExtension();
                         $filename = $blog->id . '-' . $originalName . '-' . time() . '.' . $extension;
-    
+
                         $destinationPath = public_path('assets/images');
                         $image->move($destinationPath, $filename);
-    
+
                         Image::create([
                             'filename' => $filename,
                             'blog_id' => $blog->id,
@@ -286,7 +286,7 @@ public function getTopViewedBlogs($limit = 3)
                     }
                 }
             }
-    
+
             if (!empty($violentImages)) {
                 DB::rollBack();
                 return [
@@ -294,7 +294,7 @@ public function getTopViewedBlogs($limit = 3)
                     'message' => 'Phát hiện ảnh không phù hợp: ' . implode(', ', $violentImages) . '. Vui lòng kiểm tra lại ảnh của bạn.'
                 ];
             }
-    
+
             DB::commit();
             return ['success' => true, 'message' => 'Blog đã được cập nhật thành công!'];
         } catch (\Exception $e) {
@@ -302,7 +302,7 @@ public function getTopViewedBlogs($limit = 3)
             return ['success' => false, 'message' => 'Có lỗi xảy ra khi cập nhật blog: ' . $e->getMessage()];
         }
     }
-    
+
     public function getAllBlogss(int $perPage = 10, $searchTerm = null)
     {
         try {
@@ -354,27 +354,27 @@ public function getTopViewedBlogs($limit = 3)
     {
         try {
             $userId = Auth::id(); // Lấy ID của người dùng hiện tại
-    
+
             // Xây dựng truy vấn để lấy blog có trạng thái 1
             $query = Blog::query()->where('status', 1);
-    
+
             if ($searchTerm) {
                 $query->where(function ($q) use ($searchTerm) {
                     $q->where('title', 'like', '%' . $searchTerm . '%')
                         ->orWhere('description', 'like', '%' . $searchTerm . '%');
                 });
             }
-    
+
             // Sắp xếp các blog theo lượt xem từ cao đến thấp
             $query->orderBy('view', 'desc')->orderBy('created_at', 'desc');
-    
+
             // Phân trang và trả về kết quả
             return $query->paginate($perPage);
         } catch (\Exception $e) {
             return null; // Xử lý lỗi nếu có
         }
     }
-    
+
 
 
 
@@ -400,13 +400,36 @@ public function getTopViewedBlogs($limit = 3)
             return 0;
         }
     }
-    public function softDeleteBlogs($id)
+    // public function softDeleteBlogs($id)
+    // {
+    //     $blog = Blog::findOrFail($id);
+    //     $blog->delete();
+    //     return $blog;
+    // }
+    public function hardDeleteBlog($id)
     {
-        $blog = Blog::findOrFail($id);
-        $blog->delete();
-        return $blog;
-    }
+        try {
+            $blog = Blog::findOrFail($id);
 
+            // Xóa các hình ảnh liên quan
+            $images = Image::where('blog_id', $blog->id)->get();
+            foreach ($images as $image) {
+                $imagePath = public_path('assets/images/' . $image->filename);
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
+                $image->delete();
+            }
+
+            // Xóa blog
+            $blog->forceDelete();
+
+            return true;
+        } catch (\Exception $e) {
+            \Log::error('Lỗi khi xóa blog: ' . $e->getMessage());
+            return false;
+        }
+    }
     public function getTrashedBlogs($searchTerm = null, $timeFilter = null)
     {
         $query = Blog::onlyTrashed();
@@ -415,7 +438,7 @@ public function getTopViewedBlogs($limit = 3)
         if ($searchTerm) {
             $query->where(function ($q) use ($searchTerm) {
                 $q->where('title', 'like', '%' . $searchTerm . '%')
-                ->orWhere('description', 'like', '%' . $searchTerm . '%');
+                    ->orWhere('description', 'like', '%' . $searchTerm . '%');
             });
         }
 
@@ -452,14 +475,13 @@ public function getTopViewedBlogs($limit = 3)
         $blog = Blog::withTrashed()->findOrFail($id);
         $blog->forceDelete();
 
-         // Create notification
-         $notification = new Notification(); // Tạo đối tượng Notification
-         $notification->user_id = $blog->user_id; // Lấy user_id từ payout
-         $notification->data = 'Blog ' . $blog->title . ' của bạn đã bị xóa';
-         $notification->type = 'Blog bị xóa';
-         $notification->save();
+        // Create notification
+        $notification = new Notification(); // Tạo đối tượng Notification
+        $notification->user_id = $blog->user_id; // Lấy user_id từ payout
+        $notification->data = 'Blog ' . $blog->title . ' của bạn đã bị xóa';
+        $notification->type = 'Blog bị xóa';
+        $notification->save();
 
         return $blog;
     }
-
 }

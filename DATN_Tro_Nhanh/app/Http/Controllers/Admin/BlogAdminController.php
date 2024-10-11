@@ -90,8 +90,8 @@ class BlogAdminController extends Controller
 
     public function destroy($id)
     {
-        $this->BlogService->softDeleteBlogs($id);
-        return redirect()->route('admin.trash-blog')->with('success', 'Blog đã được chuyển vào thùng rác.');
+        $this->BlogService->hardDeleteBlog($id);
+        return redirect()->route('admin.show-blog-admin')->with('success', 'Blog đã được xóa.');
     }
 
     public function trash()

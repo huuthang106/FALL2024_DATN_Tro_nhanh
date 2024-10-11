@@ -25,7 +25,7 @@
                                 </span>
                                 <!--end::Svg Icon-->
                                 <input type="text" wire:model.lazy="search" wire:keydown.debounce.200ms="$refresh"
-                                    name="search" placeholder="Tìm kiếm diện tích"
+                                    name="search" placeholder="Tìm kiếm tên phòng"
                                     class="form-control form-control-solid w-250px ps-14" />
                             </div>
                             <!--end::Search-->
@@ -48,9 +48,10 @@
                                         </svg>
                                     </span>
                                     <!--end::Svg Icon-->Lọc</button>
-                                    <div class="d-flex justify-content-end">
-                                        <button class="btn btn-primary" id="approveSelected" onclick="approveSelected()">Duyệt</button>
-                                    </div>
+                                <div class="d-flex justify-content-end">
+                                    <button class="btn btn-primary" id="approveSelected"
+                                        onclick="approveSelected()">Duyệt</button>
+                                </div>
                                 <!--begin::Menu 1-->
                                 <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
                                     <!--begin::Header-->
@@ -522,7 +523,8 @@
                                     <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                         <th class="min-w-125px">
                                             <label class="new-control new-checkbox checkbox-primary m-auto">
-                                                <input type="checkbox" class="new-control-input" id="selectAll" onclick="toggleCheckboxes(this)">
+                                                <input type="checkbox" class="new-control-input" id="selectAll"
+                                                    onclick="toggleCheckboxes(this)">
                                                 <span class="new-control-indicator"></span>
                                             </label>
                                         </th>
@@ -554,7 +556,8 @@
                                                 <!--begin::User=-->
                                                 <td>
                                                     <label class="new-control new-checkbox checkbox-primary m-auto">
-                                                        <input type="checkbox" class="child-chk new-control-input" data-id="{{ $room->id }}" onclick="updateSelectAll()">
+                                                        <input type="checkbox" class="child-chk new-control-input"
+                                                            data-id="{{ $room->id }}" onclick="updateSelectAll()">
                                                         <span class="new-control-indicator"></span>
                                                     </label>
                                                 </td>
@@ -604,7 +607,7 @@
                                                 <!--begin::Joined-->
                                                 <td>{{ $room->address }}</td>
                                                 <!--begin::Action=-->
-                                                <td class="text-end">
+                                                {{-- <td class="text-end text-nowrap">
                                                     <a href="#"
                                                         class="btn btn-light btn-active-light-primary btn-sm"
                                                         data-kt-menu-trigger="click"
@@ -635,8 +638,8 @@
                                                         <!--end::Menu item-->
                                                         <!--begin::Menu item-->
                                                         <div class="menu-item px-3">
-                                                            {{-- <a href="#" class="menu-link px-3"
-                                                    data-kt-users-table-filter="delete_row">Xóa</a> --}}
+                                                            <a href="#" class="menu-link px-3"
+                                                    data-kt-users-table-filter="delete_row">Xóa</a>
                                                             <form
                                                                 action="{{ route('admin.destroy-room', $room->id) }}"
                                                                 method="POST">
@@ -649,6 +652,53 @@
                                                         <!--end::Menu item-->
                                                     </div>
                                                     <!--end::Menu-->
+                                                </td> --}}
+                                                <td class="text-end">
+                                                    <div class="dropdown">
+                                                        <button
+                                                            class="btn btn-light btn-active-light-primary btn-sm dropdown-toggle"
+                                                            type="button" id="dropdownMenuButton-"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            Tác vụ
+                                                            {{-- <span class="svg-icon svg-icon-5 m-0">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="26"
+                                                                    height="24" viewBox="0 0 24 24" fill="none">
+                                                                    <path
+                                                                        d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                                        fill="black" />
+                                                                </svg>
+                                                            </span> --}}
+                                                        </button>
+                                                        <ul class="dropdown-menu menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                                                            aria-labelledby="dropdownMenuButton-">
+                                                            {{-- <li class="menu-item px-3">
+                                                                <a href="{{ route('admin.update-room-show', ['slug' => $room->slug]) }}"
+                                                                    class="dropdown-item menu-link px-3">Chỉnh sửa</a>
+                                                            </li> --}}
+                                                            <li class="menu-item px-3">
+                                                                {{-- <form
+                                                                    action="{{ route('admin.destroy-room', $room->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="dropdown-item menu-link px-3 border-0 bg-transparent text-start w-100">Xóa</button>
+                                                                </form> --}}
+                                                                <a href="{{ route('admin.accept-room-admin', ['id' => $room->id]) }}"
+                                                                    class="dropdown-item menu-link px-3 border-0 bg-transparent text-start w-100">Duyệt</a>
+                                                            </li>
+                                                            <li class="menu-item px-3">
+                                                                <form
+                                                                    action="{{ route('admin.destroy-room', $room->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="dropdown-item menu-link px-3 border-0 bg-transparent text-start w-100">Xóa</button>
+                                                                </form>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </td>
                                                 <!--end::Action=-->
                                             </tr>
@@ -753,16 +803,18 @@
         function toggleCheckboxes(selectAllCheckbox) {
             const checkboxes = document.querySelectorAll('.child-chk');
             checkboxes.forEach(checkbox => {
-                checkbox.checked = selectAllCheckbox.checked; // Đặt trạng thái checkbox theo trạng thái của checkbox "Chọn tất cả"
+                checkbox.checked = selectAllCheckbox
+                    .checked; // Đặt trạng thái checkbox theo trạng thái của checkbox "Chọn tất cả"
             });
         }
-    
+
         function updateSelectAll() {
             const checkboxes = document.querySelectorAll('.child-chk');
             const selectAllCheckbox = document.getElementById('selectAll');
-            selectAllCheckbox.checked = Array.from(checkboxes).every(checkbox => checkbox.checked); // Kiểm tra xem tất cả checkbox đã được chọn hay chưa
+            selectAllCheckbox.checked = Array.from(checkboxes).every(checkbox => checkbox
+                .checked); // Kiểm tra xem tất cả checkbox đã được chọn hay chưa
         }
-    
+
         function approveSelected() {
             const selectedCheckboxes = document.querySelectorAll('.child-chk:checked'); // Lấy tất cả checkbox đã chọn
             if (selectedCheckboxes.length === 0) {
@@ -774,7 +826,7 @@
                 });
                 return;
             }
-    
+
             Swal.fire({
                 title: 'Bạn có chắc chắn?',
                 text: "Bạn muốn duyệt tất cả các yêu cầu đã chọn?",
@@ -789,7 +841,7 @@
                     const selectedIds = Array.from(selectedCheckboxes).map(checkbox => {
                         return checkbox.dataset.id; // Lấy ID từ thuộc tính data-id
                     });
-    
+
                     // Gọi phương thức duyệt trên server
                     @this.call('approveSelectedRooms', selectedIds).then(() => {
                         Swal.fire(
@@ -801,7 +853,8 @@
                         selectedCheckboxes.forEach(checkbox => {
                             checkbox.checked = false; // Bỏ chọn checkbox
                         });
-                        document.getElementById('selectAll').checked = false; // Bỏ chọn checkbox "Chọn tất cả"
+                        document.getElementById('selectAll').checked =
+                            false; // Bỏ chọn checkbox "Chọn tất cả"
                     }).catch(error => {
                         Swal.fire(
                             'Lỗi!',

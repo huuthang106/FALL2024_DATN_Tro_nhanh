@@ -36,23 +36,23 @@ class ShowPayoutHistory extends Component
     public function render()
     {
         $query = PayoutHistory::query()
-        ->where('status', 1)
-        ->orderBy('created_at', 'desc');
+            ->where('status', 1)
+            ->orderBy('created_at', 'desc');
 
         if ($this->search) {
             $query->where(function ($q) {
                 $q->where('card_holder_name', 'like', '%' . $this->search . '%')
-                  ->orWhere('account_number', 'like', '%' . $this->search . '%')
-                  ->orWhere('bank_name', 'like', '%' . $this->search . '%')
-                  ->orWhere('single_code', 'like', '%' . $this->search . '%');
+                    ->orWhere('account_number', 'like', '%' . $this->search . '%')
+                    ->orWhere('bank_name', 'like', '%' . $this->search . '%')
+                    ->orWhere('single_code', 'like', '%' . $this->search . '%');
             });
         }
 
         if ($this->timeFilter) {
             $startDate = Carbon::now();  // Thời gian bắt đầu của bộ lọc
-        
-            \Log::info("Current date before filter: " . Carbon::now()->toDateTimeString());
-        
+
+            // \Log::info("Current date before filter: " . Carbon::now()->toDateTimeString());
+
             // Xử lý bộ lọc thời gian
             switch ($this->timeFilter) {
                 case '1_day':
@@ -74,14 +74,14 @@ class ShowPayoutHistory extends Component
                     $startDate = Carbon::now()->subYear()->startOfDay();  // Bắt đầu của 1 năm trước
                     break;
             }
-        
-            \Log::info("Lọc dữ liệu trước ngày: " . $startDate->toDateTimeString());
-        
+
+            // \Log::info("Lọc dữ liệu trước ngày: " . $startDate->toDateTimeString());
+
             // Lọc dữ liệu với created_at nhỏ hơn ngày bắt đầu
             $query->whereDate('created_at', '<=', $startDate);
-        
+
             // Log số lượng bản ghi sau khi lọc
-            \Log::info("Số lượng bản ghi sau khi lọc: " . $query->count());
+            // \Log::info("Số lượng bản ghi sau khi lọc: " . $query->count());
         }
 
         $query->orderBy('created_at', 'desc');
@@ -92,5 +92,4 @@ class ShowPayoutHistory extends Component
             'payouts' => $payouts
         ]);
     }
-
 }

@@ -86,19 +86,19 @@
                                     <div class="px-7 py-5" data-kt-user-table-filter="form">
                                         <!--begin::Input group-->
                                         <div class="mb-10">
-                                        <label class="form-label fs-6 fw-bold">Lọc theo:</label>
-                                        <select class="form-select form-select-solid fw-bolder sortby"
-                                            wire:model.lazy="timeFilter" id="timeFilter"
-                                            data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
-                                            <option value="" selected>Chọn khoảng thời gian:</option>
-                                            <option value="1_day">1 ngày</option>
-                                            <option value="7_day">7 ngày</option>
-                                            <option value="1_month">1 tháng</option>
-                                            <option value="3_month">3 tháng</option>
-                                            <option value="6_month">6 tháng</option>
-                                            <option value="1_year">1 năm</option>
-                                        </select>
-                                    </div>
+                                            <label class="form-label fs-6 fw-bold">Lọc theo:</label>
+                                            <select class="form-select form-select-solid fw-bolder sortby"
+                                                wire:model.lazy="timeFilter" id="timeFilter"
+                                                data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
+                                                <option value="" selected>Chọn khoảng thời gian:</option>
+                                                <option value="1_day">1 ngày</option>
+                                                <option value="7_day">7 ngày</option>
+                                                <option value="1_month">1 tháng</option>
+                                                <option value="3_month">3 tháng</option>
+                                                <option value="6_month">6 tháng</option>
+                                                <option value="1_year">1 năm</option>
+                                            </select>
+                                        </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <!-- <div class="mb-10">
@@ -444,8 +444,7 @@
                                         <th class="w-15 text-nowrap">Số Điện Thoại</th>
                                         <th class="w-20 text-nowrap">Địa Chỉ</th>
                                         <th class="w-10 text-nowrap">Trạng thái</th>
-                                        <th class="w-10 text-nowrap">Tác vụ</ 
-                                     </tr>
+                                        <th class="w-10 text-nowrap">Tác vụ</ </tr>
                                             <!--end::Table row-->
                                 </thead>
                                 <!--end::Table head-->
@@ -585,19 +584,15 @@
                             <nav aria-label="Page navigation">
                                 <ul class="pagination rounded-active justify-content-center">
                                     {{-- Nút về đầu --}}
-                                    {{-- <li class="page-item {{ $users->onFirstPage() ? 'disabled' : '' }}">
-                                        <a class="page-link hover-white" wire:click="gotoPage(1)"
-                                            wire:loading.attr="disabled" aria-label="First Page">
-                                            << </a>
-                                    </li> --}}
 
-                                    {{-- Liên kết Trang Trước --}}
                                     <li class="page-item {{ $users->onFirstPage() ? 'disabled' : '' }}">
-                                        <a class="page-link hover-white" wire:click="previousPage"
+                                        <a class="page-link hover-white" wire:click="gotoPage(1)"
                                             wire:loading.attr="disabled" rel="prev"
-                                            aria-label="@lang('pagination.previous')">
-                                            < </a>
+                                            aria-label="@lang('pagination.previous')"><i
+                                                class="fas fa-angle-double-left"></i></a>
                                     </li>
+
+
 
                                     @php
                                         $totalPages = $users->lastPage();
@@ -641,21 +636,14 @@
                                         </li>
                                     @endif
 
-                                    {{-- Liên kết Trang Tiếp --}}
-                                    <li class="page-item {{ !$users->hasMorePages() ? 'disabled' : '' }}">
-                                        <a class="page-link hover-white" wire:click="nextPage"
-                                            wire:loading.attr="disabled" rel="next"
-                                            aria-label="@lang('pagination.next')"> >
-                                        </a>
-                                    </li>
 
-                                    {{-- Nút về cuối --}}
-                                    {{-- <li class="page-item {{ !$users->hasMorePages() ? 'disabled' : '' }}">
+                                    <li class="page-item {{ !$users->hasMorePages() ? 'disabled' : '' }}">
                                         <a class="page-link hover-white"
                                             wire:click="gotoPage({{ $users->lastPage() }})"
-                                            wire:loading.attr="disabled" aria-label="Last Page"> >>
-                                        </a>
-                                    </li> --}}
+                                            wire:loading.attr="disabled" rel="next"
+                                            aria-label="@lang('pagination.next')"><i
+                                                class="fas fa-angle-double-right"></i></a>
+                                    </li>
                                 </ul>
                             </nav>
                         @endif

@@ -157,7 +157,7 @@
                                             </div>
                                             <!--end::Stat-->
                                             <!--begin::Stat-->
-                                            <div
+                                            {{-- <div
                                                 class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                                 <!--begin::Number-->
                                                 <div class="d-flex align-items-center">
@@ -181,10 +181,10 @@
                                                 <!--begin::Label-->
                                                 <div class="fw-bold fs-6 text-gray-400">Bài đăng</div>
                                                 <!--end::Label-->
-                                            </div>
+                                            </div> --}}
                                             <!--end::Stat-->
                                             <!--begin::Stat-->
-                                            <div
+                                            {{-- <div
                                                 class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                                 <!--begin::Number-->
                                                 <div class="d-flex align-items-center">
@@ -208,7 +208,7 @@
                                                 <!--begin::Label-->
                                                 <div class="fw-bold fs-6 text-gray-400">Blog</div>
                                                 <!--end::Label-->
-                                            </div>
+                                            </div> --}}
                                             <!--end::Stat-->
                                         </div>
                                         <!--end::Stats-->

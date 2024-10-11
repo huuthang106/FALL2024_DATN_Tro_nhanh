@@ -1,13 +1,13 @@
 @extends('layouts.admin')
-@section('titleAdmin', 'Danh sách tất cả chủ trọ | TRỌ NHANH')
-@section('linkAdmin', 'Danh sách tất cả chủ trọ')
+@section('titleAdmin', 'Danh Sách Rút Tiền | TRỌ NHANH')
+@section('linkAdmin', 'Danh sách rút tiền')
 
 @section('contentAdmin')
 
 
-        <!--end::Content-->
-        <!--begin::Footer-->
-        @livewire('show-payout-history')
+    <!--end::Content-->
+    <!--begin::Footer-->
+    @livewire('show-payout-history')
     <!--end::Footer-->
     </div>
     <!--end::Wrapper-->

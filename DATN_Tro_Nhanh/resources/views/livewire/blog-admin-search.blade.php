@@ -111,13 +111,13 @@
                                     </div> -->
                                     <!--end::Input group-->
                                     <!--begin::Actions-->
-                                   
+
                                     <!--end::Actions-->
                                 </div>
                                 <!--end::Content-->
                             </div>
-                        
-                        </div> 
+
+                        </div>
                         <!--end::Toolbar-->
                         <!--begin::Group actions-->
                         <div class="d-flex justify-content-end align-items-center d-none"
@@ -150,8 +150,9 @@
                                                     <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
                                                         rx="1" transform="rotate(-45 6 17.3137)"
                                                         fill="black" />
-                                                    <rect x="7.41422" y="6" width="16" height="2" rx="1"
-                                                        transform="rotate(45 7.41422 6)" fill="black" />
+                                                    <rect x="7.41422" y="6" width="16" height="2"
+                                                        rx="1" transform="rotate(45 7.41422 6)"
+                                                        fill="black" />
                                                 </svg>
                                             </span>
                                             <!--end::Svg Icon-->
@@ -572,7 +573,8 @@
                                                                         alt="{{ $item->filename }}" class="img-fluid">
                                                                 @endforeach
                                                             @else
-                                                                <p>No images available</p>
+                                                                <img src="{{ asset('assets/images/agent-25.jpg') }}"
+                                                                    alt="Chưa có ảnh" class="img-fluid">
                                                             @endif
                                                         </div>
                                                     </a>
@@ -615,7 +617,7 @@
                                             <!--end::Created at-->
 
                                             <!--begin::Action=-->
-                                            <td class="text-end align-middle">
+                                            {{-- <td class="text-end align-middle">
                                                 <a href="#"
                                                     class="btn btn-light btn-active-light-primary btn-sm text-nowrap"
                                                     data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
@@ -645,8 +647,41 @@
                                                         </form>
                                                     </div>
                                                 </div>
+                                            </td> --}}
+                                            <td class="text-end">
+                                                <div class="dropdown">
+                                                    <button
+                                                        class="btn btn-light btn-active-light-primary btn-sm dropdown-toggle"
+                                                        type="button" id="dropdownMenuButton-"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Tác vụ
+                                                        {{-- <span class="svg-icon svg-icon-5 m-0">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="26"
+                                                                height="24" viewBox="0 0 24 24" fill="none">
+                                                                <path
+                                                                    d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                                    fill="black" />
+                                                            </svg>
+                                                        </span> --}}
+                                                    </button>
+                                                    <ul class="dropdown-menu menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                                                        aria-labelledby="dropdownMenuButton-">
+                                                        {{-- <li class="menu-item px-3">
+                                                            <a href="{{ route('admin.sua-blog', ['slug' => $blog->slug]) }}"
+                                                                class="menu-link px-3">Chỉnh sửa</a>
+                                                        </li> --}}
+                                                        <li class="menu-item px-3">
+                                                            <form action="{{ route('admin.destroy-blog', $blog->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="menu-link px-3 border-0 bg-transparent text-start">Xóa</button>
+                                                            </form>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </td>
-
                                             <!--end::Action=-->
                                         </tr>
                                     @endforeach
@@ -659,75 +694,63 @@
                     </div>
                     @if ($blogs->hasPages())
                         <nav aria-label="Page navigation">
-                            <ul class="pagination justify-content-center d-flex flex-wrap">
-                                {{-- First Page Link --}}
+                            <ul class="pagination rounded-active justify-content-center">
+                                {{-- Nút về đầu --}}
+
                                 <li class="page-item {{ $blogs->onFirstPage() ? 'disabled' : '' }}">
-                                    <a class="page-link" wire:click="gotoPage(1)" wire:loading.attr="disabled"
-                                        aria-label="First Page">
-                                        <span aria-hidden="true">
-                                            << </span>
-                                    </a>
+                                    <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                        wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')"><i
+                                            class="fas fa-angle-double-left"></i></a>
                                 </li>
 
-                                {{-- Previous Page Link --}}
-                                <li class="page-item {{ $blogs->onFirstPage() ? 'disabled' : '' }}">
-                                    <a class="page-link" wire:click="previousPage" wire:loading.attr="disabled"
-                                        rel="prev" aria-label="@lang('pagination.previous')">
-                                        <span aria-hidden="true">
-                                            < </span>
-                                    </a>
-                                </li>
 
-                                {{-- Pagination Elements --}}
+
                                 @php
-                                    $window = 2; // Number of links on either side of the current page
                                     $totalPages = $blogs->lastPage();
                                     $currentPage = $blogs->currentPage();
-                                    $start = max(1, $currentPage - $window);
-                                    $end = min($totalPages, $currentPage + $window);
+                                    $visiblePages = 3; // Số trang hiển thị ở giữa
                                 @endphp
 
-                                @if ($start > 1)
-                                    <li class="page-item">
-                                        <a class="page-link" wire:click="gotoPage(1)"
-                                            wire:loading.attr="disabled">1</a>
-                                    </li>
-                                    @if ($start > 2)
-                                        <li class="page-item disabled"><span class="page-link">...</span></li>
-                                    @endif
+                                {{-- Trang đầu --}}
+                                <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                                    <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                        wire:loading.attr="disabled">1</a>
+                                </li>
+
+                                {{-- Dấu ba chấm đầu --}}
+                                @if ($currentPage > $visiblePages)
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
                                 @endif
 
-                                @for ($i = $start; $i <= $end; $i++)
-                                    <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
-                                        <a class="page-link" wire:click="gotoPage({{ $i }})"
-                                            wire:loading.attr="disabled">{{ $i }}</a>
-                                    </li>
-                                @endfor
-
-                                @if ($end < $totalPages)
-                                    @if ($end < $totalPages - 1)
-                                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                                {{-- Các trang giữa --}}
+                                @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
+                                    @if ($i > 1 && $i < $totalPages)
+                                        <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                            <a class="page-link hover-white"
+                                                wire:click="gotoPage({{ $i }})"
+                                                wire:loading.attr="disabled">{{ $i }}</a>
+                                        </li>
                                     @endif
-                                    <li class="page-item">
-                                        <a class="page-link" wire:click="gotoPage({{ $totalPages }})"
+                                @endforeach
+
+                                {{-- Dấu ba chấm cuối --}}
+                                @if ($currentPage < $totalPages - ($visiblePages - 1))
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                @endif
+
+                                {{-- Trang cuối --}}
+                                @if ($totalPages > 1)
+                                    <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                                        <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
                                             wire:loading.attr="disabled">{{ $totalPages }}</a>
                                     </li>
                                 @endif
 
-                                {{-- Next Page Link --}}
-                                <li class="page-item {{ !$blogs->hasMorePages() ? 'disabled' : '' }}">
-                                    <a class="page-link" wire:click="nextPage" wire:loading.attr="disabled"
-                                        rel="next" aria-label="@lang('pagination.next')">
-                                        <span aria-hidden="true"> > </span>
-                                    </a>
-                                </li>
 
-                                {{-- Last Page Link --}}
                                 <li class="page-item {{ !$blogs->hasMorePages() ? 'disabled' : '' }}">
-                                    <a class="page-link" wire:click="gotoPage({{ $blogs->lastPage() }})"
-                                        wire:loading.attr="disabled" aria-label="Last Page">
-                                        <span aria-hidden="true"> >> </span>
-                                    </a>
+                                    <a class="page-link hover-white" wire:click="gotoPage({{ $blogs->lastPage() }})"
+                                        wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')"><i
+                                            class="fas fa-angle-double-right"></i></a>
                                 </li>
                             </ul>
                         </nav>

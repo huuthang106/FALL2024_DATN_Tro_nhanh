@@ -28,7 +28,7 @@
                                 {{-- <input type="text" data-kt-user-table-filter="search"
                                     class="form-control form-control-solid w-250px ps-14" placeholder="Search owner" /> --}}
                                 <input type="text" wire:model.lazy="search" wire:keydown.debounce.300ms="$refresh"
-                                    name="search" placeholder="Tìm kiếm user"
+                                    name="search" placeholder="Tìm kiếm người dùng"
                                     class="form-control form-control-solid w-250px ps-14" />
                             </div>
                             <!--end::Search-->
@@ -86,19 +86,19 @@
                                     <div class="px-7 py-5" data-kt-user-table-filter="form">
                                         <!--begin::Input group-->
                                         <div class="mb-10">
-                                        <label class="form-label fs-6 fw-bold">Lọc theo:</label>
-                                        <select class="form-select form-select-solid fw-bolder sortby"
-                                            wire:model.lazy="timeFilter" id="timeFilter"
-                                            data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
-                                            <option value="" selected>Chọn khoảng thời gian:</option>
-                                            <option value="1_day">1 ngày</option>
-                                            <option value="7_day">7 ngày</option>
-                                            <option value="1_month">1 tháng</option>
-                                            <option value="3_month">3 tháng</option>
-                                            <option value="6_month">6 tháng</option>
-                                            <option value="1_year">1 năm</option>
-                                        </select>
-                                    </div>
+                                            <label class="form-label fs-6 fw-bold">Lọc theo:</label>
+                                            <select class="form-select form-select-solid fw-bolder sortby"
+                                                wire:model.lazy="timeFilter" id="timeFilter"
+                                                data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
+                                                <option value="" selected>Chọn khoảng thời gian:</option>
+                                                <option value="1_day">1 ngày</option>
+                                                <option value="7_day">7 ngày</option>
+                                                <option value="1_month">1 tháng</option>
+                                                <option value="3_month">3 tháng</option>
+                                                <option value="6_month">6 tháng</option>
+                                                <option value="1_year">1 năm</option>
+                                            </select>
+                                        </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <!-- <div class="mb-10">
@@ -113,7 +113,7 @@
                                         </div> -->
                                         <!--end::Input group-->
                                         <!--begin::Actions-->
-                                        
+
                                         <!--end::Actions-->
                                     </div>
                                     <!--end::Content-->
@@ -176,7 +176,7 @@
                                             <td colspan="7" class="text-center">Không có dữ liệu.</td>
                                         </tr>
                                     @else
-                                    @foreach ($users as $user)
+                                        @foreach ($users as $user)
                                             <tr>
                                                 <!--begin::Checkbox-->
                                                 {{-- <td>
@@ -200,7 +200,9 @@
                                                                         <img src="{{ asset('assets/images/' . $user->image) }}"
                                                                             alt="User Image" class="img-fluid">
                                                                     @else
-                                                                        <p>No image available</p>
+                                                                        <p><img src="{{ asset('assets/images/agent-25.jpg') }}"
+                                                                                alt="User Image" class="img-fluid">
+                                                                        </p>
                                                                     @endif
                                                                 </div>
                                                             </a>
@@ -229,7 +231,7 @@
                                                 {{-- <td>{{ $user->created_at->format('d/m/Y') }}</td> --}}
                                                 <!--end::Joined-->
                                                 <!--begin::Action=-->
-                                                <td class="text-center">
+                                                {{-- <td class="text-center">
                                                     <a href="#"
                                                         class="btn btn-light btn-active-light-primary btn-sm"
                                                         data-kt-menu-trigger="click"
@@ -286,19 +288,71 @@
                                                         <!--end::Menu item-->
                                                     </div>
                                                     <!--end::Menu-->
+                                                </td> --}}
+                                                <td class="text-end">
+                                                    <div class="dropdown">
+                                                        <button
+                                                            class="btn btn-light btn-active-light-primary btn-sm dropdown-toggle"
+                                                            type="button" id="dropdownMenuButton-"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            Tác vụ
+                                                            {{-- <span class="svg-icon svg-icon-5 m-0">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="26"
+                                                                    height="24" viewBox="0 0 24 24" fill="none">
+                                                                    <path
+                                                                        d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                                        fill="black" />
+                                                                </svg>
+                                                            </span> --}}
+                                                        </button>
+                                                        <ul class="dropdown-menu menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                                                            aria-labelledby="dropdownMenuButton-">
+                                                            <li class="menu-item px-3">
+                                                                <form
+                                                                    action="{{ route('admin.update-role-admin', $user->id) }}"
+                                                                    method="POST" style="display:inline;">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <button type="submit" class="menu-link px-3"
+                                                                        style="border:none; background:none; cursor:pointer;">Admin</button>
+                                                                </form>
+                                                            </li>
+                                                            <li class="menu-item px-3">
+                                                                <form
+                                                                    action="{{ route('admin.update-role-user', $user->id) }}"
+                                                                    method="POST" style="display:inline;">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <button type="submit" class="menu-link px-3"
+                                                                        style="border:none; background:none; cursor:pointer;">Chủ
+                                                                        trọ</button>
+                                                                </form>
+                                                            </li>
+                                                            <li class="menu-item px-3">
+                                                                <button type="button" class="menu-link px-3"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#blockAccountModal"
+                                                                    data-user-id="{{ $user->id }}"
+                                                                    style="border:none; background:none; cursor:pointer;">
+                                                                    Khóa
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </td>
                                                 <!--end::Action=-->
                                             </tr>
                                         @endforeach
-                                          <!-- Modal -->
+                                        <!-- Modal -->
                                         <div class="modal fade" id="blockAccountModal" tabindex="-1"
                                             aria-labelledby="blockAccountModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="blockAccountModalLabel">Khóa tài khoản</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
+                                                        <h5 class="modal-title" id="blockAccountModalLabel">Khóa tài
+                                                            khoản</h5>
+                                                        <button type="button" class="btn-close"
+                                                            data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
                                                         <!-- Form để gửi dữ liệu -->
@@ -306,10 +360,11 @@
                                                             action="{{ route('admin.lock-account', $user->id) }}">
                                                             @csrf <!-- Thêm token bảo mật -->
                                                             <div class="mb-3">
-                                                                <label for="blockDays" class="form-label text-start d-block">Số
+                                                                <label for="blockDays"
+                                                                    class="form-label text-start d-block">Số
                                                                     ngày khóa tài khoản</label>
-                                                                <input type="number" class="form-control" id="blockDays"
-                                                                    name="blockDays" required>
+                                                                <input type="number" class="form-control"
+                                                                    id="blockDays" name="blockDays" required>
                                                                 @error('blockDays')
                                                                     <div class="text-danger">
                                                                         {{ $message }}
@@ -317,7 +372,8 @@
                                                                 @enderror
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="blockReason" class="form-label text-start d-block">Lý
+                                                                <label for="blockReason"
+                                                                    class="form-label text-start d-block">Lý
                                                                     do khóa tài khoản</label>
                                                                 <textarea class="form-control" id="blockReason" name="blockReason" rows="3" required></textarea>
                                                                 @error('blockReason')
@@ -332,14 +388,15 @@
                                                         <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">Hủy</button>
                                                         <!-- Nút submit form -->
-                                                        <button type="submit" form="blockAccountForm" class="btn btn-danger">Xác
+                                                        <button type="submit" form="blockAccountForm"
+                                                            class="btn btn-danger">Xác
                                                             nhận khóa</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <!--end::Table row-->
-                                        @endif
+                                    @endif
                                 </tbody>
                                 <!--end::Table body-->
 
@@ -349,89 +406,73 @@
 
                         <!--end::Table-->
                         @if ($users->hasPages())
-                            <!-- Phân trang -->
-                            <nav class="mt-4">
+                            <nav aria-label="Page navigation">
                                 <ul class="pagination rounded-active justify-content-center">
-                                    {{-- Previous Page Link --}}
-                                    @if ($users->onFirstPage())
-                                        <li class="page-item disabled">
-                                            <span class="page-link"><i class="far fa-angle-double-left"></i></span>
-                                        </li>
-                                    @else
-                                        <li class="page-item">
-                                            <a class="page-link" wire:click="previousPage"
-                                                wire:loading.attr="disabled"><i
-                                                    class="far fa-angle-double-left"></i></a>
-                                        </li>
-                                    @endif
+                                    {{-- Nút về đầu --}}
 
-                                    {{-- Pagination Elements --}}
+                                    <li class="page-item {{ $users->onFirstPage() ? 'disabled' : '' }}">
+                                        <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                            wire:loading.attr="disabled" rel="prev"
+                                            aria-label="@lang('pagination.previous')"><i
+                                                class="fas fa-angle-double-left"></i></a>
+                                    </li>
+
+
+
                                     @php
-                                        $maxPages = 5; // Số lượng trang hiển thị tối đa
-                                        $startPage = max(1, $users->currentPage() - floor($maxPages / 2));
-                                        $endPage = min($users->lastPage(), $startPage + $maxPages - 1);
-
-                                        if ($endPage - $startPage < $maxPages - 1) {
-                                            $startPage = max(1, $endPage - $maxPages + 1);
-                                        }
+                                        $totalPages = $users->lastPage();
+                                        $currentPage = $users->currentPage();
+                                        $visiblePages = 3; // Số trang hiển thị ở giữa
                                     @endphp
 
-                                    @if ($startPage > 1)
-                                        <li class="page-item">
-                                            <a class="page-link" wire:click="gotoPage(1)"
-                                                wire:loading.attr="disabled">1</a>
-                                        </li>
-                                        @if ($startPage > 2)
-                                            <li class="page-item disabled">
-                                                <span class="page-link">...</span>
-                                            </li>
-                                        @endif
+                                    {{-- Trang đầu --}}
+                                    <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                                        <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                            wire:loading.attr="disabled">1</a>
+                                    </li>
+
+                                    {{-- Dấu ba chấm đầu --}}
+                                    @if ($currentPage > $visiblePages)
+                                        <li class="page-item disabled"><span class="page-link">...</span></li>
                                     @endif
 
-                                    @for ($page = $startPage; $page <= $endPage; $page++)
-                                        @if ($page == $users->currentPage())
-                                            <li class="page-item active">
-                                                <span class="page-link">{{ $page }}</span>
-                                            </li>
-                                        @else
-                                            <li class="page-item">
-                                                <a class="page-link" wire:click="gotoPage({{ $page }})"
-                                                    wire:loading.attr="disabled">{{ $page }}</a>
+                                    {{-- Các trang giữa --}}
+                                    @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
+                                        @if ($i > 1 && $i < $totalPages)
+                                            <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                                <a class="page-link hover-white"
+                                                    wire:click="gotoPage({{ $i }})"
+                                                    wire:loading.attr="disabled">{{ $i }}</a>
                                             </li>
                                         @endif
-                                    @endfor
+                                    @endforeach
 
-                                    @if ($endPage < $users->lastPage())
-                                        @if ($endPage < $users->lastPage() - 1)
-                                            <li class="page-item disabled">
-                                                <span class="page-link">...</span>
-                                            </li>
-                                        @endif
-                                        <li class="page-item">
-                                            <a class="page-link" wire:click="gotoPage({{ $users->lastPage() }})"
-                                                wire:loading.attr="disabled">{{ $users->lastPage() }}</a>
+                                    {{-- Dấu ba chấm cuối --}}
+                                    @if ($currentPage < $totalPages - ($visiblePages - 1))
+                                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                                    @endif
+
+                                    {{-- Trang cuối --}}
+                                    @if ($totalPages > 1)
+                                        <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                                            <a class="page-link hover-white"
+                                                wire:click="gotoPage({{ $totalPages }})"
+                                                wire:loading.attr="disabled">{{ $totalPages }}</a>
                                         </li>
                                     @endif
 
-                                    {{-- Next Page Link --}}
-                                    @if ($users->hasMorePages())
-                                        <li class="page-item">
-                                            <a class="page-link" wire:click="nextPage"
-                                                wire:loading.attr="disabled"><i
-                                                    class="far fa-angle-double-right"></i></a>
-                                        </li>
-                                    @else
-                                        <li class="page-item disabled">
-                                            <span class="page-link"><i class="far fa-angle-double-right"></i></span>
-                                        </li>
-                                    @endif
+
+                                    <li class="page-item {{ !$users->hasMorePages() ? 'disabled' : '' }}">
+                                        <a class="page-link hover-white"
+                                            wire:click="gotoPage({{ $users->lastPage() }})"
+                                            wire:loading.attr="disabled" rel="next"
+                                            aria-label="@lang('pagination.next')"><i
+                                                class="fas fa-angle-double-right"></i></a>
+                                    </li>
                                 </ul>
                             </nav>
-                            <div class="text-center mt-2">{{ $users->firstItem() }}-{{ $users->lastItem() }} của
-                                {{ $users->total() }} kết quả</div>
+                        @endif
                     </div>
-
-                    @endif
 
                     <!--end::Card body-->
                 </div>
