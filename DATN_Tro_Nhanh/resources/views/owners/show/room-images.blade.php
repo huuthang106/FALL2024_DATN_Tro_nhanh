@@ -8,10 +8,10 @@
             </div>
             <table class="table table-hover bg-white border rounded-lg">
                 <thead class="thead-sm thead-black">
-                    <tr>
-                        <th scope="col" class="border-top-0 px-6 pt-5 pb-4">Tiêu đề ảnh</th>
-                        <th scope="col" class="border-top-0 pt-5 pb-4">Ngày tải lên</th>
-                        <th scope="col" class="border-top-0 pt-5 pb-4">Hành động</th>
+                    <tr >
+                        <th scope="col" class="border-top-0 px-6 pt-5 pb-4" style="white-space: nowrap;">Tiêu đề ảnh</th>
+                        <th scope="col" class="border-top-0 pt-5 pb-4" style="white-space: nowrap;">Ngày tải lên</th>
+                        <th scope="col" class="border-top-0 pt-5 pb-4" style="white-space: nowrap;">Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,21 +30,18 @@
                                             <img src="{{ asset('assets/images/' . $image->filename) }}" alt="Image"
                                                 class="img-fluid">
                                         </div>
-                                        <div class="media-body">
-                                            <h5 class="fs-16 mb-0 lh-18">{{ $image->filename }}</h5>
-                                        </div>
+                                       
                                     </div>
                                 </td>
                                 <td class="align-middle">{{ $image->created_at->format('d/m/Y') }}</td>
-                                <td class="align-middle">
+                                <td class="align-middle" style="white-space: nowrap;">
+                                    
                                     <form action="{{ route('owners.delete-room-image', ['id' => $image->id]) }}"
                                         method="POST" class="d-inline-block delete-image-form">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit"
-                                            class="fs-18 text-muted hover-primary border-0 bg-transparent">
-                                            <i class="fal fa-trash-alt"></i>
-                                        </button>
+                                        <button type="submit" class="btn btn-danger btn-sm"><i
+                                            class="fal fa-trash-alt"></i></button>
                                     </form>
                                 </td>
                             </tr>

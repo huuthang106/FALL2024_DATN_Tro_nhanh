@@ -36,9 +36,9 @@ class TransactionOwnersController extends Controller
         
       
         // // Lấy danh sách giao dịch của người dùng
-        $transactions = $this->cassoService->getUserTransactions();
+        // $transactions = $this->cassoService->getUserTransactions();
 
-        return view('owners.show.dashbroard-my-bill', compact('transactions'));
+        return view('owners.show.dashbroard-my-bill');
     }
     public function getWithdrawMomny()
     {

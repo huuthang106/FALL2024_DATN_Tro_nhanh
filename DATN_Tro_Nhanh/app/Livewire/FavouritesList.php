@@ -11,13 +11,22 @@ class FavouritesList extends Component
 {
     use WithPagination;
 
- public $search = '';
-public $perPage = 6;
-public $sortBy = 'date_new_to_old';
-public $timeFilters = '';
- // Thêm thuộc tính để lưu giá trị của khoảng thời gian lọc
+    public $search = '';
+    public $perPage = 6;
+    public $sortBy = 'date_new_to_old';
+    public $timeFilter = '';
+    protected $queryString = ['search', 'timeFilter'];
 
     public function render()
+    {
+        $favourites = $this->getFavourites();
+
+        return view('livewire.favourites-list', [
+            'favourites' => $favourites,
+        ]);
+    }
+
+    protected function getFavourites()
     {
         $query = Favourite::with('room');
 
@@ -30,40 +39,32 @@ public $timeFilters = '';
         }
 
         // Lọc theo khoảng thời gian
-        if ($this->timeFilters) {
-            $date = Carbon::now()->copy();
-            switch ($this->timeFilters) {
-                case '1_day':
-                    $date->subDays(1);
-                    break;
-                case '7_day':
-                    $date->subDays(7);
-                    break;
-                case '1_month':
-                    $date->subMonth();
-                    break;
-                case '3_month':
-                    $date->subMonths(3);
-                    break;
-                case '6_month':
-                    $date->subMonths(6);
-                    break;
-                case '1_year':
-                    $date->subYear();
-                    break;
-            }
-            // Lọc theo created_at và updated_at của bảng room
-        $query->whereHas('room', function ($q) use ($date) {
-            $q->where('created_at', '>=', $date)
-              ->orWhere('updated_at', '>=', $date);
-        });
+        if ($this->timeFilter) {
+            $startDate = $this->getStartDate($this->timeFilter);
+            $query->whereDate('created_at', '<=', $startDate);
         }
 
-        $favourites = $query->paginate($this->perPage);
+        return $query->paginate($this->perPage);
+    }
 
-        return view('livewire.favourites-list', [
-            'favourites' => $favourites,
-        ]);
+    protected function getStartDate($timeFilter)
+    {
+        switch ($timeFilter) {
+            case '1_day':
+                return Carbon::now()->subDay()->startOfDay();
+            case '7_day':
+                return Carbon::now()->subDays(7)->startOfDay();
+            case '1_month':
+                return Carbon::now()->subMonth()->startOfDay();
+            case '3_month':
+                return Carbon::now()->subMonths(3)->startOfDay();
+            case '6_month':
+                return Carbon::now()->subMonths(6)->startOfDay();
+            case '1_year':
+                return Carbon::now()->subYear()->startOfDay();
+            default:
+                return Carbon::now(); // Trả về ngày hiện tại nếu không có bộ lọc
+        }
     }
 
     public function updatedTimeFilter()

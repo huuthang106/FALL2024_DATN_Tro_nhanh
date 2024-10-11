@@ -9,15 +9,13 @@
     @stack('styleOwners')
     <link rel="stylesheet" href="{{ asset('assets/css/mh.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style-ntt.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/fontawesome.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/fontawesome.min.css">
     <style>
-
-       
-
         .active-item {
-            
+
             color: #18dfe6 !important;
-      
+
         }
 
         .active-item>a {
@@ -548,53 +546,76 @@
             'collapseCmt', 'collapseLike', 'collapseEditUnique', 'collapseAccount'
         ];
 
-     
+
 
         const currentRoute = '{{ Route::currentRouteName() }}';
-    const menuItems = document.querySelectorAll('.sidebar-link');
-    menuItems.forEach(item => {
-        const itemRoute = item.getAttribute('data-route');
-        if (itemRoute && (currentRoute === itemRoute || currentRoute.startsWith(itemRoute + '.'))) {
-            item.classList.add('active-item');
-            // Mở dropdown chứa mục active (nếu có)
-            const parentDropdown = item.closest('.collapse-content');
-            if (parentDropdown) {
-                parentDropdown.classList.add('show');
-                const parentToggle = parentDropdown.previousElementSibling;
-                if (parentToggle) {
-                    parentToggle.classList.add('active-item');
+        const menuItems = document.querySelectorAll('.sidebar-link');
+        menuItems.forEach(item => {
+            const itemRoute = item.getAttribute('data-route');
+            if (itemRoute && (currentRoute === itemRoute || currentRoute.startsWith(itemRoute + '.'))) {
+                item.classList.add('active-item');
+                // Mở dropdown chứa mục active (nếu có)
+                const parentDropdown = item.closest('.collapse-content');
+                if (parentDropdown) {
+                    parentDropdown.classList.add('show');
+                    const parentToggle = parentDropdown.previousElementSibling;
+                    if (parentToggle) {
+                        parentToggle.classList.add('active-item');
+                    }
                 }
             }
-        }
-    });
+        });
     });
 </script>
-<script>document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('navSearchForm');
-    if (form) {
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            console.log('Form submitted');
-            searchNav();
-        });
-    } else {
-        console.error('Form with id navSearchForm not found');
-    }
-});
-
-function searchNav() {
-    console.log('searchNav function called');
-    const searchTerm = document.getElementById('navSearchInput').value.toLowerCase();
-    const navItems = document.querySelectorAll('.list-group-item');
-
-    navItems.forEach(item => {
-        const text = item.textContent.toLowerCase();
-        if (text.includes(searchTerm)) {
-            item.style.display = '';
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('navSearchForm');
+        if (form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                console.log('Form submitted');
+                searchNav();
+            });
         } else {
-            item.style.display = 'none';
+            console.error('Form with id navSearchForm not found');
         }
     });
-}</script>
+
+    function searchNav() {
+        console.log('searchNav function called');
+        const searchTerm = document.getElementById('navSearchInput').value.toLowerCase();
+
+
+
+        const navItems = document.querySelectorAll('.list-group-item');
+
+        navItems.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            if (text.includes(searchTerm)) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    function searchNavMobile() {
+        console.log('searchNav function called');
+        // const searchTerm = document.getElementById('navSearchInput').value.toLowerCase();
+
+        const searchTerm2 = document.getElementById('navSearchInput2').value.toLowerCase();
+
+        const navItems = document.querySelectorAll('.list-group-item');
+        // console.log(searchTerm2,searchTerm);
+        navItems.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            if (text.includes(searchTerm2)) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+</script>
 
 </html>

@@ -6,6 +6,8 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+
 class MyBill extends Component
 {
     use WithPagination;
@@ -14,44 +16,58 @@ class MyBill extends Component
     public $sortBy = 'created_at'; // Column to sort by
     public $sortDirection = 'desc'; // Đặt mặc định là sắp xếp mới nhất lên đầu
     public $timeFilter = '';
-    public function render()
-    {
-        // Lấy danh sách giao dịch của người dùng hiện tại
-        $transactions = Transaction::where('user_id', Auth::id())
-            ->when($this->timeFilter, function($query) {
-                $startDate = now();
-                switch ($this->timeFilter) {
-                    case '1_day':
-                        $startDate = now()->subDays(1);
-                        break;
-                    case '7_day':
-                        $startDate = now()->subDays(7);
-                        break;
-                    case '1_month':
-                        $startDate = now()->subMonth();
-                        break;
-                    case '3_month':
-                        $startDate = now()->subMonths(3);
-                        break;
-                    case '6_month':
-                        $startDate = now()->subMonths(6);
-                        break;
-                    case '1_year':
-                        $startDate = now()->subYear();
-                        break;
-                }
-                return $query->where('created_at', '>=', $startDate);
-            })
-            ->where(function($query) {
-                // Tìm kiếm theo mô tả hoặc ngày tạo
-                $query->where('description', 'like', '%' . $this->search . '%')
-                      ->orWhere('created_at', 'like', '%' . $this->search . '%');
-            })
-            ->orderBy($this->sortBy, $this->sortDirection)
-            ->paginate(10);
+    protected $queryString = ['search',  'timeFilter'];
 
-        return view('livewire.my-bill', ['transactions' => $transactions]);
-    }
+    public function render()
+{
+    // Lấy danh sách giao dịch của người dùng hiện tại
+    $transactions = Transaction::where('user_id', Auth::id())
+        ->when($this->timeFilter, function ($query) {
+            $startDate = now(); // Khởi tạo ngày bắt đầu là ngày hiện tại
+
+            // Chỉ thực hiện lọc nếu có yêu cầu lọc thời gian
+           if ($this->timeFilter) {
+            $startDate = Carbon::now();
+            switch ($this->timeFilter) {
+                case '1_day':
+                    $startDate = Carbon::now()->subDay()->startOfDay();
+                    break;
+                case '7_day':
+                    $startDate = Carbon::now()->subDays(7)->startOfDay();
+                    break;
+                case '1_month':
+                    $startDate = Carbon::now()->subMonth()->startOfDay();
+                    break;
+                case '3_month':
+                    $startDate = Carbon::now()->subMonths(3)->startOfDay();
+                    break;
+                case '6_month':
+                    $startDate = Carbon::now()->subMonths(6)->startOfDay();
+                    break;
+                case '1_year':
+                    $startDate = Carbon::now()->subYear()->startOfDay();
+                    break;
+            }
+
+            $query->whereDate('created_at', '<=', $startDate);
+            // Log::info('Thời gian bắt đầu lọc', [
+            //     'startDate' => $startDate,
+            //     'data' => $query,
+            // ]);
+            // Log::info('Truy vấn SQL', ['sql' => $query->toSql(), 'bindings' => $query->getBindings()]);
+        }
+
+        })
+        ->where(function ($query) {
+            // Tìm kiếm theo mô tả hoặc ngày tạo
+            $query->where('description', 'like', '%' . $this->search . '%')
+                ->orWhere('created_at', 'like', '%' . $this->search . '%');
+        })
+        ->orderBy($this->sortBy, $this->sortDirection)
+        ->paginate(10);
+
+    return view('livewire.my-bill', ['transactions' => $transactions]);
+}
 
     public function getSortColumn()
     {

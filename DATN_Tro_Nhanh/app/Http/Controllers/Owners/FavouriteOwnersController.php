@@ -29,8 +29,8 @@ class FavouriteOwnersController  extends Controller
     
     {
         
-        $favourites = $this->favouritesService->getAllFavorites();
-        return view('owners.show.dashboard-my-favorites', compact('favourites'));
+
+        return view('owners.show.dashboard-my-favorites');
     }
    // FavouriteController.php
    public function remove(Request $request, $id)

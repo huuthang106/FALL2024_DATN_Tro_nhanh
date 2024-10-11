@@ -33,7 +33,7 @@ class NotificationList extends Component
 
     public function render()
     {
-        Log::info('Đang tìm kiếm với từ khóa: "' . $this->search . '"');
+        // Log::info('Đang tìm kiếm với từ khóa: "' . $this->search . '"');
 
         $query = Notification::where('user_id', Auth::id())
             ->where(function ($q) {
@@ -66,17 +66,17 @@ class NotificationList extends Component
             }
 
             $query->whereDate('created_at', '<=', $startDate);
-            Log::info('Thời gian bắt đầu lọc', [
-                'startDate' => $startDate,
-                'data' => $query,
-            ]);
-            Log::info('Truy vấn SQL', ['sql' => $query->toSql(), 'bindings' => $query->getBindings()]);
+            // Log::info('Thời gian bắt đầu lọc', [
+            //     'startDate' => $startDate,
+            //     'data' => $query,
+            // ]);
+            // Log::info('Truy vấn SQL', ['sql' => $query->toSql(), 'bindings' => $query->getBindings()]);
         }
 
         $notifications = $query->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
 
-        Log::info('Tìm thấy ' . $notifications->count() . ' thông báo');
+        // Log::info('Tìm thấy ' . $notifications->count() . ' thông báo');
 
         return view('livewire.notification-list', [
             'notifications' => $notifications

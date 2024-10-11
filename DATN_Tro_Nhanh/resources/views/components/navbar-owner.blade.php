@@ -10,7 +10,7 @@
                 </a>
                 <div class="ml-auto d-flex align-items-center ">
                     <div class="d-flex align-items-center d-xl-none">
-                        <div class="dropdown px-3 d-none d-md-block">
+                        <div class="dropdown px-3  d-md-block">
                             <a href="#" class="dropdown-toggle d-flex align-items-center text-heading"
                                 data-toggle="dropdown">
                                 <div class="w-48px">
@@ -61,13 +61,13 @@
                 </div>
             </div>
             <div class="collapse navbar-collapse bg-white" id="primaryMenuSidebar">
-                <form class="d-block d-xl-none pt-5 px-3">
+                <form class="d-block d-xl-none pt-5 px-3"  onsubmit="event.preventDefault(); searchNavMobile();">
                     <div class="input-group">
                         <div class="input-group-prepend mr-0 bg-input">
                             <button class="btn border-0 shadow-none fs-20 text-muted pr-0" type="submit"><i
                                     class="far fa-search"></i></button>
                         </div>
-                        <input type="text" class="form-control border-0 form-control-lg shadow-none"
+                        <input type="text" id="navSearchInput2" class="form-control border-0 form-control-lg shadow-none"
                             placeholder="Tìm kiếm" name="search">
                     </div>
                 </form>

@@ -20,10 +20,11 @@ class RoomOwnersList extends Component
     public $sortBy = 'date_new_to_old';
     public $perPage = 10;
     public $roomCount;
-    protected $roomOwnersService;
-    protected $queryString = ['search', 'sortBy', 'perPage'];
-    public const Goitin = 2; // Đúng cú pháp
     public $timeFilter = '';
+    protected $roomOwnersService;
+    protected $queryString = ['search', 'timeFilter'];
+    public const Goitin = 2; // Đúng cú pháp
+
 
 
     public function updatingSearch()
@@ -63,8 +64,7 @@ class RoomOwnersList extends Component
         $userId = Auth::id();
         $user = Auth::user();
         $priceList = PriceList::where('status', self::Goitin)->get();
-        $query = Room::where('user_id', $userId)
-            ->orderBy('created_at', 'desc'); // Thêm điều kiện sắp xếp từ ngày mới nhất tới cũ nhất
+        $query = Room::where('user_id', $userId); // Thêm điều kiện sắp xếp từ ngày mới nhất tới cũ nhất
 
         if (!empty($this->search)) {
             $query->where(function ($q) {
@@ -74,33 +74,40 @@ class RoomOwnersList extends Component
             });
         }
 
-
         if ($this->timeFilter) {
-            $date = Carbon::now();
+            $startDate = Carbon::now();
             switch ($this->timeFilter) {
                 case '1_day':
-                    $date->subDays(1);
+                    $startDate = Carbon::now()->subDay()->startOfDay();
                     break;
                 case '7_day':
-                    $date->subDays(7);
+                    $startDate = Carbon::now()->subDays(7)->startOfDay();
                     break;
                 case '1_month':
-                    $date->subMonth();
+                    $startDate = Carbon::now()->subMonth()->startOfDay();
                     break;
                 case '3_month':
-                    $date->subMonths(3);
+                    $startDate = Carbon::now()->subMonths(3)->startOfDay();
                     break;
                 case '6_month':
-                    $date->subMonths(6);
+                    $startDate = Carbon::now()->subMonths(6)->startOfDay();
                     break;
                 case '1_year':
-                    $date->subYear();
+                    $startDate = Carbon::now()->subYear()->startOfDay();
                     break;
             }
-            $query->whereDate('created_at', '>=', $date); // Lọc theo ngày tạo
+
+            $query->whereDate('created_at', '<=', $startDate);
+            // Log::info('Thời gian bắt đầu lọc', [
+            //     'startDate' => $startDate,
+            //     'data' => $query,
+            // ]);
+            // Log::info('Truy vấn SQL', ['sql' => $query->toSql(), 'bindings' => $query->getBindings()]);
         }
 
-        $rooms = $query->paginate($this->perPage);
+
+        $rooms = $query->orderBy('created_at', 'desc')
+        ->paginate($this->perPage);
 
         return view('livewire.room-owners-list', [
             'rooms' => $rooms,

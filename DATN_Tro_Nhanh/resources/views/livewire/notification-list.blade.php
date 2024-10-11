@@ -62,7 +62,7 @@
             <tbody>
                 @if ($notifications->isEmpty())
                     <tr>
-                        <td colspan="8" class="text-center">Chưa có thông báo</td>
+                        <td colspan="8" class="text-center">Không có dữ liệu</td>
                     </tr>
                 @else
                     @foreach ($notifications as $notification)
