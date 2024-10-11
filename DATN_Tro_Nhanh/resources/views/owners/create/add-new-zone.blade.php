@@ -521,13 +521,13 @@
     <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script src="{{ asset('assets/js/owners/form-map.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
             $('form').on('submit', function(e) {
                 e.preventDefault();
                 var formData = new FormData(this);
-    
+
                 $.ajax({
                     url: $(this).attr('action'),
                     type: 'POST',
@@ -556,13 +556,15 @@
                                 confirmButtonText: 'OK'
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    window.location.href = '{{ route("owners.zone-list") }}';
+                                    window.location.href =
+                                        '{{ route('owners.zone-list') }}';
                                 }
                             });
                         } else {
                             Swal.fire({
                                 title: 'Lỗi!',
-                                text: response.message || 'Đã xảy ra lỗi khi tạo khu trọ.',
+                                text: response.message ||
+                                    'Đã xảy ra lỗi khi tạo khu trọ.',
                                 icon: 'error',
                                 confirmButtonText: 'OK'
                             });
@@ -584,5 +586,5 @@
                 });
             });
         });
-        </script>
+    </script>
 @endpush

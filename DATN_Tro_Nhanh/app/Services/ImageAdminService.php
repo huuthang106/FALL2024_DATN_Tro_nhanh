@@ -22,4 +22,20 @@ class ImageAdminService
     }
     return null;
   }
+
+  public function deleteImage($images): bool
+  {
+    $success = true; // Biến để theo dõi trạng thái xóa
+
+    foreach ($images as $image) {
+      $imagePath = public_path('assets/images/register_owner/' . $image);
+      if (file_exists($imagePath)) {
+        if (!unlink($imagePath)) {
+          $success = false; // Nếu không xóa được, đánh dấu là không thành công
+        }
+      }
+    }
+
+    return $success; // Trả về true nếu tất cả các file đã được xóa thành công, ngược lại false
+  }
 }

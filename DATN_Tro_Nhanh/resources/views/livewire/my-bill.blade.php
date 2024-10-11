@@ -80,11 +80,13 @@
                                                             text-danger @endif">
                                     @if ($transaction->status == 1)
                                         +
+                                    @else
+                                        -
                                     @endif
                                     {{ number_format($transaction->added_funds, 0, ',', '.') }} VND
                                 </td>
                                 <td class="align-middle">
-                                  -  {{ number_format($transaction->balance, 0, ',', '.') }} VND
+                                    {{ number_format($transaction->balance, 0, ',', '.') }} VND
                                 </td>
 
                             </tr>

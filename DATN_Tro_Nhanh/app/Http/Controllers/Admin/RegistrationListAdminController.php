@@ -48,8 +48,8 @@ class RegistrationListAdminController extends Controller
     {
         if(Auth::check()) {
         $single_detail = $this->registrationAdminService->getID($id);
-        $id_intentity = $this->identityService->getIdIdentity(Auth::user()->id);
-
+        $id_intentity = $this->identityService->getIdIdentity($single_detail->user_id);
+// dd($id_intentity);
         $list_image = $this->imageAdminService->getImageUserId($id_intentity);
         // dd($list_image);
         return view('admincp.show.detail-register', compact('single_detail', 'list_image'));

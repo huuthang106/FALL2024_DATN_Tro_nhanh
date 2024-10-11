@@ -17,7 +17,7 @@
                             </button>
                         </div>
                         <input type="text" class="form-control bg-transparent border-0 shadow-none text-body"
-                        placeholder="Nhập tên đơn" wire:keydown.debounce.300ms="$refresh"
+                        placeholder="Nhập mã đơn" wire:keydown.debounce.300ms="$refresh"
                         wire:model.lazy="search">
                     </div>
                 </div>
@@ -32,8 +32,8 @@
                         <select class="form-control bg-transparent pl-0 selectpicker d-flex align-items-center sortby"
                             wire:model.lazy="timeFilter" id="timeFilter"
                             data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
-                            <option value="" selected>Thời Gian:</option>
-                            <option value="1_day">1 ngày</option>
+                            <option value="" selected>Mặc định</option>
+                            <option value="1_day">Hôm qua</option>
                             <option value="7_day">7 ngày</option>
                             <option value="1_month">1 tháng</option>
                             <option value="3_month">3 tháng</option>
@@ -44,24 +44,13 @@
                 </div>
             </div>
 
-            <div wire:loading wire:target="search, timeFilter, sortBy, perPage" class="text-center my-2">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="sr-only">Đang tải...</span>
-                </div>
-            </div>
+  
             
-            <div wire:loading.remove wire:target="search, sortBy, perPage" class="table-responsive">
+            <div class="table-responsive">
                 <table class="table table-hover bg-white border rounded-lg">
                     <thead>
                         <tr class="align-middle">
-                            <th class="no-sort py-6 pl-6 align-middle checkbox-column">
-                                <div class="d-flex align-items-center">
-                                    <label class="new-control new-checkbox checkbox-primary mb-0">
-                                        <input type="checkbox" class="new-control-input chk-parent select-customers-info">
-                                        <span class="new-control-indicator"></span>
-                                    </label>
-                                </div>
-                            </th>
+                           
                             <th scope="col" class="text-nowrap align-middle">Mã đơn</th>
                             <th scope="col" class="text-nowrap align-middle">Nội Dung Rút Tiền</th>
                             <th scope="col" class="text-nowrap align-middle">Ngân Hàng</th>
@@ -73,27 +62,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr wire:loading wire:target="search, sortBy, perPage">
-                            <td colspan="5" class="text-center py-4">
-                                <div class="spinner-border text-primary" role="status">
-                                    <span class="sr-only">Đang tải...</span>
-                                </div>
-                            </td>
-                        </tr>
+                
                         @if ($payouts->isEmpty())
                             <tr>
-                                <td colspan="5">
+                                <td colspan="8">
                                     <p class="text-center">Không có đơn rút tiền.</p>
                                 </td>
                             </tr>
                         @else
                             @foreach ($payouts as $payout)
                                 <tr role="shadow-hover-xs-2 bg-hover-white">
-                                    <td class="checkbox-column py-6 pl-6">
-                                        <label class="new-control new-checkbox checkbox-primary m-auto">
-                                            <input type="checkbox" class="new-control-input child-chk select-customers-info" value="{{ $payout->id }}">
-                                        </label>
-                                    </td>
+                                    
                                     <td class="align-middle text-nowrap">{{ $payout->single_code }}</td>
                                     <td class="align-middle text-nowrap">
                                         <div class="d-flex align-items-center">
@@ -115,21 +94,26 @@
                                     <td class="align-middle text-nowrap">{{ number_format($payout->amount, 0, ',', '.') }} VNĐ</td>
                                     <td class="align-middle p-4">
                                         @if ($payout->status == '1')
-                                            <span class="badge badge-warning text-capitalize font-weight-normal fs-12">Đang xử lý</span>
+                                            <span class="badge badge-yellow text-capitalize font-weight-normal fs-12">Đang xử lý</span>
                                         @elseif ($payout->status == '2')
-                                            <span class="badge badge-primary text-capitalize font-weight-normal fs-12">Đã chuyển</span>
+                                            <span class="badge badge-success text-capitalize font-weight-normal fs-12">Đã chuyển</span>
                                         @elseif ($payout->status == '3')
-                                            <span class="badge badge-success text-capitalize font-weight-normal fs-12">Đã hủy</span>
+                                            <span class="badge badge-danger text-capitalize font-weight-normal fs-12">Đã hủy</span>
                                         @elseif ($payout->status == '4')
                                             <span class="badge badge-danger text-capitalize font-weight-normal fs-12">Bị từ chối</span>
                                         @endif
                                     </td>
                                     <td class="align-middle text-nowrap">
                                         @if($payout->status != '2' && $payout->status != '3')
-                                            <button wire:click="deletePayout({{ $payout->id }})" data-toggle="tooltip" title="Xóa" class="btn btn-link p-0 d-inline-block fs-18 text-muted hover-primary">
+                                            <button wire:click="deletePayout({{ $payout->id }})" data-toggle="tooltip" title="Hủy" class="btn badge-danger btn-sm">
                                                 <i class="fal fa-trash-alt"></i>
+                                                <div wire:loading>
+                                                    <span>Đang xử lý...</span>
+                                                </div>
                                             </button>
+                                            
                                         @endif
+                                   
                                     </td>
                                 </tr>
                             @endforeach
@@ -150,13 +134,7 @@
                             </a>
                         </li>
             
-                        {{-- Nút tới trang trước --}}
-                        <li class="page-item {{ $payouts->onFirstPage() ? 'disabled' : '' }}">
-                            <a class="page-link" wire:click.prevent="previousPage">
-                                <i class="fas fa-angle-left"></i>
-                            </a>
-                        </li>
-            
+                      
                         {{-- Hiển thị các trang --}}
                         @php
                             $currentPage = $payouts->currentPage();
@@ -192,12 +170,6 @@
                             </li>
                         @endif
             
-                        {{-- Nút tới trang kế tiếp --}}
-                        <li class="page-item {{ $currentPage == $lastPage ? 'disabled' : '' }}">
-                            <a class="page-link" wire:click.prevent="nextPage">
-                                <i class="fas fa-angle-right"></i>
-                            </a>
-                        </li>
             
                         {{-- Nút tới trang cuối cùng --}}
                         <li class="page-item {{ $currentPage == $lastPage ? 'disabled' : '' }}">

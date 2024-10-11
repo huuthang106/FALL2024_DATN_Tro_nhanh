@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use App\Models\Transaction;
+use App\Models\User;
 
 class PayoutTable extends Component
 {
@@ -30,20 +31,20 @@ class PayoutTable extends Component
     public function render()
     {
         $query = PayoutHistory::where('user_id', Auth::id())
-        ->orderBy('created_at', 'desc');
+            ->orderBy('created_at', 'desc');
 
         if ($this->search) {
             $query->where(function ($q) {
-                $q->where('description', 'like', '%' . $this->search . '%')
+                $q->where('single_code', 'like', '%' . $this->search . '%')
                     ->orWhere('bank_name', 'like', '%' . $this->search . '%');
             });
         }
 
         if ($this->timeFilter) {
             $startDate = Carbon::now();  // Thời gian bắt đầu của bộ lọc
-        
-            \Log::info("Current date before filter: " . Carbon::now()->toDateTimeString());
-        
+
+            // \Log::info("Current date before filter: " . Carbon::now()->toDateTimeString());
+
             // Xử lý bộ lọc thời gian
             switch ($this->timeFilter) {
                 case '1_day':
@@ -65,14 +66,14 @@ class PayoutTable extends Component
                     $startDate = Carbon::now()->subYear()->startOfDay();  // Bắt đầu của 1 năm trước
                     break;
             }
-        
-            \Log::info("Lọc dữ liệu trước ngày: " . $startDate->toDateTimeString());
-        
+
+            // \Log::info("Lọc dữ liệu trước ngày: " . $startDate->toDateTimeString());
+
             // Lọc dữ liệu với created_at nhỏ hơn ngày bắt đầu
             $query->whereDate('created_at', '<=', $startDate);
-        
+
             // Log số lượng bản ghi sau khi lọc
-            \Log::info("Số lượng bản ghi sau khi lọc: " . $query->count());
+            // \Log::info("Số lượng bản ghi sau khi lọc: " . $query->count());
         }
 
         $query->orderBy('created_at', 'desc');
@@ -106,7 +107,7 @@ class PayoutTable extends Component
         $this->orderBy = $field;
     }
 
-   
+
     public function deletePayout($payoutId)
     {
         try {
@@ -114,7 +115,14 @@ class PayoutTable extends Component
             $payout->status = '3';
             $payout->canceled_at = now();
             $payout->save();
-
+            // nguyen huu thang bo sung + tien lai cho user 
+            // Cập nhật số dư của người dùng
+            // Truy vấn lại người dùng từ cơ sở dữ liệu
+            $user = User::findOrFail(Auth::id()); // Truy vấn lại người dùng từ bảng users
+            // Cập nhật số dư của người dùng
+            $user->balance += $payout->amount; // Thêm số tiền vào số dư
+            $user->save(); // Lưu thay đổi
+            
             $transaction = new Transaction();
             $transaction->user_id = Auth::id();
             $transaction->added_funds = $payout->amount;

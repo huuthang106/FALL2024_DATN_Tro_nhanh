@@ -34,7 +34,8 @@
                                             <div class="form-group">
                                                 <label for="bank-name" class="fs-10">Tên Ngân Hàng</label>
                                                 <div class="custom-select-wrapper">
-                                                    <select class="form-control custom-select" id="bank-name" name="bank_name" required data-placeholder="Chọn ngân hàng">
+                                                    <select class="form-control custom-select" id="bank-name"
+                                                        name="bank_name" required data-placeholder="Chọn ngân hàng">
                                                         <option value="" disabled selected>Chọn ngân hàng</option>
                                                         <!-- Các ngân hàng sẽ được lấy từ API -->
                                                     </select>
@@ -48,18 +49,18 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="account-number" class="fs-10">Mã ngân hàng</label>
-                                                <input type="text" class="form-control" id="bank_code" name="bank_code" readonly>
+                                                <input type="text" class="form-control" id="bank_code" name="bank_code"
+                                                    readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-5">
                                             <div class="form-group">
                                                 <label for="withdraw-amount" class="fs-10">Số Tiền Cần Rút</label>
-                                                <input type="number" class="form-control" id="added_funds"
-                                                    name="amount" placeholder="Nhập số tiền"
-                                                    value="{{ Auth::user()->balance }}" max="{{ Auth::user()->balance }}"
-                                                    required>
+                                                <input type="number" class="form-control" id="added_funds" name="amount"
+                                                    placeholder="Nhập số tiền" value="{{ Auth::user()->balance }}"
+                                                    max="{{ Auth::user()->balance }}" required>
                                                 <!-- <small class="form-text text-muted">Số dư hiện tại:
-                                                    {{ number_format(Auth::user()->balance, 0, ',', '.') }} VNĐ</small> -->
+                                                            {{ number_format(Auth::user()->balance, 0, ',', '.') }} VNĐ</small> -->
                                             </div>
                                             <div class="form-group">
                                                 <label for="withdraw-amount" class="fs-10">Tên Chủ Tài Khoản</label>
@@ -451,16 +452,16 @@
     <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var cardHolderNameInput = document.getElementById('card_holder_name');
-        
-        cardHolderNameInput.addEventListener('input', function(e) {
-            this.value = this.value.toUpperCase();
+        document.addEventListener('DOMContentLoaded', function() {
+            var cardHolderNameInput = document.getElementById('card_holder_name');
+
+            cardHolderNameInput.addEventListener('input', function(e) {
+                this.value = this.value.toUpperCase();
+            });
         });
-    });
     </script>
 
-// ... existing code ...
+
     <!-- Theme scripts -->
     <script>
         window.zoneData = {
@@ -471,50 +472,50 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-         // Lấy danh sách ngân hàng từ API
-            async function fetchBanks() {
-                try {
-                    const response = await axios.get('https://api.vietqr.io/v2/banks');
-                    const banks = response.data.data;
+        // Lấy danh sách ngân hàng từ API
+        async function fetchBanks() {
+            try {
+                const response = await axios.get('https://api.vietqr.io/v2/banks');
+                const banks = response.data.data;
 
-                    // Cập nhật danh sách ngân hàng vào select
-                    const bankSelect = document.getElementById('bank-name');
+                // Cập nhật danh sách ngân hàng vào select
+                const bankSelect = document.getElementById('bank-name');
 
-                    // Xóa tất cả các option hiện tại
-                    bankSelect.innerHTML = '';
+                // Xóa tất cả các option hiện tại
+                bankSelect.innerHTML = '';
 
-                    // Thêm option mặc định
-                    const defaultOption = document.createElement('option');
-                    defaultOption.value = '';
-                    defaultOption.textContent = 'Chọn ngân hàng';
-                    bankSelect.appendChild(defaultOption);
+                // Thêm option mặc định
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Chọn ngân hàng';
+                bankSelect.appendChild(defaultOption);
 
-                    // Thêm các ngân hàng
-                    banks.forEach(bank => {
-                        const option = document.createElement('option');
-                        option.value = bank.code;
-                        option.textContent = bank.name;
-                        option.dataset.name = bank.name;
-                        option.dataset.shortName = bank.shortName;
-                        bankSelect.appendChild(option);
-                    });
+                // Thêm các ngân hàng
+                banks.forEach(bank => {
+                    const option = document.createElement('option');
+                    option.value = bank.code;
+                    option.textContent = bank.name;
+                    option.dataset.name = bank.name;
+                    option.dataset.shortName = bank.shortName;
+                    bankSelect.appendChild(option);
+                });
 
-                } catch (error) {
-                    console.error('Error fetching banks:', error);
-                }
+            } catch (error) {
+                console.error('Error fetching banks:', error);
             }
+        }
 
         // Gọi hàm khi modal mở
         $('#withdrawModal').on('show.bs.modal', fetchBanks);
 
-         // Thêm event listener cho select
+        // Thêm event listener cho select
         document.getElementById('bank-name').addEventListener('change', function() {
             const selectedOption = this.options[this.selectedIndex];
             const shortNameInput = document.getElementById('bank_code');
             if (selectedOption && selectedOption.value) {
-            shortNameInput.value = selectedOption.dataset.shortName;
-        } else {
-            shortNameInput.value = '';
+                shortNameInput.value = selectedOption.dataset.shortName;
+            } else {
+                shortNameInput.value = '';
             }
         });
 
@@ -541,49 +542,49 @@
 
             // Gửi request
             fetch('{{ route('owners.submit-payout-request') }}', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Thành công',
-                        text: data.message,
-                        confirmButtonText: 'OK'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // Đóng modal hoặc chuyển hướng nếu cần
-                            $('#withdrawModal').modal('hide');
-                            // Hoặc: window.location.href = '/trang-chu';
-                        }
-                    });
-                } else {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thành công',
+                            text: data.message,
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Đóng modal hoặc chuyển hướng nếu cần
+                                $('#withdrawModal').modal('hide');
+                                // Hoặc: window.location.href = '/trang-chu';
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi!',
+                            text: data.message || 'Có lỗi xảy ra khi xử lý yêu cầu',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
                     Swal.fire({
                         icon: 'error',
                         title: 'Lỗi!',
-                        text: data.message || 'Có lỗi xảy ra khi xử lý yêu cầu',
+                        text: 'Có lỗi xảy ra khi xử lý yêu cầu',
                         confirmButtonText: 'OK'
                     });
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Lỗi!',
-                    text: 'Có lỗi xảy ra khi xử lý yêu cầu',
-                    confirmButtonText: 'OK'
                 });
-            });
         });
     </script>
-   
+
     <script src="{{ asset('assets/js/payout-api.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/js/theme.js') }}"></script>
@@ -594,7 +595,7 @@
     <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{{ asset('assets/js/api-update-zone-nht.js') }}"></script>
-    <script>
+    {{-- <script>
         $('#updateProfileForm').on('submit', function(e) {
             e.preventDefault();
             var formData = new FormData(this);
@@ -652,6 +653,71 @@
                         confirmButtonText: 'OK'
                     });
                 }
+            });
+        });
+    </script> --}}
+    <script>
+        $(document).ready(function() {
+            $('form').on('submit', function(e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function() {
+                        Swal.fire({
+                            title: 'Đang xử lý...',
+                            text: 'Vui lòng đợi trong giây lát!',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            allowEnterKey: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
+                    },
+                    success: function(response) {
+                        Swal.close();
+                        if (response.success) {
+                            Swal.fire({
+                                title: 'Thành công!',
+                                text: 'Cập nhật tài khoản thành công.',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href =
+                                        '{{ route('owners.profile.profile-admin-index') }}';
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Lỗi!',
+                                text: response.message ||
+                                    'Đã xảy ra lỗi khi cập nhật tài khoản.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    },
+                    error: function(xhr) {
+                        Swal.close();
+                        let errorMessage = 'Đã xảy ra lỗi khi xử lý yêu cầu.';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMessage = xhr.responseJSON.message;
+                        }
+                        Swal.fire({
+                            title: 'Lỗi!',
+                            text: errorMessage,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
             });
         });
     </script>

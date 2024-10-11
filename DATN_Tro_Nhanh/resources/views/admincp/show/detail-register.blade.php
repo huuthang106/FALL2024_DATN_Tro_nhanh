@@ -19,7 +19,7 @@
                             <!--begin: Pic-->
                             <div class="me-7 mb-4">
                                 <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                                    <img src={{ asset('assets/images/' . $single_detail->user->image) }} alt="image" />
+                                    <img src="{{ $single_detail->user->image ? asset('assets/images/' . $single_detail->user->image) : asset('assets/images/agent-25.jpg') }}" alt="image" />
                                     <div
                                         class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px">
                                     </div>
@@ -34,7 +34,7 @@
                                     <div class="d-flex flex-column">
                                         <!--begin::Name-->
                                         <div class="d-flex align-items-center mb-2">
-                                            <a href="#"
+                                            <a href="{{ route('client.client-agent-detail', $single_detail->user->slug) }}"
                                                 class="text-gray-900 text-hover-primary fs-2 fw-bolder me-1">{{ $single_detail->name }}</a>
                                             <a href="#">
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen026.svg-->
@@ -70,8 +70,8 @@
                                                             fill="black" />
                                                     </svg>
                                                 </span>
-                                                <!--end::Svg Icon-->Developer</a>
-                                            <a href="#"
+                                                {{ $single_detail->user->phone }}</a>
+                                            <span
                                                 class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen018.svg-->
                                                 <span class="svg-icon svg-icon-4 me-1">
@@ -85,8 +85,8 @@
                                                             fill="black" />
                                                     </svg>
                                                 </span>
-                                                <!--end::Svg Icon-->SF, Bay Area</a>
-                                            <a href="#"
+                                                {{ $single_detail->user->address }} </span>
+                                            <a href="mailto:{{ $single_detail->user->email }}"
                                                 class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
                                                 <!--begin::Svg Icon | path: icons/duotune/communication/com011.svg-->
                                                 <span class="svg-icon svg-icon-4 me-1">
@@ -100,7 +100,7 @@
                                                             fill="black" />
                                                     </svg>
                                                 </span>
-                                                <!--end::Svg Icon-->max@kt.com</a>
+                                                {{ $single_detail->user->email }}</a>
                                         </div>
                                         <!--end::Info-->
                                     </div>
@@ -146,105 +146,9 @@
                                 <!--begin::Stats-->
                                 <div class="d-flex flex-wrap flex-stack">
                                     <!--begin::Wrapper-->
-                                    <div class="d-flex flex-column flex-grow-1 pe-8">
-                                        <!--begin::Stats-->
-                                        <div class="d-flex flex-wrap">
-                                            <!--begin::Stat-->
-                                            <div
-                                                class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                                <!--begin::Number-->
-                                                <div class="d-flex align-items-center">
-                                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
-                                                    <span class="svg-icon svg-icon-3 svg-icon-success me-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none">
-                                                            <rect opacity="0.5" x="13" y="6" width="13" height="2"
-                                                                rx="1" transform="rotate(90 13 6)"
-                                                                fill="black" />
-                                                            <path
-                                                                d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
-                                                                fill="black" />
-                                                        </svg>
-                                                    </span>
-                                                    <!--end::Svg Icon-->
-                                                    <div class="fs-2 fw-bolder" data-kt-countup="true"
-                                                        data-kt-countup-value="4500" data-kt-countup-prefix="$">0</div>
-                                                </div>
-                                                <!--end::Number-->
-                                                <!--begin::Label-->
-                                                <div class="fw-bold fs-6 text-gray-400">Earnings</div>
-                                                <!--end::Label-->
-                                            </div>
-                                            <!--end::Stat-->
-                                            <!--begin::Stat-->
-                                            <div
-                                                class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                                <!--begin::Number-->
-                                                <div class="d-flex align-items-center">
-                                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr065.svg-->
-                                                    <span class="svg-icon svg-icon-3 svg-icon-danger me-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none">
-                                                            <rect opacity="0.5" x="11" y="18" width="13"
-                                                                height="2" rx="1"
-                                                                transform="rotate(-90 11 18)" fill="black" />
-                                                            <path
-                                                                d="M11.4343 15.4343L7.25 11.25C6.83579 10.8358 6.16421 10.8358 5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75L11.2929 18.2929C11.6834 18.6834 12.3166 18.6834 12.7071 18.2929L18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25C17.8358 10.8358 17.1642 10.8358 16.75 11.25L12.5657 15.4343C12.2533 15.7467 11.7467 15.7467 11.4343 15.4343Z"
-                                                                fill="black" />
-                                                        </svg>
-                                                    </span>
-                                                    <!--end::Svg Icon-->
-                                                    <div class="fs-2 fw-bolder" data-kt-countup="true"
-                                                        data-kt-countup-value="75">0</div>
-                                                </div>
-                                                <!--end::Number-->
-                                                <!--begin::Label-->
-                                                <div class="fw-bold fs-6 text-gray-400">Projects</div>
-                                                <!--end::Label-->
-                                            </div>
-                                            <!--end::Stat-->
-                                            <!--begin::Stat-->
-                                            <div
-                                                class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                                <!--begin::Number-->
-                                                <div class="d-flex align-items-center">
-                                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
-                                                    <span class="svg-icon svg-icon-3 svg-icon-success me-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none">
-                                                            <rect opacity="0.5" x="13" y="6" width="13"
-                                                                height="2" rx="1" transform="rotate(90 13 6)"
-                                                                fill="black" />
-                                                            <path
-                                                                d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
-                                                                fill="black" />
-                                                        </svg>
-                                                    </span>
-                                                    <!--end::Svg Icon-->
-                                                    <div class="fs-2 fw-bolder" data-kt-countup="true"
-                                                        data-kt-countup-value="60" data-kt-countup-prefix="%">0</div>
-                                                </div>
-                                                <!--end::Number-->
-                                                <!--begin::Label-->
-                                                <div class="fw-bold fs-6 text-gray-400">Success Rate</div>
-                                                <!--end::Label-->
-                                            </div>
-                                            <!--end::Stat-->
-                                        </div>
-                                        <!--end::Stats-->
-                                    </div>
-                                    <!--end::Wrapper-->
+
                                     <!--begin::Progress-->
-                                    <div class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3">
-                                        <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-                                            <span class="fw-bold fs-6 text-gray-400">Profile Compleation</span>
-                                            <span class="fw-bolder fs-6">50%</span>
-                                        </div>
-                                        <div class="h-5px mx-3 w-100 bg-light mb-3">
-                                            <div class="bg-success rounded h-5px" role="progressbar" style="width: 50%;"
-                                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
+
                                     <!--end::Progress-->
                                 </div>
                                 <!--end::Stats-->
@@ -310,9 +214,14 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 d-flex align-items-center">
-                                    <span
-                                        class="fw-bolder fs-6 text-gray-800 me-2">{{ $single_detail->user->phone }}</span>
-                                    <span class="badge badge-success">Đã xác minh</span>
+
+                                    @if ($single_detail->user->phone)
+                                        <span
+                                            class="fw-bolder fs-6 text-gray-800 me-2">{{ $single_detail->user->phone }}</span>
+                                        <span class="badge badge-success">Đã xác minh</span>
+                                    @else
+                                        <span class="badge badge-danger">Chưa xác minh</span>
+                                    @endif
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -329,7 +238,10 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8">
-                                    <span class="fw-bolder fs-6 text-gray-800"></span>
+
+                                    <span class="fw-bolder fs-6 text-gray-800"><small>
+                                            {{ $single_detail->user->address ? $single_detail->user->address : 'Chưa bổ sung' }}
+                                    </span></small></span>
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -341,7 +253,8 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8">
-                                    <span class="fw-bolder fs-6 text-gray-800">{{ $single_detail->user->email }}</span>
+                                    <span
+                                        class="fw-bolder fs-6 text-gray-800">{{ $single_detail->user->email ? $single_detail->user->email : 'Chưa bổ sung' }}</span>
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -358,7 +271,7 @@
                                         <div
                                             class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative hover-overlay">
                                             <img src="{{ asset('assets/images/register_owner/' . $image->filename) }}"
-                                                alt="image" class="img-fluid" />
+                                                alt="{{ $image->filename }}" class="img-fluid" />
                                             <div class="overlay">
                                                 <button type="button" class="btn-transparent" data-bs-toggle="modal"
                                                     data-bs-target="#imageModal-{{ $image->id }}">

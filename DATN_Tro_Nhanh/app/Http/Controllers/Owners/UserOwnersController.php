@@ -14,16 +14,20 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Identity;
 use App\Models\RegistrationList;
 use App\Models\Image;
+use App\Services\ImageAdminService;
+use Illuminate\Support\Facades\Log;
 class UserOwnersController extends Controller
 {
     protected $userClientServices;
     protected $profileService;
     protected $registrationService;
-    public function __construct(UserClientServices $userClientServices, ProfileService $profileService, RegistrationService $registrationService)
+    protected $imageAdminService;
+    public function __construct(UserClientServices $userClientServices, ProfileService $profileService, RegistrationService $registrationService, ImageAdminService $imageAdminService)
     {
         $this->userClientServices = $userClientServices;
         $this->profileService = $profileService;
         $this->registrationService = $registrationService;
+        $this->imageAdminService = $imageAdminService;
     }
     // Hiển thị giao diện Thông tin tài khoản Admin
     public function indexProfileAdmin()
@@ -43,7 +47,13 @@ class UserOwnersController extends Controller
             $data = $request->validated();
             $result = $this->profileService->updateProfileBySlug($id, $data);
 
-            return response()->json($result, $result['success'] ? 200 : 400);
+            if (is_array($result) && isset($result['success'])) {
+                return response()->json($result, $result['success'] ? 200 : 400);
+            } else {
+                // Xử lý trường hợp $result không phải là mảng
+                return response()->json(['success' => false, 'message' => 'Kết quả không hợp lệ.'], 400);
+            }
+            // return response()->json($result, $result['success'] ? 200 : 400);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -118,13 +128,26 @@ class UserOwnersController extends Controller
     public function clear_information()
     {
         $userId = auth()->id();
-
+        $identity = Identity::where('user_id', $userId)->first();
+        $images = Image::where('identity_id', $userId)->pluck('filename')->toArray();
         // Xóa thông tin của người dùng và kiểm tra số lượng bản ghi bị xóa
         $deleted = Identity::where('user_id', $userId)->delete();
 
-        // Nếu xóa thành công
-        if ($deleted > 0) {
-            return redirect()->back()->with('success', 'Xóa thông tin thành công!');
+       
+        if ($identity) {
+            // Lấy danh sách hình ảnh liên quan đến identity
+            $images = Image::where('identity_id', $identity->id)->pluck('filename')->toArray();
+            // dd($images);    
+            // Xóa thông tin của người dùng và kiểm tra số lượng bản ghi bị xóa
+            $deleted = Identity::where('user_id', $userId)->forceDelete();
+            $deletedImage = $this->imageAdminService->deleteImage($images);
+            // Xóa hình ảnh trong thư mục
+          
+    
+            // Nếu xóa thành công
+            if ($deleted > 0) {
+                return redirect()->back()->with('success', 'Xóa thông tin thành công!');
+            }
         }
 
         // Nếu không có bản ghi nào bị xóa

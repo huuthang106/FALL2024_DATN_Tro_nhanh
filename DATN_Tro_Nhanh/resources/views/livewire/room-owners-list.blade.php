@@ -144,12 +144,12 @@
                                 <td class="align-middle " style="white-space: nowrap;">
                                     <!-- Nút Mua Vip -->
                                     @if ($room->status == 2)
-                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                        <button type="button" class="btn badge-primary btn-sm" data-toggle="modal"
                                             data-target="#vipModal{{ $room->id }}">
                                             Mua Vip
                                         </button>
                                     @else
-                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                        <button type="button" class="btn badge-danger btn-sm" data-toggle="modal"
                                             data-target="#notApprovedModal">
                                             Chưa mở
                                         </button>
@@ -159,7 +159,7 @@
                                     <!-- Icon Chỉnh sửa -->
                                     <a href="{{ route('owners.room-view-update', $room->slug) }}"
                                         data-toggle="tooltip" title="Chỉnh sửa"
-                                        class="btn btn-warning btn-sm mr-2">
+                                        class="btn badge-warning btn-sm mr-2">
                                         <i class="fal fa-pencil-alt"></i>
                                     </a>
 
@@ -168,7 +168,7 @@
                                         class="d-inline-block">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm"><i
+                                        <button type="submit" class="btn badge-danger btn-sm"><i
                                             class="fal fa-trash-alt"></i></button>
                                     </form>
                                 </td>
