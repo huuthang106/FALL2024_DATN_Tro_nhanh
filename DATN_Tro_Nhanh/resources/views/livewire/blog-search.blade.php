@@ -16,12 +16,12 @@
                         <option value="1_year">1 năm</option>
                     </select>
                 </div>
-                <div class="align-self-center">
+                {{-- <div class="align-self-center">
                     <a href="{{ route('owners.blog') }}" class="btn btn-primary btn-lg" tabindex="0"><span>Thêm
                             mới</span></a>
-                </div>
+                </div> --}}
             </div>
-            <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
+            {{-- <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
                 <div class="input-group input-group-lg bg-white mb-0 position-relative flex-grow-1 mr-2"
                     style="width: 60%">
                     <input wire:model.lazy="search" wire:keydown.debounce.100ms="$refresh" type="text"
@@ -37,7 +37,40 @@
                     <div class="align-self-center">
                         <button id="deleteSelected" class="btn btn-danger btn-lg ml-2">Xóa</button>
                     </div>
+                </div>
+            </div> --}}
+            <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
+                <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
+                    <input wire:model.lazy="search" wire:keydown.debounce.500ms="$refresh" type="text"
+                        class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..." aria-label=""
+                        aria-describedby="basic-addon1">
+                    <div class="input-group-append position-absolute pos-fixed-right-center">
+                        <button class="btn bg-transparent border-0 text-gray lh-1" type="button">
+                            <i class="fal fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="ml-2">
+                    <button id="deleteSelected" class="btn btn-danger btn-lg ml-2">Xóa</button>
+                </div>
             </div>
+            {{-- <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
+                <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
+                    <input type="text" wire:model.lazy="search" wire:keydown.debounce.300ms="$refresh"
+                        class="form-control bg-transparent border-1x" placeholder="Tìm..." aria-label=""
+                        aria-describedby="basic-addon1">
+                    <div class="input-group-append position-absolute pos-fixed-right-center">
+                        <button class="btn bg-transparent border-0 text-gray lh-1" type="button">
+                            <i class="fal fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="align-self-center">
+                    <button id="deleteSelected" class="btn btn-danger btn-lg" tabindex="0"
+                        aria-controls="invoice-list"><span>Xóa</span></button>
+
+                </div>
+            </div> --}}
         </div>
     </div>
     <div class="table-responsive">
@@ -65,22 +98,20 @@
                 @else
                     @foreach ($blogs as $blog)
                         <tr class="shadow-hover-xs-2">
-                            <td>
-                                <input type="checkbox" class="blog-checkbox" value="{{ $blog->id }}" 
+                            <td class="align-middle pt-3 pb-3 px-3">
+                                <input type="checkbox" class="blog-checkbox" value="{{ $blog->id }}"
                                     wire:model="selectedBlogs"> <!-- Checkbox cho mỗi blog -->
                             </td>
-                            <td class="align-middle pt-3 pb-3 px-3">
+                            <td class="align-middle pt-3 pb-3 px-3" style="width: 15%">
                                 <div class="media d-flex align-items-center">
                                     <div class="w-100 w-md-150 mr-3 position-relative">
                                         <a href="{{ route('owners.show-blog', $blog->slug) }}">
                                             @if ($blog->image && $blog->image->isNotEmpty())
                                                 <img src="{{ asset('assets/images/' . $blog->image->first()->filename) }}"
-                                                    alt="{{ $blog->image->first()->filename }}" class="img-fluid"
-                                                    style="width: 100px; height: 100px; object-fit: cover;">
+                                                    alt="{{ $blog->image->first()->filename }}" class="img-fluid">
                                             @else
-                                                <img src="{{ asset('path/to/default/image.jpg') }}" alt="Default Image"
-                                                    class="img-fluid"
-                                                    style="width: 100px; height: 100px; object-fit: cover;">
+                                                <img src="{{ asset('assets/images/properties-grid-08.jpg') }}"
+                                                    alt="Default Image" class="img-fluid">
                                             @endif
                                         </a>
                                     </div>
@@ -105,18 +136,24 @@
                             </td>
                             <td class="align-middle">{{ $blog->created_at->format('d-m-Y') }}</td>
                             <td class="align-middle text" style="white-space: nowrap;">
-                                <a href="{{ route('owners.sua-blog', ['slug' => $blog->slug]) }}" data-toggle="tooltip"
+                                {{-- <a href="{{ route('owners.sua-blog', ['slug' => $blog->slug]) }}" data-toggle="tooltip"
                                     title="Chỉnh sửa" class="d-inline-block fs-16 text-muted hover-primary ml-1 mr-3">
+                                    <i class="fal fa-pencil-alt"></i>
+                                </a> --}}
+                                <a href="{{ route('owners.sua-blog', ['slug' => $blog->slug]) }}" data-toggle="tooltip"
+                                    title="Chỉnh sửa" class="btn btn-primary btn-sm mr-2">
                                     <i class="fal fa-pencil-alt"></i>
                                 </a>
                                 <form action="{{ route('owners.destroy-blog', $blog->id) }}" method="POST"
                                     class="d-inline-block" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit"
+                                    {{-- <button type="submit"
                                         class="fs-16 text-muted hover-primary border-0 bg-transparent">
                                         <i class="fal fa-trash-alt"></i>
-                                    </button>
+                                    </button> --}}
+                                    <button type="submit" class="btn btn-danger btn-sm"><i
+                                            class="fal fa-trash-alt"></i></button>
                                 </form>
                             </td>
                         </tr>
@@ -125,171 +162,123 @@
             </tbody>
         </table>
     </div>
+    @if ($blogs->hasPages())
+        <nav aria-label="Page navigation">
+            <ul class="pagination rounded-active justify-content-center">
+                {{-- Nút về đầu --}}
 
-
-    <div id="pagination-section" class="mt-6">
-        <ul class="pagination pagination-sm rounded-active justify-content-center">
-            {{-- Nút quay về trang đầu tiên (<<) --}}
-            <li class="page-item {{ $blogs->onFirstPage() ? 'disabled' : '' }}">
-                <a class="page-link" wire:click="gotoPage(1)" wire:loading.attr="disabled"
-                    href="#pagination-section">
-                    <i class="far fa-angle-double-left"></i>
-                </a>
-            </li>
-
-            {{-- Nút quay lại trang trước (<) --}}
-            <li class="page-item {{ $blogs->onFirstPage() ? 'disabled' : '' }}">
-                <a class="page-link" wire:click="previousPage" wire:loading.attr="disabled"
-                    href="#pagination-section">
-                    <i class="fas fa-angle-left"></i>
-                </a>
-            </li>
-
-            {{-- Hiển thị các trang chỉ trên kích thước md trở lên --}}
-            @if ($blogs->currentPage() > 2)
-                <li class="page-item d-none d-md-inline">
-                    <a class="page-link" wire:click="gotoPage(1)" href="#pagination-section">1</a>
+                <li class="page-item {{ $blogs->onFirstPage() ? 'disabled' : '' }}">
+                    <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled"
+                        rel="prev" aria-label="@lang('pagination.previous')"><i class="far fa-angle-double-left"></i></a>
                 </li>
-            @endif
+                @php
+                    $totalPages = $blogs->lastPage();
+                    $currentPage = $blogs->currentPage();
+                    $visiblePages = 3; // Số trang hiển thị ở giữa
+                @endphp
 
-            @if ($blogs->currentPage() > 3)
-                <li class="page-item disabled d-none d-md-inline">
-                    <span class="page-link">...</span>
+                {{-- Trang đầu --}}
+                <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                    <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled">1</a>
                 </li>
-            @endif
 
-            {{-- Hiển thị các trang xung quanh trang hiện tại --}}
-            @for ($i = max(1, $blogs->currentPage() - 1); $i <= min($blogs->currentPage() + 1, $blogs->lastPage()); $i++)
-                <li class="page-item {{ $blogs->currentPage() == $i ? 'active' : '' }}">
-                    <a class="page-link" wire:click="gotoPage({{ $i }})"
-                        href="#pagination-section">{{ $i }}</a>
+                {{-- Dấu ba chấm đầu --}}
+                @if ($currentPage > $visiblePages)
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                @endif
+
+                {{-- Các trang giữa --}}
+                @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
+                    @if ($i > 1 && $i < $totalPages)
+                        <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                            <a class="page-link hover-white" wire:click="gotoPage({{ $i }})"
+                                wire:loading.attr="disabled">{{ $i }}</a>
+                        </li>
+                    @endif
+                @endforeach
+
+                {{-- Dấu ba chấm cuối --}}
+                @if ($currentPage < $totalPages - ($visiblePages - 1))
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                @endif
+
+                {{-- Trang cuối --}}
+                @if ($totalPages > 1)
+                    <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                        <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
+                            wire:loading.attr="disabled">{{ $totalPages }}</a>
+                    </li>
+                @endif
+
+
+                <li class="page-item {{ !$blogs->hasMorePages() ? 'disabled' : '' }}">
+                    <a class="page-link hover-white" wire:click="gotoPage({{ $blogs->lastPage() }})"
+                        wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')"><i
+                            class="far fa-angle-double-right"></i></a>
                 </li>
-            @endfor
-
-            @if ($blogs->currentPage() < $blogs->lastPage() - 2)
-                <li class="page-item disabled d-none d-md-inline">
-                    <span class="page-link">...</span>
-                </li>
-            @endif
-
-            @if ($blogs->currentPage() < $blogs->lastPage() - 1)
-                <li class="page-item d-none d-md-inline">
-                    <a class="page-link" wire:click="gotoPage({{ $blogs->lastPage() }})" href="#pagination-section">
-                        {{ $blogs->lastPage() }}
-                    </a>
-                </li>
-            @endif
-
-            {{-- Nút tới trang kế tiếp (>) --}}
-            <li class="page-item {{ $blogs->currentPage() == $blogs->lastPage() ? 'disabled' : '' }}">
-                <a class="page-link" wire:click="nextPage" wire:loading.attr="disabled" href="#pagination-section">
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-
-            {{-- Nút tới trang cuối cùng (>>) --}}
-            <li class="page-item {{ $blogs->currentPage() == $blogs->lastPage() ? 'disabled' : '' }}">
-                <a class="page-link" wire:click="gotoPage({{ $blogs->lastPage() }})" wire:loading.attr="disabled"
-                    href="#pagination-section">
-                    <i class="far fa-angle-double-right"></i>
-                </a>
-            </li>
-        </ul>
-    </div>
-
-
-
-
-
-
-    {{-- <div class="text-center mt-2">{{ $blogs->firstItem() }}-{{ $blogs->lastItem() }} của {{ $blogs->total() }}
-        kết quả</div> --}}
+            </ul>
+        </nav>
+    @endif
 </div>
-<script>
-            document.addEventListener('DOMContentLoaded', function() {
-            const checkAll = document.getElementById('checkAll');
-            const deleteSelectedBtn = document.getElementById('deleteSelected');
-            const checkboxes = document.querySelectorAll('.blog-checkbox');
+{{-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const checkAll = document.getElementById('checkAll');
+        const deleteSelectedBtn = document.getElementById('deleteSelected');
+        const checkboxes = document.querySelectorAll('.blog-checkbox');
 
-            // Hàm cập nhật trạng thái của checkbox tổng
-            function capNhatTrangThaiCheckAll() {
-                checkAll.checked = checkboxes.length > 0 && Array.from(checkboxes).every(checkbox => checkbox.checked);
-            }
+        // Hàm cập nhật trạng thái của checkbox tổng
+        function capNhatTrangThaiCheckAll() {
+            checkAll.checked = checkboxes.length > 0 && Array.from(checkboxes).every(checkbox => checkbox
+                .checked);
+        }
 
-            // Bắt sự kiện thay đổi cho checkbox tổng
-            checkAll.addEventListener('change', function() {
-                const isChecked = this.checked;
-                checkboxes.forEach(checkbox => {
-                    checkbox.checked = isChecked;
-                    checkbox.dispatchEvent(new Event('change', { 'bubbles': true }));
-                });
-                @this.set('selectedBlogs', isChecked ? Array.from(checkboxes).map(cb => cb.value) : []);
-            });
-
-            // Bắt sự kiện thay đổi cho các checkbox con
+        // Bắt sự kiện thay đổi cho checkbox tổng
+        checkAll.addEventListener('change', function() {
+            const isChecked = this.checked;
             checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', function() {
-                    capNhatTrangThaiCheckAll();
-                    let selectedBlogs = @this.get('selectedBlogs');
-                    if (this.checked) {
-                        if (!selectedBlogs.includes(this.value)) {
-                            selectedBlogs.push(this.value);
-                        }
-                    } else {
-                        selectedBlogs = selectedBlogs.filter(id => id !== this.value);
-                    }
-                    @this.set('selectedBlogs', selectedBlogs);
-                });
+                checkbox.checked = isChecked;
+                checkbox.dispatchEvent(new Event('change', {
+                    'bubbles': true
+                }));
             });
+            @this.set('selectedBlogs', isChecked ? Array.from(checkboxes).map(cb => cb.value) : []);
+        });
 
-            // Bắt sự kiện nhấn nút "Xóa đã chọn"
-            deleteSelectedBtn.addEventListener('click', function() {
-                if (@this.selectedBlogs.length === 0) {
-                    Swal.fire({
-                        title: 'Lỗi!',
-                        text: 'Vui lòng chọn ít nhất một bài blog để xóa',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
-                    return;
-                }
-
-                Swal.fire({
-                    title: 'Bạn có chắc chắn?',
-                    text: "Bạn có muốn xóa các blog đã chọn?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Có, xóa!',
-                    cancelButtonText: 'Hủy'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        @this.call('deleteSelectedBlogs');  // Gọi hàm Livewire để xóa blog
-                    }
-                });
-            });
-
-            // Cập nhật hiển thị nút xóa dựa vào số lượng blog đã chọn
-            function updateDeleteButtonVisibility() {
-                deleteSelectedBtn.style.display = @this.selectedBlogs.length > 0 ? 'block' : 'none';
+        // Bắt sự kiện thay đổi cho các checkbox con
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
                 capNhatTrangThaiCheckAll();
-            }
-
-            // Gọi hàm updateDeleteButtonVisibility mỗi khi có sự thay đổi trong selectedBlogs
-            @this.$watch('selectedBlogs', () => {
-                updateDeleteButtonVisibility();
+                let selectedBlogs = @this.get('selectedBlogs');
+                if (this.checked) {
+                    if (!selectedBlogs.includes(this.value)) {
+                        selectedBlogs.push(this.value);
+                    }
+                } else {
+                    selectedBlogs = selectedBlogs.filter(id => id !== this.value);
+                }
+                @this.set('selectedBlogs', selectedBlogs);
             });
+        });
 
-            // Khởi tạo trạng thái ban đầu
+        // Cập nhật hiển thị nút xóa dựa vào số lượng blog đã chọn
+        function updateDeleteButtonVisibility() {
+            deleteSelectedBtn.style.display = @this.selectedBlogs.length > 0 ? 'block' : 'none';
+            capNhatTrangThaiCheckAll();
+        }
+
+        // Gọi hàm updateDeleteButtonVisibility mỗi khi có sự thay đổi trong selectedBlogs
+        @this.$watch('selectedBlogs', () => {
             updateDeleteButtonVisibility();
         });
+
+        // Khởi tạo trạng thái ban đầu
+        updateDeleteButtonVisibility();
 
         // Bắt sự kiện nhấn nút "Xóa đã chọn"
         deleteSelectedBtn.addEventListener('click', function() {
             const selectedBlogs = Array.from(checkboxes)
                 .filter(checkbox => checkbox.checked)
-                .map(checkbox => checkbox.value); // Lấy ID của các blog đã chọn
+                .map(checkbox => checkbox.value);
 
             if (selectedBlogs.length === 0) {
                 Swal.fire({
@@ -312,25 +301,10 @@
                 cancelButtonText: 'Hủy'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    @this.call('deleteSelectedBlogs', selectedBlogs); // Gọi hàm Livewire để xóa blog
+                    @this.call('deleteSelectedBlogs', selectedBlogs);
                 }
             });
         });
-
-        // Cập nhật hiển thị nút xóa dựa vào số lượng blog đã chọn
-        function updateDeleteButtonVisibility() {
-            const selectedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
-            deleteSelectedBtn.style.display = selectedCount > 0 ? 'block' : 'none';
-            checkAll.checked = selectedCount === checkboxes.length; // Cập nhật trạng thái checkbox "Chọn tất cả"
-        }
-
-        // Gọi hàm updateDeleteButtonVisibility mỗi khi có sự thay đổi trong checkbox
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', updateDeleteButtonVisibility);
-        });
-
-        // Khởi tạo trạng thái ban đầu
-        updateDeleteButtonVisibility();
     });
 
     // Xử lý thông báo sau khi xóa thành công
@@ -339,6 +313,207 @@
             Swal.fire({
                 title: 'Thành công!',
                 text: 'Xóa blog thành công',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                location.reload();
+            });
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const checkAll = document.getElementById('checkAll');
+        const deleteSelectedBtn = document.getElementById('deleteSelected');
+        const checkboxes = document.querySelectorAll('.blog-checkbox');
+
+        // Hàm cập nhật trạng thái của checkbox tổng
+        function capNhatTrangThaiCheckAll() {
+            checkAll.checked = checkboxes.length > 0 && Array.from(checkboxes).every(checkbox => checkbox
+                .checked);
+        }
+
+        // Bắt sự kiện thay đổi cho checkbox tổng
+        checkAll.addEventListener('change', function() {
+            const isChecked = this.checked;
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = isChecked;
+                checkbox.dispatchEvent(new Event('change', {
+                    'bubbles': true
+                }));
+            });
+            @this.set('selectedBlogs', isChecked ? Array.from(checkboxes).map(cb => cb.value) : []);
+        });
+
+        // Bắt sự kiện thay đổi cho các checkbox con
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                capNhatTrangThaiCheckAll();
+                let selectedBlogs = @this.get('selectedBlogs');
+                if (this.checked) {
+                    if (!selectedBlogs.includes(this.value)) {
+                        selectedBlogs.push(this.value);
+                    }
+                } else {
+                    selectedBlogs = selectedBlogs.filter(id => id !== this.value);
+                }
+                @this.set('selectedBlogs', selectedBlogs);
+            });
+        });
+
+        // Cập nhật hiển thị nút xóa dựa vào số lượng blog đã chọn
+        function updateDeleteButtonVisibility() {
+            deleteSelectedBtn.style.display = @this.selectedBlogs.length > 0 ? 'block' : 'none';
+            capNhatTrangThaiCheckAll();
+        }
+
+        // Gọi hàm updateDeleteButtonVisibility mỗi khi có sự thay đổi trong selectedBlogs
+        @this.$watch('selectedBlogs', () => {
+            updateDeleteButtonVisibility();
+        });
+
+        // Khởi tạo trạng thái ban đầu
+        updateDeleteButtonVisibility();
+
+        // Bắt sự kiện nhấn nút "Xóa đã chọn"
+        deleteSelectedBtn.addEventListener('click', function() {
+            const selectedBlogs = Array.from(checkboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
+
+            if (selectedBlogs.length === 0) {
+                Swal.fire({
+                    title: 'Lỗi!',
+                    text: 'Vui lòng chọn ít nhất một bài blog để xóa',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            Swal.fire({
+                title: 'Bạn có chắc chắn?',
+                text: "Bạn sẽ không thể hoàn tác hành động này!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Có, xóa!',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    @this.call('deleteSelectedBlogs', selectedBlogs);
+                }
+            });
+        });
+    });
+
+    // Xử lý thông báo sau khi xóa thành công
+    document.addEventListener('livewire:initialized', () => {
+        Livewire.on('blog-deleted', (event) => {
+            Swal.fire({
+                title: 'Thành công!',
+                text: 'Xóa blog thành công',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                location.reload();
+            });
+        });
+    });
+</script> --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    document.addEventListener('livewire:initialized', () => {
+        const checkboxes = document.querySelectorAll('.blog-checkbox');
+        const selectAllCheckbox = document.getElementById('checkAll');
+        const deleteSelectedBtn = document.getElementById('deleteSelected');
+
+        function updateSelectAllState() {
+            if (checkboxes.length === 0) {
+                // Nếu không có checkbox nào, vô hiệu hóa nút "Chọn tất cả"
+                if (selectAllCheckbox) selectAllCheckbox.disabled = true;
+                return;
+            }
+
+            const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+            if (selectAllCheckbox) {
+                selectAllCheckbox.checked = allChecked;
+                selectAllCheckbox.disabled = false;
+            }
+            updateDeleteButtonVisibility();
+        }
+
+        function updateDeleteButtonVisibility() {
+            deleteSelectedBtn.style.display = Array.from(checkboxes).some(checkbox => checkbox.checked) ?
+                'block' : 'none';
+        }
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                updateSelectAllState();
+                @this.set('selectedBlogs', Array.from(checkboxes)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.value)
+                );
+            });
+        });
+
+        if (selectAllCheckbox) {
+            selectAllCheckbox.addEventListener('change', () => {
+                const isChecked = selectAllCheckbox.checked;
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = isChecked;
+                });
+                updateDeleteButtonVisibility();
+                @this.set('selectedBlogs', isChecked ? Array.from(checkboxes).map(cb => cb
+                    .value) : []);
+            });
+        }
+
+        // Sự kiện cho nút xóa
+        deleteSelectedBtn.addEventListener('click', () => {
+            const selectedIds = Array.from(checkboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
+
+            if (selectedIds.length === 0) {
+                Swal.fire({
+                    title: 'Lỗi!',
+                    text: 'Vui lòng chọn ít nhất một thông báo để xóa',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            Swal.fire({
+                title: 'Bạn có chắc chắn?',
+                text: "Bạn sẽ không thể hoàn tác hành động này!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Có, xóa!',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    @this.call('deleteSelectedBlogs',
+                        selectedIds); // Gọi hàm xóa với các ID đã chọn
+                }
+            });
+        });
+
+        // Khởi tạo trạng thái ban đầu
+        updateSelectAllState();
+    });
+
+    // Xử lý thông báo sau khi xóa thành công
+    document.addEventListener('livewire:initialized', () => {
+        Livewire.on('blogs-deleted', (event) => {
+            Swal.fire({
+                title: 'Thành công!',
+                text: 'Xóa thông báo thành công',
                 icon: 'success',
                 confirmButtonText: 'OK'
             }).then(() => {

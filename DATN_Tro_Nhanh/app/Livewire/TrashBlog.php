@@ -18,9 +18,9 @@ class TrashBlog extends Component
     public $perPage = 4; // Số lượng blog trên mỗi trang
     public $timeFilter = ''; // Khoảng thời gian lọc
     public $selectedBlogs = []; // Biến lưu trữ các blog được chọn
-
+    public $startDate;
     protected $listeners = ['restoreSelectedBlogs', 'forceDeleteSelectedBlogs'];
-    
+    protected $queryString = ['search', 'perPage', 'timeFilter'];
     // Hàm để xóa vĩnh viễn các blog đã chọn
     public function forceDeleteSelectedBlogs()
     {
@@ -45,43 +45,47 @@ class TrashBlog extends Component
     public function render()
     {
         $query = Blog::onlyTrashed(); // Lấy các blog đã xóa
-    
+
         if (!empty($this->search)) {
             $query->where(function ($q) {
                 $q->where('title', 'like', '%' . $this->search . '%')
                     ->orWhere('description', 'like', '%' . $this->search . '%');
             });
         }
-    
-        // Lọc theo khoảng thời gian
+
+        // Áp dụng bộ lọc thời gian nếu được đặt
         if ($this->timeFilter) {
-            $date = Carbon::now()->copy();
+            $startDate = Carbon::now();
             switch ($this->timeFilter) {
                 case '1_day':
-                    $date->subDays(1);
+                    $startDate = Carbon::now()->subDay()->startOfDay();
                     break;
                 case '7_day':
-                    $date->subDays(7);
+                    $startDate = Carbon::now()->subDays(7)->startOfDay();
                     break;
                 case '1_month':
-                    $date->subMonth();
+                    $startDate = Carbon::now()->subMonth()->startOfDay();
                     break;
                 case '3_month':
-                    $date->subMonths(3);
+                    $startDate = Carbon::now()->subMonths(3)->startOfDay();
                     break;
                 case '6_month':
-                    $date->subMonths(6);
+                    $startDate = Carbon::now()->subMonths(6)->startOfDay();
                     break;
                 case '1_year':
-                    $date->subYear();
+                    $startDate = Carbon::now()->subYear()->startOfDay();
                     break;
             }
-            $query->where('created_at', '>=', $date);
+
+            $query->whereDate('deleted_at', '<=', $startDate);
         }
-    
+
+        // Sắp xếp từ mới đến cũ
+        $query->orderBy('deleted_at', 'desc');
+
         $trashedBlogs = $query->paginate($this->perPage);
-    
-        return view('livewire.trash-blog',compact('trashedBlogs'));
+
+        return view('livewire.trash-blog', compact('trashedBlogs'));
     }
     public function updatedSearch()
     {

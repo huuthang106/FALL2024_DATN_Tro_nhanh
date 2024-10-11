@@ -1,20 +1,20 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const fileInput = document.getElementById('fileInput');
     const previewContainer = document.getElementById('imagePreview');
     const dropzone = document.getElementById('myDropzone');
     const maxFileSize = 5 * 1024 * 1024; // 5MB
 
     // Xử lý kéo và thả
-    dropzone.addEventListener('dragover', function(e) {
+    dropzone.addEventListener('dragover', function (e) {
         e.preventDefault();
         dropzone.classList.add('dragover');
     });
 
-    dropzone.addEventListener('dragleave', function() {
+    dropzone.addEventListener('dragleave', function () {
         dropzone.classList.remove('dragover');
     });
 
-    dropzone.addEventListener('drop', function(e) {
+    dropzone.addEventListener('drop', function (e) {
         e.preventDefault();
         dropzone.classList.remove('dragover');
         if (e.dataTransfer.files.length > 0) {
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Xử lý khi chọn file
-    fileInput.addEventListener('change', function() {
+    fileInput.addEventListener('change', function () {
         if (this.files.length > 0) {
             handleFile(this.files[0]);
         }
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = function (e) {
             const wrapper = createImagePreview(e.target.result, file);
             previewContainer.appendChild(wrapper);
         };
@@ -71,19 +71,27 @@ document.addEventListener('DOMContentLoaded', function() {
         img.style.objectFit = 'cover';
 
         const removeBtn = document.createElement('button');
-        removeBtn.textContent = 'X';
+        removeBtn.textContent = '×'; // Sử dụng dấu nhân thay vì 'X'
         removeBtn.className = 'remove-image-btn';
         removeBtn.style.position = 'absolute';
-        removeBtn.style.top = '0';
-        removeBtn.style.right = '0';
-        removeBtn.style.backgroundColor = 'red';
+        removeBtn.style.top = '5px';
+        removeBtn.style.right = '5px';
+        removeBtn.style.backgroundColor = 'rgba(255, 0, 0, 0.7)'; // Màu đỏ với độ trong suốt
         removeBtn.style.color = 'white';
         removeBtn.style.border = 'none';
         removeBtn.style.borderRadius = '50%';
-        removeBtn.style.padding = '2px 5px';
+        removeBtn.style.width = '20px';
+        removeBtn.style.height = '20px';
+        removeBtn.style.display = 'flex';
+        removeBtn.style.alignItems = 'center';
+        removeBtn.style.justifyContent = 'center';
+        removeBtn.style.fontSize = '16px';
+        removeBtn.style.fontWeight = 'bold';
         removeBtn.style.cursor = 'pointer';
+        removeBtn.style.lineHeight = '1';
+        removeBtn.style.padding = '0';
 
-        removeBtn.addEventListener('click', function() {
+        removeBtn.addEventListener('click', function () {
             wrapper.remove();
             fileInput.value = ''; // Xóa file đã chọn
         });

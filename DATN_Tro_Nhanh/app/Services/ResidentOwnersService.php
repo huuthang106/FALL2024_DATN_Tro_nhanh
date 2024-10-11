@@ -44,26 +44,26 @@ class ResidentOwnersService
         return $resident; // Trả về resident đã được cập nhật
     }
     public function deleteResident($residentId, $userId, $content)
-{
-    // Tìm resident theo ID và user_id
-    $resident = Resident::where('id', $residentId)
-        ->where('user_id', $userId)
-        ->first();
+    {
+        // Tìm resident theo ID và user_id
+        $resident = Resident::where('id', $residentId)
+            ->where('user_id', $userId)
+            ->first();
 
-    // Kiểm tra xem resident có tồn tại không
-    if (!$resident) {
-        throw new \Exception('Resident không tồn tại hoặc không thuộc về bạn.');
+        // Kiểm tra xem resident có tồn tại không
+        if (!$resident) {
+            throw new \Exception('Resident không tồn tại hoặc không thuộc về bạn.');
+        }
+
+        // Phát sự kiện trước khi xóa
+        // event(new ResidentDeleted($resident, $content));
+
+        // Xóa resident
+        $resident->delete();
+
+        return true; // Trả về true nếu xóa thành công
     }
 
-    // Phát sự kiện trước khi xóa
-    // event(new ResidentDeleted($resident, $content));
-
-    // Xóa resident
-    $resident->delete();
-
-    return true; // Trả về true nếu xóa thành công
-}
-    
 
     public function getmyResdent($user_id)
     {
@@ -72,7 +72,7 @@ class ResidentOwnersService
             ->orderBy('created_at', 'desc')
             ->paginate(10);
     }
-    
+
 
     public function cancel_order($residentId, $userId)
     {
@@ -100,29 +100,28 @@ class ResidentOwnersService
         }
     }
     public function refuseApplication($residentId, $reasons, $note)
-{
-    try {
-        // Tìm resident dựa trên ID
-        $resident = Resident::findOrFail($residentId);
+    {
+        try {
+            // Tìm resident dựa trên ID
+            $resident = Resident::findOrFail($residentId);
 
-        // Nối lý do từ mảng thành chuỗi
-        $reasonsString = implode(', ', $reasons);
+            // Nối lý do từ mảng thành chuỗi
+            $reasonsString = implode(', ', $reasons);
 
-        // Cập nhật cột 'description' với lý do và ghi chú
-        $resident->description = $reasonsString . ($note ? " - Ghi chú: $note" : '');
+            // Cập nhật cột 'description' với lý do và ghi chú
+            $resident->description = $reasonsString . ($note ? " - Ghi chú: $note" : '');
 
-        // Cập nhật status thành 2 (giả sử 2 là trạng thái từ chối)
-        $resident->status = 2;
-        $resident->save();
+            // Cập nhật status thành 2 (giả sử 2 là trạng thái từ chối)
+            $resident->status = 2;
+            $resident->save();
 
-        // Phát sự kiện
-        event(new ApplicationRefused($resident, $reasons, $note));
+            // Phát sự kiện
+            event(new ApplicationRefused($resident, $reasons, $note));
 
-        return true;
-    } catch (\Exception $e) {
-        Log::error('Failed to refuse application: ' . $e->getMessage());
-        return false;
+            return true;
+        } catch (\Exception $e) {
+            Log::error('Failed to refuse application: ' . $e->getMessage());
+            return false;
+        }
     }
-}
-
 }

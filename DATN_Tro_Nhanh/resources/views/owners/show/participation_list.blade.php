@@ -19,7 +19,7 @@
                                         class="fal fa-search"></i></button>
                             </div>
                         </div>
-                       
+
                     </div>
                 </div>
             </div>
@@ -29,12 +29,12 @@
                         <table id="myTable" class="table table-hover bg-white border rounded-lg">
                             <thead>
                                 <tr role="row">
-                                 
-                                    <th class="py-6 text-start">Tên phòng</th>
-                                    <th class="py-6 text-start">Tên người ở</th>
-                                    <th class="py-6 text-start">Số điện thoại</th>
-                                    <th class="py-6 text-start">Khu trọ</th>
-                                    <th class="py-6 text-start">Thao tác</th>
+
+                                    <th class="py-6 text-start" style="white-space: nowrap;">Tên phòng</th>
+                                    <th class="py-6 text-start" style="white-space: nowrap;">Tên người ở</th>
+                                    <th class="py-6 text-start" style="white-space: nowrap;">Số điện thoại</th>
+                                    <th class="py-6 text-start" style="white-space: nowrap;">Khu trọ</th>
+                                    <th class="py-6 text-start" style="white-space: nowrap;">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -45,7 +45,7 @@
                                 @else
                                     @foreach ($residents as $resident)
                                         <tr>
-                                        
+
                                             <td class="align-middle"><small>{{ $resident->room->title }}</small></td>
                                             <td class="align-middle">
                                                 <small>
@@ -67,7 +67,7 @@
 
                                                 </small>
                                             </td>
-                                            <td class="align-middle">
+                                            <td class="align-middle" style="white-space: nowrap;">
                                                 <small>
                                                     <form action="{{ route('owners.approve-application', $resident->id) }}"
                                                         method="POST" style="display:inline;">
@@ -95,58 +95,66 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="mt-6">
-                        @if ($residents->lastPage() > 1)
+                    @if ($residents->hasPages())
+                        <nav aria-label="Page navigation">
                             <ul class="pagination rounded-active justify-content-center">
-                                {{-- Trang trước --}}
+                                {{-- Nút về đầu --}}
                                 <li class="page-item {{ $residents->onFirstPage() ? 'disabled' : '' }}">
-                                    <a class="page-link" href="{{ $residents->previousPageUrl() }}" aria-label="Previous">
+                                    <a class="page-link hover-white" href="{{ $residents->url(1) }}" rel="prev"
+                                        aria-label="@lang('pagination.previous')">
                                         <i class="far fa-angle-double-left"></i>
                                     </a>
                                 </li>
 
-                                {{-- Trang đầu tiên --}}
-                                @if ($residents->currentPage() > 2)
-                                    <li class="page-item">
-                                        <a class="page-link" href="{{ $residents->url(1) }}">1</a>
-                                    </li>
-                                @endif
+                                @php
+                                    $totalPages = $residents->lastPage();
+                                    $currentPage = $residents->currentPage();
+                                    $visiblePages = 3; // Số trang hiển thị ở giữa
+                                @endphp
 
-                                {{-- Dấu ba chấm ở đầu nếu cần --}}
-                                @if ($residents->currentPage() > 3)
+                                {{-- Trang đầu --}}
+                                <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                                    <a class="page-link hover-white" href="{{ $residents->url(1) }}">1</a>
+                                </li>
+
+                                {{-- Dấu ba chấm đầu --}}
+                                @if ($currentPage > $visiblePages)
                                     <li class="page-item disabled"><span class="page-link">...</span></li>
                                 @endif
 
-                                {{-- Hiển thị các trang xung quanh trang hiện tại --}}
-                                @for ($i = max(1, $residents->currentPage() - 1); $i <= min($residents->currentPage() + 1, $residents->lastPage()); $i++)
-                                    <li class="page-item {{ $residents->currentPage() == $i ? 'active' : '' }}">
-                                        <a class="page-link" href="{{ $residents->url($i) }}">{{ $i }}</a>
-                                    </li>
-                                @endfor
+                                {{-- Các trang giữa --}}
+                                @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
+                                    @if ($i > 1 && $i < $totalPages)
+                                        <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                            <a class="page-link hover-white"
+                                                href="{{ $residents->url($i) }}">{{ $i }}</a>
+                                        </li>
+                                    @endif
+                                @endforeach
 
-                                {{-- Dấu ba chấm ở cuối nếu cần --}}
-                                @if ($residents->currentPage() < $residents->lastPage() - 2)
+                                {{-- Dấu ba chấm cuối --}}
+                                @if ($currentPage < $totalPages - ($visiblePages - 1))
                                     <li class="page-item disabled"><span class="page-link">...</span></li>
                                 @endif
 
-                                {{-- Trang cuối cùng --}}
-                                @if ($residents->currentPage() < $residents->lastPage() - 1)
-                                    <li class="page-item">
-                                        <a class="page-link"
-                                            href="{{ $residents->url($residents->lastPage()) }}">{{ $residents->lastPage() }}</a>
+                                {{-- Trang cuối --}}
+                                @if ($totalPages > 1)
+                                    <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                                        <a class="page-link hover-white"
+                                            href="{{ $residents->url($totalPages) }}">{{ $totalPages }}</a>
                                     </li>
                                 @endif
 
-                                {{-- Trang tiếp theo --}}
-                                <li
-                                    class="page-item {{ $residents->currentPage() == $residents->lastPage() ? 'disabled' : '' }}">
-                                    <a class="page-link" href="{{ $residents->nextPageUrl() }}" aria-label="Next">
+                                {{-- Nút đến trang cuối --}}
+                                <li class="page-item {{ !$residents->hasMorePages() ? 'disabled' : '' }}">
+                                    <a class="page-link hover-white" href="{{ $residents->url($residents->lastPage()) }}"
+                                        rel="next" aria-label="@lang('pagination.next')">
                                         <i class="far fa-angle-double-right"></i>
                                     </a>
                                 </li>
                             </ul>
-                        @endif
-                    </div>
+                        </nav>
+                    @endif
                 </div>
             </div>
             <!-- Modal tạo hóa đơn -->

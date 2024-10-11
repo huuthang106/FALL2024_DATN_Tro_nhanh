@@ -17,25 +17,39 @@ class BlogSearch extends Component
     public $perPage = 10; // Số lượng blog trên mỗi trang
     public $timeFilter = ''; // Khoảng thời gian lọc
     public $selectedBlogs = []; // Biến lưu trữ các blog được chọn
-    
-
+    public $startDate;
+    protected $queryString = ['search', 'perPage', 'timeFilter'];
     // Hàm để xóa các blog đã chọn
+    // public function deleteSelectedBlogs()
+    // {
+    //     if (count($this->selectedBlogs) > 0) {
+    //         Log::info('Selected Blogs:', $this->selectedBlogs);
+    //         Blog::whereIn('id', $this->selectedBlogs)->delete();
+    //         $this->selectedBlogs = []; // Reset lại sau khi xóa
+    //         $this->dispatch('blog-deleted', ['message' => 'Các thông báo đã chọn đã được xóa thành công']);
+    //     }
+    // }
     public function deleteSelectedBlogs()
     {
-        if (count($this->selectedBlogs) > 0) {
-            Log::info('Selected Blogs:', $this->selectedBlogs);
-            Blog::whereIn('id', $this->selectedBlogs)->delete();
-            $this->selectedBlogs = []; // Reset lại sau khi xóa
-            $this->dispatch('blog-deleted', ['message' => 'Các thông báo đã chọn đã được xóa thành công']);
-        }
+        Blog::whereIn('id', $this->selectedBlogs)->delete();
+        $this->selectedBlogs = [];
+        $this->dispatch('blogs-deleted', ['message' => 'Các Blog đã chọn đã được xóa thành công']);
+    }
+    public function updatingSearch()
+    {
+        $this->resetPage();
     }
 
-    
+    public function updatingTimeFilter()
+    {
+        $this->resetPage();
+    }
 
     public function render()
     {
-        $userId = Auth::id();
+        Log::info('Đang tìm kiếm blog với từ khóa: "' . $this->search . '"');
 
+        $userId = Auth::id();
         $query = Blog::where('user_id', $userId);
 
         if (!empty($this->search)) {
@@ -44,37 +58,35 @@ class BlogSearch extends Component
                     ->orWhere('description', 'like', '%' . $this->search . '%');
             });
         }
-        // $query = Blog::query()
-        //     ->where(function ($q) {
-        //         $q->where('title', 'like', '%' . $this->search . '%')
-        //           ->orWhere('description', 'like', '%' . $this->search . '%');
-        //     });
 
-        // Lọc theo khoảng thời gian
+        // Áp dụng bộ lọc thời gian nếu được đặt
         if ($this->timeFilter) {
-            $date = Carbon::now()->copy(); // Tạo một bản sao mới của Carbon
+            $startDate = Carbon::now();
             switch ($this->timeFilter) {
                 case '1_day':
-                    $date->subDays(1);
+                    $startDate = Carbon::now()->subDay()->startOfDay();
                     break;
                 case '7_day':
-                    $date->subDays(7);
+                    $startDate = Carbon::now()->subDays(7)->startOfDay();
                     break;
                 case '1_month':
-                    $date->subMonth();
+                    $startDate = Carbon::now()->subMonth()->startOfDay();
                     break;
                 case '3_month':
-                    $date->subMonths(3);
+                    $startDate = Carbon::now()->subMonths(3)->startOfDay();
                     break;
                 case '6_month':
-                    $date->subMonths(6);
+                    $startDate = Carbon::now()->subMonths(6)->startOfDay();
                     break;
                 case '1_year':
-                    $date->subYear();
+                    $startDate = Carbon::now()->subYear()->startOfDay();
                     break;
             }
-            $query->where('created_at', '>=', $date);
+
+            $query->whereDate('created_at', '<=', $startDate);
         }
+
+        $query->orderByDesc('created_at');
 
         $blogs = $query->paginate($this->perPage);
 

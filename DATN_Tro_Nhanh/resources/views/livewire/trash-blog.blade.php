@@ -6,8 +6,8 @@
                     <label class="form-label fs-6 fw-bold mr-2 mb-0">Lọc:</label>
                     <select class="form-control selectpicker form-control-lg mr-2" wire:model.lazy="timeFilter"
                         data-style="bg-white btn-lg h-52 py-2 border">
-                        <option value="" selected>Thời Gian:</option> <!-- Tùy chọn mặc định -->
-                        <option value="1_day">1 ngày</option>
+                        <option value="" selected>Mặc định:</option> <!-- Tùy chọn mặc định -->
+                        <option value="1_day">Hôm qua</option>
                         <option value="7_day">7 ngày</option>
                         <option value="1_month">1 tháng</option>
                         <option value="3_month">3 tháng</option>
@@ -29,17 +29,18 @@
                 </div>
                 <div class="align-self-center">
                     <div class="dropdown">
-                        <button class="btn btn-primary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           Tác vụ
+                        <button class="btn btn-primary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Tác vụ
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <button class="dropdown-item" type="button" id="restoreSelected">
+                            <button class="dropdown-item text-success" type="button" id="restoreSelected">
                                 <i class="fas fa-undo"></i> Khôi phục
                             </button>
-                            <button class="dropdown-item" type="button" id="deleteSelected">
+                            <button class="dropdown-item text-danger" type="button" id="deleteSelected">
                                 <i class="fas fa-trash-alt"></i> Xóa vĩnh viễn
                             </button>
-                        </div>                       
+                        </div>
                     </div>
                 </div>
             </div>
@@ -54,7 +55,6 @@
                     </th>
                     <th scope="col" class="border-top-0 px-6 pt-5 pb-4" style="white-space: nowrap;">Ảnh</th>
                     <th scope="col" class="border-top-0 pt-5 pb-4" style="white-space: nowrap;">Tiêu Đề</th>
-
                     <th scope="col" class="border-top-0 pt-5 pb-4" style="white-space: nowrap;">Trạng thái</th>
                     <th scope="col" class="border-top-0 pt-5 pb-4" style="white-space: nowrap;">Ngày xuất bản</th>
                     <th scope="col" class="border-top-0 pt-5 pb-4" style="white-space: nowrap;">Hành động</th>
@@ -68,22 +68,20 @@
                 @else
                     @foreach ($trashedBlogs as $blog)
                         <tr class="shadow-hover-xs-2 bg-hover-white">
-                            <td>
-                            <input type="checkbox" class="blog-checkbox" value="{{ $blog->id }}" 
+                            <td class="align-middle pt-3 pb-3 px-3">
+                                <input type="checkbox" class="blog-checkbox " value="{{ $blog->id }}"
                                     wire:model="selectedBlogs">
                             </td>
-                            <td class="align-middle pt-6 pb-4 px-6">
+                            <td class="align-middle pt-3 pb-3 px-3" style="width: 15%">
                                 <div class="media d-flex align-items-center">
-                                    <div class="w-120px mr-4 position-relative">
+                                    <div class="w-100 w-md-150 mr-3 position-relative">
                                         <a href="{{ route('owners.show-blog', $blog->slug) }}">
-                                            @if ($blog->image)
-                                                @foreach ($blog->image as $item)
-                                                    <img src="{{ asset('assets/images/' . $item->filename) }}"
-                                                        alt="{{ $item->filename }}" class="img-fluid"
-                                                        style="max-height: 100px; object-fit: cover;">
-                                                @endforeach
+                                            @if ($blog->image && $blog->image->isNotEmpty())
+                                                <img src="{{ asset('assets/images/' . $blog->image->first()->filename) }}"
+                                                    alt="{{ $blog->image->first()->filename }}" class="img-fluid">
                                             @else
-                                                <p>No images available</p>
+                                                <img src="{{ asset('assets/images/properties-grid-08.jpg') }}"
+                                                    alt="Default Image" class="img-fluid">
                                             @endif
                                         </a>
                                     </div>
@@ -100,33 +98,37 @@
                                     <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">Chờ xác
                                         nhận</span>
                                 @elseif ($blog->status == 2) --}}
-                                    <span class="badge text-capitalize font-weight-normal fs-12 badge-green">Đã xác
-                                        nhận</span>
+                                <span class="badge text-capitalize font-weight-normal fs-12 badge-green">Đã xác
+                                    nhận</span>
                                 {{-- @else
                                     <span class="badge text-capitalize font-weight-normal fs-12 badge-gray">Chưa xác
                                         định</span>
                                 @endif --}}
                             </td>
                             <td class="align-middle">{{ $blog->created_at->format('d-m-Y') }}</td>
-                            <td class="align-middle">
+                            <td class="align-middle text-nowrap">
                                 <form action="{{ route('owners.restore-blog', $blog->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
                                     @method('PUT')
-                                    <button type="submit"
+                                    {{-- <button type="submit"
                                         class="fs-18 text-muted hover-primary border-0 bg-transparent"
                                         title="Khôi phục"> <!-- Thêm class text-dark -->
                                         <i class="fas fa-undo"></i> <!-- Biểu tượng khôi phục -->
-                                    </button>
+                                    </button> --}}
+                                    <button type="submit" class="btn btn-warning btn-sm text-white"><i
+                                            class="fal fa-undo"></i></button>
                                 </form>
                                 <form action="#" method="POST" style="display:inline;"
                                     wire:submit.prevent="forceDeleteBlog({{ $blog->id }})">
                                     @csrf
-                                    <button type="submit"
+                                    {{-- <button type="submit"
                                         class="fs-18 text-muted hover-primary border-0 bg-transparent"
                                         title="Xóa vĩnh viễn"> <!-- Thêm class text-dark -->
                                         <i class="fal fa-trash-alt"></i>
-                                    </button>
+                                    </button> --}}
+                                    <button type="submit" class="btn btn-danger btn-sm"><i
+                                            class="fal fa-trash-alt"></i></button>
                                 </form>
                             </td>
                         </tr>
@@ -137,52 +139,63 @@
     </div>
     @if (!$trashedBlogs->isEmpty())
 
-        @if ($trashedBlogs->count() > 0)
-            <div id="pagination-section" class="mt-6">
+        @if ($trashedBlogs->hasPages())
+            <nav aria-label="Page navigation">
                 <ul class="pagination rounded-active justify-content-center">
-                    {{-- Nút quay về trang đầu tiên (<<) --}}
+                    {{-- Nút về đầu --}}
+
                     <li class="page-item {{ $trashedBlogs->onFirstPage() ? 'disabled' : '' }}">
-                        <a class="page-link" wire:click="gotoPage(1)" wire:loading.attr="disabled"
-                            href="#pagination-section">
-                            <i class="far fa-angle-double-left"></i>
-                        </a>
+                        <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled"
+                            rel="prev" aria-label="@lang('pagination.previous')"><i
+                                class="far fa-angle-double-left"></i></a>
+                    </li>
+                    @php
+                        $totalPages = $trashedBlogs->lastPage();
+                        $currentPage = $trashedBlogs->currentPage();
+                        $visiblePages = 3; // Số trang hiển thị ở giữa
+                    @endphp
+
+                    {{-- Trang đầu --}}
+                    <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                        <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled">1</a>
                     </li>
 
-                    {{-- Nút quay lại trang trước (<) --}}
-                    <li class="page-item {{ $trashedBlogs->onFirstPage() ? 'disabled' : '' }}">
-                        <a class="page-link" wire:click="previousPage" wire:loading.attr="disabled"
-                            href="#pagination-section">
-                            <i class="fas fa-angle-left"></i>
-                        </a>
-                    </li>
+                    {{-- Dấu ba chấm đầu --}}
+                    @if ($currentPage > $visiblePages)
+                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                    @endif
 
-                    {{-- Hiển thị các trang xung quanh trang hiện tại --}}
-                    @for ($i = 1; $i <= $trashedBlogs->lastPage(); $i++)
-                        <li class="page-item {{ $trashedBlogs->currentPage() == $i ? 'active' : '' }}">
-                            <a class="page-link" wire:click="gotoPage({{ $i }})"
-                                href="#pagination-section">{{ $i }}</a>
+                    {{-- Các trang giữa --}}
+                    @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
+                        @if ($i > 1 && $i < $totalPages)
+                            <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                <a class="page-link hover-white" wire:click="gotoPage({{ $i }})"
+                                    wire:loading.attr="disabled">{{ $i }}</a>
+                            </li>
+                        @endif
+                    @endforeach
+
+                    {{-- Dấu ba chấm cuối --}}
+                    @if ($currentPage < $totalPages - ($visiblePages - 1))
+                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                    @endif
+
+                    {{-- Trang cuối --}}
+                    @if ($totalPages > 1)
+                        <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                            <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
+                                wire:loading.attr="disabled">{{ $totalPages }}</a>
                         </li>
-                    @endfor
+                    @endif
 
-                    {{-- Nút tới trang kế tiếp (>) --}}
-                    <li
-                        class="page-item {{ $trashedBlogs->currentPage() == $trashedBlogs->lastPage() ? 'disabled' : '' }}">
-                        <a class="page-link" wire:click="nextPage" wire:loading.attr="disabled"
-                            href="#pagination-section">
-                            <i class="fas fa-angle-right"></i>
-                        </a>
-                    </li>
 
-                    {{-- Nút tới trang cuối cùng (>>) --}}
-                    <li
-                        class="page-item {{ $trashedBlogs->currentPage() == $trashedBlogs->lastPage() ? 'disabled' : '' }}">
-                        <a class="page-link" wire:click="gotoPage({{ $trashedBlogs->lastPage() }})"
-                            wire:loading.attr="disabled" href="#pagination-section">
-                            <i class="far fa-angle-double-right"></i>
-                        </a>
+                    <li class="page-item {{ !$trashedBlogs->hasMorePages() ? 'disabled' : '' }}">
+                        <a class="page-link hover-white" wire:click="gotoPage({{ $trashedBlogs->lastPage() }})"
+                            wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')"><i
+                                class="far fa-angle-double-right"></i></a>
                     </li>
                 </ul>
-            </div>
+            </nav>
         @endif
     @endif
 </div>
@@ -193,39 +206,42 @@
         const restoreSelectedBtn = document.getElementById('restoreSelected');
         const deleteSelectedBtn = document.getElementById('deleteSelected');
         const checkboxes = document.querySelectorAll('.blog-checkbox');
-       
+
         function capNhatTrangThaiCheckAll() {
-                checkAll.checked = checkboxes.length > 0 && Array.from(checkboxes).every(checkbox => checkbox.checked);
+            checkAll.checked = checkboxes.length > 0 && Array.from(checkboxes).every(checkbox => checkbox
+                .checked);
         }
 
-        
+
         if (typeof Livewire === 'undefined') {
-        console.log('Livewire chưa được khởi tạo');
+            console.log('Livewire chưa được khởi tạo');
             return;
         }
 
         checkAll.addEventListener('change', function() {
-                const isChecked = this.checked;
-                checkboxes.forEach(checkbox => {
-                    checkbox.checked = isChecked;
-                    checkbox.dispatchEvent(new Event('change', { 'bubbles': true }));
-                });
-                @this.set('selectedBlogs', isChecked ? Array.from(checkboxes).map(cb => cb.value) : []);
+            const isChecked = this.checked;
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = isChecked;
+                checkbox.dispatchEvent(new Event('change', {
+                    'bubbles': true
+                }));
+            });
+            @this.set('selectedBlogs', isChecked ? Array.from(checkboxes).map(cb => cb.value) : []);
         });
 
         // Bắt sự kiện thay đổi cho các checkbox con
         checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', function() {
-                    capNhatTrangThaiCheckAll();
-                    let selectedBlogs = @this.get('selectedBlogs');
-                    if (this.checked) {
-                        if (!selectedBlogs.includes(this.value)) {
-                            selectedBlogs.push(this.value);
-                        }
-                    } else {
-                        selectedBlogs = selectedBlogs.filter(id => id !== this.value);
+            checkbox.addEventListener('change', function() {
+                capNhatTrangThaiCheckAll();
+                let selectedBlogs = @this.get('selectedBlogs');
+                if (this.checked) {
+                    if (!selectedBlogs.includes(this.value)) {
+                        selectedBlogs.push(this.value);
                     }
-                    @this.set('selectedBlogs', selectedBlogs);
+                } else {
+                    selectedBlogs = selectedBlogs.filter(id => id !== this.value);
+                }
+                @this.set('selectedBlogs', selectedBlogs);
             });
         });
 
@@ -257,7 +273,7 @@
                 }
             });
         });
-        
+
         deleteSelectedBtn.addEventListener('click', function() {
             if (@this.selectedBlogs.length === 0) {
                 Swal.fire({
@@ -292,8 +308,8 @@
         }
 
         @this.$watch('selectedBlogs', () => {
-                updateRestoreButtonVisibility();
-            });
+            updateRestoreButtonVisibility();
+        });
 
         updateRestoreButtonVisibility();
     });
@@ -310,14 +326,14 @@
             });
         });
         Livewire.on('blogs-force-deleted', (event) => {
-        Swal.fire({
-            title: 'Thành công!',
-            text: 'Các blog đã chọn đã được xóa vĩnh viễn',
-            icon: 'success',
-            confirmButtonText: 'OK'
+            Swal.fire({
+                title: 'Thành công!',
+                text: 'Các blog đã chọn đã được xóa vĩnh viễn',
+                icon: 'success',
+                confirmButtonText: 'OK'
             }).then(() => {
                 location.reload();
             });
         });
     });
-    </script>
+</script>

@@ -12,8 +12,8 @@
                             <label class="form-label fs-6 fw-bold mr-2 mb-0">Lọc:</label>
                             <select class="form-control selectpicker form-control-lg mr-2" wire:model.lazy="timeFilter"
                                 data-style="bg-white btn-lg h-52 py-2 border">
-                                <option value="" selected>Thời Gian:</option>
-                                <option value="1_day">1 ngày</option>
+                                <option value="" selected>Mặc định:</option>
+                                <option value="1_day">Hôm qua</option>
                                 <option value="7_day">7 ngày</option>
                                 <option value="1_month">1 tháng</option>
                                 <option value="3_month">3 tháng</option>
@@ -27,7 +27,7 @@
                         <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
                             <input type="text" class="form-control bg-transparent border-1x"
                                 placeholder="Tìm kiếm..." aria-label="" aria-describedby="basic-addon1"
-                                wire:model.lazy="search" wire:keydown.debounce.100ms="$refresh">
+                                wire:model.lazy="search" wire:keydown.debounce.500ms="$refresh">
                             <div class="input-group-append position-absolute pos-fixed-right-center">
                                 <button class="btn bg-transparent border-0 text-gray lh-1" type="button"><i
                                         class="fal fa-search"></i></button>
@@ -52,7 +52,7 @@
                                     aria-expanded="false" @if (!$this->hasSelectedZones) disabled @endif>
                                     Hành động
                                 </button> --}}
-                                <button class="btn btn-secondary btn-lg dropdown-toggle" type="button"
+                                <button class="btn btn-primary btn-lg dropdown-toggle" type="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                     @if (!$this->hasSelectedZones) disabled @endif>
                                     Hành động
@@ -72,12 +72,11 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="table-responsive">
-                <table id="myTable" class="table table-hover bg-white border rounded-lg">
-                    <thead class="thead-sm thead-black">
+                <table id="myTable" class="table table-hover table-sm bg-white border rounded-lg">
+                    <thead>
                         <tr role="row">
                             <th scope="col" class="border-top-0 px-6 pt-5 pb-4">
                                 <div class="control custom-checkbox">
@@ -86,14 +85,14 @@
                                     <label class="control-label" for="checkAll"></label>
                                 </div>
                             </th>
-                            <th class="py-3 text-nowrap text-center col-2">Hình ảnh</th>
-                            <th class="py-3 text-nowrap text-center col-2">Tiêu đề</th>
-                            <th class="py-3 text-nowrap text-center col-2">Mô tả</th>
-                            <th class="py-3 text-nowrap text-center col-2">Địa chỉ</th>
-                            <th class="py-3 text-nowrap text-center col-2">Ngày</th>
-                            <th class="py-3 text-nowrap text-center col-2">Lượng phòng</th>
-                            <th class="py-3 text-nowrap text-center col-2">Trạng thái</th>
-                            <th class=" py-3 text-nowrap text-center col-2">Thao tác</th>
+                            <th class="py-3 text-center" style="white-space: nowrap;">Hình ảnh</th>
+                            <th class="py-3 text-center" style="white-space: nowrap;">Tiêu đề</th>
+                            <th class="py-3 text-center" style="white-space: nowrap;">Mô tả</th>
+                            <th class="py-3 text-center" style="white-space: nowrap;">Địa chỉ</th>
+                            <th class="py-3 text-center" style="white-space: nowrap;">Ngày</th>
+                            <th class="py-3 text-center" style="white-space: nowrap;">Lượng phòng</th>
+                            <th class="py-3 text-center" style="white-space: nowrap;">Trạng thái</th>
+                            <th class="py-3 text-center" style="white-space: nowrap;">Thao tác</th>
                         </tr>
                     </thead>
 
@@ -105,16 +104,17 @@
                                 <tr role="row" class="shadow-hover-xs-2 bg-hover-white">
                                     <td class="align-middle pt-6 pb-4 px-6">
                                         <div class="control custom-checkbox">
-                                            <input type="checkbox" class="control-input zone-checkbox" id="zone-{{ $zone->id }}"
-                                            wire:model="selectedZones" wire:key="zone-{{ $zone->id }}"
-                                            value="{{ $zone->id }}" {{ $zone->rooms->count() > 0 ? 'disabled' : '' }}>
+                                            <input type="checkbox" class="control-input zone-checkbox"
+                                                id="zone-{{ $zone->id }}" wire:model="selectedZones"
+                                                wire:key="zone-{{ $zone->id }}" value="{{ $zone->id }}"
+                                                {{ $zone->rooms->count() > 0 ? 'disabled' : '' }}>
                                             <label class="control-label" for="zone-{{ $zone->id }}"></label>
                                         </div>
                                     </td>
-                                    <td class="align-middle d-md-table-cell text-nowrap p-4">
+                                    <td class="align-middle d-md-table-cell text-nowrap p-4" style="width: 15%;">
                                         <div class="mr-2 position-relative zone-image-container">
                                             <a href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}">
-                                                <img src="{{ $this->getZoneImageUrl($zone) ?: asset('assets/images/default-image.jpg') }}"
+                                                <img src="{{ $this->getZoneImageUrl($zone) ?: asset('assets/images/properties-grid-08.jpg') }}"
                                                     alt="{{ $zone->name }}" class="img-fluid zone-image">
                                             </a>
                                         </div>
@@ -127,11 +127,11 @@
                                     <td class="align-middle d-md-table-cell text-nowrap ">
                                         <div class="d-flex align-items-center">
                                             <small
-                                                class="align-self-center mb-0 user-name">{{ $zone->description }}</small>
+                                                class="align-self-center mb-0 user-name">{{ Str::limit($zone->description, 20) }}</small>
                                         </div>
                                     </td>
                                     <td class="align-middle d-md-table-cell text-nowrap ">
-                                        <small>{{ $zone->address }}</small>
+                                        <small>{{ Str::limit($zone->address, 15) }}</small>
                                     </td>
                                     <td class="align-middle d-md-table-cell text-nowrap ">
                                         <small>
@@ -158,16 +158,20 @@
                                                 method="POST" class="mx-2">
                                                 @csrf
                                                 @method('PUT')
-                                                <button type="submit"
+                                                {{-- <button type="submit"
                                                     class="btn btn-sm d-flex align-items-center justify-content-center">
                                                     <i class="fas fa-undo mr-1"></i>
-                                                </button>
+                                                </button> --}}
+                                                <button type="submit" class="btn btn-warning btn-sm"><i
+                                                        class="fal fa-undo"></i></button>
                                             </form>
                                             <!-- Nút Xóa sử dụng Livewire -->
-                                            <button wire:click="deleteZone({{ $zone->id }})"
+                                            {{-- <button wire:click="deleteZone({{ $zone->id }})"
                                                 class="btn btn-sm d-flex align-items-center justify-content-center">
                                                 <i class="fal fa-trash-alt mr-1"></i>
-                                            </button>
+                                            </button> --}}
+                                            <button type="submit" class="btn btn-danger btn-sm"><i
+                                                    class="fal fa-trash-alt"></i></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -179,91 +183,67 @@
                             </tr>
                         @endif
                     </tbody>
-
-
-
                 </table>
-                @if ($trashedZones->hasPages())
-                    <div>
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination pagination-sm rounded-active justify-content-center">
-                                {{-- Liên kết Trang Đầu --}}
-                                <li class="page-item {{ $trashedZones->onFirstPage() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="gotoPage(1)"
-                                        wire:loading.attr="disabled" rel="first" aria-label="@lang('pagination.first')">
-                                        <i class="far fa-angle-double-left"></i>
-                                    </a>
-                                </li>
-
-                                {{-- Liên kết Trang Trước --}}
-                                <li class="page-item {{ $trashedZones->onFirstPage() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="previousPage"
-                                        wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')">
-                                        <i class="far fa-angle-left"></i>
-                                    </a>
-                                </li>
-
-                                @php
-                                    $totalPages = $trashedZones->lastPage();
-                                    $currentPage = $trashedZones->currentPage();
-                                @endphp
-
-                                {{-- Hiển thị trang đầu tiên --}}
-                                <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
-                                    <a class="page-link hover-white" wire:click="gotoPage(1)"
-                                        wire:loading.attr="disabled">1</a>
-                                </li>
-
-                                {{-- Dấu ba chấm nếu cần --}}
-                                @if ($currentPage > 3)
-                                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                                @endif
-
-                                {{-- Hiển thị trang thứ hai và ba nếu có --}}
-                                @for ($i = max(2, $currentPage - 1); $i <= min($totalPages - 1, $currentPage + 1); $i++)
-                                    @if ($i != 1 && $i != $totalPages)
-                                        {{-- Bỏ qua trang đầu và trang cuối --}}
-                                        <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
-                                            <a class="page-link hover-white"
-                                                wire:click="gotoPage({{ $i }})"
-                                                wire:loading.attr="disabled">{{ $i }}</a>
-                                        </li>
-                                    @endif
-                                @endfor
-
-                                {{-- Dấu ba chấm nếu cần --}}
-                                @if ($currentPage < $totalPages - 2)
-                                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                                @endif
-
-                                {{-- Hiển thị trang cuối cùng --}}
-                                @if ($totalPages > 1)
-                                    <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
-                                        <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
-                                            wire:loading.attr="disabled">{{ $totalPages }}</a>
-                                    </li>
-                                @endif
-
-                                {{-- Liên kết Trang Tiếp --}}
-                                <li class="page-item {{ !$trashedZones->hasMorePages() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="nextPage"
-                                        wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')">
-                                        <i class="far fa-angle-right"></i>
-                                    </a>
-                                </li>
-
-                                {{-- Liên kết Trang Cuối --}}
-                                <li class="page-item {{ !$trashedZones->hasMorePages() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
-                                        wire:loading.attr="disabled" rel="last" aria-label="@lang('pagination.last')">
-                                        <i class="far fa-angle-double-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                @endif
             </div>
+            @if ($trashedZones->hasPages())
+                <nav aria-label="Page navigation">
+                    <ul class="pagination rounded-active justify-content-center">
+                        {{-- Nút về đầu --}}
+
+                        <li class="page-item {{ $trashedZones->onFirstPage() ? 'disabled' : '' }}">
+                            <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled"
+                                rel="prev" aria-label="@lang('pagination.previous')"><i
+                                    class="far fa-angle-double-left"></i></a>
+                        </li>
+                        @php
+                            $totalPages = $trashedZones->lastPage();
+                            $currentPage = $trashedZones->currentPage();
+                            $visiblePages = 3; // Số trang hiển thị ở giữa
+                        @endphp
+
+                        {{-- Trang đầu --}}
+                        <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                            <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                wire:loading.attr="disabled">1</a>
+                        </li>
+
+                        {{-- Dấu ba chấm đầu --}}
+                        @if ($currentPage > $visiblePages)
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                        @endif
+
+                        {{-- Các trang giữa --}}
+                        @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
+                            @if ($i > 1 && $i < $totalPages)
+                                <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                    <a class="page-link hover-white" wire:click="gotoPage({{ $i }})"
+                                        wire:loading.attr="disabled">{{ $i }}</a>
+                                </li>
+                            @endif
+                        @endforeach
+
+                        {{-- Dấu ba chấm cuối --}}
+                        @if ($currentPage < $totalPages - ($visiblePages - 1))
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                        @endif
+
+                        {{-- Trang cuối --}}
+                        @if ($totalPages > 1)
+                            <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                                <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
+                                    wire:loading.attr="disabled">{{ $totalPages }}</a>
+                            </li>
+                        @endif
+
+
+                        <li class="page-item {{ !$trashedZones->hasMorePages() ? 'disabled' : '' }}">
+                            <a class="page-link hover-white" wire:click="gotoPage({{ $trashedZones->lastPage() }})"
+                                wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')"><i
+                                    class="far fa-angle-double-right"></i></a>
+                        </li>
+                    </ul>
+                </nav>
+            @endif
         </div>
     </main>
     <script>

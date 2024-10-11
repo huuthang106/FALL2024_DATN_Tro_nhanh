@@ -110,6 +110,7 @@ class ZoneTable extends Component
 
         $this->dispatch('refreshComponent');
     }
+    // Tạo thông báo
     // public function confirmDelete()
     // {
     //     $zones = Zone::onlyTrashed()->whereIn('id', $this->selectedZones)->get();
@@ -164,6 +165,7 @@ class ZoneTable extends Component
         ]);
         $this->dispatch('refreshComponent');
     }
+    // Tạo thông báo
     // public function restoreSelected()
     // {
     //     $zoneServices = new ZoneServices();
