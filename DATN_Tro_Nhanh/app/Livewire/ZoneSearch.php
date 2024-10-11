@@ -44,13 +44,14 @@ class ZoneSearch extends Component
         $this->orderBy = $field;
     }
 
-    public function toggleZone($zoneId, $isChecked)
+    public function toggleZone($zoneId)
     {
-        if ($isChecked) {
-            $this->selectedZones[] = $zoneId;
-        } else {
+        if (in_array($zoneId, $this->selectedZones)) {
             $this->selectedZones = array_diff($this->selectedZones, [$zoneId]);
+        } else {
+            $this->selectedZones[] = $zoneId;
         }
+        $this->updatedSelectedZones($this->selectedZones);
     }
     public function toggleAllZones($isChecked)
     {
@@ -148,7 +149,12 @@ class ZoneSearch extends Component
         'emptyZonesCount' => $emptyZonesCount
     ]);
     }
-
+    
+    public function updatedSelectedZones($value)
+    {
+        $selectableZonesCount = $this->getSelectableZonesCount();
+        $this->selectAll = count($this->selectedZones) === $selectableZonesCount;
+    }
     public function getZoneImageUrl(Zone $zone): string
     {
         $image = $zone->images->first();
@@ -157,12 +163,19 @@ class ZoneSearch extends Component
     public function updatedSelectAll($value)
     {
         if ($value) {
-            $this->selectedZones = Zone::where('user_id', auth()->id())
-                ->whereDoesntHave('rooms')
-                ->pluck('id')
-                ->toArray();
+            $this->selectedZones = $this->getSelectableZones()->pluck('id')->toArray();
         } else {
             $this->selectedZones = [];
         }
     }
+    private function getSelectableZones()
+{
+    return Zone::where('user_id', auth()->id())
+        ->whereDoesntHave('rooms');
+}
+
+private function getSelectableZonesCount()
+{
+    return $this->getSelectableZones()->count();
+}
 }

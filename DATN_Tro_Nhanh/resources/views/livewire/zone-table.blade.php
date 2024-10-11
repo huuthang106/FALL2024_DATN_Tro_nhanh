@@ -105,9 +105,9 @@
                                 <tr role="row" class="shadow-hover-xs-2 bg-hover-white">
                                     <td class="align-middle pt-6 pb-4 px-6">
                                         <div class="control custom-checkbox">
-                                            <input type="checkbox" class="control-input" id="zone-{{ $zone->id }}"
-                                                wire:model.lazy="selectedZones" wire:key="zone-{{ $zone->id }}"
-                                                value="{{ $zone->id }}">
+                                            <input type="checkbox" class="control-input zone-checkbox" id="zone-{{ $zone->id }}"
+                                            wire:model="selectedZones" wire:key="zone-{{ $zone->id }}"
+                                            value="{{ $zone->id }}" {{ $zone->rooms->count() > 0 ? 'disabled' : '' }}>
                                             <label class="control-label" for="zone-{{ $zone->id }}"></label>
                                         </div>
                                     </td>

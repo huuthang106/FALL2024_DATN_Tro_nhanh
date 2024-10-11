@@ -24,11 +24,12 @@
                                         mới</span></a>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
+                        <div
+                            class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
                             <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
                                 <input wire:model.lazy="search" wire:keydown.debounce.300ms="$refresh" type="text"
-                                    class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..." aria-label=""
-                                    aria-describedby="basic-addon1">
+                                    class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..."
+                                    aria-label="" aria-describedby="basic-addon1">
                                 <div class="input-group-append position-absolute pos-fixed-right-center">
                                     <button class="btn bg-transparent border-0 text-gray lh-1" type="button">
                                         <i class="fal fa-search"></i>
@@ -74,11 +75,11 @@
                                 <tr role="row" wire:key="zone-{{ $zone->id }}"
                                     data-room-count="{{ $zone->room_count }}">
                                     <td class="align-middle px-6">
-                                        <input type="checkbox" class="zone-checkbox" 
-                                               wire:model="selectedZones" 
-                                               value="{{ $zone->id }}" 
-                                               {{ $zone->room_count > 0 ? 'disabled' : '' }}
-                                               wire:key="zone-checkbox-{{ $zone->id }}">
+                                        <input type="checkbox" class="control-input zone-checkbox"
+                                            id="zone-{{ $zone->id }}" wire:model="selectedZones"
+                                            wire:key="zone-{{ $zone->id }}" value="{{ $zone->id }}"
+                                            {{ $zone->rooms->count() > 0 ? 'disabled' : '' }}
+                                            wire:change="toggleZone({{ $zone->id }})">
                                     </td>
                                     <td class="align-middle d-md-table-cell text-nowrap p-4">
                                         <div class="mr-2 position-relative zone-image-container">
@@ -244,37 +245,46 @@
         const deleteSelectedBtn = document.getElementById('deleteSelected');
         const emptyZonesCountElement = document.getElementById('emptyZonesCount');
         const emptyZonesCount = parseInt(emptyZonesCountElement.dataset.count);
-    
         function updateCheckAllState() {
-            const checkedCheckboxes = document.querySelectorAll('.zone-checkbox:checked:not(:disabled)').length;
-            checkAll.checked = checkedCheckboxes === emptyZonesCount && emptyZonesCount > 0;
-            checkAll.indeterminate = checkedCheckboxes > 0 && checkedCheckboxes < emptyZonesCount;
-        }
-    
+    const checkableCheckboxes = document.querySelectorAll('.zone-checkbox:not(:disabled)');
+    const checkedCheckboxes = document.querySelectorAll('.zone-checkbox:checked:not(:disabled)');
+
+    if (checkedCheckboxes.length === checkableCheckboxes.length && checkableCheckboxes.length > 0) {
+        checkAll.checked = true;
+    } else {
+        checkAll.checked = false;
+    }
+    checkAll.indeterminate = false; // Luôn đặt indeterminate thành false
+}
+
         function initializeCheckboxes() {
             document.querySelectorAll('.zone-checkbox').forEach(checkbox => {
-                checkbox.addEventListener('change', updateCheckAllState);
+                checkbox.addEventListener('change', function() {
+                    @this.toggleZone(this.value);
+                    updateCheckAllState();
+                });
             });
             updateCheckAllState();
         }
-    
+
         checkAll.addEventListener('change', function() {
             const isChecked = this.checked;
+            @this.toggleAllZones(isChecked);
             document.querySelectorAll('.zone-checkbox:not(:disabled)').forEach(checkbox => {
                 checkbox.checked = isChecked;
-                checkbox.dispatchEvent(new Event('change', { bubbles: true }));
             });
+            updateCheckAllState();
         });
-    
+
         deleteSelectedBtn.addEventListener('click', function(event) {
             event.preventDefault();
-            Livewire.find('zone-search').deleteSelectedZones();
+            @this.deleteSelectedZones();
         });
-    
+
         initializeCheckboxes();
-    
+
         Livewire.on('zonesUpdated', initializeCheckboxes);
-    
+
         Livewire.on('zones-deleted', (data) => {
             console.log('Zones deleted event received:', data);
             Swal.fire({
@@ -283,9 +293,21 @@
                 icon: 'success',
                 confirmButtonText: 'OK'
             }).then(() => {
-                location.reload();
+                checkAll.checked = false;
+                checkAll.indeterminate = false;
+                initializeCheckboxes();
+            });
+        });
+
+        Livewire.on('zones-with-rooms', (zonesWithRooms) => {
+            Swal.fire({
+                title: 'Không thể xóa',
+                text: `Các khu vực sau không thể xóa vì có phòng: ${zonesWithRooms}`,
+                icon: 'error',
+                confirmButtonText: 'OK'
             });
         });
     });
-    </script>
+</script>
+
 </div>

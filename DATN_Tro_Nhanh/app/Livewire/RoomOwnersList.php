@@ -116,12 +116,14 @@ class RoomOwnersList extends Component
         } else {
             $this->selectedRooms[$roomId] = true;
         }
+        $this->updateSelectAllState();
     }
 
     public function updateSelectAllState()
     {
         $totalRooms = Room::where('user_id', Auth::id())->count();
-        $this->selectAll = count($this->selectedRooms) === $totalRooms && $totalRooms > 0;
+        $selectedCount = count($this->selectedRooms);
+        $this->selectAll = ($selectedCount === $totalRooms) && ($totalRooms > 0);
     }
     public function toggleSelectAll()
     {
@@ -166,4 +168,5 @@ class RoomOwnersList extends Component
     {
         return isset($this->selectedRooms[$roomId]) && $this->selectedRooms[$roomId];
     }
+    
 }
