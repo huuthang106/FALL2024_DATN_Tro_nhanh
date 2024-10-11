@@ -13,7 +13,7 @@ class MyMaintenanceOwnerList extends Component
     use WithPagination;
 
     public $timeFilter = ''; // Biến để lưu trữ khoảng thời gian lọc
-    protected const LIMIT = 10; // Đổi tên hằng số thành chữ hoa
+    protected const LIMIT = 5; // Đổi tên hằng số thành chữ hoa
     protected const PARTICIPATED = 2; // Đổi tên hằng số thành chữ hoa
     public $roomIds = []; // Biến để lưu trữ ID của các phòng
     public $totalRooms; // Biến để lưu trữ tổng số phòng
@@ -84,4 +84,5 @@ class MyMaintenanceOwnerList extends Component
             'rooms' => $residents, // Truyền danh sách residents đã phân trang vào view
         ]);
     }
+    
 }

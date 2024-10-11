@@ -35,14 +35,14 @@
                                         </div>
                                     </div>
                                     <div class="form-group d-flex justify-content-end">
-                                        <button type="button" class="btn btn-primary mr-2" data-toggle="modal"
+                                        <button type="button" class="btn btn-primary mr-2 btn-sm" data-toggle="modal"
                                             data-target="#imageModal">
                                             Xem ảnh định danh
                                         </button>
                                         <form id="toggleVisibilityForm" action="{{ route('owners.profile.toggle-visibility') }}" method="POST" class="mr-2">
                                             @csrf
                                             @method('POST')
-                                            <button type="button" onclick="confirmToggleVisibility({{ $information->status }})" class="btn {{ $information->status == 1 ? 'btn-primary' : 'btn-primary' }}">
+                                            <button type="button" onclick="confirmToggleVisibility({{ $information->status }})" class="btn {{ $information->status == 1 ? 'btn-primary' : 'btn-primary' }} btn-sm">
                                                 {{ $information->status == 1 ? 'Công khai thông tin' : 'Ẩn thông tin' }}
                                             </button>
                                         </form>
@@ -56,7 +56,7 @@
                                         <form action="{{ route('owners.profile.clear-information') }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Xóa thông tin</button>
+                                            <button type="submit" class="btn btn-danger btn-sm">Xóa thông tin</button>
                                         </form>
                                     </div>
 

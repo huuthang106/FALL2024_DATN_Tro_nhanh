@@ -35,13 +35,6 @@
                 <table id="invoice-list" class="table table-hover bg-white border rounded-lg">
                     <thead>
                         <tr role="row">
-
-
-                            {{-- @if ($currentUserRole != 1)  
-                                <th class="py-6">Người Nhận</th>
-                            @else --}}
-                            <th class="py-6" style="white-space: nowrap;">Tên Người Nhận</th>
-                            {{-- @endif --}}
                             <th class="py-6" style="white-space: nowrap;"q>Nội Dung</th>
                             <th class="py-6" style="white-space: nowrap;">Giá</th>
 

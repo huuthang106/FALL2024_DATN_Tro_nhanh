@@ -54,13 +54,6 @@
                                 <th class="py-6 text-start" style="white-space: nowrap;">Tên phòng</th>
                                 <th class="py-6 text-start" style="white-space: nowrap;">Tên người ở</th>
                                 <th class="py-6 text-start" style="white-space: nowrap;">Số điện thoại</th>
-                                {{-- <th
-                                    class="py-6 text-start {{ $residents->where('status', $user_is_in)->isEmpty() ? 'd-none' : '' }}">
-                                    Lý do</th>
-                                @if ($residents->whereNotNull('description')->isNotEmpty())
-                                    <th class="py-6 text-start">Từ Chối</th>
-                                @endif --}}
-
                                 <th class="py-6 text-start" style="white-space: nowrap;">Khu trọ</th>
                                 <th class="py-6 text-start" style="white-space: nowrap;">Thao tác</th>
                             </tr>
@@ -96,10 +89,10 @@
                                         <td class="align-middle" style="white-space: nowrap;">
                                             <small class="text">{{ $resident->tenant->phone }}</small>
                                         </td>
-                                        <td class="align-middle description-column {{ empty($resident->description) ? 'd-none' : '' }}"
+                                        <!-- <td class="align-middle description-column {{ empty($resident->description) ? 'd-none' : '' }}"
                                             style="white-space: nowrap;">
                                             <small class="text">{{ $resident->description }}</small>
-                                        </td>
+                                        </td> -->
 
 
                                         <td class="align-middle" style="white-space: nowrap;">
@@ -110,7 +103,7 @@
                                                 method="POST" style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                                <button type="submit" class="btn btn-danger btn-sm"><i class="fal fa-trash-alt"></i></button>
                                             </form>
                                         </td>
                                     </tr>
@@ -121,76 +114,75 @@
                     </table>
                 </div>
 
-                @if ($residents->hasPages())
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination pagination-sm rounded-active justify-content-center">
-                            {{-- Liên kết Trang Đầu --}}
-                            <li class="page-item {{ $residents->onFirstPage() ? 'disabled' : '' }}">
-                                <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled">
-                                    &lt;&lt;
-                                </a>
-                            </li>
+                <div id="pagination-section" class="mt-6">
+        <ul class="pagination pagination-sm rounded-active justify-content-center">
+            {{-- Nút quay về trang đầu tiên (<<) --}}
+            <li class="page-item {{ $residents->onFirstPage() ? 'disabled' : '' }}">
+                <a class="page-link" wire:click="gotoPage(1)" wire:loading.attr="disabled"
+                    href="#pagination-section">
+                    <i class="far fa-angle-double-left"></i>
+                </a>
+            </li>
 
-                            {{-- Liên kết Trang Trước --}}
-                            <li class="page-item {{ $residents->onFirstPage() ? 'disabled' : '' }}">
-                                <a class="page-link hover-white" wire:click="previousPage"
-                                    wire:loading.attr="disabled">
-                                    &lt;
-                                </a>
-                            </li>
+            {{-- Nút quay lại trang trước (<) --}}
+            <li class="page-item {{ $residents->onFirstPage() ? 'disabled' : '' }}">
+                <a class="page-link" wire:click="previousPage" wire:loading.attr="disabled"
+                    href="#pagination-section">
+                    <i class="fas fa-angle-left"></i>
+                </a>
+            </li>
 
-                            @php
-                                $window = 2; // Số trang hiển thị ở mỗi bên của trang hiện tại
-                                $totalPages = $residents->lastPage();
-                                $currentPage = $residents->currentPage();
-                                $startPage = max($currentPage - $window, 1);
-                                $endPage = min($currentPage + $window, $totalPages);
-                            @endphp
+            {{-- Hiển thị các trang chỉ trên kích thước md trở lên --}}
+            @if ($residents->currentPage() > 2)
+                <li class="page-item d-none d-md-inline">
+                    <a class="page-link" wire:click="gotoPage(1)" href="#pagination-section">1</a>
+                </li>
+            @endif
 
-                            @if ($startPage > 1)
-                                <li class="page-item">
-                                    <a class="page-link hover-white" wire:click="gotoPage(1)"
-                                        wire:loading.attr="disabled">1</a>
-                                </li>
-                                @if ($startPage > 2)
-                                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                                @endif
-                            @endif
+            @if ($residents->currentPage() > 3)
+                <li class="page-item disabled d-none d-md-inline">
+                    <span class="page-link">...</span>
+                </li>
+            @endif
 
-                            @for ($i = $startPage; $i <= $endPage; $i++)
-                                <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
-                                    <a class="page-link hover-white" wire:click="gotoPage({{ $i }})"
-                                        wire:loading.attr="disabled">{{ $i }}</a>
-                                </li>
-                            @endfor
+            {{-- Hiển thị các trang xung quanh trang hiện tại --}}
+            @for ($i = max(1, $residents->currentPage() - 1); $i <= min($residents->currentPage() + 1, $residents->lastPage()); $i++)
+                <li class="page-item {{ $residents->currentPage() == $i ? 'active' : '' }}">
+                    <a class="page-link" wire:click="gotoPage({{ $i }})"
+                        href="#pagination-section">{{ $i }}</a>
+                </li>
+            @endfor
 
-                            @if ($endPage < $totalPages)
-                                @if ($endPage < $totalPages - 1)
-                                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                                @endif
-                                <li class="page-item">
-                                    <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
-                                        wire:loading.attr="disabled">{{ $totalPages }}</a>
-                                </li>
-                            @endif
+            @if ($residents->currentPage() < $residents->lastPage() - 2)
+                <li class="page-item disabled d-none d-md-inline">
+                    <span class="page-link">...</span>
+                </li>
+            @endif
 
-                            {{-- Liên kết Trang Tiếp --}}
-                            <li class="page-item {{ !$residents->hasMorePages() ? 'disabled' : '' }}">
-                                <a class="page-link hover-white" wire:click="nextPage" wire:loading.attr="disabled">
-                                    &gt;
-                                </a>
-                            </li>
+            @if ($residents->currentPage() < $residents->lastPage() - 1)
+                <li class="page-item d-none d-md-inline">
+                    <a class="page-link" wire:click="gotoPage({{ $residents->lastPage() }})" href="#pagination-section">
+                        {{ $residents->lastPage() }}
+                    </a>
+                </li>
+            @endif
 
-                            {{-- Liên kết Trang Cuối --}}
-                            <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
-                                <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
-                                    wire:loading.attr="disabled">
-                                    &gt;&gt;
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                @endif
+            {{-- Nút tới trang kế tiếp (>) --}}
+            <li class="page-item {{ $residents->currentPage() == $residents->lastPage() ? 'disabled' : '' }}">
+                <a class="page-link" wire:click="nextPage" wire:loading.attr="disabled" href="#pagination-section">
+                    <i class="fas fa-angle-right"></i>
+                </a>
+            </li>
+
+            {{-- Nút tới trang cuối cùng (>>) --}}
+            <li class="page-item {{ $residents->currentPage() == $residents->lastPage() ? 'disabled' : '' }}">
+                <a class="page-link" wire:click="gotoPage({{ $residents->lastPage() }})" wire:loading.attr="disabled"
+                    href="#pagination-section">
+                    <i class="far fa-angle-double-right"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
             </div>
         </div>
     </div>

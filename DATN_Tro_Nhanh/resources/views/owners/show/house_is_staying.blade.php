@@ -3,11 +3,11 @@
 @section('contentOwners')
 
     @livewire('my-maintenance-owner-list')
+    
 
-    <!-- Vendors scripts -->
-
-
-
+     </div>
+    </div>
+    </div>
 @endsection
 @push('styleOwners')
     {{-- <meta charset="utf-8">
@@ -79,6 +79,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
     <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
+   
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@TroNanh">

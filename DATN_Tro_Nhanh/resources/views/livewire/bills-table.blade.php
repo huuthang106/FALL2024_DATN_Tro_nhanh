@@ -6,15 +6,16 @@
                 <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
                     <div class="d-flex form-group mb-0 align-items-center ml-3">
                         <label class="form-label fs-6 fw-bold mr-2 mb-0">Lọc:</label>
-                        <select wire:model.lazy="timeFilter" class="form-control form-control-lg selectpicker" data-style="bg-white btn-lg h-52 py-2 border">
-                            <option value="" selected>Thời Gian:</option>
-                            <option value="1_day">1 ngày</option>
-                            <option value="7_day">7 ngày</option>
-                            <option value="1_month">1 tháng</option>
-                            <option value="3_month">3 tháng</option>
-                            <option value="6_month">6 tháng</option>
-                            <option value="1_year">1 năm</option>
-                        </select>
+                        <select class="form-control selectpicker form-control-lg mr-2" wire:model.lazy="timeFilter"
+                        data-style="bg-white btn-lg h-52 py-2 border">
+                        <option value="" selected>Mặc định:</option>
+                        <option value="1_day">Hôm qua</option>
+                        <option value="7_day">7 ngày</option>
+                        <option value="1_month">1 tháng</option>
+                        <option value="3_month">3 tháng</option>
+                        <option value="6_month">6 tháng</option>
+                        <option value="1_year">1 năm</option>
+                    </select>
                     </div>
                     <div class="align-self-center">
                         <button class="btn btn-primary btn-lg" tabindex="0" aria-controls="invoice-list">
@@ -34,8 +35,8 @@
                         </div>
                     </div>
                     <div class="align-self-center">
-                        <button class="btn btn-danger btn-lg" tabindex="0" aria-controls="invoice-list">
-                            <span>Xóa</span>
+                        <button class="btn btn-danger btn-lg" id="deleteSelected">
+                            Xóa
                         </button>
                     </div>
                 </div>
@@ -46,10 +47,8 @@
             <table id="invoice-list" class="table table-hover bg-white border rounded-lg">
                 <thead>
                     <tr role="row">
-                        <th class="no-sort py-6 pl-6">
-                            <label class="new-control new-checkbox checkbox-primary m-auto">
-                                <input type="checkbox" class="new-control-input chk-parent select-customers-info">
-                            </label>
+                        <th>
+                            <input type="checkbox" id="checkAll"> <!-- Checkbox tổng -->
                         </th>
                         <th class="py-6" style="white-space: nowrap;">Tiêu đề</th>
                         <th class="py-6" style="white-space: nowrap;">Giá</th>
@@ -64,10 +63,9 @@
                 <tbody>
                     @foreach ($bills as $bill)
                         <tr role="row">
-                            <td class="checkbox-column py-6 pl-6">
-                                <label class="new-control new-checkbox checkbox-primary m-auto">
-                                    <input type="checkbox" class="new-control-input child-chk select-customers-info" value="{{ $bill->id }}">
-                                </label>
+                            <td>
+                                <input type="checkbox" class="bill-checkbox" value="{{ $bill->id }}" 
+                                    wire:model="selectedBills"> <!-- Checkbox cho mỗi hóa đơn -->
                             </td>
                             <td class="align-middle">
                                 <div class="d-flex align-items-center">
@@ -98,10 +96,11 @@
                                 @endif
                             </td>
                             <td class="align-middle">
-                                <a href="{{ route('owners.invoice-preview', $bill->id) }}" data-toggle="tooltip" title="Thanh Toán" class="d-inline-block fs-18 text-muted hover-primary mr-5">
+                                <a href="{{ route('owners.invoice-preview', $bill->id) }}" data-toggle="tooltip" title="Thanh Toán" class="btn btn-primary btn-sm mr-5">
                                     <i class="fas fa-credit-card"></i>
                                 </a>
-                                <a href="#" data-toggle="tooltip" title="Xóa" class="d-inline-block fs-18 text-muted hover-primary">
+                                <a href="#" data-toggle="tooltip" title="Xóa" class="btn btn-danger btn-sm d-inline-block"
+                                    onclick="confirmDelete({{ $bill->id }})">
                                     <i class="fal fa-trash-alt"></i>
                                 </a>
                             </td>
@@ -176,3 +175,120 @@
         </div>
     </div>
 </div>
+<script>
+    function confirmDelete(billId) {
+        Swal.fire({
+            title: 'Bạn có chắc chắn?',
+            text: "Bạn có muốn xóa hóa đơn này!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Có, xóa!',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                @this.call('deleteBill', billId); // Call Livewire method to delete the bill
+            }
+        });
+    }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const checkAll = document.getElementById('checkAll');
+        const deleteSelectedBtn = document.getElementById('deleteSelected');
+        const checkboxes = document.querySelectorAll('.bill-checkbox');
+
+        // Hàm cập nhật trạng thái của checkbox tổng
+        function capNhatTrangThaiCheckAll() {
+            checkAll.checked = checkboxes.length > 0 && Array.from(checkboxes).every(checkbox => checkbox.checked);
+        }
+
+        // Bắt sự kiện thay đổi cho checkbox tổng
+        checkAll.addEventListener('change', function() {
+            const isChecked = this.checked;
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = isChecked;
+                checkbox.dispatchEvent(new Event('change', { 'bubbles': true }));
+            });
+            @this.set('selectedBills', isChecked ? Array.from(checkboxes).map(cb => cb.value) : []);
+        });
+
+        // Bắt sự kiện thay đổi cho các checkbox con
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                capNhatTrangThaiCheckAll();
+                let selectedBills = @this.get('selectedBills');
+                if (this.checked) {
+                    if (!selectedBills.includes(this.value)) {
+                        selectedBills.push(this.value);
+                    }
+                } else {
+                    selectedBills = selectedBills.filter(id => id !== this.value);
+                }
+                @this.set('selectedBills', selectedBills);
+            });
+        });
+
+        // Bắt sự kiện nhấn nút "Xóa đã chọn"
+        deleteSelectedBtn.addEventListener('click', function() {
+            const selectedBills = Array.from(checkboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
+
+            if (selectedBills.length === 0) {
+                Swal.fire({
+                    title: 'Lỗi!',
+                    text: 'Vui lòng chọn ít nhất một hóa đơn để xóa',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            Swal.fire({
+                title: 'Bạn có chắc chắn?',
+                text: "Bạn có muốn xóa các hóa đơn đã chọn?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Có, xóa!',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    @this.call('deleteSelectedBills', selectedBills);
+                }
+            });
+        });
+
+        // Cập nhật hiển thị nút xóa dựa vào số lượng blog đã chọn
+        function updateDeleteButtonVisibility() {
+            const selectedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+            deleteSelectedBtn.style.display = selectedCount > 0 ? 'block' : 'none';
+            checkAll.checked = selectedCount === checkboxes.length;
+        }
+
+        // Gọi hàm updateDeleteButtonVisibility mỗi khi có sự thay đổi trong checkbox
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateDeleteButtonVisibility);
+        });
+
+        // Khởi tạo trạng thái ban đầu
+        updateDeleteButtonVisibility();
+    });
+
+    // Xử lý thông báo sau khi xóa thành công
+    document.addEventListener('livewire:initialized', () => {
+        Livewire.on('bill-deleted', (event) => {
+            Swal.fire({
+                title: 'Thành công!',
+                text: 'Xóa hóa đơn thành công',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                location.reload();
+            });
+        });
+    });
+</script>

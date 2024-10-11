@@ -7,6 +7,7 @@ use Livewire\WithPagination;
 use App\Models\Bill;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class BillsTable extends Component
 {
@@ -15,6 +16,27 @@ class BillsTable extends Component
     public $search = ''; // Từ khóa tìm kiếm
     public $perPage = 5; // Số lượng hóa đơn trên mỗi trang
     public $timeFilter = ''; // Khoảng thời gian lọc
+    public $selectedBills = []; // Biến lưu trữ các hóa đơn được chọn
+
+     // Hàm để xóa các hóa đơn đã chọn
+     public function deleteSelectedBills()
+     {
+         if (count($this->selectedBills) > 0) {
+             Log::info('Selected Bills:', $this->selectedBills);
+             Bill::whereIn('id', $this->selectedBills)->delete();
+             $this->selectedBills = []; // Reset lại sau khi xóa
+             $this->dispatch('bill-deleted', ['message' => 'Các hóa đơn đã chọn đã được xóa thành công']);
+         }
+     }
+
+     public function deleteBill($billId)
+    {
+        $bill = Bill::find($billId);
+        if ($bill) {
+            $bill->delete();
+            $this->dispatch('bill-deleted', ['message' => 'Hóa đơn đã được xóa thành công']);
+        }
+    }
 
     public function render()
     {

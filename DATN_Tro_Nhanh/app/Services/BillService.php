@@ -40,6 +40,11 @@ class BillService
             return null;
         }
     }
+
+    public function getTransationOwners()
+    {
+        $bills = Transaction::all();
+    }
     public function getBillsByCreatorId(int $perPage = 10, $searchTerm = null)
     {
         try {

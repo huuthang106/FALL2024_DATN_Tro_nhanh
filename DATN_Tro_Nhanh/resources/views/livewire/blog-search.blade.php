@@ -33,21 +33,10 @@
                         </button>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
-                    <div class="input-group input-group-lg bg-white mb-0 position-relative flex-grow-1 mr-2" style="width: 60%">
-                        <input wire:model.lazy="search" wire:keydown.debounce.100ms="$refresh" type="text"
-                            class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..." aria-label=""
-                            aria-describedby="basic-addon1">
-                        <div class="input-group-append position-absolute pos-fixed-right-center">
-                            <button class="btn bg-transparent border-0 text-gray lh-1" type="button">
-                                <i class="fal fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
+                
                     <div class="align-self-center">
                         <button id="deleteSelected" class="btn btn-danger btn-lg ml-2">Xóa</button>
                     </div>
-                </div>
             </div>
         </div>
     </div>

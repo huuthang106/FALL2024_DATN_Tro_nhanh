@@ -17,21 +17,21 @@ class IndexOwnersController extends Controller
         $this->BillService = $BillService;
     }
     public function indexInvoice()
-{
+    {
     $currentUserRole = Auth::user()->role; // Lấy role của user hiện tại
     $bills = $this->BillService->getCurrentUserBills(); // Lấy danh sách hóa đơn của user hiện tại
 
     // Truyền biến $bills và $currentUserRole sang view
     return view('owners.show.dashboard-invoice-listing', compact('bills', 'currentUserRole'));
-}
-public function indexBill()
-{
-    $currentUserRole = Auth::user()->role; // Lấy role của user hiện tại
+    }
 
-
+    public function indexBill()
+    {
+    $currentUserRole = Auth::user()->role; // Lấy role của user hiện tại    
+    $bills = $this->BillService->getBillsByCreatorId(); // Lấy danh sách hóa đơn của user hiện tại
     // Truyền biến $bills và $currentUserRole sang view
-    return view('owners.show.dashboard-invoice-bill', compact('currentUserRole'));
-}
+    return view('owners.show.dashboard-invoice-bill', compact('bills', 'currentUserRole'));
+    }
 
 
     public function editInvoice()

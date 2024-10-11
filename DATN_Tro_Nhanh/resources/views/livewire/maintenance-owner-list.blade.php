@@ -102,71 +102,75 @@
             </table>
         </div>
 
-        @if ($maintenanceRequests->count() > 0)
-            <div class="mt-6">
-                <ul class="pagination rounded-active justify-content-center">
-                    {{-- Nút tới trang đầu tiên --}}
-                    <li class="page-item {{ $maintenanceRequests->onFirstPage() ? 'disabled' : '' }}">
-                        <a class="page-link" wire:click.prevent="gotoPage(1)">
-                            <i class="far fa-angle-double-left"></i>
-                        </a>
-                    </li>
+        <div id="pagination-section" class="mt-6">
+        <ul class="pagination pagination-sm rounded-active justify-content-center">
+            {{-- Nút quay về trang đầu tiên (<<) --}}
+            <li class="page-item {{ $maintenanceRequests->onFirstPage() ? 'disabled' : '' }}">
+                <a class="page-link" wire:click="gotoPage(1)" wire:loading.attr="disabled"
+                    href="#pagination-section">
+                    <i class="far fa-angle-double-left"></i>
+                </a>
+            </li>
 
-                    {{-- Nút tới trang trước (<) --}}
-                    <li class="page-item {{ $maintenanceRequests->onFirstPage() ? 'disabled' : '' }}">
-                        <a class="page-link" wire:click.prevent="previousPage">
-                            <i class="fas fa-angle-left"></i>
-                        </a>
-                    </li>
+            {{-- Nút quay lại trang trước (<) --}}
+            <li class="page-item {{ $maintenanceRequests->onFirstPage() ? 'disabled' : '' }}">
+                <a class="page-link" wire:click="previousPage" wire:loading.attr="disabled"
+                    href="#pagination-section">
+                    <i class="fas fa-angle-left"></i>
+                </a>
+            </li>
 
-                    {{-- Trang đầu tiên --}}
-                    @if ($maintenanceRequests->currentPage() > 2)
-                        <li class="page-item"><a class="page-link" wire:click.prevent="gotoPage(1)">1</a></li>
-                    @endif
+            {{-- Hiển thị các trang chỉ trên kích thước md trở lên --}}
+            @if ($maintenanceRequests->currentPage() > 2)
+                <li class="page-item d-none d-md-inline">
+                    <a class="page-link" wire:click="gotoPage(1)" href="#pagination-section">1</a>
+                </li>
+            @endif
 
-                    {{-- Dấu ba chấm ở đầu nếu cần --}}
-                    @if ($maintenanceRequests->currentPage() > 3)
-                        <li class="page-item disabled"><span class="page-link">...</span></li>
-                    @endif
+            @if ($maintenanceRequests->currentPage() > 3)
+                <li class="page-item disabled d-none d-md-inline">
+                    <span class="page-link">...</span>
+                </li>
+            @endif
 
-                    {{-- Hiển thị các trang xung quanh trang hiện tại --}}
-                    @for ($i = max(1, $maintenanceRequests->currentPage() - 1); $i <= min($maintenanceRequests->currentPage() + 1, $maintenanceRequests->lastPage()); $i++)
-                        <li class="page-item {{ $maintenanceRequests->currentPage() == $i ? 'active' : '' }}">
-                            <a class="page-link"
-                                wire:click.prevent="gotoPage({{ $i }})">{{ $i }}</a>
-                        </li>
-                    @endfor
+            {{-- Hiển thị các trang xung quanh trang hiện tại --}}
+            @for ($i = max(1, $maintenanceRequests->currentPage() - 1); $i <= min($maintenanceRequests->currentPage() + 1, $maintenanceRequests->lastPage()); $i++)
+                <li class="page-item {{ $maintenanceRequests->currentPage() == $i ? 'active' : '' }}">
+                    <a class="page-link" wire:click="gotoPage({{ $i }})"
+                        href="#pagination-section">{{ $i }}</a>
+                </li>
+            @endfor
 
-                    {{-- Dấu ba chấm ở cuối nếu cần --}}
-                    @if ($maintenanceRequests->currentPage() < $maintenanceRequests->lastPage() - 2)
-                        <li class="page-item disabled"><span class="page-link">...</span></li>
-                    @endif
+            @if ($maintenanceRequests->currentPage() < $maintenanceRequests->lastPage() - 2)
+                <li class="page-item disabled d-none d-md-inline">
+                    <span class="page-link">...</span>
+                </li>
+            @endif
 
-                    {{-- Trang cuối cùng --}}
-                    @if ($maintenanceRequests->currentPage() < $maintenanceRequests->lastPage() - 1)
-                        <li class="page-item"><a class="page-link"
-                                wire:click.prevent="gotoPage({{ $maintenanceRequests->lastPage() }})">{{ $maintenanceRequests->lastPage() }}</a>
-                        </li>
-                    @endif
+            @if ($maintenanceRequests->currentPage() < $maintenanceRequests->lastPage() - 1)
+                <li class="page-item d-none d-md-inline">
+                    <a class="page-link" wire:click="gotoPage({{ $maintenanceRequests->lastPage() }})" href="#pagination-section">
+                        {{ $maintenanceRequests->lastPage() }}
+                    </a>
+                </li>
+            @endif
 
-                    {{-- Nút tới trang kế tiếp (>) --}}
-                    <li
-                        class="page-item {{ $maintenanceRequests->currentPage() == $maintenanceRequests->lastPage() ? 'disabled' : '' }}">
-                        <a class="page-link" wire:click.prevent="nextPage">
-                            <i class="fas fa-angle-right"></i>
-                        </a>
-                    </li>
+            {{-- Nút tới trang kế tiếp (>) --}}
+            <li class="page-item {{ $maintenanceRequests->currentPage() == $maintenanceRequests->lastPage() ? 'disabled' : '' }}">
+                <a class="page-link" wire:click="nextPage" wire:loading.attr="disabled" href="#pagination-section">
+                    <i class="fas fa-angle-right"></i>
+                </a>
+            </li>
 
-                    {{-- Nút tới trang cuối cùng (>>) --}}
-                    <li
-                        class="page-item {{ $maintenanceRequests->currentPage() == $maintenanceRequests->lastPage() ? 'disabled' : '' }}">
-                        <a class="page-link" wire:click.prevent="gotoPage({{ $maintenanceRequests->lastPage() }})">
-                            <i class="far fa-angle-double-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        @endif
+            {{-- Nút tới trang cuối cùng (>>) --}}
+            <li class="page-item {{ $maintenanceRequests->currentPage() == $maintenanceRequests->lastPage() ? 'disabled' : '' }}">
+                <a class="page-link" wire:click="gotoPage({{ $maintenanceRequests->lastPage() }})" wire:loading.attr="disabled"
+                    href="#pagination-section">
+                    <i class="far fa-angle-double-right"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
 
 
         <!-- <div class="text-center mt-2">

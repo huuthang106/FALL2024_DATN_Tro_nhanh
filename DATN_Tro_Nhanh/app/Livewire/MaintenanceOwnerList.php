@@ -14,7 +14,7 @@ class MaintenanceOwnerList extends Component
     use WithPagination;
 
     public $search = ''; // Từ khóa tìm kiếm
-    public $perPage = 10; // Số lượng bản ghi trên mỗi trang
+    public $perPage = 5; // Số lượng bản ghi trên mỗi trang
     public $timeFilter = ''; // Khoảng thời gian lọc
     public $startDate = ''; // Ngày bắt đầu lọc
     public $endDate = ''; // Ngày kết thúc lọc

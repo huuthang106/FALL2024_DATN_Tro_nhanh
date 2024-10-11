@@ -28,7 +28,7 @@ use Clarifai\Api\PostModelOutputsRequest;
 use Clarifai\Api\Status\StatusCode;
 use Clarifai\Api\UserAppIDSet;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\Auth;
 
 class RoomOwnersService
 {
@@ -668,6 +668,13 @@ class RoomOwnersService
         $room = Room::withTrashed()->findOrFail($id);
         $room->forceDelete();
         return $room;
+    }
+
+    public function getUserResident()
+    {
+        $user = Auth::user();
+        $userResident = Resident::where('user_id', $user->id)->get();
+        return $userResident;
     }
 
     public function processRoomPayment($customer, $accommodation, $pricingId)

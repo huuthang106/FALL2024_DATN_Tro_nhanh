@@ -226,8 +226,9 @@ class RoomOwnersController extends Controller
     }
     public function house_is_staying()
     {
-        return view('owners.show.house_is_staying');
-    }
+        $userResident = $this->roomOwnersService->getUserResident();
+        return view('owners.show.house_is_staying', ['userResident' => $userResident]);
+    }   
 
     public function processPayment(Request $request)
     {
