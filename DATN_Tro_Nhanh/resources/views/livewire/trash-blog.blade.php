@@ -46,11 +46,11 @@
             </div>
         </div>
     </div>
-    <div class="table-responsive">
+    <div class="table-responsive custom-table-responsive">
         <table class="table table-hover bg-white border rounded-lg">
             <thead class="thead-sm thead-black">
                 <tr>
-                    <th>
+                    <th class="px-3 py-3">
                         <input type="checkbox" id="checkAll"> <!-- Checkbox tổng -->
                     </th>
                     <th scope="col" class="border-top-0 px-6 pt-5 pb-4" style="white-space: nowrap;">Ảnh</th>

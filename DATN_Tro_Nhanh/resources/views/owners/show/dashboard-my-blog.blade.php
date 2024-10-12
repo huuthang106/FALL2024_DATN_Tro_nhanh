@@ -3,11 +3,8 @@
 @section('contentOwners')
 
 
-    <main id="content" class="bg-gray-01">
-        <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10">
-            @livewire('blog-search')
-        </div>
-    </main>
+
+    @livewire('blog-search')
 
 
 
@@ -91,7 +88,7 @@
 
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('assets/css/custom-table-responsive.css') }}">
     <!-- Favicons -->
     <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
 
@@ -130,8 +127,8 @@
     <script src="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/hc-sticky/hc-sticky.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/jparallax/TweenMax.min.js') }}"></script>
-    <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
-    <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
+    <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script> --}}
     <!-- Theme scripts -->
     <script src="{{ asset('assets/js/theme.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

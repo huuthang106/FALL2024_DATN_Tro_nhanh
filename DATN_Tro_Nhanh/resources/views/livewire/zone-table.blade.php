@@ -74,7 +74,7 @@
                     </div>
                 </div>
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive  custom-table-responsive">
                 <table id="myTable" class="table table-hover table-sm bg-white border rounded-lg">
                     <thead>
                         <tr role="row">

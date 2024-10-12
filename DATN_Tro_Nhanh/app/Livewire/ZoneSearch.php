@@ -21,6 +21,7 @@ class ZoneSearch extends Component
     public $orderAsc = true;
     public $timeFilter = '';
     public $selectedZones = [];
+    public $startDate;
     protected $queryString = ['search', 'perPage', 'orderBy', 'orderAsc'];
 
     public $selectAll = false;
@@ -59,7 +60,7 @@ class ZoneSearch extends Component
             ->whereDoesntHave('rooms')
             ->pluck('id')
             ->toArray();
-    
+
         if ($isChecked) {
             $this->selectedZones = $emptyZones;
         } else {
@@ -107,31 +108,55 @@ class ZoneSearch extends Component
                     ->orWhere('address', 'like', '%' . $this->search . '%');
             });
 
+        // if ($this->timeFilter) {
+        //     $date = Carbon::now();
+        //     switch ($this->timeFilter) {
+        //         case '1_day':
+        //             $date->subDays(1);
+        //             break;
+        //         case '7_day':
+        //             $date->subDays(7);
+        //             break;
+        //         case '1_month':
+        //             $date->subMonth();
+        //             break;
+        //         case '3_month':
+        //             $date->subMonths(3);
+        //             break;
+        //         case '6_month':
+        //             $date->subMonths(6);
+        //             break;
+        //         case '1_year':
+        //             $date->subYear();
+        //             break;
+        //     }
+        //     $query->whereDate('created_at', '>=', $date);
+        // }
         if ($this->timeFilter) {
-            $date = Carbon::now();
+            $startDate = Carbon::now();
             switch ($this->timeFilter) {
                 case '1_day':
-                    $date->subDays(1);
+                    $startDate = Carbon::now()->subDay()->startOfDay();
                     break;
                 case '7_day':
-                    $date->subDays(7);
+                    $startDate = Carbon::now()->subDays(7)->startOfDay();
                     break;
                 case '1_month':
-                    $date->subMonth();
+                    $startDate = Carbon::now()->subMonth()->startOfDay();
                     break;
                 case '3_month':
-                    $date->subMonths(3);
+                    $startDate = Carbon::now()->subMonths(3)->startOfDay();
                     break;
                 case '6_month':
-                    $date->subMonths(6);
+                    $startDate = Carbon::now()->subMonths(6)->startOfDay();
                     break;
                 case '1_year':
-                    $date->subYear();
+                    $startDate = Carbon::now()->subYear()->startOfDay();
                     break;
             }
-            $query->whereDate('created_at', '>=', $date);
-        }
 
+            $query->whereDate('created_at', '<=', $startDate);
+        }
         $zones = $query->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
             ->paginate($this->perPage);
 
@@ -141,15 +166,15 @@ class ZoneSearch extends Component
 
         Log::info('Tìm thấy ' . $zones->count() . ' khu vực');
         $emptyZonesCount = Zone::where('user_id', auth()->id())
-        ->whereDoesntHave('rooms')
-        ->count();
+            ->whereDoesntHave('rooms')
+            ->count();
 
-    return view('livewire.zone-search', [
-        'zones' => $zones,
-        'emptyZonesCount' => $emptyZonesCount
-    ]);
+        return view('livewire.zone-search', [
+            'zones' => $zones,
+            'emptyZonesCount' => $emptyZonesCount
+        ]);
     }
-    
+
     public function updatedSelectedZones($value)
     {
         $selectableZonesCount = $this->getSelectableZonesCount();
@@ -169,13 +194,13 @@ class ZoneSearch extends Component
         }
     }
     private function getSelectableZones()
-{
-    return Zone::where('user_id', auth()->id())
-        ->whereDoesntHave('rooms');
-}
+    {
+        return Zone::where('user_id', auth()->id())
+            ->whereDoesntHave('rooms');
+    }
 
-private function getSelectableZonesCount()
-{
-    return $this->getSelectableZones()->count();
-}
+    private function getSelectableZonesCount()
+    {
+        return $this->getSelectableZones()->count();
+    }
 }

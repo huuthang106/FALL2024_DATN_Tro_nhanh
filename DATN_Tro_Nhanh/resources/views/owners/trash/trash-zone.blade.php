@@ -69,6 +69,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/custom-table-responsive.css') }}">
     <!-- Favicons -->
     <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
 

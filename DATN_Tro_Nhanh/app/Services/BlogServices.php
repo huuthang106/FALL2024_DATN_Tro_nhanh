@@ -400,12 +400,12 @@ class BlogServices
             return 0;
         }
     }
-    // public function softDeleteBlogs($id)
-    // {
-    //     $blog = Blog::findOrFail($id);
-    //     $blog->delete();
-    //     return $blog;
-    // }
+    public function softDeleteBlogs($id)
+    {
+        $blog = Blog::findOrFail($id);
+        $blog->delete();
+        return $blog;
+    }
     public function hardDeleteBlog($id)
     {
         try {
