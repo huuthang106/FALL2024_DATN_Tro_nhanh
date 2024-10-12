@@ -96,6 +96,7 @@
     <meta name="twitter:description"
         content="Quản lý và xem danh sách hóa đơn tại TRỌ NHANH, nơi bạn có thể cập nhật thông tin thanh toán và kiểm tra lịch sử thanh toán của mình.">
     <meta name="twitter:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    
 
     <!-- Facebook -->
     <meta property="og:url" content="{{ url()->current() }}">

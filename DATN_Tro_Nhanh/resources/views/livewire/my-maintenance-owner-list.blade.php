@@ -77,7 +77,7 @@
                                     </td>
                                     <td class="align-middle p-4" style="white-space: nowrap;">
                                         <button data-toggle="modal" href="#maintenance"
-                                            class="fs-18 text-muted hover-primary border-0 bg-transparent"> <i
+                                            class="badge badge-warning border-0"> <i
                                                 class="fal fa-pencil-alt"></i> </button>
 
 
@@ -88,7 +88,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="button"
-                                                class="fs-18 text-muted hover-primary border-0 bg-transparent"
+                                                class="badge badge-primary border-0"
                                                 onclick="confirmLeave({{ $item->id }});">
                                                 <i class="fal fa-sign-out-alt"></i>
                                             </button>
@@ -148,74 +148,66 @@
 
                 </table>
             </div>
-            <div id="pagination-section" class="mt-6">
-        <ul class="pagination pagination-sm rounded-active justify-content-center">
-            {{-- Nút quay về trang đầu tiên (<<) --}}
-            <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
-                <a class="page-link" wire:click="gotoPage(1)" wire:loading.attr="disabled"
-                    href="#pagination-section">
-                    <i class="far fa-angle-double-left"></i>
-                </a>
-            </li>
+        <div class="row justify-content-center p-5">
+            @if ($rooms->hasPages())
+            <nav aria-label="Page navigation">
+                <ul class="pagination rounded-active justify-content-center">
+                    {{-- Nút về đầu --}}
 
-            {{-- Nút quay lại trang trước (<) --}}
-            <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
-                <a class="page-link" wire:click="previousPage" wire:loading.attr="disabled"
-                    href="#pagination-section">
-                    <i class="fas fa-angle-left"></i>
-                </a>
-            </li>
+                    <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
+                    <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled"
+                        rel="prev" aria-label="@lang('pagination.previous')"><i
+                            class="far fa-angle-double-left"></i></a>
+                    </li>
+                    
+                    @php
+                        $totalPages = $rooms->lastPage();
+                        $currentPage = $rooms->currentPage();
+                        $visiblePages = 3; // Số trang hiển thị ở giữa
+                    @endphp
 
-            {{-- Hiển thị các trang chỉ trên kích thước md trở lên --}}
-            @if ($rooms->currentPage() > 2)
-                <li class="page-item d-none d-md-inline">
-                    <a class="page-link" wire:click="gotoPage(1)" href="#pagination-section">1</a>
-                </li>
+                    {{-- Trang đầu --}}
+                    <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                    <a class="page-link hover-white" wire:click="gotoPage(1)"
+                            wire:loading.attr="disabled">1</a>
+                    </li>
+
+                    {{-- Dấu ba chấm đầu --}}
+                    @if ($currentPage > $visiblePages)
+                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                    @endif
+
+                    {{-- Các trang giữa --}}
+                    @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
+                        @if ($i > 1 && $i < $totalPages)
+                            <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                <a class="page-link hover-white" wire:click="gotoPage({{ $i }})"
+                                    wire:loading.attr="disabled">{{ $i }}</a>
+                            </li>
+                        @endif
+                    @endforeach
+
+                    {{-- Dấu ba chấm cuối --}}
+                    @if ($currentPage < $totalPages - ($visiblePages - 1))
+                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                    @endif
+
+                    {{-- Trang cuối --}}
+                    @if ($totalPages > 1)
+                        <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                            <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
+                                wire:loading.attr="disabled">{{ $totalPages }}</a>
+                        </li>
+                    @endif
+
+                    <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
+                    <a class="page-link hover-white" wire:click="gotoPage({{ $rooms->lastPage() }})" wire:loading.attr="disabled"
+                        rel="next" aria-label="@lang('pagination.next')"><i
+                            class="far fa-angle-double-right"></i></a>
+                    </li>
+                </ul>
+            </nav>
             @endif
-
-            @if ($rooms->currentPage() > 3)
-                <li class="page-item disabled d-none d-md-inline">
-                    <span class="page-link">...</span>
-                </li>
-            @endif
-
-            {{-- Hiển thị các trang xung quanh trang hiện tại --}}
-            @for ($i = max(1, $rooms->currentPage() - 1); $i <= min($rooms->currentPage() + 1, $rooms->lastPage()); $i++)
-                <li class="page-item {{ $rooms->currentPage() == $i ? 'active' : '' }}">
-                    <a class="page-link" wire:click="gotoPage({{ $i }})"
-                        href="#pagination-section">{{ $i }}</a>
-                </li>
-            @endfor
-
-            @if ($rooms->currentPage() < $rooms->lastPage() - 2)
-                <li class="page-item disabled d-none d-md-inline">
-                    <span class="page-link">...</span>
-                </li>
-            @endif
-
-            @if ($rooms->currentPage() < $rooms->lastPage() - 1)
-                <li class="page-item d-none d-md-inline">
-                    <a class="page-link" wire:click="gotoPage({{ $rooms->lastPage() }})" href="#pagination-section">
-                        {{ $rooms->lastPage() }}
-                    </a>
-                </li>
-            @endif
-
-            {{-- Nút tới trang kế tiếp (>) --}}
-            <li class="page-item {{ $rooms->currentPage() == $rooms->lastPage() ? 'disabled' : '' }}">
-                <a class="page-link" wire:click="nextPage" wire:loading.attr="disabled" href="#pagination-section">
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-
-            {{-- Nút tới trang cuối cùng (>>) --}}
-            <li class="page-item {{ $rooms->currentPage() == $rooms->lastPage() ? 'disabled' : '' }}">
-                <a class="page-link" wire:click="gotoPage({{ $rooms->lastPage() }})" wire:loading.attr="disabled"
-                    href="#pagination-section">
-                    <i class="far fa-angle-double-right"></i>
-                </a>
-            </li>
-        </ul>
-    </div>
+        </div>
     </div>
 </div>

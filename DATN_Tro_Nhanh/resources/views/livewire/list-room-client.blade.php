@@ -186,28 +186,25 @@
     <div class="row justify-content-center p-5">
         @if ($rooms->hasPages())
             <nav aria-label="Page navigation">
-                <ul class="pagination pagination-sm rounded-active justify-content-center">
-                    {{-- Liên kết Trang Đầu --}}
+                <ul class="pagination rounded-active justify-content-center">
+                    {{-- Nút về đầu --}}
+
                     <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
-                        <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled"
-                            rel="first" aria-label="@lang('pagination.first')"><i class="far fa-angle-double-left"></i></a>
+                    <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled"
+                        rel="prev" aria-label="@lang('pagination.previous')"><i
+                            class="far fa-angle-double-left"></i></a>
                     </li>
-
-                    {{-- Liên kết Trang Trước --}}
-                    {{-- <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
-                        <a class="page-link hover-white" wire:click="previousPage" wire:loading.attr="disabled"
-                            rel="prev" aria-label="@lang('pagination.previous')"><i class="far fa-angle-left"></i></a>
-                    </li> --}}
-
+                    
                     @php
                         $totalPages = $rooms->lastPage();
                         $currentPage = $rooms->currentPage();
-                        $visiblePages = 2; // Số trang hiển thị ở giữa
+                        $visiblePages = 3; // Số trang hiển thị ở giữa
                     @endphp
 
                     {{-- Trang đầu --}}
                     <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
-                        <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled">1</a>
+                    <a class="page-link hover-white" wire:click="gotoPage(1)"
+                            wire:loading.attr="disabled">1</a>
                     </li>
 
                     {{-- Dấu ba chấm đầu --}}
@@ -238,17 +235,10 @@
                         </li>
                     @endif
 
-                    {{-- Liên kết Trang Tiếp --}}
-                    {{-- <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
-                        <a class="page-link hover-white" wire:click="nextPage" wire:loading.attr="disabled"
-                            rel="next" aria-label="@lang('pagination.next')"><i class="far fa-angle-right"></i></a>
-                    </li> --}}
-
-                    {{-- Liên kết Trang Cuối --}}
                     <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
-                        <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
-                            wire:loading.attr="disabled" rel="last" aria-label="@lang('pagination.last')"><i
-                                class="far fa-angle-double-right"></i></a>
+                    <a class="page-link hover-white" wire:click="gotoPage({{ $rooms->lastPage() }})" wire:loading.attr="disabled"
+                        rel="next" aria-label="@lang('pagination.next')"><i
+                            class="far fa-angle-double-right"></i></a>
                     </li>
                 </ul>
             </nav>

@@ -273,3 +273,35 @@ a.d-block {
     fill: #ffffff !important;
     /* Màu icon đậm hơn */
 }
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-button {
+    position: absolute;
+    left: 10px;
+    /* Đặt icon ở đầu */
+    background: none;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 10px 10px 40px;
+    /* Đảm bảo có khoảng trống cho icon */
+    box-sizing: border-box;
+}
+
+.search-button svg {
+    fill: white;
+    width: 24px;
+    height: 24px;
+}

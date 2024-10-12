@@ -136,20 +136,25 @@
     <!--begin::Search-->
                 <div id="kt_header_search" class="d-flex align-items-center position-relative">
                     <!--begin::Icon-->
-                    <span class="svg-icon svg-icon-2 search-icon position-absolute top-50 translate-middle-y ms-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1"
-                                transform="rotate(45 17.0365 15.1223)" fill="black" />
-                            <path
-                                d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
-                                fill="black" />
-                        </svg>
-                    </span>
+                    <form id="navSearchForm" onsubmit="event.preventDefault(); searchNav();">
+                    <div class="search-container">
+                        <button class="search-button" type="submit">             
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white">
+                                <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1"
+                                    transform="rotate(45 17.0365 15.1223)" fill="white" />
+                                <path
+                                    d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+                                    fill="white" />
+                            </svg>
+                        </button>
                     <!--end::Icon-->
                     <!--begin::Input-->
-                    <input type="text" id="navSearch" class="form-control ps-13 fs-7 h-40px" name="search" value=""
-                        placeholder="Tìm kiếm chức năng" />
+                    
+                        <input type="text" id="navSearchInput" class="form-control ps-13 fs-7 h-40px" name="search"
+                            placeholder="Tìm kiếm chức năng" />
+                            </div>
                     <!--end::Input-->
+                    </form>
                 </div>
                 <!--end::Search-->
             </div>
@@ -436,7 +441,7 @@
 
                 <div id="loai-phong-menu" data-kt-menu-trigger="click"
                     class="menu-item menu-accordion menu-item-persistent">
-                    <span class="menu-link" data-nav-item="Loại">
+                    <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">

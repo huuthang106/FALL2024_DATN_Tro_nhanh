@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="align-self-center">
-                        <button class="btn btn-danger btn-lg" id="deleteSelected">
+                        <button class="btn btn-danger btn-lg btn-disabled" id="deleteSelected">
                             Xóa
                         </button>
                     </div>
@@ -61,6 +61,11 @@
                 </thead>
 
                 <tbody>
+                    @if ($bills->isEmpty())
+                        <tr>
+                            <td colspan="6" class="text-center" style="white-space: nowrap;">Không có đơn</td>
+                        </tr>
+                    @else
                     @foreach ($bills as $bill)
                         <tr role="row">
                             <td>
@@ -90,88 +95,88 @@
                             </td>
                             <td class="align-middle">
                                 @if ($bill->status == 1)
-                                    <span class="badge badge-warning text-capitalize">Chưa thanh toán</span>
+                                    <span class="badge badge-yellow text-capitalize">Chưa thanh toán</span>
                                 @elseif($bill->status == 2)
                                     <span class="badge badge-green text-capitalize">Đã thanh toán</span>
                                 @endif
                             </td>
                             <td class="align-middle">
-                                <a href="{{ route('owners.invoice-preview', $bill->id) }}" data-toggle="tooltip" title="Thanh Toán" class="btn btn-primary btn-sm mr-5">
-                                    <i class="fas fa-credit-card"></i>
-                                </a>
-                                <a href="#" data-toggle="tooltip" title="Xóa" class="btn btn-danger btn-sm d-inline-block"
-                                    onclick="confirmDelete({{ $bill->id }})">
-                                    <i class="fal fa-trash-alt"></i>
-                                </a>
+                                <div class="d-flex justify-content-center">
+                                    <a href="{{ route('owners.invoice-preview', $bill->id) }}" data-toggle="tooltip" title="Thanh Toán" class="badge badge-primary border-0 mr-2">
+                                        <i class="fas fa-credit-card"></i>
+                                    </a>
+                                    <a href="#" data-toggle="tooltip" title="Xóa" class="badge badge-danger border-0"
+                                        onclick="confirmDelete({{ $bill->id }})">
+                                        <i class="fal fa-trash-alt"></i>
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
+                @endif
                 </tbody>
             </table>
-            @if ($bills->count() > 0)
+            @if ($bills->count())
             <div class="mt-6">
-                <ul class="pagination rounded-active justify-content-center">
-                    {{-- Nút tới trang đầu tiên --}}
-                    <li class="page-item {{ $bills->onFirstPage() ? 'disabled' : '' }}">
-                        <a class="page-link" wire:click.prevent="gotoPage(1)">
-                            <i class="far fa-angle-double-left"></i>
-                        </a>
-                    </li>
-        
-                    {{-- Nút tới trang trước (<) --}}
-                    <li class="page-item {{ $bills->onFirstPage() ? 'disabled' : '' }}">
-                        <a class="page-link" wire:click.prevent="previousPage">
-                            <i class="fas fa-angle-left"></i>
-                        </a>
-                    </li>
-        
-                    {{-- Trang đầu tiên --}}
-                    @if ($bills->currentPage() > 2)
-                        <li class="page-item"><a class="page-link" wire:click.prevent="gotoPage(1)">1</a></li>
-                    @endif
-        
-                    {{-- Dấu ba chấm ở đầu nếu cần --}}
-                    @if ($bills->currentPage() > 3)
-                        <li class="page-item disabled"><span class="page-link">...</span></li>
-                    @endif
-        
-                    {{-- Hiển thị các trang xung quanh trang hiện tại --}}
-                    @for ($i = max(1, $bills->currentPage() - 1); $i <= min($bills->currentPage() + 1, $bills->lastPage()); $i++)
-                        <li class="page-item {{ $bills->currentPage() == $i ? 'active' : '' }}">
-                            <a class="page-link" wire:click.prevent="gotoPage({{ $i }})">{{ $i }}</a>
-                        </li>
-                    @endfor
-        
-                    {{-- Dấu ba chấm ở cuối nếu cần --}}
-                    @if ($bills->currentPage() < $bills->lastPage() - 2)
-                        <li class="page-item disabled"><span class="page-link">...</span></li>
-                    @endif
-        
-                    {{-- Trang cuối cùng --}}
-                    @if ($bills->currentPage() < $bills->lastPage() - 1)
-                        <li class="page-item"><a class="page-link" wire:click.prevent="gotoPage({{ $bills->lastPage() }})">{{ $bills->lastPage() }}</a></li>
-                    @endif
-        
-                    {{-- Nút tới trang kế tiếp (>) --}}
-                    <li class="page-item {{ $bills->currentPage() == $bills->lastPage() ? 'disabled' : '' }}">
-                        <a class="page-link" wire:click.prevent="nextPage">
-                            <i class="fas fa-angle-right"></i>
-                        </a>
-                    </li>
-        
-                    {{-- Nút tới trang cuối cùng (>>) --}}
-                    <li class="page-item {{ $bills->currentPage() == $bills->lastPage() ? 'disabled' : '' }}">
-                        <a class="page-link" wire:click.prevent="gotoPage({{ $bills->lastPage() }})">
-                            <i class="far fa-angle-double-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        @endif
-        
+                    <nav aria-label="Page navigation">
+                                <ul class="pagination rounded-active justify-content-center">
+                            {{-- Nút về đầu --}}
 
-        
-        
+                            <li class="page-item {{ $bills->onFirstPage() ? 'disabled' : '' }}">
+                            <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled"
+                                rel="prev" aria-label="@lang('pagination.previous')"><i
+                                    class="far fa-angle-double-left"></i></a>
+                            </li>
+                            
+                            @php
+                                $totalPages = $bills->lastPage();
+                                $currentPage = $bills->currentPage();
+                                $visiblePages = 3; // Số trang hiển thị ở giữa
+                            @endphp
+
+                            {{-- Trang đầu --}}
+                            <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                            <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                    wire:loading.attr="disabled">1</a>
+                            </li>
+
+                            {{-- Dấu ba chấm đầu --}}
+                            @if ($currentPage > $visiblePages)
+                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                            @endif
+
+                            {{-- Các trang giữa --}}
+                            @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
+                                @if ($i > 1 && $i < $totalPages)
+                                    <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                        <a class="page-link hover-white" wire:click="gotoPage({{ $i }})"
+                                            wire:loading.attr="disabled">{{ $i }}</a>
+                                    </li>
+                                @endif
+                            @endforeach
+
+                            {{-- Dấu ba chấm cuối --}}
+                            @if ($currentPage < $totalPages - ($visiblePages - 1))
+                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                            @endif
+
+                            {{-- Trang cuối --}}
+                            @if ($totalPages > 1)
+                                <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                                    <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
+                                        wire:loading.attr="disabled">{{ $totalPages }}</a>
+                                </li>
+                            @endif
+
+                            <li class="page-item {{ !$bills->hasMorePages() ? 'disabled' : '' }}">
+                            <a class="page-link hover-white" wire:click="gotoPage({{ $bills->lastPage() }})" wire:loading.attr="disabled"
+                                rel="next" aria-label="@lang('pagination.next')"><i
+                                    class="far fa-angle-double-right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+            </div>
+            @endif 
         </div>
     </div>
 </div>
@@ -264,10 +269,10 @@
 
         // Cập nhật hiển thị nút xóa dựa vào số lượng blog đã chọn
         function updateDeleteButtonVisibility() {
-            const selectedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
-            deleteSelectedBtn.style.display = selectedCount > 0 ? 'block' : 'none';
-            checkAll.checked = selectedCount === checkboxes.length;
-        }
+        const selectedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+        deleteSelectedBtn.classList.toggle('btn-disabled', selectedCount === 0);
+        checkAll.checked = selectedCount === checkboxes.length;
+    }
 
         // Gọi hàm updateDeleteButtonVisibility mỗi khi có sự thay đổi trong checkbox
         checkboxes.forEach(checkbox => {

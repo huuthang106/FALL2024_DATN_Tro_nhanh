@@ -34,6 +34,12 @@
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
     <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
+    <style>
+        .btn-disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    </style>
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@">

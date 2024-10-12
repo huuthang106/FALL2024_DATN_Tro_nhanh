@@ -50,31 +50,38 @@
 </body>
 @stack('scriptsAdmin')
 <script src="{{ asset('assets/js/save-dropdown-nav-admin.js') }}"></script>
-<script>
-    document.getElementById('navSearch').addEventListener('input', function() {
-        const query = this.value.toLowerCase();
-        const menuItems = document.querySelectorAll('.menu-item');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('navSearchForm');
+            if (form) {
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    console.log('Form submitted');
+                    searchNav();
+                });
+            } else {
+                console.error('Form with id navSearchForm not found');
+            }
+        });
 
-        menuItems.forEach(item => {
-            const navItem = item.getAttribute('data-nav-item');
-            if (navItem) {
-                if (navItem.toLowerCase().includes(query)) {
-                    item.style.display = 'block';
-                    // Mở dropdown nếu có
-                    const dropdown = item.querySelector('.menu-sub');
-                    if (dropdown) {
-                        dropdown.classList.add('show'); // Thêm lớp để mở dropdown
+        function searchNav() {
+            console.log('searchNav function called');
+            const searchTerm = document.getElementById('navSearchInput').value.toLowerCase();
+            const navItems = document.querySelectorAll('.menu-item');
+
+            navItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    item.style.display = '';
+                    // Hiển thị tất cả các item con nếu item cha được tìm thấy
+                    const subMenu = item.querySelector('.menu-sub');
+                    if (subMenu) {
+                        subMenu.style.display = '';
                     }
                 } else {
                     item.style.display = 'none';
-                    // Đóng dropdown nếu có
-                    const dropdown = item.querySelector('.menu-sub');
-                    if (dropdown) {
-                        dropdown.classList.remove('show'); // Loại bỏ lớp để đóng dropdown
-                    }
                 }
-            }
-        });
-    });
-</script>
+            });
+        }
+    </script>
 </html>

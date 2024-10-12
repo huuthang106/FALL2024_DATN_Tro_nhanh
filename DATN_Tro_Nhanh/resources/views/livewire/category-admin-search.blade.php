@@ -281,7 +281,7 @@
                         <!-- Hiển thị các liên kết phân trang -->
                         {{-- Phân trang --}}
                         @if ($categories->total() > 0)
-                    @if ($categories->hasPages())
+                        @if ($categories->hasPages())
                         <nav aria-label="Page navigation" class="mb-2">
                             <ul class="pagination pagination-sm rounded-active justify-content-center">
                                 {{-- Liên kết Trang Đầu --}}
