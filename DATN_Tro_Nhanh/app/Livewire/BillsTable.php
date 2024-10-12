@@ -18,18 +18,18 @@ class BillsTable extends Component
     public $timeFilter = ''; // Khoảng thời gian lọc
     public $selectedBills = []; // Biến lưu trữ các hóa đơn được chọn
 
-     // Hàm để xóa các hóa đơn đã chọn
-     public function deleteSelectedBills()
-     {
-         if (count($this->selectedBills) > 0) {
-             Log::info('Selected Bills:', $this->selectedBills);
-             Bill::whereIn('id', $this->selectedBills)->delete();
-             $this->selectedBills = []; // Reset lại sau khi xóa
-             $this->dispatch('bill-deleted', ['message' => 'Các hóa đơn đã chọn đã được xóa thành công']);
-         }
-     }
+    // Hàm để xóa các hóa đơn đã chọn
+    //  public function deleteSelectedBills()
+    //  {
+    //      if (count($this->selectedBills) > 0) {
+    //          Log::info('Selected Bills:', $this->selectedBills);
+    //          Bill::whereIn('id', $this->selectedBills)->delete();
+    //          $this->selectedBills = []; // Reset lại sau khi xóa
+    //          $this->dispatch('bill-deleted', ['message' => 'Các hóa đơn đã chọn đã được xóa thành công']);
+    //      }
+    //  }
 
-     public function deleteBill($billId)
+    public function deleteBill($billId)
     {
         $bill = Bill::find($billId);
         if ($bill) {
@@ -38,6 +38,9 @@ class BillsTable extends Component
         }
     }
 
+    public $startDate;
+    // public $selectedBills = [];
+    protected $queryString = ['search', 'perPage', 'timeFilter'];
     public function render()
     {
         // Lấy user hiện tại
@@ -50,36 +53,36 @@ class BillsTable extends Component
         if ($this->search) {
             $query->where(function ($q) {
                 $q->where('description', 'like', '%' . $this->search . '%')
-                  ->orWhere('payer_id', 'like', '%' . $this->search . '%');
+                    ->orWhere('payer_id', 'like', '%' . $this->search . '%');
             });
         }
-
-        // Lọc theo khoảng thời gian
         if ($this->timeFilter) {
-            $date = Carbon::now()->copy(); // Tạo một bản sao mới của Carbon
+            $startDate = Carbon::now();
             switch ($this->timeFilter) {
                 case '1_day':
-                    $date->subDays(1);
+                    $startDate = Carbon::now()->subDay()->startOfDay();
                     break;
                 case '7_day':
-                    $date->subDays(7);
+                    $startDate = Carbon::now()->subDays(7)->startOfDay();
                     break;
                 case '1_month':
-                    $date->subMonth();
+                    $startDate = Carbon::now()->subMonth()->startOfDay();
                     break;
                 case '3_month':
-                    $date->subMonths(3);
+                    $startDate = Carbon::now()->subMonths(3)->startOfDay();
                     break;
                 case '6_month':
-                    $date->subMonths(6);
+                    $startDate = Carbon::now()->subMonths(6)->startOfDay();
                     break;
                 case '1_year':
-                    $date->subYear();
+                    $startDate = Carbon::now()->subYear()->startOfDay();
                     break;
             }
-            $query->where('created_at', '>=', $date);
-        }
 
+            $query->whereDate('created_at', '<=', $startDate);
+        }
+        // Sắp xếp hóa đơn từ mới đến cũ
+        $query->orderBy('created_at', 'desc');
         // Phân trang và trả về kết quả
         $bills = $query->paginate($this->perPage);
 
@@ -94,5 +97,11 @@ class BillsTable extends Component
     public function updatedTimeFilter()
     {
         $this->resetPage(); // Reset trang khi thay đổi khoảng thời gian
+    }
+    public function deleteSelectedBills()
+    {
+        Bill::whereIn('id', $this->selectedBills)->delete();
+        $this->selectedBills = [];
+        $this->dispatch('bills-deleted', ['message' => 'Các hóa đơn đã chọn đã được xóa thành công']);
     }
 }
