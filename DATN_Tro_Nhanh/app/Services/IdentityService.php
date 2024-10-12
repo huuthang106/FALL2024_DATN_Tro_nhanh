@@ -391,9 +391,9 @@ class IdentityService
 
         return redirect()->back()->with(['error' => $errorMessages['default'], 'showAlert' => true]);
     }
-    public function getIdIdentity($user_id)
-    {
-        $identity = Identity::where('user_id', $user_id)->first();
-        return $identity ? $identity->id : null;
-    }
+    // public function getIdIdentity($user_id)
+    // {
+    //     $identity = Identity::where('user_id', $user_id)->first();
+    //     return $identity ? $identity->id : null;
+    // }
 }
