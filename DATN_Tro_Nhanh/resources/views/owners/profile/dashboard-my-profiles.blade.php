@@ -25,6 +25,7 @@
                             </div>
                             <form id="withdrawForm" action="#" method="POST">
                                 @csrf
+                                {{-- @method('POST') --}}
                                 <div class="modal-body">
                                     <p class="fs-7 mb-4">Số dư hiện tại:
                                         <strong>{{ number_format($user->balance, 0, ',', '.') }} VNĐ</strong>
@@ -471,7 +472,7 @@
         };
     </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
+    {{-- <script>
         // Lấy danh sách ngân hàng từ API
         async function fetchBanks() {
             try {
@@ -583,7 +584,7 @@
                     });
                 });
         });
-    </script>
+    </script> --}}
 
     <script src="{{ asset('assets/js/payout-api.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -656,7 +657,7 @@
             });
         });
     </script> --}}
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('form').on('submit', function(e) {
                 e.preventDefault();
@@ -718,6 +719,171 @@
                         });
                     }
                 });
+            });
+        });
+    </script> --}}
+
+    {{--  Kết hợp js cập nhật tài khoản và rút tiênf  --}}
+    <script>
+        $(document).ready(function() {
+            // Lấy danh sách ngân hàng từ API
+            async function fetchBanks() {
+                try {
+                    const response = await axios.get('https://api.vietqr.io/v2/banks');
+                    const banks = response.data.data;
+    
+                    const bankSelect = document.getElementById('bank-name');
+                    bankSelect.innerHTML = '';
+    
+                    const defaultOption = document.createElement('option');
+                    defaultOption.value = '';
+                    defaultOption.textContent = 'Chọn ngân hàng';
+                    bankSelect.appendChild(defaultOption);
+    
+                    banks.forEach(bank => {
+                        const option = document.createElement('option');
+                        option.value = bank.code;
+                        option.textContent = bank.name;
+                        option.dataset.name = bank.name;
+                        option.dataset.shortName = bank.shortName;
+                        bankSelect.appendChild(option);
+                    });
+    
+                } catch (error) {
+                    console.error('Error fetching banks:', error);
+                }
+            }
+    
+            // Gọi hàm khi modal mở
+            $('#withdrawModal').on('show.bs.modal', fetchBanks);
+    
+            // Thêm event listener cho select
+            document.getElementById('bank-name').addEventListener('change', function() {
+                const selectedOption = this.options[this.selectedIndex];
+                const shortNameInput = document.getElementById('bank_code');
+                if (selectedOption && selectedOption.value) {
+                    shortNameInput.value = selectedOption.dataset.shortName;
+                } else {
+                    shortNameInput.value = '';
+                }
+            });
+    
+            // Xử lý submit form
+            $('form').on('submit', function(e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+    
+                // Xử lý rút tiền
+                if (this.id === 'withdrawForm') {
+                    if (formData.get('description') === 'Rút tiền khác') {
+                        formData.set('description', formData.get('custom_description'));
+                    }
+    
+                    const bankSelect = document.getElementById('bank-name');
+                    const selectedOption = bankSelect.options[bankSelect.selectedIndex];
+                    if (selectedOption && selectedOption.value) {
+                        formData.set('bank_code', selectedOption.value);
+                        formData.set('bank_name', selectedOption.dataset.shortName);
+                    } else {
+                        alert('Vui lòng chọn ngân hàng');
+                        return;
+                    }
+    
+                    // Gửi request
+                    fetch('{{ route('owners.submit-payout-request') }}', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Thành công',
+                                text: data.message,
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    $('#withdrawModal').modal('hide');
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Lỗi!',
+                                text: data.message || 'Có lỗi xảy ra khi xử lý yêu cầu',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi!',
+                            text: 'Có lỗi xảy ra khi xử lý yêu cầu',
+                            confirmButtonText: 'OK'
+                        });
+                    });
+                } else {
+                    // Xử lý cập nhật tài khoản
+                    $.ajax({
+                        url: $(this).attr('action'),
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        beforeSend: function() {
+                            Swal.fire({
+                                title: 'Đang xử lý...',
+                                text: 'Vui lòng đợi trong giây lát!',
+                                allowOutsideClick: false,
+                                didOpen: () => {
+                                    Swal.showLoading();
+                                }
+                            });
+                        },
+                        success: function(response) {
+                            Swal.close();
+                            if (response.success) {
+                                Swal.fire({
+                                    title: 'Thành công!',
+                                    text: 'Cập nhật tài khoản thành công.',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.href = '{{ route('owners.profile.profile-admin-index') }}';
+                                    }
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: 'Lỗi!',
+                                    text: response.message || 'Đã xảy ra lỗi khi cập nhật tài khoản.',
+                                    icon: 'error',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        },
+                        error: function(xhr) {
+                            Swal.close();
+                            let errorMessage = 'Đã xảy ra lỗi khi xử lý yêu cầu.';
+                            if (xhr.responseJSON && xhr.responseJSON.message) {
+                                errorMessage = xhr.responseJSON.message;
+                            }
+                            Swal.fire({
+                                title: 'Lỗi!',
+                                text: errorMessage,
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    });
+                }
             });
         });
     </script>

@@ -104,7 +104,7 @@ class PaymentService
 
             $transaction = new Transaction();
             $transaction->user_id = $data['user_id'];
-            $transaction->added_funds = -$data['amount'];
+            $transaction->added_funds = $data['amount'];
             $transaction->balance = $user->balance - $data['amount']; // Cập nhật số dư mới
             $transaction->status = '2'; // Đang xử lý
             $transaction->description = 'Rút tiền về tài khoản với mã đơn là ' . $payout->single_code;

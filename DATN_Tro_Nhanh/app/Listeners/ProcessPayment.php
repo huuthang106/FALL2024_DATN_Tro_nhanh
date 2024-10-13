@@ -91,7 +91,7 @@ class ProcessPayment
          $transaction = new Transaction();
          $transaction->balance = $user->balance - $event->amount; // Lưu lại số dư sau khi thanh toán
          $transaction->description = 'Thanh toán hóa đơn';
-         $transaction->added_funds = -$event->amount; // Thêm dấu trừ vào trước giá trị
+         $transaction->added_funds = $event->amount; // Thêm dấu trừ vào trước giá trị
          $transaction->total_price = $event->amount;
          $transaction->status = '2';
         $transaction->user_id = $user_id;
