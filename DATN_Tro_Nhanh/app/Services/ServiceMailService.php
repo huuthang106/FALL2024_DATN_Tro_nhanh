@@ -109,7 +109,7 @@ class ServiceMailService
             Excel::store(new ServiceMailsExport($query), $fileName, 'public');
             Log::info('File Excel chứa dữ liệu chưa gửi của ngày hôm qua đã được tạo: ' . $filePath);
 
-            $adminEmail = config('mail.admin_email', 'votanluon194@gmail.com');
+            $adminEmail = config('mail.admin_email', 'thangcachep106@gmail.com');
             Mail::to($adminEmail)->send(new DailyServiceMailSummary($filePath, $yesterday));
 
             $query->update(['is_sent' => self::DA_GUI]);
