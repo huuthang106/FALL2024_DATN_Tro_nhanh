@@ -19,7 +19,39 @@
                     <div class="col-lg-4 order-2 order-lg-1 primary-sidebar sidebar-sticky" id="sidebar">
                         <div class="primary-sidebar-inner">
                             <div class="card mb-4">
+                                <!-- <div class="card-body px-6 py-4">
+                                    <h4 class="card-title fs-16 lh-2 text-dark mb-3">Lọc</h4>
+                                    <div class="form-group">
+                                        <label for="category" class="sr-only">Loại phòng</label>
+                                        <select class="form-control border-0 shadow-none form-control-lg" id="category"
+                                            title="Tất cả loại phòng" name="category" data-style="btn-lg py-2 h-52">
+                                            <option value='0'>Chọn loại phòng...</option>
+                                            @foreach ($categories as $category)
+                                                <option value='{{ $category->id }}'>
+                                                    {{ $category->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div> -->
                                 <div class="card-body px-6 py-4">
+                                    <h4 class="card-title fs-16 lh-2 text-dark mb-3">Lọc</h4>
+                                    <div class="form-group">
+                                        <label for="category" class="sr-only">Loại phòng</label>
+                                        <form id="categoryForm" action="{{ route('client.room-listing') }}" method="GET">
+                                            <select class="form-control border-0 shadow-none form-control-lg" id="category"
+                                                title="Tất cả loại phòng" name="category" data-style="btn-lg py-2 h-52"
+                                                onchange="document.getElementById('categoryForm').submit();">
+                                                <option value='0'>Chọn loại phòng...</option>
+                                                @foreach ($categories as $category)
+                                                    <option value='{{ $category->id }}'
+                                                        {{ request('category') == $category->id ? 'selected' : '' }}>
+                                                        {{ $category->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </form>
+                                    </div>
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Tìm trọ của bạn</h4>
                                     <form action="{{ route('client.room-listing') }}" method="GET">
                                         <div class="form-group">

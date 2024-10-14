@@ -235,6 +235,22 @@
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/finance/fin001.svg-->
                             <span class="svg-icon svg-icon-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                    <path class="fa-secondary" opacity=".4" fill="#b1b8c4" d="M32 64l0 291 51.3-43.4 8.9-7.6 11.7 0 24 0 32 0 0 32 0 24 96 0 64 0 0 88 288 0 0-291-51.3 43.4-8.9 7.6L536 208l-24 0-32 0 0-32 0-24-96 0-64 0 0-88L32 64zm64 64l64 0c0 35.3-28.7 64-64 64l0-64zM384 256a64 64 0 1 1 -128 0 64 64 0 1 1 128 0zm96 128c0-35.3 28.7-64 64-64l0 64-64 0z"/>
+                                    <path class="fa-primary" fill="#b1b8c4" d="M512 176l0-64-128 0-24 0 0-48 24 0 128 0 0-64 24 0L640 88 536 176l-24 0zM128 400l128 0 24 0 0 48-24 0-128 0 0 64-24 0L0 424l104-88 24 0 0 64z"/>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-title">Danh Sách Nạp Tiền</span>
+                    </a>
+                </div>
+                <div class="menu-item" data-nav-item="Danh sách rút tiền">
+                    <a class="menu-link text-decoration-none {{ request()->routeIs('admin.list-payout') ? 'selected' : '' }}"
+                        href="{{ route('admin.list-payout') }}">
+                        <span class="menu-icon">
+                            <!--begin::Svg Icon | path: icons/duotune/finance/fin001.svg-->
+                            <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none">
                                     <path

@@ -35,6 +35,10 @@ class RoomClientServices
                     $q->where('name', $type); // Lọc theo tên loại phòng trong bảng category
                 });
             }
+
+            if ($category) {
+                $query->where('category_id', $category); // Thêm điều kiện lọc theo category
+            }
     
             if ($searchTerm) {
                 $query->where(function ($q) use ($searchTerm) {
@@ -89,7 +93,9 @@ class RoomClientServices
     // Thêm phương thức mới để lấy danh sách categories
     public function getCategories()
     {
-        return Category::select('id', 'name')->get();
+        return Category::whereHas('rooms') // Ensure the category has related rooms
+            ->select('id', 'name')
+            ->get();
     }
     // ----------------------------------------------------------------Bổ sung đánh giá
     // public function getAllRoom(int $perPage = 10, $searchTerm = null, $province = null, $district = null, $village = null)
