@@ -217,17 +217,17 @@
                                             <div class="col-md-6 form-group">
                                                 <label for="cmnd_number">Số CMND</label>
                                                 <input type="text" class="form-control" id="cmnd_number"
-                                                    name="cmnd_number" required>
+                                                    name="cmnd_number" required readonly>
                                             </div>
                                             <div class="col-md-6 form-group">
                                                 <label for="full_name">Họ và tên</label>
                                                 <input type="text" class="form-control" id="full_name"
-                                                    name="full_name" required>
+                                                    name="full_name" required readonly>
                                             </div>
                                             <div class="col-md-6 form-group">
                                                 <label for="gender">Giới tính</label>
                                                 <input type="text" class="form-control" id="gender" name="gender"
-                                                    required>
+                                                    required readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -389,4 +389,22 @@
     <!-- Thêm SweetAlert2 từ CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <script>
+        // Hàm kiểm tra và khôi phục thuộc tính readonly
+        function enforceReadonly() {
+            document.getElementById('cmnd_number').setAttribute('readonly', true);
+            document.getElementById('full_name').setAttribute('readonly', true);
+            document.getElementById('gender').setAttribute('readonly', true);
+        }
+    
+        // Gọi hàm kiểm tra mỗi khi người dùng mở công cụ phát triển
+        window.addEventListener('keydown', function(event) {
+            if (event.key === 'F12') {
+                enforceReadonly();
+            }
+        });
+    
+        // Gọi hàm kiểm tra khi trang được tải
+        window.onload = enforceReadonly;
+    </script>
 @endpush
