@@ -111,6 +111,7 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <link rel="stylesheet" href="{{ asset('assets/css/owners/style-owner-nht.css') }}">
 @endpush
 @push('scriptOwners')
     <script></script>

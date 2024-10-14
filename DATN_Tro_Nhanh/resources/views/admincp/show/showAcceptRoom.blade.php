@@ -95,7 +95,7 @@
         content="Danh sách tất cả các phòng trọ trên Trọ Nhanh. Tìm kiếm và lọc các phòng trọ theo các tiêu chí như giá, khu vực, tiện ích, và nhiều hơn nữa.">
     <meta name="keywords"
         content="phòng trọ, danh sách phòng trọ, tìm kiếm phòng trọ, Trọ Nhanh, quản lý phòng trọ, lọc phòng trọ">
-    <meta property="og:title" content="Danh Sách Tất Cả Phòng Trọ - Trọ Nhanh">
+    <meta property="og:title" content="Danh Sách Duyệt phòng Trọ - Trọ Nhanh">
     <meta property="og:description"
         content="Khám phá danh sách đầy đủ các phòng trọ trên Trọ Nhanh. Sử dụng các bộ lọc để tìm phòng theo giá, khu vực và tiện ích.">
     <meta property="og:image" content="{{ asset('assets/images/logo-nav.png') }}">

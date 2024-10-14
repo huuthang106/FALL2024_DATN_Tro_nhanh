@@ -4,7 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\WatchList;
+use App\Models\Watchlist;
 use Carbon\Carbon;
 
 class MyWatchList extends Component

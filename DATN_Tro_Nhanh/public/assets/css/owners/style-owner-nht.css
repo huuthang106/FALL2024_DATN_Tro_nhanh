@@ -50,3 +50,8 @@
 .d-flex.flex-stack.py-4:hover {
     background-color: #f8f9fa;
 }
+.square-image {
+    width: 100px; /* Hoặc kích thước bạn muốn */
+    height: 100px; /* Hoặc kích thước bạn muốn */
+    object-fit: cover; /* Đảm bảo hình ảnh không bị biến dạng */
+}

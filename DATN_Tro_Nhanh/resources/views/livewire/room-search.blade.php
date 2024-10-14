@@ -655,11 +655,11 @@
                     <nav aria-label="Page navigation">
                         <ul class="pagination rounded-active justify-content-center">
                             {{-- Liên kết Trang Trước --}}
-                            <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
+                            {{-- <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
                                 <a class="page-link hover-white" wire:click="previousPage"
                                     wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')"><i
                                         class="far fa-angle-double-left"></i></a>
-                            </li>
+                            </li> --}}
 
                             @php
                                 $totalPages = $rooms->lastPage();
@@ -702,16 +702,16 @@
                             @endif
 
                             {{-- Liên kết Trang Tiếp --}}
-                            <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
+                            {{-- <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
                                 <a class="page-link hover-white" wire:click="nextPage" wire:loading.attr="disabled"
                                     rel="next" aria-label="@lang('pagination.next')"><i
                                         class="far fa-angle-double-right"></i></a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </nav>
                 @endif
-                <div class="text-center mt-2">{{ $rooms->firstItem() }}-{{ $rooms->lastItem() }} của
-                    {{ $rooms->total() }} kết quả</div>
+                {{-- <div class="text-center mt-2">{{ $rooms->firstItem() }}-{{ $rooms->lastItem() }} của
+                    {{ $rooms->total() }} kết quả</div> --}}
                 <!--end::Card body-->
             </div>
             <!--end::Card-->

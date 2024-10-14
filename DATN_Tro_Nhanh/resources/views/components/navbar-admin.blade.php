@@ -369,6 +369,15 @@
                                 <span class="menu-title">Đơn tố cáo</span>
                             </a>
                         </div>
+                        <div class="menu-item">
+                            <a class="menu-link {{ request()->routeIs('admin.show-location') ? 'selected' : '' }}"
+                                href="{{ route('admin.show-location') }}" style="text-decoration: none;">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Danh sách gói tin</span>
+                            </a>
+                        </div>
                         {{-- <div class="menu-item">
                             <a class="menu-link {{ request()->routeIs('admin.show-acreage') ? 'selected' : '' }}"
                                 href="{{ route('admin.show-acreage') }}" style="text-decoration: none;">
@@ -496,51 +505,7 @@
 
 
 
-                <div id="goi-tin-menu" data-kt-menu-trigger="click"
-                    class="menu-item menu-accordion menu-item-persistent">
-                    <span class="menu-link" data-nav-item="Gói tin">
-                        <span class="menu-icon">
-                            <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                    viewBox="0 0 24 24">
-                                    <path fill="black"
-                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
-                                </svg>
-                            </span>
-                        </span>
-                        <span class="menu-title">Gói tin</span>
-                        <span class="menu-arrow"></span>
-                    </span>
-                    <div class="menu-sub menu-sub-accordion menu-active-bg">
-                        <div class="menu-item">
-                            <a class="menu-link {{ request()->routeIs('admin.show-location') ? 'selected' : '' }}"
-                                href="{{ route('admin.show-location') }}" style="text-decoration: none;">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Danh sách</span>
-                            </a>
-                        </div>
-                        <!-- <div class="menu-item">
-                            <a class="menu-link {{ request()->routeIs('admin.add-location-show') ? 'selected' : '' }}"
-                                href="{{ route('admin.add-location-show') }}" style="text-decoration: none;">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Thêm gói tin</span>
-                            </a>
-                        </div> -->
-                        <div class="menu-item">
-                            <a class="menu-link {{ request()->routeIs('admin.trash-location') ? 'selected' : '' }}"
-                                href="{{ route('admin.trash-location') }}" style="text-decoration: none;">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Thùng rác</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+
 
             </div>
             <!--end::Menu-->

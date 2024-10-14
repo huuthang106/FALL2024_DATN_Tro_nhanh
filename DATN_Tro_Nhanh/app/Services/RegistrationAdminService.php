@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
-use App\Models\RegistrationList;
+use App\Models\Registrationlist;
 use App\Models\User;
 use App\Models\Notification;
 use Illuminate\Support\Facades\Http;
@@ -14,18 +14,18 @@ class RegistrationAdminService
 {
     public function getAll()
     {
-        $registrations = RegistrationList::orderByDesc('created_at')->where('status', 1)->paginate(10);
+        $registrations = Registrationlist::orderByDesc('created_at')->where('status', 1)->paginate(10);
         return $registrations;
     }
     public function getID($id)
     {
-        $user = RegistrationList::where('id', $id)->first();
+        $user = Registrationlist::where('id', $id)->first();
         return $user;
     }
     public function updateStatus($id, $status)
     {
         // Tìm đối tượng bằng id
-        $user = RegistrationList::find($id);
+        $user = Registrationlist::find($id);
 
         if ($user) {
             // Cập nhật trạng thái
@@ -53,7 +53,7 @@ class RegistrationAdminService
 
     public function delete($id)
     {
-        $registration = RegistrationList::find($id);
+        $registration = Registrationlist::find($id);
 
         if ($registration) {
             $registration->delete(); // Xóa mềm

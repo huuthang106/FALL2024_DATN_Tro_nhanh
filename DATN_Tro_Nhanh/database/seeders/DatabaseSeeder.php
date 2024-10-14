@@ -22,7 +22,7 @@ use App\Models\Watchlist;
 use App\Models\Comment;
 use App\Models\Message;
 use App\Models\Report;
-use App\Models\RegistrationList;
+use App\Models\Registrationlist;
 use App\Models\Transaction;
 use App\Models\Notification;
 use App\Models\Contact;

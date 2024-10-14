@@ -618,12 +618,7 @@
                                             class="fas fa-angle-double-left"></i></a>
                                 </li>
 
-                                {{-- Liên kết Trang Trước --}}
-                                <li class="page-item {{ $locations->onFirstPage() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="previousPage"
-                                        wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')"><i
-                                            class="fas fa-angle-left"></i></a>
-                                </li>
+                           
 
                                 @php
                                     $totalPages = $locations->lastPage();
@@ -667,11 +662,7 @@
                                 @endif
 
                                 {{-- Liên kết Trang Tiếp --}}
-                                <li class="page-item {{ !$locations->hasMorePages() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="nextPage"
-                                        wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')"><i
-                                            class="fas fa-angle-right"></i></a>
-                                </li>
+                          
 
                                 {{-- Liên kết Trang Cuối --}}
                                 <li class="page-item {{ !$locations->hasMorePages() ? 'disabled' : '' }}">

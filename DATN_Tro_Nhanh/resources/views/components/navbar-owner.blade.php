@@ -61,16 +61,17 @@
                 </div>
             </div>
             <div class="collapse navbar-collapse bg-white" id="primaryMenuSidebar">
-                <form class="d-block d-xl-none pt-5 px-3"  onsubmit="event.preventDefault(); searchNavMobile();">
+                {{-- <form class="d-block d-xl-none pt-5 px-3" id="navSearchForm2" onsubmit="event.preventDefault(); searchNavMobile();">
                     <div class="input-group">
                         <div class="input-group-prepend mr-0 bg-input">
-                            <button class="btn border-0 shadow-none fs-20 text-muted pr-0" type="submit"><i
-                                    class="far fa-search"></i></button>
+                            <button class="btn border-0 shadow-none fs-20 text-muted pr-0" type="submit">
+                                <i class="far fa-search"></i>
+                            </button>
                         </div>
                         <input type="text" id="navSearchInput2" class="form-control border-0 form-control-lg shadow-none"
                             placeholder="Tìm kiếm" name="search">
                     </div>
-                </form>
+                </form> --}}
                 <ul class="list-group list-group-flush w-100">
                     <li class="list-group-item pt-6 pb-4">
                         <h5 class="fs-13 letter-spacing-087 text-muted mb-3 text-uppercase px-3">Main</h5>
@@ -486,7 +487,7 @@
                     <form id="navSearchForm" onsubmit="event.preventDefault(); searchNav();">
                         <div class="input-group">
                             <div class="input-group-prepend mr-0">
-                                <button class="btn border-0 shadow-none fs-20 text-muted p-0" type="submit">
+                                <button class="btn border-0 shadow-none fs-20 text-muted p-0" type="button">
                                     <i class="far fa-search"></i>
                                 </button>
                             </div>

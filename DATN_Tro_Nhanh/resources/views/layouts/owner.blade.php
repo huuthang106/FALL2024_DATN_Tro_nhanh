@@ -599,23 +599,48 @@
         });
     }
 
-    function searchNavMobile() {
-        console.log('searchNav function called');
-        // const searchTerm = document.getElementById('navSearchInput').value.toLowerCase();
+    // function searchNavMobile() {
+    //     console.log('searchNav function called');
+    //     // const searchTerm = document.getElementById('navSearchInput').value.toLowerCase();
 
-        const searchTerm2 = document.getElementById('navSearchInput2').value.toLowerCase();
+    //     const searchTerm2 = document.getElementById('navSearchInput2').value.toLowerCase();
 
-        const navItems = document.querySelectorAll('.list-group-item');
-        // console.log(searchTerm2,searchTerm);
-        navItems.forEach(item => {
-            const text = item.textContent.toLowerCase();
-            if (text.includes(searchTerm2)) {
-                item.style.display = '';
-            } else {
-                item.style.display = 'none';
-            }
-        });
-    }
+    //     const navItems = document.querySelectorAll('.list-group-item');
+    //     // console.log(searchTerm2,searchTerm);
+    //     navItems.forEach(item => {
+    //         const text = item.textContent.toLowerCase();
+    //         if (text.includes(searchTerm2)) {
+    //             item.style.display = '';
+    //         } else {
+    //             item.style.display = 'none';
+    //         }
+    //     });
+    // }
+    $(document).ready(function() {
+        // Kiểm tra URL hiện tại
+        const currentUrl = window.location.pathname;
+
+        // Nếu URL chính xác là "/quan-ly-tai-khoan", ẩn thanh tìm kiếm
+        if (currentUrl === '/quan-ly-tai-khoan') {
+            $('#navSearchForm').hide(); // Ẩn thanh tìm kiếm
+            
+        } else {
+            $('#navSearchForm').show(); // Hiển thị thanh tìm kiếm
+        }
+    });
+    $(document).ready(function() {
+        // Kiểm tra URL hiện tại
+        const currentUrl = window.location.pathname;
+
+        // Nếu URL chính xác là "/quan-ly-tai-khoan", ẩn cả hai thanh tìm kiếm
+        if (currentUrl === '/quan-ly-tai-khoan') {
+            $('#navSearchForm').hide(); // Ẩn thanh tìm kiếm desktop
+          
+        } else {
+            $('#navSearchForm').show(); // Hiển thị thanh tìm kiếm desktop
+            
+        }
+    });
 </script>
 
 </html>

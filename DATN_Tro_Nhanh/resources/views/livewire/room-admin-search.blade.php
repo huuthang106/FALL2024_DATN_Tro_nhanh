@@ -75,7 +75,7 @@
                                     </div>
                                     <!--end::Input group-->
                                     <!--begin::Input group-->
-                                    
+
                                     <!--end::Actions-->
                                 </div>
                                 <!--end::Content-->
@@ -156,8 +156,7 @@
                                                 <!--end::Avatar-->
                                                 <!--begin::User details-->
                                                 <div class="d-flex flex-column">
-                                                    <a href=""
-                                                        class="text-gray-800 text-hover-primary mb-1"></a>
+                                                    <a href="" class="text-gray-800 text-hover-primary mb-1"></a>
                                                 </div>
                                                 <!--begin::User details-->
                                             </td>
@@ -240,8 +239,7 @@
                                                                 class="dropdown-item menu-link px-3">Chỉnh sửa</a>
                                                         </li> --}}
                                                         <li class="menu-item px-3">
-                                                            <form
-                                                                action="{{ route('admin.destroy-room', $room->id) }}"
+                                                            <form action="{{ route('admin.destroy-room', $room->id) }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
@@ -276,11 +274,11 @@
                                 </li>
 
                                 {{-- Liên kết Trang Trước --}}
-                                <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
+                                {{-- <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
                                     <a class="page-link hover-white" wire:click="previousPage"
                                         wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')"><i
                                             class="fas fa-angle-left"></i></a>
-                                </li>
+                                </li> --}}
 
                                 @php
                                     $totalPages = $rooms->lastPage();
@@ -324,17 +322,17 @@
                                 @endif
 
                                 {{-- Liên kết Trang Tiếp --}}
-                                <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
+                                {{-- <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
                                     <a class="page-link hover-white" wire:click="nextPage"
                                         wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')"><i
                                             class="fas fa-angle-right"></i></a>
-                                </li>
+                                </li> --}}
 
                                 {{-- Liên kết Trang Cuối --}}
                                 <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
                                     <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
                                         wire:loading.attr="disabled" rel="last" aria-label="@lang('pagination.last')"><i
-                                            class="fas fa-angle-double-right"></i></i></i></a>
+                                            class="fas fa-angle-double-right"></i></a>
                                 </li>
                             </ul>
                         </nav>

@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
-use App\Models\RegistrationList;
+use App\Models\Registrationlist;
 use App\Models\Identity;
 use Illuminate\Support\Facades\Http;
 use App\Models\Image;
@@ -14,7 +14,7 @@ class RegistrationService
 {
     public function saveRegistrationData($data, $images)
     {
-        $registration = RegistrationList::create($data);
+        $registration = Registrationlist::create($data);
         $memberregistration_id = $registration->id;
 
         $this->storeImages($images, $memberregistration_id);
@@ -24,7 +24,7 @@ class RegistrationService
 
     public function getRegistrationStatus($userId)
     {
-        $isInRegistrationList = RegistrationList::where('user_id', $userId)->exists();
+        $isInRegistrationList = Registrationlist::where('user_id', $userId)->exists();
         $isRegistered = Identity::where('user_id', $userId)->exists();
         $identity = $isRegistered ? Identity::where('user_id', $userId)->first() : null;
 
@@ -92,7 +92,7 @@ class RegistrationService
 
                                 ];
 
-                                if (RegistrationList::where('user_id', $user_id)
+                                if (Registrationlist::where('user_id', $user_id)
                                     ->orWhere('identification_number', $identification_number)
                                     ->exists()
                                 ) {
@@ -229,7 +229,7 @@ class RegistrationService
     }
     public function createRequest($data)
     {
-        return RegistrationList::create([
+        return Registrationlist::create([
             'name' => $data['name'],
             'identification_number' => $data['identification_number'],
             'gender' => $data['gender'],

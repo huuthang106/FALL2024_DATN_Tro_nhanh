@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\RegistrationList;
+use App\Models\Registrationlist;
 class RegistrationListSeeder extends Seeder
 {
     /**
@@ -13,7 +13,7 @@ class RegistrationListSeeder extends Seeder
     public function run(): void
     {
         //
-        RegistrationList::factory()->count(5)->create();
+        Registrationlist::factory()->count(5)->create();
     }
 }
     

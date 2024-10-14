@@ -714,13 +714,13 @@
                         <!--end::Table-->
                     </div>
                     @if ($rooms->hasPages())
-                    <nav aria-label="Page navigation ">
+                    <nav aria-label="Page navigation" class="mb-2">
                         <ul class="pagination rounded-active justify-content-center mt-2">
                             {{-- Nút về đầu --}}
                             <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
-                                <a class="page-link hover-white" wire:click="previousPage" wire:loading.attr="disabled"
-                                    rel="prev" aria-label="@lang('pagination.previous')"><i
-                                        class="far fa-angle-double-left"></i></a>
+                                <a class="page-link hover-white" wire:click="previousPage"
+                                    wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')"><i
+                                        class="fas fa-angle-double-left"></i></a>
                             </li>
             
                             {{-- Liên kết Trang Trước --}}
@@ -730,7 +730,7 @@
                                     < </a>
                             </li> --}}
             
-                            @php
+                            @php    
                                 $totalPages = $rooms->lastPage();
                                 $currentPage = $rooms->currentPage();
                                 $visiblePages = 3; // Số trang hiển thị ở giữa
@@ -782,7 +782,7 @@
                             <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
                                 <a class="page-link hover-white" wire:click="nextPage" wire:loading.attr="disabled"
                                     rel="next" aria-label="@lang('pagination.next')"><i
-                                        class="far fa-angle-double-right"></i></a>
+                                        class="fas fa-angle-double-right"></i></a>
                             </li>
                         </ul>
                     </nav>

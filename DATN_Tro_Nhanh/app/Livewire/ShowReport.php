@@ -33,7 +33,7 @@ class ShowReport extends Component
                         });
                 }
             })
-            ->paginate(10); // Mỗi trang có 10 báo cáo
+            ->paginate(1); // Mỗi trang có 10 báo cáo
             $currentPage = $reports->currentPage();
         return view('livewire.show-report', [
             'reports' => $reports,

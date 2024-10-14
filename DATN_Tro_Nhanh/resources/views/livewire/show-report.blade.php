@@ -159,7 +159,8 @@
                                     <li class="page-item {{ $reports->onFirstPage() ? 'disabled' : '' }}">
                                         <a class="page-link hover-white" wire:click="gotoPage(1)"
                                             wire:loading.attr="disabled" aria-label="@lang('pagination.first')">
-                                            <span aria-hidden="true">&laquo;</span>
+                                            <i
+                                            class="fas fa-angle-double-left"></i>
                                         </a>
                                     </li>
 
@@ -183,13 +184,16 @@
                                         <li class="page-item disabled"><span class="page-link">...</span></li>
                                     @endif
 
+                               
                                     {{-- Các trang giữa --}}
                                     @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
+                                    @if ($i > 1 && $i < $totalPages)
                                         <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
                                             <a class="page-link hover-white" wire:click="gotoPage({{ $i }})"
                                                 wire:loading.attr="disabled">{{ $i }}</a>
                                         </li>
-                                    @endforeach
+                                    @endif
+                                @endforeach
 
                                     {{-- Dấu ba chấm cuối --}}
                                     @if ($currentPage < $totalPages - ($visiblePages - 1))
@@ -211,7 +215,8 @@
                                     <li class="page-item {{ !$reports->hasMorePages() ? 'disabled' : '' }}">
                                         <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
                                             wire:loading.attr="disabled" aria-label="@lang('pagination.last')">
-                                            <span aria-hidden="true">&raquo;</span>
+                                            <i
+                                            class="fas fa-angle-double-right"></i>
                                         </a>
                                     </li>
                                 </ul>

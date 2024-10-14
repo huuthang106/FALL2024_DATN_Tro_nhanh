@@ -78,10 +78,10 @@
                                         <a href="{{ route('owners.show-blog', $blog->slug) }}">
                                             @if ($blog->image && $blog->image->isNotEmpty())
                                                 <img src="{{ asset('assets/images/' . $blog->image->first()->filename) }}"
-                                                    alt="{{ $blog->image->first()->filename }}" class="img-fluid">
+                                                    alt="{{ $blog->image->first()->filename }}" class="img-fluid square-image">
                                             @else
                                                 <img src="{{ asset('assets/images/properties-grid-08.jpg') }}"
-                                                    alt="Default Image" class="img-fluid">
+                                                    alt="Default Image" class="img-fluid square-image">
                                             @endif
                                         </a>
                                     </div>

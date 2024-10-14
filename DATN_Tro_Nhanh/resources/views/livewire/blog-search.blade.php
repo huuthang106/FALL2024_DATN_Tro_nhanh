@@ -2,8 +2,8 @@
     {{-- Stop trying to control. --}}
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
-            <div class="mb-6">
-                <div class="row" wire:ignore>
+            <div class="mb-6" wire:ignore>
+                <div class="row" >
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
                         <div class="d-flex form-group mb-0 align-items-center">
                             <label class="form-label fs-6 fw-bold mr-2 mb-0">Lọc:</label>
@@ -24,24 +24,7 @@
                                     mới</span></a>
                         </div>
                     </div>
-                    {{-- <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
-                <div class="input-group input-group-lg bg-white mb-0 position-relative flex-grow-1 mr-2"
-                    style="width: 60%">
-                    <input wire:model.lazy="search" wire:keydown.debounce.100ms="$refresh" type="text"
-                        class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..." aria-label=""
-                        aria-describedby="basic-addon1">
-                    <div class="input-group-append position-absolute pos-fixed-right-center">
-                        <button class="btn bg-transparent border-0 text-gray lh-1" type="button">
-                            <i class="fal fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                    <div class="align-self-center">
-                        <button id="deleteSelected" class="btn btn-danger btn-lg ml-2">Xóa</button>
-                    </div>
-                </div>
-            </div> --}}
+
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
                         <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
                             <input wire:model.lazy="search" wire:keydown.debounce.500ms="$refresh" type="text"
@@ -53,35 +36,18 @@
                                 </button>
                             </div>
                         </div>
-                        {{-- <div class="ml-2">
-                    <button id="deleteSelected" class="btn btn-danger btn-lg ml-2">Xóa</button>
-                </div> --}}
+
                         <div class="align-self-center">
                             <button id="deleteSelected" class="btn btn-danger btn-lg" tabindex="0"
                                 aria-controls="invoice-list" disabled><span>Xóa</span></button>
                         </div>
                     </div>
-                    {{-- <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
-                <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
-                    <input type="text" wire:model.lazy="search" wire:keydown.debounce.300ms="$refresh"
-                        class="form-control bg-transparent border-1x" placeholder="Tìm..." aria-label=""
-                        aria-describedby="basic-addon1">
-                    <div class="input-group-append position-absolute pos-fixed-right-center">
-                        <button class="btn bg-transparent border-0 text-gray lh-1" type="button">
-                            <i class="fal fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="align-self-center">
-                    <button id="deleteSelected" class="btn btn-danger btn-lg" tabindex="0"
-                        aria-controls="invoice-list"><span>Xóa</span></button>
-                </div>
-            </div> --}}
+
                 </div>
             </div>
             <div class="table-responsive custom-table-responsive">
-                <table id="myTable" class="table table-hover table-sm bg-white border rounded-lg">
-                    <thead>
+                <table class="table table-hover table-sm bg-white border rounded-lg">
+                    <thead class="thead-sm thead-black">
                         <tr role="row">
                             <th scope="col" class="px-6 py-3">
                                 <input type="checkbox" id="checkAll" wire:model="selectAll">
@@ -90,7 +56,7 @@
                             <th class="py-3 text-nowrap text-center col-2">Tiêu đề</th>
                             <th class="py-3 text-nowrap text-center col-1">Lượt xem</th>
                             <th class="py-3 text-nowrap text-center col-2">Trạng thái</th>
-                            <th class="py-3 text-nowrap text-center col-2">Ngày xuất bản</th>
+                            {{-- <th class="py-3 text-nowrap text-center col-2">Ngày xuất bản</th> --}}
                             <th class="no-sort py-3 text-nowrap text-center col-2">Thao tác</th>
                         </tr>
                     </thead>
@@ -104,28 +70,29 @@
                             </tr>
                         @else
                             @foreach ($blogs as $blog)
-                                <tr role="row" wire:key="blog-{{ $blog->id }}">
-                                    <td class="align-middle px-6">
+                                <tr role="row" wire:key="blog-{{ $blog->id }}" class="shadow-hover-xs-2 bg-hover-white">
+                                    <td class="align-middle pt-3 pb-3 px-3">
                                         <input type="checkbox" class="control-input blog-checkbox"
                                             id="blog-{{ $blog->id }}" wire:model="selectedBlogs"
                                             wire:key="blog-{{ $blog->id }}" value="{{ $blog->id }}"
                                             wire:change="toggleBlog({{ $blog->id }})">
                                     </td>
-                                    <td class="align-middle d-md-table-cell text-nowrap p-4">
+                                    <td class="align-middle pt-3 pb-3 px-3">
                                         <div class="mr-2 position-relative blog-image-container">
                                             <a href="{{ route('owners.show-blog', $blog->slug) }}">
                                                 @if ($blog->image && $blog->image->isNotEmpty())
                                                     <img src="{{ asset('assets/images/' . $blog->image->first()->filename) }}"
                                                         alt="{{ $blog->image->first()->filename }}"
-                                                        class="img-fluid blog-image">
+                                                        class="img-fluid blog-image square-image">
                                                 @else
                                                     <img src="{{ asset('assets/images/properties-grid-08.jpg') }}"
-                                                        alt="Default Image" class="img-fluid blog-image">
+                                                        alt="Default Image" class="img-fluid blog-image square-image">
                                                 @endif
                                             </a>
                                         </div>
+                                        
                                     </td>
-                                    <td class="align-middle pt-3 pb-2 px-3 text-nowrap">
+                                    <td class="align-middle" style="white-space: nowrap;">
                                         <div class="d-flex align-items-center">
                                             <div class="media-body">
                                                 <a href="{{ route('owners.show-blog', $blog->slug) }}">
@@ -135,10 +102,10 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="align-middle text-nowrap text-center">
+                                    <td class="align-middle"style="white-space: nowrap;">
                                         {{ $blog->view }}
                                     </td>
-                                    <td class="align-middle text-nowrap text-center">
+                                    <td class="align-middle ">
                                         @if ($blog->status == 1)
                                             <span class="badge badge-yellow text-capitalize">Chờ xác nhận</span>
                                         @elseif ($blog->status == 2)
@@ -147,11 +114,11 @@
                                             <span class="badge badge-gray text-capitalize">Chưa xác định</span>
                                         @endif
                                     </td>
-                                    <td class="align-middle text-nowrap text-center">
+                                    {{-- <td class="align-middle ">
                                         <span class="text-success pr-1"><i class="fal fa-calendar"></i></span>
                                         {{ $blog->created_at->format('d-m-Y') }}
-                                    </td>
-                                    <td class="align-middle text-nowrap text-center">
+                                    </td> --}}
+                                    <td class="align-middle ">
                                         <a href="{{ route('owners.sua-blog', ['slug' => $blog->slug]) }}"
                                             data-toggle="tooltip" title="Chỉnh sửa" class="btn btn-primary btn-sm mr-2">
                                             <i class="fal fa-pencil-alt"></i>

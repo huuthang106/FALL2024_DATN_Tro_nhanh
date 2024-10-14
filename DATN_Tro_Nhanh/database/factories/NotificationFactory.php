@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\Room;
 use App\Models\Comment;
 use App\Models\Watchlist;
-use App\Models\RegistrationList;
+use App\Models\Registrationlist;
 use App\Models\Blog;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -30,7 +30,7 @@ class NotificationFactory extends Factory
         $room = $this->faker->boolean(50) ? Room::inRandomOrder()->first() : null;
         $comment = $this->faker->boolean(30) ? Comment::inRandomOrder()->first() : null;
         $watchlist = $this->faker->boolean(30) ? Watchlist::inRandomOrder()->first() : null;
-        $registrationList = $this->faker->boolean(20) ? RegistrationList::inRandomOrder()->first() : null;
+        $registrationList = $this->faker->boolean(20) ? Registrationlist::inRandomOrder()->first() : null;
         $blog = $this->faker->boolean(50) ? Blog::inRandomOrder()->first() : null;
 
         return [

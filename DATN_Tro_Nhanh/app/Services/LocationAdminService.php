@@ -75,12 +75,12 @@ class LocationAdminService
         $location = Location::findOrFail($id);
 
         // Tiến hành xóa mềm location
-        $location->delete();
+        $location->forceDelete();
 
         // Trả về thông báo thành công
         return [
             'status' => 'success',
-            'message' => 'Location đã được chuyển vào thùng rác thành công.'
+            'message' => 'Đã được xóa thành công'
         ];
     }
     public function getTrashedLocations()

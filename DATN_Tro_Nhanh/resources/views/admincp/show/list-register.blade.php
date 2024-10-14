@@ -174,13 +174,13 @@
                             <nav aria-label="Page navigation">
                                 <ul class="pagination rounded-active justify-content-center">
                                     {{-- Liên kết Trang Trước --}}
+                               
                                     <li class="page-item {{ $list->onFirstPage() ? 'disabled' : '' }}">
                                         <a class="page-link hover-white" href="{{ $list->previousPageUrl() }}"
                                             rel="prev" aria-label="@lang('pagination.previous')">
-                                            {{-- <i class="far fa-angle-left"></i> --}}
-                                            <{{-- Mũi tên trái --}} </a>
+                                            <i class="fas fa-angle-left"></i>
+                                            </a>
                                     </li>
-
                                     @php
                                         $totalPages = $list->lastPage();
                                         $currentPage = $list->currentPage();
@@ -216,18 +216,13 @@
                                     @if ($totalPages > 1)
                                         <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
                                             <a class="page-link hover-white"
-                                                href="{{ $list->url($totalPages) }}">{{ $totalPages }}</a>
+                                                href="{{ $list->url($totalPages) }}">{{ $totalPages }} <i
+                                                class="fas fa-angle-double-right"></i></a>
                                         </li>
                                     @endif
 
                                     {{-- Liên kết Trang Tiếp --}}
-                                    <li class="page-item {{ !$list->hasMorePages() ? 'disabled' : '' }}">
-                                        <a class="page-link hover-white" href="{{ $list->nextPageUrl() }}"
-                                            rel="next" aria-label="@lang('pagination.next')">
-                                            {{-- <i class="far fa-angle-right"></i> --}}
-                                            > {{-- Mũi tên phải --}}
-                                        </a>
-                                    </li>
+                                    
                                 </ul>
                             </nav>
                         @endif

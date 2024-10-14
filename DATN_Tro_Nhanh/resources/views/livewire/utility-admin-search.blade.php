@@ -202,7 +202,8 @@
                                 <li class="page-item {{ $utilities->onFirstPage() ? 'disabled' : '' }}">
                                     <a class="page-link hover-white" wire:click="gotoPage(1)"
                                         wire:loading.attr="disabled" aria-label="First Page">
-                                        << </a>
+                                        <i
+                                            class="fas fa-angle-double-left"></i> </a>
                                 </li>
                     
                                 {{-- Liên kết Trang Trước --}}
@@ -256,7 +257,8 @@
                                 {{-- Nút về cuối --}}
                                 <li class="page-item {{ !$utilities->hasMorePages() ? 'disabled' : '' }}">
                                     <a class="page-link hover-white" wire:click="gotoPage({{ $utilities->lastPage() }})"
-                                        wire:loading.attr="disabled" aria-label="Last Page"> >>
+                                        wire:loading.attr="disabled" aria-label="Last Page"> <i
+                                        class="fas fa-angle-double-right"></i>
                                     </a>
                                 </li>
                             </ul>

@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Factories;
-use App\Models\RegistrationList;
+use App\Models\Registrationlist;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\RegistrationList>
  */
 class RegistrationListFactory extends Factory
-{ protected $model = RegistrationList::class;
+{ protected $model = Registrationlist::class;
     /**
      * Define the model's default state.
      *

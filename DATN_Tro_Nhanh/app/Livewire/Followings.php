@@ -4,7 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\WatchList;
+use App\Models\Watchlist;
 use Carbon\Carbon;
 
 class Followings extends Component
@@ -23,7 +23,7 @@ class Followings extends Component
     }
     public function render()
     {
-        $query = WatchList::where('user_id', $this->userId)
+        $query = Watchlist::where('user_id', $this->userId)
             ->with('followers');
     
         // Tìm kiếm theo tên

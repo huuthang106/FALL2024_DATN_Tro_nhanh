@@ -71,7 +71,7 @@ class LocationAdminController extends Controller
             return redirect()->back()->with('error', $result['message']);
         }
 
-        return redirect()->route('admin.trash-location')->with('success', $result['message']);
+        return redirect()->route('admin.show-location')->with('success', $result['message']);
     }
 
     public function trash()

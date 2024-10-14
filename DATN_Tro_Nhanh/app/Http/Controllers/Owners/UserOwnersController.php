@@ -12,7 +12,7 @@ use App\Services\ProfileService;
 use App\Services\RegistrationService;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Identity;
-use App\Models\RegistrationList;
+use App\Models\Registrationlist;
 use App\Models\Image;
 use App\Services\ImageAdminService;
 use Illuminate\Support\Facades\Log;
