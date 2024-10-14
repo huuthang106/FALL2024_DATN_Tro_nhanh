@@ -49,7 +49,7 @@ class RoomOwnersService
     const DA_THUE = 2; // Đã thuê
 
     const CO = 1; // Có tiện ích
-    const CHUA_CO = 2; // Chưa có tiện ích
+    const CHUA_CO = 0; // Chưa có tiện ích
     private $client;
     public function __construct()
     {

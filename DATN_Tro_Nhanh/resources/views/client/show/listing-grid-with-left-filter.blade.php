@@ -145,8 +145,8 @@
                                                     <li class="list-group-item px-0 pt-0 pb-2">
                                                         <div class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input"
-                                                                id="check2" name="features[]" value="air_conditioner">
-                                                            <label class="custom-control-label" for="check2">Máy điều
+                                                                id="check2" name="features[]" value="air_conditioning">
+                                                            <label cl   ass="custom-control-label" for="check2">Máy điều
                                                                 hòa</label>
                                                         </div>
                                                     </li>
@@ -156,6 +156,13 @@
                                                                 id="check3" name="features[]" value="bathroom">
                                                             <label class="custom-control-label" for="check3">Phòng
                                                                 tắm</label>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item px-0 pt-0 pb-2">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input"
+                                                                id="check4" name="features[]" value="garage">
+                                                            <label class="custom-control-label" for="check4">Garage</label>
                                                         </div>
                                                     </li>
                                                     {{-- <li class="list-group-item px-0 pt-0 pb-2">

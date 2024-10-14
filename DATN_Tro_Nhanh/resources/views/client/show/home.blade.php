@@ -422,7 +422,7 @@
                                 <div class="card-body pt-3 d-flex flex-column">
                                     <h2 class="card-title fs-16 lh-2 mb-0">
                                         <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
-                                            class="text-dark hover-primary"><small>{{ Str::limit($room->title, 70) }}</small></a>
+                                            class="text-dark hover-primary">{{ Str::limit($room->title, 70) }}</a>
                                     </h2>
                                     <p class="card-text font-weight-500 text-gray-light mb-2">
                                         {{ Str::limit($room->address, 100) }}</p>
@@ -708,7 +708,7 @@
                                 <div class="card-body pt-3 d-flex flex-column">
                                     <h2 class="card-title fs-16 lh-2 mb-0">
                                         <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
-                                            class="text-dark hover-primary"><small>{{ Str::limit($room->title, 70) }}</small></a>
+                                            class="text-dark hover-primary">{{ Str::limit($room->title, 70) }}</a>
                                     </h2>
                                     <p class="card-text font-weight-500 text-gray-light mb-2">
                                         {{ Str::limit($room->address, 100) }}</p>

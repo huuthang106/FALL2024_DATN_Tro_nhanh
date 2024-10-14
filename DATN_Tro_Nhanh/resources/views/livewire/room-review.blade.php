@@ -29,14 +29,15 @@
                             </ul>
 
 
-                            <ul class="list-inline d-flex justify-content-sm-end justify-content-center mb-0">
+                            {{-- <ul class="list-inline d-flex justify-content-sm-end justify-content-center mb-0">
                                 @if (Auth::id() == $comment->user_id)
                                     <button wire:click="confirmDelete({{ $comment->id }})" class="btn btn-sm btn-white">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
+                                  
                                 @endif
 
-                            </ul>
+                            </ul> --}}
 
                         </div>
 
@@ -45,9 +46,11 @@
                     <div class="d-flex justify-content-sm-start justify-content-center">
                         <p class="mb-0 text-muted fs-13 lh-1">
                             {{ $comment->created_at->format('d/m/Y h:i A') }}
-                            {{-- <a href="#"
-                                class="mb-0 text-heading border-left border-dark hover-primary lh-1 ml-2 pl-2">Trả
-                                lời</a> --}}
+                            <a href="#"
+                            class="mb-0 text-danger border-left border-dark hover-primary lh-1 ml-2 pl-2"
+                          wire:click="confirmDelete({{ $comment->id }})">
+                            Xóa
+                        </a>
                     </div>
                 </div>
             </div>
