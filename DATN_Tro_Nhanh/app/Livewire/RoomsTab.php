@@ -19,7 +19,7 @@ class RoomsTab extends Component
 
     public function render()
 {
-    $rooms = Room::where('user_id', $this->userId)->paginate(1, ['*'], 'phong');
+    $rooms = Room::where('user_id', $this->userId)->paginate(10, ['*'], 'phong');
     return view('livewire.rooms-tab', ['rooms' => $rooms]);
 }
 }

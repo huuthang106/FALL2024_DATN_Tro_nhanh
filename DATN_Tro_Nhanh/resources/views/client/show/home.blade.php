@@ -422,10 +422,10 @@
                                 <div class="card-body pt-3 d-flex flex-column">
                                     <h2 class="card-title fs-16 lh-2 mb-0">
                                         <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
-                                            class="text-dark hover-primary">{{ Str::limit($room->title, 70) }}</a>
+                                            class="text-dark hover-primary">{{ Str::limit($room->title, 60) }}</a>
                                     </h2>
                                     <p class="card-text font-weight-500 text-gray-light mb-2">
-                                        {{ Str::limit($room->address, 100) }}</p>
+                                      <small>  {{ Str::limit($room->address, 100) }}</small></p>
                                     <ul class="list-inline d-flex mb-0 flex-wrap mr-n5 mt-auto">
                                         {{-- <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
                                             data-toggle="tooltip" title="Phòng ngủ">
@@ -708,10 +708,10 @@
                                 <div class="card-body pt-3 d-flex flex-column">
                                     <h2 class="card-title fs-16 lh-2 mb-0">
                                         <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
-                                            class="text-dark hover-primary">{{ Str::limit($room->title, 70) }}</a>
+                                            class="text-dark hover-primary">{{ Str::limit($room->title, 60) }}</a>
                                     </h2>
                                     <p class="card-text font-weight-500 text-gray-light mb-2">
-                                        {{ Str::limit($room->address, 100) }}</p>
+                                       <small> {{ Str::limit($room->address, 100) }}</small></p>
                                     <ul class="list-inline d-flex mb-0 flex-wrap mr-n5 mt-auto">
                                         @if ($room->utility && $room->utility->bathrooms == 1)
                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"

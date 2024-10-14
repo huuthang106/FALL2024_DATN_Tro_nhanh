@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\RegistrationList>
  */
-class RegistrationListFactory extends Factory
+class RegistrationlistFactory extends Factory
 { protected $model = Registrationlist::class;
     /**
      * Define the model's default state.

@@ -178,7 +178,7 @@
                                                         <div class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input"
                                                                 id="check2" name="features[]" value="air_conditioning">
-                                                            <label cl   ass="custom-control-label" for="check2">Máy điều
+                                                            <label class="custom-control-label" for="check2">Máy điều
                                                                 hòa</label>
                                                         </div>
                                                     </li>
