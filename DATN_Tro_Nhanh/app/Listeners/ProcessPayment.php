@@ -94,7 +94,7 @@ class ProcessPayment
          $transaction->added_funds = $event->amount; // Thêm dấu trừ vào trước giá trị
          $transaction->total_price = $event->amount;
          $transaction->status = '2';
-        $transaction->user_id = $user_id;
+         $transaction->user_id = $user_id;
  
         $transaction->save(); // Lưu trước khi truy cập id
         Log::info('Transaction đã được tạo.', ['transaction_id' => $transaction->id]);

@@ -16,7 +16,7 @@ class ShowWithdrawal extends Component
     public $perPage = 5; // Số lượng kết quả mỗi trang
     protected $queryString = ['search', 'sortBy', 'perPage'];
     public $timeFilter = '';
-    protected const naptien = 2;
+    protected const naptien = 1;
 
     public function updatedSearch()
     {
