@@ -229,9 +229,9 @@
                         <span class="menu-title">Danh Sách Chủ Trọ</span>
                     </a>
                 </div>
-                <div class="menu-item" data-nav-item="Danh sách rút tiền">
-                    <a class="menu-link text-decoration-none {{ request()->routeIs('admin.list-payout') ? 'selected' : '' }}"
-                        href="{{ route('admin.list-payout') }}">
+                <div class="menu-item" data-nav-item="Danh sách nạp tiền">
+                    <a class="menu-link text-decoration-none {{ request()->routeIs('admin.list-withdrawal') ? 'selected' : '' }}"
+                        href="{{ route('admin.list-withdrawal') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/finance/fin001.svg-->
                             <span class="svg-icon svg-icon-2">

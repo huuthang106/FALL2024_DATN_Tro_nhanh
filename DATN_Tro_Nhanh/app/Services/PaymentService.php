@@ -24,6 +24,7 @@ use GuzzleHttp\Client;
 
 class PaymentService
 {
+
     protected $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
     protected $vnp_TmnCode = "YZYXA9YP"; // Thay YOUR_TMNCODE bằng mã thực
     protected $vnp_HashSecret = "8NPEYEFICFTH31ZVMER5J4BVW09V8S0W"; // Thay YOUR_HASH_SECRET bằng khóa bí mật thực
@@ -33,6 +34,7 @@ class PaymentService
     private $apiKey;
     private $Giohang = 2;
     private $Donchuaduyet = 1;
+    private $Naptien = 1;
 
     public function __construct()
     {
@@ -398,5 +400,11 @@ class PaymentService
             ->orderBy('created_at', 'desc')
             ->orderBy('id', 'desc')
             ->paginate(10);
+    }
+
+    public function getDataWithdrawal()
+    {
+        $withdrawal = Transaction::where('status', $this->Naptien)->get();
+        return $withdrawal;
     }
 }
