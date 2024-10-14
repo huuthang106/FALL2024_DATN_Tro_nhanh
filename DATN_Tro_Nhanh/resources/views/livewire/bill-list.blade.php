@@ -120,21 +120,18 @@
             </div>
            
             @if ($bills->hasPages())
-                <nav aria-label="Page navigation">
+                <nav aria-label="Page navigation mt-4">
                     <ul class="pagination pagination-sm rounded-active justify-content-center">
                         {{-- Liên kết Trang Đầu --}}
                         <li class="page-item {{ $bills->onFirstPage() ? 'disabled' : '' }}">
                             <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled">
-                                &lt;&lt;
+                                <i
+                                class="far fa-angle-double-left"></i>
                             </a>
                         </li>
 
                         {{-- Liên kết Trang Trước --}}
-                        <li class="page-item {{ $bills->onFirstPage() ? 'disabled' : '' }}">
-                            <a class="page-link hover-white" wire:click="previousPage" wire:loading.attr="disabled">
-                                &lt;
-                            </a>
-                        </li>
+                     
 
                         @php
                             $window = 2; // Số trang hiển thị ở mỗi bên của trang hiện tại
@@ -172,17 +169,14 @@
                         @endif
 
                         {{-- Liên kết Trang Tiếp --}}
-                        <li class="page-item {{ !$bills->hasMorePages() ? 'disabled' : '' }}">
-                            <a class="page-link hover-white" wire:click="nextPage" wire:loading.attr="disabled">
-                                &gt;
-                            </a>
-                        </li>
+                        
 
                         {{-- Liên kết Trang Cuối --}}
                         <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
                             <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
                                 wire:loading.attr="disabled">
-                                &gt;&gt;
+                                <i
+                                class="far fa-angle-double-right"></i>
                             </a>
                         </li>
                     </ul>

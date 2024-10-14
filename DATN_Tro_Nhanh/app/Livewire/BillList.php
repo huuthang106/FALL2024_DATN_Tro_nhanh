@@ -29,7 +29,7 @@ class BillList extends Component
         if (!empty($this->search)) {
             $query->where(function ($q) {
                 $q->orWhere('description', 'like', '%' . $this->search . '%')
-                  ->orWhere('amount', 'like', '%' . $this->search . '%');
+                    ->orWhere('amount', 'like', '%' . $this->search . '%');
             });
         }
 
@@ -37,6 +37,9 @@ class BillList extends Component
         if ($this->status) {
             $query->where('status', $this->status);
         }
+
+        // Sắp xếp theo thời gian tạo mới nhất
+        $query->orderBy('created_at', 'desc');
 
         $bills = $query->paginate($this->perPage);
 
@@ -50,26 +53,26 @@ class BillList extends Component
         $this->description = $this->selectedBill->description;
         $this->dispatch('show-edit-modal'); // Gọi sự kiện để hiển thị modal
     }
-    
+
     public function updateBill()
     {
         $this->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
         ]);
-    
+
         $bill = Bill::find($this->selectedBill->id);
-    
+
         // Kiểm tra điều kiện trước khi cập nhật
         if ($bill->status != 1) {
             session()->flash('error', 'Bạn không thể chỉnh sửa hóa đơn này.');
             return;
         }
-    
+
         $bill->title = $this->title;
         $bill->description = $this->description;
         $bill->save();
-    
+
         $this->dispatch('hide-edit-modal'); // Ẩn modal
         session()->flash('message', 'Hóa đơn đã được cập nhật thành công.');
     }
@@ -79,6 +82,4 @@ class BillList extends Component
         Bill::destroy($billId);
         session()->flash('message', 'Hóa đơn đã được xóa thành công.');
     }
-    
-    
 }
