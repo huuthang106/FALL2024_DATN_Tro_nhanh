@@ -66,8 +66,9 @@ class IndexOwnersController extends Controller
 
     public function pay(Request $request, $billId)
 {
+   
     // Gọi hàm processPayment từ service
-    $result = $this->BillService->processPayment($billId);
+    $result = $this->BillService->SaveBill($billId);
 
     // Kiểm tra kết quả từ service
     if ($result['success']) {

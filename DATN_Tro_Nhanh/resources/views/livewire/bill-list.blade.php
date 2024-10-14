@@ -102,11 +102,13 @@
                                                 class="d-inline-block fs-18 text-muted hover-primary mr-2">
                                                 <i class="fal fa-pencil-alt btn btn-primary btn-sm"></i>
                                             </a>
+                                            @if ($bill->status == 1)
                                             <a href="#" data-toggle="tooltip" title="Xóa"
                                                 class="d-inline-block fs-4 text-muted hover-primary"
                                                 onclick="confirmDelete({{ $bill->id }})">
                                                 <i class="fal fa-trash-alt btn btn-danger btn-sm"></i>
                                             </a>
+                                        @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -224,6 +226,6 @@
      }
  </script>
  
- 
+</div>
     
 </div>

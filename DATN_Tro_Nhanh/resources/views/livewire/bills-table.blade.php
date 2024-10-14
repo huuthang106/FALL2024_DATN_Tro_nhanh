@@ -127,12 +127,12 @@
                                         title="Thanh Toán" class="btn btn-success btn-sm mr-2">
                                         <i class="fal fa-credit-card"></i>
                                     </a>
-                                    <a href="#" data-toggle="tooltip" title="Xóa"
+                                    {{-- <a href="#" data-toggle="tooltip" title="Xóa"
                                         class="d-inline-block fs-18 text-muted hover-primary">
                                         <button type="submit" class="btn btn-danger btn-sm"><i
                                                 class="fal fa-trash-alt"></i></button>
-                                        {{-- <i class="fal fa-trash-alt"></i> --}}
-                                    </a>
+                                     
+                                    </a> --}}
                                 </td>
                             </tr>
                         @endforeach

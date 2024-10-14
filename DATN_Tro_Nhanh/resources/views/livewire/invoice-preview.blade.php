@@ -152,15 +152,15 @@
                                         <a href="javascript:void(0);" class="btn btn-success btn-download btn-block">Tải
                                             xuống</a>
                                     </div>
-                                    @if ($status == 1)
-                                        <div class="col-12 mb-3">
-                                            <a href="javascript:void(0);" class="btn btn-dark btn-edit btn-block"
-                                                wire:click="editBill({{ $bill->id }})" data-toggle="modal"
-                                                data-target="#maintenance">
-                                                Chỉnh sửa hóa đơn
-                                            </a>
-                                        </div>
-                                    @endif
+                                    @if ($status == 1 && $bill->creator_id == Auth::id())
+                                    <div class="col-12 mb-3">
+                                        <a href="javascript:void(0);" class="btn btn-dark btn-edit btn-block"
+                                            wire:click="editBill({{ $bill->id }})" data-toggle="modal"
+                                            data-target="#maintenance">
+                                            Chỉnh sửa hóa đơn
+                                        </a>
+                                    </div>
+                                @endif
                                 @endif
                             </div>
 
