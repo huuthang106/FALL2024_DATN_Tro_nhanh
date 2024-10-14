@@ -198,7 +198,46 @@
                                     </ul>
                                 </div> 
                             </div> --}}
+                            @php
+                                $currentBlog = $blog;
+                            @endphp
                             <div class="card mb-4">
+                                <div class="card-body px-6 pt-5 pb-6">
+                                    <h4 class="card-title fs-16 lh-2 text-dark mb-3">Bài viết nổi bật</h4>
+                                    <ul class="list-group list-group-flush">
+                                        @foreach ($topViewedBlogs as $featuredBlog)
+                                            @if ($featuredBlog->id !== $currentBlog->id)
+                                                <li class="list-group-item px-0 pt-0 pb-3">
+                                                    <div class="media">
+                                                        <div class="position-relative mr-3">
+                                                            <a href="{{ route('client.client-blog-detail', $featuredBlog->slug) }}"
+                                                                class="d-block w-100px rounded pt-11 bg-img-cover-center"
+                                                                style="background-image: url('{{ asset('assets/images/' . ($featuredBlog->image->first()->filename ?? 'default.jpg')) }}')">
+                                                            </a>
+                                                            <a href="blog-grid-with-sidebar.html"
+                                                                class="badge text-white bg-dark-opacity-04 m-1 fs-13 font-weight-500 bg-hover-primary hover-white position-absolute pos-fixed-top">
+                                                                Nổi Bật
+                                                            </a>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <h4 class="fs-14 lh-186 mb-1">
+                                                                <a href="{{ route('client.client-blog-detail', $featuredBlog->slug) }}"
+                                                                    class="text-dark hover-primary">
+                                                                    {{ $featuredBlog->title }}
+                                                                </a>
+                                                            </h4>
+                                                            <div class="text-gray-light">
+                                                                {{ $featuredBlog->created_at->locale('vi')->isoFormat('D MMMM, YYYY') }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                            {{-- <div class="card mb-4">
                                 <div class="card-body px-6 pt-5 pb-6">
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Bài viết nổi bật</h4>
                                     <ul class="list-group list-group-flush">
@@ -231,7 +270,7 @@
                                         @endforeach
                                     </ul>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             {{-- <div class="card mb-4">
                                 <div class="card-body px-6 pt-5 pb-6">

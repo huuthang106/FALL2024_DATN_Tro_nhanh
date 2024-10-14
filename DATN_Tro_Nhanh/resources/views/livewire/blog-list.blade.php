@@ -114,7 +114,8 @@
                                         @if ($totalPages <= 3)
                                             @for ($i = 1; $i <= $totalPages; $i++)
                                                 <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
-                                                    <a class="page-link hover-white" wire:click="gotoPage({{ $i }})"
+                                                    <a class="page-link hover-white"
+                                                        wire:click="gotoPage({{ $i }})"
                                                         wire:loading.attr="disabled">{{ $i }}</a>
                                                 </li>
                                             @endfor
@@ -122,34 +123,43 @@
                                             @if ($currentPage <= 2)
                                                 @for ($i = 1; $i <= 3; $i++)
                                                     <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
-                                                        <a class="page-link hover-white" wire:click="gotoPage({{ $i }})"
+                                                        <a class="page-link hover-white"
+                                                            wire:click="gotoPage({{ $i }})"
                                                             wire:loading.attr="disabled">{{ $i }}</a>
                                                     </li>
                                                 @endfor
                                             @elseif ($currentPage >= $totalPages - 1)
                                                 <li class="page-item">
-                                                    <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages - 2 }})"
+                                                    <a class="page-link hover-white"
+                                                        wire:click="gotoPage({{ $totalPages - 2 }})"
                                                         wire:loading.attr="disabled">{{ $totalPages - 2 }}</a>
                                                 </li>
-                                                <li class="page-item {{ $currentPage == $totalPages - 1 ? 'active' : '' }}">
-                                                    <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages - 1 }})"
+                                                <li
+                                                    class="page-item {{ $currentPage == $totalPages - 1 ? 'active' : '' }}">
+                                                    <a class="page-link hover-white"
+                                                        wire:click="gotoPage({{ $totalPages - 1 }})"
                                                         wire:loading.attr="disabled">{{ $totalPages - 1 }}</a>
                                                 </li>
-                                                <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
-                                                    <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
+                                                <li
+                                                    class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                                                    <a class="page-link hover-white"
+                                                        wire:click="gotoPage({{ $totalPages }})"
                                                         wire:loading.attr="disabled">{{ $totalPages }}</a>
                                                 </li>
                                             @else
                                                 <li class="page-item">
-                                                    <a class="page-link hover-white" wire:click="gotoPage({{ $currentPage - 1 }})"
+                                                    <a class="page-link hover-white"
+                                                        wire:click="gotoPage({{ $currentPage - 1 }})"
                                                         wire:loading.attr="disabled">{{ $currentPage - 1 }}</a>
                                                 </li>
                                                 <li class="page-item active">
-                                                    <a class="page-link hover-white" wire:click="gotoPage({{ $currentPage }})"
+                                                    <a class="page-link hover-white"
+                                                        wire:click="gotoPage({{ $currentPage }})"
                                                         wire:loading.attr="disabled">{{ $currentPage }}</a>
                                                 </li>
                                                 <li class="page-item">
-                                                    <a class="page-link hover-white" wire:click="gotoPage({{ $currentPage + 1 }})"
+                                                    <a class="page-link hover-white"
+                                                        wire:click="gotoPage({{ $currentPage + 1 }})"
                                                         wire:loading.attr="disabled">{{ $currentPage + 1 }}</a>
                                                 </li>
                                             @endif
@@ -362,4 +372,3 @@
 
     </main>
 </div>
-
