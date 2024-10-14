@@ -577,35 +577,35 @@
                                     </a>
                                 </div>
                                 <div class="box px-0 py-6">
-                                    <a href="{{ route('client.room-listing', ['type' => 'Nhà ở']) }}"
+                                    <a href="{{ route('client.room-listing', ['type' => 'Nhà']) }}"
                                         class="card border-0 align-items-center justify-content-center pt-7 pb-5 px-3 shadow-hover-3 bg-transparent bg-hover-white text-decoration-none">
                                         <img src="{{ asset('assets/images/sofa.png') }}" class="card-img-top"
                                             alt="Nhà">
 
                                         <div class="card-body px-0 pt-5 pb-0">
-                                            <h4 class="card-title fs-16 lh-2 text-dark mb-0">Nhà ở</h4>
+                                            <h4 class="card-title fs-16 lh-2 text-dark mb-0">Nhà</h4>
                                         </div>
                                     </a>
                                 </div>
                                 <div class="box px-0 py-6">
-                                    <a href="{{ route('client.room-listing', ['type' => 'Chung cư']) }}"
+                                    <a href="{{ route('client.room-listing', ['type' => 'Ký túc xá']) }}"
                                         class="card border-0 align-items-center justify-content-center pt-7 pb-5 px-3 shadow-hover-3 bg-transparent bg-hover-white text-decoration-none">
                                         <img src="{{ asset('assets/images/architecture-and-city.png') }}"
                                             class="card-img-top" alt="Văn phòng">
 
                                         <div class="card-body px-0 pt-5 pb-0">
-                                            <h4 class="card-title fs-16 lh-2 text-dark mb-0">Chung cư</h4>
+                                            <h4 class="card-title fs-16 lh-2 text-dark mb-0">Ký túc xá</h4>
                                         </div>
                                     </a>
                                 </div>
                                 <div class="box px-0 py-6">
-                                    <a href="{{ route('client.room-listing', ['type' => 'Phòng trọ']) }}"
+                                    <a href="{{ route('client.room-listing', ['type' => 'Trọ']) }}"
                                         class="card border-0 align-items-center justify-content-center pt-7 pb-5 px-3 shadow-hover-3 bg-transparent bg-hover-white text-decoration-none">
                                         <img src="{{ asset('assets/images/eco-house.png') }}" class="card-img-top"
                                             alt="Biệt thự">
 
                                         <div class="card-body px-0 pt-5 pb-0">
-                                            <h4 class="card-title fs-16 lh-2 text-dark mb-0">Phòng trọ</h4>
+                                            <h4 class="card-title fs-16 lh-2 text-dark mb-0">Trọ</h4>
                                         </div>
                                     </a>
                                 </div>

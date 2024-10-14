@@ -72,8 +72,8 @@
                                     <!--begin::Username-->
                                     <div class="d-flex flex-column">
                                         <div class="fw-bolder d-flex align-items-center fs-5">{{ $user->name }}
-                                            <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Quản
-                                                trị</span>
+                                            <span
+                                                class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Pro</span>
                                         </div>
                                         <a href="#"
                                             class="fw-bold text-muted text-hover-primary fs-7">{{ $user->email }}</a>
@@ -205,10 +205,8 @@
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                    viewBox="0 0 24 24">
-                                    <path fill="black"
-                                        d="M6 2h12c1.1 0 2 .9 2 2v16c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2zm0 2v16h12V4H6zm2 2h8v2H8V6zm0 3h8v2H8V9zm0 3h8v2H8v-2z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path fill="black" d="M6 2h12c1.1 0 2 .9 2 2v16c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2zm0 2v16h12V4H6zm2 2h8v2H8V6zm0 3h8v2H8V9zm0 3h8v2H8v-2z"/>
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
@@ -222,10 +220,8 @@
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                    viewBox="0 0 24 24">
-                                    <path fill="black"
-                                        d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-3.31 0-10 1.67-10 5v2h20v-2c0-3.33-6.69-5-10-5z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path fill="black" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-3.31 0-10 1.67-10 5v2h20v-2c0-3.33-6.69-5-10-5z"/>
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
@@ -260,10 +256,8 @@
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                    viewBox="0 0 24 24">
-                                    <path fill="black"
-                                        d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-3.31 0-10 1.67-10 5v2h20v-2c0-3.33-6.69-5-10-5z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path fill="black" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-3.31 0-10 1.67-10 5v2h20v-2c0-3.33-6.69-5-10-5z"/>
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
@@ -278,11 +272,9 @@
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                    viewBox="0 0 24 24">
-                                    <path fill="black"
-                                        d="M3 3h18v18H3V3zm2 2v14h14V5H5zm2 2h10v2H7V7zm0 3h10v2H7v-2zm0 3h10v2H7v-2z" />
-                                    <path fill="black" d="M21 6h-2v2h2V6zM21 11h-2v2h2v-2zM21 16h-2v2h2v-2z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path fill="black" d="M3 3h18v18H3V3zm2 2v14h14V5H5zm2 2h10v2H7V7zm0 3h10v2H7v-2zm0 3h10v2H7v-2z"/>
+                                    <path fill="black" d="M21 6h-2v2h2V6zM21 11h-2v2h2v-2zM21 16h-2v2h2v-2z"/>
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
@@ -296,11 +288,9 @@
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                    viewBox="0 0 24 24">
-                                    <path fill="black"
-                                        d="M3 3h18v18H3V3zm2 2v14h14V5H5zm2 2h10v2H7V7zm0 3h10v2H7v-2zm0 3h10v2H7v-2z" />
-                                    <path fill="black" d="M21 6h-2v2h2V6zM21 11h-2v2h2v-2zM21 16h-2v2h2v-2z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path fill="black" d="M3 3h18v18H3V3zm2 2v14h14V5H5zm2 2h10v2H7V7zm0 3h10v2H7v-2zm0 3h10v2H7v-2z"/>
+                                    <path fill="black" d="M21 6h-2v2h2V6zM21 11h-2v2h2v-2zM21 16h-2v2h2v-2z"/>
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
@@ -314,11 +304,9 @@
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                    viewBox="0 0 24 24">
-                                    <path fill="black"
-                                        d="M3 3h18v18H3V3zm2 2v14h14V5H5zm2 2h10v2H7V7zm0 3h10v2H7v-2zm0 3h10v2H7v-2z" />
-                                    <path fill="black" d="M21 6h-2v2h2V6zM21 11h-2v2h2v-2zM21 16h-2v2h2v-2z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path fill="black" d="M3 3h18v18H3V3zm2 2v14h14V5H5zm2 2h10v2H7V7zm0 3h10v2H7v-2zm0 3h10v2H7v-2z"/>
+                                    <path fill="black" d="M21 6h-2v2h2V6zM21 11h-2v2h2v-2zM21 16h-2v2h2v-2z"/>
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
@@ -339,10 +327,8 @@
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
                                 <!-- Biểu tượng Quản lý -->
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                    viewBox="0 0 24 24">
-                                    <path fill="black"
-                                        d="M3 3h18v18H3V3zm2 2v14h14V5H5zm2 2h10v2H7V7zm0 3h10v2H7v-2zm0 3h10v2H7v-2z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path fill="black" d="M3 3h18v18H3V3zm2 2v14h14V5H5zm2 2h10v2H7V7zm0 3h10v2H7v-2zm0 3h10v2H7v-2z"/>
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
@@ -384,16 +370,16 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Danh sách diện tích</span>
+                                <span class="menu-title">Danh sách tiện ích</span>
                             </a>
-                        </div> --}}
+                        </div>
                         <div class="menu-item">
                             <a class="menu-link {{ request()->routeIs('admin.danh-sach-tien-ich') ? 'selected' : '' }}"
                                 href="{{ route('admin.danh-sach-tien-ich') }}" style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Danh sách tiện ích</span>
+                                <span class="menu-title">Danh sách diện tích</span>
                             </a>
                         </div>
                     </div>
@@ -406,10 +392,8 @@
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
                                 <!-- Biểu tượng Gia hạn -->
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                    viewBox="0 0 24 24">
-                                    <path fill="black"
-                                        d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM8 10h8v2H8zm0 4h8v2H8z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path fill="black" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM8 10h8v2H8zm0 4h8v2H8z"/>
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
@@ -424,7 +408,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Danh sách</span>
+                                <span class="menu-title">Danh sách vị trí gói</span>
                             </a>
                         </div>
                         <div class="menu-item">
@@ -442,24 +426,22 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Thùng rác</span>
+                                <span class="menu-title">Thùng rác vị</span>
                             </a>
                         </div>
                     </div>
                 </div>
 
                 <div id="loai-phong-menu" data-kt-menu-trigger="click"
-                    class="menu-item menu-accordion menu-item-persistent">
+                    class="menu-item menu-accordion menu-item-persistent" data-nav-item="Loại">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                    viewBox="0 0 24 24">
-                                    <path fill="black"
-                                        d="M12 2L2 7v11l10 5 10-5V7l-10-5zm0 15.5l-6-3v-8l6 3 6-3v8l-6 3z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path fill="black" d="M12 2L2 7v11l10 5 10-5V7l-10-5zm0 15.5l-6-3v-8l6 3 6-3v8l-6 3z"/>
                                 </svg>
-                            </span>
+                            </span> 
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-title">Loại</span>
@@ -472,7 +454,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Danh sách</span>
+                                <span class="menu-title">Danh sách loại</span>
                             </a>
                         </div>
                         {{-- <div class="menu-item">
@@ -480,7 +462,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Thêm</span>
+                                <span class="menu-title">Thêm loại</span>
                             </a>
                         </div>
                         <div class="menu-item">
@@ -488,7 +470,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Chỉnh sửa</span>
+                                <span class="menu-title">Chỉnh sửa loại</span>
                             </a>
                         </div> --}}
                         <div class="menu-item">
@@ -497,12 +479,11 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Thùng rác</span>
+                                <span class="menu-title">Thùng rác loại</span>
                             </a>
                         </div>
                     </div>
                 </div>
-
 
 
 

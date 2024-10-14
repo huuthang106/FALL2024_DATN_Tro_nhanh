@@ -282,8 +282,8 @@ a.d-block {
 
 .search-button {
     position: absolute;
-    left: 10px;
     /* Đặt icon ở đầu */
+    left: 10px;
     background: none;
     border: none;
     padding: 0;
