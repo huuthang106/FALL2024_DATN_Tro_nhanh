@@ -39,8 +39,9 @@ class ShowWithdrawal extends Component
         // $demo = Transaction::where('status', self::naptien)->get();
         // dd($demo);
         $query = Transaction::query()
-            ->where('status', self::naptien)
-            ->orderBy('created_at', 'desc');
+        ->where('status', self::naptien)
+        ->where('description', 'like', '%GD%') // Add this condition
+        ->orderBy('created_at', 'desc');
 
             if ($this->search) {
                 $query->where(function ($q) {
