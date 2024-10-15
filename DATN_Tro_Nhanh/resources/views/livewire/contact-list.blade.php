@@ -40,7 +40,7 @@
                                                                         alt="Avatar"
                                                                         style="width: 100%; height: 100%; object-fit: cover;">
                                                                 @else
-                                                                    <img src="{{ asset('assets/images/agent-4-lg.jpg') }}"
+                                                                    <img src="{{ asset('assets/images/agent-43.jpg') }}"
                                                                         alt="Avatar"
                                                                         style="width: 100%; height: 100%; object-fit: cover;">
                                                                 @endif
@@ -132,7 +132,7 @@
                                                             alt="Avatar"
                                                             style="width: 100%; height: 100%; object-fit: cover;">
                                                     @else
-                                                        <img src="{{ asset('assets/images/agent-4-lg.jpg') }}"
+                                                        <img src="{{ asset('assets/images/agent-43.jpg') }}"
                                                             alt="Avatar"
                                                             style="width: 100%; height: 100%; object-fit: cover;">
                                                     @endif
@@ -156,7 +156,7 @@
                                                             class="rounded-circle mb-2"
                                                             style="width: 40px; height: 40px;" alt="Avatar">
                                                     @else
-                                                        <img src="{{ asset('assets/images/agent-4-lg.jpg') }}"
+                                                        <img src="{{ asset('assets/images/agent-43.jpg') }}"
                                                             class="rounded-circle mb-2"
                                                             style="width: 40px; height: 40px;" alt="Avatar">
                                                     @endif

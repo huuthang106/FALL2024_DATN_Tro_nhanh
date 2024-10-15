@@ -129,10 +129,10 @@
                                 </td>
                                 <td class="align-middle">{{ $room->created_at->format('d/m/Y') }}</td>
                                 <td class="align-middle">
-                                    @if ($room->status === 1)
+                                    @if ($room->status == 1)
                                         <span class="badge text-capitalize font-weight-normal fs-12 badge-yellow">Chờ
                                             duyệt</span>
-                                    @elseif ($room->status === 2)
+                                    @elseif ($room->status == 2)
                                         <span class="badge text-capitalize font-weight-normal fs-12 badge-pink">Đã
                                             duyệt</span>
                                     @else

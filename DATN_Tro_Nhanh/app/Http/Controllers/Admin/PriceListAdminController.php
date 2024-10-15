@@ -92,4 +92,3 @@ class PriceListAdminController extends Controller
         return redirect()->route('admin.trash-price-list')->with('success', 'Gói tin đã được xóa vĩnh viễn.');
     }
 }
-

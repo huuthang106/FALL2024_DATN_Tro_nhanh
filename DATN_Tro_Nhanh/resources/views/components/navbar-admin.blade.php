@@ -380,7 +380,7 @@
                                 <span class="menu-title">Danh sách gói tin</span>
                             </a>
                         </div>
-                        {{-- <div class="menu-item">
+                       <div class="menu-item">
                             <a class="menu-link {{ request()->routeIs('admin.show-acreage') ? 'selected' : '' }}"
                                 href="{{ route('admin.show-acreage') }}" style="text-decoration: none;">
                                 <span class="menu-bullet">
@@ -462,7 +462,7 @@
                         </span>
                         <span class="menu-title">Loại</span>
                         <span class="menu-arrow"></span>
-                    </span>
+                    </span>-
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
                             <a class="menu-link {{ request()->routeIs('admin.list-category') ? 'selected' : '' }}"
@@ -473,7 +473,7 @@
                                 <span class="menu-title">Danh sách loại</span>
                             </a>
                         </div>
-                        {{-- <div class="menu-item">
+                       <div class="menu-item">
                             <a class="menu-link {{ request()->routeIs('admin.add-category') ? 'selected' : '' }}" href="{{ route('admin.add-category') }}" style="text-decoration: none;">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
@@ -481,14 +481,7 @@
                                 <span class="menu-title">Thêm loại</span>
                             </a>
                         </div>
-                        <div class="menu-item">
-                            <a class="menu-link {{ request()->routeIs('admin.update-category', ['id' => $category->id])) ? 'selected' : '' }}" href="{{ route('admin.update-category', ['id' => $category->id]) }}" style="text-decoration: none;">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Chỉnh sửa loại</span>
-                            </a>
-                        </div> --}}
+                       
                         <div class="menu-item">
                             <a class="menu-link {{ request()->routeIs('admin.trash-category') ? 'selected' : '' }}"
                                 href="{{ route('admin.trash-category') }}" style="text-decoration: none;">

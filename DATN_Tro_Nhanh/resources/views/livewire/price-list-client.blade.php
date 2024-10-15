@@ -24,7 +24,7 @@
                                     <p class="fs-18 font-weight-500 text-heading mb-2 text-truncate text-center" title="{{ $priceList->name }}">{{ $priceList->name }}</p>
                                     <div class="d-flex justify-content-between align-items-center w-100">
                                         <p class="fs-32 font-weight-bold text-heading lh-15 mb-0">
-                                            {{ number_format($priceList->price, 0, ',', '.') }} VND
+                                            {{ number_format($priceList->price, 0, ',', '.') }}₫
                                         </p>
                                         <div class="d-flex justify-content-center w-100">
                                             <span class="fs-13 font-weight-500 text-white text-uppercase custom-packages text-center">

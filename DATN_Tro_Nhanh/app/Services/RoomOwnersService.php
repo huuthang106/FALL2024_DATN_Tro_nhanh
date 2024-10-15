@@ -683,7 +683,7 @@ class RoomOwnersService
             // Lấy thông tin của gói VIP từ PriceList
             $pricing = PriceList::findOrFail($pricingId);
             $cost = $pricing->price;
-            $validity = $pricing->duration_day;
+            $validity = $pricing->duration_day; // Đây có thể là string
 
             // Trừ tiền từ số dư tài khoản của người dùng
             $customer->balance -= $cost;
@@ -691,7 +691,9 @@ class RoomOwnersService
 
             // Cộng thêm thời gian VIP cho phòng
             $currentExpiry = $accommodation->expiration_date ? Carbon::parse($accommodation->expiration_date) : now();
-            $newExpiry = $currentExpiry->addDays($validity);
+
+            // Chuyển đổi validity sang int trước khi truyền vào
+            $newExpiry = $currentExpiry->addDays((int) $validity); // Đảm bảo validity là kiểu số
 
             // Cập nhật ngày hết hạn và lưu price_list_id cho phòng
             $accommodation->expiration_date = $newExpiry;
@@ -718,11 +720,11 @@ class RoomOwnersService
     public function clearZoneId($id)
     {
         $room = Room::findOrFail(id: $id);
-        
+
         // Thiết lập zone_id thành null
         $room->zone_id = null;
         $room->save(); // Lưu thay đổi vào cơ sở dữ liệu
-    
+
         return $room; // Trả về phòng đã được cập nhật
     }
 }

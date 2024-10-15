@@ -44,7 +44,7 @@
                                         <label class="form-label fw-bold fs-6 required">Giá</label>
                                         <input type="number" name="price"
                                             class="form-control form-control-lg form-control-solid" placeholder="giá"
-                                            value="{{ old('price', $priceList->price) }}" />
+                                            value="{{ old('price', $priceList->price) }}" step="1" />
                                         @error('price')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
