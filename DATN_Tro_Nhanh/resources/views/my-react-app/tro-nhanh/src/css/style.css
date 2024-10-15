@@ -1,0 +1,154 @@
+.restaurant-with-cover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    /* Thêm bo tròn cho phần tử */
+    background-color: #fff; /* Đặt màu nền trắng */
+    margin-bottom: 16px; /* Thêm khoảng cách giữa các phần tử */
+    overflow: hidden; /* Đảm bảo không có phần tử nào tràn ra ngoài */
+  }
+  
+
+  
+  .aspect-cinema img,
+  .aspect-card img {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease; /* Thêm hiệu ứng chuyển động cho ảnh */
+  }
+  
+  .aspect-card {
+    width: 120px; /* Đặt chiều rộng cụ thể cho phần tử chứa */
+    height: 100px; /* Đặt chiều cao cụ thể cho phần tử chứa */
+    overflow: hidden; /* Ẩn phần ảnh vượt quá kích thước */
+    margin-right: 16px; /* Thêm khoảng cách giữa ảnh và nội dung */
+  }
+  
+  .aspect-card img {
+    width: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều rộng */
+    height: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều cao */
+    object-fit: cover; /* Cắt ảnh để phù hợp với kích thước phần tử chứa */
+    
+  }
+  .aspect-cinema{
+    width: 300px; /* Đặt chiều rộng cụ thể cho phần tử chứa */
+  
+  
+  }
+  
+  .title {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px; /* Thêm khoảng cách dưới tiêu đề */
+  }
+  
+  .button {
+    color: #555;
+    transition: color 0.3s ease;
+  }
+  
+  .button:hover {
+    color: #000;
+  }
+  
+  .address {
+    font-size: 12px; 
+    color: #666; 
+    margin-top: 0px; 
+    display: block; 
+  }
+  .button-container {
+    display: flex; 
+    justify-content: flex-end; 
+    font-size: 12px;
+    
+  }
+  .price-list {
+    font-size: 12px; 
+  }
+  .title-list {
+    font-size: 13px; 
+  }
+  .flex {
+    display: flex;
+  }
+  
+  .justify-between {
+    justify-content: space-between;
+  }
+  
+  .items-center {
+    align-items: center;
+  }
+  .show-more-button {
+    background-color: #0ec6d5; 
+    color: white; 
+    padding: 4px 8px; 
+    border-radius: 20px; 
+    transition: background-color 0.3s, transform 0.2s; 
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1); 
+    font-weight: bold; 
+    cursor: pointer; 
+    font-size: 14px; 
+  }
+  
+  .show-more-button:hover {
+    background-color: #0ec6d5; 
+    transform: translateY(-1px); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  }
+  
+  
+  
+  .booking-card  img {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease; /* Thêm hiệu ứng chuyển động cho ảnh */
+  }
+  
+  .booking-card  {
+    width: 150px; /* Đặt chiều rộng cụ thể cho phần tử chứa */
+    height: 130px; /* Đặt chiều cao cụ thể cho phần tử chứa */
+    overflow: hidden; /* Ẩn phần ảnh vượt quá kích thước */
+    margin-right: 16px; /* Thêm khoảng cách giữa ảnh và nội dung */
+  }
+  
+  .booking-card img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+  }
+  .featured-booking-card {
+    width: 200px; /* Tăng kích thước cho chủ trọ nổi bật */
+    height: 150px;
+    overflow: hidden;
+    border-radius: 5px;
+    position: relative;
+  }
+  
+  .featured-booking-card img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    transform: scale(1.2); /* Phóng to hình ảnh */
+    transform-origin: center; /* Giữ tỷ lệ từ trung tâm */
+  }
+  
+  .booking-card {
+    width: 120px; /* Kích thước nhỏ hơn cho danh sách chủ trọ */
+    height: 110px;
+    overflow: hidden;
+    margin-right: 16px;
+  }
+  
+  .booking-card img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  .title-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

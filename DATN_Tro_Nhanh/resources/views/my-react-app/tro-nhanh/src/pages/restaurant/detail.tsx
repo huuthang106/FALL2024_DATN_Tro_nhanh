@@ -68,28 +68,18 @@ function RestaurantDetail() {
             style={{ marginTop: -60 }}
           >
             <Text className="font-bold">{restaurant.title}</Text>
-            <Text className="text-gray-500">{restaurant.address}</Text>
+            
             <Box flex justifyContent="center" mt={0} py={3}>
-              <Button
               
-                variant="tertiary"
-              >
-                <span className="text-primary">
-                {filteredCategories.map((category) => (
-                    <span key={category.id} className="mr-3">
-                      {category.name} {/* Hiển thị tên category */}
-                    </span>
-                  ))}
-                </span>
-              </Button>
-              <Button
                
-                variant="tertiary"
-              >
+              
+             
+               
+              
                 <span className="text-primary">
                 {formatCurrency(restaurant.price)}
                 </span>
-              </Button>
+              
             </Box>
             <Box flex justifyContent="center" mb={0}>
               {/* <TabItem tab="info">Thông tin</TabItem> */}

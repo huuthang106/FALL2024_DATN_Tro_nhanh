@@ -1,6 +1,6 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { Box, Page, Text } from "zmp-ui";
+import { Box, Page, Text, Button } from "zmp-ui";
 import BookingItem from "../components/book/booking";
 import { bookingsState } from "../state";
 import { useNavigate } from "react-router-dom"; // Sử dụng useNavigate thay vì useHistory
@@ -17,10 +17,16 @@ function CalendarPage() {
     return allBookings;
   }, [allBookings]);
 
+  const [visibleCount, setVisibleCount] = useState(5); // State để quản lý số lượng hiển thị
+
+  const handleShowMore = () => {
+    setVisibleCount((prevCount) => prevCount + 10); // Tăng số lượng hiển thị
+  };
+
   return (
     <Page className="min-h-0">
       <div className="container mx-auto px-2">
-        <Text size="large" className="font-semibold mb-4 px-4">
+        <Text size="large" className="font-semibold mb-3 mt-4 px-4">
           Chủ trọ nổi bật
         </Text>
         <div className="overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar mb-4">
@@ -36,7 +42,7 @@ function CalendarPage() {
                   ml={4}
                   mr={0}
                   className="snap-start transition-transform duration-300 transform hover:scale-105"
-                  style={{ width: "calc(100vw - 120px)" }}
+                  style={{ width: "calc(80vw - 80px)" }}
                 >
                   <BookingItem
                     booking={booking}
@@ -58,7 +64,7 @@ function CalendarPage() {
               Chưa có chủ trọ nào
             </Box>
           ) : (
-            allLandlords.map((booking) => (
+            allLandlords.slice(0, visibleCount).map((booking) => (
               <Box key={booking.id} my={4}>
                 <BookingItem
                   booking={booking}
@@ -66,6 +72,13 @@ function CalendarPage() {
                 />
               </Box>
             ))
+          )}
+          {visibleCount < allLandlords.length && (
+            <div className="flex justify-center mt-2 mb-4">
+              <Button onClick={handleShowMore} className="show-more-button">
+                Xem thêm
+              </Button>
+            </div>
           )}
         </Box>
       </div>

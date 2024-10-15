@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { Box, Text, Icon } from "zmp-ui";
-
+import '../../css/style.css';
 const { Title } = Text;
 const apiEndpoint = 'https://tronhanh.com';
 
@@ -44,20 +44,20 @@ const BookingItem: FunctionComponent<BookingProps> = React.memo(({ booking, onCl
     <div
       onClick={onClick}
       className="bg-white rounded-xl shadow-md overflow-hidden p-4 mb-4 transition-transform transform hover:scale-105"
-      style={{ minWidth: '250px', marginRight: '16px', height: '100%' }}
+      style={{ minWidth: '200px', marginRight: '16px', height: '90%' }}
     >
       <Box m={0} flexDirection={isFeatured ? "column" : "row"} alignItems="center">
-        <div className={isFeatured ? "w-full overflow-hidden mb-4" : "w-1/3 overflow-hidden"}>
+        <div className={isFeatured ? "w-full overflow-hidden mb-4 featured-booking-card" : "w-1/3 overflow-hidden booking-card"}>
           <img
             src={
               booking.image ? `${apiEndpoint}/assets/images/${booking.image}` : `${apiEndpoint}/assets/images/agent-25.jpg`
             }
             alt={booking.name}
             className="object-cover"
-            style={{ width: '100%', height: 'auto', maxWidth: '300px', maxHeight: '200px' }}
+          
           />
         </div>
-        <Box className={`min-w-0 ml-3 flex-1 ${isFeatured ? "text-center" : ""}`}>
+        <Box className={`min-w-0 ml-1 flex-1 ${isFeatured ? "text-center" : ""}`}>
           <Title size="medium" className="font-semibold">{booking.name}</Title>
           <br />
           <Text size="small" className="text-gray-500">

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+
 import { Box, Icon, Text } from "zmp-ui";
 import Time from "../../components/format/time";
 import Day from "../../components/format/day";
@@ -18,6 +19,15 @@ function formatDateTime(dateTime: string) {
 }
 
 function Information({ restaurant }: { restaurant: Restaurant }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  const description = isExpanded
+    ? restaurant.description
+    : restaurant.description.slice(0, 300);
   // Chuyển đổi latitude và longitude thành số
 const latitude = parseFloat(restaurant.latitude); // Chuyển đổi latitude thành số
 const longitude = parseFloat(restaurant.longitude); // Chuyển đổi longitude thành số
@@ -31,7 +41,12 @@ const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${lati
           Thông tin
         </Title>
         <Text>
-        {restaurant.description}
+          {description}
+          {restaurant.description.length > 300 && (
+            <span onClick={toggleExpand} className="text-blue-500 cursor-pointer">
+              {isExpanded ? " Thu gọn" : " Xem thêm"}
+            </span>
+          )}
         </Text>
       </Box>
       <Box mx={2} mt={6}>
@@ -78,24 +93,7 @@ const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${lati
             {restaurant.address}
           </span>
         </Box>
-        <Box mt={2}>
-         <a 
-            href={googleMapsUrl} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="text-blue-500 underline"
-            style={{
-              backgroundColor: 'white',
-              padding: '5px 10px',
-              borderRadius: '5px',
-              boxShadow: '0 2px 5px rgba(0, 0, 0, 0.3)',
-              zIndex: 10,
-              textDecoration: 'none',
-            }}
-          >
-            Xem bản đồ lớn
-          </a>
-        </Box>
+        
         {/* <iframe
           className="w-full aspect-cinema rounded-xl border-none"
           src={restaurant.map}

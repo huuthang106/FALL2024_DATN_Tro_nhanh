@@ -16,7 +16,7 @@
     "statusBar": "transparent"
   },
   "template": {
-    "primaryColor": "",
+    "primaryColor": "#0ec6d5",
     "secondaryColor": "",
     "serviceFee": "25000",
     "searchBar": true
