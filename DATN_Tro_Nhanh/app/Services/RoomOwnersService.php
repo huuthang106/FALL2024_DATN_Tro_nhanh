@@ -10,7 +10,7 @@ use App\Models\Category;
 use App\Models\Price;
 use App\Models\Location;
 use App\Models\Zone;
-use App\Models\Image;
+
 use App\Models\Resident;
 use App\Models\Utility;
 use Cocur\Slugify\Slugify;
@@ -82,10 +82,10 @@ class RoomOwnersService
     {
         return Zone::all();
     }
-    public function getRoomImages($roomId)
-    {
-        return Image::where('room_id', $roomId)->get();
-    }
+    // public function getRoomImages($roomId)
+    // {
+    //     return Image::where('room_id', $roomId)->get();
+    // }
     // Phương thức để lấy thông tin phòng theo ID
     public function getRoomById($id)
     {
@@ -233,168 +233,168 @@ class RoomOwnersService
             ->firstOrFail();
     }
     // Cập nhật
-    public function update($request, $roomId)
-    {
-        if (auth()->check()) {
-            // Tìm phòng theo ID
-            $room = Room::find($roomId);
-            if (!$room) {
-                return false; // Nếu phòng không tồn tại
-            }
+    // public function update($request, $roomId)
+    // {
+    //     if (auth()->check()) {
+    //         // Tìm phòng theo ID
+    //         $room = Room::find($roomId);
+    //         if (!$room) {
+    //             return false; // Nếu phòng không tồn tại
+    //         }
 
-            // Cập nhật thông tin phòng
-            $room->title = $request->input('title');
-            $room->description = $request->input('description');
-            $room->price = $request->input('price');
-            $room->phone = $request->input('phone');
-            $room->address = $request->input('address');
-            $room->acreage = $request->input('acreage');
-            $room->quantity = $request->input('quantity');
-            $room->view = $request->input('view');
+    //         // Cập nhật thông tin phòng
+    //         $room->title = $request->input('title');
+    //         $room->description = $request->input('description');
+    //         $room->price = $request->input('price');
+    //         $room->phone = $request->input('phone');
+    //         $room->address = $request->input('address');
+    //         $room->acreage = $request->input('acreage');
+    //         $room->quantity = $request->input('quantity');
+    //         $room->view = $request->input('view');
 
-            $room->province = $request->input('province');
-            $room->district = $request->input('district');
-            $room->village = $request->input('village');
-            $room->longitude = $request->input('longitude');
-            $room->latitude = $request->input('latitude');
-            $room->category_id = $request->input('category_id');
-            $room->location_id = $request->input('location_id');
+    //         $room->province = $request->input('province');
+    //         $room->district = $request->input('district');
+    //         $room->village = $request->input('village');
+    //         $room->longitude = $request->input('longitude');
+    //         $room->latitude = $request->input('latitude');
+    //         $room->category_id = $request->input('category_id');
+    //         $room->location_id = $request->input('location_id');
 
-            $room->price_id = $request->input('price_id');
-            $room->zone_id = $request->input('zone_id');
+    //         $room->price_id = $request->input('price_id');
+    //         $room->zone_id = $request->input('zone_id');
 
-            // Cập nhật tiện ích
-            // Lấy thông tin tiện ích hiện tại
-            $utilities = Utility::where('room_id', $roomId)->first();
+    //         // Cập nhật tiện ích
+    //         // Lấy thông tin tiện ích hiện tại
+    //         $utilities = Utility::where('room_id', $roomId)->first();
 
-            if ($utilities) {
-                // Cập nhật thông tin tiện ích
-                $utilities->wifi = $request->has('wifi') ? self::CO : self::CHUA_CO;
-                $utilities->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
-                $utilities->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
-                $utilities->bathrooms = $request->has('bathrooms') ? self::CO : self::CHUA_CO;
-                // $utilities->bathrooms = $request->input('bathrooms', 0); // Số lượng phòng tắm
-                $utilities->save();
-            } else {
-                // Nếu không có tiện ích, tạo mới
-                $utilities = new Utility();
-                $utilities->room_id = $roomId;
-                $utilities->wifi = $request->has('wifi') ? self::CO : self::CHUA_CO;
-                $utilities->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
-                $utilities->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
-                $utilities->bathrooms = $request->has('bathrooms') ? self::CO : self::CHUA_CO;
-                // $utilities->bathrooms = $request->input('bathrooms', 0); // Số lượng phòng tắm
-                $utilities->save();
-            }
+    //         if ($utilities) {
+    //             // Cập nhật thông tin tiện ích
+    //             $utilities->wifi = $request->has('wifi') ? self::CO : self::CHUA_CO;
+    //             $utilities->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
+    //             $utilities->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
+    //             $utilities->bathrooms = $request->has('bathrooms') ? self::CO : self::CHUA_CO;
+    //             // $utilities->bathrooms = $request->input('bathrooms', 0); // Số lượng phòng tắm
+    //             $utilities->save();
+    //         } else {
+    //             // Nếu không có tiện ích, tạo mới
+    //             $utilities = new Utility();
+    //             $utilities->room_id = $roomId;
+    //             $utilities->wifi = $request->has('wifi') ? self::CO : self::CHUA_CO;
+    //             $utilities->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
+    //             $utilities->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
+    //             $utilities->bathrooms = $request->has('bathrooms') ? self::CO : self::CHUA_CO;
+    //             // $utilities->bathrooms = $request->input('bathrooms', 0); // Số lượng phòng tắm
+    //             $utilities->save();
+    //         }
 
-            // Tạo slug từ tiêu đề và ID phòng
-            $slug = $this->createSlug($request->input('title')) . '-' . $roomId;
-            $room->slug = $slug;
-            // Lưu lại phòng với slug
-            if (!$room->save()) {
-                return false;
-            }
-            // Xử lý tải hình ảnh
-            if ($request->hasFile('images')) {
-                $images = $request->file('images');
-                $uploadedFilenames = []; // Để lưu trữ các tên file đã được tải lên
-                $violentImages = []; // Để lưu trữ tên các ảnh bạo lực
+    //         // Tạo slug từ tiêu đề và ID phòng
+    //         $slug = $this->createSlug($request->input('title')) . '-' . $roomId;
+    //         $room->slug = $slug;
+    //         // Lưu lại phòng với slug
+    //         if (!$room->save()) {
+    //             return false;
+    //         }
+    //         // Xử lý tải hình ảnh
+    //         if ($request->hasFile('images')) {
+    //             $images = $request->file('images');
+    //             $uploadedFilenames = []; // Để lưu trữ các tên file đã được tải lên
+    //             $violentImages = []; // Để lưu trữ tên các ảnh bạo lực
 
-                // Xóa tất cả ảnh cũ của phòng
-                $oldImages = Image::where('room_id', $roomId)->get();
-                foreach ($oldImages as $oldImage) {
-                    $oldImagePath = public_path('assets/images/' . $oldImage->filename);
-                    if (file_exists($oldImagePath)) {
-                        unlink($oldImagePath);
-                    }
-                    $oldImage->delete();
-                }
+    //             // Xóa tất cả ảnh cũ của phòng
+    //             $oldImages = Image::where('room_id', $roomId)->get();
+    //             foreach ($oldImages as $oldImage) {
+    //                 $oldImagePath = public_path('assets/images/' . $oldImage->filename);
+    //                 if (file_exists($oldImagePath)) {
+    //                     unlink($oldImagePath);
+    //                 }
+    //                 $oldImage->delete();
+    //             }
 
-                foreach ($images as $image) {
-                    // Tạo tên file mới với timestamp
-                    $timestamp = now()->format('YmdHis');
-                    $originalName = $image->getClientOriginalName();
-                    $extension = $image->getClientOriginalExtension();
-                    $filename = $timestamp . '_' . pathinfo($originalName, PATHINFO_FILENAME) . '.' . $extension;
+    //             foreach ($images as $image) {
+    //                 // Tạo tên file mới với timestamp
+    //                 $timestamp = now()->format('YmdHis');
+    //                 $originalName = $image->getClientOriginalName();
+    //                 $extension = $image->getClientOriginalExtension();
+    //                 $filename = $timestamp . '_' . pathinfo($originalName, PATHINFO_FILENAME) . '.' . $extension;
 
-                    // Kiểm tra nội dung bạo lực
-                    $imageContent = base64_encode(file_get_contents($image->getRealPath()));
-                    try {
-                        $response = $this->client->post('models/moderation-recognition/outputs', [
-                            'json' => [
-                                'inputs' => [
-                                    [
-                                        'data' => [
-                                            'image' => [
-                                                'base64' => $imageContent
-                                            ]
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]);
+    //                 // Kiểm tra nội dung bạo lực
+    //                 $imageContent = base64_encode(file_get_contents($image->getRealPath()));
+    //                 try {
+    //                     $response = $this->client->post('models/moderation-recognition/outputs', [
+    //                         'json' => [
+    //                             'inputs' => [
+    //                                 [
+    //                                     'data' => [
+    //                                         'image' => [
+    //                                             'base64' => $imageContent
+    //                                         ]
+    //                                     ]
+    //                                 ]
+    //                             ]
+    //                         ]
+    //                     ]);
 
-                        $result = json_decode($response->getBody(), true);
-                        $concepts = $result['outputs'][0]['data']['concepts'] ?? [];
-                        $violenceScore = 0;
+    //                     $result = json_decode($response->getBody(), true);
+    //                     $concepts = $result['outputs'][0]['data']['concepts'] ?? [];
+    //                     $violenceScore = 0;
 
-                        $inappropriateContent = ['gore', 'explicit', 'drug', 'suggestive', 'weapon'];
+    //                     $inappropriateContent = ['gore', 'explicit', 'drug', 'suggestive', 'weapon'];
 
-                        foreach ($concepts as $concept) {
-                            if (in_array($concept['name'], $inappropriateContent)) {
-                                $violenceScore += $concept['value'];
-                            }
-                        }
+    //                     foreach ($concepts as $concept) {
+    //                         if (in_array($concept['name'], $inappropriateContent)) {
+    //                             $violenceScore += $concept['value'];
+    //                         }
+    //                     }
 
-                        if ($violenceScore > 0.5) {
-                            $violentImages[] = $originalName;
-                            continue; // Bỏ qua ảnh này và chuyển sang ảnh tiếp theo
-                        }
+    //                     if ($violenceScore > 0.5) {
+    //                         $violentImages[] = $originalName;
+    //                         continue; // Bỏ qua ảnh này và chuyển sang ảnh tiếp theo
+    //                     }
 
-                        // Kiểm tra xem ảnh đã tồn tại trong cơ sở dữ liệu chưa
-                        if (!in_array($filename, $uploadedFilenames)) {
-                            // Lưu ảnh vào thư mục public/assets/images
-                            $image->move(public_path('assets/images'), $filename);
-                            // Lưu thông tin ảnh vào cơ sở dữ liệu
-                            $imageModel = new Image();
-                            $imageModel->room_id = $roomId;
-                            $imageModel->filename = $filename;
-                            $imageModel->save();
-                            // Thêm tên file vào danh sách đã tải lên
-                            $uploadedFilenames[] = $filename;
-                        }
-                    } catch (\Exception $e) {
-                        \Log::error("Error processing image: " . $e->getMessage());
-                        return [
-                            'success' => false,
-                            'message' => 'Có lỗi xảy ra khi xử lý ảnh: ' . $e->getMessage()
-                        ];
-                    }
-                }
+    //                     // Kiểm tra xem ảnh đã tồn tại trong cơ sở dữ liệu chưa
+    //                     if (!in_array($filename, $uploadedFilenames)) {
+    //                         // Lưu ảnh vào thư mục public/assets/images
+    //                         $image->move(public_path('assets/images'), $filename);
+    //                         // Lưu thông tin ảnh vào cơ sở dữ liệu
+    //                         $imageModel = new Image();
+    //                         $imageModel->room_id = $roomId;
+    //                         $imageModel->filename = $filename;
+    //                         $imageModel->save();
+    //                         // Thêm tên file vào danh sách đã tải lên
+    //                         $uploadedFilenames[] = $filename;
+    //                     }
+    //                 } catch (\Exception $e) {
+    //                     \Log::error("Error processing image: " . $e->getMessage());
+    //                     return [
+    //                         'success' => false,
+    //                         'message' => 'Có lỗi xảy ra khi xử lý ảnh: ' . $e->getMessage()
+    //                     ];
+    //                 }
+    //             }
 
-                if (!empty($violentImages)) {
-                    // Xóa các ảnh đã upload
-                    foreach ($uploadedFilenames as $filename) {
-                        $path = public_path('assets/images/' . $filename);
-                        if (file_exists($path)) {
-                            unlink($path);
-                        }
-                        // Xóa bản ghi trong cơ sở dữ liệu
-                        Image::where('room_id', $roomId)->where('filename', $filename)->delete();
-                    }
+    //             if (!empty($violentImages)) {
+    //                 // Xóa các ảnh đã upload
+    //                 foreach ($uploadedFilenames as $filename) {
+    //                     $path = public_path('assets/images/' . $filename);
+    //                     if (file_exists($path)) {
+    //                         unlink($path);
+    //                     }
+    //                     // Xóa bản ghi trong cơ sở dữ liệu
+    //                     Image::where('room_id', $roomId)->where('filename', $filename)->delete();
+    //                 }
 
-                    return [
-                        'success' => false,
-                        'message' => 'Phát hiện ảnh không phù hợp: ' . implode(', ', $violentImages) . '. Vui lòng kiểm tra lại ảnh của bạn.'
-                    ];
-                }
-            }
+    //                 return [
+    //                     'success' => false,
+    //                     'message' => 'Phát hiện ảnh không phù hợp: ' . implode(', ', $violentImages) . '. Vui lòng kiểm tra lại ảnh của bạn.'
+    //                 ];
+    //             }
+    //         }
 
-            return ['success' => true];
-        } else {
-            return false; // Nếu người dùng chưa đăng nhập, trả về false
-        }
-    }
+    //         return ['success' => true];
+    //     } else {
+    //         return false; // Nếu người dùng chưa đăng nhập, trả về false
+    //     }
+    // }
 
     public function softDeleteRoom($id)
     {

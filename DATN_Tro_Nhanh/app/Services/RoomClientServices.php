@@ -473,16 +473,16 @@ class RoomClientServices
     //         ->take($limit)
     //         ->get();
     // }
-    public function getRoomImages($roomId)
-    {
-        try {
-            $room = Room::findOrFail($roomId);
-            return $room->images;
-        } catch (\Exception $e) {
-            Log::error('Error in getRoomImages: ' . $e->getMessage());
-            return [];
-        }
-    }
+    // public function getRoomImages($roomId)
+    // {
+    //     try {
+    //         $room = Room::findOrFail($roomId);
+    //         return $room->images;
+    //     } catch (\Exception $e) {
+    //         Log::error('Error in getRoomImages: ' . $e->getMessage());
+    //         return [];
+    //     }
+    // }
 
     public function getRoomWhere()
     {

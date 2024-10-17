@@ -257,16 +257,16 @@
                                         @foreach ($popularZones as $zone)
                                         <div class="box px-0">
                                             <div class="card border-0">
-                                                @if ($zone->images->isNotEmpty())
+                                                {{-- @if ($zone->images->isNotEmpty())
                                                     @php
                                                         $image = $zone->images->first();
                                                     @endphp
-                                                    <img src="{{ asset('assets/images/' . $image->filename) }}"
+                                                    <img src="{{ asset('assets/images/' . $image->image) }}"
                                                         alt="{{ $zone->title }}" class="property-image">
                                                 @else
                                                     <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
                                                         alt="{{ $zone->title }}" class="property-image">
-                                                @endif
+                                                @endif --}}
                                                 <div class="card-img-overlay d-flex flex-column bg-gradient-3 rounded-lg">
                                                     @if ($zone->vip_expiry_date > now())
                                                         <div class="d-flex mb-auto">
@@ -274,8 +274,8 @@
                                                         </div>
                                                     @endif
                                                     <div class="px-2 pb-2">
-                                                        <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}"
-                                                            class="text-white">
+                                                        {{-- <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}"
+                                                            class="text-white"> --}}
                                                             <h5 class="card-title fs-16 lh-2 mb-0">
                                                                 <small>{{ Str::limit($zone->title, 50) }}</small>
                                                             </h5>

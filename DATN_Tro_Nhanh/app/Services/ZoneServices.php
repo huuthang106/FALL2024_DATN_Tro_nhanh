@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Room;
 use Illuminate\Support\Facades\Storage;
 use App\Events\Admin\ZoneUpdated;
-use App\Models\Utility;
+// use App\Models\Utility;
 use App\Models\Bill;
 use Illuminate\Support\Facades\Auth;
 use Exception;
@@ -38,7 +38,7 @@ class ZoneServices
     public function getRoomUtilities($zoneId)
     {
         // Giả sử bạn đã có model `Utility`
-        return Utility::where('zone_id', $zoneId)->first();
+        // return Utility::where('zone_id', $zoneId)->first();
     }
     public function store($request)
     {
@@ -121,13 +121,13 @@ class ZoneServices
                         }
                     }
 
-                    $utilities = new Utility();
-                    $utilities->zone_id = $zoneId;
-                    $utilities->wifi = $request->has('wifi') ? self::CO : self::CHUA_CO;
-                    $utilities->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
-                    $utilities->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
-                    $utilities->bathrooms = $request->input('bathrooms', 0);
-                    $utilities->save();
+                    // $utilities = new Utility();
+                    // $utilities->zone_id = $zoneId;
+                    // $utilities->wifi = $request->has('wifi') ? self::CO : self::CHUA_CO;
+                    // $utilities->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
+                    // $utilities->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
+                    // $utilities->bathrooms = $request->input('bathrooms', 0);
+                    // $utilities->save();
 
                     return ['success' => true, 'zone' => $zone];
                 } else {
@@ -192,8 +192,8 @@ public function getPopularZones($limit = 3)
 {
     $currentDate = Carbon::now();
 
-    return Zone::with('images')
-        ->where('status', self::status) // Đảm bảo rằng bạn có hằng số `status` trong dịch vụ Zone
+    return Zone::
+        where('status', self::status) // Đảm bảo rằng bạn có hằng số `status` trong dịch vụ Zone
         ->where(function ($query) use ($currentDate) {
             $query->where('vip_expiry_date', '>', $currentDate)
                 ->orWhereNull('vip_expiry_date');
@@ -268,27 +268,27 @@ public function getPopularZones($limit = 3)
      * @param \Illuminate\Http\UploadedFile $image
      * @return void
      */
-    protected function storeImage(Zone $zone, $image)
-    {
-        // $path = $image->store('zones', 'public');
-        // // Giả sử bạn có mối quan hệ với bảng ảnh
-        // $zone->images()->create(['path' => $path]);
-        // Tạo tên file mới với timestamp
-        $timestamp = now()->format('YmdHis');
-        $originalName = $image->getClientOriginalName();
-        $extension = $image->getClientOriginalExtension();
-        $filename = $timestamp . '_' . pathinfo($originalName, PATHINFO_FILENAME) . '.' . $extension;
+    // protected function storeImage(Zone $zone, $image)
+    // {
+    //     // $path = $image->store('zones', 'public');
+    //     // // Giả sử bạn có mối quan hệ với bảng ảnh
+    //     // $zone->images()->create(['path' => $path]);
+    //     // Tạo tên file mới với timestamp
+    //     $timestamp = now()->format('YmdHis');
+    //     $originalName = $image->getClientOriginalName();
+    //     $extension = $image->getClientOriginalExtension();
+    //     $filename = $timestamp . '_' . pathinfo($originalName, PATHINFO_FILENAME) . '.' . $extension;
 
-        // Lưu ảnh vào thư mục public/assets/images với tên mới
-        $path = 'assets/images/' . $filename;
-        $image->move(public_path('assets/images'), $filename);
+    //     // Lưu ảnh vào thư mục public/assets/images với tên mới
+    //     $path = 'assets/images/' . $filename;
+    //     $image->move(public_path('assets/images'), $filename);
 
-        // Tạo bản ghi mới trong bảng images
-        $zone->images()->create([
-            'filename' => $filename,
-            'path' => $path
-        ]);
-    }
+    //     // Tạo bản ghi mới trong bảng images
+    //     $zone->images()->create([
+    //         'filename' => $filename,
+    //         'path' => $path
+    //     ]);
+    // }
     public function getAllZones(int $perPage = 10, $searchTerm = null)
     {
         try {
@@ -636,7 +636,7 @@ public function getPopularZones($limit = 3)
     }
     public function searchZonesWithinRadius($latitude = null, $longitude = null, $radius = 30, $perPage = 10)
     {
-        $query = Zone::with('utilities');
+        $query = Zone::query();
 
         if ($latitude && $longitude) {
             $haversine = "(6371 * acos(cos(radians($latitude)) * cos(radians(latitude)) * cos(radians(longitude) - radians($longitude)) + sin(radians($latitude)) * sin(radians(latitude))))";
