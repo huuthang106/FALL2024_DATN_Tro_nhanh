@@ -62,18 +62,9 @@ class Zone extends Model
     {
         return $this->hasMany(Resident::class);
     }
-    // public function images()
-    // {
-    //     return $this->hasMany(Image::class);
-    // }
-    public function utilities()
-    {
-        return $this->hasMany(Utility::class, 'zone_id');
-    }
-    public function utility()
-    {
-        return $this->hasOne(Utility::class);
-    }
+  
+  
+   
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -91,4 +82,5 @@ class Zone extends Model
     {
         return $this->rooms->pluck('images')->flatten()->filter()->values()->all();
     }
+    
 }

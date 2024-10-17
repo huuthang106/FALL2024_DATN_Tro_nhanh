@@ -20,7 +20,7 @@ class ZoneClientService
     {
         try {
             $zone = Zone::findOrFail($zoneId);
-            return $zone->all_images;
+            return $zone;
         } catch (\Exception $e) {
             Log::error('Error in getZoneImages: ' . $e->getMessage());
             return [];
