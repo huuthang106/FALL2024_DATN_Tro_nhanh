@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Room;
+use App\Models\Zone;
 use Carbon\Carbon;
 
 class RoomPagination extends Component
@@ -37,7 +38,7 @@ class RoomPagination extends Component
 
     public function render()
     {
-        $query = Room::query();
+        $query = Zone::query();
         $query->where('status', self::hienthidulieu);
 
         // Tìm kiếm theo nhiều trường
@@ -88,7 +89,7 @@ class RoomPagination extends Component
         $rooms = $query->paginate($this->perPage);
 
         return view('livewire.room-pagination', [
-            'rooms' => $rooms,
+            'zones' => $rooms,
         ]);
     }
     public function approveSelectedRooms($selectedIds)

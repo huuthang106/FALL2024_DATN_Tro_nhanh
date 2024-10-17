@@ -296,4 +296,61 @@ class RoomClientController extends Controller
             'rooms' => $rooms,
         ]);
     }
+    // public function page_detail_admin($slug)
+    // {
+    //     $roomDetails = $this->CommentClientService->getRoomDetailsWithRatings($slug);
+    //     $user = $roomDetails['room']->user;
+
+    //     $userId = auth()->id();
+    //     $identity = Identity::where('user_id', $userId)->first();
+
+    //     $zone = $roomDetails['room']->zone;
+
+    //     $comments = $roomDetails['comments'];
+
+    //     $utilities = $roomDetails['room']->utility;
+    //     $province = $roomDetails['room']->province;
+    //     $locations = $this->roomClientService->getUniqueLocations();
+    //     $categories = $this->roomClientService->getCategories();
+    //     // Tăng lượt xem cho phòng
+    //     $this->roomClientService->incrementViewCount($roomDetails['room']->id);
+    //     // Trong controller
+    //     $similarRooms = $this->roomClientService->getRoomClient($province, $roomDetails['room']->id);
+
+    //     // Lấy thông tin tiện ích cho từng phòng
+    //     foreach ($similarRooms as $room) {
+    //         $utilitiesRoom[] = $room->utility;
+    //     }
+    //     // Kiểm tra xem yêu cầu có phải là AJAX hay không
+    //     if (request()->ajax() || request()->wantsJson()) {
+    //         return response()->json([
+    //             'room' => $roomDetails['room'],
+    //             'averageRating' => $roomDetails['averageRating'],
+    //             'ratingsDistribution' => $roomDetails['ratingsDistribution'],
+    //             // 'comments' => $comments,
+    //             'user' => $user,
+    //             'identity' => $identity,
+    //             'zone' => $zone,
+    //             'utilities' => $utilities,
+    //             'similarRooms' => $similarRooms,
+    //             'slug' => $slug
+    //         ]);
+    //     }
+
+    //     // Nếu không phải là AJAX, trả về view
+    //     return view('client.show.single-propety', [
+    //         'categories' => $categories,
+    //         'rooms' => $roomDetails['room'],
+    //         'averageRating' => $roomDetails['averageRating'],
+    //         'ratingsDistribution' => $roomDetails['ratingsDistribution'],
+    //         'comments' => $comments,
+    //         'user' => $user,
+    //         'identity' => $identity,
+    //         'zone' => $zone,  // Truyền thông tin zone sang view
+    //         'utilities' => $utilities,
+    //         'similarRooms' => $similarRooms,
+    //         'provinces' => $locations['provinces'],
+    //         'province' => request()->input('province', '')
+    //     ]);
+    // }
 }

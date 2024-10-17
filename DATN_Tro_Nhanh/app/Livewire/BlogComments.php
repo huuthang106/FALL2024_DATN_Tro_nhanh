@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Blog;
 use App\Models\Comment;
+use App\Models\CommentBlogs;
 use Illuminate\Support\Facades\Auth;
 
 class BlogComments extends Component
@@ -29,7 +30,7 @@ class BlogComments extends Component
     public function deleteComment($commentId)
     {
         try {
-            $comment = Comment::where('id', $commentId)
+            $comment = CommentBlogs::where('id', $commentId)
                 ->where('user_id', Auth::id())
                 ->firstOrFail();
 

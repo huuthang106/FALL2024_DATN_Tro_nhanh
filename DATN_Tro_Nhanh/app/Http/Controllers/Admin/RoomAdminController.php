@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Services\RoomAdminService;
+use App\Services\ZoneServices;
 use App\Http\Requests\CreateRoomRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
@@ -19,11 +20,13 @@ class RoomAdminController extends Controller
     protected $roomAdminService;
     protected $categoryAdminService;
     protected $indexAdminService;
-    public function __construct(RoomAdminService $roomAdminService, CategoryAdminService $categoryAdminService, IndexAdminService $indexAdminService)
+    protected $indexZoneServices;
+    public function __construct(ZoneServices $zoneAdminServices,RoomAdminService $roomAdminService, CategoryAdminService $categoryAdminService, IndexAdminService $indexAdminService)
     {
         $this->roomAdminService = $roomAdminService;
         $this->categoryAdminService = $categoryAdminService;
         $this->indexAdminService = $indexAdminService;
+        $this->indexZoneServices = $zoneAdminServices;
     }   
     public function index()
     {
@@ -176,14 +179,14 @@ class RoomAdminController extends Controller
     }
     public function getroom()
     {
-        // Lấy danh sách phòng với status = 2
-        $rooms = $this->roomAdminService->getRoomsWithStatus(1);
-
-        if ($rooms === null) {
+        // Lấy danh sách phòng với status = 1
+        $zones = $this->indexZoneServices->getRoomsWithStatus(1);
+ 
+        if ($zones === null || empty($zones)) {
             return response()->json(['message' => 'Không thể lấy danh sách phòng.'], 500);
         }
-
-        return view('admincp.show.showAcceptRoom', compact('rooms'));
+ 
+        return view('admincp.show.showAcceptRoom', compact('zones'));
     }
     public function approveRoom(string $id)
     {

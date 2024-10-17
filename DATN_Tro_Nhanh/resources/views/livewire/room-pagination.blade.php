@@ -529,10 +529,11 @@
                                             </label>
                                         </th>
                                         <th class="min-w-125px">Ảnh</th>
-                                        <th class="min-w-125px">Tiêu Đề</th>
-
+                                        <th class="min-w-125px">Tên Phòng</th>
+                                        <th class="min-w-125px">Mô tả</th>
+                                        <th class="min-w-125px">Số điện thoại</th>
                                         {{-- <th class="min-w-125px">Số lượng</th> --}}
-                                        <th class="min-w-125px">Giá</th>
+                                        {{-- <th class="min-w-125px">Giá</th> --}}
                                         <th class="min-w-125px">Địa chỉ</th>
                                         <th class="text-end min-w-110px">Tác vụ</th>
                                     </tr>
@@ -542,13 +543,8 @@
                                 <!--begin::Table body-->
                                 <tbody class="text-gray-600 fw-bold">
                                     <!--begin::Table row-->
-                                    @if ($rooms->isEmpty())
-                                        <!-- Hiển thị khi không có dữ liệu -->
-                                        <tr>
-                                            <td colspan="7" class="text-center">Không có dữ liệu.</td>
-                                        </tr>
-                                    @else
-                                        @foreach ($rooms as $room)
+                                    
+                                        @foreach ($zones as $zone)
                                             <tr>
                                                 <!--begin::Checkbox-->
 
@@ -557,26 +553,22 @@
                                                 <td>
                                                     <label class="new-control new-checkbox checkbox-primary m-auto">
                                                         <input type="checkbox" class="child-chk new-control-input"
-                                                            data-id="{{ $room->id }}" onclick="updateSelectAll()">
+                                                            data-id="{{ $zone->id }}" onclick="updateSelectAll()">
                                                         <span class="new-control-indicator"></span>
                                                     </label>
                                                 </td>
                                                 <td class="d-flex align-items-center min-w-125px">
                                                     <!--begin:: Avatar -->
                                                     <div class="symbol symbol-100px overflow-hidden me-3">
-                                                        <a
-                                                            href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
+                                                        <a href=" {{ route('client.detail-room', ['slug' => $zone->slug]) }}">
+                                                           
                                                             <div class="symbol-label">
-                                                                @if ($room->images->isNotEmpty())
-                                                                    @php
-                                                                        // Get the first image
-                                                                        $image = $room->images->first();
-                                                                    @endphp
-                                                                    <img src="{{ asset('assets/images/' . $image->filename) }}"
-                                                                        alt="{{ $room->title }}">
+                                                                @if (!empty($zone->image_filename))
+                                                                    <img src="{{ asset('assets/images/' . $zone->image_filename) }}"
+                                                                        alt="{{ $zone->title }}">
                                                                 @else
                                                                     <img src="{{ asset('assets/images/blog-details.jpg') }}"
-                                                                        alt="{{ $room->title }}">
+                                                                        alt="{{ $zone->name }}">
                                                                 @endif
                                                             </div>
                                                         </a>
@@ -595,17 +587,17 @@
 
                                                 <!--end::Role=-->
                                                 <!--begin::Last login=-->
-                                                <td>
-                                                    {{ $room->title }}
-                                                </td>
+                                              
                                                 <!--end::Last login=-->
                                                 <!--begin::Two step=-->
 
                                                 <!--end::Two step=-->
+                                              <td>{{ !empty(trim($zone->name)) ? $zone->name : 'Không xác đinh'}}</td>
+                                               {{-- <td>{{ $zone->name }} </td> --}}
+                                                <td>{{ !empty(trim($zone->phone)) ? $zone->phone : 'Chưa có số điện thoại'}}</td>
+                                                <td>{{ !empty(trim($zone->description)) ? $zone->description : 'Chưa có mô tả'}}</td>
                                                 <!--begin::Joined-->
-                                                <td>{{ $room->price }} VND</td>
-                                                <!--begin::Joined-->
-                                                <td>{{ $room->address }}</td>
+                                                <td>{{!empty(trim($zone->address)) ? $zone->address : 'Chưa có địa chỉ'}}</td>
                                                 <!--begin::Action=-->
                                                 {{-- <td class="text-end text-nowrap">
                                                     <a href="#"
@@ -684,12 +676,12 @@
                                                                     <button type="submit"
                                                                         class="dropdown-item menu-link px-3 border-0 bg-transparent text-start w-100">Xóa</button>
                                                                 </form> --}}
-                                                                <a href="{{ route('admin.accept-room-admin', ['id' => $room->id]) }}"
+                                                                <a href="{{ route('admin.accept-room-admin', ['id' => $zone->id]) }}"
                                                                     class="dropdown-item menu-link px-3 border-0 bg-transparent text-start w-100">Duyệt</a>
                                                             </li>
                                                             <li class="menu-item px-3">
                                                                 <form
-                                                                    action="{{ route('admin.destroy-room', $room->id) }}"
+                                                                    action="{{ route('admin.destroy-room', $zone->id) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
@@ -703,7 +695,7 @@
                                                 <!--end::Action=-->
                                             </tr>
                                         @endforeach
-                                    @endif
+                             
                                     <!--end::Table row-->
                                     <!--begin::Table row-->
                                 </tbody>
@@ -713,81 +705,81 @@
                         </div>
                         <!--end::Table-->
                     </div>
-                    @if ($rooms->hasPages())
-                    <nav aria-label="Page navigation" class="mb-2">
-                        <ul class="pagination rounded-active justify-content-center mt-2">
-                            {{-- Nút về đầu --}}
-                            <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
-                                <a class="page-link hover-white" wire:click="previousPage"
-                                    wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')"><i
-                                        class="fas fa-angle-double-left"></i></a>
-                            </li>
-            
-                            {{-- Liên kết Trang Trước --}}
-                            {{-- <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
+                    @if ($zones->hasPages())
+                        <nav aria-label="Page navigation" class="mb-2">
+                            <ul class="pagination rounded-active justify-content-center mt-2">
+                                {{-- Nút về đầu --}}
+                                <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
+                                    <a class="page-link hover-white" wire:click="previousPage"
+                                        wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')"><i
+                                            class="fas fa-angle-double-left"></i></a>
+                                </li>
+
+                                {{-- Liên kết Trang Trước --}}
+                                {{-- <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
                                 <a class="page-link hover-white" wire:click="previousPage"
                                     wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')">
                                     < </a>
                             </li> --}}
-            
-                            @php    
-                                $totalPages = $rooms->lastPage();
-                                $currentPage = $rooms->currentPage();
-                                $visiblePages = 3; // Số trang hiển thị ở giữa
-                            @endphp
-            
-                            {{-- Trang đầu --}}
-                            <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
-                                <a class="page-link hover-white" wire:click="gotoPage(1)"
-                                    wire:loading.attr="disabled">1</a>
-                            </li>
-            
-                            {{-- Dấu ba chấm đầu --}}
-                            @if ($currentPage > $visiblePages)
-                                <li class="page-item disabled"><span class="page-link">...</span></li>
-                            @endif
-            
-                            {{-- Các trang giữa --}}
-                            @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
-                                @if ($i > 1 && $i < $totalPages)
-                                    <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
-                                        <a class="page-link hover-white"
-                                            wire:click="gotoPage({{ $i }})"
-                                            wire:loading.attr="disabled">{{ $i }}</a>
+
+                                @php
+                                    $totalPages = $zones->lastPage();
+                                    $currentPage = $zones->currentPage();
+                                    $visiblePages = 3; // Số trang hiển thị ở giữa
+                                @endphp
+
+                                {{-- Trang đầu --}}
+                                <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                                    <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                        wire:loading.attr="disabled">1</a>
+                                </li>
+
+                                {{-- Dấu ba chấm đầu --}}
+                                @if ($currentPage > $visiblePages)
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                @endif
+
+                                {{-- Các trang giữa --}}
+                                @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
+                                    @if ($i > 1 && $i < $totalPages)
+                                        <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                            <a class="page-link hover-white"
+                                                wire:click="gotoPage({{ $i }})"
+                                                wire:loading.attr="disabled">{{ $i }}</a>
+                                        </li>
+                                    @endif
+                                @endforeach
+
+                                {{-- Dấu ba chấm cuối --}}
+                                @if ($currentPage < $totalPages - ($visiblePages - 1))
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                @endif
+
+                                {{-- Trang cuối --}}
+                                @if ($totalPages > 1)
+                                    <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                                        <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
+                                            wire:loading.attr="disabled">{{ $totalPages }}</a>
                                     </li>
                                 @endif
-                            @endforeach
-            
-                            {{-- Dấu ba chấm cuối --}}
-                            @if ($currentPage < $totalPages - ($visiblePages - 1))
-                                <li class="page-item disabled"><span class="page-link">...</span></li>
-                            @endif
-            
-                            {{-- Trang cuối --}}
-                            @if ($totalPages > 1)
-                                <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
-                                    <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
-                                        wire:loading.attr="disabled">{{ $totalPages }}</a>
-                                </li>
-                            @endif
-            
-                            {{-- Liên kết Trang Tiếp --}}
-                            {{-- <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
+
+                                {{-- Liên kết Trang Tiếp --}}
+                                {{-- <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
                                 <a class="page-link hover-white" wire:click="nextPage"
                                     wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')"> >
                                 </a>
                             </li> --}}
-            
-                            {{-- Nút về cuối --}}
-                            <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
-                                <a class="page-link hover-white" wire:click="nextPage" wire:loading.attr="disabled"
-                                    rel="next" aria-label="@lang('pagination.next')"><i
-                                        class="fas fa-angle-double-right"></i></a>
-                            </li>
-                        </ul>
-                    </nav>
-                
-                @endif
+
+                                {{-- Nút về cuối --}}
+                                <li class="page-item {{ !$zones->hasMorePages() ? 'disabled' : '' }}">
+                                    <a class="page-link hover-white" wire:click="nextPage"
+                                        wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')"><i
+                                            class="fas fa-angle-double-right"></i></a>
+                                </li>
+                            </ul>
+                        </nav>
+
+                    @endif
 
 
 

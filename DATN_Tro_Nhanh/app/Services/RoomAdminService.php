@@ -355,30 +355,30 @@ class RoomAdminService
         return $room;
     }
 
-    public function getRoomsWithStatus(int $status, int $perPage = 10)
-    {
-        try {
-            return Room::where('status', $status)->paginate($perPage);
-        } catch (\Exception $e) {
-            Log::error('Không thể lấy danh sách phòng với status ' . $status . ': ' . $e->getMessage());
-            return null;
-        }
-    }
+    // public function getRoomsWithStatus(int $status, int $perPage = 10)
+    // {
+    //     try {
+    //         return Zone::where('status', $status)->paginate($perPage);
+    //     } catch (\Exception $e) {
+    //         Log::error('Không thể lấy danh sách phòng với status ' . $status . ': ' . $e->getMessage());
+    //         return null;
+    //     }
+    // }
 
     public function updateRoomStatus(int $id, int $newStatus)
     {
         try {
             // Tìm phòng theo id
-            $room = Room::where('id', $id)->firstOrFail();
+            $zones = Zone::where('id', $id)->firstOrFail();
 
             // Cập nhật status
-            $room->status = $newStatus;
-            $room->save();
+            $zones->status = $newStatus;
+            $zones->save();
 
             // Phát sự kiện
-            event(new RoomStatusUpdated($room, $newStatus));
+            event(new RoomStatusUpdated($zones, $newStatus));
 
-            return $room; // Trả về phòng đã được cập nhật
+            return $zones; // Trả về phòng đã được cập nhật
         } catch (\Exception $e) {
             Log::error('Không thể cập nhật status phòng với id ' . $id . ': ' . $e->getMessage());
             return null;

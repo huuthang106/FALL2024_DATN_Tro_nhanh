@@ -17,6 +17,7 @@ use App\Events\BillCreated;
 use GuzzleHttp\Client;
 use App\Models\Category;
 use Carbon\Carbon;
+
 class ZoneServices
 {
     const CO = 1; // Có tiện ích
@@ -60,7 +61,7 @@ class ZoneServices
             $zone->wifi = $request->input('wifi');
             $zone->air_conditioning = $request->input('air_conditioning');
             $zone->garage = $request->input('garage');
-            $zone->bathrooms = $request->input('bathrooms');    
+            $zone->bathrooms = $request->input('bathrooms');
 
             if ($zone->save()) {
                 $zoneId = $zone->id;
@@ -162,59 +163,58 @@ class ZoneServices
             ->get();
     }
     public function getUniqueLocations()
-{
-    try {
-        $provinces = Zone::distinct()->whereNotNull('province')->pluck('province', 'province')->toArray();
-        $districts = Zone::distinct()->whereNotNull('district')->select('province', 'district')->get()
-            ->groupBy('province')
-            ->map(function ($items) {
-                return $items->pluck('district')->toArray();
-            })
-            ->toArray();
-        $villages = Zone::distinct()->whereNotNull('village')->select('district', 'village')->get()
-            ->groupBy('district')
-            ->map(function ($items) {
-                return $items->pluck('village')->toArray();
-            })
-            ->toArray();
+    {
+        try {
+            $provinces = Zone::distinct()->whereNotNull('province')->pluck('province', 'province')->toArray();
+            $districts = Zone::distinct()->whereNotNull('district')->select('province', 'district')->get()
+                ->groupBy('province')
+                ->map(function ($items) {
+                    return $items->pluck('district')->toArray();
+                })
+                ->toArray();
+            $villages = Zone::distinct()->whereNotNull('village')->select('district', 'village')->get()
+                ->groupBy('district')
+                ->map(function ($items) {
+                    return $items->pluck('village')->toArray();
+                })
+                ->toArray();
 
-        return [
-            'provinces' => $provinces,
-            'districts' => $districts,
-            'villages' => $villages
-        ];
-    } catch (\Exception $e) {
-        Log::error('Không thể lấy danh sách địa điểm: ' . $e->getMessage());
-        return null;
+            return [
+                'provinces' => $provinces,
+                'districts' => $districts,
+                'villages' => $villages
+            ];
+        } catch (\Exception $e) {
+            Log::error('Không thể lấy danh sách địa điểm: ' . $e->getMessage());
+            return null;
+        }
     }
-}
-public function getPopularZones($limit = 3)
-{
-    $currentDate = Carbon::now();
+    public function getPopularZones($limit = 3)
+    {
+        $currentDate = Carbon::now();
 
-    return Zone::
-        where('status', self::status) // Đảm bảo rằng bạn có hằng số `status` trong dịch vụ Zone
-        ->where(function ($query) use ($currentDate) {
-            $query->where('vip_expiry_date', '>', $currentDate)
-                ->orWhereNull('vip_expiry_date');
-        })
-        ->orderByRaw('CASE 
+        return Zone::where('status', self::status) // Đảm bảo rằng bạn có hằng số `status` trong dịch vụ Zone
+            ->where(function ($query) use ($currentDate) {
+                $query->where('vip_expiry_date', '>', $currentDate)
+                    ->orWhereNull('vip_expiry_date');
+            })
+            ->orderByRaw('CASE 
             WHEN vip_expiry_date > ? THEN 0 
             ELSE 1 
         END', [$currentDate])
-        ->orderByRaw('CASE 
+            ->orderByRaw('CASE 
             WHEN vip_expiry_date > ? THEN view 
             ELSE 0 
         END DESC', [$currentDate])
-        ->orderBy('view', 'desc')
-        ->take($limit)
-        ->get();
-}
+            ->orderBy('view', 'desc')
+            ->take($limit)
+            ->get();
+    }
     public function countRoomsInZone($zone_id)
     {
         // Đếm số phòng trong zone_id cụ thể
         return Room::where('zone_id', $zone_id)->count();
-    } 
+    }
 
     public function getMyZone($user_id)
     {
@@ -239,8 +239,8 @@ public function getPopularZones($limit = 3)
     public function getTotalZones()
     {
         return Zone::count(); // Đếm tổng số khu vực trọ
-    } 
-    
+    }
+
     public function getTotalZonesByUser($userId = null)
     {
         try {
@@ -312,18 +312,17 @@ public function getPopularZones($limit = 3)
     {
         // Tìm zone dựa trên slug
         $zone = Zone::where('slug', $slug)->firstOrFail();
-    
+
         // Lấy danh sách phòng thuộc zone này
         $rooms = Room::where('zone_id', $zone->id)->paginate(10);
-    
+
         // Lấy danh sách người ở (residents) thuộc zone này
         $residents = Resident::whereIn('room_id', $rooms->pluck('id'))
-            // Nếu không cần zone_id, hãy bỏ dòng này
-            // ->where('zone_id', $zone->id) 
+            // ->where('zone_id', $zone->id)
             ->where('status', $status) // Chỉ lấy resident có status = 2
             ->with('user') // Nạp thông tin người dùng liên quan
             ->paginate(10);
-    
+
         return [
             'zone' => $zone,
             'rooms' => $rooms,
@@ -421,7 +420,7 @@ public function getPopularZones($limit = 3)
             $zone->longitude = $request->input('longitude');
             $zone->status = $request->input('status');
             $zone->user_id = auth()->id();
-        
+
             if ($request->hasFile('images')) {
                 $violentImages = [];
 
@@ -671,9 +670,9 @@ public function getPopularZones($limit = 3)
             $zone->description = $request->input('description');
             // $zone->price = $request->input('price');
             $zone->phone = $request->input('phone');
-            $zone->address = $request->input('address'  );
+            $zone->address = $request->input('address');
             // $zone->acreage = $request->input('acreage');
-            
+
             $zone->view = $request->input('view');
             $zone->province = $request->input('province');
             $zone->district = $request->input('district');
@@ -687,7 +686,7 @@ public function getPopularZones($limit = 3)
             $zone->air_conditioning = $request->has('air_conditioning') ? $request->input('air_conditioning') : self::CHUA_CO;
             $zone->garage = $request->has('garage') ? $request->input('garage') : self::CHUA_CO;
 
-           
+
 
             // Lưu phòng và kiểm tra kết quả
             if (!$zone->save()) {
@@ -811,27 +810,35 @@ public function getPopularZones($limit = 3)
             //             'message' => 'Không có ảnh nào được tải lên. Vui lòng thử lại.'
             //         ]);
             //     }
-            }
-            // Xử lý tiện ích
-            // $utilities = new Utility();
-            // $utilities->room_id = $roomId;
+        }
+        // Xử lý tiện ích
+        // $utilities = new Utility();
+        // $utilities->room_id = $roomId;
 
-            // // Kiểm tra tiện ích từ request
-            // $utilities->wifi = $request->has('wifi') ? self::CO : self::CHUA_CO;
-            // $utilities->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
-            // $utilities->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
-            // $utilities->bathrooms = $request->has('bathrooms') ? self::CO : self::CHUA_CO;
-            // // Lưu thông tin tiện ích
-            // $utilities->save();
-            return $zoneId;
+        // // Kiểm tra tiện ích từ request
+        // $utilities->wifi = $request->has('wifi') ? self::CO : self::CHUA_CO;
+        // $utilities->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
+        // $utilities->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
+        // $utilities->bathrooms = $request->has('bathrooms') ? self::CO : self::CHUA_CO;
+        // // Lưu thông tin tiện ích
+        // $utilities->save();
+        return $zoneId;
         // } else {
         //     return false;
         // }
     }
- public function getSlug($id)
- {
-    $zone = Zone::find($id);
-    return $zone->slug;
- }
-
+    public function getSlug($id)
+    {
+        $zone = Zone::find($id);
+        return $zone->slug;
+    }
+    public function getRoomsWithStatus(int $status, int $perPage = 10)
+    {
+        try {
+            return Zone::where('status', $status)->paginate($perPage);
+        } catch (\Exception $e) {
+            Log::error('Không thể lấy danh sách phòng với status ' . $status . ': ' . $e->getMessage());
+            return null;
+        }
+    }
 }

@@ -314,7 +314,7 @@
                         <span class="menu-title">Danh Sách Khu Trọ</span>
                     </a>
                 </div>
-                <div class="menu-item" data-nav-item="Danh sách phòng trọ">
+                {{-- <div class="menu-item" data-nav-item="Danh sách phòng trọ">
                     <a class="menu-link text-decoration-none {{ request()->routeIs('admin.room-available-all') ? 'selected' : '' }}"
                         href="{{ route('admin.room-available-all') }}">
                         <span class="menu-icon">
@@ -329,7 +329,7 @@
                         </span>
                         <span class="menu-title">Danh Sách Phòng Trọ</span>
                     </a>
-                </div>
+                </div> --}}
                 <div class="menu-item">
                     <div class="menu-content pt-8 pb-2">
                         <span class="menu-section text-light text-uppercase fs-8 ls-1">Quản lý dữ liệu</span>

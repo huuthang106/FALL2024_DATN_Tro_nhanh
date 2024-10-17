@@ -508,46 +508,37 @@
                                                 <td class="">
 
                                                     <button type="button" class="btn btn-danger btn-sm"
-                                                        data-bs-toggle="modal" data-bs-target="#blockAccountModal"
-                                                        data-user-id="{{ $user->id }}">
-                                                        Khóa
-                                                    </button>
+                                                    data-bs-toggle="modal" data-bs-target="#blockAccountModal-{{ $user->id }}"
+                                                    data-user-id="{{ $user->id }}">
+                                                    Khóa
+                                                </button>
 
                                                     <!-- Modal -->
-                                                    <div class="modal fade" id="blockAccountModal" tabindex="-1"
-                                                        aria-labelledby="blockAccountModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="blockAccountModal-{{ $user->id }}" tabindex="-1"
+                                                        aria-labelledby="blockAccountModalLabel-{{ $user->id }}" aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title"
-                                                                        id="blockAccountModalLabel">Khóa tài khoản</h5>
-                                                                    <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal"
-                                                                        aria-label="Close"></button>
+                                                                    <h5 class="modal-title" id="blockAccountModalLabel-{{ $user->id }}">Khóa tài khoản</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <!-- Form để gửi dữ liệu -->
-                                                                    <form id="blockAccountForm" method="POST"
+                                                                    <form id="blockAccountForm-{{ $user->id }}" method="POST"
                                                                         action="{{ route('admin.owner-lock', $user->id) }}">
                                                                         @csrf <!-- Thêm token bảo mật -->
                                                                         <div class="mb-3">
-                                                                            <label for="blockDays"
-                                                                                class="form-label text-start d-block">Số
-                                                                                ngày khóa tài khoản</label>
-                                                                            <input type="number" class="form-control"
-                                                                                id="blockDays" name="blockDays"
-                                                                                required>
+                                                                            <label for="blockDays" class="form-label text-start d-block">Số ngày khóa tài khoản</label>
+                                                                            <input type="number" class="form-control" id="blockDays" name="blockDays" required>
                                                                             @error('blockDays')
                                                                                 <div class="text-danger">
                                                                                     {{ $message }}
                                                                                 </div>
                                                                             @enderror
                                                                         </div>
-                                                                     
+                                                
                                                                         <div class="mb-3">
-                                                                            <label for="blockReason"
-                                                                                class="form-label text-start d-block">Lý
-                                                                                do khóa tài khoản</label>
+                                                                            <label for="blockReason" class="form-label text-start d-block">Lý do khóa tài khoản</label>
                                                                             <textarea class="form-control" id="blockReason" name="blockReason" rows="3" required></textarea>
                                                                             @error('blockReason')
                                                                                 <div class="text-danger">
@@ -558,11 +549,9 @@
                                                                     </form>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal">Hủy</button>
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
                                                                     <!-- Nút submit form -->
-                                                                    <button type="submit" form="blockAccountForm"
-                                                                        class="btn btn-danger">Xác nhận khóa</button>
+                                                                    <button type="submit" form="blockAccountForm-{{ $user->id }}" class="btn btn-danger">Xác nhận khóa</button>
                                                                 </div>
                                                             </div>
                                                         </div>

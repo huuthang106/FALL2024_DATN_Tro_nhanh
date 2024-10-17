@@ -111,7 +111,7 @@
 
                                     {{-- <th class="min-w-125px">Số lượng</th> --}}
                                     <th class="min-w-125px">Giá</th>
-                                    <th class="min-w-125px">Địa chỉ</th>
+                                    <th class="min-w-125px">Trạng Thái</th>
                                     <th class="text-end min-w-125px">Tác vụ</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -136,7 +136,8 @@
                                                 <!--begin:: Avatar -->
                                                 <div class="symbol symbol-100px overflow-hidden me-3">
                                                     <a
-                                                        href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
+                                                        href="">
+                                                        {{-- {{ route('client.detail-room', ['slug' => $room->slug]) }} --}}
                                                         <div class="symbol-label">
                                                             @if (!empty($room->images))
                                                             <img src="{{ asset('assets/images/' . $room->images) }}" alt="{{ $room->title }}" class="full-image">
@@ -169,7 +170,7 @@
                                             <!--begin::Joined-->
                                             <td><small>{{ $room->price }} VND</small></td>
                                             <!--begin::Joined-->
-                                            <td><small>{{ $room->address }}</small></td>
+                                            <td><small>{{ $room->status }}</small></td>
                                             <!--begin::Action=-->
                                             {{-- <td class="text-end">
                                                 <a href="#"

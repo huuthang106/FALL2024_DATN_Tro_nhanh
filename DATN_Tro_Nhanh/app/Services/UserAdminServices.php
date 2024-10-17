@@ -108,33 +108,35 @@ class UserAdminServices
     public function lockOwner($request, $userId)
     {
         $user = User::find($userId);
+        if (!$user) {
+            return false; // Trả về false nếu không tìm thấy user
+        }
+ 
         $blockDays = (int) $request->input('blockDays');
         $blockReason = $request->input('blockReason');
-
+ 
         // Kiểm tra xem user đã có trong bảng AccountLock hay chưa
         $lock = AccountLock::where('user_id', $userId)->first();
  
         if ($lock) {
-            // Nếu user đã bị khóa, cộng thêm số ngày khóa vào ngày hết hạn hiện tại
             $currentLockUntil = $lock->lock_until > now() ? Carbon::parse($lock->lock_until) : now();
             $newLockUntil = $currentLockUntil->addDays($blockDays)->setTime(23, 59, 59);
  
-            // Cập nhật ngày hết hạn khóa và lý do khóa
-            $currentLockUntil = Carbon::parse($lock->lock_until);
+            $lock->lock_until = $newLockUntil;
             $lock->lock_reason = $blockReason;
             $lock->save();
         } else {
-            // Nếu user chưa bị khóa, tạo mới bản ghi trong bảng AccountLock
             $newLockUntil = now()->addDays($blockDays)->setTime(23, 59, 59);
  
-            // Tạo mới thông tin khóa
             AccountLock::create([
                 'user_id' => $userId,
                 'lock_until' => $newLockUntil,
                 'lock_reason' => $blockReason,
             ]);
         }
-        $user->status = 3; // Status = 3: Tài khoản bị khóa
+        $user->status = 3;
         $user->save();
+ 
+        return true; // Trả về true nếu thành công
     }
 }

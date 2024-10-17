@@ -24,7 +24,7 @@
             <div class="container">
                 <div class="row ml-xl-0 mr-xl-n6">
                     <div class="col-lg-8 mb-6 mb-lg-0 pr-xl-6 pl-xl-0">
-                        <div class="position-relative">
+                        {{-- <div class="position-relative">
                             @php
                                 $image = $blog->image->first();
                             @endphp
@@ -37,7 +37,7 @@
                                 <img class="rounded-lg d-block" src="{{ asset('assets/images/default.jpg') }}"
                                     alt="Default Image">
                             @endif
-                        </div>
+                        </div> --}}
                         <ul class="list-inline mt-4">
                             <li class="list-inline-item mr-4">
                                 @if ($blog->user->image)

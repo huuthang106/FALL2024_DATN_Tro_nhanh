@@ -111,4 +111,8 @@ class BlogAdminController extends Controller
         $this->BlogService->forceDeleteBlogs($id);
         return redirect()->route('admin.trash-blog')->with('success', 'Blog đã được xóa vĩnh viễn.');
     }
+//   public function showDetailsBlog($id){
+//     $blog = $this->BlogAdminService->getDetailsBlog($id);
+//     return view('client.show.blog-details-1', compact('blog'));
+// }
 }
