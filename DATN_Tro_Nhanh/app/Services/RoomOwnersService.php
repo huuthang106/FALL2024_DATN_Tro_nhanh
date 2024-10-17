@@ -29,6 +29,7 @@ use Clarifai\Api\Status\StatusCode;
 use Clarifai\Api\UserAppIDSet;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use App\Services\ImageAdminService;
 
 class RoomOwnersService
 {
@@ -51,7 +52,8 @@ class RoomOwnersService
     const CO = 1; // Có tiện ích
     const CHUA_CO = 0; // Chưa có tiện ích
     private $client;
-    public function __construct()
+    private $imageAdminService;
+    public function __construct(ImageAdminService $imageAdminService)
     {
         $this->client = new Client([
             'base_uri' => 'https://api.clarifai.com/v2/',
@@ -60,6 +62,7 @@ class RoomOwnersService
                 'Content-Type' => 'application/json',
             ]
         ]);
+        $this->imageAdminService = $imageAdminService;
     }
 
     public function getAllCategories()
@@ -99,90 +102,28 @@ class RoomOwnersService
         return PriceList::all();
     }
 
-    // public function create($request)
-    // {
-    //     // Tạo một phòng mới
-    //     if (auth()->check()) {
-    //         $room = new Room();
-    //         $user_id = auth()->id();
-    //         $room->title = $request->input('title');
-    //         $room->description = $request->input('description');
-    //         $room->price = $request->input('price');
-    //         $room->phone = $request->input('phone');
-    //         $room->address = $request->input('address');
-    //         $room->acreage = $request->input('acreage');
-    //         $room->quantity = $request->input('quantity');
-    //         $room->view = $request->input('view');
-    //         $room->status = $request->input('status');
-    //         $room->province = $request->input('province');
-    //         $room->district = $request->input('district');
-    //         $room->village = $request->input('village');
-    //         $room->longitude = $request->input('longitude');
-    //         $room->latitude = $request->input('latitude');
-    //         $room->user_id = $user_id;
-    //         $room->category_id = $request->input('category_id');
-    //         $room->location_id = $request->input('location_id');
+    public function create($request, $id)
+    {
+        // Tạo một phòng mới
+        if (auth()->check()) {
 
-    //         $room->price_id = $request->input('price_id');
-    //         $room->zone_id = $request->input('zone_id');
-    //         // Lưu phòng và kiểm tra kết quả
-    //         if (!$room->save()) {
-    //             return false;
-    //         }
-    //         // Lấy ID của phòng mới tạo và tạo slug
-    //         $roomId = $room->id;
-    //         $slug = $this->createSlug($request->input('title')) . '-' . $roomId;
-    //         $room->slug = $slug;
-    //         // Lưu lại phòng với slug
-    //         if (!$room->save()) {
-    //             $room->delete();
-    //             return false;
-    //         }
-    //         // Xử lý tải hình ảnh
-    //         if ($request->hasFile('images')) {
-    //             $images = $request->file('images');
-    //             $uploadedFilenames = []; // Để lưu trữ các tên file đã được tải lên
-    //             foreach ($images as $image) {
-    //                 // Tạo tên file mới với timestamp
-    //                 $timestamp = now()->format('YmdHis');
-    //                 $originalName = $image->getClientOriginalName();
-    //                 $extension = $image->getClientOriginalExtension();
-    //                 $filename = $timestamp . '_' . pathinfo($originalName, PATHINFO_FILENAME) . '.' . $extension;
-    //                 // Kiểm tra xem ảnh đã tồn tại trong cơ sở dữ liệu chưa
-    //                 if (!in_array($filename, $uploadedFilenames)) {
-    //                     // Lưu ảnh vào thư mục public/assets/images
-    //                     $image->move(public_path('assets/images'), $filename);
-    //                     // Lưu thông tin ảnh vào cơ sở dữ liệu
-    //                     $imageModel = new Image();
-    //                     $imageModel->room_id = $roomId;
-    //                     $imageModel->filename = $filename;
-    //                     $imageModel->save();
-    //                     // Thêm tên file vào danh sách đã tải lên
-    //                     $uploadedFilenames[] = $filename;
-    //                 }
-    //             }
-    //         }
-    //         // Xử lý tiện ích
-    //         // Xử lý tiện ích
-    //         $utilities = new Utility();
-    //         $utilities->room_id = $roomId;
+            $imagePath = $this->imageAdminService->saveImage($request);
 
-    //         // Kiểm tra tiện ích từ request
-    //         $utilities->wifi = $request->has('wifi') ? self::CO : self::CHUA_CO;
-    //         $utilities->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
-    //         $utilities->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
 
-    //         // Xử lý số lượng phòng tắm
-    //         $utilities->bathrooms = $request->input('bathrooms', 0); // Số lượng phòng tắm
+            $room = Room::create([
+                'title' => $request['title'],
+                'description' => $request['description'],
+                'quantity' => $request['quantity'],
+                'price' => $request['price'],
+                'image' => $imagePath,
+                'zone_id' => $id, // Nếu bạn có zone_id
+            ]);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-    //         // Lưu thông tin tiện ích
-    //         $utilities->save();
-    //         return $room;
-    //     } else {
-    //         return false;
-    //     }
-    // }
-    
     public function deleteImage($id)
     {
         try {

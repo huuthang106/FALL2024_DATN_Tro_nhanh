@@ -6,8 +6,16 @@
                     <div class="d-flex form-group mb-0 align-items-center">
                         {{-- <h5 for="invoice-list_length" class="d-block mr-2 mb-0">Tên khu: {{ $zone->name }}</h5> --}}
                     </div>
+                    <div class="ml-2 align-self-center">
+                        <a href="{{ route('owners.add-room', $zone->slug) }}" class="btn btn-primary btn-lg"
+                            tabindex="0"><span>Thêm
+                                mới</span></a>
+                    </div>
+               
                 </div>
+
                 <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
+
                     <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
                         <input wire:model.lazy="searchResident" wire:keydown.debounce.300ms="$refresh" type="text"
                             class="form-control bg-transparent border-0 shadow-none text-body"
@@ -227,7 +235,7 @@
             </div>
         </div>
     </div>
-    @foreach ($zone->residents as $resident)
+    {{-- @foreach ($zone->residents as $resident)
         <div class="modal fade" id="invoiceModal{{ $resident->id }}" tabindex="-1" role="dialog"
             aria-labelledby="invoiceModalLabel{{ $resident->id }}" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -289,12 +297,7 @@
                                             placeholder="Nhập mô tả chi tiết về hóa đơn" required></textarea>
                                         <span class="text-danger" id="description-error"></span>
                                     </div>
-                                    {{-- <div class="form-group">
-                                    <label for="payment_date">Ngày và giờ thanh toán:</label>
-                                    <input type="datetime-local" class="form-control" id="payment_date"
-                                        name="payment_date" required>
-                                    <span class="text-danger" id="payment_date-error"></span>
-                                </div> --}}
+                                  
 
 
                                 </div>
@@ -308,7 +311,95 @@
                 </div>
             </div>
         </div>
-    @endforeach
+    @endforeach --}}
+    @if ($rooms->isNotEmpty()) <!-- Kiểm tra xem có phòng không -->
+        @foreach ($rooms as $room)
+            <!-- Lặp qua từng phòng -->
+            @php
+                // Lấy cư dân trong phòng hiện tại
+                $roomResidents = $residents->where('room_id', $room->id);
+            @endphp
+
+            @if ($roomResidents->isNotEmpty())
+                <!-- Kiểm tra xem có cư dân không -->
+                @foreach ($roomResidents as $resident)
+                    <div class="modal fade" id="invoiceModal{{ $resident->id }}" tabindex="-1" role="dialog"
+                        aria-labelledby="invoiceModalLabel{{ $resident->id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="invoiceModalLabel{{ $resident->tenant->id }}">Tạo hóa
+                                        đơn cho
+                                        {{ $resident->tenant->name }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="formBills" action="{{ route('owners.bills-store') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="payer_id" value="{{ $resident->tenant_id }}">
+                                        <input type="hidden" name="creator_id" value="{{ auth()->user()->id }}">
+                                        <div class="row">
+                                            <!-- Cột trái -->
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="name">Tên người ở:</label>
+                                                    <input type="text" class="form-control" id="name"
+                                                        value="{{ $resident->tenant->name }}" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="room">Tên phòng:</label>
+                                                    <input type="text" class="form-control" id="room"
+                                                        value="{{ $room->title }}" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="payment_due_date">Hạn thanh toán:</label>
+                                                    <input type="date" class="form-control" id="payment_due_date"
+                                                        name="payment_due_date" min="{{ date('Y-m-d') }}">
+                                                    <span class="text-danger" id="payment_due_date-error"></span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Cột phải -->
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="title">Tiêu đề:</label>
+                                                    <input type="text" class="form-control" id="title"
+                                                        name="title" required autocomplete="off"
+                                                        placeholder="Nhập tiêu đề hóa đơn">
+                                                    <span class="text-danger" id="title-error"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="amount">Số tiền:</label>
+                                                    <input type="number" class="form-control" id="amount"
+                                                        name="amount" required min="0" step="0.01"
+                                                        placeholder="Nhập số tiền">
+                                                    <span class="text-danger" id="amount-error"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="description">Mô tả:</label>
+                                                    <textarea class="form-control" id="description" name="description" rows="3"
+                                                        placeholder="Nhập mô tả chi tiết về hóa đơn" required></textarea>
+                                                    <span class="text-danger" id="description-error"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer text-right">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Đóng</button>
+                                            <button type="submit" class="btn btn-primary">Tạo hóa đơn</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @endif
+        @endforeach
+        <!-- Thông báo nếu không có phòng -->
+    @endif
     @foreach ($rooms as $room)
         @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
             @php

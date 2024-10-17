@@ -38,4 +38,18 @@ class ImageAdminService
 
     return $success; // Trả về true nếu tất cả các file đã được xóa thành công, ngược lại false
   }
+  public function saveImage($image)
+  {
+    if (isset($image['image'])) {
+      $data = $image['image']; // Giả sử đây là đường dẫn tạm thời của hình ảnh
+      // Đổi tên file
+      $newFileName = time() . '_' . $data->getClientOriginalName(); // Tạo tên file mới
+      $path = 'assets/images';
+
+      // Di chuyển ảnh vào thư mục đích
+      $data->move(public_path($path), $newFileName); // Lưu hình ảnh vào thư mục 'public/assets/images'
+      return $newFileName;
+      // Lưu tên file mới vào cơ sở dữ liệu
+    } // Trả về true nếu tất cả các file đã được xóa thành công, ngược lại false
+  }
 }

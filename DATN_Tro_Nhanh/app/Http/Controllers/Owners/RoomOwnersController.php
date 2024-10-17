@@ -116,23 +116,19 @@ class RoomOwnersController extends Controller
         return redirect()->route('owners.trash')->with('success', 'Phòng đã được xóa vĩnh viễn.');
     }
     // Trả về view thêm phòng
-    public function page_add_rooms()
+    public function page_add_rooms($slug)
     {
-        $acreages = Acreage::all();
-        $prices = Price::all();
-        $categories = Category::all();
 
-        $locations = Location::all();
-        $zones = $this->zoneServices->getMyZone(Auth::user()->id);
+        $zone = $this->zoneServices->getIdZone($slug);
 
         $userLock = auth()->user();
 
         // Lấy trạng thái của người dùng hiện tại
         $userStatus = $userLock ? $userLock->status : null;
 
-        return view('owners.create.add-new-property', compact('acreages', 'prices', 'categories', 'locations', 'zones', 'userStatus'));
+        return view('owners.create.add-new-property', compact('zone', 'userStatus'));
     }
-   
+
     // Trang chỉnh sửa
     public function viewUpdate($slug)
     {
@@ -203,7 +199,7 @@ class RoomOwnersController extends Controller
     {
         $userResident = $this->roomOwnersService->getUserResident();
         return view('owners.show.house_is_staying', ['userResident' => $userResident]);
-    }   
+    }
 
     public function processPayment(Request $request)
     {
@@ -235,5 +231,22 @@ class RoomOwnersController extends Controller
             \Log::error('Thanh toán không thành công. User ID: ' . $customer->id . ', Room ID: ' . $accommodationId);
             return redirect()->back()->with('error', 'Có lỗi xảy ra trong quá trình thanh toán.');
         }
+    }
+
+    public function store(RoomOwnersRequest $request, $id)
+    {
+        // dd($request->all(), $id);
+        $zone_slug =  $this->zoneServices->getSlug($id);
+        $result = $this->roomOwnersService->create($request->all(), $id);
+
+        if ($result) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Phòng trọ đã được tạo thành công.',
+                'slug' => $zone_slug // Trả về slug của zone
+            ], 201);  // Mã trạng thái 201 cho Created
+    } else {
+        throw new \Exception('Không thể tạo phòng');
+    }
     }
 }

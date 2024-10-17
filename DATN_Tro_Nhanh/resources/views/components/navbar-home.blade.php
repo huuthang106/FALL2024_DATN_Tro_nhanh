@@ -451,7 +451,7 @@
                                     @endif
                                     </li>
 
-                                    @if (Auth::check())
+                                    {{-- @if (Auth::check())
                                         @if ($role != '1')
                                             <li class="nav-item ml-auto w-100 w-sm-auto">
                                                 <a class="btn btn-primary btn-lg"
@@ -462,7 +462,7 @@
                                                 </a>
                                             </li>
                                         @endif
-                                    @endif
+                                    @endif --}}
 
                                 </ul>
                             </div>
@@ -530,7 +530,7 @@
                                 </a>
                             </li>
                             <!-- Add Room Button -->
-                            @if (Auth::check() && $role != '1')
+                            {{-- @if (Auth::check() && $role != '1')
                                 <li class="nav-item">
                                     <a class="btn btn-outline-light btn-lg text-white rounded-lg bg-hover-primary border-hover-primary hover-white d-none d-lg-block"
                                         href="{{ route('owners.add-room') }}">
@@ -547,7 +547,7 @@
                                             alt="Add listing" class="ml-1">
                                     </a>
                                 </li>
-                            @endif
+                            @endif --}}
                         </ul>
                     </div>
 

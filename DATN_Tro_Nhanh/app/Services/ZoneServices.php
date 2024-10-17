@@ -312,22 +312,22 @@ public function getPopularZones($limit = 3)
     {
         // Tìm zone dựa trên slug
         $zone = Zone::where('slug', $slug)->firstOrFail();
-
+    
         // Lấy danh sách phòng thuộc zone này
         $rooms = Room::where('zone_id', $zone->id)->paginate(10);
-
+    
         // Lấy danh sách người ở (residents) thuộc zone này
         $residents = Resident::whereIn('room_id', $rooms->pluck('id'))
-            ->where('zone_id', $zone->id)
+            // Nếu không cần zone_id, hãy bỏ dòng này
+            // ->where('zone_id', $zone->id) 
             ->where('status', $status) // Chỉ lấy resident có status = 2
             ->with('user') // Nạp thông tin người dùng liên quan
             ->paginate(10);
-
+    
         return [
             'zone' => $zone,
             'rooms' => $rooms,
             'residents' => $residents,
-
         ];
     }
     // Xóa mềm Residents
@@ -828,5 +828,10 @@ public function getPopularZones($limit = 3)
         //     return false;
         // }
     }
+ public function getSlug($id)
+ {
+    $zone = Zone::find($id);
+    return $zone->slug;
+ }
 
 }

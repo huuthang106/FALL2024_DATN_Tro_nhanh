@@ -8,7 +8,7 @@ Route::group(['prefix' => ''], function () {
     route::get('them-khu-tro', [ZoneOwnersController::class, 'index'])->name('zone-post');
     route::post('them-khu-tro', [ZoneOwnersController::class, 'store'])->name('zone-start-post');
     Route::group(['prefix' => 'khu-tro'], function () {
-        route::get('/', [ZoneOwnersController::class, 'listZone'])->name('zone-list');
+        route::get('/', [ZoneOwnersController::class, 'listZone'])->name(name: 'zone-list');
         Route::delete('/xoa-khu-tro/{id}', [ZoneOwnersController::class, 'destroy'])->name('destroy-zone');
         Route::put('/khoi-phuc-khu-tro/{id}', [ZoneOwnersController::class, 'restore'])->name('restore-zone');
         Route::get('/thung-rac-khu-tro', [ZoneOwnersController::class, 'trash'])->name('trash-zone');
@@ -18,7 +18,7 @@ Route::group(['prefix' => ''], function () {
         Route::delete('/xoa/{id}', [ZoneOwnersController::class, 'destroyResident'])->name('resident-destroy');
         Route::post('/tao-hoa-don', [ZoneOwnersController::class, 'storeBill'])->name('bills-store');
         route::Put('xoa-phong/{id}', [ZoneOwnersController::class, 'deleteRoomInZone'])->name('delete-room-in-zone');
-        Route::post('them-tro', [ZoneOwnersController::class, 'store'])->name('store-zone');
+        Route::post('them-khu-tro', [ZoneOwnersController::class, 'store'])->name('store-zone');
   
 
 

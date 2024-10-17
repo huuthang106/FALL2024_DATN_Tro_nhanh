@@ -500,7 +500,7 @@
                                     id="favorite-count">{{ $favouriteCount }}</span>
                             </a>
                         </li>
-                        @if (Auth::check())
+                        {{-- @if (Auth::check())
                             @if ($role != '1')
                                 <li class="nav-item">
                                     <a class="btn btn-lg text-heading border bg-hover-primary border-hover-primary hover-white d-none d-lg-block"
@@ -517,7 +517,7 @@
                                     </a>
                                 </li>
                             @endif
-                        @endif
+                        @endif --}}
 
                         </ul>
                     </div>

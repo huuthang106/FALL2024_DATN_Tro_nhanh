@@ -14,7 +14,10 @@ Route::group(['prefix' => ''], function () {
     Route::get('xem-chi-tiet-hoa-don/{id}', [IndexOwnersController::class, 'previewInvoice'])->name('invoice-preview');
     Route::post('thanh-toan-hoa-don/{billId}', [IndexOwnersController::class, 'pay'])->name('payment-bill');
     // thai toan 
-    Route::get('/them-tro', [RoomOwnersController::class, 'page_add_rooms'])->name('add-room');
+    Route::get('/them-tro/{slug}', [RoomOwnersController::class, 'page_add_rooms'])->name('add-room');
+    // huu thang update laij hamf theem 
+    Route::post('/them-tro/{id}', [RoomOwnersController::class, 'store'])->name('add-room-for-zone');
+
     // nhan
     Route::group(['prefix' => 'phong-tro'], function () {
         Route::get('/', [RoomOwnersController::class, 'index'])->name('properties');

@@ -921,7 +921,7 @@
                             confirmButtonText: 'OK'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = '{{ route("owners.properties") }}';
+                                window.location.href = '{{ route("owners.zone-list") }}';
                             }
                         });
                     } else {

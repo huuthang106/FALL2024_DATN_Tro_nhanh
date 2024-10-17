@@ -15,7 +15,6 @@ class Resident extends Model
         'user_id',
         'tenant_id',
         'room_id',
-        'zone_id',
         'status',
         'start_date',
         'end_date',
@@ -30,10 +29,7 @@ class Resident extends Model
         return $this->belongsTo(Room::class);
     }
 
-    public function zone()
-    {
-        return $this->belongsTo(Zone::class);
-    }
+ 
     public function tenant()
 {
     return $this->belongsTo(User::class, 'tenant_id');
