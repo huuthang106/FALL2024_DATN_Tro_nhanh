@@ -22,7 +22,7 @@ class ReportAdminService
         return Report::with(['room', 'user'])
             ->select('reports.*', 'users.name as user_name', 'rooms.title as room_title')
             ->join('users', 'reports.user_id', '=', 'users.id')
-            ->leftJoin('rooms', 'reports.room_id', '=', 'rooms.id')
+            // ->leftJoin('rooms', 'reports.room_id', '=', 'rooms.id')
             ->orderBy('reports.created_at', 'desc')
             ->paginate($perPage);
     }

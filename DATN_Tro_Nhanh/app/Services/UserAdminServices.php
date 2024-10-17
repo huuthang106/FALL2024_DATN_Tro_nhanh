@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
-
+use Carbon\Carbon;
 class UserAdminServices
 {
     private const vaitronguoidung = 1;
@@ -112,21 +112,21 @@ class UserAdminServices
         $blockReason = $request->input('blockReason');
 
         // Kiểm tra xem user đã có trong bảng AccountLock hay chưa
-        $lock = AccountLock::where('user_id', $user)->first();
-
+        $lock = AccountLock::where('user_id', $userId)->first();
+ 
         if ($lock) {
             // Nếu user đã bị khóa, cộng thêm số ngày khóa vào ngày hết hạn hiện tại
-            $currentLockUntil = $lock->lock_until > now() ? $lock->lock_until : now();
+            $currentLockUntil = $lock->lock_until > now() ? Carbon::parse($lock->lock_until) : now();
             $newLockUntil = $currentLockUntil->addDays($blockDays)->setTime(23, 59, 59);
-
+ 
             // Cập nhật ngày hết hạn khóa và lý do khóa
-            $lock->lock_until = $newLockUntil;
+            $currentLockUntil = Carbon::parse($lock->lock_until);
             $lock->lock_reason = $blockReason;
             $lock->save();
         } else {
             // Nếu user chưa bị khóa, tạo mới bản ghi trong bảng AccountLock
             $newLockUntil = now()->addDays($blockDays)->setTime(23, 59, 59);
-
+ 
             // Tạo mới thông tin khóa
             AccountLock::create([
                 'user_id' => $userId,

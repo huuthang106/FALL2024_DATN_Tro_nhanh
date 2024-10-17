@@ -138,16 +138,10 @@
                                                     <a
                                                         href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
                                                         <div class="symbol-label">
-                                                            @if ($room->images->isNotEmpty())
-                                                                @php
-                                                                    // Get the first image
-                                                                    $image = $room->images->first();
-                                                                @endphp
-                                                                <img src="{{ asset('assets/images/' . $image->filename) }}"
-                                                                    alt="{{ $room->title }}" class="full-image">
+                                                            @if (!empty($room->images))
+                                                            <img src="{{ asset('assets/images/' . $room->images) }}" alt="{{ $room->title }}" class="full-image">
                                                             @else
-                                                                <img src="{{ asset('assets/images/blog-details.jpg') }}"
-                                                                    alt="{{ $room->title }}" class="full-image">
+                                                            <img src="{{ asset('assets/images/blog-details.jpg') }}" alt="{{ $room->title }}" class="full-image">
                                                             @endif
                                                         </div>
                                                     </a>

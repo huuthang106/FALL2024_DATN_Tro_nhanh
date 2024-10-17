@@ -530,8 +530,9 @@
                                         </div>
                                     </th>
                                     <th class="min-w-100px">Tên</th>
+                               
+                                    <th class="min-w-100px">Mô tả</th>
                                     <th class="min-w-100px">Địa chỉ</th>
-                                    <th class="min-w-100px">Tổng số phòng</th>
                                     <th class="min-w-100px">Trạng thái</th>
 
                                 </tr>
@@ -556,7 +557,7 @@
                                             <td><a href="{{ route('admin.chi-tiet-khu-tro', ['slug' => $zone->slug]) }}"
                                                     class="inv-number">{{ $zone->name }}</a></td>
                                             <td>{{ $zone->address }}</td>
-                                            <td>{{ $zone->total_rooms }}</td>
+                                            <td>{{ $zone->description }}</td>
                                             <td>{{ $zone->status ? 'Hoạt động' : 'Chưa hoạt động' }}</td>
                                             <!--end::Zone details-->
                                             <!--begin::Actions-->

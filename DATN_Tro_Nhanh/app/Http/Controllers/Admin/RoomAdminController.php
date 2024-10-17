@@ -24,30 +24,31 @@ class RoomAdminController extends Controller
         $this->roomAdminService = $roomAdminService;
         $this->categoryAdminService = $categoryAdminService;
         $this->indexAdminService = $indexAdminService;
-    }
+    }   
     public function index()
     {
-        $roomsCountByCategoryType = $this->categoryAdminService->getRoomsCountByCategoryType();
+        // $roomsCountByCategoryType = $this->categoryAdminService->getRoomsCountByCategoryType();
         // Lấy người dùng mới
         $recentUsers = $this->indexAdminService->getRecentUsers();
-        // Lấy các gói được mua nhiều
+        // // Lấy các gói được mua nhiều
         $topPackages = $this->indexAdminService->getTopPackages();
-        // Lấy thống kê doanh thu theo tháng
-        $monthlyRevenue = $this->indexAdminService->getMonthlyRevenue();
-        // Lấy người đưa tin được đánh giá cao
-        $topRatedPosters = $this->indexAdminService->getTopRatedPosters();
-        // Lấy 4 báo cáo 
-        $latestReports = $this->indexAdminService->getLatestReports();
-        // Lấy danh sách loại phòng
-        $roomsCountByCategoryType = $this->indexAdminService->getRoomsCountByCategoryType();
-        // Lấy tổng số phòng
-        $totalRooms = $this->indexAdminService->getTotalRooms();
-        // Lấy tổng số loại phòng
+        // // Lấy thống kê doanh thu theo tháng
+        // $monthlyRevenue = $this->indexAdminService->getMonthlyRevenue();    
+        // // Lấy người đưa tin được đánh giá cao
+        // $topRatedPosters = $this->indexAdminService->getTopRatedPosters();
+        // // Lấy 4 báo cáo 
+        // $latestReports = $this->indexAdminService->getLatestReports();
+        // // Lấy danh sách loại phòng
+        // $roomsCountByCategoryType = $this->indexAdminService->getRoomsCountByCategoryType();
+        // // Lấy tổng số phòng
+        // $totalRooms = $this->indexAdminService->getTotalRooms();
+        // // Lấy tổng số loại phòng
         $totalCategories = $this->indexAdminService->getTotalCategories();
-        $topCategories = $this->indexAdminService->getTopCategories();
-        // Lấy tổng số lượng mua gói trong năm và so sánh giữa các tháng
+        // $topCategories = $this->indexAdminService->getTopCategories();
+        // // Lấy tổng số lượng mua gói trong năm và so sánh giữa các tháng
         $packageStatistics = $this->indexAdminService->getPackagePurchaseStatistics();
-        return view('admincp.show.index', compact('roomsCountByCategoryType', 'recentUsers', 'topPackages', 'monthlyRevenue', 'topRatedPosters', 'latestReports', 'roomsCountByCategoryType', 'totalRooms', 'totalCategories', 'topCategories', 'packageStatistics'));
+        // return view('admincp.show.index', compact('roomsCountByCategoryType', 'recentUsers', 'topPackages', 'monthlyRevenue', 'topRatedPosters', 'latestReports', 'roomsCountByCategoryType', 'totalRooms', 'totalCategories', 'topCategories', 'packageStatistics'));
+        return view('admincp.show.index', compact('totalCategories','packageStatistics','recentUsers','topPackages'));
     }
     public function getDashboardStats(IndexAdminService $indexAdminService)
     {

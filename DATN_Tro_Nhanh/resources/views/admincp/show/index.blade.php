@@ -39,7 +39,7 @@
                                     </svg>
                                 </span>
                                 <!--end::Svg Icon-->
-                                <div class="text-gray-900 fw-bolder fs-2 mb-2 mt-5">{{ $totalRooms }} Phòng</div>
+                                {{-- <div class="text-gray-900 fw-bolder fs-2 mb-2 mt-5">{{ $totalRooms }} Phòng</div> --}}
                                 <div class="fw-bold text-gray-400">Tổng số phòng hiện có</div>
                             </div>
                             <!--end::Body-->
@@ -281,9 +281,9 @@
                             <div class="card-header border-0 pt-5">
                                 <h3 class="card-title align-items-start flex-column">
                                     <span class="card-label fw-bolder fs-3 mb-1">Các Danh Mục Phòng</span>
-                                    <span class="text-muted mt-1 fw-bold fs-7">Có tất cả
+                                    {{-- <span class="text-muted mt-1 fw-bold fs-7">Có tất cả
                                         {{ count($roomsCountByCategoryType) }}
-                                        danh mục</span>
+                                        danh mục</span> --}}
                                 </h3>
                             </div>
                             <!--end::Header-->
@@ -308,7 +308,7 @@
                                                 </thead>
                                                 <!--end::Table head-->
                                                 <!--begin::Table body-->
-                                                <tbody>
+                                                {{-- <tbody>
                                                     @if (count($roomsCountByCategoryType) > 0)
                                                         @foreach ($roomsCountByCategoryType as $categoryName => $count)
                                                             <tr>
@@ -343,7 +343,7 @@
                                                             </td>
                                                         </tr>
                                                     @endif
-                                                </tbody>
+                                                </tbody> --}}
                                                 <!--end::Table body-->
                                             </table>
                                         </div>
@@ -779,16 +779,16 @@
                             </div>
                             <!--end::Header-->
                             <!--begin::Body-->
-                            <div class="card-body pt-3">
+                            {{-- <div class="card-body pt-3">
                                 @if ($topRatedPosters->isNotEmpty())
                                     @foreach ($topRatedPosters as $index => $user)
                                         <div class="d-flex align-items-sm-center mb-7">
                                             <!--begin::Symbol-->
-                                            {{-- <div class="symbol symbol-60px symbol-2by3 me-4">
+                                          <div class="symbol symbol-60px symbol-2by3 me-4">
                                                 <div class="symbol-label"
                                                     style="background-image: url('{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('assets/media/avatars/blank.png') }}')">
                                                 </div>
-                                            </div> --}}
+                                            </div> 
                                             <div class="symbol symbol-60px symbol-2by3 me-4">
                                                 <div class="symbol-label"
                                                     style="background-image: url('{{ $user->image ? asset('assets/images/' . $user->image) : asset('assets/images/profile-11.jpeg') }}')">
@@ -806,7 +806,7 @@
                                                     <span class="text-muted fw-bold d-block pt-1">Đánh giá:
                                                         {{ $user->average_rating }}/5 ({{ $user->total_reviews }}
                                                         lượt)</span>
-                                                    {{-- <div class="d-flex align-items-center pt-2">
+                                                   <div class="d-flex align-items-center pt-2">
                                                         @foreach ($user->ratings_distribution as $rating => $percentage)
                                                             <div class="d-flex align-items-center me-2">
                                                                 <span
@@ -820,7 +820,7 @@
                                                                 </div>
                                                             </div>
                                                         @endforeach
-                                                    </div> --}}
+                                                    </div>
                                                 </div>
                                                 <span class="badge badge-light-success fs-8 fw-bolder my-2">Top
                                                     {{ $index + 1 }}</span>
@@ -833,7 +833,7 @@
                                         Chưa có dữ liệu.
                                     </div>
                                 @endif
-                                {{-- <!--begin::Item-->
+                               <!--begin::Item-->
                                 <div class="d-flex align-items-sm-center mb-7">
                                     <!--begin::Symbol-->
                                     <div class="symbol symbol-60px symbol-2by3 me-4">
@@ -917,8 +917,8 @@
                                     </div>
                                     <!--end::Title-->
                                 </div>
-                                <!--end::Item--> --}}
-                            </div>
+                                <!--end::Item-->
+                            </div> --}}
                             <!--end::Body-->
                         </div>
                         <!--end::List Widget 7-->
@@ -1039,7 +1039,7 @@
                             </div>
                             <!--end::Header-->
                             <!--begin::Body-->
-                            <div class="card-body pt-0">
+                            {{-- <div class="card-body pt-0">
                                 @if ($latestReports->isNotEmpty())
                                     @foreach ($latestReports as $report)
                                         <div class="d-flex align-items-center bg-light-warning rounded p-5 mb-7">
@@ -1057,10 +1057,10 @@
                                                 </a>
                                                 <span
                                                     class="text-muted fw-bold d-block">{{ $report->created_at->format('d/m/Y H:i') }}</span>
-                                                {{-- <span class="text-muted fw-bold d-block">Người báo cáo:
+                                              <span class="text-muted fw-bold d-block">Người báo cáo:
                                                 {{ $report->user_name }}</span>
                                             <span class="text-muted fw-bold d-block">Mô tả:
-                                                {{ Str::limit($report->description, 50) }}</span> --}}
+                                                {{ Str::limit($report->description, 50) }}</span> 
                                             </div>
                                             <!--end::Title-->
                                             <!--begin::Lable-->
@@ -1086,7 +1086,7 @@
                                         Chưa có dữ liệu.
                                     </div>
                                 @endif
-                                {{-- <!--begin::Item-->
+                                <!--begin::Item-->
                                 <div class="d-flex align-items-center bg-light-warning rounded p-5 mb-7">
                                     <!--begin::Icon-->
                                     <span class="svg-icon svg-icon-warning me-5">
@@ -1210,8 +1210,8 @@
                                     <span class="fw-bolder text-info py-1">+8%</span>
                                     <!--end::Lable-->
                                 </div>
-                                <!--end::Item--> --}}
-                            </div>
+                                <!--end::Item-->
+                            </div> --}}
                             <!--end::Body-->
                         </div>
                         <!--end::List Widget 6-->
@@ -1398,7 +1398,7 @@
     </script> --}}
     <!-- Biểu đồ -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script>
+    {{-- <script>
         document.addEventListener("DOMContentLoaded", function() {
             var monthlyRevenue = @json($monthlyRevenue);
             console.log('Monthly Revenue:', monthlyRevenue);
@@ -1522,5 +1522,5 @@
             var chart = new ApexCharts(document.querySelector("#kt_charts_widget_1_chart_1"), options);
             chart.render();
         });
-    </script>
+    </script> --}}
 @endpush

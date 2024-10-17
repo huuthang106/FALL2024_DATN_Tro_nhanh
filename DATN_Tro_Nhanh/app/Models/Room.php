@@ -16,20 +16,21 @@ class Room extends Model
         'title',
         'description',
         'price',
-        'phone',
-        'address',
+        // 'phone',
+        // 'address',
         'quantity',
-        'longitude',
-        'latitude',
-        'acreages_id',
-        'price_id',
+        // 'longitude',
+        // 'latitude',
+        // 'acreages_id',
+        // 'price_id',
         'category_id',
-        'area_id',
-        'location_id',
+        'images',
+        // 'area_id',
+        // 'location_id',
         'zone_id',
-        'user_id',
-        'view',
-        'slug'
+        // 'user_id',
+        // 'view',
+        // 'slug'
     ];
 
     // Thiết lập mối quan hệ many-to-one với Category

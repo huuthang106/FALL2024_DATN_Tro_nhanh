@@ -380,7 +380,7 @@
                                 <span class="menu-title">Danh sách gói tin</span>
                             </a>
                         </div>
-                       <div class="menu-item">
+                       {{-- <div class="menu-item">
                             <a class="menu-link {{ request()->routeIs('admin.show-acreage') ? 'selected' : '' }}"
                                 href="{{ route('admin.show-acreage') }}" style="text-decoration: none;">
                                 <span class="menu-bullet">
@@ -397,7 +397,7 @@
                                 </span>
                                 <span class="menu-title">Danh sách diện tích</span>
                             </a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 

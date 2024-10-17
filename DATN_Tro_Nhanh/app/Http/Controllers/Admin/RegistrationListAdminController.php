@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class RegistrationListAdminController extends Controller
 {
     //
+    
     protected $registrationAdminService;
     protected $imageAdminService;
     protected $identityService;
