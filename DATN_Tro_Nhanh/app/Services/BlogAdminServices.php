@@ -39,4 +39,8 @@ class BlogAdminServices
     // Trả về kết quả phân trang
     return $blogs;
 }
+public function getDetailsBlog($id) {
+    $blog = Blog::where('id', $id)->get();
+    return $blog; // Trả về đối tượng blog
+}
 }

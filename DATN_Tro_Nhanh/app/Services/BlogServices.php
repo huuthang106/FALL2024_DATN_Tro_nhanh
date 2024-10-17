@@ -340,6 +340,15 @@ class BlogServices
             return null;
         }
     }
+    public function getBlogBySlugAdmin(string $slug): ?Blog
+    {
+        try {
+            return Blog::where('slug', $slug)->first();
+        } catch (\Exception $e) {
+            Log::error('Error fetching blog by slug: ' . $e->getMessage());
+            return null;
+        }
+    }
 
     public function getBlogByTitleAndUserId($title, $userId): ?Blog
     {

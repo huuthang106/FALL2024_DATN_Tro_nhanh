@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BlogAdminController;
+use App\Http\Controllers\Client\BlogClientController;
 
 Route::group(['prefix' => ''], function () {
     route::get('quan-li-blog-admin', [BlogAdminController::class, 'show'])->name('show-blog');
@@ -11,7 +12,7 @@ Route::group(['prefix' => ''], function () {
     Route::put('/khoi-phuc-blog/{id}', [BlogAdminController::class, 'restore'])->name('restore-blog');
     Route::get('/thung-rac-blog', [BlogAdminController::class, 'trash'])->name('trash-blog');
     Route::delete('/xoa-blog-vinh-vien/{id}', [BlogAdminController::class, 'forceDelete'])->name('forceDelete-blog');
-
+    Route::get('/chi-tiet-blog/{slug}', [BlogClientController::class, 'blogDetail'])->name('show-details-blog');
     Route::get('sua-blog/{slug}', [BlogAdminController::class, 'editBlog'])->name('sua-blog');
     Route::put('sua-blog/{id}', [BlogAdminController::class, 'updateBlog'])->name('update-blog');
 

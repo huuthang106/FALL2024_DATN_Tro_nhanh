@@ -10,18 +10,22 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Room;
+use App\Models\Zone;
 
 class RoomStatusUpdated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $room;
     public $newStatus;
+    public $zones;
     /**
      * Create a new event instance.
-     */ public function __construct(Room $room, int $newStatus)
+     */ public function __construct(Zone $zone, int $newStatus)
     {
-        $this->room = $room;
+        // $this->room = $room;
+        $this->zones = $zone;
         $this->newStatus = $newStatus;
+     
     }
 
     /**

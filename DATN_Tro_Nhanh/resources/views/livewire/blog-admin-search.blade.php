@@ -568,13 +568,11 @@
                                                     <a href="{{ route('admin.show-blog', ['slug' => $blog->slug]) }}">
                                                         <div class="symbol-label">
                                                             @if ($blog->image)
-                                                                @foreach ($blog->image as $item)
-                                                                    <img src="{{ asset('assets/images/' . $item->filename) }}"
-                                                                        alt="{{ $item->filename }}" class="img-fluid">
-                                                                @endforeach
+                                                                <img src="{{ asset('assets/images/' . $blog->image) }}"
+                                                                     alt="{{ $blog->image }}" class="img-fluid">
                                                             @else
                                                                 <img src="{{ asset('assets/images/agent-25.jpg') }}"
-                                                                    alt="Chưa có ảnh" class="img-fluid">
+                                                                     alt="Chưa có ảnh" class="img-fluid">
                                                             @endif
                                                         </div>
                                                     </a>

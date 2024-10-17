@@ -38,17 +38,12 @@ class BlogClientController extends Controller
 
     // Hiển thị Giao Diện Trang Blog Deital
  // Trong BlogController.php
-public function blogDetail($slug)
-{
-    $blog = $this->commentClientService->getBlogWithComments($slug);
-    
-    // Gọi phương thức từ service để lấy 3 blog có lượt xem cao nhất
-    $topViewedBlogs = $this->blogServices->getTopViewedBlogs(); // Gọi service để lấy top viewed blogs
-
-    return view('client.show.blog-details-1', [
-        'blog' => $blog,
-        'topViewedBlogs' => $topViewedBlogs, // Truyền 3 blog có lượt xem cao nhất vào view
-    ]);
+ public function blogDetail($slug) {
+    $blog = $this->blogServices->getBlogBySlugAdmin($slug);
+    if (!$blog) {
+        abort(404, 'Blog not found');
+    }
+    return view('client.show.blog-details-1', compact('blog'));
 }
 
     

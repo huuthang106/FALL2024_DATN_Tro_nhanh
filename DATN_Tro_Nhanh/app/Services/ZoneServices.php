@@ -318,7 +318,7 @@ public function getPopularZones($limit = 3)
 
         // Lấy danh sách người ở (residents) thuộc zone này
         $residents = Resident::whereIn('room_id', $rooms->pluck('id'))
-            ->where('zone_id', $zone->id)
+            // ->where('zone_id', $zone->id)
             ->where('status', $status) // Chỉ lấy resident có status = 2
             ->with('user') // Nạp thông tin người dùng liên quan
             ->paginate(10);
@@ -827,6 +827,15 @@ public function getPopularZones($limit = 3)
         // } else {
         //     return false;
         // }
+    }
+      public function getRoomsWithStatus(int $status, int $perPage = 10)
+    {
+        try {
+            return Zone::where('status', $status)->paginate($perPage);
+        } catch (\Exception $e) {
+            Log::error('Không thể lấy danh sách phòng với status ' . $status . ': ' . $e->getMessage());
+            return null;
+        }
     }
 
 }
