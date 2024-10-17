@@ -8,9 +8,9 @@ return new class extends Migration
     public function up()
     {
         // Xóa khóa ngoại và cột acreages_id trong bảng rooms
-        Schema::table('acreages', function (Blueprint $table) {
-            $table->softDeletes(); // Thêm cột deleted_at
-        });
+        // Schema::table('acreages', function (Blueprint $table) {
+        //     $table->softDeletes(); // Thêm cột deleted_at
+        // });
 
         // // Xóa bảng acreages
         // Schema::dropIfExists('acreages');
