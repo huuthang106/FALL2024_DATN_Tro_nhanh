@@ -25,6 +25,15 @@ class Room extends Model
         'slug'
     ];
 
+    public function getImagesAttribute($value)
+    {
+        return $value ? json_decode($value, true) : [];
+    }
+
+    public function setImagesAttribute($value)
+    {
+        $this->attributes['images'] = json_encode($value);
+    }
     // Thiết lập mối quan hệ many-to-one với Category
     public function user()
     {
@@ -94,5 +103,4 @@ class Room extends Model
     {
         return $this->favourites()->where('user_id', $userId)->exists();
     }
-    
 }

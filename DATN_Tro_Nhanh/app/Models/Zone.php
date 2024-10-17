@@ -62,10 +62,10 @@ class Zone extends Model
     {
         return $this->hasMany(Resident::class);
     }
-    public function images()
-    {
-        return $this->hasMany(Image::class);
-    }
+    // public function images()
+    // {
+    //     return $this->hasMany(Image::class);
+    // }
     public function utilities()
     {
         return $this->hasMany(Utility::class, 'zone_id');
@@ -73,5 +73,22 @@ class Zone extends Model
     public function utility()
     {
         return $this->hasOne(Utility::class);
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+    public function favourites()
+    {
+        return $this->hasMany(Favourite::class, 'room_id');
+    }
+    public function isFavoritedByUser($userId)
+    {
+        return $this->favourites()->where('user_id', $userId)->exists();
+    }
+    // Thêm accessor để lấy tất cả ảnh từ các phòng
+    public function getAllImagesAttribute()
+    {
+        return $this->rooms->pluck('images')->flatten()->filter()->values()->all();
     }
 }

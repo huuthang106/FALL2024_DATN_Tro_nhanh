@@ -17,4 +17,8 @@ class Category extends Model
     {
         return $this->hasMany(Zone::class);
     }
+    public function zones()
+    {
+        return $this->hasMany(Zone::class);
+    }
 }

@@ -47,6 +47,12 @@
                                         class="form-control custom-select bg-transparent border-bottom rounded-0 border-color-input"
                                         title="Chọn" data-style="p-0 h-24 lh-17 text-dark" name="category">
                                         <option value="">Tất cả loại phòng</option>
+                                        {{-- @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}"
+                                                {{ request('category') == $category->id ? 'selected' : '' }}>
+                                                {{ $category->name }}
+                                            </option>
+                                        @endforeach --}}
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}"
                                                 {{ request('category') == $category->id ? 'selected' : '' }}>
@@ -155,11 +161,11 @@
             '95' => 'Tỉnh Bạc Liêu',
             '96' => 'Tỉnh Cà Mau',
         ] as $code => $name)
-                                                    @if (in_array($code, $provinces))
+                                                    {{-- @if (in_array($code, $provinces))
                                                         <option value='{{ $code }}'
                                                             {{ $province == $code ? 'selected' : '' }}>{{ $name }}
                                                         </option>
-                                                    @endif
+                                                    @endif --}}
                                                 @endforeach
                                             </select>
                                         </div>
@@ -302,11 +308,11 @@
             '95' => 'Tỉnh Bạc Liêu',
             '96' => 'Tỉnh Cà Mau',
         ] as $code => $name)
-                                                @if (in_array($code, $provinces))
+                                                {{-- @if (in_array($code, $provinces))
                                                     <option value='{{ $code }}'
                                                         {{ $province == $code ? 'selected' : '' }}>{{ $name }}
                                                     </option>
-                                                @endif
+                                                @endif --}}
                                             @endforeach
                                         </select>
                                     </div>
@@ -337,12 +343,12 @@
                                             class="form-control custom-select bg-transparent border-bottom rounded-0 border-color-input"
                                             title="Chọn" data-style="p-0 h-24 lh-17 text-dark" name="category">
                                             <option value="">Tất cả loại phòng</option>
-                                            @foreach ($categories as $category)
+                                            {{-- @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}"
                                                     {{ request('category') == $category->id ? 'selected' : '' }}>
                                                     {{ $category->name }}
                                                 </option>
-                                            @endforeach
+                                            @endforeach --}}
                                         </select>
                                     </div>
 
@@ -386,8 +392,23 @@
 
                                 <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top"
                                     style="height: 200px; overflow: hidden;">
-                                    @if ($room->images->isNotEmpty())
+                                    {{-- @if ($room->images->isNotEmpty())
                                         <img src="{{ asset('assets/images/' . $room->images->first()->filename) }}"
+                                            alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;">
+                                    @else
+                                        <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                            alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;">
+                                    @endif --}}
+                                    @php
+                                        $roomImages = collect($room->images)
+                                            ->filter()
+                                            ->values();
+                                    @endphp
+
+                                    @if ($roomImages->isNotEmpty())
+                                        <img src="{{ asset('assets/images/' . $roomImages->first()) }}"
                                             alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @else
@@ -397,7 +418,7 @@
                                     @endif
                                     <div class="card-img-overlay p-2 d-flex flex-column">
 
-                                        <div>
+                                        {{-- <div>
                                             @if ($room->residents->isNotEmpty())
                                                 <span class="badge badge-orange">Hết phòng</span>
                                             @else
@@ -408,12 +429,26 @@
                                                     VIP
                                                 </span>
                                             @endif
-                                        </div>
-                                        <ul class="list-inline mb-0 mt-auto hover-image">
+                                        </div> --}}
+                                        {{-- <ul class="list-inline mb-0 mt-auto hover-image">
                                             <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
                                                 <a href="#" class="text-white hover-primary">
                                                     <i class="far fa-images"></i><span
                                                         class="pl-1">{{ $room->images()->count() }}</span>
+                                                </a>
+                                            </li>
+                                        </ul> --}}
+                                        @php
+                                            $roomImages = collect($room->images)
+                                                ->filter()
+                                                ->values();
+                                        @endphp
+
+                                        <ul class="list-inline mb-0 mt-auto hover-image">
+                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
+                                                <a href="#" class="text-white hover-primary">
+                                                    <i class="far fa-images"></i><span
+                                                        class="pl-1">{{ $roomImages }}</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -422,10 +457,11 @@
                                 <div class="card-body pt-3 d-flex flex-column">
                                     <h2 class="card-title fs-16 lh-2 mb-0">
                                         <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
-                                            class="text-dark hover-primary">{{ Str::limit($room->title, 60) }}</a>
+                                            class="text-dark hover-primary">{{ Str::limit($room->name, 60) }}</a>
                                     </h2>
                                     <p class="card-text font-weight-500 text-gray-light mb-2">
-                                      <small>  {{ Str::limit($room->address, 100) }}</small></p>
+                                        <small> {{ Str::limit($room->address, 100) }}</small>
+                                    </p>
                                     <ul class="list-inline d-flex mb-0 flex-wrap mr-n5 mt-auto">
                                         {{-- <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
                                             data-toggle="tooltip" title="Phòng ngủ">
@@ -473,7 +509,7 @@
                                                 Wifi
                                             </li>
                                         @endif --}}
-                                        @if ($room->utility && $room->utility->bathrooms == 1)
+                                        {{-- @if ($room->utility && $room->utility->bathrooms == 1)
                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
                                                 data-toggle="tooltip" title="Phòng tắm">
                                                 <svg class="icon icon-shower fs-18 text-primary mr-1">
@@ -512,13 +548,65 @@
                                                 </svg>
                                                 &nbsp;Máy điều hòa
                                             </li>
+                                        @endif --}}
+                                        @if ($room->bathrooms == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Phòng tắm">
+                                                <svg class="icon icon-shower fs-18 text-primary mr-1">
+                                                    <use xlink:href="#icon-shower"></use>
+                                                </svg>
+                                                Phòng tắm
+                                            </li>
+                                        @endif
+                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                            data-toggle="tooltip" title="Diện tích">
+                                            <svg class="icon icon-square fs-18 text-primary mr-1">
+                                                <use xlink:href="#icon-square"></use>
+                                            </svg>
+                                            @if ($room->acreage)
+                                                {{ $room->acreage }}m²
+                                            @else
+                                                Chưa có thông tin
+                                            @endif
+                                        </li>
+                                        @if ($room->wifi == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Wifi">
+                                                <svg class="icon fs-18 text-primary mr-1"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                                    <path fill="currentColor"
+                                                        d="M634.91 154.88C457.74-8.99 182.19-8.93 5.09 154.88c-6.66 6.16-6.79 16.59-.35 22.98l34.24 33.97c6.14 6.1 16.02 6.23 22.4.38 145.92-133.68 371.3-133.71 517.25 0 6.38 5.85 16.26 5.71 22.4-.38l34.24-33.97c6.43-6.39 6.3-16.82-.36-22.98zM320 352c-35.35 0-64 28.65-64 64s28.65 64 64 64 64-28.65 64-64-28.65-64-64-64zm202.67-83.59c-115.26-101.93-290.21-101.82-405.34 0-6.9 6.1-7.12 16.69-.57 23.15l34.44 33.99c6 5.92 15.66 6.32 22.05.8 83.95-72.57 209.74-72.41 293.49 0 6.39 5.52 16.05 5.13 22.05-.8l34.44-33.99c6.56-6.46 6.33-17.06-.56-23.15z" />
+                                                </svg>
+                                                Wifi
+                                            </li>
+                                        @endif
+                                        @if ($room->air_conditioning == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Máy điều hòa">
+                                                <svg class="icon icon-heating fs-18 text-primary">
+                                                    <use xlink:href="#icon-heating"></use>
+                                                </svg>
+                                                &nbsp;Máy điều hòa
+                                            </li>
                                         @endif
                                     </ul>
                                 </div>
                                 <div
                                     class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
-                                    <p class="fs-17 font-weight-bold text-heading mb-0">
+                                    {{-- <p class="fs-17 font-weight-bold text-heading mb-0">
                                         {{ number_format($room->price, 0, ',', '.') }} VND
+                                    </p> --}}
+                                    @php
+                                        $minPrice = $maxPrice = $room->price ?? 0;
+                                    @endphp
+
+                                    <p class="fs-17 font-weight-bold text-heading mb-0">
+                                        @if ($minPrice == $maxPrice)
+                                            {{ number_format($minPrice, 0, ',', '.') }} VND
+                                        @else
+                                            {{ number_format($minPrice, 0, ',', '.') }} -
+                                            {{ number_format($maxPrice, 0, ',', '.') }} VND
+                                        @endif
                                     </p>
                                     <ul class="list-inline mb-0">
                                         {{-- <li class="list-inline-item">
@@ -616,7 +704,7 @@
                 </div>
         </section>
 
-        
+
 
         <section>
             <div class="bg-single-image pt-lg-13 pb-lg-12 py-11 bg-secondary">
@@ -672,8 +760,21 @@
                             <div class="card shadow-hover-2 h-100" data-animate="zoomIn">
                                 <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top"
                                     style="height: 200px; overflow: hidden;">
-                                    @if ($room->images->isNotEmpty())
+                                    {{-- @if ($room->images->isNotEmpty())
                                         <img src="{{ asset('assets/images/' . $room->images->first()->filename) }}"
+                                            alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;">
+                                    @else
+                                        <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                            alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;">
+                                    @endif --}}
+                                    @php
+                                        $minPrice = $maxPrice = $room->price ?? 0;
+                                    @endphp
+
+                                    @if ($roomImages->isNotEmpty())
+                                        <img src="{{ asset('assets/images/' . $roomImages->first()) }}"
                                             alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @else
@@ -683,7 +784,7 @@
                                     @endif
                                     <div class="card-img-overlay p-2 d-flex flex-column">
 
-                                        <div>
+                                        {{-- <div>
                                             @if ($room->residents->isNotEmpty())
                                                 <span class="badge badge-orange">Hết phòng</span>
                                             @else
@@ -694,12 +795,26 @@
                                                     VIP
                                                 </span>
                                             @endif
-                                        </div>
-                                        <ul class="list-inline mb-0 mt-auto hover-image">
+                                        </div> --}}
+                                        {{-- <ul class="list-inline mb-0 mt-auto hover-image">
                                             <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
                                                 <a href="#" class="text-white hover-primary">
                                                     <i class="far fa-images"></i><span
                                                         class="pl-1">{{ $room->images()->count() }}</span>
+                                                </a>
+                                            </li>
+                                        </ul> --}}
+                                        @php
+                                            $roomImages = collect($room->images)
+                                                ->filter()
+                                                ->values();
+                                        @endphp
+
+                                        <ul class="list-inline mb-0 mt-auto hover-image">
+                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
+                                                <a href="#" class="text-white hover-primary">
+                                                    <i class="far fa-images"></i><span
+                                                        class="pl-1">{{ $roomImages }}</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -708,12 +823,13 @@
                                 <div class="card-body pt-3 d-flex flex-column">
                                     <h2 class="card-title fs-16 lh-2 mb-0">
                                         <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
-                                            class="text-dark hover-primary">{{ Str::limit($room->title, 60) }}</a>
+                                            class="text-dark hover-primary">{{ Str::limit($room->name, 60) }}</a>
                                     </h2>
                                     <p class="card-text font-weight-500 text-gray-light mb-2">
-                                       <small> {{ Str::limit($room->address, 100) }}</small></p>
+                                        <small> {{ Str::limit($room->address, 100) }}</small>
+                                    </p>
                                     <ul class="list-inline d-flex mb-0 flex-wrap mr-n5 mt-auto">
-                                        @if ($room->utility && $room->utility->bathrooms == 1)
+                                        {{-- @if ($room->utility && $room->utility->bathrooms == 1)
                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
                                                 data-toggle="tooltip" title="Phòng tắm">
                                                 <svg class="icon icon-shower fs-18 text-primary mr-1">
@@ -752,13 +868,65 @@
                                                 </svg>
                                                 &nbsp;Máy điều hòa
                                             </li>
+                                        @endif --}}
+                                        @if ($room->bathrooms == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Phòng tắm">
+                                                <svg class="icon icon-shower fs-18 text-primary mr-1">
+                                                    <use xlink:href="#icon-shower"></use>
+                                                </svg>
+                                                Phòng tắm
+                                            </li>
+                                        @endif
+                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                            data-toggle="tooltip" title="Diện tích">
+                                            <svg class="icon icon-square fs-18 text-primary mr-1">
+                                                <use xlink:href="#icon-square"></use>
+                                            </svg>
+                                            @if ($room->acreage)
+                                                {{ $room->acreage }}m²
+                                            @else
+                                                Chưa có thông tin
+                                            @endif
+                                        </li>
+                                        @if ($room->wifi == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Wifi">
+                                                <svg class="icon fs-18 text-primary mr-1"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                                    <path fill="currentColor"
+                                                        d="M634.91 154.88C457.74-8.99 182.19-8.93 5.09 154.88c-6.66 6.16-6.79 16.59-.35 22.98l34.24 33.97c6.14 6.1 16.02 6.23 22.4.38 145.92-133.68 371.3-133.71 517.25 0 6.38 5.85 16.26 5.71 22.4-.38l34.24-33.97c6.43-6.39 6.3-16.82-.36-22.98zM320 352c-35.35 0-64 28.65-64 64s28.65 64 64 64 64-28.65 64-64-28.65-64-64-64zm202.67-83.59c-115.26-101.93-290.21-101.82-405.34 0-6.9 6.1-7.12 16.69-.57 23.15l34.44 33.99c6 5.92 15.66 6.32 22.05.8 83.95-72.57 209.74-72.41 293.49 0 6.39 5.52 16.05 5.13 22.05-.8l34.44-33.99c6.56-6.46 6.33-17.06-.56-23.15z" />
+                                                </svg>
+                                                Wifi
+                                            </li>
+                                        @endif
+                                        @if ($room->air_conditioning == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Máy điều hòa">
+                                                <svg class="icon icon-heating fs-18 text-primary">
+                                                    <use xlink:href="#icon-heating"></use>
+                                                </svg>
+                                                &nbsp;Máy điều hòa
+                                            </li>
                                         @endif
                                     </ul>
                                 </div>
                                 <div
                                     class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
+                                    {{-- <p class="fs-17 font-weight-bold text-heading mb-0">
+                                        {{ number_format($room->price, 0, ',', '.') }} VND</p> --}}
+                                    @php
+                                        $minPrice = $maxPrice = $room->price ?? 0;
+                                    @endphp
+
                                     <p class="fs-17 font-weight-bold text-heading mb-0">
-                                        {{ number_format($room->price, 0, ',', '.') }} VND</p>
+                                        @if ($minPrice == $maxPrice)
+                                            {{ number_format($minPrice, 0, ',', '.') }} VND
+                                        @else
+                                            {{ number_format($minPrice, 0, ',', '.') }} -
+                                            {{ number_format($maxPrice, 0, ',', '.') }} VND
+                                        @endif
+                                    </p>
                                     <ul class="list-inline mb-0">
                                         <li class="list-inline-item">
                                             <a href="#"
@@ -1039,10 +1207,10 @@
 
     </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
+    {{-- <script>
         var districts = @json($districts);
         var villages = @json($villages);
-    </script>
+    </script> --}}
     <script src="{{ asset('assets/js/search-api-vn.js') }}"></script>
     <script src="{{ asset('assets/js/yeuthich.js') }}"></script>
     {{-- <script>
