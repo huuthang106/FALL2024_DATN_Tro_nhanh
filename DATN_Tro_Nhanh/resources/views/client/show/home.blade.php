@@ -161,11 +161,11 @@
             '95' => 'Tỉnh Bạc Liêu',
             '96' => 'Tỉnh Cà Mau',
         ] as $code => $name)
-                                                    {{-- @if (in_array($code, $provinces))
+                                                    @if (in_array($code, $provinces))
                                                         <option value='{{ $code }}'
                                                             {{ $province == $code ? 'selected' : '' }}>{{ $name }}
                                                         </option>
-                                                    @endif --}}
+                                                    @endif
                                                 @endforeach
                                             </select>
                                         </div>
@@ -308,11 +308,11 @@
             '95' => 'Tỉnh Bạc Liêu',
             '96' => 'Tỉnh Cà Mau',
         ] as $code => $name)
-                                                {{-- @if (in_array($code, $provinces))
+                                                @if (in_array($code, $provinces))
                                                     <option value='{{ $code }}'
                                                         {{ $province == $code ? 'selected' : '' }}>{{ $name }}
                                                     </option>
-                                                @endif --}}
+                                                @endif
                                             @endforeach
                                         </select>
                                     </div>
@@ -343,12 +343,12 @@
                                             class="form-control custom-select bg-transparent border-bottom rounded-0 border-color-input"
                                             title="Chọn" data-style="p-0 h-24 lh-17 text-dark" name="category">
                                             <option value="">Tất cả loại phòng</option>
-                                            {{-- @foreach ($categories as $category)
+                                            @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}"
                                                     {{ request('category') == $category->id ? 'selected' : '' }}>
                                                     {{ $category->name }}
                                                 </option>
-                                            @endforeach --}}
+                                            @endforeach
                                         </select>
                                     </div>
 
@@ -386,45 +386,46 @@
         {"breakpoint": 768, "settings": {"slidesToShow": 2, "arrows": false, "dots": true, "autoplay": true}},
         {"breakpoint": 576, "settings": {"slidesToShow": 1, "arrows": false, "dots": true, "autoplay": true}}
      ]}'>
-                    @foreach ($rooms as $room)
+                    @foreach ($zones as $zone)
                         <div class="box pb-7 pt-2">
                             <div class="card shadow-hover-2 h-100" data-animate="zoomIn">
 
                                 <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top"
                                     style="height: 200px; overflow: hidden;">
-                                    {{-- @if ($room->images->isNotEmpty())
-                                        <img src="{{ asset('assets/images/' . $room->images->first()->filename) }}"
-                                            alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
+                                    {{-- @if ($zone->images->isNotEmpty())
+                                        <img src="{{ asset('assets/images/' . $zone->images->first()->filename) }}"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @else
                                         <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                            alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @endif --}}
                                     @php
-                                        $roomImages = collect($room->images)
+                                        // Lấy hình ảnh từ bảng rooms thông qua liên kết với zones
+                                        $roomImages = collect($zone->rooms->first()->image)
                                             ->filter()
                                             ->values();
                                     @endphp
 
                                     @if ($roomImages->isNotEmpty())
                                         <img src="{{ asset('assets/images/' . $roomImages->first()) }}"
-                                            alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @else
                                         <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                            alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @endif
                                     <div class="card-img-overlay p-2 d-flex flex-column">
 
                                         {{-- <div>
-                                            @if ($room->residents->isNotEmpty())
+                                            @if ($zone->residents->isNotEmpty())
                                                 <span class="badge badge-orange">Hết phòng</span>
                                             @else
                                                 <span class="badge badge-primary">Còn phòng</span>
                                             @endif
-                                            @if ($room->expiration_date > now())
+                                            @if ($zone->expiration_date > now())
                                                 <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
                                                     VIP
                                                 </span>
@@ -434,12 +435,16 @@
                                             <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
                                                 <a href="#" class="text-white hover-primary">
                                                     <i class="far fa-images"></i><span
-                                                        class="pl-1">{{ $room->images()->count() }}</span>
+                                                        class="pl-1">{{ $zone->images()->count() }}</span>
                                                 </a>
                                             </li>
                                         </ul> --}}
                                         @php
-                                            $roomImages = collect($room->images)
+                                            // Lấy hình ảnh từ bảng rooms thông qua liên kết với zones
+                                            $roomImages = collect($zone->rooms)
+                                                ->flatMap(function ($room) {
+                                                    return $room->images; // Lấy hình ảnh từ từng phòng
+                                                })
                                                 ->filter()
                                                 ->values();
                                         @endphp
@@ -447,8 +452,9 @@
                                         <ul class="list-inline mb-0 mt-auto hover-image">
                                             <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
                                                 <a href="#" class="text-white hover-primary">
-                                                    <i class="far fa-images"></i><span
-                                                        class="pl-1">{{ $roomImages }}</span>
+                                                    <i class="far fa-images"></i>
+                                                    <span class="pl-1">{{ $roomImages->count() }}</span>
+                                                    <!-- Đếm số lượng hình ảnh -->
                                                 </a>
                                             </li>
                                         </ul>
@@ -456,11 +462,11 @@
                                 </div>
                                 <div class="card-body pt-3 d-flex flex-column">
                                     <h2 class="card-title fs-16 lh-2 mb-0">
-                                        <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
-                                            class="text-dark hover-primary">{{ Str::limit($room->name, 60) }}</a>
+                                        <a href="{{ route('client.detail-room', ['slug' => $zone->slug]) }}"
+                                            class="text-dark hover-primary">{{ Str::limit($zone->name, 60) }}</a>
                                     </h2>
                                     <p class="card-text font-weight-500 text-gray-light mb-2">
-                                        <small> {{ Str::limit($room->address, 100) }}</small>
+                                        <small> {{ Str::limit($zone->address, 100) }}</small>
                                     </p>
                                     <ul class="list-inline d-flex mb-0 flex-wrap mr-n5 mt-auto">
                                         {{-- <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
@@ -468,9 +474,9 @@
                                             <svg class="icon icon-bedroom fs-18 text-primary mr-1">
                                                 <use xlink:href="#icon-bedroom"></use>
                                             </svg>
-                                            {{ $room->bedroom ?? '3' }} Phòng
+                                            {{ $zone->bedroom ?? '3' }} Phòng
                                         </li> --}}
-                                        {{-- @if ($rooms->utility && $rooms->utility->bathrooms == 1)
+                                        {{-- @if ($zones->utility && $zones->utility->bathrooms == 1)
                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
                                                 data-toggle="tooltip" title="Phòng tắm">
                                                 <svg class="icon icon-shower fs-18 text-primary mr-1">
@@ -483,13 +489,13 @@
                                             <svg class="icon icon-square fs-18 text-primary mr-1">
                                                 <use xlink:href="#icon-square"></use>
                                             </svg>
-                                            @if ($rooms->acreage)
-                                                {{ $rooms->acreage }}m²
+                                            @if ($zones->acreage)
+                                                {{ $zones->acreage }}m²
                                             @else
                                                 Chưa có thông tin
                                             @endif
                                         </li>
-                                        @if ($rooms->utility && $rooms->utility->air_conditioning == 1)
+                                        @if ($zones->utility && $zones->utility->air_conditioning == 1)
                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
                                                 data-toggle="tooltip" title="Máy điều hòa">
                                                 <svg class="icon icon-heating fs-18 text-primary">
@@ -498,7 +504,7 @@
                                                 Máy điều hòa
                                             </li>
                                         @endif
-                                        @if ($rooms->utility && $rooms->utility->wifi == 1)
+                                        @if ($zones->utility && $zones->utility->wifi == 1)
                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
                                                 data-toggle="tooltip" title="Wifi">
                                                 <svg class="icon fs-18 text-primary mr-1" xmlns="http://www.w3.org/2000/svg"
@@ -509,7 +515,7 @@
                                                 Wifi
                                             </li>
                                         @endif --}}
-                                        {{-- @if ($room->utility && $room->utility->bathrooms == 1)
+                                        {{-- @if ($zone->utility && $zone->utility->bathrooms == 1)
                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
                                                 data-toggle="tooltip" title="Phòng tắm">
                                                 <svg class="icon icon-shower fs-18 text-primary mr-1">
@@ -523,13 +529,13 @@
                                             <svg class="icon icon-square fs-18 text-primary mr-1">
                                                 <use xlink:href="#icon-square"></use>
                                             </svg>
-                                            @if ($room->acreage)
-                                                {{ $room->acreage }}m²
+                                            @if ($zone->acreage)
+                                                {{ $zone->acreage }}m²
                                             @else
                                                 Chưa có thông tin
                                             @endif
                                         </li>
-                                        @if ($room->utility && $room->utility->wifi == 1)
+                                        @if ($zone->utility && $zone->utility->wifi == 1)
                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
                                                 data-toggle="tooltip" title="Wifi">
                                                 <svg class="icon fs-18 text-primary mr-1"
@@ -540,7 +546,7 @@
                                                 Wifi
                                             </li>
                                         @endif
-                                        @if ($room->utility && $room->utility->air_conditioning == 1)
+                                        @if ($zone->utility && $zone->utility->air_conditioning == 1)
                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
                                                 data-toggle="tooltip" title="Máy điều hòa">
                                                 <svg class="icon icon-heating fs-18 text-primary">
@@ -549,7 +555,7 @@
                                                 &nbsp;Máy điều hòa
                                             </li>
                                         @endif --}}
-                                        @if ($room->bathrooms == 1)
+                                        @if ($zone->bathrooms == 1)
                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
                                                 data-toggle="tooltip" title="Phòng tắm">
                                                 <svg class="icon icon-shower fs-18 text-primary mr-1">
@@ -563,13 +569,13 @@
                                             <svg class="icon icon-square fs-18 text-primary mr-1">
                                                 <use xlink:href="#icon-square"></use>
                                             </svg>
-                                            @if ($room->acreage)
-                                                {{ $room->acreage }}m²
+                                            @if ($zone->acreage)
+                                                {{ $zone->acreage }}m²
                                             @else
                                                 Chưa có thông tin
                                             @endif
                                         </li>
-                                        @if ($room->wifi == 1)
+                                        @if ($zone->wifi == 1)
                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
                                                 data-toggle="tooltip" title="Wifi">
                                                 <svg class="icon fs-18 text-primary mr-1"
@@ -580,7 +586,7 @@
                                                 Wifi
                                             </li>
                                         @endif
-                                        @if ($room->air_conditioning == 1)
+                                        @if ($zone->air_conditioning == 1)
                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
                                                 data-toggle="tooltip" title="Máy điều hòa">
                                                 <svg class="icon icon-heating fs-18 text-primary">
@@ -594,31 +600,23 @@
                                 <div
                                     class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
                                     {{-- <p class="fs-17 font-weight-bold text-heading mb-0">
-                                        {{ number_format($room->price, 0, ',', '.') }} VND
+                                        {{ number_format($zone->price, 0, ',', '.') }} VND
                                     </p> --}}
-                                    @php
-                                        $minPrice = $maxPrice = $room->price ?? 0;
-                                    @endphp
-
                                     <p class="fs-17 font-weight-bold text-heading mb-0">
-                                        @if ($minPrice == $maxPrice)
-                                            {{ number_format($minPrice, 0, ',', '.') }} VND
-                                        @else
-                                            {{ number_format($minPrice, 0, ',', '.') }} -
-                                            {{ number_format($maxPrice, 0, ',', '.') }} VND
-                                        @endif
+                                        {{ number_format($zone->rooms->first()->price, 0, ',', '.') }} VND
                                     </p>
                                     <ul class="list-inline mb-0">
                                         {{-- <li class="list-inline-item">
-                                            <a href="{{ route('client.add.favourite', ['slug' => $room->slug]) }}"
+                                            <a href="{{ route('client.add.favourite', ['slug' => $zone->slug]) }}"
                                                 class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center">
                                                 <i class="fas fa-heart"></i>
                                             </a>
                                         </li> --}}
                                         <li class="list-inline-item">
                                             <a href="#"
-                                                class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center favorite-btn {{ $room->isFavoritedByUser(auth()->id()) ? 'favorited' : '' }}"
-                                                data-room-slug="{{ $room->slug }}">
+                                                class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center favorite-btn {{ $zone->isFavoritedByUser(auth()->id()) ? 'favorited' : '' }}"
+                                                data-zone-slug="{{ $zone->slug }}">
+                                                <!-- Thay đổi từ data-zone-id thành data-zone-slug -->
                                                 <i class="fas fa-heart"></i>
                                             </a>
                                         </li>
@@ -755,42 +753,45 @@
 
                 <div class="slick-slider slick-dots-mt-0 custom-arrow-spacing-30"
                     data-slick-options='{"slidesToShow": 4,"dots":true,"arrows":false,"responsive":[{"breakpoint": 1600,"settings": {"slidesToShow":3}},{"breakpoint": 992,"settings": {"slidesToShow":2,"arrows":false}},{"breakpoint": 768,"settings": {"slidesToShow": 2,"arrows":false,"dots":true,"autoplay":true}},{"breakpoint": 576,"settings": {"slidesToShow": 1,"arrows":false,"dots":true,"autoplay":true}}]}'>
-                    @foreach ($roomClient as $room)
+                    @foreach ($zoneClient as $zone)
                         <div class="box pb-7 pt-2">
                             <div class="card shadow-hover-2 h-100" data-animate="zoomIn">
                                 <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top"
                                     style="height: 200px; overflow: hidden;">
-                                    {{-- @if ($room->images->isNotEmpty())
-                                        <img src="{{ asset('assets/images/' . $room->images->first()->filename) }}"
-                                            alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
+                                    {{-- @if ($zone->images->isNotEmpty())
+                                        <img src="{{ asset('assets/images/' . $zone->images->first()->filename) }}"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @else
                                         <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                            alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @endif --}}
                                     @php
-                                        $minPrice = $maxPrice = $room->price ?? 0;
+                                        // Lấy hình ảnh từ bảng rooms thông qua liên kết với zones
+                                        $roomImages = collect($zone->rooms->first()->image)
+                                            ->filter()
+                                            ->values();
                                     @endphp
 
                                     @if ($roomImages->isNotEmpty())
                                         <img src="{{ asset('assets/images/' . $roomImages->first()) }}"
-                                            alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @else
                                         <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                            alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @endif
                                     <div class="card-img-overlay p-2 d-flex flex-column">
 
                                         {{-- <div>
-                                            @if ($room->residents->isNotEmpty())
+                                            @if ($zone->residents->isNotEmpty())
                                                 <span class="badge badge-orange">Hết phòng</span>
                                             @else
                                                 <span class="badge badge-primary">Còn phòng</span>
                                             @endif
-                                            @if ($room->expiration_date > now())
+                                            @if ($zone->expiration_date > now())
                                                 <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
                                                     VIP
                                                 </span>
@@ -800,12 +801,16 @@
                                             <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
                                                 <a href="#" class="text-white hover-primary">
                                                     <i class="far fa-images"></i><span
-                                                        class="pl-1">{{ $room->images()->count() }}</span>
+                                                        class="pl-1">{{ $zone->images()->count() }}</span>
                                                 </a>
                                             </li>
                                         </ul> --}}
                                         @php
-                                            $roomImages = collect($room->images)
+                                            // Lấy hình ảnh từ bảng rooms thông qua liên kết với zones
+                                            $roomImages = collect($zone->rooms)
+                                                ->flatMap(function ($room) {
+                                                    return $room->images; // Lấy hình ảnh từ từng phòng
+                                                })
                                                 ->filter()
                                                 ->values();
                                         @endphp
@@ -813,8 +818,9 @@
                                         <ul class="list-inline mb-0 mt-auto hover-image">
                                             <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
                                                 <a href="#" class="text-white hover-primary">
-                                                    <i class="far fa-images"></i><span
-                                                        class="pl-1">{{ $roomImages }}</span>
+                                                    <i class="far fa-images"></i>
+                                                    <span class="pl-1">{{ $roomImages->count() }}</span>
+                                                    <!-- Đếm số lượng hình ảnh -->
                                                 </a>
                                             </li>
                                         </ul>
@@ -822,14 +828,14 @@
                                 </div>
                                 <div class="card-body pt-3 d-flex flex-column">
                                     <h2 class="card-title fs-16 lh-2 mb-0">
-                                        <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
-                                            class="text-dark hover-primary">{{ Str::limit($room->name, 60) }}</a>
+                                        <a href="{{ route('client.detail-room', ['slug' => $zone->slug]) }}"
+                                            class="text-dark hover-primary">{{ Str::limit($zone->name, 60) }}</a>
                                     </h2>
                                     <p class="card-text font-weight-500 text-gray-light mb-2">
-                                        <small> {{ Str::limit($room->address, 100) }}</small>
+                                        <small> {{ Str::limit($zone->address, 100) }}</small>
                                     </p>
                                     <ul class="list-inline d-flex mb-0 flex-wrap mr-n5 mt-auto">
-                                        {{-- @if ($room->utility && $room->utility->bathrooms == 1)
+                                        {{-- @if ($zone->utility && $zone->utility->bathrooms == 1)
                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
                                                 data-toggle="tooltip" title="Phòng tắm">
                                                 <svg class="icon icon-shower fs-18 text-primary mr-1">
@@ -843,13 +849,13 @@
                                             <svg class="icon icon-square fs-18 text-primary mr-1">
                                                 <use xlink:href="#icon-square"></use>
                                             </svg>
-                                            @if ($room->acreage)
-                                                {{ $room->acreage }}m²
+                                            @if ($zone->acreage)
+                                                {{ $zone->acreage }}m²
                                             @else
                                                 Chưa có thông tin
                                             @endif
                                         </li>
-                                        @if ($room->utility && $room->utility->wifi == 1)
+                                        @if ($zone->utility && $zone->utility->wifi == 1)
                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
                                                 data-toggle="tooltip" title="Wifi">
                                                 <svg class="icon fs-18 text-primary mr-1"
@@ -860,7 +866,7 @@
                                                 Wifi
                                             </li>
                                         @endif
-                                        @if ($room->utility && $room->utility->air_conditioning == 1)
+                                        @if ($zone->utility && $zone->utility->air_conditioning == 1)
                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
                                                 data-toggle="tooltip" title="Máy điều hòa">
                                                 <svg class="icon icon-heating fs-18 text-primary">
@@ -869,7 +875,7 @@
                                                 &nbsp;Máy điều hòa
                                             </li>
                                         @endif --}}
-                                        @if ($room->bathrooms == 1)
+                                        @if ($zone->bathrooms == 1)
                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
                                                 data-toggle="tooltip" title="Phòng tắm">
                                                 <svg class="icon icon-shower fs-18 text-primary mr-1">
@@ -883,13 +889,13 @@
                                             <svg class="icon icon-square fs-18 text-primary mr-1">
                                                 <use xlink:href="#icon-square"></use>
                                             </svg>
-                                            @if ($room->acreage)
-                                                {{ $room->acreage }}m²
+                                            @if ($zone->acreage)
+                                                {{ $zone->acreage }}m²
                                             @else
                                                 Chưa có thông tin
                                             @endif
                                         </li>
-                                        @if ($room->wifi == 1)
+                                        @if ($zone->wifi == 1)
                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
                                                 data-toggle="tooltip" title="Wifi">
                                                 <svg class="icon fs-18 text-primary mr-1"
@@ -900,7 +906,7 @@
                                                 Wifi
                                             </li>
                                         @endif
-                                        @if ($room->air_conditioning == 1)
+                                        @if ($zone->air_conditioning == 1)
                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
                                                 data-toggle="tooltip" title="Máy điều hòa">
                                                 <svg class="icon icon-heating fs-18 text-primary">
@@ -914,28 +920,18 @@
                                 <div
                                     class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
                                     {{-- <p class="fs-17 font-weight-bold text-heading mb-0">
-                                        {{ number_format($room->price, 0, ',', '.') }} VND</p> --}}
-                                    @php
-                                        $minPrice = $maxPrice = $room->price ?? 0;
-                                    @endphp
-
+                                        {{ number_format($zone->price, 0, ',', '.') }} VND</p> --}}
                                     <p class="fs-17 font-weight-bold text-heading mb-0">
-                                        @if ($minPrice == $maxPrice)
-                                            {{ number_format($minPrice, 0, ',', '.') }} VND
-                                        @else
-                                            {{ number_format($minPrice, 0, ',', '.') }} -
-                                            {{ number_format($maxPrice, 0, ',', '.') }} VND
-                                        @endif
+                                        {{ number_format($zone->rooms->first()->price, 0, ',', '.') }} VND
                                     </p>
-                                    <ul class="list-inline mb-0">
-                                        <li class="list-inline-item">
-                                            <a href="#"
-                                                class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center favorite-btn {{ $room->isFavoritedByUser(auth()->id()) ? 'favorited' : '' }}"
-                                                data-room-slug="{{ $room->slug }}">
-                                                <i class="fas fa-heart"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
+                                    <li class="list-inline mb-0">
+                                        <a href="#"
+                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center favorite-btn {{ $zone->isFavoritedByUser(auth()->id()) ? 'favorited' : '' }}"
+                                            data-zone-slug="{{ $zone->slug }}">
+                                            <!-- Thay đổi từ data-zone-id thành data-zone-slug -->
+                                            <i class="fas fa-heart"></i>
+                                        </a>
+                                    </li>
                                 </div>
                             </div>
                         </div>
@@ -1207,131 +1203,10 @@
 
     </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    {{-- <script>
+    <script>
         var districts = @json($districts);
         var villages = @json($villages);
-    </script> --}}
+    </script>
     <script src="{{ asset('assets/js/search-api-vn.js') }}"></script>
     <script src="{{ asset('assets/js/yeuthich.js') }}"></script>
-    {{-- <script>
-        function toggleFavourite(event, element) {
-            event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
-
-            const slug = element.getAttribute('data-room-slug');
-            const url = `{{ route('client.add.favourite', '') }}/${slug}`;
-
-            fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest', // Đảm bảo yêu cầu được xử lý như một yêu cầu AJAX
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Cập nhật giao diện người dùng dựa trên phản hồi từ server
-                    if (data.success) {
-                        const icon = element.querySelector('i');
-                        if (icon.classList.contains('far')) {
-                            icon.classList.remove('far');
-                            icon.classList.add('fas', 'text-danger');
-                        } else {
-                            icon.classList.remove('fas', 'text-danger');
-                            icon.classList.add('far');
-                        }
-                        // Cập nhật tooltip title
-                        const tooltipTitle = icon.classList.contains('text-danger') ? 'Đã thêm vào yêu thích' :
-                            'Yêu thích';
-                        element.setAttribute('title', tooltipTitle);
-                    } else {
-                        console.error('Có lỗi xảy ra khi thêm vào yêu thích.');
-                    }
-                })
-                .catch(error => console.error('Có lỗi xảy ra:', error));
-        }
-    </script> --}}
-    <script>
-        // $(document).ready(function() {
-        //     $('.favorite-btn').on('click', function(e) {
-        //         e.preventDefault();
-        //         var btn = $(this);
-        //         var roomSlug = btn.data('room-slug');
-
-        //         $.ajax({
-        //             url: '/add-favourite/' + roomSlug,
-        //             type: 'POST',
-        //             data: {
-        //                 _token: $('meta[name="csrf-token"]').attr('content')
-        //             },
-        //             success: function(response) {
-        //                 if (response.status === 'added') {
-        //                     btn.addClass('active');
-        //                 } else if (response.status === 'removed') {
-        //                     btn.removeClass('active');
-        //                 }
-
-        //                 // Cập nhật số lượng yêu thích trên navbar
-        //                 updateFavoriteCount(response.favoriteCount);
-        //             },
-        //             error: function(xhr) {
-        //                 console.log('Error:', xhr);
-        //             }
-        //         });
-        //     });
-
-        //     // Hàm mới để cập nhật số lượng yêu thích
-        //     function updateFavoriteCount(count) {
-        //         var $favoriteCount = $('#favorite-count');
-        //         $favoriteCount.text(count);
-
-        //         // Thêm hiệu ứng để làm nổi bật sự thay đổi
-        //         $favoriteCount.addClass('highlight');
-        //         setTimeout(function() {
-        //             $favoriteCount.removeClass('highlight');
-        //         }, 300);
-        //     }
-        // });
-
-        // $(document).ready(function() {
-        //     $('.favorite-btn').on('click', function(e) {
-        //         e.preventDefault();
-        //         var btn = $(this);
-        //         var roomSlug = btn.data('room-slug');
-
-        //         $.ajax({
-        //             url: '/add-favourite/' + roomSlug,
-        //             type: 'POST',
-        //             data: {
-        //                 _token: $('meta[name="csrf-token"]').attr('content')
-        //             },
-        //             success: function(response) {
-        //                 if (response.status === 'added') {
-        //                     btn.addClass('favorited');
-        //                 } else if (response.status === 'removed') {
-        //                     btn.removeClass('favorited');
-        //                 }
-
-        //                 // Cập nhật số lượng yêu thích trên navbar
-        //                 updateFavoriteCount(response.favoriteCount);
-        //             },
-        //             error: function(xhr) {
-        //                 console.log('Error:', xhr);
-        //             }
-        //         });
-        //     });
-
-        //     // Hàm để cập nhật số lượng yêu thích
-        //     function updateFavoriteCount(count) {
-        //         var $favoriteCount = $('#favorite-count');
-        //         $favoriteCount.text(count);
-
-        //         // Thêm hiệu ứng để làm nổi bật sự thay đổi
-        //         $favoriteCount.addClass('highlight');
-        //         setTimeout(function() {
-        //             $favoriteCount.removeClass('highlight');
-        //         }, 300);
-        //     }
-        // });
-    </script>
 @endpush

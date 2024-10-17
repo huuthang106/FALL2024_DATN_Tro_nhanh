@@ -13,7 +13,7 @@ class Favourite extends Model
     protected $fillable = [
         'slug',
         'user_id',
-        'room_id',
+        'zone_id',
     ];
     public function user()
     {
@@ -25,5 +25,4 @@ class Favourite extends Model
     {
         return $this->belongsTo(Room::class, 'room_id');
     }
-    
 }

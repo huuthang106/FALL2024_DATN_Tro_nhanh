@@ -35,7 +35,7 @@ class Zone extends Model
         'vip_expiry_date',
         'type_vip',
         'view',
-       
+
     ];
     public function user()
     {
@@ -80,15 +80,10 @@ class Zone extends Model
     }
     public function favourites()
     {
-        return $this->hasMany(Favourite::class, 'room_id');
+        return $this->hasMany(Favourite::class, 'zone_id');
     }
     public function isFavoritedByUser($userId)
     {
         return $this->favourites()->where('user_id', $userId)->exists();
-    }
-    // Thêm accessor để lấy tất cả ảnh từ các phòng
-    public function getAllImagesAttribute()
-    {
-        return $this->rooms->pluck('images')->flatten()->filter()->values()->all();
     }
 }
