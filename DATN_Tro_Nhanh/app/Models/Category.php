@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use App\Models\Zone;
+
 class Category extends Model
 {
     use HasFactory;
@@ -17,5 +18,4 @@ class Category extends Model
     {
         return $this->hasMany(Zone::class);
     }
-
 }

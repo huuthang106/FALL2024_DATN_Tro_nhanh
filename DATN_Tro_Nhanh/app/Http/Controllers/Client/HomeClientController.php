@@ -21,77 +21,76 @@ class HomeClientController extends Controller
     protected $zoneServices;
     protected $zoneClientService;
     protected $userClientServices;
-    public function __construct(UserClientServices $userClientServices, RoomClientServices $roomClientService, PremiumService $premiumService, AccountService $accountService, ZoneServices $zoneServices, ZoneClientService $zoneClientService)
+    public function __construct(UserClientServices $userClientServices, RoomClientServices $roomClientService, PremiumService $premiumService, AccountService $accountService, ZoneServices $zoneServices)
     {
         $this->zoneServices = $zoneServices;
         $this->roomClientService = $roomClientService;
         $this->userClientServices = $userClientServices;
         $this->premiumService = $premiumService;
         $this->accountService = $accountService;
-        $this->zoneClientService = $zoneClientService;
-    }
-    public function index(Request $request)
-    {
-        $user = Auth::user();
-        $rooms = $this->roomClientService->getRoomWhere();
-        $roomClient = $this->roomClientService->RoomClient();
-        // $locations = $this->roomClientService->getUniqueLocations();
-        $categories = $this->roomClientService->getCategories();
-        if ($request->ajax() || $request->wantsJson()) {
-            return response()->json([
-                'roomClient' => $roomClient,
-                'categories' => $categories,
-                'rooms' => $rooms,
-                // 'provinces' => $locations['provinces'],
-                // 'districts' => $locations['districts'],
-                // 'villages' => $locations['villages'],
-                'province' => request()->input('province', '')
-            ]);
-        }
-        event(new ExpiredEntitiesUpdateEvent());
-        // event(new ServiceMailsSummaryEvent());
-        return view('client.show.home', [
-            'roomClient' => $roomClient,
-            'categories' => $categories,
-            'rooms' => $rooms,
-            // 'provinces' => $locations['provinces'],
-            // 'districts' => $locations['districts'],
-            // 'villages' => $locations['villages'],
-            'province' => request()->input('province', '') // Truyền biến province từ request hoặc giá trị mặc định
-        ]);
     }
     // public function index(Request $request)
     // {
     //     $user = Auth::user();
-    //     $zones = $this->zoneClientService->getZoneWhere();
-    //     $zoneClient = $this->zoneClientService->ZoneClient();
-    //     $locations = $this->zoneClientService->getUniqueLocations();
-    //     $categories = $this->zoneClientService->getCategories();
-
+    //     $rooms = $this->roomClientService->getRoomWhere();
+    //     $roomClient = $this->roomClientService->RoomClient();
+    //     // $locations = $this->roomClientService->getUniqueLocations();
+    //     $categories = $this->roomClientService->getCategories();
     //     if ($request->ajax() || $request->wantsJson()) {
     //         return response()->json([
-    //             'zoneClient' => $zoneClient,
+    //             'roomClient' => $roomClient,
     //             'categories' => $categories,
-    //             'zones' => $zones,
-    //             'provinces' => $locations['provinces'],
-    //             'districts' => $locations['districts'],
-    //             'villages' => $locations['villages'],
+    //             'rooms' => $rooms,
+    //             // 'provinces' => $locations['provinces'],
+    //             // 'districts' => $locations['districts'],
+    //             // 'villages' => $locations['villages'],
     //             'province' => request()->input('province', '')
     //         ]);
     //     }
-
     //     event(new ExpiredEntitiesUpdateEvent());
-
+    //     // event(new ServiceMailsSummaryEvent());
     //     return view('client.show.home', [
-    //         'zoneClient' => $zoneClient,
+    //         'roomClient' => $roomClient,
     //         'categories' => $categories,
-    //         'zones' => $zones,
-    //         'provinces' => $locations['provinces'],
-    //         'districts' => $locations['districts'],
-    //         'villages' => $locations['villages'],
-    //         'province' => request()->input('province', '')
+    //         'rooms' => $rooms,
+    //         // 'provinces' => $locations['provinces'],
+    //         // 'districts' => $locations['districts'],
+    //         // 'villages' => $locations['villages'],
+    //         'province' => request()->input('province', '') // Truyền biến province từ request hoặc giá trị mặc định
     //     ]);
     // }
+    public function index(Request $request)
+    {
+        $user = Auth::user();
+        $zones = $this->roomClientService->getRoomWhere();
+        $zoneClient = $this->roomClientService->RoomClient();
+        $locations = $this->roomClientService->getUniqueLocations();
+        $categories = $this->roomClientService->getCategories();
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'zoneClient' => $zoneClient,
+                'categories' => $categories,
+                'zones' => $zones,
+                'provinces' => $locations['provinces'],
+                'districts' => $locations['districts'],
+                'villages' => $locations['villages'],
+                'province' => request()->input('province', '')
+            ]);
+        }
+
+        event(new ExpiredEntitiesUpdateEvent());
+
+        return view('client.show.home', [
+            'zoneClient' => $zoneClient,
+            'categories' => $categories,
+            'zones' => $zones,
+            'provinces' => $locations['provinces'],
+            'districts' => $locations['districts'],
+            'villages' => $locations['villages'],
+            'province' => request()->input('province', '')
+        ]);
+    }
     // Giao diện Về Chúng Tôi
     public function showAbout(Request $request)
     {

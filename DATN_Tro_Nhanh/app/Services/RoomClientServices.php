@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Room;
 use App\Models\Category;
+use App\Models\Zone;
 use App\Models\Favourite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -485,7 +486,7 @@ class RoomClientServices
 
     public function getRoomWhere()
     {
-        return Room::query()
+        return Zone::with('rooms') // Thêm liên kết với bảng rooms
             ->orderBy('created_at', 'desc')
             ->take(5)
             ->get();
@@ -493,22 +494,50 @@ class RoomClientServices
 
     public function RoomClient()
     {
-        return Room::orderBy('created_at', 'desc')
+        return Zone::with('rooms') // Thêm liên kết với bảng rooms
+            ->orderBy('created_at', 'desc')
             ->take(5)
             ->get();
     }
 
+    // public function getUniqueLocations()
+    // {
+    //     try {
+    //         $provinces = Zone::distinct()->whereNotNull('province')->pluck('province', 'province')->toArray();
+    //         $districts = Zone::distinct()->whereNotNull('district')->select('province', 'district')->get()
+    //             ->groupBy('province')
+    //             ->map(function ($items) {
+    //                 return $items->pluck('district')->toArray();
+    //             })
+    //             ->toArray();
+    //         $villages = Zone::distinct()->whereNotNull('village')->select('district', 'village')->get()
+    //             ->groupBy('district')
+    //             ->map(function ($items) {
+    //                 return $items->pluck('village')->toArray();
+    //             })
+    //             ->toArray();
+
+    //         return [
+    //             'provinces' => $provinces,
+    //             'districts' => $districts,
+    //             'villages' => $villages
+    //         ];
+    //     } catch (\Exception $e) {
+    //         Log::error('Không thể lấy danh sách địa điểm: ' . $e->getMessage());
+    //         return null;
+    //     }
+    // }
     public function getUniqueLocations()
     {
         try {
-            $provinces = Room::distinct()->whereNotNull('province')->pluck('province', 'province')->toArray();
-            $districts = Room::distinct()->whereNotNull('district')->select('province', 'district')->get()
+            $provinces = Zone::distinct()->whereNotNull('province')->pluck('province', 'province')->toArray();
+            $districts = Zone::distinct()->whereNotNull('district')->select('province', 'district')->get()
                 ->groupBy('province')
                 ->map(function ($items) {
                     return $items->pluck('district')->toArray();
                 })
                 ->toArray();
-            $villages = Room::distinct()->whereNotNull('village')->select('district', 'village')->get()
+            $villages = Zone::distinct()->whereNotNull('village')->select('district', 'village')->get()
                 ->groupBy('district')
                 ->map(function ($items) {
                     return $items->pluck('village')->toArray();
@@ -525,7 +554,6 @@ class RoomClientServices
             return null;
         }
     }
-
     public function getCategories()
     {
         return Category::whereHas('zones.rooms')
