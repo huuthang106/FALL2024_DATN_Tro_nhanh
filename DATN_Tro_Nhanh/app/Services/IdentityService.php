@@ -35,18 +35,13 @@ class IdentityService
         return $this->key_ID_Recognition;
     }
     public function saveRegistrationData($data, $images)
-
     {
-        // sau đó qua đay lưu dữ liệu bảng đăng ý 
-        // dd($data,$images);
-        // Lưu dữ liệu vào bảng RegistrationList
+        // Lưu dữ liệu vào bảng Identity
+        $data['front_id_card_image'] = $images['cccdmt_filename'] ?? null;
+        $data['back_id_card_image'] = $images['cccdms_filename'] ?? null;
+    
         $registration = Identity::create($data);
-        $identity_id = $registration->id;
-        //  sau khi thêm dc thì gọi thằng hàm hình ra đúng k 
-
-        // Lưu hình ảnh liên quan
-        $this->storeImages($images, $identity_id);
-        // đến đay nó sẽ kết thúc câu lệnh nhưng hiện tại nó lại đi qua thằng loi 1
+    
         return $registration;
     }
     public function getIdIdentity($userId)
@@ -214,14 +209,14 @@ class IdentityService
                                 try {
                                     $responseData = $front_ID_recognition['data'][0];
                                     $name = $responseData['name'];
-                                    $gender = ($responseData['sex'] == 'NAM') ? 1 : 2;
+                                   
                                     $identification_number = $responseData['id'];
                                     event(new ImagesUploaded($request));
 
                                     $data = [
                                         'name' => $name,
                                         'identification_number' => $identification_number,
-                                        'gender' => $gender,
+                                     
                                         'user_id' => $user_id,
                                     ];
 
@@ -235,7 +230,7 @@ class IdentityService
                                             'success' => 'Đăng ký thành công.',
                                             'name' => $data['name'],
                                             'identification_number' => $data['identification_number'],
-                                            'gender' => $data['gender'],
+                                           
                                         ]);
                                     }
                                 } catch (\Exception $e) {

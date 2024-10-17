@@ -15,22 +15,14 @@ class Room extends Model
     protected $fillable = [
         'title',
         'description',
-        'price',
-        // 'phone',
-        // 'address',
+        'price',   
+        'address',
         'quantity',
-        // 'longitude',
-        // 'latitude',
-        // 'acreages_id',
-        // 'price_id',
-        'category_id',
-        'images',
-        // 'area_id',
-        // 'location_id',
-        'zone_id',
-        // 'user_id',
-        // 'view',
-        // 'slug'
+        'longitude',
+        'latitude',
+        'zone_id',   
+        'view',
+        'slug'
     ];
 
     // Thiết lập mối quan hệ many-to-one với Category
@@ -53,15 +45,7 @@ class Room extends Model
         return $this->belongsTo(Price::class);
     }
 
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
-
-    public function acreage()
-    {
-        return $this->belongsTo(Acreage::class);
-    }
+   
 
 
     public function location()

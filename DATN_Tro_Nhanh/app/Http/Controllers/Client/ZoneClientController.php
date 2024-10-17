@@ -22,51 +22,60 @@ class ZoneClientController extends Controller
         $this->CommentClientService = $CommentClientService;
     }
 
-    public function listZoneClient(Request $request) 
+    public function listZoneClient(Request $request, $perPage = 10)
     {
-        $keyword = $request->input('keyword');
+        $searchTerm = $request->input('search');
         $province = $request->input('province');
-        $latitude = $request->input('latitude');
-        $longitude = $request->input('longitude');
-    
-        if ($latitude && $longitude) {
-            $zones = $this->zoneServices->searchZonesWithinRadius($latitude, $longitude, 30);
-        } elseif ($keyword || $province) {
-            $zones = $this->zoneServices->searchZones($keyword, $province);
-        } else {
-            $userLat = session('userLat');
-            $userLng = session('userLng');
-    
-            if ($userLat && $userLng) {
-                $zones = $this->zoneServices->searchZonesWithinRadius($userLat, $userLng, 30);
-            } else {
-                $zones = $this->zoneServices->getMyZoneClient();
-            }
-        }
-    
-        $totalZones = $this->zoneServices->getTotalZones();
-        $provinces = $this->zoneServices->getProvinces()->pluck('province')->toArray(); // Chuyển đổi Collection thành mảng
-    
-        if ($request->ajax()) {
+        $district = $request->input('district');
+        $village = $request->input('village');
+        $category = $request->input('category'); // Thêm tham số category
+        $features = $request->input('features');
+        $type = $request->input('type');
+
+        $zones = $this->zoneServices->getAllZones(
+            (int) $perPage,
+            $type,
+            $searchTerm,
+            $province,
+            $district,
+            $village,
+            $category,
+            $features
+        );
+
+        $locations = $this->zoneServices->getUniqueLocations();
+        $popularZones = $this->zoneServices->getPopularZones();
+
+        if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
-                'zones' => $zones->items(),
-                'totalZones' => $totalZones,
-                'pagination' => (string) $zones->links()
+                'zones' => $zones,
+                'searchTerm' => $searchTerm,
+                'province' => $province,
+                'district' => $district,
+                'village' => $village,
+                'provinces' => $locations['provinces'],
+                'districts' => $locations['districts'],
+                'villages' => $locations['villages'],
+                'popularZones' => $popularZones
             ]);
         }
-    
-        return view('client.show.listing-half-map-list-layout-1', [
+
+        $categories = $this->zoneServices->getCategories(); // Lấy danh sách categories
+
+        return view('client.show.listing-grid-with-left-filter', [
             'zones' => $zones,
-            'totalZones' => $totalZones,
-            'keyword' => $keyword,
+            'searchTerm' => $searchTerm,
             'province' => $province,
-            'latitude' => $latitude,
-            'longitude' => $longitude,
-            'userLat' => $request->input('user_lat'),
-            'userLng' => $request->input('user_lng'),
-            'showLocationAlert' => true,
-            'provinces' => $provinces, // Truyền danh sách các mã tỉnh vào view
-            'zoneServices' => $this->zoneServices
+            'district' => $district,
+            'village' => $village,
+            'category' => $category, // Truyền category đã chọn vào view
+            'type' => $type, // Truyền loại phòng sang view
+            'provinces' => $locations['provinces'],
+            'districts' => $locations['districts'],
+            'villages' => $locations['villages'],
+            'categories' => $categories, // Truyền danh sách categories vào view
+            'popularZones' => $popularZones,
+            'features' => $features
         ]);
     }
     public function showZoneDetailsBySlug($slug)

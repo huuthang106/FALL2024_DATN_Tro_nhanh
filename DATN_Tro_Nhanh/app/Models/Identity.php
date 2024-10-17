@@ -14,18 +14,17 @@ class Identity extends Model
     protected $fillable = [
         'name',
         'identification_number',
-        'gender',
+        
         'status',
         'user_id',
         'deleted_at',
         'created_at',
         'updated_at',
-        
+        'front_id_card_image',
+        'back_id_card_image',   
     ];
     public function user(){
         return $this->belongsTo(User::class);
     }
-    public function imgmember(){
-        return $this->hasMany(Image::class);
-    }
+   
 }

@@ -160,15 +160,7 @@ class IndexAdminService
             ->get();
     }
     // Danh sách loại phòng
-    public function getRoomsCountByCategoryType()
-    {
-        return Room::join('categories', 'rooms.category_id', '=', 'categories.id')
-            ->selectRaw('categories.name as category_name, count(*) as count')
-            ->groupBy('categories.id', 'categories.name')
-            ->orderByDesc('count')  // Sắp xếp theo số lượng phòng giảm dần
-            ->pluck('count', 'category_name')
-            ->toArray();
-    }
+    
     // Tổng số phòng
     public function getTotalRooms()
     {

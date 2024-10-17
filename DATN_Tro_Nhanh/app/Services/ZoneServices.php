@@ -15,7 +15,8 @@ use Exception;
 use Illuminate\Support\Facades\Log;
 use App\Events\BillCreated;
 use GuzzleHttp\Client;
-
+use App\Models\Category;
+use Carbon\Carbon;
 class ZoneServices
 {
     const CO = 1; // Có tiện ích
@@ -23,6 +24,7 @@ class ZoneServices
     const DA_TAO = 1; // Trạng thái tạo hóa đơn
     protected $client;
 
+    private const status = 2;
     public function __construct()
     {
         $this->client = new Client([
@@ -153,6 +155,61 @@ class ZoneServices
         $slug = trim($slug, '-');
         return $slug;
     }
+    public function getCategories()
+    {
+        return Category::whereHas('zones') // Ensure the category has related rooms
+            ->select('id', 'name')
+            ->get();
+    }
+    public function getUniqueLocations()
+{
+    try {
+        $provinces = Zone::distinct()->whereNotNull('province')->pluck('province', 'province')->toArray();
+        $districts = Zone::distinct()->whereNotNull('district')->select('province', 'district')->get()
+            ->groupBy('province')
+            ->map(function ($items) {
+                return $items->pluck('district')->toArray();
+            })
+            ->toArray();
+        $villages = Zone::distinct()->whereNotNull('village')->select('district', 'village')->get()
+            ->groupBy('district')
+            ->map(function ($items) {
+                return $items->pluck('village')->toArray();
+            })
+            ->toArray();
+
+        return [
+            'provinces' => $provinces,
+            'districts' => $districts,
+            'villages' => $villages
+        ];
+    } catch (\Exception $e) {
+        Log::error('Không thể lấy danh sách địa điểm: ' . $e->getMessage());
+        return null;
+    }
+}
+public function getPopularZones($limit = 3)
+{
+    $currentDate = Carbon::now();
+
+    return Zone::with('images')
+        ->where('status', self::status) // Đảm bảo rằng bạn có hằng số `status` trong dịch vụ Zone
+        ->where(function ($query) use ($currentDate) {
+            $query->where('vip_expiry_date', '>', $currentDate)
+                ->orWhereNull('vip_expiry_date');
+        })
+        ->orderByRaw('CASE 
+            WHEN vip_expiry_date > ? THEN 0 
+            ELSE 1 
+        END', [$currentDate])
+        ->orderByRaw('CASE 
+            WHEN vip_expiry_date > ? THEN view 
+            ELSE 0 
+        END DESC', [$currentDate])
+        ->orderBy('view', 'desc')
+        ->take($limit)
+        ->get();
+}
     public function countRoomsInZone($zone_id)
     {
         // Đếm số phòng trong zone_id cụ thể
@@ -172,10 +229,10 @@ class ZoneServices
     //     $zones = Zone::orderByDesc('created_at')->paginate($perPage); // sắp xếp
     //     return $zones;
     // }
-    public function getMyZoneClient()
+    public function getMyZoneClient($category)
     {
         $perPage = 5;
-        $zones = Zone::with('utility')->orderByDesc('created_at')->paginate($perPage);
+        $zones = Zone::orderByDesc('created_at')->paginate($perPage);
         return $zones;
     }
     // Tổng só khu trọ Client
@@ -555,7 +612,7 @@ class ZoneServices
             'message' => 'Khu trọ đã được xóa vĩnh viễn thành công.'
         ];
     }
-    public function searchZones($keyword, $province)
+    public function searchZones($keyword, $province, $category)
     {
         $query = Zone::query();
 
@@ -568,6 +625,11 @@ class ZoneServices
 
         if ($province) {
             $query->where('province', $province);
+        }
+        if ($category) {
+            $query->whereHas('categories', function ($q) use ($category) {
+                $q->where('categories.id', $category);
+            });
         }
 
         return $query->paginate(10); // Trả về đối tượng Paginator

@@ -254,44 +254,45 @@
                                                 </div>
                                             </div>
                                         @endforeach --}}
-                                        @foreach ($popularRooms as $room)
-                                            <div class="box px-0">
-                                                <div class="card border-0">
-                                                    @if ($room->images->isNotEmpty())
-                                                        @php
-                                                            $image = $room->images->first();
-                                                        @endphp
-                                                        <img src="{{ asset('assets/images/' . $image->filename) }}"
-                                                            alt="{{ $room->title }}" class="property-image">
-                                                    @else
-                                                        <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                                            alt="{{ $room->title }}" class="property-image">
-                                                    @endif
-                                                    <div
-                                                        class="card-img-overlay d-flex flex-column bg-gradient-3 rounded-lg">
-                                                        @if ($room->expiration_date > now())
-                                                            <div class="d-flex mb-auto">
-                                                                <span class="mr-1 badge badge-danger">VIP</span>
-                                                            </div>
-                                                        @endif
-                                                        <div class="px-2 pb-2">
-                                                            <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
-                                                                class="text-white">
-                                                                <h5 class="card-title fs-16 lh-2 mb-0">
-                                                                    <small>{{ Str::limit($room->title, 50) }}</small>
-                                                                </h5>
-                                                            </a>
-                                                            <p class="card-text text-gray-light mb-0 font-weight-500">
-                                                                {{ Str::limit($room->address, 60) }}</p>
-                                                            <p class="text-white mb-0"><span
-                                                                    class="fs-17 font-weight-bold">{{ number_format($room->price, 0, ',', '.') }}
-                                                                    VND</span>/tháng
-                                                            </p>
+                                        @foreach ($popularZones as $zone)
+                                        <div class="box px-0">
+                                            <div class="card border-0">
+                                                @if ($zone->images->isNotEmpty())
+                                                    @php
+                                                        $image = $zone->images->first();
+                                                    @endphp
+                                                    <img src="{{ asset('assets/images/' . $image->filename) }}"
+                                                        alt="{{ $zone->title }}" class="property-image">
+                                                @else
+                                                    <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                                        alt="{{ $zone->title }}" class="property-image">
+                                                @endif
+                                                <div class="card-img-overlay d-flex flex-column bg-gradient-3 rounded-lg">
+                                                    @if ($zone->vip_expiry_date > now())
+                                                        <div class="d-flex mb-auto">
+                                                            <span class="mr-1 badge badge-danger">VIP</span>
                                                         </div>
+                                                    @endif
+                                                    <div class="px-2 pb-2">
+                                                        <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}"
+                                                            class="text-white">
+                                                            <h5 class="card-title fs-16 lh-2 mb-0">
+                                                                <small>{{ Str::limit($zone->title, 50) }}</small>
+                                                            </h5>
+                                                        </a>
+                                                        <p class="card-text text-gray-light mb-0 font-weight-500">
+                                                            {{ Str::limit($zone->address, 60) }}</p>
+                                                        <p class="text-white mb-0"><span
+                                                                class="fs-17 font-weight-bold">{{ number_format($zone->price, 0, ',', '.') }}
+                                                                VND</span>/tháng
+                                                        </p>
+                                                        <!-- Hiển thị tiện ích từ Zone -->
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
-                                        @endforeach
+                                        </div>
+                                    @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -586,6 +587,7 @@
     <script>
         var districts = @json($districts);
         var villages = @json($villages);
+        var categories = @json($categories);
     </script>
     <script src="{{ asset('assets/js/search-api-vn.js') }}"></script>
     <script src="{{ asset('assets/js/yeuthich.js') }}"></script>

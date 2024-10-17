@@ -181,19 +181,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function displayData(data) {
     document.getElementById('cmnd_number').value = data.identification_number || '';
     document.getElementById('full_name').value = data.name || '';
-    const genderInput = document.getElementById('gender');
-    switch (data.gender) {
-        case 1:
-            genderInput.value = 'Nam';
-            break;
-        case 2:
-            genderInput.value = 'Nữ';
-            break;
-        default:
-            genderInput.value = 'Chưa xác định';
-            break;
-    }
-
+   
     document.getElementById('cccdmt-path').value = data.cccdmt_path || '';
     document.getElementById('cccdms-path').value = data.cccdms_path || '';
     document.getElementById('fileface-path').value = data.fileface_path || '';
