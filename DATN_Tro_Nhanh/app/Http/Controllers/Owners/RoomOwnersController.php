@@ -19,7 +19,7 @@ use App\Models\Zone;
 use App\Services\ZoneServices;
 use App\Models\Image;
 use Illuminate\Validation\ValidationException;
-use App\Events\Owners\RoomOwnersEvent;
+
 use App\Models\Room;
 use Illuminate\Http\Request;
 use App\Services\RoomServices; // Đảm bảo import RoomService
@@ -132,32 +132,7 @@ class RoomOwnersController extends Controller
 
         return view('owners.create.add-new-property', compact('acreages', 'prices', 'categories', 'locations', 'zones', 'userStatus'));
     }
-    public function store(RoomOwnersRequest $request)
-    {
-        try {
-            if ($request->isMethod('post')) {
-                $result = $this->roomOwnersService->create($request);
-
-                if ($result instanceof \Illuminate\Http\JsonResponse) {
-                    return $result;
-                } elseif ($result) {
-                    event(new RoomOwnersEvent($result));
-                    return response()->json([
-                        'status' => 'success',
-                        'message' => 'Phòng trọ đã được tạo thành công.'
-                    ]);
-                } else {
-                    throw new \Exception('Không thể tạo phòng');
-                }
-            }
-        } catch (\Exception $e) {
-            Log::error('Lỗi khi tạo phòng: ' . $e->getMessage());
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Đã xảy ra lỗi khi tạo phòng: ' . $e->getMessage()
-            ]);
-        }
-    }
+   
     // Trang chỉnh sửa
     public function viewUpdate($slug)
     {

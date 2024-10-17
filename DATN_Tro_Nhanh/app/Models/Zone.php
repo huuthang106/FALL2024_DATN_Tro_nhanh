@@ -20,10 +20,22 @@ class Zone extends Model
         'province',
         'longitude',
         'latitude',
-        'total_rooms',
         'status',
         'slug',
         'user_id',
+        'category_id',
+        'wifi',
+        'air_conditioning',
+        'garage',
+        'bathrooms',
+        'phone',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+        'vip_expiry_date',
+        'type_vip',
+        'view',
+       
     ];
     public function user()
     {

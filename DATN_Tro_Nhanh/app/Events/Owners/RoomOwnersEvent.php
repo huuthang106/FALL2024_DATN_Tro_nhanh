@@ -9,7 +9,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Room;
+use App\Models\zone;
 
 class RoomOwnersEvent
 {
@@ -18,7 +18,7 @@ class RoomOwnersEvent
     /**
      * Create a new event instance.
      */
-    public $room;
+    public $zone;
     // public $type;
     // public $data;
     // public $status;
@@ -32,9 +32,9 @@ class RoomOwnersEvent
     //     $this->status = $status;
     //     $this->userId = $userId;
     // }
-    public function __construct(Room $room)
+    public function __construct(zone $zone)
     {
-        $this->room = $room; // Lưu ID của phòng
+        $this->zone = $zone; // Lưu ID của phòng
     }
     /**
      * Get the channels the event should broadcast on.

@@ -13,7 +13,10 @@ use App\Events\ZoneCreated; // Import event
 use App\Http\Requests\BillRequest;
 use Illuminate\Support\Facades\Log;
 use App\Models\Image;
-
+use App\Models\Category;
+use App\Models\Location;
+use App\Http\Requests\RoomOwnersRequest;
+use App\Events\RoomCreated;
 class ZoneOwnersController extends Controller
 {
     protected $zoneServices;
@@ -30,8 +33,18 @@ class ZoneOwnersController extends Controller
     }
     public function index()
     {
+        $categories = Category::all();
 
-        return view('owners.create.add-new-zone');
+        $locations = Location::all();
+        $zones = $this->zoneServices->getMyZone(Auth::user()->id);
+
+        $userLock = auth()->user();
+
+        // Lấy trạng thái của người dùng hiện tại
+        $userStatus = $userLock ? $userLock->status : null;
+
+
+        return view('owners.create.add-new-zone', compact('categories', 'locations', 'zones', 'userStatus'));
     }
     // Chi tiết khu trọ
     public function showDetailOwners($slug)
@@ -64,34 +77,31 @@ class ZoneOwnersController extends Controller
 
     public function store(ZoneRequest $request)
     {
-        if ($request->isMethod('post')) {
-            try {
-                $result = $this->zoneServices->store($request);
-    
-                if ($result['success']) {
-                    event(new ZoneCreated($result['zone']));
+        // Log::info('Request Data:', $request->all());
+        try {
+            if ($request->isMethod('post')) {
+                $result = $this->zoneServices->create($request);
+
+                if ($result instanceof \Illuminate\Http\JsonResponse) {
+                    return $result;
+                } elseif ($result) {
+                    event(new RoomCreated($request->all()));
+
                     return response()->json([
-                        'success' => true,
-                        'message' => 'Khu trọ đã được tạo thành công.',
-                        'redirect' => route('owners.zone-list')
+                        'status' => 'success',
+                        'message' => 'Phòng trọ đã được tạo thành công.'
                     ]);
                 } else {
-                    Log::error('Lỗi khi tạo khu trọ: ' . ($result['message'] ?? 'Không có thông báo lỗi'));
-                    return response()->json([
-                        'success' => false,
-                        'message' => $result['message'] ?? 'Đã xảy ra lỗi khi tạo khu trọ.'
-                    ], 400);
+                    throw new \Exception('Không thể tạo phòng');
                 }
-            } catch (\Exception $e) {
-                Log::error('Exception khi tạo khu trọ: ' . $e->getMessage());
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Đã xảy ra lỗi không mong muốn khi tạo khu trọ.'
-                ], 500);
             }
+        } catch (\Exception $e) {
+            Log::error('Lỗi khi tạo phòng: ' . $e->getMessage());
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Đã xảy ra lỗi khi tạo phòng: ' . $e->getMessage()
+            ]);
         }
-    
-        return view('owners.zone-post');
     }
 
     public function listZone()

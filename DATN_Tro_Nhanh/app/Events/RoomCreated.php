@@ -13,12 +13,13 @@ use App\Models\Room;
 
 class RoomCreated
 {
+   
     use Dispatchable, SerializesModels;
 
-    public $room;
+    public $data; // Thuộc tính để lưu trữ đối tượng Room
 
-    public function __construct(Room $room)
+    public function __construct(array $data) // Nhận dữ liệu dưới dạng mảng
     {
-        $this->room = $room;
+        $this->data = $data; // Gán dữ liệu cho thuộc tính
     }
 }

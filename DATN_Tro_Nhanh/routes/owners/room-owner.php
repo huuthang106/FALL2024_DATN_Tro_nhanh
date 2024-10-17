@@ -15,7 +15,6 @@ Route::group(['prefix' => ''], function () {
     Route::post('thanh-toan-hoa-don/{billId}', [IndexOwnersController::class, 'pay'])->name('payment-bill');
     // thai toan 
     Route::get('/them-tro', [RoomOwnersController::class, 'page_add_rooms'])->name('add-room');
-    Route::post('them-tro', [RoomOwnersController::class, 'store'])->name('store-room');
     // nhan
     Route::group(['prefix' => 'phong-tro'], function () {
         Route::get('/', [RoomOwnersController::class, 'index'])->name('properties');

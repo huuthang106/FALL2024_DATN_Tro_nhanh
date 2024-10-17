@@ -19,7 +19,7 @@ use GuzzleHttp\Client;
 class ZoneServices
 {
     const CO = 1; // Có tiện ích
-    const CHUA_CO = 2; // Chưa có tiện ích
+    const CHUA_CO = 0; // Chưa có tiện ích
     const DA_TAO = 1; // Trạng thái tạo hóa đơn
     protected $client;
 
@@ -45,7 +45,6 @@ class ZoneServices
             $user_id = auth()->id();
             $zone->name = $request->input('name');
             $zone->description = $request->input('description');
-            $zone->total_rooms = $request->input('total_rooms');
             $zone->address = $request->input('address');
             $zone->province = $request->input('province');
             $zone->district = $request->input('district');
@@ -54,6 +53,12 @@ class ZoneServices
             $zone->longitude = $request->input('longitude');
             $zone->status = $request->input('status');
             $zone->user_id = $user_id;
+            $zone->phone = $request->input('phone');
+            $zone->category_id = $request->input('category_id');
+            $zone->wifi = $request->input('wifi');
+            $zone->air_conditioning = $request->input('air_conditioning');
+            $zone->garage = $request->input('garage');
+            $zone->bathrooms = $request->input('bathrooms');    
 
             if ($zone->save()) {
                 $zoneId = $zone->id;
@@ -359,7 +364,7 @@ class ZoneServices
             $zone->longitude = $request->input('longitude');
             $zone->status = $request->input('status');
             $zone->user_id = auth()->id();
-
+        
             if ($request->hasFile('images')) {
                 $violentImages = [];
 
@@ -591,4 +596,175 @@ class ZoneServices
         // Xóa zone
         $zone->delete();
     }
+
+    public function create($request)
+    {
+        if (auth()->check()) {
+            $zone = new Zone();
+            $user_id = auth()->id();
+            // Kiểm tra nếu user có VIP
+            $user = auth()->user();
+            $zone->status = ($user->has_vip_badge && $user->vip_expiration_date > now()) ? 2 : 1; // Cập nhật status dựa trên VIP
+            $zone->name = $request->input('title');
+            $zone->description = $request->input('description');
+            // $zone->price = $request->input('price');
+            $zone->phone = $request->input('phone');
+            $zone->address = $request->input('address'  );
+            // $zone->acreage = $request->input('acreage');
+            
+            $zone->view = $request->input('view');
+            $zone->province = $request->input('province');
+            $zone->district = $request->input('district');
+            $zone->village = $request->input('village');
+            $zone->longitude = $request->input('longitude');
+            $zone->latitude = $request->input('latitude');
+            $zone->user_id = $user_id;
+            $zone->category_id = $request->input('category_id');
+            $zone->wifi = $request->has('wifi') ? $request->input('wifi') : self::CHUA_CO;
+            $zone->bathrooms = $request->has('bathrooms') ? $request->input('bathrooms') : self::CHUA_CO;
+            $zone->air_conditioning = $request->has('air_conditioning') ? $request->input('air_conditioning') : self::CHUA_CO;
+            $zone->garage = $request->has('garage') ? $request->input('garage') : self::CHUA_CO;
+
+           
+
+            // Lưu phòng và kiểm tra kết quả
+            if (!$zone->save()) {
+                return false;
+            }
+
+            // Lấy ID của phòng mới tạo và tạo slug
+            $zoneId = $zone->id;
+            $slug = $this->createSlug($request->input('title')) . '-' . $zoneId;
+            $zone->slug = $slug;
+
+            // Lưu lại phòng với slug
+            if (!$zone->save()) {
+                $zone->delete();
+                return false;
+            }
+
+            // if ($request->hasFile('images')) {
+            //     $images = $request->file('images');
+            //     $uploadedFilenames = [];
+            //     $violentImages = [];
+
+            //     foreach ($images as $image) {
+            //         try {
+            //             $timestamp = now()->format('YmdHis');
+            //             $originalName = $image->getClientOriginalName();
+            //             $extension = $image->getClientOriginalExtension();
+            //             $filename = $timestamp . '_' . pathinfo($originalName, PATHINFO_FILENAME) . '.' . $extension;
+
+            //             Log::info("Checking image with Clarifai: " . $filename);
+
+            //             $imageContent = base64_encode(file_get_contents($image->getRealPath()));
+
+            //             $response = $this->client->post('models/moderation-recognition/outputs', [
+            //                 'json' => [
+            //                     'inputs' => [
+            //                         [
+            //                             'data' => [
+            //                                 'image' => [
+            //                                     'base64' => $imageContent
+            //                                 ]
+            //                             ]
+            //                         ]
+            //                     ]
+            //                 ]
+            //             ]);
+
+            //             $result = json_decode($response->getBody(), true);
+            //             Log::info("Clarifai response: " . json_encode($result));
+
+            //             $concepts = $result['outputs'][0]['data']['concepts'] ?? [];
+            //             $violenceScore = 0;
+
+            //             $inappropriateContent = ['gore', 'explicit', 'drug', 'suggestive', 'weapon'];
+
+            //             foreach ($concepts as $concept) {
+            //                 if (in_array($concept['name'], $inappropriateContent)) {
+            //                     $violenceScore += $concept['value'];
+            //                     Log::info("Inappropriate content detected: " . $concept['name'] . " with score: " . $concept['value']);
+            //                 }
+            //             }
+
+            //             Log::info("Total inappropriate content score for image: " . $violenceScore);
+
+            //             if ($violenceScore > 0.5) {
+            //                 Log::warning("Image rejected due to high inappropriate content score: " . $filename);
+            //                 $violentImages[] = $filename;
+            //             } else {
+            //                 // Lưu hình ảnh nếu an toàn
+            //                 if ($image->move(public_path('assets/images'), $filename)) {
+            //                     Log::info("Image uploaded successfully: " . $filename);
+
+            //                     $imageModel = new \App\Models\Image();
+            //                     $imageModel->zone_id = $roomId;
+            //                     $imageModel->filename = $filename;
+            //                     $imageModel->save();
+
+            //                     $uploadedFilenames[] = $filename;
+            //                 } else {
+            //                     Log::error("Failed to move image: " . $filename);
+            //                     throw new \Exception("Không thể lưu ảnh: " . $filename);
+            //                 }
+            //             }
+            //         } catch (GuzzleException $e) {
+            //             Log::error("Clarifai API error: " . $e->getMessage());
+            //             return response()->json([
+            //                 'status' => 'error',
+            //                 'message' => 'Có lỗi xảy ra khi kiểm tra ảnh: ' . $e->getMessage()
+            //             ]);
+            //         } catch (\Exception $e) {
+            //             Log::error("Error processing image: " . $e->getMessage());
+            //             return response()->json([
+            //                 'status' => 'error',
+            //                 'message' => 'Có lỗi xảy ra khi xử lý ảnh: ' . $e->getMessage()
+            //             ]);
+            //         }
+            //     }
+
+            //     if (!empty($violentImages)) {
+            //         // Xóa các ảnh đã upload
+            //         foreach ($uploadedFilenames as $filename) {
+            //             $path = public_path('assets/images/' . $filename);
+            //             if (file_exists($path)) {
+            //                 unlink($path);
+            //             }
+            //         }
+
+            //         // Xóa phòng
+            //         $room->delete();
+
+            //         return response()->json([
+            //             'status' => 'error',
+            //             'message' => 'Phát hiện ảnh không phù hợp: ' . implode(', ', $violentImages) . '. Vui lòng kiểm tra lại ảnh của bạn.'
+            //         ]);
+            //     }
+
+            //     if (empty($uploadedFilenames)) {
+            //         $room->delete();
+            //         return response()->json([
+            //             'status' => 'error',
+            //             'message' => 'Không có ảnh nào được tải lên. Vui lòng thử lại.'
+            //         ]);
+            //     }
+            }
+            // Xử lý tiện ích
+            // $utilities = new Utility();
+            // $utilities->room_id = $roomId;
+
+            // // Kiểm tra tiện ích từ request
+            // $utilities->wifi = $request->has('wifi') ? self::CO : self::CHUA_CO;
+            // $utilities->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
+            // $utilities->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
+            // $utilities->bathrooms = $request->has('bathrooms') ? self::CO : self::CHUA_CO;
+            // // Lưu thông tin tiện ích
+            // $utilities->save();
+            return $zone;
+        // } else {
+        //     return false;
+        // }
+    }
+
 }
