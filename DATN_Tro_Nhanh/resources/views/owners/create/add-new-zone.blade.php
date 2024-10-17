@@ -37,7 +37,7 @@
                         </li>
                     </ul>
                     <div class="tab-content shadow-none p-0">
-                        <form enctype="multipart/form-data" action="{{ route('owners.store-room') }}" method="POST">
+                        <form enctype="multipart/form-data" action="{{ route('owners.store-zone') }}" method="POST">
                             @csrf
                             <div id="collapse-tabs-accordion">
                                 <div class="tab-pane tab-pane-parent fade show active px-0" id="description" role="tabpanel"

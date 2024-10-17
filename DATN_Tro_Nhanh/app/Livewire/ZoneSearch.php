@@ -182,8 +182,14 @@ class ZoneSearch extends Component
     }
     public function getZoneImageUrl(Zone $zone): string
     {
-        $image = $zone->images->first();
-        return $image ? asset('assets/images/' . $image->filename) : asset('assets/images/properties-grid-08.jpg');
+        // Lấy phòng đầu tiên liên quan đến khu vực
+        $room = $zone->rooms()->first();
+        
+        // Kiểm tra xem có phòng không và lấy cột image
+        $imageFilename = $room ? $room->image : null;
+
+        // Nếu tìm thấy hình ảnh, trả về đường dẫn, nếu không trả về hình ảnh mặc định
+        return $imageFilename ? asset('assets/images/' . $imageFilename) : asset('assets/images/properties-grid-08.jpg');
     }
     public function updatedSelectAll($value)
     {

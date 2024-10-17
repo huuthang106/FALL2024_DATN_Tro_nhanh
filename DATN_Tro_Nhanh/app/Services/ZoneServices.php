@@ -823,7 +823,7 @@ public function getPopularZones($limit = 3)
             // $utilities->bathrooms = $request->has('bathrooms') ? self::CO : self::CHUA_CO;
             // // Lưu thông tin tiện ích
             // $utilities->save();
-            return $zone;
+            return $zoneId;
         // } else {
         //     return false;
         // }

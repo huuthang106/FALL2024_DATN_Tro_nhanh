@@ -15,11 +15,12 @@ class RoomCreated
 {
    
     use Dispatchable, SerializesModels;
-
+    public $result;
     public $data; // Thuộc tính để lưu trữ đối tượng Room
 
-    public function __construct(array $data) // Nhận dữ liệu dưới dạng mảng
+    public function __construct(array $data, $result) // Nhận dữ liệu dưới dạng mảng
     {
         $this->data = $data; // Gán dữ liệu cho thuộc tính
+        $this->result = $result; // Gán dữ liệu cho thuộc tính
     }
 }

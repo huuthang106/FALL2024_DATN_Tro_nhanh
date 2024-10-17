@@ -85,7 +85,7 @@ class ZoneOwnersController extends Controller
                 if ($result instanceof \Illuminate\Http\JsonResponse) {
                     return $result;
                 } elseif ($result) {
-                    event(new RoomCreated($request->all()));
+                    event(new RoomCreated($request->all(), $result));
 
                     return response()->json([
                         'status' => 'success',

@@ -22,7 +22,8 @@ class Room extends Model
         'latitude',
         'zone_id',   
         'view',
-        'slug'
+        'slug',
+        'image'
     ];
 
     public function getImagesAttribute($value)

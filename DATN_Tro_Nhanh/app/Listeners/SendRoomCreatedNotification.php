@@ -22,6 +22,7 @@ class SendRoomCreatedNotification
     public function __construct(Room $room)
     {
         $this->room = $room;
+       
     }
 
     /**
@@ -41,7 +42,7 @@ class SendRoomCreatedNotification
         $room->description = $data['description']; // Lấy mô tả từ dữ liệu
         $room->price = $data['price']; // Lấy giá từ dữ liệu
         $room->quantity = $data['quantity'] ?? 1; // Lấy số lượng từ dữ liệu, mặc định là 1
-
+        $room->zone_id = $event->result; // Gán zone_id cho phòng
         if (isset($data['image'])) {
             $image = $data['image']; // Giả sử đây là đường dẫn tạm thời của hình ảnh
             // Đổi tên file
