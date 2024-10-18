@@ -421,7 +421,7 @@
                                     </li>
                                 @endguest
                             </ul>
-                            @if (Auth::check())
+                            {{-- @if (Auth::check())
                                 @if ($role != '1')
                                     <li class="nav-item ml-auto w-100 w-sm-auto list-unstyled">
                                         <a class="btn btn-primary btn-lg" href="{{ route('owners.add-room') }}">
@@ -431,7 +431,7 @@
                                         </a>
                                     </li>
                                 @endif
-                            @endif
+                            @endif --}}
 
                             </ul>
                         </div>

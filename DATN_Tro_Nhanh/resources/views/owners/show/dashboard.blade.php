@@ -10,7 +10,7 @@
 
                 </div>
                 <div>
-                    <a href="{{ route('owners.add-room') }}" class="btn btn-primary btn-lg">
+                    <a href="{{ route('owners.zone-post') }}" class="btn btn-primary btn-lg">
                         <span>Thêm phòng trọ mới</span>
                         <span class="d-inline-block ml-1 fs-20 lh-1"><svg class="icon icon-add-new">
                                 <use xlink:href="#icon-add-new"></use>
