@@ -20,7 +20,8 @@ class ZonesTab extends Component
 
     public function render()
     {
-        $zones = Zone::where('user_id', $this->userId)->paginate(10, ['*'], 'khu-tro');
+        // $zones = Zone::where('user_id', $this->userId)->paginate(1, ['*'], 'khu-tro');
+        $zones = Zone::where('user_id', $this->userId)->paginate(6); // Số lượng item trên mỗi trang
         return view('livewire.zones-tab', ['zones' => $zones]);
     }
 }
