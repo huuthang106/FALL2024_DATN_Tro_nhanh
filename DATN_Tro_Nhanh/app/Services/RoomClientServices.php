@@ -19,7 +19,7 @@ class RoomClientServices
     // viết các hàm lấy giá trị của bản đó 
     private const trangthaiphong = 2;
     private const status = 2;
-
+    private const HIEN_THI = 2;
     // // ----------------------------------------------------------------Sắp Theo VIP
     // public function getAllRoom(int $perPage = 10, $type = null, $searchTerm = null, $province = null, $district = null, $village = null, $category = null, $features = null)
     // {
@@ -484,18 +484,39 @@ class RoomClientServices
     //     }
     // }
 
+    // public function getRoomWhere()
+    // {
+    //     return Zone::with('rooms') // Thêm liên kết với bảng rooms
+    //         ->orderBy('created_at', 'desc')
+    //         ->take(5)
+    //         ->get();
+    // }
+
+    // public function RoomClient()
+    // {
+    //     return Zone::with('rooms') // Thêm liên kết với bảng rooms
+    //         ->orderBy('created_at', 'desc')
+    //         ->take(5)
+    //         ->get();
+    // }
     public function getRoomWhere()
     {
-        return Zone::with('rooms') // Thêm liên kết với bảng rooms
-            ->orderBy('created_at', 'desc')
+        return Zone::with('rooms') // Tải trước mối quan hệ rooms
+            ->join('users', 'zones.user_id', '=', 'users.id')
+            ->where('zones.status', self::HIEN_THI)
+            ->select('zones.*')
+            ->orderBy('zones.created_at', 'desc')
             ->take(5)
             ->get();
     }
 
     public function RoomClient()
     {
-        return Zone::with('rooms') // Thêm liên kết với bảng rooms
-            ->orderBy('created_at', 'desc')
+        return Zone::with('rooms') // Tải trước mối quan hệ rooms
+            ->join('users', 'zones.user_id', '=', 'users.id')
+            ->where('zones.status', self::HIEN_THI)
+            ->select('zones.*')
+            ->orderBy('zones.created_at', 'desc')
             ->take(5)
             ->get();
     }
