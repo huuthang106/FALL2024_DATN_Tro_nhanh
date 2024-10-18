@@ -462,17 +462,15 @@
                                                 Phòng tắm
                                             </li>
                                         @endif
-                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                            data-toggle="tooltip" title="Diện tích">
-                                            <svg class="icon icon-square fs-18 text-primary mr-1">
-                                                <use xlink:href="#icon-square"></use>
-                                            </svg>
-                                            @if ($zone->acreage)
-                                                {{ $zone->acreage }}m²
-                                            @else
-                                                Chưa có thông tin
-                                            @endif
-                                        </li>
+                                        @if ($zone->garage == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Wifi">
+                                                <svg class="icon icon-Garage fs-18 text-primary">
+                                                    <use xlink:href="#icon-Garage"></use>
+                                                </svg>
+                                                &nbsp;Ga-ra
+                                            </li>
+                                        @endif
                                         @if ($zone->wifi == 1)
                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
                                                 data-toggle="tooltip" title="Wifi">
@@ -713,7 +711,6 @@
                                                 <a href="#" class="text-white hover-primary">
                                                     <i class="far fa-images"></i>
                                                     <span class="pl-1">{{ $zone->rooms->count() }}</span>
-                                                    <!-- Đếm số lượng hình ảnh -->
                                                 </a>
                                             </li>
                                         </ul>
@@ -737,17 +734,15 @@
                                                 Phòng tắm
                                             </li>
                                         @endif
-                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
-                                            data-toggle="tooltip" title="Diện tích">
-                                            <svg class="icon icon-square fs-18 text-primary mr-1">
-                                                <use xlink:href="#icon-square"></use>
-                                            </svg>
-                                            @if ($zone->acreage)
-                                                {{ $zone->acreage }}m²
-                                            @else
-                                                Chưa có thông tin
-                                            @endif
-                                        </li>
+                                        {{-- @if ($zone->garage == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Wifi">
+                                                <svg class="icon icon-Garage fs-18 text-primary">
+                                                    <use xlink:href="#icon-Garage"></use>
+                                                </svg>
+                                                &nbsp;Ga-ra
+                                            </li>
+                                        @endif --}}
                                         @if ($zone->wifi == 1)
                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
                                                 data-toggle="tooltip" title="Wifi">

@@ -28,13 +28,13 @@ class FavouritesList extends Component
 
     protected function getFavourites()
     {
-        $query = Favourite::with('room');
+        $query = Favourite::with('zone');
 
         // Lọc theo từ khóa tìm kiếm
         if ($this->search) {
-            $query->whereHas('room', function ($q) {
-                $q->where('title', 'like', '%' . $this->search . '%')
-                  ->orWhere('address', 'like', '%' . $this->search . '%');
+            $query->whereHas('zone', function ($q) {
+                $q->where('name', 'like', '%' . $this->search . '%')
+                    ->orWhere('address', 'like', '%' . $this->search . '%');
             });
         }
 
@@ -43,7 +43,8 @@ class FavouritesList extends Component
             $startDate = $this->getStartDate($this->timeFilter);
             $query->whereDate('created_at', '<=', $startDate);
         }
-
+        // Sắp xếp theo thời gian tạo, mới nhất đứng đầu
+        $query->orderBy('created_at', 'desc');
         return $query->paginate($this->perPage);
     }
 
