@@ -403,9 +403,11 @@
                                     @endif --}}
                                     @php
                                         // Lấy hình ảnh từ bảng rooms thông qua liên kết với zones
-                                        $roomImages = collect($zone->rooms->first()->image)
-                                            ->filter()
-                                            ->values();
+                                        $roomImages = $zone->rooms->isNotEmpty()
+                                            ? collect($zone->rooms->first()->image)
+                                                ->filter()
+                                                ->values()
+                                            : collect();
                                     @endphp
 
                                     @if ($roomImages->isNotEmpty())
@@ -603,7 +605,8 @@
                                         {{ number_format($zone->price, 0, ',', '.') }} VND
                                     </p> --}}
                                     <p class="fs-17 font-weight-bold text-heading mb-0">
-                                        {{ number_format($zone->rooms->first()->price, 0, ',', '.') }} VND
+                                        {{ $zone->rooms->isNotEmpty() ? number_format($zone->rooms->first()->price, 0, ',', '.') : 'Chưa có giá' }}
+                                        VND
                                     </p>
                                     <ul class="list-inline mb-0">
                                         {{-- <li class="list-inline-item">
@@ -769,9 +772,11 @@
                                     @endif --}}
                                     @php
                                         // Lấy hình ảnh từ bảng rooms thông qua liên kết với zones
-                                        $roomImages = collect($zone->rooms->first()->image)
-                                            ->filter()
-                                            ->values();
+                                        $roomImages = $zone->rooms->isNotEmpty()
+                                            ? collect($zone->rooms->first()->image)
+                                                ->filter()
+                                                ->values()
+                                            : collect();
                                     @endphp
 
                                     @if ($roomImages->isNotEmpty())
@@ -922,7 +927,8 @@
                                     {{-- <p class="fs-17 font-weight-bold text-heading mb-0">
                                         {{ number_format($zone->price, 0, ',', '.') }} VND</p> --}}
                                     <p class="fs-17 font-weight-bold text-heading mb-0">
-                                        {{ number_format($zone->rooms->first()->price, 0, ',', '.') }} VND
+                                        {{ $zone->rooms->isNotEmpty() ? number_format($zone->rooms->first()->price, 0, ',', '.') : 'Chưa có giá' }}
+                                        VND
                                     </p>
                                     <li class="list-inline mb-0">
                                         <a href="#"

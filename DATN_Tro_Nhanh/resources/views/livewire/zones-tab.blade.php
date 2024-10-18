@@ -14,12 +14,8 @@
                         <div class="card border-0">
                             <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top"
                                 style="height: 200px; overflow: hidden;">
-                                @if ($zone->images->isNotEmpty())
-                                    @php
-                                        $image = $zone->images->first();
-                                    @endphp
-                                    <img src="{{ asset('assets/images/' . $image->filename) }}"
-                                        alt="{{ $zone->title }}">
+                                @if ($zone->image)
+                                    <img src="{{ asset('assets/images/' . $zone->image) }}" alt="{{ $zone->title }}">
                                 @else
                                     <img src="{{ asset('assets/images/properties-grid-35.jpg') }}"
                                         alt="{{ $zone->title }}">
@@ -27,7 +23,7 @@
                                 {{-- <img src="{{ asset('assets/images/properties-grid-35.jpg') }}" alt="{{ $zone->name }}"> --}}
                                 <div class="card-img-overlay d-flex flex-column">
                                     <div class="mb-auto">
-                                        <span class="badge badge-indigo">Khu trọ</span>
+                                        <span class="badge badge-indigo">Phòng trọ</span>
                                     </div>
                                 </div>
                             </div>
@@ -44,56 +40,66 @@
                 @endforeach
             @endif
         </div>
-        @if (!$zones->isEmpty() && $zones->lastPage() > 1) {{-- Kiểm tra nếu không có dữ liệu và có nhiều hơn 1 trang --}}
-        <div class="mt-4">
-            <ul class="pagination rounded-active justify-content-center">
-                {{-- Previous Page Link --}}
-                @if ($zones->onFirstPage())
-                    <li class="page-item disabled">
-                        <span class="page-link"><i class="far fa-angle-double-left"></i></span>
-                    </li>
-                @else
-                    <li class="page-item">
-                        <a class="page-link" wire:click="gotoPage(1, 'phong')" wire:loading.attr="disabled"><i
-                                class="far fa-angle-double-left"></i></a>
-                    </li>
-                    {{-- <li class="page-item">
-                <a class="page-link" wire:click="previousPage('phong')" wire:loading.attr="disabled"><i
-                        class="far fa-angle-left"></i></a>
-            </li> --}}
-                @endif
+        @if ($zones->hasPages())
+            <nav aria-label="Page navigation">
+                <ul class="pagination rounded-active justify-content-center">
+                    {{-- Nút về đầu --}}
 
-                {{-- Pagination Elements --}}
-                @foreach (range(1, $zones->lastPage()) as $page)
-                    @if ($page == $zones->currentPage())
-                        <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
-                    @elseif (
-                        $page == 1 ||
-                            $page == $zones->lastPage() ||
-                            ($page >= $zones->currentPage() - 1 && $page <= $zones->currentPage() + 1) ||
-                            ($zones->currentPage() == 2 && $page <= 3) // Hiển thị trang 1, 2, 3 khi đang ở trang 2
-                    )
-                        <li class="page-item"><a class="page-link"
-                                wire:click="gotoPage({{ $page }}, 'phong')"
-                                wire:loading.attr="disabled">{{ $page }}</a></li>
-                    @elseif ($page == $zones->currentPage() - 2 || $page == $zones->currentPage() + 2)
+                    <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
+                        <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled"
+                            rel="prev" aria-label="@lang('pagination.previous')"><i class="far fa-angle-double-left"></i></a>
+                    </li>
+
+
+
+                    @php
+                        $totalPages = $zones->lastPage();
+                        $currentPage = $zones->currentPage();
+                        $visiblePages = 3; // Số trang hiển thị ở giữa
+                    @endphp
+
+                    {{-- Trang đầu --}}
+                    <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                        <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled">1</a>
+                    </li>
+
+                    {{-- Dấu ba chấm đầu --}}
+                    @if ($currentPage > $visiblePages)
                         <li class="page-item disabled"><span class="page-link">...</span></li>
                     @endif
-                @endforeach
 
-                {{-- Next Page Link --}}
-                @if ($zones->hasMorePages())
-                    <li class="page-item">
-                        <a class="page-link" wire:click="gotoPage({{ $zones->lastPage() }}, 'phong')"
-                            wire:loading.attr="disabled"><i class="far fa-angle-double-right"></i></a>
+                    {{-- Các trang giữa --}}
+                    @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
+                        @if ($i > 1 && $i < $totalPages)
+                            <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                <a class="page-link hover-white" wire:click="gotoPage({{ $i }})"
+                                    wire:loading.attr="disabled">{{ $i }}</a>
+                            </li>
+                        @endif
+                    @endforeach
+
+                    {{-- Dấu ba chấm cuối --}}
+                    @if ($currentPage < $totalPages - ($visiblePages - 1))
+                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                    @endif
+
+                    {{-- Trang cuối --}}
+                    @if ($totalPages > 1)
+                        <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                            <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
+                                wire:loading.attr="disabled">{{ $totalPages }}</a>
+                        </li>
+                    @endif
+
+
+                    <li class="page-item {{ !$zones->hasMorePages() ? 'disabled' : '' }}">
+                        <a class="page-link hover-white" wire:click="gotoPage({{ $zones->lastPage() }})"
+                            wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')"><i
+                                class="far fa-angle-double-right"></i></a>
                     </li>
-                @else
-                    <li class="page-item disabled">
-                        <span class="page-link"><i class="far fa-angle-double-right"></i></span>
-                    </li>
-                @endif
-            </ul>
-        </div>
-    @endif
+                </ul>
+            </nav>
+
+        @endif
     </div>
 </div>

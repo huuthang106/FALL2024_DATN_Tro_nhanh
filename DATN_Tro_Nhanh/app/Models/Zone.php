@@ -41,9 +41,13 @@ class Zone extends Model
     {
         return $this->belongsTo(User::class);
     }
+    // public function comments()
+    // {
+    //     return $this->hasMany(Comment::class);
+    // }
     public function comments()
     {
-        return $this->hasMany(CommentZones::class);
+        return $this->hasMany(CommentZones::class, 'zone_id'); // Thiết lập mối quan hệ với CommentZones
     }
     public function notifications()
     {
@@ -65,9 +69,9 @@ class Zone extends Model
     {
         return $this->hasMany(Resident::class);
     }
-  
-  
-   
+
+
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -85,5 +89,4 @@ class Zone extends Model
     {
         return $this->rooms->pluck('images')->flatten()->filter()->values()->all();
     }
-    
 }

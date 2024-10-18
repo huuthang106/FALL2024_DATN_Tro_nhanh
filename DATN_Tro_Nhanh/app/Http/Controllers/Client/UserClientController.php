@@ -76,7 +76,7 @@ class UserClientController extends Controller
                 'village' => $village,
             ]);
         }
-    
+
 
         return view('client.show.list-owners', [
             'users' => $users,
@@ -89,22 +89,22 @@ class UserClientController extends Controller
             'villages' => $locations['villages']
         ]);
     }
-  
-    
 
-        
+
+
+
     public function indexAgentJson(Request $request)
     {
-     
-    
+
+
         $users = $this->userClientServices->getUsersByRoleNoLimit(self::role_owners);
-        
+
         return response()->json([
             'users' => $users,
-           
+
         ]);
     }
-    
+
     // public function agentDetail($slug)
     // {
     //     // Get user details and ratings from the service
@@ -151,140 +151,190 @@ class UserClientController extends Controller
     //     // Pass all the relevant data to the view
 
     // }
+    // public function agentDetail($slug)
+    // {
+    //     // Get user details and ratings from the service
+    //     $userDetails = $this->commentClientService->getUserDetailsWithRatings($slug);
+    //     $user = User::where('slug', $slug)->first();
+    //     $comments = $userDetails['comments'];
+
+    //     // Check if user exists in the returned array
+    //     if (!$userDetails['user']) {
+    //         abort(404, 'Người dùng không tìm thấy');
+    //     }
+
+    //     // Kiểm tra xem đã follow chưa 
+    //     $currentUserId = Auth::id(); // Lấy ID của người dùng hiện tại
+    //     $isFollowing = false;
+    //     if ($currentUserId) {
+    //         $isFollowing = $this->watchListOwner->checkFollowing($user->id, $currentUserId);
+    //     }
+
+    //     // Lấy tất cả tin đăng phòng trọ của người dùng này
+    //     $rooms = $user->rooms()->paginate(6); // Số phòng hiển thị trên mỗi trang là 6
+    //     $zones = $user->zones()->paginate(6);
+
+    //     // Đếm tổng số phòng và khu trọ của người dùng này
+    //     $totalRooms = $user->rooms()->count();
+    //     $totalZones = $user->zones()->count();
+
+    //     // Lấy tổng số phòng và số phòng tắm từ bảng utilities
+    //     foreach ($rooms as $room) {
+    //         $room->bathrooms = $room->utility ? $room->utility->bathrooms : 0;
+    //     }
+
+    //     // Tính tổng cả rooms và zones
+    //     $totalProperties = $totalRooms + $totalZones;
+    //     // Kiểm tra xem yêu cầu có phải là AJAX hay không
+    //     if (request()->ajax() || request()->wantsJson()) {
+    //         return response()->json([
+    //             'user' => $userDetails['user'],
+    //             'averageRating' => $userDetails['averageRating'],
+    //             'ratingsDistribution' => $userDetails['ratingsDistribution'],
+    //             'comments' => $comments,
+    //             'rooms' => $rooms,
+    //             'zones' => $zones,
+    //             'totalRooms' => $totalRooms,
+    //             'totalZones' => $totalZones,
+    //             'totalProperties' => $totalProperties,
+    //             'isFollowing' => $isFollowing,
+    //         ]);
+    //     }
+    //     // Nếu không phải là AJAX, trả về view
+    //     return view('client.show.agent-details-1', array_merge(
+    //         compact('user', 'rooms', 'zones', 'totalRooms', 'totalZones', 'totalProperties', 'isFollowing'),
+    //         [
+    //             'user' => $userDetails['user'],
+    //             'averageRating' => $userDetails['averageRating'],
+    //             'ratingsDistribution' => $userDetails['ratingsDistribution'],
+    //             'comments' => $userDetails['comments']
+    //         ]
+    //     ));
+    // }
     public function agentDetail($slug)
-{
-    // Get user details and ratings from the service
-    $userDetails = $this->commentClientService->getUserDetailsWithRatings($slug);
-    $user = User::where('slug', $slug)->first();
-    $comments = $userDetails['comments'];
+    {
+        // Get user details and ratings from the service
+        $userDetails = $this->commentClientService->getUserDetailsWithRatings($slug);
+        $user = User::where('slug', $slug)->first();
+        $comments = $userDetails['comments'];
 
-    // Check if user exists in the returned array
-    if (!$userDetails['user']) {
-        abort(404, 'Người dùng không tìm thấy');
+        // Check if user exists in the returned array
+        if (!$userDetails['user']) {
+            abort(404, 'Người dùng không tìm thấy');
+        }
+
+        // Kiểm tra xem đã follow chưa 
+        $currentUserId = Auth::id(); // Lấy ID của người dùng hiện tại
+        $isFollowing = false;
+        if ($currentUserId) {
+            $isFollowing = $this->watchListOwner->checkFollowing($user->id, $currentUserId);
+        }
+
+        // Lấy tất cả tin đăng khu trọ của người dùng này
+        $zones = $user->zones()->paginate(6);
+
+        // Đếm tổng số khu trọ của người dùng này
+        $totalZones = $user->zones()->count();
+
+        // Tính tổng số properties (chỉ bao gồm zones)
+        $totalProperties = $totalZones;
+
+        // Kiểm tra xem yêu cầu có phải là AJAX hay không
+        if (request()->ajax() || request()->wantsJson()) {
+            return response()->json([
+                'user' => $userDetails['user'],
+                'averageRating' => $userDetails['averageRating'],
+                'ratingsDistribution' => $userDetails['ratingsDistribution'],
+                'comments' => $comments,
+                'zones' => $zones,
+                'totalZones' => $totalZones,
+                'totalProperties' => $totalProperties,
+                'isFollowing' => $isFollowing,
+            ]);
+        }
+        // Nếu không phải là AJAX, trả về view
+        return view('client.show.agent-details-1', array_merge(
+            compact('user', 'zones', 'totalZones', 'totalProperties', 'isFollowing'),
+            [
+                'user' => $userDetails['user'],
+                'averageRating' => $userDetails['averageRating'],
+                'ratingsDistribution' => $userDetails['ratingsDistribution'],
+                'comments' => $userDetails['comments']
+            ]
+        ));
     }
+    public function agentDetails($slug)
+    {
+        // Get user details and ratings from the service
+        $userDetails = $this->commentClientService->getUserDetailsWithRatings($slug);
+        $user = User::where('slug', $slug)->first();
+        $comments = $userDetails['comments'];
 
-    // Kiểm tra xem đã follow chưa 
-    $currentUserId = Auth::id(); // Lấy ID của người dùng hiện tại
-    $isFollowing = false;
-    if ($currentUserId) {
-        $isFollowing = $this->watchListOwner->checkFollowing($user->id, $currentUserId);
-    }
+        // Check if user exists in the returned array
+        if (!$userDetails['user']) {
+            abort(404, 'Người dùng không tìm thấy');
+        }
 
-    // Lấy tất cả tin đăng phòng trọ của người dùng này
-    $rooms = $user->rooms()->paginate(6); // Số phòng hiển thị trên mỗi trang là 6
-    $zones = $user->zones()->paginate(6);
+        // Kiểm tra xem đã follow chưa 
+        $currentUserId = Auth::id(); // Lấy ID của người dùng hiện tại
+        $isFollowing = false;
+        if ($currentUserId) {
+            $isFollowing = $this->watchListOwner->checkFollowing($user->id, $currentUserId);
+        }
 
-    // Đếm tổng số phòng và khu trọ của người dùng này
-    $totalRooms = $user->rooms()->count();
-    $totalZones = $user->zones()->count();
+        // Lấy tất cả tin đăng phòng trọ của người dùng này
+        $rooms = $user->rooms(); // Số phòng hiển thị trên mỗi trang là 6
+        $zones = $user->zones();
 
-    // Lấy tổng số phòng và số phòng tắm từ bảng utilities
-    foreach ($rooms as $room) {
-        $room->bathrooms = $room->utility ? $room->utility->bathrooms : 0;
-    }
+        // Đếm tổng số phòng và khu trọ của người dùng này
+        $totalRooms = $user->rooms()->count();
+        $totalZones = $user->zones()->count();
 
-    // Tính tổng cả rooms và zones
-    $totalProperties = $totalRooms + $totalZones;
- // Kiểm tra xem yêu cầu có phải là AJAX hay không
- if (request()->ajax() || request()->wantsJson()) {
-    return response()->json([
-        'user' => $userDetails['user'],
-        'averageRating' => $userDetails['averageRating'],
-        'ratingsDistribution' => $userDetails['ratingsDistribution'],
-        'comments' => $comments,
-        'rooms' => $rooms,
-        'zones' => $zones,
-        'totalRooms' => $totalRooms,
-        'totalZones' => $totalZones,
-        'totalProperties' => $totalProperties,
-        'isFollowing' => $isFollowing,
-    ]);
-}
-  // Nếu không phải là AJAX, trả về view
-    return view('client.show.agent-details-1', array_merge(
-        compact('user', 'rooms', 'zones', 'totalRooms', 'totalZones', 'totalProperties', 'isFollowing'),
-        [
+        // Lấy tổng số phòng và số phòng tắm từ bảng utilities
+        foreach ($rooms as $room) {
+            $room->bathrooms = $room->utility ? $room->utility->bathrooms : 0;
+        }
+
+        // Tính tổng cả rooms và zones
+        $totalProperties = $totalRooms + $totalZones;
+
+        return response()->json([
             'user' => $userDetails['user'],
             'averageRating' => $userDetails['averageRating'],
             'ratingsDistribution' => $userDetails['ratingsDistribution'],
-            'comments' => $userDetails['comments']
-        ]
-    ));
-}
-public function agentDetails($slug)
-{
-    // Get user details and ratings from the service
-    $userDetails = $this->commentClientService->getUserDetailsWithRatings($slug);
-    $user = User::where('slug', $slug)->first();
-    $comments = $userDetails['comments'];
-
-    // Check if user exists in the returned array
-    if (!$userDetails['user']) {
-        abort(404, 'Người dùng không tìm thấy');
+            'comments' => $comments,
+            'rooms' => $rooms,
+            'zones' => $zones,
+            'totalRooms' => $totalRooms,
+            'totalZones' => $totalZones,
+            'totalProperties' => $totalProperties,
+            'isFollowing' => $isFollowing,
+        ]);
+    }
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')
+            ->with(['cancel_url' => route('client.cancel')])
+            ->redirect();
     }
 
-    // Kiểm tra xem đã follow chưa 
-    $currentUserId = Auth::id(); // Lấy ID của người dùng hiện tại
-    $isFollowing = false;
-    if ($currentUserId) {
-        $isFollowing = $this->watchListOwner->checkFollowing($user->id, $currentUserId);
-    }
-
-    // Lấy tất cả tin đăng phòng trọ của người dùng này
-    $rooms = $user->rooms(); // Số phòng hiển thị trên mỗi trang là 6
-    $zones = $user->zones();
-
-    // Đếm tổng số phòng và khu trọ của người dùng này
-    $totalRooms = $user->rooms()->count();
-    $totalZones = $user->zones()->count();
-
-    // Lấy tổng số phòng và số phòng tắm từ bảng utilities
-    foreach ($rooms as $room) {
-        $room->bathrooms = $room->utility ? $room->utility->bathrooms : 0;
-    }
-
-    // Tính tổng cả rooms và zones
-    $totalProperties = $totalRooms + $totalZones;
-
-    return response()->json([
-        'user' => $userDetails['user'],
-        'averageRating' => $userDetails['averageRating'],
-        'ratingsDistribution' => $userDetails['ratingsDistribution'],
-        'comments' => $comments,
-        'rooms' => $rooms,
-        'zones' => $zones,
-        'totalRooms' => $totalRooms,
-        'totalZones' => $totalZones,
-        'totalProperties' => $totalProperties,
-        'isFollowing' => $isFollowing,
-    ]);
-
-  
-}
-public function redirectToGoogle()
-{
-    return Socialite::driver('google')
-        ->with(['cancel_url' => route('client.cancel')])
-        ->redirect();
-}
-
-public function handleGoogleCallback()
-{
-    try {
-        $this->socialAuthService->handleGoogleCallback();
-        return redirect()->route('home')->with('success', 'Đăng nhập thành công bằng Google!');
-    } catch (\Exception $e) {
-        if ($e->getCode() == 100) { // Mã lỗi tùy chỉnh cho việc hủy đăng nhập
-            return redirect()->route('client.cancel');
+    public function handleGoogleCallback()
+    {
+        try {
+            $this->socialAuthService->handleGoogleCallback();
+            return redirect()->route('home')->with('success', 'Đăng nhập thành công bằng Google!');
+        } catch (\Exception $e) {
+            if ($e->getCode() == 100) { // Mã lỗi tùy chỉnh cho việc hủy đăng nhập
+                return redirect()->route('client.cancel');
+            }
+            return redirect()->route('client.home')->withErrors(['error' => 'Có lỗi xảy ra khi đăng nhập bằng Google. Vui lòng thử lại.']);
         }
-        return redirect()->route('client.home')->withErrors(['error' => 'Có lỗi xảy ra khi đăng nhập bằng Google. Vui lòng thử lại.']);
     }
-}
     public function handleGoogleCancel()
     {
         return redirect()->route('home')->with('info', 'Bạn đã hủy đăng nhập bằng Google. Vui lòng thử lại nếu bạn muốn đăng nhập.');
     }
-    
+
     public function register_user(RegisterRequest $request)
     {
         try {
@@ -302,7 +352,7 @@ public function handleGoogleCallback()
         try {
             $request->authenticate();
             $redirectUrl = url()->previous();
-    
+
             return response()->json(['redirect' => $redirectUrl]);
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);

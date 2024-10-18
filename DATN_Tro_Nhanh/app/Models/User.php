@@ -61,17 +61,29 @@ class User extends Authenticatable
     {
         return $this->hasMany(Room::class);
     }
+    // public function zones()
+    // {
+    //     return $this->hasMany(Zone::class);
+    // }
     public function zones()
     {
-        return $this->hasMany(Zone::class);
+        return $this->hasMany(Zone::class, 'user_id'); // Thiết lập mối quan hệ với Zone
     }
+    // public function comments()
+    // {
+    //     return $this->hasMany(Comment::class);
+    // }
     public function comments()
     {
-        return $this->hasMany(comment_zones::class);
+        return $this->hasMany(CommentZones::class, 'user_id');
     }
+    // public function receivedComments()
+    // {
+    //     return $this->hasMany(Comment::class, 'commented_user_id');
+    // }
     public function receivedComments()
     {
-        return $this->hasMany(Comment::class, 'commented_user_id');
+        return $this->hasMany(CommentZones::class, 'user_id');
     }
     public function contacts()
     {
@@ -103,12 +115,11 @@ class User extends Authenticatable
         );
     }
     public function identity()
-{
-    return $this->hasOne(Identity::class);
-}
+    {
+        return $this->hasOne(Identity::class);
+    }
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new CustomResetPasswordNotification($token));
     }
-    
 }

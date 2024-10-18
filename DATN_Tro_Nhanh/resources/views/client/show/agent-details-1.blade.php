@@ -8,7 +8,7 @@
                     <ol class="breadcrumb pt-6 pt-lg-0 pb-0">
                         <li class="breadcrumb-item"><a href="{{ route('client.home') }}">Trang chủ</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('client.client-agent') }}">Người đăng tin</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{$user->name}}</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ $user->name }}</li>
                     </ol>
                 </nav>
             </div>
@@ -153,20 +153,20 @@
                                 <li class="nav-item">
                                     <a href="#sale" class="nav-link active shadow-none fs-13 " data-toggle="tab"
                                         role="tab">
-                                        Phòng ({{ $totalRooms }})
+                                        {{-- Phòng ({{ $totalRooms }}) --}}
+                                        Phòng trọ ({{ $totalZones }})
                                     </a>
                                 </li>
-                                <li class="nav-item ml-0">
+                                {{-- <li class="nav-item ml-0">
                                     <a href="#rent" class="nav-link shadow-none fs-13" data-toggle="tab" role="tab">
                                         Khu trọ ({{ $totalZones }})
                                     </a>
-                                </li>
+                                </li> --}}
                             </ul>
 
                             <div class="tab-content shadow-none pt-7 pb-0 px-6 bg-white">
                                 <div id="collapse-tabs-accordion-01">
-                                    <div class="tab-pane tab-pane-parent fade show active" id="sale"
-                                        role="tabpanel">
+                                    <div class="tab-pane tab-pane-parent fade show active" id="sale" role="tabpanel">
                                         <div class="card border-0 bg-transparent">
                                             <div class="card-header border-0 d-block d-md-none bg-transparent p-0"
                                                 id="headingSale-01">
@@ -175,20 +175,21 @@
                                                         class="btn lh-2 fs-18 bg-white py-1 px-6 shadow-none w-100 collapse-parent border collapsed mb-4"
                                                         data-toggle="collapse" data-target="#sale-collapse-01"
                                                         aria-expanded="true" aria-controls="sale-collapse-01">
-                                                        Phòng ({{ $totalRooms }})
+                                                        {{-- Phòng ({{ $totalRooms }}) --}}
+                                                        Phòng trọ ({{ $totalZones }})
                                                     </button>
                                                 </h5>
                                             </div>
                                             <div id="sale-collapse-01" class="collapse show collapsible"
-                                                aria-labelledby="headingSale-01"
-                                                data-parent="#collapse-tabs-accordion-01">
+                                                aria-labelledby="headingSale-01" data-parent="#collapse-tabs-accordion-01">
                                                 <div class="card-body p-0">
-                                                    @livewire('rooms-tab', ['userId' => $user->id])
+                                                    {{-- @livewire('rooms-tab', ['userId' => $user->id]) --}}
+                                                    @livewire('zones-tab', ['userId' => $user->id])
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane tab-pane-parent fade" id="rent" role="tabpanel">
+                                    {{-- <div class="tab-pane tab-pane-parent fade" id="rent" role="tabpanel">
                                         <div class="card border-0 bg-transparent">
                                             <div class="card-header border-0 d-block d-md-none bg-transparent p-0"
                                                 id="headingRent-01">
@@ -209,7 +210,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
 
@@ -530,6 +531,6 @@
     <script src="{{ asset('assets/js/client/ajax-follow.js') }}"></script>
     <script src="{{ asset('assets/js/yeuthich.js') }}"></script>
     <script src="{{ asset('assets/css/css-nht.css') }}"></script>
-    
+
     @livewireScripts
 @endpush
