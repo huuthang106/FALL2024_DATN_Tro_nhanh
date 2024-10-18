@@ -32,17 +32,19 @@
                             @php
                                 $image = $zone->rooms->first()->image ?? null;
                             @endphp
-                            @if ($image)
-                                {{-- <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}"> --}}
-                                <img src="{{ asset('assets/images/' . $image) }}" alt="{{ $zone->title }}"
-                                    class="img-fluid w-100 h-100 rounded" style="object-fit: cover;">
-                                {{-- </a> --}}
-                            @else
-                                {{--   --}}
-                                <img src="{{ asset('assets/images/properties-grid-01.jpg') }}" alt="{{ $zone->title }}"
-                                    class="img-fluid w-100 h-100 rounded" style="object-fit: cover;">
-                                {{-- </a> --}}
-                            @endif
+                              @if ($image)
+                              <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}">
+                                 <img src="{{ asset('assets/images/' . $image) }}"
+                                     alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                     style="object-fit: cover;">
+                              </a> 
+                         @else
+                         <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}">
+                                 <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                     alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                     style="object-fit: cover;">
+                            </a> 
+                         @endif
                             <div class="card-img-overlay d-flex flex-column">
                                 {{-- @if ($zone->residents->isNotEmpty())
                                 <div><span class="badge badge-orange">Hết phòng</span></div>
@@ -80,7 +82,7 @@
                         </div>
                         <div class="card-body pt-3 px-0 pb-1">
                             <h2 class="fs-16 mb-1">
-                                <a href="" class="text-dark hover-primary">
+                                <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}" class="text-dark hover-primary">
                                     {{ Str::limit($zone->name, 50) }}
                                 </a>
                                 {{-- {{ route('client.detail-zone', ['slug' => $zone->slug]) }} --}}

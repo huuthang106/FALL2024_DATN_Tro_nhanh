@@ -90,17 +90,7 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('favouriteCount', 0);
             }
         });
-        View::composer('components.navbar-default', function ($view) use ($cartService) {
-            $userId = Auth::id(); // Lấy ID người dùng hiện tại
 
-            // Kiểm tra nếu người dùng đã đăng nhập
-            if ($userId) {
-                $cartCount = $cartService->getCoutCart($userId);
-                $view->with('cartCount', $cartCount);
-            } else {
-                $view->with('cartCount', 0);
-            }
-        });
         View::composer('components.navbar-default', function ($view) use ($favouriteService) {
             $userId = Auth::id(); // Lấy ID người dùng hiện tại
 

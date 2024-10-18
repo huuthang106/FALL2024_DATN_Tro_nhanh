@@ -14,11 +14,8 @@
                         <div class="card border-0">
                             <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top"
                                 style="height: 200px; overflow: hidden;">
-                                @php
-                                    $image = $zone->rooms->first()->image ?? null;
-                                @endphp
-                                @if ($image)
-                                    <img src="{{ asset('assets/images/' . $image) }}" alt="{{ $zone->name }}">
+                                @if ($zone->image)
+                                    <img src="{{ asset('assets/images/' . $zone->image) }}" alt="{{ $zone->title }}">
                                 @else
                                     <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
                                         alt="{{ $zone->name }}">
@@ -42,46 +39,7 @@
                                 </div>
                                 <div class="card-img-overlay d-flex flex-column">
                                     <div class="mb-auto">
-                                        {{-- <span class="badge badge-primary">Phòng</span> --}}
-                                        @if ($zone->expiration_date > now())
-                                            <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
-                                                VIP
-                                            </span>
-                                        @endif
-                                    </div>
-                                    <div class="d-flex hover-image">
-                                        <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
-                                                <a href="#" class="text-white hover-primary">
-                                                    <i class="far fa-images"></i><span
-                                                        class="pl-1">{{ $zone->rooms->count() }}</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                            {{-- <li class="list-inline-item mr-3 h-32" data-toggle="tooltip">
-                                                <a href="#"
-                                                    class="text-white fs-20 hover-primary favorite-btn {{ $room->isFavoritedByUser(auth()->id()) ? 'favorited' : '' }}"
-                                                    data-room-slug="{{ $room->slug }}">
-                                                    <i class="fas fa-heart"></i>
-                                                </a>
-                                            </li> --}}
-                                            {{-- <li class="list-inline-item mr-3 h-32" data-toggle="tooltip">
-                                                <a href="#"
-                                                    class="text-white fs-20 hover-primary favorite-btn {{ $zone->isFavoritedByUser(auth()->id()) ? 'favorited' : '' }}"
-                                                    data-zone-slug="{{ $zone->slug }}">
-                                                    <i class="fas fa-heart"></i>
-                                                </a>
-                                            </li> --}}
-                                            <li class="list-inline-item mr-3 h-32" data-toggle="tooltip"
-                                                wire:key="favorite-{{ $zone->slug }}">
-                                                <a href="#"
-                                                    class="text-white fs-20 hover-primary favorite-btn {{ $zone->isFavoritedByUser(auth()->id()) ? 'favorited' : '' }}"
-                                                    data-zone-slug="{{ $zone->slug }}">
-                                                    <i class="fas fa-heart"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
+                                        <span class="badge badge-indigo">Phòng trọ</span>
                                     </div>
                                 </div>
                             </div>

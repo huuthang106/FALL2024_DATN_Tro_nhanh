@@ -24,15 +24,16 @@ class Comments extends Component
     public function render()
     {
         // Lấy danh sách bình luận với phân trang và lọc theo commented_user_id
-        $comments = CommentUsers::with('user')
-        ->where('commented_user_id', $this->commentedUserId)
-        ->latest()
-        ->paginate(2);
+        $comments = CommentZones::with('user')
+            ->where('user_id', $this->commentedUserId)
+            ->latest()
+            ->paginate(2);
+
         return view('livewire.comments', compact('comments'));
     }
     public function deleteComment($commentId)
     {
-        $comment = CommentUsers::find($commentId);
+        $comment = CommentZones::find($commentId);
 
         if ($comment && $comment->user_id == Auth::id()) {
             $comment->delete();
