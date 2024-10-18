@@ -19,10 +19,13 @@ class Favourite extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-    // Quan hệ với bảng rooms
-    public function room()
+    public function zone()
     {
-        return $this->belongsTo(Room::class, 'room_id');
+        return $this->belongsTo(Zone::class, 'zone_id');
     }
+    // Quan hệ với bảng rooms
+    // public function room()
+    // {
+    //     return $this->belongsTo(Room::class, 'room_id');
+    // }
 }
