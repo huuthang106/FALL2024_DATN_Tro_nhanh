@@ -7,7 +7,7 @@ use App\Services\RoomClientServices;
 use App\Http\Controllers\Client\HomeClientController;
 use App\Http\Controllers\Client\ZoneClientController;
 Route::group(['prefix' => 'danh-sach-phong-tro'], function () {
-    Route::get('/', [ZoneClientController::class, 'listZoneClient'])->name('room-listing');
+    Route::get('/', [ZoneClientController::class, 'listZone'])->name('room-listing');
     // Route::get('ban-do-tro', [RoomClientController::class, 'indexRoomMap'])->name('room-map-listing');
 });
 //Controller Room
@@ -17,6 +17,7 @@ Route::group(['prefix' => 'danh-sach-phong-tro'], function () {
 
 Route::group(['prefix' => ''], function () {
     // Route::get('/xem-chi-tiet/{slug}', [RoomClientController::class, 'page_detail'])->name('detail-room');
+    Route::get('/xem-chi-tiet/{slug}', [ZoneClientController::class, 'showZoneDetails'])->name('detail-zone');
     // Route::get('/xem-chi-tiet/{slug}', [RoomClientController::class, 'page_detail_admin'])->name('detail-room-admin');
     // routes/web.php
     // Đảm bảo rằng route có tên đúng và chấp nhận slug

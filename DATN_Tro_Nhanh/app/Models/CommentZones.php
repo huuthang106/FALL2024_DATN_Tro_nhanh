@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class CommentZones extends Model
 {
     use HasFactory;
+    protected $table = 'comment_zones';
+    protected $fillable = [
+        'user_id',
+        'zone_id',
+        'content',
+        'rating',
+    ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

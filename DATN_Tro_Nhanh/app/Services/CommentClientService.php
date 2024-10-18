@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Comment;
+use App\Models\CommentZones;
 use App\Models\Room;
 use App\Models\Blog;
 use App\Models\Zone;
@@ -50,7 +50,7 @@ class CommentClientService
             return null;
         }
 
-        $review = new Comment();
+        $review = new CommentZones();
         $review->rating = $data['rating'];
         $review->content = $data['content'];
         $review->user_id = Auth::id();

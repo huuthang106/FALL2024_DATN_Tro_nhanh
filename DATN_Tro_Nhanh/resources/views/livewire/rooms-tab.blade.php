@@ -73,7 +73,7 @@
                             </div>
                             <div class="card-body pt-3 px-0 pb-1">
                                 <h2 class="fs-16 mb-1"><a
-                                        href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
+                                        href="{{ route('client.detail-zone', ['slug' => $room->slug]) }}"
                                         class="text-dark hover-primary">{{ $room->title }}</a></h2>
                                 <p class="font-weight-500 text-gray-light mb-0">{{ $room->address }}</p>
                                 <p class="fs-17 font-weight-bold text-heading mb-0 lh-16">

@@ -79,7 +79,7 @@
                                 </div>
                                 <div class="card-body pt-3">
                                     <h2 class="card-title fs-16 lh-2 mb-0">
-                                        <a href="{{ route('client.detail-room', $favourite->room->slug) }}"
+                                        <a href="{{ route('client.detail-zone', $favourite->room->slug) }}"
                                            class="text-dark hover-primary">{{ $favourite->room->title }}</a>
                                     </h2>
                                     <p class="card-text font-weight-500 text-gray-light mb-2">

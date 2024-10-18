@@ -24,7 +24,7 @@
                     <div class="result-item p-2 border-bottom">
                         <div class="media">
                             <div class="mr-3 position-relative">
-                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
+                                <a href="{{ route('client.detail-zone', ['slug' => $room->slug]) }}">
                                     <div class="position-relative image-container">
                                         <img src="{{ $this->getRoomImageUrl($room) }}" alt="{{ $room->title }}"
                                             class="room-image">
@@ -40,7 +40,7 @@
                                     thuê</span>
                             </div>
                             <div class="media-body overflow-hidden">
-                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}" class="text-dark">
+                                <a href="{{ route('client.detail-zone', ['slug' => $room->slug]) }}" class="text-dark">
                                     <h5 class="mt-0 mb-1">{{ $room->title }}</h5>
                                 </a>
                                 <p class="mb-1 text-muted">{{ $room->address }}</p>
@@ -64,7 +64,7 @@
             <ul class="list-unstyled row">
                 @foreach ($this->latestRooms as $room)
                     <li class="col-md-6 lh-26 mb-2">
-                        <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
+                        <a href="{{ route('client.detail-zone', ['slug' => $room->slug]) }}"
                             class="text-body hover-dark d-flex align-items-center">
                             <div class="mr-2 position-relative">
                                 <img src="{{ $this->getRoomImageUrl($room) }}" alt="{{ $room->title }}"

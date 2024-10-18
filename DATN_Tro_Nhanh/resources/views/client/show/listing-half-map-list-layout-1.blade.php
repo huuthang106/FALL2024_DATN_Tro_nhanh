@@ -10,7 +10,7 @@
                             <div class="property-search-status-tab d-flex flex-row">
                                 <input class="search-field" type="hidden" name="status" value="for-rent"
                                     data-default-value="">
-                              
+
                             </div>
                         </div>
                         <div class="col-xl-9 col-lg-9 d-md-flex">
@@ -19,73 +19,74 @@
                                 title="Chọn Thành Phố" data-style="btn-lg py-2 h-52 border-right bg-white" name="province"
                                 id="city-province">
                                 <option value='0'>Chọn Tỉnh/Thành Phố...</option>
-                                @foreach([
-                                    '01' => 'Thành phố Hà Nội',
-                                    '79' => 'Thành phố Hồ Chí Minh',
-                                    '31' => 'Thành phố Hải Phòng',
-                                    '48' => 'Thành phố Đà Nẵng',
-                                    '92' => 'Thành phố Cần Thơ',
-                                    '02' => 'Tỉnh Hà Giang',
-                                    '04' => 'Tỉnh Cao Bằng',
-                                    '06' => 'Tỉnh Bắc Kạn',
-                                    '08' => 'Tỉnh Tuyên Quang',
-                                    '10' => 'Tỉnh Lào Cai',
-                                    '11' => 'Tỉnh Điện Biên',
-                                    '12' => 'Tỉnh Lai Châu',
-                                    '14' => 'Tỉnh Sơn La',
-                                    '15' => 'Tỉnh Yên Bái',
-                                    '17' => 'Tỉnh Hoà Bình',
-                                    '19' => 'Tỉnh Thái Nguyên',
-                                    '20' => 'Tỉnh Lạng Sơn', 
-                                    '22' => 'Tỉnh Quảng Ninh',
-                                    '24' => 'Tỉnh Bắc Giang',
-                                    '25' => 'Tỉnh Phú Thọ',
-                                    '26' => 'Tỉnh Vĩnh Phúc',
-                                    '27' => 'Tỉnh Bắc Ninh',
-                                    '30' => 'Tỉnh Hải Dương',
-                                    '33' => 'Tỉnh Hưng Yên',
-                                    '34' => 'Tỉnh Thái Bình',
-                                    '35' => 'Tỉnh Hà Nam',
-                                    '36' => 'Tỉnh Nam Định',
-                                    '37' => 'Tỉnh Ninh Bình',
-                                    '38' => 'Tỉnh Thanh Hóa',
-                                    '40' => 'Tỉnh Nghệ An',
-                                    '42' => 'Tỉnh Hà Tĩnh',
-                                    '44' => 'Tỉnh Quảng Bình',
-                                    '45' => 'Tỉnh Quảng Trị',
-                                    '46' => 'Tỉnh Thừa Thiên Huế',
-                                    '49' => 'Tỉnh Quảng Nam',
-                                    '51' => 'Tỉnh Quảng Ngãi',
-                                    '52' => 'Tỉnh Bình Định',
-                                    '54' => 'Tỉnh Phú Yên',
-                                    '56' => 'Tỉnh Khánh Hòa',
-                                    '58' => 'Tỉnh Ninh Thuận',
-                                    '60' => 'Tỉnh Bình Thuận',
-                                    '62' => 'Tỉnh Kon Tum',
-                                    '64' => 'Tỉnh Gia Lai',
-                                    '66' => 'Tỉnh Đắk Lắk',
-                                    '67' => 'Tỉnh Đắk Nông',
-                                    '68' => 'Tỉnh Lâm Đồng',
-                                    '70' => 'Tỉnh Bình Phước',
-                                    '72' => 'Tỉnh Tây Ninh',
-                                    '74' => 'Tỉnh Bình Dương',
-                                    '75' => 'Tỉnh Đồng Nai',
-                                    '77' => 'Tỉnh Bà Rịa - Vũng Tàu',
-                                    '80' => 'Tỉnh Long An',
-                                    '82' => 'Tỉnh Tiền Giang',
-                                    '83' => 'Tỉnh Bến Tre',
-                                    '84' => 'Tỉnh Trà Vinh',
-                                    '86' => 'Tỉnh Vĩnh Long',
-                                    '87' => 'Tỉnh Đồng Tháp',
-                                    '89' => 'Tỉnh An Giang',
-                                    '91' => 'Tỉnh Kiên Giang',
-                                    '93' => 'Tỉnh Hậu Giang',
-                                    '94' => 'Tỉnh Sóc Trăng',
-                                    '95' => 'Tỉnh Bạc Liêu',
-                                    '96' => 'Tỉnh Cà Mau'
-                                ] as $code => $name)
-                                    @if(in_array($code, $provinces))
-                                        <option value='{{ $code }}' {{ $province == $code ? 'selected' : '' }}>{{ $name }}</option>
+                                @foreach ([
+            '01' => 'Thành phố Hà Nội',
+            '79' => 'Thành phố Hồ Chí Minh',
+            '31' => 'Thành phố Hải Phòng',
+            '48' => 'Thành phố Đà Nẵng',
+            '92' => 'Thành phố Cần Thơ',
+            '02' => 'Tỉnh Hà Giang',
+            '04' => 'Tỉnh Cao Bằng',
+            '06' => 'Tỉnh Bắc Kạn',
+            '08' => 'Tỉnh Tuyên Quang',
+            '10' => 'Tỉnh Lào Cai',
+            '11' => 'Tỉnh Điện Biên',
+            '12' => 'Tỉnh Lai Châu',
+            '14' => 'Tỉnh Sơn La',
+            '15' => 'Tỉnh Yên Bái',
+            '17' => 'Tỉnh Hoà Bình',
+            '19' => 'Tỉnh Thái Nguyên',
+            '20' => 'Tỉnh Lạng Sơn',
+            '22' => 'Tỉnh Quảng Ninh',
+            '24' => 'Tỉnh Bắc Giang',
+            '25' => 'Tỉnh Phú Thọ',
+            '26' => 'Tỉnh Vĩnh Phúc',
+            '27' => 'Tỉnh Bắc Ninh',
+            '30' => 'Tỉnh Hải Dương',
+            '33' => 'Tỉnh Hưng Yên',
+            '34' => 'Tỉnh Thái Bình',
+            '35' => 'Tỉnh Hà Nam',
+            '36' => 'Tỉnh Nam Định',
+            '37' => 'Tỉnh Ninh Bình',
+            '38' => 'Tỉnh Thanh Hóa',
+            '40' => 'Tỉnh Nghệ An',
+            '42' => 'Tỉnh Hà Tĩnh',
+            '44' => 'Tỉnh Quảng Bình',
+            '45' => 'Tỉnh Quảng Trị',
+            '46' => 'Tỉnh Thừa Thiên Huế',
+            '49' => 'Tỉnh Quảng Nam',
+            '51' => 'Tỉnh Quảng Ngãi',
+            '52' => 'Tỉnh Bình Định',
+            '54' => 'Tỉnh Phú Yên',
+            '56' => 'Tỉnh Khánh Hòa',
+            '58' => 'Tỉnh Ninh Thuận',
+            '60' => 'Tỉnh Bình Thuận',
+            '62' => 'Tỉnh Kon Tum',
+            '64' => 'Tỉnh Gia Lai',
+            '66' => 'Tỉnh Đắk Lắk',
+            '67' => 'Tỉnh Đắk Nông',
+            '68' => 'Tỉnh Lâm Đồng',
+            '70' => 'Tỉnh Bình Phước',
+            '72' => 'Tỉnh Tây Ninh',
+            '74' => 'Tỉnh Bình Dương',
+            '75' => 'Tỉnh Đồng Nai',
+            '77' => 'Tỉnh Bà Rịa - Vũng Tàu',
+            '80' => 'Tỉnh Long An',
+            '82' => 'Tỉnh Tiền Giang',
+            '83' => 'Tỉnh Bến Tre',
+            '84' => 'Tỉnh Trà Vinh',
+            '86' => 'Tỉnh Vĩnh Long',
+            '87' => 'Tỉnh Đồng Tháp',
+            '89' => 'Tỉnh An Giang',
+            '91' => 'Tỉnh Kiên Giang',
+            '93' => 'Tỉnh Hậu Giang',
+            '94' => 'Tỉnh Sóc Trăng',
+            '95' => 'Tỉnh Bạc Liêu',
+            '96' => 'Tỉnh Cà Mau',
+        ] as $code => $name)
+                                    @if (in_array($code, $provinces))
+                                        <option value='{{ $code }}' {{ $province == $code ? 'selected' : '' }}>
+                                            {{ $name }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -142,7 +143,7 @@
                                             <option value="3">Giá (cao đến thấp)</option>
                                         </select> --}}
                                     </div>
-                                   
+
                                 </div>
                             </div>
                         </div>
@@ -160,8 +161,8 @@
                                             <div class="row no-gutters">
                                                 <div class="col-md-6 mb-5 mb-md-0 pr-md-6">
                                                     <div class="position-relative hover-change-image bg-hover-overlay h-100 pt-75 bg-img-cover-center rounded-lg"
-                                                        style="background-image: url('{{ $zone->images->isNotEmpty()
-                                                            ? asset('assets/images/' . $zone->images->first()->filename)
+                                                        style="background-image: url('{{ $zone->room && $zone->room->image
+                                                            ? asset('assets/images/' . $zone->room->image)
                                                             : asset('assets/images/properties-grid-08.jpg') }}');">
                                                         <div class="card-img-overlay p-2 d-flex flex-column">
                                                             <div>
@@ -173,20 +174,17 @@
                                                                 @endif
                                                             </div>
                                                             <div class="mt-auto d-flex hover-image">
-                                                                <ul
-                                                                    class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                                    <li class="list-inline-item mr-2"
-                                                                        data-toggle="tooltip" title="9 Hình ảnh">
-                                                                        <a href="#"
-                                                                            class="text-white hover-primary">
+                                                                <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
+                                                                    <li class="list-inline-item mr-2" data-toggle="tooltip"
+                                                                        title="9 Hình ảnh">
+                                                                        <a href="#" class="text-white hover-primary">
                                                                             <i class="far fa-images"></i><span
                                                                                 class="pl-1">9</span>
                                                                         </a>
                                                                     </li>
                                                                     <li class="list-inline-item" data-toggle="tooltip"
                                                                         title="2 Video">
-                                                                        <a href="#"
-                                                                            class="text-white hover-primary">
+                                                                        <a href="#" class="text-white hover-primary">
                                                                             <i class="far fa-play-circle"></i><span
                                                                                 class="pl-1">2</span>
                                                                         </a>
@@ -234,34 +232,30 @@
                                                     <div class="card-footer pt-3 bg-transparent px-0 pb-0">
                                                         <ul
                                                             class="list-inline d-flex mb-0 flex-wrap justify-content-start mr-n2">
-                                                            @foreach ($zone->utilities as $utility)
-                                                                @if ($utility->wifi)
-                                                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2"
-                                                                        data-toggle="tooltip" title="WiFi">
-                                                                        <i class="fas fa-wifi fs-10 text-primary mr-1"></i>
-                                                                        <!-- Icon WiFi -->
-                                                                        WiFi
-                                                                    </li>
-                                                                @endif
-                                                                @if ($utility->bathrooms == 1)
-                                                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2"
-                                                                        data-toggle="tooltip" title="Phòng tắm">
-                                                                        <i
-                                                                            class="fas fa-shower fs-15 text-primary mr-1"></i>
-                                                                        <!-- Icon phòng tắm -->
-                                                                        Phòng tắm
-                                                                    </li>
-                                                                @endif
-                                                                @if ($utility->garage)
-                                                                    <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2"
-                                                                        data-toggle="tooltip" title="Ga-ra">
-                                                                        <i
-                                                                            class="fas fa-warehouse fs-10 text-primary mr-1"></i>
-                                                                        <!-- Icon Ga-ra -->
-                                                                        Ga-ra
-                                                                    </li>
-                                                                @endif
-                                                            @endforeach
+                                                            @if ($zone->wifi)
+                                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2"
+                                                                data-toggle="tooltip" title="WiFi">
+                                                                <i class="fas fa-wifi fs-10 text-primary mr-1"></i>
+                                                                <!-- Icon WiFi -->
+                                                                WiFi
+                                                            </li>
+                                                        @endif
+                                                        @if ($zone->bathrooms == 1)
+                                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2"
+                                                                data-toggle="tooltip" title="Phòng tắm">
+                                                                <i class="fas fa-shower fs-15 text-primary mr-1"></i>
+                                                                <!-- Icon phòng tắm -->
+                                                                Phòng tắm
+                                                            </li>
+                                                        @endif
+                                                        @if ($zone->garage)
+                                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2"
+                                                                data-toggle="tooltip" title="Ga-ra">
+                                                                <i class="fas fa-warehouse fs-10 text-primary mr-1"></i>
+                                                                <!-- Icon Ga-ra -->
+                                                                Ga-ra
+                                                            </li>
+                                                        @endif
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -344,7 +338,7 @@
                 </div>
             </div>
         </section>
-      
+
         <div class="d-none" id="template-properties">
             <div class="marker-item" data-icon-marker="{{ asset('assets/images/googlle-market-02.png') }}"
                 data-position="[-73.9893691, 40.6751204]"
@@ -693,8 +687,8 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
     <style>
-      
-      
+
+
     </style>
 @endpush
 @push('scriptUs')
@@ -870,7 +864,7 @@
 
                             var district = document.createElement('div');
                             district.className = 'district';
-                            district.innerHTML = '<strong>Đường đi:</strong> ' + mainRoads;
+                           
                             document.querySelector('.leaflet-routing-container').appendChild(
                                 district);
                         }).addTo(map);

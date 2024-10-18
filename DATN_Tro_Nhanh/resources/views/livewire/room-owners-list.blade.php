@@ -97,7 +97,7 @@
                                 <td class="align-middle pt-6 pb-4 px-6">
                                     <div class="media">
                                         <div class="w-120px mr-4 position-relative">
-                                            <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
+                                            <a href="{{ route('client.detail-zone', ['slug' => $room->slug]) }}">
                                                 <div class="position-relative">
                                                     <img src="{{ $this->getRoomImageUrl($room) }}"
                                                         alt="{{ $room->title }}" class="img-fluid">
@@ -116,7 +116,7 @@
                                             </span>
                                         </div>
                                         <div class="media-body" style="white-space: nowrap;">
-                                            <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
+                                            <a href="{{ route('client.detail-zone', ['slug' => $room->slug]) }}"
                                                 class="text-dark hover-primary">
                                                 <h5 class="fs-16 mb-0 lh-18">{{ $room->title }}</h5>
                                             </a>

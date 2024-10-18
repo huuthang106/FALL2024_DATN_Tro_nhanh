@@ -560,7 +560,7 @@
                                                 <td class="d-flex align-items-center min-w-125px">
                                                     <!--begin:: Avatar -->
                                                     <div class="symbol symbol-100px overflow-hidden me-3">
-                                                        <a href=" {{ route('client.detail-room', ['slug' => $zone->slug]) }}">
+                                                        <a href=" {{ route('client.detail-zone', ['slug' => $zone->slug]) }}">
                                                            
                                                             <div class="symbol-label">
                                                                 @if (!empty($zone->image_filename))

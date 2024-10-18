@@ -43,7 +43,7 @@ class Zone extends Model
     }
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(CommentZones::class);
     }
     public function notifications()
     {
@@ -53,7 +53,10 @@ class Zone extends Model
     {
         return $this->hasMany(Room::class);
     }
-
+    public function room()
+    {
+        return $this->hasOne(Room::class);
+    }
     public function users()
     {
         return $this->belongsTo(User::class, 'user_id');
