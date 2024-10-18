@@ -23,7 +23,7 @@ class Room extends Model
         'zone_id',
         'view',
         'slug',
-        
+
     ];
 
     public function getImagesAttribute($value)
@@ -40,10 +40,10 @@ class Room extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
+    // public function comments()
+    // {
+    //     return $this->hasMany(Comment::class);
+    // }
 
     // public function acreage()
     // {
