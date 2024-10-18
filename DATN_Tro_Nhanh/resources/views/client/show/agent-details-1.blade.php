@@ -73,23 +73,18 @@
                             <hr class="mb-4">
                             <div class="row align-items-center">
                                 <div class="col-sm-6 mb-6 mb-sm-0">
-                                    @php
-                                        $averageRating = $user->receivedComments()->avg('rating') ?? 0;
-                                        $reviewsCount = $user->receivedComments()->count();
-                                    @endphp
-
                                     <ul class="list-inline mb-0">
                                         <li class="list-inline-item fs-13 text-heading font-weight-500">
-                                            {{ $averageRating > 0 ? number_format($averageRating, 1) : 'Chưa có đánh giá' }}
+                                            {{ $averageRatings > 0 ? number_format($averageRatings, 1) : 'Chưa có đánh giá' }}
                                         </li>
                                         <li class="list-inline-item fs-13 text-heading font-weight-500 mr-1">
                                             <ul class="list-inline mb-0">
                                                 @for ($i = 1; $i <= 5; $i++)
                                                     <li class="list-inline-item mr-0">
                                                         <span class="fs-12 lh-2">
-                                                            @if ($i <= floor($averageRating))
+                                                            @if ($i <= floor($averageRatings))
                                                                 <i class="fas fa-star text-warning"></i>
-                                                            @elseif ($i - 0.5 <= $averageRating)
+                                                            @elseif ($i - 0.5 <= $averageRatings)
                                                                 <i class="fas fa-star-half-alt text-warning"></i>
                                                             @else
                                                                 <i class="far fa-star text-warning"></i>
@@ -99,8 +94,7 @@
                                                 @endfor
                                             </ul>
                                         </li>
-                                        <li class="list-inline-item fs-13 text-gray-light">({{ $reviewsCount }} đánh giá)
-                                        </li>
+                                        <li class="list-inline-item fs-13 text-gray-light">({{ $comments->count() }} đánh giá)</li>
                                     </ul>
                                 </div>
                                 {{-- <div class="col-sm-6">
@@ -223,18 +217,20 @@
                                         <div class="col-sm-6 mb-6 mb-sm-0">
                                             <div class="bg-gray-01 rounded-lg pt-2 px-6 pb-6">
                                                 <h5 class="fs-16 lh-2 text-heading mb-6">
-                                                    Đánh giá trung bình của người dùng
+                                                    Đánh giá trung bình
                                                 </h5>
                                                 <p class="fs-40 text-heading font-weight-bold mb-6 lh-1">
-                                                    {{ number_format($averageRating, 1) }} <span
+                                                    {{ number_format($averageRatings, 1) }} <span
                                                         class="fs-18 text-gray-light font-weight-normal">/5</span>
                                                 </p>
-                                                <ul class="list-inline d-flex flex-wrap justify-content-center">
+                                                <ul class="list-inline">
                                                     @for ($i = 1; $i <= 5; $i++)
-                                                        <li class="list-inline-item star-item">
-                                                            @if ($i <= floor($averageRating))
+                                                        <li
+                                                            class="list-inline-item w-46px h-46 rounded-lg d-inline-flex align-items-center justify-content-center fs-24 mb-1">
+                                                            <!-- Tăng fs-18 lên fs-24 -->
+                                                            @if ($i <= floor($averageRatings))
                                                                 <i class="fas fa-star text-warning"></i>
-                                                            @elseif ($i == ceil($averageRating) && $averageRating - floor($averageRating) > 0)
+                                                            @elseif ($i == ceil($averageRatings) && $averageRatings - floor($averageRatings) > 0)
                                                                 <i class="fas fa-star-half-alt text-warning"></i>
                                                             @else
                                                                 <i class="far fa-star text-border"></i>
@@ -242,11 +238,8 @@
                                                         </li>
                                                     @endfor
                                                 </ul>
-
                                             </div>
                                         </div>
-
-
                                         <div class="col-sm-6 pt-3">
                                             <h5 class="fs-16 lh-2 text-heading mb-5">
                                                 Phân tích đánh giá
@@ -288,7 +281,7 @@
                                         {{ $comments->count() }} Đánh giá
                                     </h3>
 
-                                    @livewire('comments', ['commentedUserId' => $user->id])
+                                    <livewire:comments :commentedUserId="$user->id" />  
                                 </div>
                         </section>
 

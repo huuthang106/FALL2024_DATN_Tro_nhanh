@@ -74,10 +74,7 @@ class RegistrationListOwnersController extends Controller
     public function submitRequest(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string',
-            'identification_number' => 'required|string',
-            'gender' => 'required|string',
-            'user_id' => 'required|integer',
+            'identity_id' => 'required|string',
             'reason' => 'required|string',
         ]);
 

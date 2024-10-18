@@ -26,5 +26,7 @@ class Identity extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
-   
+    public function registrationlist(){
+        return $this->belongsTo(Registrationlist::class);
+    }
 }
