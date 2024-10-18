@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Models\Room;
 use App\Models\Blog;
 use App\Models\Zone;
+use App\Models\CommentBlogs;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -103,23 +104,23 @@ class CommentClientService
         if (!$blog) {
             return false;
         }
-        return Comment::where('user_id', $userId)->where('blog_id', $blog->id)->exists();
+        return CommentBlogs::where('user_id', $userId)->where('blog_id', $blog->id)->exists();
     }
-
+    
     public function submitBlogs($data)
     {
         $blog = Blog::where('slug', $data['blog_slug'])->first();
-
+    
         if (!$blog) {
             return null;
         }
-
-        $comment = new Comment();
+    
+        $comment = new CommentBlogs(); // Sử dụng model CommentBlogs
         $comment->content = $data['content'];
         $comment->user_id = Auth::id();
         $comment->blog_id = $blog->id;
         $comment->save();
-
+    
         return $comment;
     }
     // public function submitUsers($data)

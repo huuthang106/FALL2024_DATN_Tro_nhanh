@@ -349,6 +349,13 @@ class BlogServices
             return null;
         }
     }
+    public function getTopViewsBlogs($limit = 3)
+    {
+        return Blog::orderBy('view', 'desc') // Sắp xếp theo lượt xem (view) từ cao xuống thấp
+            ->take($limit) // Giới hạn số lượng bài viết
+            ->get(); // Lấy dữ liệu
+    }
+    
 
     public function getBlogByTitleAndUserId($title, $userId): ?Blog
     {

@@ -27,28 +27,14 @@
                                 <div class="card border-0 pb-6 mb-6 border-bottom">
 
                                     <div class="position-relative d-flex align-items-end card-img-top">
-                                        @php
-                                            $image = $blog->image->first();
-                                        @endphp
-
-                                        @if ($blog->image)
-                                            <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
-                                                class="hover-shine d-block">
-                                                <img src="{{ asset('assets/images/' . ($image ? $image->filename : 'default.jpg')) }}"
-                                                    alt="Ten Benefit">
-                                            </a>
-                                        @else
-                                            <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
-                                                class="hover-shine d-block">
-                                                <img src="{{ asset('assets/images/post-11.jpg') }}"
-                                                    alt="Ten Benefits Of Rentals That May Change Your Perspective">
-                                            </a>
-                                        @endif
+                                        <a href="{{ route('client.client-blog-detail', $blog->slug) }}" class="hover-shine d-block">
+                                            <img src="{{ asset('assets/images/' . ($blog->image ? $blog->image : 'default.jpg')) }}"
+                                                 alt="{{ $blog->title }}" class="img-fluid">
+                                        </a>
                                         <a href="#"
-                                            class="badge text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white position-absolute top-0 end-0 m-2">
+                                           class="badge text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white position-absolute top-0 end-0 m-2">
                                             Bài viết nổi bật
                                         </a>
-
                                     </div>
 
                                     <div class="card-body p-0">
@@ -276,8 +262,8 @@
                                                     <div class="position-relative mr-3">
                                                         <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
                                                             class="d-block w-100px rounded pt-11 bg-img-cover-center"
-                                                            style="background-image: url('{{ asset('assets/images/' . ($blog->image->first()->filename ?? 'default.jpg')) }}')">
-                                                        </a>
+                                                            style="background-image: url('{{ asset('assets/images/' . ($blog->image ?? 'default.jpg')) }}')">
+                                                         </a>
                                                         <a href="blog-grid-with-sidebar.html"
                                                             class="badge text-white bg-dark-opacity-04 m-1 fs-13 font-weight-500 bg-hover-primary hover-white position-absolute pos-fixed-top">
                                                             Nổi Bật

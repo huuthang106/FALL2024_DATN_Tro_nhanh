@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class CommentBlogs extends Model
 {
     use HasFactory;
+    protected $table = 'comment_blog'; 
     protected $fillable = ['content', 'rating', 'user_id', 'room_id', 'parent_id', 'blog_id', 'zone_id', 'commented_user_id' ];
     public function user()
     {

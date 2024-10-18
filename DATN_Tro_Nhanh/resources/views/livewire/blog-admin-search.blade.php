@@ -578,7 +578,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="d-flex flex-column">
-                                                    <a href="{{ route('client.detail-room', ['slug' => $blog->slug]) }}"
+                                                    <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
                                                         class="text-gray-800 text-hover-primary mb-1">
                                                         {{ Str::limit($blog->title, 15, '...') }}
                                                     </a>

@@ -8,7 +8,8 @@
             <div class="media mb-6 pb-5 border-bottom">
                 <div class="w-70px mr-2">
                     @php
-                        $userImage = $item->user->image ?? 'default-avatar.jpg'; // Sử dụng hình ảnh người dùng nếu có, hoặc hình ảnh mặc định
+                         $defaultImages = ['agent-12.jpg']; 
+                         $userImage = $item->user->image ?? $defaultImages[array_rand($defaultImages)]; 
                     @endphp
                     <img src="{{ asset('assets/images/' . $userImage) }}" alt="{{ $item->user->name ?? 'Người dùng' }}"
                         class="mr-sm-8 mb-4 mb-sm-0 custom-avatar">
