@@ -65,6 +65,10 @@ class User extends Authenticatable
     // {
     //     return $this->hasMany(Zone::class);
     // }
+    public function commentUsers()
+    {
+        return $this->hasMany(CommentUsers::class,'user_id');
+    }
     public function zones()
     {
         return $this->hasMany(Zone::class, 'user_id'); // Thiết lập mối quan hệ với Zone

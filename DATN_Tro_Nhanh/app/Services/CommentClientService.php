@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Comment;
+use App\Models\CommentUsers;
 use App\Models\CommentZones;
 use App\Models\Room;
 use App\Models\Blog;
@@ -68,7 +68,7 @@ class CommentClientService
 
             if ($userId) {
                 // Đếm tổng số đánh giá của người dùng hiện tại
-                return Comment::where('user_id', $userId)->count();
+                return CommentUsers::where('commented_user_id', $userId)->count();
             }
 
             // Nếu không có userId, trả về 0
@@ -187,7 +187,7 @@ class CommentClientService
         }
 
         // Kiểm tra xem người dùng đã đánh giá người dùng này chưa
-        $existingComment = Comment::where('user_id', Auth::id())
+        $existingComment = CommentUsers::where('user_id', Auth::id())
             ->where('commented_user_id', $user->id)
             ->first();
 
@@ -195,7 +195,7 @@ class CommentClientService
             return false; // Người dùng đã đánh giá, trả về false
         }
 
-        $comment = new Comment();
+        $comment = new CommentUsers();
         $comment->rating = $data['rating'];
         $comment->content = $data['content'];
         $comment->user_id = Auth::id(); // Lấy user_id của người đang đăng nhập
@@ -318,19 +318,19 @@ class CommentClientService
     {
         $user = User::where('slug', $slug)->firstOrFail();
 
-        $totalReviews = CommentZones::where('user_id', $user->id)->count();
-        $averageRating = $totalReviews > 0 ? CommentZones::where('user_id', $user->id)->avg('rating') : 0;
+        $totalReviews = CommentUsers::where('commented_user_id', $user->id)->count();
+        $averageRating = $totalReviews > 0 ? CommentUsers::where('commented_user_id', $user->id)->avg('rating') : 0;
 
         $ratingsDistribution = [];
         if ($totalReviews > 0) {
             for ($i = 5; $i >= 1; $i--) {
-                $ratingsDistribution[$i] = CommentZones::where('user_id', $user->id)->where('rating', $i)->count() / $totalReviews * 100;
+                $ratingsDistribution[$i] = CommentUsers::where('commented_user_id', $user->id)->where('rating', $i)->count() / $totalReviews * 100;
             }
         } else {
             $ratingsDistribution = array_fill(1, 5, 0);
         }
 
-        $comments = CommentZones::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+        $comments = CommentUsers    ::where('commented_user_id', $user->id)->orderBy('created_at', 'desc')->get();
 
         return [
             'user' => $user,

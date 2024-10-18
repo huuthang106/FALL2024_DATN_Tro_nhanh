@@ -33,14 +33,9 @@
                         value="{{ $identity->identification_number }}" readonly>
                 </div>
 
-                <div class="form-group mb-4">
-                    <label for="gender" class="text-left w-100 font-weight-bold">Giới tính</label>
-                    <input type="text" id="gender" name="gender"
-                        class="form-control rounded-lg border-gray-300 shadow-sm" 
-                        value="{{ $identity->gender == 1 ? 'Nam' : ($identity->gender == 2 ? 'Nữ' : '') }}" readonly>
-                </div>
-
-                <input type="hidden" name="user_id" value="{{ $identity->user_id }}">
+             
+                <input type="hidden" name="identity_id" value="{{ $identity->id }}">
+            
 
                 <!-- Lý do yêu cầu -->
                 <div class="form-group mb-4">

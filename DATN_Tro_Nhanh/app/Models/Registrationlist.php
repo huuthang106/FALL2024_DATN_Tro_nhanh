@@ -10,23 +10,29 @@ class Registrationlist extends Model
 {
     use HasFactory;
 
-    protected $table = 'registration_lists'; 
+    protected $table = 'registration_lists';
     protected $fillable = [
         'name',
         'description',
         'identification_number',
-        'gender',
+        'identity_id',
         'status',
         'user_id',
         'deleted_at',
         'created_at',
         'updated_at',
-        
+
     ];
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
-    public function imgmember(){
+    public function imgmember()
+    {
         return $this->hasMany(Imagesmember::class);
+    }
+    public function identity()
+    {
+        return $this->belongsTo(Identity::class);
     }
 }

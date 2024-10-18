@@ -23,13 +23,13 @@ class RegistrationService
 
 
     public function getRegistrationStatus($userId)
-    {
-        $isInRegistrationList = Registrationlist::where('user_id', $userId)->exists();
-        $isRegistered = Identity::where('user_id', $userId)->exists();
-        $identity = $isRegistered ? Identity::where('user_id', $userId)->first() : null;
+{
+    $identity = Identity::where('user_id', $userId)->first();
+    $isRegistered = !is_null($identity);
+    $isInRegistrationList = $isRegistered ? Registrationlist::where('identity_id', $identity->id)->exists() : false;
 
-        return compact('isInRegistrationList', 'isRegistered', 'identity');
-    }
+    return compact('isInRegistrationList', 'isRegistered', 'identity');
+}
 
     public function handleRegistration(Request $request)
     {
@@ -230,10 +230,9 @@ class RegistrationService
     public function createRequest($data)
     {
         return Registrationlist::create([
-            'name' => $data['name'],
-            'identification_number' => $data['identification_number'],
-            'gender' => $data['gender'],
-            'user_id' => $data['user_id'],
+          
+            
+            'identity_id' => $data['identity_id'],
             'description' => $data['reason'],
         ]);
     }

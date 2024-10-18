@@ -5,7 +5,7 @@ namespace App\Livewire;
 use App\Models\CommentZones;
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\Comment;
+use App\Models\CommentUsers;
 use Illuminate\Support\Facades\Auth;
 
 class Comments extends Component
@@ -24,16 +24,15 @@ class Comments extends Component
     public function render()
     {
         // Lấy danh sách bình luận với phân trang và lọc theo commented_user_id
-        $comments = CommentZones::with('user')
-            ->where('user_id', $this->commentedUserId)
-            ->latest()
-            ->paginate(2);
-
+        $comments = CommentUsers::with('user')
+        ->where('commented_user_id', $this->commentedUserId)
+        ->latest()
+        ->paginate(2);
         return view('livewire.comments', compact('comments'));
     }
     public function deleteComment($commentId)
     {
-        $comment = CommentZones::find($commentId);
+        $comment = CommentUsers::find($commentId);
 
         if ($comment && $comment->user_id == Auth::id()) {
             $comment->delete();

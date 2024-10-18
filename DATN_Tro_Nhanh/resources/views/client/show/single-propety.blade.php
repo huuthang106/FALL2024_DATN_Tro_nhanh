@@ -753,17 +753,16 @@
                                             <div class="media-body">
                                                 <h5 class="fs-13 font-weight-normal mb-3">Các loại phòng</h5>
                                                 @if ($zone->rooms->isNotEmpty())
-                                                    @foreach ($zone->rooms as $index => $room)
-                                                        <div class="d-flex align-items-center mb-2">
-                                                            <div class="p-2 shadow-xxs-1 rounded-lg mr-3 lh-1">
-                                                            <div>
+                                                    <div class="d-flex flex-wrap">
+                                                        @foreach ($zone->rooms as $index => $room)
+                                                        <a href="#">
+                                                            <div class="p-2 shadow-xxs-1 rounded-lg mr-3 mb-3 lh-1">
                                                                 <p class="mb-0 fs-13 text-dark">
-                                                                   {{ $room->title ?? 'Chưa có thông tin' }}
+                                                                    {{ $room->title ?? 'Chưa có thông tin' }}
                                                                 </p>
-                                                            </div>
-                                                        </div>
-                                                        </div>
-                                                    @endforeach
+                                                            </div></a>
+                                                        @endforeach
+                                                    </div>
                                                 @else
                                                     <p class="mb-0 fs-13 font-weight-bold text-dark">Chưa có thông tin phòng</p>
                                                 @endif
