@@ -18,7 +18,7 @@ class BlogList extends Component
     public function render()
     {
         // Lấy các bài viết mới nhất
-        $blogs = Blog::with(['image', 'user'])
+        $blogs = Blog::with(['user'])
             ->where(function ($query) {
                 $query->where('title', 'like', '%' . $this->search . '%')
                     ->orWhere('description', 'like', '%' . $this->search . '%');

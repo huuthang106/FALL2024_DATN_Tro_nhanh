@@ -137,7 +137,7 @@
                     </div>
                     <div class="col-lg-4 pl-xl-6 pr-xl-0 primary-sidebar sidebar-sticky" id="sidebar">
                         <div class="primary-sidebar-inner">
-                            <div class="card mb-4">
+                            {{-- <div class="card mb-4">
                                 <div class="card-body px-6 pt-5 pb-6">
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Tìm Kiếm</h4>
                                     <form>
@@ -155,7 +155,7 @@
                                         </div>
                                     </form>
                                 </div>
-                            </div>
+                            </div> --}}
                             {{-- <div class="card mb-4">
                                 <div class="card-body px-6 pt-5 pb-6">
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Loại</h4>
@@ -212,7 +212,7 @@
                                                         <div class="position-relative mr-3">
                                                             <a href="{{ route('client.client-blog-detail', $featuredBlog->slug) }}"
                                                                 class="d-block w-100px rounded pt-11 bg-img-cover-center"
-                                                                style="background-image: url('{{ asset('assets/images/' . ($featuredBlog->image->first()->filename ?? 'default.jpg')) }}')">
+                                                                style="background-image: url('{{ asset('assets/images/' . ($featuredBlog->image ?? 'default.jpg')) }}')">
                                                             </a>
                                                             <a href="blog-grid-with-sidebar.html"
                                                                 class="badge text-white bg-dark-opacity-04 m-1 fs-13 font-weight-500 bg-hover-primary hover-white position-absolute pos-fixed-top">
@@ -427,8 +427,7 @@
     <meta name="twitter:title" content="{{ $blog->title }}">
     <meta name="twitter:description"
         content="{{ Str::limit($blog->description, 200) ?? 'Bài viết blog trên Trọ Nhanh.' }}">
-    <meta name="twitter:image"
-        content="{{ asset('assets/images/' . ($blog->image->isNotEmpty() ? $blog->image->first()->filename : 'default-blog-image.jpg')) }}">
+    <meta name="twitter:image" content="{{ asset('assets/images/' . ($blog->image ?? 'default-blog-image.jpg')) }}">
     <meta name="twitter:site" content="@TronNhanh">
     <meta name="twitter:creator" content="@TronNhanh">
 
@@ -438,8 +437,7 @@
         content="{{ Str::limit($blog->description, 200) ?? 'Bài viết blog trên Trọ Nhanh.' }}">
     <meta property="og:type" content="article">
     <meta property="og:url" content="{{ route('client.client-blog-detail', $blog->slug) }}">
-    <meta property="og:image"
-        content="{{ asset('assets/images/' . ($blog->image->isNotEmpty() ? $blog->image->first()->filename : 'default-blog-image.jpg')) }}">
+    <meta property="og:image" content="{{ asset('assets/images/' . ($blog->image ?? 'default-blog-image.jpg')) }}">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">

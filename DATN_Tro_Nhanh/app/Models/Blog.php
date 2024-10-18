@@ -12,15 +12,12 @@ class Blog extends Model
     use HasFactory;
     use SoftDeletes;
     use Searchable;
-    protected $fillable = ['title', 'description', 'slug'];
+    protected $fillable = ['title', 'description', 'slug','image'];
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-    // public function image()
-    // {
-    //     return $this->hasMany(Image::class, 'blog_id');
-    // }
+    
     public function comments()
     {
         return $this->hasMany(Comment::class);

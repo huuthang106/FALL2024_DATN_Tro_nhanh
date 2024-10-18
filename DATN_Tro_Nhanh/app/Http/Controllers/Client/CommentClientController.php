@@ -99,10 +99,10 @@ class CommentClientController extends Controller
         $validated['blog_slug'] = $request->input('blog_slug');
 
         // Kiểm tra xem người dùng đã bình luận chưa
-        $existingComment = $this->CommentClientService->checkExistingBlogComment(Auth::id(), $validated['blog_slug']);
-        if ($existingComment) {
-            return response()->json(['success' => false, 'message' => 'Bạn đã bình luận rồi. Vui lòng xóa bình luận cũ trước.'], 400);
-        }
+        // $existingComment = $this->CommentClientService->checkExistingBlogComment(Auth::id(), $validated['blog_slug']);
+        // if ($existingComment) {
+        //     return response()->json(['success' => false, 'message' => 'Bạn đã bình luận rồi. Vui lòng xóa bình luận cũ trước.'], 400);
+        // }
 
         // Nếu chưa có bình luận, thì mới tạo bình luận mới
         $blog = $this->CommentClientService->submitBlogs($validated);

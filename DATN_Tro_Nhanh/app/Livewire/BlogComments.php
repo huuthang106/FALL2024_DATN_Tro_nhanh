@@ -17,13 +17,15 @@ class BlogComments extends Component
 
     public function mount($blogSlug)
     {
-        $this->blog = Blog::where('slug', $blogSlug)->firstOrFail();
+        $this->blog = Blog::where('slug', $blogSlug)->firstOrFail(); // Sử dụng model Blog để lấy blog
     }
 
     public function render()
     {
         return view('livewire.blog-comments', [
-            'comments' => $this->blog->comments()->orderBy('created_at', 'desc')->paginate(3), // Số lượng bình luận trên mỗi trang
+            'comments' => CommentBlogs::where('blog_id', $this->blog->id)
+                ->orderBy('created_at', 'desc')
+                ->paginate(3),
         ]);
     }
     // Giới hạn cmt
@@ -44,4 +46,5 @@ class BlogComments extends Component
             $this->dispatch('commentDeleteFailed', ['message' => 'Có lỗi xảy ra khi xóa bình luận.']);
         }
     }
+
 }
