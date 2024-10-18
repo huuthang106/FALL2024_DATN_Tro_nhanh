@@ -559,7 +559,7 @@
                                         <td class="d-flex align-items-center min-w-125px">
                                             <!--begin:: Avatar -->
                                             <div class="symbol symbol-100px overflow-hidden me-3">
-                                                <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}">
+                                                <a href="{{ route('client.detail-zone', ['slug' => $room->slug]) }}">
                                                     <div class="symbol-label">
                                                         @if ($room->images->isNotEmpty())
                                                             @php

@@ -17,7 +17,7 @@ use App\Events\BillCreated;
 use GuzzleHttp\Client;
 use App\Models\Category;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Cookie;
 class ZoneServices
 {
     const CO = 1; // Có tiện ích
@@ -41,6 +41,14 @@ class ZoneServices
         // Giả sử bạn đã có model `Utility`
         // return Utility::where('zone_id', $zoneId)->first();
     }
+    public function getZoneClient($province, $currentZoneId)
+    {
+        return Zone::where('status', self::status)
+            ->where('province', $province)
+            ->where('id', '<>', $currentZoneId)
+            ->get();
+    }
+
     public function store($request)
     {
         if (auth()->check()) {
@@ -657,7 +665,16 @@ class ZoneServices
         // Xóa zone
         $zone->delete();
     }
-
+  public function incrementViewCount($zoneId)
+    {
+        if (!request()->cookie('viewed_zone_' . $zoneId)) {
+            $zone = Zone::find($zoneId);
+            if ($zone) {
+                $zone->increment('view');
+                Cookie::queue('viewed_zone_' . $zoneId, true, 120);
+            }
+        }
+    }
     public function create($request)
     {
         if (auth()->check()) {

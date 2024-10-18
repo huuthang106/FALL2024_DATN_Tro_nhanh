@@ -22,7 +22,7 @@ class ZoneClientController extends Controller
         $this->CommentClientService = $CommentClientService;
     }
 
-    public function listZoneClient(Request $request, $perPage = 10)
+    public function listZone(Request $request, $perPage = 10)
     {
         $searchTerm = $request->input('search');
         $province = $request->input('province');
@@ -78,19 +78,101 @@ class ZoneClientController extends Controller
             'features' => $features
         ]);
     }
-    public function showZoneDetailsBySlug($slug)
+    public function listZoneClient(Request $request) 
     {
+        $keyword = $request->input('keyword');
+        $province = $request->input('province');
+        $latitude = $request->input('latitude');
+        $longitude = $request->input('longitude');
+        $category = $request->input('category');    
+        if ($latitude && $longitude) {
+            $zones = $this->zoneServices->searchZonesWithinRadius($latitude, $longitude, 30);
+        } elseif ($keyword || $province) {
+            $zones = $this->zoneServices->searchZones($keyword, $province, $category);
+        } else {
+            $userLat = session('userLat');
+            $userLng = session('userLng');
+    
+            if ($userLat && $userLng) {
+                $zones = $this->zoneServices->searchZonesWithinRadius($userLat, $userLng, 30);
+            } else {
+                $zones = $this->zoneServices->getMyZoneClient($category);
+            }
+        }
+    
+        $totalZones = $this->zoneServices->getTotalZones();
+        $provinces = $this->zoneServices->getProvinces()->pluck('province')->toArray(); // Chuyển đổi Collection thành mảng
+    
+        if ($request->ajax()) {
+            return response()->json([
+                'zones' => $zones->items(),
+                'totalZones' => $totalZones,
+                'pagination' => (string) $zones->links()
+            ]);
+        }
+    
+        return view('client.show.listing-half-map-list-layout-1', [
+            'zones' => $zones,
+            'totalZones' => $totalZones,
+            'keyword' => $keyword,
+            'province' => $province,
+            'latitude' => $latitude,
+            'longitude' => $longitude,
+            'userLat' => $request->input('user_lat'),
+            'userLng' => $request->input('user_lng'),
+            'showLocationAlert' => true,
+            'provinces' => $provinces, // Truyền danh sách các mã tỉnh vào view
+            'zoneServices' => $this->zoneServices
+        ]);
+    }
+    public function showZoneDetails($slug)
+    {
+        // Lấy thông tin zone dựa trên slug
         $zoneDetails = $this->CommentClientService->getZoneDetailsWithRatings($slug);
-
-        $comments = $zoneDetails['comments'];
-
-        $zones = $this->zoneServices->getZoneDetailsBySlug($slug); // Lấy thông tin chi tiết của khu vực trọ dựa trên slug
-
-        return view('client.show.single-zone', [
-            'zones' => $zoneDetails['zone'],
-            'averageRating' => $zoneDetails['averageRating'],
-            'ratingsDistribution' => $zoneDetails['ratingsDistribution'],
+        $zone = $this->zoneServices->getZoneDetailsBySlug($slug);
+    
+        $user = $zone->user;
+        $userId = auth()->id();
+        // $identity = Identity::where('user_id', $userId)->first();
+    
+        $comments = $zoneDetails['comments']; // Giả sử bạn có mối quan hệ comments trong Zone
+        $utilities = $zone->utilities; // Giả sử bạn có mối quan hệ utilities trong Zone
+        $province = $zone->province;
+        $locations = $this->zoneServices->getUniqueLocations();
+        $categories = $this->zoneServices->getCategories();
+    
+        // Tăng lượt xem cho zone
+        $this->zoneServices->incrementViewCount($zone->id);
+    
+        // Lấy các khu vực tương tự
+        $similarZones = $this->zoneServices->getZoneClient($province, $zone->id);
+    
+        // Kiểm tra xem yêu cầu có phải là AJAX hay không
+        if (request()->ajax() || request()->wantsJson()) {
+            return response()->json([
+                'zone' => $zone,
+                'averageRating' => $zoneDetails['averageRating'], // Giả sử bạn có phương thức này
+                'ratingsDistribution' => $zoneDetails['ratingsDistribution'], // Giả sử bạn có phương thức này
+                'user' => $user,
+                'utilities' => $utilities,
+                'similarZones' => $similarZones,
+                'slug' => $slug
+            ]);
+        }
+    
+        // Nếu không phải là AJAX, trả về view
+        return view('client.show.single-propety', [
+            'categories' => $categories,
+            'zone' => $zone,
+            'averageRating' => $zoneDetails['averageRating'], // Giả sử bạn có phương thức này
+            'ratingsDistribution' => $zoneDetails['ratingsDistribution'], // Giả sử bạn có phương thức này
             'comments' => $comments,
+            'user' => $user,
+            // 'identity' => $identity,
+            'utilities' => $utilities,
+            'similarZones' => $similarZones,
+            'provinces' => $locations['provinces'],
+            'province' => request()->input('province', '')
         ]);
     }
     public function saveLocation(Request $request)

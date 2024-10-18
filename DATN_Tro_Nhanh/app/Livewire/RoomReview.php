@@ -4,8 +4,9 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\Room;
-use App\Models\Comment;
+use App\Models\Zone;
+
+use App\Models\CommentZones;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 class RoomReview extends Component
@@ -13,7 +14,7 @@ class RoomReview extends Component
     use WithPagination;
 
     public $slug;
-    public $room;
+    public $zone;
     public $averageRating;
     public $ratingsDistribution;
    
@@ -25,22 +26,22 @@ class RoomReview extends Component
 
     public function loadRoomDetails()
     {
-        $room = Room::where('slug', $this->slug)->first();
+        $zone = Zone::where('slug', $this->slug)->first();
 
-        if (!$room) {
-            $this->room = null;
+        if (!$zone) {
+            $this->zone = null;
             return;
         }
 
-        $this->room = $room;
+        $this->zone = $zone;
 
-        $totalReviews = $room->comments()->count();
-        $this->averageRating = $totalReviews > 0 ? $room->comments()->avg('rating') : 0;
+        $totalReviews = $zone->comments()->count();
+        $this->averageRating = $totalReviews > 0 ? $zone->comments()->avg('rating') : 0;
 
         $this->ratingsDistribution = [];
         if ($totalReviews > 0) {
             for ($i = 5; $i >= 1; $i--) {
-                $this->ratingsDistribution[$i] = $room->comments()->where('rating', $i)->count() / $totalReviews * 100;
+                $this->ratingsDistribution[$i] = $zone->comments()->where('rating', $i)->count() / $totalReviews * 100;
             }
         } else {
             $this->ratingsDistribution = array_fill(1, 5, 0);
@@ -57,7 +58,7 @@ class RoomReview extends Component
 
     public function deleteComment($commentId)
     {
-        $comment = Comment::find($commentId);
+        $comment = CommentZones::find($commentId);
         if ($comment) {
             $comment->forceDelete();
             $this->dispatch('commentDeleted', ['message' => 'Bình luận đã được xóa thành công.']);
@@ -68,7 +69,7 @@ class RoomReview extends Component
 
     public function render()
     {
-        $comments = $this->room ? $this->room->comments()->orderBy('created_at', 'desc')->paginate(5) : [];
+        $comments = $this->zone ? $this->zone->comments()->orderBy('created_at', 'desc')->paginate(5) : [];
 
         return view('livewire.room-review', [
             'comments' => $comments,

@@ -462,7 +462,7 @@
                                 </div>
                                 <div class="card-body pt-3 d-flex flex-column">
                                     <h2 class="card-title fs-16 lh-2 mb-0">
-                                        <a href="{{ route('client.detail-room', ['slug' => $zone->slug]) }}"
+                                        <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}"
                                             class="text-dark hover-primary">{{ Str::limit($zone->name, 60) }}</a>
                                     </h2>
                                     <p class="card-text font-weight-500 text-gray-light mb-2">
@@ -828,7 +828,7 @@
                                 </div>
                                 <div class="card-body pt-3 d-flex flex-column">
                                     <h2 class="card-title fs-16 lh-2 mb-0">
-                                        <a href="{{ route('client.detail-room', ['slug' => $zone->slug]) }}"
+                                        <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}"
                                             class="text-dark hover-primary">{{ Str::limit($zone->name, 60) }}</a>
                                     </h2>
                                     <p class="card-text font-weight-500 text-gray-light mb-2">
