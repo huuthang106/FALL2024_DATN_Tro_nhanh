@@ -91,6 +91,10 @@ class RoomOwnersService
     {
         return Room::find($id);
     }
+    public function getRoomBySlug($slug)
+{
+    return Room::where('slug', $slug)->first(); // Lấy phòng dựa trên slug
+}
     public function getRoomUtilities($roomId)
     {
         // Giả sử bạn đã có model `Utility`

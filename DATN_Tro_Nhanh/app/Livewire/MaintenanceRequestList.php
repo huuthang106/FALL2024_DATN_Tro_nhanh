@@ -101,4 +101,16 @@ class MaintenanceRequestList extends Component
         $this->selectedRequests = [];
         $this->dispatch('maintenance-requests-deleted', ['message' => 'Các yêu cầu bảo trì đã chọn đã được xóa thành công']);
     }
+    public function deleteSelectedMaintenances($data)
+    {
+        $ids = $data['ids'];
+        if (empty($ids)) {
+            $this->dispatch('error', ['message' => 'Không có yêu cầu bảo trì nào được chọn để xóa.']);
+            return;
+        }
+
+        $deletedCount = MaintenanceRequest::whereIn('id', $ids)->forceDelete();
+
+        $this->dispatch('maintenances-deleted', ['message' => "Đã xóa thành công $deletedCount yêu cầu bảo trì."]);
+    }
 }

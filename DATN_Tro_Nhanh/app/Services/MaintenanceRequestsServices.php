@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Events\BlogCreated;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 
 class MaintenanceRequestsServices
@@ -81,7 +82,27 @@ class MaintenanceRequestsServices
         return $maintenanceRequest;
     }
 
+    public function editStatus($id,$status)
+    {
+        try {
+            // Tìm yêu cầu bảo trì theo ID
+            $maintenanceRequest = MaintenanceRequest::findOrFail($id);
+            
+            // Cập nhật các trường dữ liệu
+            $maintenanceRequest->update(['status' => $status]);
+            
+            // Trả về true nếu cập nhật thành công
+            return true;
+        } catch (ModelNotFoundException $e) {
+            // Xử lý trường hợp không tìm thấy bản ghi
+            return false; // Hoặc bạn có thể ném ra một ngoại lệ khác
+        } catch (\Exception $e) {
+            // Xử lý các lỗi khác nếu cần
+            return false;
+        }
+    }
 }
 
 
 
+ 

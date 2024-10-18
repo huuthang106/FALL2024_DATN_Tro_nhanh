@@ -29,9 +29,9 @@ class Resident extends Model
         return $this->belongsTo(Room::class);
     }
 
- 
+
     public function tenant()
-{
-    return $this->belongsTo(User::class, 'tenant_id');
-}
+    {
+        return $this->belongsTo(User::class, 'tenant_id');
+    }
 }

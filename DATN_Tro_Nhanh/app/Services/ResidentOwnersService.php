@@ -112,7 +112,7 @@ class ResidentOwnersService
             $resident->description = $reasonsString . ($note ? " - Ghi chú: $note" : '');
 
             // Cập nhật status thành 2 (giả sử 2 là trạng thái từ chối)
-            $resident->status = 2;
+            $resident->status = 3;
             $resident->save();
 
             // Phát sự kiện

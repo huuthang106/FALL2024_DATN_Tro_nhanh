@@ -7,7 +7,7 @@
                         {{-- <h5 for="invoice-list_length" class="d-block mr-2 mb-0">Tên khu: {{ $zone->name }}</h5> --}}
                     </div>
                     <div class="ml-2 align-self-center">
-                        <a href="{{ route('owners.add-room', $zone->slug) }}" class="btn btn-primary btn-lg"
+                        <a href="{{ route('owners.add-room', $room->slug) }}" class="btn btn-primary btn-lg"
                             tabindex="0"><span>Thêm
                                 mới</span></a>
                     </div>
@@ -46,18 +46,18 @@
                                 <th class="py-6 text-start" style="white-space: nowrap;">Số điện thoại</th>
                                 {{-- <th class="py-6 text-start">Lý do từ chối</th> --}}
                                 <th class="py-6 text-start" style="white-space: nowrap;">Trạng thái</th>
-                                {{-- <th class="py-6 text-start" style="white-space: nowrap;">Xem hồ sơ</th> --}}
+                                <th class="py-6 text-start" style="white-space: nowrap;">Xem hồ sơ</th>
                                 <th class="py-6 text-start ">Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if ($rooms->isEmpty())
+                            @if ($residents->isEmpty())
                                 <tr>
                                     <td colspan="6" class="text-center" style="white-space: nowrap;">Khu vực chưa có
                                         phòng trọ nào.</td>
                                 </tr>
                             @else
-                                @foreach ($rooms as $room)
+                                @foreach ($residents as $item)
                                     <tr>
                                         {{-- <td class="py-6 pl-6" style="white-space: nowrap;">
                                             <label class="new-control new-checkbox checkbox-primary m-auto">
@@ -66,7 +66,7 @@
                                             </label>
                                         </td> --}}
                                         <td class="align-middle" style="white-space: nowrap;">
-                                            <small>{{ $room->title }}</small>
+                                            <small>{{ $item->tenant->name }}</small>
                                         </td>
                                         <td class="align-middle" style="white-space: nowrap;">
                                             <small>
@@ -81,7 +81,7 @@
                                                 @else
                                                     Không có người ở
                                                 @endif --}}
-                                                {{ $room->quantity }}
+                                                {{ $item->quantity }}
                                             </small>
                                         </td>
                                         <td class="align-middle" style="white-space: nowrap;"> <small>
@@ -91,32 +91,26 @@
                                                     Phòng trống
                                                 @endif --}}
 
-                                                {{ $zone->phone }}
+                                                {{ $item->tenant->phone ?? 'Không có dữ liệu ' }}
 
                                             </small></td>
 
 
                                         <td class="align-middle" style="white-space: nowrap;">
                                             <small>
-                                                @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
-                                                    <span class="badge badge-green text-capitalize">Đang tạm trú</span>
-                                                @else
-                                                    <span class="badge badge-yellow text-capitalize">Trống</span>
-                                                @endif
+
+                                                <span class="badge badge-green text-capitalize">Đang tạm trú</span>
+
                                             </small>
                                         </td>
-                                        {{-- <td class="align-middle" style="white-space: nowrap;">
-                                            @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
-                                                
-                                                @if ($resident->status == $user_is_in)
-                                                    <button type="button" class="btn btn-info btn-sm"
-                                                        data-toggle="modal"
-                                                        data-target="#identityModal{{ $resident->tenant->id }}">
-                                                        Xem hồ sơ
-                                                    </button>
-                                                @endif
+                                        <td class="align-middle" style="white-space: nowrap;">
+                                            @if ($item->status == $user_is_in)
+                                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+                                                    data-target="#identityModal{{ $item->tenant->id }}">
+                                                    Xem hồ sơ
+                                                </button>
                                             @endif
-                                        </td> --}}
+                                        </td>
                                         <td class="align-middle" style="white-space: nowrap;">
                                             @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
                                                 @php
@@ -124,14 +118,15 @@
                                                     $tenant = $resident->tenant;
                                                 @endphp
                                                 @if ($resident->status == $user_is_in)
-                                                    <a href="{{ route('owners.detail-room', $room->slug) }}" type="button" class="btn btn-primary btn-sm">
+                                                    {{-- <a href="{{ route('owners.detail-room', $room->slug) }}"
+                                                        type="button" class="btn btn-primary btn-sm">
                                                         <i class="fal fa-eye"></i>
-                                                    </a>
-                                                    {{-- <button type="button" class="btn btn-primary btn-sm"
+                                                    </a> --}}
+                                                    <button type="button" class="btn btn-primary btn-sm"
                                                         data-toggle="modal"
                                                         data-target="#invoiceModal{{ $resident->id }}">
                                                         <i class="fal fa-pencil-alt"></i>
-                                                    </button> --}}
+                                                    </button>
                                                     <form action="{{ route('owners.erase-tenant', $resident->id) }}"
                                                         method="POST" style="display:inline;">
                                                         @csrf
@@ -157,11 +152,11 @@
                     </table>
                 </div>
                 <div class="mt-6">
-                    @if ($rooms->hasPages())
+                    @if ($residents->hasPages())
                         <nav aria-label="Page navigation">
                             <ul class="pagination pagination-sm rounded-active justify-content-center">
                                 {{-- Liên kết Trang Đầu --}}
-                                <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
+                                <li class="page-item {{ $residents->onFirstPage() ? 'disabled' : '' }}">
                                     <a class="page-link hover-white" wire:click="gotoPage(1)"
                                         wire:loading.attr="disabled">
                                         &lt;&lt;
@@ -169,7 +164,7 @@
                                 </li>
 
                                 {{-- Liên kết Trang Trước --}}
-                                <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
+                                <li class="page-item {{ $residents->onFirstPage() ? 'disabled' : '' }}">
                                     <a class="page-link hover-white" wire:click="previousPage"
                                         wire:loading.attr="disabled">
                                         &lt;
@@ -178,8 +173,8 @@
 
                                 @php
                                     $window = 2; // Số trang hiển thị ở mỗi bên của trang hiện tại
-                                    $totalPages = $rooms->lastPage();
-                                    $currentPage = $rooms->currentPage();
+                                    $totalPages = $residents->lastPage();
+                                    $currentPage = $residents->currentPage();
                                     $startPage = max($currentPage - $window, 1);
                                     $endPage = min($currentPage + $window, $totalPages);
                                 @endphp
@@ -212,7 +207,7 @@
                                 @endif
 
                                 {{-- Liên kết Trang Tiếp --}}
-                                <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
+                                <li class="page-item {{ !$residents->hasMorePages() ? 'disabled' : '' }}">
                                     <a class="page-link hover-white" wire:click="nextPage"
                                         wire:loading.attr="disabled">
                                         &gt;
@@ -233,7 +228,7 @@
             </div>
         </div>
     </div>
-    {{-- @foreach ($zone->residents as $resident)
+    @foreach ($room->residents as $resident)
         <div class="modal fade" id="invoiceModal{{ $resident->id }}" tabindex="-1" role="dialog"
             aria-labelledby="invoiceModalLabel{{ $resident->id }}" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -295,7 +290,7 @@
                                             placeholder="Nhập mô tả chi tiết về hóa đơn" required></textarea>
                                         <span class="text-danger" id="description-error"></span>
                                     </div>
-                                  
+
 
 
                                 </div>
@@ -309,9 +304,9 @@
                 </div>
             </div>
         </div>
-    @endforeach --}}
-    {{-- @if ($rooms->isNotEmpty()) <!-- Kiểm tra xem có phòng không -->
-        @foreach ($rooms as $room)
+    @endforeach
+    {{-- @if ($room->isNotEmpty()) <!-- Kiểm tra xem có phòng không -->
+        @foreach ($room as $room)
             <!-- Lặp qua từng phòng -->
             @php
                 // Lấy cư dân trong phòng hiện tại
@@ -397,9 +392,9 @@
             @endif
         @endforeach
         <!-- Thông báo nếu không có phòng -->
-    @endif
-    @foreach ($rooms as $room)
-        @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
+    @endif --}}
+    @foreach ($residents as $item)
+        @if ($item->status == $user_is_in)
             @php
                 $resident = $room->residents->where('status', $user_is_in)->first();
                 $tenant = $resident->tenant;
@@ -417,23 +412,31 @@
                         </div>
                         <div class="modal-body">
                             @php
-                                $images = $tenant->identity ? $tenant->identity->imgmember : collect();
+                                $frontImage = $tenant->identity ? $tenant->identity->front_id_card_image : null;
+                                $backImage = $tenant->identity ? $tenant->identity->back_id_card_image : null;
+                                $public = 2;
                             @endphp
-                            @if ($tenant->identity && $tenant->identity->status == 2 && $images->isNotEmpty())
+                            @if ($tenant->identity && $tenant->status == $public)
                                 <div class="row">
-                                    @foreach ($images as $image)
+                                    @if ($frontImage)
                                         <div class="col-md-6 mb-3">
-                                            <a href="{{ asset('assets/images/register_owner/' . $image->filename) }}"
+                                            <a href="{{ asset('assets/images/register_owner/' . $frontImage) }}"
                                                 data-fancybox="gallery">
-                                                <img src="{{ asset('assets/images/register_owner/' . $image->filename) }}"
-                                                    alt="Identity Image" class="img-fluid">
+                                                <img src="{{ asset('assets/images/register_owner/' . $frontImage) }}"
+                                                    alt="Front ID Card" class="img-fluid">
                                             </a>
                                         </div>
-                                    @endforeach
-                                </div>
-                                <div class="text-center mt-3">
-                                    <button class="btn btn-primary download-all-images"
-                                        data-tenant-id="{{ $tenant->id }}">Tải tất cả ảnh</button>
+                                    @endif
+
+                                    @if ($backImage)
+                                        <div class="col-md-6 mb-3">
+                                            <a href="{{ asset('assets/images/register_owner/' . $backImage) }}"
+                                                data-fancybox="gallery">
+                                                <img src="{{ asset('assets/images/register_owner/' . $backImage) }}"
+                                                    alt="Back ID Card" class="img-fluid">
+                                            </a>
+                                        </div>
+                                    @endif
                                 </div>
                             @else
                                 <p>Không có ảnh định danh hoặc thông tin chưa được công khai.</p>
@@ -443,6 +446,6 @@
                 </div>
             </div>
         @endif
-    @endforeach --}}
+    @endforeach
 </main>
 <!-- Modal -->

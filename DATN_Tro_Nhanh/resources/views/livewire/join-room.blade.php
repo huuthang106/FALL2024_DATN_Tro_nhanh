@@ -44,7 +44,7 @@
                             <tr role="row">
                                 <th class="no-sort py-6 pl-6" style="white-space: nowrap;">
                                     <label class="new-control new-checkbox checkbox-primary m-auto">
-                                        <input type="checkbox" id = 'checkAll'
+                                        <input type="checkbox" id='selectAll'
                                             class="new-control-input chk-parent select-customers-info">
                                     </label>
                                 </th>
@@ -52,6 +52,7 @@
                                 <th class="py-6 text-start" style="white-space: nowrap;">Tên người ở</th>
                                 <th class="py-6 text-start" style="white-space: nowrap;">Số điện thoại</th>
                                 <th class="py-6 text-start" style="white-space: nowrap;">Khu trọ</th>
+                                <th class="py-6 text-start" style="white-space: nowrap;">Trạng thái</th>
                                 <th class="py-6 text-start" style="white-space: nowrap;">Thao tác</th>
                             </tr>
                         </thead>
@@ -63,13 +64,14 @@
                                 </tr>
                             @else
                                 @foreach ($residents as $resident)
-                                    <tr>
+                                    <tr class="shadow-hover-xs-2" data-id="{{ $resident->id }}">
                                         <td class="py-6 pl-6 align-middle " style="white-space: nowrap;">
                                             <label class="new-control new-checkbox checkbox-primary m-auto">
 
 
-                                                <input type="checkbox" class="join-room-checkbox"
-                                                    wire:model="selectedNotifications" value="{{ $resident->id }}">
+                                                <input data-id="{{ $resident->id }}" type="checkbox"
+                                                    class="child-chk" wire:model="selectedNotifications"
+                                                    value="{{ $resident->id }}">
                                             </label>
                                         </td>
                                         <td class="align-middle" style="white-space: nowrap;">
@@ -93,14 +95,30 @@
 
 
                                         <td class="align-middle" style="white-space: nowrap;">
-                                            <small class="text">{{ $resident->zone->name }}</small>
+                                            <small class="text">{{ $resident->zone_name }}</small>
                                         </td>
-                                        <td class="align-middle text-center" style="white-space: nowrap;">
+                                        <td class="align-middle" style="white-space: nowrap;">
+                                            {{-- <small class="text">{{ $resident->zone_name }} --}}
+                                                @if ($resident->status == 1)
+                                                <span class="badge badge-yellow text-capitalize font-weight-normal fs-12">Đang xử
+                                                    lý</span>
+                                            @elseif ($resident->status == 2)
+                                                <span class="badge badge-green text-capitalize font-weight-normal fs-12">Đã duyệt</span>
+                                            @elseif ($resident->status == 3)
+                                                <span class="badge badge-danger text-capitalize font-weight-normal fs-12">Bị từ chối</span>
+                                            @else
+                                                <span class="badge badge-light text-capitalize font-weight-normal fs-12">Không xác
+                                                    định</span>
+                                            @endif
+                                            </small>
+                                        </td>
+                                        <td class="align-middle" style="white-space: nowrap;">
                                             <form action="{{ route('owners.cancel-order', $resident->id) }}"
                                                 method="POST" style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="badge badge-danger border-0"><i class="fal fa-trash-alt"></i></button>
+                                                <button type="submit" class="badge badge-danger border-0"><i
+                                                        class="fal fa-trash-alt"></i></button>
                                             </form>
                                         </td>
                                     </tr>
@@ -113,88 +131,110 @@
 
                 <div class="row justify-content-center p-5">
                     @if ($residents->hasPages())
-                    <nav aria-label="Page navigation">
+                        <nav aria-label="Page navigation">
                             <ul class="pagination rounded-active justify-content-center">
-                            {{-- Nút về đầu --}}
+                                {{-- Nút về đầu --}}
 
-                            <li class="page-item {{ $residents->onFirstPage() ? 'disabled' : '' }}">
-                            <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled"
-                                rel="prev" aria-label="@lang('pagination.previous')"><i
-                                    class="far fa-angle-double-left"></i></a>
-                            </li>
-                            
-                            @php
-                                $totalPages = $residents->lastPage();
-                                $currentPage = $residents->currentPage();
-                                $visiblePages = 3; // Số trang hiển thị ở giữa
-                            @endphp
+                                <li class="page-item {{ $residents->onFirstPage() ? 'disabled' : '' }}">
+                                    <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                        wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')"><i
+                                            class="far fa-angle-double-left"></i></a>
+                                </li>
 
-                            {{-- Trang đầu --}}
-                            <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
-                            <a class="page-link hover-white" wire:click="gotoPage(1)"
-                                    wire:loading.attr="disabled">1</a>
-                            </li>
+                                @php
+                                    $totalPages = $residents->lastPage();
+                                    $currentPage = $residents->currentPage();
+                                    $visiblePages = 3; // Số trang hiển thị ở giữa
+                                @endphp
 
-                            {{-- Dấu ba chấm đầu --}}
-                            @if ($currentPage > $visiblePages)
-                                <li class="page-item disabled"><span class="page-link">...</span></li>
-                            @endif
+                                {{-- Trang đầu --}}
+                                <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                                    <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                        wire:loading.attr="disabled">1</a>
+                                </li>
 
-                            {{-- Các trang giữa --}}
-                            @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
-                                @if ($i > 1 && $i < $totalPages)
-                                    <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
-                                        <a class="page-link hover-white" wire:click="gotoPage({{ $i }})"
-                                            wire:loading.attr="disabled">{{ $i }}</a>
+                                {{-- Dấu ba chấm đầu --}}
+                                @if ($currentPage > $visiblePages)
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                @endif
+
+                                {{-- Các trang giữa --}}
+                                @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
+                                    @if ($i > 1 && $i < $totalPages)
+                                        <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                            <a class="page-link hover-white"
+                                                wire:click="gotoPage({{ $i }})"
+                                                wire:loading.attr="disabled">{{ $i }}</a>
+                                        </li>
+                                    @endif
+                                @endforeach
+
+                                {{-- Dấu ba chấm cuối --}}
+                                @if ($currentPage < $totalPages - ($visiblePages - 1))
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                @endif
+
+                                {{-- Trang cuối --}}
+                                @if ($totalPages > 1)
+                                    <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                                        <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
+                                            wire:loading.attr="disabled">{{ $totalPages }}</a>
                                     </li>
                                 @endif
-                            @endforeach
 
-                            {{-- Dấu ba chấm cuối --}}
-                            @if ($currentPage < $totalPages - ($visiblePages - 1))
-                                <li class="page-item disabled"><span class="page-link">...</span></li>
-                            @endif
-
-                            {{-- Trang cuối --}}
-                            @if ($totalPages > 1)
-                                <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
-                                    <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
-                                        wire:loading.attr="disabled">{{ $totalPages }}</a>
+                                <li class="page-item {{ !$residents->hasMorePages() ? 'disabled' : '' }}">
+                                    <a class="page-link hover-white"
+                                        wire:click="gotoPage({{ $residents->lastPage() }})"
+                                        wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')"><i
+                                            class="far fa-angle-double-right"></i></a>
                                 </li>
-                            @endif
-
-                            <li class="page-item {{ !$residents->hasMorePages() ? 'disabled' : '' }}">
-                            <a class="page-link hover-white" wire:click="gotoPage({{ $residents->lastPage() }})" wire:loading.attr="disabled"
-                                rel="next" aria-label="@lang('pagination.next')"><i
-                                    class="far fa-angle-double-right"></i></a>
-                            </li>
-                        </ul>
-                    </nav>
+                            </ul>
+                        </nav>
                     @endif
-    </div>
+                </div>
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const checkAll = document.getElementById('checkAll');
+        document.addEventListener('livewire:initialized', function() {
+            const checkAll = document.getElementById('selectAll'); // Checkbox "Chọn tất cả"
             const deleteSelectedBtn = document.getElementById('deleteSelected');
+            const childCheckboxes = document.querySelectorAll('.child-chk'); // Tất cả checkbox con
 
+            // Sự kiện cho checkbox "Chọn tất cả"
             checkAll.addEventListener('change', function() {
-                const checkboxes = document.querySelectorAll('.join-room-checkbox');
-                checkboxes.forEach(checkbox => {
+                childCheckboxes.forEach(checkbox => {
                     checkbox.checked = this.checked;
                     checkbox.dispatchEvent(new Event('change', {
                         'bubbles': true
                     }));
                 });
+                updateDeleteButtonState();
             });
 
-            deleteSelectedBtn.addEventListener('click', function() {
-                if (@this.selectedNotifications.length === 0) {
+            // Sự kiện cho từng checkbox con
+            childCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    // Nếu một checkbox con không được chọn, bỏ chọn checkbox "Chọn tất cả"
+                    if (!this.checked) {
+                        checkAll.checked = false;
+                    } else if (Array.from(childCheckboxes).every(chk => chk.checked)) {
+                        // Nếu tất cả checkbox con được chọn, đánh dấu checkbox "Chọn tất cả"
+                        checkAll.checked = true;
+                    }
+                    updateDeleteButtonState();
+                });
+            });
+
+            // Sự kiện cho nút xóa
+            deleteSelectedBtn.addEventListener('click', function(event) {
+                event.preventDefault();
+                const selectedCheckboxes = document.querySelectorAll('.child-chk:checked');
+                if (selectedCheckboxes.length === 0) {
                     Swal.fire({
                         title: 'Lỗi!',
-                        text: 'Vui lòng chọn một nội dung để xóa',
+                        text: 'Vui lòng chọn ít nhất một yêu cầu bảo trì để xóa',
                         icon: 'error',
                         confirmButtonText: 'OK'
                     });
@@ -212,38 +252,51 @@
                     cancelButtonText: 'Hủy'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        @this.call('deleteSelectedJoinRoom');
+                        const selectedIds = Array.from(selectedCheckboxes).map(checkbox => {
+                            return checkbox.closest('tr').getAttribute('data-id');
+                        });
+                        @this.call('deleteSelectedJoinRoom', {
+                            ids: selectedIds
+                        });
                     }
                 });
             });
 
-            function updateDeleteButtonVisibility() {
-                deleteSelectedBtn.style.display = @this.selectedNotifications.length > 0 ? 'block' : 'none';
-                checkAll.checked = @this.selectedNotifications.length === document.querySelectorAll(
-                    '.notification-checkbox').length;
+            // Cập nhật trạng thái nút xóa
+            function updateDeleteButtonState() {
+                const selectedCount = document.querySelectorAll('.child-chk:checked').length;
+                deleteSelectedBtn.disabled = selectedCount === 0;
             }
 
-            // Gọi hàm updateDeleteButtonVisibility mỗi khi có sự thay đổi trong selectedNotifications
-            @this.$watch('selectedNotifications', () => {
-                updateDeleteButtonVisibility();
+            // Gán sự kiện cho các checkbox con
+            document.querySelectorAll('.child-chk').forEach(checkbox => {
+                checkbox.addEventListener('change', updateDeleteButtonState);
             });
 
-            // Khởi tạo trạng thái ban đầu
-            updateDeleteButtonVisibility();
-        });
+            updateDeleteButtonState(); // Cập nhật trạng thái nút xóa ban đầu
 
-        // Xử lý thông báo sau khi xóa thành công
-        document.addEventListener('livewire:initialized', () => {
-        Livewire.on('joinRoom-deleted', (event) => {
-            Swal.fire({
-                title: 'Thành công!',
-                text: 'Xóa thông báo thành công',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            }).then(() => {
-                location.reload();
+            // Sự kiện khi xóa thành công
+            Livewire.on('maintenances-deleted', (data) => {
+                console.log('Maintenances deleted event received:', data);
+                Swal.fire({
+                    title: 'Xóa Thành công!',
+                    text: data.message,
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    location.reload();
+                });
+            });
+
+            // Sự kiện khi có lỗi
+            Livewire.on('error', (data) => {
+                Swal.fire({
+                    title: 'Lỗi!',
+                    text: data.message,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
             });
         });
-    });
     </script>
 </main>

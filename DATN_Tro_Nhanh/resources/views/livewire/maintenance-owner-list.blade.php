@@ -10,8 +10,8 @@
                             <label class="form-label fs-6 fw-bold mr-2 mb-0">Lọc:</label>
                             <select wire:model.lazy="timeFilter" class="form-control form-control-lg selectpicker"
                                 data-style="bg-white btn-lg h-52 py-2 border">
-                                <option value="" selected>Thời Gian:</option>
-                                <option value="1_day">1 ngày</option>
+                                <option value="" selected>Mặc định:</option>
+                                <option value="1_day">Hôm qua</option>
                                 <option value="7_day">7 ngày</option>
                                 <option value="1_month">1 tháng</option>
                                 <option value="3_month">3 tháng</option>
@@ -22,19 +22,19 @@
 
                     </div>
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
-                        <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
+                        <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2" style="width: 60%">
                             <input wire:model.lazy="search" wire:keydown.debounce.300ms="$refresh" type="text"
                                 class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..." aria-label=""
-                                aria-describedby="basic-addon1">
+                                aria-describedby="basic-addon1" >
                             <div class="input-group-append position-absolute pos-fixed-right-center">
                                 <button class="btn bg-transparent border-0 text-gray lh-1" type="button">
                                     <i class="fal fa-search"></i>
                                 </button>
                             </div>
                         </div>
-                        <div class="ml-2">
-                            <button id="deleteSelected" class="btn btn-danger btn-lg" tabindex="0">
-                                <span>Xóa</span>
+                        <div class="align-self-center">
+                            <button id="deleteSelected" class="btn btn-success btn-lg" tabindex="0">
+                                <span>Hoàn thành</span>
                             </button>
                         </div>
                     </div>
@@ -53,11 +53,11 @@
                             </label>
                         </th>
                         <th class="py-6" style="white-space: nowrap;">Người Yêu Cầu</th>
-                        <th class="py-6" style="white-space: nowrap;">Số Phòng</th>
+                        <th class="py-6" style="white-space: nowrap;">Tên phòng</th>
                         <th class="py-6" style="white-space: nowrap;">Nội Dung</th>
                         <th class="py-6" style="white-space: nowrap;">Ngày</th>
                         <th class="py-6" style="white-space: nowrap;">Trạng thái</th>
-                        <th class="no-sort py-6" style="white-space: nowrap;">Rời Khỏi</th>
+                        <th class="no-sort py-6" style="white-space: nowrap;"> Hoàn thành</th>
                     </tr>
                 </thead>
 
@@ -73,7 +73,7 @@
                             {{ $item->user->name ?? 'N/A' }}
                             <br><small>Yêu cầu: {{ $item->title }}</small>
                         </td>
-                        <td class="align-middle p-4" style="white-space: nowrap;">{{ $item->room->id ?? 'N/A' }}</td>
+                        <td class="align-middle p-4" style="white-space: nowrap;">{{ $item->room->title ?? 'N/A' }}</td>
                         <td class="align-middle p-4" style="white-space: nowrap;">
                             {{ Str::limit($item->description, 40) }}</td>
                         <td class="align-middle p-4" style="white-space: nowrap;">
@@ -93,12 +93,12 @@
                             @endif
                         </td>
                         <td class="align-middle p-4" style="white-space: nowrap;">
-                            <form action="{{ route('owners.destroy-maintenances', $item->id) }}" method="POST"
+                            <form action="{{ route('owners.finish-maintenance', $item->id) }}" method="POST"
                                 class="d-inline-block mb-0">
                                 @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">
-                                    <i class="fal fa-trash-alt"></i>
+                                @method('PUT')
+                                <button type="submit" class="btn btn-success btn-sm">
+                                    <i class="fal fa-check"></i> Hoàn thành
                                 </button>
                             </form>
                         </td>
@@ -111,70 +111,66 @@
                 @endforelse
             </table>
         </div>
-        @if ($maintenanceRequests->count() > 0)
-            <div id="pagination-section" class="mt-6">
-                <ul class="pagination pagination-sm rounded-active justify-content-center">
-                    {{-- Nút quay về trang đầu tiên (<<) --}}
-                    <li class="page-item {{ $maintenanceRequests->onFirstPage() ? 'disabled' : '' }}">
-                        <a class="page-link" wire:click="gotoPage(1)" wire:loading.attr="disabled"
-                            href="#pagination-section">
-                            <i class="far fa-angle-double-left"></i>
-                        </a>
+      
+        @if ($maintenanceRequests->hasPages())
+        <nav aria-label="Page navigation">
+            <ul class="pagination rounded-active justify-content-center">
+                {{-- Nút về đầu --}}
+
+                <li class="page-item {{ $maintenanceRequests->onFirstPage() ? 'disabled' : '' }}">
+                    <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled"
+                        rel="prev" aria-label="@lang('pagination.previous')"><i
+                            class="far fa-angle-double-left"></i></a>
+                </li>
+
+                @php
+                    $totalPages = $maintenanceRequests->lastPage();
+                    $currentPage = $maintenanceRequests->currentPage();
+                    $visiblePages = 3; // Số trang hiển thị ở giữa
+                @endphp
+
+                {{-- Trang đầu --}}
+                <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                    <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled">1</a>
+                </li>
+
+                {{-- Dấu ba chấm đầu --}}
+                @if ($currentPage > $visiblePages)
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                @endif
+
+                {{-- Các trang giữa --}}
+                @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
+                    @if ($i > 1 && $i < $totalPages)
+                        <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                            <a class="page-link hover-white" wire:click="gotoPage({{ $i }})"
+                                wire:loading.attr="disabled">{{ $i }}</a>
+                        </li>
+                    @endif
+                @endforeach
+
+                {{-- Dấu ba chấm cuối --}}
+                @if ($currentPage < $totalPages - ($visiblePages - 1))
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                @endif
+
+                {{-- Trang cuối --}}
+                @if ($totalPages > 1)
+                    <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                        <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
+                            wire:loading.attr="disabled">{{ $totalPages }}</a>
                     </li>
+                @endif
 
-                    {{-- Nút tới trang trước (<) --}}
-
-
-                    {{-- Hiển thị các trang chỉ trên kích thước md trở lên --}}
-                    @if ($maintenanceRequests->currentPage() > 2)
-                        <li class="page-item d-none d-md-inline">
-                            <a class="page-link" wire:click="gotoPage(1)" href="#pagination-section">1</a>
-                        </li>
-                    @endif
-
-                    @if ($maintenanceRequests->currentPage() > 3)
-                        <li class="page-item disabled d-none d-md-inline">
-                            <span class="page-link">...</span>
-                        </li>
-                    @endif
-
-                    {{-- Hiển thị các trang xung quanh trang hiện tại --}}
-                    @for ($i = max(1, $maintenanceRequests->currentPage() - 1); $i <= min($maintenanceRequests->currentPage() + 1, $maintenanceRequests->lastPage()); $i++)
-                        <li class="page-item {{ $maintenanceRequests->currentPage() == $i ? 'active' : '' }}">
-                            <a class="page-link" wire:click="gotoPage({{ $i }})"
-                                href="#pagination-section">{{ $i }}</a>
-                        </li>
-                    @endfor
-
-                    @if ($maintenanceRequests->currentPage() < $maintenanceRequests->lastPage() - 2)
-                        <li class="page-item disabled d-none d-md-inline">
-                            <span class="page-link">...</span>
-                        </li>
-                    @endif
-
-                    @if ($maintenanceRequests->currentPage() < $maintenanceRequests->lastPage() - 1)
-                        <li class="page-item d-none d-md-inline">
-                            <a class="page-link" wire:click="gotoPage({{ $maintenanceRequests->lastPage() }})"
-                                href="#pagination-section">
-                                {{ $maintenanceRequests->lastPage() }}
-                            </a>
-                        </li>
-                    @endif
-
-
-
-                    {{-- Nút tới trang cuối cùng (>>) --}}
-                    <li
-                        class="page-item {{ $maintenanceRequests->currentPage() == $maintenanceRequests->lastPage() ? 'disabled' : '' }}">
-                        <a class="page-link" wire:click="gotoPage({{ $maintenanceRequests->lastPage() }})"
-                            wire:loading.attr="disabled" href="#pagination-section">
-                            <i class="far fa-angle-double-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        @endif
-
+                <li class="page-item {{ !$maintenanceRequests->hasMorePages() ? 'disabled' : '' }}">
+                    <a class="page-link hover-white"
+                        wire:click="gotoPage({{ $maintenanceRequests->lastPage() }})"
+                        wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')"><i
+                            class="far fa-angle-double-right"></i></a>
+                </li>
+            </ul>
+        </nav>
+    @endif
         <!-- <div class="text-center mt-2">
             {{-- {{ $maintenanceRequests->firstItem() }}-{{ $maintenanceRequests->lastItem() }} của
             {{ $maintenanceRequests->total() }} kết quả --}}
@@ -219,7 +215,7 @@
                 if (selectedCheckboxes.length === 0) {
                     Swal.fire({
                         title: 'Lỗi!',
-                        text: 'Vui lòng chọn ít nhất một yêu cầu bảo trì để xóa',
+                        text: 'Vui lòng chọn ít nhất một yêu cầu bảo trì để hoàn thành',
                         icon: 'error',
                         confirmButtonText: 'OK'
                     });
@@ -233,14 +229,14 @@
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Có, xóa!',
+                    confirmButtonText: 'Có!',
                     cancelButtonText: 'Hủy'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         const selectedIds = Array.from(selectedCheckboxes).map(checkbox => {
                             return checkbox.closest('tr').getAttribute('data-id');
                         });
-                        @this.call('deleteSelectedMaintenances', {
+                        @this.call('finish_maintenance', {
                             ids: selectedIds
                         });
                     }
@@ -264,7 +260,7 @@
             Livewire.on('maintenances-deleted', (data) => {
                 console.log('Maintenances deleted event received:', data);
                 Swal.fire({
-                    title: 'Xóa Thành công!',
+                    title: 'Thành công!',
                     text: data.message,
                     icon: 'success',
                     confirmButtonText: 'OK'

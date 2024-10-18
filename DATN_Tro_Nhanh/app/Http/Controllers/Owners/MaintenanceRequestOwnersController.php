@@ -70,5 +70,15 @@ class MaintenanceRequestOwnersController extends Controller
         }
         // return redirect()->back()->with('error','Bạn chưa đăng nhập');
     }
+    public function finish($id)
+    {
+        $finish = 3;
+        $result = $this->MaintenanceRequestsServices->editStatus($id,$finish);
+        if ($result) {
+            return back()->with('success', 'Hoàn thành.');
+        } else {
+            return back()->with('error', 'Không thành công.');
+        }
+    }
 
 }

@@ -67,7 +67,33 @@ class ZoneDetail extends Component
     //         'residents' => $residents, // Trả về danh sách cư dân
     //     ]);
     // }
-    public function render()
+//     public function render()
+// {
+//     // Lấy zone dựa trên slug
+//     $zone = Zone::where('slug', $this->slug)->firstOrFail();
+
+//     // Lấy danh sách phòng thuộc zone này với tìm kiếm
+//     $rooms = Room::where('zone_id', $zone->id)
+//         ->where('title', 'like', '%' . $this->searchResident . '%') // Tìm kiếm theo tên phòng
+//         ->orderBy('created_at', 'desc')
+//         ->paginate($this->perPage); // Sử dụng biến $perPage để phân trang
+
+//     // Lấy danh sách ID phòng
+//     $roomIds = $rooms->pluck('id'); // Lấy danh sách ID phòng
+
+//     // Lấy danh sách cư dân thuộc các phòng này
+//     $residents = Resident::whereIn('room_id', $roomIds)
+//         ->where('status', operator: $this->status) // Chỉ lấy resident có status = 2
+//         ->paginate($this->perPage); // Lấy tất cả cư dân mà không phân trang
+
+//     return view('livewire.zone-detail', [
+//         'user_is_in' => self::user_is_in, // Trả về hằng số user_is_in
+//         'zone' => $zone, // Trả về biến $zone
+//         'rooms' => $rooms, // Trả về danh sách phòng
+//         'residents' => $residents, // Trả về danh sách cư dân
+//     ]);
+// }
+public function render()
 {
     // Lấy zone dựa trên slug
     $zone = Zone::where('slug', $this->slug)->firstOrFail();
@@ -76,21 +102,12 @@ class ZoneDetail extends Component
     $rooms = Room::where('zone_id', $zone->id)
         ->where('title', 'like', '%' . $this->searchResident . '%') // Tìm kiếm theo tên phòng
         ->orderBy('created_at', 'desc')
-        ->paginate($this->perPage); // Sử dụng biến $perPage để phân trang
-
-    // Lấy danh sách ID phòng
-    $roomIds = $rooms->pluck('id'); // Lấy danh sách ID phòng
-
-    // Lấy danh sách cư dân thuộc các phòng này
-    $residents = Resident::whereIn('room_id', $roomIds)
-        ->where('status', $this->status) // Chỉ lấy resident có status = 2
-        ->get(); // Lấy tất cả cư dân mà không phân trang
+        ->paginate($this->perPage); // Lấy tất cả phòng mà không phân trang
 
     return view('livewire.zone-detail', [
         'user_is_in' => self::user_is_in, // Trả về hằng số user_is_in
         'zone' => $zone, // Trả về biến $zone
         'rooms' => $rooms, // Trả về danh sách phòng
-        'residents' => $residents, // Trả về danh sách cư dân
     ]);
 }
 }

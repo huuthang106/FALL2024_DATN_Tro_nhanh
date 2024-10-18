@@ -91,7 +91,7 @@
                             <h5 class="fs-13 letter-spacing-087 text-muted mb-3 text-uppercase px-3">Quản lý danh sách
                             </h5>
                             <ul class="list-group list-group-no-border rounded-lg">
-                                <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
+                                {{-- <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                     <a href="#collapseTrọ"
                                         class="text-heading lh-1 sidebar-link d-flex align-items-center"
                                         onclick="toggleDropdown('collapseTrọ'); return false;">
@@ -113,8 +113,8 @@
                                                     data-route="owners.properties">Danh sách trọ</a>
                                             </li>
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                                {{-- <a class="text-heading lh-1 sidebar-link"
-                                                    href="{{ route('owners.add-room') }}"  data-route="owners.add-room">Thêm mới trọ</a> --}}
+                                                <a class="text-heading lh-1 sidebar-link"
+                                                    href="{{ route('owners.add-room') }}"  data-route="owners.add-room">Thêm mới trọ</a>
                                             </li>
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"
@@ -122,7 +122,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                     <a href="#collapseKhuTrọ"
@@ -188,17 +188,17 @@
                                     </div>
                                 </div>
                                 <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
-                                    <a href="#collapseEdit"
+                                    <a href="{{ route('owners.list-owner-fix') }}"
                                         class="text-heading lh-1 sidebar-link d-flex align-items-center"
-                                        onclick="toggleDropdown('collapseEdit'); return false;">
+                                data-route="owners.list-owner-fix">
                                         <span class="sidebar-item-icon d-inline-block mr-3 text-muted fs-20">
                                             <i class="far fa-tasks"></i> <!-- Biểu tượng tasks từ FontAwesome -->
                                         </span>
                                         <span class="sidebar-item-text">Sửa Chữa</span>
-                                        <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span>
+                                        {{-- <span class="d-inline-block ml-auto"><i class="fal fa-angle-down"></i></span> --}}
                                     </a>
                                 </li>
-                                <div class="collapse-content" id="collapseEdit">
+                                {{-- <div class="collapse-content" id="collapseEdit">
                                     <div class="card card-body border-0 bg-transparent py-0 pl-6">
                                         <ul class="list-group list-group-flush list-group-no-border">
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
@@ -211,7 +211,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> --}}
 
 
 

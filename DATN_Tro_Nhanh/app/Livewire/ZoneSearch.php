@@ -180,17 +180,17 @@ class ZoneSearch extends Component
         $selectableZonesCount = $this->getSelectableZonesCount();
         $this->selectAll = count($this->selectedZones) === $selectableZonesCount;
     }
-    // public function getZoneImageUrl(Zone $zone): string
-    // {
-    //     // Lấy phòng đầu tiên liên quan đến khu vực
-    //     $room = $zone->rooms()->first();
-        
-    //     // Kiểm tra xem có phòng không và lấy cột image
-    //     $imageFilename = $room ? $room->image : null;
+    public function getZoneImageUrl(Zone $zone): string
+    {
+        // Lấy phòng đầu tiên liên quan đến khu vực
+        $room = $zone->rooms()->first();
 
-    //     // Nếu tìm thấy hình ảnh, trả về đường dẫn, nếu không trả về hình ảnh mặc định
-    //     return $imageFilename ? asset('assets/images/' . $imageFilename) : asset('assets/images/properties-grid-08.jpg');
-    // }
+        // Kiểm tra xem có phòng không và lấy cột image
+        $imageFilename = $room ? $room->image : null;
+
+        // Nếu tìm thấy hình ảnh, trả về đường dẫn, nếu không trả về hình ảnh mặc định
+        return $imageFilename ? asset('assets/images/' . $imageFilename) : asset('assets/images/properties-grid-08.jpg');
+    }
     public function updatedSelectAll($value)
     {
         if ($value) {

@@ -20,6 +20,7 @@ use App\Events\RoomCreated;
 class ZoneOwnersController extends Controller
 {
     protected $zoneServices;
+
     protected const show = 2;
     protected const user_is_in = 2;
     protected $roomOwnersService;
@@ -227,4 +228,16 @@ class ZoneOwnersController extends Controller
         $this->roomOwnersService->clearZoneId($id);
         return redirect()->back()->with('success', 'Phòng đã được xóa thành công.');
     }
+    public function showDetailRoom($slug)
+    {
+        $data = $this->roomOwnersService->getRoomBySlug($slug);
+        // dd($data);
+        // dd($data);
+        return view('owners.show.detail-room', [
+            'data' => $data,
+            // 'rooms' => $data['rooms'],
+            // 'residents' => $data['residents'],
+            // 'user_is_in' => self::user_is_in,
+        ]);
+    }   
 }

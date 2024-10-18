@@ -80,10 +80,7 @@ class Room extends Model
         return $this->belongsTo(User::class, 'tenant_id');
     }
 
-    public function images()
-    {
-        return $this->hasMany(Image::class);
-    }
+
     public function notifications()
     {
         return $this->hasMany(Notification::class);
