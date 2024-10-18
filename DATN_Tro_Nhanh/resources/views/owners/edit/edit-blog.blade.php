@@ -132,18 +132,17 @@
                                                                         hidden>
                                                                 </div>
                                                                 <div id="imagePreview" class="text-center mt-4">
-                                                                    @if (is_array($images) || is_object($images))
-                                                                        @foreach ($images as $image)
-                                                                            <div class="image-preview mx-auto"
-                                                                                data-id="{{ $image->id }}">
-                                                                                <img src="{{ asset('assets/images/' . $image->filename) }}"
-                                                                                    alt="Image" class="img-fluid"
-                                                                                    style="max-width: 100%; height: auto;">
-                                                                            </div>
-                                                                        @endforeach
-                                                                    @else
-                                                                        <p>Không có hình ảnh nào.</p>
-                                                                    @endif
+                                                                    @if (!empty($images) && is_array($images))
+                                                                    @foreach ($images as $image)
+                                                                        <div class="image-preview mx-auto">
+                                                                            <img src="{{ asset('assets/images/' . $image) }}"
+                                                                                alt="Image" class="img-fluid"
+                                                                                style="max-width: 100%; height: auto;">
+                                                                        </div>
+                                                                    @endforeach
+                                                                @else
+                                                                    <p>Không có hình ảnh nào.</p>
+                                                                @endif
                                                                 </div>
                                                                 @error('images')
                                                                     <span class="error-message text-danger"
@@ -305,7 +304,7 @@
 
     {{-- <script src="{{ asset('assets/js/thongbao.js') }}"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('#blogForm').on('submit', function(e) {
                 e.preventDefault();
@@ -377,5 +376,86 @@
                
             });
         });
+        </script> --}} 
+        {{-- phan nay cua minh huy toi comment lai do k sua @tcn --}}
+        <script>
+            $(document).ready(function() {
+                $('#blogForm').on('submit', function(e) {
+                    e.preventDefault();
+                    var formData = new FormData(this);
+                    var submitButton = $('#submitButton');
+                    var buttonText = submitButton.find('.button-text');
+                    var spinner = submitButton.find('.spinner-border');
+                    var srOnly = submitButton.find('.sr-only');
+        
+                    // Disable button and show loading spinner
+                    submitButton.prop('disabled', true);
+                    buttonText.addClass('d-none');
+                    spinner.removeClass('d-none');
+                    srOnly.removeClass('d-none');
+        
+                    $.ajax({
+                        url: $(this).attr('action'),
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        beforeSend: function() {
+                            Swal.fire({
+                                title: 'Đang xử lý...',
+                                text: 'Vui lòng đợi trong giây lát!',
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                                allowEnterKey: false,
+                                didOpen: () => {
+                                    Swal.showLoading();
+                                }
+                            });
+                        },
+                        success: function(response) {
+                            Swal.close();
+                            if (response.status === 'success') {
+                                Swal.fire({
+                                    title: 'Thành công!',
+                                    text: response.message,
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.href = '{{ route("owners.show-blog") }}';
+                                    }
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: 'Lỗi!',
+                                    text: response.message,
+                                    icon: 'error',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        },
+                        error: function(xhr) {
+                            Swal.close();
+                            let errorMessage = 'Đã xảy ra lỗi khi xử lý yêu cầu.';
+                            if (xhr.responseJSON && xhr.responseJSON.message) {
+                                errorMessage = xhr.responseJSON.message;
+                            }
+                            Swal.fire({
+                                title: 'Lỗi!',
+                                text: errorMessage,
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        },
+                        complete: function() {
+                            // Re-enable button and hide spinner
+                            submitButton.prop('disabled', false);
+                            buttonText.removeClass('d-none');
+                            spinner.addClass('d-none');
+                            srOnly.addClass('d-none');
+                        }
+                    });
+                });
+            });
         </script>
 @endpush

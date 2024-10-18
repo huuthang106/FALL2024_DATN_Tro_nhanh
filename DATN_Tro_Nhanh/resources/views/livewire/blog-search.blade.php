@@ -3,7 +3,7 @@
     <main id="content" class="bg-gray-01">
         <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
             <div class="mb-6" wire:ignore>
-                <div class="row" >
+                <div class="row">
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
                         <div class="d-flex form-group mb-0 align-items-center">
                             <label class="form-label fs-6 fw-bold mr-2 mb-0">Lọc:</label>
@@ -54,8 +54,10 @@
                             </th>
                             <th class="py-3 text-nowrap text-center col-2">Ảnh</th>
                             <th class="py-3 text-nowrap text-center col-2">Tiêu đề</th>
+                            <th class="py-3 text-nowrap text-center col-2">Mô tả</th>
                             <th class="py-3 text-nowrap text-center col-1">Lượt xem</th>
                             <th class="py-3 text-nowrap text-center col-2">Trạng thái</th>
+
                             {{-- <th class="py-3 text-nowrap text-center col-2">Ngày xuất bản</th> --}}
                             <th class="no-sort py-3 text-nowrap text-center col-2">Thao tác</th>
                         </tr>
@@ -70,29 +72,34 @@
                             </tr>
                         @else
                             @foreach ($blogs as $blog)
-                                <tr role="row" wire:key="blog-{{ $blog->id }}" class="shadow-hover-xs-2 bg-hover-white">
-                                    <td class="align-middle pt-3 pb-3 px-3">
+                                <tr role="row" wire:key="blog-{{ $blog->id }}"
+                                    class="shadow-hover-xs-2 bg-hover-white">
+                                    <td class="align-middle px-6">
                                         <input type="checkbox" class="control-input blog-checkbox"
-                                            id="blog-{{ $blog->id }}" wire:model="selectedBlogs"
-                                            wire:key="blog-{{ $blog->id }}" value="{{ $blog->id }}"
-                                            wire:change="toggleBlog({{ $blog->id }})">
+                                        id="blog-{{ $blog->id }}" wire:model="selectedBlogs"
+                                        wire:change="toggleBlog({{ $blog->id }})" value="{{ $blog->id }}">
                                     </td>
-                                    <td class="align-middle pt-3 pb-3 px-3">
+                                    <td class="align-middle d-md-table-cell text-nowrap p-4 text-center">
                                         <div class="mr-2 position-relative blog-image-container">
-                                            <a href="{{ route('owners.show-blog', $blog->slug) }}">
-                                                @if ($blog->image && $blog->image->isNotEmpty())
-                                                    <img src="{{ asset('assets/images/' . $blog->image->first()->filename) }}"
-                                                        alt="{{ $blog->image->first()->filename }}"
-                                                        class="img-fluid blog-image square-image">
+                                            <a href="{{ route('client.client-blog-detail', $blog->slug) }}">
+                                                @if ($blog->image)
+                                                    @php
+                                                        // Nếu bạn lưu nhiều ảnh dưới dạng chuỗi phân tách bằng dấu phẩy, bạn có thể tách chúng ra
+                                                        $images = explode(',', $blog->image);
+                                                        $firstImage = $images[0]; // Lấy ảnh đầu tiên
+                                                    @endphp
+                                                    <img src="{{ asset('assets/images/' . $firstImage) }}"
+                                                         alt="{{ $blog->title }}"
+                                                         class="img-fluid blog-image square-image">
                                                 @else
                                                     <img src="{{ asset('assets/images/properties-grid-08.jpg') }}"
-                                                        alt="Default Image" class="img-fluid blog-image square-image">
+                                                         alt="Default Image" class="img-fluid blog-image square-image">
                                                 @endif
                                             </a>
                                         </div>
-                                        
+
                                     </td>
-                                    <td class="align-middle" style="white-space: nowrap;">
+                                    <td class="align-middle text-center" style="white-space: nowrap;">
                                         <div class="d-flex align-items-center">
                                             <div class="media-body">
                                                 <a href="{{ route('owners.show-blog', $blog->slug) }}">
@@ -102,10 +109,24 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="align-middle"style="white-space: nowrap;">
-                                        {{ $blog->view }}
+                                    <td class="align-middle text-center" style="white-space: nowrap;">
+                                        <div class="d-flex align-items-center">
+                                            <div class="media-body">
+                                                <a href="{{ route('owners.show-blog', $blog->slug) }}">
+                                                    <span
+                                                        class="text-dark hover-primary mb-1 font-size-md">{{ $blog->description }}</span>
+                                                </a>
+                                            </div>
+                                        </div>
                                     </td>
-                                    <td class="align-middle ">
+                                    <td class="align-middle text-center"style="white-space: nowrap;">
+                                        @if($blog->view>0)
+                                        {{$blog->view}}
+                                        @else
+                                        0
+                                        @endif
+                                    </td>
+                                    <td class="align-middle text-center">
                                         @if ($blog->status == 1)
                                             <span class="badge badge-yellow text-capitalize">Chờ xác nhận</span>
                                         @elseif ($blog->status == 2)
@@ -118,11 +139,11 @@
                                         <span class="text-success pr-1"><i class="fal fa-calendar"></i></span>
                                         {{ $blog->created_at->format('d-m-Y') }}
                                     </td> --}}
-                                    <td class="align-middle ">
-                                        <a href="{{ route('owners.sua-blog', ['slug' => $blog->slug]) }}"
+                                    <td class="align-middle text-center">
+                                        <a href="{{ route('owners.sua-blog', ['id' => $blog->id]) }}"
                                             data-toggle="tooltip" title="Chỉnh sửa" class="btn btn-primary btn-sm mr-2">
                                             <i class="fal fa-pencil-alt"></i>
-                                        </a>
+                                         </a>
                                         <form action="{{ route('owners.destroy-blog', $blog->id) }}" method="POST"
                                             class="d-inline-block">
                                             @csrf

@@ -38,10 +38,10 @@ class BlogOwnersController extends Controller
         return view('owners.show.dashboard-my-blog', compact('blogs'));
     }
 
-    public function editBlog($slug)
+    public function editBlog($id)
     {
-        $result = $this->BlogService->editBlog($slug); // Gọi phương thức từ BlogService
-
+        $result = $this->BlogService->editBlog($id); // Gọi phương thức từ BlogService
+ 
         return view('owners.edit.edit-blog', [
             'blog' => $result['blog'],
             'images' => $result['images'],
@@ -56,7 +56,6 @@ class BlogOwnersController extends Controller
     //     return redirect()->route('owners.show-blog')->with('success', $result['message']);
 
     // }
-
 
 
 

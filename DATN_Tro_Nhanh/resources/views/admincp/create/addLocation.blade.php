@@ -30,6 +30,17 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="row mb-6">
+                                        <label class="col-lg-4 col-form-label fw-bold fs-6 required">Loai</label>
+                                        <div class="col-lg-8 fv-row">
+                                            <input type="text" id="type_vip" name="type_vip"
+                                                class="form-control form-control-lg form-control-solid"
+                                                placeholder="Nhập tên gói tin" />
+                                            @error('type_vip')
+                                                <div class="text-danger mt-3">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
 
                                     <div class="row mb-6">
                                         <label class="col-lg-4 col-form-label fw-bold fs-6 required">Trạng thái</label>

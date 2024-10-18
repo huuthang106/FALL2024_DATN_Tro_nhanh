@@ -24,20 +24,16 @@
             <div class="container">
                 <div class="row ml-xl-0 mr-xl-n6">
                     <div class="col-lg-8 mb-6 mb-lg-0 pr-xl-6 pl-xl-0">
-                        {{-- <div class="position-relative">
-                            @php
-                                $image = $blog->image->first();
-                            @endphp
-
-                            @if ($image)
-                                <img class="rounded-lg d-block" src="{{ asset('assets/images/' . $image->filename) }}"
-                                    alt="Retail banks wake up to digital lending this year">
+                        <div class="position-relative">
+                            @if ($blog->image)
+                                <img class="rounded-lg d-block" src="{{ asset('assets/images/' . $blog->image) }}"
+                                    alt="{{ $blog->title }}">
                             @else
-                                <!-- Có thể hiển thị một ảnh mặc định nếu không có ảnh nào được liên kết -->
+                                <!-- Hiển thị một ảnh mặc định nếu không có ảnh nào được liên kết -->
                                 <img class="rounded-lg d-block" src="{{ asset('assets/images/default.jpg') }}"
                                     alt="Default Image">
                             @endif
-                        </div> --}}
+                        </div>
                         <ul class="list-inline mt-4">
                             <li class="list-inline-item mr-4">
                                 @if ($blog->user->image)
@@ -59,7 +55,7 @@
                             </li>
                         </ul>
                         <h3 class="fs-md-32 text-heading lh-141 mb-2">
-                            {{ $blog->title }}
+                            {{ $blog->title }}  
                         </h3>
                         <div class="lh-214 mb-9">
                             <p>{{ $blog->description }}</p>

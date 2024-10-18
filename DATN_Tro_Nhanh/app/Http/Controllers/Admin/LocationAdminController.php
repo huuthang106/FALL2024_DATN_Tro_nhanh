@@ -96,4 +96,13 @@ class LocationAdminController extends Controller
 
         return redirect()->route('admin.trash-location')->with('success', $result['message']);
     }
+    public function addLocation(CreateLocationRequest $request)
+    {
+        $result = $this->locationAdminService->createLocation($request->validated());
+        if ($result) {
+            return redirect()->route('admin.danh-sach-bang-gia')->with('success', 'Bảng giá được thêm thành công.');
+        } else {
+            return redirect()->back()->with('error', 'Có lỗi xảy ra. Vui lòng thử lại.');
+        }
+    }
 }

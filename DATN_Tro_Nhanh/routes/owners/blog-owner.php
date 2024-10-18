@@ -10,7 +10,7 @@ Route::group(['prefix' => ''], function () {
     Route::put('/khoi-phuc-blog/{id}', [BlogOwnersController::class, 'restore'])->name('restore-blog');
     Route::get('/thung-rac-blog', [BlogOwnersController::class, 'trash'])->name('trash-blog');
     Route::post('/xoa-bog-duoc-chon', [BlogOwnersController::class, 'deleteMultiple'])->name('delete-multiple');
-    Route::get('sua-blog/{slug}', [BlogOwnersController::class, 'editBlog'])->name('sua-blog');
+    Route::get('sua-blog/{id}', [BlogOwnersController::class, 'editBlog'])->name('sua-blog');
     Route::put('/sua-bai-viet/{id}', [BlogOwnersController::class, 'updateBlog'])->name('update-blog');
 
     route::post('them-blog', [BlogOwnersController::class, 'store'])->name('create-blog');
