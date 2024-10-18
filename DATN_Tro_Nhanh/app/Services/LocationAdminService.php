@@ -40,7 +40,7 @@ class LocationAdminService
         // Tạo mới đối tượng Location và gán giá trị
         $locations = new Location();
         $locations->name = $request->input('name');
-
+        $locations->type_vip = $request->input('type_vip');
         $locations->status = $request->input('status');
         // Lưu đối tượng locations
         if ($locations->save()) {
@@ -51,7 +51,8 @@ class LocationAdminService
 
             // Cập nhật slug cho đối tượng
             $locations->slug = $slug;
-
+            $locations->type_vip = 2;
+            $locations->status = 1;
             // Lưu lại đối tượng với slug mới
             $locations->save();
         } else {

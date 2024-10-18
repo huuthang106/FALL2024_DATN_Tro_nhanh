@@ -50,7 +50,7 @@
         <table class="table table-hover bg-white border rounded-lg">
             <thead class="thead-sm thead-black">
                 <tr>
-                    <th class="px-3 py-3">
+                    <th class="px-6 py-3">
                         <input type="checkbox" id="checkAll"> <!-- Checkbox tổng -->
                     </th>
                     <th scope="col" class="border-top-0 px-6 pt-5 pb-4" style="white-space: nowrap;">Ảnh</th>
@@ -68,7 +68,7 @@
                 @else
                     @foreach ($trashedBlogs as $blog)
                         <tr class="shadow-hover-xs-2 bg-hover-white">
-                            <td class="align-middle pt-3 pb-3 px-3">
+                            <td class="align-middle pt-3 pb-3 px-6">
                                 <input type="checkbox" class="blog-checkbox " value="{{ $blog->id }}"
                                     wire:model="selectedBlogs">
                             </td>
@@ -76,13 +76,19 @@
                                 <div class="media d-flex align-items-center">
                                     <div class="w-100 w-md-150 mr-3 position-relative">
                                         <a href="{{ route('owners.show-blog', $blog->slug) }}">
-                                            @if ($blog->image && $blog->image->isNotEmpty())
-                                                <img src="{{ asset('assets/images/' . $blog->image->first()->filename) }}"
-                                                    alt="{{ $blog->image->first()->filename }}" class="img-fluid square-image">
-                                            @else
-                                                <img src="{{ asset('assets/images/properties-grid-08.jpg') }}"
-                                                    alt="Default Image" class="img-fluid square-image">
-                                            @endif
+                                            @if ($blog->image)
+                                            @php
+                                                // Nếu bạn lưu nhiều ảnh dưới dạng chuỗi phân tách bằng dấu phẩy, bạn có thể tách chúng ra
+                                                $images = explode(',', $blog->image);
+                                                $firstImage = $images[0]; // Lấy ảnh đầu tiên
+                                            @endphp
+                                            <img src="{{ asset('assets/images/' . $firstImage) }}"
+                                                 alt="{{ $blog->title }}"
+                                                 class="img-fluid blog-image square-image">
+                                        @else
+                                            <img src="{{ asset('assets/images/properties-grid-08.jpg') }}"
+                                                 alt="Default Image" class="img-fluid blog-image square-image">
+                                        @endif
                                         </a>
                                     </div>
                                 </div>
@@ -120,16 +126,10 @@
                                             class="fal fa-undo"></i></button>
                                 </form>
                                 <form action="#" method="POST" style="display:inline;"
-                                    wire:submit.prevent="forceDeleteBlog({{ $blog->id }})">
-                                    @csrf
-                                    {{-- <button type="submit"
-                                        class="fs-18 text-muted hover-primary border-0 bg-transparent"
-                                        title="Xóa vĩnh viễn"> <!-- Thêm class text-dark -->
-                                        <i class="fal fa-trash-alt"></i>
-                                    </button> --}}
-                                    <button type="submit" class="btn btn-danger btn-sm"><i
-                                            class="fal fa-trash-alt"></i></button>
-                                </form>
+                                wire:submit.prevent="forceDeleteBlog({{ $blog->id }})">
+                              @csrf
+                              <button type="submit" class="btn btn-danger btn-sm"><i class="fal fa-trash-alt"></i></button>
+                          </form>
                             </td>
                         </tr>
                     @endforeach

@@ -39,7 +39,18 @@ class BlogSearch extends Component
     {
         $this->resetPage();
     }
-
+    public function toggleBlog($blogId)
+    {
+        // Ví dụ: Thêm hoặc xóa blog khỏi danh sách đã chọn
+        if (in_array($blogId, $this->selectedBlogs)) {
+            $this->selectedBlogs = array_diff($this->selectedBlogs, [$blogId]);
+        } else {
+            $this->selectedBlogs[] = $blogId;
+        }
+ 
+        // Log hành động hoặc thực hiện các thao tác khác
+        Log::info('Toggled blog:', ['id' => $blogId]);
+    }
     public function updatingTimeFilter()
     {
         $this->resetPage();

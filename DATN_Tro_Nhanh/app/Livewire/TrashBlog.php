@@ -22,14 +22,11 @@ class TrashBlog extends Component
     protected $listeners = ['restoreSelectedBlogs', 'forceDeleteSelectedBlogs'];
     protected $queryString = ['search', 'perPage', 'timeFilter'];
     // Hàm để xóa vĩnh viễn các blog đã chọn
-    public function forceDeleteSelectedBlogs()
+    public function forceDeleteBlog($blogId)
     {
-        Log::info('Blogs to be permanently deleted:', $this->selectedBlogs);
-        if (count($this->selectedBlogs) > 0) {
-            Blog::withTrashed()->whereIn('id', $this->selectedBlogs)->forceDelete();
-            $this->selectedBlogs = []; // Reset lại sau khi xóa
-            $this->dispatch('blogs-force-deleted', ['message' => 'Các blog đã chọn đã được xóa vĩnh viễn']);
-        }
+        Log::info('Blog to be permanently deleted:', ['id' => $blogId]);
+        Blog::withTrashed()->where('id', $blogId)->forceDelete();
+        $this->dispatch('blog-force-deleted', ['message' => 'Blog đã được xóa vĩnh viễn']);
     }
     // Hàm để khôi phục các blog đã chọn
     public function restoreSelectedBlogs()
