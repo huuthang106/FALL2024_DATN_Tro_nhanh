@@ -213,31 +213,53 @@ class UserClientController extends Controller
     // }
     public function agentDetail($slug)
     {
+        // Get user details and ratings from the service
         $userDetails = $this->commentClientService->getUserDetailsWithRatings($slug);
         $user = User::where('slug', $slug)->first();
         $comments = $userDetails['comments'];
-    
+
+        // Check if user exists in the returned array
         if (!$userDetails['user']) {
             abort(404, 'Người dùng không tìm thấy');
         }
-    
-        $currentUserId = Auth::id();
+
+        // Kiểm tra xem đã follow chưa 
+        $currentUserId = Auth::id(); // Lấy ID của người dùng hiện tại
         $isFollowing = false;
         if ($currentUserId) {
             $isFollowing = $this->watchListOwner->checkFollowing($user->id, $currentUserId);
         }
-    
+
+        // Lấy tất cả tin đăng khu trọ của người dùng này
         $zones = $user->zones()->paginate(6);
+
+        // Đếm tổng số khu trọ của người dùng này
         $totalZones = $user->zones()->count();
+
+        // Tính tổng số properties (chỉ bao gồm zones)
         $totalProperties = $totalZones;
-        
+
+        // Kiểm tra xem yêu cầu có phải là AJAX hay không
+        if (request()->ajax() || request()->wantsJson()) {
+            return response()->json([
+                'user' => $userDetails['user'],
+                'averageRating' => $userDetails['averageRating'],
+                'ratingsDistribution' => $userDetails['ratingsDistribution'],
+                'comments' => $comments,
+                'zones' => $zones,
+                'totalZones' => $totalZones,
+                'totalProperties' => $totalProperties,
+                'isFollowing' => $isFollowing,
+            ]);
+        }
+        // Nếu không phải là AJAX, trả về view
         return view('client.show.agent-details-1', array_merge(
             compact('user', 'zones', 'totalZones', 'totalProperties', 'isFollowing'),
             [
                 'user' => $userDetails['user'],
-                'averageRatings' => $userDetails['averageRating'],
+                'averageRating' => $userDetails['averageRating'],
                 'ratingsDistribution' => $userDetails['ratingsDistribution'],
-                'comments' => $userDetails['comments'],
+                'comments' => $userDetails['comments']
             ]
         ));
     }
