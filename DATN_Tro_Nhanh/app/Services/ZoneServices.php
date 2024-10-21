@@ -904,7 +904,7 @@ class ZoneServices
             $vipZonePosition->save();
             // Lưu lịch sử thanh toán
             $lichsu = new Transaction();
-            $lichsu->type = 'Gói Tin VIP';
+            $lichsu->type = $pricing->location->name;
             $lichsu->balance = $customer->balance;
             $lichsu->description = 'Thanh toán gói tin VIP cho khu trọ ' . $accommodation->name;
             $lichsu->added_funds = $cost;
@@ -934,8 +934,9 @@ class ZoneServices
 
             // Tìm các zone có vip_expiry_date nhỏ hơn ngày hiện tại
             VipZonePosition::where('end_date', '<', $currentDate)->forceDelete();
+            $expiredZones = VipZonePosition::where('end_date', '<', $currentDate)->get();
             $updatedCount = 0;
-            \Log::info('Số lượng zone hết hạn: ' . $expiredZones->count());
+           
             if ($expiredZones->isNotEmpty()) {
                 foreach ($expiredZones as $zone) {
                     // Tạo thông báo cho người dùng
