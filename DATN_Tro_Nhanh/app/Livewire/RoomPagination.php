@@ -44,9 +44,10 @@ class RoomPagination extends Component
         // Tìm kiếm theo nhiều trường
         if ($this->search) {
             $query->where(function($query) {
-                $query->where('title', 'like', '%' . $this->search . '%')
+                $query->where('name', 'like', '%' . $this->search . '%')
                       ->orWhere('description', 'like', '%' . $this->search . '%')
-                      ->orWhere('address', 'like', '%' . $this->search . '%');
+                      ->orWhere('address', 'like', '%' . $this->search . '%')
+                      ->orWhere('wifi', 'like', '%' . $this->search . '%');
             });
         }
 
