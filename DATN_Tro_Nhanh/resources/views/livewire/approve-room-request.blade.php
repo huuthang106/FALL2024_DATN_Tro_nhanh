@@ -47,14 +47,14 @@
                                         <td class="align-middle">
                                             <small>
                                                 <a
-                                                    href="{{ route('client.client-agent-detail', $resident->tenant->slug) }}">{{ $resident->tenant->name }}</a>
+                                                    href="{{ route('client.client-agent-detail', $resident->user->slug) }}">{{ $resident->user->name }}</a>
 
                                             </small>
 
                                         </td>
                                         <td class="align-middle"> <small>
                                                 <small>
-                                                    {{ $resident->tenant->phone }}
+                                                    {{ $resident->user->phone }}
 
                                                 </small>
                                             </small></td>
@@ -73,12 +73,6 @@
                                                     <button type="submit"
                                                         class="btn btn-primary btn-sm text-light">Duyệt</button>
                                                 </form>
-                                                {{-- <form action="{{ route('owners.refuse', $resident->id) }}"
-                                                    method="POST" style="display:inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
-                                                </form> --}}
                                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                                                     data-target="#confirmDeleteModal{{ $resident->id }}">
                                                     Từ chối
@@ -177,7 +171,7 @@
                                         <div class="form-group">
                                             <label for="name">Tên người ở:</label>
                                             <input type="text" class="form-control" id="name"
-                                                value="{{ $resident->tenant->name }}" readonly>
+                                                value="{{ $resident->user->name }}" readonly>
                                         </div>
                                         <div class="form-group">
                                             <label for="room">Tên khu trọ:</label>
