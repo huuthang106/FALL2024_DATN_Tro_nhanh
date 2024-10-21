@@ -858,4 +858,17 @@ class ZoneServices
             return null;
         }
     }
+
+    public function getOwnerId($zone_id)
+    {
+        // Truy vấn tới bảng zones để lấy user_id của zone
+        $zone = Zone::find($zone_id);
+
+        if ($zone) {
+            return $zone->user_id; // Trả về user_id của người tạo zone
+        }
+
+        return null; // Trả về null nếu không tìm thấy zone
+    }
+
 }

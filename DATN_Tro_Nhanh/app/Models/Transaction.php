@@ -12,15 +12,13 @@ class Transaction extends Model
     use HasFactory;
     use SoftDeletes;
 
+  
     protected $fillable = [
         'user_id',
-        'bill_id',
-        'description',
-        'balance',
-        'added_funds',
-        'status',
-        
-        // Thêm các thuộc tính khác nếu cần
+        'added_funds',       // Số tiền sẽ được lưu dưới dạng decimal
+        'type',         // Loại giao dịch
+        'description',  // Mô tả
+        'balance',      // Số dư
     ];
 
     public function user()

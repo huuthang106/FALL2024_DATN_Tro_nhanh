@@ -269,36 +269,36 @@
                                 <div class="slick-slider slider-for-01 arrow-haft-inner mx-0"
                                     data-slick-options='{"slidesToShow": 1, "autoplay":false,"dots":false,"arrows":false,"asNavFor": ".slider-nav-01"}'>
                                     @if ($zone->room && $zone->room->image)
-                                    <div class="box px-0">
-                                        <div class="item item-size-3-2">
-                                            <div class="card p-0 hover-change-image">
-                                                <a href="{{ asset('assets/images/' . $zone->room->image) }}"
-                                                    class="card-img" data-gtf-mfp="true" data-gallery-id="04"
-                                                    style="background-image:url('{{ asset('assets/images/' . $zone->room->image) }}')">
-                                                </a>
+                                        <div class="box px-0">
+                                            <div class="item item-size-3-2">
+                                                <div class="card p-0 hover-change-image">
+                                                    <a href="{{ asset('assets/images/' . $zone->room->image) }}"
+                                                        class="card-img" data-gtf-mfp="true" data-gallery-id="04"
+                                                        style="background-image:url('{{ asset('assets/images/' . $zone->room->image) }}')">
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @else
-                                    <p>Không có hình ảnh nào để hiển thị.</p>
-                                @endif
+                                    @else
+                                        <p>Không có hình ảnh nào để hiển thị.</p>
+                                    @endif
                                 </div>
                                 <div class="slick-slider slider-nav-01 mt-4 mx-n1 arrow-haft-inner"
                                     data-slick-options='{"slidesToShow": 5, "autoplay":false,"dots":false,"arrows":false,"asNavFor": ".slider-for-01","focusOnSelect": true,"responsive":[{"breakpoint": 768,"settings": {"slidesToShow": 4}},{"breakpoint": 576,"settings": {"slidesToShow": 2}}]}'>
                                     @if ($zone->room && $zone->room->image)
-    <div class="box px-0">
-        <div class="item item-size-3-2">
-            <div class="card p-0 hover-change-image">
-                <a href="{{ asset('assets/images/' . $zone->room->image) }}"
-                    class="card-img" data-gtf-mfp="true" data-gallery-id="04"
-                    style="background-image:url('{{ asset('assets/images/' . $zone->room->image) }}')">
-                </a>
-            </div>
-        </div>
-    </div>
-@else
-    <p>Không có hình ảnh nào để hiển thị.</p>
-@endif
+                                        <div class="box px-0">
+                                            <div class="item item-size-3-2">
+                                                <div class="card p-0 hover-change-image">
+                                                    <a href="{{ asset('assets/images/' . $zone->room->image) }}"
+                                                        class="card-img" data-gtf-mfp="true" data-gallery-id="04"
+                                                        style="background-image:url('{{ asset('assets/images/' . $zone->room->image) }}')">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <p>Không có hình ảnh nào để hiển thị.</p>
+                                    @endif
 
                                 </div>
                             </div>
@@ -450,14 +450,15 @@
                             </div>
                         </section>
                         <section class="mt-2 pb-2 px-6 pt-6 bg-white rounded-lg">
-                           @livewire('room-review', ['slug' => $zone->slug])
+                            @livewire('room-review', ['slug' => $zone->slug])
                         </section>
 
                         <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
                             <div class="card border-0">
                                 <div class="card-body p-0">
                                     <h3 class="fs-16 lh-2 text-heading mb-4">Viết Đánh Giá</h3>
-                                    <form id="commentForm" action="{{ route('client.danh-gia-khu-tro') }}" method="POST">
+                                    <form id="commentForm" action="{{ route('client.danh-gia-khu-tro') }}"
+                                        method="POST">
                                         @csrf
                                         <div class="form-group mb-4 d-flex justify-content-start">
                                             <div class="rate-input">
@@ -492,7 +493,8 @@
                                     </form>
                                 </div>
                             </div>
-                        </section>                                                                                                                                                                                                                                                                                                                                                                             </section>
+                        </section>
+                        </section>
                         <section class="mt-2 pb-6 px-6 pt-6 bg-white rounded-lg">
                             <h4 class="fs-22 text-heading mb-6">Vị trí</h4>
                             <p class="mb-0 p-3 bg-white shadow rounded-lg">
@@ -501,7 +503,8 @@
                                 <div class="position-relative">
                                     <div id="map" style="height: 296px"></div>
                                 </div>
-                        </section>                                                                                                                                                                                                                                                                                                                                                                                     </section>
+                        </section>
+                        </section>
                         @if ($similarZones->isNotEmpty())
                             <section class="mt-2 pb-7 px-6 pt-6 bg-white rounded-lg">
                                 <h4 class="fs-22 text-heading mb-6">Có thể bạn sẽ quan tâm </h4>
@@ -721,15 +724,17 @@
                                 <div class="d-flex align-items-center">
                                     <p class="fs-22 text-heading font-weight-bold mb-0 mr-6">
                                         @if ($zone->rooms->isNotEmpty())
-                                        @php
-                                            $prices = $zone->rooms->pluck('price');
-                                            $minPrice = $prices->min();
-                                            $maxPrice = $prices->max();
-                                        @endphp
-                                        {{ number_format($minPrice, 0, ',', '.') }} - {{ number_format($maxPrice, 0, ',', '.') }} VND
-                                    @else
-                                        Giá không có sẵn
-                                    @endif</p>
+                                            @php
+                                                $prices = $zone->rooms->pluck('price');
+                                                $minPrice = $prices->min();
+                                                $maxPrice = $prices->max();
+                                            @endphp
+                                            {{ number_format($minPrice, 0, ',', '.') }} -
+                                            {{ number_format($maxPrice, 0, ',', '.') }} VND
+                                        @else
+                                            Giá không có sẵn
+                                        @endif
+                                    </p>
                                 </div>
                                 <div class="row mt-5">
                                     @if ($zone->utility && $zone->utility->bathrooms == 1)
@@ -754,20 +759,70 @@
                                                 <h5 class="fs-13 font-weight-normal mb-3">Các loại phòng</h5>
                                                 @if ($zone->rooms->isNotEmpty())
                                                     <div class="d-flex flex-wrap">
-                                                        @foreach ($zone->rooms as $index => $room)
-                                                        <a href="#">
-                                                            <div class="p-2 shadow-xxs-1 rounded-lg mr-3 mb-3 lh-1">
-                                                                <p class="mb-0 fs-13 text-dark">
-                                                                    {{ $room->title ?? 'Chưa có thông tin' }}
-                                                                </p>
-                                                            </div></a>
+                                                        @foreach ($zone->rooms->filter(function ($room) {
+            return $room->quantity > 0;
+        }) as $index => $room)
+                                                            <a href="#" class="room-select"
+                                                                data-room-title="{{ $room->title }}"
+                                                                data-room-id="{{ $room->id }}"
+                                                                data-available-quantity="{{ $room->quantity }}"  data-room-price="{{ $room->price }}">
+                                                                <div class="p-2 shadow-xxs-1 rounded-lg mr-3 mb-3 lh-1">
+                                                                    <p class="mb-0 fs-13 text-dark">
+                                                                        {{ $room->title ?? 'Chưa có thông tin' }}
+                                                                    </p>
+                                                                </div>
+                                                            </a>
                                                         @endforeach
                                                     </div>
                                                 @else
-                                                    <p class="mb-0 fs-13 font-weight-bold text-dark">Chưa có thông tin phòng</p>
+                                                    <p class="mb-0 fs-13 font-weight-bold text-dark">Chưa có thông tin
+                                                        phòng</p>
                                                 @endif
                                             </div>
                                         </div>
+                                        <div class="modal fade" id="bookingModal" tabindex="-1" role="dialog"
+                                            aria-labelledby="bookingModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header border-0 p-4">
+                                                        <h5 class="modal-title" id="bookingModalLabel">Đặt Phòng</h5>
+                                                        <button type="button" class="close fs-23" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body p-4 py-sm-7 px-sm-8 text-center">
+                                                        <h2 class="text-heading mb-3 fs-22 fs-md-32 lh-1-5">Đặt Phòng Ngay!
+                                                        </h2>
+                                                        <p class="text-muted mb-4 mx-auto" style="max-width: 600px;">
+                                                            Vui lòng điền thông tin bên dưới để đặt phòng. Chúng tôi sẽ xác
+                                                            nhận yêu cầu của bạn trong thời gian sớm nhất.
+                                                        </p>
+                                                        <form id="bookingForm" method="POST" action="{{ route('client.booking', ['id' => $zone->id]) }}">
+                                                            @csrf
+                                                            <input type="hidden" name="zone_id"
+                                                                value="{{ $zone->id }}">
+                                                            <input type="hidden" name="room_id" id="room-id"
+                                                                value="">
+                                                                <div class="form-group mb-4">
+                                                            
+                                                                    <label for="room-quantity">Giá phòng:</label>
+                                                                    <span  id="room-price" name="room_price"  readonly> <!-- Giá phòng trong input -->
+                                                                </div>
+                                                            <div class="form-group mb-4">
+                                                                <label for="room-quantity">Số lượng:</label>
+                                                                <input type="number" id="room-quantity" name="quantity"
+                                                                    class="form-control" min="1" max=""
+                                                                    value="1">
+                                                            </div>
+                                                            <button type="submit" class="btn btn-lg btn-primary px-5">Đặt
+                                                                Phòng</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                     @if ($zone->utility && $zone->utility->garage == 1)
                                         <div class="col-6 mb-3">
@@ -820,8 +875,8 @@
                                             nhập để gửi báo cáo</a>
                                     @endauth
                                     <!-- <a href="#"
-                                                                            class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Yêu
-                                                                            cầu thông tin</a> -->
+                                                                                                class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Yêu
+                                                                                                cầu thông tin</a> -->
 
                                     @if ($zone)
                                         <!-- Nút để mở modal -->
@@ -840,65 +895,6 @@
                                         @endif --}}
 
                                         <!-- Modal -->
-                                        <div class="modal fade" id="accountInfoModal" tabindex="-1"
-                                            aria-labelledby="accountInfoModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="accountInfoModalLabel">Xác nhận thông
-                                                            tin</h5>
-                                                        {{-- <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button> --}}
-                                                        <button type="button" class="close fs-23"
-                                                            data-bs-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    {{-- <div class="modal-body">
-                                                        @if ($identity)
-                                                            <!-- Nếu người dùng đã có thông tin identity -->
-                                                            <form id="account-info-form" method="POST"
-                                                                action="{{ route('client.dang-ky-zone') }}">
-                                                                @csrf
-                                                                <div class="form-group">
-                                                                    <label class="info-label">Tên khu trọ:
-                                                                        <span
-                                                                            class="info-text">{{ $zone->name ?? 'Không có khu trọ' }}</span>
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label class="info-label">Tên trọ:
-                                                                        <span
-                                                                            class="info-text">{{ $rooms->title ?? 'Chưa có tên trọ' }}</span>
-                                                                    </label>
-                                                                </div>
-                                                                <!-- Thêm các input ẩn để gửi dữ liệu -->
-                                                                <input type="hidden" name="user_id"
-                                                                    value="{{ $user->id ?? '' }}">
-                                                                <input type="hidden" name="room_id"
-                                                                    value="{{ $rooms->id ?? '' }}">
-                                                                <input type="hidden" name="zone_id"
-                                                                    value="{{ $zone->id ?? '' }}">
-                                                                <!-- Nút gửi form -->
-                                                                <div class="text-right">
-                                                                    <button type="submit" class="btn btn-primary">Xác
-                                                                        nhận</button>
-                                                                </div>
-                                                            </form>
-                                                        @else
-                                                            <div class="d-flex justify-content-center mt-3">
-                                                                <p class="text">Bạn cần cập nhật thông tin cá nhân để
-                                                                    tham gia khu trọ.</p>
-                                                            </div>
-                                                            <div class="d-flex justify-content-center mt-3">
-                                                                <a href="{{ route('client.dang-kyekyc') }}"
-                                                                    class="btn btn-primary">Đăng ký ngay</a>
-                                                            </div>
-                                                        @endif
-                                                    </div> --}}
-                                                </div>
-                                            </div>
-                                        </div>
                                     @endif
                                 </div>
                             </div>
@@ -1054,14 +1050,14 @@
     <meta name="twitter:title" content="{{ $zone->name }}">
     <meta name="twitter:description" content="{{ $zone->description ?? 'Thông tin chi tiết về phòng trọ.' }}">
     <meta name="twitter:image"
-    content="{{ asset('assets/images/' . ($zone->room && $zone->room->image ? $zone->room->image : 'properties-grid-04.jpg')) }}">
+        content="{{ asset('assets/images/' . ($zone->room && $zone->room->image ? $zone->room->image : 'properties-grid-04.jpg')) }}">
     <!-- Facebook -->
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="{{ $zone->name }}">
     <meta property="og:description" content="{{ $zone->description ?? 'Thông tin chi tiết về phòng trọ.' }}">
     <meta property="og:type" content="website">
     <meta name="twitter:image"
-    content="{{ asset('assets/images/' . ($zone->room && $zone->room->image ? $zone->room->image : 'properties-grid-04.jpg')) }}">
+        content="{{ asset('assets/images/' . ($zone->room && $zone->room->image ? $zone->room->image : 'properties-grid-04.jpg')) }}">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -1261,5 +1257,97 @@
             });
         });
     </script> --}}
-    
+    <script>
+        // Đóng modal khi nhấp vào nút "Đóng"
+        $(document).on('click', '.close, .modal-backdrop', function() {
+            $('#bookingModal').modal('hide'); // Đóng modal
+        });
+
+        // Đóng modal khi nhấn phím Esc
+        $(document).on('keydown', function(e) {
+            if (e.key === "Escape") {
+                $('#bookingModal').modal('hide'); // Đóng modal
+            }
+        });
+        $(document).on('click', '.room-select', function(e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
+
+            // Lấy tiêu đề, ID phòng và số lượng có sẵn từ thuộc tính data
+            var roomTitle = $(this).data('room-title');
+            var roomId = $(this).data('room-id');
+            var availableQuantity = $(this).data('available-quantity'); // Lấy số lượng có sẵn
+            var roomPrice = $(this).data('room-price'); 
+            var formattedPrice = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+        }).format(roomPrice);
+            // Cập nhật tiêu đề và ID phòng vào modal
+            $('#room-price').text(formattedPrice );
+            $('#room-id').val(roomId); // Cập nhật ID phòng vào trường ẩn
+            $('#bookingModalLabel').text(roomTitle); // Cập nhật tiêu đề modal
+            $('#room-quantity').attr('max', availableQuantity); // Cập nhật max cho ô nhập số lượng
+            $('#room-quantity').val(1); // Đặt giá trị mặc định cho ô nhập số lượng
+            $('#bookingModal').modal('show'); // Mở modal "Đặt Phòng"
+        });
+    </script>
+   {{-- <script>
+    $(document).ready(function() {
+        $('#bookingForm').on('submit', function(e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định của form
+
+            // Lấy dữ liệu từ form
+            var formData = $(this).serialize(); // Lấy tất cả dữ liệu trong form
+
+            // Hiển thị popup xác nhận trước khi gửi
+            Swal.fire({
+                title: 'Xác nhận đặt phòng',
+                text: "Bạn có chắc chắn muốn đặt phòng này?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Đồng ý',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: $(this).attr('action'), // URL gửi đến
+                        type: 'POST', // Phương thức gửi
+                        data: formData, // Dữ liệu gửi đi
+                        success: function(response) {
+                            // Xử lý phản hồi thành công
+                            Swal.fire(
+                                'Thành công!',
+                                'Đặt phòng thành công!',
+                                'success'
+                            );
+                            $('#bookingModal').modal('hide'); // Đóng modal nếu cần
+                            // Có thể thêm mã để làm mới danh sách hoặc cập nhật giao diện
+                        },
+                        error: function(xhr) {
+                            // Xử lý lỗi
+                            var errors = xhr.responseJSON.errors;
+                            if (errors) {
+                                // Hiển thị lỗi nếu có
+                                $.each(errors, function(key, value) {
+                                    Swal.fire(
+                                        'Lỗi!',
+                                        value[0],
+                                        'error'
+                                    ); // Hiển thị thông báo lỗi đầu tiên
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Lỗi!',
+                                    'Đã xảy ra lỗi, vui lòng thử lại!',
+                                    'error'
+                                ); // Thông báo lỗi chung
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script> --}}
 @endpush

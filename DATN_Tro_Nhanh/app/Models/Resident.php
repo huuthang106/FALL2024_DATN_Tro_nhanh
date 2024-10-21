@@ -18,6 +18,7 @@ class Resident extends Model
         'status',
         'start_date',
         'end_date',
+        'deposit',
     ];
     public function user()
     {

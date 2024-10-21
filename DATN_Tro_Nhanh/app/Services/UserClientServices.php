@@ -27,64 +27,64 @@ class UserClientServices
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public function getUsersByRole($role, $searchTerm = null, $limit, $province = null, $district = null, $village = null)
-{
-    $query = User::where('role', $role)
-        // ->leftJoin('rooms', 'users.id', '=', 'rooms.user_id')
-        // ->leftJoin('comments', 'users.id', '=', 'comments.commented_user_id')
-        ->select('users.*')
-        // ->selectRaw('COUNT(DISTINCT rooms.id) as rooms_count')
-        // ->selectRaw('AVG(comments.rating) as average_rating')
-        // ->selectRaw('COUNT(DISTINCT comments.id) as review_count')
-        // ->groupBy('users.id')
-        ->orderBy('has_vip_badge', 'desc');
+    {
+        $query = User::where('role', $role)
+            // ->leftJoin('rooms', 'users.id', '=', 'rooms.user_id')
+            // ->leftJoin('comments', 'users.id', '=', 'comments.commented_user_id')
+            ->select('users.*')
+            // ->selectRaw('COUNT(DISTINCT rooms.id) as rooms_count')
+            // ->selectRaw('AVG(comments.rating) as average_rating')
+            // ->selectRaw('COUNT(DISTINCT comments.id) as review_count')
+            // ->groupBy('users.id')
+            ->orderBy('has_vip_badge', 'desc');
         // ->orderBy('average_rating', 'desc')
         // ->orderBy('review_count', 'desc')
         // ->orderBy('rooms_count', 'desc');
         // ->orderBy('users.created_at', 'desc');
 
-    if ($searchTerm) {
-        $query->where(function ($q) use ($searchTerm) {
-            $q->where('users.name', 'like', '%' . $searchTerm . '%')
-                ->orWhere('users.email', 'like', '%' . $searchTerm . '%');
-        });
+        if ($searchTerm) {
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('users.name', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('users.email', 'like', '%' . $searchTerm . '%');
+            });
+        }
+
+        if ($province || $district || $village) {
+            $query->where(function ($q) use ($province, $district, $village) {
+                if ($province) {
+                    $q->where('users.province', $province);
+                }
+                if ($district) {
+                    $q->where('users.district', $district);
+                }
+                if ($village) {
+                    $q->where('users.village', $village);
+                }
+            });
+        }
+
+        return $query->paginate($limit);
     }
+    public function getUsersByRoleNoLimit($role)
+    {
+        $query = User::where('role', $role)
+            ->leftJoin('rooms', 'users.id', '=', 'rooms.user_id')
+            ->leftJoin('comments', 'users.id', '=', 'comments.commented_user_id')
+            ->select('users.*')
+            ->selectRaw('COUNT(DISTINCT rooms.id) as rooms_count')
+            ->selectRaw('AVG(comments.rating) as average_rating')
+            ->selectRaw('COUNT(DISTINCT comments.id) as review_count')
+            ->groupBy('users.id')
+            ->orderBy('has_vip_badge', 'desc')
+            ->orderBy('average_rating', 'desc')
+            ->orderBy('review_count', 'desc')
+            ->orderBy('rooms_count', 'desc')
+            ->orderBy('users.created_at', 'desc');
 
-    if ($province || $district || $village) {
-        $query->where(function ($q) use ($province, $district, $village) {
-            if ($province) {
-                $q->where('users.province', $province);
-            }
-            if ($district) {
-                $q->where('users.district', $district);
-            }
-            if ($village) {
-                $q->where('users.village', $village);
-            }
-        });
+
+
+        return $query->get();
     }
-
-    return $query->paginate($limit);
-}
-public function getUsersByRoleNoLimit($role)
-{
-    $query = User::where('role', $role)
-        ->leftJoin('rooms', 'users.id', '=', 'rooms.user_id')
-        ->leftJoin('comments', 'users.id', '=', 'comments.commented_user_id')
-        ->select('users.*')
-        ->selectRaw('COUNT(DISTINCT rooms.id) as rooms_count')
-        ->selectRaw('AVG(comments.rating) as average_rating')
-        ->selectRaw('COUNT(DISTINCT comments.id) as review_count')
-        ->groupBy('users.id')
-        ->orderBy('has_vip_badge', 'desc')
-        ->orderBy('average_rating', 'desc')
-        ->orderBy('review_count', 'desc')
-        ->orderBy('rooms_count', 'desc')
-        ->orderBy('users.created_at', 'desc');
-
-   
-
-    return $query->get();
-}
     // public function getUsersByRole2($role, $searchTerm = null, $limit)
     // {
     //     // Khởi tạo query để lọc người dùng theo vai trò
@@ -126,55 +126,74 @@ public function getUsersByRoleNoLimit($role)
             $query->where('user_id', $userId)
                 ->orWhere('contact_user_id', $userId);
         })
-        ->where('sender_id', '!=', $userId)
-        ->where('is_read', false)
-        ->count();
+            ->where('sender_id', '!=', $userId)
+            ->where('is_read', false)
+            ->count();
     }
     public function getUserBalanceForAppProvider()
     {
         // Lấy user hiện tại
         $user = Auth::user();
-    
+
         // Kiểm tra nếu user tồn tại và lấy balanceviết se
         if ($user) {
             return $user->balance; // Trả về số dư của người dùng
         }
-    
+
         return '0'; // Trả về '0' nếu không có người dùng
     }
-    
-    public function getUniqueLocations()
-{
-    try {
-        $provinces = User::distinct()->whereNotNull('province')->pluck('province', 'province')->toArray();
-        $districts = User::distinct()->whereNotNull('district')->select('province', 'district')->get()
-            ->groupBy('province')
-            ->map(function ($items) {
-                return $items->pluck('district')->toArray();
-            })
-            ->toArray();
-        $villages = User::distinct()->whereNotNull('village')->select('district', 'village')->get()
-            ->groupBy('district')
-            ->map(function ($items) {
-                return $items->pluck('village')->toArray();
-            })
-            ->toArray();
 
-        return [
-            'provinces' => $provinces,
-            'districts' => $districts,
-            'villages' => $villages
-        ];
-    } catch (\Exception $e) {
-        Log::error('Không thể lấy danh sách địa điểm: ' . $e->getMessage());
-        return null;
+    public function getUniqueLocations()
+    {
+        try {
+            $provinces = User::distinct()->whereNotNull('province')->pluck('province', 'province')->toArray();
+            $districts = User::distinct()->whereNotNull('district')->select('province', 'district')->get()
+                ->groupBy('province')
+                ->map(function ($items) {
+                    return $items->pluck('district')->toArray();
+                })
+                ->toArray();
+            $villages = User::distinct()->whereNotNull('village')->select('district', 'village')->get()
+                ->groupBy('district')
+                ->map(function ($items) {
+                    return $items->pluck('village')->toArray();
+                })
+                ->toArray();
+
+            return [
+                'provinces' => $provinces,
+                'districts' => $districts,
+                'villages' => $villages
+            ];
+        } catch (\Exception $e) {
+            Log::error('Không thể lấy danh sách địa điểm: ' . $e->getMessage());
+            return null;
+        }
+    }
+    public function getUsersWithRoleZero($limit = 10)
+    {
+        return User::where('role', 0)
+            ->orderBy('created_at', 'desc')
+            ->paginate($limit);
+    }
+    public function updateBalance($userId, $amount)
+    {
+        // Lấy người dùng theo ID
+        $user = User::find($userId);
+
+        if ($user) {
+            // Kiểm tra xem số dư có đủ để trừ không
+            if ($user->balance >= $amount) {
+                // Cập nhật số dư mới
+                $user->balance -= $amount; // Trừ số dư
+                $user->save(); // Lưu thay đổi vào cơ sở dữ liệu
+
+                return $user;  // Trả về true nếu cập nhật thành công
+            } else {
+                return false; // Trả về false nếu số dư không đủ
+            }
+        }
+
+        return false; // Trả về false nếu không tìm thấy người dùng
     }
 }
-public function getUsersWithRoleZero($limit = 10)
-{
-    return User::where('role', 0)
-        ->orderBy('created_at', 'desc')
-        ->paginate($limit);
-}
-    
-}   
