@@ -90,7 +90,7 @@
                                             <a href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}">
                                                 <img src="{{ $this->getZoneImageUrl($zone) ?: asset('assets/images/default-image.jpg') }}"
                                                     alt="{{ $zone->name }}" class="img-fluid zone-image">
-                                                    @if($zone->type_vip == 1)
+                                                    @if($zone->vipZonePosition && $zone->vipZonePosition->status == 1)
                                                         <span class="position-absolute bottom-0 start-0 bg-danger text-white p-1 rounded">VIP</span>
                                                     @endif
                                             </a>

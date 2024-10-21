@@ -64,7 +64,7 @@
                             <tr class="shadow-hover-xs-2 bg-hover-white">
 
                                 <td class="align-middle" style="white-space: nowrap;">
-                                    Thanh toán dịch vụ
+                                   {{ $transaction->type }}
                                 </td>
 
                                 <td class="align-middle text-truncate"

@@ -89,4 +89,8 @@ class Zone extends Model
     {
         return $this->rooms->pluck('images')->flatten()->filter()->values()->all();
     }
+    public function vipZonePosition()
+    {
+        return $this->hasOne(VipZonePosition::class, 'zone_id');
+    }
 }

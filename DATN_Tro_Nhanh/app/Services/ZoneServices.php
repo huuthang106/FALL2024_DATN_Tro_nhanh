@@ -886,26 +886,25 @@ class ZoneServices
             // Trừ tiền từ số dư tài khoản của người dùng
             $customer->balance -= $cost;
             $customer->save();
-
-            // Cộng thêm thời gian VIP cho phòng
-            $currentExpiry = $accommodation->vip_expiry_date ? Carbon::parse($accommodation->vip_expiry_date) : now();
-
-            // Chuyển đổi validity sang int trước khi truyền vào
-            $newExpiry = $currentExpiry->addDays((int) $validity); // Đảm bảo validity là kiểu số
-
-            // Cập nhật ngày hết hạn và lưu price_list_id cho phòng
-            $accommodation->vip_expiry_date = $newExpiry;
-            $accommodation->type_vip = 1;
-            $accommodation->save();
             
+            $newExpiry = Carbon::now()->addDays((int) $validity); // Không cần cộng thêm 1 ngày
             // Lưu vị trí vip cho zone
-            $vipZonePosition = new VipZonePosition();
-            $vipZonePosition->zone_id = $accommodation->id;
+            $vipZonePosition = VipZonePosition::firstOrNew(['zone_id' => $accommodation->id]);
+            // Cập nhật location_id và end_date
             $vipZonePosition->location_id = $pricing->location_id;
-            $vipZonePosition->end_date = $newExpiry;
+
+            if ($vipZonePosition->end_date && Carbon::parse($vipZonePosition->end_date)->isFuture()) {
+                // Nếu ngày kết thúc hiện tại là trong tương lai, gia hạn nó mà không trừ đi 1 ngày
+                $vipZonePosition->end_date = Carbon::parse($vipZonePosition->end_date)->addDays((int) $validity);
+            } else {
+                // Nếu không, đặt ngày hết hạn mới từ bây giờ
+                $vipZonePosition->end_date = $newExpiry;
+            }
+
             $vipZonePosition->save();
             // Lưu lịch sử thanh toán
             $lichsu = new Transaction();
+            $lichsu->type = 'Gói Tin VIP';
             $lichsu->balance = $customer->balance;
             $lichsu->description = 'Thanh toán gói tin VIP cho khu trọ ' . $accommodation->name;
             $lichsu->added_funds = $cost;
@@ -933,31 +932,20 @@ class ZoneServices
         // Lấy ngày hiện tại
         $currentDate = Carbon::now();
 
-        // Tìm các zone có vip_expiry_date nhỏ hơn ngày hiện tại
-        $expiredZones = Zone::where('vip_expiry_date', '<', $currentDate)->get();
-
-        $updatedCount = 0;
-
-        if ($expiredZones->isNotEmpty()) {
-            foreach ($expiredZones as $zone) {
-                // Cập nhật vip_expiry_date về null và type_vip về 0
-                $zone->vip_expiry_date = null;
-                $zone->type_vip = 0;
-                $zone->save();
-                
-                 // Xóa bản ghi khỏi bảng VipZonePosition nếu tồn tại
-                VipZonePosition::where('zone_id', $zone->id)->delete();
-                // Tạo thông báo cho người dùng
-                $notification = new Notification();
-                $notification->user_id = $zone->user_id;
-                $notification->type = 'Gói Tin VIP';
-                $notification->data = 'Gói tin VIP của bạn cho khu trọ ' . $zone->name . ' đã hết hạn.';
-                $notification->save();
-
-                $updatedCount++;
+            // Tìm các zone có vip_expiry_date nhỏ hơn ngày hiện tại
+            VipZonePosition::where('end_date', '<', $currentDate)->forceDelete();
+            $updatedCount = 0;
+            \Log::info('Số lượng zone hết hạn: ' . $expiredZones->count());
+            if ($expiredZones->isNotEmpty()) {
+                foreach ($expiredZones as $zone) {
+                    // Tạo thông báo cho người dùng
+                    $notification = new Notification();
+                    $notification->user_id = $zone->user_id;
+                    $notification->type = 'Gói Tin VIP';
+                    $notification->data = 'Gói tin VIP của bạn cho khu trọ ' . $zone->name . ' đã hết hạn.';
+                    $notification->save();
+                }
             }
-        }
-
         return $updatedCount; // Trả về số lượng zone đã được cập nhật
     }
 }
