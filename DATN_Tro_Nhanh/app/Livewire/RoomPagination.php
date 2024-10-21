@@ -94,12 +94,16 @@ class RoomPagination extends Component
     }
     public function approveSelectedRooms($selectedIds)
     {
-        if (!empty($selectedIds)) {
-            Room::whereIn('id', $selectedIds)->update(['status' => 2]); // Cập nhật trạng thái thành 2
-            session()->flash('message', 'Các yêu cầu đã được duyệt thành công.'); // Thông báo thành công
-        } else {
-            session()->flash('error', 'Không có yêu cầu nào được chọn để duyệt.'); // Thông báo lỗi
+        // Xử lý logic duyệt các phòng với ID trong $selectedIds
+        // Ví dụ: Cập nhật trạng thái của các phòng
+        foreach ($selectedIds as $id) {
+            $zone = Zone::find($id);
+            if ($zone) {
+                $zone->status = '2'; // Hoặc trạng thái phù hợp
+                $zone->save();
+            }
         }
     }
+    
 
 }
