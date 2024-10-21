@@ -8,6 +8,7 @@ use App\Models\CartDetail;
 use App\Models\Comment;
 use App\Models\Report;
 use App\Models\Room;
+use App\Models\Zone;
 use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -222,4 +223,13 @@ class IndexAdminService
             'monthlyPurchases' => $monthlyPurchases         // Mảng chứa số lượng mua gói của từng tháng
         ];
     }
+    public function getZonesCountByCategoryType()
+{
+    return Zone::join('categories', 'zones.category_id', '=', 'categories.id')
+        ->selectRaw('categories.name as category_name, count(*) as count')
+        ->groupBy('categories.id', 'categories.name')
+        ->orderByDesc('count')  // Sắp xếp theo số lượng zone giảm dần
+        ->pluck('count', 'category_name')
+        ->toArray();
+}
 }
