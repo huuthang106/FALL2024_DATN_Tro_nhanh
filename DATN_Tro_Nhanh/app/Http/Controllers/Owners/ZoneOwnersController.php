@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Image;
 use App\Models\Category;
 use App\Models\Location;
+use App\Models\PriceList;
+use App\Models\Zone;
 use App\Http\Requests\RoomOwnersRequest;
 use App\Events\RoomCreated;
 class ZoneOwnersController extends Controller
@@ -240,4 +242,47 @@ class ZoneOwnersController extends Controller
             // 'user_is_in' => self::user_is_in,
         ]);
     }   
+
+    // Hàm xử lí mua gói vip khu trọ 
+    public function processPayment(Request $request)
+    {
+        // Lấy các giá trị từ request
+        $accommodationId = $request->input('zone_id');
+        $vipPackageId = $request->input('vipPackage');
+       
+
+        // Lấy thông tin phòng và người dùng hiện tại
+        $accommodation = Zone::findOrFail($accommodationId);
+        $customer = auth()->user();
+
+        // Lấy thông tin gói VIP từ priceList
+        $pricing = PriceList::findOrFail($vipPackageId);
+        $cost = $pricing->price;
+
+        // Kiểm tra số dư tài khoản của user
+        if ($customer->balance < $cost) {
+            \Log::warning('Số dư tài khoản không đủ để thanh toán. User ID: ' . $customer->id);
+            return redirect()->back()->with('alert', [
+                'type' => 'error',
+                'message' => 'Số dư tài khoản không đủ để thanh toán.'
+            ]);
+        }
+
+
+        // Gọi service để thực hiện thanh toán
+        $paymentStatus = $this->zoneServices->processZonePayment($customer, $accommodation, $vipPackageId);
+
+        if ($paymentStatus) {
+            return redirect()->back()->with('alert', [
+                'type' => 'success',
+                'message' => 'Thanh toán thành công và gói VIP đã được kích hoạt.'
+            ]);
+        } else {
+            \Log::error('Thanh toán không thành công. User ID: ' . $customer->id . ', Zone ID: ' . $accommodationId);
+            return redirect()->back()->with('alert', [
+                'type' => 'error',
+                'message' => 'Có lỗi xảy ra trong quá trình thanh toán.'
+            ]);
+        }
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Zone;
 use App\Models\Room;
+use App\Models\PriceList;
 use Livewire\WithPagination;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
@@ -23,6 +24,7 @@ class ZoneSearch extends Component
     public $selectedZones = [];
     public $startDate;
     protected $queryString = ['search', 'perPage', 'orderBy', 'orderAsc'];
+    public $priceLists;
 
     public $selectAll = false;
     public function updatedSearch()
@@ -43,6 +45,11 @@ class ZoneSearch extends Component
             $this->orderAsc = true;
         }
         $this->orderBy = $field;
+    }
+    
+    public function mount()
+    {
+        $this->priceLists = PriceList::with('location')->get();
     }
 
     public function toggleZone($zoneId)
@@ -171,7 +178,8 @@ class ZoneSearch extends Component
 
         return view('livewire.zone-search', [
             'zones' => $zones,
-            'emptyZonesCount' => $emptyZonesCount
+            'emptyZonesCount' => $emptyZonesCount,
+            'priceLists' => $this->priceLists
         ]);
     }
 

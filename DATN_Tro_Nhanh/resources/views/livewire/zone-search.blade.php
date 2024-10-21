@@ -62,6 +62,7 @@
                             <th class="py-3 text-nowrap text-center col-2">Ngày</th>
                             <th class="py-3 text-nowrap text-center col-2">Lượng phòng</th>
                             <th class="py-3 text-nowrap text-center col-2">Trạng thái</th>
+                            <th class="py-3 text-nowrap text-center col-2">Dịch vụ</th>
                             <th class="no-sort py-3 text-nowrap text-center col-2">Thao tác</th>
                         </tr>
                     </thead>
@@ -89,6 +90,9 @@
                                             <a href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}">
                                                 <img src="{{ $this->getZoneImageUrl($zone) ?: asset('assets/images/default-image.jpg') }}"
                                                     alt="{{ $zone->name }}" class="img-fluid zone-image">
+                                                    @if($zone->type_vip == 1)
+                                                        <span class="position-absolute bottom-0 start-0 bg-danger text-white p-1 rounded">VIP</span>
+                                                    @endif
                                             </a>
                                         </div>
                                     </td>
@@ -134,6 +138,46 @@
                                             <span class="badge badge-yellow text-capitalize">Chưa hoạt động</span>
                                         @endif
                                     </td>
+                                    <td class="align-middle text-nowrap">
+                                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#vipModal-{{ $zone->id }}">
+                                            Mua Vip
+                                        </button>
+                                    </td>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="vipModal-{{ $zone->id }}" tabindex="-1" role="dialog" aria-labelledby="vipModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="vipModalLabel">Chọn Gói VIP</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form action="{{ route('owners.zone-vip') }}" method="POST">
+                                                    @csrf
+                                                    <div class="modal-body">
+                                                        <input type="hidden" name="zone_id" value="{{ $zone->id }}">
+                                                        <p>Số dư tài khoản: {{ number_format(auth()->user()->balance, 0, ',', '.') }} VND</p>
+                                                        <div class="form-group">
+                                                            <label for="vipPackageSelect">Chọn gói VIP:</label>
+                                                            <select id="vipPackageSelect" name="vipPackage" class="form-control">
+                                                                @foreach($priceLists as $priceList)
+                                                                    <option value="{{ $priceList->id }}">
+                                                                        {{ $priceList->location->name }} - {{ number_format($priceList->price, 0, ',', '.') }} - {{$priceList->duration_day}} ngày
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <p class="text-danger">Lưu ý: Khi mua gói vip tiền sẽ được trừ vào số dư tài khoản nên đảm bảo tài khoản của quý khách đủ để thanh toán.</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                        <button type="submit" class="btn btn-primary">Xác nhận</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <td class="align-middle text-nowrap">
                                         {{-- <a href="{{ route('owners.zone-view-update', $zone->slug) }}"
                                             data-toggle="tooltip" title="Chỉnh sửa"

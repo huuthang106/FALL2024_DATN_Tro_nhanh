@@ -53,6 +53,7 @@ class RoomOwnersService
     const CHUA_CO = 0; // Chưa có tiện ích
     private $client;
     private $imageAdminService;
+    
     public function __construct(ImageAdminService $imageAdminService)
     {
         $this->client = new Client([

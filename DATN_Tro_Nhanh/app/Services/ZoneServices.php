@@ -8,7 +8,8 @@ use App\Models\User;
 use App\Models\Room;
 use Illuminate\Support\Facades\Storage;
 use App\Events\Admin\ZoneUpdated;
-// use App\Models\Utility;
+use App\Models\PriceList;
+use App\Models\Transaction;
 use App\Models\Bill;
 use Illuminate\Support\Facades\Auth;
 use Exception;
@@ -16,6 +17,8 @@ use Illuminate\Support\Facades\Log;
 use App\Events\BillCreated;
 use GuzzleHttp\Client;
 use App\Models\Category;
+use App\Models\Notification;
+use App\Models\VipZonePosition;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cookie;
 class ZoneServices
@@ -871,4 +874,90 @@ class ZoneServices
         return null; // Trả về null nếu không tìm thấy zone
     }
 
+    //Hàm mua vip khu trọ 
+    public function processZonePayment($customer, $accommodation, $pricingId)
+    {
+        try {
+            // Lấy thông tin của gói VIP từ PriceList
+            $pricing = PriceList::findOrFail($pricingId);
+            $cost = $pricing->price;
+            $validity = $pricing->duration_day; // Đây có thể là string
+
+            // Trừ tiền từ số dư tài khoản của người dùng
+            $customer->balance -= $cost;
+            $customer->save();
+
+            // Cộng thêm thời gian VIP cho phòng
+            $currentExpiry = $accommodation->vip_expiry_date ? Carbon::parse($accommodation->vip_expiry_date) : now();
+
+            // Chuyển đổi validity sang int trước khi truyền vào
+            $newExpiry = $currentExpiry->addDays((int) $validity); // Đảm bảo validity là kiểu số
+
+            // Cập nhật ngày hết hạn và lưu price_list_id cho phòng
+            $accommodation->vip_expiry_date = $newExpiry;
+            $accommodation->type_vip = 1;
+            $accommodation->save();
+            
+            // Lưu vị trí vip cho zone
+            $vipZonePosition = new VipZonePosition();
+            $vipZonePosition->zone_id = $accommodation->id;
+            $vipZonePosition->location_id = $pricing->location_id;
+            $vipZonePosition->end_date = $newExpiry;
+            $vipZonePosition->save();
+            // Lưu lịch sử thanh toán
+            $lichsu = new Transaction();
+            $lichsu->balance = $customer->balance;
+            $lichsu->description = 'Thanh toán gói tin VIP cho khu trọ ' . $accommodation->name;
+            $lichsu->added_funds = $cost;
+            $lichsu->total_price = $cost;
+            $lichsu->status = 2;
+            $lichsu->user_id = $customer->id;
+            $lichsu->save();
+
+            $thonngbao = new Notification();
+            $thonngbao->user_id = $customer->id;
+            $thonngbao->type = 'Thanh toán';
+            $thonngbao->data = 'Thanh toán gói tin VIP cho khu trọ ' . $accommodation->name . ' thành công';
+            $thonngbao->save();
+
+            return true;
+        } catch (\Exception $e) {
+            // Nếu có lỗi trong quá trình thanh toán, ghi log lỗi
+            \Log::error('Lỗi khi thực hiện thanh toán: ' . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function checkAndUpdateExpiredZones()
+    {
+        // Lấy ngày hiện tại
+        $currentDate = Carbon::now();
+
+        // Tìm các zone có vip_expiry_date nhỏ hơn ngày hiện tại
+        $expiredZones = Zone::where('vip_expiry_date', '<', $currentDate)->get();
+
+        $updatedCount = 0;
+
+        if ($expiredZones->isNotEmpty()) {
+            foreach ($expiredZones as $zone) {
+                // Cập nhật vip_expiry_date về null và type_vip về 0
+                $zone->vip_expiry_date = null;
+                $zone->type_vip = 0;
+                $zone->save();
+                
+                 // Xóa bản ghi khỏi bảng VipZonePosition nếu tồn tại
+                VipZonePosition::where('zone_id', $zone->id)->delete();
+                // Tạo thông báo cho người dùng
+                $notification = new Notification();
+                $notification->user_id = $zone->user_id;
+                $notification->type = 'Gói Tin VIP';
+                $notification->data = 'Gói tin VIP của bạn cho khu trọ ' . $zone->name . ' đã hết hạn.';
+                $notification->save();
+
+                $updatedCount++;
+            }
+        }
+
+        return $updatedCount; // Trả về số lượng zone đã được cập nhật
+    }
 }

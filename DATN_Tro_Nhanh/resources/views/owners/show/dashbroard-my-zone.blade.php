@@ -146,4 +146,17 @@
     </script>
     <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
     <script src="{{ asset('assets/js/alert-report.js') }}"></script>
+    <!-- Thêm đoạn script này vào view Blade nơi bạn muốn hiển thị thông báo -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            @if(session('alert'))
+                Swal.fire({
+                    icon: '{{ session('alert.type') }}',
+                    title: '{{ session('alert.type') === 'success' ? 'Thành công!' : 'Lỗi!' }}',
+                    text: '{{ session('alert.message') }}',
+                    confirmButtonText: 'OK'
+                });
+            @endif
+        });
+    </script>
 @endpush

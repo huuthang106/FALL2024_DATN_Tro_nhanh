@@ -4,20 +4,20 @@ namespace App\Listeners;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use App\Services\RoomClientServices;
+use App\Services\ZoneServices;
 use App\Events\ExpiredEntitiesUpdateEvent;
 
 class CheckAndUpdateExpiredRoomsListener
 {
-    protected $roomClientService;
+    protected $zoneServices;
 
-    public function __construct(RoomClientServices $roomClientService)
+    public function __construct(ZoneServices $zoneServices)
     {
-        $this->roomClientService = $roomClientService;
+        $this->zoneServices = $zoneServices;
     }
 
     public function handle(ExpiredEntitiesUpdateEvent $event)
     {
-        $this->roomClientService->checkAndUpdateExpiredRooms();
+        $this->zoneServices->checkAndUpdateExpiredZones();
     }
 }
