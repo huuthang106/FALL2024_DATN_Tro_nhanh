@@ -29,12 +29,13 @@ public function updateQuantity($id, $quantity)
 
     if ($room) {
         // Tính toán số lượng mới
+        if ($room->quantity < $quantity) {
+            return false; // Trả về false nếu số lượng không đủ
+        }
         $newQuantity = $room->quantity - $quantity;
 
         // Kiểm tra xem số lượng mới có nhỏ hơn 1 không
-        if ($newQuantity < 1) {
-            return false; // Trả về false nếu số lượng nhỏ hơn 1
-        }
+       
 
         // Cập nhật số lượng mới
         $room->quantity = $newQuantity;

@@ -33,7 +33,7 @@ function Popular() {
 
   return (
     <>
-     <Box mx={4} mt={6}>
+     <Box mx={1} mt={6}>
   <Header className="mt-6 mb-3 font-semibold">Tìm kiếm nhanh</Header>
 </Box>
 {loading ? (
@@ -45,10 +45,10 @@ function Popular() {
         {populars.map((restaurant) => (
           <Box
             key={restaurant.id}
-            ml={4}
+            ml={1}
             mr={0}
             className="snap-start transition-transform duration-300 transform hover:scale-105"
-            style={{ width: "calc(100vw - 180px)" }} // Giảm chiều rộng
+            style={{ width: "calc(100vw - 150px)" }} // Giảm chiều rộng
           >
             <RestaurantItem layout="cover" restaurant={restaurant} />
           </Box>
@@ -76,10 +76,10 @@ function Nearest() {
 
   return (
     <>
-      <Box mx={4} mt={0}>
-        <Header className="mt-6 mb-3 font-semibold">Các phòng trọ nổi bật</Header>
+      <Box mx={1} mt={0} >
+        <Header className="mt-6 mb-3 font-semibold" >Các phòng trọ nổi bật</Header>
         {nearests.slice(0, visibleCount).map((restaurant) => (
-          <Box key={restaurant.id} mx={0} my={3}>
+          <Box key={restaurant.id} mx={0} my={0 } style={{ borderBottom: '0.5px solid #6B7280'}}>
             <RestaurantItem
               layout="list-item"
               restaurant={restaurant}
@@ -88,10 +88,11 @@ function Nearest() {
                 </Text>
               }
             />
+             
           </Box>
         ))}
         {visibleCount < nearests.length && (
-          <div className="flex justify-center mt-2 mb-4">
+          <div className="flex justify-center mt-0 mb-4">
             <Button onClick={handleShowMore} className="show-more-button">
               Xem thêm
             </Button>
