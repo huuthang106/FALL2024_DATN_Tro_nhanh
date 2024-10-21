@@ -793,69 +793,64 @@
     </div>
     <script>
         function toggleCheckboxes(selectAllCheckbox) {
-            const checkboxes = document.querySelectorAll('.child-chk');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = selectAllCheckbox
-                    .checked; // Đặt trạng thái checkbox theo trạng thái của checkbox "Chọn tất cả"
-            });
-        }
+       const checkboxes = document.querySelectorAll('.child-chk');
+       checkboxes.forEach(checkbox => {
+           checkbox.checked = selectAllCheckbox.checked;
+       });
+   }
 
-        function updateSelectAll() {
-            const checkboxes = document.querySelectorAll('.child-chk');
-            const selectAllCheckbox = document.getElementById('selectAll');
-            selectAllCheckbox.checked = Array.from(checkboxes).every(checkbox => checkbox
-                .checked); // Kiểm tra xem tất cả checkbox đã được chọn hay chưa
-        }
+   function updateSelectAll() {
+       const checkboxes = document.querySelectorAll('.child-chk');
+       const selectAllCheckbox = document.getElementById('selectAll');
+       selectAllCheckbox.checked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+   }
 
-        function approveSelected() {
-            const selectedCheckboxes = document.querySelectorAll('.child-chk:checked'); // Lấy tất cả checkbox đã chọn
-            if (selectedCheckboxes.length === 0) {
-                Swal.fire({
-                    title: 'Lỗi!',
-                    text: 'Vui lòng chọn ít nhất một yêu cầu để duyệt.',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-                return;
-            }
+   function approveSelected() {
+       const selectedCheckboxes = document.querySelectorAll('.child-chk:checked');
+       if (selectedCheckboxes.length === 0) {
+           Swal.fire({
+               title: 'Lỗi!',
+               text: 'Vui lòng chọn ít nhất một yêu cầu để duyệt.',
+               icon: 'error',
+               confirmButtonText: 'OK'
+           });
+           return;
+       }
 
-            Swal.fire({
-                title: 'Bạn có chắc chắn?',
-                text: "Bạn muốn duyệt tất cả các yêu cầu đã chọn?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Có, duyệt!',
-                cancelButtonText: 'Hủy'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const selectedIds = Array.from(selectedCheckboxes).map(checkbox => {
-                        return checkbox.dataset.id; // Lấy ID từ thuộc tính data-id
-                    });
+       Swal.fire({
+           title: 'Bạn có chắc chắn?',
+           text: "Bạn muốn duyệt tất cả các yêu cầu đã chọn?",
+           icon: 'warning',
+           showCancelButton: true,
+           confirmButtonColor: '#3085d6',
+           cancelButtonColor: '#d33',
+           confirmButtonText: 'Có, duyệt!',
+           cancelButtonText: 'Hủy'
+       }).then((result) => {
+           if (result.isConfirmed) {
+               const selectedIds = Array.from(selectedCheckboxes).map(checkbox => checkbox.dataset.id);
 
-                    // Gọi phương thức duyệt trên server
-                    @this.call('approveSelectedRooms', selectedIds).then(() => {
-                        Swal.fire(
-                            'Duyệt thành công!',
-                            'Các yêu cầu đã được duyệt.',
-                            'success'
-                        );
-                        // Bỏ chọn tất cả checkbox sau khi duyệt thành công
-                        selectedCheckboxes.forEach(checkbox => {
-                            checkbox.checked = false; // Bỏ chọn checkbox
-                        });
-                        document.getElementById('selectAll').checked =
-                            false; // Bỏ chọn checkbox "Chọn tất cả"
-                    }).catch(error => {
-                        Swal.fire(
-                            'Lỗi!',
-                            'Có lỗi xảy ra khi duyệt các yêu cầu.',
-                            'error'
-                        );
-                    });
-                }
-            });
-        }
+               // Gọi phương thức duyệt trên server
+               @this.call('approveSelectedRooms', selectedIds).then(() => {
+                   Swal.fire(
+                       'Duyệt thành công!',
+                       'Các yêu cầu đã được duyệt.',
+                       'success'
+                   );
+                   // Bỏ chọn tất cả checkbox sau khi duyệt thành công
+                   selectedCheckboxes.forEach(checkbox => {
+                       checkbox.checked = false;
+                   });
+                   document.getElementById('selectAll').checked = false;
+               }).catch(error => {
+                   Swal.fire(
+                       'Lỗi!',
+                       'Có lỗi xảy ra khi duyệt các yêu cầu.',
+                       'error'
+                   );
+               });
+           }
+       });
+   }
     </script>
 </div>
