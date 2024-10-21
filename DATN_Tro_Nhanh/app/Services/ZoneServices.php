@@ -204,19 +204,7 @@ class ZoneServices
     {
         $currentDate = Carbon::now();
 
-        return Zone::where('status', self::status) // Đảm bảo rằng bạn có hằng số `status` trong dịch vụ Zone
-            ->where(function ($query) use ($currentDate) {
-                $query->where('vip_expiry_date', '>', $currentDate)
-                    ->orWhereNull('vip_expiry_date');
-            })
-            ->orderByRaw('CASE 
-            WHEN vip_expiry_date > ? THEN 0 
-            ELSE 1 
-        END', [$currentDate])
-            ->orderByRaw('CASE 
-            WHEN vip_expiry_date > ? THEN view 
-            ELSE 0 
-        END DESC', [$currentDate])
+        return Zone::where('status', self::status) 
             ->orderBy('view', 'desc')
             ->take($limit)
             ->get();

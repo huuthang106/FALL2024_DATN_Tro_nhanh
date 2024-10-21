@@ -27,6 +27,9 @@
                                                 VIP
                                             </span>
                                         @endif
+                                        <span class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }} position-absolute pos-fixed-top">
+                                            {{ $zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
+                                        </span>
                                     </div>
                                     <ul class="list-inline mb-0 mt-auto hover-image">
                                         <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">

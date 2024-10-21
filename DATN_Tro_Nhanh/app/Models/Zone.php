@@ -57,6 +57,12 @@ class Zone extends Model
     {
         return $this->hasMany(Room::class);
     }
+
+    public function hasAvailableRooms()
+    {
+        // Kiểm tra xem có ít nhất một phòng còn quantity > 0 không
+        return $this->rooms()->where('quantity', '>', 0)->exists();
+    }
     public function room()
     {
         return $this->hasOne(Room::class);

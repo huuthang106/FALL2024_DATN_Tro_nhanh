@@ -268,11 +268,12 @@
                                                         alt="{{ $zone->title }}" class="property-image">
                                                 @endif --}}
                                                 <div class="card-img-overlay d-flex flex-column bg-gradient-3 rounded-lg">
-                                                    @if ($zone->vip_expiry_date > now())
+                                                    {{-- @if ($zone->vip_expiry_date > now())
                                                         <div class="d-flex mb-auto">
                                                             <span class="mr-1 badge badge-danger">VIP</span>
                                                         </div>
-                                                    @endif
+                                                    @endif --}}
+                                                    
                                                     <div class="px-2 pb-2">
                                                         {{-- <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}"
                                                             class="text-white"> --}}

@@ -16,6 +16,7 @@ class ZoneClientController extends Controller
     protected $zoneServices;
     //
     protected $CommentClientService;
+    
     public function __construct(ZoneServices $zoneServices, CommentClientService $CommentClientService)
     {
         $this->zoneServices = $zoneServices;

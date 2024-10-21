@@ -115,30 +115,7 @@ class ZoneSearch extends Component
                     ->orWhere('address', 'like', '%' . $this->search . '%');
             });
 
-        // if ($this->timeFilter) {
-        //     $date = Carbon::now();
-        //     switch ($this->timeFilter) {
-        //         case '1_day':
-        //             $date->subDays(1);
-        //             break;
-        //         case '7_day':
-        //             $date->subDays(7);
-        //             break;
-        //         case '1_month':
-        //             $date->subMonth();
-        //             break;
-        //         case '3_month':
-        //             $date->subMonths(3);
-        //             break;
-        //         case '6_month':
-        //             $date->subMonths(6);
-        //             break;
-        //         case '1_year':
-        //             $date->subYear();
-        //             break;
-        //     }
-        //     $query->whereDate('created_at', '>=', $date);
-        // }
+   
         if ($this->timeFilter) {
             $startDate = Carbon::now();
             switch ($this->timeFilter) {

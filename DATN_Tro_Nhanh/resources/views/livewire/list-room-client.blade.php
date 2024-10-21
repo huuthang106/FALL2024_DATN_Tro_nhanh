@@ -46,11 +46,9 @@
                             </a> 
                          @endif
                             <div class="card-img-overlay d-flex flex-column">
-                                {{-- @if ($zone->residents->isNotEmpty())
-                                <div><span class="badge badge-orange">Hết phòng</span></div>
-                            @else
-                                <div><span class="badge badge-primary">Còn phòng</span></div>
-                            @endif --}}
+                                <span class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }} position-absolute pos-fixed-top">
+                                    {{ $zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
+                                </span>
                                 <div>
                                     @if ($zone->expiration_date > now())
                                         <span class="badge bg-danger text-white" style="bottom: 1px; right: 1px;">

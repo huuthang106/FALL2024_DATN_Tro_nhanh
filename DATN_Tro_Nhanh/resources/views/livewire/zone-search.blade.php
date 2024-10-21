@@ -93,6 +93,9 @@
                                                     @if($zone->vipZonePosition && $zone->vipZonePosition->status == 1)
                                                         <span class="position-absolute bottom-0 start-0 bg-danger text-white p-1 rounded">VIP</span>
                                                     @endif
+                                                    <span class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }} position-absolute pos-fixed-top">
+                                                        {{ $zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
+                                                    </span>
                                             </a>
                                         </div>
                                     </td>
@@ -133,9 +136,9 @@
                                     </td>
                                     <td class="align-middle text-nowrap">
                                         @if ($zone->status == 1)
-                                            <span class="badge badge-green text-capitalize">Đang hoạt động</span>
+                                            <span class="badge badge-yellow text-capitalize">Chưa được duyệt</span>
                                         @else
-                                            <span class="badge badge-yellow text-capitalize">Chưa hoạt động</span>
+                                            <span class="badge badge-green text-capitalize">Đang hoạt động</span>
                                         @endif
                                     </td>
                                     <td class="align-middle text-nowrap">

@@ -76,7 +76,7 @@ class ListRoomClient extends Component
         }
 
         // Sắp xếp theo ngày hết hạn
-        $query->orderByRaw('CASE WHEN zones.vip_expiry_date > NOW() THEN 1 ELSE 0 END DESC');
+        // $query->orderByRaw('CASE WHEN zones.vip_expiry_date > NOW() THEN 1 ELSE 0 END DESC');
 
         $zones = $query->paginate($this->perPage);
         $categories = Category::all();
