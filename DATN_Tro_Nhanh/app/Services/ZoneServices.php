@@ -908,7 +908,6 @@ class ZoneServices
             $lichsu->balance = $customer->balance;
             $lichsu->description = 'Thanh toán gói tin VIP cho khu trọ ' . $accommodation->name;
             $lichsu->added_funds = $cost;
-            $lichsu->total_price = $cost;
             $lichsu->status = 2;
             $lichsu->user_id = $customer->id;
             $lichsu->save();

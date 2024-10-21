@@ -257,6 +257,12 @@ class ZoneOwnersController extends Controller
 
         // Lấy thông tin gói VIP từ priceList
         $pricing = PriceList::findOrFail($vipPackageId);
+        if (!$pricing) {
+            return redirect()->back()->with('alert', [
+                'type' => 'error',
+                'message' => 'Không có gói VIP nào để thanh toán.'
+            ]);
+        }
         $cost = $pricing->price;
 
         // Kiểm tra số dư tài khoản của user

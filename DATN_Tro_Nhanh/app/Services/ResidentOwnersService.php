@@ -11,6 +11,9 @@ use App\Events\ResidentDeleted;
 use Illuminate\Support\Facades\Redirect;
 use App\Events\ApplicationRefused;
 use App\Events\OrderCancelled;
+use App\Models\Transaction;
+use App\Models\User;
+use App\Models\Notification;
 // use Illuminate\Support\Facades\Log;
 
 class ResidentOwnersService
@@ -28,14 +31,39 @@ class ResidentOwnersService
     public function updateResidentStatus($residentId, $newStatus, $userId)
     {
         // Tìm resident theo ID và user_id
-        $resident = Resident::where('id', $residentId)
-            ->where('user_id', $userId)
-            ->first();
-
+        $resident = Resident::where('id', $residentId)->first();
         // Kiểm tra xem resident có tồn tại không
         if (!$resident) {
             throw new \Exception('Resident không tồn tại hoặc không thuộc về bạn.');
         }
+
+         // Lấy số tiền đặt cọc của user
+        $depositAmount = $resident->deposit; // Giả sử cột này tồn tại
+
+        // Tìm user chủ phòng
+        $roomOwner = User::find($resident->tenant_id); // Giả sử cột này tồn tại
+
+        if (!$roomOwner) {
+            throw new \Exception('Chủ phòng không tồn tại.');
+        }
+
+        // Cộng số tiền đặt cọc cho user chủ phòng
+        $roomOwner->balance += $depositAmount;
+        $roomOwner->save();
+
+        $transaction = new Transaction();
+        $transaction->user_id = $roomOwner->id;
+        $transaction->added_funds = $depositAmount;
+        $transaction->balance = $roomOwner->balance;
+        $transaction->type = 'Tiền Cọc Phòng';
+        $transaction->description = 'Nhận tiền đặt cọc cho ' . $resident->room->title;
+        $transaction->save();
+
+        $thonngbao = new Notification();
+        $thonngbao->user_id = $resident->user_id;
+        $thonngbao->type = 'Duyệt phòng';
+        $thonngbao->data = 'Đơn tham gia ' . $resident->room->title . ' của bạn đã được duyệt';
+        $thonngbao->save();
 
         // Cập nhật status
         $resident->status = $newStatus;
@@ -79,9 +107,9 @@ class ResidentOwnersService
         try {
             // Tìm resident theo ID và user_id
             $resident = Resident::where('id', $residentId)
-                ->where('tenant_id', $userId)
+                ->where('user_id', $userId)
                 ->first();
-
+            
             // Kiểm tra xem resident có tồn tại không
             if (!$resident) {
                 throw new \Exception('Resident không tồn tại hoặc không thuộc về bạn.');
@@ -99,6 +127,7 @@ class ResidentOwnersService
             return false; // Trả về false nếu có lỗi xảy ra
         }
     }
+    // Ham tu choi don 
     public function refuseApplication($residentId, $reasons, $note)
     {
         try {

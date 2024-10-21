@@ -52,6 +52,7 @@ class ResidentOwnersController extends Controller
             }
         }
     }
+    
     public function erase_tenant($idResident)
     {
 
