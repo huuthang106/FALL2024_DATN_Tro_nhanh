@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 use Cocur\Slugify\Slugify;
 use App\Events\Admin\CategoryAdminEvent;
 use App\Models\Room;
+use App\Models\Zone;
 
 class CategoryAdminService
 {
@@ -136,7 +137,7 @@ class CategoryAdminService
         $category = Category::findOrFail($id);
 
         // Kiểm tra xem có phòng nào thuộc category này không
-        $hasRooms = Room::where('category_id', $id)->exists();
+        $hasRooms = Zone::where('category_id', $id)->exists();
 
         if ($hasRooms) {
             // Nếu có phòng thuộc loại này, trả về thông báo lỗi

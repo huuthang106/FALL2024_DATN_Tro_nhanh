@@ -423,29 +423,28 @@ class BlogServices
         return $blog;
     }
     public function hardDeleteBlog($id)
-    {
-        try {
-            $blog = Blog::findOrFail($id);
+{
+    try {
+        $blog = Blog::findOrFail($id);
 
-            // Xóa các hình ảnh liên quan
-            $images = Image::where('blog_id', $blog->id)->get();
-            foreach ($images as $image) {
-                $imagePath = public_path('assets/images/' . $image->filename);
-                if (file_exists($imagePath)) {
-                    unlink($imagePath);
-                }
-                $image->delete();
+        // Xóa các hình ảnh liên quan từ cột image trong bảng blogs
+        $images = explode(',', $blog->image); // Giả sử các tên file ảnh được lưu dưới dạng chuỗi phân tách bằng dấu phẩy
+        foreach ($images as $image) {
+            $imagePath = public_path('assets/images/' . $image);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
             }
-
-            // Xóa blog
-            $blog->forceDelete();
-
-            return true;
-        } catch (\Exception $e) {
-            \Log::error('Lỗi khi xóa blog: ' . $e->getMessage());
-            return false;
         }
+
+        // Xóa blog
+        $blog->forceDelete();
+
+        return true;
+    } catch (\Exception $e) {
+        \Log::error('Lỗi khi xóa blog: ' . $e->getMessage());
+        return false;
     }
+}
     public function getTrashedBlogs($searchTerm = null, $timeFilter = null)
     {
         $query = Blog::onlyTrashed();

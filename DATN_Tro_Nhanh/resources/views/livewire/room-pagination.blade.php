@@ -530,8 +530,9 @@
                                         </th>
                                         <th class="min-w-125px">Ảnh</th>
                                         <th class="min-w-125px">Tên Phòng</th>
-                                        <th class="min-w-125px">Mô tả</th>
                                         <th class="min-w-125px">Số điện thoại</th>
+                                        <th class="min-w-125px">Mô tả</th>
+                                        
                                         {{-- <th class="min-w-125px">Số lượng</th> --}}
                                         {{-- <th class="min-w-125px">Giá</th> --}}
                                         <th class="min-w-125px">Địa chỉ</th>

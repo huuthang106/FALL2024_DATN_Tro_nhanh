@@ -85,7 +85,7 @@
                     <div class="col-xl-4">
                         <!--begin::Statistics Widget 5-->
                         <a href="#" class="card bg-dark hoverable card-xl-stretch mb-5 mb-xl-8">
-                            <div class="card-body">
+                            {{-- <div class="card-body">
                                 <span class="svg-icon svg-icon-gray-100 svg-icon-3x ms-n1">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none">
@@ -107,7 +107,7 @@
                                         Không thay đổi so với tháng trước
                                     @endif
                                 </div>
-                            </div>
+                            </div> --}}
                         </a>
                         <!--end::Statistics Widget 5-->
                     </div>
@@ -477,7 +477,7 @@
                             </div>
                             <!--end::Header-->
                             <!--begin::Body-->
-                            <div class="card-body pt-2">
+                            {{-- <div class="card-body pt-2">
                                 @if ($topPackages->isNotEmpty())
                                     @foreach ($topPackages as $package)
                                         <!--begin::Item-->
@@ -487,7 +487,7 @@
                                             <!--end::Bullet-->
                                             <!--begin::Checkbox-->
                                             <div class="form-check form-check-custom form-check-solid mx-5">
-                                                {{-- <input class="form-check-input" type="checkbox" value="" /> --}}
+                                                <input class="form-check-input" type="checkbox" value="" />
                                             </div>
                                             <!--end::Checkbox-->
                                             <!--begin::Description-->
@@ -507,7 +507,7 @@
                                         Chưa có dữ liệu.
                                     </div>
                                 @endif
-                            </div>
+                            </div> --}}
                             <!--end::Body-->
                         </div>
                         <!--end:List Widget 3-->

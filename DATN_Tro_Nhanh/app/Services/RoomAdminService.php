@@ -303,7 +303,7 @@ class RoomAdminService
     {
         // Tìm phòng theo ID
         // Tìm phòng theo ID
-        $room = Room::findOrFail($id);
+        $room = Zone::findOrFail($id);
 
         // Kiểm tra xem room_id có trong bảng residents hay không
         $hasResidents = Resident::where('room_id', $id)->exists();
