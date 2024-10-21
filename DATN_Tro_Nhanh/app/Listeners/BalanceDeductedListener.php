@@ -25,8 +25,8 @@ class BalanceDeductedListener
         Transaction::create([
             'user_id' => $event->userId,
             'added_funds' => $event->amount, // Số tiền biến động
-            'type' => $event->type, // Loại giao dịch
-            'description' => $event->description, // Mô tả
+            'description' => $event->type, // Loại giao dịch
+            'type' => $event->description, // Mô tả
             'balance' => $event->balance, // Số dư hiện tại
         ]);
     }
