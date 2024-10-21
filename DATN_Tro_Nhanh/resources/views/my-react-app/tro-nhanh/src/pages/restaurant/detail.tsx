@@ -11,7 +11,7 @@ import { currentRestaurantTabState } from "../../state";
 import React from "react";
 import { useRestaurant } from "../../hooks";
 import { categories_State, keywordState, selectedCategoryState } from "../../state";
-const apiEndpoint ='https://tronhanh.com';
+const apiEndpoint ='https://f70b-14-241-166-117.ngrok-free.app';
 
 function RestaurantDetail() {
   const restaurant = useRestaurant();
@@ -52,6 +52,17 @@ function RestaurantDetail() {
         currency: 'VND',
       }).format(amount);
     };
+    const formatPriceRange = (rooms) => {
+      if (rooms && rooms.length > 0) {
+        const prices = rooms.map(room => room.price);
+        const minPrice = Math.min(...prices);
+        const maxPrice = Math.max(...prices);
+  
+        return `${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(minPrice)} - ${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(maxPrice)}`;
+      } else {
+        return "Giá không có sẵn";
+      }
+    };
     return (
       <>
         <Box m={5}>
@@ -77,7 +88,7 @@ function RestaurantDetail() {
                
               
                 <span className="text-primary">
-                {formatCurrency(restaurant.price)}
+                {formatPriceRange(restaurant.rooms)}
                 </span>
               
             </Box>

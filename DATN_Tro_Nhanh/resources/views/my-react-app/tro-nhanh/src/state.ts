@@ -18,7 +18,7 @@ import { calcCrowFliesDistance } from "./utils/location";
 // });
 
 
-const apiEndpoint ='https://tronhanh.com';
+const apiEndpoint ='https://f70b-14-241-166-117.ngrok-free.app';
 export const restaurantsDataState = atom<Restaurant[]>({
   key: "restaurantsData",
   default: [],
@@ -88,7 +88,7 @@ export const restaurantsState = selector<Restaurant[]>({
       const data = await response.json(); // Phân tích dữ liệu JSON từ phản hồi
       // console.log('Parsed data:', data.rooms);
 
-      return data.rooms || []; // Trả về mảng rỗng nếu không có nhà hàng
+      return data.zones || []; // Trả về mảng rỗng nếu không có nhà hàng
     } catch (error) {
       console.error("Error fetching data:", error);
       return []; // Trả về mảng rỗng nếu có lỗi
@@ -510,7 +510,7 @@ export const bookingsState = atom<Booking[]>({
 
             const detailData = await detailResponse.json();
             const totalRatings = detailData.comments
-              ? detailData.comments.filter(comment => comment.commented_user_id == user.id).length
+              ? detailData.comments.filter(comment_user => comment_user.commented_user_id == user.id).length
               : 0;
 
             return {
@@ -523,11 +523,11 @@ export const bookingsState = atom<Booking[]>({
               has_vip_badge: user.has_vip_badge,
               averageRating: detailData.averageRating,
               totalRatings: totalRatings,
-              totalRooms: detailData.totalRooms, // Thêm totalRooms
-              totalZones: detailData.totalZones, // Thêm totalZones
+              // totalRooms: detailData.totalRooms, // Thêm totalRooms
+              // totalZones: detailData.totalZones, // Thêm totalZones
             };
           }));
-
+console.log(detailedBookings);
           setSelf(detailedBookings);
         } catch (error) {
           console.error("Error fetching bookings:", error);

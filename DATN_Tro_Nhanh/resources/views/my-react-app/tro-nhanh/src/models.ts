@@ -1,6 +1,6 @@
 export interface Restaurant {
   id: number; // ID của sản phẩm
-  title: string; // Tiêu đề của sản phẩm
+  name: string; // Tiêu đề của sản phẩm
   description: string; // Mô tả của sản phẩm
   expiration_date: string; // Ngày hết hạn
   price: number; // Giá của sản phẩm

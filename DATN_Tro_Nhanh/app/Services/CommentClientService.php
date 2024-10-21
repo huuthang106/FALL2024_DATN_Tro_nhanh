@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cookie;
+use App\Models\Resident;
 
 class CommentClientService
 {
@@ -45,21 +46,33 @@ class CommentClientService
     }
     public function submitZone($data)
     {
-        // Tìm phòng theo slug
+        // Tìm khu trọ theo slug
         $zone = Zone::where('slug', $data['zone_slug'])->first();
-
+    
         if (!$zone) {
             return null;
         }
-
+    
+        // Kiểm tra xem người dùng có phải là resident của phòng trong khu trọ không
+        $isResident = Resident::where('user_id', Auth::id())
+            ->where('status', '!=', 1)
+            ->whereHas('room', function ($query) use ($zone) {
+                $query->where('zone_id', $zone->id);
+            })
+            ->exists();
+    
+        if (!$isResident) {
+            return ['success' => false, 'message' => 'Bạn không có quyền đánh giá khu trọ này.']; // Trả về thông báo lỗi
+        }
+    
         $review = new CommentZones();
         $review->rating = $data['rating'];
         $review->content = $data['content'];
         $review->user_id = Auth::id();
         $review->zone_id = $zone->id;
         $review->save();
-
-        return $review;
+    
+        return ['success' => true, 'review' => $review];
     }
     public function countTotalReviews()
     {

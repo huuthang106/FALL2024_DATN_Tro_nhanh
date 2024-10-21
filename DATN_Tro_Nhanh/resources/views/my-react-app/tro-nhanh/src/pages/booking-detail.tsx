@@ -3,7 +3,7 @@ import { Box, Button, Page, Text, Icon } from "zmp-ui";
 import { useParams, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { bookingsState } from "../state";
-const apiEndpoint = 'https://tronhanh.com';
+const apiEndpoint = 'https://f70b-14-241-166-117.ngrok-free.app';
 const { Title } = Text;
 
 const BookingDetail: React.FC = () => {
@@ -36,6 +36,7 @@ const BookingDetail: React.FC = () => {
     );
   };
 
+  
   return (
     
     <Page>
@@ -58,7 +59,7 @@ const BookingDetail: React.FC = () => {
         >
           <Title className="font-bold">{booking.name}</Title>
           <Text size="small" className="text-gray-500 mt-3">
-            {renderStars(parseFloat(booking.averageRating))} ({booking.totalRatings} đánh giá)
+            {/* {renderStars(parseFloat(booking.averageRating))} ({booking.totalRatings} đánh giá) */}
           </Text>
         </Box>
       </Box>
@@ -98,10 +99,10 @@ const BookingDetail: React.FC = () => {
           <Box flex mx={0} alignItems="center" justifyContent="space-between">
             <Text size="small" className="text-gray-500">
               Email: {booking.email ? booking.email : "Chưa có email"}
-              <br />
+              {/* <br />
               Số phòng: {booking.totalRooms ? booking.totalRooms : "Chưa có phòng"}
               <br />
-              Số Khu trọ: {booking.totalZones ? booking.totalZones : "Chưa có khu trọ"}
+              Số Khu trọ: {booking.totalZones ? booking.totalZones : "Chưa có khu trọ"} */}
             </Text>
           </Box>
         </Box>

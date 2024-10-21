@@ -51,7 +51,7 @@ class LocationAdminService
 
             // Cập nhật slug cho đối tượng
             $locations->slug = $slug;
-            $locations->type_vip = 2;
+            
             $locations->status = 1;
             // Lưu lại đối tượng với slug mới
             $locations->save();
@@ -65,6 +65,7 @@ class LocationAdminService
     {
         $locations = Location::findOrFail($id);
         $locations->name = $request->input('name');
+        $locations->type_vip = $request->input('type_vip');
         $locations->status = $request->input('status');
         // Lưu đối tượng Location
         $locations->save();

@@ -291,9 +291,10 @@ class RoomClientController extends Controller
     }
     public function indexRoomAPI(Request $request, $perPage = 10)
     {
-        $rooms = $this->roomClientService->getAllRoomAPI();
+        $zones = $this->roomClientService->getAllRoomAPI();
         return response()->json([
-            'rooms' => $rooms,
+            'zones' => $zones,
+
         ]);
     }
     // public function page_detail_admin($slug)

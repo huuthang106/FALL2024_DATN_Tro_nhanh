@@ -21,7 +21,7 @@ function AppHeader() {
     }
     if (location.pathname === "/restaurant") {
       if (restaurant) {
-        return restaurant.title;
+        return restaurant.name;
       }
     }
     return getConfig((c) => c.app.title);

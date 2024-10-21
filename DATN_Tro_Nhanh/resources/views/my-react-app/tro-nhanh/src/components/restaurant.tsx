@@ -6,7 +6,7 @@ import { Restaurant } from "../models";
 import Distance from "./distance";
 import DistrictName from "./district-name";
 import '../css/style.css';
-const apiEndpoint = 'https://tronhanh.com';
+const apiEndpoint = 'https://f70b-14-241-166-117.ngrok-free.app';
 
 const { Title } = Text;
 
@@ -38,6 +38,18 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
     lat: parseFloat(restaurant.latitude), // Chuyển đổi latitude thành số
     long: parseFloat(restaurant.longitude), // Chuyển đổi longitude thành số
   };
+  const formatPriceRange = (rooms) => {
+    if (rooms && rooms.length > 0) {
+      const prices = rooms.map(room => room.price);
+      const minPrice = Math.min(...prices);
+      const maxPrice = Math.max(...prices);
+
+      return `${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(minPrice)} - ${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(maxPrice)}`;
+    } else {
+      return "Giá không có sẵn";
+    }
+  };
+
   if (layout === "cover") {
     return (
       <div
@@ -56,7 +68,7 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
           <span>{restaurant.rating}</span>
         </div> */}
         <Title size="small" className="mt-2 mb-0 mx-2 title-ellipsis" style={{ flexGrow: 1, flexShrink: 1 }}>
-          {restaurant.title}
+          {restaurant.name}
         </Title>
         <Box flex mt={0} mb={2} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           {/* <Button
@@ -72,8 +84,8 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
             </span>
           </Button> */}
 
-          <span className="text-gray-500 mx-2">
-            {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(restaurant.price)}
+<span className="text-gray-500 mx-2">
+            {formatPriceRange(restaurant.rooms)}
           </span>
           <div className="ml-auto">
             <Button
@@ -108,11 +120,11 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
         </div>
         <Box mr={1} className="min-w-0">
           {before}
-          <Title size="small" className="title-list">{restaurant.title}</Title>
+          <Title size="small" className="title-list">{restaurant.name}</Title>
           {after}
           <Box className="flex justify-between items-center">
             <span className="text-gray-500 font-semibold price-list">
-              {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(restaurant.price)}
+            {formatPriceRange(restaurant.rooms)}
             </span>
             <div className="ml-auto">
               <Button

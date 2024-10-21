@@ -32,7 +32,20 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="row mb-6">
+                                        <label class="col-lg-4 col-form-label fw-bold fs-6 required">Loại</label>
+                                        <div class="col-lg-8 fv-row">
+                                            <select id="type_vip" name="type_vip" class="form-control form-control-lg form-control-solid">
+                                                <option value="">Chọn loại gói tin...</option>
+                                                <option value="1" {{ $locations->type_vip == '1' ? 'selected' : '' }}>Nơi ở lý tưởng</option>
+                                                <option value="2" {{ $locations->type_vip == '2' ? 'selected' : '' }}>Được quan tâm nhiều nhất</option>
 
+                                            </select>
+                                            @error('type_vip')
+                                                <div class="text-danger mt-3">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
                                     <div class="row mb-6">
                                         <label class="col-lg-4 col-form-label fw-bold fs-6 required">Trạng thái</label>
                                         <div class="col-lg-8 fv-row">

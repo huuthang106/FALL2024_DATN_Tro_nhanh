@@ -53,16 +53,21 @@ class CommentClientController extends Controller
     public function submitZone(RatingZoneRequest $request)
     {
         $validated = $request->validated();
-
-        // Kiểm tra xem room_slug có được truyền đúng không
+    
+        // Kiểm tra xem zone_slug có được truyền đúng không
         if (!$request->has('zone_slug')) {
             return response()->json(['success' => false, 'message' => 'Khu trọ không hợp lệ.'], 400);
         }
-
+    
         $validated['zone_slug'] = $request->input('zone_slug');
-
+    
         $review = $this->CommentClientService->submitZone($validated);
-
+    
+        // Kiểm tra kết quả trả về từ submitZone
+        if (is_array($review) && !$review['success']) {
+            return response()->json(['success' => false, 'message' => $review['message']], 403);
+        }
+    
         if ($review) {
             return response()->json(['success' => true, 'message' => 'Đánh giá của bạn đã được gửi thành công!']);
         } else {

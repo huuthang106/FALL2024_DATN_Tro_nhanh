@@ -714,39 +714,40 @@ class RoomClientServices
     public function getAllRoomAPI(int $perPage = 10, $type = null, $searchTerm = null, $province = null, $district = null, $village = null, $category = null, $features = null)
     {
         try {
-            $query = Room::join('users', 'rooms.user_id', '=', 'users.id')
-                ->where('rooms.status', self::status)
-                ->select('rooms.*')
-                ->orderByDesc('rooms.created_at');
-
+            $query = Zone::with('rooms') // Tải trước mối quan hệ rooms
+                ->join('users', 'zones.user_id', '=', 'users.id')
+                ->where('zones.status', self::status)
+                ->select('zones.*')
+                ->orderByDesc('zones.created_at');
+    
             if ($type) {
                 $query->whereHas('category', function ($q) use ($type) {
                     $q->where('name', $type);
                 });
             }
-
+    
             if ($searchTerm) {
                 $query->where(function ($q) use ($searchTerm) {
-                    $q->where('rooms.title', 'like', '%' . $searchTerm . '%')
-                        ->orWhere('rooms.description', 'like', '%' . $searchTerm . '%')
-                        ->orWhere('rooms.address', 'like', '%' . $searchTerm . '%');
+                    $q->where('zones.name', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('zones.description', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('zones.address', 'like', '%' . $searchTerm . '%');
                 });
             }
-
+    
             if ($province) {
-                $query->where('rooms.province', $province);
+                $query->where('zones.province', $province);
             }
             if ($district) {
-                $query->where('rooms.district', $district);
+                $query->where('zones.district', $district);
             }
             if ($village) {
-                $query->where('rooms.village', $village);
+                $query->where('zones.village', $village);
             }
             if ($category) {
                 Log::info('Applying category filter: ' . $category);
-                $query->where('rooms.category_id', $category);
+                $query->where('zones.category_id', $category);
             }
-
+    
             if (!empty($features)) {
                 $query->where(function ($q) use ($features) {
                     foreach ($features as $feature) {
@@ -754,7 +755,7 @@ class RoomClientServices
                     }
                 });
             }
-
+    
             $result = $query->get();
             Log::info('SQL Query: ' . $query->toSql());
             Log::info('SQL Bindings: ' . json_encode($query->getBindings()));
@@ -764,7 +765,6 @@ class RoomClientServices
             return null;
         }
     }
-
     public function getPopularRooms($limit = 3)
     {
         $currentDate = Carbon::now();

@@ -243,47 +243,33 @@ class UserClientController extends Controller
     }
     public function agentDetails($slug)
     {
-        // Get user details and ratings from the service
         $userDetails = $this->commentClientService->getUserDetailsWithRatings($slug);
         $user = User::where('slug', $slug)->first();
         $comments = $userDetails['comments'];
-
-        // Check if user exists in the returned array
+    
         if (!$userDetails['user']) {
             abort(404, 'Người dùng không tìm thấy');
         }
-
-        // Kiểm tra xem đã follow chưa 
-        $currentUserId = Auth::id(); // Lấy ID của người dùng hiện tại
+    
+        $currentUserId = Auth::id();
         $isFollowing = false;
         if ($currentUserId) {
             $isFollowing = $this->watchListOwner->checkFollowing($user->id, $currentUserId);
         }
-
-        // Lấy tất cả tin đăng phòng trọ của người dùng này
-        $rooms = $user->rooms(); // Số phòng hiển thị trên mỗi trang là 6
-        $zones = $user->zones();
-
-        // Đếm tổng số phòng và khu trọ của người dùng này
-        $totalRooms = $user->rooms()->count();
+    
+        $zones = $user->zones()->paginate(6);
         $totalZones = $user->zones()->count();
-
-        // Lấy tổng số phòng và số phòng tắm từ bảng utilities
-        foreach ($rooms as $room) {
-            $room->bathrooms = $room->utility ? $room->utility->bathrooms : 0;
-        }
-
-        // Tính tổng cả rooms và zones
-        $totalProperties = $totalRooms + $totalZones;
+        $totalProperties = $totalZones;
+        
 
         return response()->json([
             'user' => $userDetails['user'],
             'averageRating' => $userDetails['averageRating'],
             'ratingsDistribution' => $userDetails['ratingsDistribution'],
             'comments' => $comments,
-            'rooms' => $rooms,
+            
             'zones' => $zones,
-            'totalRooms' => $totalRooms,
+           
             'totalZones' => $totalZones,
             'totalProperties' => $totalProperties,
             'isFollowing' => $isFollowing,
