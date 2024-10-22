@@ -14,13 +14,19 @@ class RegistrationAdminService
 {
     public function getAll()
     {
-        $registrations = Registrationlist::orderByDesc('created_at')->where('status', 1)->paginate(10);
+        // Lấy danh sách các bản ghi với trạng thái 1 và phân trang
+        $registrations = Registrationlist::with('user') // Eager load user relationship
+            ->orderByDesc('created_at')
+            ->where('status', 1)
+            ->paginate(10);
+
         return $registrations;
     }
     public function getID($id)
     {
-        $user = Registrationlist::where('id', $id)->first();
-        return $user;
+        // Sử dụng eager loading để tải trước mối quan hệ identity và user
+        $registration = Registrationlist::with('identity.user')->where('id', $id)->first();
+        return $registration;
     }
     public function updateStatus($id, $status)
     {

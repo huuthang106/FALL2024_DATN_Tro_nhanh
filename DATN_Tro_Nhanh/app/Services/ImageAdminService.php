@@ -10,29 +10,26 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
+
+use App\Models\User;
 class ImageAdminService
 {
-  protected $client;
-  public function __construct()
-  {
-      $this->client = new Client([
-          'base_uri' => 'https://api.clarifai.com/v2/',
-          'headers' => [
-              'Authorization' => 'Key ' . env('CLARIFAI_API_KEY'),
-              'Content-Type' => 'application/json',
-          ]
-      ]);
-  }
-  public function getImageUserId($id)
-  {
-    if (auth::check()) {
-      $list_image = Image::where('identity_id', $id)->get();
-      return $list_image;
-    }
-    return null;
-  }
+ // Đảm bảo bạn đã import model User
+
+ public function getImageUserId($id)
+ {
+     // Kiểm tra xem người dùng có đăng nhập không
+     if (auth()->check()) {
+         // Tìm người dùng theo ID
+         $user = User::find($id);
+ 
+         // Trả về hình ảnh của người dùng nếu tồn tại
+         return $user ? $user->profile_image : null;
+     }
+ 
+     // Trả về null nếu người dùng chưa đăng nhập
+     return null;
+ }
 
   public function deleteImage($images): bool
   {

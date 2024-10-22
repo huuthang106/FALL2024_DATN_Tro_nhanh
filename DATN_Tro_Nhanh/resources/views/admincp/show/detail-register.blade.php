@@ -19,7 +19,8 @@
                             <!--begin: Pic-->
                             <div class="me-7 mb-4">
                                 <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                                    <img src="{{ $single_detail->user->image ? asset('assets/images/' . $single_detail->user->image) : asset('assets/images/agent-25.jpg') }}" alt="image" />
+                                    <img src="{{ $single_detail->identity && $single_detail->identity->user && $single_detail->identity->user->image ? asset('assets/images/' . $single_detail->identity->user->image) : asset('assets/images/agent-25.jpg') }}"
+                                        alt="image" />
                                     <div
                                         class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px">
                                     </div>
@@ -34,8 +35,10 @@
                                     <div class="d-flex flex-column">
                                         <!--begin::Name-->
                                         <div class="d-flex align-items-center mb-2">
-                                            <a href="{{ route('client.client-agent-detail', $single_detail->user->slug) }}"
-                                                class="text-gray-900 text-hover-primary fs-2 fw-bolder me-1">{{ $single_detail->name }}</a>
+                                            <a href="{{ $single_detail->identity && $single_detail->identity->user ? route('client.client-agent-detail', $single_detail->identity->user->slug) : '#' }}"
+                                                class="text-gray-900 text-hover-primary fs-2 fw-bolder me-1">
+                                                {{ $single_detail->name }}
+                                            </a>
                                             <a href="#">
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen026.svg-->
                                                 <span class="svg-icon svg-icon-1 svg-icon-primary">
@@ -70,7 +73,7 @@
                                                             fill="black" />
                                                     </svg>
                                                 </span>
-                                                {{ $single_detail->user->phone }}</a>
+                                                {{ $single_detail->identity && $single_detail->identity->user ? $single_detail->identity->user->phone : 'Số điện thoại không tồn tại' }}</a>
                                             <span
                                                 class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen018.svg-->
@@ -85,8 +88,9 @@
                                                             fill="black" />
                                                     </svg>
                                                 </span>
-                                                {{ $single_detail->user->address }} </span>
-                                            <a href="mailto:{{ $single_detail->user->email }}"
+                                                {{ $single_detail->identity && $single_detail->identity->user ? $single_detail->identity->user->address : 'Địa chỉ không tồn tại' }}
+                                            </span>
+                                            <a href="mailto:{{ $single_detail->identity && $single_detail->identity->user ? $single_detail->identity->user->email : 'Email không tồn tại' }}"
                                                 class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
                                                 <!--begin::Svg Icon | path: icons/duotune/communication/com011.svg-->
                                                 <span class="svg-icon svg-icon-4 me-1">
@@ -100,7 +104,7 @@
                                                             fill="black" />
                                                     </svg>
                                                 </span>
-                                                {{ $single_detail->user->email }}</a>
+                                                {{ $single_detail->identity && $single_detail->identity->user ? $single_detail->identity->user->email : 'Email không tồn tại' }}</a>
                                         </div>
                                         <!--end::Info-->
                                     </div>
@@ -197,7 +201,8 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8">
-                                    <span class="fw-bolder fs-6 text-gray-800">{{ $single_detail->name }}</span>
+                                    <span class="fw-bolder fs-6 text-gray-800">
+                                        {{ $single_detail->identity && $single_detail->identity->user && $single_detail->identity->user->name ? $single_detail->identity->user->name : 'Chưa bổ sung' }}</span>
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -215,9 +220,9 @@
                                 <!--begin::Col-->
                                 <div class="col-lg-8 d-flex align-items-center">
 
-                                    @if ($single_detail->user->phone)
+                                    @if ($single_detail->identity && $single_detail->identity->user && $single_detail->identity->user->phone)
                                         <span
-                                            class="fw-bolder fs-6 text-gray-800 me-2">{{ $single_detail->user->phone }}</span>
+                                            class="fw-bolder fs-6 text-gray-800 me-2">{{ $single_detail->identity->user->phone }}</span>
                                         <span class="badge badge-success">Đã xác minh</span>
                                     @else
                                         <span class="badge badge-danger">Chưa xác minh</span>
@@ -240,7 +245,7 @@
                                 <div class="col-lg-8">
 
                                     <span class="fw-bolder fs-6 text-gray-800"><small>
-                                            {{ $single_detail->user->address ? $single_detail->user->address : 'Chưa bổ sung' }}
+                                            {{ $single_detail->identity && $single_detail->identity->user && $single_detail->identity->user->address ? $single_detail->identity->user->address : 'Chưa bổ sung' }}
                                     </span></small></span>
                                 </div>
                                 <!--end::Col-->
@@ -253,8 +258,9 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8">
-                                    <span
-                                        class="fw-bolder fs-6 text-gray-800">{{ $single_detail->user->email ? $single_detail->user->email : 'Chưa bổ sung' }}</span>
+                                    <span class="fw-bolder fs-6 text-gray-800">
+                                        {{ $single_detail->identity && $single_detail->identity->user && $single_detail->identity->user->email ? $single_detail->identity->user->email : 'Chưa bổ sung' }}
+                                    </span>
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -265,36 +271,60 @@
                         <!--begin::Notice-->
                         <div class="col-lg-6">
                             <div class="row mb-7">
+
                                 <!--begin::Label-->
                                 <div class="col-lg-12 fw-bold text-muted">
-                                    @foreach ($list_image as $image)
-                                        <div
-                                            class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative hover-overlay">
-                                            <img src="{{ asset('assets/images/register_owner/' . $image->filename) }}"
-                                                alt="{{ $image->filename }}" class="img-fluid" />
+                                    @if ($profile_image || $front_id_card_image || $back_id_card_image)
+                                        <div class="symbol symbol-100px symbol-lg-200px symbol-fixed position-relative hover-overlay">
+                                            <img src="{{ asset('assets/images/register_owner/' . ($profile_image ?? $front_id_card_image ?? $back_id_card_image)) }}"
+                                                 alt="User Image" class="img-fluid" />
                                             <div class="overlay">
-                                                <button type="button" class="btn-transparent" data-bs-toggle="modal"
-                                                    data-bs-target="#imageModal-{{ $image->id }}">
+                                                <button type="button" class="btn-transparent" data-bs-toggle="modal" data-bs-target="#imageModal">
                                                     Xem chi tiết
                                                 </button>
                                             </div>
                                         </div>
-
+                                
                                         <!-- Modal -->
-                                        <div class="modal fade" id="imageModal-{{ $image->id }}" tabindex="-1"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered modal-fullscreen">
                                                 <div class="modal-content transparent-modal-content">
-                                                    <button type="button" class="btn-close btn-close-white"
-                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     <div class="modal-body p-0 text-center">
-                                                        <img src="{{ asset('assets/images/register_owner/' . $image->filename) }}"
-                                                            alt="image" class="img-fluid" />
+                                                        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                                                            <div class="carousel-inner">
+                                                                @if ($profile_image)
+                                                                    <div class="carousel-item active">
+                                                                        <img src="{{ asset('assets/images/register_owner/' . $profile_image) }}" alt="User Profile Image" class="d-block w-100 img-fluid" />
+                                                                    </div>
+                                                                @endif
+                                                                @if ($front_id_card_image)
+                                                                    <div class="carousel-item {{ !$profile_image ? 'active' : '' }}">
+                                                                        <img src="{{ asset('assets/images/register_owner/' . $front_id_card_image) }}" alt="Căn cước công dân mặt trước" class="d-block w-100 img-fluid" />
+                                                                    </div>
+                                                                @endif
+                                                                @if ($back_id_card_image)
+                                                                    <div class="carousel-item {{ !$profile_image && !$front_id_card_image ? 'active' : '' }}">
+                                                                        <img src="{{ asset('assets/images/register_owner/' . $back_id_card_image) }}" alt="Căn cước công dân mặt sau" class="d-block w-100 img-fluid" />
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                <span class="visually-hidden">Previous</span>
+                                                            </button>
+                                                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                <span class="visually-hidden">Next</span>
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    @endforeach
+                                    @else
+                                        <p>Không có ảnh nào được tìm thấy cho người dùng này.</p>
+                                    @endif
                                 </div>
                                 <!--end::Label-->
                                 <!--begin::Col-->
