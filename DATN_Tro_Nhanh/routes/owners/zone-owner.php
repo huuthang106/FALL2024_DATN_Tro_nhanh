@@ -21,7 +21,7 @@ Route::group(['prefix' => ''], function () {
         Route::post('them-khu-tro', [ZoneOwnersController::class, 'store'])->name('store-zone');
         Route::post('/thanh-toan-goi', [ZoneOwnersController::class, 'processPayment'])->name('zone-vip');
         Route::group(['prefix' => 'chi-tiet-khu-tro'], function () {
-            Route::get('xem-chi-tiet-phong/{slug}', [ZoneOwnersController::class, 'showDetailRoom'])->name('detail-room');
+        Route::get('xem-chi-tiet-phong/{slug}', [ZoneOwnersController::class, 'showDetailRoom'])->name('detail-room');
         });
 
 

@@ -16,8 +16,16 @@ Route::group(['prefix' => ''], function () {
     // thai toan 
     Route::get('/them-tro/{slug}', [RoomOwnersController::class, 'page_add_rooms'])->name('add-room');
     // huu thang update laij hamf theem 
-    Route::post('/them-tro/{id}', [RoomOwnersController::class, 'store'])->name('add-room-for-zone');
+// routes/web.php
 
+// DATN_Tro_Nhanh/routes/owners/room-owner.php
+
+// DATN_Tro_Nhanh/routes/owners/room-owner.php
+
+// DATN_Tro_Nhanh/routes/owners/room-owner.php
+
+    Route::put('/sua-phong-tro/{id}', [RoomOwnersController::class, 'editRoom'])->name('edit-room');
+    Route::put('/cap-nhat-phong/{id}', [RoomOwnersController::class, 'updateRoom'])->name('update-room');
     // nhan
     Route::group(['prefix' => 'phong-tro'], function () {
         Route::get('/', [RoomOwnersController::class, 'index'])->name('properties');

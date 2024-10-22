@@ -236,17 +236,37 @@ class RoomOwnersController extends Controller
     public function store(RoomOwnersRequest $request, $id)
     {
         // dd($request->all(), $id);
-        $zone_slug =  $this->zoneServices->getSlug($id);
-        $result = $this->roomOwnersService->create($request->all(), $id);
-
+        $zone_slug = $this->zoneServices->getSlug($id);
+        $result = $this->roomOwnersService->create($request, $id); // Truyền đối tượng $request
+ 
         if ($result) {
             return response()->json([
                 'status' => 'success',
                 'message' => 'Phòng trọ đã được tạo thành công.',
                 'slug' => $zone_slug // Trả về slug của zone
             ], 201);  // Mã trạng thái 201 cho Created
-    } else {
-        throw new \Exception('Không thể tạo phòng');
+        } else {
+            throw new \Exception('Không thể tạo phòng');
+        }
     }
+    public function editRoom($id)
+{
+    // Tìm phòng theo ID
+    $room = $this->roomOwnersService->findRoomById($id);
+
+    // Trả về view chỉnh sửa với thông tin phòng
+    return view('owners.edit.edit-property', compact('room'));
+}
+    // RoomController.php
+    public function updateRoom(Request $request, $id)
+    {
+        // Gọi service để cập nhật phòng
+        $room = $this->roomOwnersService->updateRoomInZone($request, $id);
+
+        // Chuyển hướng đến route 'zone-list' với thông báo thành công
+        return redirect()->route('owners.show-blog')->with('success', 'Cập nhật phòng thành công!');
     }
+    // RoomOwnersController.php
+
+  
 }

@@ -124,14 +124,15 @@
                                                     $tenant = $resident->tenant;
                                                 @endphp
                                                 @if ($resident->status == $user_is_in)
-                                                    <a href="{{ route('owners.detail-room', $room->slug) }}" type="button" class="btn btn-primary btn-sm">
+                                                    <a href="{{ route('owners.detail-room', $room->slug) }}"
+                                                        type="button" class="btn btn-primary btn-sm">
                                                         <i class="fal fa-eye"></i>
                                                     </a>
-                                                    {{-- <button type="button" class="btn btn-primary btn-sm"
+                                                    <button type="button" class="btn btn-primary btn-sm"
                                                         data-toggle="modal"
                                                         data-target="#invoiceModal{{ $resident->id }}">
                                                         <i class="fal fa-pencil-alt"></i>
-                                                    </button> --}}
+                                                    </button>
                                                     <form action="{{ route('owners.erase-tenant', $resident->id) }}"
                                                         method="POST" style="display:inline;">
                                                         @csrf
@@ -148,6 +149,15 @@
                                                     <button type="submit" class="btn btn-danger btn-sm"><i
                                                             class="fal fa-trash-alt"></i></button>
                                                 </form>
+                                                <form action="{{ route('owners.edit-room', $room->id) }}"
+                                                    method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <button type="submit" class="btn btn-primary btn-sm"><i
+                                                            class="fal fa-pen-alt"></i></button>
+                                                </form>
+                                                
+                                                
                                             @endif
                                         </td>
                                     </tr>

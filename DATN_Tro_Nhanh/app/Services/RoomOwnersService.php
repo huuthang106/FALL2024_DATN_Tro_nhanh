@@ -4,13 +4,13 @@ namespace App\Services;
 
 use App\Models\Room;
 use Exception;
-
-
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Category;
 use App\Models\Price;
 use App\Models\Location;
 use App\Models\Zone;
-
+use Illuminate\Http\Request;
 use App\Models\Resident;
 use App\Models\Utility;
 use Cocur\Slugify\Slugify;
@@ -30,6 +30,7 @@ use Clarifai\Api\UserAppIDSet;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ImageAdminService;
+
 
 class RoomOwnersService
 {
@@ -111,17 +112,21 @@ class RoomOwnersService
     {
         // Tạo một phòng mới
         if (auth()->check()) {
-
-            $imagePath = $this->imageAdminService->saveImage($request);
-
-
+            $title = $request->input('title');
+            $imagePath = $this->imageAdminService->saveImages($request, $title, $id);
+ 
+            // Tạo slug từ tiêu đề
+            $slugify = new \Cocur\Slugify\Slugify();
+            $slug = $slugify->slugify($title) . '-' . $id;
+ 
             $room = Room::create([
-                'title' => $request['title'],
-                'description' => $request['description'],
-                'quantity' => $request['quantity'],
-                'price' => $request['price'],
-                'image' => $imagePath,
+                'title' => $title,
+                'description' => $request->input('description'),
+                'quantity' => $request->input('quantity'),
+                'price' => $request->input('price'),
+                'image' => $imagePath, // Lưu đường dẫn ảnh vào cột 'image'
                 'zone_id' => $id, // Nếu bạn có zone_id
+                'slug' => $slug, // Lưu slug vào cột 'slug'
             ]);
             return true;
         } else {
@@ -507,5 +512,48 @@ class RoomOwnersService
         $room->save(); // Lưu thay đổi vào cơ sở dữ liệu
 
         return $room; // Trả về phòng đã được cập nhật
+    } 
+    public function findRoomById($id)
+    {
+        return Room::findOrFail($id);
+    }
+
+    public function updateRoomInZone(Request $request, $id)
+    {
+        // Tìm phòng theo ID
+        $room = Room::findOrFail($id);
+
+        // Cập nhật thông tin phòng
+        $room->title = $request->input('title');
+        $room->description = $request->input('description');
+        $room->price = $request->input('price');
+        $room->quantity = $request->input('quantity');
+        // $room->phone = $request->input('phone');
+
+        // Tạo slug từ title và id
+        $title = $room->title ?? 'default-title';
+        $slug = Str::slug($title); // Chuyển title thành slug không dấu, cách nhau bằng dấu '-'
+        $room->slug = $slug . '-' . $id;
+
+        // Xử lý hình ảnh nếu có
+        if ($request->hasFile('image')) {
+            // Xóa ảnh cũ nếu có
+            if ($room->image) {
+                Storage::disk('public')->delete($room->image);
+            }
+
+            // Tạo tên file mới với slug và id
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $filename = $slug . '-' . $id . '.' . $extension; // Sử dụng slug để tạo tên file
+
+            // Lưu ảnh mới trực tiếp vào thư mục public
+            $imagePath = $request->file('image')->storeAs('', $filename, 'public');
+            $room->image = $imagePath;
+        }
+
+        // Lưu thay đổi
+        $room->save();
+
+        return true;
     }
 }

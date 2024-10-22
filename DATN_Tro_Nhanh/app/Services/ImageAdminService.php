@@ -52,4 +52,20 @@ class ImageAdminService
       // Lưu tên file mới vào cơ sở dữ liệu
     } // Trả về true nếu tất cả các file đã được xóa thành công, ngược lại false
   }
+  public function saveImages($request, $title, $id)
+  {
+      if ($request->hasFile('image')) {
+          $data = $request->file('image'); // Lấy file từ request
+          $slugify = new \Cocur\Slugify\Slugify();
+          $slug = $slugify->slugify($title) . '-' . $id; // Tạo slug từ title và id
+          $extension = $data->getClientOriginalExtension(); // Lấy phần mở rộng của file
+          $newFileName = $slug . '.' . $extension; // Tạo tên file mới
+          $path = 'assets/images';
+
+          // Di chuyển ảnh vào thư mục đích
+          $data->move(public_path($path), $newFileName); // Lưu hình ảnh vào thư mục 'public/assets/images'
+          return $newFileName;
+      }
+      return null; // Trả về null nếu không có ảnh
+  }
 }
