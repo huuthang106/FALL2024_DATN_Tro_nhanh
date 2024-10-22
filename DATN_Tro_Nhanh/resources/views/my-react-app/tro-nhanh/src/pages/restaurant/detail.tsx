@@ -11,7 +11,7 @@ import { currentRestaurantTabState } from "../../state";
 import React from "react";
 import { useRestaurant } from "../../hooks";
 import { categories_State, keywordState, selectedCategoryState } from "../../state";
-const apiEndpoint ='https://e127-125-235-236-24.ngrok-free.app';
+const apiEndpoint ='https://25d5-125-235-236-24.ngrok-free.app';
 
 function RestaurantDetail() {
   const restaurant = useRestaurant();
@@ -78,7 +78,7 @@ function RestaurantDetail() {
             p={4}
             style={{ marginTop: -60 }}
           >
-            <Text className="font-bold" style={{ color: '#333333' }}>{restaurant.name}</Text>
+            <Text className="font-bold" style={{ color: '#757575 ' }}>{restaurant.name}</Text>
             
             <Box flex justifyContent="center" mt={0} py={3}>
               
@@ -87,7 +87,7 @@ function RestaurantDetail() {
              
                
               
-                <span className="text-primary font-semibold" style={{ color: '#00bcd4' }}>
+                <span className="text-primary font-semibold" style={{ color: '#333333  ' }}>
                 {formatPriceRange(restaurant.rooms)}
                 </span>
               

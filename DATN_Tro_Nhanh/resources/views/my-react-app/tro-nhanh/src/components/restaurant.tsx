@@ -6,7 +6,7 @@ import { Restaurant } from "../models";
 import Distance from "./distance";
 import DistrictName from "./district-name";
 import '../css/style.css';
-const apiEndpoint = 'https://e127-125-235-236-24.ngrok-free.app';
+const apiEndpoint = 'https://25d5-125-235-236-24.ngrok-free.app';
 
 const { Title } = Text;
 
@@ -84,7 +84,7 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
             </span>
           </Button> */}
 
-          <span className="text-black-500 mx-2" style={{ color: '#00bcd4' }}>
+          <span className="text-black-500 mx-2 font-semibold" style={{ color: '#333333' }}>
             {formatPriceRange(restaurant.rooms)}
           </span>
           <div className="ml-auto">
@@ -124,7 +124,7 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
           <Title size="small" className="title-list" style={{ color: '#333333 ' }}>{restaurant.name}</Title>
           {after}
           <Box className="flex justify-between items-center">
-            <span className="text-black-500 font-semibold  price-list" style={{ fontSize: '1.0rem', color: '#00bcd4' }}>
+            <span className="text-black-500 font-semibold  price-list" style={{ fontSize: '1.0rem', color: '#333333' }}>
               {formatPriceRange(restaurant.rooms)}
             </span>
             <div className="ml-auto">

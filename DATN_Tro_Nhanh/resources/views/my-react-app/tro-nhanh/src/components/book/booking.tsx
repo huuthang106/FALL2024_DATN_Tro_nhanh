@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { Box, Text, Icon } from "zmp-ui";
 import '../../css/style.css';
 const { Title } = Text;
-const apiEndpoint = 'https://e127-125-235-236-24.ngrok-free.app';
+const apiEndpoint = 'https://25d5-125-235-236-24.ngrok-free.app';
 
 interface BookingProps {
   booking: {
@@ -58,7 +58,7 @@ const BookingItem: FunctionComponent<BookingProps> = React.memo(({ booking, onCl
           />
         </div>
         <Box className={`min-w-0 ml-1 flex-1 ${isFeatured ? "text-center" : ""}`}>
-          <Title size="small" className="font-semibold" style={{ color: '#FF4081' }}>{booking.name}</Title>
+          <Title size="small" className="font-semibold" style={{ color: '#333333' }}>{booking.name}</Title>
           <br />
           <Text size="small" style={{ color: '#616161' }}>
             Số điện thoại: {booking.phone ? booking.phone : "chưa cập nhật"}

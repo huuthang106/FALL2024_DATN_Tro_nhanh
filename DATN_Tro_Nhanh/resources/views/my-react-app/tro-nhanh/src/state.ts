@@ -14,11 +14,12 @@ import { calcCrowFliesDistance } from "./utils/location";
 //   fail: (error) => {
 //     // xử lý khi gọi api thất bại
 //     console.log(error);
+
 //   }
 // });
 
 
-const apiEndpoint ='https://e127-125-235-236-24.ngrok-free.app';
+const apiEndpoint ='https://25d5-125-235-236-24.ngrok-free.app';
 export const restaurantsDataState = atom<Restaurant[]>({
   key: "restaurantsData",
   default: [],

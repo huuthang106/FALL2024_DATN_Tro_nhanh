@@ -37,7 +37,7 @@ const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${lati
   return (
     <Box mx={2}>
       <Box mx={2} mt={5}>
-        <Title className="font-semibold mb-2" size="small" style={{ color: '#2196F3' }}>
+        <Title className="font-semibold mb-2" size="small" style={{ color: '#333333 ' }}>
           Thông tin
         </Title>
         <Text>
@@ -50,7 +50,7 @@ const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${lati
         </Text>
       </Box>
       <Box mx={2} mt={6}>
-        <Title className="font-semibold mb-2" size="small" style={{ color: '#2196F3' }}>
+        <Title className="font-semibold mb-2" size="small" style={{ color: '#333333 ' }}>
          Ngày đăng 
         </Title>
         <Box flex mx={0} alignItems="center" justifyContent="space-between">
@@ -67,7 +67,7 @@ const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${lati
         </Box>
       </Box>
       <Box mx={2} mt={6}>
-        <Title className="font-semibold mb-2" size="small" style={{ color: '#2196F3' }}>
+        <Title className="font-semibold mb-2" size="small" style={{ color: '#333333 ' }}>
           Hotline liên hệ
         </Title>
         <Box flex mx={0} alignItems="center" justifyContent="space-between">
@@ -78,7 +78,7 @@ const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${lati
         </Box>
       </Box>
       <Box mx={2} mt={6}>
-        <Title className="font-semibold mb-2" size="small" style={{ color: '#2196F3' }}>
+        <Title className="font-semibold mb-2" size="small" style={{ color: '#333333 ' }}>
           Địa chỉ
         </Title>
         <Box
