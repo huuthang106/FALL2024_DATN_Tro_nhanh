@@ -596,60 +596,7 @@
                                                         <h3 class="card-title mb-0 text-heading fs-22 lh-15">Danh sách tiện
                                                             ích
                                                         </h3>
-                                                        {{-- <div class="row">
-                                                        <div class="col-sm-6 col-lg-3">
-                                                            <ul class="list-group list-group-no-border">
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="attic">
-                                                                        <label class="custom-control-label"
-                                                                            for="attic">Wifi</label>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="col-sm-6 col-lg-3">
-                                                            <ul class="list-group list-group-no-border">
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="attic-01">
-                                                                        <label class="custom-control-label"
-                                                                            for="attic-01">Phòng tắm</label>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="col-sm-6 col-lg-3">
-                                                            <ul class="list-group list-group-no-border">
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="attic-02">
-                                                                        <label class="custom-control-label"
-                                                                            for="attic-02">Máy điều hòa</label>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="col-sm-6 col-lg-3">
-                                                            <ul class="list-group list-group-no-border">
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox"
-                                                                            class="custom-control-input" name="features[]"
-                                                                            id="attic-03">
-                                                                        <label class="custom-control-label"
-                                                                            for="attic-03">Ga-ra</label>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div> --}}
+                                                 
                                                         <div class="row">
                                                             <div class="col-sm-6 col-lg-3">
                                                                 <ul class="list-group list-group-no-border">
@@ -665,23 +612,7 @@
                                                                     </li>
                                                                 </ul>
                                                             </div>
-                                                            {{-- <div class="col-sm-6 col-lg-3">
-                                                            <ul class="list-group list-group-no-border">
-                                                                <li class="list-group-item px-0 pt-0 pb-2">
-                                                                    <div class="custom-control custom-checkbox">
-                                                                        <input type="checkbox" class="form-control-input"
-                                                                            name="bathrooms" id="bathrooms"
-                                                                            value="attic-01">
-                                                                        <label class="custom-control-label"
-                                                                            for="attic-01">Phòng tắm</label>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                            @error('bathrooms')
-                                                                <div class="text-danger">{{ $message }}
-                                                                </div>
-                                                            @enderror
-                                                        </div> --}}
+                                                          
                                                             <div class="col-sm-6 col-lg-3">
                                                                 <ul class="list-group list-group-no-border">
                                                                     <li class="list-group-item px-0 pt-0 pb-2">

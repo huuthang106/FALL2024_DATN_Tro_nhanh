@@ -60,7 +60,7 @@ class ZoneOwnersController extends Controller
             // 'rooms' => $data['rooms'],
             // 'residents' => $data['residents'],
             // 'user_is_in' => self::user_is_in,
-            'slug'=>$slug
+            'slug' => $slug
         ]);
     }
     // Xóa mềm Residents
@@ -132,35 +132,35 @@ class ZoneOwnersController extends Controller
         }
     }
     public function update(ZoneRequest $request, $id)
-{
-    if ($request->isMethod('PUT')) {
-        try {
-            $result = $this->zoneServices->update($request, $id);
+    {
+        if ($request->isMethod('PUT')) {
+            try {
+                $result = $this->zoneServices->update($request, $id);
 
-            if ($result['success']) {
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Khu trọ đã được cập nhật thành công.',
-                    'redirect' => route('owners.zone-list')
-                ]);
-            } else {
-                Log::error('Lỗi khi cập nhật khu trọ: ' . ($result['message'] ?? 'Không có thông báo lỗi'));
+                if ($result['success']) {
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Khu trọ đã được cập nhật thành công.',
+                        'redirect' => route('owners.zone-list')
+                    ]);
+                } else {
+                    Log::error('Lỗi khi cập nhật khu trọ: ' . ($result['message'] ?? 'Không có thông báo lỗi'));
+                    return response()->json([
+                        'success' => false,
+                        'message' => $result['message'] ?? 'Đã xảy ra lỗi khi cập nhật khu trọ.'
+                    ], 400);
+                }
+            } catch (\Exception $e) {
+                Log::error('Exception khi cập nhật khu trọ: ' . $e->getMessage());
                 return response()->json([
                     'success' => false,
-                    'message' => $result['message'] ?? 'Đã xảy ra lỗi khi cập nhật khu trọ.'
-                ], 400);
+                    'message' => 'Đã xảy ra lỗi không mong muốn khi cập nhật khu trọ.'
+                ], 500);
             }
-        } catch (\Exception $e) {
-            Log::error('Exception khi cập nhật khu trọ: ' . $e->getMessage());
-            return response()->json([
-                'success' => false,
-                'message' => 'Đã xảy ra lỗi không mong muốn khi cập nhật khu trọ.'
-            ], 500);
         }
-    }
 
-    return view('owners.zone-post');
-}
+        return view('owners.zone-post');
+    }
 
     public function destroy($id)
     {
@@ -224,7 +224,7 @@ class ZoneOwnersController extends Controller
 
         return response()->json(['success' => true]);
     }
-    
+
     public function deleteRoomInZone($id)
     {
         $this->roomOwnersService->clearZoneId($id);
@@ -241,7 +241,7 @@ class ZoneOwnersController extends Controller
             // 'residents' => $data['residents'],
             // 'user_is_in' => self::user_is_in,
         ]);
-    }   
+    }
 
     // Hàm xử lí mua gói vip khu trọ 
     public function processPayment(Request $request)
@@ -249,7 +249,7 @@ class ZoneOwnersController extends Controller
         // Lấy các giá trị từ request
         $accommodationId = $request->input('zone_id');
         $vipPackageId = $request->input('vipPackage');
-       
+
 
         // Lấy thông tin phòng và người dùng hiện tại
         $accommodation = Zone::findOrFail($accommodationId);

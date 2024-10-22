@@ -20,14 +20,10 @@
                     <li class="nav-item col">
                         <a class="nav-link bg-transparent shadow-none py-2 font-weight-500 text-center lh-214 d-block"
                             id="media-tab" data-toggle="pill" data-number="2. " href="#media" role="tab"
-                            aria-controls="media" aria-selected="false"><span class="number">2.</span> Hình ảnh</a>
+                            aria-controls="media" aria-selected="false"><span class="number">2.</span> Tiện ích</a>
                     </li>
 
-                    <li class="nav-item col">
-                        <a class="nav-link bg-transparent shadow-none py-2 font-weight-500 text-center lh-214 d-block"
-                            id="location-tab" data-toggle="pill" data-number="3." href="#location" role="tab"
-                            aria-controls="location" aria-selected="false"><span class="number">3.</span>Vị trí</a>
-                    </li>
+                  
                 </ul>
                 <div class="tab-content shadow-none p-0">
                     <form action="{{ route('owners.zone-start-update', $zone->id) }}" method="post"
@@ -35,95 +31,127 @@
                         @csrf
                         @method('Put')
                         <div id="collapse-tabs-accordion">
-                            <!-- Tab 1: Mô tả -->
                             <div class="tab-pane tab-pane-parent fade show active px-0" id="description" role="tabpanel"
                                 aria-labelledby="description-tab">
                                 <div class="card bg-transparent border-0">
+                                    <div class="card-header d-block d-md-none bg-transparent px-0 py-1 border-bottom-0"
+                                        id="heading-description">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-lg collapse-parent btn-block border shadow-none"
+                                                data-toggle="collapse" data-number="1." data-target="#description-collapse"
+                                                aria-expanded="true" aria-controls="description-collapse">
+                                                <span class="number">1.</span> Mô tả
+                                            </button>
+                                        </h5>
+                                    </div>
                                     <div id="description-collapse" class="collapse show collapsible"
                                         aria-labelledby="heading-description" data-parent="#collapse-tabs-accordion">
                                         <div class="card-body py-4 py-md-0 px-0">
-                                            <div class="row d-flex justify-content-center">
-                                                <div class="col-lg-10">
+                                            <div class="row">
+                                                <!-- Cột bên trái -->
+                                                <div class="col-lg-6">
                                                     <div class="card mb-6">
                                                         <div class="card-body p-6">
-                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Mô tả tài
-                                                                sản</h3>
-                                                            <p class="card-text mb-5">Lorem ipsum dolor sit amet,
-                                                                consectetur adipiscing elit</p>
-
-                                                            <!-- Tiêu đề -->
+                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Thông
+                                                                tin
+                                                                trọ</h3>
+                                                            <hr>
                                                             <div class="form-group">
-                                                                <label for="name" class="text-heading">Tiêu đề<span
-                                                                        class="text-muted">(bắt buộc)</span></label>
+                                                                <label for="title" class="text-heading">Tiêu đề <span
+                                                                        class="text-muted">(Bắt buộc)</span></label>
                                                                 <input type="text"
                                                                     class="form-control form-control-lg border-0"
-                                                                    id="name" name="name"
-                                                                    value="{{ old('name', isset($zone) ? $zone->name : '') }}">
-                                                                @error('name')
+                                                                    id="title" name="title"
+                                                                    value="{{ old('title', $zone->name) }}">
+                                                                @error('title')
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
-
-                                                            <!-- Mô tả -->
                                                             <div class="form-group mb-0">
-                                                                <label for="description-01" class="text-heading">Mô
-                                                                    tả</label>
-                                                                <textarea class="form-control border-0" rows="5" name="description" id="description-01">{{ old('description', isset($zone) ? $zone->description : '') }}</textarea>
+                                                                <label for="description" class="text-heading">Mô
+                                                                    tả <span class="text-muted">(Bắt
+                                                                        buộc)</span></label>
+                                                                <textarea class="form-control border-0" rows="5" name="description" id="description"> {{ old('description', $zone->description) }}</textarea>
                                                                 @error('description')
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
+                                                            {{-- <div class="form-group mt-1">
+                                                                    <label for="acreages" class="text-heading">Diện tích
+                                                                        m² <span class="text-muted">(Bắt
+                                                                            buộc)</span></label>
+                                                                    <input type="text"
+                                                                        class="form-control form-control-lg border-0"
+                                                                        id="acreage" name="acreage"
+                                                                        value="{{ old('acreage') }}">
+                                                                    @error('acreage')
+                                                                        <div class="text-danger">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div> --}}
+                                                           
+                                                        </div>
+                                                    </div>
+                                                </div>
 
+                                                <!-- Cột bên phải -->
+                                                <div class="col-lg-6">
+                                                    <div class="card mb-6">
+                                                        <div class="card-body p-6">
+                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Giá và
+                                                                Thông tin liên hệ</h3>
+                                                            <hr>
+                                                            <div class="form-row mx-n2">
 
-                                                            <!-- Số phòng -->
-                                                            <div class="form-group">
-                                                                <label for="total_rooms" class="text-heading">Số phòng<span
-                                                                        class="text-muted">(bắt buộc)</span></label>
-                                                                <input type="number"
-                                                                    class="form-control form-control-lg border-0"
-                                                                    id="total_rooms" name="total_rooms"
-                                                                    value="{{ old('total_rooms', isset($zone) ? $zone->total_rooms : '') }}">
-                                                                @error('total_rooms')
-                                                                    <div class="text-danger">{{ $message }}</div>
-                                                                @enderror
+                                                                <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
+                                                                    <div class="form-group">
+                                                                        <label for="phone" class="text-heading">Số
+                                                                            điện
+                                                                            thoại <span class="text-muted">(Bắt
+                                                                                buộc)</span></label>
+                                                                        <input type="text" name="phone"
+                                                                            class="form-control form-control-lg border-0"
+                                                                            id="phone" value="{{ old('phone', $zone->phone) }}">
+                                                                        @error('phone')
+                                                                            <div class="text-danger">{{ $message }}
+                                                                            </div>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+
                                                             </div>
-                                                            <div class="form-group">
-                                                                <label for="status" class="text-heading">Trạng
-                                                                    thái</label>
-                                                                <select
-                                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                                    title="Lựa chọn" data-style="btn-lg py-2 h-52"
-                                                                    id="status" name="status">
-                                                                    <option value='1'
-                                                                        {{ $zone->status == '1' ? 'selected' : '' }}>
-                                                                        &nbsp;Hoạt động
-                                                                    </option>
-                                                                    <option
-                                                                        value='2'{{ $zone->status == '2' ? 'selected' : '' }}>
-                                                                        &nbsp;Chưa hoạt động
-                                                                    </option>
-                                                                </select>
-                                                                @error('status')
-                                                                    <div class="text-danger">{{ $message }}</div>
-                                                                @enderror
-                                                            </div>
 
+                                                            <!-- Trường ẩn để lưu ID người dùng -->
+                                                            <input type="hidden" id="user_id" name="user_id"
+                                                                value="{{ Auth::check() ? Auth::user()->id : '' }}">
+                                                            <input type="hidden"
+                                                                class="form-control form-control-lg border-0"
+                                                                id="name" name="name"
+                                                                value="{{ Auth::check() ? Auth::user()->name : 'Chưa có' }}"
+                                                                readonly>
+                                                            @error('name')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
+                                                            <input type="hidden"
+                                                                class="form-control form-control-lg border-0"
+                                                                id="email" name="email"
+                                                                value="{{ Auth::check() ? Auth::user()->email : 'Chưa có' }}">
+                                                            @error('email')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="text-right">
-                                                <button class="btn btn-lg btn-primary next-button">Tiếp theo
-                                                    <span class="d-inline-block ml-2 fs-16"><i
-                                                            class="fal fa-long-arrow-right"></i></span>
+                                                <button class="btn btn-lg btn-primary next-button">Tiếp theo <span
+                                                        class="d-inline-block ml-2 fs-16">
+                                                        <i class="fal fa-long-arrow-right"></i></span>
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Tab 2: Hình ảnh -->
                             <div class="tab-pane tab-pane-parent fade px-0" id="media" role="tabpanel"
                                 aria-labelledby="media-tab">
                                 <div class="card bg-transparent border-0">
@@ -140,77 +168,76 @@
                                     <div id="media-collapse" class="collapse collapsible" aria-labelledby="heading-media"
                                         data-parent="#collapse-tabs-accordion">
                                         <div class="card-body py-4 py-md-0 px-0">
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <div class="card mb-6">
-                                                        <div class="card-body p-6">
-                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">
-                                                                Tải lên hình ảnh bất động sản của bạn
-                                                            </h3>
-                                                            <hr>
-                                                            <div class="dropzone upload-file text-center py-5"
-                                                                id="myDropzone">
-                                                                <div class="dz-default dz-message">
-                                                                    <span class="upload-icon lh-1 d-inline-block mb-4">
-                                                                        <i class="fal fa-cloud-upload-alt"></i>
-                                                                    </span>
-                                                                    <p class="text-heading fs-22 lh-15 mb-4">
-                                                                        Kéo và thả hình ảnh hoặc
-                                                                    </p>
-                                                                    <button class="btn btn-indigo px-7 mb-2"
-                                                                        type="button"
-                                                                        onclick="document.getElementById('fileInput').click();">
-                                                                        Chọn thư mục
-                                                                    </button>
-                                                                    <input type="file" hidden id="fileInput" multiple
-                                                                        accept="image/jpeg, image/png" name="images[]"
-                                                                        onchange="previewImages();">
+                                            <div class="card mb-6">
+                                                <div class="card-body p-6">
+                                                    <h3 class="card-title mb-0 text-heading fs-22 lh-15">Danh sách tiện
+                                                        ích
+                                                    </h3>
+                                             
+                                                    <div class="row">
+                                                        <div class="col-sm-6 col-lg-3">
+                                                            <ul class="list-group list-group-no-border">
+                                                                <li class="list-group-item px-0 pt-0 pb-2">
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox"
+                                                                            class="custom-control-input"
+                                                                            name="wifi" id="attic"
+                                                                            value="attic">
+                                                                        <label class="custom-control-label"
+                                                                            for="attic">Wifi</label>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                      
+                                                        <div class="col-sm-6 col-lg-3">
+                                                            <ul class="list-group list-group-no-border">
+                                                                <li class="list-group-item px-0 pt-0 pb-2">
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox"
+                                                                            class="custom-control-input"
+                                                                            name="bathrooms" id="attic-01"
+                                                                            value="attic-01">
+                                                                        <label class="custom-control-label"
+                                                                            for="attic-01">Phòng tắm</label>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                            @error('bathrooms')
+                                                                <div class="text-danger">{{ $message }}
                                                                 </div>
-                                                                {{-- <div id="imagePreview" class="row mt-4">
-                                                                    @forelse ($zone->images as $image)
-                                                                        <div class="col-md-3 mb-3 image-preview"
-                                                                            data-id="{{ $image->id }}">
-                                                                            <div class="position-relative">
-                                                                                <img src="{{ asset('assets/images/' . $image->filename) }}"
-                                                                                    alt="Zone Image"
-                                                                                    class="img-fluid rounded"
-                                                                                    style="width: 100%; height: 200px; object-fit: cover;">
-                                                                            </div>
-                                                                        </div>
-                                                                    @empty
-                                                                        <div class="col-12">
-                                                                            <p class="text-center">Không có hình ảnh nào.
-                                                                            </p>
-                                                                        </div>
-                                                                    @endforelse
-                                                                </div> --}}
-                                                                <div id="imagePreview" class="text-center mt-4">
-                                                                    @if (is_array($zone->images) || is_object($zone->images))
-                                                                        @foreach ($zone->images as $image)
-                                                                            <div class="image-preview mx-auto"
-                                                                                data-id="{{ $image->id }}">
-                                                                                <img src="{{ asset('assets/images/' . $image->filename) }}"
-                                                                                    alt="Image" class="img-fluid"
-                                                                                    style="max-width: 100%; height: auto;">
-                                                                            </div>
-                                                                        @endforeach
-                                                                    @else
-                                                                        <p>Không có hình ảnh nào.</p>
-                                                                    @endif
-                                                                </div>
-                                                                @error('images')
-                                                                    <span class="error-message text-danger"
-                                                                        id="images-error">{{ $message }}</span>
-                                                                @enderror
-                                                                @foreach ($errors->get('images.*') as $key => $messages)
-                                                                    @foreach ($messages as $message)
-                                                                        <span
-                                                                            class="error-message text-danger">{{ $message }}</span>
-                                                                    @endforeach
-                                                                @endforeach
-                                                            </div>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-sm-6 col-lg-3">
+                                                            <ul class="list-group list-group-no-border">
+                                                                <li class="list-group-item px-0 pt-0 pb-2">
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox"
+                                                                            class="custom-control-input"
+                                                                            name="air_conditioning" id="attic-02"
+                                                                            value="attic-02">
+                                                                        <label class="custom-control-label"
+                                                                            for="attic-02">Máy điều hòa</label>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="col-sm-6 col-lg-3">
+                                                            <ul class="list-group list-group-no-border">
+                                                                <li class="list-group-item px-0 pt-0 pb-2">
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox"
+                                                                            class="custom-control-input"
+                                                                            name="garage" id="attic-03"
+                                                                            value="attic-03">
+                                                                        <label class="custom-control-label"
+                                                                            for="attic-03">Ga-ra</label>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
                                                         </div>
                                                     </div>
+
                                                 </div>
                                             </div>
                                             <div class="d-flex flex-wrap">
@@ -219,7 +246,7 @@
                                                     <span class="d-inline-block text-primary mr-2 fs-16"><i
                                                             class="fal fa-long-arrow-left"></i></span>Phía trước
                                                 </a>
-                                                <button class="btn btn-lg btn-primary next-button mb-3">Tiếp theo
+                                                <button type="submit" class="btn btn-lg btn-primary  mb-3">Gửi
                                                     <span class="d-inline-block ml-2 fs-16"><i
                                                             class="fal fa-long-arrow-right"></i></span>
                                                 </button>
@@ -228,335 +255,6 @@
                                     </div>
                                 </div>
 
-                            </div>
-                            <!-- Tab 3: Vị trí -->
-                            <div class="tab-pane tab-pane-parent fade px-0" id="location" role="tabpanel"
-                                aria-labelledby="location-tab">
-                                <div class="card bg-transparent border-0">
-                                    <div id="location-collapse" class="collapse collapsible"
-                                        aria-labelledby="heading-location" data-parent="#collapse-tabs-accordion">
-                                        <div class="card-body py-4 py-md-0 px-0">
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div class="card mb-6">
-                                                        <div class="card-body p-6">
-                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Vị trí
-                                                                niêm
-                                                                yết</h3>
-                                                            <p class="card-text mb-5">Lorem ipsum dolor sit amet,
-                                                                consectetur adipiscing elit</p>
-
-                                                            <!-- Địa chỉ -->
-                                                            <div class="form-group">
-                                                                <label for="address" class="text-heading">Địa chỉ</label>
-                                                                <input type="text"
-                                                                    class="form-control form-control-lg border-0"
-                                                                    id="address" name="address"
-                                                                    value="{{ old('address', isset($zone) ? $zone->address : '') }}">
-                                                                @error('address')
-                                                                    <div class="text-danger">{{ $message }}</div>
-                                                                @enderror
-                                                            </div>
-
-                                                            <!-- Tỉnh -->
-                                                            <div class="form-group">
-                                                                <label for="city-province"
-                                                                    class="text-heading">Tỉnh</label>
-                                                                <select
-                                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                                    title="Lựa chọn" data-style="btn-lg py-2 h-52"
-                                                                    id="city-province" name="province">
-                                                                    <option value='0'>&nbsp;Chọn Tỉnh/Thành Phố...
-                                                                    </option>
-                                                                    <option value='01'
-                                                                        {{ $zone->province == '01' ? 'selected' : '' }}>
-                                                                        &nbspThành phố Hà Nội</option>
-                                                                    <option value='79'
-                                                                        {{ $zone->province == '79' ? 'selected' : '' }}>
-                                                                        &nbspThành phố Hồ Chí Minh</option>
-                                                                    <option value='31'
-                                                                        {{ $zone->province == '31' ? 'selected' : '' }}>
-                                                                        &nbspThành phố Hải Phòng</option>
-                                                                    <option value='48'
-                                                                        {{ $zone->province == '48' ? 'selected' : '' }}>
-                                                                        &nbspThành phố Đà Nẵng</option>
-                                                                    <option value='92'
-                                                                        {{ $zone->province == '92' ? 'selected' : '' }}>
-                                                                        &nbspThành phố Cần Thơ</option>
-                                                                    <option value='02'
-                                                                        {{ $zone->province == '02' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Hà Giang</option>
-                                                                    <option value='04'
-                                                                        {{ $zone->province == '04' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Cao Bằng</option>
-                                                                    <option value='06'
-                                                                        {{ $zone->province == '06' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Bắc Kạn</option>
-                                                                    <option value='08'
-                                                                        {{ $zone->province == '08' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Tuyên Quang</option>
-                                                                    <option value='10'
-                                                                        {{ $zone->province == '10' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Lào Cai</option>
-                                                                    <option value='11'
-                                                                        {{ $zone->province == '11' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Điện Biên</option>
-                                                                    <option value='12'
-                                                                        {{ $zone->province == '12' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Lai Châu</option>
-                                                                    <option value='14'
-                                                                        {{ $zone->province == '14' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Sơn La</option>
-                                                                    <option value='15'
-                                                                        {{ $zone->province == '15' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Yên Bái</option>
-                                                                    <option value='17'
-                                                                        {{ $zone->province == '17' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Hoà Bình</option>
-                                                                    <option value='19'
-                                                                        {{ $zone->province == '19' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Thái Nguyên</option>
-                                                                    <option value='20'
-                                                                        {{ $zone->province == '20' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Lạng Sơn</option>
-                                                                    <option value='22'
-                                                                        {{ $zone->province == '22' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Quảng Ninh</option>
-                                                                    <option value='24'
-                                                                        {{ $zone->province == '24' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Bắc Giang</option>
-                                                                    <option value='25'
-                                                                        {{ $zone->province == '25' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Phú Thọ</option>
-                                                                    <option value='26'
-                                                                        {{ $zone->province == '26' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Vĩnh Phúc</option>
-                                                                    <option value='27'
-                                                                        {{ $zone->province == '27' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Bắc Ninh</option>
-                                                                    <option value='30'
-                                                                        {{ $zone->province == '30' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Hải Dương</option>
-                                                                    <option value='33'
-                                                                        {{ $zone->province == '33' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Hưng Yên</option>
-                                                                    <option value='34'
-                                                                        {{ $zone->province == '34' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Thái Bình</option>
-                                                                    <option value='35'
-                                                                        {{ $zone->province == '35' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Hà Nam</option>
-                                                                    <option value='36'
-                                                                        {{ $zone->province == '36' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Nam Định</option>
-                                                                    <option value='37'
-                                                                        {{ $zone->province == '37' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Ninh Bình</option>
-                                                                    <option value='38'
-                                                                        {{ $zone->province == '38' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Thanh Hóa</option>
-                                                                    <option value='40'
-                                                                        {{ $zone->province == '40' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Nghệ An</option>
-                                                                    <option value='42'
-                                                                        {{ $zone->province == '42' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Hà Tĩnh</option>
-                                                                    <option value='44'
-                                                                        {{ $zone->province == '44' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Quảng Bình</option>
-                                                                    <option value='45'
-                                                                        {{ $zone->province == '45' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Quảng Trị</option>
-                                                                    <option value='46'
-                                                                        {{ $zone->province == '46' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Thừa Thiên Huế</option>
-                                                                    <option value='49'
-                                                                        {{ $zone->province == '49' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Quảng Nam</option>
-                                                                    <option value='51'
-                                                                        {{ $zone->province == '51' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Quảng Ngãi</option>
-                                                                    <option value='52'
-                                                                        {{ $zone->province == '52' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Bình Định</option>
-                                                                    <option value='54'
-                                                                        {{ $zone->province == '54' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Phú Yên</option>
-                                                                    <option value='56'
-                                                                        {{ $zone->province == '56' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Khánh Hòa</option>
-                                                                    <option value='58'
-                                                                        {{ $zone->province == '58' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Ninh Thuận</option>
-                                                                    <option value='60'
-                                                                        {{ $zone->province == '60' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Bình Thuận</option>
-                                                                    <option value='62'
-                                                                        {{ $zone->province == '62' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Kon Tum</option>
-                                                                    <option value='64'
-                                                                        {{ $zone->province == '64' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Gia Lai</option>
-                                                                    <option value='66'
-                                                                        {{ $zone->province == '66' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Đắk Lắk</option>
-                                                                    <option value='67'
-                                                                        {{ $zone->province == '67' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Đắk Nông</option>
-                                                                    <option value='68'
-                                                                        {{ $zone->province == '68' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Lâm Đồng</option>
-                                                                    <option value='70'
-                                                                        {{ $zone->province == '70' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Bình Phước</option>
-                                                                    <option value='72'
-                                                                        {{ $zone->province == '72' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Tây Ninh</option>
-                                                                    <option value='74'
-                                                                        {{ $zone->province == '74' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Bình Dương</option>
-                                                                    <option value='75'
-                                                                        {{ $zone->province == '75' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Đồng Nai</option>
-                                                                    <option value='77'
-                                                                        {{ $zone->province == '77' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Bà Rịa - Vũng Tàu</option>
-                                                                    <option value='80'
-                                                                        {{ $zone->province == '80' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Long An</option>
-                                                                    <option value='82'
-                                                                        {{ $zone->province == '82' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Tiền Giang</option>
-                                                                    <option value='83'
-                                                                        {{ $zone->province == '83' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Bến Tre</option>
-                                                                    <option value='84'
-                                                                        {{ $zone->province == '84' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Trà Vinh</option>
-                                                                    <option value='86'
-                                                                        {{ $zone->province == '86' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Vĩnh Long</option>
-                                                                    <option value='87'
-                                                                        {{ $zone->province == '87' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Đồng Tháp</option>
-                                                                    <option value='89'
-                                                                        {{ $zone->province == '89' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh An Giang</option>
-                                                                    <option value='91'
-                                                                        {{ $zone->province == '91' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Kiên Giang</option>
-                                                                    <option value='93'
-                                                                        {{ $zone->province == '93' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Hậu Giang</option>
-                                                                    <option value='94'
-                                                                        {{ $zone->province == '94' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Sóc Trăng</option>
-                                                                    <option value='95'
-                                                                        {{ $zone->province == '95' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Bạc Liêu</option>
-                                                                    <option value='96'
-                                                                        {{ $zone->province == '96' ? 'selected' : '' }}>
-                                                                        &nbspTỉnh Cà Mau</option>
-                                                                </select>
-
-
-                                                                @error('province')
-                                                                    <div class="text-danger">{{ $message }}</div>
-                                                                @enderror
-                                                            </div>
-                                                            {{-- huyen --}}
-                                                            <div class="form-group district-town-select">
-                                                                <label for="district-town"
-                                                                    class="text-heading">Huyện</label>
-                                                                <select
-                                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                                    title="Lựa chọn" data-style="btn-lg py-2 h-52"
-                                                                    id="district-town" name="district">
-
-
-
-
-                                                                    <!-- Các tùy chọn khác sẽ được thêm vào qua JavaScript -->
-                                                                </select>
-                                                                @error('district')
-                                                                    <div class="text-danger">{{ $message }}</div>
-                                                                @enderror
-                                                            </div>
-
-                                                            <!-- Xã -->
-                                                            <div class="form-group ward-commune-select">
-                                                                <label for="ward-commune" class="text-heading">Xã</label>
-                                                                <select
-                                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                                    title="Lựa chọn" data-style="btn-lg py-2 h-52"
-                                                                    id="ward-commune" name="village">
-
-                                                                    <!-- Các tùy chọn khác sẽ được thêm vào qua JavaScript -->
-                                                                </select>
-                                                                @error('village')
-                                                                    <div class="text-danger">{{ $message }}</div>
-                                                                @enderror
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-6">
-                                                    <div class="card mb-6">
-                                                        <div class="card-body p-6">
-                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Đặt ghim
-                                                                niêm yết trên bản đồ</h3>
-                                                            <p class="card-text mb-5">Lorem ipsum dolor sit amet,
-                                                                consectetur adipiscing elit</p>
-                                                            <!-- Bản đồ -->
-                                                            <div id="map" class="mb-6" style="height: 292px;">
-                                                            </div>
-
-                                                            <!-- Vĩ độ và Kinh độ -->
-                                                            <div class="form-row mx-n2">
-                                                                <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
-                                                                    <div class="form-group mb-md-0">
-                                                                        <label for="latitude" class="text-heading">Vĩ
-                                                                            độ</label>
-                                                                        <input type="text"
-                                                                            class="form-control form-control-lg border-0"
-                                                                            id="latitude" name="latitude"
-                                                                            value="{{ old('latitude') }}">
-                                                                        @error('latitude')
-                                                                            <div class="text-danger">{{ $message }}</div>
-                                                                        @enderror
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
-                                                                    <div class="form-group mb-md-0">
-                                                                        <label for="longitude" class="text-heading">Kinh
-                                                                            độ</label>
-                                                                        <input type="text"
-                                                                            class="form-control form-control-lg border-0"
-                                                                            id="longitude" name="longitude"
-                                                                            value="{{ old('longitude') }}">
-                                                                        @error('longitude')
-                                                                            <div class="text-danger">{{ $message }}</div>
-                                                                        @enderror
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex flex-wrap">
-                                                <a href="#"
-                                                    class="btn btn-lg bg-hover-white border rounded-lg mb-3 mr-auto prev-button">
-                                                    <span class="d-inline-block text-primary mr-2 fs-16"><i
-                                                            class="fal fa-long-arrow-left"></i></span>Phía trước
-                                                </a>
-                                                <button class="btn btn-lg btn-primary mb-3" type="submit">Gửi</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </form>
@@ -820,13 +518,13 @@
         var roomData = @json($zone);
     </script>
     <script src="{{ asset('assets/js/openstreet-map-edit-form.js') }}"></script>
-     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
             $('form').on('submit', function(e) {
                 e.preventDefault();
                 var formData = new FormData(this);
-    
+
                 $.ajax({
                     url: $(this).attr('action'),
                     type: 'POST',
@@ -855,13 +553,15 @@
                                 confirmButtonText: 'OK'
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    window.location.href = '{{ route("owners.zone-list") }}';
+                                    window.location.href =
+                                        '{{ route('owners.zone-list') }}';
                                 }
                             });
                         } else {
                             Swal.fire({
                                 title: 'Lỗi!',
-                                text: response.message || 'Đã xảy ra lỗi khi cập nhật khu trọ.',
+                                text: response.message ||
+                                    'Đã xảy ra lỗi khi cập nhật khu trọ.',
                                 icon: 'error',
                                 confirmButtonText: 'OK'
                             });
@@ -883,5 +583,5 @@
                 });
             });
         });
-        </script>
+    </script>
 @endpush

@@ -19,12 +19,14 @@ class ZoneDetail extends Component
     public $searchRoom = ''; // Từ khóa tìm kiếm phòng
     public $searchResident = ''; // Từ khóa tìm kiếm cư dân
     public $perPage = 10; // Số lượng phòng và cư dân trên mỗi trang
-
+    public $selectedRooms = [];
     protected const user_is_in = 2;
-
+    public $selectAll = false;
+    public $zone;
     public function mount($slug, ZoneServices $zoneServices)
     {
         $this->slug = $slug;
+        $this->zone = Zone::where('slug', $this->slug)->firstOrFail(); // Lưu thông tin zone
         // $this->zoneServices = $zoneServices; // Nếu cần sử dụng zoneServices, hãy bỏ comment dòng này
     }
 
@@ -32,12 +34,22 @@ class ZoneDetail extends Component
     {
         $this->resetPage();
     }
-
+    public function updatedSelectAll($value)
+    {
+        if ($value) {
+            $this->selectedRooms = $this->getRoomIds();
+        } else {
+            $this->selectedRooms = [];
+        }
+    }
     public function updatedSearchResident() // Reset trang khi tìm kiếm cư dân
     {
         $this->resetPage();
     }
-
+    private function getRoomIds()
+    {
+        return Room::where('zone_id', $this->zone->id)->pluck('id')->toArray();
+    }
     // public function render()
     // {
     //     // Lấy zone dựa trên slug
@@ -94,20 +106,33 @@ class ZoneDetail extends Component
 //     ]);
 // }
 public function render()
+    {
+        $rooms = Room::where('zone_id', $this->zone->id)
+            ->where('title', 'like', '%' . $this->searchResident . '%')
+            ->orderBy('created_at', 'desc')
+            ->paginate($this->perPage);
+
+        return view('livewire.zone-detail', [
+            'user_is_in' => self::user_is_in,
+            'zone' => $this->zone,
+            'rooms' => $rooms,
+        ]);
+    }
+public function deleteSelectedRooms()
 {
-    // Lấy zone dựa trên slug
-    $zone = Zone::where('slug', $this->slug)->firstOrFail();
+    Room::whereIn('id', $this->selectedRooms)->delete();
 
-    // Lấy danh sách phòng thuộc zone này với tìm kiếm
-    $rooms = Room::where('zone_id', $zone->id)
-        ->where('title', 'like', '%' . $this->searchResident . '%') // Tìm kiếm theo tên phòng
-        ->orderBy('created_at', 'desc')
-        ->paginate($this->perPage); // Lấy tất cả phòng mà không phân trang
+    // Reset selected rooms and select all checkbox
+    $this->selectedRooms = [];
+    $this->selectAll = false;
 
-    return view('livewire.zone-detail', [
-        'user_is_in' => self::user_is_in, // Trả về hằng số user_is_in
-        'zone' => $zone, // Trả về biến $zone
-        'rooms' => $rooms, // Trả về danh sách phòng
+    // Dispatch an event to show a success message
+    $this->dispatch('showAlert', [
+        'type' => 'success',
+        'message' => 'Các phòng đã chọn đã được xóa.'
     ]);
+
+    // Refresh the component to update the list
+    $this->dispatch('refreshComponent');
 }
 }

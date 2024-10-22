@@ -15,7 +15,7 @@
                                     <!-- Form chỉnh sửa kết quả OCR mặt trước -->
                                     <div class="ocr-results mb-4">
                                         <div class="row">
-                                            <div class="col-md-12 form-group">
+                                            <div class="col-md-6 form-group">
                                                 <label for="full_name">Họ và tên</label>
                                                 <input type="text" class="form-control" id="full_name" name="full_name"
                                                     value="{{ $information->name }}" readonly>
@@ -26,12 +26,7 @@
                                                     name="cmnd_number" value="{{ $information->identification_number }}"
                                                     readonly>
                                             </div>
-                                            <div class="col-md-6 form-group">
-                                                <label for="gender">Giới tính</label>
-                                                <input type="text" class="form-control" id="gender" name="gender"
-                                                    value="{{ $information->gender == 1 ? 'Nam' : ($information->gender == 2 ? 'Nữ' : '') }}"
-                                                    readonly>
-                                            </div>
+                                           
                                         </div>
                                     </div>
                                     <div class="form-group d-flex justify-content-end">

@@ -793,18 +793,12 @@
                                             </div>
                                         </div>
                                     </div>
-
-
-
-
-                                    <div class="modal fade" id="bookingModal" tabindex="-1" role="dialog"
-                                        aria-labelledby="bookingModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="bookingModal" tabindex="-1" role="dialog" aria-labelledby="bookingModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header border-0 p-4">
                                                     <h5 class="modal-title" id="bookingModalLabel">Đặt Phòng</h5>
-                                                    <button type="button" class="close fs-23" data-dismiss="modal"
-                                                        aria-label="Close">
+                                                    <button type="button" class="close fs-23" data-bs-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
@@ -1177,6 +1171,9 @@
     <script src="{{ asset('assets/js/register-zone.js') }}"></script>
     <script src="{{ asset('assets/js/yeuthich.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+     <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
+    <script src="{{ asset('assets/js/alert-report.js') }}"></script>
+
     <script>
         var userIsLoggedIn = @json(auth()->check());
         $(function() {
@@ -1187,14 +1184,20 @@
         window.successMessage = "{{ session('success') }}";
         window.errorMessage = "{{ session('error') }}";
     </script>
-    <script>
+    {{-- <script>
         Fancybox.bind("[data-fancybox='gallery']", {
             // Các tùy chọn tùy chỉnh cho Fancybox
         });
     </script>
     <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
-    <script src="{{ asset('assets/js/alert-report.js') }}"></script>
+    <script src="{{ asset('assets/js/alert-report.js') }}"></script> --}}
 
+<script>
+    Fancybox.bind("[data-fancybox='gallery']", {
+        // Các tùy chọn tùy chỉnh cho Fancybox
+    });
+</script>
+   
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

@@ -1,3 +1,4 @@
+<div>
 <main id="content" class="bg-gray-01">
     <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
         <div class="mb-6">
@@ -25,7 +26,26 @@
                                     class="fal fa-search"></i></button>
                         </div>
                     </div>
-
+                    <div class="align-self-center">
+                        {{-- <div class="dropdown"> --}}
+                            {{-- <button class="btn btn-secondary btn-lg dropdown-toggle" type="button"
+                                id="zoneActionDropdown" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false" @if (!$this->hasSelectedZones) disabled @endif>
+                                Hành động
+                            </button> --}}
+                            {{-- <button class="btn btn-primary btn-lg dropdown-toggle" type="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                >
+                                Hành động
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="zoneActionDropdown"> --}}
+                                {{-- <button wire:click="deleteSelectedRooms" class="btn btn-danger btn-lg text-nowrap" @if (!$this->selectedRooms) disabled @endif>
+                                    <span>Xóa</span>
+                                </button> --}}
+                          
+                            {{-- </div>
+                        </div> --}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -35,12 +55,12 @@
                     <table id="myTable" class="table table-hover bg-white border rounded-lg">
                         <thead>
                             <tr role="row">
-                                {{-- <th class="no-sort py-6 pl-6">
-                                    <label class="new-control new-checkbox checkbox-primary m-auto">
-                                        <input type="checkbox"
-                                            class="new-control-input chk-parent select-customers-info">
-                                    </label>
-                                </th> --}}
+                                <th class="no-sort py-6 pl-6">
+                                    {{-- <label class="new-control new-checkbox checkbox-primary m-auto">
+                                        <input type="checkbox" class="new-control-input chk-parent select-customers-info" id="checkAll" wire:model.lazy="selectAll">
+                                    </label> --}}
+                                </th>
+                                <th class="py-6 text-start" style="white-space: nowrap;">Ảnh</th>
                                 <th class="py-6 text-start" style="white-space: nowrap;">Tên phòng</th>
                                 <th class="py-6 text-start" style="white-space: nowrap;">Số lượng</th>
                                 <th class="py-6 text-start" style="white-space: nowrap;">Số điện thoại</th>
@@ -59,12 +79,14 @@
                             @else
                                 @foreach ($rooms as $room)
                                     <tr>
-                                        {{-- <td class="py-6 pl-6" style="white-space: nowrap;">
-                                            <label class="new-control new-checkbox checkbox-primary m-auto">
-                                                <input type="checkbox"
-                                                    class="new-control-input chk-parent select-customers-info">
-                                            </label>
-                                        </td> --}}
+                                        <td class="py-6 pl-6" style="white-space: nowrap;">
+                                            {{-- <label class="new-control new-checkbox checkbox-primary m-auto">
+                                                <input type="checkbox" class="new-control-input chk-parent select-customers-info" wire:model="selectedRooms" value="{{ $room->id }}">
+                                            </label> --}}
+                                        </td>
+                                        <td class="align-middle" style="white-space: nowrap;">
+                                            <img src="{{ asset('assets/images/' . $room->image) }}" alt="Room Image" style="max-width: 100%; height: auto; width: 150px;">
+                                        </td>
                                         <td class="align-middle" style="white-space: nowrap;">
                                             <small>{{ $room->title }}</small>
                                         </td>
@@ -456,3 +478,52 @@
     @endforeach --}}
 </main>
 <!-- Modal -->
+</div>
+<script>
+    document.addEventListener('livewire:initialized', () => {
+        const checkboxes = document.querySelectorAll('.new-control-input:not(#checkAll)');
+        const selectAllCheckbox = document.getElementById('checkAll');
+        const deleteButton = document.querySelector('button[wire\\:click="deleteSelectedRooms"]');
+
+        function updateSelectAllState() {
+            const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+            if (selectAllCheckbox) {
+                selectAllCheckbox.checked = allChecked;
+            }
+            updateDeleteButtonState();
+        }
+
+        function updateDeleteButtonState() {
+            const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+            if (deleteButton) {
+                deleteButton.disabled = checkedCount === 0;
+            }
+        }
+
+        if (checkboxes.length > 0) {
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', () => {
+                    updateSelectAllState();
+                    @this.set('selectedRooms', Array.from(checkboxes)
+                        .filter(cb => cb.checked)
+                        .map(cb => cb.value)
+                    );
+                });
+            });
+        }
+
+        if (selectAllCheckbox) {
+            selectAllCheckbox.addEventListener('change', () => {
+                const isChecked = selectAllCheckbox.checked;
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = isChecked;
+                });
+                updateDeleteButtonState();
+                @this.set('selectedRooms', isChecked ? Array.from(checkboxes).map(cb => cb.value) : []);
+            });
+        }
+
+        updateSelectAllState();
+    });
+</script>
+

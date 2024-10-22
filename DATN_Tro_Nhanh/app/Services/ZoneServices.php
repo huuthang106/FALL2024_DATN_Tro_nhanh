@@ -112,9 +112,12 @@ class ZoneServices
                                         foreach ($concepts as $concept) {
                                             if (in_array($concept['name'], $inappropriateContent)) {
                                                 $violenceScore += $concept['value'];
+                                                Log::info("Inappropriate content detected: " . $concept['name'] . " with score: " . $concept['value']);
                                             }
                                         }
-
+                                        
+                                        // Log tổng điểm nội dung không phù hợp
+                                        Log::info("Total inappropriate content score for image: " . $image . " is " . $violenceScore);
                                         if ($violenceScore > 0.5) {
                                             $violentImages[] = $image->getClientOriginalName();
                                         } else {
@@ -270,24 +273,20 @@ class ZoneServices
      */
     // protected function storeImage(Zone $zone, $image)
     // {
-    //     // $path = $image->store('zones', 'public');
-    //     // // Giả sử bạn có mối quan hệ với bảng ảnh
-    //     // $zone->images()->create(['path' => $path]);
-    //     // Tạo tên file mới với timestamp
     //     $timestamp = now()->format('YmdHis');
     //     $originalName = $image->getClientOriginalName();
     //     $extension = $image->getClientOriginalExtension();
     //     $filename = $timestamp . '_' . pathinfo($originalName, PATHINFO_FILENAME) . '.' . $extension;
-
-    //     // Lưu ảnh vào thư mục public/assets/images với tên mới
+    
     //     $path = 'assets/images/' . $filename;
     //     $image->move(public_path('assets/images'), $filename);
-
-    //     // Tạo bản ghi mới trong bảng images
-    //     $zone->images()->create([
-    //         'filename' => $filename,
-    //         'path' => $path
-    //     ]);
+    
+    //     // Giả sử bạn có mối quan hệ giữa Zone và Room, và bạn muốn lưu hình ảnh vào cột 'image' của Room
+    //     $room = $zone->rooms()->first(); // Lấy room đầu tiên liên quan đến zone này, hoặc bạn có thể xác định room cụ thể
+    //     if ($room) {
+    //         $room->image = $filename; // Lưu tên file vào cột 'image' của room
+    //         $room->save();
+    //     }
     // }
 
     public function getAllZones(int $perPage = 10, $searchTerm = null)
@@ -678,11 +677,8 @@ class ZoneServices
             $zone->status = ($user->has_vip_badge && $user->vip_expiration_date > now()) ? 2 : 1; // Cập nhật status dựa trên VIP
             $zone->name = $request->input('title');
             $zone->description = $request->input('description');
-            // $zone->price = $request->input('price');
             $zone->phone = $request->input('phone');
             $zone->address = $request->input('address');
-            // $zone->acreage = $request->input('acreage');
-
             $zone->view = $request->input('view');
             $zone->province = $request->input('province');
             $zone->district = $request->input('district');
@@ -695,147 +691,103 @@ class ZoneServices
             $zone->bathrooms = $request->has('bathrooms') ? $request->input('bathrooms') : self::CHUA_CO;
             $zone->air_conditioning = $request->has('air_conditioning') ? $request->input('air_conditioning') : self::CHUA_CO;
             $zone->garage = $request->has('garage') ? $request->input('garage') : self::CHUA_CO;
-
-
-
-            // Lưu phòng và kiểm tra kết quả
+    
             if (!$zone->save()) {
                 return false;
             }
-
-            // Lấy ID của phòng mới tạo và tạo slug
+    
             $zoneId = $zone->id;
             $slug = $this->createSlug($request->input('title')) . '-' . $zoneId;
             $zone->slug = $slug;
-
-            // Lưu lại phòng với slug
+    
             if (!$zone->save()) {
                 $zone->delete();
                 return false;
             }
-
-            // if ($request->hasFile('images')) {
-            //     $images = $request->file('images');
-            //     $uploadedFilenames = [];
-            //     $violentImages = [];
-
-            //     foreach ($images as $image) {
-            //         try {
-            //             $timestamp = now()->format('YmdHis');
-            //             $originalName = $image->getClientOriginalName();
-            //             $extension = $image->getClientOriginalExtension();
-            //             $filename = $timestamp . '_' . pathinfo($originalName, PATHINFO_FILENAME) . '.' . $extension;
-
-            //             Log::info("Checking image with Clarifai: " . $filename);
-
-            //             $imageContent = base64_encode(file_get_contents($image->getRealPath()));
-
-            //             $response = $this->client->post('models/moderation-recognition/outputs', [
-            //                 'json' => [
-            //                     'inputs' => [
-            //                         [
-            //                             'data' => [
-            //                                 'image' => [
-            //                                     'base64' => $imageContent
-            //                                 ]
-            //                             ]
-            //                         ]
-            //                     ]
-            //                 ]
-            //             ]);
-
-            //             $result = json_decode($response->getBody(), true);
-            //             Log::info("Clarifai response: " . json_encode($result));
-
-            //             $concepts = $result['outputs'][0]['data']['concepts'] ?? [];
-            //             $violenceScore = 0;
-
-            //             $inappropriateContent = ['gore', 'explicit', 'drug', 'suggestive', 'weapon'];
-
-            //             foreach ($concepts as $concept) {
-            //                 if (in_array($concept['name'], $inappropriateContent)) {
-            //                     $violenceScore += $concept['value'];
-            //                     Log::info("Inappropriate content detected: " . $concept['name'] . " with score: " . $concept['value']);
-            //                 }
-            //             }
-
-            //             Log::info("Total inappropriate content score for image: " . $violenceScore);
-
-            //             if ($violenceScore > 0.5) {
-            //                 Log::warning("Image rejected due to high inappropriate content score: " . $filename);
-            //                 $violentImages[] = $filename;
-            //             } else {
-            //                 // Lưu hình ảnh nếu an toàn
-            //                 if ($image->move(public_path('assets/images'), $filename)) {
-            //                     Log::info("Image uploaded successfully: " . $filename);
-
-            //                     $imageModel = new \App\Models\Image();
-            //                     $imageModel->zone_id = $roomId;
-            //                     $imageModel->filename = $filename;
-            //                     $imageModel->save();
-
-            //                     $uploadedFilenames[] = $filename;
-            //                 } else {
-            //                     Log::error("Failed to move image: " . $filename);
-            //                     throw new \Exception("Không thể lưu ảnh: " . $filename);
-            //                 }
-            //             }
-            //         } catch (GuzzleException $e) {
-            //             Log::error("Clarifai API error: " . $e->getMessage());
-            //             return response()->json([
-            //                 'status' => 'error',
-            //                 'message' => 'Có lỗi xảy ra khi kiểm tra ảnh: ' . $e->getMessage()
-            //             ]);
-            //         } catch (\Exception $e) {
-            //             Log::error("Error processing image: " . $e->getMessage());
-            //             return response()->json([
-            //                 'status' => 'error',
-            //                 'message' => 'Có lỗi xảy ra khi xử lý ảnh: ' . $e->getMessage()
-            //             ]);
-            //         }
-            //     }
-
-            //     if (!empty($violentImages)) {
-            //         // Xóa các ảnh đã upload
-            //         foreach ($uploadedFilenames as $filename) {
-            //             $path = public_path('assets/images/' . $filename);
-            //             if (file_exists($path)) {
-            //                 unlink($path);
-            //             }
-            //         }
-
-            //         // Xóa phòng
-            //         $room->delete();
-
-            //         return response()->json([
-            //             'status' => 'error',
-            //             'message' => 'Phát hiện ảnh không phù hợp: ' . implode(', ', $violentImages) . '. Vui lòng kiểm tra lại ảnh của bạn.'
-            //         ]);
-            //     }
-
-            //     if (empty($uploadedFilenames)) {
-            //         $room->delete();
-            //         return response()->json([
-            //             'status' => 'error',
-            //             'message' => 'Không có ảnh nào được tải lên. Vui lòng thử lại.'
-            //         ]);
-            //     }
+    
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $isValidImage = false; // Biến để lưu trạng thái hợp lệ của hình ảnh
+                Log::info("Starting image processing...");
+    
+                try {
+                    $timestamp = now()->format('YmdHis');
+                    $originalName = $image->getClientOriginalName();
+                    $extension = $image->getClientOriginalExtension();
+                    $filename = $timestamp . '_' . pathinfo($originalName, PATHINFO_FILENAME) . '.' . $extension;
+    
+                    Log::info("Checking image with Clarifai: " . $filename);
+    
+                    $imageContent = base64_encode(file_get_contents($image->getRealPath()));
+    
+                    $response = $this->client->post('models/moderation-recognition/outputs', [
+                        'json' => [
+                            'inputs' => [
+                                [
+                                    'data' => [
+                                        'image' => [
+                                            'base64' => $imageContent
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]);
+    
+                    $result = json_decode($response->getBody(), true);
+                    Log::info("Clarifai response: " . json_encode($result));
+    
+                    $concepts = $result['outputs'][0]['data']['concepts'] ?? [];
+                    $violenceScore = 0;
+    
+                    $inappropriateContent = ['gore', 'explicit', 'drug', 'suggestive', 'weapon'];
+    
+                    foreach ($concepts as $concept) {
+                        if (in_array($concept['name'], $inappropriateContent)) {
+                            $violenceScore += $concept['value'];
+                            Log::info("Inappropriate content detected: " . $concept['name'] . " with score: " . $concept['value']);
+                        }
+                    }
+    
+                    Log::info("Total inappropriate content score for image: " . $filename . " is " . $violenceScore);
+    
+                    if ($violenceScore <= 0.5) {
+                        $isValidImage = true; // Đánh dấu hình ảnh là hợp lệ
+                    } else {
+                        Log::warning("Image rejected due to high inappropriate content score: " . $filename);
+                        $zone->delete();
+                        return response()->json([
+                            'status' => 'error',
+                            'message' => 'Phát hiện ảnh không phù hợp: ' . $filename . '. Vui lòng kiểm tra lại ảnh của bạn.'
+                        ]);
+                    }
+                } catch (GuzzleException $e) {
+                    Log::error("Clarifai API error: " . $e->getMessage());
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => 'Có lỗi xảy ra khi kiểm tra ảnh: ' . $e->getMessage()
+                    ]);
+                } catch (\Exception $e) {
+                    Log::error("Error processing image: " . $e->getMessage());
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => 'Có lỗi xảy ra khi xử lý ảnh: ' . $e->getMessage()
+                    ]);
+                }
+    
+                if (!$isValidImage) {
+                    $zone->delete();
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => 'Không có ảnh nào được tải lên. Vui lòng thử lại.'
+                    ]);
+                }
+            }
+    
+            return $zoneId;
+        } else {
+            return false;
         }
-        // Xử lý tiện ích
-        // $utilities = new Utility();
-        // $utilities->room_id = $roomId;
-
-        // // Kiểm tra tiện ích từ request
-        // $utilities->wifi = $request->has('wifi') ? self::CO : self::CHUA_CO;
-        // $utilities->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
-        // $utilities->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
-        // $utilities->bathrooms = $request->has('bathrooms') ? self::CO : self::CHUA_CO;
-        // // Lưu thông tin tiện ích
-        // $utilities->save();
-        return $zoneId;
-        // } else {
-        //     return false;
-        // }
     }
     public function getSlug($id)
     {

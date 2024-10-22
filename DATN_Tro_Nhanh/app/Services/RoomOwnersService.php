@@ -112,13 +112,13 @@ class RoomOwnersService
     {
         // Tạo một phòng mới
         if (auth()->check()) {
-            $title = $request->input('title');
-            $imagePath = $this->imageAdminService->saveImages($request, $title, $id);
- 
-            // Tạo slug từ tiêu đề
-            $slugify = new \Cocur\Slugify\Slugify();
-            $slug = $slugify->slugify($title) . '-' . $id;
- 
+            $imagePath = $this->imageAdminService->saveImage($request);
+    
+            // Kiểm tra nếu saveImage trả về JsonResponse (lỗi) hoặc false
+            if ($imagePath instanceof \Illuminate\Http\JsonResponse || $imagePath == false) {
+                return $imagePath; // Trả về lỗi nếu có
+            }
+    
             $room = Room::create([
                 'title' => $title,
                 'description' => $request->input('description'),
@@ -128,7 +128,12 @@ class RoomOwnersService
                 'zone_id' => $id, // Nếu bạn có zone_id
                 'slug' => $slug, // Lưu slug vào cột 'slug'
             ]);
-            return true;
+    
+            if ($room) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }

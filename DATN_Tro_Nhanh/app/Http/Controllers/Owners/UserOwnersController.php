@@ -102,12 +102,17 @@ class UserOwnersController extends Controller
     {
         $userId = auth()->id();
         $information = Identity::where('user_id', $userId)->first();
-
         $images = [];
+    
         if ($information) {
-            $images = Image::where('identity_id', $information->id)->pluck('filename')->toArray();
+            if ($information->front_id_card_image) {
+                $images[] = $information->front_id_card_image;
+            }
+            if ($information->back_id_card_image) {
+                $images[] = $information->back_id_card_image;
+            }
         }
-
+    
         return view('owners.show.dashboard-ekyc', compact('information', 'images'));
     }
     public function toggleVisibility()
@@ -127,31 +132,38 @@ class UserOwnersController extends Controller
     }
 
     public function clear_information()
-    {
-        $userId = auth()->id();
-        $identity = Identity::where('user_id', $userId)->first();
-        $images = Image::where('identity_id', $userId)->pluck('filename')->toArray();
-        // Xóa thông tin của người dùng và kiểm tra số lượng bản ghi bị xóa
-        $deleted = Identity::where('user_id', $userId)->delete();
+{
+    $userId = auth()->id();
+    $identity = Identity::where('user_id', $userId)->first();
 
-       
-        if ($identity) {
-            // Lấy danh sách hình ảnh liên quan đến identity
-            $images = Image::where('identity_id', $identity->id)->pluck('filename')->toArray();
-            // dd($images);    
-            // Xóa thông tin của người dùng và kiểm tra số lượng bản ghi bị xóa
-            $deleted = Identity::where('user_id', $userId)->forceDelete();
-            $deletedImage = $this->imageAdminService->deleteImage($images);
-            // Xóa hình ảnh trong thư mục
-          
-    
-            // Nếu xóa thành công
-            if ($deleted > 0) {
-                return redirect()->back()->with('success', 'Xóa thông tin thành công!');
+    if ($identity) {
+        // Lấy đường dẫn hình ảnh từ các cột front_id_card_image và back_id_card_image
+        $images = [];
+        if ($identity->front_id_card_image) {
+            $images[] = $identity->front_id_card_image;
+        }
+        if ($identity->back_id_card_image) {
+            $images[] = $identity->back_id_card_image;
+        }
+
+        // Xóa hình ảnh trong thư mục
+        foreach ($images as $image) {
+            $imagePath = public_path('path/to/images/' . $image); // Cập nhật đường dẫn đúng
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
             }
         }
 
-        // Nếu không có bản ghi nào bị xóa
-        return redirect()->back()->with('error', 'Không tìm thấy thông tin để xóa.');
+        // Xóa thông tin của người dùng
+        $deleted = $identity->forceDelete();
+
+        // Nếu xóa thành công
+        if ($deleted) {
+            return redirect()->back()->with('success', 'Xóa thông tin thành công!');
+        }
     }
+
+    // Nếu không có bản ghi nào bị xóa
+    return redirect()->back()->with('error', 'Không tìm thấy thông tin để xóa.');
+}
 }
