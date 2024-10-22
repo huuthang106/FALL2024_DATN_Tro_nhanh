@@ -21,6 +21,7 @@ use App\Models\Notification;
 use App\Models\VipZonePosition;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cookie;
+
 class ZoneServices
 {
     const CO = 1; // Có tiện ích
@@ -288,6 +289,7 @@ class ZoneServices
     //         'path' => $path
     //     ]);
     // }
+
     public function getAllZones(int $perPage = 10, $searchTerm = null)
     {
         try {
@@ -656,7 +658,7 @@ class ZoneServices
         // Xóa zone
         $zone->delete();
     }
-  public function incrementViewCount($zoneId)
+    public function incrementViewCount($zoneId)
     {
         if (!request()->cookie('viewed_zone_' . $zoneId)) {
             $zone = Zone::find($zoneId);

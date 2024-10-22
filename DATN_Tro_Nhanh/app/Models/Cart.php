@@ -15,10 +15,9 @@ class Cart extends Model
         return $this->belongsTo(User::class);
     }
 
-    
+
     public function priceList()
     {
         return $this->belongsTo(PriceList::class, 'price_list_id');
     }
-
 }

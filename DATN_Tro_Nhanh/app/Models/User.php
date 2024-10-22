@@ -16,7 +16,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     use SoftDeletes;
-   
+
     /**
      * The attributes that are mass assignable.
      *
@@ -33,6 +33,7 @@ class User extends Authenticatable
         'province',
         'district',
         'village',
+        'role'
     ];
 
     /**
@@ -67,7 +68,7 @@ class User extends Authenticatable
     // }
     public function commentUsers()
     {
-        return $this->hasMany(CommentUsers::class,'user_id');
+        return $this->hasMany(CommentUsers::class, 'user_id');
     }
     public function zones()
     {

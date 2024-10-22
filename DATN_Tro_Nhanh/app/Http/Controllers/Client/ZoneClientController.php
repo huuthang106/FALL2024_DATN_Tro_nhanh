@@ -23,15 +23,72 @@ class ZoneClientController extends Controller
         $this->CommentClientService = $CommentClientService;
     }
 
+    // public function listZone(Request $request, $perPage = 10)
+    // {
+    //     $searchTerm = $request->input('search');
+    //     $province = $request->input('province');
+    //     $district = $request->input('district');
+    //     $village = $request->input('village');
+    //     $category = $request->input('category'); // Thêm tham số category
+    //     $features = $request->input('features');
+    //     $type = $request->input('type');
+
+    //     $zones = $this->zoneServices->getAllZones(
+    //         (int) $perPage,
+    //         $type,
+    //         $searchTerm,
+    //         $province,
+    //         $district,
+    //         $village,
+    //         $category,
+    //         $features
+    //     );
+
+    //     $locations = $this->zoneServices->getUniqueLocations();
+    //     $popularZones = $this->zoneServices->getPopularZones();
+
+    //     if ($request->ajax() || $request->wantsJson()) {
+    //         return response()->json([
+    //             'zones' => $zones,
+    //             'searchTerm' => $searchTerm,
+    //             'province' => $province,
+    //             'district' => $district,
+    //             'village' => $village,
+    //             'provinces' => $locations['provinces'],
+    //             'districts' => $locations['districts'],
+    //             'villages' => $locations['villages'],
+    //             'popularZones' => $popularZones
+    //         ]);
+    //     }
+
+    //     $categories = $this->zoneServices->getCategories(); // Lấy danh sách categories
+
+    //     return view('client.show.listing-grid-with-left-filter', [
+    //         'zones' => $zones,
+    //         'searchTerm' => $searchTerm,
+    //         'province' => $province,
+    //         'district' => $district,
+    //         'village' => $village,
+    //         'category' => $category, // Truyền category đã chọn vào view
+    //         'type' => $type, // Truyền loại phòng sang view
+    //         'provinces' => $locations['provinces'],
+    //         'districts' => $locations['districts'],
+    //         'villages' => $locations['villages'],
+    //         'categories' => $categories, // Truyền danh sách categories vào view
+    //         'popularZones' => $popularZones,
+    //         'features' => $features
+    //     ]);
+    // }
     public function listZone(Request $request, $perPage = 10)
     {
         $searchTerm = $request->input('search');
         $province = $request->input('province');
         $district = $request->input('district');
         $village = $request->input('village');
-        $category = $request->input('category'); // Thêm tham số category
+        $category = $request->input('category');
         $features = $request->input('features');
         $type = $request->input('type');
+
 
         $zones = $this->zoneServices->getAllZones(
             (int) $perPage,
@@ -46,6 +103,7 @@ class ZoneClientController extends Controller
 
         $locations = $this->zoneServices->getUniqueLocations();
         $popularZones = $this->zoneServices->getPopularZones();
+        $categories = $this->zoneServices->getCategories();
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([
@@ -61,31 +119,29 @@ class ZoneClientController extends Controller
             ]);
         }
 
-        $categories = $this->zoneServices->getCategories(); // Lấy danh sách categories
-
         return view('client.show.listing-grid-with-left-filter', [
             'zones' => $zones,
             'searchTerm' => $searchTerm,
             'province' => $province,
             'district' => $district,
             'village' => $village,
-            'category' => $category, // Truyền category đã chọn vào view
-            'type' => $type, // Truyền loại phòng sang view
+            'category' => $category,
+            'type' => $type,
             'provinces' => $locations['provinces'],
             'districts' => $locations['districts'],
             'villages' => $locations['villages'],
-            'categories' => $categories, // Truyền danh sách categories vào view
+            'categories' => $categories,
             'popularZones' => $popularZones,
             'features' => $features
         ]);
     }
-    public function listZoneClient(Request $request) 
+    public function listZoneClient(Request $request)
     {
         $keyword = $request->input('keyword');
         $province = $request->input('province');
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
-        $category = $request->input('category');    
+        $category = $request->input('category');
         if ($latitude && $longitude) {
             $zones = $this->zoneServices->searchZonesWithinRadius($latitude, $longitude, 30);
         } elseif ($keyword || $province) {
@@ -93,17 +149,17 @@ class ZoneClientController extends Controller
         } else {
             $userLat = session('userLat');
             $userLng = session('userLng');
-    
+
             if ($userLat && $userLng) {
                 $zones = $this->zoneServices->searchZonesWithinRadius($userLat, $userLng, 30);
             } else {
                 $zones = $this->zoneServices->getMyZoneClient($category);
             }
         }
-    
+
         $totalZones = $this->zoneServices->getTotalZones();
         $provinces = $this->zoneServices->getProvinces()->pluck('province')->toArray(); // Chuyển đổi Collection thành mảng
-    
+
         if ($request->ajax()) {
             return response()->json([
                 'zones' => $zones->items(),
@@ -111,7 +167,7 @@ class ZoneClientController extends Controller
                 'pagination' => (string) $zones->links()
             ]);
         }
-    
+
         return view('client.show.listing-half-map-list-layout-1', [
             'zones' => $zones,
             'totalZones' => $totalZones,
@@ -131,23 +187,23 @@ class ZoneClientController extends Controller
         // Lấy thông tin zone dựa trên slug
         $zoneDetails = $this->CommentClientService->getZoneDetailsWithRatings($slug);
         $zone = $this->zoneServices->getZoneDetailsBySlug($slug);
-    
+
         $user = $zone->user;
         $userId = auth()->id();
         // $identity = Identity::where('user_id', $userId)->first();
-    
+
         $comments = $zoneDetails['comments']; // Giả sử bạn có mối quan hệ comments trong Zone
         $utilities = $zone->utilities; // Giả sử bạn có mối quan hệ utilities trong Zone
         $province = $zone->province;
         $locations = $this->zoneServices->getUniqueLocations();
         $categories = $this->zoneServices->getCategories();
-    
+
         // Tăng lượt xem cho zone
         $this->zoneServices->incrementViewCount($zone->id);
-    
+
         // Lấy các khu vực tương tự
         $similarZones = $this->zoneServices->getZoneClient($province, $zone->id);
-    
+
         // Kiểm tra xem yêu cầu có phải là AJAX hay không
         if (request()->ajax() || request()->wantsJson()) {
             return response()->json([
@@ -160,7 +216,7 @@ class ZoneClientController extends Controller
                 'slug' => $slug
             ]);
         }
-    
+
         // Nếu không phải là AJAX, trả về view
         return view('client.show.single-propety', [
             'categories' => $categories,

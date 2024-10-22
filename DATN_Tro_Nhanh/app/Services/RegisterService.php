@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use App\Models\User;
@@ -9,6 +10,7 @@ use Illuminate\Support\Str;
 
 class RegisterService
 {
+    protected const User = 1;
     /**
      * Validate and create a new user.
      *
@@ -54,6 +56,7 @@ class RegisterService
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'role' => self::User,
         ]);
 
         // Tạo slug từ name và id sau khi tạo user

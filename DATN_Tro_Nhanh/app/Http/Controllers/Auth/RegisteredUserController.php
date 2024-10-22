@@ -15,6 +15,7 @@ use Cocur\Slugify\Slugify;
 
 class RegisteredUserController extends Controller
 {
+    protected const User = 1;
     /**
      * Display the registration view.
      */
@@ -40,6 +41,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => self::User,
             'slug' => $slug,
         ]);
 

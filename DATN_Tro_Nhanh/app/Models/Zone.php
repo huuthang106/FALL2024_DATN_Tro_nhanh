@@ -45,6 +45,10 @@ class Zone extends Model
     // {
     //     return $this->hasMany(Comment::class);
     // }
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
+    }
     public function comments()
     {
         return $this->hasMany(CommentZones::class, 'zone_id'); // Thiết lập mối quan hệ với CommentZones

@@ -63,11 +63,6 @@ class Room extends Model
         return $this->belongsTo(Location::class);
     }
 
-    public function zone()
-    {
-        return $this->belongsTo(Zone::class);
-    }
-
 
     public function maintenanceRequests()
     {
@@ -79,7 +74,10 @@ class Room extends Model
     {
         return $this->belongsTo(User::class, 'tenant_id');
     }
-
+    public function zone()
+    {
+        return $this->belongsTo(Zone::class);
+    }
 
     public function notifications()
     {

@@ -20,20 +20,20 @@
                         <div class="primary-sidebar-inner">
                             <div class="card mb-4">
                                 <!-- <div class="card-body px-6 py-4">
-                                    <h4 class="card-title fs-16 lh-2 text-dark mb-3">Lọc</h4>
-                                    <div class="form-group">
-                                        <label for="category" class="sr-only">Loại phòng</label>
-                                        <select class="form-control border-0 shadow-none form-control-lg" id="category"
-                                            title="Tất cả loại phòng" name="category" data-style="btn-lg py-2 h-52">
-                                            <option value='0'>Chọn loại phòng...</option>
-                                            @foreach ($categories as $category)
-                                                <option value='{{ $category->id }}'>
-                                                    {{ $category->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div> -->
+                                                                                                                                                                                                                                                        <h4 class="card-title fs-16 lh-2 text-dark mb-3">Lọc</h4>
+                                                                                                                                                                                                                                                        <div class="form-group">
+                                                                                                                                                                                                                                                            <label for="category" class="sr-only">Loại phòng</label>
+                                                                                                                                                                                                                                                            <select class="form-control border-0 shadow-none form-control-lg" id="category"
+                                                                                                                                                                                                                                                                title="Tất cả loại phòng" name="category" data-style="btn-lg py-2 h-52">
+                                                                                                                                                                                                                                                                <option value='0'>Chọn loại phòng...</option>
+                                                                                                                                                                                                                                                                @foreach ($categories as $category)
+    <option value='{{ $category->id }}'>
+                                                                                                                                                                                                                                                                        {{ $category->name }}
+                                                                                                                                                                                                                                                                    </option>
+    @endforeach
+                                                                                                                                                                                                                                                            </select>
+                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                    </div> -->
                                 <div class="card-body px-6 py-4">
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Lọc</h4>
                                     <div class="form-group">
@@ -66,70 +66,70 @@
                                                 data-style="btn-lg py-2 h-52">
                                                 <option value='0'>Chọn Tỉnh/Thành Phố...</option>
                                                 @foreach ([
-                                                        '01' => 'Thành phố Hà Nội',
-                                                        '79' => 'Thành phố Hồ Chí Minh',
-                                                        '31' => 'Thành phố Hải Phòng',
-                                                        '48' => 'Thành phố Đà Nẵng',
-                                                        '92' => 'Thành phố Cần Thơ',
-                                                        '02' => 'Tỉnh Hà Giang',
-                                                        '04' => 'Tỉnh Cao Bằng',
-                                                        '06' => 'Tỉnh Bắc Kạn',
-                                                        '08' => 'Tỉnh Tuyên Quang',
-                                                        '10' => 'Tỉnh Lào Cai',
-                                                        '11' => 'Tỉnh Điện Biên',
-                                                        '12' => 'Tỉnh Lai Châu',
-                                                        '14' => 'Tỉnh Sơn La',
-                                                        '15' => 'Tỉnh Yên Bái',
-                                                        '17' => 'Tỉnh Hoà Bình',
-                                                        '19' => 'Tỉnh Thái Nguyên',
-                                                        '20' => 'Tỉnh Lạng Sơn',
-                                                        '22' => 'Tỉnh Quảng Ninh',
-                                                        '24' => 'Tỉnh Bắc Giang',
-                                                        '25' => 'Tỉnh Phú Thọ',
-                                                        '26' => 'Tỉnh Vĩnh Phúc',
-                                                        '27' => 'Tỉnh Bắc Ninh',
-                                                        '30' => 'Tỉnh Hải Dương',
-                                                        '33' => 'Tỉnh Hưng Yên',
-                                                        '34' => 'Tỉnh Thái Bình',
-                                                        '35' => 'Tỉnh Hà Nam',
-                                                        '36' => 'Tỉnh Nam Định',
-                                                        '37' => 'Tỉnh Ninh Bình',
-                                                        '38' => 'Tỉnh Thanh Hóa',
-                                                        '40' => 'Tỉnh Nghệ An',
-                                                        '42' => 'Tỉnh Hà Tĩnh',
-                                                        '44' => 'Tỉnh Quảng Bình',
-                                                        '45' => 'Tỉnh Quảng Trị',
-                                                        '46' => 'Tỉnh Thừa Thiên Huế',
-                                                        '49' => 'Tỉnh Quảng Nam',
-                                                        '51' => 'Tỉnh Quảng Ngãi',
-                                                        '52' => 'Tỉnh Bình Định',
-                                                        '54' => 'Tỉnh Phú Yên',
-                                                        '56' => 'Tỉnh Khánh Hòa',
-                                                        '58' => 'Tỉnh Ninh Thuận',
-                                                        '60' => 'Tỉnh Bình Thuận',
-                                                        '62' => 'Tỉnh Kon Tum',
-                                                        '64' => 'Tỉnh Gia Lai',
-                                                        '66' => 'Tỉnh Đắk Lắk',
-                                                        '67' => 'Tỉnh Đắk Nông',
-                                                        '68' => 'Tỉnh Lâm Đồng',
-                                                        '70' => 'Tỉnh Bình Phước',
-                                                        '72' => 'Tỉnh Tây Ninh',
-                                                        '74' => 'Tỉnh Bình Dương',
-                                                        '75' => 'Tỉnh Đồng Nai',
-                                                        '77' => 'Tỉnh Bà Rịa - Vũng Tàu',
-                                                        '80' => 'Tỉnh Long An',
-                                                        '82' => 'Tỉnh Tiền Giang',
-                                                        '83' => 'Tỉnh Bến Tre',
-                                                        '84' => 'Tỉnh Trà Vinh',
-                                                        '86' => 'Tỉnh Vĩnh Long',
-                                                        '87' => 'Tỉnh Đồng Tháp',
-                                                        '89' => 'Tỉnh An Giang',
-                                                        '91' => 'Tỉnh Kiên Giang',
-                                                        '93' => 'Tỉnh Hậu Giang',
-                                                        '94' => 'Tỉnh Sóc Trăng',
-                                                        '95' => 'Tỉnh Bạc Liêu',
-                                                        '96' => 'Tỉnh Cà Mau',
-                                                    ] as $code => $name)
+            '01' => 'Thành phố Hà Nội',
+            '79' => 'Thành phố Hồ Chí Minh',
+            '31' => 'Thành phố Hải Phòng',
+            '48' => 'Thành phố Đà Nẵng',
+            '92' => 'Thành phố Cần Thơ',
+            '02' => 'Tỉnh Hà Giang',
+            '04' => 'Tỉnh Cao Bằng',
+            '06' => 'Tỉnh Bắc Kạn',
+            '08' => 'Tỉnh Tuyên Quang',
+            '10' => 'Tỉnh Lào Cai',
+            '11' => 'Tỉnh Điện Biên',
+            '12' => 'Tỉnh Lai Châu',
+            '14' => 'Tỉnh Sơn La',
+            '15' => 'Tỉnh Yên Bái',
+            '17' => 'Tỉnh Hoà Bình',
+            '19' => 'Tỉnh Thái Nguyên',
+            '20' => 'Tỉnh Lạng Sơn',
+            '22' => 'Tỉnh Quảng Ninh',
+            '24' => 'Tỉnh Bắc Giang',
+            '25' => 'Tỉnh Phú Thọ',
+            '26' => 'Tỉnh Vĩnh Phúc',
+            '27' => 'Tỉnh Bắc Ninh',
+            '30' => 'Tỉnh Hải Dương',
+            '33' => 'Tỉnh Hưng Yên',
+            '34' => 'Tỉnh Thái Bình',
+            '35' => 'Tỉnh Hà Nam',
+            '36' => 'Tỉnh Nam Định',
+            '37' => 'Tỉnh Ninh Bình',
+            '38' => 'Tỉnh Thanh Hóa',
+            '40' => 'Tỉnh Nghệ An',
+            '42' => 'Tỉnh Hà Tĩnh',
+            '44' => 'Tỉnh Quảng Bình',
+            '45' => 'Tỉnh Quảng Trị',
+            '46' => 'Tỉnh Thừa Thiên Huế',
+            '49' => 'Tỉnh Quảng Nam',
+            '51' => 'Tỉnh Quảng Ngãi',
+            '52' => 'Tỉnh Bình Định',
+            '54' => 'Tỉnh Phú Yên',
+            '56' => 'Tỉnh Khánh Hòa',
+            '58' => 'Tỉnh Ninh Thuận',
+            '60' => 'Tỉnh Bình Thuận',
+            '62' => 'Tỉnh Kon Tum',
+            '64' => 'Tỉnh Gia Lai',
+            '66' => 'Tỉnh Đắk Lắk',
+            '67' => 'Tỉnh Đắk Nông',
+            '68' => 'Tỉnh Lâm Đồng',
+            '70' => 'Tỉnh Bình Phước',
+            '72' => 'Tỉnh Tây Ninh',
+            '74' => 'Tỉnh Bình Dương',
+            '75' => 'Tỉnh Đồng Nai',
+            '77' => 'Tỉnh Bà Rịa - Vũng Tàu',
+            '80' => 'Tỉnh Long An',
+            '82' => 'Tỉnh Tiền Giang',
+            '83' => 'Tỉnh Bến Tre',
+            '84' => 'Tỉnh Trà Vinh',
+            '86' => 'Tỉnh Vĩnh Long',
+            '87' => 'Tỉnh Đồng Tháp',
+            '89' => 'Tỉnh An Giang',
+            '91' => 'Tỉnh Kiên Giang',
+            '93' => 'Tỉnh Hậu Giang',
+            '94' => 'Tỉnh Sóc Trăng',
+            '95' => 'Tỉnh Bạc Liêu',
+            '96' => 'Tỉnh Cà Mau',
+        ] as $code => $name)
                                                     @if (in_array($code, $provinces))
                                                         <option value='{{ $code }}'
                                                             {{ $province == $code ? 'selected' : '' }}>{{ $name }}
@@ -171,13 +171,15 @@
                                                         <div class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input"
                                                                 id="check1" name="features[]" value="wifi">
-                                                            <label class="custom-control-label" for="check1">Wifi</label>
+                                                            <label class="custom-control-label"
+                                                                for="check1">Wifi</label>
                                                         </div>
                                                     </li>
                                                     <li class="list-group-item px-0 pt-0 pb-2">
                                                         <div class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input"
-                                                                id="check2" name="features[]" value="air_conditioning">
+                                                                id="check2" name="features[]"
+                                                                value="air_conditioning">
                                                             <label class="custom-control-label" for="check2">Máy điều
                                                                 hòa</label>
                                                         </div>
@@ -194,7 +196,8 @@
                                                         <div class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input"
                                                                 id="check4" name="features[]" value="garage">
-                                                            <label class="custom-control-label" for="check4">Garage</label>
+                                                            <label class="custom-control-label"
+                                                                for="check4">Garage</label>
                                                         </div>
                                                     </li>
                                                     {{-- <li class="list-group-item px-0 pt-0 pb-2">
@@ -206,7 +209,8 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block shadow-none mt-4">Tìm
+                                        <button type="submit"
+                                            class="btn btn-primary btn-lg btn-block shadow-none mt-4">Tìm
                                             kiếm</button>
                                     </form>
                                 </div>
@@ -255,9 +259,9 @@
                                             </div>
                                         @endforeach --}}
                                         @foreach ($popularZones as $zone)
-                                        <div class="box px-0">
-                                            <div class="card border-0">
-                                                {{-- @if ($zone->images->isNotEmpty())
+                                            <div class="box px-0">
+                                                <div class="card border-0">
+                                                    {{-- @if ($zone->images->isNotEmpty())
                                                     @php
                                                         $image = $zone->images->first();
                                                     @endphp
@@ -280,20 +284,20 @@
                                                             <h5 class="card-title fs-16 lh-2 mb-0">
                                                                 <small>{{ Str::limit($zone->title, 50) }}</small>
                                                             </h5>
-                                                        </a>
-                                                        <p class="card-text text-gray-light mb-0 font-weight-500">
-                                                            {{ Str::limit($zone->address, 60) }}</p>
-                                                        <p class="text-white mb-0"><span
-                                                                class="fs-17 font-weight-bold">{{ number_format($zone->price, 0, ',', '.') }}
-                                                                VND</span>/tháng
-                                                        </p>
-                                                        <!-- Hiển thị tiện ích từ Zone -->
-                                                        
+                                                            </a>
+                                                            <p class="card-text text-gray-light mb-0 font-weight-500">
+                                                                {{ Str::limit($zone->address, 60) }}</p>
+                                                            <p class="text-white mb-0"><span
+                                                                    class="fs-17 font-weight-bold">{{ number_format($zone->price, 0, ',', '.') }}
+                                                                    VND</span>/tháng
+                                                            </p>
+                                                            <!-- Hiển thị tiện ích từ Zone -->
+
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -538,7 +542,6 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
-
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
 
@@ -592,4 +595,39 @@
     </script>
     <script src="{{ asset('assets/js/search-api-vn.js') }}"></script>
     <script src="{{ asset('assets/js/yeuthich.js') }}"></script>
+    <script>
+        window.addEventListener('load', function() {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var lat = position.coords.latitude;
+                    var lng = position.coords.longitude;
+                    // console.log("Vị trí người dùng: Lat: " + lat + ", Lng: " + lng);
+
+                    // Cập nhật URL và localStorage
+                    updateUrlWithLocation(lat, lng);
+                    localStorage.setItem('userLat', lat);
+                    localStorage.setItem('userLng', lng);
+
+                    // Gửi vị trí đến component Livewire
+                    Livewire.dispatch('updateUserLocation', [lat, lng]);
+                }, function(error) {
+                    console.error("Lỗi khi lấy vị trí: ", error);
+                    // Nếu không lấy được vị trí, vẫn gọi để cập nhật danh sách
+                    Livewire.dispatch('updateUserLocation', [null, null]);
+                });
+            } else {
+                console.log("Geolocation không được hỗ trợ");
+                // Nếu không hỗ trợ geolocation, vẫn gọi để cập nhật danh sách
+                Livewire.dispatch('updateUserLocation', [null, null]);
+            }
+        });
+
+        function updateUrlWithLocation(lat, lng) {
+            var currentUrl = new URL(window.location.href);
+            currentUrl.searchParams.set('lat', lat);
+            currentUrl.searchParams.set('lng', lng);
+            history.pushState(null, '', currentUrl.toString());
+            // console.log("URL đã được cập nhật với vị trí mới");
+        }
+    </script>
 @endpush

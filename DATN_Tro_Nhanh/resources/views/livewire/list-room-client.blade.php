@@ -1,5 +1,29 @@
 {{-- resources/views/livewire/list-room-client.blade.php --}}
 <div>
+    {{-- <div class="form-group slider-range slider-range-secondary">
+        <label for="price" class="mb-4 text-gray-light">Khoảng giá</label>
+        <div wire:ignore>
+            <div id="price-slider" data-slider="true" wire:model.lazy="priceRange"
+                data-slider-options='{"min":{{ $minPrice }},"max":{{ $maxPrice }},"values":[{{ $minPrice }},{{ $maxPrice }}],"type":"currency"}'>
+            </div>
+        </div>
+        <div class="text-center mt-2">
+            <input id="price" type="text" readonly class="border-0 amount text-center text-body font-weight-500"
+                wire:model.lazy="priceRange">
+        </div>
+    </div> --}}
+
+    {{-- <div class="form-group slider-range slider-range-secondary">
+        <label for="price" class="mb-4 text-gray-light">Khoảng giá mõm tró</label>
+        <div>
+            <input type="range" id="price-slider" min="{{ $minPrice }}" max="{{ $maxPrice }}" step="100000"
+                wire:model.lazy="priceRange" wire:change="updatePriceRange($event.target.value)">
+        </div>
+        <div class="text-center mt-2">
+            <input id="price" type="text" readonly class="border-0 amount text-center text-body font-weight-500">
+        </div>
+    </div> --}}
+
     <div class="row align-items-sm-center mb-6">
         <div class="col-md-6">
             <h2 class="fs-15 text-dark mb-0">Chúng tôi đã tìm thấy <span class="text-primary">{{ $zones->total() }}</span>
@@ -9,7 +33,7 @@
         <div class="col-md-6 mt-6 mt-md-0" wire:ignore>
             <div class="d-flex justify-content-md-end align-items-center">
                 <div class="input-group border rounded input-group-lg w-auto bg-white mr-3">
-                    <label class="input-group-text bg-transparent border-0 text-uppercase letter-spacing-093 pr-1 pl-3"
+                    {{-- <label class="input-group-text bg-transparent border-0 text-uppercase letter-spacing-093 pr-1 pl-3"
                         for="inputGroupSelect01"><i class="fas fa-align-left fs-16 pr-2"></i>SẮP
                         XẾP:</label>
                     <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby"
@@ -18,6 +42,33 @@
                         <option value="default">Mặc định</option>
                         <option value="price_asc">Giá (thấp đến cao)</option>
                         <option value="price_desc">Giá (cao đến thấp)</option>
+                    </select> --}}
+                    {{-- <label for="price_range"
+                        class="input-group-text bg-transparent border-0 text-uppercase letter-spacing-093 pr-1 pl-3"><i
+                            class="fas fa-align-left fs-16 pr-2"></i>Khoảng
+                        giá</label>
+                    <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby"
+                        data-style="bg-transparent border-0 font-weight-600 btn-lg pl-0 pr-3" id="price_range"
+                        title="Chọn khoảng giá" wire:model.lazy="priceRange">
+                        <option value=''>Chọn khoảng giá...</option>
+                        <option value='0-1000000'>Dưới 1 triệu</option>
+                        <option value='1000000-2000000'>1 triệu - 2 triệu</option>
+                        <option value='2000000-3000000'>2 triệu - 3 triệu</option>
+                        <option value='3000000-5000000'>3 triệu - 5 triệu</option>
+                        <option value='5000000-10000000'>5 triệu - 10 triệu</option>
+                        <option value='10000000-'>Trên 10 triệu</option>
+                    </select> --}}
+                    <label for="price_range"
+                        class="input-group-text bg-transparent border-0 text-uppercase letter-spacing-093 pr-1 pl-3">
+                        <i class="fas fa-align-left fs-16 pr-2"></i>Khoảng giá
+                    </label>
+                    <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby"
+                        data-style="bg-transparent border-0 font-weight-600 btn-lg pl-0 pr-3" id="price_range"
+                        title="Chọn khoảng giá" wire:model.lazy="priceRange">
+                        <option value=''>Chọn khoảng giá...</option>
+                        @foreach ($priceRanges as $range)
+                            <option value='{{ $range[0] }}'>{{ $range[1] }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -27,24 +78,26 @@
         @if ($zones->isNotEmpty())
             @foreach ($zones as $zone)
                 <div class="col-md-6 mb-6">
-                    <div class="card border-0">
+                    <div class="card border-0" id="room-list1">
                         <div class="position-relative bg-hover-overlay rounded-lg card-img" style="height: 200px;">
+                            @if (isset($zone->distance) && $zone->distance <= $searchRadius)
+                                <span class="position-absolute top-0 start-0 m-2 badge badge-danger">Gần bạn</span>
+                            @endif
                             @php
                                 $image = $zone->rooms->first()->image ?? null;
                             @endphp
-                              @if ($image)
-                              <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}">
-                                 <img src="{{ asset('assets/images/' . $image) }}"
-                                     alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
-                                     style="object-fit: cover;">
-                              </a> 
-                         @else
-                         <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}">
-                                 <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                     alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
-                                     style="object-fit: cover;">
-                            </a> 
-                         @endif
+                            @if ($image)
+                                <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}">
+                                    <img src="{{ asset('assets/images/' . $image) }}" alt="{{ $zone->title }}"
+                                        class="img-fluid w-100 h-100 rounded" style="object-fit: cover;">
+                                </a>
+                            @else
+                                <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}">
+                                    <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                        alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                        style="object-fit: cover;">
+                                </a>
+                            @endif
                             <div class="card-img-overlay d-flex flex-column">
                                 <span class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }} position-absolute pos-fixed-top">
                                     {{ $zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
@@ -80,7 +133,8 @@
                         </div>
                         <div class="card-body pt-3 px-0 pb-1">
                             <h2 class="fs-16 mb-1">
-                                <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}" class="text-dark hover-primary">
+                                <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}"
+                                    class="text-dark hover-primary">
                                     {{ Str::limit($zone->name, 50) }}
                                 </a>
                                 {{-- {{ route('client.detail-zone', ['slug' => $zone->slug]) }} --}}
@@ -203,3 +257,27 @@
         @endif
     </div>
 </div>
+
+<script>
+    document.addEventListener('livewire:load', function() {
+        var slider = $('#price-slider').slider();
+
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(value);
+        }
+
+        slider.on('slide', function(event, ui) {
+            $('#price').val(formatCurrency(ui.values[0]) + ' - ' + formatCurrency(ui.values[1]));
+        });
+
+        slider.on('slidechange', function(event, ui) {
+            @this.set('priceRange', ui.values[0] + '-' + ui.values[1]);
+        });
+
+        // Khởi tạo giá trị ban đầu
+        $('#price').val(formatCurrency({{ $minPrice }}) + ' - ' + formatCurrency({{ $maxPrice }}));
+    });
+</script>
