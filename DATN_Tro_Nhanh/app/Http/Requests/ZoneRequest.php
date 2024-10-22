@@ -32,8 +32,8 @@ class ZoneRequest extends FormRequest
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'phone' => 'required|numeric',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Chỉ cần một hình ảnh
-            'price' => 'required|numeric',
+          
+           
         ];
     }
     public function messages()
@@ -49,11 +49,10 @@ class ZoneRequest extends FormRequest
             'latitude.required' => 'Địa chỉ là bắt buộc',
             'longitude.required' => 'Địa chỉ là bắt buộc',
             'phone.required' => 'Số điện thoại là bắt buộc',
-            'image.required' => 'Vui lòng tải lên một hình ảnh.', // Cập nhật thông báo cho hình ảnh
-            'image.image' => 'Tệp tải lên phải là hình ảnh.', // Cập nhật thông báo cho hình ảnh
-            'image.mimes' => 'Hình ảnh phải có định dạng jpeg, png, hoặc jpg.', // Cập nhật thông báo cho hình ảnh
-            'image.max' => 'Kích thước hình ảnh không được vượt quá 2MB.', // Cập nhật thông báo cho hình ảnh
-            'price.required' => 'Giá là bắt buộc',
+            'phone.numeric' => 'Số điện thoại phải là số.',
+            'phone.min' => 'Số điện thoại phải có ít nhất 10 chữ số.',
+            'phone.max' => 'Số điện thoại không được vượt quá 15 chữ số.',
+           
         ];
     }
 }

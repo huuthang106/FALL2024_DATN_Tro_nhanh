@@ -409,9 +409,9 @@ class ZoneServices
                 return ['success' => false, 'message' => 'Không tìm thấy khu trọ.'];
             }
 
-            $zone->name = $request->input('name');
+            $zone->name = $request->input('title');
             $zone->description = $request->input('description');
-            $zone->total_rooms = $request->input('total_rooms');
+         
             $zone->address = $request->input('address');
             $zone->province = $request->input('province');
             $zone->district = $request->input('district');
@@ -419,71 +419,76 @@ class ZoneServices
             $zone->latitude = $request->input('latitude');
             $zone->longitude = $request->input('longitude');
             $zone->status = $request->input('status');
-            $zone->user_id = auth()->id();
+            $zone->category_id = $request->input('category_id');
+            $zone->wifi = $request->has('wifi') ? self::CO : self::CHUA_CO;
+            $zone->bathrooms = $request->has('bathrooms') ? self::CO : self::CHUA_CO;
+            $zone->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
+            $zone->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
+            $zone->save();
 
-            if ($request->hasFile('images')) {
-                $violentImages = [];
+            // if ($request->hasFile('images')) {
+            //     $violentImages = [];
 
-                foreach ($request->file('images') as $image) {
-                    if ($image->isValid() && in_array($image->getClientOriginalExtension(), ['jpg', 'jpeg', 'png', 'gif'])) {
-                        if ($image->getSize() <= 5242880) { // 5MB
-                            $imageContent = base64_encode(file_get_contents($image->getRealPath()));
-                            try {
-                                $response = $this->client->post('models/moderation-recognition/outputs', [
-                                    'json' => [
-                                        'inputs' => [
-                                            [
-                                                'data' => [
-                                                    'image' => [
-                                                        'base64' => $imageContent
-                                                    ]
-                                                ]
-                                            ]
-                                        ]
-                                    ]
-                                ]);
+            //     foreach ($request->file('images') as $image) {
+            //         if ($image->isValid() && in_array($image->getClientOriginalExtension(), ['jpg', 'jpeg', 'png', 'gif'])) {
+            //             if ($image->getSize() <= 5242880) { // 5MB
+            //                 $imageContent = base64_encode(file_get_contents($image->getRealPath()));
+            //                 try {
+            //                     $response = $this->client->post('models/moderation-recognition/outputs', [
+            //                         'json' => [
+            //                             'inputs' => [
+            //                                 [
+            //                                     'data' => [
+            //                                         'image' => [
+            //                                             'base64' => $imageContent
+            //                                         ]
+            //                                     ]
+            //                                 ]
+            //                             ]
+            //                         ]
+            //                     ]);
 
-                                $result = json_decode($response->getBody(), true);
-                                $concepts = $result['outputs'][0]['data']['concepts'] ?? [];
-                                $violenceScore = 0;
+            //                     $result = json_decode($response->getBody(), true);
+            //                     $concepts = $result['outputs'][0]['data']['concepts'] ?? [];
+            //                     $violenceScore = 0;
 
-                                $inappropriateContent = ['gore', 'explicit', 'drug', 'suggestive', 'weapon'];
+            //                     $inappropriateContent = ['gore', 'explicit', 'drug', 'suggestive', 'weapon'];
 
-                                foreach ($concepts as $concept) {
-                                    if (in_array($concept['name'], $inappropriateContent)) {
-                                        $violenceScore += $concept['value'];
-                                    }
-                                }
+            //                     foreach ($concepts as $concept) {
+            //                         if (in_array($concept['name'], $inappropriateContent)) {
+            //                             $violenceScore += $concept['value'];
+            //                         }
+            //                     }
 
-                                if ($violenceScore > 0.5) {
-                                    $violentImages[] = $image->getClientOriginalName();
-                                }
-                            } catch (\Exception $e) {
-                                \Log::error("Error processing image: " . $e->getMessage());
-                                return ['success' => false, 'message' => 'Có lỗi xảy ra khi xử lý ảnh: ' . $e->getMessage()];
-                            }
-                        }
-                    }
-                }
+            //                     if ($violenceScore > 0.5) {
+            //                         $violentImages[] = $image->getClientOriginalName();
+            //                     }
+            //                 } catch (\Exception $e) {
+            //                     \Log::error("Error processing image: " . $e->getMessage());
+            //                     return ['success' => false, 'message' => 'Có lỗi xảy ra khi xử lý ảnh: ' . $e->getMessage()];
+            //                 }
+            //             }
+            //         }
+            //     }
 
-                if (!empty($violentImages)) {
-                    return ['success' => false, 'message' => 'Phát hiện ảnh không phù hợp: ' . implode(', ', $violentImages) . '. Vui lòng kiểm tra lại ảnh của bạn.'];
-                }
+            //     if (!empty($violentImages)) {
+            //         return ['success' => false, 'message' => 'Phát hiện ảnh không phù hợp: ' . implode(', ', $violentImages) . '. Vui lòng kiểm tra lại ảnh của bạn.'];
+            //     }
 
-                // Xóa ảnh cũ
-                foreach ($zone->images as $oldImage) {
-                    $oldImagePath = public_path('assets/images/' . $oldImage->filename);
-                    if (file_exists($oldImagePath)) {
-                        unlink($oldImagePath);
-                    }
-                    $oldImage->delete();
-                }
+            //     // Xóa ảnh cũ
+            //     foreach ($zone->images as $oldImage) {
+            //         $oldImagePath = public_path('assets/images/' . $oldImage->filename);
+            //         if (file_exists($oldImagePath)) {
+            //             unlink($oldImagePath);
+            //         }
+            //         $oldImage->delete();
+            //     }
 
-                // Thêm ảnh mới
-                foreach ($request->file('images') as $image) {
-                    $this->storeImage($zone, $image);
-                }
-            }
+            //     // Thêm ảnh mới
+            //     foreach ($request->file('images') as $image) {
+            //         $this->storeImage($zone, $image);
+            //     }
+            // }
 
             if ($zone->save()) {
                 $slug = $this->createSlug($request->input('name')) . '-' . $zone->id;

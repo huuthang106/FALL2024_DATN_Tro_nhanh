@@ -124,8 +124,8 @@ class ZoneOwnersController extends Controller
         $user_id = Auth::id();
         if (Auth::check() && Auth::user()->role != 1) {
             $zone = $this->zoneServices->getIdZone($slug);
-
-            return view('owners.edit.update-zone', ['zone' => $zone]);
+            $categories = Category::all();
+            return view('owners.edit.update-zone', ['zone' => $zone, 'categories' => $categories]);
         } else {
             // Nếu người dùng không có quyền, chuyển hướng về trang chính
             return redirect()->route('client.home');
