@@ -23,16 +23,19 @@ class Registrationlist extends Model
         'updated_at',
 
     ];
+    
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'identity_id');
     }
+    
     public function imgmember()
     {
         return $this->hasMany(Imagesmember::class);
     }
     public function identity()
     {
-        return $this->belongsTo(Identity::class);
+        return $this->belongsTo(Identity::class, 'identity_id');
     }
+  
 }

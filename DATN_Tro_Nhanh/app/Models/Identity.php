@@ -23,10 +23,12 @@ class Identity extends Model
         'front_id_card_image',
         'back_id_card_image',   
     ];
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
     public function registrationlist(){
         return $this->belongsTo(Registrationlist::class);
     }
+    
 }

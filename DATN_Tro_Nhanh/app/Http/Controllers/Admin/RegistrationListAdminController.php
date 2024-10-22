@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class RegistrationListAdminController extends Controller
 {
     //
-    
+    const phantrang = 10;
     protected $registrationAdminService;
     protected $imageAdminService;
     protected $identityService;
@@ -30,7 +30,7 @@ class RegistrationListAdminController extends Controller
     }
     public function index()
     {
-
+        // Sử dụng service để lấy danh sách các bản ghi
         $list = $this->registrationAdminService->getAll();
         return view('admincp.show.list-register', compact('list'));
     }
@@ -47,15 +47,22 @@ class RegistrationListAdminController extends Controller
     }
     public function show($id)
     {
-        if(Auth::check()) {
-        $single_detail = $this->registrationAdminService->getID($id);
-        $id_intentity = $this->identityService->getIdIdentity($single_detail->user_id);
-// dd($id_intentity);
-        $list_image = $this->imageAdminService->getImageUserId($id_intentity);
-        // dd($list_image);
-        return view('admincp.show.detail-register', compact('single_detail', 'list_image'));
+        if (Auth::check()) {
+            $single_detail = $this->registrationAdminService->getID($id);
+    
+            if ($single_detail && $single_detail->identity && $single_detail->identity->user) {
+                $user = $single_detail->identity->user;
+                $profile_image = $this->imageAdminService->getImageUserId($user->id);
+                $front_id_card_image = $single_detail->identity->front_id_card_image;
+                $back_id_card_image = $single_detail->identity->back_id_card_image;
+    
+                return view('admincp.show.detail-register', compact('single_detail', 'profile_image', 'front_id_card_image', 'back_id_card_image'));
+            }
+    
+            return redirect()->route('home')->with('error', 'Không tìm thấy thông tin chi tiết.');
         }
-        return redirect()->route('/')->with('error', '');
+    
+        return redirect()->route('home')->with('error', 'Bạn cần đăng nhập để xem chi tiết.');
     }
     public function start_approve_application($id)
     {
