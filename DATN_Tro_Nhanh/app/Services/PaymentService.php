@@ -105,6 +105,7 @@ class PaymentService
             $notification->save();
 
             $transaction = new Transaction();
+            $transaction->type = 'Rút tiền';
             $transaction->user_id = $data['user_id'];
             $transaction->added_funds = $data['amount'];
             $transaction->balance = $user->balance - $data['amount']; // Cập nhật số dư mới
@@ -192,12 +193,13 @@ class PaymentService
             $notification = new Notification(); // Tạo đối tượng Notification
             $notification->user_id = $user->id; // Lấy user_id từ payout
             $notification->data = 'Đơn rút tiền có mã đơn là ' . $payout->single_code . ' đã bị từ chối. Lý do: ' . $request->rejectionReason;
-            $notification->type = 'Rút tiền';
+            $notification->type = 'Từ chối rút tiền';
             $notification->save();
 
             $addPay = $payout->amount;
             // Lưu vào bảng transactions
             $transaction = new Transaction(); // Tạo đối tượng Transaction
+            $transaction->type = 'Từ chối rút tiền';
             $transaction->user_id = $user->id; // Lấy user_id
             $transaction->added_funds = '+' . $addPay; // Chuyển $addPay thành chuỗi với dấu +
             $transaction->balance = $user->balance; // Lấy balance sau khi cập nhật

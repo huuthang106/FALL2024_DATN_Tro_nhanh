@@ -18,6 +18,7 @@ use App\Models\Notification;
 
 class ResidentOwnersService
 {
+    public const agree = 2;
     public function getlistResdent($user_id, $status)
     {
         return Resident::where('user_id', $user_id)
@@ -28,7 +29,7 @@ class ResidentOwnersService
     }
 
 
-    public function updateResidentStatus($residentId, $newStatus, $userId)
+    public function updateResidentStatus($residentId, $userId)
     {
         // Tìm resident theo ID và user_id
         $resident = Resident::where('id', $residentId)->first();
@@ -61,12 +62,12 @@ class ResidentOwnersService
 
         $thonngbao = new Notification();
         $thonngbao->user_id = $resident->user_id;
-        $thonngbao->type = 'Duyệt phòng';
+        $thonngbao->type = 'Đơn đã xác nhận';
         $thonngbao->data = 'Đơn tham gia ' . $resident->room->title . ' của bạn đã được duyệt';
         $thonngbao->save();
 
         // Cập nhật status
-        $resident->status = $newStatus;
+        $resident->status = self::agree;
         $resident->save();
 
         return $resident; // Trả về resident đã được cập nhật

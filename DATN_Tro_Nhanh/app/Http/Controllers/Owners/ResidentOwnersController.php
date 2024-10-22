@@ -42,7 +42,7 @@ class ResidentOwnersController extends Controller
 
 
             // Gọi hàm lấy dữ liệu
-            $residents = $this->residentOwnersService->updateResidentStatus($idResident, self::agree, $user_id);
+            $residents = $this->residentOwnersService->updateResidentStatus($idResident, $user_id);
 
             // dd($residents); 
             if ($residents) {

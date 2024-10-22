@@ -58,7 +58,7 @@
                                             <div class="form-group">
                                                 <label for="withdraw-amount" class="fs-10">Số Tiền Cần Rút</label>
                                                 <input type="number" class="form-control" id="added_funds" name="amount"
-                                                    placeholder="Nhập số tiền" value="{{ Auth::user()->balance }}"
+                                                    placeholder="Nhập số tiền" value="{{ number_format(Auth::user()->balance, 0, ',', '.') }}"
                                                     max="{{ Auth::user()->balance }}" required>
                                                 <!-- <small class="form-text text-muted">Số dư hiện tại:
                                                             {{ number_format(Auth::user()->balance, 0, ',', '.') }} VNĐ</small> -->

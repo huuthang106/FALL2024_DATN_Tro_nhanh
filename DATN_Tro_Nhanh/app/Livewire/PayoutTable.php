@@ -124,6 +124,7 @@ class PayoutTable extends Component
             $user->save(); // Lưu thay đổi
             
             $transaction = new Transaction();
+            $transaction->type = 'Hủy rút tiền';
             $transaction->user_id = Auth::id();
             $transaction->added_funds = $payout->amount;
             $transaction->balance = Auth::user()->balance + $payout->amount;
