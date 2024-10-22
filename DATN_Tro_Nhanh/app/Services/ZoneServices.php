@@ -21,7 +21,7 @@ use App\Models\Notification;
 use App\Models\VipZonePosition;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cookie;
-
+use Illuminate\Support\Facades\DB;
 class ZoneServices
 {
     const CO = 1; // Có tiện ích
@@ -669,12 +669,17 @@ class ZoneServices
     }
     public function create($request)
     {
-        if (auth()->check()) {
+        if (!auth()->check()) {
+            return false;
+        }
+    
+        DB::beginTransaction(); // Bắt đầu giao dịch
+    
+        try {
             $zone = new Zone();
             $user_id = auth()->id();
-            // Kiểm tra nếu user có VIP
             $user = auth()->user();
-            $zone->status = ($user->has_vip_badge && $user->vip_expiration_date > now()) ? 2 : 1; // Cập nhật status dựa trên VIP
+            $zone->status = ($user->has_vip_badge && $user->vip_expiration_date > now()) ? 2 : 1;
             $zone->name = $request->input('title');
             $zone->description = $request->input('description');
             $zone->phone = $request->input('phone');
@@ -693,6 +698,7 @@ class ZoneServices
             $zone->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
     
             if (!$zone->save()) {
+                DB::rollBack();
                 return false;
             }
     
@@ -701,13 +707,13 @@ class ZoneServices
             $zone->slug = $slug;
     
             if (!$zone->save()) {
-                $zone->delete();
+                DB::rollBack();
                 return false;
             }
     
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $isValidImage = false; // Biến để lưu trạng thái hợp lệ của hình ảnh
+                $isValidImage = false;
                 Log::info("Starting image processing...");
     
                 try {
@@ -752,10 +758,10 @@ class ZoneServices
                     Log::info("Total inappropriate content score for image: " . $filename . " is " . $violenceScore);
     
                     if ($violenceScore <= 0.5) {
-                        $isValidImage = true; // Đánh dấu hình ảnh là hợp lệ
+                        $isValidImage = true;
                     } else {
                         Log::warning("Image rejected due to high inappropriate content score: " . $filename);
-                        $zone->delete();
+                        DB::rollBack();
                         return response()->json([
                             'status' => 'error',
                             'message' => 'Phát hiện ảnh không phù hợp: ' . $filename . '. Vui lòng kiểm tra lại ảnh của bạn.'
@@ -763,12 +769,14 @@ class ZoneServices
                     }
                 } catch (GuzzleException $e) {
                     Log::error("Clarifai API error: " . $e->getMessage());
+                    DB::rollBack();
                     return response()->json([
                         'status' => 'error',
                         'message' => 'Có lỗi xảy ra khi kiểm tra ảnh: ' . $e->getMessage()
                     ]);
                 } catch (\Exception $e) {
                     Log::error("Error processing image: " . $e->getMessage());
+                    DB::rollBack();
                     return response()->json([
                         'status' => 'error',
                         'message' => 'Có lỗi xảy ra khi xử lý ảnh: ' . $e->getMessage()
@@ -776,7 +784,7 @@ class ZoneServices
                 }
     
                 if (!$isValidImage) {
-                    $zone->delete();
+                    DB::rollBack();
                     return response()->json([
                         'status' => 'error',
                         'message' => 'Không có ảnh nào được tải lên. Vui lòng thử lại.'
@@ -784,9 +792,15 @@ class ZoneServices
                 }
             }
     
+            DB::commit(); // Commit transaction
             return $zoneId;
-        } else {
-            return false;
+        } catch (\Exception $e) {
+            DB::rollBack(); // Rollback transaction
+            Log::error('Error creating zone: ' . $e->getMessage());
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Có lỗi xảy ra khi tạo khu vực: ' . $e->getMessage()
+            ]);
         }
     }
     public function getSlug($id)
