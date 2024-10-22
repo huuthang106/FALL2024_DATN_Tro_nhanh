@@ -80,9 +80,9 @@
                 <div class="col-md-6 mb-6">
                     <div class="card border-0" id="room-list1">
                         <div class="position-relative bg-hover-overlay rounded-lg card-img" style="height: 200px;">
-                            @if (isset($zone->distance) && $zone->distance <= $searchRadius)
+                            {{-- @if (isset($zone->distance) && $zone->distance <= $searchRadius)
                                 <span class="position-absolute top-0 start-0 m-2 badge badge-danger">Gần bạn</span>
-                            @endif
+                            @endif --}}
                             @php
                                 $image = $zone->rooms->first()->image ?? null;
                             @endphp
@@ -99,7 +99,8 @@
                                 </a>
                             @endif
                             <div class="card-img-overlay d-flex flex-column">
-                                <span class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }} position-absolute pos-fixed-top">
+                                <span
+                                    class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }} position-absolute pos-fixed-top">
                                     {{ $zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
                                 </span>
                                 <div>

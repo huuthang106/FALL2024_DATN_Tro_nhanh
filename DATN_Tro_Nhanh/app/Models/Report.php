@@ -14,7 +14,6 @@ class Report extends Model
         'description',
         'status',
         'user_id',
-        'room_id',
         'reported_person',
         'zone_id',
     ];

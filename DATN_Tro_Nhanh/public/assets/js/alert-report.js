@@ -1,4 +1,46 @@
 // Form Reports
+// $(document).ready(function () {
+//     // Xử lý form báo cáo
+//     $('#reportForm').on('submit', function (e) {
+//         e.preventDefault();
+
+//         var formData = $(this).serialize();
+
+//         $.ajax({
+//             type: 'POST',
+//             url: $(this).attr('action'),
+//             data: formData,
+//             success: function (response) {
+//                 if (response.success) {
+//                     $('#reportForm').trigger('reset');
+//                     $('#reportModal').modal('hide');
+
+//                     Swal.fire({
+//                         title: 'Báo cáo thành công!',
+//                         text: response.message,
+//                         icon: 'success',
+//                         confirmButtonText: 'OK',
+//                         allowOutsideClick: false
+//                     }).then((result) => {
+//                         if (result.isConfirmed) {
+//                             window.location.href = response.redirect;
+//                         }
+//                     });
+//                 }
+//             },
+//             error: function (xhr) {
+//                 var errors = xhr.responseJSON.errors;
+//                 $('#description-error').html(
+//                     '');
+
+//                 if (errors && errors.description) {
+//                     $('#description-error').html('<p>' + errors.description[0] +
+//                         '</p>');
+//                 }
+//             }
+//         });
+//     });
+// });
 $(document).ready(function () {
     // Xử lý form báo cáo
     $('#reportForm').on('submit', function (e) {
@@ -26,17 +68,37 @@ $(document).ready(function () {
                             window.location.href = response.redirect;
                         }
                     });
+                } else {
+                    // Xử lý trường hợp response.success là false
+                    Swal.fire({
+                        title: 'Lỗi!',
+                        text: response.message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
                 }
             },
             error: function (xhr) {
-                var errors = xhr.responseJSON.errors;
-                $('#description-error').html(
-                    '');
+                var errorMessage = 'Đã xảy ra lỗi. Vui lòng thử lại sau.';
 
-                if (errors && errors.description) {
-                    $('#description-error').html('<p>' + errors.description[0] +
-                        '</p>');
+                if (xhr.status === 422) {
+                    var response = xhr.responseJSON;
+                    if (response && response.message) {
+                        errorMessage = response.message;
+                    } else if (response && response.errors) {
+                        errorMessage = Object.values(response.errors)[0][0];
+                    }
                 }
+
+                Swal.fire({
+                    title: 'Lỗi!',
+                    text: errorMessage,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+
+                // Xóa thông báo lỗi cũ
+                $('#description-error').html('');
             }
         });
     });

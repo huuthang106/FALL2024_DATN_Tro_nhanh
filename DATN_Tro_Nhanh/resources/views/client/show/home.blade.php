@@ -374,7 +374,7 @@
                     </div>
                     <div class="col-md-6 text-md-right">
                         <a href="{{ route('client.room-listing') }}"
-                            class="btn fs-14 text-secondary btn-accent py-3 lh-15 px-7 mb-6 mb-lg-0">Xem tất cả tài sản
+                            class="btn fs-14 text-secondary btn-accent py-3 lh-15 px-7 mb-6 mb-lg-0">Xem tất cả
                             <i class="far fa-long-arrow-right ml-1"></i>
                         </a>
                     </div>
@@ -650,8 +650,7 @@
                     </div>
                     <div class="col-md-6 text-md-right">
                         <a href="{{ route('client.room-listing') }}"
-                            class="btn fs-14 text-secondary btn-accent py-3 lh-15 px-7 mb-6 mb-lg-0">Xem tất cả bất động
-                            sản
+                            class="btn fs-14 text-secondary btn-accent py-3 lh-15 px-7 mb-6 mb-lg-0">Xem tất cả
                             <i class="far fa-long-arrow-right ml-1"></i>
                         </a>
                     </div>

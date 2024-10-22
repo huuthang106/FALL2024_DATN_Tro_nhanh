@@ -105,14 +105,13 @@ class ListRoomClient extends Component
         if ($this->userLat && $this->userLng) {
             $radius = $this->radius ?? 10;
             $query->addSelect(DB::raw("(6371 * acos(cos(radians($this->userLat)) 
-                * cos(radians(zones.latitude)) 
-                * cos(radians(zones.longitude) - radians($this->userLng)) 
-                + sin(radians($this->userLat)) 
-                * sin(radians(zones.latitude)))) AS distance"))
+            * cos(radians(zones.latitude)) 
+            * cos(radians(zones.longitude) - radians($this->userLng)) 
+            + sin(radians($this->userLat)) 
+            * sin(radians(zones.latitude)))) AS distance"))
                 ->orderByRaw("CASE WHEN distance <= $radius THEN 0 ELSE 1 END, distance");
         } else {
-            $query->orderByRaw('CASE WHEN zones.vip_expiry_date > NOW() THEN 1 ELSE 0 END DESC')
-                ->orderBy('created_at', 'desc');
+            $query->orderBy('created_at', 'desc');
         }
         // Tìm kiếm theo tiêu đề, mô tả, địa chỉ
         if (!empty($this->search)) {

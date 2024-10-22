@@ -37,6 +37,10 @@ class Zone extends Model
         'view',
 
     ];
+    public function vipZonePositions()
+    {
+        return $this->hasMany(VipZonePosition::class);
+    }
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -57,7 +61,7 @@ class Zone extends Model
     {
         return $this->hasMany(Notification::class);
     }
-  
+
 
     public function hasAvailableRooms()
     {

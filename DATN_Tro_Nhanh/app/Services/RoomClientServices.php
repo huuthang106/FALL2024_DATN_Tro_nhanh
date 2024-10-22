@@ -20,6 +20,11 @@ class RoomClientServices
     private const trangthaiphong = 2;
     private const status = 2;
     private const HIEN_THI = 2;
+    private const NOI_O_LY_TUONG = 1;
+    private const DUOC_QUAN_TAM = 2;
+    private const VI_TRI_GOI_KICH_HOAT = 1;
+    private const TRANG_THAI_VIP_HIEN_THI = 1;
+    private const SO_LUONG_HIEN_THI = 5;
     // // ----------------------------------------------------------------Sắp Theo VIP
     // public function getAllRoom(int $perPage = 10, $type = null, $searchTerm = null, $province = null, $district = null, $village = null, $category = null, $features = null)
     // {
@@ -498,29 +503,199 @@ class RoomClientServices
     //         ->orderBy('created_at', 'desc')
     //         ->take(5)
     //         ->get();
+    // // }
+    // Nơi ở lý tưởng
+    // public function getRoomWhere()
+    // {
+    //     return Zone::with('rooms') // Tải trước mối quan hệ rooms
+    //         ->join('users', 'zones.user_id', '=', 'users.id')
+    //         ->where('zones.status', self::HIEN_THI)
+    //         ->select('zones.*')
+    //         ->orderBy('zones.created_at', 'desc')
+    //         ->take(5)
+    //         ->get();
+    // }
+    // public function getRoomWhere()
+    // {
+    //     $currentDate = Carbon::now();
+
+    //     return Zone::with(['rooms', 'vipZonePositions.location'])
+    //         ->join('users', 'zones.user_id', '=', 'users.id')
+    //         ->join('vip_zone_positions', 'zones.id', '=', 'vip_zone_positions.zone_id')
+    //         ->join('locations', 'vip_zone_positions.location_id', '=', 'locations.id')
+    //         ->where('zones.status', self::HIEN_THI)
+    //         ->where('locations.type_vip', self::NOI_O_LY_TUONG)
+    //         ->where('locations.status', self::VI_TRI_GOI_KICH_HOAT)
+    //         ->where('vip_zone_positions.status', self::TRANG_THAI_VIP_HIEN_THI)
+    //         ->where('vip_zone_positions.end_date', '>', $currentDate)
+    //         ->select('zones.*', 'locations.name as location_name', 'vip_zone_positions.end_date')
+    //         ->orderBy('vip_zone_positions.created_at', 'desc')
+    //         ->take(5)
+    //         ->get();
     // }
     public function getRoomWhere()
     {
-        return Zone::with('rooms') // Tải trước mối quan hệ rooms
+        $currentDate = Carbon::now();
+
+        $vipZones = Zone::with(['rooms', 'vipZonePositions.location'])
             ->join('users', 'zones.user_id', '=', 'users.id')
+            ->join('vip_zone_positions', 'zones.id', '=', 'vip_zone_positions.zone_id')
+            ->join('locations', 'vip_zone_positions.location_id', '=', 'locations.id')
             ->where('zones.status', self::HIEN_THI)
-            ->select('zones.*')
-            ->orderBy('zones.created_at', 'desc')
+            ->where('locations.type_vip', self::NOI_O_LY_TUONG)
+            ->where('locations.status', self::VI_TRI_GOI_KICH_HOAT)
+            ->where('vip_zone_positions.status', self::TRANG_THAI_VIP_HIEN_THI)
+            ->where('vip_zone_positions.end_date', '>', $currentDate)
+            ->select('zones.*', 'locations.name as location_name', 'vip_zone_positions.end_date')
+            ->orderBy('vip_zone_positions.created_at', 'desc')
             ->take(5)
             ->get();
-    }
 
+        if ($vipZones->isEmpty()) {
+            // Nếu không có zone VIP, lấy các zone có view cao nhất
+            return Zone::with('rooms')
+                ->where('status', self::HIEN_THI)
+                ->orderBy('view', 'desc')
+                ->take(self::SO_LUONG_HIEN_THI)
+                ->get();
+        }
+
+        return $vipZones;
+    }
+    // public function getRoomWhere()
+    // {
+    //     $currentDate = Carbon::now();
+
+    //     $vipZones = Zone::with(['rooms', 'vipZonePositions.location'])
+    //         ->join('users', 'zones.user_id', '=', 'users.id')
+    //         ->join('vip_zone_positions', 'zones.id', '=', 'vip_zone_positions.zone_id')
+    //         ->join('locations', 'vip_zone_positions.location_id', '=', 'locations.id')
+    //         ->where('zones.status', self::HIEN_THI)
+    //         ->where('locations.type_vip', self::NOI_O_LY_TUONG)
+    //         ->where('locations.status', self::VI_TRI_GOI_KICH_HOAT)
+    //         ->where('vip_zone_positions.status', self::TRANG_THAI_VIP_HIEN_THI)
+    //         ->where('vip_zone_positions.end_date', '>', $currentDate)
+    //         ->select('zones.*', 'locations.name as location_name', 'vip_zone_positions.end_date')
+    //         ->orderBy('vip_zone_positions.created_at', 'desc')
+    //         ->take(5)
+    //         ->get();
+
+    //     if ($vipZones->count() < self::SO_LUONG_HIEN_THI) {
+    //         // Số lượng zone cần thêm
+    //         $remainingCount = self::SO_LUONG_HIEN_THI - $vipZones->count();
+
+    //         // Lấy các zone có view cao nhất, không bao gồm các zone đã có trong $vipZones
+    //         $highViewZones = Zone::with('rooms')
+    //             ->where('status', self::HIEN_THI)
+    //             ->whereNotIn('id', $vipZones->pluck('id'))
+    //             ->orderBy('view', 'desc')
+    //             ->take($remainingCount)
+    //             ->get();
+
+    //         // Kết hợp các zone VIP và zone có view cao
+    //         $combinedZones = $vipZones->concat($highViewZones);
+
+    //         return $combinedZones;
+    //     }
+
+    //     return $vipZones;
+    // }
+    // Được quan tâm nhiều
+    // public function RoomClient()
+    // {
+    //     return Zone::with('rooms') // Tải trước mối quan hệ rooms
+    //         ->join('users', 'zones.user_id', '=', 'users.id')
+    //         ->where('zones.status', self::HIEN_THI)
+    //         ->select('zones.*')
+    //         ->orderBy('zones.created_at', 'desc')
+    //         ->take(5)
+    //         ->get();
+    // }
+    // public function RoomClient()
+    // {
+    //     $currentDate = Carbon::now();
+
+    //     return Zone::with(['rooms', 'vipZonePositions.location'])
+    //         ->join('users', 'zones.user_id', '=', 'users.id')
+    //         ->join('vip_zone_positions', 'zones.id', '=', 'vip_zone_positions.zone_id')
+    //         ->join('locations', 'vip_zone_positions.location_id', '=', 'locations.id')
+    //         ->where('zones.status', self::HIEN_THI)
+    //         ->where('locations.type_vip', self::DUOC_QUAN_TAM)  // Thay đổi type_vip thành 2
+    //         ->where('locations.status', self::VI_TRI_GOI_KICH_HOAT)
+    //         ->where('vip_zone_positions.status', self::TRANG_THAI_VIP_HIEN_THI)
+    //         ->where('vip_zone_positions.end_date', '>', $currentDate)
+    //         ->select('zones.*', 'locations.name as location_name', 'vip_zone_positions.end_date')
+    //         ->orderBy('vip_zone_positions.created_at', 'desc')
+    //         ->take(5)
+    //         ->get();
+    // }
     public function RoomClient()
     {
-        return Zone::with('rooms') // Tải trước mối quan hệ rooms
+        $currentDate = Carbon::now();
+
+        $vipZones = Zone::with(['rooms', 'vipZonePositions.location'])
             ->join('users', 'zones.user_id', '=', 'users.id')
+            ->join('vip_zone_positions', 'zones.id', '=', 'vip_zone_positions.zone_id')
+            ->join('locations', 'vip_zone_positions.location_id', '=', 'locations.id')
             ->where('zones.status', self::HIEN_THI)
-            ->select('zones.*')
-            ->orderBy('zones.created_at', 'desc')
+            ->where('locations.type_vip', self::DUOC_QUAN_TAM)  // Thay đổi type_vip thành DUOC_QUAN_TAM
+            ->where('locations.status', self::VI_TRI_GOI_KICH_HOAT)
+            ->where('vip_zone_positions.status', self::TRANG_THAI_VIP_HIEN_THI)
+            ->where('vip_zone_positions.end_date', '>', $currentDate)
+            ->select('zones.*', 'locations.name as location_name', 'vip_zone_positions.end_date')
+            ->orderBy('vip_zone_positions.created_at', 'desc')
             ->take(5)
             ->get();
-    }
 
+        if ($vipZones->isEmpty()) {
+            // Nếu không có zone VIP, lấy các zone có view cao nhất
+            return Zone::with('rooms')
+                ->where('status', self::HIEN_THI)
+                ->orderBy('view', 'desc')
+                ->take(self::SO_LUONG_HIEN_THI)
+                ->get();
+        }
+
+        return $vipZones;
+    }
+    // public function RoomClient()
+    // {
+    //     $currentDate = Carbon::now();
+
+    //     $vipZones = Zone::with(['rooms', 'vipZonePositions.location'])
+    //         ->join('users', 'zones.user_id', '=', 'users.id')
+    //         ->join('vip_zone_positions', 'zones.id', '=', 'vip_zone_positions.zone_id')
+    //         ->join('locations', 'vip_zone_positions.location_id', '=', 'locations.id')
+    //         ->where('zones.status', self::HIEN_THI)
+    //         ->where('locations.type_vip', self::DUOC_QUAN_TAM)
+    //         ->where('locations.status', self::VI_TRI_GOI_KICH_HOAT)
+    //         ->where('vip_zone_positions.status', self::TRANG_THAI_VIP_HIEN_THI)
+    //         ->where('vip_zone_positions.end_date', '>', $currentDate)
+    //         ->select('zones.*', 'locations.name as location_name', 'vip_zone_positions.end_date')
+    //         ->orderBy('vip_zone_positions.created_at', 'desc')
+    //         ->take(5)
+    //         ->get();
+
+    //     if ($vipZones->count() < self::SO_LUONG_HIEN_THI) {
+    //         // Số lượng zone cần thêm
+    //         $remainingCount = self::SO_LUONG_HIEN_THI - $vipZones->count();
+
+    //         // Lấy các zone có view cao nhất, không bao gồm các zone đã có trong $vipZones
+    //         $highViewZones = Zone::with('rooms')
+    //             ->where('status', self::HIEN_THI)
+    //             ->whereNotIn('id', $vipZones->pluck('id'))
+    //             ->orderBy('view', 'desc')
+    //             ->take($remainingCount)
+    //             ->get();
+
+    //         // Kết hợp các zone VIP và zone có view cao
+    //         $combinedZones = $vipZones->concat($highViewZones);
+
+    //         return $combinedZones;
+    //     }
+
+    //     return $vipZones;
+    // }
     // public function getUniqueLocations()
     // {
     //     try {
@@ -719,13 +894,13 @@ class RoomClientServices
                 ->where('zones.status', self::status)
                 ->select('zones.*')
                 ->orderByDesc('zones.created_at');
-    
+
             if ($type) {
                 $query->whereHas('category', function ($q) use ($type) {
                     $q->where('name', $type);
                 });
             }
-    
+
             if ($searchTerm) {
                 $query->where(function ($q) use ($searchTerm) {
                     $q->where('zones.name', 'like', '%' . $searchTerm . '%')
@@ -733,7 +908,7 @@ class RoomClientServices
                         ->orWhere('zones.address', 'like', '%' . $searchTerm . '%');
                 });
             }
-    
+
             if ($province) {
                 $query->where('zones.province', $province);
             }
@@ -747,7 +922,7 @@ class RoomClientServices
                 Log::info('Applying category filter: ' . $category);
                 $query->where('zones.category_id', $category);
             }
-    
+
             if (!empty($features)) {
                 $query->where(function ($q) use ($features) {
                     foreach ($features as $feature) {
@@ -755,7 +930,7 @@ class RoomClientServices
                     }
                 });
             }
-    
+
             $result = $query->get();
             Log::info('SQL Query: ' . $query->toSql());
             Log::info('SQL Bindings: ' . json_encode($query->getBindings()));
