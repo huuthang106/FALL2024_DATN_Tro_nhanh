@@ -15,6 +15,7 @@ Route::group(['prefix' => ''], function () {
     Route::post('thanh-toan-hoa-don/{billId}', [IndexOwnersController::class, 'pay'])->name('payment-bill');
     // thai toan 
     Route::get('/them-tro/{slug}', [RoomOwnersController::class, 'page_add_rooms'])->name('add-room');
+    Route::post('/them-tro/{id}', [RoomOwnersController::class, 'store'])->name('add-room-for-zone');
     // huu thang update laij hamf theem 
 // routes/web.php
 

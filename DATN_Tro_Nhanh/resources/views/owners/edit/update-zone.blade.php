@@ -23,7 +23,7 @@
                             aria-controls="media" aria-selected="false"><span class="number">2.</span> Tiện ích</a>
                     </li>
 
-                  
+
                 </ul>
                 <div class="tab-content shadow-none p-0">
                     <form action="{{ route('owners.zone-start-update', $zone->id) }}" method="post"
@@ -88,7 +88,7 @@
                                                                         <div class="text-danger">{{ $message }}</div>
                                                                     @enderror
                                                                 </div> --}}
-                                                           
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -101,7 +101,6 @@
                                                                 Thông tin liên hệ</h3>
                                                             <hr>
                                                             <div class="form-row mx-n2">
-
                                                                 <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
                                                                     <div class="form-group">
                                                                         <label for="phone" class="text-heading">Số
@@ -110,7 +109,8 @@
                                                                                 buộc)</span></label>
                                                                         <input type="text" name="phone"
                                                                             class="form-control form-control-lg border-0"
-                                                                            id="phone" value="{{ old('phone', $zone->phone) }}">
+                                                                            id="phone"
+                                                                            value="{{ old('phone', $zone->phone) }}">
                                                                         @error('phone')
                                                                             <div class="text-danger">{{ $message }}
                                                                             </div>
@@ -124,8 +124,8 @@
                                                             <input type="hidden" id="user_id" name="user_id"
                                                                 value="{{ Auth::check() ? Auth::user()->id : '' }}">
                                                             <input type="hidden"
-                                                                class="form-control form-control-lg border-0"
-                                                                id="name" name="name"
+                                                                class="form-control form-control-lg border-0" id="name"
+                                                                name="name"
                                                                 value="{{ Auth::check() ? Auth::user()->name : 'Chưa có' }}"
                                                                 readonly>
                                                             @error('name')
@@ -173,31 +173,31 @@
                                                     <h3 class="card-title mb-0 text-heading fs-22 lh-15">Danh sách tiện
                                                         ích
                                                     </h3>
-                                             
+
                                                     <div class="row">
                                                         <div class="col-sm-6 col-lg-3">
                                                             <ul class="list-group list-group-no-border">
                                                                 <li class="list-group-item px-0 pt-0 pb-2">
                                                                     <div class="custom-control custom-checkbox">
                                                                         <input type="checkbox"
-                                                                            class="custom-control-input"
-                                                                            name="wifi" id="attic"
-                                                                            value="attic">
+                                                                            class="custom-control-input" name="wifi"
+                                                                            id="attic" value="attic"
+                                                                            {{ $zone->wifi ? 'checked' : '' }}> <!-- Kiểm tra từ CSDL -->
                                                                         <label class="custom-control-label"
                                                                             for="attic">Wifi</label>
                                                                     </div>
                                                                 </li>
                                                             </ul>
                                                         </div>
-                                                      
+
                                                         <div class="col-sm-6 col-lg-3">
                                                             <ul class="list-group list-group-no-border">
                                                                 <li class="list-group-item px-0 pt-0 pb-2">
                                                                     <div class="custom-control custom-checkbox">
                                                                         <input type="checkbox"
-                                                                            class="custom-control-input"
-                                                                            name="bathrooms" id="attic-01"
-                                                                            value="attic-01">
+                                                                            class="custom-control-input" name="bathrooms"
+                                                                            id="attic-01" value="attic-01"
+                                                                            {{ $zone->bathrooms ? 'checked' : '' }}> <!-- Kiểm tra từ CSDL -->
                                                                         <label class="custom-control-label"
                                                                             for="attic-01">Phòng tắm</label>
                                                                     </div>
@@ -215,7 +215,8 @@
                                                                         <input type="checkbox"
                                                                             class="custom-control-input"
                                                                             name="air_conditioning" id="attic-02"
-                                                                            value="attic-02">
+                                                                            value="attic-02"
+                                                                            {{ $zone->air_conditioning ? 'checked' : '' }}> <!-- Kiểm tra từ CSDL -->
                                                                         <label class="custom-control-label"
                                                                             for="attic-02">Máy điều hòa</label>
                                                                     </div>
@@ -227,9 +228,9 @@
                                                                 <li class="list-group-item px-0 pt-0 pb-2">
                                                                     <div class="custom-control custom-checkbox">
                                                                         <input type="checkbox"
-                                                                            class="custom-control-input"
-                                                                            name="garage" id="attic-03"
-                                                                            value="attic-03">
+                                                                            class="custom-control-input" name="garage"
+                                                                            id="attic-03" value="attic-03"
+                                                                            {{ $zone->garage ? 'checked' : '' }}> <!-- Kiểm tra từ CSDL -->
                                                                         <label class="custom-control-label"
                                                                             for="attic-03">Ga-ra</label>
                                                                     </div>

@@ -687,10 +687,10 @@ class ZoneServices
             $zone->latitude = $request->input('latitude');
             $zone->user_id = $user_id;
             $zone->category_id = $request->input('category_id');
-            $zone->wifi = $request->has('wifi') ? $request->input('wifi') : self::CHUA_CO;
-            $zone->bathrooms = $request->has('bathrooms') ? $request->input('bathrooms') : self::CHUA_CO;
-            $zone->air_conditioning = $request->has('air_conditioning') ? $request->input('air_conditioning') : self::CHUA_CO;
-            $zone->garage = $request->has('garage') ? $request->input('garage') : self::CHUA_CO;
+            $zone->wifi = $request->has('wifi') ? self::CO : self::CHUA_CO;
+            $zone->bathrooms = $request->has('bathrooms') ? self::CO : self::CHUA_CO;
+            $zone->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
+            $zone->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
     
             if (!$zone->save()) {
                 return false;

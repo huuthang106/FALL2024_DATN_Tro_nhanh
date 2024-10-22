@@ -119,14 +119,13 @@ class RoomOwnersService
                 return $imagePath; // Trả về lỗi nếu có
             }
     
-            $room = Room::create([
-                'title' => $title,
-                'description' => $request->input('description'),
-                'quantity' => $request->input('quantity'),
-                'price' => $request->input('price'),
+            $room = Room::create(attributes: [
+                'title' => $request['title'], // Đảm bảo $request là mảng
+                'description' => $request['description'], // Đảm bảo $request là mảng
+                'quantity' => $request['quantity'], // Đảm bảo $request là mảng
+                'price' => $request['price'], // Đảm bảo $request là mảng
                 'image' => $imagePath, // Lưu đường dẫn ảnh vào cột 'image'
                 'zone_id' => $id, // Nếu bạn có zone_id
-                'slug' => $slug, // Lưu slug vào cột 'slug'
             ]);
     
             if ($room) {
