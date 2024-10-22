@@ -54,7 +54,7 @@ class RoomOwnersService
     const CHUA_CO = 0; // Chưa có tiện ích
     private $client;
     private $imageAdminService;
-    
+
     public function __construct(ImageAdminService $imageAdminService)
     {
         $this->client = new Client([
@@ -94,9 +94,9 @@ class RoomOwnersService
         return Room::find($id);
     }
     public function getRoomBySlug($slug)
-{
-    return Room::where('slug', $slug)->first(); // Lấy phòng dựa trên slug
-}
+    {
+        return Room::where('slug', $slug)->first(); // Lấy phòng dựa trên slug
+    }
     public function getRoomUtilities($roomId)
     {
         // Giả sử bạn đã có model `Utility`
@@ -114,11 +114,11 @@ class RoomOwnersService
         if (auth()->check()) {
             $title = $request->input('title');
             $imagePath = $this->imageAdminService->saveImages($request, $title, $id);
- 
+
             // Tạo slug từ tiêu đề
             $slugify = new \Cocur\Slugify\Slugify();
             $slug = $slugify->slugify($title) . '-' . $id;
- 
+
             $room = Room::create([
                 'title' => $title,
                 'description' => $request->input('description'),
@@ -173,13 +173,15 @@ class RoomOwnersService
     }
 
     // Hiểm thị danh sách trọ của tài khoản
-    public function getRooms($userId, $searchQuery = null, $sortBy = 'title')
+    public function getRooms($searchQuery = null, $sortBy = 'title')
     {
-        $query = Room::where('user_id', $userId);
+        $query = Room::query(); // Không cần lọc theo user_id
+
         // Lọc
         if (!empty($searchQuery)) {
             $query->where('title', 'like', '%' . $searchQuery . '%');
         }
+
         // Sắp xếp
         switch ($sortBy) {
             case 'price_low_to_high':
@@ -196,6 +198,7 @@ class RoomOwnersService
                 $query->orderBy('created_at', 'desc'); // Mặc định mới đến cũ
                 break;
         }
+
         // Phân trang
         return $query->paginate(10);
     }
@@ -207,14 +210,11 @@ class RoomOwnersService
         return $image ? asset('assets/images/' . $image->filename) : asset('assets/images/properties-grid-08.jpg');
     }
     // Tổng số trọ của tài khoản
-    public function getRoomCount($userId = null)
+    public function getRoomCount()
     {
         try {
-            // Nếu userId không có hoặc NULL sẽ sử dụng auth()->id()
-            $userId = $userId ?? auth()->id();
-
-            // Đếm số lượng phòng thuộc về người dùng với ID cụ thể
-            return Room::where('user_id', $userId)->count();
+            // Đếm tổng số phòng
+            return Room::count();
         } catch (\Exception $e) {
             // Ghi lại lỗi nếu có sự cố khi đếm số phòng
             Log::error('Error counting rooms: ' . $e->getMessage());
@@ -238,7 +238,7 @@ class RoomOwnersService
     // Chi Tiết phòng trọ
     public function getIdRoom($slug)
     {
-        return Room::with('category', 'price', 'location', 'zone') // Thêm các quan hệ
+        return Room::with( 'price', 'location', 'zone') // Thêm các quan hệ
             ->where('slug', $slug)
             ->firstOrFail();
     }
@@ -512,7 +512,7 @@ class RoomOwnersService
         $room->save(); // Lưu thay đổi vào cơ sở dữ liệu
 
         return $room; // Trả về phòng đã được cập nhật
-    } 
+    }
     public function findRoomById($id)
     {
         return Room::findOrFail($id);
@@ -522,38 +522,38 @@ class RoomOwnersService
     {
         // Tìm phòng theo ID
         $room = Room::findOrFail($id);
-
+    
         // Cập nhật thông tin phòng
         $room->title = $request->input('title');
         $room->description = $request->input('description');
         $room->price = $request->input('price');
         $room->quantity = $request->input('quantity');
-        // $room->phone = $request->input('phone');
-
-        // Tạo slug từ title và id
-        $title = $room->title ?? 'default-title';
-        $slug = Str::slug($title); // Chuyển title thành slug không dấu, cách nhau bằng dấu '-'
-        $room->slug = $slug . '-' . $id;
-
+    
         // Xử lý hình ảnh nếu có
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('images')) {
             // Xóa ảnh cũ nếu có
             if ($room->image) {
-                Storage::disk('public')->delete($room->image);
+                Storage::delete('assets/images/' . $room->image);
             }
-
-            // Tạo tên file mới với slug và id
-            $extension = $request->file('image')->getClientOriginalExtension();
-            $filename = $slug . '-' . $id . '.' . $extension; // Sử dụng slug để tạo tên file
-
-            // Lưu ảnh mới trực tiếp vào thư mục public
-            $imagePath = $request->file('image')->storeAs('', $filename, 'public');
-            $room->image = $imagePath;
+    
+            // Lấy file đầu tiên từ mảng images
+            $image = $request->file('images')[0];
+            
+            // Tạo tên file mới với định dạng title + id
+            $titleSlug = Str::slug($room->title); // Chuyển tiêu đề thành slug
+            $imageName = $titleSlug . '_' . $id . '.' . $image->getClientOriginalExtension();
+    
+            // Lưu ảnh mới vào thư mục assets/images
+            $image->move(public_path('assets/images'), $imageName);
+    
+            // Cập nhật đường dẫn ảnh mới
+            $room->image = $imageName;
         }
-
+    
         // Lưu thay đổi
         $room->save();
-
-        return true;
+    
+        return $room;
     }
+
 }

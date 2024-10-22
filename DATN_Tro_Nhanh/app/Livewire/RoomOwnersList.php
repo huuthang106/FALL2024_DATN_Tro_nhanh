@@ -50,21 +50,23 @@ class RoomOwnersList extends Component
     public function mount(RoomOwnersService $roomOwnersService)
     {
         $this->roomOwnersService = $roomOwnersService;
-        $this->roomCount = Room::where('user_id', Auth::id())->count();
+        $this->roomCount = Room::count(); // Đếm tất cả các phòng
     }
 
     public function getRoomImageUrl(Room $room): string
     {
-        $image = $room->images->first();
-        return $image ? asset('assets/images/' . $image->filename) : asset('assets/images/properties-grid-08.jpg');
+        // Lấy tên file từ cột 'images'
+        $imageFilename = $room->images;
+    
+        // Kiểm tra và tạo URL đầy đủ cho hình ảnh
+        return $imageFilename ? asset('images/' . $imageFilename) : asset('assets/images/properties-grid-08.jpg');
     }
 
     public function render()
     {
-        $userId = Auth::id();
         $user = Auth::user();
         $priceList = PriceList::where('status', self::Goitin)->get();
-        $query = Room::where('user_id', $userId); // Thêm điều kiện sắp xếp từ ngày mới nhất tới cũ nhất
+        $query = Room::query(); // Không cần lọc theo user_id
 
         if (!empty($this->search)) {
             $query->where(function ($q) {
@@ -98,16 +100,10 @@ class RoomOwnersList extends Component
             }
 
             $query->whereDate('created_at', '<=', $startDate);
-            // Log::info('Thời gian bắt đầu lọc', [
-            //     'startDate' => $startDate,
-            //     'data' => $query,
-            // ]);
-            // Log::info('Truy vấn SQL', ['sql' => $query->toSql(), 'bindings' => $query->getBindings()]);
         }
 
-
         $rooms = $query->orderBy('created_at', 'desc')
-        ->paginate($this->perPage);
+            ->paginate($this->perPage);
 
         return view('livewire.room-owners-list', [
             'rooms' => $rooms,
@@ -127,23 +123,23 @@ class RoomOwnersList extends Component
     }
 
     public function updateSelectAllState()
-    {
-        $totalRooms = Room::where('user_id', Auth::id())->count();
-        $selectedCount = count($this->selectedRooms);
-        $this->selectAll = ($selectedCount === $totalRooms) && ($totalRooms > 0);
-    }
-    public function toggleSelectAll()
-    {
-        $rooms = Room::where('user_id', Auth::id())->pluck('id')->toArray();
-        
-        if (count($this->selectedRooms) < count($rooms)) {
-            $this->selectedRooms = array_fill_keys($rooms, true);
-            $this->selectAll = true;
-        } else {
-            $this->selectedRooms = [];
-            $this->selectAll = false;
-        }
-    }
+   {
+       $totalRooms = Room::count(); // Đếm tất cả các phòng
+       $selectedCount = count($this->selectedRooms);
+       $this->selectAll = ($selectedCount === $totalRooms) && ($totalRooms > 0);
+   }
+   public function toggleSelectAll()
+   {
+       $rooms = Room::pluck('id')->toArray(); // Lấy tất cả ID phòng
+
+       if (count($this->selectedRooms) < count($rooms)) {
+           $this->selectedRooms = array_fill_keys($rooms, true);
+           $this->selectAll = true;
+       } else {
+           $this->selectedRooms = [];
+           $this->selectAll = false;
+       }
+   }
     public function deleteSelected()
     {
         $roomIds = array_keys(array_filter($this->selectedRooms));

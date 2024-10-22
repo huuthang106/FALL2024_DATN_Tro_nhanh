@@ -32,7 +32,7 @@
                                 aria-controls="amenities" aria-selected="false"><span class="number">4.</span> Tiện ích</a>
                         </li> --}}
                 </ul>
-                <form enctype="multipart/form-data" action="{{ route('owners.update-room', $room->id) }}" method="POST">
+                <form  action="{{ route('owners.update-room', $room->id) }}" method="POST"enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div id="collapse-tabs-accordion">
@@ -133,7 +133,7 @@
                                                                         @enderror
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
+                                                                {{-- <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
                                                                     <div class="form-group">
                                                                         <label for="phone" class="text-heading">Số
                                                                             điện
@@ -147,7 +147,7 @@
                                                                             </div>
                                                                         @enderror
                                                                     </div>
-                                                                </div>
+                                                                </div> --}}
 
                                                             </div>
 
@@ -222,7 +222,7 @@
                                                                         Chọn thư mục
                                                                     </button>
                                                                     <input type="file" hidden id="fileInput"
-                                                                        accept="image/jpeg, image/png" name="image"
+                                                                        accept="image/jpeg, image/png" name="images[]"
                                                                         onchange="previewImages();">
                                                                     <p>Chọn 1 ảnh</p>
                                                                 </div>
@@ -433,8 +433,29 @@
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script src="{{ asset('assets/js/owners/form-map.js') }}"></script>
 
-
-    <script>
+    {{-- <script>
+        Dropzone.options.myDropzone = {
+            url: '{{ route('owners.update-room', $room->id) }}', // Đường dẫn xử lý upload
+            method: 'post',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            paramName: 'images', // Tên của input file
+            maxFilesize: 2, // MB
+            acceptedFiles: 'image/jpeg,image/png',
+            addRemoveLinks: true,
+            dictDefaultMessage: 'Kéo và thả hình ảnh hoặc nhấp để chọn',
+            init: function() {
+                this.on("success", function(file, response) {
+                    console.log("File uploaded successfully");
+                });
+                this.on("error", function(file, response) {
+                    console.log("Error uploading file");
+                });
+            }
+        };
+    </script> --}}
+    {{-- <script>
         $(document).ready(function() {
             $('form').on('submit', function(e) {
                 e.preventDefault();
@@ -504,5 +525,5 @@
                 });
             });
         });
-    </script>
+    </script>  --}}
 @endpush
