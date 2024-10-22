@@ -99,7 +99,7 @@
                                                                     title="Lựa chọn" data-style="btn-lg py-2 h-52"
                                                                     id="category_id" name="category_id">
                                                                     <!-- Các lựa chọn loại phòng -->
-                                                                    @if ($categories->isEmpty())
+                                                                    {{-- @if ($categories->isEmpty())
                                                                         <option value="">Không có dữ liệu
                                                                         </option>
                                                                     @else
@@ -109,7 +109,7 @@
                                                                                 {{ $category->name }}
                                                                             </option>
                                                                         @endforeach
-                                                                    @endif
+                                                                    @endif --}}
                                                                 </select>
                                                                 @error('category_id')
                                                                     <div class="text-danger">{{ $message }}</div>

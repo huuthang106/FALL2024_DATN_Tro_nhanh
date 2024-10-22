@@ -50,15 +50,17 @@ class RoomOwnersController extends Controller
      */
     public function index(Request $request)
     {
-        $userId = Auth::id();
         // Tìm kiếm và sắp xếp từ yêu cầu
         $searchQuery = $request->input('search');
         $sortBy = $request->input('sort-by', 'title'); // Mặc định theo tiêu đề
+    
         // Gọi service
-        $rooms = $this->roomOwnersService->getRooms($userId, $searchQuery, $sortBy);
+        $rooms = $this->roomOwnersService->getRooms($searchQuery, $sortBy);
         $priceList = $this->roomOwnersService->getPriceList();
-        // Lấy số lượng phòng của người dùng hiện tại
-        $roomCount = $this->roomOwnersService->getRoomCount($userId);
+    
+        // Lấy số lượng phòng
+        $roomCount = $this->roomOwnersService->getRoomCount();
+    
         return view('owners.show.dashboard-my-properties', [
             'rooms' => $rooms,
             'roomOwnersService' => $this->roomOwnersService,
@@ -134,22 +136,22 @@ class RoomOwnersController extends Controller
     {
         if (Auth::check() && Auth::user()->role != 1) {
             $room = $this->roomOwnersService->getIdRoom($slug);
-            $categories = $this->roomOwnersService->getAllCategories();
+            // $categories = $this->roomOwnersService->getAllCategories();
 
-            $prices = $this->roomOwnersService->getAllPrices();
-            $locations = $this->roomOwnersService->getAllLocations();
+            // $prices = $this->roomOwnersService->getAllPrices();
+            // $locations = $this->roomOwnersService->getAllLocations();
             $zones = $this->zoneServices->getMyZone(Auth::user()->id);
-            $images = $this->roomOwnersService->getRoomImages($room->id); // Lấy hình ảnh của phòng
-            $utilities = $this->roomOwnersService->getRoomUtilities($room->id); // Lấy tiện ích của phòng
+            // $images = $this->roomOwnersService->getRoomImages($room->id); // Lấy hình ảnh của phòng
+            // $utilities = $this->roomOwnersService->getRoomUtilities($room->id); // Lấy tiện ích của phòng
             return view('owners.edit.update-property', [
                 'room' => $room,
-                'categories' => $categories,
+                // 'categories' => $categories,
 
-                'prices' => $prices,
-                'locations' => $locations,
+                // 'prices' => $prices,
+                // 'locations' => $locations,
                 'zones' => $zones,
-                'images' => $images,
-                'utilities' => $utilities, // Truyền tiện ích vào view
+                // 'images' => $images,
+                // 'utilities' => $utilities, // Truyền tiện ích vào view
             ]);
             // return view('owners.edit.update-property', compact('acreages', 'prices', 'categories', 'areas', 'locations', 'zones', 'roomTypes', 'room'));
         } else {
@@ -238,8 +240,29 @@ class RoomOwnersController extends Controller
     $zone_slug = $this->zoneServices->getSlug($id);
     $result = $this->roomOwnersService->create($request->all(), $id);
 
-    if ($result instanceof \Illuminate\Http\JsonResponse) {
-        return $result; // Trả về lỗi nếu có
+    // Trả về view chỉnh sửa với thông tin phòng
+    return view('owners.edit.edit-property', compact('room'));
+}
+    // RoomController.php
+    public function updateRoom(Request $request, $id)
+    {
+        Log::info("Starting update for room ID: $id");
+    
+        // Gọi service để cập nhật phòng
+        $result = $this->roomOwnersService->updateRoomInZone($request, $id);
+    
+        if ($result) {
+            Log::info("Successfully updated room ID: $id");
+    
+            // Lấy phòng vừa được cập nhật để lấy slug
+            $room = Room::findOrFail($id);
+    
+            return redirect()->route('owners.properties')
+                             ->with('success', 'Cập nhật phòng thành công!');
+        } else {
+            Log::error("Failed to update room ID: $id");
+            return redirect()->back()->with('error', 'Cập nhật phòng thất bại!');
+        }
     }
 
     if ($result) {

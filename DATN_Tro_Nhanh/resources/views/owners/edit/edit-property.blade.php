@@ -32,55 +32,56 @@
                                 aria-controls="amenities" aria-selected="false"><span class="number">4.</span> Tiện ích</a>
                         </li> --}}
                 </ul>
-                <form enctype="multipart/form-data" action="{{ route('owners.update-room', $room->id) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div id="collapse-tabs-accordion">
-                        <div class="tab-pane tab-pane-parent fade show active px-0" id="description" role="tabpanel"
-                            aria-labelledby="description-tab">
-                            <div class="card bg-transparent border-0">
-                                <div class="card-header d-block d-md-none bg-transparent px-0 py-1 border-bottom-0"
-                                    id="heading-description">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-lg collapse-parent btn-block border shadow-none"
-                                            data-toggle="collapse" data-number="1." data-target="#description-collapse"
-                                            aria-expanded="true" aria-controls="description-collapse">
-                                            <span class="number">1.</span> Mô tả
-                                        </button>
-                                    </h5>
-                                </div>
-                                <div id="description-collapse" class="collapse show collapsible"
-                                    aria-labelledby="heading-description" data-parent="#collapse-tabs-accordion">
-                                    <div class="card-body py-4 py-md-0 px-0">
-                                        <div class="row">
-                                            <!-- Cột bên trái -->
-                                            <div class="col-lg-6">
-                                                <div class="card mb-6">
-                                                    <div class="card-body p-6">
-                                                        <h3 class="card-title mb-0 text-heading fs-22 lh-15">Thông
-                                                            tin
-                                                            trọ</h3>
-                                                        <hr>
-                                                        <div class="form-group">
-                                                            <label for="title" class="text-heading">Tiêu đề <span
-                                                                    class="text-muted">(Bắt buộc)</span></label>
-                                                            <input type="text"
-                                                                class="form-control form-control-lg border-0" id="title"
-                                                                name="title" value="{{ old('title', $room->title) }}">
-                                                            @error('title')
-                                                                <div class="text-danger">{{ $message }}</div>
-                                                            @enderror
-                                                        </div>
-                                                        <div class="form-group mb-0">
-                                                            <label for="description" class="text-heading">Mô
-                                                                tả <span class="text-muted">(Bắt
-                                                                    buộc)</span></label>
-                                                            <textarea class="form-control border-0" rows="5" name="description" id="description"> {{ old('description', $room->description) }}</textarea>
-                                                            @error('description')
-                                                                <div class="text-danger">{{ $message }}</div>
-                                                            @enderror
-                                                        </div>
-                                                        {{-- <div class="form-group mt-1">
+                <form  action="{{ route('owners.update-room', $room->id) }}" method="POST"enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        <div id="collapse-tabs-accordion">
+                            <div class="tab-pane tab-pane-parent fade show active px-0" id="description" role="tabpanel"
+                                aria-labelledby="description-tab">
+                                <div class="card bg-transparent border-0">
+                                    <div class="card-header d-block d-md-none bg-transparent px-0 py-1 border-bottom-0"
+                                        id="heading-description">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-lg collapse-parent btn-block border shadow-none"
+                                                data-toggle="collapse" data-number="1." data-target="#description-collapse"
+                                                aria-expanded="true" aria-controls="description-collapse">
+                                                <span class="number">1.</span> Mô tả
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="description-collapse" class="collapse show collapsible"
+                                        aria-labelledby="heading-description" data-parent="#collapse-tabs-accordion">
+                                        <div class="card-body py-4 py-md-0 px-0">
+                                            <div class="row">
+                                                <!-- Cột bên trái -->
+                                                <div class="col-lg-6">
+                                                    <div class="card mb-6">
+                                                        <div class="card-body p-6">
+                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Thông
+                                                                tin
+                                                                trọ</h3>
+                                                            <hr>
+                                                            <div class="form-group">
+                                                                <label for="title" class="text-heading">Tiêu đề <span
+                                                                        class="text-muted">(Bắt buộc)</span></label>
+                                                                <input type="text"
+                                                                    class="form-control form-control-lg border-0"
+                                                                    id="title" name="title"
+                                                                    value="{{ old('title', $room->title) }}">
+                                                                @error('title')
+                                                                    <div class="text-danger">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="form-group mb-0">
+                                                                <label for="description" class="text-heading">Mô
+                                                                    tả <span class="text-muted">(Bắt
+                                                                        buộc)</span></label>
+                                                                <textarea class="form-control border-0" rows="5" name="description" id="description"> {{ old('description', $room->description) }}</textarea>
+                                                                @error('description')
+                                                                    <div class="text-danger">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                            {{-- <div class="form-group mt-1">
                                                                     <label for="acreages" class="text-heading">Diện tích
                                                                         m² <span class="text-muted">(Bắt
                                                                             buộc)</span></label>
@@ -92,16 +93,80 @@
                                                                         <div class="text-danger">{{ $message }}</div>
                                                                     @enderror
                                                                 </div> --}}
-                                                        <div class="form-group mt-1">
-                                                            <label for="quantity" class="text-heading">Số lượng
-                                                                phòng <span class="text-muted">(Bắt
-                                                                    buộc)</span><span class="text-muted">(Ví dụ: 1,
-                                                                    2,...)</span></label>
-                                                            <input type="text"
-                                                                class="form-control form-control-lg border-0" id="quantity"
-                                                                name="quantity"
-                                                                value="{{ old('quantity', $room->quantity) }}">
-                                                            @error('quantity')
+                                                            <div class="form-group mt-1">
+                                                                <label for="quantity" class="text-heading">Số lượng
+                                                                    phòng <span class="text-muted">(Bắt
+                                                                        buộc)</span><span class="text-muted">(Ví dụ: 1,
+                                                                        2,...)</span></label>
+                                                                <input type="text"
+                                                                    class="form-control form-control-lg border-0"
+                                                                    id="quantity" name="quantity"
+                                                                    value="{{ old('quantity', $room->quantity) }}">
+                                                                @error('quantity')
+                                                                    <div class="text-danger">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Cột bên phải -->
+                                                <div class="col-lg-6">
+                                                    <div class="card mb-6">
+                                                        <div class="card-body p-6">
+                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">Giá và
+                                                                Thông tin liên hệ</h3>
+                                                            <hr>
+                                                            <div class="form-row mx-n2">
+                                                                <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
+                                                                    <div class="form-group">
+                                                                        <label for="price" class="text-heading">Giá
+                                                                            bằng VND <span class="text-muted">(Bắt
+                                                                                buộc)</span></label>
+                                                                        <input type="number"
+                                                                            class="form-control form-control-lg border-0"
+                                                                            id="price" name="price"
+                                                                            value="{{ old('price',$room->price) }}">
+                                                                        @error('price')
+                                                                            <div class="text-danger">{{ $message }}
+                                                                            </div>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+                                                                {{-- <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
+                                                                    <div class="form-group">
+                                                                        <label for="phone" class="text-heading">Số
+                                                                            điện
+                                                                            thoại <span class="text-muted">(Bắt
+                                                                                buộc)</span></label>
+                                                                        <input type="text" name="phone"
+                                                                            class="form-control form-control-lg border-0"
+                                                                            id="phone" value="{{ old('phone') }}">
+                                                                        @error('phone')
+                                                                            <div class="text-danger">{{ $message }}
+                                                                            </div>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div> --}}
+
+                                                            </div>
+
+                                                            <!-- Trường ẩn để lưu ID người dùng -->
+                                                            <input type="hidden" id="user_id" name="user_id"
+                                                                value="{{ Auth::check() ? Auth::user()->id : '' }}">
+                                                            <input type="hidden"
+                                                                class="form-control form-control-lg border-0"
+                                                                id="name" name="name"
+                                                                value="{{ Auth::check() ? Auth::user()->name : 'Chưa có' }}"
+                                                                readonly>
+                                                            @error('name')
+                                                                <div class="text-danger">{{ $message }}</div>
+                                                            @enderror
+                                                            <input type="hidden"
+                                                                class="form-control form-control-lg border-0"
+                                                                id="email" name="email"
+                                                                value="{{ Auth::check() ? Auth::user()->email : 'Chưa có' }}">
+                                                            @error('email')
                                                                 <div class="text-danger">{{ $message }}</div>
                                                             @enderror
                                                         </div>
@@ -181,52 +246,48 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="tab-pane tab-pane-parent fade px-0" id="media" role="tabpanel"
-                            aria-labelledby="media-tab">
-                            <div class="card bg-transparent border-0">
-                                <div class="card-header d-block d-md-none bg-transparent px-0 py-1 border-bottom-0"
-                                    id="heading-media">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-lg collapse-parent btn-block border shadow-none"
-                                            data-toggle="collapse" data-number="2." data-target="#media-collapse"
-                                            aria-expanded="true" aria-controls="media-collapse">
-                                            <span class="number">2.</span> Truyền thông
-                                        </button>
-                                    </h5>
-                                </div>
-                                <div id="media-collapse" class="collapse collapsible" aria-labelledby="heading-media"
-                                    data-parent="#collapse-tabs-accordion">
-                                    <div class="card-body py-4 py-md-0 px-0">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="card mb-6">
-                                                    <div class="card-body p-6">
-                                                        <h3 class="card-title mb-0 text-heading fs-22 lh-15">
-                                                            Tải lên hình ảnh bất động sản của bạn
-                                                        </h3>
-                                                        <hr>
-                                                        <div class="dropzone upload-file text-center py-5"
-                                                            id="myDropzone">
-                                                            <div class="dz-default dz-message">
-                                                                <span class="upload-icon lh-1 d-inline-block mb-4">
-                                                                    <i class="fal fa-cloud-upload-alt"></i>
-                                                                </span>
-                                                                <p class="text-heading fs-22 lh-15 mb-4">
-                                                                    Kéo và thả hình ảnh hoặc
-                                                                </p>
-                                                                <button class="btn btn-indigo px-7 mb-2" type="button"
-                                                                    onclick="document.getElementById('fileInput').click();">
-                                                                    Chọn thư mục
-                                                                </button>
-                                                                <input type="file" hidden id="fileInput"
-                                                                    accept="image/jpeg, image/png" name="image"
-                                                                    onchange="previewImages();">
-                                                                <p>Chọn 1 ảnh</p>
-                                                            </div>
-                                                            @if ($errors->has('image'))
-                                                                <div class="text-danger">
-                                                                    {{ $errors->first('image') }}
+                            <div class="tab-pane tab-pane-parent fade px-0" id="media" role="tabpanel"
+                                aria-labelledby="media-tab">
+                                <div class="card bg-transparent border-0">
+                                    <div class="card-header d-block d-md-none bg-transparent px-0 py-1 border-bottom-0"
+                                        id="heading-media">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-lg collapse-parent btn-block border shadow-none"
+                                                data-toggle="collapse" data-number="2." data-target="#media-collapse"
+                                                aria-expanded="true" aria-controls="media-collapse">
+                                                <span class="number">2.</span> Truyền thông
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="media-collapse" class="collapse collapsible" aria-labelledby="heading-media"
+                                        data-parent="#collapse-tabs-accordion">
+                                        <div class="card-body py-4 py-md-0 px-0">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="card mb-6">
+                                                        <div class="card-body p-6">
+                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">
+                                                                Tải lên hình ảnh bất động sản của bạn
+                                                            </h3>
+                                                            <hr>
+                                                            <div class="dropzone upload-file text-center py-5"
+                                                                id="myDropzone">
+                                                                <div class="dz-default dz-message">
+                                                                    <span class="upload-icon lh-1 d-inline-block mb-4">
+                                                                        <i class="fal fa-cloud-upload-alt"></i>
+                                                                    </span>
+                                                                    <p class="text-heading fs-22 lh-15 mb-4">
+                                                                        Kéo và thả hình ảnh hoặc
+                                                                    </p>
+                                                                    <button class="btn btn-indigo px-7 mb-2"
+                                                                        type="button"
+                                                                        onclick="document.getElementById('fileInput').click();">
+                                                                        Chọn thư mục
+                                                                    </button>
+                                                                    <input type="file" hidden id="fileInput"
+                                                                        accept="image/jpeg, image/png" name="images[]"
+                                                                        onchange="previewImages();">
+                                                                    <p>Chọn 1 ảnh</p>
                                                                 </div>
                                                             @endif
                                                             {{-- @foreach ($errors->get('images.*') as $messages)
@@ -431,8 +492,29 @@
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script src="{{ asset('assets/js/owners/form-map.js') }}"></script>
 
-
-    <script>
+    {{-- <script>
+        Dropzone.options.myDropzone = {
+            url: '{{ route('owners.update-room', $room->id) }}', // Đường dẫn xử lý upload
+            method: 'post',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            paramName: 'images', // Tên của input file
+            maxFilesize: 2, // MB
+            acceptedFiles: 'image/jpeg,image/png',
+            addRemoveLinks: true,
+            dictDefaultMessage: 'Kéo và thả hình ảnh hoặc nhấp để chọn',
+            init: function() {
+                this.on("success", function(file, response) {
+                    console.log("File uploaded successfully");
+                });
+                this.on("error", function(file, response) {
+                    console.log("Error uploading file");
+                });
+            }
+        };
+    </script> --}}
+    {{-- <script>
         $(document).ready(function() {
             $('form').on('submit', function(e) {
                 e.preventDefault();
@@ -505,5 +587,5 @@
                 });
             });
         });
-    </script>
+    </script>  --}}
 @endpush

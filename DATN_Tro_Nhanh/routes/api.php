@@ -10,7 +10,7 @@ use App\Http\Controllers\Client\UserClientController;
 use App\Http\Controllers\Client\ZoneClientController;
 use App\Http\Controllers\Client\BlogClientController;
 use App\Http\Controllers\Client\CategoryClientController;
-
+use App\Http\Controllers\GoogleDriveController;
 use App\Http\Controllers\Owners\RoomOwnersController;
 
 
@@ -22,3 +22,7 @@ Route::get('/get-data-category', [CategoryClientController::class, 'getCategory'
 Route::post('/check-images', [RoomOwnersController::class, 'checkImages']);
 Route::get('/get-data-owners-listing', [UserClientController::class, 'indexAgentJson']);
 Route::get('/get-data-owners-detail/{slug}', [UserClientController::class, 'agentDetails']);
+// route driver
+Route::get('/redirect', [GoogleDriveController::class, 'redirectToGoogle']);
+Route::get('/callback', [GoogleDriveController::class, 'handleGoogleCallback']);
+Route::post('/upload', [GoogleDriveController::class, 'uploadFile'])->name('upload');

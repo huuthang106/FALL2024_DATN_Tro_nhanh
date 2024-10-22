@@ -99,12 +99,10 @@
                                         <div class="w-120px mr-4 position-relative">
                                             <a href="{{ route('client.detail-zone', ['slug' => $room->slug]) }}">
                                                 <div class="position-relative">
-                                                    <img src="{{ $this->getRoomImageUrl($room) }}"
-                                                        alt="{{ $room->title }}" class="img-fluid">
-
+                                                    <img src="{{ $room->image ? asset('assets/images/' . $room->image) : asset('assets/images/properties-grid-08.jpg') }}" class="img-fluid">
+                                                
                                                     @if ($room->expiration_date > now())
-                                                        <span class="badge bg-danger text-white position-absolute"
-                                                            style="bottom: 1px; right: 1px;">
+                                                        <span class="badge bg-danger text-white position-absolute" style="bottom: 1px; right: 1px;">
                                                             VIP
                                                         </span>
                                                     @endif
@@ -157,12 +155,14 @@
                                 </td>
                                 <td class="align-middle" style="white-space: nowrap;">
                                     <!-- Icon Chỉnh sửa -->
-                                    <a href="{{ route('owners.room-view-update', $room->slug) }}"
-                                        data-toggle="tooltip" title="Chỉnh sửa"
-                                        class="btn badge-warning btn-sm mr-2">
-                                        <i class="fal fa-pencil-alt"></i>
-                                    </a>
-
+                                    <form action="{{ route('owners.edit-room', $room->id) }}"
+                                        method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="btn btn-primary btn-sm"><i
+                                                class="fal fa-pen-alt"></i></button>
+                                    </form>
+                                    {{-- {{ route('owners.room-view-update', $room->slug) }} --}}
                                     <!-- Form Xóa -->
                                     <form action="{{ route('owners.destroy', $room->id) }}" method="POST"
                                         class="d-inline-block">
@@ -189,7 +189,7 @@
                                                 </div>
 
                                                 <!-- Nội dung của modal -->
-                                                <form id="vipForm" action="{{ route('owners.room-vip') }}"
+                                                {{-- <form id="vipForm" action="{{ route('owners.room-vip') }}"
                                                     method="POST">
                                                     <div class="modal-body">
                                                         @csrf
@@ -239,7 +239,7 @@
                                                             data-dismiss="modal">Đóng</button>
                                                         <button type="submit" class="btn btn-primary">Mua</button>
                                                     </div>
-                                                </form>
+                                                </form> --}}
                                             </div>
                                         </div>
                                     </div>
