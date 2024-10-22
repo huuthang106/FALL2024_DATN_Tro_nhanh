@@ -3,7 +3,7 @@ import { Box, Button, Page, Text, Icon } from "zmp-ui";
 import { useParams, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { bookingsState } from "../state";
-const apiEndpoint = 'https://f18c-113-161-210-31.ngrok-free.app';
+const apiEndpoint = 'https://243e-125-235-236-24.ngrok-free.app';
 const { Title } = Text;
 
 const BookingDetail: React.FC = () => {
@@ -41,7 +41,7 @@ const BookingDetail: React.FC = () => {
     
     <Page>
       <div className="container mx-auto px-2">
-      <Box m={5}>
+      <Box m={0}>
         <div className="relative aspect-video w-full">
           <img
              src={

@@ -24,14 +24,14 @@ function CalendarPage() {
   };
 
   return (
-    <Page className="min-h-0">
+    <Page className="min-h-0" >
       <div className="container mx-auto px-2">
-        <Text size="large" className="font-semibold mb-3 mt-4 px-4">
+        <Text size="large" className="font-semibold mb-3 mt-4 px-4" style={{ color: '#2196F3' }}>
           Chủ trọ nổi bật
         </Text>
         <div className="overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar mb-4">
           {vipBookings.length === 0 ? (
-            <Box className="text-center" mt={10}>
+            <Box className="text-center" mt={10} style={{ color: '#FF4081' }}>
               Không có chủ trọ nổi bật
             </Box>
           ) : (
@@ -55,17 +55,17 @@ function CalendarPage() {
           )}
         </div>
 
-        <Text size="large" className="font-semibold mb-4 px-4">
+        <Text size="large" className="font-semibold mb-4 px-4" style={{ color: '#2196F3' }}>
           Danh sách chủ trọ
         </Text>
-        <Box className="pl-4">
+        <Box className="" >
           {allLandlords.length === 0 ? (
-            <Box className="text-center" mt={10}>
+            <Box className="text-center" mt={1}>
               Chưa có chủ trọ nào
             </Box>
           ) : (
             allLandlords.slice(0, visibleCount).map((booking) => (
-              <Box key={booking.id} my={4}>
+              <Box key={booking.id} my={0}  >
                 <BookingItem
                   booking={booking}
                   onClick={() => navigate(`/booking/${booking.id}`)} // Sử dụng navigate để điều hướng
@@ -74,7 +74,7 @@ function CalendarPage() {
             ))
           )}
           {visibleCount < allLandlords.length && (
-            <div className="flex justify-center mt-2 mb-4">
+            <div className="flex justify-center mb-4">
               <Button onClick={handleShowMore} className="show-more-button">
                 Xem thêm
               </Button>

@@ -6,7 +6,7 @@ import { Restaurant } from "../models";
 import Distance from "./distance";
 import DistrictName from "./district-name";
 import '../css/style.css';
-const apiEndpoint = 'https://f18c-113-161-210-31.ngrok-free.app';
+const apiEndpoint = 'https://243e-125-235-236-24.ngrok-free.app';
 
 const { Title } = Text;
 
@@ -67,7 +67,7 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
           <Icon icon="zi-star-solid" className="text-yellow-400" size={16} />
           <span>{restaurant.rating}</span>
         </div> */}
-        <Title size="small" className="mt-2 mb-0 mx-2 title-ellipsis" style={{ flexGrow: 1, flexShrink: 1 }}>
+        <Title size="small" className="mt-2 mb-0 mx-2 title-ellipsis" style={{ flexGrow: 1, flexShrink: 1, color: '#333333' }}>
           {restaurant.name}
         </Title>
         <Box flex mt={0} mb={2} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -84,7 +84,7 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
             </span>
           </Button> */}
 
-          <span className="text-black-500 mx-2">
+          <span className="text-black-500 mx-2" style={{ color: '#00bcd4' }}>
             {formatPriceRange(restaurant.rooms)}
           </span>
           <div className="ml-auto">
@@ -110,10 +110,10 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
     <div
       onClick={onClick ?? viewDetail}
       className="bg-white overflow-hidden p-0 m-0"
-      style={{ height: '170px', borderRadius: '5px', margin: '0' }} // Thêm borderRadius và boxShadow
+      style={{ height: '130px', borderRadius: '5px', margin: '0' }} // Thêm borderRadius và boxShadow
     >
       <Box ml={2} mt={2} flex>
-        <div className="flex-none aspect-card relative w-32" style={{ height: '150px', borderRadius: '10px', overflow: 'hidden' }}>
+        <div className="flex-none aspect-card relative w-32" style={{ height: '115px', borderRadius: '10px', overflow: 'hidden' }}>
           <img
             src={`${apiEndpoint}/assets/images/${restaurant.image_url}`}
             className="absolute w-full h-full object-cover" 
@@ -121,10 +121,10 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
         </div>
         <Box mr={1} className="min-w-0">
           {before}
-          <Title size="small" className="title-list">{restaurant.name}</Title>
+          <Title size="small" className="title-list" style={{ color: '#333333 ' }}>{restaurant.name}</Title>
           {after}
           <Box className="flex justify-between items-center">
-            <span className="text-black-500 font-semibold  price-list" style={{ fontSize: '1.0rem' }}>
+            <span className="text-black-500 font-semibold  price-list" style={{ fontSize: '1.0rem', color: '#00bcd4' }}>
               {formatPriceRange(restaurant.rooms)}
             </span>
             <div className="ml-auto">
@@ -143,7 +143,7 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
             </div>
           </Box>
           <Box mx={0} mt={0}>
-            <span className="address text-gray-500">
+            <span className="address text-gray-500" style={{ color: '#757575 ' }}>
               {restaurant.address}
             </span>
           </Box>

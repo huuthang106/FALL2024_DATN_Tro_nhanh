@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { Box, Text, Icon } from "zmp-ui";
 import '../../css/style.css';
 const { Title } = Text;
-const apiEndpoint = 'https://f18c-113-161-210-31.ngrok-free.app';
+const apiEndpoint = 'https://243e-125-235-236-24.ngrok-free.app';
 
 interface BookingProps {
   booking: {
@@ -43,10 +43,10 @@ const BookingItem: FunctionComponent<BookingProps> = React.memo(({ booking, onCl
   return (
     <div
       onClick={onClick}
-      className="bg-white rounded-xl shadow-md overflow-hidden p-4 mb-4 transition-transform transform hover:scale-105"
-      style={{ minWidth: '200px', marginRight: '16px', height: '90%' }}
+      className="bg-white overflow-hidden p-4 mb-4 transition-transform transform hover:scale-105"
+      style={{ minWidth: '200px', height: '90%', marginTop: '0px', marginBottom: '3px', borderRadius: '5px' }}
     >
-      <Box m={0} flexDirection={isFeatured ? "column" : "row"} alignItems="center">
+      <Box m={1} flexDirection={isFeatured ? "column" : "row"} alignItems="center" style={{ marginTop: '0px' }}>
         <div className={isFeatured ? "w-full overflow-hidden mb-4 featured-booking-card" : "w-1/3 overflow-hidden booking-card"}>
           <img
             src={
@@ -58,12 +58,12 @@ const BookingItem: FunctionComponent<BookingProps> = React.memo(({ booking, onCl
           />
         </div>
         <Box className={`min-w-0 ml-1 flex-1 ${isFeatured ? "text-center" : ""}`}>
-          <Title size="medium" className="font-semibold">{booking.name}</Title>
+          <Title size="small" className="font-semibold" style={{ color: '#FF4081' }}>{booking.name}</Title>
           <br />
-          <Text size="small" className="text-gray-500">
+          <Text size="small" style={{ color: '#616161' }}>
             Số điện thoại: {booking.phone ? booking.phone : "chưa cập nhật"}
           </Text>
-          <Box display="flex" alignItems="center">
+          <Box display="flex" alignItems="center" style={{ color: '#4CAF50 ' }}>
             {renderStars(parseFloat(booking.averageRating))} ({booking.totalRatings} đánh giá)
           </Box>
         </Box>
