@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { Box, Text, Icon } from "zmp-ui";
 import '../../css/style.css';
 const { Title } = Text;
-const apiEndpoint = 'https://243e-125-235-236-24.ngrok-free.app';
+const apiEndpoint = 'https://e127-125-235-236-24.ngrok-free.app';
 
 interface BookingProps {
   booking: {

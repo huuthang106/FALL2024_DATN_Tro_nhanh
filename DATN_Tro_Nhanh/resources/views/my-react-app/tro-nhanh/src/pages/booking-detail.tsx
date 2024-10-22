@@ -3,7 +3,7 @@ import { Box, Button, Page, Text, Icon } from "zmp-ui";
 import { useParams, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { bookingsState } from "../state";
-const apiEndpoint = 'https://243e-125-235-236-24.ngrok-free.app';
+const apiEndpoint = 'https://e127-125-235-236-24.ngrok-free.app';
 const { Title } = Text;
 
 const BookingDetail: React.FC = () => {

@@ -33,8 +33,8 @@ function Popular() {
 
   return (
     <>
-     <Box mx={1} mt={6}>
-  <Header className="mt-6 mb-3 font-semibold" style={{ color: '#333333' }}>Tìm kiếm</Header>
+     <Box mx={4} mt={6}>
+  <Header className="mt-6 mb-3 font-semibold" style={{ color: '#2196F3' }}>Tìm kiếm</Header>
 </Box>
 {loading ? (
   <div className="overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar"></div> // Hiệu ứng loading
@@ -55,7 +55,7 @@ function Popular() {
         ))}
       </Box>
     ) : (
-      <Box mx={4}>Không có địa điểm nào ở loại phòng này!</Box>
+      <Box mx={4}  style={{ color: '#FF4081' }}>Không có địa điểm nào ở loại phòng này!</Box>
     )}
   </div>
 )}
@@ -77,7 +77,7 @@ function Nearest() {
   return (
     <>
       <Box mx={1} mt={0} >
-        <Header className="mt-6 mb-3 font-semibold" style={{ color: '#333333' }}>Các phòng trọ nổi bật</Header>
+        <Header className="mt-6 mb-3 font-semibold" style={{ color: '#2196F3', marginLeft: '4%' }} >Các phòng trọ nổi bật</Header>
         {nearests.slice(0, visibleCount).map((restaurant) => (
           <Box key={restaurant.id} mx={0} my={0 } style={{ marginBottom: '3px'}}>
             <RestaurantItem
@@ -122,14 +122,14 @@ const HomePage = () => {
   
   return (
     <Page>
-      <Box mx={1} mb={4} mt={5}>
+      <Box mx={4} mb={4} mt={5}>
         <Suspense>
           <Welcome />
         </Suspense>
         {getConfig((c) => c.template.searchBar) && (
           <>
             <Inquiry />
-            <Header className="mt-6 font-semibold" style={{ color: '#333333' }}>Phân loại</Header>
+            <Header className="mt-6 font-semibold" style={{ color: '#2196F3' }} >Phân loại</Header>
           </>
         )}
         <QuickFilter />

@@ -6,7 +6,7 @@ import { Restaurant } from "../models";
 import Distance from "./distance";
 import DistrictName from "./district-name";
 import '../css/style.css';
-const apiEndpoint = 'https://243e-125-235-236-24.ngrok-free.app';
+const apiEndpoint = 'https://e127-125-235-236-24.ngrok-free.app';
 
 const { Title } = Text;
 
