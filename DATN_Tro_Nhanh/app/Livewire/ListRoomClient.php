@@ -47,34 +47,7 @@ class ListRoomClient extends Component
         // 
         $this->minPrice = Room::min('price');
         $this->maxPrice = Room::max('price');
-        $this->priceRange = $this->minPrice . '-' . $this->maxPrice;
-        $this->priceRanges = $this->generatePriceRanges();
-    }
-    public function updatedPriceRange($value)
-    {
-        $this->dispatch('priceRangeUpdated', $value);
-    }
-    private function generatePriceRanges()
-    {
-        $ranges = [];
-        $step = ceil(($this->maxPrice - $this->minPrice) / 5); // Chia thành 5 khoảng
-
-        $ranges[] = ['0-' . $this->minPrice, 'Dưới ' . number_format($this->minPrice, 0, ',', '.') . ' VND'];
-
-        for ($i = $this->minPrice; $i < $this->maxPrice; $i += $step) {
-            $ranges[] = [
-                $i . '-' . min($i + $step, $this->maxPrice),
-                number_format($i, 0, ',', '.') . ' - ' . number_format(min($i + $step, $this->maxPrice), 0, ',', '.') . ' VND'
-            ];
-        }
-
-        $ranges[] = [$this->maxPrice . '-', 'Trên ' . number_format($this->maxPrice, 0, ',', '.') . ' VND'];
-
-        return $ranges;
-    }
-    public function updatePriceRange($min, $max)
-    {
-        $this->priceRange = $min . '-' . $max;
+        $this->priceRange = ''; // Đặt giá trị mặc định là rỗng
     }
     public function updateUserLocation($lat, $lng)
     {
@@ -138,21 +111,13 @@ class ListRoomClient extends Component
             $query->where('zones.category_id', $this->category);
         }
         // Lọc theo khoảng giá
-        // if (!empty($this->priceRange)) {
-        //     list($minPrice, $maxPrice) = explode('-', $this->priceRange);
-        //     $query->whereHas('rooms', function ($q) use ($minPrice, $maxPrice) {
-        //         $q->where('price', '>=', $minPrice);
-        //         if ($maxPrice !== '') {
-        //             $q->where('price', '<=', $maxPrice);
-        //         }
-        //     });
-        // }
-        // Lọc theo khoảng giá
         if (!empty($this->priceRange)) {
             list($minPrice, $maxPrice) = explode('-', $this->priceRange);
             $query->whereHas('rooms', function ($q) use ($minPrice, $maxPrice) {
-                $q->where('price', '>=', $minPrice)
-                    ->where('price', '<=', $maxPrice);
+                $q->where('price', '>=', $minPrice);
+                if ($maxPrice !== '') {
+                    $q->where('price', '<=', $maxPrice);
+                }
             });
         }
         // Sắp xếp theo ngày hết hạn
@@ -165,10 +130,15 @@ class ListRoomClient extends Component
         return view('livewire.list-room-client', [
             'zones' => $zones,
             'categories' => $categories,
-            'searchRadius' => $this->radius ?? $this->radius,
+            'searchRadius' => $this->radius,
             'minPrice' => $this->minPrice,
             'maxPrice' => $this->maxPrice,
-            'priceRanges' => $this->priceRanges,
+            'priceRanges' => [
+                '500000-1000000' => '500.000 - 1 triệu',
+                '1000000-2500000' => '1 triệu - 2 triệu rưỡi',
+                '2500000-5000000' => '2 triệu rưỡi - 5 triệu',
+                '5000000-' => 'Trên 5 triệu'
+            ],
         ]);
     }
 

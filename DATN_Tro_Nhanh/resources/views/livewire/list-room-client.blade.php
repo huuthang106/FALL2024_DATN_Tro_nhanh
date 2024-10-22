@@ -43,22 +43,20 @@
                         <option value="price_asc">Giá (thấp đến cao)</option>
                         <option value="price_desc">Giá (cao đến thấp)</option>
                     </select> --}}
-                    {{-- <label for="price_range"
+                    <label for="price_range"
                         class="input-group-text bg-transparent border-0 text-uppercase letter-spacing-093 pr-1 pl-3"><i
                             class="fas fa-align-left fs-16 pr-2"></i>Khoảng
                         giá</label>
                     <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby"
                         data-style="bg-transparent border-0 font-weight-600 btn-lg pl-0 pr-3" id="price_range"
-                        title="Chọn khoảng giá" wire:model.lazy="priceRange">
-                        <option value=''>Chọn khoảng giá...</option>
-                        <option value='0-1000000'>Dưới 1 triệu</option>
-                        <option value='1000000-2000000'>1 triệu - 2 triệu</option>
-                        <option value='2000000-3000000'>2 triệu - 3 triệu</option>
-                        <option value='3000000-5000000'>3 triệu - 5 triệu</option>
-                        <option value='5000000-10000000'>5 triệu - 10 triệu</option>
-                        <option value='10000000-'>Trên 10 triệu</option>
-                    </select> --}}
-                    <label for="price_range"
+                        title="Mặc định" wire:model.lazy="priceRange">
+                        <option value=''>Mặc định</option>
+                        <option value='500000-1000000'>500.000 - 1 triệu</option>
+                        <option value='1000000-2500000'>1 triệu - 2 triệu rưỡi</option>
+                        <option value='2500000-5000000'>2 triệu rưỡi - 5 triệu</option>
+                        <option value='5000000-'>Trên 5 triệu</option>
+                    </select>
+                    {{-- <label for="price_range"
                         class="input-group-text bg-transparent border-0 text-uppercase letter-spacing-093 pr-1 pl-3">
                         <i class="fas fa-align-left fs-16 pr-2"></i>Khoảng giá
                     </label>
@@ -69,7 +67,7 @@
                         @foreach ($priceRanges as $range)
                             <option value='{{ $range[0] }}'>{{ $range[1] }}</option>
                         @endforeach
-                    </select>
+                    </select> --}}
                 </div>
             </div>
         </div>
