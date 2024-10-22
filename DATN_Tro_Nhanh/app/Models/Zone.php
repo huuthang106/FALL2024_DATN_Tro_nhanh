@@ -57,10 +57,7 @@ class Zone extends Model
     {
         return $this->hasMany(Notification::class);
     }
-    public function rooms()
-    {
-        return $this->hasMany(Room::class);
-    }
+  
 
     public function hasAvailableRooms()
     {
