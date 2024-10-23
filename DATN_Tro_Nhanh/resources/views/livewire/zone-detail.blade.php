@@ -55,13 +55,15 @@
                     <table id="myTable" class="table table-hover bg-white border rounded-lg">
                         <thead>
                             <tr role="row">
-                                <th class="no-sort py-6 pl-6">
-                                    {{-- <label class="new-control new-checkbox checkbox-primary m-auto">
-                                        <input type="checkbox" class="new-control-input chk-parent select-customers-info" id="checkAll" wire:model.lazy="selectAll">
-                                    </label> --}}
-                                </th>
-                                <th class="py-6 text-start" style="white-space: nowrap;">Ảnh</th>
+                                {{-- <th class="no-sort py-6 pl-6">
+                                    <label class="new-control new-checkbox checkbox-primary m-auto">
+                                        <input type="checkbox"
+                                            class="new-control-input chk-parent select-customers-info">
+                                    </label>
+                                </th> --}}
+                                <th class="py-6 text-start px-5" style="white-space: nowrap;">Ảnh</th>
                                 <th class="py-6 text-start" style="white-space: nowrap;">Tên phòng</th>
+                                <th class="py-6 text-start" style="white-space: nowrap;">Mô Tả</th>
                                 <th class="py-6 text-start" style="white-space: nowrap;">Số lượng</th>
                                 <th class="py-6 text-start" style="white-space: nowrap;">Số điện thoại</th>
                                 {{-- <th class="py-6 text-start">Lý do từ chối</th> --}}
@@ -77,113 +79,76 @@
                                         phòng trọ nào.</td>
                                 </tr>
                             @else
-                                @foreach ($rooms as $room)
-                                    <tr>
-                                        <td class="py-6 pl-6" style="white-space: nowrap;">
-                                            {{-- <label class="new-control new-checkbox checkbox-primary m-auto">
-                                                <input type="checkbox" class="new-control-input chk-parent select-customers-info" wire:model="selectedRooms" value="{{ $room->id }}">
-                                            </label> --}}
-                                        </td>
-                                        <td class="align-middle" style="white-space: nowrap;">
-                                            <img src="{{ asset('assets/images/' . $room->image) }}" alt="Room Image" style="max-width: 100%; height: auto; width: 150px;">
-                                        </td>
-                                        <td class="align-middle" style="white-space: nowrap;">
-                                            <small>{{ $room->title }}</small>
-                                        </td>
-                                        <td class="align-middle" style="white-space: nowrap;">
-                                            <small>
-                                                {{-- @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
-                                                    @php
-                                                        $resident = $room->residents
-                                                            ->where('status', $user_is_in)
-                                                            ->first();
-                                                        $tenant = $resident->tenant;
-                                                    @endphp
-                                                    {{ $tenant->name ?? 'Không có tên' }}
-                                                @else
-                                                    Không có người ở
-                                                @endif --}}
-                                                {{ $room->quantity }}
-                                            </small>
-                                        </td>
-                                        <td class="align-middle" style="white-space: nowrap;"> <small>
-                                                {{-- @if ($room->residents && $room->residents->isNotEmpty())
-                                                    {{ $room->residents->first()->tenant->phone ?? 'Không có' }}
-                                                @else
-                                                    Phòng trống
-                                                @endif --}}
-
-                                                {{ $zone->phone }}
-
-                                            </small></td>
-
-
-                                        <td class="align-middle" style="white-space: nowrap;">
-                                            <small>
-                                                @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
-                                                    <span class="badge badge-green text-capitalize">Đang tạm trú</span>
-                                                @else
-                                                    <span class="badge badge-yellow text-capitalize">Trống</span>
-                                                @endif
-                                            </small>
-                                        </td>
-                                        {{-- <td class="align-middle" style="white-space: nowrap;">
-                                            @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
-                                                
-                                                @if ($resident->status == $user_is_in)
-                                                    <button type="button" class="btn btn-info btn-sm"
-                                                        data-toggle="modal"
-                                                        data-target="#identityModal{{ $resident->tenant->id }}">
-                                                        Xem hồ sơ
-                                                    </button>
-                                                @endif
-                                            @endif
-                                        </td> --}}
-                                        <td class="align-middle" style="white-space: nowrap;">
-                                            @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
-                                                @php
-                                                    $resident = $room->residents->where('status', $user_is_in)->first();
-                                                    $tenant = $resident->tenant;
-                                                @endphp
-                                                @if ($resident->status == $user_is_in)
-                                                    <a href="{{ route('owners.detail-room', $room->slug) }}"
-                                                        type="button" class="btn btn-primary btn-sm">
-                                                        <i class="fal fa-eye"></i>
-                                                    </a>
-                                                    <button type="button" class="btn btn-primary btn-sm"
-                                                        data-toggle="modal"
-                                                        data-target="#invoiceModal{{ $resident->id }}">
-                                                        <i class="fal fa-pencil-alt"></i>
-                                                    </button>
-                                                    <form action="{{ route('owners.erase-tenant', $resident->id) }}"
-                                                        method="POST" style="display:inline;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm"><i
-                                                                class="fal fa-trash-alt"></i></button>
-                                                    </form>
-                                                @endif
-                                            @else
-                                                <form action="{{ route('owners.delete-room-in-zone', $room->id) }}"
-                                                    method="POST" style="display:inline;">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i
-                                                            class="fal fa-trash-alt"></i></button>
-                                                </form>
-                                                <form action="{{ route('owners.edit-room', $room->id) }}"
-                                                    method="POST" style="display:inline;">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button type="submit" class="btn btn-primary btn-sm"><i
-                                                            class="fal fa-pen-alt"></i></button>
-                                                </form>
-                                                
-                                                
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @endforeach
+                            @foreach ($rooms as $room)
+                            <tr>
+                                {{-- Các cột khác --}}
+                                <td class="align-middle px-3" style="white-space: nowrap;">
+                                    @if ($room->image)
+                                        <img src="{{ asset('assets/images/' . $room->image) }}" alt="Room Image" class="" style="max-width: 100px;">
+                                    @else
+                                        <small>Không có ảnh</small>
+                                    @endif
+                                </td>
+                                <td class="align-middle" style="white-space: nowrap;">
+                                    <small>{{ $room->title }}</small>
+                                </td>
+                                <td class="align-middle" style="white-space: nowrap;">
+                                    <small>{{ $room->description }}</small>
+                                </td>
+                                <td class="align-middle" style="white-space: nowrap;">
+                                    <small>{{ $room->quantity }}</small>
+                                </td>
+                                <td class="align-middle" style="white-space: nowrap;">
+                                    <small>{{ $zone->phone }}</small>
+                                </td>
+                                <td class="align-middle" style="white-space: nowrap;">
+                                    <small>
+                                        @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
+                                            <span class="badge badge-green text-capitalize">Đang tạm trú</span>
+                                        @else
+                                            <span class="badge badge-yellow text-capitalize">Trống</span>
+                                        @endif
+                                    </small>
+                                </td>
+                                
+                                {{-- Thêm cột hình ảnh --}}
+                               
+                        
+                                {{-- Các cột khác --}}
+                                <td class="align-middle" style="white-space: nowrap;">
+                                    @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
+                                        @php
+                                            $resident = $room->residents->where('status', $user_is_in)->first();
+                                            $tenant = $resident->tenant;
+                                        @endphp
+                                        @if ($resident->status == $user_is_in)
+                                            <a href="{{ route('owners.detail-room', $room->slug) }}" type="button" class="btn btn-primary btn-sm">
+                                                <i class="fal fa-eye"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#invoiceModal{{ $resident->id }}">
+                                                <i class="fal fa-pencil-alt"></i>
+                                            </button>
+                                            <form action="{{ route('owners.erase-tenant', $resident->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm"><i class="fal fa-trash-alt"></i></button>
+                                            </form>
+                                        @endif
+                                    @else
+                                        <form action="{{ route('owners.delete-room-in-zone', $room->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fal fa-trash-alt"></i></button>
+                                        </form>
+                                        <form action="{{ route('owners.edit-room', $room->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="btn btn-primary btn-sm"><i class="fal fa-pen-alt"></i></button>
+                                        </form>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
                             @endif
                         </tbody>
                     </table>

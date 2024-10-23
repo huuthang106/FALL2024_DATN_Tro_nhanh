@@ -254,10 +254,11 @@ class RoomOwnersController extends Controller
         if ($result) {
             Log::info("Successfully updated room ID: $id");
     
-            // Lấy phòng vừa được cập nhật để lấy slug
+            // Lấy phòng vừa được cập nhật để lấy slug của khu trọ
             $room = Room::findOrFail($id);
+            $zoneSlug = $room->zone->slug; // Giả sử Room có mối quan hệ với Zone
     
-            return redirect()->route('owners.properties')
+            return redirect()->route('owners.detail-zone', ['slug' => $zoneSlug])
                              ->with('success', 'Cập nhật phòng thành công!');
         } else {
             Log::error("Failed to update room ID: $id");
