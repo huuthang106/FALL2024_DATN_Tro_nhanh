@@ -132,6 +132,14 @@
         text-overflow: ellipsis;
         display: block;
     }
+    .bootstrap-select .dropdown-menu li a {
+    white-space: normal; /* Cho phép văn bản xuống dòng */
+    }
+
+    .bootstrap-select {
+        width: 100%; /* Điều chỉnh độ rộng của dropdown */
+    }
+
     </style>
 @endpush
 @push('scriptOwners')

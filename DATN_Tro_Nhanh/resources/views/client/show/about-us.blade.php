@@ -933,7 +933,7 @@
                                 </div>
                                 <div class="card-body pt-5">
                                     <h3 class="fs-22 text-heading lh-164 mb-0">
-                                        <a href="#" class="text-heading hover-primary">{{ $user->name }}</a>
+                                        <a href="" class="text-heading hover-primary">{{ $user->name }}</a>
                                     </h3>
                                     <p class="m-0">{{ $user->email }}</p>
                                 </div>

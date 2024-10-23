@@ -174,7 +174,7 @@
                                                                         @endphp
                                                                         @if(!$isLimitReached)
                                                                             <option value="{{ $priceList->id }}">
-                                                                                {{ $priceList->location->name }} - {{ number_format($priceList->price, 0, ',', '.') }} - {{ $priceList->duration_day }} ngày
+                                                                                <span class="text-wrap">{{ $priceList->location->name }} ({{ number_format($priceList->price, 0, ',', '.') }} VNĐ - {{ $priceList->duration_day }} ngày)</span>
                                                                             </option>
                                                                         @endif
                                                                     @endforeach
