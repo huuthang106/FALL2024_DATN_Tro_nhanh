@@ -267,21 +267,37 @@ class RoomOwnersController extends Controller
         // Gọi service để cập nhật phòng
         $result = $this->roomOwnersService->updateRoomInZone($request, $id);
     
+        // Lấy phòng để lấy slug của khu trọ
+        $room = Room::findOrFail($id);
+        $zoneSlug = $room->zone->slug; // Giả sử Room có mối quan hệ với Zone
+    
         if ($result) {
             Log::info("Successfully updated room ID: $id");
-    
-            // Lấy phòng vừa được cập nhật để lấy slug của khu trọ
-            $room = Room::findOrFail($id);
-            $zoneSlug = $room->zone->slug; // Giả sử Room có mối quan hệ với Zone
-    
             return redirect()->route('owners.detail-zone', ['slug' => $zoneSlug])
                              ->with('success', 'Cập nhật phòng thành công!');
         } else {
             Log::error("Failed to update room ID: $id");
-            return redirect()->back()->with('error', 'Cập nhật phòng thất bại!');
+            return redirect()->route('owners.detail-zone', ['slug' => $zoneSlug])
+                             ->with('error', 'Cập nhật phòng thất bại!');
         }
     }
     // RoomOwnersController.php
 
-  
+    public function storeRoom(Request $request, $zoneId)
+    {
+        try {
+            // Gọi service để tạo phòng mới
+            $result = $this->roomOwnersService->createRoom($request, $zoneId);
+    
+            if ($result['success']) {
+                return redirect()->route('owners.detail-zone', ['slug' => $result['zone_slug']])
+                                 ->with('success', 'Phòng trọ đã được tạo thành công.');
+            } else {
+                return redirect()->back()->with('error', $result['message']);
+            }
+        } catch (\Exception $e) {
+            \Log::error('Lỗi khi tạo phòng: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Có lỗi xảy ra khi tạo phòng.');
+        }
+    }
 }

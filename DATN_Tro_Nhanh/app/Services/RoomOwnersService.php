@@ -30,6 +30,8 @@ use Clarifai\Api\UserAppIDSet;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ImageAdminService;
+use App\Events\RoomCreationFailed;
+use Illuminate\Support\Facades\Validator;
 
 
 class RoomOwnersService
@@ -238,7 +240,7 @@ class RoomOwnersService
     // Chi Tiết phòng trọ
     public function getIdRoom($slug)
     {
-        return Room::with( 'price', 'location', 'zone') // Thêm các quan hệ
+        return Room::with('price', 'location', 'zone') // Thêm các quan hệ
             ->where('slug', $slug)
             ->firstOrFail();
     }
@@ -520,40 +522,98 @@ class RoomOwnersService
 
     public function updateRoomInZone(Request $request, $id)
     {
+        // Validate dữ liệu đầu vào
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric|min:0',
+            'quantity' => 'required|integer|min:1',
+            'images' => 'nullable|array',
+            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         // Tìm phòng theo ID
         $room = Room::findOrFail($id);
-    
+
         // Cập nhật thông tin phòng
         $room->title = $request->input('title');
         $room->description = $request->input('description');
         $room->price = $request->input('price');
         $room->quantity = $request->input('quantity');
-    
+
         // Xử lý hình ảnh nếu có
         if ($request->hasFile('images')) {
             // Xóa ảnh cũ nếu có
             if ($room->image) {
                 Storage::delete('assets/images/' . $room->image);
             }
-    
+
             // Lấy file đầu tiên từ mảng images
             $image = $request->file('images')[0];
-            
+
             // Tạo tên file mới với định dạng title + id
             $titleSlug = Str::slug($room->title); // Chuyển tiêu đề thành slug
             $imageName = $titleSlug . '_' . $id . '.' . $image->getClientOriginalExtension();
-    
+
             // Lưu ảnh mới vào thư mục assets/images
             $image->move(public_path('assets/images'), $imageName);
-    
+
             // Cập nhật đường dẫn ảnh mới
             $room->image = $imageName;
         }
-    
+
         // Lưu thay đổi
         $room->save();
-    
+
         return $room;
     }
+  
 
+    public function createRoom(Request $request, $zoneId)
+    {
+        try {
+            // Tạo slug từ tiêu đề
+            $slugify = new \Cocur\Slugify\Slugify();
+            $slug = $slugify->slugify($request->input('title')) . '-' . $zoneId;
+    
+            // Tạo phòng mới (không bao gồm hình ảnh)
+            $room = Room::create([
+                'title' => $request->input('title'),
+                'description' => $request->input('description'),
+                'quantity' => $request->input('quantity'),
+                'price' => $request->input('price'),
+                'phone' => $request->input('phone'),
+                'zone_id' => $zoneId,
+                'slug' => $slug,
+            ]);
+    
+            // Lưu hình ảnh với tên mới
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $extension = $image->getClientOriginalExtension();
+                $imageName = Str::slug($room->title) . '_' . $room->id . '.' . $extension;
+                $image->move(public_path('assets/images'), $imageName);
+                
+                // Cập nhật tên hình ảnh trong cơ sở dữ liệu
+                $room->update(['image' => $imageName]);
+            }
+    
+            return [
+                'success' => true,
+                'zone_slug' => $room->zone->slug
+            ];
+        } catch (\Exception $e) {
+            \Log::error('Lỗi khi tạo phòng: ' . $e->getMessage());
+            return [
+                'success' => false,
+                'message' => 'Có lỗi xảy ra khi tạo phòng: ' . $e->getMessage()
+            ];
+        }
+    }
 }
