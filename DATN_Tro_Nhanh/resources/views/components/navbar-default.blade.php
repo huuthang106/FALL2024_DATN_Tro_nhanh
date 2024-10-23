@@ -234,34 +234,32 @@
                     <div class="collapse navbar-collapse mt-3 mt-xl-0 flex-grow-0" id="primaryMenu05">
                         <ul class="navbar-nav hover-menu main-menu px-0 mx-xl-n4">
                             <li id="navbar-item-room-listing" class="nav-item py-2 py-xl-5 px-0 px-xl-4">
-                                <a class="nav-link p-0" href="{{ route('client.room-listing') }}">
+                                <a class="nav-link p-0 {{ request()->routeIs('client.room-listing') ? 'active' : '' }}"
+                                    href="{{ route('client.room-listing') }}">
                                     Danh sách trọ
                                 </a>
                             </li>
 
                             <li id="navbar-item-zone-listing" class="nav-item py-2 py-xl-5 px-0 px-xl-4">
-                                <a class="nav-link p-0" href="{{ route('client.client-list-zone') }}">
+                                <a class="nav-link p-0 {{ request()->routeIs('client.client-list-zone') ? 'active' : '' }}"
+                                    href="{{ route('client.client-list-zone') }}">
                                     Danh sách khu trọ
                                 </a>
                             </li>
 
                             <li id="navbar-item-agent" class="nav-item py-2 py-xl-5 px-0 px-xl-4">
-                                <a class="nav-link p-0" href="{{ route('client.client-agent') }}">
+                                <a class="nav-link p-0 {{ request()->routeIs('client.client-agent') ? 'active' : '' }}"
+                                    href="{{ route('client.client-agent') }}">
                                     Người đăng tin
                                 </a>
                             </li>
 
                             <li id="navbar-item-blog" class="nav-item py-2 py-xl-5 px-0 px-xl-4">
-                                <a class="nav-link p-0" href="{{ route('client.client-blog') }}">
+                                <a class="nav-link p-0 {{ request()->routeIs('client.client-blog') ? 'active' : '' }}"
+                                    href="{{ route('client.client-blog') }}">
                                     Blog
                                 </a>
                             </li>
-
-                            {{-- <li id="navbar-item-package" class="nav-item py-2 py-xl-5 px-0 px-xl-4">
-                                <a class="nav-link p-0" href="{{ route('client.package') }}">
-                                    Các gói dịch vụ
-                                </a>
-                            </li> --}}
                         </ul>
                         <div class="d-block d-xl-none">
                             <ul

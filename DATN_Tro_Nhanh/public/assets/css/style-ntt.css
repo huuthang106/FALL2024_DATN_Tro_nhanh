@@ -305,3 +305,9 @@ a.d-block {
     width: 24px;
     height: 24px;
 }
+
+/* Hiệu ứng Active Navbar */
+.navbar-nav .nav-link.active {
+    border-bottom: 3px solid #0EC6D5;
+    padding-bottom: 2px;
+}
