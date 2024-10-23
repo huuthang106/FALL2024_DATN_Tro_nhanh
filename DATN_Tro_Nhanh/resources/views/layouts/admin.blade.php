@@ -26,20 +26,24 @@
                 <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
                     <!--begin::Copyright-->
                     <div class="text-dark order-2 order-md-1">
-                        <span class="text-muted fw-bold me-1">2024©</span>
-                        <a href="#" target="_blank" class="text-gray-800 text-hover-primary">Trọ Nhanh</a>
+                        <span class="text-muted fw-bold me-1">{{ date('Y') }}©</span>
+                        <a href="{{ route('client.home') }}" target="_blank"
+                            class="text-gray-800 text-hover-primary">Trọ Nhanh</a>
                     </div>
                     <!--end::Copyright-->
                     <!--begin::Menu-->
                     <ul class="menu menu-gray-600 menu-hover-primary fw-bold order-1">
                         <li class="menu-item">
-                            <a href="#" target="_blank" class="menu-link px-2">Về chúng tôi</a>
+                            <a href="{{ route('client.client-about') }}" target="_blank" class="menu-link px-2">Về chúng
+                                tôi</a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" target="_blank" class="menu-link px-2">Hỗ trợ</a>
+                            <a href="{{ route('client.client-service') }}" target="_blank" class="menu-link px-2">Dịch
+                                vụ</a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" target="_blank" class="menu-link px-2">Mua</a>
+                            <a href="{{ route('client.room-listing') }}" target="_blank" class="menu-link px-2">Danh
+                                sách trọ</a>
                         </li>
                     </ul>
                     <!--end::Menu-->
@@ -50,38 +54,39 @@
 </body>
 @stack('scriptsAdmin')
 <script src="{{ asset('assets/js/save-dropdown-nav-admin.js') }}"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('navSearchForm');
-            if (form) {
-                form.addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    console.log('Form submitted');
-                    searchNav();
-                });
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('navSearchForm');
+        if (form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                console.log('Form submitted');
+                searchNav();
+            });
+        } else {
+            console.error('Form with id navSearchForm not found');
+        }
+    });
+
+    function searchNav() {
+        console.log('searchNav function called');
+        const searchTerm = document.getElementById('navSearchInput').value.toLowerCase();
+        const navItems = document.querySelectorAll('.menu-item');
+
+        navItems.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            if (text.includes(searchTerm)) {
+                item.style.display = '';
+                // Hiển thị tất cả các item con nếu item cha được tìm thấy
+                const subMenu = item.querySelector('.menu-sub');
+                if (subMenu) {
+                    subMenu.style.display = '';
+                }
             } else {
-                console.error('Form with id navSearchForm not found');
+                item.style.display = 'none';
             }
         });
+    }
+</script>
 
-        function searchNav() {
-            console.log('searchNav function called');
-            const searchTerm = document.getElementById('navSearchInput').value.toLowerCase();
-            const navItems = document.querySelectorAll('.menu-item');
-
-            navItems.forEach(item => {
-                const text = item.textContent.toLowerCase();
-                if (text.includes(searchTerm)) {
-                    item.style.display = '';
-                    // Hiển thị tất cả các item con nếu item cha được tìm thấy
-                    const subMenu = item.querySelector('.menu-sub');
-                    if (subMenu) {
-                        subMenu.style.display = '';
-                    }
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-    </script>
 </html>

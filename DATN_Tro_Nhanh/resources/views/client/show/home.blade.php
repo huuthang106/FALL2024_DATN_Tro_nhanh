@@ -7,7 +7,7 @@
                 class="bg-cover d-flex align-items-center custom-vh-100">
                 <div class="container pt-lg-15 py-8" data-animate="zoomIn">
                     <p class="text-white fs-md-22 fs-18 font-weight-500 letter-spacing-367 mb-6 text-center text-uppercase">
-                        Xu hướng tìm nơi ở 2024</p>
+                        Xu hướng tìm nơi ở {{ date('Y') }}</p>
                     <h2 class="text-white display-2 text-center mb-sm-13 mb-8">Trọ Nhanh công cụ hữu ích cho bạn</h2>
                     <form action="{{ route('client.room-listing') }}" method="GET"
                         class="property-search py-lg-0 z-index-2 position-relative d-none d-lg-block">

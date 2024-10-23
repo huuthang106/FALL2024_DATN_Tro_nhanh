@@ -143,7 +143,7 @@
                     </li>
                 </ul>
                 <p class="col-md-auto mb-0 text-muted">
-                    © 2024 TroNhanh.
+                    {{ date('Y') }}© Trọ Nhanh.
                     Mọi quyền được bảo lưu
                 </p>
             </div>
