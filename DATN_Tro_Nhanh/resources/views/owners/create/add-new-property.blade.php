@@ -271,10 +271,10 @@
                                                                                     </option>
                                                                                 </select>
                                                                                 @error('status')
-        <div class="text-danger">{{ $message }}
-                                                                                        </div>
-    @enderror
-                                                                            </div>
+                                                                                <div class="text-danger">{{ $message }}
+                                                                                                                                                                </div>
+                                                                            @enderror
+                                                                                                                                                    </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -298,115 +298,6 @@
 
                                 </div>
 
-
-                                {{-- <div class="tab-pane tab-pane-parent fade px-0" id="amenities" role="tabpanel"
-                                    aria-labelledby="amenities-tab">
-                                    <div class="card bg-transparent border-0">
-                                        <div class="card-header d-block d-md-none bg-transparent px-0 py-1 border-bottom-0"
-                                            id="heading-amenities">
-                                            <h5 class="mb-0">
-                                                <button class="btn btn-block collapse-parent collapsed border shadow-none"
-                                                    data-toggle="collapse" data-number="4."
-                                                    data-target="#amenities-collapse" aria-expanded="true"
-                                                    aria-controls="amenities-collapse">
-                                                    <span class="number">4.</span> TIện ích
-                                                </button>
-                                            </h5>
-                                        </div>
-                                        <div id="amenities-collapse" class="collapse collapsible"
-                                            aria-labelledby="heading-amenities" data-parent="#collapse-tabs-accordion">
-                                            <div class="card-body py-4 py-md-0 px-0">
-                                                <div class="card mb-6">
-                                                    <div class="card-body p-6">
-                                                        <h3 class="card-title mb-0 text-heading fs-22 lh-15">Danh sách tiện
-                                                            ích
-                                                        </h3>
-
-                                                        <div class="row">
-                                                            <div class="col-sm-6 col-lg-3">
-                                                                <ul class="list-group list-group-no-border">
-                                                                    <li class="list-group-item px-0 pt-0 pb-2">
-                                                                        <div class="custom-control custom-checkbox">
-                                                                            <input type="checkbox"
-                                                                                class="custom-control-input"
-                                                                                name="wifi" id="attic"
-                                                                                value="attic">
-                                                                            <label class="custom-control-label"
-                                                                                for="attic">Wifi</label>
-                                                                        </div>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-
-                                                            <div class="col-sm-6 col-lg-3">
-                                                                <ul class="list-group list-group-no-border">
-                                                                    <li class="list-group-item px-0 pt-0 pb-2">
-                                                                        <div class="custom-control custom-checkbox">
-                                                                            <input type="checkbox"
-                                                                                class="custom-control-input"
-                                                                                name="bathrooms" id="attic-01"
-                                                                                value="attic-01">
-                                                                            <label class="custom-control-label"
-                                                                                for="attic-01">Phòng tắm</label>
-                                                                        </div>
-                                                                    </li>
-                                                                </ul>
-                                                                @error('bathrooms')
-                                                                    <div class="text-danger">{{ $message }}
-                                                                    </div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="col-sm-6 col-lg-3">
-                                                                <ul class="list-group list-group-no-border">
-                                                                    <li class="list-group-item px-0 pt-0 pb-2">
-                                                                        <div class="custom-control custom-checkbox">
-                                                                            <input type="checkbox"
-                                                                                class="custom-control-input"
-                                                                                name="air_conditioning" id="attic-02"
-                                                                                value="attic-02">
-                                                                            <label class="custom-control-label"
-                                                                                for="attic-02">Máy điều hòa</label>
-                                                                        </div>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="col-sm-6 col-lg-3">
-                                                                <ul class="list-group list-group-no-border">
-                                                                    <li class="list-group-item px-0 pt-0 pb-2">
-                                                                        <div class="custom-control custom-checkbox">
-                                                                            <input type="checkbox"
-                                                                                class="custom-control-input"
-                                                                                name="garage" id="attic-03"
-                                                                                value="attic-03">
-                                                                            <label class="custom-control-label"
-                                                                                for="attic-03">Ga-ra</label>
-                                                                        </div>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex flex-wrap">
-                                                    <a href="#"
-                                                        class="btn btn-lg bg-hover-white border rounded-lg mb-3 mr-auto prev-button">
-                                                        <span class="d-inline-block text-primary mr-2 fs-16"><i
-                                                                class="fal fa-long-arrow-left"></i></span>Phía
-                                                        trước
-                                                    </a>
-                                                    <button class="btn btn-lg btn-primary mb-3" type="submit"
-                                                        id="submitButton">
-                                                        <span class="button-text">Thêm phòng</span>
-                                                        <span class="spinner-border spinner-border-sm d-none"
-                                                            role="status" aria-hidden="true"></span>
-                                                        <span class="sr-only d-none">Đang xử lý...</span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
                             </div>
                         </form>
                     </div>
@@ -546,66 +437,5 @@
     <script src="{{ asset('assets/js/owners/form-map.js') }}"></script>
 
 
-    <script>
-        $(document).ready(function() {
-            $('form').on('submit', function(e) {
-                e.preventDefault();
-                var formData = new FormData(this);
-                $.ajax({
-                    url: $(this).attr('action'),
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    beforeSend: function() {
-                        Swal.fire({
-                            title: 'Đang xử lý...',
-                            text: 'Vui lòng đợi trong giây lát!',
-                            allowOutsideClick: false,
-                            allowEscapeKey: false,
-                            allowEnterKey: false,
-                            didOpen: () => {
-                                Swal.showLoading();
-                            }
-                        });
-                    },
-                    success: function(response) {
-                        Swal.close();
-                        if (response.status === 'success') {
-                            Swal.fire({
-                                title: 'Thành công!',
-                                text: response.message,
-                                icon: 'success',
-                                confirmButtonText: 'OK'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    window.location.href = '/quan-ly-tai-khoan/khu-tro/chi-tiet-khu-tro/' + response.slug; 
-                                }
-                            });
-                        } else {
-                            Swal.fire({
-                                title: 'Lỗi!',
-                                text: response.message,
-                                icon: 'error',
-                                confirmButtonText: 'OK'
-                            });
-                        }
-                    },
-                    error: function(xhr) {
-                        Swal.close();
-                        let errorMessage = 'Đã xảy ra lỗi khi xử lý yêu cầu.';
-                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                            errorMessage = xhr.responseJSON.message;
-                        }
-                        Swal.fire({
-                            title: 'Lỗi!',
-                            text: errorMessage,
-                            icon: 'error',
-                            confirmButtonText: 'OK'
-                        });
-                    }
-                });
-            });
-        });
-    </script>
+   
 @endpush

@@ -9,11 +9,12 @@ use App\Models\Zone;
 use App\Models\Room;
 use App\Models\Resident;
 use Livewire\WithPagination;
-
+use Illuminate\Support\Facades\Log; 
+use Illuminate\Support\Facades\Storage;
 class ZoneDetail extends Component
 {
     use WithPagination;
-
+    public $roomId;
     public $slug; // Biến để lưu slug của khu trọ
     public $status = 2; // Trạng thái cư dân (có thể thay đổi nếu cần)
     public $searchRoom = ''; // Từ khóa tìm kiếm phòng
@@ -79,60 +80,74 @@ class ZoneDetail extends Component
     //         'residents' => $residents, // Trả về danh sách cư dân
     //     ]);
     // }
-//     public function render()
-// {
-//     // Lấy zone dựa trên slug
-//     $zone = Zone::where('slug', $this->slug)->firstOrFail();
+    //     public function render()
+    // {
+    //     // Lấy zone dựa trên slug
+    //     $zone = Zone::where('slug', $this->slug)->firstOrFail();
 
-//     // Lấy danh sách phòng thuộc zone này với tìm kiếm
-//     $rooms = Room::where('zone_id', $zone->id)
-//         ->where('title', 'like', '%' . $this->searchResident . '%') // Tìm kiếm theo tên phòng
-//         ->orderBy('created_at', 'desc')
-//         ->paginate($this->perPage); // Sử dụng biến $perPage để phân trang
+    //     // Lấy danh sách phòng thuộc zone này với tìm kiếm
+    //     $rooms = Room::where('zone_id', $zone->id)
+    //         ->where('title', 'like', '%' . $this->searchResident . '%') // Tìm kiếm theo tên phòng
+    //         ->orderBy('created_at', 'desc')
+    //         ->paginate($this->perPage); // Sử dụng biến $perPage để phân trang
 
-//     // Lấy danh sách ID phòng
-//     $roomIds = $rooms->pluck('id'); // Lấy danh sách ID phòng
+    //     // Lấy danh sách ID phòng
+    //     $roomIds = $rooms->pluck('id'); // Lấy danh sách ID phòng
 
-//     // Lấy danh sách cư dân thuộc các phòng này
-//     $residents = Resident::whereIn('room_id', $roomIds)
-//         ->where('status', operator: $this->status) // Chỉ lấy resident có status = 2
-//         ->paginate($this->perPage); // Lấy tất cả cư dân mà không phân trang
+    //     // Lấy danh sách cư dân thuộc các phòng này
+    //     $residents = Resident::whereIn('room_id', $roomIds)
+    //         ->where('status', operator: $this->status) // Chỉ lấy resident có status = 2
+    //         ->paginate($this->perPage); // Lấy tất cả cư dân mà không phân trang
 
-//     return view('livewire.zone-detail', [
-//         'user_is_in' => self::user_is_in, // Trả về hằng số user_is_in
-//         'zone' => $zone, // Trả về biến $zone
-//         'rooms' => $rooms, // Trả về danh sách phòng
-//         'residents' => $residents, // Trả về danh sách cư dân
-//     ]);
-// }
-public function render()
+    //     return view('livewire.zone-detail', [
+    //         'user_is_in' => self::user_is_in, // Trả về hằng số user_is_in
+    //         'zone' => $zone, // Trả về biến $zone
+    //         'rooms' => $rooms, // Trả về danh sách phòng
+    //         'residents' => $residents, // Trả về danh sách cư dân
+    //     ]);
+    // }
+    public function render()
     {
-        $rooms = Room::where('zone_id', $this->zone->id)
-            ->where('title', 'like', '%' . $this->searchResident . '%')
+        // Lấy zone dựa trên slug
+        $zone = Zone::where('slug', $this->slug)->firstOrFail();
+
+        // Lấy danh sách phòng thuộc zone này với tìm kiếm
+        $rooms = Room::where('zone_id', $zone->id)
+            ->where('title', 'like', '%' . $this->searchResident . '%') // Tìm kiếm theo tên phòng
             ->orderBy('created_at', 'desc')
-            ->paginate($this->perPage);
+            ->paginate($this->perPage); // Lấy tất cả phòng mà không phân trang
 
         return view('livewire.zone-detail', [
-            'user_is_in' => self::user_is_in,
-            'zone' => $this->zone,
-            'rooms' => $rooms,
+            'user_is_in' => self::user_is_in, // Trả về hằng số user_is_in
+            'zone' => $zone, // Trả về biến $zone
+            'rooms' => $rooms, // Trả về danh sách phòng
         ]);
     }
-public function deleteSelectedRooms()
-{
-    Room::whereIn('id', $this->selectedRooms)->delete();
+  
 
-    // Reset selected rooms and select all checkbox
-    $this->selectedRooms = [];
-    $this->selectAll = false;
-
-    // Dispatch an event to show a success message
-    $this->dispatch('showAlert', [
-        'type' => 'success',
-        'message' => 'Các phòng đã chọn đã được xóa.'
-    ]);
-
-    // Refresh the component to update the list
-    $this->dispatch('refreshComponent');
-}
+    public function deleteRoom($roomId)
+    {
+        $this->roomId = $roomId;
+    
+        try {
+            $room = Room::findOrFail($this->roomId);
+    
+            // Xóa hình ảnh liên quan
+            if ($room->image) {
+                $imagePath = public_path('assets/images/' . $room->image);
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
+            }
+    
+            // Xóa phòng
+            $room->delete();
+    
+            session()->flash('success', 'Phòng và hình ảnh liên quan đã được xóa thành công!');
+            $this->emit('roomDeleted');
+        } catch (\Exception $e) {
+            Log::error('Lỗi khi xóa phòng: ' . $e->getMessage());
+            session()->flash('error', 'Có lỗi xảy ra khi xóa phòng: ' . $e->getMessage());
+        }
+    }
 }
