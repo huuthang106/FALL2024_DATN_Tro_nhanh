@@ -76,9 +76,11 @@ class BlogServices
             $violentImages = [];
     
             foreach ($images as $image) {
-                // Tạo tên file mới với title và id
-                $slugTitle = Str::slug($data['title'], '-');
-                $filename = $slugTitle . '-' . $blog->id . '-' . time() . '.' . $image->getClientOriginalExtension();
+                // Lấy tên gốc của tệp
+                $originalFilename = $image->getClientOriginalName(); // Lấy tên gốc của tệp
+    
+                // Tạo tên file mới với ID blog và thời gian
+                $filename = pathinfo($originalFilename, PATHINFO_FILENAME) . '-' . $blog->id . '-' . time() . '.' . $image->getClientOriginalExtension();
     
                 // Kiểm tra ảnh bạo lực
                 $imageContent = base64_encode(file_get_contents($image->getRealPath()));
@@ -89,8 +91,8 @@ class BlogServices
                 } else {
                     // Tải lên hình ảnh vào Google Drive
                     $driveFileId = '1DNPZ0KBCiY27mvOZKFg8IyyarT7PIGVF'; // ID thư mục Google Drive
-                    $this->uploadImageToGoogleDrive($image, $driveFileId);
-                    
+                    $this->uploadImageToGoogleDrive($image, $driveFileId, $filename); // Gọi phương thức với tên đã tạo
+    
                     // Lưu ảnh nếu an toàn
                     $image->move(public_path('assets/images'), $filename);
                     $uploadedFilenames[] = $filename;
@@ -157,14 +159,10 @@ class BlogServices
     return $data['access_token']; // Trả về access token mới
 }
 
-private function uploadImageToGoogleDrive($image, $folderId)
+private function uploadImageToGoogleDrive($image, $folderId, $filename)
 {
     $client = new \GuzzleHttp\Client();
     $accessToken = $this->getAccessToken(); // Lấy access token mới
-
-    // Tạo tên file mới với slugTitle, blog ID và thời gian
-    $slugTitle = Str::slug($image->getClientOriginalName(), '-'); // Hoặc lấy từ blog nếu cần
-    $filename = $slugTitle . '-' . time() . '.' . $image->getClientOriginalExtension(); // Tạo tên file
 
     $response = $client->post('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart', [
         'headers' => [
