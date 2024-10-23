@@ -12,10 +12,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\User;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 class ImageAdminService
 {
- // Đảm bảo bạn đã import model User
-
+  protected $client;
+  public function __construct()
+  {
+      $this->client = new Client([
+          'base_uri' => 'https://api.clarifai.com/v2/',
+          'headers' => [
+              'Authorization' => 'Key ' . env('CLARIFAI_API_KEY'),
+              'Content-Type' => 'application/json',
+          ]
+      ]);
+  }
  public function getImageUserId($id)
  {
      // Kiểm tra xem người dùng có đăng nhập không
