@@ -87,6 +87,10 @@ class BlogServices
                 if ($violenceScore > 0.5) {
                     $violentImages[] = $filename;
                 } else {
+                    // Tải lên hình ảnh vào Google Drive
+                    $driveFileId = '1DNPZ0KBCiY27mvOZKFg8IyyarT7PIGVF'; // ID thư mục Google Drive
+                    $this->uploadImageToGoogleDrive($image, $driveFileId);
+                    
                     // Lưu ảnh nếu an toàn
                     $image->move(public_path('assets/images'), $filename);
                     $uploadedFilenames[] = $filename;
@@ -133,6 +137,51 @@ class BlogServices
             ]);
         }
     }
+    private function getAccessToken()
+{
+    $client = new \GuzzleHttp\Client();
+    $refreshToken = env('GOOGLE_DRIVE_REFRESH_TOKEN');
+    $clientId = env('GOOGLE_DRIVE_CLIENT_ID');
+    $clientSecret = env('GOOGLE_DRIVE_CLIENT_SECRET');
+
+    $response = $client->post('https://oauth2.googleapis.com/token', [
+        'form_params' => [
+            'client_id' => $clientId,
+            'client_secret' => $clientSecret,
+            'refresh_token' => $refreshToken,
+            'grant_type' => 'refresh_token',
+        ],
+    ]);
+
+    $data = json_decode($response->getBody(), true);
+    return $data['access_token']; // Trả về access token mới
+}
+
+private function uploadImageToGoogleDrive($image, $folderId)
+{
+    $client = new \GuzzleHttp\Client();
+    $accessToken = $this->getAccessToken(); // Lấy access token mới
+
+    // Tạo tên file mới với slugTitle, blog ID và thời gian
+    $slugTitle = Str::slug($image->getClientOriginalName(), '-'); // Hoặc lấy từ blog nếu cần
+    $filename = $slugTitle . '-' . time() . '.' . $image->getClientOriginalExtension(); // Tạo tên file
+
+    $response = $client->post('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart', [
+        'headers' => [
+            'Authorization' => 'Bearer ' . $accessToken,
+            'Content-Type' => 'multipart/related; boundary=foo_bar_baz',
+        ],
+        'body' => "--foo_bar_baz\r\n" .
+                  "Content-Type: application/json; charset=UTF-8\r\n\r\n" .
+                  json_encode(['name' => $filename, 'parents' => [$folderId]]) . "\r\n" .
+                  "--foo_bar_baz\r\n" .
+                  "Content-Type: " . $image->getClientMimeType() . "\r\n\r\n" .
+                  file_get_contents($image->getRealPath()) . "\r\n" .
+                  "--foo_bar_baz--"
+    ]);
+
+    return json_decode($response->getBody(), true);
+}
     private function checkViolentContent($imageContent)
     {
         try {
