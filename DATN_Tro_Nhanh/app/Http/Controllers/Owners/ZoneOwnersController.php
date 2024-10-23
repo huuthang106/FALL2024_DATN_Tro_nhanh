@@ -22,6 +22,7 @@ use App\Events\RoomCreated;
 use DOMDocument;
 use DOMXPath;
 use Illuminate\Support\Str;
+use App\Models\VipZonePosition;
 class ZoneOwnersController extends Controller
 {
     protected $zoneServices;
@@ -267,6 +268,15 @@ class ZoneOwnersController extends Controller
             ]);
         }
         $cost = $pricing->price;
+
+        // Ham dem so luong gioi han mua cua goi
+        // $locationCount = VipZonePosition::where('location_id', $pricing->location_id)->count();
+        // if ($locationCount >= 10) {
+        //     return redirect()->back()->with('alert', [
+        //         'type' => 'error',
+        //         'message' => 'Gói này đã đạt lượt mua tối đa, vui lòng mua gói khác.'
+        //     ]);
+        // }
 
         // Kiểm tra số dư tài khoản của user
         if ($customer->balance < $cost) {

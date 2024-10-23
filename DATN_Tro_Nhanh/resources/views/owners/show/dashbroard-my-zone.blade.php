@@ -112,6 +112,26 @@
             width: 100%;
             height: 100%;
         }
+        .vip-badge {
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+            background-color: red;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        select {
+        width: 100%; /* Ensure the select box takes full width */
+        max-width: 100%; /* Prevent overflow */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+    }
     </style>
 @endpush
 @push('scriptOwners')

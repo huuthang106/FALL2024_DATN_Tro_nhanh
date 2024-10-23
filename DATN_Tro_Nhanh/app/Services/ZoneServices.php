@@ -844,6 +844,15 @@ class ZoneServices
             $cost = $pricing->price;
             $validity = $pricing->duration_day; // Đây có thể là string
 
+            // Ham dem so luong gioi han mua cua goi
+            // $locationCount = VipZonePosition::where('location_id', $pricing->location_id)->count();
+            // if ($locationCount >= 10) {
+            //     return response()->json([
+            //         'status' => 'error',
+            //         'message' => 'Gói này đã đạt lượt mua tối đa, vui lòng mua gói khác.'
+            //     ]);
+            // }
+
             // Trừ tiền từ số dư tài khoản của người dùng
             $customer->balance -= $cost;
             $customer->save();

@@ -91,7 +91,7 @@
                                                 <img src="{{ $this->getZoneImageUrl($zone) ?: asset('assets/images/default-image.jpg') }}"
                                                     alt="{{ $zone->name }}" class="img-fluid zone-image">
                                                     @if($zone->vipZonePosition && $zone->vipZonePosition->status == 1)
-                                                        <span class="position-absolute bottom-0 start-0 bg-danger text-white p-1 rounded">VIP</span>
+                                                        <span class="vip-badge">VIP</span>
                                                     @endif
                                                     <span class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }} position-absolute pos-fixed-top">
                                                         {{ $zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
@@ -156,28 +156,38 @@
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
-                                                <form action="{{ route('owners.zone-vip') }}" method="POST">
-                                                    @csrf
-                                                    <div class="modal-body">
-                                                        <input type="hidden" name="zone_id" value="{{ $zone->id }}">
-                                                        <p>Số dư tài khoản: {{ number_format(auth()->user()->balance, 0, ',', '.') }} VND</p>
-                                                        <div class="form-group">
-                                                            <label for="vipPackageSelect">Chọn gói VIP:</label>
-                                                            <select id="vipPackageSelect" name="vipPackage" class="form-control">
-                                                                @foreach($priceLists as $priceList)
-                                                                    <option value="{{ $priceList->id }}">
-                                                                        {{ $priceList->location->name }} - {{ number_format($priceList->price, 0, ',', '.') }} - {{$priceList->duration_day}} ngày
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                        <p class="text-danger">Lưu ý: Khi mua gói vip tiền sẽ được trừ vào số dư tài khoản nên đảm bảo tài khoản của quý khách đủ để thanh toán.</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                                                        <button type="submit" class="btn btn-primary">Xác nhận</button>
-                                                    </div>
-                                                </form>
+                                                <div class="modal-body">
+                                                    @if($zone->status == 1)
+                                                        <p class="text-danger">Khu trọ chưa được duyệt, không thể mua VIP.</p>
+                                                    @else
+                                                        <form action="{{ route('owners.zone-vip') }}" method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="zone_id" value="{{ $zone->id }}">
+                                                            <p>Số dư tài khoản: {{ number_format(auth()->user()->balance, 0, ',', '.') }} VND</p>
+                                                            <div class="form-group">
+                                                                <label for="vipPackageSelect">Chọn gói VIP:</label>
+                                                                <select id="vipPackageSelect" name="vipPackage" class="form-control border-0 shadow-none form-control-lg selectpicker">
+                                                                    @foreach($priceLists as $priceList)
+                                                                        @php
+                                                                            // Kiểm tra nếu gói vượt quá giới hạn
+                                                                            $isLimitReached = !$this->canPurchaseVipPackage($priceList->location->id);
+                                                                        @endphp
+                                                                        @if(!$isLimitReached)
+                                                                            <option value="{{ $priceList->id }}">
+                                                                                {{ $priceList->location->name }} - {{ number_format($priceList->price, 0, ',', '.') }} - {{ $priceList->duration_day }} ngày
+                                                                            </option>
+                                                                        @endif
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            <p class="text-danger">Lưu ý: Khi mua gói vip tiền sẽ được trừ vào số dư tài khoản nên đảm bảo tài khoản của quý khách đủ để thanh toán.</p>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                                <button type="submit" class="btn btn-primary">Xác nhận</button>
+                                                            </div>
+                                                        </form>
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

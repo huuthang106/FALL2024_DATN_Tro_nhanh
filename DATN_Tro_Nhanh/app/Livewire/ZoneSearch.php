@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
+use App\Models\VipZonePosition;
 
 class ZoneSearch extends Component
 {
@@ -25,8 +26,9 @@ class ZoneSearch extends Component
     public $startDate;
     protected $queryString = ['search', 'perPage', 'orderBy', 'orderAsc'];
     public $priceLists;
-
+    public $locationCount;
     public $selectAll = false;
+    
     public function updatedSearch()
     {
         $this->resetPage();
@@ -50,6 +52,19 @@ class ZoneSearch extends Component
     public function mount()
     {
         $this->priceLists = PriceList::with('location')->get();
+        $locationCounts = VipZonePosition::select('location_id')
+        ->groupBy('location_id')
+        ->havingRaw('COUNT(location_id) >= 10')
+        ->pluck('location_id')
+        ->toArray();
+
+        $this->locationCount = $locationCounts;
+    }
+
+    public function canPurchaseVipPackage($locationId)
+    {
+        // Check if the locationId is in the list of those exceeding the limit
+        return !in_array($locationId, $this->locationCount);
     }
 
     public function toggleZone($zoneId)
@@ -156,7 +171,8 @@ class ZoneSearch extends Component
         return view('livewire.zone-search', [
             'zones' => $zones,
             'emptyZonesCount' => $emptyZonesCount,
-            'priceLists' => $this->priceLists
+            'priceLists' => $this->priceLists,
+            'locationCount' => $this->locationCount
         ]);
     }
 
