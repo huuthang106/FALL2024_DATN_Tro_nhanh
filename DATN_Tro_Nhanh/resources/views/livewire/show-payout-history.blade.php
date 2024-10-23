@@ -64,12 +64,12 @@
                                 <div class="px-7 py-5" data-kt-user-table-filter="form">
                                     <!--begin::Input group-->
                                     <div class="mb-10">
-                                    <label class="form-label fs-6 fw-bold">Lọc theo:</label>
+                                        <label class="form-label fs-6 fw-bold">Lọc theo:</label>
                                         <select class="form-select form-select-solid fw-bolder sortby"
                                             wire:model.lazy="timeFilter" id="timeFilter"
                                             data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
                                             <option value="" selected>Chọn khoảng thời gian:</option>
-                                            <option value="1_day">1 ngày</option>
+                                            <option value="1_day">Hôm qua</option>
                                             <option value="7_day">7 ngày</option>
                                             <option value="1_month">1 tháng</option>
                                             <option value="3_month">3 tháng</option>
@@ -91,7 +91,7 @@
                                     </div> -->
                                     <!--end::Input group-->
                                     <!--begin::Actions-->
-                                    
+
                                     <!--end::Actions-->
                                 </div>
                                 <!--end::Content-->
@@ -124,14 +124,13 @@
                                             data-kt-users-modal-action="close">
                                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                                             <span class="svg-icon svg-icon-1">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                    height="24" viewBox="0 0 24 24" fill="none">
-                                                    <rect opacity="0.5" x="6" y="17.3137" width="16"
-                                                        height="2" rx="1"
-                                                        transform="rotate(-45 6 17.3137)" fill="black" />
-                                                    <rect x="7.41422" y="6" width="16" height="2"
-                                                        rx="1" transform="rotate(45 7.41422 6)"
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none">
+                                                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
+                                                        rx="1" transform="rotate(-45 6 17.3137)"
                                                         fill="black" />
+                                                    <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                                        transform="rotate(45 7.41422 6)" fill="black" />
                                                 </svg>
                                             </span>
                                             <!--end::Svg Icon-->
@@ -416,38 +415,39 @@
                             <!--end::Table head-->
                             <!--begin::Table body-->
                             <tbody class="text-gray-600 fw-bold">
-                                @if ($payouts->isEmpty())   
+                                @if ($payouts->isEmpty())
                                     <tr>
                                         <td colspan="7" class="text-center">Không có dữ liệu.</td>
                                     </tr>
                                 @else
-                                @foreach ($payouts as $payout)
-                                <tr>
-                                    <td>{{ $payout->single_code }}</td>
-                                    <td>{{ $payout->card_holder_name }}</td>
-                                    <td>{{ $payout->account_number }}</td>
-                                    <td>{{ $payout->bank_name }}</td>
-                                    <td>{{ number_format($payout->amount, 0, ',', '.') }} VNĐ</td>
-                                    <td>{{ $payout->requested_at->format('d/m/Y') }}</td>
-                                    <td class="text-end">
-                                        <div class="dropdown">
-                                            <button
-                                                class="btn btn-light btn-active-light-primary btn-sm dropdown-toggle"
-                                                type="button" id="dropdownMenuButton-{{ $payout->id }}"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                Tác vụ
-                                            </button>
+                                    @foreach ($payouts as $payout)
+                                        <tr>
+                                            <td>{{ $payout->single_code }}</td>
+                                            <td>{{ $payout->card_holder_name }}</td>
+                                            <td>{{ $payout->account_number }}</td>
+                                            <td>{{ $payout->bank_name }}</td>
+                                            <td>{{ number_format($payout->amount, 0, ',', '.') }} VNĐ</td>
+                                            <td>{{ $payout->requested_at->format('d/m/Y') }}</td>
+                                            <td class="text-end">
+                                                <div class="dropdown">
+                                                    <button
+                                                        class="btn btn-light btn-active-light-primary btn-sm dropdown-toggle"
+                                                        type="button" id="dropdownMenuButton-{{ $payout->id }}"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Tác vụ
+                                                    </button>
                                                     <ul class="dropdown-menu menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                                                    aria-labelledby="dropdownMenuButton-{{ $payout->id }}">
+                                                        aria-labelledby="dropdownMenuButton-{{ $payout->id }}">
                                                         <li class="menu-item px-3">
                                                             <form
                                                                 action="{{ route('admin.browse-payout', $payout->id) }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 <button type="submit"
-                                                                    class="dropdown-item menu-link px-3 border-0 bg-transparent text-start w-100"> Duyệt</button>
+                                                                    class="dropdown-item menu-link px-3 border-0 bg-transparent text-start w-100">
+                                                                    Duyệt</button>
                                                             </form>
-                                                        </li> 
+                                                        </li>
                                                         <li class="menu-item px-3">
                                                             <button type="button"
                                                                 class="dropdown-item menu-link px-3 border-0 bg-transparent text-start w-100"
@@ -457,153 +457,173 @@
                                                             </button>
                                                         </li>
                                                     </ul>
-                                                       <!-- Reject Payout Modal -->
-                                                       <div class="modal fade" id="rejectPayoutModal-{{ $payout->id }}" tabindex="-1" aria-labelledby="rejectPayoutModalLabel-{{ $payout->id }}" aria-hidden="true">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="rejectPayoutModalLabel-{{ $payout->id }}">Từ chối yêu cầu rút tiền</h5>
-                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
-                                                                    <form action="{{ route('admin.reject-payout', $payout->id) }}" method="POST" id="rejectPayoutForm-{{ $payout->id }}">
-                                                                        @csrf
-                                                                        <div class="modal-body">
-                                                                            <div class="mb-3">
-                                                                                <label for="rejectReason-{{ $payout->id }}" class="form-label text-start d-block">Lý do từ chối</label>
-                                                                                <textarea class="form-control" id="rejectReason-{{ $payout->id }}" name="rejectionReason" rows="3"></textarea>
-                                                                                <div class="invalid-feedback">
-                                                                                    Vui lòng nhập lý do từ chối.
-                                                                                </div>
+                                                    <!-- Reject Payout Modal -->
+                                                    <div class="modal fade"
+                                                        id="rejectPayoutModal-{{ $payout->id }}" tabindex="-1"
+                                                        aria-labelledby="rejectPayoutModalLabel-{{ $payout->id }}"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title"
+                                                                        id="rejectPayoutModalLabel-{{ $payout->id }}">
+                                                                        Từ chối yêu cầu rút tiền</h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <form
+                                                                    action="{{ route('admin.reject-payout', $payout->id) }}"
+                                                                    method="POST"
+                                                                    id="rejectPayoutForm-{{ $payout->id }}">
+                                                                    @csrf
+                                                                    <div class="modal-body">
+                                                                        <div class="mb-3">
+                                                                            <label
+                                                                                for="rejectReason-{{ $payout->id }}"
+                                                                                class="form-label text-start d-block">Lý
+                                                                                do từ chối</label>
+                                                                            <textarea class="form-control" id="rejectReason-{{ $payout->id }}" name="rejectionReason" rows="3"></textarea>
+                                                                            <div class="invalid-feedback">
+                                                                                Vui lòng nhập lý do từ chối.
                                                                             </div>
                                                                         </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                                                                            <button type="submit" class="btn btn-danger">Xác nhận từ chối</button>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button"
+                                                                            class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">Hủy</button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-danger">Xác nhận từ
+                                                                            chối</button>
+                                                                    </div>
+                                                                </form>
                                                             </div>
                                                         </div>
+                                                    </div>
                                                 </div>
                                             </td>
                                             <!--end::Action=-->
                                         </tr>
-                                <!--end::Table row-->
+                                        <!--end::Table row-->
                                     @endforeach
 
-                                    @endif
-                                </tbody>
-                                <!--end::Table body-->
-                            </table>
-                        </div>
+                                @endif
+                            </tbody>
+                            <!--end::Table body-->
+                        </table>
+                    </div>
                     <!--end::Table-->
-                    
+
                     <!-- Phân trang -->
                     @if ($payouts->total() > 0)
-                    @if ($payouts->hasPages())
-                        <nav aria-label="Page navigation" class="mb-2">
-                            <ul class="pagination pagination-sm rounded-active justify-content-center">
-                                {{-- Liên kết Trang Đầu --}}
-                                <li class="page-item {{ $payouts->onFirstPage() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="gotoPage(1)"
-                                        wire:loading.attr="disabled" rel="first" aria-label="@lang('pagination.first')"><i
-                                            class="fas fa-angle-double-left"></i></a>
-                                </li>
+                        @if ($payouts->hasPages())
+                            <nav aria-label="Page navigation" class="mb-2">
+                                <ul class="pagination pagination-sm rounded-active justify-content-center">
+                                    {{-- Liên kết Trang Đầu --}}
+                                    <li class="page-item {{ $payouts->onFirstPage() ? 'disabled' : '' }}">
+                                        <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                            wire:loading.attr="disabled" rel="first"
+                                            aria-label="@lang('pagination.first')"><i
+                                                class="fas fa-angle-double-left"></i></a>
+                                    </li>
 
-                                {{-- Liên kết Trang Trước --}}
-                                <li class="page-item {{ $payouts->onFirstPage() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="previousPage"
-                                        wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')"><i
-                                            class="fas fa-angle-left"></i></a>
-                                </li>
+                                    {{-- Liên kết Trang Trước --}}
+                                    <li class="page-item {{ $payouts->onFirstPage() ? 'disabled' : '' }}">
+                                        <a class="page-link hover-white" wire:click="previousPage"
+                                            wire:loading.attr="disabled" rel="prev"
+                                            aria-label="@lang('pagination.previous')"><i class="fas fa-angle-left"></i></a>
+                                    </li>
 
-                                @php
-                                    $totalPages = $payouts->lastPage();
-                                    $currentPage = $payouts->currentPage();
-                                    $visiblePages = 3; // Số trang giữa
-                                @endphp
+                                    @php
+                                        $totalPages = $payouts->lastPage();
+                                        $currentPage = $payouts->currentPage();
+                                        $visiblePages = 3; // Số trang giữa
+                                    @endphp
 
-                                {{-- Trang đầu --}}
-                                <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
-                                    <a class="page-link hover-white" wire:click="gotoPage(1)"
-                                        wire:loading.attr="disabled">1</a>
-                                </li>
+                                    {{-- Trang đầu --}}
+                                    <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                                        <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                            wire:loading.attr="disabled">1</a>
+                                    </li>
 
-                                {{-- Dấu ba chấm đầu --}}
-                                @if ($currentPage > 3)
-                                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                                @endif
+                                    {{-- Dấu ba chấm đầu --}}
+                                    @if ($currentPage > 3)
+                                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                                    @endif
 
-                                {{-- Các trang giữa --}}
-                                @for ($i = max(2, $currentPage - 1); $i <= min($totalPages - 1, $currentPage + 1); $i++)
-                                    @if ($i > 1 && $i < $totalPages)
-                                        <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                    {{-- Các trang giữa --}}
+                                    @for ($i = max(2, $currentPage - 1); $i <= min($totalPages - 1, $currentPage + 1); $i++)
+                                        @if ($i > 1 && $i < $totalPages)
+                                            <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                                <a class="page-link hover-white"
+                                                    wire:click="gotoPage({{ $i }})"
+                                                    wire:loading.attr="disabled">{{ $i }}</a>
+                                            </li>
+                                        @endif
+                                    @endfor
+
+                                    {{-- Dấu ba chấm cuối --}}
+                                    @if ($currentPage < $totalPages - 2)
+                                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                                    @endif
+
+                                    {{-- Trang cuối --}}
+                                    @if ($totalPages > 1)
+                                        <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
                                             <a class="page-link hover-white"
-                                                wire:click="gotoPage({{ $i }})"
-                                                wire:loading.attr="disabled">{{ $i }}</a>
+                                                wire:click="gotoPage({{ $totalPages }})"
+                                                wire:loading.attr="disabled">{{ $totalPages }}</a>
                                         </li>
                                     @endif
-                                @endfor
 
-                                {{-- Dấu ba chấm cuối --}}
-                                @if ($currentPage < $totalPages - 2)
-                                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                                @endif
-
-                                {{-- Trang cuối --}}
-                                @if ($totalPages > 1)
-                                    <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
-                                        <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
-                                            wire:loading.attr="disabled">{{ $totalPages }}</a>
+                                    {{-- Liên kết Trang Tiếp --}}
+                                    <li class="page-item {{ !$payouts->hasMorePages() ? 'disabled' : '' }}">
+                                        <a class="page-link hover-white" wire:click="nextPage"
+                                            wire:loading.attr="disabled" rel="next"
+                                            aria-label="@lang('pagination.next')"><i class="fas fa-angle-right"></i></a>
                                     </li>
-                                @endif
 
-                                {{-- Liên kết Trang Tiếp --}}
-                                <li class="page-item {{ !$payouts->hasMorePages() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="nextPage"
-                                        wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')"><i
-                                            class="fas fa-angle-right"></i></a>
-                                </li>
+                                    {{-- Liên kết Trang Cuối --}}
+                                    <li class="page-item {{ !$payouts->hasMorePages() ? 'disabled' : '' }}">
+                                        <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
+                                            wire:loading.attr="disabled" rel="last"
+                                            aria-label="@lang('pagination.last')"><i
+                                                class="fas fa-angle-double-right"></i></i></i></a>
+                                    </li>
+                                </ul>
+                            </nav>
 
-                                {{-- Liên kết Trang Cuối --}}
-                                <li class="page-item {{ !$payouts->hasMorePages() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
-                                        wire:loading.attr="disabled" rel="last" aria-label="@lang('pagination.last')"><i
-                                            class="fas fa-angle-double-right"></i></i></i></a>
-                                </li>
-                            </ul>
-                        </nav>
+                        @endif
 
                     @endif
-
-                @endif
-                    </div>
+                </div>
 
                 <!--end::Card body-->
-                </div>
-                <!--end::Card-->
             </div>
-            <!--end::Container-->
+            <!--end::Card-->
         </div>
-        <!--end::Post-->
+        <!--end::Container-->
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const rejectForms = document.querySelectorAll('[id^="rejectPayoutForm-"]');
-            
-            rejectForms.forEach(form => {
-                form.addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    const reasonTextarea = this.querySelector('textarea[name="rejectionReason"]');
-                    
-                    if (reasonTextarea.value.trim() === '') {
-                        reasonTextarea.classList.add('is-invalid');
-                        return;
-                    }
-                    
-                    reasonTextarea.classList.remove('is-invalid');
-                    this.submit();
-                });
+    <!--end::Post-->
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const rejectForms = document.querySelectorAll('[id^="rejectPayoutForm-"]');
+
+        rejectForms.forEach(form => {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const reasonTextarea = this.querySelector('textarea[name="rejectionReason"]');
+
+                if (reasonTextarea.value.trim() === '') {
+                    reasonTextarea.classList.add('is-invalid');
+                    return;
+                }
+
+                reasonTextarea.classList.remove('is-invalid');
+                this.submit();
             });
         });
-    </script>
+    });
+</script>

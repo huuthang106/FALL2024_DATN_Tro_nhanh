@@ -18,14 +18,19 @@ class Report extends Model
         'zone_id',
     ];
 
-    public function room()
-    {
-        return $this->belongsTo(Room::class);
-    }
+    // public function room()
+    // {
+    //     return $this->belongsTo(Room::class);
+    // }
 
     // Quan hệ với bảng User
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function zone()
+    {
+        return $this->belongsTo(Zone::class);
     }
 }

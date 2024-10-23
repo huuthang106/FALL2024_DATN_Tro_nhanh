@@ -48,7 +48,7 @@
                                                 fill="black" />
                                         </svg>
                                     </span>
-                                    <!--end::Svg Icon-->Lọc</button> 
+                                    <!--end::Svg Icon-->Lọc</button>
                                 <!--begin::Menu 1-->
                                 <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
                                     <!--begin::Header-->
@@ -65,20 +65,20 @@
                                         <div class="mb-10">
                                             <label class="form-label fs-6 fw-bold">Lọc theo:</label>
                                             <select class="form-select form-select-solid fw-bolder sortby"
-                                            wire:model.lazy="timeFilter" id="timeFilter"
-                                            data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
-                                            <option value="" selected>Chọn khoảng thời gian:</option>
-                                            <option value="1_day">Hôm qua</option>
-                                            <option value="7_day">7 ngày</option>
-                                            <option value="1_month">1 tháng</option>
-                                            <option value="3_month">3 tháng</option>
-                                            <option value="6_month">6 tháng</option>
-                                            <option value="1_year">1 năm</option>
-                                        </select>
+                                                wire:model.lazy="timeFilter" id="timeFilter"
+                                                data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
+                                                <option value="" selected>Chọn khoảng thời gian:</option>
+                                                <option value="1_day">Hôm qua</option>
+                                                <option value="7_day">7 ngày</option>
+                                                <option value="1_month">1 tháng</option>
+                                                <option value="3_month">3 tháng</option>
+                                                <option value="6_month">6 tháng</option>
+                                                <option value="1_year">1 năm</option>
+                                            </select>
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
-                                    
+
                                         <!--end::Actions-->
                                     </div>
                                     <!--end::Content-->
@@ -149,11 +149,11 @@
                                                 data-kt-users-modal-action="close">
                                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                                                 <span class="svg-icon svg-icon-1">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.5" x="6" y="17.3137" width="16" height="2"
-                                                            rx="1" transform="rotate(-45 6 17.3137)"
-                                                            fill="black" />
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.5" x="6" y="17.3137" width="16"
+                                                            height="2" rx="1"
+                                                            transform="rotate(-45 6 17.3137)" fill="black" />
                                                         <rect x="7.41422" y="6" width="16" height="2"
                                                             rx="1" transform="rotate(45 7.41422 6)"
                                                             fill="black" />
@@ -245,8 +245,8 @@
                                                 data-kt-users-modal-action="close">
                                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                                                 <span class="svg-icon svg-icon-1">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 24 24" fill="none">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" viewBox="0 0 24 24" fill="none">
                                                         <rect opacity="0.5" x="6" y="17.3137" width="16"
                                                             height="2" rx="1"
                                                             transform="rotate(-45 6 17.3137)" fill="black" />
@@ -318,7 +318,8 @@
                                                         </div>
                                                         <!--end::Image input-->
                                                         <!--begin::Hint-->
-                                                        <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                                                        <div class="form-text">Allowed file types: png, jpg, jpeg.
+                                                        </div>
                                                         <!--end::Hint-->
                                                     </div>
                                                     <!--end::Input group-->
@@ -368,7 +369,8 @@
                                                                     for="kt_modal_update_role_option_0">
                                                                     <div class="fw-bolder text-gray-800">Administrator
                                                                     </div>
-                                                                    <div class="text-gray-600">Best for business owners and
+                                                                    <div class="text-gray-600">Best for business owners
+                                                                        and
                                                                         company administrators</div>
                                                                 </label>
                                                                 <!--end::Label-->
@@ -389,7 +391,8 @@
                                                                 <!--begin::Label-->
                                                                 <label class="form-check-label"
                                                                     for="kt_modal_update_role_option_1">
-                                                                    <div class="fw-bolder text-gray-800">Developer</div>
+                                                                    <div class="fw-bolder text-gray-800">Developer
+                                                                    </div>
                                                                     <div class="text-gray-600">Best for developers or
                                                                         people primarily using the API</div>
                                                                 </label>
@@ -436,7 +439,8 @@
                                                                     for="kt_modal_update_role_option_3">
                                                                     <div class="fw-bolder text-gray-800">Support</div>
                                                                     <div class="text-gray-600">Best for employees who
-                                                                        regularly refund payments and respond to disputes
+                                                                        regularly refund payments and respond to
+                                                                        disputes
                                                                     </div>
                                                                 </label>
                                                                 <!--end::Label-->
@@ -458,7 +462,8 @@
                                                                 <label class="form-check-label"
                                                                     for="kt_modal_update_role_option_4">
                                                                     <div class="fw-bolder text-gray-800">Trial</div>
-                                                                    <div class="text-gray-600">Best for people who need to
+                                                                    <div class="text-gray-600">Best for people who need
+                                                                        to
                                                                         preview content data, but don't need to make any
                                                                         updates</div>
                                                                 </label>
@@ -509,7 +514,8 @@
                                     <!--begin::Table row-->
                                     <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                         <th class="w-10px pe-2">
-                                            <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                            <div
+                                                class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                                 <input class="form-check-input" type="checkbox" data-kt-check="true"
                                                     data-kt-check-target="#kt_table_users .form-check-input"
                                                     value="1" />
@@ -530,7 +536,8 @@
                                         <tr>
                                             <!--begin::Checkbox-->
                                             <td>
-                                                <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                <div
+                                                    class="form-check form-check-sm form-check-custom form-check-solid">
                                                     <input class="form-check-input" type="checkbox" value="1" />
                                                 </div>
                                             </td>
@@ -559,9 +566,11 @@
                                                 @endif
                                             </td>
                                             <!--begin::Action=-->
-                                            <td class="text-end">
-                                                <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
-                                                    data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Tác
+                                            {{-- <td class="text-end">
+                                                <a href="#"
+                                                    class="btn btn-light btn-active-light-primary btn-sm"
+                                                    data-kt-menu-trigger="click"
+                                                    data-kt-menu-placement="bottom-end">Tác
                                                     vụ
                                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
                                                     <span class="svg-icon svg-icon-5 m-0">
@@ -584,7 +593,8 @@
                                                     <!--end::Menu item-->
                                                     <!--begin::Menu item-->
                                                     <div class="menu-item px-3">
-                                                        <form action="{{ route('admin.destroy-location', $location->id) }}"
+                                                        <form
+                                                            action="{{ route('admin.destroy-location', $location->id) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
@@ -595,6 +605,54 @@
                                                     <!--end::Menu item-->
                                                 </div>
                                                 <!--end::Menu-->
+                                            </td> --}}
+                                            <td class="text-end">
+                                                <div class="dropdown">
+                                                    <button
+                                                        class="btn btn-light btn-active-light-primary btn-sm dropdown-toggle"
+                                                        type="button" id="dropdownMenuButton-"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Tác vụ
+                                                        {{-- <span class="svg-icon svg-icon-5 m-0">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="26"
+                                                                height="24" viewBox="0 0 24 24" fill="none">
+                                                                <path
+                                                                    d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                                    fill="black" />
+                                                            </svg>
+                                                        </span> --}}
+                                                    </button>
+                                                    <ul class="dropdown-menu menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                                                        aria-labelledby="dropdownMenuButton-">
+                                                        {{-- <li class="menu-item px-3">
+                                                            <a href="{{ route('admin.update-room-show', ['slug' => $room->slug]) }}"
+                                                                class="dropdown-item menu-link px-3">Chỉnh sửa</a>
+                                                        </li> --}}
+                                                        <li class="menu-item px-3">
+                                                            {{-- <form
+                                                                action="{{ route('admin.destroy-room', $room->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="dropdown-item menu-link px-3 border-0 bg-transparent text-start w-100">Xóa</button>
+                                                            </form> --}}
+                                                            <a href="{{ route('admin.update-location-show', ['slug' => $location->slug]) }}"
+                                                                class="dropdown-item menu-link px-3 border-0 bg-transparent text-start w-100">Chỉnh
+                                                                sửa</a>
+                                                        </li>
+                                                        <li class="menu-item px-3">
+                                                            <form
+                                                                action="{{ route('admin.destroy-location', $location->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="dropdown-item menu-link px-3 border-0 bg-transparent text-start w-100">Xóa</button>
+                                                            </form>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </td>
                                             <!--end::Action=-->
                                         </tr>
@@ -608,74 +666,78 @@
                         </div>
                         <!--end::Table-->
                         @if ($locations->total() > 0)
-                    @if ($locations->hasPages())
-                        <nav aria-label="Page navigation" class="mb-2">
-                            <ul class="pagination pagination-sm rounded-active justify-content-center">
-                                {{-- Liên kết Trang Đầu --}}
-                                <li class="page-item {{ $locations->onFirstPage() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="gotoPage(1)"
-                                        wire:loading.attr="disabled" rel="first" aria-label="@lang('pagination.first')"><i
-                                            class="fas fa-angle-double-left"></i></a>
-                                </li>
-
-                           
-
-                                @php
-                                    $totalPages = $locations->lastPage();
-                                    $currentPage = $locations->currentPage();
-                                    $visiblePages = 3; // Số trang giữa
-                                @endphp
-
-                                {{-- Trang đầu --}}
-                                <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
-                                    <a class="page-link hover-white" wire:click="gotoPage(1)"
-                                        wire:loading.attr="disabled">1</a>
-                                </li>
-
-                                {{-- Dấu ba chấm đầu --}}
-                                @if ($currentPage > 3)
-                                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                                @endif
-
-                                {{-- Các trang giữa --}}
-                                @for ($i = max(2, $currentPage - 1); $i <= min($totalPages - 1, $currentPage + 1); $i++)
-                                    @if ($i > 1 && $i < $totalPages)
-                                        <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
-                                            <a class="page-link hover-white"
-                                                wire:click="gotoPage({{ $i }})"
-                                                wire:loading.attr="disabled">{{ $i }}</a>
+                            @if ($locations->hasPages())
+                                <nav aria-label="Page navigation" class="mb-2">
+                                    <ul class="pagination pagination-sm rounded-active justify-content-center">
+                                        {{-- Liên kết Trang Đầu --}}
+                                        <li class="page-item {{ $locations->onFirstPage() ? 'disabled' : '' }}">
+                                            <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                                wire:loading.attr="disabled" rel="first"
+                                                aria-label="@lang('pagination.first')"><i
+                                                    class="fas fa-angle-double-left"></i></a>
                                         </li>
-                                    @endif
-                                @endfor
 
-                                {{-- Dấu ba chấm cuối --}}
-                                @if ($currentPage < $totalPages - 2)
-                                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                                @endif
 
-                                {{-- Trang cuối --}}
-                                @if ($totalPages > 1)
-                                    <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
-                                        <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
-                                            wire:loading.attr="disabled">{{ $totalPages }}</a>
-                                    </li>
-                                @endif
 
-                                {{-- Liên kết Trang Tiếp --}}
-                          
+                                        @php
+                                            $totalPages = $locations->lastPage();
+                                            $currentPage = $locations->currentPage();
+                                            $visiblePages = 3; // Số trang giữa
+                                        @endphp
 
-                                {{-- Liên kết Trang Cuối --}}
-                                <li class="page-item {{ !$locations->hasMorePages() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
-                                        wire:loading.attr="disabled" rel="last" aria-label="@lang('pagination.last')"><i
-                                            class="fas fa-angle-double-right"></i></i></i></a>
-                                </li>
-                            </ul>
-                        </nav>
+                                        {{-- Trang đầu --}}
+                                        <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                                            <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                                wire:loading.attr="disabled">1</a>
+                                        </li>
 
-                    @endif
+                                        {{-- Dấu ba chấm đầu --}}
+                                        @if ($currentPage > 3)
+                                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                                        @endif
 
-                @endif
+                                        {{-- Các trang giữa --}}
+                                        @for ($i = max(2, $currentPage - 1); $i <= min($totalPages - 1, $currentPage + 1); $i++)
+                                            @if ($i > 1 && $i < $totalPages)
+                                                <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                                    <a class="page-link hover-white"
+                                                        wire:click="gotoPage({{ $i }})"
+                                                        wire:loading.attr="disabled">{{ $i }}</a>
+                                                </li>
+                                            @endif
+                                        @endfor
+
+                                        {{-- Dấu ba chấm cuối --}}
+                                        @if ($currentPage < $totalPages - 2)
+                                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                                        @endif
+
+                                        {{-- Trang cuối --}}
+                                        @if ($totalPages > 1)
+                                            <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                                                <a class="page-link hover-white"
+                                                    wire:click="gotoPage({{ $totalPages }})"
+                                                    wire:loading.attr="disabled">{{ $totalPages }}</a>
+                                            </li>
+                                        @endif
+
+                                        {{-- Liên kết Trang Tiếp --}}
+
+
+                                        {{-- Liên kết Trang Cuối --}}
+                                        <li class="page-item {{ !$locations->hasMorePages() ? 'disabled' : '' }}">
+                                            <a class="page-link hover-white"
+                                                wire:click="gotoPage({{ $totalPages }})"
+                                                wire:loading.attr="disabled" rel="last"
+                                                aria-label="@lang('pagination.last')"><i
+                                                    class="fas fa-angle-double-right"></i></i></i></a>
+                                        </li>
+                                    </ul>
+                                </nav>
+
+                            @endif
+
+                        @endif
                     </div>
                     <!--end::Card body-->
                 </div>

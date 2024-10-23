@@ -16,7 +16,7 @@
                                     class="form-control form-control-lg selectpicker mr-2"
                                     data-style="bg-white btn-lg h-52 py-2 border">
                                     <option value="" selected>Thời Gian:</option>
-                                    <option value="1_day">1 ngày</option>
+                                    <option value="1_day">Hôm qua</option>
                                     <option value="7_day">7 ngày</option>
                                     <option value="1_month">1 tháng</option>
                                     <option value="3_month">3 tháng</option>

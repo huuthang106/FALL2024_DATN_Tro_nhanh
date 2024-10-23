@@ -70,7 +70,7 @@
                                                 wire:model.lazy="timeFilter" wire:key="time-select"
                                                 data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
                                                 <option value="" selected>Chọn khoảng thời gian</option>
-                                                <option value="1_day">1 ngày</option>
+                                                <option value="1_day">Hôm qua</option>
                                                 <option value="7_day">7 ngày</option>
                                                 <option value="3_month">3 tháng</option>
                                                 <option value="6_month">6 tháng</option>

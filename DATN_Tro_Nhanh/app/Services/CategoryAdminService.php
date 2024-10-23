@@ -169,22 +169,46 @@ class CategoryAdminService
         return $category;
     }
 
+    // public function forceDeleteCategory($id)
+    // {
+    //     $category = Category::withTrashed()->findOrFail($id);
+
+    //     // Kiểm tra xem có phòng nào thuộc category này không
+    //     $hasRooms = Room::where('category_id', $id)->exists();
+
+    //     if ($hasRooms) {
+    //         // Nếu có phòng thuộc loại này, trả về thông báo lỗi
+    //         return [
+    //             'status' => 'error',
+    //             'message' => 'Có phòng đang thuộc loại này, không thể xóa vĩnh viễn.'
+    //         ];
+    //     }
+
+    //     // Nếu không có phòng thuộc loại này, tiến hành xóa vĩnh viễn
+    //     $category->forceDelete();
+
+    //     // Trả về thông báo thành công
+    //     return [
+    //         'status' => 'success',
+    //         'message' => 'Loại phòng đã được xóa vĩnh viễn thành công.'
+    //     ];
+    // }
     public function forceDeleteCategory($id)
     {
         $category = Category::withTrashed()->findOrFail($id);
 
-        // Kiểm tra xem có phòng nào thuộc category này không
-        $hasRooms = Room::where('category_id', $id)->exists();
+        // Kiểm tra xem có khu vực nào thuộc category này không
+        $hasZones = Zone::where('category_id', $id)->exists();
 
-        if ($hasRooms) {
-            // Nếu có phòng thuộc loại này, trả về thông báo lỗi
+        if ($hasZones) {
+            // Nếu có khu vực thuộc loại này, trả về thông báo lỗi
             return [
                 'status' => 'error',
-                'message' => 'Có phòng đang thuộc loại này, không thể xóa vĩnh viễn.'
+                'message' => 'Có khu vực đang thuộc loại này, không thể xóa vĩnh viễn.'
             ];
         }
 
-        // Nếu không có phòng thuộc loại này, tiến hành xóa vĩnh viễn
+        // Nếu không có khu vực thuộc loại này, tiến hành xóa vĩnh viễn
         $category->forceDelete();
 
         // Trả về thông báo thành công
@@ -193,8 +217,8 @@ class CategoryAdminService
             'message' => 'Loại phòng đã được xóa vĩnh viễn thành công.'
         ];
     }
-
-    public function getCategoryClient($status){
+    public function getCategoryClient($status)
+    {
         return Category::where('status', $status)->get();
     }
 }

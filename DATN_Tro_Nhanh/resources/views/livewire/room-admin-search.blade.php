@@ -65,7 +65,7 @@
                                             wire:model.lazy="timeFilter" id="timeFilter"
                                             data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
                                             <option value="" selected>Chọn khoảng thời gian:</option>
-                                            <option value="1_day">1 ngày</option>
+                                            <option value="1_day">Hôm qua</option>
                                             <option value="7_day">7 ngày</option>
                                             <option value="1_month">1 tháng</option>
                                             <option value="3_month">3 tháng</option>
@@ -135,14 +135,15 @@
                                             <td class="d-flex align-items-center min-w-125px">
                                                 <!--begin:: Avatar -->
                                                 <div class="symbol symbol-100px overflow-hidden me-3">
-                                                    <a
-                                                        href="">
+                                                    <a href="">
                                                         {{-- {{ route('client.detail-room', ['slug' => $room->slug]) }} --}}
                                                         <div class="symbol-label">
                                                             @if (!empty($room->images))
-                                                            <img src="{{ asset('assets/images/' . $room->images) }}" alt="{{ $room->title }}" class="full-image">
+                                                                <img src="{{ asset('assets/images/' . $room->images) }}"
+                                                                    alt="{{ $room->title }}" class="full-image">
                                                             @else
-                                                            <img src="{{ asset('assets/images/blog-details.jpg') }}" alt="{{ $room->title }}" class="full-image">
+                                                                <img src="{{ asset('assets/images/blog-details.jpg') }}"
+                                                                    alt="{{ $room->title }}" class="full-image">
                                                             @endif
                                                         </div>
                                                     </a>

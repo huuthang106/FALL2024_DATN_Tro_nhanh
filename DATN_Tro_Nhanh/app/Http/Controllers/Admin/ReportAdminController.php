@@ -30,7 +30,7 @@ class ReportAdminController extends Controller
     }
     public function show($id)
     {
-        $report = Report::with(['user', 'room'])->findOrFail($id);
+        $report = Report::with(['user', 'zone.rooms'])->findOrFail($id);
         return response()->json($report);
     }
     // Hàm thay đổi trạng thái báo cáo

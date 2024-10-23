@@ -71,7 +71,7 @@
                                                 wire:model.lazy="timeFilter" id="timeFilter"
                                                 data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
                                                 <option value="" selected>Chọn khoảng thời gian:</option>
-                                                <option value="1_day">1 ngày</option>
+                                                <option value="1_day">Hôm qua</option>
                                                 <option value="7_day">7 ngày</option>
                                                 <option value="1_month">1 tháng</option>
                                                 <option value="3_month">3 tháng</option>
@@ -532,7 +532,7 @@
                                         <th class="min-w-125px">Tên Phòng</th>
                                         <th class="min-w-125px">Số điện thoại</th>
                                         <th class="min-w-125px">Mô tả</th>
-                                        
+
                                         {{-- <th class="min-w-125px">Số lượng</th> --}}
                                         {{-- <th class="min-w-125px">Giá</th> --}}
                                         <th class="min-w-125px">Địa chỉ</th>
@@ -544,63 +544,67 @@
                                 <!--begin::Table body-->
                                 <tbody class="text-gray-600 fw-bold">
                                     <!--begin::Table row-->
-                                    
-                                        @foreach ($zones as $zone)
-                                            <tr>
-                                                <!--begin::Checkbox-->
 
-                                                <!--end::Checkbox-->
-                                                <!--begin::User=-->
-                                                <td>
-                                                    <label class="new-control new-checkbox checkbox-primary m-auto">
-                                                        <input type="checkbox" class="child-chk new-control-input"
-                                                            data-id="{{ $zone->id }}" onclick="updateSelectAll()">
-                                                        <span class="new-control-indicator"></span>
-                                                    </label>
-                                                </td>
-                                                <td class="d-flex align-items-center min-w-125px">
-                                                    <!--begin:: Avatar -->
-                                                    <div class="symbol symbol-100px overflow-hidden me-3">
-                                                        <a href=" {{ route('client.detail-zone', ['slug' => $zone->slug]) }}">
-                                                           
-                                                            <div class="symbol-label">
-                                                                @if (!empty($zone->image_filename))
-                                                                    <img src="{{ asset('assets/images/' . $zone->image_filename) }}"
-                                                                        alt="{{ $zone->title }}">
-                                                                @else
-                                                                    <img src="{{ asset('assets/images/blog-details.jpg') }}"
-                                                                        alt="{{ $zone->name }}">
-                                                                @endif
-                                                            </div>
-                                                        </a>
+                                    @foreach ($zones as $zone)
+                                        <tr>
+                                            <!--begin::Checkbox-->
 
-                                                    </div>
-                                                    <!--end::Avatar-->
-                                                    <!--begin::User details-->
-                                                    <div class="d-flex flex-column">
-                                                        <a href=""
-                                                            class="text-gray-800 text-hover-primary mb-1"></a>
-                                                    </div>
-                                                    <!--begin::User details-->
-                                                </td>
-                                                <!--end::User=-->
-                                                <!--begin::Role=-->
+                                            <!--end::Checkbox-->
+                                            <!--begin::User=-->
+                                            <td>
+                                                <label class="new-control new-checkbox checkbox-primary m-auto">
+                                                    <input type="checkbox" class="child-chk new-control-input"
+                                                        data-id="{{ $zone->id }}" onclick="updateSelectAll()">
+                                                    <span class="new-control-indicator"></span>
+                                                </label>
+                                            </td>
+                                            <td class="d-flex align-items-center min-w-125px">
+                                                <!--begin:: Avatar -->
+                                                <div class="symbol symbol-100px overflow-hidden me-3">
+                                                    <a
+                                                        href=" {{ route('client.detail-zone', ['slug' => $zone->slug]) }}">
 
-                                                <!--end::Role=-->
-                                                <!--begin::Last login=-->
-                                              
-                                                <!--end::Last login=-->
-                                                <!--begin::Two step=-->
+                                                        <div class="symbol-label">
+                                                            @if (!empty($zone->image_filename))
+                                                                <img src="{{ asset('assets/images/' . $zone->image_filename) }}"
+                                                                    alt="{{ $zone->title }}">
+                                                            @else
+                                                                <img src="{{ asset('assets/images/blog-details.jpg') }}"
+                                                                    alt="{{ $zone->name }}">
+                                                            @endif
+                                                        </div>
+                                                    </a>
 
-                                                <!--end::Two step=-->
-                                              <td>{{ !empty(trim($zone->name)) ? $zone->name : 'Không xác đinh'}}</td>
-                                               {{-- <td>{{ $zone->name }} </td> --}}
-                                                <td>{{ !empty(trim($zone->phone)) ? $zone->phone : 'Chưa có số điện thoại'}}</td>
-                                                <td>{{ !empty(trim($zone->description)) ? $zone->description : 'Chưa có mô tả'}}</td>
-                                                <!--begin::Joined-->
-                                                <td>{{!empty(trim($zone->address)) ? $zone->address : 'Chưa có địa chỉ'}}</td>
-                                                <!--begin::Action=-->
-                                                {{-- <td class="text-end text-nowrap">
+                                                </div>
+                                                <!--end::Avatar-->
+                                                <!--begin::User details-->
+                                                <div class="d-flex flex-column">
+                                                    <a href=""
+                                                        class="text-gray-800 text-hover-primary mb-1"></a>
+                                                </div>
+                                                <!--begin::User details-->
+                                            </td>
+                                            <!--end::User=-->
+                                            <!--begin::Role=-->
+
+                                            <!--end::Role=-->
+                                            <!--begin::Last login=-->
+
+                                            <!--end::Last login=-->
+                                            <!--begin::Two step=-->
+
+                                            <!--end::Two step=-->
+                                            <td>{{ !empty(trim($zone->name)) ? $zone->name : 'Không xác đinh' }}</td>
+                                            {{-- <td>{{ $zone->name }} </td> --}}
+                                            <td>{{ !empty(trim($zone->phone)) ? $zone->phone : 'Chưa có số điện thoại' }}
+                                            </td>
+                                            <td>{{ !empty(trim($zone->description)) ? $zone->description : 'Chưa có mô tả' }}
+                                            </td>
+                                            <!--begin::Joined-->
+                                            <td>{{ !empty(trim($zone->address)) ? $zone->address : 'Chưa có địa chỉ' }}
+                                            </td>
+                                            <!--begin::Action=-->
+                                            {{-- <td class="text-end text-nowrap">
                                                     <a href="#"
                                                         class="btn btn-light btn-active-light-primary btn-sm"
                                                         data-kt-menu-trigger="click"
@@ -646,14 +650,14 @@
                                                     </div>
                                                     <!--end::Menu-->
                                                 </td> --}}
-                                                <td class="text-end">
-                                                    <div class="dropdown">
-                                                        <button
-                                                            class="btn btn-light btn-active-light-primary btn-sm dropdown-toggle"
-                                                            type="button" id="dropdownMenuButton-"
-                                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                                            Tác vụ
-                                                            {{-- <span class="svg-icon svg-icon-5 m-0">
+                                            <td class="text-end">
+                                                <div class="dropdown">
+                                                    <button
+                                                        class="btn btn-light btn-active-light-primary btn-sm dropdown-toggle"
+                                                        type="button" id="dropdownMenuButton-"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Tác vụ
+                                                        {{-- <span class="svg-icon svg-icon-5 m-0">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="26"
                                                                     height="24" viewBox="0 0 24 24" fill="none">
                                                                     <path
@@ -661,15 +665,15 @@
                                                                         fill="black" />
                                                                 </svg>
                                                             </span> --}}
-                                                        </button>
-                                                        <ul class="dropdown-menu menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                                                            aria-labelledby="dropdownMenuButton-">
-                                                            {{-- <li class="menu-item px-3">
+                                                    </button>
+                                                    <ul class="dropdown-menu menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                                                        aria-labelledby="dropdownMenuButton-">
+                                                        {{-- <li class="menu-item px-3">
                                                                 <a href="{{ route('admin.update-room-show', ['slug' => $room->slug]) }}"
                                                                     class="dropdown-item menu-link px-3">Chỉnh sửa</a>
                                                             </li> --}}
-                                                            <li class="menu-item px-3">
-                                                                {{-- <form
+                                                        <li class="menu-item px-3">
+                                                            {{-- <form
                                                                     action="{{ route('admin.destroy-room', $room->id) }}"
                                                                     method="POST">
                                                                     @csrf
@@ -677,26 +681,26 @@
                                                                     <button type="submit"
                                                                         class="dropdown-item menu-link px-3 border-0 bg-transparent text-start w-100">Xóa</button>
                                                                 </form> --}}
-                                                                <a href="{{ route('admin.accept-room-admin', ['id' => $zone->id]) }}"
-                                                                    class="dropdown-item menu-link px-3 border-0 bg-transparent text-start w-100">Duyệt</a>
-                                                            </li>
-                                                            <li class="menu-item px-3">
-                                                                <form
-                                                                    action="{{ route('admin.destroy-room', $zone->id) }}"
-                                                                    method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit"
-                                                                        class="dropdown-item menu-link px-3 border-0 bg-transparent text-start w-100">Xóa</button>
-                                                                </form>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                                <!--end::Action=-->
-                                            </tr>
-                                        @endforeach
-                             
+                                                            <a href="{{ route('admin.accept-room-admin', ['id' => $zone->id]) }}"
+                                                                class="dropdown-item menu-link px-3 border-0 bg-transparent text-start w-100">Duyệt</a>
+                                                        </li>
+                                                        <li class="menu-item px-3">
+                                                            <form
+                                                                action="{{ route('admin.destroy-room', $zone->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="dropdown-item menu-link px-3 border-0 bg-transparent text-start w-100">Xóa</button>
+                                                            </form>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                            <!--end::Action=-->
+                                        </tr>
+                                    @endforeach
+
                                     <!--end::Table row-->
                                     <!--begin::Table row-->
                                 </tbody>
@@ -794,64 +798,64 @@
     </div>
     <script>
         function toggleCheckboxes(selectAllCheckbox) {
-       const checkboxes = document.querySelectorAll('.child-chk');
-       checkboxes.forEach(checkbox => {
-           checkbox.checked = selectAllCheckbox.checked;
-       });
-   }
+            const checkboxes = document.querySelectorAll('.child-chk');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
+            });
+        }
 
-   function updateSelectAll() {
-       const checkboxes = document.querySelectorAll('.child-chk');
-       const selectAllCheckbox = document.getElementById('selectAll');
-       selectAllCheckbox.checked = Array.from(checkboxes).every(checkbox => checkbox.checked);
-   }
+        function updateSelectAll() {
+            const checkboxes = document.querySelectorAll('.child-chk');
+            const selectAllCheckbox = document.getElementById('selectAll');
+            selectAllCheckbox.checked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+        }
 
-   function approveSelected() {
-       const selectedCheckboxes = document.querySelectorAll('.child-chk:checked');
-       if (selectedCheckboxes.length === 0) {
-           Swal.fire({
-               title: 'Lỗi!',
-               text: 'Vui lòng chọn ít nhất một yêu cầu để duyệt.',
-               icon: 'error',
-               confirmButtonText: 'OK'
-           });
-           return;
-       }
+        function approveSelected() {
+            const selectedCheckboxes = document.querySelectorAll('.child-chk:checked');
+            if (selectedCheckboxes.length === 0) {
+                Swal.fire({
+                    title: 'Lỗi!',
+                    text: 'Vui lòng chọn ít nhất một yêu cầu để duyệt.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
 
-       Swal.fire({
-           title: 'Bạn có chắc chắn?',
-           text: "Bạn muốn duyệt tất cả các yêu cầu đã chọn?",
-           icon: 'warning',
-           showCancelButton: true,
-           confirmButtonColor: '#3085d6',
-           cancelButtonColor: '#d33',
-           confirmButtonText: 'Có, duyệt!',
-           cancelButtonText: 'Hủy'
-       }).then((result) => {
-           if (result.isConfirmed) {
-               const selectedIds = Array.from(selectedCheckboxes).map(checkbox => checkbox.dataset.id);
+            Swal.fire({
+                title: 'Bạn có chắc chắn?',
+                text: "Bạn muốn duyệt tất cả các yêu cầu đã chọn?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Có, duyệt!',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const selectedIds = Array.from(selectedCheckboxes).map(checkbox => checkbox.dataset.id);
 
-               // Gọi phương thức duyệt trên server
-               @this.call('approveSelectedRooms', selectedIds).then(() => {
-                   Swal.fire(
-                       'Duyệt thành công!',
-                       'Các yêu cầu đã được duyệt.',
-                       'success'
-                   );
-                   // Bỏ chọn tất cả checkbox sau khi duyệt thành công
-                   selectedCheckboxes.forEach(checkbox => {
-                       checkbox.checked = false;
-                   });
-                   document.getElementById('selectAll').checked = false;
-               }).catch(error => {
-                   Swal.fire(
-                       'Lỗi!',
-                       'Có lỗi xảy ra khi duyệt các yêu cầu.',
-                       'error'
-                   );
-               });
-           }
-       });
-   }
+                    // Gọi phương thức duyệt trên server
+                    @this.call('approveSelectedRooms', selectedIds).then(() => {
+                        Swal.fire(
+                            'Duyệt thành công!',
+                            'Các yêu cầu đã được duyệt.',
+                            'success'
+                        );
+                        // Bỏ chọn tất cả checkbox sau khi duyệt thành công
+                        selectedCheckboxes.forEach(checkbox => {
+                            checkbox.checked = false;
+                        });
+                        document.getElementById('selectAll').checked = false;
+                    }).catch(error => {
+                        Swal.fire(
+                            'Lỗi!',
+                            'Có lỗi xảy ra khi duyệt các yêu cầu.',
+                            'error'
+                        );
+                    });
+                }
+            });
+        }
     </script>
 </div>

@@ -68,7 +68,7 @@
                                             wire:model.lazy="timeFilter" id="timeFilter"
                                             data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
                                             <option value="" selected>Chọn khoảng thời gian:</option>
-                                            <option value="1_day">1 ngày</option>
+                                            <option value="1_day">Hôm qua</option>
                                             <option value="7_day">7 ngày</option>
                                             <option value="1_month">1 tháng</option>
                                             <option value="3_month">3 tháng</option>
@@ -526,12 +526,12 @@
                             <!--end::Table head-->
                             <!--begin::Table body-->
                             <tbody class="text-gray-600 fw-bold">
-                            @if($payouts->isEmpty())
+                                @if ($payouts->isEmpty())
                                     <tr>
                                         <td colspan="8" class="text-center">Không có dữ liệu</td>
                                     </tr>
                                 @else
-                                    @foreach($payouts as $payout)
+                                    @foreach ($payouts as $payout)
                                         <tr>
                                             <td>{{ $payout->card_holder_name }}</td>
                                             <td>{{ $payout->account_number }}</td>
@@ -540,76 +540,91 @@
                                             <td>{{ $payout->created_at->format('d/m/Y') }}</td>
                                             <td>{{ $payout->canceled_at ?? 'Không có dữ liệu' }}</td>
                                             <td>
-                                                <span class="badge 
+                                                <span
+                                                    class="badge 
                                                     {{ $payout->status == 1 ? 'badge-danger' : ($payout->status == 2 ? 'badge-success' : 'badge-warning') }}">
                                                     {{ $payout->status == 1 ? 'Chưa chuyển' : ($payout->status == 2 ? 'Đã chuyển' : 'Bị từ chối') }}
                                                 </span>
                                             </td>
                                             <td class="text-end">
-                                                   <a href="#"
-                                                        class="btn btn-light btn-active-light-primary btn-sm"
-                                                        data-kt-menu-trigger="click"
-                                                        data-kt-menu-placement="bottom-end"><small>Tác vụ</small>
-                                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                                                        <span class="svg-icon svg-icon-5 m-0">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="26"
-                                                                height="24" viewBox="0 0 24 24" fill="none">
-                                                                <path
-                                                                    d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                                                    fill="black" />
-                                                            </svg>
-                                                        </span>
-                                                        <!--end::Svg Icon-->
-                                                    </a>
-                                                    <!--begin::Menu-->
-                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                                                        data-kt-menu="true">
-                                                        <!--begin::Menu item-->
-                                                        <div class="menu-item px-3">
-                                                            <form action="{{ route('admin.moved-payout', $payout->id) }}" method="POST" style="display:inline;"> <!-- Thêm form -->
-                                                                @csrf <!-- Thêm token CSRF -->
-                                                                @method('PUT')
-                                                                <button type="submit" class="menu-link px-3 btn-sm me-2"  style="border:none; background:none; cursor:pointer;">
-                                                                    Duyệt
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                        
-                                                        <div class="menu-item px-3">
-                                                            <button type="button" class="menu-link px-3"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#reasonModal{{ $payout->id }}"
+                                                <a href="#"
+                                                    class="btn btn-light btn-active-light-primary btn-sm"
+                                                    data-kt-menu-trigger="click"
+                                                    data-kt-menu-placement="bottom-end"><small>Tác vụ</small>
+                                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+                                                    <span class="svg-icon svg-icon-5 m-0">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="26"
+                                                            height="24" viewBox="0 0 24 24" fill="none">
+                                                            <path
+                                                                d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                                fill="black" />
+                                                        </svg>
+                                                    </span>
+                                                    <!--end::Svg Icon-->
+                                                </a>
+                                                <!--begin::Menu-->
+                                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                                                    data-kt-menu="true">
+                                                    <!--begin::Menu item-->
+                                                    <div class="menu-item px-3">
+                                                        <form action="{{ route('admin.moved-payout', $payout->id) }}"
+                                                            method="POST" style="display:inline;"> <!-- Thêm form -->
+                                                            @csrf <!-- Thêm token CSRF -->
+                                                            @method('PUT')
+                                                            <button type="submit" class="menu-link px-3 btn-sm me-2"
                                                                 style="border:none; background:none; cursor:pointer;">
-                                                                Từ chối
+                                                                Duyệt
                                                             </button>
-                                                        </div>
-                                                        <!--end::Menu item-->
+                                                        </form>
                                                     </div>
-                                                    <!--end::Menu-->
-                                                
-                                                    <div class="modal fade" id="reasonModal{{ $payout->id }}" tabindex="-1" aria-labelledby="reasonModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="reasonModalLabel">Nhập lý do từ chối</h5>
-                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <form id="reasonForm{{ $payout->id }}" method="POST" action="{{ route('admin.reject-payout', $payout->id) }}"> <!-- Thay đổi action -->
-                                                                        @csrf <!-- Thêm token CSRF -->
-                                                                        <div class="mb-3">
-                                                                            <label for="rejectionReason" class="form-label">Lý do</label>
-                                                                            <textarea class="form-control" id="rejectionReason" name="rejectionReason" rows="3" required></textarea>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                                                                    <button type="submit" form="reasonForm{{ $payout->id }}" class="btn btn-danger">Xác nhận từ chối</button>
-                                                                </div>
+
+                                                    <div class="menu-item px-3">
+                                                        <button type="button" class="menu-link px-3"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#reasonModal{{ $payout->id }}"
+                                                            style="border:none; background:none; cursor:pointer;">
+                                                            Từ chối
+                                                        </button>
+                                                    </div>
+                                                    <!--end::Menu item-->
+                                                </div>
+                                                <!--end::Menu-->
+
+                                                <div class="modal fade" id="reasonModal{{ $payout->id }}"
+                                                    tabindex="-1" aria-labelledby="reasonModalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="reasonModalLabel">Nhập lý
+                                                                    do từ chối</h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form id="reasonForm{{ $payout->id }}"
+                                                                    method="POST"
+                                                                    action="{{ route('admin.reject-payout', $payout->id) }}">
+                                                                    <!-- Thay đổi action -->
+                                                                    @csrf <!-- Thêm token CSRF -->
+                                                                    <div class="mb-3">
+                                                                        <label for="rejectionReason"
+                                                                            class="form-label">Lý do</label>
+                                                                        <textarea class="form-control" id="rejectionReason" name="rejectionReason" rows="3" required></textarea>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Hủy</button>
+                                                                <button type="submit"
+                                                                    form="reasonForm{{ $payout->id }}"
+                                                                    class="btn btn-danger">Xác nhận từ chối</button>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
 
                                             </td>
                                         </tr>
@@ -699,7 +714,7 @@
 
                     <!--end::Table-->
                 </div>
-                
+
                 <!--end::Card body-->
             </div>
             <!--end::Card-->
@@ -707,4 +722,3 @@
         <!--end::Container-->
     </div>
 </div>
-

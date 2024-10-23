@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Livewire;
+
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Report;
@@ -18,27 +19,50 @@ class ShowReport extends Component
         $this->resetPage();
     }
 
+    // public function render()
+    // {
+
+    //     $reports = Report::with('user', 'room')
+    //         ->where(function($query) {
+    //             if ($this->search) {
+    //                 $query->where('description', 'like', '%'.$this->search.'%')
+    //                     ->orWhereHas('user', function($q) {
+    //                         $q->where('name', 'like', '%'.$this->search.'%');
+    //                     })
+    //                     ->orWhereHas('room', function($q) {
+    //                         $q->where('title', 'like', '%'.$this->search.'%');
+    //                     });
+    //             }
+    //         })
+    //         ->paginate(1); // Mỗi trang có 10 báo cáo
+    //         $currentPage = $reports->currentPage();
+    //     return view('livewire.show-report', [
+    //         'reports' => $reports,
+    //         'currentPage' => $currentPage, // Truyền biến currentPage đ
+    //    ]);
+    // }
     public function render()
     {
-        
-        $reports = Report::with('user', 'room')
-            ->where(function($query) {
+        $reports = Report::with(['user', 'zone.rooms'])
+            ->where(function ($query) {
                 if ($this->search) {
-                    $query->where('description', 'like', '%'.$this->search.'%')
-                        ->orWhereHas('user', function($q) {
-                            $q->where('name', 'like', '%'.$this->search.'%');
+                    $query->where('description', 'like', '%' . $this->search . '%')
+                        ->orWhereHas('user', function ($q) {
+                            $q->where('name', 'like', '%' . $this->search . '%');
                         })
-                        ->orWhereHas('room', function($q) {
-                            $q->where('title', 'like', '%'.$this->search.'%');
+                        ->orWhereHas('zone', function ($q) {
+                            $q->where('name', 'like', '%' . $this->search . '%');
                         });
                 }
             })
-            ->paginate(1); // Mỗi trang có 10 báo cáo
-            $currentPage = $reports->currentPage();
+            ->paginate(10); // Mỗi trang có 10 báo cáo
+
+        $currentPage = $reports->currentPage();
+
         return view('livewire.show-report', [
             'reports' => $reports,
-            'currentPage' => $currentPage, // Truyền biến currentPage đ
-       ]);
+            'currentPage' => $currentPage,
+        ]);
     }
     public function confirmDelete($reportId)
     {

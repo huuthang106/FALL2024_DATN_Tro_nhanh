@@ -85,12 +85,12 @@
                                                     class="form-check form-check-sm form-check-custom form-check-solid">
                                                     <input class="form-check-input" type="checkbox" value="1" />
                                                 </div>
-                                            </td>   
+                                            </td>
 
                                             <td>
                                                 <a href="{{ route('admin.detail-registers', $register->id) }}"
-                                                   class="text-gray-800 text-hover-primary mb-1">
-                                                   {{ $register->identity && $register->identity->user ? $register->identity->user->name : 'Tên không tồn tại' }}
+                                                    class="text-gray-800 text-hover-primary mb-1">
+                                                    {{ $register->identity && $register->identity->user ? $register->identity->user->name : 'Tên không tồn tại' }}
                                                 </a>
                                                 <br><small>{{ $register->description }}</small>
                                             </td>
@@ -107,9 +107,9 @@
                                             <td class="text-end">
                                                 <div class="dropdown">
                                                     <button
-                                                    class="btn btn-light btn-active-light-primary btn-sm dropdown-toggle"
-                                                    type="button" id="dropdownMenuButton-"
-                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                        class="btn btn-light btn-active-light-primary btn-sm dropdown-toggle"
+                                                        type="button" id="dropdownMenuButton-"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
                                                         Tác vụ
                                                         {{-- <span class="svg-icon svg-icon-5 m-0">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="26"
@@ -144,7 +144,7 @@
                                                         </li>
                                                         <li class="menu-item px-3">
                                                             <button wire:click="approve({{ $register->id }})"
-                                                                    class="menu-link px-3 border-0 bg-transparent fw-normal">Duyệt</button>
+                                                                class="menu-link px-3 border-0 bg-transparent fw-normal">Duyệt</button>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -168,24 +168,27 @@
                     @if ($list->hasPages())
                         <nav aria-label="Page navigation">
                             <ul class="pagination rounded-active justify-content-center">
-                                {{-- Liên kết Trang Trước --}}
+                                {{-- Nút về đầu --}}
                                 <li class="page-item {{ $list->onFirstPage() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" href="#" wire:click.prevent="previousPage"
-                                        rel="prev" aria-label="@lang('pagination.previous')">
-                                        <i class="fas fa-angle-left"></i>
+                                    <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                        wire:loading.attr="disabled" aria-label="@lang('pagination.first')">
+                                        <i class="fas fa-angle-double-left"></i>
                                     </a>
                                 </li>
+
+                                {{-- Nút về trước --}}
+
 
                                 @php
                                     $totalPages = $list->lastPage();
                                     $currentPage = $list->currentPage();
-                                    $visiblePages = 3; // Số trang hiển thị ở giữa
+                                    $visiblePages = 3;
                                 @endphp
 
                                 {{-- Trang đầu --}}
                                 <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
-                                    <a class="page-link hover-white" href="#"
-                                        wire:click.prevent="gotoPage(1)">1</a>
+                                    <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                        wire:loading.attr="disabled">1</a>
                                 </li>
 
                                 {{-- Dấu ba chấm đầu --}}
@@ -193,12 +196,13 @@
                                     <li class="page-item disabled"><span class="page-link">...</span></li>
                                 @endif
 
+
                                 {{-- Các trang giữa --}}
                                 @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
                                     @if ($i > 1 && $i < $totalPages)
                                         <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
-                                            <a class="page-link hover-white" href="#"
-                                                wire:click.prevent="gotoPage({{ $i }})">{{ $i }}</a>
+                                            <a class="page-link hover-white" wire:click="gotoPage({{ $i }})"
+                                                wire:loading.attr="disabled">{{ $i }}</a>
                                         </li>
                                     @endif
                                 @endforeach
@@ -211,17 +215,19 @@
                                 {{-- Trang cuối --}}
                                 @if ($totalPages > 1)
                                     <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
-                                        <a class="page-link hover-white" href="#"
-                                            wire:click.prevent="gotoPage({{ $totalPages }})">{{ $totalPages }} <i
-                                                class="fas fa-angle-double-right"></i></a>
+                                        <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
+                                            wire:loading.attr="disabled">{{ $totalPages }}</a>
                                     </li>
                                 @endif
 
-                                {{-- Liên kết Trang Tiếp --}}
-                                <li class="page-item {{ $list->hasMorePages() ? '' : 'disabled' }}">
-                                    <a class="page-link hover-white" href="#" wire:click.prevent="nextPage"
-                                        rel="next" aria-label="@lang('pagination.next')">
-                                        <i class="fas fa-angle-right"></i>
+                                {{-- Nút trang tiếp --}}
+
+
+                                {{-- Nút về cuối --}}
+                                <li class="page-item {{ !$list->hasMorePages() ? 'disabled' : '' }}">
+                                    <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
+                                        wire:loading.attr="disabled" aria-label="@lang('pagination.last')">
+                                        <i class="fas fa-angle-double-right"></i>
                                     </a>
                                 </li>
                             </ul>

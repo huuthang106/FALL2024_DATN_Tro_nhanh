@@ -17,16 +17,24 @@ class ReportAdminService
     //         ->where('user_id', $userId)
     //         ->paginate($perPage); // Số lượng bản ghi trên mỗi trang
     // }
+    // public function getUserReports($perPage = 8)
+    // {
+    //     return Report::with(['room', 'user'])
+    //         ->select('reports.*', 'users.name as user_name', 'rooms.title as room_title')
+    //         ->join('users', 'reports.user_id', '=', 'users.id')
+    //         // ->leftJoin('rooms', 'reports.room_id', '=', 'rooms.id')
+    //         ->orderBy('reports.created_at', 'desc')
+    //         ->paginate($perPage);
+    // }
     public function getUserReports($perPage = 8)
     {
-        return Report::with(['room', 'user'])
-            ->select('reports.*', 'users.name as user_name', 'rooms.title as room_title')
+        return Report::with(['zone', 'user'])
+            ->select('reports.*', 'users.name as user_name', 'zones.name as zone_name')
             ->join('users', 'reports.user_id', '=', 'users.id')
-            // ->leftJoin('rooms', 'reports.room_id', '=', 'rooms.id')
+            ->leftJoin('zones', 'reports.zone_id', '=', 'zones.id')
             ->orderBy('reports.created_at', 'desc')
             ->paginate($perPage);
     }
-
     // Hàm thay đổi trạng thái báo cáo
     // ReportService.php
     public function approveReport($reportId)

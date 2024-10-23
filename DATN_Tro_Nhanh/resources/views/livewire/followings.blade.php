@@ -6,9 +6,11 @@
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
                         <div wire:ignore class="d-flex form-group mb-0 align-items-center ml-3">
                             <label class="form-label fs-6 fw-bold mr-2 mb-0">Lọc:</label>
-                            <select wire:model.lazy="timeFilter" id="timeFilter" class="form-control form-control-lg selectpicker" data-style="bg-white btn-lg h-52 py-2 border">
+                            <select wire:model.lazy="timeFilter" id="timeFilter"
+                                class="form-control form-control-lg selectpicker"
+                                data-style="bg-white btn-lg h-52 py-2 border">
                                 <option value="" selected>Thời Gian:</option>
-                                <option value="1_day">1 ngày</option>
+                                <option value="1_day">Hôm qua</option>
                                 <option value="7_day">7 ngày</option>
                                 <option value="1_month">1 tháng</option>
                                 <option value="3_month">3 tháng</option>
@@ -19,13 +21,14 @@
                     </div>
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
                         <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
-                          <input type="text" wire:model="search" wire:keydown.debounce.300ms="$refresh" class="form-control bg-transparent border-1x" name="search" placeholder="Tìm kiếm...">
+                            <input type="text" wire:model="search" wire:keydown.debounce.300ms="$refresh"
+                                class="form-control bg-transparent border-1x" name="search" placeholder="Tìm kiếm...">
                             <div class="input-group-append position-absolute pos-fixed-right-center">
                                 <button class="btn bg-transparent border-0 text-gray lh-1" type="button"><i
                                         class="fal fa-search"></i></button>
                             </div>
                         </div>
-                       
+
                     </div>
                 </div>
             </div>
@@ -90,10 +93,9 @@
                                     @endif
                                 </td>
                                 <td class="align-middle text-center" style="white-space: nowrap;">
-                                    <button wire:click="deleteFollowing({{ $item->id }})"
-                                            data-toggle="tooltip" 
-                                            title="Xóa"
-                                            class="btn btn-link p-0 d-inline-block fs-18 text-muted hover-primary">
+                                    <button wire:click="deleteFollowing({{ $item->id }})" data-toggle="tooltip"
+                                        title="Xóa"
+                                        class="btn btn-link p-0 d-inline-block fs-18 text-muted hover-primary">
                                         <i class="fal fa-trash-alt"></i>
                                     </button>
                                 </td>

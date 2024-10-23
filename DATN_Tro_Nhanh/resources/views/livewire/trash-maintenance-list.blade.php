@@ -11,7 +11,7 @@
                                 <select wire:model="timeFilter" class="form-control form-control-lg selectpicker"
                                     data-style="bg-white btn-lg h-52 py-2 border">
                                     <option value="" selected>Thời Gian:</option>
-                                    <option value="1_day">1 ngày</option>
+                                    <option value="1_day">Hôm qua</option>
                                     <option value="7_day">7 ngày</option>
                                     <option value="1_month">1 tháng</option>
                                     <option value="3_month">3 tháng</option>
@@ -42,7 +42,8 @@
                                         <a class="dropdown-item text-danger" id="deleteSelected">
                                             <i class="fas fa-trash mr-2"></i> Xóa
                                         </a>
-                                        <a class="dropdown-item text-success" href="#" onclick="restoreSelected()">
+                                        <a class="dropdown-item text-success" href="#"
+                                            onclick="restoreSelected()">
                                             <i class="fas fa-undo mr-2"></i> Khôi phục
                                         </a>
                                     </div>
@@ -121,60 +122,61 @@
                 </table>
             </div>
             @if ($trashedMaintenances->count() > 0)
-            <div class="mt-6">
-                <ul class="pagination rounded-active justify-content-center">
-                    {{-- Nút tới trang đầu tiên --}}
-                    <li class="page-item {{ $trashedMaintenances->onFirstPage() ? 'disabled' : '' }}">
-                        <a class="page-link" wire:click.prevent="gotoPage(1)">
-                            <i class="far fa-angle-double-left"></i>
-                        </a>
-                    </li>
+                <div class="mt-6">
+                    <ul class="pagination rounded-active justify-content-center">
+                        {{-- Nút tới trang đầu tiên --}}
+                        <li class="page-item {{ $trashedMaintenances->onFirstPage() ? 'disabled' : '' }}">
+                            <a class="page-link" wire:click.prevent="gotoPage(1)">
+                                <i class="far fa-angle-double-left"></i>
+                            </a>
+                        </li>
 
-                    {{-- Nút tới trang trước (<) --}}
-                  
+                        {{-- Nút tới trang trước (<) --}}
 
-                    {{-- Trang đầu tiên --}}
-                    @if ($trashedMaintenances->currentPage() > 2)
-                        <li class="page-item"><a class="page-link" wire:click.prevent="gotoPage(1)">1</a></li>
-                    @endif
 
-                    {{-- Dấu ba chấm ở đầu nếu cần --}}
-                    @if ($trashedMaintenances->currentPage() > 3)
-                        <li class="page-item disabled"><span class="page-link">...</span></li>
-                    @endif
+                        {{-- Trang đầu tiên --}}
+                        @if ($trashedMaintenances->currentPage() > 2)
+                            <li class="page-item"><a class="page-link" wire:click.prevent="gotoPage(1)">1</a></li>
+                        @endif
 
-                    {{-- Hiển thị các trang xung quanh trang hiện tại --}}
-                    @for ($i = max(1, $trashedMaintenances->currentPage() - 1); $i <= min($trashedMaintenances->currentPage() + 1, $trashedMaintenances->lastPage()); $i++)
-                        <li class="page-item {{ $trashedMaintenances->currentPage() == $i ? 'active' : '' }}">
+                        {{-- Dấu ba chấm ở đầu nếu cần --}}
+                        @if ($trashedMaintenances->currentPage() > 3)
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                        @endif
+
+                        {{-- Hiển thị các trang xung quanh trang hiện tại --}}
+                        @for ($i = max(1, $trashedMaintenances->currentPage() - 1); $i <= min($trashedMaintenances->currentPage() + 1, $trashedMaintenances->lastPage()); $i++)
+                            <li class="page-item {{ $trashedMaintenances->currentPage() == $i ? 'active' : '' }}">
+                                <a class="page-link"
+                                    wire:click.prevent="gotoPage({{ $i }})">{{ $i }}</a>
+                            </li>
+                        @endfor
+
+                        {{-- Dấu ba chấm ở cuối nếu cần --}}
+                        @if ($trashedMaintenances->currentPage() < $trashedMaintenances->lastPage() - 2)
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                        @endif
+
+                        {{-- Trang cuối cùng --}}
+                        @if ($trashedMaintenances->currentPage() < $trashedMaintenances->lastPage() - 1)
+                            <li class="page-item"><a class="page-link"
+                                    wire:click.prevent="gotoPage({{ $trashedMaintenances->lastPage() }})">{{ $trashedMaintenances->lastPage() }}</a>
+                            </li>
+                        @endif
+
+
+
+                        {{-- Nút tới trang cuối cùng (>>) --}}
+                        <li
+                            class="page-item {{ $trashedMaintenances->currentPage() == $trashedMaintenances->lastPage() ? 'disabled' : '' }}">
                             <a class="page-link"
-                                wire:click.prevent="gotoPage({{ $i }})">{{ $i }}</a>
+                                wire:click.prevent="gotoPage({{ $trashedMaintenances->lastPage() }})">
+                                <i class="far fa-angle-double-right"></i>
+                            </a>
                         </li>
-                    @endfor
-
-                    {{-- Dấu ba chấm ở cuối nếu cần --}}
-                    @if ($trashedMaintenances->currentPage() < $trashedMaintenances->lastPage() - 2)
-                        <li class="page-item disabled"><span class="page-link">...</span></li>
-                    @endif
-
-                    {{-- Trang cuối cùng --}}
-                    @if ($trashedMaintenances->currentPage() < $trashedMaintenances->lastPage() - 1)
-                        <li class="page-item"><a class="page-link"
-                                wire:click.prevent="gotoPage({{ $trashedMaintenances->lastPage() }})">{{ $trashedMaintenances->lastPage() }}</a>
-                        </li>
-                    @endif
-
-                
-
-                    {{-- Nút tới trang cuối cùng (>>) --}}
-                    <li
-                        class="page-item {{ $trashedMaintenances->currentPage() == $trashedMaintenances->lastPage() ? 'disabled' : '' }}">
-                        <a class="page-link" wire:click.prevent="gotoPage({{ $trashedMaintenances->lastPage() }})">
-                            <i class="far fa-angle-double-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        @endif
+                    </ul>
+                </div>
+            @endif
         </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -268,47 +270,48 @@
             @endif
         });
     </script>
-<script>
-    function restoreSelected() {
-        const selectedCheckboxes = document.querySelectorAll('.child-chk:checked'); // Lấy tất cả checkbox đã chọn
-        const checkAllCheckbox = document.getElementById('selectAll'); // Lấy checkbox "Chọn tất cả"
+    <script>
+        function restoreSelected() {
+            const selectedCheckboxes = document.querySelectorAll('.child-chk:checked'); // Lấy tất cả checkbox đã chọn
+            const checkAllCheckbox = document.getElementById('selectAll'); // Lấy checkbox "Chọn tất cả"
 
-        if (selectedCheckboxes.length === 0) {
-            Swal.fire({
-                title: 'Lỗi!',
-                text: 'Vui lòng chọn ít nhất một yêu cầu để khôi phục.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-            return;
-        }
-
-        Swal.fire({
-            title: 'Bạn có chắc chắn?',
-            text: "Bạn muốn khôi phục các yêu cầu đã chọn?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Có, khôi phục!',
-            cancelButtonText: 'Hủy'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const selectedIds = Array.from(selectedCheckboxes).map(checkbox => {
-                    return checkbox.closest('tr').getAttribute('data-id'); // Lấy ID từ thuộc tính data-id
+            if (selectedCheckboxes.length === 0) {
+                Swal.fire({
+                    title: 'Lỗi!',
+                    text: 'Vui lòng chọn ít nhất một yêu cầu để khôi phục.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
                 });
-
-                // Gọi phương thức khôi phục trên server
-                @this.call('restoreSelectedMaintenances', selectedIds).then(() => {
-                    // Bỏ chọn tất cả checkbox sau khi khôi phục thành công
-                    selectedCheckboxes.forEach(checkbox => {
-                        checkbox.checked = false; // Bỏ chọn checkbox
-                    });
-                    checkAllCheckbox.checked = false; // Bỏ chọn checkbox "Chọn tất cả"
-                });
+                return;
             }
-        });
-    }
-</script>
+
+            Swal.fire({
+                title: 'Bạn có chắc chắn?',
+                text: "Bạn muốn khôi phục các yêu cầu đã chọn?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Có, khôi phục!',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const selectedIds = Array.from(selectedCheckboxes).map(checkbox => {
+                        return checkbox.closest('tr').getAttribute(
+                        'data-id'); // Lấy ID từ thuộc tính data-id
+                    });
+
+                    // Gọi phương thức khôi phục trên server
+                    @this.call('restoreSelectedMaintenances', selectedIds).then(() => {
+                        // Bỏ chọn tất cả checkbox sau khi khôi phục thành công
+                        selectedCheckboxes.forEach(checkbox => {
+                            checkbox.checked = false; // Bỏ chọn checkbox
+                        });
+                        checkAllCheckbox.checked = false; // Bỏ chọn checkbox "Chọn tất cả"
+                    });
+                }
+            });
+        }
+    </script>
 
 </div>
