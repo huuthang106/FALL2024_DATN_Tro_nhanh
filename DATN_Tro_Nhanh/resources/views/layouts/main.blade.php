@@ -14,7 +14,15 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style-ntt.css') }}">
     @livewireStyles
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LTZ0SKPQS0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-LTZ0SKPQS0');
+</script>
 <body>
     @if (Request::is('/'))
         <x-navbar-home />
