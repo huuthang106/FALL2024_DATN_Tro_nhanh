@@ -6,7 +6,7 @@
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb pt-6 pt-lg-2 lh-15 pb-5">
-                        <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('client.home') }}">Trang chủ</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Danh sách phòng trọ</li>
                     </ol>
                     {{-- <h1 class="fs-30 lh-1 mb-0 text-heading font-weight-600">Listing Grid With Left Filter</h1> --}}
@@ -20,20 +20,20 @@
                         <div class="primary-sidebar-inner">
                             <div class="card mb-4">
                                 <!-- <div class="card-body px-6 py-4">
-                                                                                                                                                                                                                                                        <h4 class="card-title fs-16 lh-2 text-dark mb-3">Lọc</h4>
-                                                                                                                                                                                                                                                        <div class="form-group">
-                                                                                                                                                                                                                                                            <label for="category" class="sr-only">Loại phòng</label>
-                                                                                                                                                                                                                                                            <select class="form-control border-0 shadow-none form-control-lg" id="category"
-                                                                                                                                                                                                                                                                title="Tất cả loại phòng" name="category" data-style="btn-lg py-2 h-52">
-                                                                                                                                                                                                                                                                <option value='0'>Chọn loại phòng...</option>
-                                                                                                                                                                                                                                                                @foreach ($categories as $category)
+                                                                                                                                                                                                                                                            <h4 class="card-title fs-16 lh-2 text-dark mb-3">Lọc</h4>
+                                                                                                                                                                                                                                                            <div class="form-group">
+                                                                                                                                                                                                                                                                <label for="category" class="sr-only">Loại phòng</label>
+                                                                                                                                                                                                                                                                <select class="form-control border-0 shadow-none form-control-lg" id="category"
+                                                                                                                                                                                                                                                                    title="Tất cả loại phòng" name="category" data-style="btn-lg py-2 h-52">
+                                                                                                                                                                                                                                                                    <option value='0'>Chọn loại phòng...</option>
+                                                                                                                                                                                                                                                                    @foreach ($categories as $category)
     <option value='{{ $category->id }}'>
-                                                                                                                                                                                                                                                                        {{ $category->name }}
-                                                                                                                                                                                                                                                                    </option>
+                                                                                                                                                                                                                                                                            {{ $category->name }}
+                                                                                                                                                                                                                                                                        </option>
     @endforeach
-                                                                                                                                                                                                                                                            </select>
-                                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                                    </div> -->
+                                                                                                                                                                                                                                                                </select>
+                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                        </div> -->
                                 <div class="card-body px-6 py-4">
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Lọc</h4>
                                     <div class="form-group">
@@ -271,15 +271,16 @@
                                                     <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
                                                         alt="{{ $zone->title }}" class="property-image">
                                                 @endif --}}
-                                                <div class="card-img-overlay d-flex flex-column bg-gradient-3 rounded-lg">
-                                                    {{-- @if ($zone->vip_expiry_date > now())
+                                                    <div
+                                                        class="card-img-overlay d-flex flex-column bg-gradient-3 rounded-lg">
+                                                        {{-- @if ($zone->vip_expiry_date > now())
                                                         <div class="d-flex mb-auto">
                                                             <span class="mr-1 badge badge-danger">VIP</span>
                                                         </div>
                                                     @endif --}}
-                                                    
-                                                    <div class="px-2 pb-2">
-                                                        {{-- <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}"
+
+                                                        <div class="px-2 pb-2">
+                                                            {{-- <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}"
                                                             class="text-white"> --}}
                                                             <h5 class="card-title fs-16 lh-2 mb-0">
                                                                 <small>{{ Str::limit($zone->title, 50) }}</small>

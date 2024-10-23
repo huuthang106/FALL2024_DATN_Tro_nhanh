@@ -17,12 +17,16 @@
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-LTZ0SKPQS0"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
 
-  gtag('config', 'G-LTZ0SKPQS0');
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-LTZ0SKPQS0');
 </script>
+
 <body>
    <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
        @csrf
@@ -84,12 +88,14 @@
                             <a href="{{ route('client.client-blog') }}"
                                 class="text-muted lh-26 font-weight-500 hover-white">Blog</a>
                         </li>
-                        {{-- <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 font-weight-500 hover-white">Liên hệ hỗ trợ</a>
+                        <li class="list-group-item bg-transparent p-0">
+                            <a href="{{ route('client.client-service') }}"
+                                class="text-muted lh-26 font-weight-500 hover-white">Dịch vụ</a>
                         </li>
                         <li class="list-group-item bg-transparent p-0">
-                            <a href="#" class="text-muted lh-26 hover-white font-weight-500">Nghề nghiệp</a>
-                        </li> --}}
+                            <a href="{{ route('client.client-about') }}"
+                                class="text-muted lh-26 hover-white font-weight-500">Về chúng tôi</a>
+                        </li>
                     </ul>
                 </div>
                 <div class="col-md-6 col-lg-4 mb-6 mb-md-0">
@@ -655,7 +661,7 @@
 
                     // Gửi vị trí đến server để lưu vào session
                     $.ajax({
-                        url: '{{route("client.saveLocation") }}', // Đường dẫn đến route lưu vị trí
+                        url: '{{ route('client.saveLocation') }}', // Đường dẫn đến route lưu vị trí
                         method: 'POST',
                         data: {
                             latitude: userLat,
@@ -680,7 +686,7 @@
                         icon: 'info',
                         title: 'Thông báo',
                         text: 'Không thể lấy vị trí của bạn. Vui lòng bật vị trí trong cài đặt trình duyệt và thử lại.',
-                       
+
                     });
 
                     // Thêm sự kiện cho nút "Bật vị trí"

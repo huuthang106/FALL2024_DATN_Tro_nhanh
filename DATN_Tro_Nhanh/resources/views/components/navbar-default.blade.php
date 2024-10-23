@@ -60,7 +60,9 @@
                                             class="form-control border-0 shadow-none fs-13 @error('password') is-invalid @enderror"
                                             id="password" name="password" required placeholder="Mật khẩu">
                                         <div class="input-group-append">
-                                            <span class="input-group-text bg-gray-01 border-0 text-body fs-18 toggle-password" style="cursor: pointer;">
+                                            <span
+                                                class="input-group-text bg-gray-01 border-0 text-body fs-18 toggle-password"
+                                                style="cursor: pointer;">
                                                 <i class="far fa-eye-slash"></i>
                                             </span>
                                         </div>
@@ -152,7 +154,9 @@
                                             class="form-control border-0 shadow-none fs-13 @error('password') is-invalid @enderror"
                                             id="password01" name="password" required placeholder="Mật khẩu">
                                         <div class="input-group-append">
-                                            <span class="input-group-text bg-gray-01 border-0 text-body fs-18 toggle-password" style="cursor: pointer;">
+                                            <span
+                                                class="input-group-text bg-gray-01 border-0 text-body fs-18 toggle-password"
+                                                style="cursor: pointer;">
                                                 <i class="far fa-eye-slash"></i>
                                             </span>
                                         </div>
@@ -229,147 +233,35 @@
                     </div>
                     <div class="collapse navbar-collapse mt-3 mt-xl-0 flex-grow-0" id="primaryMenu05">
                         <ul class="navbar-nav hover-menu main-menu px-0 mx-xl-n4">
-
-                            <li id="navbar-item-listing" aria-haspopup="true" aria-expanded="false"
-                                class="nav-item dropdown py-2 py-xl-5 px-0 px-xl-4">
-                                <a class="nav-link dropdown-toggle p-0" href="listing.html" data-toggle="dropdown">
-                                    Hành dộng
-                                    <span class="caret"></span>
+                            <li id="navbar-item-room-listing" class="nav-item py-2 py-xl-5 px-0 px-xl-4">
+                                <a class="nav-link p-0" href="{{ route('client.room-listing') }}">
+                                    Danh sách trọ
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-xl dropdown-menu-listing px-0 py-3"
-                                    aria-labelledby="navbar-item-listing">
-                                    <div class="dropdown-body">
-                                        <div class="row no-gutters">
-
-                                            <div class="col-xl-3">
-                                                <!-- Heading -->
-                                                <h4 class="dropdown-header text-dark fs-16 mb-2">
-                                                    Danh sách
-                                                </h4>
-                                                <!-- List -->
-                                                <a class="dropdown-item" href="{{ route('client.room-listing') }}">
-                                                    Danh sách trọ
-                                                </a>
-                                                <a class="dropdown-item"
-                                                    href="{{ route('client.client-list-zone') }}">
-                                                    Danh sách khu trọ
-                                                </a>
-                                            </div>
-                                            <div class="col-xl-3">
-                                                <!-- Heading -->
-                                                <h4 class="dropdown-header text-dark fs-16 mb-2">
-                                                    Liên quan
-                                                </h4>
-                                                <!-- List -->
-
-                                                <a class="dropdown-item" href="{{ route('client.client-agent') }}">
-                                                    Người đưa tin
-                                                </a>
-
-                                                <a class="dropdown-item"
-                                                    href="{{ route('client.client-blog') }}">Blog</a>
-                                            </div>
-                                            <div class="col-xl-3">
-                                                <!-- Heading -->
-                                                <h4 class="dropdown-header text-dark fs-16 mb-2">
-                                                    Dịch vụ
-                                                </h4>
-                                                <!-- List -->
-
-                                                <a class="dropdown-item" href="{{ route('client.client-service') }}">
-                                                    Dịch vụ
-                                                </a>
-
-                                                <a class="dropdown-item" href="{{ route('client.package') }}">Các
-                                                    gói dịch vụ</a>
-                                            </div>
-                                            {{-- <div class="col-xl-3">
-                                                <!-- Heading -->
-                                                <h4 class="dropdown-header text-dark fs-16 mb-2">
-                                                    Single Property
-                                                </h4>
-                                                <!-- List -->
-                                                <a class="dropdown-item"
-                                                    href="{{ route('client.detail-room') }}">
-                                                    Xem chi tiết
-                                                </a>
-                                            </div> --}}
-                                        </div>
-                                        <!-- / .row -->
-                                    </div>
-                                </div>
                             </li>
 
-                            <li id="navbar-item-pages" aria-haspopup="true" aria-expanded="false"
-                                class="nav-item dropdown py-2 py-xl-5 px-0 px-xl-4">
-                                <a class="nav-link dropdown-toggle p-0" href="#" data-toggle="dropdown">
-                                    Về chúng tôi
-                                    <span class="caret"></span>
+                            <li id="navbar-item-zone-listing" class="nav-item py-2 py-xl-5 px-0 px-xl-4">
+                                <a class="nav-link p-0" href="{{ route('client.client-list-zone') }}">
+                                    Danh sách khu trọ
                                 </a>
-                                <ul class="dropdown-menu pt-3 pb-0 pb-xl-3" aria-labelledby="navbar-item-pages">
-                                    {{-- <li class="dropdown-item dropdown dropright">
-                                        <a id="navbar-link-news" class="dropdown-link dropdown-toggle"
-                                            href="#" data-toggle="dropdown">
-                                            News
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-submenu pt-3 pb-0 pb-xl-3"
-                                            aria-labelledby="navbar-link-news">
-                                            <li class="dropdown-item">
-                                                <a class="dropdown-link"
-                                                    href="{{ route('client.client-blog') }}">Blog</a>
-                                            </li>
-
-                                        </ul>
-                                    </li> --}}
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-about-us" class="dropdown-link"
-                                            href="{{ route('client.client-about') }}">
-                                            Về chúng tôi
-                                        </a>
-                                    </li>
-                                    {{-- <li class="dropdown-item dropdown dropright">
-                                        <a id="navbar-link-service" class="dropdown-link"
-                                            href="{{ route('client.client-service') }}">
-                                            Dịch vụ
-                                        </a>
-                                    </li>
-
-                                    <li class="dropdown-item dropdown dropright">
-                                        <a id="navbar-link-agent" class="dropdown-link"
-                                            href="{{ route('client.client-agent') }}">
-                                            Người đăng tin
-                                        </a>
-                                    </li>
-
-
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-page-404" class="dropdown-link" href="page-404.html">
-                                            Page 404
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-checkout" class="dropdown-link"
-                                            href="{{ route('client.payment') }}">
-                                            Thanh Toán
-                                        </a>
-
-                                    </li>
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-checkout" class="dropdown-link"
-                                            href="{{ route('client.payment-sucessful') }}">
-                                            Thanh toán thành công
-                                        </a>
-                                    </li>
-
-                                    <li class="dropdown-item">
-                                        <a id="navbar-link-checkout" class="dropdown-link"
-                                            href="{{ route('client.package') }}">
-                                            Các Gói
-                                        </a>
-                                    </li> --}}
-                                </ul>
                             </li>
 
+                            <li id="navbar-item-agent" class="nav-item py-2 py-xl-5 px-0 px-xl-4">
+                                <a class="nav-link p-0" href="{{ route('client.client-agent') }}">
+                                    Người đăng tin
+                                </a>
+                            </li>
+
+                            <li id="navbar-item-blog" class="nav-item py-2 py-xl-5 px-0 px-xl-4">
+                                <a class="nav-link p-0" href="{{ route('client.client-blog') }}">
+                                    Blog
+                                </a>
+                            </li>
+
+                            {{-- <li id="navbar-item-package" class="nav-item py-2 py-xl-5 px-0 px-xl-4">
+                                <a class="nav-link p-0" href="{{ route('client.package') }}">
+                                    Các gói dịch vụ
+                                </a>
+                            </li> --}}
                         </ul>
                         <div class="d-block d-xl-none">
                             <ul
@@ -478,7 +370,7 @@
                         </li>
 
                         <!-- Icon giỏ hàng -->
-                     
+
 
                         <li class="divider"></li>
 

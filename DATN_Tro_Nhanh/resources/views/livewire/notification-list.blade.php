@@ -19,10 +19,6 @@
 
                     </select>
                 </div>
-                <div class="ml-2 align-self-center">
-                    <a href="" class="btn btn-primary btn-lg" tabindex="0"><span>Thêm
-                            mới</span></a>
-                </div>
             </div>
             <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
                 <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
@@ -110,21 +106,14 @@
         @if ($notifications->hasPages())
             <nav aria-label="Page navigation">
                 <ul class="pagination rounded-active justify-content-center">
-                    {{-- Nút đến trang đầu tiên --}}
+                    {{-- Nút về đầu --}}
+
                     <li class="page-item {{ $notifications->onFirstPage() ? 'disabled' : '' }}">
                         <a class="page-link hover-white" wire:click="gotoPage(1)" wire:loading.attr="disabled"
-                            rel="first" aria-label="First">
-                            <i class="far fa-angle-double-left"></i>
-                        </a>
+                            rel="prev" aria-label="@lang('pagination.previous')"><i class="far fa-angle-double-left"></i></a>
                     </li>
 
-                    {{-- Nút đến trang trước --}}
-                    <li class="page-item {{ $notifications->onFirstPage() ? 'disabled' : '' }}">
-                        <a class="page-link hover-white" wire:click="previousPage" wire:loading.attr="disabled"
-                            rel="prev" aria-label="Previous">
-                            <i class="far fa-angle-left"></i>
-                        </a>
-                    </li>
+
 
                     @php
                         $totalPages = $notifications->lastPage();
@@ -165,23 +154,15 @@
                         </li>
                     @endif
 
-                    {{-- Nút đến trang kế tiếp --}}
-                    <li class="page-item {{ !$notifications->hasMorePages() ? 'disabled' : '' }}">
-                        <a class="page-link hover-white" wire:click="nextPage" wire:loading.attr="disabled"
-                            rel="next" aria-label="Next">
-                            <i class="far fa-angle-right"></i>
-                        </a>
-                    </li>
 
-                    {{-- Nút đến trang cuối cùng --}}
-                    <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
-                        <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
-                            wire:loading.attr="disabled" rel="last" aria-label="Last">
-                            <i class="far fa-angle-double-right"></i>
-                        </a>
+                    <li class="page-item {{ !$notifications->hasMorePages() ? 'disabled' : '' }}">
+                        <a class="page-link hover-white" wire:click="gotoPage({{ $notifications->lastPage() }})"
+                            wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')"><i
+                                class="far fa-angle-double-right"></i></a>
                     </li>
                 </ul>
             </nav>
+
         @endif
     </div>
 </div>
@@ -208,7 +189,9 @@
         }
 
         function updateDeleteButtonVisibility() {
-            deleteSelectedBtn.style.display = Array.from(checkboxes).some(checkbox => checkbox.checked) ? 'block' : 'none';
+            // deleteSelectedBtn.style.display = Array.from(checkboxes).some(checkbox => checkbox.checked) ?
+            //     'block' : 'none';
+            deleteSelectedBtn.disabled = !Array.from(checkboxes).some(checkbox => checkbox.checked);
         }
 
         checkboxes.forEach(checkbox => {
@@ -228,7 +211,8 @@
                     checkbox.checked = isChecked;
                 });
                 updateDeleteButtonVisibility();
-                @this.set('selectedNotifications', isChecked ? Array.from(checkboxes).map(cb => cb.value) : []);
+                @this.set('selectedNotifications', isChecked ? Array.from(checkboxes).map(cb => cb
+                    .value) : []);
             });
         }
 
@@ -259,7 +243,8 @@
                 cancelButtonText: 'Hủy'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    @this.call('deleteSelectedNotifications', selectedIds); // Gọi hàm xóa với các ID đã chọn
+                    @this.call('deleteSelectedNotifications',
+                        selectedIds); // Gọi hàm xóa với các ID đã chọn
                 }
             });
         });

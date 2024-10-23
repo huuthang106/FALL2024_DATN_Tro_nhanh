@@ -10,10 +10,7 @@
                         <li class="breadcrumb-item"><a href="{{ route('client.home') }}">Trang chủ</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('client.client-blog') }}">Blog</a>
                         </li>
-                        <li class="breadcrumb-item">Chi tiết Blog</li>
-                        <li class="breadcrumb-item active" aria-current="page"><a
-                                href="{{ route('client.client-blog-detail', $blog->slug) }}">{{ $blog->title }}</a>
-                        </li>
+                        <li class="breadcrumb-item active">{{ $blog->title }}</li>
                     </ol>
                 </nav>
                 <h1 class="fs-30 lh-15 mb-0 text-heading font-weight-500 text-center pt-10" data-animate="fadeInDown">
@@ -55,7 +52,7 @@
                             </li>
                         </ul>
                         <h3 class="fs-md-32 text-heading lh-141 mb-2">
-                            {{ $blog->title }}  
+                            {{ $blog->title }}
                         </h3>
                         <div class="lh-214 mb-9">
                             <p>{{ $blog->description }}</p>
