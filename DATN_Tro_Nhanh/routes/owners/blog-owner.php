@@ -3,7 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Owners\BlogOwnersController;
 
 Route::group(['prefix' => ''], function () {
-    route::get('quan-li-blog', [BlogOwnersController::class, 'show'])->name('show-blog');
+    route::get('quan-ly-blog', [BlogOwnersController::class, 'show'])->name('show-blog');
     route::get('them-blog', [BlogOwnersController::class, 'index'])->name('blog');
     // Route::delete('xoa/{slug}', [BlogOwnersController::class, 'destroy'])->name('xoa-blog');
     Route::delete('/xoa-blog/{id}', [BlogOwnersController::class, 'destroy'])->name('destroy-blog');

@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Services\ImageAdminService;
 use App\Events\RoomCreationFailed;
 use Illuminate\Support\Facades\Validator;
-
+use App\Services\BlogServices;
 
 class RoomOwnersService
 {
@@ -525,59 +525,57 @@ class RoomOwnersService
     }
 
     public function updateRoomInZone(Request $request, $id)
-    {
-        // Validate dữ liệu đầu vào
-        $validator = Validator::make($request->all(), [
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'price' => 'required|numeric|min:0',
-            'quantity' => 'required|integer|min:1',
-            'images' => 'nullable|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+{
+    // Validate dữ liệu đầu vào
+    $validator = Validator::make($request->all(), [
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'price' => 'required|numeric|min:0',
+        'quantity' => 'required|integer|min:1',
+        'images' => 'nullable|array',
+        'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+    ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        // Tìm phòng theo ID
-        $room = Room::findOrFail($id);
-
-        // Cập nhật thông tin phòng
-        $room->title = $request->input('title');
-        $room->description = $request->input('description');
-        $room->price = $request->input('price');
-        $room->quantity = $request->input('quantity');
-
-        // Xử lý hình ảnh nếu có
-        if ($request->hasFile('images')) {
-            // Xóa ảnh cũ nếu có
-            if ($room->image) {
-                Storage::delete('assets/images/' . $room->image);
-            }
-
-            // Lấy file đầu tiên từ mảng images
-            $image = $request->file('images')[0];
-
-            // Tạo tên file mới với định dạng title + id
-            $titleSlug = Str::slug($room->title); // Chuyển tiêu đề thành slug
-            $imageName = $titleSlug . '_' . $id . '.' . $image->getClientOriginalExtension();
-
-            // Lưu ảnh mới vào thư mục assets/images
-            $image->move(public_path('assets/images'), $imageName);
-
-            // Cập nhật đường dẫn ảnh mới
-            $room->image = $imageName;
-        }
-
-        // Lưu thay đổi
-        $room->save();
-
-        return $room;
+    if ($validator->fails()) {
+        return redirect()->back()
+            ->withErrors($validator)
+            ->withInput();
     }
-  
+
+    // Tìm phòng theo ID
+    $room = Room::findOrFail($id);
+
+    // Cập nhật thông tin phòng
+    $room->title = $request->input('title');
+    $room->description = $request->input('description');
+    $room->price = $request->input('price');
+    $room->quantity = $request->input('quantity');
+$blogService = new BlogServices();
+    // Xử lý hình ảnh nếu có
+    if ($request->hasFile('images')) {
+        // Xóa ảnh cũ nếu có
+        if ($room->image) {
+            // Gọi phương thức xóa tệp cũ trên Google Drive
+            $blogService->deleteFileFromGoogleDrive($room->image); // Xóa tệp cũ
+        }
+
+
+        // Lấy file đầu tiên từ mảng images
+        $image = $request->file('images')[0];
+
+        // Tải lên hình ảnh vào Google Drive
+        $driveFileId = '1DNPZ0KBCiY27mvOZKFg8IyyarT7PIGVF'; // ID thư mục Google Drive
+        $uploadResult = $blogService->uploadImageToGoogleDrive($image, $driveFileId, $image->getClientOriginalName()); // Gọi phương thức với tên đã tạo
+
+        // Cập nhật đường dẫn ảnh mới
+        $room->image = $uploadResult['id']; // Lưu ID tệp đã tải lên vào cơ sở dữ liệu
+    }
+
+    // Lưu thay đổi
+    $room->save();
+
+    return $room;
+}
 
     public function createRoom(Request $request, $zoneId)
     {

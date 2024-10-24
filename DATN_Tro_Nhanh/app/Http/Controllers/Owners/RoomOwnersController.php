@@ -243,6 +243,14 @@ class RoomOwnersController extends Controller
     // Trả về view chỉnh sửa với thông tin phòng
     return view('owners.edit.edit-property', compact('room'));
 }
+public function editRoom($id)
+{
+    // Tìm phòng theo ID
+    $room = $this->roomOwnersService->findRoomById($id);
+
+    // Trả về view chỉnh sửa với thông tin phòng
+    return view('owners.edit.edit-property', compact('room'));
+}
     // RoomController.php
     public function updateRoom(Request $request, $id)
     {

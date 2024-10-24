@@ -76,24 +76,26 @@
                                     class="shadow-hover-xs-2 bg-hover-white">
                                     <td class="align-middle px-6">
                                         <input type="checkbox" class="control-input blog-checkbox"
-                                        id="blog-{{ $blog->id }}" wire:model="selectedBlogs"
-                                        wire:change="toggleBlog({{ $blog->id }})" value="{{ $blog->id }}">
+                                            id="blog-{{ $blog->id }}" wire:model="selectedBlogs"
+                                            wire:change="toggleBlog({{ $blog->id }})" value="{{ $blog->id }}">
                                     </td>
                                     <td class="align-middle d-md-table-cell text-nowrap p-4 text-center">
                                         <div class="mr-2 position-relative blog-image-container">
                                             <a href="{{ route('client.client-blog-detail', $blog->slug) }}">
-                                                @if ($blog->image)
-                                                    @php
-                                                        // Nếu bạn lưu nhiều ảnh dưới dạng chuỗi phân tách bằng dấu phẩy, bạn có thể tách chúng ra
-                                                        $images = explode(',', $blog->image);
-                                                        $firstImage = $images[0]; // Lấy ảnh đầu tiên
-                                                    @endphp
-                                                    <img src="{{ asset('assets/images/' . $firstImage) }}"
-                                                         alt="{{ $blog->title }}"
-                                                         class="img-fluid blog-image square-image">
+                                                {{-- Giả sử $blog->image chứa ID của tệp trên Google Drive --}}
+                                                @php
+                                                    $imageIds = explode(',', $blog->image); // Tách các ID tệp nếu có nhiều tệp
+                                                    $firstImageId = $imageIds[0] ?? null; // Lấy ID đầu tiên
+                                                @endphp
+
+                                                @if ($firstImageId)
+                                                    <img src="https://drive.google.com/thumbnail?id={{ $firstImageId }}"
+                                                        alt="{{ $blog->title }}"
+                                                        class="img-fluid blog-image square-image">
                                                 @else
-                                                    <img src="{{ asset('assets/images/properties-grid-08.jpg') }}"
-                                                         alt="Default Image" class="img-fluid blog-image square-image">
+                                                    <img src="{{ asset('assets/images/default-image.jpg') }}"
+                                                        alt="Default Image" class="img-fluid blog-image square-image">
+                                                    {{-- Hình ảnh mặc định nếu không có ID --}}
                                                 @endif
                                             </a>
                                         </div>
@@ -120,10 +122,10 @@
                                         </div>
                                     </td>
                                     <td class="align-middle text-center"style="white-space: nowrap;">
-                                        @if($blog->view>0)
-                                        {{$blog->view}}
+                                        @if ($blog->view > 0)
+                                            {{ $blog->view }}
                                         @else
-                                        0
+                                            0
                                         @endif
                                     </td>
                                     <td class="align-middle text-center">
@@ -143,7 +145,7 @@
                                         <a href="{{ route('owners.sua-blog', ['id' => $blog->id]) }}"
                                             data-toggle="tooltip" title="Chỉnh sửa" class="btn btn-primary btn-sm mr-2">
                                             <i class="fal fa-pencil-alt"></i>
-                                         </a>
+                                        </a>
                                         <form action="{{ route('owners.destroy-blog', $blog->id) }}" method="POST"
                                             class="d-inline-block">
                                             @csrf

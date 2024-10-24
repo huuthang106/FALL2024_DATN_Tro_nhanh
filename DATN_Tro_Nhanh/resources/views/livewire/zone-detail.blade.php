@@ -8,7 +8,7 @@
                         {{-- <h5 for="invoice-list_length" class="d-block mr-2 mb-0">Tên khu: {{ $zone->name }}</h5> --}}
                     </div>
                     <div class="ml-2 align-self-center">
-                        <a href="{{ route('owners.add-room', $zone->slug) }}" class="btn btn-primary btn-lg"
+                        <a href="{{ route('owners.zone-post', $zone->slug) }}" class="btn btn-primary btn-lg"
                             tabindex="0"><span>Thêm
                                 mới</span></a>
                     </div>
@@ -83,12 +83,20 @@
                                     <tr>
                                         {{-- Các cột khác --}}
                                         <td class="align-middle px-3" style="white-space: nowrap;">
-                                            @if ($room->image)
-                                                <img src="{{ asset('assets/images/' . $room->image) }}" alt="Room Image"
-                                                    class="" style="max-width: 100px;">
-                                            @else
-                                                <small>Không có ảnh</small>
-                                            @endif
+                                            @php
+                                            $imageIds = explode(',', $room->image); // Tách các ID tệp nếu có nhiều tệp
+                                            $firstImageId = $imageIds[0] ?? null; // Lấy ID đầu tiên
+                                        @endphp
+                                        
+                                        @if ($firstImageId)
+                                            <img src="https://drive.google.com/thumbnail?id={{ $firstImageId }}"
+                                                 alt="{{ $room->title ?? 'Default Image' }}"
+                                                 class="img-fluid blog-image square-image" style="max-width: 100px;">
+                                        @else
+                                            <img src="{{ asset('assets/images/default-image.jpg') }}"
+                                                 alt="Default Image" class="img-fluid blog-image square-image" style="max-width: 100px;">
+                                            {{-- Hình ảnh mặc định nếu không có ID --}}
+                                        @endif
                                         </td>
                                         <td class="align-middle" style="white-space: nowrap;">
                                             <small>{{ $room->title }}</small>

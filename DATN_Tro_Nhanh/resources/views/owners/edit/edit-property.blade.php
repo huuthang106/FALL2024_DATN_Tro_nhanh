@@ -178,12 +178,7 @@
                                                     <i class="fal fa-long-arrow-right"></i></span>
                                             </button>
                                         </div>
-                                        <div class="text-right">
-                                            <button class="btn btn-lg btn-primary next-button">Tiếp theo <span
-                                                    class="d-inline-block ml-2 fs-16">
-                                                    <i class="fal fa-long-arrow-right"></i></span>
-                                            </button>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -215,15 +210,39 @@
                                                         <div class="dropzone upload-file text-center py-5"
                                                             id="myDropzone">
                                                             <div class="dz-default dz-message">
-                                                                <span class="upload-icon lh-1 d-inline-block mb-4">
-                                                                    <i class="fal fa-cloud-upload-alt"></i>
-                                                                </span>
+
+                                                                @php
+                                                                    $imageIds = explode(',', $room->image); // Tách các ID tệp nếu có nhiều tệp
+                                                                    $firstImageId = $imageIds[0] ?? null; // Lấy ID đầu tiên
+                                                                @endphp
+
+                                                                <div class="text-center mt-4">
+                                                                    @if ($firstImageId)
+                                                                        <img id="currentImage"
+                                                                            src="https://drive.google.com/thumbnail?id={{ $firstImageId }}"
+                                                                            alt="Hình ảnh bất động sản"
+                                                                            class="img-fluid mb-2"
+                                                                            style="max-width: 100px;">
+                                                                    @else
+                                                                        <span class="upload-icon lh-1 d-inline-block mb-4">
+                                                                            <i class="fal fa-cloud-upload-alt"></i>
+                                                                        </span>
+                                                                        <h5 class="text-heading">Không có hình ảnh hiện
+                                                                            tại.</h5>
+                                                                    @endif
+                                                                </div>
+
+                                                                <!-- Phần tử để hiển thị ảnh đã chọn trong form -->
+                                                                {{-- <div id="imagePreview" class="text-center mt-4"></div> --}}
+                                                                <!-- Ẩn View -->
+                                                                <input type="hidden" class="form-control" id="view"
+                                                                    name="view" value="0">
                                                                 <p class="text-heading fs-22 lh-15 mb-4">
                                                                     Kéo và thả hình ảnh hoặc
                                                                 </p>
                                                                 <button class="btn btn-indigo px-7 mb-2" type="button"
                                                                     onclick="document.getElementById('fileInput').click();">
-                                                                    Chọn thư mục
+                                                                    Chọn ảnh
                                                                 </button>
                                                                 <input type="file" hidden id="fileInput"
                                                                     accept="image/jpeg, image/png" name="images[]"
@@ -235,53 +254,45 @@
                                                                     {{ $errors->first('image') }}
                                                                 </div>
                                                             @endif
-                                                            {{-- @foreach ($errors->get('images.*') as $messages)
-                                                                        @foreach ($messages as $message)
-                                                                            <div class="text-danger">{{ $message }}
-                                                                            </div>
-                                                                        @endforeach
-                                                                    @endforeach --}}
                                                         </div>
-                                                        <!-- Phần tử để hiển thị ảnh đã chọn trong form -->
-                                                        <div id="imagePreview" class="text-center mt-4"></div>
-                                                        <!-- Ẩn View -->
-                                                        <input type="hidden" class="form-control" id="view"
-                                                            name="view" value="0">
+
+                                                        <!-- Hiển thị hình ảnh hiện tại từ Google Drive -->
+
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- <div class="col-lg-6">
-                                                                            <div class="card mb-6">
-                                                                                <div class="card-body p-6">
-                                                                                    <h3 class="card-title mb-0 text-heading fs-22 lh-15">
-                                                                                        Trạng thái phòng
-                                                                                    </h3>
-                                                                                    <hr>
-                                                                                    <div class="form-row mx-n2">
-                                                                                        <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
-                                                                                            <div class="form-group mb-md-0">
-                                                                                                <label for="status"
-                                                                                                    class="text-heading">Trạng
-                                                                                                    thái</label>
-                                                                                                <select
-                                                                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                                                                    data-style="btn-lg py-2 h-52"
-                                                                                                    id="status" name="status">
-                                                                                                    <option value="1">Đang duyệt
-                                                                                                    </option>
-                                                                                                    <option value="2">Đang hoạt động
-                                                                                                    </option>
-                                                                                                </select>
-                                                                                                @error('status')
+                                                                                <div class="card mb-6">
+                                                                                    <div class="card-body p-6">
+                                                                                        <h3 class="card-title mb-0 text-heading fs-22 lh-15">
+                                                                                            Trạng thái phòng
+                                                                                        </h3>
+                                                                                        <hr>
+                                                                                        <div class="form-row mx-n2">
+                                                                                            <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
+                                                                                                <div class="form-group mb-md-0">
+                                                                                                    <label for="status"
+                                                                                                        class="text-heading">Trạng
+                                                                                                        thái</label>
+                                                                                                    <select
+                                                                                                        class="form-control border-0 shadow-none form-control-lg selectpicker"
+                                                                                                        data-style="btn-lg py-2 h-52"
+                                                                                                        id="status" name="status">
+                                                                                                        <option value="1">Đang duyệt
+                                                                                                        </option>
+                                                                                                        <option value="2">Đang hoạt động
+                                                                                                        </option>
+                                                                                                    </select>
+                                                                                                    @error('status')
         ">{{ $message }}
-                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                </div>
     @enderror
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
-                                                                        </div> -->
+                                                                            </div> -->
                                         </div>
                                         <div class="d-flex flex-wrap">
                                             <a href="#"
@@ -440,7 +451,7 @@
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+
     {{-- <script>
         Dropzone.options.myDropzone = {
             url: '{{ route('owners.update-room', $room->id) }}', // Đường dẫn xử lý upload
@@ -537,6 +548,19 @@
             });
         });
     </script>  --}}
-    
-  
+    <script>
+        function previewImages() {
+            const fileInput = document.getElementById('fileInput');
+            const currentImage = document.getElementById('currentImage');
+
+            const files = fileInput.files;
+            if (files.length > 0) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    currentImage.src = e.target.result; // Cập nhật src của thẻ img
+                };
+                reader.readAsDataURL(files[0]); // Đọc tệp đầu tiên
+            }
+        }
+    </script>
 @endpush
