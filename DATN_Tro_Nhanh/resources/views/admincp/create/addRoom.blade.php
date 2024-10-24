@@ -16,7 +16,7 @@
                     </div>
                     <div id="kt_account_profile_details" class="collapse show">
 
-                        <form class="form" action="{{ route('admin.add-room') }}" method="POST"
+                        <form class="form" action="{{ route('admin.zone-post') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="card-body border-top p-9">

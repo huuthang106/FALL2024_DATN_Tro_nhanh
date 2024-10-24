@@ -116,39 +116,38 @@
                                                         <div class="card-body p-6">
                                                             <h3 class="card-title mb-0 text-heading fs-22 lh-15">Tải lên
                                                                 hình bạn muốn truyền tải cho khách hàng</h3>
-                                                            <div class="dropzone upload-file text-center py-5"
-                                                                id="myDropzone">
-                                                                <div class="dz-default dz-message mb-0">
-                                                                    <span class="upload-icon lh-1 d-inline-block mb-4">
-                                                                        <i class="fal fa-cloud-upload-alt"></i>
-                                                                    </span>
-                                                                    <p class="text-heading fs-22 lh-15 mb-4">Kéo và thả
-                                                                        hình ảnh hoặc</p>
-                                                                    <button class="btn btn-indigo px-7 mb-2"
-                                                                        type="button"
-                                                                        onclick="document.getElementById('fileInput').click();">Tải
-                                                                        lên</button>
-                                                                    <input id="fileInput" name="images[]" type="file"
-                                                                        hidden>
+                                                                <div class="dropzone upload-file text-center py-5" id="myDropzone">
+                                                                    <div class="dz-default dz-message mb-0">
+                                                                        @php
+                                                                        $imageIds = explode(',', $blog->image); // Tách các ID tệp nếu có nhiều tệp
+                                                                        $firstImageId = $imageIds[0] ?? null; // Lấy ID đầu tiên
+                                                                    @endphp
+    
+                                                                    <div class="text-center mt-4">
+                                                                        @if ($firstImageId)
+                                                                            <img id="currentImage"
+                                                                                src="https://drive.google.com/thumbnail?id={{ $firstImageId }}"
+                                                                                alt="Hình ảnh bất động sản"
+                                                                                class="img-fluid mb-2"
+                                                                                style="max-width: 100px;">
+                                                                        @else
+                                                                            <span class="upload-icon lh-1 d-inline-block mb-4">
+                                                                                <i class="fal fa-cloud-upload-alt"></i>
+                                                                            </span>
+                                                                            <h5 class="text-heading">Không có hình ảnh hiện
+                                                                                tại.</h5>
+                                                                        @endif
+                                                                    </div>
+                                                                        <p class="text-heading fs-22 lh-15 mb-4">Kéo và thả hình ảnh hoặc</p>
+                                                                        <button class="btn btn-indigo px-7 mb-2" type="button"
+                                                                            onclick="document.getElementById('fileInput').click();">Tải lên</button>
+                                                                        <input id="fileInput" name="images[]" type="file" hidden accept="image/jpeg, image/png" onchange="previewImages();">
+                                                                    </div>
+                                                                
+                                                                    <!-- Hiển thị hình ảnh hiện tại từ Google Drive -->
+                                                                  
                                                                 </div>
-                                                                <div id="imagePreview" class="text-center mt-4">
-                                                                    @if (!empty($images) && is_array($images))
-                                                                    @foreach ($images as $image)
-                                                                        <div class="image-preview mx-auto">
-                                                                            <img src="{{ asset('assets/images/' . $image) }}"
-                                                                                alt="Image" class="img-fluid"
-                                                                                style="max-width: 100%; height: auto;">
-                                                                        </div>
-                                                                    @endforeach
-                                                                @else
-                                                                    <p>Không có hình ảnh nào.</p>
-                                                                @endif
-                                                                </div>
-                                                                @error('images')
-                                                                    <span class="error-message text-danger"
-                                                                        id="images-error">{{ $message }}</span>
-                                                                @enderror
-                                                            </div>
+                                                                
                                                         </div>
                                                     </div>
                                                 </div>
@@ -458,4 +457,19 @@
                 });
             });
         </script>
+   <script>
+    function previewImages() {
+        const fileInput = document.getElementById('fileInput');
+        const currentImage = document.getElementById('currentImage');
+
+        const files = fileInput.files;
+        if (files.length > 0) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                currentImage.src = e.target.result; // Cập nhật src của thẻ img
+            };
+            reader.readAsDataURL(files[0]); // Đọc tệp đầu tiên
+        }
+    }
+</script>
 @endpush
