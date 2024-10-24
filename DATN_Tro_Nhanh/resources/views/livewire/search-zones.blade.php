@@ -615,21 +615,21 @@
                     </div>
 
                     @if ($zones->hasPages())
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination rounded-active justify-content-center">
+                        <nav aria-label="Page navigation" class="mb-2">
+                            <ul class="pagination rounded-active justify-content-center mt-2">
                                 {{-- Nút về đầu --}}
                                 <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="gotoPage(1)"
-                                        wire:loading.attr="disabled" aria-label="First Page">
-                                        << </a>
+                                    <a class="page-link hover-white" wire:click="previousPage"
+                                        wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')"><i
+                                            class="fas fa-angle-double-left"></i></a>
                                 </li>
 
                                 {{-- Liên kết Trang Trước --}}
-                                <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="previousPage"
-                                        wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')">
-                                        < </a>
-                                </li>
+                                {{-- <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
+                                <a class="page-link hover-white" wire:click="previousPage"
+                                    wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')">
+                                    < </a>
+                            </li> --}}
 
                                 @php
                                     $totalPages = $zones->lastPage();
@@ -673,26 +673,25 @@
                                 @endif
 
                                 {{-- Liên kết Trang Tiếp --}}
-                                <li class="page-item {{ !$zones->hasMorePages() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="nextPage"
-                                        wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')"> >
-                                    </a>
-                                </li>
+                                {{-- <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
+                                <a class="page-link hover-white" wire:click="nextPage"
+                                    wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')"> >
+                                </a>
+                            </li> --}}
 
                                 {{-- Nút về cuối --}}
                                 <li class="page-item {{ !$zones->hasMorePages() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="gotoPage({{ $zones->lastPage() }})"
-                                        wire:loading.attr="disabled" aria-label="Last Page"> >>
-                                    </a>
+                                    <a class="page-link hover-white" wire:click="nextPage"
+                                        wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')"><i
+                                            class="fas fa-angle-double-right"></i></a>
                                 </li>
                             </ul>
                         </nav>
+
                     @endif
 
                     <!--end::Table-->
                 </div>
-                {{-- <div class="text-center mt-2">{{ $zones->firstItem() }}-{{ $zones->lastItem() }} của
-                    {{ $zones->total() }} kết quả</div> --}}
                 <!--end::Card body-->
             </div>
             <!--end::Card-->
