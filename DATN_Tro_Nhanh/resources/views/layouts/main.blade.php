@@ -28,18 +28,14 @@
 </script>
 
 <body>
-   <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data">
-       @csrf
-       <input type="file" name="file" required>
-       <button type="submit">Upload</button>
-   </form>
-    {{-- @if (Request::is('/'))
+  
+    @if (Request::is('/'))
         <x-navbar-home />
     @else
         <x-navbar-default />
     @endif
  
-    @yield('contentUs') --}}
+    @yield('contentUs')
     <footer class="bg-dark pt-8 pb-6 footer text-muted">
         <div class="container">
             <div class="row">
