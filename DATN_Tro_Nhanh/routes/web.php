@@ -3,10 +3,14 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client\HomeClientController;
-
+use App\Http\Controllers\GoogleDriveController;
 Route::fallback(function () {
     return redirect('/');
 });
+Route::get('/redirect', [GoogleDriveController::class, 'redirectToGoogle']);
+Route::get('/callback', [GoogleDriveController::class, 'handleGoogleCallback']);
+Route::post('/upload', [GoogleDriveController::class, 'uploadFile'])->name('upload');
+
 // // 
 
 // Route::get('/trang-chu', function () {

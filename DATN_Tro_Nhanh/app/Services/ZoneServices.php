@@ -22,6 +22,7 @@ use App\Models\VipZonePosition;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
+
 class ZoneServices
 {
     const CO = 1; // Có tiện ích
@@ -115,7 +116,7 @@ class ZoneServices
                                                 Log::info("Inappropriate content detected: " . $concept['name'] . " with score: " . $concept['value']);
                                             }
                                         }
-                                        
+
                                         // Log tổng điểm nội dung không phù hợp
                                         Log::info("Total inappropriate content score for image: " . $image . " is " . $violenceScore);
                                         if ($violenceScore > 0.5) {
@@ -208,7 +209,7 @@ class ZoneServices
     {
         $currentDate = Carbon::now();
 
-        return Zone::where('status', self::status) 
+        return Zone::where('status', self::status)
             ->orderBy('view', 'desc')
             ->take($limit)
             ->get();
@@ -232,7 +233,7 @@ class ZoneServices
     //     $zones = Zone::orderByDesc('created_at')->paginate($perPage); // sắp xếp
     //     return $zones;
     // }
-    public function getMyZoneClient()
+    public function getMyZoneClient($category)
     {
         $perPage = 5;
         $zones = Zone::orderByDesc('created_at')->paginate($perPage);
@@ -277,10 +278,10 @@ class ZoneServices
     //     $originalName = $image->getClientOriginalName();
     //     $extension = $image->getClientOriginalExtension();
     //     $filename = $timestamp . '_' . pathinfo($originalName, PATHINFO_FILENAME) . '.' . $extension;
-    
+
     //     $path = 'assets/images/' . $filename;
     //     $image->move(public_path('assets/images'), $filename);
-    
+
     //     // Giả sử bạn có mối quan hệ giữa Zone và Room, và bạn muốn lưu hình ảnh vào cột 'image' của Room
     //     $room = $zone->rooms()->first(); // Lấy room đầu tiên liên quan đến zone này, hoặc bạn có thể xác định room cụ thể
     //     if ($room) {
@@ -411,7 +412,7 @@ class ZoneServices
 
             $zone->name = $request->input('title');
             $zone->description = $request->input('description');
-         
+
             $zone->address = $request->input('address');
             $zone->province = $request->input('province');
             $zone->district = $request->input('district');
@@ -677,9 +678,9 @@ class ZoneServices
         if (!auth()->check()) {
             return false;
         }
-    
+
         DB::beginTransaction(); // Bắt đầu giao dịch
-    
+
         try {
             $zone = new Zone();
             $user_id = auth()->id();
@@ -701,36 +702,36 @@ class ZoneServices
             $zone->bathrooms = $request->has('bathrooms') ? self::CO : self::CHUA_CO;
             $zone->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
             $zone->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
-    
+
             if (!$zone->save()) {
                 DB::rollBack();
                 return false;
             }
-    
+
             $zoneId = $zone->id;
             $slug = $this->createSlug($request->input('title')) . '-' . $zoneId;
             $zone->slug = $slug;
-    
+
             if (!$zone->save()) {
                 DB::rollBack();
                 return false;
             }
-    
+
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $isValidImage = false;
                 Log::info("Starting image processing...");
-    
+
                 try {
                     $timestamp = now()->format('YmdHis');
                     $originalName = $image->getClientOriginalName();
                     $extension = $image->getClientOriginalExtension();
                     $filename = $timestamp . '_' . pathinfo($originalName, PATHINFO_FILENAME) . '.' . $extension;
-    
+
                     Log::info("Checking image with Clarifai: " . $filename);
-    
+
                     $imageContent = base64_encode(file_get_contents($image->getRealPath()));
-    
+
                     $response = $this->client->post('models/moderation-recognition/outputs', [
                         'json' => [
                             'inputs' => [
@@ -744,24 +745,24 @@ class ZoneServices
                             ]
                         ]
                     ]);
-    
+
                     $result = json_decode($response->getBody(), true);
                     Log::info("Clarifai response: " . json_encode($result));
-    
+
                     $concepts = $result['outputs'][0]['data']['concepts'] ?? [];
                     $violenceScore = 0;
-    
+
                     $inappropriateContent = ['gore', 'explicit', 'drug', 'suggestive', 'weapon'];
-    
+
                     foreach ($concepts as $concept) {
                         if (in_array($concept['name'], $inappropriateContent)) {
                             $violenceScore += $concept['value'];
                             Log::info("Inappropriate content detected: " . $concept['name'] . " with score: " . $concept['value']);
                         }
                     }
-    
+
                     Log::info("Total inappropriate content score for image: " . $filename . " is " . $violenceScore);
-    
+
                     if ($violenceScore <= 0.5) {
                         $isValidImage = true;
                     } else {
@@ -787,7 +788,7 @@ class ZoneServices
                         'message' => 'Có lỗi xảy ra khi xử lý ảnh: ' . $e->getMessage()
                     ]);
                 }
-    
+
                 if (!$isValidImage) {
                     DB::rollBack();
                     return response()->json([
@@ -796,7 +797,7 @@ class ZoneServices
                     ]);
                 }
             }
-    
+
             DB::commit(); // Commit transaction
             return $zoneId;
         } catch (\Exception $e) {
@@ -844,19 +845,10 @@ class ZoneServices
             $cost = $pricing->price;
             $validity = $pricing->duration_day; // Đây có thể là string
 
-            // Ham dem so luong gioi han mua cua goi
-            // $locationCount = VipZonePosition::where('location_id', $pricing->location_id)->count();
-            // if ($locationCount >= 10) {
-            //     return response()->json([
-            //         'status' => 'error',
-            //         'message' => 'Gói này đã đạt lượt mua tối đa, vui lòng mua gói khác.'
-            //     ]);
-            // }
-
             // Trừ tiền từ số dư tài khoản của người dùng
             $customer->balance -= $cost;
             $customer->save();
-            
+
             $newExpiry = Carbon::now()->addDays((int) $validity); // Không cần cộng thêm 1 ngày
             // Lưu vị trí vip cho zone
             $vipZonePosition = VipZonePosition::firstOrNew(['zone_id' => $accommodation->id]);
@@ -901,49 +893,49 @@ class ZoneServices
         // Lấy ngày hiện tại
         $currentDate = Carbon::now();
 
-            // Tìm các zone có vip_expiry_date nhỏ hơn ngày hiện tại
-            VipZonePosition::where('end_date', '<', $currentDate)->forceDelete();
-            $expiredZones = VipZonePosition::where('end_date', '<', $currentDate)->get();
-            $updatedCount = 0;
-           
-            if ($expiredZones->isNotEmpty()) {
-                foreach ($expiredZones as $zone) {
-                    // Tạo thông báo cho người dùng
-                    $notification = new Notification();
-                    $notification->user_id = $zone->user_id;
-                    $notification->type = 'Gói Tin VIP';
-                    $notification->data = 'Gói tin VIP của bạn cho khu trọ ' . $zone->name . ' đã hết hạn.';
-                    $notification->save();
-                }
+        // Tìm các zone có vip_expiry_date nhỏ hơn ngày hiện tại
+        VipZonePosition::where('end_date', '<', $currentDate)->forceDelete();
+        $expiredZones = VipZonePosition::where('end_date', '<', $currentDate)->get();
+        $updatedCount = 0;
+
+        if ($expiredZones->isNotEmpty()) {
+            foreach ($expiredZones as $zone) {
+                // Tạo thông báo cho người dùng
+                $notification = new Notification();
+                $notification->user_id = $zone->user_id;
+                $notification->type = 'Gói Tin VIP';
+                $notification->data = 'Gói tin VIP của bạn cho khu trọ ' . $zone->name . ' đã hết hạn.';
+                $notification->save();
             }
+        }
         return $updatedCount; // Trả về số lượng zone đã được cập nhật
- 
     }
-    public function createMultiple($data)
-{
-
-
-   
-        // Kiểm tra category_id
-       
-        // Tạo một đối tượng Zone mới
+    public function createMultiple(array $data)
+    {
         $zone = new Zone();
         $zone->status = 1; // Mặc định trạng thái
         $zone->name = $data['title'] ?? ''; // Kiểm tra nếu có
         $zone->description = $data['description'] ?? '';
         $zone->phone = $data['phone'] ?? '';
         $zone->address = $data['address'] ?? '';
-        $zone->view = $data['view'] ?? 0; // Giá trị mặc định
-        $zone->province = $data['province'] ?? '';
-        $zone->district = $data['district'] ?? '';
-        $zone->village = $data['village'] ?? '';
+        $zone->view = 0; // Giá trị mặc định
+        $zone->province = ''; // Cung cấp giá trị nếu cần
+        $zone->district = ''; // Cung cấp giá trị nếu cần
+        $zone->village = ''; // Cung cấp giá trị nếu cần
         $zone->longitude = $data['longitude'] ?? 0; // Giá trị mặc định
         $zone->latitude = $data['latitude'] ?? 0; // Giá trị mặc định
-        $zone->user_id = 1; // Gán ID người dùng
-        $zone->category_id = 1; // Gán category_id
+        $zone->user_id = $data['user_id'] ?? 1; // Lấy ID người dùng hiện tại
+        $zone->category_id = 3; // Giá trị mặc định
+        $zone->status = 2;
+        $zone->wifi = isset($data['wifi']) && $data['wifi'] ? self::CO : self::CHUA_CO;
+        $zone->bathrooms = isset($data['bathrooms']) && $data['bathrooms'] ? self::CO : self::CHUA_CO;
+        $zone->air_conditioning = isset($data['air_conditioning']) && $data['air_conditioning'] ? self::CO : self::CHUA_CO;
+        $zone->garage = isset($data['garage']) && $data['garage'] ? self::CO : self::CHUA_CO;
+        $zoneId = $zone->id;
+        $slug = $this->createSlug($data['title']) . '-' . $zoneId;
+        $zone->slug = $slug;
+        $zone->save(); // Lưu từng zone
 
-        // Kiểm tra các trường trước khi lưu
-       
         // Tạo một đối tượng Room mới
         $room = new Room();
         $room->title = $data['title'] ?? ''; // Lấy tên phòng từ dữ liệu
@@ -971,9 +963,8 @@ class ZoneServices
             }
         }
 
-        // Lưu phòng và kiểm tra lỗi
-        
+        $room->save();
 
-    return true; // Trả về true nếu thành công
-}
+        return true; // Trả về true nếu thành công
+    }
 }

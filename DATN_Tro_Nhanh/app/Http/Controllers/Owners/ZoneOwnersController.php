@@ -19,10 +19,9 @@ use App\Models\PriceList;
 use App\Models\Zone;
 use App\Http\Requests\RoomOwnersRequest;
 use App\Events\RoomCreated;
-use DOMDocument;
+use Illuminate\Support\Facades\Http; // Thêm dòng này để sử dụng Http
+use DOMDocument; // Thêm dòng này để sử dụng DOMDocument
 use DOMXPath;
-use Illuminate\Support\Str;
-use App\Models\VipZonePosition;
 class ZoneOwnersController extends Controller
 {
     protected $zoneServices;
@@ -269,15 +268,6 @@ class ZoneOwnersController extends Controller
         }
         $cost = $pricing->price;
 
-        // Ham dem so luong gioi han mua cua goi
-        // $locationCount = VipZonePosition::where('location_id', $pricing->location_id)->count();
-        // if ($locationCount >= 10) {
-        //     return redirect()->back()->with('alert', [
-        //         'type' => 'error',
-        //         'message' => 'Gói này đã đạt lượt mua tối đa, vui lòng mua gói khác.'
-        //     ]);
-        // }
-
         // Kiểm tra số dư tài khoản của user
         if ($customer->balance < $cost) {
             \Log::warning('Số dư tài khoản không đủ để thanh toán. User ID: ' . $customer->id);
@@ -304,11 +294,176 @@ class ZoneOwnersController extends Controller
             ]);
         }
     }
+    // public function getData() {
+    //     set_time_limit(0); // Không giới hạn thời gian thực thi
+    
+    //     // Bước 1: Lấy nội dung từ trang chính
+    //     $baseUrl = 'https://tromoi.com/phong-tro'; // URL chính
+    //     $html = @file_get_contents($baseUrl); // Lấy nội dung HTML
+    
+    //     if ($html === false) {
+    //         echo "Không thể lấy nội dung từ URL: $baseUrl";
+    //         return;
+    //     }
+    
+    //     // Bước 2: Tạo đối tượng DOMDocument để phân tích cú pháp HTML
+    //     $dom = new DOMDocument();
+    //     @$dom->loadHTML($html); // Sử dụng @ để bỏ qua cảnh báo
+    
+    //     // Bước 3: Tạo đối tượng DOMXPath để truy vấn
+    //     $xpath = new DOMXPath($dom);
+        
+    //     // Lấy tất cả các thẻ <div> với class "hostel-item"
+    //     $hostelItems = $xpath->query('//div[contains(@class, "hostel-item")]');
+    
+    //     // Mảng để theo dõi các link đã lấy
+    //     $seenLinks = [];
+    
+    //     // Duyệt qua từng nhà trọ
+    //     foreach ($hostelItems as $item) {
+    //         // Lấy link chi tiết
+    //         $linkElement = $xpath->query('.//a[contains(@class, "hostel-item__link")]', $item);
+    //         $detailLink = $linkElement->length > 0 ? $linkElement[0]->getAttribute('href') : '';
+    
+    //         // Chỉ in ra thông tin nếu có link và chưa được lấy
+    //         if ($detailLink && !in_array($detailLink, $seenLinks)) {
+    //             // Thêm link vào mảng đã thấy
+    //             $seenLinks[] = $detailLink;
+    
+    //             // Gọi hàm để lấy thông tin chi tiết từ link
+    //             $this->getHostelDetails($detailLink);
+    //         }
+    //     }
+    // }
+    
+    // private function getHostelDetails($url) {
+    //     // Lấy nội dung từ link chi tiết
+    //     $html = @file_get_contents($url);
+    //     if ($html === false) {
+    //         echo "Không thể lấy nội dung từ URL: $url<br>";
+    //         return;
+    //     }
+    
+    //     // Tạo đối tượng DOMDocument để phân tích cú pháp HTML
+    //     $dom = new DOMDocument();
+    //     @$dom->loadHTML($html);
+    //     $xpath = new DOMXPath($dom);
+    
+    //     // Lấy tiêu đề
+    //     $titleElement = $xpath->query('//h1[@class="box-title"]');
+    //     $title = $titleElement->length > 0 ? htmlspecialchars($titleElement[0]->textContent) : 'Không có tiêu đề';
+    
+    //     // Lấy hình ảnh đầu tiên
+    //     $imageElement = $xpath->query('//div[contains(@class, "hostel__detail--frame")]//img');
+    //     $imageSrc = $imageElement->length > 0 ? $imageElement[0]->getAttribute('src') : 'Không có hình ảnh';
+    
+    //     // Lấy giá
+    //     $priceElement = $xpath->query('//div[contains(@class, "hostel__detail--price")]//div[@class="value"]');
+    //     $price = $priceElement->length > 0 ? preg_replace('/[^0-9]/', '', $priceElement[0]->textContent) : 'Không có giá';
+    
+    //     // Lấy số điện thoại
+    //     $phoneElement = $xpath->query('//div[contains(@class, "hostel__detail--host")]//a[contains(@class, "button btn-cta")]');
+    //     $phone = $phoneElement->length > 0 ? htmlspecialchars($phoneElement[0]->textContent) : 'Không có số điện thoại';
+    
+    //     // Lấy mô tả
+    //     $descriptionElement = $xpath->query('//div[contains(@class, "content-detail")]');
+    //     $description = $descriptionElement->length > 0 ? htmlspecialchars($descriptionElement[0]->textContent) : 'Không có mô tả';
+    
+    //     // In ra thông tin
+    //     echo "Tiêu đề: $title<br>";
+    //     echo "Hình ảnh: <img src='$imageSrc' alt='$title'><br>";
+    //     echo "Giá: $price VND<br>";
+    //     echo "Số điện thoại: $phone<br>";
+    //     echo "Mô tả: $description<br><br>";
+    // }
+    // public function getData() {
+    //     set_time_limit(0); // Không giới hạn thời gian thực thi
+    
+    //     // Bước 1: Lấy nội dung từ trang chính
+    //     $baseUrl = 'https://tromoi.com/phong-tro'; // URL chính
+    //     $html = @file_get_contents($baseUrl); // Lấy nội dung HTML
+    
+    //     if ($html === false) {
+    //         echo "Không thể lấy nội dung từ URL: $baseUrl";
+    //         return;
+    //     }
+    
+    //     // Bước 2: Tạo đối tượng DOMDocument để phân tích cú pháp HTML
+    //     $dom = new DOMDocument();
+    //     @$dom->loadHTML($html); // Sử dụng @ để bỏ qua cảnh báo
+    
+    //     // Bước 3: Tạo đối tượng DOMXPath để truy vấn
+    //     $xpath = new DOMXPath($dom);
+        
+    //     // Lấy tất cả các thẻ <div> với class "hostel-item"
+    //     $hostelItems = $xpath->query('//div[contains(@class, "hostel-item")]');
+    
+    //     // Mảng để theo dõi các link đã lấy
+    //     $seenLinks = [];
+    
+    //     // Duyệt qua từng nhà trọ
+    //     foreach ($hostelItems as $item) {
+    //         // Lấy link chi tiết
+    //         $linkElement = $xpath->query('.//a[contains(@class, "hostel-item__link")]', $item);
+    //         $detailLink = $linkElement->length > 0 ? $linkElement[0]->getAttribute('href') : '';
+    
+    //         // Chỉ in ra thông tin nếu có link và chưa được lấy
+    //         if ($detailLink && !in_array($detailLink, $seenLinks)) {
+    //             // Thêm link vào mảng đã thấy
+    //             $seenLinks[] = $detailLink;
+    
+    //             // Gọi hàm để lấy thông tin chi tiết từ link
+    //             $this->getHostelDetails($detailLink);
+    //         }
+    //     }
+    // }
+    
+    // private function getHostelDetails($url) {
+    //     // Lấy nội dung từ link chi tiết
+    //     $html = @file_get_contents($url);
+    //     if ($html === false) {
+    //         echo "Không thể lấy nội dung từ URL: $url<br>";
+    //         return;
+    //     }
+    
+    //     // Tạo đối tượng DOMDocument để phân tích cú pháp HTML
+    //     $dom = new DOMDocument();
+    //     @$dom->loadHTML($html);
+    //     $xpath = new DOMXPath($dom);
+    
+    //     // Lấy tiêu đề
+    //     $titleElement = $xpath->query('//h1[@class="box-title"]');
+    //     $title = $titleElement->length > 0 ? htmlspecialchars($titleElement[0]->textContent) : 'Không có tiêu đề';
+    
+    //     // Lấy hình ảnh đầu tiên
+    //     $imageElement = $xpath->query('//div[contains(@class, "hostel__detail--frame")]//img');
+    //     $imageSrc = $imageElement->length > 0 ? $imageElement[0]->getAttribute('src') : 'Không có hình ảnh';
+    
+    //     // Lấy giá
+    //     $priceElement = $xpath->query('//div[contains(@class, "hostel__detail--price")]//div[@class="value"]');
+    //     $price = $priceElement->length > 0 ? preg_replace('/[^0-9]/', '', $priceElement[0]->textContent) : 'Không có giá';
+    
+    //     // Lấy số điện thoại
+    //     $phoneElement = $xpath->query('//div[contains(@class, "hostel__detail--host")]//a[contains(@class, "button btn-cta")]');
+    //     $phone = $phoneElement->length > 0 ? htmlspecialchars($phoneElement[0]->textContent) : 'Không có số điện thoại';
+    
+    //     // Lấy mô tả
+    //     $descriptionElement = $xpath->query('//div[contains(@class, "content-detail")]');
+    //     $description = $descriptionElement->length > 0 ? htmlspecialchars($descriptionElement[0]->textContent) : 'Không có mô tả';
+    
+    //     // In ra thông tin chi tiết sản phẩm
+    //     echo "<h2>Thông tin chi tiết sản phẩm:</h2>";
+    //     echo "Tiêu đề: $title<br>";
+    //     echo "Hình ảnh: <img src='$imageSrc' alt='$title' style='max-width: 200px;'><br>";
+    //     echo "Giá: $price VND<br>";
+    //     echo "Số điện thoại: $phone<br>";
+    //     echo "Mô tả: $description<br><br>";
+    // }
     public function getData() {
         set_time_limit(0); // Không giới hạn thời gian thực thi
     
         // Bước 1: Lấy nội dung từ trang chính
-        $baseUrl = 'https://tromoi.com/phong-tro'; // URL chính
+        $baseUrl = 'https://tromoi.com/phong-tro?_url=%2Fphong-tro&page=2'; // URL chính
         $html = @file_get_contents($baseUrl); // Lấy nội dung HTML
     
         if ($html === false) {
@@ -326,8 +481,8 @@ class ZoneOwnersController extends Controller
         // Lấy tất cả các thẻ <div> với class "hostel-item"
         $hostelItems = $xpath->query('//div[contains(@class, "hostel-item")]');
     
-        // Mảng để lưu trữ các link chi tiết
-        $detailLinks = [];
+        // Mảng để theo dõi các link đã lấy
+        $seenLinks = [];
     
         // Duyệt qua từng nhà trọ
         foreach ($hostelItems as $item) {
@@ -335,33 +490,23 @@ class ZoneOwnersController extends Controller
             $linkElement = $xpath->query('.//a[contains(@class, "hostel-item__link")]', $item);
             $detailLink = $linkElement->length > 0 ? $linkElement[0]->getAttribute('href') : '';
     
-            // Chỉ thêm link nếu có
-            if ($detailLink) {
-                $detailLinks[] = $detailLink;
+            // Chỉ in ra thông tin nếu có link và chưa được lấy
+            if ($detailLink && !in_array($detailLink, $seenLinks)) {
+                // Thêm link vào mảng đã thấy
+                $seenLinks[] = $detailLink;
+    
+                // Gọi hàm để lấy thông tin chi tiết từ link
+                $this->getHostelDetails($detailLink);
             }
         }
-    
-        // Gọi hàm để lấy thông tin chi tiết từ nhiều link
-        $dataToInsert = $this->getHostelDetails($detailLinks);
-    
-        // Thêm tất cả dữ liệu vào cơ sở dữ liệu một lần
-        // if (!empty($dataToInsert)) {
-        //     $result = $this->zoneServices->createMultiple($dataToInsert);
-        //     if ($result) {
-        //         echo "Thành công: Dữ liệu đã được thêm vào cơ sở dữ liệu.<br>";
-        //     } else {
-        //         echo "Thất bại: Không thể thêm dữ liệu vào cơ sở dữ liệu.<br>";
-        //     }
-        // }
     }
-    
     
     private function getHostelDetails($url) {
         // Lấy nội dung từ link chi tiết
         $html = @file_get_contents($url);
         if ($html === false) {
             echo "Không thể lấy nội dung từ URL: $url<br>";
-            return null; // Trả về null nếu không lấy được nội dung
+            return;
         }
     
         // Tạo đối tượng DOMDocument để phân tích cú pháp HTML
@@ -372,38 +517,51 @@ class ZoneOwnersController extends Controller
         // Lấy tiêu đề
         $titleElement = $xpath->query('//h1[@class="box-title"]');
         $title = $titleElement->length > 0 ? htmlspecialchars($titleElement[0]->textContent) : 'Không có tiêu đề';
-        echo "Tiêu đề: $title<br>";
     
         // Lấy hình ảnh đầu tiên
         $imageElement = $xpath->query('//div[contains(@class, "hostel__detail--frame")]//img');
         $imageSrc = $imageElement->length > 0 ? $imageElement[0]->getAttribute('src') : 'Không có hình ảnh';
-        echo "Hình ảnh: $imageSrc<br>";
     
         // Lấy giá
         $priceElement = $xpath->query('//div[contains(@class, "hostel__detail--price")]//div[@class="value"]');
         $price = $priceElement->length > 0 ? preg_replace('/[^0-9]/', '', $priceElement[0]->textContent) : 'Không có giá';
-        echo "Giá: $price<br>";
     
         // Lấy số điện thoại
         $phoneElement = $xpath->query('//div[contains(@class, "hostel__detail--host")]//a[contains(@class, "button btn-cta")]');
         $phone = $phoneElement->length > 0 ? htmlspecialchars($phoneElement[0]->textContent) : 'Không có số điện thoại';
-        echo "Số điện thoại: $phone<br>";
     
         // Lấy mô tả
         $descriptionElement = $xpath->query('//div[contains(@class, "content-detail")]');
         $description = $descriptionElement->length > 0 ? htmlspecialchars($descriptionElement[0]->textContent) : 'Không có mô tả';
-        echo "Mô tả: $description<br>";
     
-        // Trả về dữ liệu để thêm vào cơ sở dữ liệu
-        return [
+        // In ra thông tin chi tiết sản phẩm
+        echo "<h2>Thông tin chi tiết sản phẩm:</h2>";
+        echo "Tiêu đề: $title<br>";
+        echo "Hình ảnh: <img src='$imageSrc' alt='$title' style='max-width: 200px;'><br>";
+        echo "Giá: $price VND<br>";
+        echo "Số điện thoại: $phone<br>";
+        echo "Mô tả: $description<br><br>";
+    
+        // Thêm dữ liệu vào cơ sở dữ liệu
+        $data = [
             'title' => $title,
             'description' => $description,
             'image' => $imageSrc,
             'price' => $price,
             'phone' => $phone,
-            'slug' => Str::slug($title), // Tạo slug từ tiêu đề
+             // Tạo slug từ tiêu đề
             'created_at' => now(), // Thay thế bằng thời gian hiện tại
             'updated_at' => now(), // Thay thế bằng thời gian hiện tại
         ];
+    
+        // Giả định bạn có một dịch vụ để thêm dữ liệu vào cơ sở dữ liệu
+        $result = $this->zoneServices->createMultiple($data);
+    
+        // Kiểm tra kết quả và in ra thông báo
+        if ($result) {
+            echo "Thành công: Dữ liệu đã được thêm vào cơ sở dữ liệu.<br>";
+        } else {
+            echo "Thất bại: Không thể thêm dữ liệu vào cơ sở dữ liệu.<br>";
+        }
     }
 }
