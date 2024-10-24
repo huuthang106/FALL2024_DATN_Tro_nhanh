@@ -48,7 +48,7 @@
                     </div>
                     <div class="col-xl-4">
                         <!--begin::Statistics Widget 5-->
-                        <span href="#" class="card bg-primary hoverable card-xl-stretch mb-xl-8">
+                        <a href="#" class="card bg-primary hoverable card-xl-stretch mb-xl-8">
                             <!--begin::Body-->
                             <div class="card-body">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen008.svg-->
@@ -71,22 +71,16 @@
                                 </span>
                                 <!--end::Svg Icon-->
                                 <div class="text-white fw-bolder fs-2 mb-2 mt-5">{{ $totalCategories }} Loại phòng</div>
-                                {{-- <div class="fw-bold text-white">Căn hộ, Phòng trọ, Nhà nguyên căn, ...</div> --}}
-                                <div class="fw-bold text-white">
-                                    <a href="{{ route('admin.list-category') }}"
-                                        class="text-white text-hover-gray">{{ $topCategories[0] ?? 'N/A' }},
-                                        {{ $topCategories[1] ?? 'N/A' }}, ...</a>
-                                </div>
+                                <div class="fw-bold text-white">Tổng số loại phòng hiện có</div>
                             </div>
                             <!--end::Body-->
-                        </span>
+                        </a>
                         <!--end::Statistics Widget 5-->
                     </div>
                     <div class="col-xl-4">
                         <!--begin::Statistics Widget 5-->
                         <a href="#" class="card bg-dark hoverable card-xl-stretch mb-5 mb-xl-8">
-                            phần doanh thu
-                            {{-- <div class="card-body">
+                            <div class="card-body">
                                 <span class="svg-icon svg-icon-gray-100 svg-icon-3x ms-n1">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none">
@@ -98,17 +92,35 @@
                                     </svg>
                                 </span>
                                 <div class="text-gray-100 fw-bolder fs-2 mb-2 mt-5">
-                                    {{ $packageStatistics['totalPurchases'] }} Lượt mua gói</div>
+                                    {{ $monthlyVIPPurchases[date('n')] }} Lượt mua VIP
+                                </div>
                                 <div class="fw-bold text-gray-100">
-                                    @if ($packageStatistics['purchaseIncreasePercentage'] > 0)
-                                        Tăng {{ $packageStatistics['purchaseIncreasePercentage'] }}% so với tháng trước
-                                    @elseif($packageStatistics['purchaseIncreasePercentage'] < 0)
-                                        Giảm {{ abs($packageStatistics['purchaseIncreasePercentage']) }}% so với tháng trước
+                                    @php
+                                        $currentMonth = date('n');
+                                        $lastMonth = $currentMonth - 1 ?: 12;
+                                        $currentMonthPurchases = $monthlyVIPPurchases[$currentMonth] ?? 0;
+                                        $lastMonthPurchases = $monthlyVIPPurchases[$lastMonth] ?? 0;
+                                        $increasePercentage =
+                                            $lastMonthPurchases > 0
+                                                ? round(
+                                                    (($currentMonthPurchases - $lastMonthPurchases) /
+                                                        $lastMonthPurchases) *
+                                                        100,
+                                                    2,
+                                                )
+                                                : ($currentMonthPurchases > 0
+                                                    ? 100
+                                                    : 0);
+                                    @endphp
+                                    @if ($increasePercentage > 0)
+                                        Tăng {{ $increasePercentage }}% so với tháng trước
+                                    @elseif($increasePercentage < 0)
+                                        Giảm {{ abs($increasePercentage) }}% so với tháng trước
                                     @else
                                         Không thay đổi so với tháng trước
                                     @endif
                                 </div>
-                            </div> --}}
+                            </div>
                         </a>
                         <!--end::Statistics Widget 5-->
                     </div>
@@ -241,35 +253,37 @@
                                 </div> --}}
                             </div>
                             <div class="card-body pt-5">
-                                @if ($recentUsers->isNotEmpty())
-                                    @foreach ($recentUsers as $user)
-                                        <div class="d-flex align-items-center mb-7">
-                                            <div class="symbol symbol-50px me-5">
-                                                <span class="symbol-label bg-light-success">
-                                                    @if ($user['image'])
-                                                        <img src="{{ asset('assets/images/' . $user['image']) }}"
-                                                            alt="{{ $user['name'] }}" class="hehe rounded-circle">
-                                                    @else
-                                                        <img src="{{ asset('assets/images/agent-43.jpg') }}"
-                                                            alt="Default Avatar" class="hehe rounded-circle">
-                                                    @endif
-                                                </span>
+                                <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
+                                    @if ($recentUsers->isNotEmpty())
+                                        @foreach ($recentUsers as $user)
+                                            <div class="d-flex align-items-center mb-7">
+                                                <div class="symbol symbol-50px me-5">
+                                                    <!-- symbol-label bg-light-success -->
+                                                    <span class="">
+                                                        @if ($user['image'])
+                                                            <img src="{{ asset('assets/images/' . $user['image']) }}"
+                                                                alt="{{ $user['name'] }}" class="hehe rounded-circle">
+                                                        @else
+                                                            <img src="{{ asset('assets/images/agent-43.jpg') }}"
+                                                                alt="Default Avatar" class="hehe rounded-circle">
+                                                        @endif
+                                                    </span>
+                                                </div>
+                                                <div class="d-flex flex-column">
+                                                    <!-- text-hover-primary -->
+                                                    <span
+                                                        class="text-dark text-hover-primary fs-6 fw-bolder">{{ $user['name'] }}</span>
+                                                    <span class="text-muted fw-bold">{{ $user['time_ago'] }}</span>
+                                                    <span class="text-muted fw-bold">{{ $user['email'] }}</span>
+                                                </div>
                                             </div>
-                                            <div class="d-flex flex-column">
-                                                <!-- text-hover-primary -->
-                                                <span
-                                                    class="text-dark text-hover-primary fs-6 fw-bolder">{{ $user['name'] }}</span>
-                                                <span class="text-muted fw-bold">{{ $user['time_ago'] }}</span>
-                                                <span class="text-muted fw-bold">{{ $user['email'] }}</span>
-                                            </div>
-                                         
+                                        @endforeach
+                                    @else
+                                        <div class="text-center">
+                                            Chưa có dữ liệu.
                                         </div>
-                                    @endforeach
-                                @else
-                                    <div class="text-center">
-                                        Chưa có dữ liệu.
-                                    </div>
-                                @endif
+                                    @endif
+                                </div>
                             </div>
                             <!--end::Body-->
                         </div>
@@ -283,7 +297,7 @@
                             <!--begin::Header-->
                             <div class="card-header border-0 pt-5">
                                 <h3 class="card-title align-items-start flex-column">
-                                    <span class="card-label fw-bolder fs-3 mb-1">Các Danh Mục Phòng</span>
+                                    <span class="card-label fw-bolder fs-3 mb-1">Các danh mục phòng</span>
                                     @if (isset($roomsCountByCategoryType) && is_countable($roomsCountByCategoryType))
                                         <span class="text-muted mt-1 fw-bold fs-7">Có tất cả
                                             {{ count($roomsCountByCategoryType) }}
@@ -300,9 +314,10 @@
                                     <!--begin::Tap pane-->
                                     <div class="tab-pane fade show active" id="kt_table_widget_5_tab_1">
                                         <!--begin::Table container-->
-                                        <div class="table-responsive">
+                                        <div class="table-responsive pe-2" style="max-height: 300px; overflow-y: auto;">
                                             <!--begin::Table-->
-                                            <table class="table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4">
+                                            <table
+                                                class="table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4">
                                                 <!--begin::Table head-->
                                                 <thead>
                                                     <tr class="border-0">
@@ -337,7 +352,8 @@
                                                                     {{ $roomsCount }} phòng
                                                                 </td>
                                                                 <td class="text-end">
-                                                                    <span class="badge badge-light-success">Hoạt động</span>
+                                                                    <span class="badge badge-light-success">Hoạt
+                                                                        động</span>
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -482,7 +498,7 @@
                             </div>
                             <!--end::Header-->
                             <!--begin::Body-->
-                            {{-- <div class="card-body pt-2">
+                            <div class="card-body pt-2">
                                 @if ($topPackages->isNotEmpty())
                                     @foreach ($topPackages as $package)
                                         <!--begin::Item-->
@@ -492,15 +508,17 @@
                                             <!--end::Bullet-->
                                             <!--begin::Checkbox-->
                                             <div class="form-check form-check-custom form-check-solid mx-5">
-                                                <input class="form-check-input" type="checkbox" value="" />
+                                                {{-- <input class="form-check-input" type="checkbox" value="" /> --}}
                                             </div>
                                             <!--end::Checkbox-->
                                             <!--begin::Description-->
                                             <div class="flex-grow-1">
-                                                <span
-                                                    class="text-gray-800 text-hover-primary fw-bolder fs-6">{{ $package->description }}</span>
-                                                <span class="text-muted fw-bold d-block">Số lượng mua:
-                                                    {{ $package->total_quantity }}</span>
+                                                <span class="text-gray-800 text-hover-primary fw-bolder fs-6">
+                                                    Tên gói: {{ Str::limit($package->name, 20) }}
+                                                </span>
+                                                <span class="text-muted fw-bold d-block">
+                                                    Số lượng mua: {{ $package->total_purchases }}
+                                                </span>
                                             </div>
                                             <!--end::Description-->
                                             <span class="badge badge-light-danger fs-8 fw-bolder">HOT</span>
@@ -512,7 +530,7 @@
                                         Chưa có dữ liệu.
                                     </div>
                                 @endif
-                            </div> --}}
+                            </div>
                             <!--end::Body-->
                         </div>
                         <!--end:List Widget 3-->
@@ -668,7 +686,7 @@
                                     <span class="fw-bolder text-dark">Người đăng tin được đánh giá cao</span>
                                     {{-- <span class="text-muted mt-1 fw-bold fs-7">Articles and publications</span> --}}
                                 </h3>
-                                <div class="card-toolbar">
+                                {{-- <div class="card-toolbar">
                                     <!--begin::Menu-->
                                     <button type="button"
                                         class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
@@ -780,7 +798,7 @@
                                     </div>
                                     <!--end::Menu 1-->
                                     <!--end::Menu-->
-                                </div>
+                                </div> --}}
                             </div>
                             <!--end::Header-->
                             <!--begin::Body-->
@@ -791,7 +809,7 @@
                                             <!--begin::Symbol-->
                                             <div class="symbol symbol-60px symbol-2by3 me-4">
                                                 <div class="symbol-label"
-                                                    style="background-image: url('{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('assets/media/avatars/blank.png') }}')">
+                                                    style="background-image: url('{{ $user->image ? asset('assets/images/' . $user->image) : asset('assets/images/agent-25.jpg') }}')">
                                                 </div>
                                             </div>
                                             <!--end::Symbol-->
@@ -806,7 +824,7 @@
                                                     <span class="text-muted fw-bold d-block pt-1">Đánh giá:
                                                         {{ $user->average_rating }}/5 ({{ $user->total_reviews }}
                                                         lượt)</span>
-                                                    <div class="d-flex align-items-center pt-2">
+                                                    {{-- <div class="d-flex align-items-center pt-2">
                                                         @foreach ($user->ratings_distribution as $rating => $percentage)
                                                             <div class="d-flex align-items-center me-2">
                                                                 <span
@@ -820,7 +838,7 @@
                                                                 </div>
                                                             </div>
                                                         @endforeach
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                                 <span class="badge badge-light-success fs-8 fw-bolder my-2">Top
                                                     {{ $index + 1 }}</span>
@@ -931,7 +949,7 @@
                                 <h3 class="card-title fw-bolder text-dark">Các báo cáo mới</h3>
                                 <div class="card-toolbar">
                                     <!--begin::Menu-->
-                                    <button type="button"
+                                    {{-- <button type="button"
                                         class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
                                         data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                         <!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
@@ -1032,14 +1050,14 @@
                                             <a href="#" class="menu-link px-3">Settings</a>
                                         </div>
                                         <!--end::Menu item-->
-                                    </div>
+                                    </div> --}}
                                     <!--end::Menu 3-->
                                     <!--end::Menu-->
                                 </div>
                             </div>
                             <!--end::Header-->
                             <!--begin::Body-->
-                            {{-- <div class="card-body pt-0">
+                            <div class="card-body pt-0">
                                 @if ($latestReports->isNotEmpty())
                                     @foreach ($latestReports as $report)
                                         <div class="d-flex align-items-center bg-light-warning rounded p-5 mb-7">
@@ -1057,10 +1075,11 @@
                                                 </a>
                                                 <span
                                                     class="text-muted fw-bold d-block">{{ $report->created_at->format('d/m/Y H:i') }}</span>
-                                              <span class="text-muted fw-bold d-block">Người báo cáo:
-                                                {{ $report->user_name }}</span>
-                                            <span class="text-muted fw-bold d-block">Mô tả:
-                                                {{ Str::limit($report->description, 50) }}</span> 
+                                                <span class="text-muted fw-bold d-block">Người bị báo cáo:
+                                                    {{ $report->reported_person_name ?? 'Không xác định' }}
+                                                </span>
+                                                {{-- <span class="text-muted fw-bold d-block">Mô tả:
+                                                    {{ Str::limit($report->description, 50) }}</span> --}}
                                             </div>
                                             <!--end::Title-->
                                             <!--begin::Lable-->
@@ -1087,7 +1106,7 @@
                                     </div>
                                 @endif
                                 <!--begin::Item-->
-                                <div class="d-flex align-items-center bg-light-warning rounded p-5 mb-7">
+                                {{-- <div class="d-flex align-items-center bg-light-warning rounded p-5 mb-7">
                                     <!--begin::Icon-->
                                     <span class="svg-icon svg-icon-warning me-5">
                                         <!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
@@ -1209,9 +1228,9 @@
                                     <!--begin::Lable-->
                                     <span class="fw-bolder text-info py-1">+8%</span>
                                     <!--end::Lable-->
-                                </div>
+                                </div> --}}
                                 <!--end::Item-->
-                            </div> --}}
+                            </div>
                             <!--end::Body-->
                         </div>
                         <!--end::List Widget 6-->
@@ -1398,9 +1417,9 @@
     </script> --}}
     <!-- Biểu đồ -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    {{-- <script>
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
-            var monthlyRevenue = @json($monthlyRevenue);
+            var monthlyRevenue = @json($packageStatistics['monthlyRevenue']);
             console.log('Monthly Revenue:', monthlyRevenue);
 
             var categories = ["Th1", "Th2", "Th3", "Th4", "Th5", "Th6", "Th7", "Th8", "Th9", "Th10", "Th11",
@@ -1522,5 +1541,5 @@
             var chart = new ApexCharts(document.querySelector("#kt_charts_widget_1_chart_1"), options);
             chart.render();
         });
-    </script> --}}
+    </script>
 @endpush
