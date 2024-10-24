@@ -908,5 +908,63 @@ class ZoneServices
                 }
             }
         return $updatedCount; // Trả về số lượng zone đã được cập nhật
+ 
     }
+    public function createMultiple($data)
+{
+
+
+   
+        // Kiểm tra category_id
+       
+        // Tạo một đối tượng Zone mới
+        $zone = new Zone();
+        $zone->status = 1; // Mặc định trạng thái
+        $zone->name = $data['title'] ?? ''; // Kiểm tra nếu có
+        $zone->description = $data['description'] ?? '';
+        $zone->phone = $data['phone'] ?? '';
+        $zone->address = $data['address'] ?? '';
+        $zone->view = $data['view'] ?? 0; // Giá trị mặc định
+        $zone->province = $data['province'] ?? '';
+        $zone->district = $data['district'] ?? '';
+        $zone->village = $data['village'] ?? '';
+        $zone->longitude = $data['longitude'] ?? 0; // Giá trị mặc định
+        $zone->latitude = $data['latitude'] ?? 0; // Giá trị mặc định
+        $zone->user_id = 1; // Gán ID người dùng
+        $zone->category_id = 1; // Gán category_id
+
+        // Kiểm tra các trường trước khi lưu
+       
+        // Tạo một đối tượng Room mới
+        $room = new Room();
+        $room->title = $data['title'] ?? ''; // Lấy tên phòng từ dữ liệu
+        $room->description = $data['description'] ?? ''; // Lấy mô tả phòng từ dữ liệu
+        $room->price = $data['price'] ?? 0; // Lấy giá phòng từ dữ liệu
+        $room->quantity = 1; // Lấy số lượng phòng từ dữ liệu, mặc định là 1
+        $room->zone_id = $zone->id; // Gán zone_id cho phòng
+
+        // Kiểm tra và lưu hình ảnh
+        if (isset($data['image'])) {
+            $imagePath = public_path('assets/images'); // Đường dẫn đến thư mục lưu ảnh
+            if (!file_exists($imagePath)) {
+                mkdir($imagePath, 0755, true); // Tạo thư mục nếu chưa tồn tại
+            }
+
+            // Tải hình ảnh từ URL và lưu vào thư mục
+            $imageUrl = $data['image']; // Đường dẫn hình ảnh
+            $imageContent = @file_get_contents($imageUrl);
+            if ($imageContent !== false) {
+                $newFileName = time() . '_' . basename($imageUrl); // Tạo tên file mới
+                file_put_contents($imagePath . '/' . $newFileName, $imageContent); // Lưu hình ảnh vào thư mục
+                $room->image = $newFileName; // Lưu tên file mới vào cơ sở dữ liệu
+            } else {
+                echo "Không thể tải hình ảnh từ URL: $imageUrl<br>";
+            }
+        }
+
+        // Lưu phòng và kiểm tra lỗi
+        
+
+    return true; // Trả về true nếu thành công
+}
 }

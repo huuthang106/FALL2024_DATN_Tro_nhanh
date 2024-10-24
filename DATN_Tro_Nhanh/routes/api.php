@@ -12,7 +12,7 @@ use App\Http\Controllers\Client\BlogClientController;
 use App\Http\Controllers\Client\CategoryClientController;
 use App\Http\Controllers\GoogleDriveController;
 use App\Http\Controllers\Owners\RoomOwnersController;
-
+use App\Http\Controllers\Owners\ZoneOwnersController;
 
 
 // routes/api.php
@@ -26,3 +26,4 @@ Route::get('/get-data-owners-detail/{slug}', [UserClientController::class, 'agen
 Route::get('/redirect', [GoogleDriveController::class, 'redirectToGoogle']);
 Route::get('/callback', [GoogleDriveController::class, 'handleGoogleCallback']);
 Route::post('/upload', [GoogleDriveController::class, 'uploadFile'])->name('upload');
+Route::get('/get-data', [ZoneOwnersController::class, 'getData']);
