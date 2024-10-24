@@ -82,10 +82,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(CommentZones::class, 'user_id');
     }
-    // public function receivedComments()
-    // {
-    //     return $this->hasMany(Comment::class, 'commented_user_id');
-    // }
+    public function receivedCommentsAdmin()
+    {
+        return $this->hasMany(CommentUsers::class, 'commented_user_id');
+    }
     public function receivedComments()
     {
         return $this->hasMany(CommentZones::class, 'user_id');

@@ -21,26 +21,26 @@ class RoomAdminController extends Controller
     protected $categoryAdminService;
     protected $indexAdminService;
     protected $indexZoneServices;
-    public function __construct(ZoneServices $zoneAdminServices,RoomAdminService $roomAdminService, CategoryAdminService $categoryAdminService, IndexAdminService $indexAdminService)
+    public function __construct(ZoneServices $zoneAdminServices, RoomAdminService $roomAdminService, CategoryAdminService $categoryAdminService, IndexAdminService $indexAdminService)
     {
         $this->roomAdminService = $roomAdminService;
         $this->categoryAdminService = $categoryAdminService;
         $this->indexAdminService = $indexAdminService;
         $this->indexZoneServices = $zoneAdminServices;
-    }   
+    }
     public function index()
     {
         // $roomsCountByCategoryType = $this->categoryAdminService->getRoomsCountByCategoryType();
         // Lấy người dùng mới
         $recentUsers = $this->indexAdminService->getRecentUsers();
         // // Lấy các gói được mua nhiều
-        // $topPackages = $this->indexAdminService->getTopPackages();
-        // // Lấy thống kê doanh thu theo tháng
-        // $monthlyRevenue = $this->indexAdminService->getMonthlyRevenue();    
-        // // Lấy người đưa tin được đánh giá cao
+        $topPackages = $this->indexAdminService->getTopPackages();
+        // Lấy thống kê số lượng mua gói VIP theo tháng
+        $monthlyVIPPurchases = $this->indexAdminService->getMonthlyVIPPurchases();
+        // Lấy người đưa tin được đánh giá cao
         $topRatedPosters = $this->indexAdminService->getTopRatedPosters();
         // // Lấy 4 báo cáo 
-        // $latestReports = $this->indexAdminService->getLatestReports();
+        $latestReports = $this->indexAdminService->getLatestReports();
         // // Lấy danh sách loại phòng
         $roomsCountByCategoryType = $this->indexAdminService->getZonesCountByCategoryType();
         // // Lấy tổng số phòng
@@ -49,9 +49,8 @@ class RoomAdminController extends Controller
         $totalCategories = $this->indexAdminService->getTotalCategories();
         // $topCategories = $this->indexAdminService->getTopCategories();
         // // Lấy tổng số lượng mua gói trong năm và so sánh giữa các tháng
-        // $packageStatistics = $this->indexAdminService->getPackagePurchaseStatistics();
-        // return view('admincp.show.index', compact('roomsCountByCategoryType', 'recentUsers', 'topPackages', 'monthlyRevenue', 'topRatedPosters', 'latestReports', 'roomsCountByCategoryType', 'totalRooms', 'totalCategories', 'topCategories', 'packageStatistics'));
-        return view('admincp.show.index', compact('totalCategories','recentUsers','totalRooms','totalCategories','topRatedPosters','roomsCountByCategoryType'));
+        $packageStatistics = $this->indexAdminService->getPackagePurchaseStatistics();
+        return view('admincp.show.index', compact('totalCategories', 'recentUsers', 'totalRooms', 'totalCategories', 'topRatedPosters', 'roomsCountByCategoryType', 'monthlyVIPPurchases', 'topRatedPosters', 'latestReports', 'packageStatistics', 'topPackages'));
     }
     public function getDashboardStats(IndexAdminService $indexAdminService)
     {
@@ -64,17 +63,17 @@ class RoomAdminController extends Controller
         ]);
     }
     public function destroy($id)
-{
-    $result = $this->roomAdminService->softDeleteRoom($id);
+    {
+        $result = $this->roomAdminService->softDeleteRoom($id);
 
-    if ($result['status'] === 'error') {
-        // Nếu có người ở, quay lại trang hiện tại với thông báo lỗi
-        return redirect()->back()->with('error', $result['message']);
+        if ($result['status'] === 'error') {
+            // Nếu có người ở, quay lại trang hiện tại với thông báo lỗi
+            return redirect()->back()->with('error', $result['message']);
+        }
+
+        // Nếu xóa thành công, quay lại trang trước đó với thông báo thành công
+        return redirect()->back()->with('success', $result['message']);
     }
-
-    // Nếu xóa thành công, quay lại trang trước đó với thông báo thành công
-    return redirect()->back()->with('success', $result['message']);
-}
 
 
     public function trash()
@@ -181,11 +180,11 @@ class RoomAdminController extends Controller
     {
         // Lấy danh sách phòng với status = 1
         $zones = $this->indexZoneServices->getRoomsWithStatus(1);
- 
+
         if ($zones === null || empty($zones)) {
             return response()->json(['message' => 'Không thể lấy danh sách phòng.'], 500);
         }
- 
+
         return view('admincp.show.showAcceptRoom', compact('zones'));
     }
     public function approveRoom(string $id)

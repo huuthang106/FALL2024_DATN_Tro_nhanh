@@ -10,6 +10,7 @@
     @stack('styleUs')
     <!-- Fonts -->
     <meta name="google-site-verification" content="S8_uq6Cve3CDUmFSZllcxo8BAPFlrpwmzUlZzwv0iR4" />
+    <meta name="user-logged-in" content="{{ Auth::check() ? 'true' : 'false' }}">
     <link href="{{ asset('assets/css/user.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ asset('assets/css/style-ntt.css') }}">
     @livewireStyles
@@ -28,13 +29,13 @@
 </script>
 
 <body>
-  
+
     @if (Request::is('/'))
         <x-navbar-home />
     @else
         <x-navbar-default />
     @endif
- 
+
     @yield('contentUs')
     <footer class="bg-dark pt-8 pb-6 footer text-muted">
         <div class="container">
