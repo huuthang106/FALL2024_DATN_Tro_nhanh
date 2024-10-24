@@ -14,6 +14,7 @@ class SendRefusalNotification
     /**
      * Create the event listener.
      */
+    protected const plus_money = 1;
     public function __construct()
     {
         //
@@ -43,6 +44,7 @@ class SendRefusalNotification
                 'added_funds' => $deposit,
                 'balance' => $user->balance,
                 'description' => 'Đơn của bạn đã bị từ chối. Lý do: ' . implode(', ', $event->reasons) . ($event->note ? " - Ghi chú: $event->note" : ''),
+                'status' => self::plus_money,
             ]);
         } catch (\Exception $e) {
             Log::error('Không thể lưu thông báo khi từ chối đơn: ' . $e->getMessage());

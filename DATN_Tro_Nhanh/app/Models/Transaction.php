@@ -19,6 +19,7 @@ class Transaction extends Model
         'type',         // Loại giao dịch
         'description',  // Mô tả
         'balance',      // Số dư
+        'status',
     ];
 
     public function user()

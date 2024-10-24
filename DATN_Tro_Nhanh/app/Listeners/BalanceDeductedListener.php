@@ -28,6 +28,7 @@ class BalanceDeductedListener
             'description' => $event->type, // Loại giao dịch
             'type' => $event->description, // Mô tả
             'balance' => $event->balance, // Số dư hiện tại
+            'status' => $event->status,
         ]);
     }
 }

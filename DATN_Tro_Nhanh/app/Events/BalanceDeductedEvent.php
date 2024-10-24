@@ -18,11 +18,12 @@ class BalanceDeductedEvent
     public $type;
     public $description;
     public $balance;
+    public $status;
     /**
      * Create a new event instance.
      * 
      */
-    public function __construct($userId, $amount, $type, $description, $balance)
+    public function __construct($userId, $amount, $type, $description, $balance, $status)
     {
         //
         $this->userId = $userId;
@@ -30,6 +31,7 @@ class BalanceDeductedEvent
         $this->type = $type;
         $this->description = $description;
         $this->balance = $balance;
+        $this->status = $status;
     }
 
     /**
