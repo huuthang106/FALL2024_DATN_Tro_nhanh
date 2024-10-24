@@ -314,7 +314,7 @@
                             {{-- @if (Auth::check())
                                 @if ($role != '1')
                                     <li class="nav-item ml-auto w-100 w-sm-auto list-unstyled">
-                                        <a class="btn btn-primary btn-lg" href="{{ route('owners.add-room') }}">
+                                        <a class="btn btn-primary btn-lg" href="{{ route('owners.zone-post') }}">
                                             Cho thuê
                                             <img src="{{ asset('assets/images/add-listing-icon.png') }}"
                                                 alt="Add listing" class="ml-1">
@@ -388,13 +388,13 @@
                             @if ($role != '1')
                                 <li class="nav-item">
                                     <a class="btn btn-lg text-heading border bg-hover-primary border-hover-primary hover-white d-none d-lg-block"
-                                        href="{{ route('owners.add-room') }}">
+                                        href="{{ route('owners.zone-post') }}">
                                         Cho thuê
                                         <img src="{{ asset('assets/images/add-listing-icon-primary.png') }}"
                                             alt="Add listing" class="ml-1">
                                     </a>
                                     <a class="btn btn-primary btn-lg d-block d-lg-none"
-                                        href="{{ route('owners.add-room') }}">
+                                        href="{{ route('owners.zone-post') }}">
                                         Cho thuê
                                         <img src="{{ asset('assets/images/add-listing-icon.png') }}"
                                             alt="Add listing" class="ml-1">

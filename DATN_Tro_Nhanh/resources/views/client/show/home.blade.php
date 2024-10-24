@@ -405,8 +405,9 @@
                                         $image = $zone->rooms->first()->image ?? null;
                                     @endphp
                                     @if ($image)
-                                        <img src="{{ asset('assets/images/' . $image) }}" alt="{{ $zone->title }}"
-                                            class="img-fluid w-100 h-100 rounded" style="object-fit: cover;">
+                                    {{-- <img src="https://drive.google.com/uc?export=view&id={{ $image }}" alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded" style="object-fit: cover;"> --}}
+                                    <img src="https://drive.google.com/thumbnail?id={{ $image }}" alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded" style="object-fit: cover;" loading="lazy">
+
                                     @else
                                         <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
                                             alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
@@ -676,8 +677,8 @@
                                         $image = $zone->rooms->first()->image ?? null;
                                     @endphp
                                     @if ($image)
-                                        <img src="{{ asset('assets/images/' . $image) }}" alt="{{ $zone->title }}"
-                                            class="img-fluid w-100 h-100 rounded" style="object-fit: cover;">
+                                    <img src="https://drive.google.com/thumbnail?id={{ $image }}" alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded" style="object-fit: cover;" loading="lazy">
+
                                     @else
                                         <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
                                             alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
@@ -838,7 +839,7 @@
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="card-body p-0 pl-0 pl-sm-5 pt-5 pt-sm-0">
-                                        <a href="{{ auth()->check() && auth()->user()->role == 2 ? route('owners.add-room') : route('client.home') }}"
+                                        <a href="{{ auth()->check() && auth()->user()->role == 2 ? route('owners.zone-post') : route('client.home') }}"
                                             class="d-flex align-items-center text-dark hover-secondary">
                                             <h4 class="fs-20 lh-1625 mb-1">Đăng tin</h4>
                                             <span

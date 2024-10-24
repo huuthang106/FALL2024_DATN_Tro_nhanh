@@ -116,7 +116,7 @@
                                             </li>
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"
-                                                    href="{{ route('owners.add-room') }}"  data-route="owners.add-room">Thêm mới trọ</a>
+                                                    href="{{ route('owners.zone-post') }}"  data-route="owners.zone-post">Thêm mới trọ</a>
                                             </li>
                                             <li class="list-group-item px-3 px-xl-4 py-2 sidebar-item">
                                                 <a class="text-heading lh-1 sidebar-link"

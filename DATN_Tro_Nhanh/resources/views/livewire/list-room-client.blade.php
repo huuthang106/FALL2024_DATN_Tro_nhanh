@@ -86,8 +86,8 @@
                             @endphp
                             @if ($image)
                                 <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}">
-                                    <img src="{{ asset('assets/images/' . $image) }}" alt="{{ $zone->title }}"
-                                        class="img-fluid w-100 h-100 rounded" style="object-fit: cover;">
+                                    <img src="https://drive.google.com/thumbnail?id={{ $image }}" alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded" style="object-fit: cover;" loading="lazy">
+
                                 </a>
                             @else
                                 <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}">

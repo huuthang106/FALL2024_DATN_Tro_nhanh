@@ -1178,7 +1178,7 @@
                         </a>
                     </div>
                     <div class="col-sm-6 col-lg-3 mb-6 mb-lg-0">
-                        <a href="{{ auth()->check() && auth()->user()->role == 2 ? route('owners.add-room') : route('client.home') }}"
+                        <a href="{{ auth()->check() && auth()->user()->role == 2 ? route('owners.zone-post') : route('client.home') }}"
                             class="card border-0 shadow-2 px-7 py-5 h-100 shadow-hover-lg-1">
                             <div class="card-img-top d-flex align-items-end justify-content-center">
                                 <img src="{{ asset('assets/images/icon-box-5.png') }}" alt="Đăng bài">

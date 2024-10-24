@@ -8,7 +8,7 @@
                         {{-- <h5 for="invoice-list_length" class="d-block mr-2 mb-0">Tên khu: {{ $zone->name }}</h5> --}}
                     </div>
                     <div class="ml-2 align-self-center">
-                        <a href="{{ route('owners.add-room', $zone->slug) }}" class="btn btn-primary btn-lg"
+                        <a href="{{ route('owners.zone-post', $zone->slug) }}" class="btn btn-primary btn-lg"
                             tabindex="0"><span>Thêm
                                 mới</span></a>
                     </div>

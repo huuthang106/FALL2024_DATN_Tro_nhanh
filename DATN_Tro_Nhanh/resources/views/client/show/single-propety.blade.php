@@ -207,49 +207,7 @@
                                                 <i class="fas fa-heart"></i>
                                             </a>
                                         </li>
-                                        {{-- <li class="list-inline-item mr-2">
-                                            <button type="button"
-                                                class="btn btn-white p-0 d-flex align-items-center justify-content-center w-40px h-40 text-heading bg-hover-primary hover-white rounded-circle border-0 shadow-none"
-                                                data-container="body" data-toggle="popover" data-placement="top"
-                                                data-html="true"
-                                                data-content=' <ul class="list-inline mb-0">
-                          <li class="list-inline-item">
-                            <a href="#" class="text-muted fs-15 hover-dark lh-1 px-2"><i
-	                                                        class="fab fa-twitter"></i></a>
-                          </li>
-                          <li class="list-inline-item ">
-                            <a href="#" class="text-muted fs-15 hover-dark lh-1 px-2"><i
-	                                                        class="fab fa-facebook-f"></i></a>
-                          </li>
-                          <li class="list-inline-item">
-                            <a href="#" class="text-muted fs-15 hover-dark lh-1 px-2"><i
-	                                                        class="fab fa-instagram"></i></a>
-                          </li>
-                          <li class="list-inline-item">
-                            <a href="#" class="text-muted fs-15 hover-dark lh-1 px-2"><i
-	                                                        class="fab fa-youtube"></i></a>
-                          </li>
-                        </ul>
-                        '>
-                                                <i class="far fa-share-alt"></i>
-                                            </button>
-                                        </li> --}}
-                                        {{-- <li class="list-inline-item mr-2">
-                                            <button type="button"
-                                                class="btn btn-white p-0 d-flex align-items-center justify-content-center w-40px h-40 text-heading bg-hover-primary hover-white rounded-circle border-0 shadow-none"
-                                                data-container="body" data-toggle="popover" data-placement="top"
-                                                data-html="true"
-                                                data-content=' <ul class="list-inline mb-0">
-                                                                      <li class="list-inline-item ">
-                                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}&title={{ urlencode($rooms->title) }}&picture={{ urlencode(asset('assets/images/' . $rooms->images->first()->filename)) }}" target="_blank" class="text-muted fs-15 hover-dark lh-1 px-2">
-                                                    <i class="fab fa-facebook-f"></i>
-                                                </a>
-                                            </li>
-                        </ul>
-                        '>
-                                                <i class="far fa-share-alt"></i>
-                                            </button>
-                                        </li> --}}
+
 
                                         <li class="list-inline-item mr-2">
                                             <button type="button" id="share-btn"
@@ -258,12 +216,7 @@
                                                 <i class="far fa-share-alt"></i>
                                             </button>
                                         </li>
-                                        {{-- <li class="list-inline-item">
-                                            <a href="#" data-toggle="tooltip" title="In"
-                                                class="d-flex align-items-center justify-content-center w-40px h-40 bg-white text-heading bg-hover-primary hover-white rounded-circle">
-                                                <i class="far fa-print"></i>
-                                            </a>
-                                        </li> --}}
+
                                     </ul>
                                 </div>
                                 <div class="slick-slider slider-for-01 arrow-haft-inner mx-0"
@@ -275,11 +228,14 @@
                                                 <div class="box px-0">
                                                     <div class="item item-size-3-2">
                                                         <div class="card p-0 hover-change-image">
-                                                            <a href="{{ asset('assets/images/' . $room->image) }}"
+                                                            {{-- <a href="https://drive.google.com/thumbnail?id={{ $room->image }}"
                                                                 class="card-img" data-fancybox="gallery"
                                                                 data-caption="{{ $room->title }}"
-                                                                style="background-image:url('{{ asset('assets/images/' . $room->image) }}')">
-                                                            </a>
+                                                                style="background-image:url('https://drive.google.com/thumbnail?id={{ $room->image }}')">
+                                                            </a> --}}
+                                                            <iframe
+                                                                src="https://drive.google.com/file/d/{{ $room->image }}/preview"
+                                                                style="width: 100%; height: 480px; border: none;"></iframe>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -298,9 +254,8 @@
                                                 <div class="box px-1">
                                                     <div class="item item-size-3-2">
                                                         <div class="card p-0 hover-change-image">
-                                                            <a href="{{ asset('assets/images/' . $room->image) }}"
-                                                                class="card-img" data-gtf-mfp="true" data-gallery-id="04"
-                                                                style="background-image:url('{{ asset('assets/images/' . $room->image) }}')">
+                                                            <a href="javascript:void(0);" class="card-img"
+                                                                style="background-image:url('https://drive.google.com/thumbnail?id={{ $room->image }}')">
                                                             </a>
                                                         </div>
                                                     </div>
@@ -793,12 +748,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="modal fade" id="bookingModal" tabindex="-1" role="dialog" aria-labelledby="bookingModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="bookingModal" tabindex="-1" role="dialog"
+                                        aria-labelledby="bookingModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header border-0 p-4">
                                                     <h5 class="modal-title" id="bookingModalLabel">Đặt Phòng</h5>
-                                                    <button type="button" class="close fs-23" data-bs-dismiss="modal" aria-label="Close">
+                                                    <button type="button" class="close fs-23" data-bs-dismiss="modal"
+                                                        aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
@@ -906,8 +863,8 @@
                                             nhập để gửi báo cáo</a>
                                     @endauth
                                     <!-- <a href="#"
-                                                                                                                                                        class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Yêu
-                                                                                                                                                        cầu thông tin</a> -->
+                                                                                                                                                                        class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Yêu
+                                                                                                                                                                        cầu thông tin</a> -->
 
                                     @if ($zone)
                                         <!-- Nút để mở modal -->
@@ -1171,7 +1128,7 @@
     <script src="{{ asset('assets/js/register-zone.js') }}"></script>
     <script src="{{ asset('assets/js/yeuthich.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
-     <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
+    <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
     <script src="{{ asset('assets/js/alert-report.js') }}"></script>
 
     <script>
@@ -1192,12 +1149,12 @@
     <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
     <script src="{{ asset('assets/js/alert-report.js') }}"></script> --}}
 
-<script>
-    Fancybox.bind("[data-fancybox='gallery']", {
-        // Các tùy chọn tùy chỉnh cho Fancybox
-    });
-</script>
-   
+    <script>
+        Fancybox.bind("[data-fancybox='gallery']", {
+            // Các tùy chọn tùy chỉnh cho Fancybox
+        });
+    </script>
+
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

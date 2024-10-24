@@ -159,7 +159,7 @@ class BlogServices
     return $data['access_token']; // Trả về access token mới
 }
 
-private function uploadImageToGoogleDrive($image, $folderId, $filename)
+public function uploadImageToGoogleDrive($image, $folderId, $filename)
 {
     $client = new \GuzzleHttp\Client();
     $accessToken = $this->getAccessToken(); // Lấy access token mới

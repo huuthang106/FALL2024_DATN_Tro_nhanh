@@ -22,14 +22,14 @@ use App\Models\VipZonePosition;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
-
+use App\Services\BlogServices;
 class ZoneServices
 {
     const CO = 1; // Có tiện ích
     const CHUA_CO = 0; // Chưa có tiện ích
     const DA_TAO = 1; // Trạng thái tạo hóa đơn
     protected $client;
-
+    protected $blogServices;
     private const status = 2;
     public function __construct()
     {
@@ -40,6 +40,7 @@ class ZoneServices
                 'Content-Type' => 'application/json',
             ]
         ]);
+        $this->blogServices = new BlogServices();
     }
     public function getRoomUtilities($zoneId)
     {
@@ -910,7 +911,7 @@ class ZoneServices
         }
         return $updatedCount; // Trả về số lượng zone đã được cập nhật
     }
-    public function createMultiple(array $data)
+    public function createMultiple( $data)
     {
         $zone = new Zone();
         $zone->status = 1; // Mặc định trạng thái
@@ -938,7 +939,7 @@ class ZoneServices
 
         // Tạo một đối tượng Room mới
         $room = new Room();
-        $room->title = $data['title'] ?? ''; // Lấy tên phòng từ dữ liệu
+        $room->title =  'Phòng 1'; // Lấy tên phòng từ dữ liệu
         $room->description = $data['description'] ?? ''; // Lấy mô tả phòng từ dữ liệu
         $room->price = $data['price'] ?? 0; // Lấy giá phòng từ dữ liệu
         $room->quantity = 1; // Lấy số lượng phòng từ dữ liệu, mặc định là 1
@@ -946,18 +947,35 @@ class ZoneServices
 
         // Kiểm tra và lưu hình ảnh
         if (isset($data['image'])) {
-            $imagePath = public_path('assets/images'); // Đường dẫn đến thư mục lưu ảnh
-            if (!file_exists($imagePath)) {
-                mkdir($imagePath, 0755, true); // Tạo thư mục nếu chưa tồn tại
-            }
-
-            // Tải hình ảnh từ URL và lưu vào thư mục
             $imageUrl = $data['image']; // Đường dẫn hình ảnh
             $imageContent = @file_get_contents($imageUrl);
+    
             if ($imageContent !== false) {
-                $newFileName = time() . '_' . basename($imageUrl); // Tạo tên file mới
-                file_put_contents($imagePath . '/' . $newFileName, $imageContent); // Lưu hình ảnh vào thư mục
-                $room->image = $newFileName; // Lưu tên file mới vào cơ sở dữ liệu
+                // Tạo một đối tượng UploadedFile giả để sử dụng hàm uploadImageToGoogleDrive
+                $tempFilePath = tempnam(sys_get_temp_dir(), 'image');
+                file_put_contents($tempFilePath, $imageContent);
+                $uploadedFile = new \Illuminate\Http\UploadedFile(
+                    $tempFilePath,
+                    basename($imageUrl),
+                    mime_content_type($tempFilePath),
+                    null,
+                    true
+                );
+    
+                $folderId = env('GOOGLE_DRIVE_FOLDER_ID'); // Lấy ID thư mục từ .env
+                $filename = time() . '_' . basename($imageUrl); // Tạo tên file mới
+    
+                // Gọi hàm uploadImageToGoogleDrive
+                $uploadResult = $this->blogServices->uploadImageToGoogleDrive($uploadedFile, $folderId, $filename);
+    
+                if (isset($uploadResult['id'])) {
+                    // Lưu ID của file trên Google Drive vào cơ sở dữ liệu
+                    $room->image = $uploadResult['id'];
+                } else {
+                    // Xử lý lỗi nếu không thể tải lên
+                    Log::error('Không thể tải lên hình ảnh: ' . json_encode($uploadResult));
+                    return false;
+                }
             } else {
                 echo "Không thể tải hình ảnh từ URL: $imageUrl<br>";
             }
