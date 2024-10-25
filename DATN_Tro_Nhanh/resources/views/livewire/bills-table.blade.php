@@ -92,7 +92,7 @@
                                 <td class="align-middle">
                                     <div class="d-flex align-items-center">
                                         <a href="{{ route('owners.invoice-preview', $bill->id) }}">
-                                            <p class="align-self-center mb-0 user-name">{{ $bill->description }}</p>
+                                            <p class="align-self-center mb-0 user-name">{{ $bill->title }}</p>
                                         </a>
                                     </div>
                                 </td>

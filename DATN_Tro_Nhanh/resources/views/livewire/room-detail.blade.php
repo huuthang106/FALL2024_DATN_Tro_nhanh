@@ -124,9 +124,126 @@
                                                     </a> --}}
                                                     <button type="button" class="btn btn-primary btn-sm"
                                                         data-toggle="modal"
-                                                        data-target="#invoiceModal{{ $resident->id }}">
+                                                        data-target="#invoiceModal{{ $item->id }}">
                                                         <i class="fal fa-pencil-alt"></i>
                                                     </button>
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="invoiceModal{{ $item->id }}"
+                                                        tabindex="-1" role="dialog"
+                                                        aria-labelledby="invoiceModalLabel{{ $item->id }}"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg modal-dialog-centered"
+                                                            role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title"
+                                                                        id="invoiceModalLabel{{ $item->tenant->id }}">
+                                                                        Tạo hóa đơn cho {{ $item->tenant->name }}
+                                                                    </h5>
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form id="formBills{{ $item->id }}"
+                                                                        action="{{ route('owners.bills-store') }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        <input type="hidden" name="payer_id"
+                                                                            value="{{ $item->tenant_id }}">
+                                                                        <input type="hidden" name="creator_id"
+                                                                            value="{{ auth()->user()->id }}">
+                                                                        <div class="row">
+                                                                            <!-- Cột trái -->
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label
+                                                                                        for="name{{ $item->id }}">Tên
+                                                                                        người ở:</label>
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        id="name{{ $item->id }}"
+                                                                                        value="{{ $item->tenant->name }}"
+                                                                                        readonly>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label
+                                                                                        for="room{{ $item->id }}">Tên
+                                                                                        phòng:</label>
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        id="room{{ $item->id }}"
+                                                                                        value="{{ $item->room->title }}"
+                                                                                        readonly>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label
+                                                                                        for="payment_due_date{{ $item->id }}">Hạn
+                                                                                        thanh toán:</label>
+                                                                                    <input type="date"
+                                                                                        class="form-control"
+                                                                                        id="payment_due_date{{ $item->id }}"
+                                                                                        name="payment_due_date"
+                                                                                        min="{{ date('Y-m-d') }}">
+                                                                                    <span class="text-danger"
+                                                                                        id="payment_due_date-error{{ $item->id }}"></span>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <!-- Cột phải -->
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label
+                                                                                        for="title{{ $item->id }}">Tiêu
+                                                                                        đề:</label>
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        id="title{{ $item->id }}"
+                                                                                        name="title" required
+                                                                                        autocomplete="off"
+                                                                                        placeholder="Nhập tiêu đề hóa đơn">
+                                                                                    <span class="text-danger"
+                                                                                        id="title-error{{ $item->id }}"></span>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label
+                                                                                        for="amount{{ $item->id }}">Số
+                                                                                        tiền:</label>
+                                                                                    <input type="number"
+                                                                                        class="form-control"
+                                                                                        id="amount{{ $item->id }}"
+                                                                                        name="amount" required
+                                                                                        min="0" step="0.01"
+                                                                                        placeholder="Nhập số tiền">
+                                                                                    <span class="text-danger"
+                                                                                        id="amount-error{{ $item->id }}"></span>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label
+                                                                                        for="description{{ $item->id }}">Mô
+                                                                                        tả:</label>
+                                                                                    <textarea class="form-control" id="description{{ $item->id }}" name="description" rows="3"
+                                                                                        placeholder="Nhập mô tả chi tiết về hóa đơn" required></textarea>
+                                                                                    <span class="text-danger"
+                                                                                        id="description-error{{ $item->id }}"></span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer text-right">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-dismiss="modal">Đóng</button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-primary">Tạo hóa
+                                                                                đơn</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <form action="{{ route('owners.erase-tenant', $resident->id) }}"
                                                         method="POST" style="display:inline;">
                                                         @csrf
@@ -228,7 +345,7 @@
             </div>
         </div>
     </div>
-    @foreach ($room->residents as $resident)
+    {{-- @foreach ($room->residents as $resident)
         <div class="modal fade" id="invoiceModal{{ $resident->id }}" tabindex="-1" role="dialog"
             aria-labelledby="invoiceModalLabel{{ $resident->id }}" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -304,7 +421,7 @@
                 </div>
             </div>
         </div>
-    @endforeach
+    @endforeach --}}
     {{-- @if ($room->isNotEmpty()) <!-- Kiểm tra xem có phòng không -->
         @foreach ($room as $room)
             <!-- Lặp qua từng phòng -->

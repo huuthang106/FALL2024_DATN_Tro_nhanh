@@ -192,8 +192,8 @@
                     <article class="col-lg-8">
                         <section>
                             <div class="galleries position-relative">
-                                <div class="position-absolute pos-fixed-top-right z-index-3">
-                                    <ul class="list-inline pt-4 pr-5">
+                                <div class="position-absolute pos-fixed-bottom-right z-index-3 ml-5" style="bottom: 110px;">
+                                    <ul class="list-inline pt-2 ">
                                         {{-- <li class="list-inline-item mr-2">
                                             <a href="{{ route('client.add.favourite', ['slug' => $rooms->slug]) }}"
                                                 class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center">
@@ -863,8 +863,8 @@
                                             nhập để gửi báo cáo</a>
                                     @endauth
                                     <!-- <a href="#"
-                                                                                                                                                                        class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Yêu
-                                                                                                                                                                        cầu thông tin</a> -->
+                                                                                                                                                                            class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Yêu
+                                                                                                                                                                            cầu thông tin</a> -->
 
                                     @if ($zone)
                                         <!-- Nút để mở modal -->

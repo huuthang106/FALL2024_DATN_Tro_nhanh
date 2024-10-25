@@ -17,18 +17,15 @@
                                 aria-controls="invoice-list" class="form-control form-control-lg mr-2 selectpicker"
                                 data-style="bg-white btn-lg h-52 py-2 border">
                                 <option value="">Mặc định</option>
-        
                                 <option value="1_day">Hôm qua</option>
                                 <option value="7_day">7 ngày</option>
                                 <option value="1_month">1 tháng</option>
                                 <option value="3_month">3 tháng</option>
                                 <option value="6_month">6 tháng</option>
-        
                                 <option value="1_year">1 năm</option>
-        
                             </select>
                         </div>
-                       
+
                     </div>
                     <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
                         <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
@@ -62,22 +59,21 @@
                     @if ($transactions->count() > 0)
                         @foreach ($transactions as $transaction)
                             <tr class="shadow-hover-xs-2 bg-hover-white">
-
+                
                                 <td class="align-middle" style="white-space: nowrap;">
-                                   {{ $transaction->type }}
+                                    {{ $transaction->type }}
                                 </td>
-
+                
                                 <td class="align-middle text-truncate"
-                                    style="max-width: 280px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    style="max-width: 280px; white-space: normal; overflow-wrap: break-word;">
                                     {{ $transaction->description ?? 'Chưa có dữ liệu' }}
                                 </td>
                                 <td class="align-middle">
                                     {{ $transaction->created_at->format('d/m/Y H:i') }}
                                 </td>
-                                <td
-                                    class="align-middle  @if ($transaction->status == 1) text-success
-                                                        @elseif($transaction->status == 2)
-                                                            text-danger @endif">
+                                <td class="align-middle @if ($transaction->status == 1) text-success
+                                                            @elseif($transaction->status == 2)
+                                                                text-danger @endif">
                                     @if ($transaction->status == 1)
                                         +
                                     @else
@@ -88,7 +84,7 @@
                                 <td class="align-middle">
                                     {{ number_format($transaction->balance, 0, ',', '.') }} VND
                                 </td>
-
+                
                             </tr>
                         @endforeach
                     @else
@@ -160,7 +156,7 @@
                     </li>
                 </ul>
             </div>
-            
+
         @endif
 
 

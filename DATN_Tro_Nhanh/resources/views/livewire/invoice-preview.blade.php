@@ -21,10 +21,14 @@
                                 </div>
                                 <div class="col-sm-6 align-self-center mt-3">
                                     {{-- <p class="mb-0">Quận Cái Răng, TP.Cần Thơ</p> --}}
-                                    @if ($bill && $bill->payer) <!-- Kiểm tra xem hóa đơn và người dùng có tồn tại không -->
-                                        <p class="mb-0 text-truncate" style="max-width: 100%;">Địa chỉ: {{ $bill->payer->address }}</p> <!-- Hiển thị địa chỉ của người dùng -->
-                                        <p class="mb-0">{{ $bill->payer->email }}</p> <!-- Hiển thị email của người dùng -->
-                                        <p class="mb-0">{{ $bill->payer->phone }}</p> <!-- Hiển thị số điện thoại của người dùng -->
+                                    @if ($bill && $bill->payer)
+                                        <!-- Kiểm tra xem hóa đơn và người dùng có tồn tại không -->
+                                        <p class="mb-0 text-truncate" style="max-width: 100%;">Địa chỉ:
+                                            {{ $bill->payer->address }}</p> <!-- Hiển thị địa chỉ của người dùng -->
+                                        <p class="mb-0">{{ $bill->payer->email }}</p>
+                                        <!-- Hiển thị email của người dùng -->
+                                        <p class="mb-0">{{ $bill->payer->phone }}</p>
+                                        <!-- Hiển thị số điện thoại của người dùng -->
                                     @else
                                         <p class="mb-0">Không có thông tin người dùng.</p>
                                     @endif
@@ -85,7 +89,7 @@
                                 <table class="table">
                                     <thead class="">
                                         <tr>
-                                            <th scope="col">Tên mặt hàng</th>
+                                            <th scope="col">Tiêu đề hóa đơn</th>
                                             <th class="text-right" scope="col">Mô tả</th>
                                             <th class="text-right" scope="col">Giá</th>
                                             <th class="text-right" scope="col">Tổng tiền</th>
@@ -153,14 +157,14 @@
                                             xuống</a>
                                     </div>
                                     @if ($status == 1 && $bill->creator_id == Auth::id())
-                                    <div class="col-12 mb-3">
-                                        <a href="javascript:void(0);" class="btn btn-dark btn-edit btn-block"
-                                            wire:click="editBill({{ $bill->id }})" data-toggle="modal"
-                                            data-target="#maintenance">
-                                            Chỉnh sửa hóa đơn
-                                        </a>
-                                    </div>
-                                @endif
+                                        <div class="col-12 mb-3">
+                                            <a href="javascript:void(0);" class="btn btn-dark btn-edit btn-block"
+                                                wire:click="editBill({{ $bill->id }})" data-toggle="modal"
+                                                data-target="#maintenance">
+                                                Chỉnh sửa hóa đơn
+                                            </a>
+                                        </div>
+                                    @endif
                                 @endif
                             </div>
 
@@ -198,19 +202,22 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="payment_due_date">Hạn thanh toán:</label>
-                                        <input type="date" class="form-control" id="payment_due_date" wire:model="payment_due_date" required>
+                                        <input type="date" class="form-control" id="payment_due_date"
+                                            wire:model="payment_due_date" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="title">Tiêu đề:</label>
-                                        <input type="text" class="form-control" id="title" wire:model="title" required>
+                                        <input type="text" class="form-control" id="title" wire:model="title"
+                                            required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="amount">Số tiền:</label>
-                                        <input type="number" class="form-control" id="amount" wire:model="amount" required min="0" step="0.01">
+                                        <input type="number" class="form-control" id="amount"
+                                            wire:model="amount" required min="0" step="0.01">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -221,7 +228,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer text-right">
-                                <button type="button" class="btn btn-danger btn" wire:click="closeModal">Đóng</button>
+                                <button type="button" class="btn btn-danger btn"
+                                    wire:click="closeModal">Đóng</button>
                                 <button type="submit" class="btn btn btn-primary">Cập nhật</button>
                             </div>
                         </form>
