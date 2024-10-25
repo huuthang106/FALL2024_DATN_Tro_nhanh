@@ -17,9 +17,13 @@ use App\Models\Notification;
 use App\Models\Room;
 // use Illuminate\Support\Facades\Log;
 use App\Services\RoomOwnersService;
+
 class ResidentOwnersService
 {
     public const agree = 2;
+    public const leave = 3; // Hoặc giá trị status mà bạn muốn lọc
+
+    public const accepted = 2; // Hoặc giá trị status mà bạn muốn lọc
     public function getlistResdent($user_id, $status)
     {
         return Resident::where('user_id', $user_id)
@@ -109,12 +113,12 @@ class ResidentOwnersService
         try {
             // Tìm resident theo ID và user_id
             $resident = Resident::where('id', $residentId)
-                ->where('user_id', $userId)
+                ->where('tenant_id', $userId)
                 ->first();
 
             // Kiểm tra xem resident có tồn tại không
             if (!$resident) {
-                throw new \Exception('Resident không tồn tại hoặc không thuộc về bạn.');
+                throw new \Exception('Đơn không tồn tại hoặc không thuộc về bạn.');
             }
 
             // Xóa resident
@@ -174,5 +178,35 @@ class ResidentOwnersService
     public function get_status_resident($idResident)
     {
         return Resident::find($idResident)->status;
+    }
+    public function leave_room($residentId, $userId)
+    {
+        try {
+            // Tìm resident theo ID và user_id
+            $resident = Resident::where('id', $residentId)
+                ->where('tenant_id', $userId)
+                ->first();
+
+            // Kiểm tra xem resident có tồn tại không
+            if (!$resident) {
+                throw new \Exception('Đơn không tồn tại hoặc không thuộc về bạn.');
+            }
+
+            if ($resident->status == self::accepted) {
+                // Xóa resident
+                $resident->status = self::leave; // Thay đổi trạng thái
+                $resident->save(); // Lưu thay đổi
+
+                return true;
+            }
+
+            // Phát sự kiện thông báo
+
+
+            return false; // Trả về true nếu xóa thành công
+        } catch (\Exception $e) {
+            Log::error('Không thể thu hồi đơn: ' . $e->getMessage());
+            return false; // Trả về false nếu có lỗi xảy ra
+        }
     }
 }

@@ -13,7 +13,7 @@ class ResidentOwnersController extends Controller
     //
     protected const not_yet_approved = 1; // Hoặc giá trị status mà bạn muốn lọc
     protected const agree = 2; // Hoặc giá trị status mà bạn muốn lọc
-    protected const refuse = 3; // Hoặc giá trị status mà bạn muốn lọc
+    protected const refuse = 4; // Hoặc giá trị status mà bạn muốn lọc
     protected const not_yet = 1; // Hoặc giá trị status mà bạn muốn lọc
     protected $residentOwnersService;
     protected $roomOwnersService;
@@ -109,50 +109,54 @@ class ResidentOwnersController extends Controller
 
 
     public function cancel_order($idResident)
-{
-    if (Auth::check()) {
-        $user_id = Auth::id(); // Lấy ID người dùng đã đăng nhập
+    {
+        if (Auth::check()) {
+            $user_id = Auth::id(); // Lấy ID người dùng đã đăng nhập
 
-        $get_room = $this->residentOwnersService->get_room($idResident);
-        $get_status_resident = $this->residentOwnersService->get_status_resident($idResident);
+            $get_room = $this->residentOwnersService->get_room($idResident);
+            $get_status_resident = $this->residentOwnersService->get_status_resident($idResident);
 
-        if ($get_room) {
-            $residents = $this->residentOwnersService->cancel_order($idResident, $user_id);
-            if ($residents) {
-                if ($get_status_resident == self::refuse) {
-                    return response()->json(['message' => 'Xóa đơn thành công'], 200);
-                } else if ($get_status_resident == self::not_yet) {
-                    $update_quantity = $this->roomOwnersService->update_quantity($get_room->id, 1);
-                    if ($update_quantity) {
-                        return response()->json(['message' => 'Thu hồi đơn thành công, vui lòng liên hệ chủ trọ để lấy lại cọc'], 200);
-                    } else {
-                        return response()->json(['error' => 'Có lỗi khi cập nhật số lượng phòng.'], 500);
+            if ($get_room) {
+                $residents = $this->residentOwnersService->cancel_order($idResident, $user_id);
+                if ($residents) {
+                    if ($get_status_resident == self::refuse) {
+                        return response()->json(['message' => 'Xóa đơn thành công'], 200);
+                    } else if ($get_status_resident == self::not_yet) {
+                        $update_quantity = $this->roomOwnersService->update_quantity($get_room->id, 1);
+                        if ($update_quantity) {
+                            return response()->json(['message' => 'Thu hồi đơn thành công, vui lòng liên hệ chủ trọ để lấy lại cọc'], 200);
+                        } else {
+                            return response()->json(['error' => 'Có lỗi khi cập nhật số lượng phòng.'], 500);
+                        }
                     }
+                } else {
+                    return response()->json(['error' => 'Có lỗi khi hủy đơn.'], 500);
                 }
             } else {
-                return response()->json(['error' => 'Có lỗi khi hủy đơn.'], 500);
+                return response()->json(['error' => 'Không tìm thấy phòng.'], 404);
             }
         } else {
-            return response()->json(['error' => 'Không tìm thấy phòng.'], 404);
+            return response()->json(['error' => 'Bạn cần đăng nhập để thực hiện hành động này.'], 401);
         }
-    } else {
-        return response()->json(['error' => 'Bạn cần đăng nhập để thực hiện hành động này.'], 401);
     }
-}    public function leave_the_room(Request $request, $idResident)
+    public function leave_the_room($idResident)
     {
+        // dd($idResident);
         if (Auth::check()) {
             // dd('hi');
             $user_id = Auth::id(); // Lấy ID người dùng đã đăng nhập
-
-
+            $get_room = $this->residentOwnersService->get_room($idResident);
+            // return response()->json(['error' => 'Có lỗi khi thu hồi' . $get_room->id], 500); // Trả về thông báo lỗi dưới dạng JSON
             // Gọi hàm lấy dữ liệu
-            $residents = $this->residentOwnersService->cancel_order($idResident,  $user_id,);
+            $residents = $this->residentOwnersService->leave_room($idResident,  $user_id,);
 
+            // dd($residents);
             // dd($residents); 
             if ($residents) {
-                return redirect()->back()->with('success', 'Rời phòng thành công');
+                $update_apartment = $this->roomOwnersService->update_quantity($get_room->id, 1);
+                return response()->json(['message' => 'Rời phòng thành công']); // Trả về thông báo thành công dưới dạng JSON
             } else {
-                return redirect()->back()->with('error', 'Có lỗi khi thu hồi');
+                return response()->json(['error' => 'Có lỗi khi thu hồi'], 500); // Trả về thông báo lỗi dưới dạng JSON
             }
         }
     }

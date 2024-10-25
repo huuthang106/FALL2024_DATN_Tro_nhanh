@@ -130,10 +130,12 @@
     </script>
     <script src="{{ asset('assets/js/alert-update-user.js') }}"></script>
     <script src="{{ asset('assets/js/alert-report.js') }}"></script>
-    <script src="{{ asset('assets/js/confirm.js') }}"></script>
+   
     <script>
         Livewire.on('updated', () => {
             console.log('Livewire updated event fired!');
         });
+        
     </script>
+    
 @endpush

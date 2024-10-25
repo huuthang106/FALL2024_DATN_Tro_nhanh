@@ -632,7 +632,7 @@ $blogService = new BlogServices();
            return true;
         }
     
-        return $room; // Trả về false nếu không tìm thấy phòng
+        return false; // Trả về false nếu không tìm thấy phòng
     }
    
 }
