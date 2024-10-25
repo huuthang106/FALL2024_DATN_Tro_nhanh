@@ -131,7 +131,7 @@
                                                     $tenant = $resident->tenant;
                                                 @endphp
                                                 @if ($resident->status == $user_is_in)
-                                                    <a href="{{ route('owners.detail-room', $room->slug) }}"
+                                                    <a href="{{ route('owners.detail-room', $room->id) }}"
                                                         type="button" class="btn btn-primary btn-sm">
                                                         <i class="fal fa-eye"></i>
                                                     </a>

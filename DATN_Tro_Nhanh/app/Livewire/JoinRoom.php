@@ -88,7 +88,7 @@ class JoinRoom extends Component
             // \Log::info('Truy vấn SQL', ['sql' => $query->toSql(), 'bindings' => $query->getBindings()]);
         }
 
-
+        $query->orderBy('residents.created_at', 'desc'); // Sắp xếp theo ngày tạo mới nhất
         $residents = $query->paginate(self::LIMIT); // Sử dụng paginate để phân trang
 
         // Đặt giá trị cho biến $user_is_in

@@ -6,16 +6,21 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\ResidentOwnersService;
 use Illuminate\Support\Facades\Auth;
+use App\Services\RoomOwnersService;
 
 class ResidentOwnersController extends Controller
 {
     //
     protected const not_yet_approved = 1; // Hoặc giá trị status mà bạn muốn lọc
     protected const agree = 2; // Hoặc giá trị status mà bạn muốn lọc
+    protected const refuse = 3; // Hoặc giá trị status mà bạn muốn lọc
+    protected const not_yet = 1; // Hoặc giá trị status mà bạn muốn lọc
     protected $residentOwnersService;
-    public function __construct(ResidentOwnersService $residentOwnersService)
+    protected $roomOwnersService;
+    public function __construct(ResidentOwnersService $residentOwnersService, RoomOwnersService $roomOwnersService)
     {
         $this->residentOwnersService = $residentOwnersService;
+        $this->roomOwnersService = $roomOwnersService;
     }
     public function participation_list()
     {
@@ -52,7 +57,7 @@ class ResidentOwnersController extends Controller
             }
         }
     }
-    
+
     public function erase_tenant($idResident)
     {
 
@@ -77,11 +82,11 @@ class ResidentOwnersController extends Controller
         if (Auth::check()) {
             $user_id = Auth::id(); // Lấy ID người dùng đã đăng nhập
             $content = 'Bạn đã bị từ chối tham gia phòng';
-    
+
             // Gọi hàm xóa Resident
             try {
                 $this->residentOwnersService->deleteResident($idResident, $user_id, $content);
-    
+
                 // Trả về thông báo thành công
                 return redirect()->back()->with('success', 'Xóa khách hàng thành công');
             } catch (\Exception $e) {
@@ -89,40 +94,52 @@ class ResidentOwnersController extends Controller
                 return redirect()->back()->with('error', 'Có lỗi khi duyệt đơn: ' . $e->getMessage());
             }
         }
-    
+
         return redirect()->back()->with('error', 'Bạn cần đăng nhập để thực hiện hành động này.');
     }
-    
+
 
     public function application_form()
-{
-    if (Auth::check()) {
-      
-        return view('owners.show.application-form');
+    {
+        if (Auth::check()) {
+
+            return view('owners.show.application-form');
+        }
     }
-}
 
 
     public function cancel_order($idResident)
-    {
+{
+    if (Auth::check()) {
+        $user_id = Auth::id(); // Lấy ID người dùng đã đăng nhập
 
-        if (Auth::check()) {
-            // dd('hi');
-            $user_id = Auth::id(); // Lấy ID người dùng đã đăng nhập
+        $get_room = $this->residentOwnersService->get_room($idResident);
+        $get_status_resident = $this->residentOwnersService->get_status_resident($idResident);
 
-
-            // Gọi hàm lấy dữ liệu
-            $residents = $this->residentOwnersService->cancel_order($idResident,  $user_id,);
-
-            // dd($residents); 
+        if ($get_room) {
+            $residents = $this->residentOwnersService->cancel_order($idResident, $user_id);
             if ($residents) {
-                return redirect()->back()->with('success', 'Thu hồi đơn thành công');
+                if ($get_status_resident == self::refuse) {
+                    return response()->json(['message' => 'Xóa đơn thành công'], 200);
+                } else if ($get_status_resident == self::not_yet) {
+                    $update_quantity = $this->roomOwnersService->update_quantity($get_room->id, 1);
+                    if ($update_quantity) {
+                        return response()->json(['message' => 'Thu hồi đơn thành công, vui lòng liên hệ chủ trọ để lấy lại cọc'], 200);
+                    } else {
+                        return response()->json(['error' => 'Có lỗi khi cập nhật số lượng phòng.'], 500);
+                    }
+                }
             } else {
-                return redirect()->back()->with('error', 'Có lỗi khi thu hồi');
+                return response()->json(['error' => 'Có lỗi khi hủy đơn.'], 500);
             }
+        } else {
+            return response()->json(['error' => 'Không tìm thấy phòng.'], 404);
         }
+    } else {
+        return response()->json(['error' => 'Bạn cần đăng nhập để thực hiện hành động này.'], 401);
     }
-    public function leave_the_room(Request $request,$idResident) {
+}    public function leave_the_room(Request $request, $idResident)
+    {
         if (Auth::check()) {
             // dd('hi');
             $user_id = Auth::id(); // Lấy ID người dùng đã đăng nhập

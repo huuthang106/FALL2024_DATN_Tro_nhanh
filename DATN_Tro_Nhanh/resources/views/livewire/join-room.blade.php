@@ -113,6 +113,13 @@
                                             </small>
                                         </td>
                                         <td class="align-middle" style="white-space: nowrap;">
+                                            <form action="{{ route('owners.cancel-order', $resident->id) }}" method="POST" style="display:inline;" class="delete-form">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="badge badge-danger border-0 delete-button"><i class="fal fa-trash-alt"></i></button>
+                                            </form>
+                                        </td>
+                                        {{-- <td class="align-middle" style="white-space: nowrap;">
                                             <form action="{{ route('owners.cancel-order', $resident->id) }}"
                                                 method="POST" style="display:inline;">
                                                 @csrf
@@ -120,7 +127,8 @@
                                                 <button type="submit" class="badge badge-danger border-0"><i
                                                         class="fal fa-trash-alt"></i></button>
                                             </form>
-                                        </td>
+                                        </td> --}}
+                                        
                                     </tr>
                                 @endforeach
                             @endif
@@ -299,4 +307,50 @@
             });
         });
     </script>
+   <script>
+    document.querySelectorAll('.delete-button').forEach(button => {
+        button.addEventListener('click', function() {
+            const form = this.closest('.delete-form');
+            Swal.fire({
+                title: 'Xác nhận xóa',
+                text: "Bạn có chắc chắn muốn xóa không?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Có, xóa!',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Gửi yêu cầu AJAX
+                    fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ _method: 'DELETE' })
+                    })
+                    .then(response => {
+                        return response.json(); // Chuyển đổi phản hồi thành JSON
+                    })
+                    .then(data => {
+                        if (data.message) {
+                            // Xử lý thành công
+                            form.closest('tr').remove(); // Xóa dòng tương ứng
+                            Swal.fire('Đã xóa!', data.message, 'success');
+                        } else if (data.error) {
+                            // Hiển thị thông báo lỗi
+                            Swal.fire('Có lỗi xảy ra!', data.error, 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Lỗi:', error);
+                        Swal.fire('Có lỗi xảy ra!', 'Vui lòng thử lại sau.', 'error');
+                    });
+                }
+            });
+        });
+    });
+</script>
 </main>

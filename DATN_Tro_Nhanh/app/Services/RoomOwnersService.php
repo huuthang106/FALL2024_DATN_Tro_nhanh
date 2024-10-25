@@ -611,11 +611,28 @@ $blogService = new BlogServices();
                 'zone_slug' => $room->zone->slug
             ];
         } catch (\Exception $e) {
-            \Log::error('Lỗi khi tạo phòng: ' . $e->getMessage());
+            // \Log::error('Lỗi khi tạo phòng: ' . $e->getMessage());
             return [
                 'success' => false,
                 'message' => 'Có lỗi xảy ra khi tạo phòng: ' . $e->getMessage()
             ];
         }
     }
+
+    public function update_quantity($idRoom, $quantity)
+    {
+        // Tìm phòng theo ID
+        $room = Room::find($idRoom);
+    
+        // Kiểm tra xem phòng có tồn tại không
+        if ($room) {
+            // Cộng thêm quantity vào giá trị hiện tại
+            $room->quantity += $quantity; // Cộng thêm số lượng
+           $room->save(); // Lưu thay đổi
+           return true;
+        }
+    
+        return $room; // Trả về false nếu không tìm thấy phòng
+    }
+   
 }

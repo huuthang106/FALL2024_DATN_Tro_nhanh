@@ -234,9 +234,9 @@ class ZoneOwnersController extends Controller
         $this->roomOwnersService->clearZoneId($id);
         return redirect()->back()->with('success', 'Phòng đã được xóa thành công.');
     }
-    public function showDetailRoom($slug)
+    public function showDetailRoom($id)
     {
-        $data = $this->roomOwnersService->getRoomBySlug($slug);
+        $data = $this->roomOwnersService->getRoomByID($id);
         // dd($data);
         // dd($data);
         return view('owners.show.detail-room', [

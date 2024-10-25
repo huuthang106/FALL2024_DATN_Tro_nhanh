@@ -14,8 +14,9 @@ use App\Events\OrderCancelled;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\Notification;
+use App\Models\Room;
 // use Illuminate\Support\Facades\Log;
-
+use App\Services\RoomOwnersService;
 class ResidentOwnersService
 {
     public const agree = 2;
@@ -38,7 +39,7 @@ class ResidentOwnersService
             throw new \Exception('Resident không tồn tại hoặc không thuộc về bạn.');
         }
 
-         // Lấy số tiền đặt cọc của user
+        // Lấy số tiền đặt cọc của user
         $depositAmount = $resident->deposit; // Giả sử cột này tồn tại
 
         // Tìm user chủ phòng
@@ -110,7 +111,7 @@ class ResidentOwnersService
             $resident = Resident::where('id', $residentId)
                 ->where('user_id', $userId)
                 ->first();
-            
+
             // Kiểm tra xem resident có tồn tại không
             if (!$resident) {
                 throw new \Exception('Resident không tồn tại hoặc không thuộc về bạn.');
@@ -153,5 +154,25 @@ class ResidentOwnersService
             Log::error('Failed to refuse application: ' . $e->getMessage());
             return false;
         }
+    }
+
+    public function get_room($idResident)
+    {
+        // Lấy thông tin resident dựa trên id
+        $resident = Resident::find($idResident);
+
+        // Kiểm tra xem resident có tồn tại không
+        if ($resident) {
+            // Lấy thông tin phòng dựa trên room_id
+            $room = Room::find($resident->room_id);
+            return $room; // Trả về thông tin phòng
+        }
+
+        return null;
+    }
+
+    public function get_status_resident($idResident)
+    {
+        return Resident::find($idResident)->status;
     }
 }
