@@ -239,7 +239,8 @@
                                                                 <div class="dropzone upload-file text-center py-5"
                                                                     id="myDropzone">
                                                                     <div class="dz-default dz-message">
-                                                                        <span class="upload-icon lh-1 d-inline-block mb-4" id="uploadIcon">
+                                                                        <span class="upload-icon lh-1 d-inline-block mb-4"
+                                                                            id="uploadIcon">
                                                                             <i class="fal fa-cloud-upload-alt"></i>
                                                                         </span>
                                                                         {{-- <div id="imagePreview" class="text-center mt-4"></div> --}}
@@ -252,8 +253,8 @@
                                                                             Chọn thư mục
                                                                         </button>
                                                                         <input type="file" hidden id="fileInput"
-                                                                             accept="image/jpeg, image/png"
-                                                                            name="image" onchange="previewImages();">
+                                                                            accept="image/jpeg, image/png" name="image"
+                                                                            onchange="previewImages();">
                                                                         <p>Chọn 1 lúc nhiều ảnh</p>
                                                                     </div>
                                                                     @if ($errors->has('image'))
@@ -269,45 +270,45 @@
                                                                     @endforeach --}}
                                                                 </div>
                                                                 <!-- Phần tử để hiển thị ảnh đã chọn trong form -->
-                                                               
+
                                                                 <!-- Ẩn View -->
                                                                 <input type="hidden" class="form-control" id="view"
                                                                     name="view" value="0">
                                                             </div>
                                                         </div>
                                                     </div>
-                                                   <!-- <div class="col-lg-6">
-                                                        <div class="card mb-6">
-                                                            <div class="card-body p-6">
-                                                                <h3 class="card-title mb-0 text-heading fs-22 lh-15">
-                                                                    Trạng thái phòng
-                                                                </h3>
-                                                                <hr>
-                                                                <div class="form-row mx-n2">
-                                                                    <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
-                                                                        <div class="form-group mb-md-0">
-                                                                            <label for="status"
-                                                                                class="text-heading">Trạng
-                                                                                thái</label>
-                                                                            <select
-                                                                                class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                                                data-style="btn-lg py-2 h-52"
-                                                                                id="status" name="status">
-                                                                                <option value="1">Đang duyệt
-                                                                                </option>
-                                                                                <option value="2">Đang hoạt động
-                                                                                </option>
-                                                                            </select>
-                                                                            @error('status')
-                                                                                <div class="text-danger">{{ $message }}
-                                                                                </div>
-                                                                            @enderror
+                                                    <!-- <div class="col-lg-6">
+                                                            <div class="card mb-6">
+                                                                <div class="card-body p-6">
+                                                                    <h3 class="card-title mb-0 text-heading fs-22 lh-15">
+                                                                        Trạng thái phòng
+                                                                    </h3>
+                                                                    <hr>
+                                                                    <div class="form-row mx-n2">
+                                                                        <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
+                                                                            <div class="form-group mb-md-0">
+                                                                                <label for="status"
+                                                                                    class="text-heading">Trạng
+                                                                                    thái</label>
+                                                                                <select
+                                                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
+                                                                                    data-style="btn-lg py-2 h-52"
+                                                                                    id="status" name="status">
+                                                                                    <option value="1">Đang duyệt
+                                                                                    </option>
+                                                                                    <option value="2">Đang hoạt động
+                                                                                    </option>
+                                                                                </select>
+                                                                                @error('status')
+        <div class="text-danger">{{ $message }}
+                                                                                        </div>
+    @enderror
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div> -->
+                                                        </div> -->
                                                 </div>
                                                 <div class="d-flex flex-wrap mt-1">
                                                     <a href="#"
@@ -597,7 +598,7 @@
                                                         <h3 class="card-title mb-0 text-heading fs-22 lh-15">Danh sách tiện
                                                             ích
                                                         </h3>
-                                                 
+
                                                         <div class="row">
                                                             <div class="col-sm-6 col-lg-3">
                                                                 <ul class="list-group list-group-no-border">
@@ -613,7 +614,7 @@
                                                                     </li>
                                                                 </ul>
                                                             </div>
-                                                          
+
                                                             <div class="col-sm-6 col-lg-3">
                                                                 <ul class="list-group list-group-no-border">
                                                                     <li class="list-group-item px-0 pt-0 pb-2">
@@ -671,9 +672,11 @@
                                                                 class="fal fa-long-arrow-left"></i></span>Phía
                                                         trước
                                                     </a>
-                                                    <button class="btn btn-lg btn-primary mb-3" type="submit" id="submitButton">
+                                                    <button class="btn btn-lg btn-primary mb-3" type="submit"
+                                                        id="submitButton">
                                                         <span class="button-text">Thêm phòng</span>
-                                                        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                                        <span class="spinner-border spinner-border-sm d-none"
+                                                            role="status" aria-hidden="true"></span>
                                                         <span class="sr-only d-none">Đang xử lý...</span>
                                                     </button>
                                                 </div>
@@ -760,7 +763,7 @@
     <!-- Themes core CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
     <!-- Favicons -->
-   <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@TroNhanh">
@@ -818,68 +821,69 @@
     <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script src="{{ asset('assets/js/owners/form-map.js') }}"></script>
-    
-    
+
+
     <script>
-   $(document).ready(function() {
-    $('form').on('submit', function(e) {
-        e.preventDefault();
-        var formData = new FormData(this);
- $.ajax({
-                url: $(this).attr('action'),
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                beforeSend: function() {
-                    Swal.fire({
-                        title: 'Đang xử lý...',
-                        text: 'Vui lòng đợi trong giây lát!',
-                        allowOutsideClick: false,
-                        allowEscapeKey: false,
-                        allowEnterKey: false,
-                        didOpen: () => {
-                            Swal.showLoading();
-                        }
-                    });
-                },
-                success: function(response) {
-                    Swal.close();
-                    if (response.status === 'success') {
+        $(document).ready(function() {
+            $('form').on('submit', function(e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function() {
                         Swal.fire({
-                            title: 'Thành công!',
-                            text: response.message,
-                            icon: 'success',
-                            confirmButtonText: 'OK'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.href = '{{ route("owners.zone-list") }}';
+                            title: 'Đang xử lý...',
+                            text: 'Vui lòng đợi trong giây lát!',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            allowEnterKey: false,
+                            didOpen: () => {
+                                Swal.showLoading();
                             }
                         });
-                    } else {
+                    },
+                    success: function(response) {
+                        Swal.close();
+                        if (response.status === 'success') {
+                            Swal.fire({
+                                title: 'Thành công!',
+                                text: response.message,
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href =
+                                        '{{ route('owners.zone-list') }}';
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Lỗi!',
+                                text: response.message,
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    },
+                    error: function(xhr) {
+                        Swal.close();
+                        let errorMessage = 'Đã xảy ra lỗi khi xử lý yêu cầu.';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMessage = xhr.responseJSON.message;
+                        }
                         Swal.fire({
                             title: 'Lỗi!',
-                            text: response.message,
+                            text: errorMessage,
                             icon: 'error',
                             confirmButtonText: 'OK'
                         });
                     }
-                },
-                error: function(xhr) {
-                    Swal.close();
-                    let errorMessage = 'Đã xảy ra lỗi khi xử lý yêu cầu.';
-                    if (xhr.responseJSON && xhr.responseJSON.message) {
-                        errorMessage = xhr.responseJSON.message;
-                    }
-                    Swal.fire({
-                        title: 'Lỗi!',
-                        text: errorMessage,
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
-                }
+                });
             });
-    });
-});
+        });
     </script>
 @endpush

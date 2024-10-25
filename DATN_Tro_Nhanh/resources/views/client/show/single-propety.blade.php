@@ -766,25 +766,19 @@
                                                         Vui lòng điền thông tin bên dưới để đặt phòng. Chúng tôi sẽ xác nhận
                                                         yêu cầu của bạn trong thời gian sớm nhất.
                                                     </p>
-                                                    <form id="bookingForm" method="POST"
-                                                        action="{{ route('client.booking', ['id' => $zone->id]) }}">
+                                                    <form id="bookingForm" method="POST" action="{{ route('client.booking', ['id' => $zone->id]) }}">
                                                         @csrf
-                                                        <input type="hidden" name="zone_id"
-                                                            value="{{ $zone->id }}">
-                                                        <input type="hidden" name="room_id" id="room-id"
-                                                            value="">
+                                                        <input type="hidden" name="zone_id" value="{{ $zone->id }}">
+                                                        <input type="hidden" name="room_id" id="room-id" value="">
                                                         <div class="form-group mb-4">
                                                             <label for="room-quantity">Giá phòng:</label>
                                                             <span id="room-price" name="room_price" readonly></span>
                                                         </div>
                                                         <div class="form-group mb-4">
                                                             <label for="room-quantity">Số lượng:</label>
-                                                            <input type="number" id="room-quantity" name="quantity"
-                                                                class="form-control" min="1" max=""
-                                                                value="1">
+                                                            <input type="number" id="room-quantity" name="quantity" class="form-control" min="1" value="1">
                                                         </div>
-                                                        <button type="submit" class="btn btn-lg btn-primary px-5">Đặt
-                                                            Phòng</button>
+                                                        <button type="button" id="submitBooking" class="btn btn-lg btn-primary px-5">Đặt Phòng</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -1377,6 +1371,36 @@
         $('#book-room-btn').on('click', function() {
             // Hiển thị modal
             $('#bookingModal').modal('show');
+        });
+    </script>
+    <script>
+        document.getElementById('submitBooking').addEventListener('click', function() {
+            const form = document.getElementById('bookingForm');
+            const formData = new FormData(form); // Lấy dữ liệu từ form
+    
+            // Gửi yêu cầu AJAX
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}', // Thêm token CSRF
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    // Hiển thị thông báo thành công
+                    Swal.fire('Thành công!', data.message, 'success');
+                    // Có thể thêm mã để cập nhật giao diện nếu cần
+                } else if (data.error) {
+                    // Hiển thị thông báo lỗi
+                    Swal.fire('Có lỗi xảy ra!', data.error, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi:', error);
+                Swal.fire('Có lỗi xảy ra!', 'Vui lòng thử lại sau.', 'error');
+            });
         });
     </script>
 @endpush

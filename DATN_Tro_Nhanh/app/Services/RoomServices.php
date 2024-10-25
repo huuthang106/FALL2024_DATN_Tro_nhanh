@@ -51,4 +51,24 @@ public function updateQuantity($id, $quantity)
     public function getRoomPrice($id){
         return Room::find($id);
     }
+    public function checkQuantity($room_id, $quantity)
+    {
+        // Truy vấn đến bảng rooms để lấy số lượng phòng
+        $room = Room::find($room_id); // Giả sử bạn đã import model Room
+
+        // Kiểm tra xem phòng có tồn tại không
+        if (!$room) {
+            return false; // Trả về lỗi nếu phòng không tồn tại
+        }
+
+        // Lấy số lượng phòng có sẵn từ bản ghi
+        $availableQuantity = $room->quantity; // Giả sử trường quantity trong bảng rooms là quantity
+
+        // So sánh số lượng phòng có sẵn với số lượng yêu cầu
+        if ($availableQuantity < $quantity) {
+            return false; // Không đủ phòng
+        }
+
+        return true; // Đủ phòng
+    }
 }

@@ -89,7 +89,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="text-right">
+                                                <div class="text-right mt-2">
                                                     <button class="btn btn-lg btn-primary next-button" type="button"
                                                         id="nextButton">Tiếp theo
                                                         <span class="d-inline-block ml-2 fs-16"><i
@@ -128,7 +128,7 @@
                                                                 <div class="dropzone upload-file text-center py-5"
                                                                     id="myDropzone">
                                                                     <div class="dz-default dz-message mb-0">
-                                                                        <span class="upload-icon lh-1 d-inline-block mb-4">
+                                                                        <span class="upload-icon lh-1 d-inline-block mb-4" id="uploadIcon">
                                                                             <i class="fal fa-cloud-upload-alt"></i>
                                                                         </span>
                                                                         <p class="text-heading fs-22 lh-15 mb-4">Kéo và thả
@@ -139,9 +139,7 @@
                                                                             lên</button>
                                                                             <input id="fileInput" name="images[]" type="file" hidden multiple accept="image/*">
                                                                     </div>
-                                                                    <div id="imagePreview" class="mt-4">
-                                                                        <!-- Nơi ảnh sẽ hiển thị sau khi upload -->
-                                                                    </div>
+                                                                  
                                                                     @error('images')
                                                                         <span class="error-message text-danger"
                                                                             id="images-error">{{ $message }}</span>
@@ -152,7 +150,7 @@
 
                                                     </div>
                                                 </div>
-                                                <div class="d-flex flex-wrap">
+                                                <div class="d-flex flex-wrap mt-2">
                                                     <a href="#"
                                                         class="btn btn-lg bg-hover-white border rounded-lg mb-3 mr-auto prev-button">
                                                         <span class="d-inline-block text-primary mr-2 fs-16"><i
@@ -300,6 +298,8 @@
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <!-- Theme scripts -->
+    <script src="{{ asset('assets/js/alert/room-owners-alert.js') }}"></script>
+
     <script src="{{ asset('assets/js/theme.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>

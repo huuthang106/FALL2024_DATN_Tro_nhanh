@@ -19,6 +19,7 @@ class JoinRoom extends Component
     public $timeFilter = ''; // Biến để lưu trữ khoảng thời gian lọc
     public $startDate;
     protected const success = 2;
+    protected const leave = 4;
 
 
     public function mount(ResidentOwnersService $residentOwnersService)
@@ -37,8 +38,9 @@ class JoinRoom extends Component
         $user_id = Auth::id(); // Lấy ID người dùng đã đăng nhập
 
         // Gọi hàm lấy dữ liệu residents với chức năng tìm kiếm
-        $query = Resident::where('residents.user_id', auth()->id()) // Chỉ định rõ ràng bảng residents
+        $query = Resident::where('residents.tenant_id', $user_id) // Chỉ định rõ ràng bảng residents
         ->where('residents.status', '!=', self::success)  // Chỉ lấy status từ bảng residents
+        ->where('residents.status', '!=', self::leave)  // Chỉ lấy status từ bảng residents
         ->join('rooms', 'residents.room_id', '=', 'rooms.id') // Kết hợp bảng rooms
         ->join('zones', 'rooms.zone_id', '=', 'zones.id') // Kết hợp bảng zones
         ->where(function ($query) {
