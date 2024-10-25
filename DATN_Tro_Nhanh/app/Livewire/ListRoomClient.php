@@ -7,6 +7,8 @@ use Livewire\WithPagination;
 use App\Models\Zone; // Thay đổi từ Room sang Zone
 use App\Models\Category;
 use App\Models\Room;
+use App\Models\User;
+use App\Models\Watchlist;
 use Illuminate\Support\Facades\Log;
 use App\Models\Favourite;
 use Illuminate\Support\Facades\DB;
@@ -24,6 +26,8 @@ class ListRoomClient extends Component
     public $perPage = 8;
     public $sortBy = 'default';
     public $type;
+    public $follow_filter;
+    public $follow = false;
     public $favouriteCount;
     protected const HIEN_THI = 2;
     public $userLat;
@@ -33,22 +37,25 @@ class ListRoomClient extends Component
     public $maxPrice;
     public $priceRange;
     public $priceRanges;
-    protected $queryString = ['search', 'province', 'district', 'village', 'category', 'type', 'features', 'lat', 'lng', 'radius', 'priceRange'];
+    protected $queryString = ['search', 'province', 'district', 'village', 'category', 'follow_filter', 'type', 'features', 'lat', 'lng', 'radius', 'priceRange'];
     protected $listeners = [
         'favoriteUpdated' => 'updateFavouriteCount',
         'updateUserLocation'
     ];
+
     public function mount()
     {
         $this->favouriteCount = Favourite::where('user_id', auth()->id())->count();
         // 
         $this->userLat = request('lat');
         $this->userLng = request('lng');
+        $this->follow = request('follow_filter');
         // 
         $this->minPrice = Room::min('price');
         $this->maxPrice = Room::max('price');
         $this->priceRange = ''; // Đặt giá trị mặc định là rỗng
     }
+   
     public function updateUserLocation($lat, $lng)
     {
         $this->userLat = $lat;
@@ -110,16 +117,16 @@ class ListRoomClient extends Component
         if (!empty($this->category)) {
             $query->where('zones.category_id', $this->category);
         }
-        // Lọc theo khoảng giá
-        if (!empty($this->priceRange)) {
-            list($minPrice, $maxPrice) = explode('-', $this->priceRange);
-            $query->whereHas('rooms', function ($q) use ($minPrice, $maxPrice) {
-                $q->where('price', '>=', $minPrice);
-                if ($maxPrice !== '') {
-                    $q->where('price', '<=', $maxPrice);
-                }
-            });
+       
+         // Lọc theo follow
+         if (!empty($this->follow_filter)) {
+            $followedUserIds = Watchlist::where('follower', auth()->id())->pluck('user_id');
+            $query->whereIn('zones.user_id', $followedUserIds);
         }
+
+ 
+        Log::info('Request data: ' . json_encode(request()->all()));
+      
         // Sắp xếp theo ngày hết hạn
         // $query->orderByRaw('CASE WHEN zones.vip_expiry_date > NOW() THEN 1 ELSE 0 END DESC');
 

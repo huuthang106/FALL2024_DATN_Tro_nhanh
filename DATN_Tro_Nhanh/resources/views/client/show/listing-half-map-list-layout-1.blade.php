@@ -215,7 +215,7 @@
                                                 <div class="col-md-6">
                                                     <div class="card-body p-0">
                                                         <h2 class="card-title my-0">
-                                                            <a href="javascript:void(0);"
+                                                            <a href="{{ route('client.detail-zone', $zone->slug) }}"
                                                                 class="fs-16 lh-2 text-dark hover-primary d-block zone-link"
                                                                 data-lat="{{ $zone->latitude }}"
                                                                 data-lng="{{ $zone->longitude }}">
@@ -224,7 +224,7 @@
                                                         </h2>
                                                         <p class="card-text mb-1 font-weight-500 text-gray-light">
                                                             {{ $zone->address }}</p>
-                                                        <p class="card-text mb-2 ml-0">{{ $zone->description }}</p>
+                                                        <!-- <p class="card-text mb-2 ml-0">{{ $zone->description }}</p> -->
                                                         <p class="card-text fs-17 font-weight-bold text-heading mb-3">
                                                             Tổng số phòng: {{ $zoneServices->countRoomsInZone($zone->id) }}
                                                         </p>

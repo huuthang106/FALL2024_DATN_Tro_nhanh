@@ -75,7 +75,7 @@ class ZoneClientService
             ->select('id', 'name')
             ->get();
     }
-    public function getAllZones(int $perPage = 10, $type = null, $searchTerm = null, $province = null, $district = null, $village = null, $category = null, $features = null)
+    public function getAllZones(int $perPage = 10, $type = null, $searchTerm = null, $province = null, $district = null, $village = null, $category = null, $features = null, $follow= null)
     {
         try {
             $query = Zone::join('users', 'zones.user_id', '=', 'users.id')
@@ -118,6 +118,13 @@ class ZoneClientService
                     }
                 });
             }
+
+            // Add condition to filter by followed user IDs
+            if (!empty($followedUserIds)) {
+                $query->whereIn('zones.user_id', $followedUserIds);
+            }
+
+
 
             $result = $query->paginate($perPage);
             Log::info('SQL Query: ' . $query->toSql());

@@ -9,6 +9,8 @@ use App\Http\Requests\ZoneRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Services\CommentClientService;
 use Illuminate\Support\Facades\Log;
+use App\Models\Zone;
+use App\Models\Watchlist;
 
 class ZoneClientController extends Controller
 {
@@ -88,18 +90,25 @@ class ZoneClientController extends Controller
         $category = $request->input('category');
         $features = $request->input('features');
         $type = $request->input('type');
-
-
-        $zones = $this->zoneServices->getAllZones(
-            (int) $perPage,
-            $type,
-            $searchTerm,
-            $province,
-            $district,
-            $village,
-            $category,
-            $features
-        );
+        $filler_follow = $request->input('follow_filter');
+       
+            // Check if the follow filter is applied
+        if ($filler_follow == '1') {
+            $followedUserIds = Watchlist::where('follower', auth()->id())->pluck('user_id')->toArray();
+            $zones = Zone::whereIn('user_id', $followedUserIds)->paginate($perPage);
+        } else {
+            $zones = $this->zoneServices->getAllZones(
+                (int) $perPage,
+                $type,
+                $searchTerm,
+                $province,
+                $district,
+                $village,
+                $category,
+                $features
+            );
+        }
+        $roomVip = $this->zoneServices->getZoneVipPosition();
 
         $locations = $this->zoneServices->getUniqueLocations();
         $popularZones = $this->zoneServices->getPopularZones();
@@ -115,7 +124,7 @@ class ZoneClientController extends Controller
                 'provinces' => $locations['provinces'],
                 'districts' => $locations['districts'],
                 'villages' => $locations['villages'],
-                'popularZones' => $popularZones
+                'popularZones' => $popularZones,
             ]);
         }
 
@@ -132,7 +141,8 @@ class ZoneClientController extends Controller
             'villages' => $locations['villages'],
             'categories' => $categories,
             'popularZones' => $popularZones,
-            'features' => $features
+            'features' => $features,
+            'roomVip' => $roomVip
         ]);
     }
     public function listZoneClient(Request $request)

@@ -11,6 +11,7 @@ class VipZonePosition extends Model
 
     // Define the table name if it doesn't follow Laravel's naming convention
     // protected $table = 'vip_zone_positions';
+    // protected $table = 'vip_zone_position';
 
     // Define fillable fields to allow mass assignment
     protected $fillable = [

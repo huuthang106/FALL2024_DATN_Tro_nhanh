@@ -35,23 +35,32 @@
                                                                                                                                                                                                                                                             </div>
                                                                                                                                                                                                                                                         </div> -->
                                 <div class="card-body px-6 py-4">
-                                    <h4 class="card-title fs-16 lh-2 text-dark mb-3">Lọc</h4>
+                                    <h4 class="card-title fs-16 lh-2 text-dark mb-3">Lọc theo loại phòng</h4>
                                     <div class="form-group">
                                         <label for="category" class="sr-only">Loại phòng</label>
                                         <form id="categoryForm" action="{{ route('client.room-listing') }}" method="GET">
-                                            <select class="form-control border-0 shadow-none form-control-lg" id="category"
-                                                title="Tất cả loại phòng" name="category" data-style="btn-lg py-2 h-52"
-                                                onchange="document.getElementById('categoryForm').submit();">
+                                            <select class="form-control border-0 shadow-none form-control-lg mb-3" id="category"
+                                                    title="Tất cả loại phòng" name="category" data-style="btn-lg py-2 h-52"
+                                                    onchange="document.getElementById('categoryForm').submit();">
                                                 <option value='0'>Chọn loại phòng...</option>
                                                 @foreach ($categories as $category)
                                                     <option value='{{ $category->id }}'
-                                                        {{ request('category') == $category->id ? 'selected' : '' }}>
+                                                            {{ request('category') == $category->id ? 'selected' : '' }}>
                                                         {{ $category->name }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </form>
                                     </div>
+                                    <!-- <script>
+                                        function toggleFollowFilter() {
+                                            const checkbox = document.getElementById('checkFollow');
+                                            const followFilter = document.getElementById('followFilter');
+                                            followFilter.value = checkbox.checked ? '1' : '0';
+                                            document.getElementById('followForm').submit();
+                                        }
+                                    </script> -->
+
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Tìm trọ của bạn</h4>
                                     <form action="{{ route('client.room-listing') }}" method="GET">
                                         <div class="form-group">
@@ -200,7 +209,20 @@
                                                                 for="check4">Garage</label>
                                                         </div>
                                                     </li>
-                                                    {{-- <li class="list-group-item px-0 pt-0 pb-2">
+                                                   
+                                                        <div class="custom-control custom-checkbox mb-3">
+                                                            <input type="checkbox" class="custom-control-input" id="checkFollow" onchange="toggleFollowFilter()">
+                                                            <label class="custom-control-label" for="checkFollow">Lọc theo danh sách theo dõi</label>
+                                                        </div>
+                                                        <input type="hidden" name="follow_filter" id="followFilter" value="">
+                                                        <script>
+                                                            function toggleFollowFilter() {
+                                                                const checkbox = document.getElementById('checkFollow');
+                                                                const followFilter = document.getElementById('followFilter');
+                                                                followFilter.value = checkbox.checked ? '1' : ''; // Set to '1' if checked, '' if unchecked
+                                                            }
+                                                        </script>
+                                                 {{-- <li class="list-group-item px-0 pt-0 pb-2">
                                                         <div class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input" name="features[]"  id="check4">
                                                             <label class="custom-control-label" for="check4">Máy giặt</label>
@@ -220,44 +242,45 @@
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Phòng trọ nổi bật</h4>
                                     <div class="slick-slider mx-0"
                                         data-slick-options='{"slidesToShow": 1, "autoplay":true}'>
-                                        {{-- @foreach ($rooms ?? [] as $room)
+                                        @foreach ($roomVip as $room)
                                             <div class="box px-0">
                                                 <div class="card border-0">
-                                                    @if ($room->images->isNotEmpty())
-                                                        @php
-                                                            // Get the first image
-                                                            $image = $room->images->first();
-                                                        @endphp
-                                                        <img src="{{ asset('assets/images/' . $image->filename) }}"
-                                                            alt="{{ $room->title }}" class="property-image">
+                                                    @php
+                                                        $image = $room->image ?? null;
+                                                    @endphp
+                                                    @if ($image)
+                                                    {{-- <img src="https://drive.google.com/uc?export=view&id={{ $image }}" alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded" style="object-fit: cover;"> --}}
+                                                    <img src="https://drive.google.com/thumbnail?id={{ $image }}" alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded" style="object-fit: cover;" loading="lazy">
+
                                                     @else
                                                         <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                                            alt="{{ $room->title }}" class="property-image">
+                                                            alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
+                                                            style="object-fit: cover;">
                                                     @endif
                                                     <div
                                                         class="card-img-overlay d-flex flex-column bg-gradient-3 rounded-lg">
-                                                        @if ($room->expiration_date > now())
+                                                        @if ($room->zone->expiration_date > now())
                                                             <div class="d-flex mb-auto">
                                                                 <a href="#" class="mr-1 badge badge-danger">VIP</a>
                                                             </div>
                                                         @endif
                                                         <div class="px-2 pb-2">
-                                                            <a href="{{ route('client.detail-room', ['slug' => $room->slug]) }}"
+                                                            <a href="{{ route('client.detail-zone', $room->zone->slug) }}"
                                                                 class="text-white">
-                                                                <h5 class="card-title fs-16 lh-2 mb-0">
-                                                                    <small>{{ $room->title }}</small>
+                                                                <h5 class="card-title text-white fs-16 lh-2 mb-0">
+                                                                    <small>{{ $room->zone->name }}</small>
                                                                 </h5>
                                                             </a>
-                                                            <p class="card-text text-gray-light mb-0 font-weight-500">
-                                                                {{ $room->address }}</p>
-                                                            <p class="text-white mb-0"><span
-                                                                    class="fs-17 font-weight-bold">{{ $room->price }}VND</span>/tháng
-                                                            </p>
+                                                            <a href="{{ route('client.detail-zone', $room->zone->slug) }}"
+                                                            class="text-white">
+                                                            <p class="card-text text-white mb-0 font-weight-500">
+                                                                {{ $room->zone->address }}</p>
+                                                                </a>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        @endforeach --}}
+                                        @endforeach
                                         @foreach ($popularZones as $zone)
                                             <div class="box px-0">
                                                 <div class="card border-0">

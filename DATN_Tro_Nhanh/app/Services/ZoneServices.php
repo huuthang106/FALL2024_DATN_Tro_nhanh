@@ -19,6 +19,7 @@ use GuzzleHttp\Client;
 use App\Models\Category;
 use App\Models\Notification;
 use App\Models\VipZonePosition;
+use App\Models\Location;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
@@ -290,7 +291,29 @@ class ZoneServices
     //         $room->save();
     //     }
     // }
+    public function getZoneVipPosition()
+    {
+        $location = Location::where('type_vip', 4)->get();
+        $data = VipZonePosition::whereIn('location_id', $location->pluck('id'))->get();
+        return $data;
+    }
 
+    public function getZoneVip()
+    {
+        // Retrieve zones that are associated with a location_id in the vip_zone_position table
+        // where the type_vip in the location table is 3
+        $zones = Zone::whereIn('id', function ($query) {
+            $query->select('zone_id')
+                ->from('vip_zone_position')
+                ->whereIn('location_id', function ($subQuery) {
+                    $subQuery->select('id')
+                        ->from('location')
+                        ->where('type_vip', 3);
+                });
+        })->get();
+        dd($zones);
+        return $zones;
+    }
     public function getAllZones(int $perPage = 10, $searchTerm = null)
     {
         try {

@@ -236,7 +236,7 @@
 
                                 <li class="nav-item py-2 py-xl-5 px-0 px-xl-4">
                                     <a class="nav-link p-0" href="{{ route('client.client-list-zone') }}">
-                                        Danh sách khu trọ
+                                        Tìm quanh đây
                                     </a>
                                 </li>
 
