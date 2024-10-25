@@ -202,7 +202,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="text-right">
+                                                <div class="text-right mt-2">
                                                     <button class="btn btn-lg btn-primary next-button">Tiếp theo <span
                                                             class="d-inline-block ml-2 fs-16">
                                                             <i class="fal fa-long-arrow-right"></i></span>
@@ -239,9 +239,10 @@
                                                                 <div class="dropzone upload-file text-center py-5"
                                                                     id="myDropzone">
                                                                     <div class="dz-default dz-message">
-                                                                        <span class="upload-icon lh-1 d-inline-block mb-4">
+                                                                        <span class="upload-icon lh-1 d-inline-block mb-4" id="uploadIcon">
                                                                             <i class="fal fa-cloud-upload-alt"></i>
                                                                         </span>
+                                                                        {{-- <div id="imagePreview" class="text-center mt-4"></div> --}}
                                                                         <p class="text-heading fs-22 lh-15 mb-4">
                                                                             Kéo và thả hình ảnh hoặc
                                                                         </p>
@@ -251,7 +252,7 @@
                                                                             Chọn thư mục
                                                                         </button>
                                                                         <input type="file" hidden id="fileInput"
-                                                                            multiple accept="image/jpeg, image/png"
+                                                                             accept="image/jpeg, image/png"
                                                                             name="image" onchange="previewImages();">
                                                                         <p>Chọn 1 lúc nhiều ảnh</p>
                                                                     </div>
@@ -268,7 +269,7 @@
                                                                     @endforeach --}}
                                                                 </div>
                                                                 <!-- Phần tử để hiển thị ảnh đã chọn trong form -->
-                                                                <div id="imagePreview" class="text-center mt-4"></div>
+                                                               
                                                                 <!-- Ẩn View -->
                                                                 <input type="hidden" class="form-control" id="view"
                                                                     name="view" value="0">
@@ -308,7 +309,7 @@
                                                         </div>
                                                     </div> -->
                                                 </div>
-                                                <div class="d-flex flex-wrap">
+                                                <div class="d-flex flex-wrap mt-1">
                                                     <a href="#"
                                                         class="btn btn-lg bg-hover-white border rounded-lg mb-3 mr-auto prev-button">
                                                         <span class="d-inline-block text-primary mr-2 fs-16"><i
@@ -558,7 +559,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="d-flex flex-wrap">
+                                                <div class="d-flex flex-wrap mt-2">
                                                     <a href="#"
                                                         class="btn btn-lg bg-hover-white border rounded-lg mb-3 mr-auto prev-button">
                                                         <span class="d-inline-block text-primary mr-2 fs-16"><i

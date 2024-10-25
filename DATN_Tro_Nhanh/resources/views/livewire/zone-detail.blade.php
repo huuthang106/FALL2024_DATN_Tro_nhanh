@@ -8,7 +8,7 @@
                         {{-- <h5 for="invoice-list_length" class="d-block mr-2 mb-0">Tên khu: {{ $zone->name }}</h5> --}}
                     </div>
                     <div class="ml-2 align-self-center">
-                        <a href="{{ route('owners.zone-post', $zone->slug) }}" class="btn btn-primary btn-lg"
+                        <a href="{{ route('owners.add-room', $zone->slug) }}" class="btn btn-primary btn-lg"
                             tabindex="0"><span>Thêm
                                 mới</span></a>
                     </div>
@@ -27,24 +27,7 @@
                         </div>
                     </div>
                     <div class="align-self-center">
-                        {{-- <div class="dropdown"> --}}
-                            {{-- <button class="btn btn-secondary btn-lg dropdown-toggle" type="button"
-                                id="zoneActionDropdown" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false" @if (!$this->hasSelectedZones) disabled @endif>
-                                Hành động
-                            </button> --}}
-                            {{-- <button class="btn btn-primary btn-lg dropdown-toggle" type="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                >
-                                Hành động
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="zoneActionDropdown"> --}}
-                                {{-- <button wire:click="deleteSelectedRooms" class="btn btn-danger btn-lg text-nowrap" @if (!$this->selectedRooms) disabled @endif>
-                                    <span>Xóa</span>
-                                </button> --}}
-                          
-                            {{-- </div>
-                        </div> --}}
+                      
                     </div>
                 </div>
             </div>

@@ -212,7 +212,7 @@
                                                                 <div class="dropzone upload-file text-center py-5"
                                                                     id="myDropzone">
                                                                     <div class="dz-default dz-message">
-                                                                        <span class="upload-icon lh-1 d-inline-block mb-4">
+                                                                        <span class="upload-icon lh-1 d-inline-block mb-4" id="uploadIcon">
                                                                             <i class="fal fa-cloud-upload-alt"></i>
                                                                         </span>
                                                                         <p class="text-heading fs-22 lh-15 mb-4">
@@ -241,7 +241,7 @@
                                                                     @endforeach --}}
                                                                 </div>
                                                                 <!-- Phần tử để hiển thị ảnh đã chọn trong form -->
-                                                                <div id="imagePreview" class="text-center mt-4"></div>
+                                                               
                                                                 <!-- Ẩn View -->
                                                                 <input type="hidden" class="form-control" id="view"
                                                                     name="view" value="0">
