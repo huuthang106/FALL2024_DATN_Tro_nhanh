@@ -42,42 +42,32 @@
                             @else
                                 @foreach ($residents as $resident)
                                     <tr>
-
-                                        <td class="align-middle"><small>{{ $resident->room->title }}</small></td>
+                                        <td class="align-middle">
+                                            <small>{{ $resident->room->title }}</small>
+                                        </td>
                                         <td class="align-middle">
                                             <small>
-                                                <a
-                                                    href="{{ route('client.client-agent-detail', $resident->user->slug) }}">{{ $resident->user->name }}</a>
-
+                                                <a href="{{ route('client.client-agent-detail', $resident->tenant->slug) }}">
+                                                    {{ $resident->tenant->name }}
+                                                </a>
                                             </small>
-
                                         </td>
-                                        <td class="align-middle"> <small>
-                                                <small>
-                                                    {{ $resident->user->phone }}
-
-                                                </small>
-                                            </small></td>
                                         <td class="align-middle">
-                                            <small>
-                                                {{ $resident->zone_name }}
-
-                                            </small>
+                                            <small>{{ $resident->tenant->phone }}</small>
                                         </td>
-                                        <td class="align-middle" style="white-space: nowrap;">
+                                        <td class="align-middle">
+                                            <small>{{ $resident->zone_name }}</small>
+                                        </td>
+                                        <td class="align-middle" style="white-space: normal;"> <!-- Thay đổi từ nowrap sang normal -->
                                             <small>
-                                                <form action="{{ route('owners.approve-application', $resident->id) }}"
-                                                    method="POST" style="display:inline;">
+                                                <form action="{{ route('owners.approve-application', $resident->id) }}" method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('PUT')
-                                                    <button type="submit"
-                                                        class="btn btn-primary btn-sm text-light">Duyệt</button>
+                                                    <button type="submit" class="btn btn-primary btn-sm text-light">Duyệt</button>
                                                 </form>
-                                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                                    data-target="#confirmDeleteModal{{ $resident->id }}">
+                                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmDeleteModal{{ $resident->id }}">
                                                     Từ chối
                                                 </button>
-
                                             </small>
                                         </td>
                                     </tr>
@@ -155,7 +145,8 @@
                 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="invoiceModalLabel{{ $resident->id }}">Lý do từ chối đơn này</h5>
+                            <h5 class="modal-title" id="invoiceModalLabel{{ $resident->id }}">Lý do từ chối đơn này
+                            </h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
