@@ -181,19 +181,31 @@ class ListRoomClient extends Component
         if (!empty($this->category)) {
             $query->where('zones.category_id', $this->category);
         }
-       
-         // Lọc theo follow
-         if (!empty($this->follow_filter)) {
+    
+        // Lọc theo follow
+        if (!empty($this->follow_filter)) {
             $followedUserIds = Watchlist::where('follower', auth()->id())->pluck('user_id');
             $query->whereIn('zones.user_id', $followedUserIds);
         }
-
- 
+    
+        // Lọc theo priceRange
+        if (!empty($this->priceRange)) {
+            list($minPrice, $maxPrice) = explode('-', $this->priceRange);
+            $minPrice = intval($minPrice); // Chuyển đổi sang kiểu int
+            $maxPrice = $maxPrice ? intval($maxPrice) : null; // Chuyển đổi sang kiểu int hoặc null
+    
+            // Lọc theo giá trong bảng rooms
+            $query->whereHas('rooms', function ($q) use ($minPrice, $maxPrice) {
+                if ($maxPrice) {
+                    $q->whereBetween('rooms.price', [$minPrice, $maxPrice]);
+                } else {
+                    $q->where('rooms.price', '>', $minPrice);
+                }
+            });
+        }
+    
         Log::info('Request data: ' . json_encode(request()->all()));
-      
-        // Sắp xếp theo ngày hết hạn
-        // $query->orderByRaw('CASE WHEN zones.vip_expiry_date > NOW() THEN 1 ELSE 0 END DESC');
-
+    
         $zones = $query->paginate($this->perPage);
     
         $categories = Category::all();
