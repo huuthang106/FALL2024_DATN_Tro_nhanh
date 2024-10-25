@@ -21,9 +21,10 @@ use App\Services\RoomOwnersService;
 class ResidentOwnersService
 {
     public const agree = 2;
-    public const leave = 3; // Hoặc giá trị status mà bạn muốn lọc
+    public const leave = 4; //rời khỏi phòng trọ
 
     public const accepted = 2; // Hoặc giá trị status mà bạn muốn lọc
+    public const delete = 4; // status xoa cu dan khoi nha tro 
     public function getlistResdent($user_id, $status)
     {
         return Resident::where('user_id', $user_id)
@@ -47,7 +48,7 @@ class ResidentOwnersService
         $depositAmount = $resident->deposit; // Giả sử cột này tồn tại
 
         // Tìm user chủ phòng
-        $roomOwner = User::find($resident->tenant_id); // Giả sử cột này tồn tại
+        $roomOwner = User::find($resident->user_id); // Giả sử cột này tồn tại
 
         if (!$roomOwner) {
             throw new \Exception('Chủ phòng không tồn tại.');
@@ -66,7 +67,7 @@ class ResidentOwnersService
         $transaction->save();
 
         $thonngbao = new Notification();
-        $thonngbao->user_id = $resident->user_id;
+        $thonngbao->user_id = $resident->tenant_id;
         $thonngbao->type = 'Đơn đã xác nhận';
         $thonngbao->data = 'Đơn tham gia ' . $resident->room->title . ' của bạn đã được duyệt';
         $thonngbao->save();
@@ -88,11 +89,24 @@ class ResidentOwnersService
         if (!$resident) {
             throw new \Exception('Resident không tồn tại hoặc không thuộc về bạn.');
         }
+        
+        $room = $resident->room;
+   
+        // Tao thong bao cho nguoi dung
+        $notification = new Notification();
+        $notification->user_id = $resident->tenant_id;
+        $notification->type = 'Bị xóa khỏi phòng';
+        $notification->data = 'Bạn đã bị xóa khỏi phòng ở ' . $room->title;
+        $notification->save();
 
+        // Cong lai phong cho phong do 
+        $room->quantity += 1;
+        $room->save();
         // Phát sự kiện trước khi xóa
         // event(new ResidentDeleted($resident, $content));
 
-        // Xóa resident
+        // Xóa thay doi status cho resident
+        $resident->status = self::delete;
         $resident->delete();
 
         return true; // Trả về true nếu xóa thành công
