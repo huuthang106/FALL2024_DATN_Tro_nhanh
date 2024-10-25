@@ -27,7 +27,8 @@
                                                 VIP
                                             </span>
                                         @endif
-                                        <span class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }} position-absolute pos-fixed-top">
+                                        <span
+                                            class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }} position-absolute pos-fixed-top">
                                             {{ $zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
                                         </span>
                                     </div>
@@ -40,11 +41,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="card-img-overlay d-flex flex-column">
-                                    <div class="mb-auto">
-                                        <span class="badge badge-indigo">Phòng trọ</span>
-                                    </div>
-                                </div>
+
                             </div>
                             <div class="card-body pt-3 px-0 pb-1">
                                 <h2 class="fs-16 mb-1"><a
