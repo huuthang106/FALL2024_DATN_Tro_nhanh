@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         <div class="align-self-center">
-                            <button id="deleteSelected" class="btn btn-success btn-lg" tabindex="0">
+                            <button id="deleteSelected" class="btn btn-primary btn-lg" tabindex="0">
                                 <span>Hoàn thành</span>
                             </button>
                         </div>

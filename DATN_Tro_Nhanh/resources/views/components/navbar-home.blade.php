@@ -215,9 +215,9 @@
                 <div class="d-flex align-items-center">
                     <nav class="navbar navbar-expand-xl bg-transparent px-0 w-100 w-xl-auto">
                         <a class="navbar-brand mr-7" href="{{ route('client.home') }}">
-                            <img src="{{ asset('assets/images/tro-moi.png') }}" alt="HomeID" class="normal-logo">
+                            <img src="{{ asset('assets/images/download.png') }}" alt="HomeID" class="normal-logo">
 
-                            <img src="{{ asset('assets/images/tro-moi.png') }}" alt="HomeID" class="sticky-logo">
+                            <img src="{{ asset('assets/images/download.png') }}" alt="HomeID" class="sticky-logo">
                         </a>
 
 

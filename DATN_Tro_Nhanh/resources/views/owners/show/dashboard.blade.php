@@ -9,6 +9,7 @@
                     <h2 class="mb-0 text-heading fs-22 lh-15">Chào mừng trở lại, {{ $user->name }}!</h2>
 
                 </div>
+                @if ($user->role == 0 || $user->role == 2)
                 <div>
                     <a href="{{ route('owners.zone-post') }}" class="btn btn-primary btn-lg">
                         <span>Thêm phòng trọ mới</span>
@@ -17,6 +18,7 @@
                             </svg></span>
                     </a>
                 </div>
+                @endif
             </div>
             <div class="row">
                 <div class="col-sm-6 col-xxl-3 mb-6">

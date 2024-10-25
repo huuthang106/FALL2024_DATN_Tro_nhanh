@@ -212,7 +212,7 @@
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="ocr-results mb-4">
-                                        <h6 class="fs-16 fw-bold">Kết quả OCR mặt trước</h6>
+                                       
                                         <div class="row">
                                             <div class="col-md-12 form-group">
                                                 <label for="cmnd_number">Số CMND</label>
