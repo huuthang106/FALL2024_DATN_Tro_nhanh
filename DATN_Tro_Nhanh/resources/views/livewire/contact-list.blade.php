@@ -115,7 +115,8 @@
                     @endif
                 </div>
                 <div class="card-body border-0" id="chatBox"
-                    style="height: 400px; overflow-y: auto; border-radius: 0; background-color: #ffffff;" wire:poll="getmesseger">
+                    style="height: 400px; overflow-y: auto; border-radius: 0; background-color: #ffffff;"
+                    wire:poll="getmesseger">
                     @if (isset($messages) && count($messages) > 0)
                         @foreach ($messages as $message)
                             @if ($message['sender_id'] == $currentUserId)
@@ -194,8 +195,8 @@
                             <!--end::Input-->
                             <!--begin:Toolbar-->
                             <div class="d-flex flex-stack">
-                                
-                                <button class="btn btn-primary" type="submit" data-kt-element="send"  >
+
+                                <button class="btn btn-primary" type="submit" data-kt-element="send">
                                     <i class="fas fa-paper-plane"></i>
                                 </button>
                             </div>
