@@ -369,7 +369,7 @@
                                         </div>
                                     </div>
 
-                                    <form action="{{ route('owners.add-chat', $user->id) }}" method="POST">
+                                    <form action="{{ route('owners.add-chat', $user->id) }}" method="POST" wire:submit.prevent="sendMessage">
                                         @csrf
                                         <button type="submit" class="btn btn-primary btn-lg btn-block shadow-none">Gửi
                                             tin nhắn

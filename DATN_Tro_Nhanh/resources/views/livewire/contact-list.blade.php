@@ -2,211 +2,133 @@
     <div class="container-fluid py-5">
         <div class="row">
             <!-- Contact List -->
-            <div class="col-lg-5 col-xl-4 mb-4 mb-lg-0 p-0">
-                <div class="card" style="border-radius: 0;">
-                    <div class="card-header border-0" style="background-color: #f7f6f6; border-radius: 0;">
+            <div class="col-lg-4 p-2">
+                <div class="card h-100 shadow-sm" style="border-radius: 8px; min-height: 650px;">
+                    <div class="card-header bg-white border-0 p-3">
                         <form class="position-relative">
-                            <!-- Ô tìm kiếm liên kết với thuộc tính searchTerm trong Livewire -->
-                            <input type="text" class="form-control pl-4 border-0" placeholder="Tìm kiếm..."
+                            <i class="fas fa-search position-absolute"
+                                style="right: 15px; top: 50%; transform: translateY(-50%); color: gray;"></i>
+                            <input type="text" class="form-control border-0 pl-5" placeholder="Tìm kiếm liên hệ..."
                                 wire:model.lazy="searchTerm" wire:keydown.debounce.300ms="$refresh"
-                                style="background-color: #FFFFFF;color: gray;">
+                                style="background-color: #f1f3f4; color: gray; border-radius: 20px;">
                         </form>
                     </div>
-                    {{-- @if (session()->has('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif --}}
-                    <div class="card-body p-0" style="background-color: #f7f6f6;" wire:poll="pollContacts"
-                        style="height: 400px; overflow-y: auto;">
-                        <!-- ... existing code ... -->
+                    <div class="card-body p-0">
                         <div class="list-group list-group-flush">
                             @if ($contacts->isEmpty())
-                                <!-- Thông báo khi không tìm thấy kết quả -->
-                                <div class="text-center text-muted">
-                                    Không tìm thấy kết quả.
-                                </div>
+                                <div class="text-center text-muted p-3">Không tìm thấy kết quả.</div>
                             @else
-                                @foreach ($contacts as $contact)
-                                    <div wire:click="selectContact({{ $contact['id'] }})" wire:poll.5s="getContacts"
-                                        class="contact-item mt-2 m-1 rounded-sm  {{ $selectedContactId == $contact['id'] ? 'active-contact' : '' }}"
-                                        style="background-color: #FFFFFF;color: rgb(0, 0, 0);">
-                                        <div wire:key="item-{{ $contact['id'] }}" class="m-2 ">
-                                            <div class="d-flex w-100 justify-content-between align-items-center mt-2">
-                                                <div class="col-lg-9 d-flex align-items-center p-0">
-                                                    <small>
-                                                        <div class="symbol symbol-45px symbol-circle mr-2">
-                                                            <div class="avatar-container"
-                                                                style="width: 45px; height: 45px; overflow: hidden; border-radius: 50%;">
-                                                                @if ($contact['image'])
-                                                                    <img src="{{ asset('assets/images/' . $contact['image']) }}"
-                                                                        alt="Avatar"
-                                                                        style="width: 100%; height: 100%; object-fit: cover;">
-                                                                @else
-                                                                    <img src="{{ asset('assets/images/agent-43.jpg') }}"
-                                                                        alt="Avatar"
-                                                                        style="width: 100%; height: 100%; object-fit: cover;">
-                                                                @endif
-                                                            </div>
-                                                        </div>
-                                                    </small>
-                                                    <div>
-                                                        <small> <span
-                                                                class="mb-0">{{ Str::limit($contact['name'], 25) }}
-                                                            </span>
-
-                                                        </small>
-                                                        <br>
-                                                        <small> <span class="mb-0">{{ $contact['email'] }}
-                                                            </span>
-
-                                                        </small>
-                                                        {{-- <small class="text-muted">{{ $contact['email'] }}</small> --}}
-                                                    </div>
-                                                    @if ($contact['unread_count'] > 0)
-                                                        <small
-                                                            class="badge badge-primary badge-pill mb-5">{{ $contact['unread_count'] }}</small>
-                                                    @endif
-                                                </div>
-                                                <div class="d-flex flex-column align-items-end">
-                                                    <small class="text-muted d-block">
-                                                        {{ $contact['last_message_time'] ? $this->getRelativeTime($contact['last_message_time']) : 'Chưa có tin' }}
-                                                    </small>
-                                                    <!-- Xóa trực tiếp -->
-                                                    {{-- <button
-                                                        wire:click.stop="deleteChatPermanently({{ $contact['id'] }})"
-                                                        class="btn btn-sm btn-icon btn-light-danger"
-                                                        title="Xóa đoạn chat">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </button> --}}
-                                                    <!-- Xác nhận mới xóa -->
-                                                    <button wire:click.stop="confirmDelete({{ $contact['id'] }})"
-                                                        class="btn btn-sm btn-icon btn-light-danger"
-                                                        title="Xóa đoạn chat">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
+                            @foreach ($contacts as $contact)
+                            <div class="contact-item p-2 d-flex align-items-center position-relative {{ $selectedContactId == $contact['id'] ? 'active-contact' : '' }}"
+                                style="cursor: pointer; transition: background-color 0.3s; border-radius: 8px; margin: 4px 8px;"
+                                wire:click="selectContact({{ $contact['id'] }})"> <!-- Thêm wire:click ở đây -->
+                                <div class="avatar-container mr-2" style="width: 50px; height: 50px;">
+                                    <img src="{{ asset('assets/images/' . ($contact['image'] ?? 'agent-43.jpg')) }}"
+                                        class="rounded-circle"
+                                        style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div class="flex-grow-1 mr-2">
+                                    <div class="font-weight-bold">{{ Str::limit($contact['name'], 20) }}</div>
+                                    <small class="text-muted">{{ Str::limit($contact['latest_message'] ?? 'Chưa có tin nhắn', 16) }}</small>
+                                    <span class="mx-1 text-muted">·</span>
+                                    <small class="text-muted ml-auto">{{ $contact['last_message_time'] ? $this->getRelativeTime($contact['last_message_time']) : '' }}</small>
+                                </div>
+                        
+                                @if ($contact['unread_count'] > 0)
+                                    <span class="badge badge-primary ml-1">{{ $contact['unread_count'] }}</span>
+                                @endif
+                        
+                                <!-- Dropdown for more options -->
+                                <div class="dropdown ml-2">
+                                    <button class="btn btn-sm" type="button"
+                                        id="dropdownMenuButton{{ $contact['id'] }}" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right"
+                                        aria-labelledby="dropdownMenuButton{{ $contact['id'] }}">
+                                        <a class="dropdown-item" href="#"
+                                            wire:click.stop="confirmDelete({{ $contact['id'] }})">
+                                            <i class="fas fa-trash-alt mr-2"></i>Xóa đoạn chat
+                                        </a>
                                     </div>
-                                @endforeach
+                                </div>
+                            </div>
+                        @endforeach
                             @endif
                         </div>
-                        <!-- ... existing code ... -->
                     </div>
                 </div>
             </div>
-            <!-- Chat -->
-            <div class="col-lg-8 col-xl-8 p-0 rounded-none border-0">
-                <div class="card-header d-flex justify-content-center align-items-center shadow-sm"
-                    style="background-color: #ffffff; border-radius: 0;">
-                    <h5 class="mb-0 text-center">Chat với {{ $sender ? $sender->name : 'Chọn người nhận' }}</h5>
-                    @if ($sender)
-                        <a href="{{ route('client.client-agent-detail', $sender->slug) }}"
-                            class="btn btn-sm btn-icon ml-auto d-flex align-items-center justify-content-center"
-                            style="width: 32px; height: 32px; transition: all 0.2s ease;" data-toggle="tooltip"
-                            data-placement="bottom" title="Xem trang cá nhân"
-                            onmouseover="this.querySelector('svg').style.fill='#007bff'"
-                            onmouseout="this.querySelector('svg').style.fill='#6c757d'">
-                            <svg class="icon icon-my-profile" width="16" height="16" style="fill: #6c757d;">
-                                <use xlink:href="#icon-my-profile"></use>
-                            </svg>
-                        </a>
-                    @endif
-                </div>
-                <div class="card-body border-0" id="chatBox"
-                    style="height: 400px; overflow-y: auto; border-radius: 0; background-color: #ffffff;"
-                    wire:poll="getmesseger">
+            <!-- Chat Box -->
+            <div class="col-lg-8 p-2">
+                <div class="card h-100 shadow-sm" style="border-radius: 8px;  min-height: 650px;">
+                    <div class="card-header d-flex justify-content-between align-items-center bg-white p-3">
+                        @if ($sender)
+                            <div class="d-flex align-items-center">
+                                <img src="{{ asset('assets/images/' . ($sender->image ?? 'agent-43.jpg')) }}"
+                                    alt="Avatar" class="rounded-circle mr-2"
+                                    style="width: 40px; height: 40px; object-fit: cover;">
+                                <h6 class="mb-0 font-weight-bold">{{ $sender->name }}</h6>
+                            </div>
+                            <a href="{{ route('client.client-agent-detail', $sender->slug) }}" class="btn btn-sm "
+                                data-toggle="tooltip" title="Xem trang cá nhân">
+                                <i class="fas fa-user "></i>
+                            </a>
+                        @else
+                            <h5 class="mb-0">Chọn người nhận</h5>
+                        @endif
+                    </div>
+                    <div class="card-body p-4" id="chatBox"
+                    style="overflow-y: auto; max-height: 600px; background-color: #f7f7f7;">
                     @if (isset($messages) && count($messages) > 0)
                         @foreach ($messages as $message)
                             @if ($message['sender_id'] == $currentUserId)
-                                <!-- Tin nhắn của người dùng hiện tại -->
-                                <div class="d-flex justify-content-end mb-3">
+                                <div class="d-flex justify-content-end mb-4">
                                     <div class="d-flex flex-column align-items-end">
-                                        <div class="d-flex align-items-center mb-2">
-                                            <div class="mr-3 text-right">
-                                                <small
-                                                    class="text-muted d-block">{{ $message['relative_time'] }}</small>
-                                                <a href="#" class=" text-dark">Bạn</a>
-                                            </div>
-                                            <div class="avatar-container rounded-circle overflow-hidden"
-                                                style="width: 35px; height: 35px; flex-shrink: 0;">
-                                                @if (auth()->user()->image)
-                                                    <img src="{{ asset('assets/images/' . auth()->user()->image) }}"
-                                                        alt="Avatar"
-                                                        style="width: 100%; height: 100%; object-fit: cover;">
-                                                @else
-                                                    <img src="{{ asset('assets/images/agent-43.jpg') }}" alt="Avatar"
-                                                        style="width: 100%; height: 100%; object-fit: cover;">
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div class="p-3 rounded bg-primary text-white  text-right"
-                                            style="max-width: 400px;">
+                                        <div class="p-2 bg-primary text-white dv-message">
                                             {{ $message['message'] }}
                                         </div>
+                                        <div class="text-muted small mb-1">{{ $message['relative_time'] }}</div>
                                     </div>
                                 </div>
                             @else
-                                <!-- Tin nhắn của contact (người khác) -->
-                                <div class="d-flex justify-content-start mb-3">
+                                <div class="d-flex justify-content-start mb-4">
                                     <div class="d-flex flex-column align-items-start">
-                                        <div class="d-flex align-items-center mb-2">
-                                            <div class="rounded-circle overflow-hidden mr-3"
-                                                style="width: 35px; height: 35px;">
-                                                @if ($sender && $sender->image)
-                                                    <img src="{{ asset('assets/images/' . $sender->image) }}"
-                                                        class="rounded-circle mb-2" style="width: 40px; height: 40px;"
-                                                        alt="Avatar">
-                                                @else
-                                                    <img src="{{ asset('assets/images/agent-43.jpg') }}"
-                                                        class="rounded-circle mb-2" style="width: 40px; height: 40px;"
-                                                        alt="Avatar">
-                                                @endif
-                                            </div>
-                                            <div>
-                                                <a href="#" class=" text-dark mr-1">
-                                                    {{ $sender ? $sender->name : 'Người khác' }}
-                                                </a>
-                                                <small
-                                                    class="text-muted d-block">{{ $message['relative_time'] }}</small>
-                                            </div>
-                                        </div>
-                                        <div class="p-3 rounded bg-light text-dark " style="max-width: 400px;">
+                                        <div class="p-2 bg-white text-dark dv-message">
                                             {{ $message['message'] }}
                                         </div>
+                                        <div class="text-muted small mb-1">{{ $message['relative_time'] }}</div>
                                     </div>
                                 </div>
                             @endif
                         @endforeach
                     @else
-                        <p class="text-center">Chưa có tin nhắn nào.</p>
+                        <p class="text-center text-muted">Chưa có tin nhắn nào.</p>
                     @endif
-                    {{-- @endforelse --}}
                 </div>
-
-
-                <div class="card-footer pt-4" id="kt_chat_messenger_footer" style="background-color: #FFF;">
-                    <form wire:submit.prevent="sendMessage" class="d-flex flex-column">
-                        <!--begin::Input-->
-                        <div class="input-group mb-3" style="background-color: #F7F8FA;">
-                            <input class="form-control" wire:model="newMessage" rows="1"
-                                data-kt-element="input" placeholder="Nhập tin nhắn..." style="resize: none;"></input>
-                            <!--end::Input-->
-                            <!--begin:Toolbar-->
-                            <div class="d-flex flex-stack">
-
-                                <button class="btn btn-primary" type="submit" data-kt-element="send">
-                                    <i class="fas fa-paper-plane"></i>
-                                </button>
-                            </div>
-                            <!--end::Send-->
-                        </div>
-                    </form>
-                    <!--end::Toolbar-->
+                
+                <!-- Thêm điều kiện để ẩn input và button khi chưa chọn người chat -->
+                @if ($selectedContactId)
+                    <div class="card-footer bg-white p-3">
+                        <form wire:submit.prevent="sendMessage" class="d-flex">
+                            <input type="text" class="form-control border-0 mr-2" placeholder="Nhập tin nhắn..."
+                                wire:model="newMessage" style="background-color: #f1f3f4; border-radius: 30px;">
+                            <button class="btn btn-primary" type="submit"
+                                style="border-radius: 25px; transition: background-color 0.3s;">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                @endif
                 </div>
             </div>
         </div>
     </div>
-    </div>
 </main>
+<script>
+    Livewire.on('messageUpdated', () => {
+        const chatBox = document.getElementById('chatBox');
+        chatBox.scrollTop = chatBox.scrollHeight; // Cuộn xuống cuối khung chat
+    });
+</script>

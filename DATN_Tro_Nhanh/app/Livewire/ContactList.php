@@ -27,6 +27,9 @@ class ContactList extends Component
     public function mount()
     {
         $this->getContacts();
+
+        // Tự động chọn người nhắn tin gần nhất
+     
     }
 
 
@@ -167,7 +170,7 @@ class ContactList extends Component
     //         Log::warning('Invalid data for sending message.');
     //     }
     // }
-    public function sendMessage()
+   public function sendMessage()
     {
         Log::info('Selected Contact ID: ' . $this->selectedContactId);
         Log::info('New Message: ' . $this->newMessage);
@@ -218,6 +221,9 @@ class ContactList extends Component
                     $this->getmesseger();
                     $this->dispatch('messageUpdated');
 
+                    // Cập nhật danh sách liên hệ để hiển thị tin nhắn mới nhất
+                    $this->getContacts(); // Thêm dòng này để cập nhật danh sách liên hệ
+
                     Log::info('Message sent successfully.');
                 });
             } catch (\Exception $e) {
@@ -242,43 +248,39 @@ class ContactList extends Component
         ]);
     }
     private function getRelativeTime($dateTime)
-    {
-        if (!$dateTime) {
-            return '';
-        }
-
-        $carbon = Carbon::parse($dateTime);
-        $now = Carbon::now();
-
-        // Kiểm tra xem thời gian có phải là trong tương lai không
-        if ($carbon->isFuture()) {
-            return 'Tin nhắn chưa được gửi'; // Hoặc một thông báo khác nếu thời gian là trong tương lai
-        }
-
-        // Tính toán sự khác biệt
-        $diff = $now->diff($carbon);
-        $diffInSeconds = $diff->s + ($diff->i * 60) + ($diff->h * 3600); // Tính tổng số giây
-        $diffInMinutes = $diff->i + ($diff->h * 60); // Tính tổng số phút
-
-        // Ghi log để kiểm tra giá trị
-
-
-        // Hiển thị "Vừa xong" nếu tin nhắn được gửi trong vòng 1 phút (dưới 60 giây)
-        if ($diffInSeconds < 60) {
-            return 'Vừa xong';
-        } elseif ($diffInMinutes < 60) {
-            return $diffInMinutes . ' phút trước';
-        } elseif ($carbon->isToday()) {
-            return  $carbon->format('H:i'); // Hiển thị giờ nếu trong cùng ngày
-        } elseif ($carbon->isYesterday()) {
-            return 'Hôm qua';
-        } elseif ($carbon->isSameYear($now)) {
-            return $carbon->format('d/m');
-        } else {
-            return $carbon->format('d/m/Y');
-        }
+{
+    if (!$dateTime) {
+        return '';
     }
-    public function pollContacts()
+
+    $carbon = Carbon::parse($dateTime);
+    $now = Carbon::now();
+
+    // Kiểm tra xem thời gian có phải là trong tương lai không
+    if ($carbon->isFuture()) {
+        return 'Tin nhắn chưa được gửi'; // Hoặc một thông báo khác nếu thời gian là trong tương lai
+    }
+
+    // Tính toán sự khác biệt
+    $diff = $now->diff($carbon);
+    $diffInSeconds = $diff->s + ($diff->i * 60) + ($diff->h * 3600); // Tính tổng số giây
+    $diffInMinutes = $diff->i + ($diff->h * 60); // Tính tổng số phút
+
+    // Hiển thị "Vừa xong" nếu tin nhắn được gửi trong vòng 1 phút (dưới 60 giây)
+    if ($diffInSeconds < 60) {
+        return 'Vừa xong';
+    } elseif ($diffInMinutes < 60) {
+        return $diffInMinutes . ' phút trước';
+    } elseif ($carbon->isToday()) {
+        return 'Hôm nay lúc ' . $carbon->format('H:i'); // Hiển thị giờ nếu trong cùng ngày
+    } elseif ($carbon->isYesterday()) {
+        return 'Hôm qua lúc ' . $carbon->format('H:i');
+    } elseif ($carbon->isSameYear($now)) {
+        return $carbon->format('d/m') . ' lúc ' . $carbon->format('H:i');
+    } else {
+        return $carbon->format('d/m/Y');
+    }
+}    public function pollContacts()
     {
         $this->getContacts();
     }
@@ -289,17 +291,6 @@ class ContactList extends Component
     }
     public function getContacts()
     {
-        // $userId = auth()->id();
-        // $contacts = Contact::where(function ($query) use ($userId) {
-        //     $query->where('user_id', $userId)
-        //         ->orWhere('contact_user_id', $userId);
-        // })
-        //     ->where(function ($query) use ($userId) {
-        //         $query->whereNull('deleted_by')
-        //             ->orWhereJsonDoesntContain('deleted_by', $userId);
-        //     })
-        //     ->with(['user', 'contactUser', 'latestMessage'])
-        //     ->get();
         $userId = auth()->id();
         $contacts = Contact::where(function ($query) use ($userId) {
             $query->where('user_id', $userId)
@@ -314,7 +305,7 @@ class ContactList extends Component
                             ->orWhereJsonDoesntContain('deleted_by', $userId);
                     });
             })
-            ->with(['user', 'contactUser', 'latestMessage'])
+            ->with(['user', 'contactUser'])
             ->get();
 
         $this->contacts = $contacts->map(function ($contact) use ($userId) {
@@ -328,19 +319,24 @@ class ContactList extends Component
                 })
                 ->count();
 
-            if (
-                stripos($otherUser->name, $this->searchTerm) !== false ||
-                stripos($otherUser->email, $this->searchTerm) !== false
-            ) {
-                return [
-                    'id' => $contact->id,
-                    'name' => $otherUser->name,
-                    'email' => $otherUser->email,
-                    'image' => $otherUser->image,
-                    'unread_count' => $unreadCount,
-                    'last_message_time' => $contact->latestMessage ? $contact->latestMessage->created_at : null,
-                ];
-            }
+            // Lấy tin nhắn mới nhất
+            $latestMessage = $contact->messages()
+                ->where(function ($query) use ($userId) {
+                    $query->whereNull('deleted_by')
+                        ->orWhereJsonDoesntContain('deleted_by', $userId);
+                })
+                ->orderBy('created_at', 'desc')
+                ->first();
+
+            return [
+                'id' => $contact->id,
+                'name' => $otherUser->name,
+                'email' => $otherUser->email,
+                'image' => $otherUser->image,
+                'unread_count' => $unreadCount,
+                'last_message_time' => $latestMessage ? $latestMessage->created_at : null,
+                'latest_message' => $latestMessage ? $latestMessage->message : 'Chưa có tin nhắn',
+            ];
         })
             ->filter()
             ->sortByDesc('last_message_time')
@@ -435,4 +431,5 @@ class ContactList extends Component
         // Thông báo cho frontend cập nhật giao diện
         $this->dispatch('contactDeleted', $contactId);
     }
+
 }

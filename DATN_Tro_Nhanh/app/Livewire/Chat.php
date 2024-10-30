@@ -251,35 +251,35 @@ class Chat extends Component
         if (!$dateTime) {
             return '';
         }
-
+    
         $carbon = Carbon::parse($dateTime);
         $now = Carbon::now();
-
-        // Kiểm tra nếu thời gian là dưới 1 phút
-        if ($carbon->diffInMinutes($now) < 1) {
+    
+        // Kiểm tra xem thời gian có phải là trong tương lai không
+        if ($carbon->isFuture()) {
+            return 'Tin nhắn chưa được gửi'; // Hoặc một thông báo khác nếu thời gian là trong tương lai
+        }
+    
+        // Tính toán sự khác biệt
+        $diff = $now->diff($carbon);
+        $diffInSeconds = $diff->s + ($diff->i * 60) + ($diff->h * 3600); // Tính tổng số giây
+        $diffInMinutes = $diff->i + ($diff->h * 60); // Tính tổng số phút
+    
+        // Hiển thị "Vừa xong" nếu tin nhắn được gửi trong vòng 1 phút (dưới 60 giây)
+        if ($diffInSeconds < 60) {
             return 'Vừa xong';
-        }
-
-        // Nếu tin nhắn trong ngày hôm nay thì hiển thị dạng tương đối (x phút trước, x giờ trước)
-        if ($carbon->isToday()) {
-            return $carbon->diffForHumans($now, true); // Hiển thị dạng tương đối
-        }
-
-        // Nếu là ngày hôm qua, hiển thị 'Hôm qua'
-        elseif ($carbon->isYesterday()) {
-            return 'Hôm qua';
-        }
-
-        // Nếu cùng năm, hiển thị ngày/tháng
-        elseif ($carbon->isSameYear($now)) {
-            return $carbon->format('d/m');
-        }
-
-        // Nếu khác năm, hiển thị đầy đủ ngày/tháng/năm
-        else {
+        } elseif ($diffInMinutes < 60) {
+            return $diffInMinutes . ' phút trước';
+        } elseif ($carbon->isToday()) {
+            return 'Hôm nay lúc ' . $carbon->format('H:i'); // Hiển thị giờ nếu trong cùng ngày
+        } elseif ($carbon->isYesterday()) {
+            return 'Hôm qua lúc ' . $carbon->format('H:i');
+        } elseif ($carbon->isSameYear($now)) {
+            return $carbon->format('d/m') . ' lúc ' . $carbon->format('H:i');
+        } else {
             return $carbon->format('d/m/Y');
         }
-    }
+    } 
 
     public function pollContacts()
     {
@@ -292,17 +292,6 @@ class Chat extends Component
     }
     public function getContacts()
     {
-        // $userId = auth()->id();
-        // $contacts = Contact::where(function ($query) use ($userId) {
-        //     $query->where('user_id', $userId)
-        //         ->orWhere('contact_user_id', $userId);
-        // })
-        //     ->where(function ($query) use ($userId) {
-        //         $query->whereNull('deleted_by')
-        //             ->orWhereJsonDoesntContain('deleted_by', $userId);
-        //     })
-        //     ->with(['user', 'contactUser', 'latestMessage'])
-        //     ->get();
         $userId = auth()->id();
         $contacts = Contact::where(function ($query) use ($userId) {
             $query->where('user_id', $userId)
@@ -317,7 +306,7 @@ class Chat extends Component
                             ->orWhereJsonDoesntContain('deleted_by', $userId);
                     });
             })
-            ->with(['user', 'contactUser', 'latestMessage'])
+            ->with(['user', 'contactUser'])
             ->get();
 
         $this->contacts = $contacts->map(function ($contact) use ($userId) {
@@ -331,19 +320,24 @@ class Chat extends Component
                 })
                 ->count();
 
-            if (
-                stripos($otherUser->name, $this->searchTerm) !== false ||
-                stripos($otherUser->email, $this->searchTerm) !== false
-            ) {
-                return [
-                    'id' => $contact->id,
-                    'name' => $otherUser->name,
-                    'email' => $otherUser->email,
-                    'image' => $otherUser->image,
-                    'unread_count' => $unreadCount,
-                    'last_message_time' => $contact->latestMessage ? $contact->latestMessage->created_at : null,
-                ];
-            }
+            // Lấy tin nhắn mới nhất
+            $latestMessage = $contact->messages()
+                ->where(function ($query) use ($userId) {
+                    $query->whereNull('deleted_by')
+                        ->orWhereJsonDoesntContain('deleted_by', $userId);
+                })
+                ->orderBy('created_at', 'desc')
+                ->first();
+
+            return [
+                'id' => $contact->id,
+                'name' => $otherUser->name,
+                'email' => $otherUser->email,
+                'image' => $otherUser->image,
+                'unread_count' => $unreadCount,
+                'last_message_time' => $latestMessage ? $latestMessage->created_at : null,
+                'latest_message' => $latestMessage ? $latestMessage->message : 'Chưa có tin nhắn',
+            ];
         })
             ->filter()
             ->sortByDesc('last_message_time')

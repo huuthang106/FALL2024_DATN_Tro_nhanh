@@ -72,16 +72,16 @@
                                         <div class="ms-5">
                                             <a wire:click="selectContact({{ $contact['id'] }})"
                                                 class="fs-5 fw-bolder text-gray-900 text-hover-primary mb-2">{{ $contact['name'] }}</a>
-                                            <div class="fw-bold text-muted"><small>{{ $contact['email'] }}</small></div>
+                                            <div class="fw-bold text-muted"><small>{{ Str::limit($contact['latest_message'] ?? 'Chưa có tin nhắn', 16) }}</small>
+                                                <span class="mx-1 text-muted">·</span>
+                                                <small class="text-muted ml-auto">{{ $contact['last_message_time'] ? $this->getRelativeTime($contact['last_message_time']) : '' }}</small></div>
                                         </div>
                                         <!--end::Details-->
                                     </div>
                                     <!--end::Details-->
                                     <!--begin::Lat seen-->
                                     <div class="d-flex flex-column align-items-end ms-2">
-                                        <span
-                                            class="text-muted fs-7 mb-1">{{ $this->getRelativeTime($contact['last_message_time']) }}
-                                        </span>
+                                       
                                         @if ($contact['unread_count'] > 0)
                                             <span
                                                 class="badge badge-sm badge-circle badge-light-warning">{{ $contact['unread_count'] }}</span>
@@ -126,8 +126,18 @@
                     <div class="card-title">
                         <!--begin::User-->
                         <div class="d-flex justify-content-center flex-column me-3">
+                              
+                            @if ($sender && $sender->name)
                             <a href="#"
-                                class="fs-4 fw-bolder text-gray-900 text-hover-primary me-1 mb-2 lh-1">{{ $sender ? $sender->name : 'Chọn người nhận' }}</a>
+                            class="fs-4 fw-bolder text-gray-900 text-hover-primary me-1 mb-2 lh-1">
+                            <img src="{{ asset('assets/images/' . ($sender->image ?? 'agent-4-lg.jpg')) }}"
+                                 alt="Avatar" class="rounded-circle mr-2"
+                                 style="width: 40px; height: 40px; object-fit: cover;">
+                           {{ $sender->name }}</a>
+                        @else
+                            <a href="#"
+                               class="fs-4 fw-bolder text-gray-900 text-hover-primary me-1 mb-2 lh-1">Chọn người nhận</a>
+                        @endif
                             <!--begin::Info-->
                             {{-- <div class="mb-0 lh-1">
                                 <span class="badge badge-success badge-circle w-10px h-10px me-1"></span>
@@ -226,6 +236,7 @@
                                                 <!--end::Avatar-->
                                                 <!--begin::Details-->
                                                 <div class="ms-3">
+                                                    
                                                     <a href="#"
                                                         class="fs-5 fw-bolder text-gray-900 text-hover-primary me-1">
                                                         {{ $sender ? $sender->name : 'Người khác' }}</a>
@@ -312,33 +323,40 @@
 
                 <!--end::Card body-->
                 <!--begin::Card footer-->
-
+                @if ($selectedContactId)
                 <div class="card-footer pt-4" id="kt_chat_messenger_footer">
+                   
                     <form wire:submit.prevent="sendMessage" class="d-flex flex-column">
                         <!--begin::Input-->
                         <div class="input-group mb-3">
+                            
                             <input class="form-control" wire:model="newMessage" rows="1"
                                 data-kt-element="input" placeholder="Nhập tin nhắn..." style="resize: none;"></input>
                             <!--end::Input-->
                             <!--begin:Toolbar-->
-                            <div class="d-flex flex-stack">
+                           
                                 <!--begin::Actions-->
                                 {{-- <div class="d-flex align-items-center me-2">
-                            <button class="btn btn-sm btn-icon btn-active-light-primary me-1" type="button"
-                                data-bs-toggle="tooltip" title="Coming soon">
-                                <i class="bi bi-paperclip fs-3"></i>
-                            </button>
-                            <button class="btn btn-sm btn-icon btn-active-light-primary me-1" type="button"
-                                data-bs-toggle="tooltip" title="Coming soon">
-                                <i class="bi bi-upload fs-3"></i>
-                            </button>
-                        </div> --}}
+                                    <button class="btn btn-sm btn-icon btn-active-light-primary me-1" type="button"
+                                        data-bs-toggle="tooltip" title="Coming soon">
+                                        <i class="bi bi-paperclip fs-3"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-icon btn-active-light-primary me-1" type="button"
+                                        data-bs-toggle="tooltip" title="Coming soon">
+                                        <i class="bi bi-upload fs-3"></i>
+                                    </button>
+                                </div> --}}
                                 <!--end::Actions-->
                                 <!--begin::Send-->
-                                <button class="btn btn-primary" type="submit" data-kt-element="send">
-                                    <i class="fas fa-paper-plane"></i>
-                                </button>
-                            </div>
+                                
+                               
+    <button class="btn btn-primary ml-2" type="submit" data-kt-element="send">
+        <i class="fas fa-paper-plane"></i>
+    </button>
+@else
+
+@endif
+                           
                             <!--end::Send-->
                         </div>
                     </form>
