@@ -288,9 +288,5 @@ class ZoneTable extends Component
     //         'trashedZones' => $trashedZones,
     //     ]);
     // }
-    public function getZoneImageUrl(Zone $zone): string
-    {
-        $image = $zone->images->first();
-        return $image ? asset('assets/images/' . $image->filename) : asset('assets/images/properties-grid-08.jpg');
-    }
+  
 }

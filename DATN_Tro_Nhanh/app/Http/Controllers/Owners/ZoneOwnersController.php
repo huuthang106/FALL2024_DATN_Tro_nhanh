@@ -184,10 +184,10 @@ class ZoneOwnersController extends Controller
         $result = $this->zoneServices->softDeleteZones($id);
 
         if ($result['status'] === 'error') {
-            return redirect()->back()->with('error', $result['message']);
+            return response()->json(['status' => 'error', 'message' => $result['message']], 400);
         }
-
-        return redirect()->route('owners.trash-zone')->with('success', $result['message']);
+    
+        return response()->json(['status' => 'success', 'message' => $result['message']], 200);
     }
     public function destroyy($id)
     {

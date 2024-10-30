@@ -184,10 +184,12 @@
                                         <a href="{{ route('owners.zone-view-update', $zone->slug) }}" data-toggle="tooltip" title="Chỉnh sửa" class="btn btn-primary btn-sm mr-2">
                                             <i class="fal fa-pencil-alt"></i>
                                         </a>
-                                        <form action="{{ route('owners.destroy-zone', $zone->id) }}" method="POST" class="d-inline-block">
+                                        <form id="deleteZoneForm{{ $zone->id }}" action="{{ route('owners.destroy-zone', $zone->id) }}" method="POST" class="d-inline-block" onsubmit="return false;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fal fa-trash-alt"></i></button>
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="deleteZone({{ $zone->id }})">
+                                                <i class="fal fa-trash-alt"></i>
+                                            </button>
                                         </form>
                                     </td>
                                 </tr>
@@ -344,4 +346,50 @@
     });
 </script>
 
+{{-- form xoa khu tro  --}}
+<script>
+    function deleteZone(zoneId) {
+        // Sử dụng SweetAlert2 để xác nhận
+        Swal.fire({
+            title: 'Xác nhận',
+            text: 'Bạn có chắc chắn muốn xóa khu vực này?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Có, xóa!',
+            cancelButtonText: 'Không'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Nếu người dùng xác nhận, gửi yêu cầu AJAX
+                $.ajax({
+                    url: '{{ route('owners.destroy-zone', '') }}/' + zoneId, // Sử dụng route name
+                    type: 'POST',
+                    data: {
+                        _method: 'DELETE', // Thêm phương thức DELETE
+                        _token: '{{ csrf_token() }}' // Thêm token CSRF
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thành công!',
+                            text: response.message,
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            location.reload(); // Tải lại trang sau khi xóa
+                        });
+                    },
+                    error: function(xhr) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi!',
+                            text: xhr.responseJSON.message,
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            }
+        });
+    }
+</script>
 </div>

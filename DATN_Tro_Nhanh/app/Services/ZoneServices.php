@@ -24,6 +24,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use App\Services\BlogServices;
+
 class ZoneServices
 {
     const CO = 1; // Có tiện ích
@@ -366,14 +367,14 @@ class ZoneServices
     {
         $data['status'] = self::DA_TAO;
         $data['payment_date'] = now();
-    
+
         // Kiểm tra và thêm hạn thanh toán nếu có
         if (isset($data['payment_due_date'])) {
             $data['payment_due_date'] = $data['payment_due_date']; // Giữ nguyên giá trị từ form
         } else {
             $data['payment_due_date'] = now(); // Nếu không có, mặc định là hiện tại
         }
-    
+
         $bill = Bill::create($data);
         event(new BillCreated($bill, $data['payer_id']));
         return $bill;
@@ -551,20 +552,6 @@ class ZoneServices
                 'message' => 'Khu trọ đang có phòng hoạt động, không thể xóa.'
             ];
         }
-
-        // Kiểm tra xem có user_id nào đang ở trong resident thuộc zone này không
-        $activeResidents = Resident::where('zone_id', $id)
-            ->whereNotNull('user_id')
-            ->exists();
-
-        if ($activeResidents) {
-            // Nếu có user_id đang ở trong resident, trả về thông báo lỗi
-            return [
-                'status' => 'error',
-                'message' => 'Khu trọ đang có người ở, không thể xóa.'
-            ];
-        }
-
         // Nếu tất cả các phòng đều đã bị xóa mềm và không có người ở, tiến hành xóa mềm zone
         $zone->delete();
 
@@ -933,7 +920,7 @@ class ZoneServices
         }
         return $updatedCount; // Trả về số lượng zone đã được cập nhật
     }
-    public function createMultiple( $data)
+    public function createMultiple($data)
     {
         $zone = new Zone();
         $zone->status = 1; // Mặc định trạng thái
@@ -971,7 +958,7 @@ class ZoneServices
         if (isset($data['image'])) {
             $imageUrl = $data['image']; // Đường dẫn hình ảnh
             $imageContent = @file_get_contents($imageUrl);
-    
+
             if ($imageContent !== false) {
                 // Tạo một đối tượng UploadedFile giả để sử dụng hàm uploadImageToGoogleDrive
                 $tempFilePath = tempnam(sys_get_temp_dir(), 'image');
@@ -983,13 +970,13 @@ class ZoneServices
                     null,
                     true
                 );
-    
+
                 $folderId = env('GOOGLE_DRIVE_FOLDER_ID'); // Lấy ID thư mục từ .env
                 $filename = time() . '_' . basename($imageUrl); // Tạo tên file mới
-    
+
                 // Gọi hàm uploadImageToGoogleDrive
                 $uploadResult = $this->blogServices->uploadImageToGoogleDrive($uploadedFile, $folderId, $filename);
-    
+
                 if (isset($uploadResult['id'])) {
                     // Lưu ID của file trên Google Drive vào cơ sở dữ liệu
                     $room->image = $uploadResult['id'];

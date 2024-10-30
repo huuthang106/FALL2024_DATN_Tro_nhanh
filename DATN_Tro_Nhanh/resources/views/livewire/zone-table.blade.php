@@ -114,8 +114,11 @@
                                     <td class="align-middle d-md-table-cell text-nowrap p-4" style="width: 15%;">
                                         <div class="mr-2 position-relative zone-image-container">
                                             <a href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}">
-                                                <img src="{{ $this->getZoneImageUrl($zone) ?: asset('assets/images/properties-grid-08.jpg') }}"
-                                                    alt="{{ $zone->name }}" class="img-fluid zone-image">
+                                                @php
+                                                    $image = $zone->rooms->first()->image ?? null;
+                                                @endphp
+                                                <img src="{{ $image ? 'https://drive.google.com/thumbnail?id=' . $image : asset('assets/images/default-image.jpg') }}"
+                                                     alt="{{ $zone->name }}" class="img-fluid zone-image">
                                             </a>
                                         </div>
                                     </td>
