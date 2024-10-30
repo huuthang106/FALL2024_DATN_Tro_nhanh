@@ -1,235 +1,248 @@
 <div>
-<main id="content" class="bg-gray-01">
-    <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
-        <div class="mb-6">
-            <div class="row">
-                <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
-                    <div class="d-flex form-group mb-0 align-items-center">
-                        {{-- <h5 for="invoice-list_length" class="d-block mr-2 mb-0">Tên khu: {{ $zone->name }}</h5> --}}
-                    </div>
-                    <div class="ml-2 align-self-center">
-                        <a href="{{ route('owners.add-room', $zone->slug) }}" class="btn btn-primary btn-lg"
-                            tabindex="0"><span>Thêm
-                                mới</span></a>
-                    </div>
-
-                </div>
-
-                <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
-
-                    <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
-                        <input wire:model.lazy="searchResident" wire:keydown.debounce.300ms="$refresh" type="text"
-                            class="form-control bg-transparent border-0 shadow-none text-body"
-                            placeholder="Tìm kiếm tên người ở..." aria-label="" aria-describedby="basic-addon1">
-                        <div class="input-group-append position-absolute pos-fixed-right-center">
-                            <button class="btn bg-transparent border-0 text-gray lh-1" type="button"><i
-                                    class="fal fa-search"></i></button>
+    <main id="content" class="bg-gray-01">
+        <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
+            <div class="mb-6">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
+                        <div class="d-flex form-group mb-0 align-items-center">
+                            {{-- <h5 for="invoice-list_length" class="d-block mr-2 mb-0">Tên khu: {{ $zone->name }}</h5> --}}
                         </div>
+                        <div class="ml-2 align-self-center">
+                            <a href="{{ route('owners.add-room', $zone->slug) }}" class="btn btn-primary btn-lg"
+                                tabindex="0"><span>Thêm
+                                    mới</span></a>
+                        </div>
+
                     </div>
-                    <div class="align-self-center">
-                      
+
+                    <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
+
+                        <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
+                            <input wire:model.lazy="searchResident" wire:keydown.debounce.300ms="$refresh"
+                                type="text" class="form-control bg-transparent border-0 shadow-none text-body"
+                                placeholder="Tìm kiếm tên người ở..." aria-label="" aria-describedby="basic-addon1">
+                            <div class="input-group-append position-absolute pos-fixed-right-center">
+                                <button class="btn bg-transparent border-0 text-gray lh-1" type="button"><i
+                                        class="fal fa-search"></i></button>
+                            </div>
+                        </div>
+                        <div class="align-self-center">
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="table-responsive">
-                    <table id="myTable" class="table table-hover bg-white border rounded-lg">
-                        <thead>
-                            <tr role="row">
-                                {{-- <th class="no-sort py-6 pl-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table id="myTable" class="table table-hover bg-white border rounded-lg">
+                            <thead>
+                                <tr role="row">
+                                    {{-- <th class="no-sort py-6 pl-6">
                                     <label class="new-control new-checkbox checkbox-primary m-auto">
                                         <input type="checkbox"
                                             class="new-control-input chk-parent select-customers-info">
                                     </label>
                                 </th> --}}
-                                <th class="py-6 text-start px-5" style="white-space: nowrap;">Ảnh</th>
-                                <th class="py-6 text-start" style="white-space: nowrap;">Tên phòng</th>
-                                <th class="py-6 text-start" style="white-space: nowrap;">Mô Tả</th>
-                                <th class="py-6 text-start" style="white-space: nowrap;">Số lượng</th>
-                                <th class="py-6 text-start" style="white-space: nowrap;">Số điện thoại</th>
-                                {{-- <th class="py-6 text-start">Lý do từ chối</th> --}}
-                                <th class="py-6 text-start" style="white-space: nowrap;">Trạng thái</th>
-                                {{-- <th class="py-6 text-start" style="white-space: nowrap;">Xem hồ sơ</th> --}}
-                                <th class="py-6 text-start ">Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($rooms->isEmpty())
-                                <tr>
-                                    <td colspan="6" class="text-center" style="white-space: nowrap;">Khu vực chưa có
-                                        phòng trọ nào.</td>
+                                    <th class="py-6 text-start px-5" style="white-space: nowrap;">Ảnh</th>
+                                    <th class="py-6 text-start" style="white-space: nowrap;">Tên phòng</th>
+                                    <th class="py-6 text-start" style="white-space: nowrap;">Mô Tả</th>
+                                    <th class="py-6 text-start" style="white-space: nowrap;">Số lượng</th>
+                                    <th class="py-6 text-start" style="white-space: nowrap;">Số điện thoại</th>
+                                    {{-- <th class="py-6 text-start">Lý do từ chối</th> --}}
+                                    <th class="py-6 text-start" style="white-space: nowrap;">Trạng thái</th>
+                                    {{-- <th class="py-6 text-start" style="white-space: nowrap;">Xem hồ sơ</th> --}}
+                                    <th class="py-6 text-start ">Thao tác</th>
                                 </tr>
-                            @else
-                                @foreach ($rooms as $room)
+                            </thead>
+                            <tbody>
+                                @if ($rooms->isEmpty())
                                     <tr>
-                                        {{-- Các cột khác --}}
-                                        <td class="align-middle px-3" style="white-space: nowrap;">
-                                            @php
-                                            $imageIds = explode(',', $room->image); // Tách các ID tệp nếu có nhiều tệp
-                                            $firstImageId = $imageIds[0] ?? null; // Lấy ID đầu tiên
-                                        @endphp
-                                        
-                                        @if ($firstImageId)
-                                            <img src="https://drive.google.com/thumbnail?id={{ $firstImageId }}"
-                                                 alt="{{ $room->title ?? 'Default Image' }}"
-                                                 class="img-fluid blog-image square-image" style="max-width: 100px;">
-                                        @else
-                                            <img src="{{ asset('assets/images/default-image.jpg') }}"
-                                                 alt="Default Image" class="img-fluid blog-image square-image" style="max-width: 100px;">
-                                            {{-- Hình ảnh mặc định nếu không có ID --}}
-                                        @endif
-                                        </td>
-                                        <td class="align-middle text-wrap" >
-                                            <small>{{ $room->title }}</small>
-                                        </td>
-                                        <td class="align-middle text-wrap" >
-                                            <small>{{ $room->description }}</small>
-                                        </td>
-                                        <td class="align-middle text-wrap" >
-                                            <small>{{ $room->quantity }}</small>
-                                        </td>
-                                        <td class="align-middle text-wrap" >
-                                            <small>{{ $zone->phone }}</small>
-                                        </td>
-                                        <td class="align-middle text-wrap" >
-                                            <small>
-                                                @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
-                                                    <span class="badge badge-green text-capitalize">Đang tạm trú</span>
-                                                @else
-                                                    <span class="badge badge-yellow text-capitalize">Trống</span>
-                                                @endif
-                                            </small>
-                                        </td>
-
-                                        {{-- Thêm cột hình ảnh --}}
-
-
-                                        {{-- Các cột khác --}}
-                                        <td class="align-middle " style="white-space: nowrap;"  >
-                                            @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
+                                        <td colspan="6" class="text-center" style="white-space: nowrap;">Khu vực chưa
+                                            có
+                                            phòng trọ nào.</td>
+                                    </tr>
+                                @else
+                                    @foreach ($rooms as $room)
+                                        <tr>
+                                            {{-- Các cột khác --}}
+                                            <td class="align-middle px-3" style="white-space: nowrap;">
                                                 @php
-                                                    $resident = $room->residents->where('status', $user_is_in)->first();
-                                                    $tenant = $resident->tenant;
+                                                    $imageIds = explode(',', $room->image); // Tách các ID tệp nếu có nhiều tệp
+                                                    $firstImageId = $imageIds[0] ?? null; // Lấy ID đầu tiên
                                                 @endphp
-                                                @if ($resident->status == $user_is_in)
-                                                    <a href="{{ route('owners.detail-room', $room->id) }}"
-                                                        type="button" class="btn btn-primary btn-sm">
-                                                        <i class="fal fa-eye"></i>
-                                                    </a>
-                                                    <button type="button" class="btn btn-primary btn-sm"
-                                                        data-toggle="modal"
-                                                        data-target="#invoiceModal{{ $resident->id }}">
-                                                        <i class="fal fa-pencil-alt"></i>
+
+                                                @if ($firstImageId)
+                                                    <img src="https://drive.google.com/thumbnail?id={{ $firstImageId }}"
+                                                        alt="{{ $room->title ?? 'Default Image' }}"
+                                                        class="img-fluid blog-image square-image"
+                                                        style="max-width: 100px;">
+                                                @else
+                                                    <img src="{{ asset('assets/images/default-image.jpg') }}"
+                                                        alt="Default Image" class="img-fluid blog-image square-image"
+                                                        style="max-width: 100px;">
+                                                    {{-- Hình ảnh mặc định nếu không có ID --}}
+                                                @endif
+                                            </td>
+                                            <td class="align-middle text-wrap">
+                                                <small>{{ $room->title }}</small>
+                                            </td>
+                                            <td class="align-middle text-wrap">
+                                                <small>{{ $room->description }}</small>
+                                            </td>
+                                            <td class="align-middle text-wrap">
+                                                <small>{{ $room->quantity }}</small>
+                                            </td>
+                                            <td class="align-middle text-wrap">
+                                                <small>{{ $zone->phone }}</small>
+                                            </td>
+                                            <td class="align-middle text-wrap">
+                                                <small>
+                                                    @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
+                                                        <span class="badge badge-green text-capitalize">Đang tạm
+                                                            trú</span>
+                                                    @else
+                                                        <span class="badge badge-yellow text-capitalize">Trống</span>
+                                                    @endif
+                                                </small>
+                                            </td>
+
+                                            {{-- Thêm cột hình ảnh --}}
+
+
+                                            {{-- Các cột khác --}}
+                                            <td class="align-middle " style="white-space: nowrap;">
+                                                @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
+                                                    @php
+                                                        $resident = $room->residents
+                                                            ->where('status', $user_is_in)
+                                                            ->first();
+                                                        $tenant = $resident->tenant;
+                                                    @endphp
+                                                    @if ($resident->status == $user_is_in)
+                                                        <a href="{{ route('owners.detail-room', $room->id) }}"
+                                                            type="button" class="btn btn-primary btn-sm">
+                                                            <i class="fal fa-eye"></i>
+                                                        </a>
+                                                        <button type="button" class="btn btn-primary btn-sm"
+                                                            data-toggle="modal"
+                                                            data-target="#invoiceModal{{ $resident->id }}">
+                                                            <i class="fal fa-pencil-alt"></i>
+                                                        </button>
+                                                        <form
+                                                            action="{{ route('owners.erase-tenant', $resident->id) }}"
+                                                            method="POST" style="display:inline;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger btn-sm"><i
+                                                                    class="fal fa-trash-alt"></i></button>
+                                                        </form>
+                                                    @endif
+                                                @else
+                                                <form id="deleteRoomForm{{ $room->id }}" action="{{ route('owners.delete-room', $room->id) }}" method="POST" style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $room->id }})">
+                                                        <i class="fal fa-trash-alt"></i>
                                                     </button>
-                                                    <form action="{{ route('owners.erase-tenant', $resident->id) }}"
+                                                </form>
+                                                
+                                                    </button>
+                                                    <form action="{{ route('owners.edit-room', $room->id) }}"
                                                         method="POST" style="display:inline;">
                                                         @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm"><i
-                                                                class="fal fa-trash-alt"></i></button>
+                                                        @method('PUT')
+                                                        <button type="submit" class="btn btn-primary btn-sm"><i
+                                                                class="fal fa-pen-alt"></i></button>
                                                     </form>
                                                 @endif
-                                            @else
-                                            <button wire:click="deleteRoom({{ $room->id }})"
-                                                class="btn btn-danger btn-sm"
-                                               >
-                                            <i class="fal fa-trash-alt"></i>
-                                        </button>
-                                                <form action="{{ route('owners.edit-room', $room->id) }}"
-                                                    method="POST" style="display:inline;">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button type="submit" class="btn btn-primary btn-sm"><i
-                                                            class="fal fa-pen-alt"></i></button>
-                                                </form>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
-                        </tbody>
-                    </table>
-                </div>
-                <div class="mt-6">
-                    @if ($rooms->hasPages())
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination pagination-sm rounded-active justify-content-center">
-                                {{-- Liên kết Trang Đầu --}}
-                                <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="gotoPage(1)"
-                                        wire:loading.attr="disabled">
-                                        &lt;&lt;
-                                    </a>
-                                </li>
-
-                                {{-- Liên kết Trang Trước --}}
-                                <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="previousPage"
-                                        wire:loading.attr="disabled">
-                                        &lt;
-                                    </a>
-                                </li>
-
-                                @php
-                                    $window = 2; // Số trang hiển thị ở mỗi bên của trang hiện tại
-                                    $totalPages = $rooms->lastPage();
-                                    $currentPage = $rooms->currentPage();
-                                    $startPage = max($currentPage - $window, 1);
-                                    $endPage = min($currentPage + $window, $totalPages);
-                                @endphp
-
-                                @if ($startPage > 1)
-                                    <li class="page-item">
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-6">
+                        @if ($rooms->hasPages())
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination pagination-sm rounded-active justify-content-center">
+                                    {{-- Liên kết Trang Đầu --}}
+                                    <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
                                         <a class="page-link hover-white" wire:click="gotoPage(1)"
-                                            wire:loading.attr="disabled">1</a>
+                                            wire:loading.attr="disabled">
+                                            &lt;&lt;
+                                        </a>
                                     </li>
-                                    @if ($startPage > 2)
-                                        <li class="page-item disabled"><span class="page-link">...</span></li>
-                                    @endif
-                                @endif
 
-                                @for ($i = $startPage; $i <= $endPage; $i++)
-                                    <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
-                                        <a class="page-link hover-white" wire:click="gotoPage({{ $i }})"
-                                            wire:loading.attr="disabled">{{ $i }}</a>
+                                    {{-- Liên kết Trang Trước --}}
+                                    <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
+                                        <a class="page-link hover-white" wire:click="previousPage"
+                                            wire:loading.attr="disabled">
+                                            &lt;
+                                        </a>
                                     </li>
-                                @endfor
 
-                                @if ($endPage < $totalPages)
-                                    @if ($endPage < $totalPages - 1)
-                                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                                    @php
+                                        $window = 2; // Số trang hiển thị ở mỗi bên của trang hiện tại
+                                        $totalPages = $rooms->lastPage();
+                                        $currentPage = $rooms->currentPage();
+                                        $startPage = max($currentPage - $window, 1);
+                                        $endPage = min($currentPage + $window, $totalPages);
+                                    @endphp
+
+                                    @if ($startPage > 1)
+                                        <li class="page-item">
+                                            <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                                wire:loading.attr="disabled">1</a>
+                                        </li>
+                                        @if ($startPage > 2)
+                                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                                        @endif
                                     @endif
-                                    <li class="page-item">
+
+                                    @for ($i = $startPage; $i <= $endPage; $i++)
+                                        <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                            <a class="page-link hover-white"
+                                                wire:click="gotoPage({{ $i }})"
+                                                wire:loading.attr="disabled">{{ $i }}</a>
+                                        </li>
+                                    @endfor
+
+                                    @if ($endPage < $totalPages)
+                                        @if ($endPage < $totalPages - 1)
+                                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                                        @endif
+                                        <li class="page-item">
+                                            <a class="page-link hover-white"
+                                                wire:click="gotoPage({{ $totalPages }})"
+                                                wire:loading.attr="disabled">{{ $totalPages }}</a>
+                                        </li>
+                                    @endif
+
+                                    {{-- Liên kết Trang Tiếp --}}
+                                    <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
+                                        <a class="page-link hover-white" wire:click="nextPage"
+                                            wire:loading.attr="disabled">
+                                            &gt;
+                                        </a>
+                                    </li>
+
+                                    {{-- Liên kết Trang Cuối --}}
+                                    <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
                                         <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
-                                            wire:loading.attr="disabled">{{ $totalPages }}</a>
+                                            wire:loading.attr="disabled">
+                                            &gt;&gt;
+                                        </a>
                                     </li>
-                                @endif
-
-                                {{-- Liên kết Trang Tiếp --}}
-                                <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="nextPage"
-                                        wire:loading.attr="disabled">
-                                        &gt;
-                                    </a>
-                                </li>
-
-                                {{-- Liên kết Trang Cuối --}}
-                                <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
-                                        wire:loading.attr="disabled">
-                                        &gt;&gt;
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    @endif
+                                </ul>
+                            </nav>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    {{-- @foreach ($zone->residents as $resident)
+        {{-- @foreach ($zone->residents as $resident)
         <div class="modal fade" id="invoiceModal{{ $resident->id }}" tabindex="-1" role="dialog"
             aria-labelledby="invoiceModalLabel{{ $resident->id }}" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -306,7 +319,7 @@
             </div>
         </div>
     @endforeach --}}
-    {{-- @if ($rooms->isNotEmpty()) <!-- Kiểm tra xem có phòng không -->
+        {{-- @if ($rooms->isNotEmpty()) <!-- Kiểm tra xem có phòng không -->
         @foreach ($rooms as $room)
             <!-- Lặp qua từng phòng -->
             @php
@@ -440,8 +453,8 @@
             </div>
         @endif
     @endforeach --}}
-</main>
-<!-- Modal -->
+    </main>
+    <!-- Modal -->
 </div>
 <script>
     document.addEventListener('livewire:initialized', () => {
@@ -490,4 +503,45 @@
         updateSelectAllState();
     });
 </script>
-
+<script>
+    function confirmDelete(roomId) {
+        // Sử dụng SweetAlert2 để xác nhận
+        Swal.fire({
+            title: 'Xác nhận',
+            text: 'Bạn có chắc chắn muốn xóa phòng này?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Có, xóa!',
+            cancelButtonText: 'Không'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Nếu người dùng xác nhận, gửi yêu cầu AJAX
+                $.ajax({
+                    url: $('#deleteRoomForm' + roomId).attr('action'), // Lấy URL từ form
+                    type: 'POST',
+                    data: $('#deleteRoomForm' + roomId).serialize(), // Lấy dữ liệu từ form
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thành công!',
+                            text: response.message,
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            location.reload(); // Tải lại trang sau khi xóa
+                        });
+                    },
+                    error: function(xhr) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi!',
+                            text: xhr.responseJSON.message,
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            }
+        });
+    }
+</script>

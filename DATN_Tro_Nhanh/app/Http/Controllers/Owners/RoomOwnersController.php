@@ -26,22 +26,23 @@ use App\Services\RoomServices; // Đảm bảo import RoomService
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Notification;
-
+use App\Services\ResidentService;
 class RoomOwnersController extends Controller
 {
     protected $roomService;
     protected $roomOwnersService;
     protected $zoneServices;
-
+    protected $residentService;
 
 
 
     // Khởi tạo RoomService
-    public function __construct(RoomServices $roomService, RoomOwnersService $roomOwnersService, ZoneServices $zoneServices)
+    public function __construct(RoomServices $roomService, RoomOwnersService $roomOwnersService, ZoneServices $zoneServices, ResidentService $residentService)
     {
         $this->roomService = $roomService;
         $this->roomOwnersService = $roomOwnersService;
         $this->zoneServices = $zoneServices;
+        $this->residentService = $residentService;
     }
     /**
      * Hiển thị danh sách phòng cho người dùng đang đăng nhập.
@@ -327,4 +328,26 @@ class RoomOwnersController extends Controller
             return redirect()->back()->with('error', 'Có lỗi xảy ra khi tạo phòng.');
         }
     }
+
+    public function deleteRoom($id)
+{
+    try {
+        $room = Room::findOrFail($id);
+
+        // Kiểm tra xem có resident nào đang ở trong phòng với status = 1
+        $check_resident = $this->residentService->check_resident($id);
+
+        if ($check_resident) {
+            return response()->json(['status' => 'error', 'message' => 'Không thể xóa phòng vì còn đơn chưa được duyệt!'], 400);
+        }
+
+        // Xóa phòng
+        $room->delete();
+
+        return response()->json(['status' => 'success', 'message' => 'Phòng đã được xóa thành công!']);
+    } catch (\Exception $e) {
+        Log::error('Lỗi khi xóa phòng: ' . $e->getMessage());
+        return response()->json(['status' => 'error', 'message' => 'Có lỗi xảy ra khi xóa phòng: ' . $e->getMessage()], 500);
+    }
+}
 }

@@ -7,6 +7,7 @@ use Exception;
 
 class ResidentService
 {
+    protected const processing = 1;
     public function storeResident($data, $tenant_id, $owner_id,$deposit)
     {
         try {
@@ -24,5 +25,8 @@ class ResidentService
             // Xử lý lỗi và ném ra thông báo
             throw new Exception(" " . $e->getMessage());
         }
+    }
+    public function check_resident($roomId){
+        return Resident::where('room_id', $roomId)->where('status', self::processing)->exists();
     }
 }

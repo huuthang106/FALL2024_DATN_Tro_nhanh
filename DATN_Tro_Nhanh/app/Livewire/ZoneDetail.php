@@ -125,29 +125,54 @@ class ZoneDetail extends Component
     }
   
 
+    // public function deleteRoom($roomId)
+    // {
+    //     $this->roomId = $roomId;
+    
+    //     try {
+    //         $room = Room::findOrFail($this->roomId);
+    
+    //         // Xóa hình ảnh liên quan
+    //         if ($room->image) {
+    //             $imagePath = public_path('assets/images/' . $room->image);
+    //             if (file_exists($imagePath)) {
+    //                 unlink($imagePath);
+    //             }
+    //         }
+    
+    //         // Xóa phòng
+    //         $room->delete();
+    
+    //         session()->flash('success', 'Phòng và hình ảnh liên quan đã được xóa thành công!');
+    //         $this->emit('roomDeleted');
+    //     } catch (\Exception $e) {
+    //         Log::error('Lỗi khi xóa phòng: ' . $e->getMessage());
+    //         session()->flash('error', 'Có lỗi xảy ra khi xóa phòng: ' . $e->getMessage());
+    //     }
+    // }
     public function deleteRoom($roomId)
-    {
-        $this->roomId = $roomId;
-    
-        try {
-            $room = Room::findOrFail($this->roomId);
-    
-            // Xóa hình ảnh liên quan
-            if ($room->image) {
-                $imagePath = public_path('assets/images/' . $room->image);
-                if (file_exists($imagePath)) {
-                    unlink($imagePath);
-                }
+{
+    $this->roomId = $roomId;
+
+    try {
+        $room = Room::findOrFail($this->roomId);
+
+        // Xóa hình ảnh liên quan
+        if ($room->image) {
+            $imagePath = public_path('assets/images/' . $room->image);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
             }
-    
-            // Xóa phòng
-            $room->delete();
-    
-            session()->flash('success', 'Phòng và hình ảnh liên quan đã được xóa thành công!');
-            $this->emit('roomDeleted');
-        } catch (\Exception $e) {
-            Log::error('Lỗi khi xóa phòng: ' . $e->getMessage());
-            session()->flash('error', 'Có lỗi xảy ra khi xóa phòng: ' . $e->getMessage());
         }
+
+        // Xóa phòng
+        $room->delete();
+
+        // Gửi sự kiện đến frontend
+        $this->dispatchBrowserEvent('roomDeleted', ['status' => 'success', 'message' => 'Phòng và hình ảnh liên quan đã được xóa thành công!']);
+    } catch (\Exception $e) {
+        Log::error('Lỗi khi xóa phòng: ' . $e->getMessage());
+        $this->dispatchBrowserEvent('roomDeleted', ['status' => 'error', 'message' => 'Có lỗi xảy ra khi xóa phòng: ' . $e->getMessage()]);
     }
+}
 }
