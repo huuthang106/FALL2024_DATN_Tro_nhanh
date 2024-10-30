@@ -168,17 +168,17 @@
                                 @endif
                             </div>
 
-                            @if (Auth::id() != $bill->creator_id && $bill->status != 2)
-                                <div class="row mt-3">
-                                    <div class="col-12 d-flex flex-column justify-content-end">
-                                        <button type="submit" class="btn btn-danger btn-print btn-block">Thanh
-                                            Toán</button>
-                                        @if (session('error'))
-                                            <p class="text-danger mt-2 text-center">{{ session('error') }}</p>
-                                        @endif
-                                    </div>
+                            @if (Auth::id() == $bill->payer_id && $bill->status != 2)
+                            <div class="row mt-3">
+                                <div class="col-12 d-flex flex-column justify-content-end">
+                                    <button type="submit" class="btn btn-danger btn-print btn-block">Thanh Toán</button>
+                                    @if (session('error'))
+                                        <p class="text-danger mt-2 text-center">{{ session('error') }}</p>
+                                    @endif
                                 </div>
-                            @endif
+                            </div>
+                        @endif
+                        
                         </div>
                     </div>
                 </div>

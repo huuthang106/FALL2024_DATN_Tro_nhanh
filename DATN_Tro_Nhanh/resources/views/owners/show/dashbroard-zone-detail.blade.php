@@ -120,6 +120,7 @@
     <script src="{{ asset('assets/js/theme.js') }}"></script>
     {{--  trả succces --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         window.successMessage = "{{ session('success') }}";
     </script>
@@ -132,6 +133,26 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if(session('success'))
+                Swal.fire({
+                    title: 'Success!',
+                    text: "{{ session('success') }}",
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            @elseif(session('error'))
+                Swal.fire({
+                    title: 'Error!',
+                    text: "{{ session('error') }}",
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            @endif
+        });
+    </script>
+    
     {{-- <script>
          document.addEventListener('DOMContentLoaded', function() {
             var downloadButtons = document.querySelectorAll('.download-all-images');

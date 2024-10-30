@@ -293,20 +293,17 @@ class RoomOwnersController extends Controller
 
     public function storeRoom(RoomOwnersRequest $request, $zoneId)
     {
-        // Giá trị 'price' được chuyển đổi ngay sau khi xác thực
-        $request['price'] = intval(str_replace('.', '', $request['price'])); // Loại bỏ dấu phẩy và chuyển đổi
-
+        $request['price'] = intval(str_replace('.', '', $request['price']));
+    
         try {
-            // Gọi service để tạo phòng mới
             $result = $this->roomOwnersService->createRoom($request, $zoneId);
-
+    
             if ($result['success']) {
-                // Lưu thông báo vào bảng notifications
                 Notification::create([
-                    'user_id' => Auth::id(), // ID của người dùng hiện tại
+                    'user_id' => Auth::id(),
                     'data' => 'Phòng trọ "' . $request->input('title') . '" đã được tạo thành công.',
                 ]);
-
+    
                 return redirect()->route('owners.detail-zone', ['slug' => $result['zone_slug']])
                     ->with('success', 'Phòng trọ đã được tạo thành công.');
             } else {

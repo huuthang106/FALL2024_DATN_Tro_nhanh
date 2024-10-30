@@ -75,8 +75,7 @@
                                                                     @enderror
                                                                 </div>
                                                                 <div class="form-group mb-0">
-                                                                    <label for="description" class="text-heading">Mô tả
-                                                                        <span class="text-muted">(Bắt buộc)</span></label>
+                                                                    <label for="description" class="text-heading">Mô tả <span class="text-muted">(Bắt buộc)</span></label>
                                                                     <textarea class="form-control border-0" rows="5" name="description" id="description">{{ old('description') }}</textarea>
                                                                     @error('description')
                                                                         <div class="text-danger">{{ $message }}</div>
@@ -136,16 +135,10 @@
                                                                     </div>
                                                                     <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
                                                                         <div class="form-group">
-                                                                            <label for="phone" class="text-heading">Số
-                                                                                điện thoại <span class="text-muted">(Bắt
-                                                                                    buộc)</span></label>
-                                                                            <input type="text" name="phone"
-                                                                                class="form-control form-control-lg border-0"
-                                                                                id="phone"
-                                                                                value="{{ old('phone') }}">
+                                                                            <label for="phone" class="text-heading">Số điện thoại <span class="text-muted">(Bắt buộc)</span></label>
+                                                                            <input type="text" name="phone" class="form-control form-control-lg border-0" id="phone" value="{{ old('phone') }}">
                                                                             @error('phone')
-                                                                                <div class="text-danger">{{ $message }}
-                                                                                </div>
+                                                                                <div class="text-danger">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
                                                                     </div>
@@ -211,8 +204,7 @@
                                                                 <div class="dropzone upload-file text-center py-5"
                                                                     id="myDropzone">
                                                                     <div class="dz-default dz-message">
-                                                                        <span class="upload-icon lh-1 d-inline-block mb-4"
-                                                                            id="uploadIcon">
+                                                                        <span class="upload-icon lh-1 d-inline-block mb-4" id="uploadIcon">
                                                                             <i class="fal fa-cloud-upload-alt"></i>
                                                                         </span>
                                                                         <p class="text-heading fs-22 lh-15 mb-4">
@@ -233,7 +225,7 @@
                                                                     @enderror
                                                                 </div>
                                                                 <!-- Phần tử để hiển thị ảnh đã chọn trong form -->
-
+                                                               
                                                                 <!-- Ẩn View -->
                                                                 <input type="hidden" class="form-control" id="view"
                                                                     name="view" value="0">
@@ -241,37 +233,37 @@
                                                         </div>
                                                     </div>
                                                     <!-- <div class="col-lg-6">
-                                                                    <div class="card mb-6">
-                                                                        <div class="card-body p-6">
-                                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">
-                                                                                Trạng thái phòng
-                                                                            </h3>
-                                                                            <hr>
-                                                                            <div class="form-row mx-n2">
-                                                                                <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
-                                                                                    <div class="form-group mb-md-0">
-                                                                                        <label for="status"
-                                                                                            class="text-heading">Trạng
-                                                                                            thái</label>
-                                                                                        <select
-                                                                                            class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                                                            data-style="btn-lg py-2 h-52"
-                                                                                            id="status" name="status">
-                                                                                            <option value="1">Đang duyệt
-                                                                                            </option>
-                                                                                            <option value="2">Đang hoạt động
-                                                                                            </option>
-                                                                                        </select>
-                                                                                        @error('status')
+                                                                <div class="card mb-6">
+                                                                    <div class="card-body p-6">
+                                                                        <h3 class="card-title mb-0 text-heading fs-22 lh-15">
+                                                                            Trạng thái phòng
+                                                                        </h3>
+                                                                        <hr>
+                                                                        <div class="form-row mx-n2">
+                                                                            <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
+                                                                                <div class="form-group mb-md-0">
+                                                                                    <label for="status"
+                                                                                        class="text-heading">Trạng
+                                                                                        thái</label>
+                                                                                    <select
+                                                                                        class="form-control border-0 shadow-none form-control-lg selectpicker"
+                                                                                        data-style="btn-lg py-2 h-52"
+                                                                                        id="status" name="status">
+                                                                                        <option value="1">Đang duyệt
+                                                                                        </option>
+                                                                                        <option value="2">Đang hoạt động
+                                                                                        </option>
+                                                                                    </select>
+                                                                                    @error('status')
         <div class="text-danger">{{ $message }}
-                                                                                                                                                                                </div>
+                                                                                                                                                                        </div>
     @enderror
-                                                                                                                                                            </div>
-                                                                                </div>
+                                                                                                                                                        </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div> -->
+                                                                </div>
+                                                            </div> -->
                                                 </div>
                                                 <div class="d-flex flex-wrap">
                                                     <a href="#"
@@ -428,22 +420,36 @@
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script src="{{ asset('assets/js/owners/form-map.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- Thêm vào phần đầu của view của bạn -->
-<!-- SweetAlert2 CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-<!-- SweetAlert2 JS -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if(session('success'))
+                Swal.fire({
+                    title: 'Success!',
+                    text: "{{ session('success') }}",
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            @elseif(session('error'))
+                Swal.fire({
+                    title: 'Error!',
+                    text: "{{ session('error') }}",
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            @endif
+        });
+    </script>
+    
     @if ($errors->any())
-        <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Lỗi!',
-                text: 'Vui lòng điền đầy đủ các trường dữ liệu.',
-            });
-        </script>
-    @endif
-    {{-- 
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi!',
+            text: 'Vui lòng điền đầy đủ các trường dữ liệu.',
+        });
+    </script>
+@endif
+{{-- 
 @if (session('success'))
     <script>
         Swal.fire({
@@ -464,35 +470,11 @@
     </script>
 @endif --}}
 <script>
-    // Kiểm tra nếu có thông báo thành công từ server
-    @if (session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: 'Thành công!',
-            text: '{{ session('success') }}',
-            confirmButtonText: 'OK'
-        });
-    @endif
-
-    // Kiểm tra nếu có thông báo lỗi từ server
-    @if (session('error'))
-        Swal.fire({
-            icon: 'error',
-            title: 'Có lỗi xảy ra!',
-            text: '{{ session('error') }}',
-            confirmButtonText: 'OK'
-        });
-    @endif
+    function formatNumber(value) {
+        // Xóa tất cả ký tự không phải số
+        value = value.replace(/[^0-9]/g, '');
+        // Định dạng số với dấu phẩy
+        return value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
 </script>
-
-    <script>
-        function formatNumber(value) {
-            // Xóa tất cả ký tự không phải số
-            value = value.replace(/[^0-9]/g, '');
-            // Định dạng số với dấu phẩy
-            return value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-        }
-    </script>
-
-
 @endpush

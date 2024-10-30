@@ -34,6 +34,7 @@ use App\Events\RoomCreationFailed;
 use Illuminate\Support\Facades\Validator;
 use App\Services\BlogServices;
 use App\Http\Requests\RoomOwnersRequest;
+
 class RoomOwnersService
 {
     /**
@@ -580,48 +581,48 @@ class RoomOwnersService
     }
 
     public function createRoom(RoomOwnersRequest $request, $zoneId)
-{
-    try {
-        // Tạo slug từ tiêu đề
-        $slugify = new \Cocur\Slugify\Slugify();
-        $slug = $slugify->slugify($request->input('title')) . '-' . $zoneId;
+    {
+        try {
+            // Tạo slug từ tiêu đề
+            $slugify = new \Cocur\Slugify\Slugify();
+            $slug = $slugify->slugify($request->input('title')) . '-' . $zoneId;
 
-        // Tạo phòng mới
-        $room = Room::create([
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
-            'quantity' => $request->input('quantity'),
-            'price' => $request->input('price'),
-            'phone' => $request->input('phone'),
-            'zone_id' => $zoneId,
-            'slug' => $slug,
-        ]);
+            // Tạo phòng mới
+            $room = Room::create([
+                'title' => $request->input('title'),
+                'description' => $request->input('description'),
+                'quantity' => $request->input('quantity'),
+                'price' => $request->input('price'),
+                'phone' => $request->input('phone'),
+                'zone_id' => $zoneId,
+                'slug' => $slug,
+            ]);
 
-        // Lưu hình ảnh với tên mới
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
+            // Lưu hình ảnh với tên mới
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
 
-            // Tải lên hình ảnh vào Google Drive
-            $driveFileId = env('GOOGLE_DRIVE_FOLDER_ID', '1DNPZ0KBCiY27mvOZKFg8IyyarT7PIGVF');
-            $uploadResult = $this->blogServices->uploadImageToGoogleDrive($image, $driveFileId, $image->getClientOriginalName());
+                // Tải lên hình ảnh vào Google Drive
+                $driveFileId = env('GOOGLE_DRIVE_FOLDER_ID', '1DNPZ0KBCiY27mvOZKFg8IyyarT7PIGVF');
+                $uploadResult = $this->blogServices->uploadImageToGoogleDrive($image, $driveFileId, $image->getClientOriginalName());
 
-            // Lưu ID tệp vào cơ sở dữ liệu
-            $room->update(['image' => $uploadResult['id']]);
+                // Lưu ID tệp vào cơ sở dữ liệu
+                $room->update(['image' => $uploadResult['id']]);
+            }
+
+            return [
+                'success' => true,
+                'zone_slug' => $room->zone->slug
+            ];
+        } catch (\Exception $e) {
+            // Ghi log lỗi
+            \Log::error('Lỗi khi tạo phòng: ' . $e->getMessage());
+            return [
+                'success' => false,
+                'message' => 'Có lỗi xảy ra khi tạo phòng: ' . $e->getMessage()
+            ];
         }
-
-        return [
-            'success' => true,
-            'zone_slug' => $room->zone->slug
-        ];
-    } catch (\Exception $e) {
-        // Ghi log lỗi
-        \Log::error('Lỗi khi tạo phòng: ' . $e->getMessage());
-        return [
-            'success' => false,
-            'message' => 'Có lỗi xảy ra khi tạo phòng: ' . $e->getMessage()
-        ];
     }
-}
 
 
     public function update_quantity($idRoom, $quantity)
