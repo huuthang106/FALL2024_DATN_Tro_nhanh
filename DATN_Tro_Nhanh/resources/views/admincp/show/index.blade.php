@@ -537,140 +537,7 @@
                     </div>
                     <div class="col-xl-8">
                         <!--begin::Charts Widget 1-->
-                        <div class="card card-xl-stretch mb-5 mb-xl-8">
-                            <!--begin::Header-->
-                            <div class="card-header border-0 pt-5">
-                                <!--begin::Title-->
-                                <h3 class="card-title align-items-start flex-column">
-                                    <span class="card-label fw-bolder fs-3 mb-1">Thống kê doanh thu </span>
-                                    <span class="text-muted fw-bold fs-7">Theo tháng </span>
-                                </h3>
-                                <!--end::Title-->
-                                <!--begin::Toolbar-->
-                                {{-- <div class="card-toolbar">
-                                    <!--begin::Menu-->
-                                    <button type="button"
-                                        class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
-                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                        <!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
-                                        <span class="svg-icon svg-icon-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
-                                                viewBox="0 0 24 24">
-                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                    <rect x="5" y="5" width="5" height="5" rx="1"
-                                                        fill="#000000" />
-                                                    <rect x="14" y="5" width="5" height="5" rx="1"
-                                                        fill="#000000" opacity="0.3" />
-                                                    <rect x="5" y="14" width="5" height="5" rx="1"
-                                                        fill="#000000" opacity="0.3" />
-                                                    <rect x="14" y="14" width="5" height="5" rx="1"
-                                                        fill="#000000" opacity="0.3" />
-                                                </g>
-                                            </svg>
-                                        </span>
-                                        <!--end::Svg Icon-->
-                                    </button>
-                                    <!--begin::Menu 1-->
-                                    <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true"
-                                        id="kt_menu_6148588700a53">
-                                        <!--begin::Header-->
-                                        <div class="px-7 py-5">
-                                            <div class="fs-5 text-dark fw-bolder">Filter Options</div>
-                                        </div>
-                                        <!--end::Header-->
-                                        <!--begin::Menu separator-->
-                                        <div class="separator border-gray-200"></div>
-                                        <!--end::Menu separator-->
-                                        <!--begin::Form-->
-                                        <div class="px-7 py-5">
-                                            <!--begin::Input group-->
-                                            <div class="mb-10">
-                                                <!--begin::Label-->
-                                                <label class="form-label fw-bold">Status:</label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <div>
-                                                    <select class="form-select form-select-solid" data-kt-select2="true"
-                                                        data-placeholder="Select option"
-                                                        data-dropdown-parent="#kt_menu_6148588700a53"
-                                                        data-allow-clear="true">
-                                                        <option></option>
-                                                        <option value="1">Approved</option>
-                                                        <option value="2">Pending</option>
-                                                        <option value="2">In Process</option>
-                                                        <option value="2">Rejected</option>
-                                                    </select>
-                                                </div>
-                                                <!--end::Input-->
-                                            </div>
-                                            <!--end::Input group-->
-                                            <!--begin::Input group-->
-                                            <div class="mb-10">
-                                                <!--begin::Label-->
-                                                <label class="form-label fw-bold">Member Type:</label>
-                                                <!--end::Label-->
-                                                <!--begin::Options-->
-                                                <div class="d-flex">
-                                                    <!--begin::Options-->
-                                                    <label
-                                                        class="form-check form-check-sm form-check-custom form-check-solid me-5">
-                                                        <input class="form-check-input" type="checkbox" value="1" />
-                                                        <span class="form-check-label">Author</span>
-                                                    </label>
-                                                    <!--end::Options-->
-                                                    <!--begin::Options-->
-                                                    <label
-                                                        class="form-check form-check-sm form-check-custom form-check-solid">
-                                                        <input class="form-check-input" type="checkbox" value="2"
-                                                            checked="checked" />
-                                                        <span class="form-check-label">Customer</span>
-                                                    </label>
-                                                    <!--end::Options-->
-                                                </div>
-                                                <!--end::Options-->
-                                            </div>
-                                            <!--end::Input group-->
-                                            <!--begin::Input group-->
-                                            <div class="mb-10">
-                                                <!--begin::Label-->
-                                                <label class="form-label fw-bold">Thông báo:</label>
-                                                <!--end::Label-->
-                                                <!--begin::Switch-->
-                                                <div
-                                                    class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        name="notifications" checked="checked" />
-                                                    <label class="form-check-label">Đã bật</label>
-                                                </div>
-                                                <!--end::Switch-->
-                                            </div>
-                                            <!--end::Input group-->
-                                            <!--begin::Actions-->
-                                            <div class="d-flex justify-content-end">
-                                                <button type="reset"
-                                                    class="btn btn-sm btn-light btn-active-light-primary me-2"
-                                                    data-kt-menu-dismiss="true">Cài lại</button>
-                                                <button type="submit" class="btn btn-sm btn-primary"
-                                                    data-kt-menu-dismiss="true">Áp dụng</button>
-                                            </div>
-                                            <!--end::Actions-->
-                                        </div>
-                                        <!--end::Form-->
-                                    </div>
-                                    <!--end::Menu 1-->
-                                    <!--end::Menu-->
-                                </div> --}}
-                                <!--end::Toolbar-->
-                            </div>
-                            <!--end::Header-->
-                            <!--begin::Body-->
-                            <div class="card-body">
-                                <!--begin::Chart-->
-                                <div id="kt_charts_widget_1_chart_1" style="height: 350px"></div>
-                                <!--end::Chart-->
-                            </div>
-                            <!--end::Body-->
-                        </div>
+                        @livewire('zone-filter-admin')
                         <!--end::Charts Widget 1-->
                     </div>
                 </div>
@@ -1416,17 +1283,17 @@
         });
     </script> --}}
     <!-- Biểu đồ -->
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> --}}
+    {{-- <script>
         document.addEventListener("DOMContentLoaded", function() {
-            var monthlyRevenue = @json($packageStatistics['monthlyRevenue']);
-            console.log('Monthly Revenue:', monthlyRevenue);
+            var monthlyZones = @json($packageStatistics['monthlyZones']);
+            console.log('Monthly Zones:', monthlyZones);
 
             var categories = ["Th1", "Th2", "Th3", "Th4", "Th5", "Th6", "Th7", "Th8", "Th9", "Th10", "Th11",
                 "Th12"
             ];
             var data = categories.map(function(_, index) {
-                return monthlyRevenue[index + 1] || 0;
+                return monthlyZones[index + 1] || 0;
             });
 
             console.log('Categories:', categories);
@@ -1434,7 +1301,7 @@
 
             var options = {
                 series: [{
-                    name: 'Doanh thu',
+                    name: 'Số lượng tin đăng',
                     data: data
                 }],
                 chart: {
@@ -1456,7 +1323,7 @@
                 dataLabels: {
                     enabled: false,
                     formatter: function(val) {
-                        return val > 0 ? val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " VND" : "";
+                        return val > 0 ? val + " tin" : "";
                     },
                     offsetY: -20,
                     style: {
@@ -1489,12 +1356,12 @@
                     labels: {
                         show: true,
                         formatter: function(val) {
-                            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " VND";
+                            return val + " tin";
                         }
                     }
                 },
                 title: {
-                    text: 'Thống kê doanh thu theo tháng',
+                    text: 'Thống kê số lượng tin đăng theo tháng',
                     floating: true,
                     offsetY: 0,
                     align: 'center',
@@ -1541,5 +1408,5 @@
             var chart = new ApexCharts(document.querySelector("#kt_charts_widget_1_chart_1"), options);
             chart.render();
         });
-    </script>
+    </script> --}}
 @endpush

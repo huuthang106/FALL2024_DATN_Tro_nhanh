@@ -48,9 +48,13 @@ class RoomAdminController extends Controller
         // // Lấy tổng số loại phòng
         $totalCategories = $this->indexAdminService->getTotalCategories();
         // $topCategories = $this->indexAdminService->getTopCategories();
-        // // Lấy tổng số lượng mua gói trong năm và so sánh giữa các tháng
-        $packageStatistics = $this->indexAdminService->getPackagePurchaseStatistics();
-        return view('admincp.show.index', compact('totalCategories', 'recentUsers', 'totalRooms', 'totalCategories', 'topRatedPosters', 'roomsCountByCategoryType', 'monthlyVIPPurchases', 'topRatedPosters', 'latestReports', 'packageStatistics', 'topPackages'));
+        // Lấy tổng số lượng mua gói trong năm và so sánh giữa các tháng
+        // $packageStatistics = $this->indexAdminService->getPackagePurchaseStatistics();
+        // dd($packageStatistics);
+        // Lấy tất cả bài đăng tin bảng zones
+        // $allZones = $this->indexAdminService->getAllZones();
+        // dd($allZones);
+        return view('admincp.show.index', compact('totalCategories', 'recentUsers', 'totalRooms', 'totalCategories', 'topRatedPosters', 'roomsCountByCategoryType', 'monthlyVIPPurchases', 'topRatedPosters', 'latestReports', 'topPackages'));
     }
     public function getDashboardStats(IndexAdminService $indexAdminService)
     {

@@ -16,9 +16,10 @@ use Illuminate\Support\Facades\Log;
 
 class IndexAdminService
 {
-    const User = 1;
-    const Owner = 2;
-    const Chua_Duyet = 1;
+    private const User = 1;
+    private const Owner = 2;
+    private const Chua_Duyet = 1;
+    private const Da_Duyet = 2;
     // Lấy người dùng mới đăng ký
     public function getRecentUsers($limit = 5)
     {
@@ -192,42 +193,47 @@ class IndexAdminService
             ->take($limit)
             ->pluck('name');
     }
-    // số lượng mua gói theo tháng trong năm hiện tại, cho phép so sánh giữa các tháng và tính toán tỷ lệ tăng trưởng.
+    // Tất cả zones
+    public function getAllZones()
+    {
+        return Zone::select('zones.*', 'users.name as user_name', 'rooms.image as room_image')
+            ->join('users', 'zones.user_id', '=', 'users.id')
+            ->join('rooms', 'zones.id', '=', 'rooms.zone_id')
+            ->where('zones.status', self::Da_Duyet)
+            ->orderBy('zones.created_at', 'desc')
+            ->get();
+    }
     public function getPackagePurchaseStatistics()
     {
         $currentYear = Carbon::now()->year;
         $currentMonth = Carbon::now()->month;
 
-        $result = DB::table('vip_zone_positions')
-            ->join('locations', 'vip_zone_positions.location_id', '=', 'locations.id')
-            ->join('price_lists', 'locations.id', '=', 'price_lists.location_id')
-            ->selectRaw('MONTH(vip_zone_positions.created_at) as month, SUM(price_lists.price) as total_amount')
-            ->whereYear('vip_zone_positions.created_at', $currentYear)
+        $result = Zone::selectRaw('MONTH(created_at) as month, COUNT(*) as total_zones')
+            ->whereYear('created_at', $currentYear)
+            ->where('status', self::Da_Duyet)
             ->groupBy('month')
             ->orderBy('month')
             ->get()
-            ->pluck('total_amount', 'month')
+            ->pluck('total_zones', 'month')
             ->toArray();
-
-        $monthlyRevenue = array_fill(1, 12, 0);
-
-        foreach ($result as $month => $amount) {
-            $monthlyRevenue[$month] = (int) $amount;
+        $monthlyZones = array_fill(1, 12, 0);
+        foreach ($result as $month => $count) {
+            $monthlyZones[$month] = (int) $count;
         }
 
-        $totalRevenue = array_sum($monthlyRevenue);
-        $currentMonthRevenue = $monthlyRevenue[$currentMonth] ?? 0;
-        $lastMonthRevenue = $monthlyRevenue[$currentMonth - 1] ?? 0;
+        $totalZones = array_sum($monthlyZones);
+        $currentMonthZones = $monthlyZones[$currentMonth] ?? 0;
+        $lastMonthZones = $monthlyZones[$currentMonth - 1] ?? 0;
 
-        $increasePercentage = $lastMonthRevenue > 0
-            ? round((($currentMonthRevenue - $lastMonthRevenue) / $lastMonthRevenue) * 100, 2)
-            : ($currentMonthRevenue > 0 ? 100 : 0);
+        $increasePercentage = $lastMonthZones > 0
+            ? round((($currentMonthZones - $lastMonthZones) / $lastMonthZones) * 100, 2)
+            : ($currentMonthZones > 0 ? 100 : 0);
 
         return [
-            'totalRevenue' => $totalRevenue,
-            'currentMonthRevenue' => $currentMonthRevenue,
-            'revenueIncreasePercentage' => $increasePercentage,
-            'monthlyRevenue' => $monthlyRevenue
+            'totalZones' => $totalZones,
+            'currentMonthZones' => $currentMonthZones,
+            'zonesIncreasePercentage' => $increasePercentage,
+            'monthlyZones' => $monthlyZones
         ];
     }
     public function getZonesCountByCategoryType()
