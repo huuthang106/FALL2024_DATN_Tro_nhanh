@@ -291,33 +291,22 @@ class RoomOwnersController extends Controller
     }
     // RoomOwnersController.php
 
-    public function storeRoom(Request $request, $zoneId)
+    public function storeRoom(RoomOwnersRequest $request, $zoneId)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'quantity' => 'required|integer|min:1',
-            'price' => 'required|min:0',
-            'phone' => 'required|string|max:15',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        ], [
-            'image.required' => 'Ảnh là bắt buộc.',
-            'image.image' => 'Trường ảnh phải là một hình ảnh.',
-            'image.mimes' => 'Chỉ chấp nhận các định dạng: jpeg, png, jpg.',
-            'image.max' => 'Kích thước ảnh không được vượt quá 2MB.',
-        ]);
+        // Giá trị 'price' được chuyển đổi ngay sau khi xác thực
         $request['price'] = intval(str_replace('.', '', $request['price'])); // Loại bỏ dấu phẩy và chuyển đổi
+    
         try {
             // Gọi service để tạo phòng mới
             $result = $this->roomOwnersService->createRoom($request, $zoneId);
-
+    
             if ($result['success']) {
-                // Lưu thông báo vào bảng notificationsd
+                // Lưu thông báo vào bảng notifications
                 Notification::create([
                     'user_id' => Auth::id(), // ID của người dùng hiện tại
                     'data' => 'Phòng trọ "' . $request->input('title') . '" đã được tạo thành công.',
                 ]);
-
+    
                 return redirect()->route('owners.detail-zone', ['slug' => $result['zone_slug']])
                     ->with('success', 'Phòng trọ đã được tạo thành công.');
             } else {
