@@ -124,11 +124,13 @@
                                                             type="button" class="btn btn-primary btn-sm">
                                                             <i class="fal fa-eye"></i>
                                                         </a>
-                                                        <button type="button" class="btn btn-primary btn-sm"
-                                                            data-toggle="modal"
-                                                            data-target="#invoiceModal{{ $resident->id }}">
-                                                            <i class="fal fa-pencil-alt"></i>
-                                                        </button>
+                                                        <form action="{{ route('owners.edit-room', $room->id) }}"
+                                                            method="POST" style="display:inline;">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <button type="submit" class="btn btn-primary btn-sm"><i
+                                                                    class="fal fa-pen-alt"></i></button>
+                                                        </form>
                                                         <form
                                                             action="{{ route('owners.erase-tenant', $resident->id) }}"
                                                             method="POST" style="display:inline;">

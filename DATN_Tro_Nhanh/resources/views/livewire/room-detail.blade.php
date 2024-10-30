@@ -7,9 +7,9 @@
                         {{-- <h5 for="invoice-list_length" class="d-block mr-2 mb-0">Tên khu: {{ $zone->name }}</h5> --}}
                     </div>
                     <div class="ml-2 align-self-center">
-                        <a href="{{ route('owners.zone-post', $room->slug) }}" class="btn btn-primary btn-lg"
+                        {{-- <a href="{{ route('owners.zone-post', $room->slug) }}" class="btn btn-primary btn-lg"
                             tabindex="0"><span>Thêm
-                                mới</span></a>
+                                mới</span></a> --}}
                     </div>
 
                 </div>
@@ -41,7 +41,7 @@
                                             class="new-control-input chk-parent select-customers-info">
                                     </label>
                                 </th> --}}
-                                <th class="py-6 text-start" style="white-space: nowrap;">Tên phòng</th>
+                                <th class="py-6 text-start" style="white-space: nowrap;">Khách hàng</th>
                                 <th class="py-6 text-start" style="white-space: nowrap;">Số lượng</th>
                                 <th class="py-6 text-start" style="white-space: nowrap;">Số điện thoại</th>
                                 {{-- <th class="py-6 text-start">Lý do từ chối</th> --}}
@@ -52,6 +52,8 @@
                         </thead>
                         <tbody>
                             @if ($residents->isEmpty())
+
+
                                 <tr>
                                     <td colspan="6" class="text-center" style="white-space: nowrap;">Khu vực chưa có
                                         phòng trọ nào.</td>
@@ -129,7 +131,7 @@
                                                     </button>
 
                                                     <!-- Modal -->
-                                                    
+
                                                     <div class="modal fade" id="invoiceModal{{ $item->id }}"
                                                         tabindex="-1" role="dialog"
                                                         aria-labelledby="invoiceModalLabel{{ $item->id }}"
@@ -152,7 +154,7 @@
                                                                         action="{{ route('owners.bills-store') }}"
                                                                         method="POST"
                                                                         onsubmit="removeCommasBeforeSubmit('formBills{{ $item->id }}')">
-                                                                      @csrf
+                                                                        @csrf
                                                                         <input type="hidden" name="payer_id"
                                                                             value="{{ $item->tenant_id }}">
                                                                         <input type="hidden" name="creator_id"
@@ -210,15 +212,16 @@
                                                                                         id="title-error{{ $item->id }}"></span>
                                                                                 </div>
                                                                                 <div class="form-group">
-                                                                                    <label for="amount">Số tiền:</label>
-                                                                                    <input type="text" 
-                                                                                           class="form-control" 
-                                                                                           id="amount" 
-                                                                                           name="amount" 
-                                                                                           required 
-                                                                                           placeholder="Nhập số tiền" 
-                                                                                           oninput="formatNumber(this)">
-                                                                                    <span class="text-danger" id="amount-error"></span>
+                                                                                    <label for="amount">Số
+                                                                                        tiền:</label>
+                                                                                    <input type="text"
+                                                                                        class="form-control"
+                                                                                        id="amount" name="amount"
+                                                                                        required
+                                                                                        placeholder="Nhập số tiền"
+                                                                                        oninput="formatNumber(this)">
+                                                                                    <span class="text-danger"
+                                                                                        id="amount-error"></span>
                                                                                 </div>
                                                                                 <div class="form-group">
                                                                                     <label
@@ -510,71 +513,71 @@
         @endforeach
         <!-- Thông báo nếu không có phòng -->
     @endif --}}
-    @foreach ($residents as $item)
-        @if ($item->status == $user_is_in)
-            @php
-                $resident = $room->residents->where('status', $user_is_in)->first();
-                $tenant = $resident->tenant;
-            @endphp
-            <div class="modal fade" id="identityModal{{ $tenant->id }}" tabindex="-1" role="dialog"
-                aria-labelledby="identityModalLabel{{ $tenant->id }}" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="identityModalLabel{{ $tenant->id }}">Ảnh định danh của
-                                {{ $tenant->name }}</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            @php
-                                $frontImage = $tenant->identity ? $tenant->identity->front_id_card_image : null;
-                                $backImage = $tenant->identity ? $tenant->identity->back_id_card_image : null;
-                                $public = 2;
-                            @endphp
-                            @if ($tenant->identity && $tenant->status == $public)
-                                <div class="row">
-                                    @if ($frontImage)
-                                        <div class="col-md-6 mb-3">
-                                            <a href="{{ asset('assets/images/register_owner/' . $frontImage) }}"
-                                                data-fancybox="gallery">
-                                                <img src="{{ asset('assets/images/register_owner/' . $frontImage) }}"
-                                                    alt="Front ID Card" class="img-fluid">
-                                            </a>
-                                        </div>
-                                    @endif
+  @foreach ($residents as $item)
+    @if ($item->status == $user_is_in)
+        @php
+            $tenant = $item->tenant; // Lấy tenant từ item hiện tại
+        @endphp
+        <div class="modal fade" id="identityModal{{ $tenant->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="identityModalLabel{{ $tenant->id }}" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="identityModalLabel{{ $tenant->id }}">Ảnh định danh của
+                            {{ $tenant->name }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @php
+                            $frontImage = $tenant->identity ? $tenant->identity->front_id_card_image : null;
+                            $backImage = $tenant->identity ? $tenant->identity->back_id_card_image : null;
+                            $public = 2;
+                        @endphp
+                        @if ($tenant->identity && $tenant->status == $public)
+                            <div class="row">
+                                @if ($frontImage)
+                                    <div class="col-md-6 mb-3">
+                                        <a href="{{ asset('assets/images/register_owner/' . $frontImage) }}"
+                                            data-fancybox="gallery">
+                                            <img src="{{ asset('assets/images/register_owner/' . $frontImage) }}"
+                                                alt="Front ID Card" class="img-fluid">
+                                        </a>
+                                    </div>
+                                @endif
 
-                                    @if ($backImage)
-                                        <div class="col-md-6 mb-3">
-                                            <a href="{{ asset('assets/images/register_owner/' . $backImage) }}"
-                                                data-fancybox="gallery">
-                                                <img src="{{ asset('assets/images/register_owner/' . $backImage) }}"
-                                                    alt="Back ID Card" class="img-fluid">
-                                            </a>
-                                        </div>
-                                    @endif
-                                </div>
-                            @else
-                                <p>Không có ảnh định danh hoặc thông tin chưa được công khai.</p>
-                            @endif
-                        </div>
+                                @if ($backImage)
+                                    <div class="col-md-6 mb-3">
+                                        <a href="{{ asset('assets/images/register_owner/' . $backImage) }}"
+                                            data-fancybox="gallery">
+                                            <img src="{{ asset('assets/images/register_owner/' . $backImage) }}"
+                                                alt="Back ID Card" class="img-fluid">
+                                        </a>
+                                    </div>
+                                @endif
+                            </div>
+                        @else
+                            <p>Không có ảnh định danh hoặc thông tin chưa được công khai.</p>
+                        @endif
                     </div>
                 </div>
             </div>
-        @endif
-    @endforeach
+        </div>
+    @endif
+@endforeach
 </main>
-<script>// Định dạng số khi người dùng nhập vào
+<script>
+    // Định dạng số khi người dùng nhập vào
     function formatNumber(input) {
         let value = input.value.replace(/,/g, ''); // Loại bỏ dấu phẩy cũ
         input.value = new Intl.NumberFormat().format(value); // Định dạng lại với dấu phẩy
     }
-    
+
     // Loại bỏ dấu phẩy trước khi form được gửi
     function removeCommasBeforeSubmit(formId) {
         let amountInput = document.querySelector(`#${formId} #amount`);
         amountInput.value = amountInput.value.replace(/,/g, ''); // Xóa dấu phẩy
     }
-    </script>
+</script>
 <!-- Modal -->

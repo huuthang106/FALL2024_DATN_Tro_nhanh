@@ -11,7 +11,7 @@ class RoomDetail extends Component
 {
     use WithPagination;
 
-    public $slug; // Biến để lưu slug của khu trọ
+    public $id; // Biến để lưu slug của khu trọ
     public $status = 2; // Trạng thái cư dân (có thể thay đổi nếu cần)
     public $searchRoom = ''; // Từ khóa tìm kiếm phòng
     public $searchResident = ''; // Từ khóa tìm kiếm cư dân
@@ -21,7 +21,7 @@ class RoomDetail extends Component
 
     public function render()
     {
-        $room = Room::where('slug', $this->slug)->firstOrFail();
+        $room = Room::where('id', $this->id)->firstOrFail();
 
         // Lấy danh sách cư dân trong phòng với status = 2
         $residents = Resident::where('room_id', $room->id)

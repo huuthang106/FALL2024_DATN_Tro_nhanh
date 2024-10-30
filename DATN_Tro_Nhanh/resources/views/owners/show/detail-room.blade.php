@@ -2,7 +2,7 @@
 @section('titleOwners', $data->title . ' | TRỌ NHANH')
 @section('contentOwners')
 
-  @livewire('room-detail', ['slug' => $data->slug])
+  @livewire('room-detail', ['id' => $data->id])
 @endsection
 
 @push('styleOwners')
