@@ -28,9 +28,13 @@ class Report extends Model
     {
         return $this->belongsTo(User::class);
     }
-
     public function zone()
     {
         return $this->belongsTo(Zone::class);
+    }
+    // Định nghĩa mối quan hệ với User cho người bị báo cáo
+    public function reportedUser()
+    {
+        return $this->belongsTo(User::class, 'reported_person');
     }
 }

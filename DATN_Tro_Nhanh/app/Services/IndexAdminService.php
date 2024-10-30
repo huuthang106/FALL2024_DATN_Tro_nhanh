@@ -78,46 +78,21 @@ class IndexAdminService
         return $carbon->format('d/m/Y');
     }
     // Lấy gói mua nhiều
-    public function getTopPackages($limit = 6)
+    // public function getTopPackages($limit = 6)
+    // {
+    //     return DB::table('vip_zone_positions')
+    //         ->join('locations', 'vip_zone_positions.location_id', '=', 'locations.id')
+    //         ->select('locations.name', 'locations.type_vip')
+    //         ->selectRaw('COUNT(*) as total_purchases')
+    //         ->groupBy('locations.id', 'locations.name', 'locations.type_vip')
+    //         ->orderByDesc('total_purchases')
+    //         ->limit($limit)
+    //         ->get();
+    // }
+    // Tổng zones
+    public function getTotalZones()
     {
-        return DB::table('vip_zone_positions')
-            ->join('locations', 'vip_zone_positions.location_id', '=', 'locations.id')
-            ->select('locations.name', 'locations.type_vip')
-            ->selectRaw('COUNT(*) as total_purchases')
-            ->groupBy('locations.id', 'locations.name', 'locations.type_vip')
-            ->orderByDesc('total_purchases')
-            ->limit($limit)
-            ->get();
-    }
-    // Thống kê số lượng mua gói theo tháng
-    public function getMonthlyVIPPurchases()
-    {
-        $currentDate = Carbon::now();
-        $currentMonth = $currentDate->month;
-        $currentYear = $currentDate->year;
-        $lastMonth = $currentDate->subMonth();
-
-        $result = DB::table('vip_zone_positions')
-            ->selectRaw('MONTH(created_at) as month, YEAR(created_at) as year, COUNT(*) as purchases')
-            ->whereRaw(
-                '(YEAR(created_at) = ? AND MONTH(created_at) = ?) OR (YEAR(created_at) = ? AND MONTH(created_at) = ?)',
-                [$currentYear, $currentMonth, $lastMonth->year, $lastMonth->month]
-            )
-            ->groupBy('year', 'month')
-            ->orderBy('year', 'desc')
-            ->orderBy('month', 'desc')
-            ->get();
-
-        $monthlyVIPPurchases = [
-            $currentMonth => 0,
-            $lastMonth->month => 0
-        ];
-
-        foreach ($result as $row) {
-            $monthlyVIPPurchases[$row->month] = (int) $row->purchases;
-        }
-
-        return $monthlyVIPPurchases;
+        return Zone::count();
     }
     // Thống kê số người đưa tin
     public function getTopRatedPosters($limit = 5)

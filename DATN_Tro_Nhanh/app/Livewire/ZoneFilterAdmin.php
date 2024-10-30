@@ -19,14 +19,12 @@ class ZoneFilterAdmin extends Component
     }
     public function render()
     {
-        $allZones = Zone::select('zones.*', 'users.name as user_name', 'rooms.image as room_image')
-            ->join('users', 'zones.user_id', '=', 'users.id')
-            ->join('rooms', 'zones.id', '=', 'rooms.zone_id')
-            ->where('zones.status', self::Da_Duyet)
-            ->orderBy('zones.created_at', 'desc');
+        $allZones = Zone::with(['user', 'rooms'])
+            ->where('status', self::Da_Duyet)
+            ->orderBy('created_at', 'desc');
 
         if ($this->filterDate) {
-            $allZones->whereDate('zones.created_at', $this->filterDate);
+            $allZones->whereDate('created_at', $this->filterDate);
         }
 
         return view('livewire.zone-filter-admin', [

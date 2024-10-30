@@ -1,21 +1,9 @@
 <div>
-    {{-- In work, do what you enjoy. --}}
-    <div class="card card-xl-stretch mb-5 mb-xl-8">
+    {{-- Nothing in the world is as soft and yielding as water. --}}
+    <div class="card card-xl-stretch mb-xl-8">
         <!--begin::Header-->
-        <div class="card-header border-0 pt-5">
-            <!--begin::Title-->
-            <h3 class="card-title align-items-start flex-column">
-                <span class="card-label fw-bolder fs-3 mb-1">Thống kê bài đăng tin</span>
-                @if (isset($allZones) && $allZones->count() > 0)
-                    <span class="text-muted mt-1 fw-bold fs-7">Có tất cả
-                        {{ $allZones->count() }} bài đăng
-                    </span>
-                @else
-                    <span class="text-muted mt-1 fw-bold fs-7">Chưa có dữ liệu</span>
-                @endif
-            </h3>
-            <!--end::Title-->
-            <!--begin::Toolbar-->
+        <div class="card-header border-0">
+            <h3 class="card-title fw-bolder text-dark">Thống kê giao dịch</h3>
             <div class="card-toolbar">
                 <!--begin::Menu-->
                 <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
@@ -125,76 +113,46 @@
                 <!--end::Menu 1-->
                 <!--end::Menu-->
             </div>
-            <!--end::Toolbar-->
         </div>
         <!--end::Header-->
         <!--begin::Body-->
-        {{-- <div class="card-body">
-            <!--begin::Chart-->
-            <div id="kt_charts_widget_1_chart_1" style="height: 350px"></div>
-            <!--end::Chart-->
-        </div> --}}
         <div class="card-body py-3">
-            <div class="tab-content">
-                <div class="tab-pane fade show active" id="kt_table_widget_5_tab_1">
-                    <div class="table-responsive pe-2" style="max-height: 300px; overflow-y: auto;">
-                        <table class="table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4">
-                            <thead>
-                                <tr class="border-0"
-                                    style="position: sticky; top: 0; background-color: #FFFFFF; z-index: 1;">
-                                    <th class="p-0 w-50px"></th>
-                                    <th class="p-0 me-4 min-w-150px">Tiêu đề</th>
-                                    <th class="p-0 min-w-100px">Người đăng</th>
-                                    <th class="p-0 min-w-100px">Địa chỉ</th>
-                                    <th class="p-0 min-w-50px">Trạng thái</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if (isset($allZones) && $allZones->count() > 0)
-                                    @foreach ($allZones as $zone)
-                                        <tr>
-                                            <td>
-                                                <div class="symbol symbol-45px me-2"
-                                                    style="background: none; border: none;">
-                                                    <span class="symbol-label" style="padding: 0;">
-                                                        <img src="{{ $zone->room_image ? 'https://drive.google.com/thumbnail?id=' . $zone->room_image : asset('assets/images/properties-grid-13.jpg') }}"
-                                                            class="h-100 w-100 object-fit-cover"
-                                                            style="border-radius: 0; display: block;" alt=""
-                                                            loading="lazy" />
-                                                    </span>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}"
-                                                    class="text-dark fw-bolder text-hover-primary mb-1 fs-6"
-                                                    target="_blank">
-                                                    {{ Str::limit($zone->name, 30) }}
-                                                </a>
-                                            </td>
-                                            <td class="text-start text-muted fw-bold">
-                                                {{ $zone->user->name }}
-                                            </td>
-                                            <td class="text-start text-muted fw-bold"
-                                                style="max-width: 150px; word-wrap: break-word;">
-                                                {{ Str::limit($zone->address, 20) }}
-                                            </td>
-                                            <td class="text-end">
-                                                <span class="badge badge-light-success">Hoạt
-                                                    động</span>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td colspan="5" class="text-center">
-                                            <span class="text-muted">Chưa có dữ liệu.</span>
-                                        </td>
-                                    </tr>
-                                @endif
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <div class="table-responsive pe-2" style="max-height: 300px; overflow-y: auto;">
+                <table class="table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4">
+                    <thead class="sticky-header">
+                        <tr class="border-0 text-center"
+                            style="position: sticky; top: 0; background-color: #FFFFFF; z-index: 1;">
+                            <th class="p-0 min-w-100px text-nowrap">Số tiền</th>
+                            <th class="p-0 min-w-250px">Tên dịch vụ</th>
+                            <th class="p-0 min-w-150px">Tên</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($transactions as $transaction)
+                            <tr class="">
+                                <td
+                                    class="align-middle text-nowrap @if ($transaction->status == 1) text-success @elseif($transaction->status == 2) text-danger @endif">
+                                    @if ($transaction->status == 1)
+                                        +
+                                    @else
+                                        -
+                                    @endif
+                                    {{ number_format($transaction->added_funds, 0, ',', '.') }} VND
+                                </td>
+                                <td style="max-width: 150px; word-wrap: break-word;">
+                                    {{ $transaction->type }}
+                                </td>
+                                <td class="text-center">{{ $transaction->user->name }}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4" class="text-center">
+                                    <span class="text-muted">Chưa có dữ liệu.</span>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
         </div>
         <!--end::Body-->
