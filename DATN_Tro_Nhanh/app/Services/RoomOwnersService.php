@@ -33,7 +33,7 @@ use App\Services\ImageAdminService;
 use App\Events\RoomCreationFailed;
 use Illuminate\Support\Facades\Validator;
 use App\Services\BlogServices;
-
+use App\Http\Requests\RoomOwnersRequest;
 class RoomOwnersService
 {
     /**
