@@ -96,7 +96,9 @@
                                         </a>
                                     </div>
                                 </td>
-                                <td class="align-middle"><span class="inv-amount">{{ $bill->amount }} VNĐ</span></td>
+                                <td class="align-middle">
+                                    <span class="inv-amount">{{ number_format($bill->amount, 0, ',', '.') }} VNĐ</span>
+                                </td>
                                 <td class="align-middle">
                                     <span class="text-success pr-1"><i
                                             class="fal fa-calendar"></i></span>{{ $bill->created_at->format('d/m/Y') }}

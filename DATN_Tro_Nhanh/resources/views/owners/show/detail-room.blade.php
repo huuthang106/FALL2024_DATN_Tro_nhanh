@@ -240,4 +240,5 @@
             });
         }
     </script>
+
 @endpush

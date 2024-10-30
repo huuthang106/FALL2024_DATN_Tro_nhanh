@@ -129,6 +129,7 @@
                                                     </button>
 
                                                     <!-- Modal -->
+                                                    
                                                     <div class="modal fade" id="invoiceModal{{ $item->id }}"
                                                         tabindex="-1" role="dialog"
                                                         aria-labelledby="invoiceModalLabel{{ $item->id }}"
@@ -149,8 +150,9 @@
                                                                 <div class="modal-body">
                                                                     <form id="formBills{{ $item->id }}"
                                                                         action="{{ route('owners.bills-store') }}"
-                                                                        method="POST">
-                                                                        @csrf
+                                                                        method="POST"
+                                                                        onsubmit="removeCommasBeforeSubmit('formBills{{ $item->id }}')">
+                                                                      @csrf
                                                                         <input type="hidden" name="payer_id"
                                                                             value="{{ $item->tenant_id }}">
                                                                         <input type="hidden" name="creator_id"
@@ -208,17 +210,15 @@
                                                                                         id="title-error{{ $item->id }}"></span>
                                                                                 </div>
                                                                                 <div class="form-group">
-                                                                                    <label
-                                                                                        for="amount{{ $item->id }}">Số
-                                                                                        tiền:</label>
-                                                                                    <input type="number"
-                                                                                        class="form-control"
-                                                                                        id="amount{{ $item->id }}"
-                                                                                        name="amount" required
-                                                                                        min="0" step="0.01"
-                                                                                        placeholder="Nhập số tiền">
-                                                                                    <span class="text-danger"
-                                                                                        id="amount-error{{ $item->id }}"></span>
+                                                                                    <label for="amount">Số tiền:</label>
+                                                                                    <input type="text" 
+                                                                                           class="form-control" 
+                                                                                           id="amount" 
+                                                                                           name="amount" 
+                                                                                           required 
+                                                                                           placeholder="Nhập số tiền" 
+                                                                                           oninput="formatNumber(this)">
+                                                                                    <span class="text-danger" id="amount-error"></span>
                                                                                 </div>
                                                                                 <div class="form-group">
                                                                                     <label
@@ -565,4 +565,16 @@
         @endif
     @endforeach
 </main>
+<script>// Định dạng số khi người dùng nhập vào
+    function formatNumber(input) {
+        let value = input.value.replace(/,/g, ''); // Loại bỏ dấu phẩy cũ
+        input.value = new Intl.NumberFormat().format(value); // Định dạng lại với dấu phẩy
+    }
+    
+    // Loại bỏ dấu phẩy trước khi form được gửi
+    function removeCommasBeforeSubmit(formId) {
+        let amountInput = document.querySelector(`#${formId} #amount`);
+        amountInput.value = amountInput.value.replace(/,/g, ''); // Xóa dấu phẩy
+    }
+    </script>
 <!-- Modal -->

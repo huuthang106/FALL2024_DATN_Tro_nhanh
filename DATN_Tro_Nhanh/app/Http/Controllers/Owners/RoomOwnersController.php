@@ -288,6 +288,7 @@ class RoomOwnersController extends Controller
                 ->with('error', 'Cập nhật phòng thất bại!');
         }
     }
+    // RoomOwnersController.php
 
     public function storeRoom(Request $request, $zoneId)
     {

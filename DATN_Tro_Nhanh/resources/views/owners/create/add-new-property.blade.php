@@ -75,10 +75,8 @@
                                                                     @enderror
                                                                 </div>
                                                                 <div class="form-group mb-0">
-                                                                    <label for="description" class="text-heading">Mô
-                                                                        tả <span class="text-muted">(Bắt
-                                                                            buộc)</span></label>
-                                                                    <textarea class="form-control border-0" rows="5" name="description" id="description"> {{ old('description') }}</textarea>
+                                                                    <label for="description" class="text-heading">Mô tả <span class="text-muted">(Bắt buộc)</span></label>
+                                                                    <textarea class="form-control border-0" rows="5" name="description" id="description">{{ old('description') }}</textarea>
                                                                     @error('description')
                                                                         <div class="text-danger">{{ $message }}</div>
                                                                     @enderror
@@ -137,17 +135,10 @@
                                                                     </div>
                                                                     <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
                                                                         <div class="form-group">
-                                                                            <label for="phone" class="text-heading">Số
-                                                                                điện
-                                                                                thoại <span class="text-muted">(Bắt
-                                                                                    buộc)</span></label>
-                                                                            <input type="text" name="phone"
-                                                                                class="form-control form-control-lg border-0"
-                                                                                id="phone"
-                                                                                value="{{ old('phone') }}">
+                                                                            <label for="phone" class="text-heading">Số điện thoại <span class="text-muted">(Bắt buộc)</span></label>
+                                                                            <input type="text" name="phone" class="form-control form-control-lg border-0" id="phone" value="{{ old('phone') }}">
                                                                             @error('phone')
-                                                                                <div class="text-danger">{{ $message }}
-                                                                                </div>
+                                                                                <div class="text-danger">{{ $message }}</div>
                                                                             @enderror
                                                                         </div>
                                                                     </div>

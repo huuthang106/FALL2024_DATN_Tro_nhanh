@@ -49,6 +49,19 @@ class BlogClientController extends Controller
     
     return view('client.show.blog-details-1', compact('blog', 'topViewedBlogs')); // Truyền cả blog và topViewedBlogs vào view
 }
+public function destroy($commentId)
+{
+    $response = $this->blogServices->deleteComment($commentId);
+
+    if ($response['success']) {
+        return response()->json(['success' => true, 'message' => $response['message']]);
+    } else {
+        return response()->json(['success' => false, 'message' => $response['message']], 422);
+    }
+}
+
+
+
 
     
 }

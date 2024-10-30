@@ -8,8 +8,8 @@
             <div class="media mb-6 pb-5 border-bottom">
                 <div class="w-70px mr-2">
                     @php
-                         $defaultImages = ['agent-12.jpg']; 
-                         $userImage = $item->user->image ?? $defaultImages[array_rand($defaultImages)]; 
+                        $defaultImages = ['agent-12.jpg'];
+                        $userImage = $item->user->image ?? $defaultImages[array_rand($defaultImages)];
                     @endphp
                     <img src="{{ asset('assets/images/' . $userImage) }}" alt="{{ $item->user->name ?? 'Người dùng' }}"
                         class="mr-sm-8 mb-4 mb-sm-0 custom-avatar">
@@ -38,15 +38,19 @@
                         <li class="list-inline-item text-muted">
                             {{ $item->created_at->format('d/m/Y h:i A') }}
                         </li>
-                        <li class="list-inline-item">
-                        @if (Auth::id() == $item->user_id)
-                        <a href="#"
-                                        class="mb-0 text-danger border-left border-dark hover-primary lh-1 ml-2 pl-2"
-                                        wire:click="deleteComment({{ $item->id }})">
-                                        Xóa
-                                    </a>
+                        <li class="list-inline-item" id="comment-{{ $item->id }}">
+                            @if (Auth::id() == $item->user_id)
+                                <a href="javascript:void(0);"
+                                   class="mb-0 text-danger border-left border-dark hover-primary lh-1 ml-2 pl-2"
+                                   onclick="deleteComment({{ $item->id }})">
+                                   Xóa
+                                </a>
                             @endif
                         </li>
+                        
+                        
+
+
                     </ul>
                 </div>
             </div>
@@ -115,3 +119,54 @@
 
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    function deleteComment(commentId) {
+        Swal.fire({
+            title: 'Bạn có chắc chắn?',
+            text: "Bình luận sẽ bị xóa vĩnh viễn!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Đồng ý',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '{{ route("client.comments.destroy", "") }}' + '/' + commentId,
+                    type: 'DELETE',
+                    data: {
+                        _token: '{{ csrf_token() }}' // Đừng quên thêm CSRF token
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thành công',
+                            text: response.message,
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            // Tải lại trang sau khi nhấn OK
+                            location.reload();
+                        });
+                    },
+                    error: function(xhr) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi',
+                            text: xhr.responseJSON.message,
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            }
+        });
+    }
+</script>
+
+
+
+
+

@@ -13,6 +13,7 @@ use App\Models\Notification;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CreateBlogRequest;
 use GuzzleHttp\Client;
+use App\Models\CommentBlogs;
 use GuzzleHttp\Exception\GuzzleException;
 class BlogServices
 {
@@ -558,4 +559,32 @@ public function uploadImageToGoogleDrive($image, $folderId, $filename)
 
         return $blog;
     }
+    public function deleteComment($commentId)
+    {
+        try {
+            // Tìm bình luận dựa trên ID và kiểm tra quyền người dùng
+            $comment = CommentBlogs::where('id', $commentId)
+                ->where('user_id', Auth::id())
+                ->firstOrFail();
+
+            // Xóa bình luận
+            $comment->forceDelete();
+
+            return [
+                'success' => true,
+                'message' => 'Bình luận đã được xóa thành công.'
+            ];
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return [
+                'success' => false,
+                'message' => 'Không tìm thấy bình luận hoặc bạn không có quyền xóa bình luận này.'
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => 'Có lỗi xảy ra khi xóa bình luận.'
+            ];
+        }
+    }
+
 }

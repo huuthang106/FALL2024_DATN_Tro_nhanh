@@ -76,10 +76,22 @@ class ZoneOwnersController extends Controller
     // Tạo hóa đơn
     public function storeBill(BillRequest $request)
     {
-        $this->zoneServices->createBill($request->validated());
+        // Lấy giá trị `amount` không dấu phẩy từ request
+        $data = $request->validated();
+        $data['amount'] = str_replace(',', '', $data['amount']); // Loại bỏ dấu phẩy
+    
+        // Gọi service để tạo hóa đơn với dữ liệu đã được xử lý
+        $this->zoneServices->createBill($data);
+    
         return redirect()->back()->with('success', 'Hóa đơn đã được tạo thành công.');
     }
+    
 
+    private function getRawValue($value)
+    {
+        // Loại bỏ dấu phẩy
+        return str_replace(',', '', $value);
+    }
 
 
     public function store(ZoneRequest $request)
