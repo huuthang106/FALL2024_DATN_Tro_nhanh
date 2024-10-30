@@ -28,8 +28,8 @@ class BlogOwnersController extends Controller
         $userLock = auth()->user();
 
         // Lấy trạng thái của người dùng hiện tại
-     $userStatus =  $userLock ?  $userLock->status : null;
-        return view('owners.create.add-new-blog',compact('userStatus'));
+        $userStatus =  $userLock ?  $userLock->status : null;
+        return view('owners.create.add-new-blog', compact('userStatus'));
     }
     public function show()
     {
@@ -41,7 +41,7 @@ class BlogOwnersController extends Controller
     public function editBlog($id)
     {
         $result = $this->BlogService->editBlog($id); // Gọi phương thức từ BlogService
- 
+
         return view('owners.edit.edit-blog', [
             'blog' => $result['blog'],
             'images' => $result['images'],
@@ -63,7 +63,7 @@ class BlogOwnersController extends Controller
     {
         try {
             $result = $this->BlogService->updateBlog($request, $id);
-    
+
             if ($result['success']) {
                 return response()->json([
                     'status' => 'success',
@@ -89,13 +89,13 @@ class BlogOwnersController extends Controller
     {
         try {
             $blog = $this->BlogService->handleBlogCreation($request);
-    
+
             if ($blog instanceof \Illuminate\Http\JsonResponse) {
                 return $blog; // Trả về response JSON nếu có lỗi từ service
             }
-    
+
             event(new BlogCreated($blog));
-    
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'Blog đã được tạo thành công!'
@@ -140,5 +140,17 @@ class BlogOwnersController extends Controller
     {
         $this->BlogService->restoreBlogs($id);
         return redirect()->route('owners.show-blog')->with('success', 'Blog đã được khôi phục.');
+    }
+
+    public function forceDelete($id)
+    {
+        try {
+            $blog = Blog::withTrashed()->findOrFail($id);
+            $blog->forceDelete();
+
+            return response()->json(['status' => 'success', 'message' => 'Blog đã được xóa vĩnh viễn.'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => 'Có lỗi xảy ra: ' . $e->getMessage()], 500);
+        }
     }
 }

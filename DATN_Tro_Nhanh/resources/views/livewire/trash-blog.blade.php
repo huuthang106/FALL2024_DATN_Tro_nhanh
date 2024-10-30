@@ -77,18 +77,18 @@
                                     <div class="w-100 w-md-150 mr-3 position-relative">
                                         <a href="{{ route('owners.show-blog', $blog->slug) }}">
                                             @if ($blog->image)
-                                            @php
-                                                // Nếu bạn lưu nhiều ảnh dưới dạng chuỗi phân tách bằng dấu phẩy, bạn có thể tách chúng ra
-                                                $images = explode(',', $blog->image);
-                                                $firstImage = $images[0]; // Lấy ảnh đầu tiên
-                                            @endphp
-                                            <img src="{{ asset('assets/images/' . $firstImage) }}"
-                                                 alt="{{ $blog->title }}"
-                                                 class="img-fluid blog-image square-image">
-                                        @else
-                                            <img src="{{ asset('assets/images/properties-grid-08.jpg') }}"
-                                                 alt="Default Image" class="img-fluid blog-image square-image">
-                                        @endif
+                                                @php
+                                                    // Nếu bạn lưu nhiều ảnh dưới dạng chuỗi phân tách bằng dấu phẩy, bạn có thể tách chúng ra
+                                                    $images = explode(',', $blog->image);
+                                                    $firstImage = $images[0]; // Lấy ảnh đầu tiên
+                                                @endphp
+                                              <img src="https://drive.google.com/thumbnail?id={{ $firstImageId }}"
+                                              alt="{{ $blog->title }}"
+                                              class="img-fluid blog-image square-image">
+                                            @else
+                                                <img src="{{ asset('assets/images/properties-grid-08.jpg') }}"
+                                                    alt="Default Image" class="img-fluid blog-image square-image">
+                                            @endif
                                         </a>
                                     </div>
                                 </div>
@@ -125,11 +125,15 @@
                                     <button type="submit" class="btn btn-warning btn-sm text-white"><i
                                             class="fal fa-undo"></i></button>
                                 </form>
-                                <form action="#" method="POST" style="display:inline;"
-                                wire:submit.prevent="forceDeleteBlog({{ $blog->id }})">
-                              @csrf
-                              <button type="submit" class="btn btn-danger btn-sm"><i class="fal fa-trash-alt"></i></button>
-                          </form>
+                                <form id="forceDeleteBlogForm{{ $blog->id }}"
+                                    action="{{ route('owners.force-delete-blog', $blog->id) }}" method="POST"
+                                    style="display:inline;" onsubmit="return false;">
+                                    @csrf
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                        onclick="forceDeleteBlog({{ $blog->id }})">
+                                        <i class="fal fa-trash-alt"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
@@ -336,4 +340,50 @@
             });
         });
     });
+</script>
+{{-- Xóa vĩnh viễn blog --}}
+<script>
+    function forceDeleteBlog(blogId) {
+        // Sử dụng SweetAlert2 để xác nhận
+        Swal.fire({
+            title: 'Xác nhận',
+            text: 'Bạn có chắc chắn muốn xóa vĩnh viễn blog này?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Có, xóa!',
+            cancelButtonText: 'Không'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Nếu người dùng xác nhận, gửi yêu cầu AJAX
+                $.ajax({
+                    url: $('#forceDeleteBlogForm' + blogId).attr('action'), // Lấy URL từ form
+                    type: 'POST',
+                    data: {
+                        _method: 'DELETE', // Thêm phương thức DELETE
+                        _token: '{{ csrf_token() }}' // Thêm token CSRF
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thành công!',
+                            text: response.message,
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            location.reload(); // Tải lại trang sau khi xóa
+                        });
+                    },
+                    error: function(xhr) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi!',
+                            text: xhr.responseJSON.message,
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            }
+        });
+    }
 </script>

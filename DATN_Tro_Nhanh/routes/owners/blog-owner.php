@@ -15,6 +15,6 @@ Route::group(['prefix' => ''], function () {
 
     route::post('them-blog', [BlogOwnersController::class, 'store'])->name('create-blog');
     Route::post('/upload-image', [BlogOwnersController::class, 'uploadImage'])->name('upload-image');
-    
+    Route::delete('/blogs/{id}/force-delete', [BlogOwnersController::class, 'forceDelete'])->name('force-delete-blog');
     // Route::get('nhan-tong', [BlogOwnersController::class, 'show'])->name('show-fix');
 });
