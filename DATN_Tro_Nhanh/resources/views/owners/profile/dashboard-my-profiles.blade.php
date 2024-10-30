@@ -57,9 +57,8 @@
                                         <div class="col-md-5">
                                             <div class="form-group">
                                                 <label for="withdraw-amount" class="fs-10">Số Tiền Cần Rút</label>
-                                                <input type="number" class="form-control" id="added_funds" name="amount"
-                                                    placeholder="Nhập số tiền" value="{{ number_format(Auth::user()->balance, 0, ',', '.') }}"
-                                                    max="{{ Auth::user()->balance }}" required>
+                                                <input type="text" class="form-control" id="added_funds" name="amount"
+                                                    placeholder="Nhập số tiền" required oninput="this.value = formatNumber(this.value)">
                                                 <!-- <small class="form-text text-muted">Số dư hiện tại:
                                                             {{ number_format(Auth::user()->balance, 0, ',', '.') }} VNĐ</small> -->
                                             </div>
@@ -731,15 +730,15 @@
                 try {
                     const response = await axios.get('https://api.vietqr.io/v2/banks');
                     const banks = response.data.data;
-    
+
                     const bankSelect = document.getElementById('bank-name');
                     bankSelect.innerHTML = '';
-    
+
                     const defaultOption = document.createElement('option');
                     defaultOption.value = '';
                     defaultOption.textContent = 'Chọn ngân hàng';
                     bankSelect.appendChild(defaultOption);
-    
+
                     banks.forEach(bank => {
                         const option = document.createElement('option');
                         option.value = bank.code;
@@ -748,15 +747,15 @@
                         option.dataset.shortName = bank.shortName;
                         bankSelect.appendChild(option);
                     });
-    
+
                 } catch (error) {
                     console.error('Error fetching banks:', error);
                 }
             }
-    
+
             // Gọi hàm khi modal mở
             $('#withdrawModal').on('show.bs.modal', fetchBanks);
-    
+
             // Thêm event listener cho select
             document.getElementById('bank-name').addEventListener('change', function() {
                 const selectedOption = this.options[this.selectedIndex];
@@ -767,18 +766,18 @@
                     shortNameInput.value = '';
                 }
             });
-    
+
             // Xử lý submit form
             $('form').on('submit', function(e) {
                 e.preventDefault();
                 var formData = new FormData(this);
-    
+
                 // Xử lý rút tiền
                 if (this.id === 'withdrawForm') {
                     if (formData.get('description') === 'Rút tiền khác') {
                         formData.set('description', formData.get('custom_description'));
                     }
-    
+
                     const bankSelect = document.getElementById('bank-name');
                     const selectedOption = bankSelect.options[bankSelect.selectedIndex];
                     if (selectedOption && selectedOption.value) {
@@ -788,47 +787,47 @@
                         alert('Vui lòng chọn ngân hàng');
                         return;
                     }
-    
+
                     // Gửi request
                     fetch('{{ route('owners.submit-payout-request') }}', {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                            'Accept': 'application/json'
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Thành công',
-                                text: data.message,
-                                confirmButtonText: 'OK'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    $('#withdrawModal').modal('hide');
-                                }
-                            });
-                        } else {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Accept': 'application/json'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Thành công',
+                                    text: data.message,
+                                    confirmButtonText: 'OK'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        $('#withdrawModal').modal('hide');
+                                    }
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Lỗi!',
+                                    text: data.message || 'Có lỗi xảy ra khi xử lý yêu cầu',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Lỗi!',
-                                text: data.message || 'Có lỗi xảy ra khi xử lý yêu cầu',
+                                text: 'Có lỗi xảy ra khi xử lý yêu cầu',
                                 confirmButtonText: 'OK'
                             });
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Lỗi!',
-                            text: 'Có lỗi xảy ra khi xử lý yêu cầu',
-                            confirmButtonText: 'OK'
                         });
-                    });
                 } else {
                     // Xử lý cập nhật tài khoản
                     $.ajax({
@@ -857,13 +856,15 @@
                                     confirmButtonText: 'OK'
                                 }).then((result) => {
                                     if (result.isConfirmed) {
-                                        window.location.href = '{{ route('owners.profile.profile-admin-index') }}';
+                                        window.location.href =
+                                            '{{ route('owners.profile.profile-admin-index') }}';
                                     }
                                 });
                             } else {
                                 Swal.fire({
                                     title: 'Lỗi!',
-                                    text: response.message || 'Đã xảy ra lỗi khi cập nhật tài khoản.',
+                                    text: response.message ||
+                                        'Đã xảy ra lỗi khi cập nhật tài khoản.',
                                     icon: 'error',
                                     confirmButtonText: 'OK'
                                 });
@@ -886,5 +887,14 @@
                 }
             });
         });
+    </script>
+    {{-- format tiền --}}
+    <script>
+        function formatNumber(value) {
+            // Xóa tất cả ký tự không phải số
+            value = value.replace(/[^0-9]/g, '');
+            // Định dạng số với dấu phẩy
+            return value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
     </script>
 @endpush

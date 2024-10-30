@@ -264,6 +264,7 @@ class RoomOwnersController extends Controller
     {
         Log::info("Starting update for room ID: $id");
 
+        $request['price'] = intval(str_replace('.', '', $request['price'])); // Loại bỏ dấu phẩy và chuyển đổi
         // Gọi service để cập nhật phòng
         $result = $this->roomOwnersService->updateRoomInZone($request, $id);
 
@@ -294,7 +295,7 @@ class RoomOwnersController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'quantity' => 'required|integer|min:1',
-            'price' => 'required|numeric|min:0',
+            'price' => 'required|min:0',
             'phone' => 'required|string|max:15',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ], [
@@ -303,7 +304,7 @@ class RoomOwnersController extends Controller
             'image.mimes' => 'Chỉ chấp nhận các định dạng: jpeg, png, jpg.',
             'image.max' => 'Kích thước ảnh không được vượt quá 2MB.',
         ]);
-
+        $request['price'] = intval(str_replace('.', '', $request['price'])); // Loại bỏ dấu phẩy và chuyển đổi
         try {
             // Gọi service để tạo phòng mới
             $result = $this->roomOwnersService->createRoom($request, $zoneId);

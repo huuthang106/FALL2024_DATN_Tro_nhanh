@@ -33,11 +33,11 @@ class PaymentOwnersController extends Controller
             $data = $request->validate([
                 'bank_code' => 'required|string',
                 'account_number' => 'required|string',
-                'amount' => 'required|numeric|min:1',
+                'amount' => 'required',
                 'card_holder_name' => 'required|string',
                 'description' => 'nullable|string',
             ]);
-    
+            $data['amount'] = intval(str_replace('.', '', $data['amount'])); // Loại bỏ dấu phẩy và chuyển đổi
             $data['user_id'] = Auth::id();
     
             $result = $this->paymentService->createPayout($data);

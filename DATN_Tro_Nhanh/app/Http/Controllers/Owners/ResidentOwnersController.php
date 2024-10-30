@@ -168,9 +168,11 @@ class ResidentOwnersController extends Controller
         $success = $this->residentOwnersService->refuseApplication($id, $reasons, $note);
 
         if ($success) {
+         
             return redirect()->back()->with('success', 'Đơn đã được từ chối thành công.');
         } else {
             return redirect()->back()->with('error', 'Đã xảy ra lỗi khi từ chối đơn.');
         }
     }
+   
 }

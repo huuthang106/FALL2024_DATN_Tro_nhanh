@@ -56,8 +56,8 @@ class RoomOwnersService
     const CHUA_CO = 0; // Chưa có tiện ích
     private $client;
     private $imageAdminService;
-
-    public function __construct(ImageAdminService $imageAdminService)
+    private $blogServices;
+    public function __construct(ImageAdminService $imageAdminService, BlogServices $blogServices)
     {
         $this->client = new Client([
             'base_uri' => 'https://api.clarifai.com/v2/',
@@ -67,6 +67,7 @@ class RoomOwnersService
             ]
         ]);
         $this->imageAdminService = $imageAdminService;
+        $this->blogServices = $blogServices;
     }
 
     public function getAllCategories()
@@ -99,7 +100,7 @@ class RoomOwnersService
     {
         return Room::where('slug', $slug)->first(); // Lấy phòng dựa trên slug
     }
-    
+
     public function getRoomUtilities($roomId)
     {
         // Giả sử bạn đã có model `Utility`
@@ -130,7 +131,7 @@ class RoomOwnersService
                 'image' => $imagePath, // Lưu đường dẫn ảnh vào cột 'image'
                 'zone_id' => $id, // Nếu bạn có zone_id
             ]);
-    
+
             if ($room) {
                 return true;
             } else {
@@ -141,35 +142,35 @@ class RoomOwnersService
         }
     }
 
-    public function deleteImage($id)
-    {
-        try {
-            $image = Image::find($id); // Sử dụng find thay vì findOrFail để kiểm tra sự tồn tại
+    // public function deleteImage($id)
+    // {
+    //     try {
+    //         $image = Image::find($id); // Sử dụng find thay vì findOrFail để kiểm tra sự tồn tại
 
-            if (!$image) {
-                return ['success' => false, 'message' => 'Ảnh không tồn tại.'];
-            }
+    //         if (!$image) {
+    //             return ['success' => false, 'message' => 'Ảnh không tồn tại.'];
+    //         }
 
-            $room = $image->room; // Giả sử bạn có quan hệ `room` trong model Image
-            if ($room->images()->count() <= 1) {
-                return ['success' => false, 'message' => 'Phòng cần ít nhất 1 ảnh.'];
-            }
+    //         $room = $image->room; // Giả sử bạn có quan hệ `room` trong model Image
+    //         if ($room->images()->count() <= 1) {
+    //             return ['success' => false, 'message' => 'Phòng cần ít nhất 1 ảnh.'];
+    //         }
 
-            $imagePath = public_path('assets/images/' . $image->filename);
+    //         $imagePath = public_path('assets/images/' . $image->filename);
 
-            // Kiểm tra nếu file tồn tại và xóa nó
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
-            }
+    //         // Kiểm tra nếu file tồn tại và xóa nó
+    //         if (file_exists($imagePath)) {
+    //             unlink($imagePath);
+    //         }
 
-            // Xóa bản ghi ảnh khỏi cơ sở dữ liệu
-            $image->delete();
+    //         // Xóa bản ghi ảnh khỏi cơ sở dữ liệu
+    //         $image->delete();
 
-            return ['success' => true];
-        } catch (Exception $e) {
-            return ['success' => false, 'message' => $e->getMessage()];
-        }
-    }
+    //         return ['success' => true];
+    //     } catch (Exception $e) {
+    //         return ['success' => false, 'message' => $e->getMessage()];
+    //     }
+    // }
 
     public function showImages($id)
     {
@@ -526,57 +527,57 @@ class RoomOwnersService
     }
 
     public function updateRoomInZone(Request $request, $id)
-{
-    // Validate dữ liệu đầu vào
-    $validator = Validator::make($request->all(), [
-        'title' => 'required|string|max:255',
-        'description' => 'required|string',
-        'price' => 'required|numeric|min:0',
-        'quantity' => 'required|integer|min:1',
-        'images' => 'nullable|array',
-        'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
-    ]);
+    {
+        // Validate dữ liệu đầu vào
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|min:0',
+            'quantity' => 'required|integer|min:1',
+            'images' => 'nullable|array',
+            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+        ]);
 
-    if ($validator->fails()) {
-        return redirect()->back()
-            ->withErrors($validator)
-            ->withInput();
-    }
-
-    // Tìm phòng theo ID
-    $room = Room::findOrFail($id);
-
-    // Cập nhật thông tin phòng
-    $room->title = $request->input('title');
-    $room->description = $request->input('description');
-    $room->price = $request->input('price');
-    $room->quantity = $request->input('quantity');
-$blogService = new BlogServices();
-    // Xử lý hình ảnh nếu có
-    if ($request->hasFile('images')) {
-        // Xóa ảnh cũ nếu có
-        if ($room->image) {
-            // Gọi phương thức xóa tệp cũ trên Google Drive
-            $blogService->deleteFileFromGoogleDrive($room->image); // Xóa tệp cũ
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
         }
 
+        // Tìm phòng theo ID
+        $room = Room::findOrFail($id);
 
-        // Lấy file đầu tiên từ mảng images
-        $image = $request->file('images')[0];
+        // Cập nhật thông tin phòng
+        $room->title = $request->input('title');
+        $room->description = $request->input('description');
+        $room->price = $request->input('price');
+        $room->quantity = $request->input('quantity');
+        $blogService = new BlogServices();
+        // Xử lý hình ảnh nếu có
+        if ($request->hasFile('images')) {
+            // Xóa ảnh cũ nếu có
+            if ($room->image) {
+                // Gọi phương thức xóa tệp cũ trên Google Drive
+                $blogService->deleteFileFromGoogleDrive($room->image); // Xóa tệp cũ
+            }
 
-        // Tải lên hình ảnh vào Google Drive
-        $driveFileId = '1DNPZ0KBCiY27mvOZKFg8IyyarT7PIGVF'; // ID thư mục Google Drive
-        $uploadResult = $blogService->uploadImageToGoogleDrive($image, $driveFileId, $image->getClientOriginalName()); // Gọi phương thức với tên đã tạo
 
-        // Cập nhật đường dẫn ảnh mới
-        $room->image = $uploadResult['id']; // Lưu ID tệp đã tải lên vào cơ sở dữ liệu
+            // Lấy file đầu tiên từ mảng images
+            $image = $request->file('images')[0];
+
+            // Tải lên hình ảnh vào Google Drive
+            $driveFileId = env('GOOGLE_DRIVE_FOLDER_ID', 'default_value'); // 'default_value' là giá trị mặc định nếu không tìm thấy// ID thư mục Google Drive
+            $uploadResult = $blogService->uploadImageToGoogleDrive($image, $driveFileId, $image->getClientOriginalName()); // Gọi phương thức với tên đã tạo
+
+            // Cập nhật đường dẫn ảnh mới
+            $room->image = $uploadResult['id']; // Lưu ID tệp đã tải lên vào cơ sở dữ liệu
+        }
+
+        // Lưu thay đổi
+        $room->save();
+
+        return $room;
     }
-
-    // Lưu thay đổi
-    $room->save();
-
-    return $room;
-}
 
     public function createRoom(Request $request, $zoneId)
     {
@@ -584,7 +585,7 @@ $blogService = new BlogServices();
             // Tạo slug từ tiêu đề
             $slugify = new \Cocur\Slugify\Slugify();
             $slug = $slugify->slugify($request->input('title')) . '-' . $zoneId;
-    
+
             // Tạo phòng mới (không bao gồm hình ảnh)
             $room = Room::create([
                 'title' => $request->input('title'),
@@ -595,18 +596,21 @@ $blogService = new BlogServices();
                 'zone_id' => $zoneId,
                 'slug' => $slug,
             ]);
-    
+
             // Lưu hình ảnh với tên mới
+
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $extension = $image->getClientOriginalExtension();
-                $imageName = Str::slug($room->title) . '_' . $room->id . '.' . $extension;
-                $image->move(public_path('assets/images'), $imageName);
-                
-                // Cập nhật tên hình ảnh trong cơ sở dữ liệu
-                $room->update(['image' => $imageName]);
+
+                // Tải lên hình ảnh vào Google Drive
+                $driveFileId = env('GOOGLE_DRIVE_FOLDER_ID', '1DNPZ0KBCiY27mvOZKFg8IyyarT7PIGVF'); // 'default_value' là giá trị mặc định nếu không tìm thấy
+                // $driveFileId = '1DNPZ0KBCiY27mvOZKFg8IyyarT7PIGVF'; // ID thư mục Google Drive
+                $uploadResult = $this->blogServices->uploadImageToGoogleDrive($image, $driveFileId, $image->getClientOriginalName()); // Gọi phương thức với tên đã tạo
+
+                // Lưu ID tệp vào cơ sở dữ liệu
+                $room->update(['image' => $uploadResult['id']]); // Lưu ID tệp đã tải lên vào cơ sở dữ liệu
             }
-            
+
             return [
                 'success' => true,
                 'zone_slug' => $room->zone->slug
@@ -624,16 +628,15 @@ $blogService = new BlogServices();
     {
         // Tìm phòng theo ID
         $room = Room::find($idRoom);
-    
+
         // Kiểm tra xem phòng có tồn tại không
         if ($room) {
             // Cộng thêm quantity vào giá trị hiện tại
             $room->quantity += $quantity; // Cộng thêm số lượng
-           $room->save(); // Lưu thay đổi
-           return true;
+            $room->save(); // Lưu thay đổi
+            return true;
         }
-    
+
         return false; // Trả về false nếu không tìm thấy phòng
     }
-   
 }

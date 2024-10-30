@@ -138,7 +138,7 @@
                 @endif
             </div>
         </div>
-        <!-- Modal tạo hóa đơn -->
+      
         @foreach ($residents as $resident)
             <div class="modal fade" id="confirmDeleteModal{{ $resident->id }}" tabindex="-1" role="dialog"
                 aria-labelledby="invoiceModalLabel{{ $resident->id }}" aria-hidden="true">

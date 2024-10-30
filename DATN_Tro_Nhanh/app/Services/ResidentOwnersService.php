@@ -223,4 +223,6 @@ class ResidentOwnersService
             return false; // Trả về false nếu có lỗi xảy ra
         }
     }
+
+ 
 }

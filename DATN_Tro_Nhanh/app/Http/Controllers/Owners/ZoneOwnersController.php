@@ -87,6 +87,7 @@ class ZoneOwnersController extends Controller
         // Log::info('Request Data:', $request->all());
         try {
             if ($request->isMethod('post')) {
+                $request['price'] = intval(str_replace('.', '', $request['price'])); // Loại bỏ dấu phẩy và chuyển đổi
                 $result = $this->zoneServices->create($request);
 
                 if ($result instanceof \Illuminate\Http\JsonResponse) {

@@ -48,7 +48,8 @@ class SendRoomCreatedNotification
             $image = $data['image']; // Giả sử đây là đường dẫn tạm thời của hình ảnh
 
             // Tải lên hình ảnh vào Google Drive
-            $driveFileId = '1DNPZ0KBCiY27mvOZKFg8IyyarT7PIGVF'; // ID thư mục Google Drive
+            $driveFileId = env('GOOGLE_DRIVE_FOLDER_ID', '1DNPZ0KBCiY27mvOZKFg8IyyarT7PIGVF'); // 'default_value' là giá trị mặc định nếu không tìm thấy
+            // $driveFileId = '1DNPZ0KBCiY27mvOZKFg8IyyarT7PIGVF'; // ID thư mục Google Drive
             $uploadResult = $this->blogServices->uploadImageToGoogleDrive($image, $driveFileId, $image->getClientOriginalName()); // Gọi phương thức với tên đã tạo
 
             // Lưu ID tệp vào cơ sở dữ liệu

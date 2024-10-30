@@ -125,10 +125,10 @@
                                                                             <label for="price" class="text-heading">Giá
                                                                                 bằng VND <span class="text-muted">(Bắt
                                                                                     buộc)</span></label>
-                                                                            <input type="number"
+                                                                            <input type="text"
                                                                                 class="form-control form-control-lg border-0"
                                                                                 id="price" name="price"
-                                                                                value="{{ old('price') }}">
+                                                                                oninput="this.value = formatNumber(this.value)">
                                                                             @error('price')
                                                                                 <div class="text-danger">{{ $message }}
                                                                                 </div>
@@ -438,7 +438,7 @@
         });
     </script>
 @endif
-
+{{-- 
 @if (session('success'))
     <script>
         Swal.fire({
@@ -457,5 +457,13 @@
             text: '{{ session('error') }}',
         });
     </script>
-@endif
+@endif --}}
+<script>
+    function formatNumber(value) {
+        // Xóa tất cả ký tự không phải số
+        value = value.replace(/[^0-9]/g, '');
+        // Định dạng số với dấu phẩy
+        return value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+</script>
 @endpush

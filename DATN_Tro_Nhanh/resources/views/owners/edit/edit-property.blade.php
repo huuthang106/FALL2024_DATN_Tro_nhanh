@@ -122,10 +122,9 @@
                                                                     <label for="price" class="text-heading">Giá
                                                                         bằng VND <span class="text-muted">(Bắt
                                                                             buộc)</span></label>
-                                                                    <input type="number"
-                                                                        class="form-control form-control-lg border-0"
-                                                                        id="price" name="price"
-                                                                        value="{{ old('price', $room->price) }}">
+                                                                            <input type="text" class="form-control form-control-lg border-0" id="price" name="price"
+                                                                            value="{{ old('price', number_format($room->price, 0, '.', '.')) }}"
+                                                                            oninput="this.value = formatNumber(this.value)">
                                                                     @error('price')
                                                                         <div class="text-danger">{{ $message }}
                                                                         </div>
@@ -579,6 +578,15 @@
                 };
                 reader.readAsDataURL(files[0]); // Đọc tệp đầu tiên
             }
+        }
+    </script>
+    {{-- format tieenf --}}
+    <script>
+        function formatNumber(value) {
+            // Xóa tất cả ký tự không phải số
+            value = value.replace(/[^0-9]/g, '');
+            // Định dạng số với dấu phẩy
+            return value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
         }
     </script>
 @endpush

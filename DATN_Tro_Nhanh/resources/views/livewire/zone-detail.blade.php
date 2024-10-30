@@ -81,19 +81,19 @@
                                             {{-- Hình ảnh mặc định nếu không có ID --}}
                                         @endif
                                         </td>
-                                        <td class="align-middle" style="white-space: nowrap;">
+                                        <td class="align-middle text-wrap" >
                                             <small>{{ $room->title }}</small>
                                         </td>
-                                        <td class="align-middle" style="white-space: nowrap;">
+                                        <td class="align-middle text-wrap" >
                                             <small>{{ $room->description }}</small>
                                         </td>
-                                        <td class="align-middle" style="white-space: nowrap;">
+                                        <td class="align-middle text-wrap" >
                                             <small>{{ $room->quantity }}</small>
                                         </td>
-                                        <td class="align-middle" style="white-space: nowrap;">
+                                        <td class="align-middle text-wrap" >
                                             <small>{{ $zone->phone }}</small>
                                         </td>
-                                        <td class="align-middle" style="white-space: nowrap;">
+                                        <td class="align-middle text-wrap" >
                                             <small>
                                                 @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
                                                     <span class="badge badge-green text-capitalize">Đang tạm trú</span>
@@ -107,7 +107,7 @@
 
 
                                         {{-- Các cột khác --}}
-                                        <td class="align-middle" style="white-space: nowrap;">
+                                        <td class="align-middle " style="white-space: nowrap;"  >
                                             @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
                                                 @php
                                                     $resident = $room->residents->where('status', $user_is_in)->first();

@@ -57,7 +57,7 @@
                             <th class="py-3 text-nowrap text-center col-2">Ảnh</th>
 
                             <th class="py-3 text-nowrap text-center col-2">Tiêu đề</th>
-                            <th class="py-3 text-nowrap text-center d-none d-md-table-cell col-3">Mô tả</th>
+                         
                             <th class="py-3 text-nowrap text-center d-none d-lg-table-cell col-3">Địa chỉ</th>
                             <th class="py-3 text-nowrap text-center col-2">Ngày</th>
                             <th class="py-3 text-nowrap text-center col-2">Lượng phòng</th>
@@ -76,8 +76,7 @@
                             </tr>
                         @else
                             @foreach ($zones as $zone)
-                                <tr role="row" wire:key="zone-{{ $zone->id }}"
-                                    data-room-count="{{ $zone->room_count }}">
+                                <tr role="row" wire:key="zone-{{ $zone->id }}" data-room-count="{{ $zone->room_count }}">
                                     <td class="align-middle px-6">
                                         <input type="checkbox" class="control-input zone-checkbox"
                                             id="zone-{{ $zone->id }}" wire:model="selectedZones"
@@ -88,51 +87,42 @@
                                     <td class="align-middle d-md-table-cell text-nowrap p-4">
                                         <div class="mr-2 position-relative zone-image-container">
                                             <a href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}">
-                                                <img src="{{ $this->getZoneImageUrl($zone) ?: asset('assets/images/default-image.jpg') }}"
-                                                    alt="{{ $zone->name }}" class="img-fluid zone-image">
-                                                    @if($zone->vipZonePosition && $zone->vipZonePosition->status == 1)
-                                                        <span class="vip-badge">VIP</span>
-                                                    @endif
-                                                    <span class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }} position-absolute pos-fixed-top">
-                                                        {{ $zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
-                                                    </span>
+                                                @php
+                                                    $image = $zone->rooms->first()->image ?? null;
+                                                @endphp
+                                                <img src="{{ $image ? 'https://drive.google.com/thumbnail?id=' . $image : asset('assets/images/default-image.jpg') }}"
+                                                     alt="{{ $zone->name }}" class="img-fluid zone-image">
+                                                @if ($zone->vipZonePosition && $zone->vipZonePosition->status == 1)
+                                                    <span class="vip-badge">VIP</span>
+                                                @endif
+                                                <span class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }} position-absolute pos-fixed-top">
+                                                    {{ $zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
+                                                </span>
                                             </a>
                                         </div>
                                     </td>
-
-                                    <td class="align-middle pt-3 pb-2 px-3 text-nowrap">
+                    
+                                    <td class="align-middle pt-3 pb-2 px-3 text-wrap"> <!-- Sử dụng text-wrap -->
                                         <div class="d-flex align-items-center">
-
                                             <div class="media-body">
                                                 <a href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}">
-                                                    <span
-                                                        class="text-dark hover-primary mb-1 font-size-md">{{ $zone->name }}</span>
+                                                    <span class="text-dark hover-primary mb-1 font-size-md">{{ $zone->name }}</span>
                                                 </a>
                                             </div>
                                         </div>
                                     </td>
-
-                                    <td class="align-middle d-none d-md-table-cell text-nowrap">
-                                        <small class="user-name">{{ $zone->description }}</small>
+                    
+                                   
+                                    <td class="align-middle d-none d-lg-table-cell text-wrap">
+                                        <small>{{$zone->address }}</small>
                                     </td>
-                                    <td class="align-middle d-none d-lg-table-cell text-nowrap">
-                                        <small>{{ Str::limit($zone->address, 15) }}</small>
-                                    </td>
-
+                    
                                     <td class="align-middle text-nowrap">
-                                        <span class="text-success pr-1"><i
-                                                class="fal fa-calendar"></i></span>{{ \Carbon\Carbon::parse($zone->updated_at)->format('d-m-Y') }}
+                                        <span class="text-success pr-1"><i class="fal fa-calendar"></i></span>{{ \Carbon\Carbon::parse($zone->updated_at)->format('d-m-Y') }}
                                     </td>
-
-                                    <td class="align-middle text-nowrap">
-                                        <span class="inv-amount">
-                                            {{-- @if ($zone->room_count < 0) --}}
-                                            {{ $zone->room_count }}
-                                            {{-- @else
-                                                <span class="badge badge-yellow text-capitalize">Chưa hoạt
-                                                    động</span>
-                                            @endif --}}
-                                        </span>
+                    
+                                    <td class="align-middle text-wrap">
+                                        <span class="inv-amount">{{ $zone->room_count }}</span>
                                     </td>
                                     <td class="align-middle text-nowrap">
                                         @if ($zone->status == 1)
@@ -157,7 +147,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    @if($zone->status == 1)
+                                                    @if ($zone->status == 1)
                                                         <p class="text-danger">Khu trọ chưa được duyệt, không thể mua VIP.</p>
                                                     @else
                                                         <form action="{{ route('owners.zone-vip') }}" method="POST">
@@ -167,12 +157,11 @@
                                                             <div class="form-group">
                                                                 <label for="vipPackageSelect">Chọn gói VIP:</label>
                                                                 <select id="vipPackageSelect" name="vipPackage" class="form-control border-0 shadow-none form-control-lg selectpicker">
-                                                                    @foreach($priceLists as $priceList)
+                                                                    @foreach ($priceLists as $priceList)
                                                                         @php
-                                                                            // Kiểm tra nếu gói vượt quá giới hạn
                                                                             $isLimitReached = !$this->canPurchaseVipPackage($priceList->location->id);
                                                                         @endphp
-                                                                        @if(!$isLimitReached)
+                                                                        @if (!$isLimitReached)
                                                                             <option value="{{ $priceList->id }}">
                                                                                 <span class="text-wrap">{{ $priceList->location->name }} ({{ number_format($priceList->price, 0, ',', '.') }} VNĐ - {{ $priceList->duration_day }} ngày)</span>
                                                                             </option>
@@ -192,25 +181,13 @@
                                         </div>
                                     </div>
                                     <td class="align-middle text-nowrap">
-                                        {{-- <a href="{{ route('owners.zone-view-update', $zone->slug) }}"
-                                            data-toggle="tooltip" title="Chỉnh sửa"
-                                            class="d-inline-block fs-18 text-muted hover-primary mr-3">
-                                            <i class="fal fa-pencil-alt"></i>
-                                        </a> --}}
-                                        <a href="{{ route('owners.zone-view-update', $zone->slug) }}"
-                                            data-toggle="tooltip" title="Chỉnh sửa" class="btn btn-primary btn-sm mr-2">
+                                        <a href="{{ route('owners.zone-view-update', $zone->slug) }}" data-toggle="tooltip" title="Chỉnh sửa" class="btn btn-primary btn-sm mr-2">
                                             <i class="fal fa-pencil-alt"></i>
                                         </a>
-                                        <form action="{{ route('owners.destroy-zone', $zone->id) }}" method="POST"
-                                            class="d-inline-block">
+                                        <form action="{{ route('owners.destroy-zone', $zone->id) }}" method="POST" class="d-inline-block">
                                             @csrf
                                             @method('DELETE')
-                                            {{-- <button type="submit"
-                                                class="fs-18 text-muted hover-primary border-0 bg-transparent">
-                                                <i class="fal fa-trash-alt"></i>
-                                            </button> --}}
-                                            <button type="submit" class="btn btn-danger btn-sm"><i
-                                                    class="fal fa-trash-alt"></i></button>
+                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fal fa-trash-alt"></i></button>
                                         </form>
                                     </td>
                                 </tr>

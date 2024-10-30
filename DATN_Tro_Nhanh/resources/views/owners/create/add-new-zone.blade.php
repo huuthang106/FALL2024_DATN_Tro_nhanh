@@ -151,10 +151,10 @@
                                                                             <label for="price" class="text-heading">Giá
                                                                                 bằng VND <span class="text-muted">(Bắt
                                                                                     buộc)</span></label>
-                                                                            <input type="number"
+                                                                            <input type="text"
                                                                                 class="form-control form-control-lg border-0"
                                                                                 id="price" name="price"
-                                                                                value="{{ old('price') }}">
+                                                                                oninput="this.value = formatNumber(this.value)"">
                                                                             @error('price')
                                                                                 <div class="text-danger">{{ $message }}
                                                                                 </div>
@@ -278,37 +278,37 @@
                                                         </div>
                                                     </div>
                                                     <!-- <div class="col-lg-6">
-                                                            <div class="card mb-6">
-                                                                <div class="card-body p-6">
-                                                                    <h3 class="card-title mb-0 text-heading fs-22 lh-15">
-                                                                        Trạng thái phòng
-                                                                    </h3>
-                                                                    <hr>
-                                                                    <div class="form-row mx-n2">
-                                                                        <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
-                                                                            <div class="form-group mb-md-0">
-                                                                                <label for="status"
-                                                                                    class="text-heading">Trạng
-                                                                                    thái</label>
-                                                                                <select
-                                                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                                                    data-style="btn-lg py-2 h-52"
-                                                                                    id="status" name="status">
-                                                                                    <option value="1">Đang duyệt
-                                                                                    </option>
-                                                                                    <option value="2">Đang hoạt động
-                                                                                    </option>
-                                                                                </select>
-                                                                                @error('status')
+                                                                    <div class="card mb-6">
+                                                                        <div class="card-body p-6">
+                                                                            <h3 class="card-title mb-0 text-heading fs-22 lh-15">
+                                                                                Trạng thái phòng
+                                                                            </h3>
+                                                                            <hr>
+                                                                            <div class="form-row mx-n2">
+                                                                                <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
+                                                                                    <div class="form-group mb-md-0">
+                                                                                        <label for="status"
+                                                                                            class="text-heading">Trạng
+                                                                                            thái</label>
+                                                                                        <select
+                                                                                            class="form-control border-0 shadow-none form-control-lg selectpicker"
+                                                                                            data-style="btn-lg py-2 h-52"
+                                                                                            id="status" name="status">
+                                                                                            <option value="1">Đang duyệt
+                                                                                            </option>
+                                                                                            <option value="2">Đang hoạt động
+                                                                                            </option>
+                                                                                        </select>
+                                                                                        @error('status')
         <div class="text-danger">{{ $message }}
-                                                                                        </div>
+                                                                                                        </div>
     @enderror
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </div>
-                                                        </div> -->
+                                                                </div> -->
                                                 </div>
                                                 <div class="d-flex flex-wrap mt-1">
                                                     <a href="#"
@@ -885,5 +885,14 @@
                 });
             });
         });
+    </script>
+    {{-- format tiền --}}
+    <script>
+        function formatNumber(value) {
+            // Xóa tất cả ký tự không phải số
+            value = value.replace(/[^0-9]/g, '');
+            // Định dạng số với dấu phẩy
+            return value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
     </script>
 @endpush
