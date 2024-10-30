@@ -219,12 +219,12 @@ class ZoneOwnersController extends Controller
         $result = $this->zoneServices->forceDeleteZones($id);
 
         if ($result['status'] === 'error') {
-            // Nếu không thể xóa vĩnh viễn do có phòng hoạt động hoặc người ở, quay lại trang hiện tại với thông báo lỗi
-            return redirect()->back()->with('error', $result['message']);
+            // Nếu không thể xóa vĩnh viễn do có phòng hoạt động hoặc người ở, trả về JSON với thông báo lỗi
+            return response()->json(['status' => 'error', 'message' => $result['message']], 400);
         }
-
-        // Nếu xóa vĩnh viễn thành công, chuyển hướng đến trang danh sách khu trọ đã xóa với thông báo thành công
-        return redirect()->route('owners.trash-zone')->with('success', 'Khu trọ đã được xóa vĩnh viễn.');
+    
+        // Nếu xóa vĩnh viễn thành công, trả về JSON với thông báo thành công
+        return response()->json(['status' => 'success', 'message' => 'Khu trọ đã được xóa vĩnh viễn.'], 200);
     }
     public function deleteImage($id)
     {

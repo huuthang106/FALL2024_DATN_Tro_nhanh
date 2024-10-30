@@ -117,8 +117,8 @@
                                                 @php
                                                     $image = $zone->rooms->first()->image ?? null;
                                                 @endphp
-                                                <img src="{{ $image ? 'https://drive.google.com/thumbnail?id=' . $image : asset('assets/images/default-image.jpg') }}"
-                                                     alt="{{ $zone->name }}" class="img-fluid zone-image">
+                                                <img src="{{ $image ? 'https://drive.google.com/thumbnail?id=' . $image : asset('assets/images/properties-grid-01.jpg') }}"
+                                                    alt="{{ $zone->name }}" class="img-fluid zone-image">
                                             </a>
                                         </div>
                                     </td>
@@ -148,9 +148,10 @@
                                     <td class="align-middle d-md-table-cell text-nowrap ">
                                         <small>
                                             @if ($zone->status == 1)
-                                                <span class="badge badge-green text-capitalize">Đang hoạt động</span>
+                                            <span class="badge badge-yellow text-capitalize">Chưa được duyệt</span>
                                             @else
-                                                <span class="badge badge-yellow text-capitalize">Chưa hoạt động</span>
+                                            <span class="badge badge-green text-capitalize">Đang hoạt động</span>
+                                              
                                             @endif
                                         </small>
                                     </td>
@@ -173,8 +174,13 @@
                                                 class="btn btn-sm d-flex align-items-center justify-content-center">
                                                 <i class="fal fa-trash-alt mr-1"></i>
                                             </button> --}}
-                                            <button type="submit" class="btn btn-danger btn-sm"><i
-                                                    class="fal fa-trash-alt"></i></button>
+                                            <form id="forceDeleteZoneForm{{ $zone->id }}" action="{{ route('owners.force-delete-zone', $zone->id) }}" method="POST" class="d-inline-block" onsubmit="return false;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-danger btn-sm" onclick="forceDeleteZone({{ $zone->id }})">
+                                                    <i class="fal fa-trash-alt"></i> 
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>
@@ -325,5 +331,49 @@
                 });
             });
         });
+    </script>
+    {{-- xoa vien viên zone  --}}
+    <script>
+        function forceDeleteZone(zoneId) {
+            Swal.fire({
+                title: 'Xác nhận',
+                text: 'Bạn có chắc chắn muốn xóa vĩnh viễn khu vực này?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Có, xóa!',
+                cancelButtonText: 'Không'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: $('#forceDeleteZoneForm' + zoneId).attr('action'),
+                        type: 'POST',
+                        data: {
+                            _method: 'DELETE',
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Thành công!',
+                                text: response.message,
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+                                location.reload(); // Tải lại trang sau khi xóa
+                            });
+                        },
+                        error: function(xhr) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Lỗi!',
+                                text: xhr.responseJSON.message,
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    });
+                }
+            });
+        }
     </script>
 </div>

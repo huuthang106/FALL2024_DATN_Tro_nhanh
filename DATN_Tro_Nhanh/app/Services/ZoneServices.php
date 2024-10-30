@@ -606,17 +606,8 @@ class ZoneServices
         }
 
         // Kiểm tra xem có user_id nào đang ở trong resident thuộc zone này không
-        $activeResidents = Resident::where('zone_id', $id)
-            ->whereNotNull('user_id')
-            ->exists();
-
-        if ($activeResidents) {
-            // Nếu có user_id đang ở trong resident, trả về thông báo lỗi
-            return [
-                'status' => 'error',
-                'message' => 'Khu trọ đang có người ở, không thể xóa vĩnh viễn.'
-            ];
-        }
+       
+      
 
         // Nếu tất cả các phòng đều đã bị xóa mềm và không có người ở, tiến hành xóa vĩnh viễn zone
         $zone->forceDelete();

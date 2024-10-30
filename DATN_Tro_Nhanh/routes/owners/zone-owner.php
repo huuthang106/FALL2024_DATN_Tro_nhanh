@@ -22,6 +22,7 @@ Route::group(['prefix' => ''], function () {
         Route::post('/thanh-toan-goi', [ZoneOwnersController::class, 'processPayment'])->name('zone-vip');
         Route::group(['prefix' => 'chi-tiet-khu-tro'], function () {
         Route::get('xem-chi-tiet-phong/{id}', [ZoneOwnersController::class, 'showDetailRoom'])->name('detail-room');
+        Route::delete('/force-delete/{id}', [ZoneOwnersController::class, 'forceDelete'])->name('force-delete-zone');
         });
     });
 });
