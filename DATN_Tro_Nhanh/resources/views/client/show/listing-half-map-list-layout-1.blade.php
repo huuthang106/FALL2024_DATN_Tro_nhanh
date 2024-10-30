@@ -148,7 +148,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12" id="zone-list">
+                            <div class="col-12" id="">
                                 @if ($zones->isEmpty())
                                     <div class="alert alert-info">
                                         Chưa có khu trọ nào ở đây.
@@ -161,9 +161,7 @@
                                             <div class="row no-gutters">
                                                 <div class="col-md-6 mb-5 mb-md-0 pr-md-6">
                                                     <div class="position-relative hover-change-image bg-hover-overlay h-100 pt-75 bg-img-cover-center rounded-lg"
-                                                        style="background-image: url('{{ $zone->room && $zone->room->image
-                                                            ? asset('assets/images/' . $zone->room->image)
-                                                            : asset('assets/images/properties-grid-08.jpg') }}');">
+    style="background-image: url('{{ $zone->room && $zone->room->image ? 'https://drive.google.com/thumbnail?id=' . $zone->room->image : asset('assets/images/properties-grid-08.jpg') }}');">
                                                         <div class="card-img-overlay p-2 d-flex flex-column">
                                                             <div>
                                                                 @if ($zone->status == 1)
@@ -233,29 +231,30 @@
                                                         <ul
                                                             class="list-inline d-flex mb-0 flex-wrap justify-content-start mr-n2">
                                                             @if ($zone->wifi)
-                                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2"
-                                                                data-toggle="tooltip" title="WiFi">
-                                                                <i class="fas fa-wifi fs-10 text-primary mr-1"></i>
-                                                                <!-- Icon WiFi -->
-                                                                WiFi
-                                                            </li>
-                                                        @endif
-                                                        @if ($zone->bathrooms == 1)
-                                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2"
-                                                                data-toggle="tooltip" title="Phòng tắm">
-                                                                <i class="fas fa-shower fs-15 text-primary mr-1"></i>
-                                                                <!-- Icon phòng tắm -->
-                                                                Phòng tắm
-                                                            </li>
-                                                        @endif
-                                                        @if ($zone->garage)
-                                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2"
-                                                                data-toggle="tooltip" title="Ga-ra">
-                                                                <i class="fas fa-warehouse fs-10 text-primary mr-1"></i>
-                                                                <!-- Icon Ga-ra -->
-                                                                Ga-ra
-                                                            </li>
-                                                        @endif
+                                                                <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2"
+                                                                    data-toggle="tooltip" title="WiFi">
+                                                                    <i class="fas fa-wifi fs-10 text-primary mr-1"></i>
+                                                                    <!-- Icon WiFi -->
+                                                                    WiFi
+                                                                </li>
+                                                            @endif
+                                                            @if ($zone->bathrooms == 1)
+                                                                <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2"
+                                                                    data-toggle="tooltip" title="Phòng tắm">
+                                                                    <i class="fas fa-shower fs-15 text-primary mr-1"></i>
+                                                                    <!-- Icon phòng tắm -->
+                                                                    Phòng tắm
+                                                                </li>
+                                                            @endif
+                                                            @if ($zone->garage)
+                                                                <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2"
+                                                                    data-toggle="tooltip" title="Ga-ra">
+                                                                    <i
+                                                                        class="fas fa-warehouse fs-10 text-primary mr-1"></i>
+                                                                    <!-- Icon Ga-ra -->
+                                                                    Ga-ra
+                                                                </li>
+                                                            @endif
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -864,7 +863,7 @@
 
                             var district = document.createElement('div');
                             district.className = 'district';
-                           
+
                             document.querySelector('.leaflet-routing-container').appendChild(
                                 district);
                         }).addTo(map);
@@ -908,10 +907,76 @@
                             zoneList.empty();
                             response.zones.forEach(zone => {
                                 zoneList.append(`
-                            <div class="zone-item">
-                                <h3>${zone.name}</h3>
-                                <p>${zone.address}</p>
+                            <div class="card mb-8 mb-lg-6 border-0 zone-card" data-animate="fadeInUp"
+                            data-latitude="${zone.latitude}" data-longitude="${zone.longitude}"
+                            data-address="${zone.address}" data-rooms='${JSON.stringify(zone.rooms)}'>
+                            <div class="row no-gutters">
+                                <div class="col-md-6 mb-5 mb-md-0 pr-md-6">
+                                    <div class="position-relative hover-change-image bg-hover-overlay h-100 pt-75 bg-img-cover-center rounded-lg"
+                                        style="background-image: url('${zone.room && zone.room.image
+                                            ? '{{ asset('assets/images/') }}' + zone.room.image
+                                            : '{{ asset('assets/images/properties-grid-08.jpg') }}'}');">
+                                        <div class="card-img-overlay p-2 d-flex flex-column">
+                                            <div>
+                                                ${zone.status == 1 ? '<span class="badge badge-primary">Hoạt động</span>' : ''}
+                                                ${zone.status == 2 ? '<span class="badge badge-secondary">Chưa hoạt động</span>' : ''}
+                                            </div>
+                                            <div class="mt-auto d-flex hover-image">
+                                                <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
+                                                    <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Hình ảnh">
+                                                        <a href="#" class="text-white hover-primary">
+                                                            <i class="far fa-images"></i><span class="pl-1">9</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
+                                                        <a href="#" class="text-white hover-primary">
+                                                            <i class="far fa-play-circle"></i><span class="pl-1">2</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
+                                                    <li class="list-inline-item mr-3 h-32" data-toggle="tooltip" title="Yêu thích">
+                                                        <a href="#" class="text-white fs-20 hover-primary">
+                                                            <i class="far fa-heart"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-inline-item h-32 mr-3" data-toggle="tooltip" title="So sánh">
+                                                        <a href="#" class="text-white fs-20 hover-primary">
+                                                            <i class="fas fa-exchange-alt"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="card-body p-0">
+                                        <h2 class="card-title my-0">
+                                            <a href="{{ url('client/detail-zone') }}/${zone.slug}"
+                                                class="fs-16 lh-2 text-dark hover-primary d-block zone-link"
+                                                data-lat="${zone.latitude}"
+                                                data-lng="${zone.longitude}">
+                                                ${zone.name}
+                                            </a>
+                                        </h2>
+                                        <p class="card-text mb-1 font-weight-500 text-gray-light">
+                                            ${zone.address}</p>
+                                        <p class="card-text fs-17 font-weight-bold text-heading mb-3">
+                                            Tổng số phòng: ${zoneServices.countRoomsInZone(zone.id)}
+                                        </p>
+                                    </div>
+                                    <div class="card-footer pt-3 bg-transparent px-0 pb-0">
+                                        <ul class="list-inline d-flex mb-0 flex-wrap justify-content-start mr-n2">
+                                            ${zone.wifi ? '<li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2" data-toggle="tooltip" title="WiFi"><i class="fas fa-wifi fs-10 text-primary mr-1"></i> WiFi</li>' : ''}
+                                            ${zone.bathrooms == 1 ? '<li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2" data-toggle="tooltip" title="Phòng tắm"><i class="fas fa-shower fs-15 text-primary mr-1"></i> Phòng tắm</li>' : ''}
+                                            ${zone.garage ? '<li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2" data-toggle="tooltip" title="Ga-ra"><i class="fas fa-warehouse fs-10 text-primary mr-1"></i> Ga-ra</li>' : ''}
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
                         `);
                             });
                         } else {
@@ -992,10 +1057,76 @@
                             zoneList.empty();
                             response.zones.forEach(zone => {
                                 zoneList.append(`
-                            <div class="zone-item">
-                                <h3>${zone.name}</h3>
-                                <p>${zone.address}</p>
+                            <div class="card mb-8 mb-lg-6 border-0 zone-card" data-animate="fadeInUp"
+                            data-latitude="${zone.latitude}" data-longitude="${zone.longitude}"
+                            data-address="${zone.address}" data-rooms='${JSON.stringify(zone.rooms)}'>
+                            <div class="row no-gutters">
+                                <div class="col-md-6 mb-5 mb-md-0 pr-md-6">
+                                    <div class="position-relative hover-change-image bg-hover-overlay h-100 pt-75 bg-img-cover-center rounded-lg"
+                                        style="background-image: url('${zone.room && zone.room.image
+                                            ? '{{ asset('assets/images/') }}' + zone.room.image
+                                            : '{{ asset('assets/images/properties-grid-08.jpg') }}'}');">
+                                        <div class="card-img-overlay p-2 d-flex flex-column">
+                                            <div>
+                                                ${zone.status == 1 ? '<span class="badge badge-primary">Hoạt động</span>' : ''}
+                                                ${zone.status == 2 ? '<span class="badge badge-secondary">Chưa hoạt động</span>' : ''}
+                                            </div>
+                                            <div class="mt-auto d-flex hover-image">
+                                                <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
+                                                    <li class="list-inline-item mr-2" data-toggle="tooltip" title="9 Hình ảnh">
+                                                        <a href="#" class="text-white hover-primary">
+                                                            <i class="far fa-images"></i><span class="pl-1">9</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-inline-item" data-toggle="tooltip" title="2 Video">
+                                                        <a href="#" class="text-white hover-primary">
+                                                            <i class="far fa-play-circle"></i><span class="pl-1">2</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
+                                                    <li class="list-inline-item mr-3 h-32" data-toggle="tooltip" title="Yêu thích">
+                                                        <a href="#" class="text-white fs-20 hover-primary">
+                                                            <i class="far fa-heart"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-inline-item h-32 mr-3" data-toggle="tooltip" title="So sánh">
+                                                        <a href="#" class="text-white fs-20 hover-primary">
+                                                            <i class="fas fa-exchange-alt"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="card-body p-0">
+                                        <h2 class="card-title my-0">
+                                            <a href="{{ url('client/detail-zone') }}/${zone.slug}"
+                                                class="fs-16 lh-2 text-dark hover-primary d-block zone-link"
+                                                data-lat="${zone.latitude}"
+                                                data-lng="${zone.longitude}">
+                                                ${zone.name}
+                                            </a>
+                                        </h2>
+                                        <p class="card-text mb-1 font-weight-500 text-gray-light">
+                                            ${zone.address}</p>
+                                        <p class="card-text fs-17 font-weight-bold text-heading mb-3">
+                                            Tổng số phòng: ${zoneServices.countRoomsInZone(zone.id)}
+                                        </p>
+                                    </div>
+                                    <div class="card-footer pt-3 bg-transparent px-0 pb-0">
+                                        <ul class="list-inline d-flex mb-0 flex-wrap justify-content-start mr-n2">
+                                            ${zone.wifi ? '<li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2" data-toggle="tooltip" title="WiFi"><i class="fas fa-wifi fs-10 text-primary mr-1"></i> WiFi</li>' : ''}
+                                            ${zone.bathrooms == 1 ? '<li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2" data-toggle="tooltip" title="Phòng tắm"><i class="fas fa-shower fs-15 text-primary mr-1"></i> Phòng tắm</li>' : ''}
+                                            ${zone.garage ? '<li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2" data-toggle="tooltip" title="Ga-ra"><i class="fas fa-warehouse fs-10 text-primary mr-1"></i> Ga-ra</li>' : ''}
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
                         `);
                             });
                         } else {
@@ -1089,7 +1220,10 @@
                             <div class="zone-item">
                                 <h3>${zone.name}</h3>
                                 <p>${zone.address}</p>
+                              
+                                    
                             </div>
+                            
                         `);
                                 });
                             } else {
