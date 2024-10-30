@@ -60,7 +60,7 @@
                                                         <h3 class="card-title mb-0 text-heading fs-22 lh-15">Thông
                                                             tin
                                                             trọ</h3>
-                                                        <hr>
+                                                         <hr>
                                                         <div class="form-group">
                                                             <label for="title" class="text-heading">Tiêu đề <span
                                                                     class="text-muted">(Bắt buộc)</span></label>
@@ -283,10 +283,10 @@
                                                                                                         <option value="2">Đang hoạt động
                                                                                                         </option>
                                                                                                     </select>
-                                                                                                    @error('status')
-        ">{{ $message }}
-                                                                                                                                                                                                                </div>
-    @enderror
+                                                                                                                                                                                                            @error('status')
+                                                                                                                ">{{ $message }}
+                                                                                                                                                                                                                                                                                                                        </div>
+                                                                                                            @enderror
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
@@ -451,7 +451,25 @@
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành công!',
+            text: '{{ session('success') }}',
+        });
+    </script>
+@endif
 
+@if (session('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi!',
+            text: '{{ session('error') }}',
+        });
+    </script>
+@endif
     {{-- <script>
         Dropzone.options.myDropzone = {
             url: '{{ route('owners.update-room', $room->id) }}', // Đường dẫn xử lý upload

@@ -11,7 +11,7 @@
  use Illuminate\Support\Facades\Log;
     
  class CassoService
- {
+ {  
      protected $client;
 
      public function generateQrCodeUrl()
@@ -95,7 +95,7 @@
                          if (!$existingTransaction) {
                              $user->balance += $amount;
                              $user->save();
-     
+                                
                              $newTransaction = new Transaction();
                              $newTransaction->id = $transactionId;
                              $newTransaction->user_id = $userId;
@@ -120,6 +120,7 @@
                  \Log::warning("Không tìm thấy ID người dùng trong mô tả giao dịch: $description");
              }
          }
+       
      
          return $processedTransactions;
      }

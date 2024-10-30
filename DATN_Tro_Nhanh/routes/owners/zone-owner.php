@@ -23,8 +23,5 @@ Route::group(['prefix' => ''], function () {
         Route::group(['prefix' => 'chi-tiet-khu-tro'], function () {
         Route::get('xem-chi-tiet-phong/{id}', [ZoneOwnersController::class, 'showDetailRoom'])->name('detail-room');
         });
-
-
-     
     });
 });

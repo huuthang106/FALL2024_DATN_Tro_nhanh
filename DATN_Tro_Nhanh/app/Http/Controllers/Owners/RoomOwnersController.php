@@ -25,7 +25,7 @@ use Illuminate\Http\Request;
 use App\Services\RoomServices; // Đảm bảo import RoomService
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Notification;
 
 class RoomOwnersController extends Controller
 {
@@ -53,14 +53,14 @@ class RoomOwnersController extends Controller
         // Tìm kiếm và sắp xếp từ yêu cầu
         $searchQuery = $request->input('search');
         $sortBy = $request->input('sort-by', 'title'); // Mặc định theo tiêu đề
-    
+
         // Gọi service
         $rooms = $this->roomOwnersService->getRooms($searchQuery, $sortBy);
         $priceList = $this->roomOwnersService->getPriceList();
-    
+
         // Lấy số lượng phòng
         $roomCount = $this->roomOwnersService->getRoomCount();
-    
+
         return view('owners.show.dashboard-my-properties', [
             'rooms' => $rooms,
             'roomOwnersService' => $this->roomOwnersService,
@@ -230,64 +230,98 @@ class RoomOwnersController extends Controller
         if ($paymentStatus) {
             return redirect()->back()->with('success', 'Thanh toán thành công và gói VIP đã được kích hoạt.');
         } else {
-            \Log::error('Thanh toán không thành công. User ID: ' . $customer->id . ', Room ID: ' . $accommodationId);
+            Log::error('Thanh toán không thành công. User ID: ' . $customer->id . ', Room ID: ' . $accommodationId);
             return redirect()->back()->with('error', 'Có lỗi xảy ra trong quá trình thanh toán.');
         }
     }
 
     public function store(RoomOwnersRequest $request, $id)
-{
-    $zone_slug = $this->zoneServices->getSlug($id);
-    $result = $this->roomOwnersService->create($request->all(), $id);
+    {
+        // dd($request->all(), $id);
+        $zone_slug = $this->zoneServices->getSlug($id);
+        $result = $this->roomOwnersService->create($request, $id); // Truyền đối tượng $request
 
-    // Trả về view chỉnh sửa với thông tin phòng
-    return view('owners.edit.edit-property', compact('room'));
-}
-public function editRoom($id)
-{
-    // Tìm phòng theo ID
-    $room = $this->roomOwnersService->findRoomById($id);
+        if ($result) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Phòng trọ đã được tạo thành công.',
+                'slug' => $zone_slug // Trả về slug của zone
+            ], 201);  // Mã trạng thái 201 cho Created
+        } else {
+            throw new \Exception('Không thể tạo phòng');
+        }
+    }
+    public function editRoom($id)
+    {
+        // Tìm phòng theo ID
+        $room = $this->roomOwnersService->findRoomById($id);
 
-    // Trả về view chỉnh sửa với thông tin phòng
-    return view('owners.edit.edit-property', compact('room'));
-}
+        // Trả về view chỉnh sửa với thông tin phòng
+        return view('owners.edit.edit-property', compact('room'));
+    }
     // RoomController.php
     public function updateRoom(Request $request, $id)
     {
         Log::info("Starting update for room ID: $id");
-    
+
         // Gọi service để cập nhật phòng
         $result = $this->roomOwnersService->updateRoomInZone($request, $id);
-    
+
         // Lấy phòng để lấy slug của khu trọ
         $room = Room::findOrFail($id);
         $zoneSlug = $room->zone->slug; // Giả sử Room có mối quan hệ với Zone
-    
+
         if ($result) {
+            // Lưu thông báo vào bảng notifications
+            Notification::create([
+                'user_id' => Auth::id(), // ID của người dùng hiện tại
+                'data' => 'Phòng trọ "' . $request->input('title') . '" đã được tạo thành công.',
+            ]);
+
             Log::info("Successfully updated room ID: $id");
             return redirect()->route('owners.detail-zone', ['slug' => $zoneSlug])
-                             ->with('success', 'Cập nhật phòng thành công!');
+                ->with('success', 'Phòng trọ đã được cập nhật thành công!'); // Thêm thông báo vào session
         } else {
             Log::error("Failed to update room ID: $id");
             return redirect()->route('owners.detail-zone', ['slug' => $zoneSlug])
-                             ->with('error', 'Cập nhật phòng thất bại!');
+                ->with('error', 'Cập nhật phòng thất bại!');
         }
     }
 
     public function storeRoom(Request $request, $zoneId)
     {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'quantity' => 'required|integer|min:1',
+            'price' => 'required|numeric|min:0',
+            'phone' => 'required|string|max:15',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ], [
+            'image.required' => 'Ảnh là bắt buộc.',
+            'image.image' => 'Trường ảnh phải là một hình ảnh.',
+            'image.mimes' => 'Chỉ chấp nhận các định dạng: jpeg, png, jpg.',
+            'image.max' => 'Kích thước ảnh không được vượt quá 2MB.',
+        ]);
+
         try {
             // Gọi service để tạo phòng mới
             $result = $this->roomOwnersService->createRoom($request, $zoneId);
-    
+
             if ($result['success']) {
+                // Lưu thông báo vào bảng notificationsd
+                Notification::create([
+                    'user_id' => Auth::id(), // ID của người dùng hiện tại
+                    'data' => 'Phòng trọ "' . $request->input('title') . '" đã được tạo thành công.',
+                ]);
+
                 return redirect()->route('owners.detail-zone', ['slug' => $result['zone_slug']])
-                                 ->with('success', 'Phòng trọ đã được tạo thành công.');
+                    ->with('success', 'Phòng trọ đã được tạo thành công.');
             } else {
                 return redirect()->back()->with('error', $result['message']);
             }
         } catch (\Exception $e) {
-            \Log::error('Lỗi khi tạo phòng: ' . $e->getMessage());
+            Log::error('Lỗi khi tạo phòng: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Có lỗi xảy ra khi tạo phòng.');
         }
     }

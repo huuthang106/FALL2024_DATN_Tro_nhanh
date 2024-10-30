@@ -33,7 +33,8 @@
                         </li> --}}
                     </ul>
                     <div class="tab-content shadow-none p-0">
-                        <form enctype="multipart/form-data" action="{{route('owners.add-room-for-zone', $zone->id)}}" method="POST">
+                        <form enctype="multipart/form-data" action="{{ route('owners.add-room-for-zone', $zone->id) }}"
+                            method="POST">
                             @csrf
                             <div id="collapse-tabs-accordion">
                                 <div class="tab-pane tab-pane-parent fade show active px-0" id="description" role="tabpanel"
@@ -224,21 +225,13 @@
                                                                             Chọn thư mục
                                                                         </button>
                                                                         <input type="file" hidden id="fileInput"
-                                                                             accept="image/jpeg, image/png"
-                                                                            name="image" onchange="previewImages();">
-                                                                        <p>Chọn 1  ảnh</p>
+                                                                            accept="image/jpeg, image/png" name="image"
+                                                                            onchange="previewImages();">
+                                                                        <p>Chọn 1 ảnh</p>
                                                                     </div>
-                                                                    @if ($errors->has('image'))
-                                                                        <div class="text-danger">
-                                                                            {{ $errors->first('image') }}
-                                                                        </div>
-                                                                    @endif
-                                                                    {{-- @foreach ($errors->get('images.*') as $messages)
-                                                                        @foreach ($messages as $message)
-                                                                            <div class="text-danger">{{ $message }}
-                                                                            </div>
-                                                                        @endforeach
-                                                                    @endforeach --}}
+                                                                    @error('image')
+                                                                        <div class="text-danger">{{ $message }}</div>
+                                                                    @enderror
                                                                 </div>
                                                                 <!-- Phần tử để hiển thị ảnh đã chọn trong form -->
                                                                
@@ -249,37 +242,37 @@
                                                         </div>
                                                     </div>
                                                     <!-- <div class="col-lg-6">
-                                                            <div class="card mb-6">
-                                                                <div class="card-body p-6">
-                                                                    <h3 class="card-title mb-0 text-heading fs-22 lh-15">
-                                                                        Trạng thái phòng
-                                                                    </h3>
-                                                                    <hr>
-                                                                    <div class="form-row mx-n2">
-                                                                        <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
-                                                                            <div class="form-group mb-md-0">
-                                                                                <label for="status"
-                                                                                    class="text-heading">Trạng
-                                                                                    thái</label>
-                                                                                <select
-                                                                                    class="form-control border-0 shadow-none form-control-lg selectpicker"
-                                                                                    data-style="btn-lg py-2 h-52"
-                                                                                    id="status" name="status">
-                                                                                    <option value="1">Đang duyệt
-                                                                                    </option>
-                                                                                    <option value="2">Đang hoạt động
-                                                                                    </option>
-                                                                                </select>
-                                                                                @error('status')
-                                                                                <div class="text-danger">{{ $message }}
-                                                                                                                                                                </div>
-                                                                            @enderror
-                                                                                                                                                    </div>
+                                                                <div class="card mb-6">
+                                                                    <div class="card-body p-6">
+                                                                        <h3 class="card-title mb-0 text-heading fs-22 lh-15">
+                                                                            Trạng thái phòng
+                                                                        </h3>
+                                                                        <hr>
+                                                                        <div class="form-row mx-n2">
+                                                                            <div class="col-md-6 col-lg-12 col-xxl-6 px-2">
+                                                                                <div class="form-group mb-md-0">
+                                                                                    <label for="status"
+                                                                                        class="text-heading">Trạng
+                                                                                        thái</label>
+                                                                                    <select
+                                                                                        class="form-control border-0 shadow-none form-control-lg selectpicker"
+                                                                                        data-style="btn-lg py-2 h-52"
+                                                                                        id="status" name="status">
+                                                                                        <option value="1">Đang duyệt
+                                                                                        </option>
+                                                                                        <option value="2">Đang hoạt động
+                                                                                        </option>
+                                                                                    </select>
+                                                                                    @error('status')
+        <div class="text-danger">{{ $message }}
+                                                                                                                                                                        </div>
+    @enderror
+                                                                                                                                                        </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </div> -->
+                                                            </div> -->
                                                 </div>
                                                 <div class="d-flex flex-wrap">
                                                     <a href="#"
@@ -435,7 +428,34 @@
     <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script src="{{ asset('assets/js/owners/form-map.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if ($errors->any())
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi!',
+            text: 'Vui lòng điền đầy đủ các trường dữ liệu.',
+        });
+    </script>
+@endif
 
+@if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành công!',
+            text: '{{ session('success') }}',
+        });
+    </script>
+@endif
 
-   
+@if (session('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi!',
+            text: '{{ session('error') }}',
+        });
+    </script>
+@endif
 @endpush

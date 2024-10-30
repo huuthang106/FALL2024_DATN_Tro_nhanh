@@ -29,9 +29,6 @@ class CreateRoomRequest extends FormRequest
             'view' => 'required|integer|min:0',
             'status' => 'required|integer|in:1,2',
             'category_id' => 'required|integer|exists:categories,id',
-            // 'images' => 'required|array', // Ensure images are uploaded
-            //  'images.*' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            // 'bathrooms' => 'integer|min:0',
             'images' => 'required',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ];
@@ -105,6 +102,18 @@ class CreateRoomRequest extends FormRequest
             // 'images.*.image' => 'Tệp tải lên phải là hình ảnh.',
             // 'images.*.mimes' => 'Hình ảnh phải có định dạng jpeg, png, hoặc jpg.',
             // 'images.*.max' => 'Kích thước hình ảnh không được vượt quá 2MB.',
+        ];
+    }
+    public function rulesForStore()
+    {
+        return [
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'quantity' => 'required|integer|min:1',
+            'price' => 'required|numeric|min:0',
+            'phone' => 'required|string|max:15',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Chỉ cần một hình ảnh
+            // Nếu bạn cần xử lý nhiều hình ảnh, hãy sử dụng 'images' thay vì 'image'
         ];
     }
 }

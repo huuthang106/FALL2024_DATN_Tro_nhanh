@@ -606,7 +606,7 @@ $blogService = new BlogServices();
                 // Cập nhật tên hình ảnh trong cơ sở dữ liệu
                 $room->update(['image' => $imageName]);
             }
-    
+            
             return [
                 'success' => true,
                 'zone_slug' => $room->zone->slug

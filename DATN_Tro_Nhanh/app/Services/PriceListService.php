@@ -39,7 +39,7 @@ class PriceListService
         $priceList->update($data);
         return $priceList;
     }
-
+    public functuinb gerakkk caitb tghe cornifnasdhhjhjhjd
     public function softDeletePriceList($id)
     {
         // Tìm gói tin theo ID
@@ -77,7 +77,7 @@ class PriceListService
         $priceList->restore();
         return $priceList;
     }
-
+    
     public function forceDeletePriceList($id)
     {
         $priceList = PriceList::withTrashed()->findOrFail($id);
