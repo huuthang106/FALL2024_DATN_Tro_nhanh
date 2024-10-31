@@ -889,10 +889,15 @@ class RoomClientServices
     public function getAllRoomAPI(int $perPage = 10, $type = null, $searchTerm = null, $province = null, $district = null, $village = null, $category = null, $features = null)
     {
         try {
-            $query = Zone::with('rooms') // Tải trước mối quan hệ rooms
+            // $query = Zone::with('rooms') // Tải trước mối quan hệ rooms
+            //     ->join('users', 'zones.user_id', '=', 'users.id')
+            //     ->where('zones.status', self::status)
+            //     ->select('zones.*')
+            //     ->orderByDesc('zones.created_at');
+            $query = Zone::with(['rooms', 'rooms.images']) // Thêm mối quan hệ images của rooms
                 ->join('users', 'zones.user_id', '=', 'users.id')
                 ->where('zones.status', self::status)
-                ->select('zones.*')
+                ->select('zones.*') // Vẫn giữ nguyên chọn cột từ zones
                 ->orderByDesc('zones.created_at');
 
             if ($type) {

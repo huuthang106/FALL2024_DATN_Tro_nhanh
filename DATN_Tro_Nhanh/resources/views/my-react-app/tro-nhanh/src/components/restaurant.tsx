@@ -6,7 +6,7 @@ import { Restaurant } from "../models";
 import Distance from "./distance";
 import DistrictName from "./district-name";
 import '../css/style.css';
-const apiEndpoint = 'https://25d5-125-235-236-24.ngrok-free.app';
+const apiEndpoint = 'https://tronhanh.com';
 
 const { Title } = Text;
 
@@ -58,8 +58,8 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
         style={{ display: 'flex', flexDirection: 'column', width: '100%', minHeight: '200px', borderRadius: '5px'  }} // Đặt chiều cao tối thiểu
       >
         <div className="aspect-cinema relative w-full">
-          <img
-            src={`${apiEndpoint}/assets/images/${restaurant.image_url}`}
+        <img
+            src={`@https://drive.google.com/thumbnail?id=${restaurant.image_url}`} // Đường dẫn ảnh mới
             className="absolute w-full h-full object-cover"
           />
         </div>
@@ -114,9 +114,9 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
     >
       <Box ml={2} mt={2} flex>
         <div className="flex-none aspect-card relative w-32" style={{ height: '115px', borderRadius: '10px', overflow: 'hidden' }}>
-          <img
-            src={`${apiEndpoint}/assets/images/${restaurant.image_url}`}
-            className="absolute w-full h-full object-cover" 
+        <img
+            src={`https://drive.google.com/thumbnail?id=${restaurant.image_url}`} // Đường dẫn ảnh mới
+            className="absolute w-full h-full object-cover"
           />
         </div>
         <Box mr={1} className="min-w-0">

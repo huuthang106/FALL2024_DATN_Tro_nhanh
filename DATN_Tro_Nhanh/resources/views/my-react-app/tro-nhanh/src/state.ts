@@ -19,7 +19,7 @@ import { calcCrowFliesDistance } from "./utils/location";
 // });
 
 
-const apiEndpoint ='https://25d5-125-235-236-24.ngrok-free.app';
+const apiEndpoint ='https://tronhanh.com';
 export const restaurantsDataState = atom<Restaurant[]>({
   key: "restaurantsData",
   default: [],
