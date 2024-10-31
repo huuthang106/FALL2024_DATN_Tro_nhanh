@@ -93,7 +93,8 @@
                                                 <img src="{{ $image ? 'https://drive.google.com/thumbnail?id=' . $image : asset('assets/images/default-image.jpg') }}"
                                                      alt="{{ $zone->name }}" class="img-fluid zone-image">
                                                 @if ($zone->vipZonePosition && $zone->vipZonePosition->status == 1)
-                                                    <span class="vip-badge">VIP</span>
+                                                    <span class="badge bg-danger text-white vip-badge ">VIP</span>
+                                                    
                                                 @endif
                                                 <span class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }} position-absolute pos-fixed-top">
                                                     {{ $zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}

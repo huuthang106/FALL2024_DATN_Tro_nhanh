@@ -37,11 +37,7 @@
             <table id="notification-list" class="table table-hover bg-white border rounded-lg">
                 <thead>
                     <tr role="row">
-                        <th class="no-sort py-6 pl-6" style="white-space: nowrap;">
-                            <label class="new-control new-checkbox checkbox-primary m-auto">
-                                <input type="checkbox" class="new-control-input chk-parent select-customers-info">
-                            </label>
-                        </th>
+                      
                         <th class="py-6" style="white-space: nowrap;">Hình ảnh</th>
 
                         <th class="py-6" style="white-space: nowrap;">Tên</th>
@@ -59,12 +55,7 @@
                     @else
                         @foreach ($myFollowings as $item)
                             <tr role="row">
-                                <td class="checkbox-column py-6 pl-6" style="white-space: nowrap;">
-                                    <label class="new-control new-checkbox checkbox-primary m-auto">
-                                        <input type="checkbox"
-                                            class="new-control-input child-chk select-customers-info">
-                                    </label>
-                                </td>
+                                
                                 <td class="align-middle pt-6 pb-4 px-6" style="white-space: nowrap;">
                                     <div class="media d-flex align-items-center">
                                         <div class="w-120px mr-4 position-relative">

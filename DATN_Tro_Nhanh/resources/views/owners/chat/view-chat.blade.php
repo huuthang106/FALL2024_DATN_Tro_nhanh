@@ -120,7 +120,8 @@
     <script src="{{ asset('assets/vendors/jparallax/TweenMax.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
-
+  <!-- Theme scripts -->
+  <script src="{{ asset('assets/js/theme.js') }}"></script>
     <script src="{{ asset('assets/js/scroll-chat-nht.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>

@@ -416,12 +416,11 @@
                                     <div class="card-img-overlay p-2 d-flex flex-column">
 
                                         <div>
-                                            {{-- @if ($zone->residents->isNotEmpty())
-                                                <span class="badge badge-orange">Hết phòng</span>
-                                            @else
-                                                <span class="badge badge-primary">Còn phòng</span>
-                                            @endif --}}
-                                            @if ($zone->expiration_date > now())
+                                            <span
+                                            class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }}  pos-fixed-top">
+                                            {{ $zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
+                                        </span>
+                                            @if ($zone->vipZonePosition && $zone->vipZonePosition->status == 1)
                                                 <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
                                                     VIP
                                                 </span>

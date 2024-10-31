@@ -73,24 +73,24 @@
                                     wire:model="selectedBlogs">
                             </td>
                             <td class="align-middle pt-3 pb-3 px-3" style="width: 15%">
-                                <div class="media d-flex align-items-center">
-                                    <div class="w-100 w-md-150 mr-3 position-relative">
-                                        <a href="{{ route('owners.show-blog', $blog->slug) }}">
-                                            @if ($blog->image)
-                                                @php
-                                                    // Nếu bạn lưu nhiều ảnh dưới dạng chuỗi phân tách bằng dấu phẩy, bạn có thể tách chúng ra
-                                                    $images = explode(',', $blog->image);
-                                                    $firstImage = $images[0]; // Lấy ảnh đầu tiên
-                                                @endphp
-                                              <img src="https://drive.google.com/thumbnail?id={{ $firstImageId }}"
-                                              alt="{{ $blog->title }}"
-                                              class="img-fluid blog-image square-image">
-                                            @else
-                                                <img src="{{ asset('assets/images/properties-grid-08.jpg') }}"
-                                                    alt="Default Image" class="img-fluid blog-image square-image">
-                                            @endif
-                                        </a>
-                                    </div>
+                                <div class="mr-2 position-relative blog-image-container">
+                                    <a href="{{ route('client.client-blog-detail', $blog->slug) }}">
+                                        {{-- Giả sử $blog->image chứa ID của tệp trên Google Drive --}}
+                                        @php
+                                            $imageIds = explode(',', $blog->image); // Tách các ID tệp nếu có nhiều tệp
+                                            $firstImageId = $imageIds[0] ?? null; // Lấy ID đầu tiên
+                                        @endphp
+
+                                        @if ($firstImageId)
+                                            <img src="https://drive.google.com/thumbnail?id={{ $firstImageId }}"
+                                                alt="{{ $blog->title }}"
+                                                class="img-fluid blog-image square-image">
+                                        @else
+                                            <img src="{{ asset('assets/images/default-image.jpg') }}"
+                                                alt="Default Image" class="img-fluid blog-image square-image">
+                                            {{-- Hình ảnh mặc định nếu không có ID --}}
+                                        @endif
+                                    </a>
                                 </div>
                             </td>
                             <td class="align-middle" style="white-space: nowrap;">

@@ -73,7 +73,7 @@
                             {{ $item->user->name ?? 'N/A' }}
                             <br><small>Yêu cầu: {{ $item->title }}</small>
                         </td>
-                        <td class="align-middle p-4" style="white-space: nowrap;">{{ $item->room->title ?? 'N/A' }}</td>
+                        <td class="align-middle p-4" style="white-space: nowrap;"><a href="{{ route('owners.detail-room', $item->room->id) }}">{{ $item->room->title ?? 'N/A' }}</a></td>
                         <td class="align-middle p-4" style="white-space: nowrap;">
                             {{ Str::limit($item->description, 40) }}</td>
                         <td class="align-middle p-4" style="white-space: nowrap;">

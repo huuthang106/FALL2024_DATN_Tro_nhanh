@@ -20,20 +20,20 @@ class BlogSearch extends Component
     public $startDate;
     protected $queryString = ['search', 'perPage', 'timeFilter'];
     // Hàm để xóa các blog đã chọn
-    // public function deleteSelectedBlogs()
-    // {
-    //     if (count($this->selectedBlogs) > 0) {
-    //         Log::info('Selected Blogs:', $this->selectedBlogs);
-    //         Blog::whereIn('id', $this->selectedBlogs)->delete();
-    //         $this->selectedBlogs = []; // Reset lại sau khi xóa
-    //         $this->dispatch('blog-deleted', ['message' => 'Các thông báo đã chọn đã được xóa thành công']);
-    //     }
-    // }
-    public function deleteSelectedBlogs()
+    
+    public function deleteSelectedBlogs($data)
     {
-        Blog::whereIn('id', $this->selectedBlogs)->delete();
-        $this->selectedBlogs = [];
-        $this->dispatch('blogs-deleted', ['message' => 'Các Blog đã chọn đã được xóa thành công']);
+        $blogIds = $data['ids']; // Lấy danh sách ID blog đã chọn
+        if (empty($blogIds)) {
+            $this->dispatch('error', ['message' => 'Không có blog nào được chọn để xóa.']);// Thông báo lỗi nếu không có blog nào được chọn
+            return;
+        }
+
+        // Thực hiện xóa các blog đã chọn
+        $delete_blog=Blog::whereIn('id', $blogIds)->delete();
+
+        $this->selectedBlogs = []; // Reset danh sách blog đã chọn
+        $this->dispatch('blogs-deleted', ['message' => "Đã xóa thành công."]);
     }
     public function updatingSearch()
     {
@@ -47,7 +47,7 @@ class BlogSearch extends Component
         } else {
             $this->selectedBlogs[] = $blogId;
         }
- 
+
         // Log hành động hoặc thực hiện các thao tác khác
         Log::info('Toggled blog:', ['id' => $blogId]);
     }

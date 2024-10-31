@@ -46,7 +46,7 @@ class MaintenanceRequestOwnersController extends Controller
         $this->MaintenanceRequestsServices->softDeleteMaintenances($id);
         return redirect()->route('owners.trash-maintenances')->with('success', 'Phòng bảo trì đã được chuyển vào thùng rác.');
     }
-    
+
 
     public function trash()
     {
@@ -60,25 +60,25 @@ class MaintenanceRequestOwnersController extends Controller
         return redirect()->route('owners.list-owner-fix')->with('success', 'Phòng bảo trì đã được khôi phục.');
     }
 
-    public function sent_for_maintenance(MaintenanceRequest $request){
-        
+    public function sent_for_maintenance(MaintenanceRequest $request)
+    {
+
         // dd($request->all()); 
-        if(Auth::check()){
-           $user_id  = Auth::id();
-           $this->MaintenanceRequestsServices->store($request,$user_id);
-           return redirect()->back()->with('success','Đơn đã được gửi'); 
+        if (Auth::check()) {
+            $user_id  = Auth::id();
+            $this->MaintenanceRequestsServices->store($request, $user_id);
+            return response()->json(['success' => true, 'message' => 'Đơn đã được gửi']);
         }
-        // return redirect()->back()->with('error','Bạn chưa đăng nhập');
+        return response()->json(['success' => false, 'error' => 'Bạn chưa đăng nhập'], 401);
     }
     public function finish($id)
     {
         $finish = 3;
-        $result = $this->MaintenanceRequestsServices->editStatus($id,$finish);
+        $result = $this->MaintenanceRequestsServices->editStatus($id, $finish);
         if ($result) {
             return back()->with('success', 'Hoàn thành.');
         } else {
             return back()->with('error', 'Không thành công.');
         }
     }
-
 }

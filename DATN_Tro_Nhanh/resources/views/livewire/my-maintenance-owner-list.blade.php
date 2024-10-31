@@ -83,10 +83,14 @@
 
                                 </td>
                                 <td class="align-middle p-4" style="white-space: nowrap;">
-                                    <form action="{{ route('owners.leave-the-room', $item->id) }}" method="POST" class="d-inline-block mb-0 delete-form" id="leave-room-form-{{ $item->id }}">
+                                    <form action="{{ route('owners.leave-the-room', $item->id) }}" method="POST"
+                                        class="d-inline-block mb-0 delete-form"
+                                        id="leave-room-form-{{ $item->id }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="button" class="badge badge-primary border-0 leave-room-btn delete-button" data-id="{{ $item->id }}">
+                                        <button type="button"
+                                            class="badge badge-primary border-0 leave-room-btn delete-button"
+                                            data-id="{{ $item->id }}">
                                             <i class="fal fa-sign-out-alt"></i>
                                         </button>
                                     </form>
@@ -109,14 +113,14 @@
                                                 Nội dung yêu cầu!
                                             </h2>
 
-                                            <form id="" method="POST"
+                                            <form id="maintenance-request-form" method="POST"
                                                 action="{{ route('owners.sent-for-maintenance') }}">
                                                 @csrf
 
                                                 <input type="hidden" name="room_id" id=""
                                                     value="{{ $item->room->id }}">
                                                 <input type="text" class="form-control mb-3 border-0" name="title"
-                                                    id="" placeholder="Nhập tiêu đề"
+                                                    id="title" placeholder="Nhập tiêu đề"
                                                     value="{{ old('title') }}">
                                                 @error('title')
                                                     <span id="title-error" class="text-danger">{{ $message }}</span>
@@ -130,9 +134,11 @@
                                                     @enderror
                                                 </div>
 
-                                                <button type="submit" class="btn btn-lg btn-primary px-5">Gửi yêu
+                                                <button type="button" class="btn btn-lg btn-primary px-5"
+                                                    id="submit-maintenance-request">Gửi yêu
                                                     cầu</button>
                                             </form>
+
                                         </div>
                                     </div>
                                 </div>
@@ -222,33 +228,64 @@
                     if (result.isConfirmed) {
                         // Gửi yêu cầu AJAX đến route owners.leave-the-room
                         fetch(form.action, {
-                            method: 'POST',
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({ _method: 'DELETE' })
-                        })
-                        .then(response => {
-                            return response.json(); // Chuyển đổi phản hồi thành JSON
-                        })
-                        .then(data => {
-                            if (data.message) {
-                                // Xử lý thành công
-                                form.closest('tr').remove(); // Xóa dòng tương ứng
-                                Swal.fire('Đã rời khỏi!', data.message, 'success');
-                            } else if (data.error) {
-                                // Hiển thị thông báo lỗi
-                                Swal.fire('Có lỗi xảy ra!', data.error, 'error');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Lỗi:', error);
-                            Swal.fire('Có lỗi xảy ra!', 'Vui lòng thử lại sau.', 'error');
-                        });
+                                method: 'POST',
+                                headers: {
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    _method: 'DELETE'
+                                })
+                            })
+                            .then(response => {
+                                return response.json(); // Chuyển đổi phản hồi thành JSON
+                            })
+                            .then(data => {
+                                if (data.message) {
+                                    // Xử lý thành công
+                                    form.closest('tr').remove(); // Xóa dòng tương ứng
+                                    Swal.fire('Đã rời khỏi!', data.message, 'success');
+                                } else if (data.error) {
+                                    // Hiển thị thông báo lỗi
+                                    Swal.fire('Có lỗi xảy ra!', data.error, 'error');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Lỗi:', error);
+                                Swal.fire('Có lỗi xảy ra!', 'Vui lòng thử lại sau.', 'error');
+                            });
                     }
                 });
             });
+        });
+    </script>
+    {{-- gui ajax --}}
+    <script>
+        document.getElementById('submit-maintenance-request').addEventListener('click', function() {
+            const form = document.getElementById('maintenance-request-form');
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire('Thành công!', data.message, 'success');
+                        // Reset form fields if needed
+                        form.reset();
+                    } else {
+                        Swal.fire('Có lỗi xảy ra!', data.error, 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi:', error);
+                    Swal.fire('Có lỗi xảy ra!', 'Vui lòng thử lại sau.', 'error');
+                });
         });
     </script>
 </div>

@@ -50,7 +50,7 @@
                     <thead class="thead-sm thead-black">
                         <tr role="row">
                             <th scope="col" class="px-6 py-3">
-                                <input type="checkbox" id="checkAll" wire:model="selectAll">
+                                <input type="checkbox" id="selectAll" >
                             </th>
                             <th class="py-3 text-nowrap text-center col-2">Ảnh</th>
                             <th class="py-3 text-nowrap text-center col-2">Tiêu đề</th>
@@ -72,12 +72,12 @@
                             </tr>
                         @else
                             @foreach ($blogs as $blog)
-                                <tr role="row" wire:key="blog-{{ $blog->id }}"
+                                <tr role="row"   data-id="{{ $blog->id }}"
                                     class="shadow-hover-xs-2 bg-hover-white">
                                     <td class="align-middle px-6">
-                                        <input type="checkbox" class="control-input blog-checkbox"
-                                            id="blog-{{ $blog->id }}" wire:model="selectedBlogs"
-                                            wire:change="toggleBlog({{ $blog->id }})" value="{{ $blog->id }}">
+                                        <input type="checkbox" class="control-input child-chk"
+                                           
+                                            data-id="{{ $blog->id }}">
                                     </td>
                                     <td class="align-middle d-md-table-cell text-nowrap p-4 text-center">
                                         <div class="mr-2 position-relative blog-image-container">
@@ -223,265 +223,46 @@
         </div>
     </main>
 </div>
-{{-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const checkAll = document.getElementById('checkAll');
-        const deleteSelectedBtn = document.getElementById('deleteSelected');
-        const checkboxes = document.querySelectorAll('.blog-checkbox');
 
-        // Hàm cập nhật trạng thái của checkbox tổng
-        function capNhatTrangThaiCheckAll() {
-            checkAll.checked = checkboxes.length > 0 && Array.from(checkboxes).every(checkbox => checkbox
-                .checked);
-        }
-
-        // Bắt sự kiện thay đổi cho checkbox tổng
-        checkAll.addEventListener('change', function() {
-            const isChecked = this.checked;
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = isChecked;
-                checkbox.dispatchEvent(new Event('change', {
-                    'bubbles': true
-                }));
-            });
-            @this.set('selectedBlogs', isChecked ? Array.from(checkboxes).map(cb => cb.value) : []);
-        });
-
-        // Bắt sự kiện thay đổi cho các checkbox con
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                capNhatTrangThaiCheckAll();
-                let selectedBlogs = @this.get('selectedBlogs');
-                if (this.checked) {
-                    if (!selectedBlogs.includes(this.value)) {
-                        selectedBlogs.push(this.value);
-                    }
-                } else {
-                    selectedBlogs = selectedBlogs.filter(id => id !== this.value);
-                }
-                @this.set('selectedBlogs', selectedBlogs);
-            });
-        });
-
-        // Cập nhật hiển thị nút xóa dựa vào số lượng blog đã chọn
-        function updateDeleteButtonVisibility() {
-            deleteSelectedBtn.style.display = @this.selectedBlogs.length > 0 ? 'block' : 'none';
-            capNhatTrangThaiCheckAll();
-        }
-
-        // Gọi hàm updateDeleteButtonVisibility mỗi khi có sự thay đổi trong selectedBlogs
-        @this.$watch('selectedBlogs', () => {
-            updateDeleteButtonVisibility();
-        });
-
-        // Khởi tạo trạng thái ban đầu
-        updateDeleteButtonVisibility();
-
-        // Bắt sự kiện nhấn nút "Xóa đã chọn"
-        deleteSelectedBtn.addEventListener('click', function() {
-            const selectedBlogs = Array.from(checkboxes)
-                .filter(checkbox => checkbox.checked)
-                .map(checkbox => checkbox.value);
-
-            if (selectedBlogs.length === 0) {
-                Swal.fire({
-                    title: 'Lỗi!',
-                    text: 'Vui lòng chọn ít nhất một bài blog để xóa',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-                return;
-            }
-
-            Swal.fire({
-                title: 'Bạn có chắc chắn?',
-                text: "Bạn sẽ không thể hoàn tác hành động này!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Có, xóa!',
-                cancelButtonText: 'Hủy'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    @this.call('deleteSelectedBlogs', selectedBlogs);
-                }
-            });
-        });
-    });
-
-    // Xử lý thông báo sau khi xóa thành công
-    document.addEventListener('livewire:initialized', () => {
-        Livewire.on('blog-deleted', (event) => {
-            Swal.fire({
-                title: 'Thành công!',
-                text: 'Xóa blog thành công',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            }).then(() => {
-                location.reload();
-            });
-        });
-    });
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const checkAll = document.getElementById('checkAll');
-        const deleteSelectedBtn = document.getElementById('deleteSelected');
-        const checkboxes = document.querySelectorAll('.blog-checkbox');
-
-        // Hàm cập nhật trạng thái của checkbox tổng
-        function capNhatTrangThaiCheckAll() {
-            checkAll.checked = checkboxes.length > 0 && Array.from(checkboxes).every(checkbox => checkbox
-                .checked);
-        }
-
-        // Bắt sự kiện thay đổi cho checkbox tổng
-        checkAll.addEventListener('change', function() {
-            const isChecked = this.checked;
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = isChecked;
-                checkbox.dispatchEvent(new Event('change', {
-                    'bubbles': true
-                }));
-            });
-            @this.set('selectedBlogs', isChecked ? Array.from(checkboxes).map(cb => cb.value) : []);
-        });
-
-        // Bắt sự kiện thay đổi cho các checkbox con
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                capNhatTrangThaiCheckAll();
-                let selectedBlogs = @this.get('selectedBlogs');
-                if (this.checked) {
-                    if (!selectedBlogs.includes(this.value)) {
-                        selectedBlogs.push(this.value);
-                    }
-                } else {
-                    selectedBlogs = selectedBlogs.filter(id => id !== this.value);
-                }
-                @this.set('selectedBlogs', selectedBlogs);
-            });
-        });
-
-        // Cập nhật hiển thị nút xóa dựa vào số lượng blog đã chọn
-        function updateDeleteButtonVisibility() {
-            deleteSelectedBtn.style.display = @this.selectedBlogs.length > 0 ? 'block' : 'none';
-            capNhatTrangThaiCheckAll();
-        }
-
-        // Gọi hàm updateDeleteButtonVisibility mỗi khi có sự thay đổi trong selectedBlogs
-        @this.$watch('selectedBlogs', () => {
-            updateDeleteButtonVisibility();
-        });
-
-        // Khởi tạo trạng thái ban đầu
-        updateDeleteButtonVisibility();
-
-        // Bắt sự kiện nhấn nút "Xóa đã chọn"
-        deleteSelectedBtn.addEventListener('click', function() {
-            const selectedBlogs = Array.from(checkboxes)
-                .filter(checkbox => checkbox.checked)
-                .map(checkbox => checkbox.value);
-
-            if (selectedBlogs.length === 0) {
-                Swal.fire({
-                    title: 'Lỗi!',
-                    text: 'Vui lòng chọn ít nhất một bài blog để xóa',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-                return;
-            }
-
-            Swal.fire({
-                title: 'Bạn có chắc chắn?',
-                text: "Bạn sẽ không thể hoàn tác hành động này!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Có, xóa!',
-                cancelButtonText: 'Hủy'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    @this.call('deleteSelectedBlogs', selectedBlogs);
-                }
-            });
-        });
-    });
-
-    // Xử lý thông báo sau khi xóa thành công
-    document.addEventListener('livewire:initialized', () => {
-        Livewire.on('blog-deleted', (event) => {
-            Swal.fire({
-                title: 'Thành công!',
-                text: 'Xóa blog thành công',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            }).then(() => {
-                location.reload();
-            });
-        });
-    });
-</script> --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 <script>
-    document.addEventListener('livewire:initialized', () => {
-        const checkboxes = document.querySelectorAll('.blog-checkbox');
-        const selectAllCheckbox = document.getElementById('checkAll');
+    document.addEventListener('livewire:initialized', function() {
+        const checkAll = document.getElementById('selectAll'); // Checkbox "Chọn tất cả"
         const deleteSelectedBtn = document.getElementById('deleteSelected');
+        const childCheckboxes = document.querySelectorAll('.child-chk'); // Tất cả checkbox con
 
-        function updateSelectAllState() {
-            if (checkboxes.length === 0) {
-                if (selectAllCheckbox) selectAllCheckbox.disabled = true;
-                return;
-            }
-
-            const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
-            if (selectAllCheckbox) {
-                selectAllCheckbox.checked = allChecked;
-                selectAllCheckbox.disabled = false;
-            }
+        // Sự kiện cho checkbox "Chọn tất cả"
+        checkAll.addEventListener('change', function() {
+            childCheckboxes.forEach(checkbox => {
+                checkbox.checked = this.checked;
+                checkbox.dispatchEvent(new Event('change', {
+                    'bubbles': true
+                }));
+            });
             updateDeleteButtonState();
-        }
+        });
 
-        function updateDeleteButtonState() {
-            const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
-            deleteSelectedBtn.disabled = !anyChecked;
-        }
-
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', () => {
-                updateSelectAllState();
-                updateDeleteButtonState(); // Thêm dòng này
-                @this.set('selectedBlogs', Array.from(checkboxes)
-                    .filter(cb => cb.checked)
-                    .map(cb => cb.value)
-                );
+        // Sự kiện cho từng checkbox con
+        childCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                if (!this.checked) {
+                    checkAll.checked = false;
+                } else if (Array.from(childCheckboxes).every(chk => chk.checked)) {
+                    checkAll.checked = true;
+                }
+                updateDeleteButtonState();
             });
         });
 
-        if (selectAllCheckbox) {
-            selectAllCheckbox.addEventListener('change', () => {
-                const isChecked = selectAllCheckbox.checked;
-                checkboxes.forEach(checkbox => {
-                    checkbox.checked = isChecked;
-                });
-                updateDeleteButtonState();
-                @this.set('selectedBlogs', isChecked ? Array.from(checkboxes).map(cb => cb.value) : []);
-            });
-        }
-
-        deleteSelectedBtn.addEventListener('click', () => {
-            const selectedIds = Array.from(checkboxes)
-                .filter(checkbox => checkbox.checked)
-                .map(checkbox => checkbox.value);
-
-            if (selectedIds.length === 0) {
+        // Sự kiện cho nút xóa
+        deleteSelectedBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            const selectedCheckboxes = document.querySelectorAll('.child-chk:checked');
+            if (selectedCheckboxes.length === 0) {
                 Swal.fire({
                     title: 'Lỗi!',
-                    text: 'Vui lòng chọn ít nhất một hóa đơn để xóa',
+                    text: 'Vui lòng chọn ít nhất một blog để xóa.',
                     icon: 'error',
                     confirmButtonText: 'OK'
                 });
@@ -495,33 +276,54 @@
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Có, xóa!',
+                confirmButtonText: 'Có!',
                 cancelButtonText: 'Hủy'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    @this.call('deleteSelectedBlogs', selectedIds);
+                    const selectedIds = Array.from(selectedCheckboxes).map(checkbox => {
+                        return checkbox.closest('tr').getAttribute('data-id');
+                    });
+                    @this.call('deleteSelectedBlogs', {
+                        ids: selectedIds
+                    });
                 }
             });
         });
 
-        // Khởi tạo trạng thái ban đầu
-        updateSelectAllState();
-    });
+        // Cập nhật trạng thái nút xóa
+        function updateDeleteButtonState() {
+            const selectedCount = document.querySelectorAll('.child-chk:checked').length;
+            deleteSelectedBtn.disabled = selectedCount === 0;
+        }
 
+        // Gán sự kiện cho các checkbox con
+        document.querySelectorAll('.child-chk').forEach(checkbox => {
+            checkbox.addEventListener('change', updateDeleteButtonState);
+        });
 
-    // Xử lý thông báo sau khi xóa thành công
-    document.addEventListener('livewire:initialized', () => {
-        Livewire.on('blogs-deleted', (event) => {
+        updateDeleteButtonState(); // Cập nhật trạng thái nút xóa ban đầu
+
+        // Sự kiện khi xóa thành công
+        Livewire.on('blogs-deleted', (data) => {
+            console.log('Blogs deleted event received:', data);
             Swal.fire({
                 title: 'Thành công!',
-                text: 'Xóa thông báo thành công',
+                text: data[0].message || 'Đã xóa thành công.', // Hiển thị thông báo thành công
                 icon: 'success',
                 confirmButtonText: 'OK'
             }).then(() => {
                 location.reload();
             });
         });
-    });
-</script>
 
-    
+        // Sự kiện khi có lỗi
+        Livewire.on('error', (data) => {
+            Swal.fire({
+                title: 'Lỗi!',
+                text: data.message,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        });
+    });
+</script>  

@@ -86,7 +86,9 @@
                             @endphp
                             @if ($image)
                                 <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}">
-                                    <img src="https://drive.google.com/thumbnail?id={{ $image }}" alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded" style="object-fit: cover;" loading="lazy">
+                                    <img src="https://drive.google.com/thumbnail?id={{ $image }}"
+                                        alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                        style="object-fit: cover;" loading="lazy">
 
                                 </a>
                             @else
@@ -97,16 +99,18 @@
                                 </a>
                             @endif
                             <div class="card-img-overlay d-flex flex-column">
-                                <span
-                                    class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }} position-absolute pos-fixed-top">
-                                    {{ $zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
-                                </span>
-                                <div>
-                                    @if ($zone->expiration_date > now())
+                                <div c>
+                                    <span
+                                        class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }}  pos-fixed-top">
+                                        {{ $zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
+                                    </span>
+
+                                    @if ($zone->vipZonePosition && $zone->vipZonePosition->status == 1)
                                         <span class="badge bg-danger text-white" style="bottom: 1px; right: 1px;">
                                             VIP
                                         </span>
                                     @endif
+
                                 </div>
                                 <div class="mt-auto d-flex hover-image">
                                     <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
