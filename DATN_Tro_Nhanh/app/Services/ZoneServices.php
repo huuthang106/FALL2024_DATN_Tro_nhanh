@@ -230,18 +230,18 @@ class ZoneServices
         return $zones;
     }
     // Danh sách khu vực trọ Client
-    // public function getMyZoneClient()
-    // {
-    //     $perPage = 5;
-    //     $zones = Zone::orderByDesc('created_at')->paginate($perPage); // sắp xếp
-    //     return $zones;
-    // }
-    public function getMyZoneClient($category)
+    public function getMyZoneClient()
     {
         $perPage = 5;
-        $zones = Zone::orderByDesc('created_at')->paginate($perPage);
+        $zones = Zone::orderByDesc('created_at')->paginate($perPage); // sắp xếp
         return $zones;
     }
+    // public function getMyZoneClient($category)
+    // {
+    //     $perPage = 5;
+    //     $zones = Zone::orderByDesc('created_at')->paginate($perPage);
+    //     return $zones;
+    // }
     // Tổng só khu trọ Client
     public function getTotalZones()
     {

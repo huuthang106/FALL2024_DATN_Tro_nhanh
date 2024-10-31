@@ -64,18 +64,12 @@
                                 <div class="px-7 py-5" data-kt-user-table-filter="form">
                                     <!--begin::Input group-->
                                     <div class="mb-10">
-                                    <label class="form-label fs-6 fw-bold">Lọc theo:</label>
-                                        <select class="form-select form-select-solid fw-bolder sortby"
-                                            wire:model.lazy="timeFilter" id="timeFilter"
-                                            data-style="bg-transparent px-1 py-0 lh-1 font-weight-600 text-body">
-                                            <option value="" selected>Chọn khoảng thời gian:</option>
-                                            <option value="1_day">Hôm qua</option>
-                                            <option value="7_day">7 ngày</option>
-                                            <option value="1_month">1 tháng</option>
-                                            <option value="3_month">3 tháng</option>
-                                            <option value="6_month">6 tháng</option>
-                                            <option value="1_year">1 năm</option>
-                                        </select>
+                                    <label class="form-label fw-bold">Ngày/Tháng/Năm:</label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="date" class="form-control form-control-solid" wire:model="filterDate" />
+                                        <button type="button" class="btn btn-sm btn-primary ms-2"
+                                            wire:click="applyFilter">Lọc</button>
+                                    </div>
                                     </div>
                                     <!--end::Input group-->
                                     <!--begin::Input group-->
