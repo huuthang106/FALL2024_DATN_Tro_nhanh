@@ -25,7 +25,7 @@ class BillRequest extends FormRequest
             'payer_id' => 'required|integer',
             'creator_id' => 'required|integer',
             'title' => 'required|string|max:255',
-            'amount' => 'required|numeric|min:0',
+            'amount' => 'required|min:0',
             'description' => 'required|string',
             'payment_due_date' => 'nullable|date', // Xác thực hạn thanh toán
         ];

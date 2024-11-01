@@ -153,52 +153,7 @@
         });
     </script>
     
-    {{-- <script>
-         document.addEventListener('DOMContentLoaded', function() {
-            var downloadButtons = document.querySelectorAll('.download-all-images');
-            downloadButtons.forEach(function(button) {
-                button.addEventListener('click', function() {
-                    var tenantId = this.getAttribute('data-tenant-id');
-                    downloadImages(tenantId);
-                });
-            });
-        });
-
-        function downloadImages(tenantId) {
-            var zip = new JSZip();
-            var imagePromises = [];
-
-            // Tìm tất cả các ảnh trong modal của tenant cụ thể
-            var modal = document.getElementById('identityModal' + tenantId);
-            var images = modal.querySelectorAll('img');
-
-            images.forEach(function(img, index) {
-                var imageUrl = img.src;
-                var fileExtension = imageUrl.split('.').pop().split(/\#|\?/)[0];
-                var imageName = 'anh_' + (index + 1) + '.' + fileExtension;
-
-                imagePromises.push(
-                    fetch(imageUrl)
-                        .then(response => response.blob())
-                        .then(blob => {
-                            // Sử dụng MIME type của blob để xác định định dạng file
-                            var mimeType = blob.type;
-                            var fileExtension = mimeType.split('/')[1];
-                            if (fileExtension === 'jpeg') fileExtension = 'jpg';
-                            imageName = 'anh_' + (index + 1) + '.' + fileExtension;
-                            return zip.file(imageName, blob);
-                        })
-                );
-            });
-            Promise.all(imagePromises).then(() => {
-                zip.generateAsync({
-                    type: 'blob'
-                }).then(function(content) {
-                    saveAs(content, '{{ $tenant->name }}_identity_images.zip');
-                });
-            });
-        }
-    </script> --}}
+ 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var downloadButtons = document.querySelectorAll('.download-all-images');

@@ -369,8 +369,10 @@ class ZoneServices
         $data['payment_date'] = now();
 
         // Kiểm tra và thêm hạn thanh toán nếu có
+        // ... existing code ...
         if (isset($data['payment_due_date'])) {
-            $data['payment_due_date'] = $data['payment_due_date']; // Giữ nguyên giá trị từ form
+            // Không cần gán lại giá trị cho payment_due_date
+            // $data['payment_due_date'] = $data['payment_due_date']; // Bỏ dòng này
         } else {
             $data['payment_due_date'] = now(); // Nếu không có, mặc định là hiện tại
         }
@@ -606,8 +608,8 @@ class ZoneServices
         }
 
         // Kiểm tra xem có user_id nào đang ở trong resident thuộc zone này không
-       
-      
+
+
 
         // Nếu tất cả các phòng đều đã bị xóa mềm và không có người ở, tiến hành xóa vĩnh viễn zone
         $zone->forceDelete();

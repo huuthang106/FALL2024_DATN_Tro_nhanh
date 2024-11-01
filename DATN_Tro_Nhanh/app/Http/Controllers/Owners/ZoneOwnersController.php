@@ -78,12 +78,20 @@ class ZoneOwnersController extends Controller
     {
         // Lấy giá trị `amount` không dấu phẩy từ request
         $data = $request->validated();
-        $data['amount'] = str_replace(',', '', $data['amount']); // Loại bỏ dấu phẩy
-    
+        
+        $data['amount'] = intval(str_replace('.', '', $request['amount'])); // Loại bỏ dấu phẩy và chuyển đổi
+        // return response()->json(['status' => 'success', 'message' => $data]); // Trả về JSON thông báo thành công
+
+
         // Gọi service để tạo hóa đơn với dữ liệu đã được xử lý
-        $this->zoneServices->createBill($data);
+        $result = $this->zoneServices->createBill($data); // Lưu kết quả vào biến
+        // dd($result);
     
-        return redirect()->back()->with('success', 'Hóa đơn đã được tạo thành công.');
+        if (!$result) { // Kiểm tra nếu không thành công
+            return response()->json(['status' => 'error', 'message' => 'Tạo hóa đơn không thành công.']); // Trả về JSON thông báo lỗi
+        }
+    
+        return response()->json(['status' => 'success', 'message' => 'Hóa đơn đã được tạo thành công.']); // Trả về JSON thông báo thành công
     }
     
 

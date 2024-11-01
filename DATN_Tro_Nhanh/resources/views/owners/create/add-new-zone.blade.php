@@ -154,7 +154,7 @@
                                                                             <input type="text"
                                                                                 class="form-control form-control-lg border-0"
                                                                                 id="price" name="price"
-                                                                                oninput="this.value = formatNumber(this.value)"">
+                                                                                oninput="this.value = formatNumber(this.value)">
                                                                             @error('price')
                                                                                 <div class="text-danger">{{ $message }}
                                                                                 </div>
