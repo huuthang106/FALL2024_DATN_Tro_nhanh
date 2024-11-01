@@ -481,12 +481,18 @@ class ZoneOwnersController extends Controller
     //     echo "Số điện thoại: $phone<br>";
     //     echo "Mô tả: $description<br><br>";
     // }
-    public function getData()
+    public function viewData()
+    {
+        return view('client.create.get-data');
+    }
+    public function getData(request $item)
     {
         set_time_limit(0); // Không giới hạn thời gian thực thi
 
         // Bước 1: Lấy nội dung từ trang chính
-        $baseUrl = 'https://tromoi.com/phong-tro?_url=%2Fphong-tro&page=2'; // URL chính
+        $baseUrl = $item['item']; // URL chính
+        // dd($baseUrl);
+
         $html = @file_get_contents($baseUrl); // Lấy nội dung HTML
 
         if ($html === false) {

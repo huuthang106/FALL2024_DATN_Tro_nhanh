@@ -927,7 +927,7 @@ class ZoneServices
         $zone->village = ''; // Cung cấp giá trị nếu cần
         $zone->longitude = $data['longitude'] ?? 0; // Giá trị mặc định
         $zone->latitude = $data['latitude'] ?? 0; // Giá trị mặc định
-        $zone->user_id = $data['user_id'] ?? 1; // Lấy ID người dùng hiện tại
+        $zone->user_id = auth()->id(); // Lấy ID người dùng đang đăng nhập
         $zone->category_id = 3; // Giá trị mặc định
         $zone->status = 2;
         $zone->wifi = isset($data['wifi']) && $data['wifi'] ? self::CO : self::CHUA_CO;
