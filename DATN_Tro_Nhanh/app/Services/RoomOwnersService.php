@@ -526,7 +526,6 @@ class RoomOwnersService
     {
         return Room::findOrFail($id);
     }
-
     public function updateRoomInZone(Request $request, $id)
     {
         // Validate dữ liệu đầu vào
@@ -538,46 +537,64 @@ class RoomOwnersService
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
-
+    
         if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
+            return [
+                'success' => false,
+                'message' => 'Dữ liệu không hợp lệ.'
+            ];
         }
-
+    
         // Tìm phòng theo ID
         $room = Room::findOrFail($id);
-
+    
         // Cập nhật thông tin phòng
         $room->title = $request->input('title');
         $room->description = $request->input('description');
         $room->price = $request->input('price');
         $room->quantity = $request->input('quantity');
         $blogService = new BlogServices();
+    
         // Xử lý hình ảnh nếu có
         if ($request->hasFile('images')) {
             // Xóa ảnh cũ nếu có
             if ($room->image) {
                 // Gọi phương thức xóa tệp cũ trên Google Drive
-                $blogService->deleteFileFromGoogleDrive($room->image); // Xóa tệp cũ
+                $oldImageIds = explode(',', $room->image); // Giả sử ID tệp được lưu dưới dạng chuỗi phân tách bằng dấu phẩy
+                foreach ($oldImageIds as $oldImageId) {
+                    $blogService->deleteFileFromGoogleDrive($oldImageId); // Xóa tệp cũ
+                }
             }
-
-
+    
             // Lấy file đầu tiên từ mảng images
             $image = $request->file('images')[0];
-
+    
+            // Kiểm tra nội dung bạo lực
+            $imageContent = base64_encode(file_get_contents($image->getRealPath()));
+            $violenceScore = $this->checkViolentContent($imageContent); // Gọi hàm kiểm tra bạo lực
+    
+            if ($violenceScore > 0.5) {
+                return [
+                    'success' => false,
+                    'message' => 'Phát hiện ảnh không phù hợp: ' . $image->getClientOriginalName() . '. Vui lòng kiểm tra lại ảnh của bạn.'
+                ];
+            }
+    
             // Tải lên hình ảnh vào Google Drive
-            $driveFileId = env('GOOGLE_DRIVE_FOLDER_ID', 'default_value'); // 'default_value' là giá trị mặc định nếu không tìm thấy// ID thư mục Google Drive
-            $uploadResult = $blogService->uploadImageToGoogleDrive($image, $driveFileId, $image->getClientOriginalName()); // Gọi phương thức với tên đã tạo
-
+            $driveFileId = env('GOOGLE_DRIVE_FOLDER_ID', 'default_value');
+            $uploadResult = $blogService->uploadImageToGoogleDrive($image, $driveFileId, $image->getClientOriginalName());
+    
             // Cập nhật đường dẫn ảnh mới
             $room->image = $uploadResult['id']; // Lưu ID tệp đã tải lên vào cơ sở dữ liệu
         }
-
+    
         // Lưu thay đổi
         $room->save();
-
-        return $room;
+    
+        return [
+            'success' => true,
+            'room' => $room
+        ];
     }
 
     public function createRoom(RoomOwnersRequest $request, $zoneId)
@@ -586,7 +603,23 @@ class RoomOwnersService
             // Tạo slug từ tiêu đề
             $slugify = new \Cocur\Slugify\Slugify();
             $slug = $slugify->slugify($request->input('title')) . '-' . $zoneId;
-
+    
+            // Kiểm tra hình ảnh trước khi tạo phòng
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+    
+                // Kiểm tra nội dung bạo lực
+                $imageContent = base64_encode(file_get_contents($image->getRealPath()));
+                $violenceScore = $this->checkViolentContent($imageContent); // Gọi hàm kiểm tra bạo lực
+    
+                if ($violenceScore > 0.5) {
+                    return [
+                        'success' => false,
+                        'message' => 'Phát hiện ảnh không phù hợp: ' . $image->getClientOriginalName() . '. Vui lòng kiểm tra lại ảnh của bạn.'
+                    ];
+                }
+            }
+    
             // Tạo phòng mới
             $room = Room::create([
                 'title' => $request->input('title'),
@@ -597,19 +630,16 @@ class RoomOwnersService
                 'zone_id' => $zoneId,
                 'slug' => $slug,
             ]);
-
-            // Lưu hình ảnh với tên mới
+    
+            // Tải lên hình ảnh vào Google Drive nếu có
             if ($request->hasFile('image')) {
-                $image = $request->file('image');
-
-                // Tải lên hình ảnh vào Google Drive
                 $driveFileId = env('GOOGLE_DRIVE_FOLDER_ID', '1DNPZ0KBCiY27mvOZKFg8IyyarT7PIGVF');
                 $uploadResult = $this->blogServices->uploadImageToGoogleDrive($image, $driveFileId, $image->getClientOriginalName());
-
+    
                 // Lưu ID tệp vào cơ sở dữ liệu
                 $room->update(['image' => $uploadResult['id']]);
             }
-
+    
             return [
                 'success' => true,
                 'zone_slug' => $room->zone->slug
@@ -623,7 +653,41 @@ class RoomOwnersService
             ];
         }
     }
+private function checkViolentContent($imageContent)
+{
+    try {
+        $response = $this->client->post('models/moderation-recognition/outputs', [
+            'json' => [
+                'inputs' => [
+                    [
+                        'data' => [
+                            'image' => [
+                                'base64' => $imageContent
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]);
 
+        $result = json_decode($response->getBody(), true);
+        $concepts = $result['outputs'][0]['data']['concepts'] ?? [];
+        $violenceScore = 0;
+
+        $inappropriateContent = ['gore', 'explicit', 'drug', 'suggestive', 'weapon'];
+
+        foreach ($concepts as $concept) {
+            if (in_array($concept['name'], $inappropriateContent)) {
+                $violenceScore += $concept['value'];
+            }
+        }
+
+        return $violenceScore;
+    } catch (\Exception $e) {
+        Log::error("Clarifai API error: " . $e->getMessage());
+        throw $e;
+    }
+}
 
     public function update_quantity($idRoom, $quantity)
     {

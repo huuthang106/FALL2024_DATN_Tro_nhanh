@@ -264,56 +264,74 @@ class RoomOwnersController extends Controller
     public function updateRoom(Request $request, $id)
     {
         Log::info("Starting update for room ID: $id");
-
+    
         $request['price'] = intval(str_replace('.', '', $request['price'])); // Loại bỏ dấu phẩy và chuyển đổi
+    
         // Gọi service để cập nhật phòng
         $result = $this->roomOwnersService->updateRoomInZone($request, $id);
-
+    
         // Lấy phòng để lấy slug của khu trọ
         $room = Room::findOrFail($id);
         $zoneSlug = $room->zone->slug; // Giả sử Room có mối quan hệ với Zone
-
-        if ($result) {
+    
+        if ($result['success']) {
             // Lưu thông báo vào bảng notifications
             Notification::create([
                 'user_id' => Auth::id(), // ID của người dùng hiện tại
-                'data' => 'Phòng trọ "' . $request->input('title') . '" đã được tạo thành công.',
+                'data' => 'Phòng trọ "' . $request->input('title') . '" đã được cập nhật thành công.',
             ]);
-
+    
             Log::info("Successfully updated room ID: $id");
-            return redirect()->route('owners.detail-zone', ['slug' => $zoneSlug])
-                ->with('success', 'Phòng trọ đã được cập nhật thành công!'); // Thêm thông báo vào session
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Phòng đã được cập nhật thành công.',
+                'zone_slug' => $zoneSlug // Trả về slug của zone
+            ], 200); // Mã trạng thái 200 cho OK
         } else {
             Log::error("Failed to update room ID: $id");
-            return redirect()->route('owners.detail-zone', ['slug' => $zoneSlug])
-                ->with('error', 'Cập nhật phòng thất bại!');
+            return response()->json([
+                'status' => 'error',
+                'message' => $result['message'] ?? 'Cập nhật phòng thất bại!'
+            ], 400); // Mã trạng thái 400 cho Bad Request
         }
     }
     // RoomOwnersController.php
 
     public function storeRoom(RoomOwnersRequest $request, $zoneId)
-    {
-        $request['price'] = intval(str_replace('.', '', $request['price']));
-    
-        try {
-            $result = $this->roomOwnersService->createRoom($request, $zoneId);
-    
-            if ($result['success']) {
-                Notification::create([
-                    'user_id' => Auth::id(),
-                    'data' => 'Phòng trọ "' . $request->input('title') . '" đã được tạo thành công.',
-                ]);
-    
-                return redirect()->route('owners.detail-zone', ['slug' => $result['zone_slug']])
-                    ->with('success', 'Phòng trọ đã được tạo thành công.');
-            } else {
-                return redirect()->back()->with('error', $result['message']);
-            }
-        } catch (\Exception $e) {
-            Log::error('Lỗi khi tạo phòng: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Có lỗi xảy ra khi tạo phòng.');
+{
+    $request['price'] = intval(str_replace('.', '', $request['price']));
+
+    try {
+        $result = $this->roomOwnersService->createRoom($request, $zoneId);
+
+        if ($result['success']) {
+            Notification::create([
+                'user_id' => Auth::id(),
+                'data' => 'Phòng trọ "' . $request->input('title') . '" đã được tạo thành công.',
+            ]);
+
+            // Lấy slug của zone
+            $zoneSlug = $this->zoneServices->getSlug($zoneId);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Phòng trọ đã được tạo thành công.',
+                'zone_slug' => $zoneSlug // Trả về slug của zone
+            ], 201);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => $result['message']
+            ], 400);
         }
+    } catch (\Exception $e) {
+        Log::error('Lỗi khi tạo phòng: ' . $e->getMessage());
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Có lỗi xảy ra khi tạo phòng: ' . $e->getMessage()
+        ], 500);
     }
+}
 
     public function deleteRoom($id)
 {

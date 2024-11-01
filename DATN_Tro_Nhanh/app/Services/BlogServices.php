@@ -357,11 +357,30 @@ public function uploadImageToGoogleDrive($image, $folderId, $filename)
         $client = new \GuzzleHttp\Client();
         $accessToken = $this->getAccessToken(); // Lấy access token mới
     
-        $client->delete("https://www.googleapis.com/drive/v3/files/{$fileId}", [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $accessToken,
-            ],
-        ]);
+        try {
+            // Kiểm tra xem tệp có tồn tại không trước khi xóa
+            $response = $client->get("https://www.googleapis.com/drive/v3/files/{$fileId}", [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $accessToken,
+                ],
+            ]);
+    
+            // Nếu tệp tồn tại, thực hiện xóa
+            if ($response->getStatusCode() == 200) {
+                $client->delete("https://www.googleapis.com/drive/v3/files/{$fileId}", [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . $accessToken,
+                    ],
+                ]);
+            }
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            // Xử lý lỗi 404 hoặc các lỗi khác
+            if ($e->getCode() == 404) {
+                Log::error('Tệp không tồn tại: ' . $fileId);
+            } else {
+                Log::error('Lỗi khi xóa tệp từ Google Drive: ' . $e->getMessage());
+            }
+        }
     }
     public function getAllBlogss(int $perPage = 10, $searchTerm = null)
     {

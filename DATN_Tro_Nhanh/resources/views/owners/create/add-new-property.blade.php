@@ -33,7 +33,7 @@
                         </li> --}}
                     </ul>
                     <div class="tab-content shadow-none p-0">
-                        <form enctype="multipart/form-data" action="{{ route('owners.add-room-for-zone', $zone->id) }}"
+                        <form id="roomForm" enctype="multipart/form-data" action="{{ route('owners.add-room-for-zone', $zone->id) }}"
                             method="POST">
                             @csrf
                             <div id="collapse-tabs-accordion">
@@ -271,9 +271,10 @@
                                                         <span class="d-inline-block text-primary mr-2 fs-16"><i
                                                                 class="fal fa-long-arrow-left"></i></span>Phía trước
                                                     </a>
-                                                    <button type="submit" class="btn btn-lg btn-primary  mb-3">Gửi
-                                                        <span class="d-inline-block ml-2 fs-16"><i
-                                                                class="fal fa-long-arrow-right"></i></span>
+                                                    <button class="btn btn-lg btn-primary mb-3" type="submit" id="submitButton">
+                                                        <span class="button-text">Gửi</span>
+                                                        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                                        <span class="sr-only d-none">Đang xử lý...</span>
                                                     </button>
                                                 </div>
                                             </div>
@@ -421,34 +422,70 @@
     <script src="{{ asset('assets/js/owners/form-map.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            @if(session('success'))
-                Swal.fire({
-                    title: 'Success!',
-                    text: "{{ session('success') }}",
-                    icon: 'success',
-                    confirmButtonText: 'OK'
+        $(document).ready(function() {
+            $('#roomForm').on('submit', function(e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+            
+        
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function() {
+                        Swal.fire({
+                            title: 'Đang xử lý...',
+                            text: 'Vui lòng đợi trong giây lát!',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            allowEnterKey: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
+                    },
+                    success: function(response) {
+                        Swal.close();
+                        if (response.status === 'success') {
+                            Swal.fire({
+                                title: 'Thành công!',
+                                text: response.message,
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = '{{ route("owners.detail-zone", ["slug" => $zone->slug]) }}';
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Lỗi!',
+                                text: response.message,
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    },
+                    error: function(xhr) {
+                        Swal.close();
+                        let errorMessage = 'Đã xảy ra lỗi khi xử lý yêu cầu.';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMessage = xhr.responseJSON.message;
+                        }
+                        Swal.fire({
+                            title: 'Lỗi!',
+                            text: errorMessage,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
                 });
-            @elseif(session('error'))
-                Swal.fire({
-                    title: 'Error!',
-                    text: "{{ session('error') }}",
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-            @endif
+            });
         });
-    </script>
-    
-    @if ($errors->any())
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Lỗi!',
-            text: 'Vui lòng điền đầy đủ các trường dữ liệu.',
-        });
-    </script>
-@endif
+        </script>
+
 {{-- 
 @if (session('success'))
     <script>
