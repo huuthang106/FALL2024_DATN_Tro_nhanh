@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Owners;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Services\ZoneServices;
+
 use App\Services\RoomOwnersService;
 use App\Http\Requests\ZoneRequest;
 use Illuminate\Support\Facades\Auth;
@@ -22,11 +22,12 @@ use App\Events\RoomCreated;
 use Illuminate\Support\Facades\Http; // Thêm dòng này để sử dụng Http
 use DOMDocument; // Thêm dòng này để sử dụng DOMDocument
 use DOMXPath;
-
+use App\Services\ZoneServices;
 class ZoneOwnersController extends Controller
 {
     protected $zoneServices;
-
+    const CO = 1; // Hoặc bất kỳ giá trị nào bạn muốn đại diện cho "có"
+    const KHONG_CO = 0; // Đại diện cho "không có"
     protected const show = 2;
     protected const user_is_in = 2;
     protected $roomOwnersService;
@@ -158,34 +159,20 @@ class ZoneOwnersController extends Controller
     }
     public function update(ZoneRequest $request, $id)
     {
-        if ($request->isMethod('PUT')) {
-            try {
-                $result = $this->zoneServices->update($request, $id);
-
-                if ($result['success']) {
-                    return response()->json([
-                        'success' => true,
-                        'message' => 'Khu trọ đã được cập nhật thành công.',
-                        'redirect' => route('owners.zone-list')
-                    ]);
-                } else {
-                    Log::error('Lỗi khi cập nhật khu trọ: ' . ($result['message'] ?? 'Không có thông báo lỗi'));
-                    return response()->json([
-                        'success' => false,
-                        'message' => $result['message'] ?? 'Đã xảy ra lỗi khi cập nhật khu trọ.'
-                    ], 400);
-                }
-            } catch (\Exception $e) {
-                Log::error('Exception khi cập nhật khu trọ: ' . $e->getMessage());
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Đã xảy ra lỗi không mong muốn khi cập nhật khu trọ.'
-                ], 500);
-            }
+        $result = $this->zoneServices->updateZone($request, $id);
+    
+        if ($result['success']) {
+            return response()->json(['success' => true, 'message' => 'Cập nhật thành công khu trọ.']);
+        } else {
+            return response()->json(['success' => false, 'message' => $result['message'] ?? 'Đã xảy ra lỗi khi cập nhật khu trọ.'], 400);
         }
-
-        return view('owners.zone-post');
     }
+    
+    
+    
+    
+    
+    
 
     public function destroy($id)
     {

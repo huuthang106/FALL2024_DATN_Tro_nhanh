@@ -24,6 +24,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use App\Services\BlogServices;
+use App\Http\Requests\ZoneRequest;
 
 class ZoneServices
 {
@@ -230,18 +231,18 @@ class ZoneServices
         return $zones;
     }
     // Danh sách khu vực trọ Client
-    public function getMyZoneClient()
-    {
-        $perPage = 5;
-        $zones = Zone::orderByDesc('created_at')->paginate($perPage); // sắp xếp
-        return $zones;
-    }
-    // public function getMyZoneClient($category)
+    // public function getMyZoneClient()
     // {
     //     $perPage = 5;
-    //     $zones = Zone::orderByDesc('created_at')->paginate($perPage);
+    //     $zones = Zone::orderByDesc('created_at')->paginate($perPage); // sắp xếp
     //     return $zones;
     // }
+    public function getMyZoneClient($category)
+    {
+        $perPage = 5;
+        $zones = Zone::orderByDesc('created_at')->paginate($perPage);
+        return $zones;
+    }
     // Tổng só khu trọ Client
     public function getTotalZones()
     {
@@ -367,16 +368,14 @@ class ZoneServices
     {
         $data['status'] = self::DA_TAO;
         $data['payment_date'] = now();
-
+    
         // Kiểm tra và thêm hạn thanh toán nếu có
-        // ... existing code ...
         if (isset($data['payment_due_date'])) {
-            // Không cần gán lại giá trị cho payment_due_date
-            // $data['payment_due_date'] = $data['payment_due_date']; // Bỏ dòng này
+            $data['payment_due_date'] = $data['payment_due_date']; // Giữ nguyên giá trị từ form
         } else {
             $data['payment_due_date'] = now(); // Nếu không có, mặc định là hiện tại
         }
-
+    
         $bill = Bill::create($data);
         event(new BillCreated($bill, $data['payer_id']));
         return $bill;
@@ -427,112 +426,53 @@ class ZoneServices
 
 
 
-    public function update($request, $zoneId)
+    public function updateZone(ZoneRequest $request, $zoneId)
     {
-        if (auth()->check()) {
-            $zone = Zone::find($zoneId);
-
-            if (!$zone) {
-                return ['success' => false, 'message' => 'Không tìm thấy khu trọ.'];
-            }
-
-            $zone->name = $request->input('title');
-            $zone->description = $request->input('description');
-
-            $zone->address = $request->input('address');
-            $zone->province = $request->input('province');
-            $zone->district = $request->input('district');
-            $zone->village = $request->input('village');
-            $zone->latitude = $request->input('latitude');
-            $zone->longitude = $request->input('longitude');
-            $zone->status = $request->input('status');
-            $zone->category_id = $request->input('category_id');
-            $zone->wifi = $request->has('wifi') ? self::CO : self::CHUA_CO;
-            $zone->bathrooms = $request->has('bathrooms') ? self::CO : self::CHUA_CO;
-            $zone->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
-            $zone->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
-            $zone->save();
-
-            // if ($request->hasFile('images')) {
-            //     $violentImages = [];
-
-            //     foreach ($request->file('images') as $image) {
-            //         if ($image->isValid() && in_array($image->getClientOriginalExtension(), ['jpg', 'jpeg', 'png', 'gif'])) {
-            //             if ($image->getSize() <= 5242880) { // 5MB
-            //                 $imageContent = base64_encode(file_get_contents($image->getRealPath()));
-            //                 try {
-            //                     $response = $this->client->post('models/moderation-recognition/outputs', [
-            //                         'json' => [
-            //                             'inputs' => [
-            //                                 [
-            //                                     'data' => [
-            //                                         'image' => [
-            //                                             'base64' => $imageContent
-            //                                         ]
-            //                                     ]
-            //                                 ]
-            //                             ]
-            //                         ]
-            //                     ]);
-
-            //                     $result = json_decode($response->getBody(), true);
-            //                     $concepts = $result['outputs'][0]['data']['concepts'] ?? [];
-            //                     $violenceScore = 0;
-
-            //                     $inappropriateContent = ['gore', 'explicit', 'drug', 'suggestive', 'weapon'];
-
-            //                     foreach ($concepts as $concept) {
-            //                         if (in_array($concept['name'], $inappropriateContent)) {
-            //                             $violenceScore += $concept['value'];
-            //                         }
-            //                     }
-
-            //                     if ($violenceScore > 0.5) {
-            //                         $violentImages[] = $image->getClientOriginalName();
-            //                     }
-            //                 } catch (\Exception $e) {
-            //                     \Log::error("Error processing image: " . $e->getMessage());
-            //                     return ['success' => false, 'message' => 'Có lỗi xảy ra khi xử lý ảnh: ' . $e->getMessage()];
-            //                 }
-            //             }
-            //         }
-            //     }
-
-            //     if (!empty($violentImages)) {
-            //         return ['success' => false, 'message' => 'Phát hiện ảnh không phù hợp: ' . implode(', ', $violentImages) . '. Vui lòng kiểm tra lại ảnh của bạn.'];
-            //     }
-
-            //     // Xóa ảnh cũ
-            //     foreach ($zone->images as $oldImage) {
-            //         $oldImagePath = public_path('assets/images/' . $oldImage->filename);
-            //         if (file_exists($oldImagePath)) {
-            //             unlink($oldImagePath);
-            //         }
-            //         $oldImage->delete();
-            //     }
-
-            //     // Thêm ảnh mới
-            //     foreach ($request->file('images') as $image) {
-            //         $this->storeImage($zone, $image);
-            //     }
-            // }
-
+        // Tìm khu trọ theo ID
+        $zone = Zone::find($zoneId);
+    
+        // Kiểm tra xem khu trọ có tồn tại không
+        if (!$zone) {
+            return ['success' => false, 'message' => 'Không tìm thấy khu trọ.'];
+        }
+    
+        // Cập nhật các trường, giữ nguyên nếu không nhập giá trị mới
+        $zone->name = $request->input('name') ?? $zone->name;
+        $zone->description = $request->input('description') ?? $zone->description;
+        $zone->address = $request->input('address') ?? $zone->address;
+        $zone->province = $request->input('province') ?? $zone->province;
+        $zone->district = $request->input('district') ?? $zone->district;
+        $zone->village = $request->input('village') ?? $zone->village;
+        $zone->latitude = $request->input('latitude') ?? $zone->latitude;
+        $zone->longitude = $request->input('longitude') ?? $zone->longitude;
+        $zone->status = $request->input('status') ?? $zone->status;
+        $zone->category_id = $request->input('category_id') ?? $zone->category_id;
+    
+        // Cập nhật các trường boolean
+        $zone->wifi = $request->has('wifi') ? self::CO : $zone->wifi;
+        $zone->bathrooms = $request->has('bathrooms') ? self::CO : $zone->bathrooms;
+        $zone->air_conditioning = $request->has('air_conditioning') ? self::CO : $zone->air_conditioning;
+        $zone->garage = $request->has('garage') ? self::CO : $zone->garage;
+    
+        // Lưu thông tin khu trọ
+        if ($zone->save()) {
+            // Tạo slug mới
+            $zone->slug = $this->createSlug($zone->name) . '-' . $zone->id;
+    
+            // Cập nhật slug trong cơ sở dữ liệu
             if ($zone->save()) {
-                $slug = $this->createSlug($request->input('name')) . '-' . $zone->id;
-                $zone->slug = $slug;
-
-                if ($zone->save()) {
-                    return ['success' => true, 'zone' => $zone];
-                } else {
-                    return ['success' => false, 'message' => 'Không thể lưu slug cho khu trọ.'];
-                }
+                return ['success' => true, 'zone' => $zone];
             } else {
-                return ['success' => false, 'message' => 'Không thể lưu thông tin cập nhật khu trọ.'];
+                \Log::error('Không thể lưu slug cho khu trọ.');
+                return ['success' => false, 'message' => 'Không thể lưu slug cho khu trọ.'];
             }
         } else {
-            return ['success' => false, 'message' => 'Người dùng chưa đăng nhập.'];
+            // Ghi lại lỗi nếu không thể lưu thông tin
+            \Log::error('Không thể lưu thông tin khu trọ:', ['errors' => $zone->getErrors()]);
+            return ['success' => false, 'message' => 'Không thể lưu thông tin cập nhật khu trọ.'];
         }
     }
+    
 
 
 
@@ -554,6 +494,20 @@ class ZoneServices
                 'message' => 'Khu trọ đang có phòng hoạt động, không thể xóa.'
             ];
         }
+
+        // Kiểm tra xem có user_id nào đang ở trong resident thuộc zone này không
+        $activeResidents = Resident::where('zone_id', $id)
+            ->whereNotNull('user_id')
+            ->exists();
+
+        if ($activeResidents) {
+            // Nếu có user_id đang ở trong resident, trả về thông báo lỗi
+            return [
+                'status' => 'error',
+                'message' => 'Khu trọ đang có người ở, không thể xóa.'
+            ];
+        }
+
         // Nếu tất cả các phòng đều đã bị xóa mềm và không có người ở, tiến hành xóa mềm zone
         $zone->delete();
 
@@ -608,8 +562,17 @@ class ZoneServices
         }
 
         // Kiểm tra xem có user_id nào đang ở trong resident thuộc zone này không
+        $activeResidents = Resident::where('zone_id', $id)
+            ->whereNotNull('user_id')
+            ->exists();
 
-
+        if ($activeResidents) {
+            // Nếu có user_id đang ở trong resident, trả về thông báo lỗi
+            return [
+                'status' => 'error',
+                'message' => 'Khu trọ đang có người ở, không thể xóa vĩnh viễn.'
+            ];
+        }
 
         // Nếu tất cả các phòng đều đã bị xóa mềm và không có người ở, tiến hành xóa vĩnh viễn zone
         $zone->forceDelete();
@@ -681,9 +644,9 @@ class ZoneServices
         if (!auth()->check()) {
             return false;
         }
-
+    
         DB::beginTransaction(); // Bắt đầu giao dịch
-
+    
         try {
             $zone = new Zone();
             $user_id = auth()->id();
@@ -705,102 +668,110 @@ class ZoneServices
             $zone->bathrooms = $request->has('bathrooms') ? self::CO : self::CHUA_CO;
             $zone->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
             $zone->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
-
+    
             if (!$zone->save()) {
                 DB::rollBack();
                 return false;
             }
-
+    
             $zoneId = $zone->id;
             $slug = $this->createSlug($request->input('title')) . '-' . $zoneId;
             $zone->slug = $slug;
-
+    
             if (!$zone->save()) {
                 DB::rollBack();
                 return false;
             }
-
-            if ($request->hasFile('image')) {
-                $image = $request->file('image');
-                $isValidImage = false;
-                Log::info("Starting image processing...");
-
-                try {
-                    $timestamp = now()->format('YmdHis');
-                    $originalName = $image->getClientOriginalName();
-                    $extension = $image->getClientOriginalExtension();
-                    $filename = $timestamp . '_' . pathinfo($originalName, PATHINFO_FILENAME) . '.' . $extension;
-
-                    Log::info("Checking image with Clarifai: " . $filename);
-
-                    $imageContent = base64_encode(file_get_contents($image->getRealPath()));
-
-                    $response = $this->client->post('models/moderation-recognition/outputs', [
-                        'json' => [
-                            'inputs' => [
-                                [
-                                    'data' => [
-                                        'image' => [
-                                            'base64' => $imageContent
-                                        ]
+    
+            // Kiểm tra nếu người dùng chưa tải lên ảnh
+            if (!$request->hasFile('image')) {
+                DB::rollBack();
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Vui lòng tải lên ít nhất một hình ảnh.'
+                ]);
+            }
+    
+            // Tiếp tục xử lý ảnh nếu có
+            $image = $request->file('image');
+            $isValidImage = false;
+            Log::info("Starting image processing...");
+    
+            try {
+                $timestamp = now()->format('YmdHis');
+                $originalName = $image->getClientOriginalName();
+                $extension = $image->getClientOriginalExtension();
+                $filename = $timestamp . '_' . pathinfo($originalName, PATHINFO_FILENAME) . '.' . $extension;
+    
+                Log::info("Checking image with Clarifai: " . $filename);
+    
+                $imageContent = base64_encode(file_get_contents($image->getRealPath()));
+    
+                $response = $this->client->post('models/moderation-recognition/outputs', [
+                    'json' => [
+                        'inputs' => [
+                            [
+                                'data' => [
+                                    'image' => [
+                                        'base64' => $imageContent
                                     ]
                                 ]
                             ]
                         ]
-                    ]);
-
-                    $result = json_decode($response->getBody(), true);
-                    Log::info("Clarifai response: " . json_encode($result));
-
-                    $concepts = $result['outputs'][0]['data']['concepts'] ?? [];
-                    $violenceScore = 0;
-
-                    $inappropriateContent = ['gore', 'explicit', 'drug', 'suggestive', 'weapon'];
-
-                    foreach ($concepts as $concept) {
-                        if (in_array($concept['name'], $inappropriateContent)) {
-                            $violenceScore += $concept['value'];
-                            Log::info("Inappropriate content detected: " . $concept['name'] . " with score: " . $concept['value']);
-                        }
+                    ]
+                ]);
+    
+                $result = json_decode($response->getBody(), true);
+                Log::info("Clarifai response: " . json_encode($result));
+    
+                $concepts = $result['outputs'][0]['data']['concepts'] ?? [];
+                $violenceScore = 0;
+    
+                $inappropriateContent = ['gore', 'explicit', 'drug', 'suggestive', 'weapon'];
+    
+                foreach ($concepts as $concept) {
+                    if (in_array($concept['name'], $inappropriateContent)) {
+                        $violenceScore += $concept['value'];
+                        Log::info("Inappropriate content detected: " . $concept['name'] . " with score: " . $concept['value']);
                     }
-
-                    Log::info("Total inappropriate content score for image: " . $filename . " is " . $violenceScore);
-
-                    if ($violenceScore <= 0.5) {
-                        $isValidImage = true;
-                    } else {
-                        Log::warning("Image rejected due to high inappropriate content score: " . $filename);
-                        DB::rollBack();
-                        return response()->json([
-                            'status' => 'error',
-                            'message' => 'Phát hiện ảnh không phù hợp: ' . $filename . '. Vui lòng kiểm tra lại ảnh của bạn.'
-                        ]);
-                    }
-                } catch (GuzzleException $e) {
-                    Log::error("Clarifai API error: " . $e->getMessage());
+                }
+    
+                Log::info("Total inappropriate content score for image: " . $filename . " is " . $violenceScore);
+    
+                if ($violenceScore <= 0.5) {
+                    $isValidImage = true;
+                } else {
+                    Log::warning("Image rejected due to high inappropriate content score: " . $filename);
                     DB::rollBack();
                     return response()->json([
                         'status' => 'error',
-                        'message' => 'Có lỗi xảy ra khi kiểm tra ảnh: ' . $e->getMessage()
-                    ]);
-                } catch (\Exception $e) {
-                    Log::error("Error processing image: " . $e->getMessage());
-                    DB::rollBack();
-                    return response()->json([
-                        'status' => 'error',
-                        'message' => 'Có lỗi xảy ra khi xử lý ảnh: ' . $e->getMessage()
+                        'message' => 'Phát hiện ảnh không phù hợp: ' . $filename . '. Vui lòng kiểm tra lại ảnh của bạn.'
                     ]);
                 }
-
-                if (!$isValidImage) {
-                    DB::rollBack();
-                    return response()->json([
-                        'status' => 'error',
-                        'message' => 'Không có ảnh nào được tải lên. Vui lòng thử lại.'
-                    ]);
-                }
+            } catch (GuzzleException $e) {
+                Log::error("Clarifai API error: " . $e->getMessage());
+                DB::rollBack();
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Có lỗi xảy ra khi kiểm tra ảnh: ' . $e->getMessage()
+                ]);
+            } catch (\Exception $e) {
+                Log::error("Error processing image: " . $e->getMessage());
+                DB::rollBack();
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Có lỗi xảy ra khi xử lý ảnh: ' . $e->getMessage()
+                ]);
             }
-
+    
+            if (!$isValidImage) {
+                DB::rollBack();
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Không có ảnh nào được tải lên. Vui lòng thử lại.'
+                ]);
+            }
+    
             DB::commit(); // Commit transaction
             return $zoneId;
         } catch (\Exception $e) {
@@ -812,6 +783,7 @@ class ZoneServices
             ]);
         }
     }
+    
     public function getSlug($id)
     {
         $zone = Zone::find($id);
@@ -913,7 +885,7 @@ class ZoneServices
         }
         return $updatedCount; // Trả về số lượng zone đã được cập nhật
     }
-    public function createMultiple($data)
+    public function createMultiple( $data)
     {
         $zone = new Zone();
         $zone->status = 1; // Mặc định trạng thái
@@ -951,7 +923,7 @@ class ZoneServices
         if (isset($data['image'])) {
             $imageUrl = $data['image']; // Đường dẫn hình ảnh
             $imageContent = @file_get_contents($imageUrl);
-
+    
             if ($imageContent !== false) {
                 // Tạo một đối tượng UploadedFile giả để sử dụng hàm uploadImageToGoogleDrive
                 $tempFilePath = tempnam(sys_get_temp_dir(), 'image');
@@ -963,13 +935,13 @@ class ZoneServices
                     null,
                     true
                 );
-
+    
                 $folderId = env('GOOGLE_DRIVE_FOLDER_ID'); // Lấy ID thư mục từ .env
                 $filename = time() . '_' . basename($imageUrl); // Tạo tên file mới
-
+    
                 // Gọi hàm uploadImageToGoogleDrive
                 $uploadResult = $this->blogServices->uploadImageToGoogleDrive($uploadedFile, $folderId, $filename);
-
+    
                 if (isset($uploadResult['id'])) {
                     // Lưu ID của file trên Google Drive vào cơ sở dữ liệu
                     $room->image = $uploadResult['id'];

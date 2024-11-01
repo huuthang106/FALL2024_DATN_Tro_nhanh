@@ -62,16 +62,16 @@
                                                                 trọ</h3>
                                                             <hr>
                                                             <div class="form-group">
-                                                                <label for="title" class="text-heading">Tiêu đề <span
-                                                                        class="text-muted">(Bắt buộc)</span></label>
+                                                                <label for="name" class="text-heading">Tên khu trọ <span class="text-muted">(Bắt buộc)</span></label>
                                                                 <input type="text"
                                                                     class="form-control form-control-lg border-0"
-                                                                    id="title" name="title"
-                                                                    value="{{ old('title', $zone->name) }}">
-                                                                @error('title')
+                                                                    id="name" name="name"
+                                                                    value="{{ old('name', $zone->name) }}">
+                                                                @error('name')
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
+                                                            
                                                             <div class="form-group mb-0">
                                                                 <label for="description" class="text-heading">Mô
                                                                     tả <span class="text-muted">(Bắt

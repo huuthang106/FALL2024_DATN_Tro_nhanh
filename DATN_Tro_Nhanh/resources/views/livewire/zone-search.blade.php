@@ -56,7 +56,7 @@
                             </th>
                             <th class="py-3 text-nowrap text-center col-2">Ảnh</th>
 
-                            <th class="py-3 text-nowrap text-center col-2">Tiêu đề</th>
+                            <th class="py-3 text-nowrap text-center col-2">Tên Phòng</th>
                          
                             <th class="py-3 text-nowrap text-center d-none d-lg-table-cell col-3">Địa chỉ</th>
                             <th class="py-3 text-nowrap text-center col-2">Ngày</th>
@@ -394,3 +394,4 @@
     }
 </script>
 </div>
+
