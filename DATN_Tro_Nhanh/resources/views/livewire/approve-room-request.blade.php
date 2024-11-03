@@ -1,22 +1,35 @@
 <main id="content" class="bg-gray-01">
     <div class="px-3 px-lg-6 px-xxl-13 py-5 py-lg-10 invoice-listing">
         <div class="mb-6">
-            <div class="row">
+            <div class="row" wire:ignore>
                 <div class="col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center">
-                    {{-- <div class="d-flex form-group mb-0 align-items-center">
-                        <h5 for="invoice-list_length" class="d-block mr-2 mb-0">Tên khu:</h5>
-                    </div> --}}
+                    <div class="d-flex form-group mb-0 align-items-center ml-3">
+                        <label class="form-label fs-6 fw-bold mr-2 mb-0">Lọc:</label>
+                        <select wire:model.lazy="timeFilter" class="form-control form-control-lg selectpicker"
+                            data-style="bg-white btn-lg h-52 py-2 border">
+                            <option value="" selected>Mặc định</option>
+                            <option value="1_day">Hôm qua</option>
+                            <option value="7_day">7 ngày</option>
+                            <option value="1_month">1 tháng</option>
+                            <option value="3_month">3 tháng</option>
+                            <option value="6_month">6 tháng</option>
+                            <option value="1_year">1 năm</option>
+                        </select>
+                    </div>
+                   
                 </div>
                 <div class="col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3">
                     <div class="input-group input-group-lg bg-white mb-0 position-relative mr-2">
-                        <input type="text" class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..."
-                            aria-label="" aria-describedby="basic-addon1">
+                        <input wire:model.lazy="search" wire:keydown.debounce.300ms="$refresh" type="text"
+                            class="form-control bg-transparent border-1x" placeholder="Tìm kiếm..." aria-label=""
+                            aria-describedby="basic-addon1">
                         <div class="input-group-append position-absolute pos-fixed-right-center">
-                            <button class="btn bg-transparent border-0 text-gray lh-1" type="button"><i
-                                    class="fal fa-search"></i></button>
+                            <button class="btn bg-transparent border-0 text-gray lh-1" type="button">
+                                <i class="fal fa-search"></i>
+                            </button>
                         </div>
                     </div>
-
+                  
                 </div>
             </div>
         </div>

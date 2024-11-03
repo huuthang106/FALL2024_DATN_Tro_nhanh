@@ -592,7 +592,7 @@ class ZoneOwnersController extends Controller
         ];
 
         // Giả định bạn có một dịch vụ để thêm dữ liệu vào cơ sở dữ liệu
-        $result = $this->zoneServices->createMultiple($data);
+        $result = $this->zoneServices->createMultiple($data, );
 
         // // Kiểm tra kết quả và in ra thông báo
         if ($result) {

@@ -34,28 +34,28 @@ class MyWatchList extends Component
         }
 
         if ($this->timeFilter) {
-            $date = Carbon::now();
+            $startDate = Carbon::now();
             switch ($this->timeFilter) {
                 case '1_day':
-                    $date->subDay();
+                    $startDate = Carbon::now()->subDay()->startOfDay();
                     break;
                 case '7_day':
-                    $date->subDays(7);
+                    $startDate = Carbon::now()->subDays(7)->startOfDay();
                     break;
                 case '1_month':
-                    $date->subMonth();
+                    $startDate = Carbon::now()->subMonth()->startOfDay();
                     break;
                 case '3_month':
-                    $date->subMonths(3);
+                    $startDate = Carbon::now()->subMonths(3)->startOfDay();
                     break;
                 case '6_month':
-                    $date->subMonths(6);
+                    $startDate = Carbon::now()->subMonths(6)->startOfDay();
                     break;
                 case '1_year':
-                    $date->subYear();
+                    $startDate = Carbon::now()->subYear()->startOfDay();
                     break;
             }
-            $query->where('created_at', '>=', $date);
+            $query->where('created_at', '<=', $startDate);
         }
 
         $myFollowings = $query->orderBy('created_at', 'desc')->paginate($this->limit);

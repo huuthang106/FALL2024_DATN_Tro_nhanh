@@ -26,6 +26,7 @@ Route::get('/get-data-owners-detail/{slug}', [UserClientController::class, 'agen
 Route::get('/redirect', [GoogleDriveController::class, 'redirectToGoogle']);
 Route::get('/callback', [GoogleDriveController::class, 'handleGoogleCallback']);
 Route::post('/upload', [GoogleDriveController::class, 'uploadFile'])->name('upload');
+
 Route::get('/get-data', [ZoneOwnersController::class, 'viewData'])->name('viewData');
 
 Route::post('/get-data-1', [ZoneOwnersController::class, 'getData'])->name('getData');

@@ -894,11 +894,13 @@ class RoomClientServices
             //     ->where('zones.status', self::status)
             //     ->select('zones.*')
             //     ->orderByDesc('zones.created_at');
-            $query = Zone::with(['rooms', 'rooms.images']) // Thêm mối quan hệ images của rooms
-                ->join('users', 'zones.user_id', '=', 'users.id')
-                ->where('zones.status', self::status)
-                ->select('zones.*') // Vẫn giữ nguyên chọn cột từ zones
-                ->orderByDesc('zones.created_at');
+            $query = Zone::with(['rooms' => function($query) {
+                $query->select('id', 'zone_id', 'image'); // Chỉ lấy các trường cần thiết
+            }])
+            ->join('users', 'zones.user_id', '=', 'users.id')
+            ->where('zones.status', self::status)
+            ->select('zones.*')
+            ->orderByDesc('zones.created_at');
 
             if ($type) {
                 $query->whereHas('category', function ($q) use ($type) {
