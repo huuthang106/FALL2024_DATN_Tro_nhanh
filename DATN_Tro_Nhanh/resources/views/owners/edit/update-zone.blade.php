@@ -65,7 +65,7 @@
                                                                 <label for="name" class="text-heading">Tên khu trọ <span class="text-muted">(Bắt buộc)</span></label>
                                                                 <input type="text"
                                                                     class="form-control form-control-lg border-0"
-                                                                    id="name" name="name"
+                                                                    id="name" name="title"
                                                                     value="{{ old('name', $zone->name) }}">
                                                                 @error('name')
                                                                     <div class="text-danger">{{ $message }}</div>

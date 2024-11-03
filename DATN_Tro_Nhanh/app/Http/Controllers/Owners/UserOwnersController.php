@@ -44,6 +44,7 @@ class UserOwnersController extends Controller
     public function updateProfile(UpdateProfileRequest $request, $id)
     {
         try {
+            
             $data = $request->validated();
             Log::info($data);
             $result = $this->profileService->updateProfileBySlug($id, $data);

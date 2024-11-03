@@ -158,7 +158,8 @@ class ZoneOwnersController extends Controller
         }
     }
     public function update(ZoneRequest $request, $id)
-    {
+    {   
+        
         $result = $this->zoneServices->updateZone($request, $id);
     
         if ($result['success']) {

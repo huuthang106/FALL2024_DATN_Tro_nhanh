@@ -264,28 +264,36 @@
         document.getElementById('submit-maintenance-request').addEventListener('click', function() {
             const form = document.getElementById('maintenance-request-form');
             const formData = new FormData(form);
-
-            fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        Swal.fire('Thành công!', data.message, 'success');
-                        // Reset form fields if needed
-                        form.reset();
-                    } else {
-                        Swal.fire('Có lỗi xảy ra!', data.error, 'error');
-                    }
-                })
-                .catch(error => {
-                    console.error('Lỗi:', error);
-                    Swal.fire('Có lỗi xảy ra!', 'Vui lòng thử lại sau.', 'error');
-                });
+    
+              fetch(form.action, {
+       method: 'POST',
+       body: formData,
+       headers: {
+           'X-CSRF-TOKEN': '{{ csrf_token() }}',
+       }
+   })
+   .then(response => {
+       return response.text(); // Lấy nội dung phản hồi dưới dạng văn bản
+   })
+   .then(data => {
+       console.log(data); // Xem nội dung phản hồi
+       // Nếu bạn muốn xử lý JSON, hãy kiểm tra xem dữ liệu có phải là JSON không
+       try {
+           const jsonData = JSON.parse(data);
+           if (jsonData.success) {
+               Swal.fire('Thành công!', jsonData.message, 'success');
+               form.reset();
+           } else {
+               Swal.fire('Có lỗi xảy ra!', jsonData.error, 'error');
+           }
+       } catch (e) {
+           Swal.fire('Có lỗi xảy ra!', 'Không đưọc bỏ trống', 'error');
+       }
+   })
+   .catch(error => {
+       console.error('Lỗi:', error.message);
+       Swal.fire('Có lỗi xảy ra!', 'Vui lòng thử lại sau.', 'error');
+   });
         });
     </script>
 </div>

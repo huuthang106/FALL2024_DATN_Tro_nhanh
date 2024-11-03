@@ -23,7 +23,7 @@ class ZoneRequest extends FormRequest
     {
         // Quy tắc bắt buộc khi tạo mới
         $rules = [
-            'name' => 'required|string|max:255',
+           
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'category_id' => 'required|exists:categories,id',
@@ -33,7 +33,7 @@ class ZoneRequest extends FormRequest
             'village' => 'required|string',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
-            'phone' => 'required|numeric',
+            'phone' => 'required|numeric|digits_between:10,11|regex:/^0[0-9]{9}$/',
             'acreage' => 'required|numeric|min:1',
             'price' => 'required|numeric|min:1',
             'image.*' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Bắt buộc cho mỗi hình ảnh
@@ -42,8 +42,8 @@ class ZoneRequest extends FormRequest
         // Nếu đây là yêu cầu sửa đổi, các trường có thể là nullable
         if ($this->isMethod('put')) {
             $rules = [
-                'name' => 'string|max:255',
-                // 'title' => 'nullable|string|max:255',
+              
+                'title' => 'nullable|string|max:255',
                 'description' => 'nullable|string',
                 'category_id' => 'nullable|exists:categories,id',
                 'address' => 'nullable|string|max:255',
@@ -52,10 +52,12 @@ class ZoneRequest extends FormRequest
                 'village' => 'nullable|string',
                 'latitude' => 'nullable|numeric',
                 'longitude' => 'nullable|numeric',
-                'phone' => 'nullable|numeric',
+                'phone' => 'required|numeric|digits_between:10,11|regex:/^0[0-9]{9}$/', // Đảm bảo rằng số điện thoại là bắt buộc
                 'acreage' => 'nullable|numeric|min:1',
                 'price' => 'nullable|numeric|min:1',
                 'image.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Không bắt buộc cho mỗi hình ảnh
+               
+                
             ];
         }
     
@@ -78,7 +80,7 @@ class ZoneRequest extends FormRequest
             'phone.required' => 'Số điện thoại là bắt buộc',
             'phone.numeric' => 'Số điện thoại phải là số.',
             'phone.min' => 'Số điện thoại phải có ít nhất 10 chữ số.',
-            'phone.max' => 'Số điện thoại không được vượt quá 15 chữ số.',
+            'phone.max' => 'Số điện thoại không được vượt quá 10 chữ số.',
             'acreage.required' => 'Diện tích là bắt buộc.',
             'acreage.numeric' => 'Diện tích phải là số.',
             'acreage.min' => 'Diện tích phải lớn hơn 0 m².',
@@ -89,6 +91,8 @@ class ZoneRequest extends FormRequest
             'image.image' => 'File phải là hình ảnh.',
             'image.mimes' => 'Hình ảnh phải có định dạng jpeg, png, hoặc jpg.',
             'image.max' => 'Kích thước hình ảnh không được vượt quá 2MB.',
+            'phone.digits_between' => 'Số điện thoại không hợp lệ.',
+            'phone.regex' => 'Số điện thoại không hợp lệ.',
         ];
         
     }

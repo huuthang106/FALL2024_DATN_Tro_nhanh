@@ -70,18 +70,28 @@ class MaintenanceRequestsServices
         $Maintenance->restore();
         return $Maintenance;
     }
-    public function store($request,$user_id){
+    public function store($request, $user_id)
+{
+    try {
         $maintenanceRequest = MaintenanceRequest::create([
             'title' => $request->input('title'),
             'description' => $request->input('description'),
             'user_id' => $user_id, // Gán user_id cho yêu cầu
-            'room_id'=> $request->input('room_id'),
+            'room_id' => $request->input('room_id'),
             'status' => 1,
         ]);
-    
-        return $maintenanceRequest;
-    }
 
+        return [
+            'success' => true,
+            'data' => $maintenanceRequest // Trả về dữ liệu yêu cầu bảo trì
+        ];
+    } catch (\Exception $e) {
+        return [
+            'success' => false,
+            'message' => 'Có lỗi xảy ra: ' . $e->getMessage() // Trả về thông báo lỗi
+        ];
+    }
+}
     public function editStatus($id,$status)
     {
         try {

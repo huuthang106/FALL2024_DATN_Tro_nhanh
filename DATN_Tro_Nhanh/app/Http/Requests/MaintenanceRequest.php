@@ -35,7 +35,7 @@ class MaintenanceRequest extends FormRequest
         return [
             'title.required' => 'Tiêu đề là bắt buộc.',
             'description.required' => 'Mô tả là bắt buộc.',
-            'descriroom_idption.required' => '',
+            'room_id.required' => 'Phòng là bắt buộc.',
            
             // Thêm các thông báo lỗi tùy chỉnh khác nếu cần
         ];

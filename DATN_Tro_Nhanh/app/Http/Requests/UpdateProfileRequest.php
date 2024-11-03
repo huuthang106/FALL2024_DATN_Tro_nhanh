@@ -20,7 +20,7 @@ class UpdateProfileRequest extends FormRequest
                 'email',
                 Rule::unique('users', 'email')->ignore($this->route('id')),
             ],
-            'phone' => 'nullable|numeric|digits_between:1,10', 
+            'phone' => 'nullable|numeric|digits_between:10,11|regex:/^0[0-9]{9}$/',
             'address' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'province' => 'nullable|numeric',
@@ -34,8 +34,8 @@ class UpdateProfileRequest extends FormRequest
         return [
             'name.required' => 'Tên là bắt buộc.',
             'phone.numeric' => 'Số điện thoại phải là số.',
-            'phone.digits_between' => 'Số điện thoại không được quá 10 số.',
-
+            'phone.digits_between' => 'Số điện thoại không hợp lệ.',
+            'phone.regex' => 'Số điện thoại không hợp lệ.',
             'email.email' => 'Email không hợp lệ.',
             'image.image' => 'File phải là hình ảnh.',
             'image.mimes' => 'Ảnh chỉ hỗ trợ định dạng jpeg, png, jpg, gif, svg.',

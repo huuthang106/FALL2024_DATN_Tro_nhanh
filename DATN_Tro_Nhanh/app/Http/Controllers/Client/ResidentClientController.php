@@ -33,7 +33,7 @@ class ResidentClientController extends Controller
 
         //    dd($request->all());
         if (!Auth::check()) {
-            return redirect()->back()->with('error', 'Bạn cần đăng nhập để đặt phòng.'); // Thông báo lỗi nếu chưa đăng nhập
+            return response()->json(['error' => 'Bạn cần đăng nhập để đặt phòng.'], 401); // Trả về thông báo lỗi dưới dạng JSON với mã trạng thái 401
         }
         // dd($request->price);
         //  dd($updateRoom);

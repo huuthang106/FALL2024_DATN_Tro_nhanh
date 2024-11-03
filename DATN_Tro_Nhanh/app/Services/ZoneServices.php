@@ -437,7 +437,7 @@ class ZoneServices
         }
     
         // Cập nhật các trường, giữ nguyên nếu không nhập giá trị mới
-        $zone->name = $request->input('name') ?? $zone->name;
+        $zone->name = $request->input('title') ?? $zone->name;
         $zone->description = $request->input('description') ?? $zone->description;
         $zone->address = $request->input('address') ?? $zone->address;
         $zone->province = $request->input('province') ?? $zone->province;
@@ -447,7 +447,7 @@ class ZoneServices
         $zone->longitude = $request->input('longitude') ?? $zone->longitude;
         $zone->status = $request->input('status') ?? $zone->status;
         $zone->category_id = $request->input('category_id') ?? $zone->category_id;
-    
+        $zone->phone = $request->input('phone') ?? $zone->phone;
         // Cập nhật các trường boolean
         $zone->wifi = $request->has('wifi') ? self::CO : $zone->wifi;
         $zone->bathrooms = $request->has('bathrooms') ? self::CO : $zone->bathrooms;
