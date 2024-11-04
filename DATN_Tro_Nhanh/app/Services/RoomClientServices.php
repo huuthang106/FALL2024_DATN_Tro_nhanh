@@ -895,13 +895,23 @@ class RoomClientServices
             //     ->select('zones.*')
             //     ->orderByDesc('zones.created_at');
             $query = Zone::with(['rooms' => function($query) {
-                $query->select('id', 'zone_id', 'image'); // Chỉ lấy các trường cần thiết
+                $query->select('id', 'zone_id', 'image', 'price') // Chỉ lấy các trường cần thiết
+                      ->where('quantity', '>', 0); // Chỉ lấy các room có quantity lớn hơn 0
             }])
             ->join('users', 'zones.user_id', '=', 'users.id')
             ->where('zones.status', self::status)
             ->select('zones.*')
             ->orderByDesc('zones.created_at');
-
+            // $query = Zone::with(['rooms' => function($query) {
+            //     $query->select('id', 'zone_id', 'image', 'price') // Chỉ lấy các trường cần thiết
+            //           ->selectRaw('MAX(price) as max_price, MIN(price) as min_price') // Lấy giá trị max và min của cột price
+            //           ->orderBy('id') // Sắp xếp để lấy hình đầu tiên
+            //           ->take(1); // Lấy hình đầu tiên
+            // }])
+            // ->join('users', 'zones.user_id', '=', 'users.id')
+            // ->where('zones.status', self::status)
+            // ->select('zones.*')
+            // ->orderByDesc('zones.created_at');
             if ($type) {
                 $query->whereHas('category', function ($q) use ($type) {
                     $q->where('name', $type);

@@ -85,10 +85,10 @@ export const restaurantsState = selector<Restaurant[]>({
         },
       });
 
-      console.log('Response status:', response.status);
+      // console.log('Response status:', response.status);
       const data = await response.json(); // Phân tích dữ liệu JSON từ phản hồi
       // console.log('Parsed data:', data.rooms);
-
+     
       return data.zones || []; // Trả về mảng rỗng nếu không có nhà hàng
     } catch (error) {
       console.error("Error fetching data:", error);

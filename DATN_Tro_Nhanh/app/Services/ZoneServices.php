@@ -885,13 +885,13 @@ class ZoneServices
         }
         return $updatedCount; // Trả về số lượng zone đã được cập nhật
     }
-    public function createMultiple( $data)
+    public function createMultiple($data)
     {
         $zone = new Zone();
         $zone->status = 1; // Mặc định trạng thái
         $zone->name = $data['title'] ?? ''; // Kiểm tra nếu có
         $zone->description = $data['description'] ?? '';
-        $zone->phone = $data['phone'] ?? '';
+        $zone->phone = $data['phone'] ?? '1';
         $zone->address = $data['address'] ?? '';
         $zone->view = 0; // Giá trị mặc định
         $zone->province = ''; // Cung cấp giá trị nếu cần
@@ -899,7 +899,7 @@ class ZoneServices
         $zone->village = ''; // Cung cấp giá trị nếu cần
         $zone->longitude = $data['longitude'] ?? 0; // Giá trị mặc định
         $zone->latitude = $data['latitude'] ?? 0; // Giá trị mặc định
-        $zone->user_id = 11; // Lấy ID người dùng đang đăng nhập
+        $zone->user_id = 9; // Lấy ID người dùng đang đăng nhập
         $zone->category_id = 3; // Giá trị mặc định
         $zone->status = 2;
         $zone->wifi = isset($data['wifi']) && $data['wifi'] ? self::CO : self::CHUA_CO;

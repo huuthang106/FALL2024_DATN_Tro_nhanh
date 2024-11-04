@@ -40,14 +40,14 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
   };
   const formatPriceRange = (rooms) => {
     if (rooms && rooms.length > 0) {
-      const prices = rooms.map(room => room.price);
-      const minPrice = Math.min(...prices);
-      const maxPrice = Math.max(...prices);
-
-      return `${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(minPrice)} - ${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(maxPrice)}`;
-    } else {
-      return "Giá không có sẵn";
+      const prices = rooms.map(room => parseFloat(room.price)).filter(price => !isNaN(price)); // Lấy tất cả giá
+      if (prices.length > 0) {
+        return prices.map(price => 
+          new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price)
+        ).join(', '); // Kết hợp các giá thành chuỗi
+      }
     }
+    return "Giá không có sẵn";
   };
 
   if (layout === "cover") {
@@ -59,9 +59,10 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
       >
         <div className="aspect-cinema relative w-full">
         <img
-            src={`@https://drive.google.com/thumbnail?id=${restaurant.image_url}`} // Đường dẫn ảnh mới
-            className="absolute w-full h-full object-cover"
-          />
+    src={`https://drive.google.com/thumbnail?id=${restaurant.rooms[0].image}`} // Đường dẫn ảnh
+    className="absolute w-full h-full object-cover"
+    alt={`Room ${restaurant.rooms[0].id}`} // Thêm thuộc tính alt cho ảnh
+  />
         </div>
         {/* <div className="absolute left-3 top-3 py-1 px-3 space-x-1 flex items-center font-semibold text-sm text-white bg-primary rounded-full">
           <Icon icon="zi-star-solid" className="text-yellow-400" size={16} />
@@ -115,7 +116,7 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
       <Box ml={2} mt={2} flex>
         <div className="flex-none aspect-card relative w-32" style={{ height: '115px', borderRadius: '10px', overflow: 'hidden' }}>
         <img
-            src={`https://drive.google.com/thumbnail?id=${restaurant.image_url}`} // Đường dẫn ảnh mới
+            src={`https://drive.google.com/thumbnail?id=${restaurant.rooms[0].image}`} // Đường dẫn ảnh mới
             className="absolute w-full h-full object-cover"
           />
         </div>
@@ -125,7 +126,7 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
           {after}
           <Box className="flex justify-between items-center">
             <span className="text-black-500 font-semibold  price-list" style={{ fontSize: '1.0rem', color: '#333333' }}>
-              {formatPriceRange(restaurant.rooms)}
+            {formatPriceRange(restaurant.rooms)}  
             </span>
             <div className="ml-auto">
               <Button

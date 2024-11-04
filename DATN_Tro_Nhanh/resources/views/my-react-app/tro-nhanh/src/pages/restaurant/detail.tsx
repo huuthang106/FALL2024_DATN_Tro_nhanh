@@ -68,7 +68,7 @@ function RestaurantDetail() {
         <Box m={5}>
           <div className="relative aspect-video w-full">
             <img
-              src={`${apiEndpoint}/assets/images/${restaurant.image_url}`}
+              src={`https://drive.google.com/thumbnail?id=${restaurant.rooms[0].image}`}
               className="absolute w-full h-full object-cover rounded-xl"
             />
           </div>

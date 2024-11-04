@@ -553,7 +553,9 @@ class ZoneOwnersController extends Controller
         // Lấy số điện thoại
         $phoneElement = $xpath->query('//div[contains(@class, "hostel__detail--host")]//a[contains(@class, "button btn-cta")]');
         $phone = $phoneElement->length > 0 ? $phoneElement[0]->textContent : 'Không có số điện thoại';
-
+        $phone = preg_replace('/Liên hệ:\s*/', '', $phone); // Bỏ chữ "Liên hệ: " khỏi số điện thoại
+        $phone = trim($phone); // Cắt bỏ khoảng trống đầu và đuôi
+        $phone = substr($phone, 0, 10);
         // Lấy mô tả
         $descriptionElement = $xpath->query('//div[contains(@class, "content-detail")]');
         $description = $descriptionElement->length > 0 ? $descriptionElement[0]->textContent : 'Không có mô tả';
@@ -578,15 +580,16 @@ class ZoneOwnersController extends Controller
             'created_at' => now(), // Thay thế bằng thời gian hiện tại
             'updated_at' => now(), // Thay thế bằng thời gian hiện tại
         ];
+        // echo $data['phone'];
 
         // Giả định bạn có một dịch vụ để thêm dữ liệu vào cơ sở dữ liệu
-        $result = $this->zoneServices->createMultiple($data, );
+        $result = $this->zoneServices->createMultiple($data );
 
-        // // Kiểm tra kết quả và in ra thông báo
-        if ($result) {
-            echo "Thành công: Dữ liệu đã được thêm vào cơ sở dữ liệu.<br>";
-        } else {
-            echo "Thất bại: Không thể thêm dữ liệu vào cơ sở dữ liệu.<br>";
-        }
+        // Kiểm tra kết quả và in ra thông báo
+        // if ($result) {
+        //     echo "Thành công: Dữ liệu đã được thêm vào cơ sở dữ liệu.<br>";
+        // } else {
+        //     echo "Thất bại: Không thể thêm dữ liệu vào cơ sở dữ liệu.<br>";
+        // }
     }
 }
