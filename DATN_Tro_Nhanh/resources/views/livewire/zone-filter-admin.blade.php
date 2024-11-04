@@ -140,7 +140,7 @@
                     <div class="table-responsive pe-2" style="max-height: 300px; overflow-y: auto;">
                         <table class="table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4">
                             <thead>
-                                <tr class="border-0"
+                                <tr class="border-0 "
                                     style="position: sticky; top: 0; background-color: #FFFFFF; z-index: 1;">
                                     <th class="p-0 w-50px"></th>
                                     <th class="p-0 me-4 min-w-150px">Tiêu đề</th>
@@ -152,12 +152,15 @@
                             <tbody>
                                 @if (isset($allZones) && $allZones->count() > 0)
                                     @foreach ($allZones as $zone)
+                                    @php
+                                        $image = $zone->rooms->first()->image ?? null;
+                                    @endphp
                                         <tr>
                                             <td>
                                                 <div class="symbol symbol-45px me-2"
                                                     style="background: none; border: none;">
                                                     <span class="symbol-label" style="padding: 0;">
-                                                        <img src="{{ $zone->room_image ? 'https://drive.google.com/thumbnail?id=' . $zone->room_image : asset('assets/images/properties-grid-13.jpg') }}"
+                                                        <img src="{{ $image ? 'https://drive.google.com/thumbnail?id=' . $image : asset('assets/images/properties-grid-13.jpg') }}"
                                                             class="h-100 w-100 object-fit-cover"
                                                             style="border-radius: 0; display: block;" alt=""
                                                             loading="lazy" />

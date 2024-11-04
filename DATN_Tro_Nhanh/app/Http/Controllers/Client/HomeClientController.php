@@ -102,7 +102,7 @@ class HomeClientController extends Controller
         if ($latitude && $longitude) {
             $zones = $this->zoneServices->searchZonesWithinRadius($latitude, $longitude, 30);
         } elseif ($keyword || $province) {
-            $zones = $this->zoneServices->searchZones($keyword, $province);
+            $zones = $this->zoneServices->searchZones($keyword, $province, null);
         } else {
             $userLat = session('userLat');
             $userLng = session('userLng');

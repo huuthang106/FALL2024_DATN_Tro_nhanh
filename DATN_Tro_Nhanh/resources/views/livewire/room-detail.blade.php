@@ -42,7 +42,7 @@
                                     </label>
                                 </th> --}}
                                 <th class="py-6 text-start" style="white-space: nowrap;">Khách hàng</th>
-                                <th class="py-6 text-start" style="white-space: nowrap;">Số lượng</th>
+                              
                                 <th class="py-6 text-start" style="white-space: nowrap;">Số điện thoại</th>
                                 {{-- <th class="py-6 text-start">Lý do từ chối</th> --}}
                                 <th class="py-6 text-start" style="white-space: nowrap;">Trạng thái</th>
@@ -70,22 +70,7 @@
                                         <td class="align-middle" style="white-space: nowrap;">
                                             <small>{{ $item->tenant->name }}</small>
                                         </td>
-                                        <td class="align-middle" style="white-space: nowrap;">
-                                            <small>
-                                                {{-- @if ($room->residents->where('status', $user_is_in)->isNotEmpty())
-                                                    @php
-                                                        $resident = $room->residents
-                                                            ->where('status', $user_is_in)
-                                                            ->first();
-                                                        $tenant = $resident->tenant;
-                                                    @endphp
-                                                    {{ $tenant->name ?? 'Không có tên' }}
-                                                @else
-                                                    Không có người ở
-                                                @endif --}}
-                                                {{ $item->quantity }}
-                                            </small>
-                                        </td>
+                                     
                                         <td class="align-middle" style="white-space: nowrap;"> <small>
                                                 {{-- @if ($room->residents && $room->residents->isNotEmpty())
                                                     {{ $room->residents->first()->tenant->phone ?? 'Không có' }}

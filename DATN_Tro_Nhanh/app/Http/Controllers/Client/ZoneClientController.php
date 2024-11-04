@@ -163,7 +163,7 @@ class ZoneClientController extends Controller
             if ($userLat && $userLng) {
                 $zones = $this->zoneServices->searchZonesWithinRadius($userLat, $userLng, 30);
             } else {
-                $zones = $this->zoneServices->getMyZoneClient($category);
+                $zones = $this->zoneServices->getMyZoneClient();
             }
         }
 

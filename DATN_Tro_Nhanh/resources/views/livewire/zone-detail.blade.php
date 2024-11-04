@@ -46,7 +46,7 @@
                                 </th> --}}
                                     <th class="py-6 text-start px-5" style="white-space: nowrap;">Ảnh</th>
                                     <th class="py-6 text-start" style="white-space: nowrap;">Tên phòng</th>
-                                    <th class="py-6 text-start" style="white-space: nowrap;">Mô Tả</th>
+                                   
                                     <th class="py-6 text-start" style="white-space: nowrap;">Số lượng</th>
                                     <th class="py-6 text-start" style="white-space: nowrap;">Số điện thoại</th>
                                     {{-- <th class="py-6 text-start">Lý do từ chối</th> --}}
@@ -87,9 +87,7 @@
                                             <td class="align-middle text-wrap">
                                                 <small>{{ $room->title }}</small>
                                             </td>
-                                            <td class="align-middle text-wrap">
-                                                <small>{{ $room->description }}</small>
-                                            </td>
+                                           
                                             <td class="align-middle text-wrap">
                                                 <small>{{ $room->quantity }}</small>
                                             </td>

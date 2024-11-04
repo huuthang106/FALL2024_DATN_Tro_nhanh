@@ -373,6 +373,7 @@ class PaymentService
 
                         $newTransaction = new Transaction();
                         $newTransaction->id = $transactionId;
+                        $newTransaction->type = 'Nạp tiền';
                         $newTransaction->user_id = $userId;
                         $newTransaction->description = $description;
                         $newTransaction->added_funds = '+' . $amount;

@@ -237,7 +237,7 @@ class ZoneServices
     //     $zones = Zone::orderByDesc('created_at')->paginate($perPage); // sắp xếp
     //     return $zones;
     // }
-    public function getMyZoneClient($category)
+    public function getMyZoneClient()
     {
         $perPage = 5;
         $zones = Zone::orderByDesc('created_at')->paginate($perPage);

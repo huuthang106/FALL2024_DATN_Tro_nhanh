@@ -122,28 +122,28 @@
                     <thead class="sticky-header">
                         <tr class="border-0 text-center"
                             style="position: sticky; top: 0; background-color: #FFFFFF; z-index: 1;">
+                            <th class="p-0 ">Tên dịch vụ</th>
                             <th class="p-0 min-w-100px text-nowrap">Số tiền</th>
-                            <th class="p-0 min-w-250px">Tên dịch vụ</th>
+
                             <th class="p-0 min-w-150px">Tên</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($transactions as $transaction)
-                            <tr class="">
-                                <td
-                                    class="align-middle text-nowrap @if ($transaction->status == 1) text-success @elseif($transaction->status == 2) text-danger @endif">
-                                    @if ($transaction->status == 1)
-                                        +
-                                    @else
-                                        -
-                                    @endif
-                                    {{ number_format($transaction->added_funds, 0, ',', '.') }} VND
-                                </td>
-                                <td style="max-width: 150px; word-wrap: break-word;">
-                                    {{ $transaction->type }}
-                                </td>
-                                <td class="text-center">{{ $transaction->user->name }}</td>
-                            </tr>
+                        <tr class="">
+                            <td style="max-width: 150px; word-wrap: break-word; white-space: normal; text-align: left;">
+                                {{ $transaction->type }}
+                            </td>
+                            <td class="align-middle @if ($transaction->status == 1) text-success @elseif($transaction->status == 2) text-danger @endif" style="word-wrap: break-word; white-space: normal; text-align: left;">
+                                @if ($transaction->status == 1)
+                                    +
+                                @else
+                                    -
+                                @endif
+                                {{ number_format($transaction->added_funds, 0, ',', '.') }} VND
+                            </td>
+                            <td class="">{{ $transaction->user->name }}</td>
+                        </tr>
                         @empty
                             <tr>
                                 <td colspan="4" class="text-center">
