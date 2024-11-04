@@ -28,7 +28,7 @@ class ZoneSearch extends Component
     public $priceLists;
     public $locationCount;
     public $selectAll = false;
-    
+
     public function updatedSearch()
     {
         $this->resetPage();
@@ -48,15 +48,15 @@ class ZoneSearch extends Component
         }
         $this->orderBy = $field;
     }
-    
+
     public function mount()
     {
         $this->priceLists = PriceList::with('location')->get();
         $locationCounts = VipZonePosition::select('location_id')
-        ->groupBy('location_id')
-        ->havingRaw('COUNT(location_id) >= 10')
-        ->pluck('location_id')
-        ->toArray();
+            ->groupBy('location_id')
+            ->havingRaw('COUNT(location_id) >= 10')
+            ->pluck('location_id')
+            ->toArray();
 
         $this->locationCount = $locationCounts;
     }
@@ -121,7 +121,7 @@ class ZoneSearch extends Component
 
     public function render()
     {
-        Log::info('Đang tìm kiếm với từ khóa: "' . $this->search . '"');
+        // Log::info('Đang tìm kiếm với từ khóa: "' . $this->search . '"');
 
         $query = Zone::where('user_id', auth()->id())
             ->where(function ($q) {
@@ -130,7 +130,7 @@ class ZoneSearch extends Component
                     ->orWhere('address', 'like', '%' . $this->search . '%');
             });
 
-   
+
         if ($this->timeFilter) {
             $startDate = Carbon::now();
             switch ($this->timeFilter) {
@@ -156,7 +156,7 @@ class ZoneSearch extends Component
 
             $query->whereDate('created_at', '<=', $startDate);
         }
-        $zones = $query->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
+        $zones = $query->orderBy('created_at', 'desc') // Sắp xếp theo ngày tạo từ mới nhất đến cũ nhất
             ->paginate($this->perPage);
 
         foreach ($zones as $zone) {

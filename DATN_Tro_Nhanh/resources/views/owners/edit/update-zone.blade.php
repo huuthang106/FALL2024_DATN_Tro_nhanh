@@ -62,7 +62,8 @@
                                                                 trọ</h3>
                                                             <hr>
                                                             <div class="form-group">
-                                                                <label for="name" class="text-heading">Tên khu trọ <span class="text-muted">(Bắt buộc)</span></label>
+                                                                <label for="name" class="text-heading">Tên khu trọ <span
+                                                                        class="text-muted">(Bắt buộc)</span></label>
                                                                 <input type="text"
                                                                     class="form-control form-control-lg border-0"
                                                                     id="name" name="title"
@@ -71,7 +72,7 @@
                                                                     <div class="text-danger">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
-                                                            
+
                                                             <div class="form-group mb-0">
                                                                 <label for="description" class="text-heading">Mô
                                                                     tả <span class="text-muted">(Bắt
@@ -466,7 +467,6 @@
                                                                     class="form-control form-control-lg border-0"
                                                                     id="address" name="address"
                                                                     value="{{ old('address', $zone->address) }}">
-                                                                <!-- Hiển thị địa chỉ cũ -->
                                                                 @error('address')
                                                                     <div class="text-danger">{{ $message }}
                                                                     </div>
@@ -762,12 +762,238 @@
     <script src="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.js') }}"></script>
     <script src="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.js') }}"></script>
     <!-- Theme scripts -->
+
+    <script src="{{ asset('assets/js/theme.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+ 
+    <script></script>
+    <script src="{{ asset('assets/js/api-ggmap-nht.js') }}"></script>
+    <script src="{{ asset('assets/js/api-country-vn-nht.js') }}"></script>
+   
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+  
+    <script src="{{ asset('assets/js/api-update-zone-nht.js') }}"></script>
+    <script src="{{ asset('assets/js/alert/room-owners-alert.js') }}"></script>
+   
+    <script src="{{ asset('assets/js/owners/form-map.js') }}"></script>
+    {{-- lấy lại tọa độ cũ  --}}
+    <script>
+        var map;
+        // Lấy kinh độ và vĩ độ từ dữ liệu PHP
+        var currentPosition = [
+            parseFloat('{{ $zone->latitude }}') || 10.0354, // Vĩ độ, mặc định là 10.0354
+            parseFloat('{{ $zone->longitude }}') || 105.7553 // Kinh độ, mặc định là 105.7553
+        ];
+        var marker; // Biến để lưu trữ marker
+
+        function initMap() {
+            // Khởi tạo bản đồ với vị trí từ dữ liệu PHP
+            map = L.map('map').setView(currentPosition, 13);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // Tạo marker và cho phép kéo thả
+            marker = L.marker(currentPosition, {
+                draggable: true
+            }).addTo(map);
+
+            // Cập nhật giá trị vào các trường input ngay khi khởi tạo
+            document.getElementById('latitude').value = currentPosition[0]; // Cập nhật vĩ độ
+            document.getElementById('longitude').value = currentPosition[1]; // Cập nhật kinh độ
+
+            // Lắng nghe sự kiện khi marker được kéo thả
+            marker.on('dragend', function(event) {
+                var position = marker.getLatLng(); // Lấy vị trí mới
+                console.log("Kinh độ: " + position.lng + ", Vĩ độ: " + position.lat); // In ra kinh độ và vĩ độ
+
+                // Cập nhật giá trị vào các trường input
+                document.getElementById('latitude').value = position.lat; // Cập nhật vĩ độ
+                document.getElementById('longitude').value = position.lng; // Cập nhật kinh độ
+            });
+
+            // Thêm nút quay lại vị trí hiện tại
+            var returnButton = L.control({
+                position: 'topright'
+            });
+            returnButton.onAdd = function() {
+                var button = L.DomUtil.create('button', 'return-button');
+                button.innerHTML = '<i class="fas fa-location-arrow"></i>'; // Sử dụng biểu tượng Font Awesome
+                button.style.backgroundColor = 'white'; // Tùy chỉnh màu nền
+                button.style.border = 'none'; // Bỏ viền
+                button.style.borderRadius = '50%'; // Bo góc để tạo hình tròn
+                button.style.width = '40px'; // Đặt chiều rộng
+                button.style.height = '40px'; // Đặt chiều cao
+                button.style.display = 'flex'; // Sử dụng flexbox để căn giữa
+                button.style.alignItems = 'center'; // Căn giữa theo chiều dọc
+                button.style.justifyContent = 'center'; // Căn giữa theo chiều ngang
+                button.onclick = function(e) {
+                    e.preventDefault(); // Ngăn chặn hành động mặc định
+                    map.setView(currentPosition, 13); // Quay lại vị trí hiện tại
+                    marker.setLatLng(currentPosition); // Đặt lại vị trí của marker
+                };
+                return button;
+            };
+            returnButton.addTo(map);
+
+            // Cập nhật kích thước bản đồ ngay sau khi khởi tạo
+            updateMapSize();
+        }
+
+        function updateMapSize() {
+            if (map) {
+                map.invalidateSize(); // Cập nhật kích thước của bản đồ
+            }
+        }
+
+        // Hàm để tìm kiếm tọa độ từ tên tỉnh, huyện hoặc xã
+        function geocodeLocation(location) {
+            var apiUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`;
+
+            return fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        return {
+                            lat: data[0].lat,
+                            lng: data[0].lon
+                        };
+                    } else {
+                        throw new Error('Không tìm thấy vị trí.');
+                    }
+                });
+        }
+
+        // Lắng nghe sự kiện thay đổi cho dropdown tỉnh
+        document.getElementById('city-province').addEventListener('change', function() {
+            var selectedProvince = this.options[this.selectedIndex].text; // Lấy tên tỉnh
+            geocodeLocation(selectedProvince)
+                .then(coords => {
+                    map.setView([coords.lat, coords.lng], 13); // Di chuyển bản đồ đến tỉnh đã chọn
+                    marker.setLatLng([coords.lat, coords.lng]); // Đặt lại vị trí của marker
+                    document.getElementById('latitude').value = coords.lat; // Cập nhật vĩ độ
+                    document.getElementById('longitude').value = coords.lng; // Cập nhật kinh độ
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showErrorMessage('Không thể tìm thấy vị trí cho tỉnh đã chọn.');
+                });
+        });
+
+        // Lắng nghe sự kiện thay đổi cho dropdown huyện
+        document.getElementById('district-town').addEventListener('change', function() {
+            var selectedDistrict = this.options[this.selectedIndex].text; // Lấy tên huyện
+            geocodeLocation(selectedDistrict)
+                .then(coords => {
+                    map.setView([coords.lat, coords.lng], 13); // Di chuyển bản đồ đến huyện đã chọn
+                    marker.setLatLng([coords.lat, coords.lng]); // Đặt lại vị trí của marker
+                    document.getElementById('latitude').value = coords.lat; // Cập nhật vĩ độ
+                    document.getElementById('longitude').value = coords.lng; // Cập nhật kinh độ
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showErrorMessage('Không thể tìm thấy vị trí cho huyện đã chọn.');
+                });
+        });
+
+        // Lắng nghe sự kiện thay đổi cho dropdown xã
+        document.getElementById('ward-commune').addEventListener('change', function() {
+            var selectedWard = this.options[this.selectedIndex].text; // Lấy tên xã
+            geocodeLocation(selectedWard)
+                .then(coords => {
+                    map.setView([coords.lat, coords.lng], 13); // Di chuyển bản đồ đến xã đã chọn
+                    marker.setLatLng([coords.lat, coords.lng]); // Đặt lại vị trí của marker
+                    document.getElementById('latitude').value = coords.lat; // Cập nhật vĩ độ
+                    document.getElementById('longitude').value = coords.lng; // Cập nhật kinh độ
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showErrorMessage('Không thể tìm thấy vị trí cho xã đã chọn.');
+                });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Khởi tạo bản đồ
+            initMap();
+
+            // Kiểm tra xem có thông báo thành công trong session không
+            if (window.successMessage) {
+                showSuccessMessage(window.successMessage); // Gọi hàm để hiển thị thông báo
+            }
+        });
+
+        // Hàm hiển thị thông báo thành công
+        function showSuccessMessage(message) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công!',
+                text: message,
+                showConfirmButton: true
+            });
+        }
+
+        // Hàm hiển thị thông báo lỗi
+        function showErrorMessage(message) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi!',
+                text: message,
+                showConfirmButton: true
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Khi tab location-tab được kích hoạt, cập nhật kích thước bản đồ
+            var locationTab = document.querySelector('#location-tab');
+            if (locationTab) {
+                locationTab.addEventListener('click', function(e) {
+                    setTimeout(updateMapSize, 100); // Cập nhật kích thước bản đồ khi tab được nhấn
+                });
+            }
+            // Gọi updateMapSize() ngay sau khi khởi tạo bản đồ
+            updateMapSize(); // Đảm bảo bản đồ hiển thị đúng ngay khi tải trang
+        });
+    </script>
+    <script>
+        //  điền tên tự động
+        document.addEventListener('DOMContentLoaded', function() {
+            const citySelect = document.getElementById('city-province');
+            const districtSelect = document.getElementById('district-town');
+            const wardSelect = document.getElementById('ward-commune');
+            const addressInput = document.getElementById('address');
+
+            function updateAddress() {
+                const city = citySelect.options[citySelect.selectedIndex].text.trim();
+                const district = districtSelect.options[districtSelect.selectedIndex].text.trim();
+                const ward = wardSelect.options[wardSelect.selectedIndex].text.trim();
+
+                let addressParts = [];
+
+                if (city) addressParts.push(city);
+                if (district) addressParts.push(district);
+                if (ward) addressParts.push(ward);
+
+                addressInput.value = addressParts.join(', ');
+            }
+
+            citySelect.addEventListener('change', updateAddress);
+            districtSelect.addEventListener('change', updateAddress);
+            wardSelect.addEventListener('change', updateAddress);
+        });
+    </script>
     <script>
         window.zoneData = {
             provinceId: '{{ $zone->province }}',
             districtId: '{{ $zone->district }}',
             communeId: '{{ $zone->village }}'
         };
+    </script>
+    <script>
+        var roomData = @json($zone);
     </script>
     <script>
         function previewImages(input) {
@@ -793,119 +1019,6 @@
             }
         }
     </script>
-    {{-- <script>
-    const apiUrl = "https://vietnam-administrative-division-json-server-swart.vercel.app";
-    const apiEndpointDistrict = apiUrl + '/district/?idProvince=';
-    const apiEndpointCommune = apiUrl + '/commune/?idDistrict=';
-
-    async function getDistrict(idProvince) {
-        const { data: districtList } = await axios.get(apiEndpointDistrict + idProvince);
-        return districtList;
-    }
-
-    async function getCommune(idDistrict) {
-        const { data: communeList } = await axios.get(apiEndpointCommune + idDistrict);
-        return communeList;
-    }
-
-    async function loadZoneData(provinceId, districtId, communeId) {
-        try {
-            // Get districts based on the selected province
-            const { data: districts } = await axios.get(apiEndpointDistrict + provinceId);
-            let districtOptions = "<option value='0'>&nbsp;Chọn Quận/Huyện...</option>";
-
-            districts.forEach(district => {
-                districtOptions += `<option value='${district.idDistrict}' ${district.idDistrict == districtId ? 'selected' : ''}>${district.name}</option>`;
-            });
-            document.querySelector('#district-town').innerHTML = districtOptions;
-            $('#district-town').selectpicker('refresh'); // Đảm bảo dropdown được làm mới
-            $('#district-town').selectpicker('val', districtId); // Chọn giá trị nếu có
-
-            // Get communes based on the selected district
-            if (districtId) {
-                const { data: communes } = await axios.get(apiEndpointCommune + districtId);
-                let communeOptions = "<option value='0'>&nbsp;Chọn Phường/Xã...</option>";
-
-                communes.forEach(commune => {
-                    communeOptions += `<option value='${commune.idCommune}' ${commune.idCommune == communeId ? 'selected' : ''}>${commune.name}</option>`;
-                });
-                document.querySelector('#ward-commune').innerHTML = communeOptions;
-                $('#ward-commune').selectpicker('refresh'); // Đảm bảo dropdown được làm mới
-                $('#ward-commune').selectpicker('val', communeId); // Chọn giá trị nếu có
-            } else {
-                // Reset commune dropdown if no district is selected
-                document.querySelector('#ward-commune').innerHTML = "<option value='0'>&nbsp;Chọn Phường/Xã...</option>";
-                $('#ward-commune').selectpicker('refresh'); // Đảm bảo dropdown được làm mới
-            }
-        } catch (error) {
-            console.error('Error loading zone data:', error);
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', async () => {
-        // Replace with your actual values from server-side rendering
-        const provinceId = '{{ $zone->province }}';
-        const districtId = '{{ $zone->district }}';
-        const communeId = '{{ $zone->village }}';
-
-        // Load initial data for province, district, and commune
-        if (provinceId) {
-            await loadZoneData(provinceId, districtId, communeId);
-        }
-    });
-
-    document.querySelector('#city-province').addEventListener('change', async () => {
-        // Get the selected province ID
-        const idProvince = document.querySelector('#city-province').value;
-
-        // Clear commune options
-        let outputCommune = "<option value='0'>&nbsp;Chọn Phường/Xã...</option>";
-        document.querySelector('#ward-commune').innerHTML = outputCommune;
-        $('#ward-commune').selectpicker('refresh');
-
-        // Get districts based on the selected province
-        const districtList = await getDistrict(idProvince) || [];
-        let outputDistrict = "<option value='0'>&nbsp;Chọn Quận/Huyện...</option>";
-        districtList.forEach(district => {
-            outputDistrict += `<option value='${district.idDistrict}'>${district.name}</option>`;
-        });
-        document.querySelector('#district-town').innerHTML = outputDistrict;
-        $('#district-town').selectpicker('refresh');
-
-        // Reset commune selection
-        $('#ward-commune').selectpicker('val', '0');
-    });
-
-    document.querySelector('#district-town').addEventListener('change', async () => {
-        // Get the selected district ID
-        const idDistrict = document.querySelector('#district-town').value;
-
-        // Get communes based on the selected district
-        const communeList = await getCommune(idDistrict) || [];
-        let outputCommune = "<option value='0'>&nbsp;Chọn Phường/Xã...</option>";
-        communeList.forEach(commune => {
-            outputCommune += `<option value='${commune.idCommune}'>${commune.name}</option>`;
-        });
-        document.querySelector('#ward-commune').innerHTML = outputCommune;
-        $('#ward-commune').selectpicker('refresh');
-    });
-</script> --}}
-
-
-    <script src="{{ asset('assets/js/theme.js') }}"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="{{ asset('assets/js/api-ggmap-nht.js') }}"></script>
-    <script src="{{ asset('assets/js/alert/room-owners-alert.js') }}"></script>
-    <script src="{{ asset('assets/js/api-update-zone-nht.js') }}"></script>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
-    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-    <script>
-        var roomData = @json($zone);
-    </script>
-    <script src="{{ asset('assets/js/openstreet-map-edit-form.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
             $('form').on('submit', function(e) {
