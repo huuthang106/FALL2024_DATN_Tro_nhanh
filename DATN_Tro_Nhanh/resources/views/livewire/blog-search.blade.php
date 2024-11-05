@@ -50,13 +50,15 @@
                     <thead class="thead-sm thead-black">
                         <tr role="row">
                             <th scope="col" class="px-6 py-3">
-                                <input type="checkbox" id="selectAll" >
+                                <input type="checkbox" id="selectAll">
                             </th>
                             <th class="py-3 text-nowrap text-center col-2">Ảnh</th>
                             <th class="py-3 text-nowrap text-center col-2">Tiêu đề</th>
-                            <th class="py-3 text-nowrap text-center col-2">Mô tả</th>
+                            <th class="py-3 text-nowrap text-center col-2">Ngày đăng</th>
+                            <th class="py-3 text-nowrap text-center col-2">Ngày cập nhật</th>
+
                             <th class="py-3 text-nowrap text-center col-1">Lượt xem</th>
-                            <th class="py-3 text-nowrap text-center col-2">Trạng thái</th>
+
 
                             {{-- <th class="py-3 text-nowrap text-center col-2">Ngày xuất bản</th> --}}
                             <th class="no-sort py-3 text-nowrap text-center col-2">Thao tác</th>
@@ -72,11 +74,10 @@
                             </tr>
                         @else
                             @foreach ($blogs as $blog)
-                                <tr role="row"   data-id="{{ $blog->id }}"
+                                <tr role="row" data-id="{{ $blog->id }}"
                                     class="shadow-hover-xs-2 bg-hover-white">
                                     <td class="align-middle px-6">
                                         <input type="checkbox" class="control-input child-chk"
-                                           
                                             data-id="{{ $blog->id }}">
                                     </td>
                                     <td class="align-middle d-md-table-cell text-nowrap p-4 text-center">
@@ -104,23 +105,24 @@
                                     <td class="align-middle text-center" style="white-space: nowrap;">
                                         <div class="d-flex align-items-center">
                                             <div class="media-body">
-                                                <a href="{{ route('owners.show-blog', $blog->slug) }}">
+                                                <a href="{{ route('client.client-blog-detail', $blog->slug) }}">
                                                     <span
                                                         class="text-dark hover-primary mb-1 font-size-md">{{ $blog->title }}</span>
                                                 </a>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="align-middle text-center" style="white-space: nowrap;">
-                                        <div class="d-flex align-items-center">
-                                            <div class="media-body">
-                                                <a href="{{ route('owners.show-blog', $blog->slug) }}">
-                                                    <span
-                                                        class="text-dark hover-primary mb-1 font-size-md">{{ $blog->description }}</span>
-                                                </a>
-                                            </div>
-                                        </div>
+                                    <td class="align-middle text-center"style="white-space: nowrap;">
+
+                                        {{ $blog->created_at->format('d-m-Y') }}
+
                                     </td>
+                                    <td class="align-middle text-center"style="white-space: nowrap;">
+
+                                        {{ $blog->updated_at->format('d-m-Y') }}
+
+                                    </td>
+
                                     <td class="align-middle text-center"style="white-space: nowrap;">
                                         @if ($blog->view > 0)
                                             {{ $blog->view }}
@@ -128,15 +130,7 @@
                                             0
                                         @endif
                                     </td>
-                                    <td class="align-middle text-center">
-                                        @if ($blog->status == 1)
-                                            <span class="badge badge-yellow text-capitalize">Chờ xác nhận</span>
-                                        @elseif ($blog->status == 2)
-                                            <span class="badge badge-green text-capitalize">Đã xác nhận</span>
-                                        @else
-                                            <span class="badge badge-gray text-capitalize">Chưa xác định</span>
-                                        @endif
-                                    </td>
+
                                     {{-- <td class="align-middle ">
                                         <span class="text-success pr-1"><i class="fal fa-calendar"></i></span>
                                         {{ $blog->created_at->format('d-m-Y') }}
@@ -326,4 +320,4 @@
             });
         });
     });
-</script>  
+</script>

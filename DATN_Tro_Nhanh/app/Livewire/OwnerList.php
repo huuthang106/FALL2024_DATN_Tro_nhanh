@@ -42,7 +42,7 @@ class OwnerList extends Component
         if ($this->timeFilter) {
             $startDate = Carbon::now();  // Thời gian bắt đầu của bộ lọc
         
-            \Log::info("Current date before filter: " . Carbon::now()->toDateTimeString());
+            // \Log::info("Current date before filter: " . Carbon::now()->toDateTimeString());
         
             // Xử lý bộ lọc thời gian
             switch ($this->timeFilter) {
@@ -66,20 +66,23 @@ class OwnerList extends Component
                     break;
             }
         
-            \Log::info("Lọc dữ liệu trước ngày: " . $startDate->toDateTimeString());
+            // \Log::info("Lọc dữ liệu trước ngày: " . $startDate->toDateTimeString());
         
             // Lọc dữ liệu với created_at nhỏ hơn ngày bắt đầu
             $query->whereDate('created_at', '<=', $startDate);
         
             // Log số lượng bản ghi sau khi lọc
-            \Log::info("Số lượng bản ghi sau khi lọc: " . $query->count());
+            // \Log::info("Số lượng bản ghi sau khi lọc: " . $query->count());
         }
 
         if ($this->search) {
-            $query->where('name', 'like', '%' . $this->search . '%')
-                ->orWhere('email', 'like', '%' . $this->search . '%')
-                ->orWhere('address', 'like', '%' . $this->search . '%')
-                ->orWhere('phone', 'like', '%' . $this->search . '%');
+            $query->where('role', self::CHU_TRO) // Thêm điều kiện role
+                ->where(function($q) { // Sử dụng hàm đóng để nhóm các điều kiện tìm kiếm
+                    $q->where('name', 'like', '%' . $this->search . '%')
+                      ->orWhere('email', 'like', '%' . $this->search . '%')
+                      ->orWhere('address', 'like', '%' . $this->search . '%')
+                      ->orWhere('phone', 'like', '%' . $this->search . '%');
+                });
         }
 
         // Sắp xếp theo ngày tạo mới nhất mặc định

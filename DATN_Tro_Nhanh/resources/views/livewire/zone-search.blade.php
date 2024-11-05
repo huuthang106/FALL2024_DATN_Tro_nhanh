@@ -67,7 +67,7 @@
                         </tr>
                     </thead>
 
-                    <tbody>
+                    <tbody >
                         @if ($zones->isEmpty())
                             <tr>
                                 <td colspan="9">
@@ -138,7 +138,7 @@
                                         </button>
                                     </td>
                                     <!-- Modal -->
-                                    <div class="modal fade" id="vipModal-{{ $zone->id }}" tabindex="-1" role="dialog" aria-labelledby="vipModalLabel" aria-hidden="true">
+                                    <div  class="modal fade" id="vipModal-{{ $zone->id }}" tabindex="-1" role="dialog" aria-labelledby="vipModalLabel" aria-hidden="true" >
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -151,20 +151,20 @@
                                                     @if ($zone->status == 1)
                                                         <p class="text-danger">Khu trọ chưa được duyệt, không thể mua VIP.</p>
                                                     @else
-                                                        <form action="{{ route('owners.zone-vip') }}" method="POST">
+                                                        <form  action="{{ route('owners.zone-vip') }}" method="POST">
                                                             @csrf
                                                             <input type="hidden" name="zone_id" value="{{ $zone->id }}">
                                                             <p>Số dư tài khoản: {{ number_format(auth()->user()->balance, 0, ',', '.') }} VND</p>
-                                                            <div class="form-group">
+                                                            <div class="form-group ">
                                                                 <label for="vipPackageSelect">Chọn gói VIP:</label>
-                                                                <select id="vipPackageSelect" name="vipPackage" class="form-control border-0 shadow-none form-control-lg selectpicker">
+                                                                <select id="vipPackageSelect" name="vipPackage" class="form-control border-0 shadow-none form-control-lg ">
                                                                     @foreach ($priceLists as $priceList)
                                                                         @php
                                                                             $isLimitReached = !$this->canPurchaseVipPackage($priceList->location->id);
                                                                         @endphp
                                                                         @if (!$isLimitReached)
                                                                             <option value="{{ $priceList->id }}">
-                                                                                <span class="text-wrap">{{ $priceList->location->name }} ({{ number_format($priceList->price, 0, ',', '.') }} VNĐ - {{ $priceList->duration_day }} ngày)</span>
+                                                                                <span class="text-wrap ">{{ $priceList->location->name }} ({{ number_format($priceList->price, 0, ',', '.') }} VNĐ - {{ $priceList->duration_day }} ngày)</span>
                                                                             </option>
                                                                         @endif
                                                                     @endforeach

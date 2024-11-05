@@ -531,7 +531,7 @@
                                     </th>
                                     <th class="min-w-100px">Tên</th>
 
-                                    <th class="min-w-100px">Mô tả</th>
+                                    
                                     <th class="min-w-100px">Địa chỉ</th>
                                     <th class="min-w-100px">Trạng thái</th>
 
@@ -557,7 +557,7 @@
                                             <td><a href="{{ route('admin.chi-tiet-khu-tro', ['slug' => $zone->slug]) }}"
                                                     class="inv-number">{{ $zone->name }}</a></td>
                                             <td>{{ $zone->address }}</td>
-                                            <td>{{ $zone->description }}</td>
+                                           
                                             <td>{{ $zone->status ? 'Hoạt động' : 'Chưa hoạt động' }}</td>
                                             <!--end::Zone details-->
                                             <!--begin::Actions-->
@@ -614,84 +614,85 @@
                         </table>
                     </div>
 
-                    @if ($zones->hasPages())
-                        <nav aria-label="Page navigation" class="mb-2">
-                            <ul class="pagination rounded-active justify-content-center mt-2">
-                                {{-- Nút về đầu --}}
-                                <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="previousPage"
-                                        wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')"><i
-                                            class="fas fa-angle-double-left"></i></a>
-                                </li>
-
-                                {{-- Liên kết Trang Trước --}}
-                                {{-- <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
-                                <a class="page-link hover-white" wire:click="previousPage"
-                                    wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')">
-                                    < </a>
-                            </li> --}}
-
-                                @php
-                                    $totalPages = $zones->lastPage();
-                                    $currentPage = $zones->currentPage();
-                                    $visiblePages = 3; // Số trang hiển thị ở giữa
-                                @endphp
-
-                                {{-- Trang đầu --}}
-                                <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
-                                    <a class="page-link hover-white" wire:click="gotoPage(1)"
-                                        wire:loading.attr="disabled">1</a>
-                                </li>
-
-                                {{-- Dấu ba chấm đầu --}}
-                                @if ($currentPage > $visiblePages)
-                                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                                @endif
-
-                                {{-- Các trang giữa --}}
-                                @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
-                                    @if ($i > 1 && $i < $totalPages)
-                                        <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
-                                            <a class="page-link hover-white"
-                                                wire:click="gotoPage({{ $i }})"
-                                                wire:loading.attr="disabled">{{ $i }}</a>
-                                        </li>
-                                    @endif
-                                @endforeach
-
-                                {{-- Dấu ba chấm cuối --}}
-                                @if ($currentPage < $totalPages - ($visiblePages - 1))
-                                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                                @endif
-
-                                {{-- Trang cuối --}}
-                                @if ($totalPages > 1)
-                                    <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
-                                        <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
-                                            wire:loading.attr="disabled">{{ $totalPages }}</a>
-                                    </li>
-                                @endif
-
-                                {{-- Liên kết Trang Tiếp --}}
-                                {{-- <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
-                                <a class="page-link hover-white" wire:click="nextPage"
-                                    wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')"> >
-                                </a>
-                            </li> --}}
-
-                                {{-- Nút về cuối --}}
-                                <li class="page-item {{ !$zones->hasMorePages() ? 'disabled' : '' }}">
-                                    <a class="page-link hover-white" wire:click="nextPage"
-                                        wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')"><i
-                                            class="fas fa-angle-double-right"></i></a>
-                                </li>
-                            </ul>
-                        </nav>
-
-                    @endif
+                   
 
                     <!--end::Table-->
                 </div>
+                @if ($zones->hasPages())
+                <nav aria-label="Page navigation" class="mb-2">
+                    <ul class="pagination rounded-active justify-content-center mt-2">
+                        {{-- Nút về đầu --}}
+                        <li class="page-item {{ $zones->onFirstPage() ? 'disabled' : '' }}">
+                            <a class="page-link hover-white" wire:click="previousPage"
+                                wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')"><i
+                                    class="fas fa-angle-double-left"></i></a>
+                        </li>
+
+                        {{-- Liên kết Trang Trước --}}
+                        {{-- <li class="page-item {{ $rooms->onFirstPage() ? 'disabled' : '' }}">
+                        <a class="page-link hover-white" wire:click="previousPage"
+                            wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')">
+                            < </a>
+                    </li> --}}
+
+                        @php
+                            $totalPages = $zones->lastPage();
+                            $currentPage = $zones->currentPage();
+                            $visiblePages = 3; // Số trang hiển thị ở giữa
+                        @endphp
+
+                        {{-- Trang đầu --}}
+                        <li class="page-item {{ $currentPage == 1 ? 'active' : '' }}">
+                            <a class="page-link hover-white" wire:click="gotoPage(1)"
+                                wire:loading.attr="disabled">1</a>
+                        </li>
+
+                        {{-- Dấu ba chấm đầu --}}
+                        @if ($currentPage > $visiblePages)
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                        @endif
+
+                        {{-- Các trang giữa --}}
+                        @foreach (range(max(2, min($currentPage - 1, $totalPages - $visiblePages + 1)), min(max($currentPage + 1, $visiblePages), $totalPages - 1)) as $i)
+                            @if ($i > 1 && $i < $totalPages)
+                                <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
+                                    <a class="page-link hover-white"
+                                        wire:click="gotoPage({{ $i }})"
+                                        wire:loading.attr="disabled">{{ $i }}</a>
+                                </li>
+                            @endif
+                        @endforeach
+
+                        {{-- Dấu ba chấm cuối --}}
+                        @if ($currentPage < $totalPages - ($visiblePages - 1))
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                        @endif
+
+                        {{-- Trang cuối --}}
+                        @if ($totalPages > 1)
+                            <li class="page-item {{ $currentPage == $totalPages ? 'active' : '' }}">
+                                <a class="page-link hover-white" wire:click="gotoPage({{ $totalPages }})"
+                                    wire:loading.attr="disabled">{{ $totalPages }}</a>
+                            </li>
+                        @endif
+
+                        {{-- Liên kết Trang Tiếp --}}
+                        {{-- <li class="page-item {{ !$rooms->hasMorePages() ? 'disabled' : '' }}">
+                        <a class="page-link hover-white" wire:click="nextPage"
+                            wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')"> >
+                        </a>
+                    </li> --}}
+
+                        {{-- Nút về cuối --}}
+                        <li class="page-item {{ !$zones->hasMorePages() ? 'disabled' : '' }}">
+                            <a class="page-link hover-white" wire:click="nextPage"
+                                wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')"><i
+                                    class="fas fa-angle-double-right"></i></a>
+                        </li>
+                    </ul>
+                </nav>
+
+            @endif
                 <!--end::Card body-->
             </div>
             <!--end::Card-->

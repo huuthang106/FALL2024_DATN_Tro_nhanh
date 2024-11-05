@@ -88,15 +88,6 @@ class ZoneTable extends Component
         $zones = Zone::onlyTrashed()->whereIn('id', $this->selectedZones)->get();
 
         foreach ($zones as $zone) {
-            // Xóa hình ảnh liên quan đến khu trọ
-            foreach ($zone->images as $image) {
-                $imagePath = public_path('assets/images/' . $image->filename);
-                if (File::exists($imagePath)) {
-                    File::delete($imagePath);
-                }
-                $image->delete();
-            }
-
             // Xóa vĩnh viễn khu trọ
             $zone->forceDelete();
         }

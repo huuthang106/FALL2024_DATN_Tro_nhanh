@@ -123,9 +123,9 @@
                                         </div>
                                     </td>
                                     <td class="align-middle d-md-table-cell text-nowrap ">
-                                        <a href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}">
+                                        
                                             <small class="inv-number">{{ $zone->name }}</small>
-                                        </a>
+                                       
                                     </td>
                                     <td class="align-middle d-md-table-cell text-nowrap ">
                                         <div class="d-flex align-items-center">

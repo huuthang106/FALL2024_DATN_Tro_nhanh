@@ -59,10 +59,10 @@
                                             $image = $favourite->zone->rooms->first()->image ?? null;
                                         @endphp
                                         @if ($image)
-                                            <img src="{{ asset('assets/images/' . $image) }}"
+                                            <img src="https://drive.google.com/thumbnail?id={{ $image }}"
                                                 alt="{{ $favourite->zone->name }}"
                                                 class="image-preview img-fluid w-100 h-100 rounded"
-                                                style="object-fit: cover;">
+                                                style="object-fit: cover;" loading="lazy">
                                         @else
                                             <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
                                                 alt="{{ $favourite->zone->name }}"
