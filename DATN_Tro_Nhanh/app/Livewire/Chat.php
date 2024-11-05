@@ -328,16 +328,22 @@ class Chat extends Component
                 })
                 ->orderBy('created_at', 'desc')
                 ->first();
-
-            return [
-                'id' => $contact->id,
-                'name' => $otherUser->name,
-                'email' => $otherUser->email,
-                'image' => $otherUser->image,
-                'unread_count' => $unreadCount,
-                'last_message_time' => $latestMessage ? $latestMessage->created_at : null,
-                'latest_message' => $latestMessage ? $latestMessage->message : 'Chưa có tin nhắn',
-            ];
+                if (
+                    stripos($otherUser->name, $this->searchTerm) !== false ||
+                    stripos($otherUser->email, $this->searchTerm) !== false
+                ) {
+                    return [
+                        'id' => $contact->id,
+                        'name' => $otherUser->name,
+                        'email' => $otherUser->email,
+                        'image' => $otherUser->image,
+                        'unread_count' => $unreadCount,
+                        'last_message_time' => $latestMessage ? $latestMessage->created_at : null,
+                        'latest_message' => $latestMessage ? $latestMessage->message : 'Chưa có tin nhắn',
+                    ];
+                   
+                    
+                    }
         })
             ->filter()
             ->sortByDesc('last_message_time')
