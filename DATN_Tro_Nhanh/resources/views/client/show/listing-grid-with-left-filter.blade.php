@@ -196,7 +196,7 @@
                                                     <li class="list-group-item px-0 pt-0 pb-2">
                                                         <div class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input"
-                                                                id="check3" name="features[]" value="bathroom">
+                                                                id="check3" name="features[]" value="bathrooms">
                                                             <label class="custom-control-label" for="check3">Phòng
                                                                 tắm</label>
                                                         </div>
