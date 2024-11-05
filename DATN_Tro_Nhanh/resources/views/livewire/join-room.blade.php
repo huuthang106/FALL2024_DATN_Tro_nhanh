@@ -64,6 +64,7 @@
                                 </tr>
                             @else
                                 @foreach ($residents as $resident)
+                           
                                     <tr class="shadow-hover-xs-2" data-id="{{ $resident->id }}">
                                         <td class="py-6 pl-6 align-middle " style="white-space: nowrap;">
                                             <label class="new-control new-checkbox checkbox-primary m-auto">
@@ -75,7 +76,7 @@
                                             </label>
                                         </td>
                                         <td class="align-middle" style="white-space: nowrap;">
-                                            <small class="text">{{ $resident->room->title }}</small>
+                                            <small class="text">{{ $resident->room_title }}</small>
                                         </td>
                                         <td class="align-middle" style="white-space: nowrap;">
                                             <small>

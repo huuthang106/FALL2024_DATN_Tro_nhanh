@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <div class="ml-2">
-                            <button id="deleteSelected" wire:click="deleteSelectedZones" class="btn btn-danger btn-lg"
+                            <button id="deleteSelected"  class="btn btn-danger btn-lg"
                                 tabindex="0">
                                 <span>Xóa</span>
                             </button>
@@ -279,8 +279,6 @@
     document.addEventListener('livewire:initialized', function() {
         const checkAll = document.getElementById('checkAll');
         const deleteSelectedBtn = document.getElementById('deleteSelected');
-        const emptyZonesCountElement = document.getElementById('emptyZonesCount');
-        const emptyZonesCount = parseInt(emptyZonesCountElement.dataset.count);
 
         function updateCheckAllState() {
             const checkableCheckboxes = document.querySelectorAll('.zone-checkbox:not(:disabled)');
@@ -314,8 +312,35 @@
         });
 
         deleteSelectedBtn.addEventListener('click', function(event) {
-            event.preventDefault();
-            @this.deleteSelectedZones();
+            event.preventDefault(); // Ngăn chặn hành động mặc định của nút
+
+            // Kiểm tra xem có checkbox nào được chọn không
+            const checkedCheckboxes = document.querySelectorAll('.zone-checkbox:checked');
+            if (checkedCheckboxes.length === 0) {
+                Swal.fire({
+                    title: 'Không có khu vực nào được chọn',
+                    text: 'Vui lòng chọn ít nhất một khu vực để xóa.',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                });
+                return; // Ngăn không cho gọi hàm xóa
+            }
+
+            // Xác nhận xóa
+            Swal.fire({
+                title: 'Xác nhận xóa',
+                text: 'Bạn có chắc chắn muốn xóa các khu vực đã chọn?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Có, xóa!',
+                cancelButtonText: 'Không'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    @this.deleteSelectedZones(); // Gọi hàm xóa nếu người dùng xác nhận
+                }
+            });
         });
 
         initializeCheckboxes();
@@ -326,7 +351,7 @@
             console.log('Zones deleted event received:', data);
             Swal.fire({
                 title: 'Thành công!',
-                text: data.message,
+                text: 'Đã xóa thành công',
                 icon: 'success',
                 confirmButtonText: 'OK'
             }).then(() => {

@@ -87,8 +87,7 @@
                             </th>
                             <th class="py-3 text-center" style="white-space: nowrap;">Hình ảnh</th>
                             <th class="py-3 text-center" style="white-space: nowrap;">Tiêu đề</th>
-                            <th class="py-3 text-center" style="white-space: nowrap;">Mô tả</th>
-                            <th class="py-3 text-center" style="white-space: nowrap;">Địa chỉ</th>
+                           
                             <th class="py-3 text-center" style="white-space: nowrap;">Ngày</th>
                             <th class="py-3 text-center" style="white-space: nowrap;">Lượng phòng</th>
                             <th class="py-3 text-center" style="white-space: nowrap;">Trạng thái</th>
@@ -101,89 +100,64 @@
                         {{-- Nội dung table --}}
                         @if ($trashedZones->isNotEmpty())
                             @foreach ($trashedZones as $zone)
-                                <tr role="row" class="shadow-hover-xs-2 bg-hover-white">
-                                    <td class="align-middle pt-6 pb-4 px-6">
-                                        <div class="control custom-checkbox">
-                                            <input type="checkbox" class="control-input zone-checkbox"
-                                                id="zone-{{ $zone->id }}" wire:model="selectedZones"
-                                                wire:key="zone-{{ $zone->id }}" value="{{ $zone->id }}"
-                                                {{ $zone->rooms->count() > 0 ? 'disabled' : '' }}>
-                                            <label class="control-label" for="zone-{{ $zone->id }}"></label>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle d-md-table-cell text-nowrap p-4" style="width: 15%;">
-                                        <div class="mr-2 position-relative zone-image-container">
-                                            <a href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}">
-                                                @php
-                                                    $image = $zone->rooms->first()->image ?? null;
-                                                @endphp
-                                                <img src="{{ $image ? 'https://drive.google.com/thumbnail?id=' . $image : asset('assets/images/properties-grid-01.jpg') }}"
-                                                    alt="{{ $zone->name }}" class="img-fluid zone-image">
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle d-md-table-cell text-nowrap ">
-                                        
-                                            <small class="inv-number">{{ $zone->name }}</small>
-                                       
-                                    </td>
-                                    <td class="align-middle d-md-table-cell text-nowrap ">
-                                        <div class="d-flex align-items-center">
-                                            <small
-                                                class="align-self-center mb-0 user-name">{{ Str::limit($zone->description, 20) }}</small>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle d-md-table-cell text-nowrap ">
-                                        <small>{{ Str::limit($zone->address, 15) }}</small>
-                                    </td>
-                                    <td class="align-middle d-md-table-cell text-nowrap ">
-                                        <small>
-                                            <span class="text-success pr-1"><i class="fal fa-calendar"></i></span>
-                                            {{ $zone->updated_at }}
-                                        </small>
-                                    </td>
-                                    <td class="align-middle d-md-table-cell text-nowrap ">
-                                        <small>{{ $zone->total_rooms }}</small>
-                                    </td>
-                                    <td class="align-middle d-md-table-cell text-nowrap ">
-                                        <small>
-                                            @if ($zone->status == 1)
-                                            <span class="badge badge-yellow text-capitalize">Chưa được duyệt</span>
-                                            @else
-                                            <span class="badge badge-green text-capitalize">Đang hoạt động</span>
-                                              
-                                            @endif
-                                        </small>
-                                    </td>
-                                    <td class="align-middle d-md-table-cell text-nowrap ">
-                                        <div class="d-flex align-items-center">
-                                            <!-- Nút Khôi Phục -->
-                                            <form action="{{ route('owners.restore-zone', $zone->id) }}"
-                                                method="POST" class="mx-2">
-                                                @csrf
-                                                @method('PUT')
-                                                {{-- <button type="submit"
-                                                    class="btn btn-sm d-flex align-items-center justify-content-center">
-                                                    <i class="fas fa-undo mr-1"></i>
-                                                </button> --}}
-                                                <button type="submit" class="btn btn-warning btn-sm"><i
-                                                        class="fal fa-undo"></i></button>
-                                            </form>
-                                            <!-- Nút Xóa sử dụng Livewire -->
-                                            {{-- <button wire:click="deleteZone({{ $zone->id }})"
-                                                class="btn btn-sm d-flex align-items-center justify-content-center">
-                                                <i class="fal fa-trash-alt mr-1"></i>
-                                            </button> --}}
-                                            <form id="forceDeleteZoneForm{{ $zone->id }}" action="{{ route('owners.force-delete-zone', $zone->id) }}" method="POST" class="d-inline-block" onsubmit="return false;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="button" class="btn btn-danger btn-sm" onclick="forceDeleteZone({{ $zone->id }})">
-                                                    <i class="fal fa-trash-alt"></i> 
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tr role="row" class="shadow-hover-xs-2 bg-hover-white">
+                                <td class="align-middle pt-6 pb-4 px-6">
+                                    <div class="control custom-checkbox">
+                                        <input type="checkbox" class="control-input zone-checkbox"
+                                            id="zone-{{ $zone->id }}" wire:model="selectedZones"
+                                            wire:key="zone-{{ $zone->id }}" value="{{ $zone->id }}"
+                                            {{ $zone->rooms->count() > 0 ? 'disabled' : '' }}>
+                                        <label class="control-label" for="zone-{{ $zone->id }}"></label>
+                                    </div>
+                                </td>
+                                <td class="align-middle d-md-table-cell text-nowrap p-4" style="width: 15%;">
+                                    <div class="mr-2 position-relative zone-image-container">
+                                        <a href="{{ route('owners.detail-zone', ['slug' => $zone->slug]) }}">
+                                            @php
+                                                $image = $zone->rooms->first()->image ?? null;
+                                            @endphp
+                                            <img src="{{ $image ? 'https://drive.google.com/thumbnail?id=' . $image : asset('assets/images/properties-grid-01.jpg') }}"
+                                                alt="{{ $zone->name }}" class="img-fluid zone-image">
+                                        </a>
+                                    </div>
+                                </td>
+                                <td class="align-middle d-md-table-cell text-wrap"> <!-- Thay đổi từ text-nowrap thành text-wrap -->
+                                    <small class="inv-number">{{ $zone->name }}</small>
+                                </td>
+                                <td class="align-middle d-md-table-cell text-wrap"> <!-- Thay đổi từ text-nowrap thành text-wrap -->
+                                    <div class="d-flex align-items-center">
+                                        <small class="align-self-center mb-0 user-name">{{ Str::limit($zone->description, 20) }}</small>
+                                    </div>
+                                </td>
+                                <td class="align-middle d-md-table-cell text-nowrap">
+                                    <small>{{ $zone->total_rooms }}</small>
+                                </td>
+                                <td class="align-middle d-md-table-cell text-nowrap">
+                                    <small>
+                                        @if ($zone->status == 1)
+                                        <span class="badge badge-yellow text-capitalize">Chưa được duyệt</span>
+                                        @else
+                                        <span class="badge badge-green text-capitalize">Đang hoạt động</span>
+                                        @endif
+                                    </small>
+                                </td>
+                                <td class="align-middle d-md-table-cell text-nowrap">
+                                    <div class="d-flex align-items-center">
+                                        <form action="{{ route('owners.restore-zone', $zone->id) }}" method="POST" class="mx-2">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="btn btn-warning btn-sm"><i class="fal fa-undo"></i></button>
+                                        </form>
+                                        <form id="forceDeleteZoneForm{{ $zone->id }}" action="{{ route('owners.force-delete-zone', $zone->id) }}" method="POST" class="d-inline-block" onsubmit="return false;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="forceDeleteZone({{ $zone->id }})">
+                                                <i class="fal fa-trash-alt"></i> 
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
                             @endforeach
                         @else
                             <!-- Hiển thị khi không có dữ liệu -->
@@ -195,7 +169,7 @@
                 </table>
             </div>
             @if ($trashedZones->hasPages())
-                <nav aria-label="Page navigation">
+                <nav aria-label="Page navigation" class="mt-2">
                     <ul class="pagination rounded-active justify-content-center">
                         {{-- Nút về đầu --}}
 

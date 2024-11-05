@@ -97,6 +97,10 @@ class ZoneSearch extends Component
             ->pluck('name')
             ->toArray();
 
+            if (empty($this->selectedZones)) {
+                $this->dispatch('no-zones-selected');
+            return;
+        }
         if (!empty($zonesWithRooms)) {
             $this->dispatch('zones-with-rooms', implode(', ', $zonesWithRooms));
             return;
