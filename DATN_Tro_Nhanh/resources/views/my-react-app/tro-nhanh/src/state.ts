@@ -417,7 +417,7 @@ export const popularRestaurantsState = selector<Restaurant[]>({
     const restaurants = get(restaurantsState);
     const keyword = get(keywordState);
     const selectedCategory = get(selectedCategoryState);
-    console.log('selectedCategory', restaurants);
+    // console.log('selectedCategory', restaurants);
     return restaurants
 
       .filter((restaurant) =>

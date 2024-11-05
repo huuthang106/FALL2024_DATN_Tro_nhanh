@@ -185,16 +185,16 @@ class ZoneOwnersController extends Controller
     
         return response()->json(['status' => 'success', 'message' => $result['message']], 200);
     }
-    public function destroyy($id)
-    {
-        $result = $this->zoneServices->softDeleteZoness($id);
+    // public function destroyy($id)
+    // {
+    //     $result = $this->zoneServices->softDeleteZoness($id);
 
-        if ($result['status'] === 'error') {
-            return redirect()->back()->with('error', $result['message']);
-        }
+    //     if ($result['status'] === 'error') {
+    //         return redirect()->back()->with('error', $result['message']);
+    //     }
 
-        return redirect()->route('owners.trash-zone')->with('success', $result['message']);
-    }
+    //     return redirect()->route('owners.trash-zone')->with('success', $result['message']);
+    // }
 
 
     public function trash()

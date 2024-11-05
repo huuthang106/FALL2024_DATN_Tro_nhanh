@@ -58,11 +58,12 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
         style={{ display: 'flex', flexDirection: 'column', width: '100%', minHeight: '200px', borderRadius: '5px'  }} // Đặt chiều cao tối thiểu
       >
         <div className="aspect-cinema relative w-full">
-        <img
-    src={`https://drive.google.com/thumbnail?id=${restaurant.rooms[0].image}`} // Đường dẫn ảnh
-    className="absolute w-full h-full object-cover"
-    alt={`Room ${restaurant.rooms[0].id}`} // Thêm thuộc tính alt cho ảnh
-  />
+        {restaurant.rooms.length > 0 && (
+          <img
+            src={`https://drive.google.com/thumbnail?id=${restaurant.rooms[0].image}`} // Đường dẫn ảnh mới
+            className="absolute w-full h-full object-cover"
+          />
+        )}
         </div>
         {/* <div className="absolute left-3 top-3 py-1 px-3 space-x-1 flex items-center font-semibold text-sm text-white bg-primary rounded-full">
           <Icon icon="zi-star-solid" className="text-yellow-400" size={16} />
