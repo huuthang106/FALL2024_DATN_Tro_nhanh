@@ -49,43 +49,28 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
     }
     return "Giá không có sẵn";
   };
-
+  const MAX_ROOMS_DISPLAY = 3;
   if (layout === "cover") {
     return (
       <div
         onClick={onClick ?? viewDetail}
         className="relative bg-white overflow-hidden p-0"
-        style={{ display: 'flex', flexDirection: 'column', width: '100%', minHeight: '200px', borderRadius: '5px'  }} // Đặt chiều cao tối thiểu
+        style={{ display: 'flex', flexDirection: 'column', width: '100%', minHeight: '200px', borderRadius: '5px' }} // Đặt chiều cao tối thiểu
       >
         <div className="aspect-cinema relative w-full">
-        {restaurant.rooms.length > 0 && (
-          <img
-            src={`https://drive.google.com/thumbnail?id=${restaurant.rooms[0].image}`} // Đường dẫn ảnh mới
-            className="absolute w-full h-full object-cover"
-          />
-        )}
+          {restaurant.rooms.slice(0, MAX_ROOMS_DISPLAY).map((room, index) => (
+            <img
+              key={index}
+              src={`https://drive.google.com/thumbnail?id=${room.image}`} // Đường dẫn ảnh mới
+              className="absolute w-full h-full object-cover"
+              loading="lazy" // Sử dụng lazy loading
+            />
+          ))}
         </div>
-        {/* <div className="absolute left-3 top-3 py-1 px-3 space-x-1 flex items-center font-semibold text-sm text-white bg-primary rounded-full">
-          <Icon icon="zi-star-solid" className="text-yellow-400" size={16} />
-          <span>{restaurant.rating}</span>
-        </div> */}
         <Title size="small" className="mt-2 mb-0 mx-2 title-ellipsis" style={{ flexGrow: 1, flexShrink: 1, color: '#333333' }}>
           {restaurant.name}
         </Title>
         <Box flex mt={0} mb={2} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          {/* <Button
-            className="text-red-500"
-            prefixIcon={
-              <Icon className="text-red-500" icon="zi-location-solid" />
-            }
-            size="small"
-            variant="tertiary"
-          >
-            <span className="text-gray-500">
-            {restaurant.phone}
-            </span>
-          </Button> */}
-
           <span className="text-black-500 mx-2 font-semibold" style={{ color: '#333333' }}>
             {formatPriceRange(restaurant.rooms)}
           </span>
@@ -103,7 +88,6 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({
               </span>
             </Button>
           </div>
-
         </Box>
       </div>
     );

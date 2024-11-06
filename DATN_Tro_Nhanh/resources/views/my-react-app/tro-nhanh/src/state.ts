@@ -74,7 +74,7 @@ export const restaurantsState = selector<Restaurant[]>({
   key: "restaurants",
   get: async () => {
     try {
-      console.log('REACT_APP_API_ENDPOINT:', apiEndpoint);
+      // console.log('REACT_APP_API_ENDPOINT:', apiEndpoint);
       const response = await fetch(`${apiEndpoint}/api/get-data-room-listing`, {
         method: 'GET',
         headers: {
@@ -91,7 +91,7 @@ export const restaurantsState = selector<Restaurant[]>({
      
       return data.zones || []; // Trả về mảng rỗng nếu không có nhà hàng
     } catch (error) {
-      console.error("Error fetching data:", error);
+      // console.error("Error fetching data:", error);
       return []; // Trả về mảng rỗng nếu có lỗi
     }
   },
@@ -492,7 +492,7 @@ export const bookingsState = atom<Booking[]>({
           }
 
           const data = await response.json();
-          console.log('Fetched bookings:', data.users);
+          // console.log('Fetched bookings:', data.users);
 
           const detailedBookings = await Promise.all(data.users.map(async (user) => {
             const detailResponse = await fetch(`${apiEndpoint}/api/get-data-owners-detail/${user.slug}`, {
@@ -528,7 +528,7 @@ export const bookingsState = atom<Booking[]>({
               // totalZones: detailData.totalZones, // Thêm totalZones
             };
           }));
-console.log(detailedBookings);
+// console.log(detailedBookings);
           setSelf(detailedBookings);
         } catch (error) {
           console.error("Error fetching bookings:", error);

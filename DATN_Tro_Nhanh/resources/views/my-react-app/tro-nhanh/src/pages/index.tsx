@@ -11,12 +11,12 @@ import {
 import {
   nearestRestaurantsState,
   popularRestaurantsState,
- 
+
 } from "../state";
 
 const { Title, Header } = Text;
 import { } from 'recoil';
-import {  selectedCategoryState } from '../state'; // Đảm bảo import selector và state
+import { selectedCategoryState } from '../state'; // Đảm bảo import selector và state
 import { useEffect, useState } from 'react';
 function Popular() {
   const populars = useRecoilValue(popularRestaurantsState);
@@ -24,7 +24,7 @@ function Popular() {
 
   useEffect(() => {
     setLoading(true);
-    const timer = setTimeout(() => {  
+    const timer = setTimeout(() => {
       setLoading(false);
     }, 100);
 
@@ -33,32 +33,32 @@ function Popular() {
 
   return (
     <>
-     <Box mx={4} mt={6}>
-  <Header className="mt-6 mb-3 font-semibold" style={{ color: '#333333' }}>Tìm kiếm</Header>
-</Box>
-{loading ? (
-  <div className="overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar"></div> // Hiệu ứng loading
-) : (
-  <div className="overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar">
-    {populars.length ? (
-      <Box m={0} pr={4} flex className="w-max">
-        {populars.map((restaurant) => (
-          <Box
-            key={restaurant.id}
-            ml={1}
-            mr={0}
-            className="snap-start transition-transform duration-300 transform hover:scale-105"
-            style={{ width: "calc(100vw - 150px)" }} // Giảm chiều rộng
-          >
-            <RestaurantItem layout="cover" restaurant={restaurant} />
-          </Box>
-        ))}
+      <Box mx={4} mt={6}>
+        <Header className="mt-6 mb-3 font-semibold" style={{ color: '#333333' }}>Tìm kiếm</Header>
       </Box>
-    ) : (
-      <Box mx={4}  style={{ color: '#757575 ' }}>Không có địa điểm nào ở loại phòng này!</Box>
-    )}
-  </div>
-)}
+      {loading ? (
+        <div className="overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar"></div> // Hiệu ứng loading
+      ) : (
+        <div className="overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar">
+          {populars.length ? (
+            <Box m={0} pr={4} flex className="w-max">
+              {populars.map((restaurant) => (
+                <Box
+                  key={restaurant.id}
+                  ml={1}
+                  mr={0}
+                  className="snap-start transition-transform duration-300 transform hover:scale-105"
+                  style={{ width: "calc(100vw - 150px)" }} // Giảm chiều rộng
+                >
+                  <RestaurantItem layout="cover" restaurant={restaurant} />
+                </Box>
+              ))}
+            </Box>
+          ) : (
+            <Box mx={4} style={{ color: '#757575 ' }}>Không có địa điểm nào ở loại phòng này!</Box>
+          )}
+        </div>
+      )}
     </>
   );
 }
@@ -66,7 +66,7 @@ function Nearest() {
   const nearests = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(
     nearestRestaurantsState
   );
-  console.log('Nearest restaurants:', nearests); // Kiểm tra dữ liệu
+  // console.log('Nearest restaurants:', nearests); // Kiểm tra dữ liệu
 
   const [visibleCount, setVisibleCount] = useState(10);
 
@@ -79,7 +79,7 @@ function Nearest() {
       <Box mx={1} mt={0} >
         <Header className="mt-6 mb-3 font-semibold" style={{ color: '#333333', marginLeft: '4%' }} >Các phòng trọ nổi bật</Header>
         {nearests.slice(0, visibleCount).map((restaurant) => (
-          <Box key={restaurant.id} mx={0} my={0 } style={{ marginBottom: '3px'}}>
+          <Box key={restaurant.id} mx={0} my={0} style={{ marginBottom: '3px' }}>
             <RestaurantItem
               layout="list-item"
               restaurant={restaurant}
@@ -88,7 +88,7 @@ function Nearest() {
                 </Text>
               }
             />
-             
+
           </Box>
         ))}
         {visibleCount < nearests.length && (
@@ -112,14 +112,14 @@ function Welcome() {
       </Avatar> */}
       {/* <Text size="small">{user.name ? <>Chào, {user.name}!</> : "..."}</Text> */}
       <Text className="text-[20px] leading-[29px] font-bold " style={{ color: '#333333' }}> {/* Thêm lớp text-primary */}
-      Trọ Nhanh - Xu hướng thời đại mới  
-</Text>
+        Trọ Nhanh - Xu hướng thời đại mới
+      </Text>
     </>
   );
 }
 
 const HomePage = () => {
-  
+
   return (
     <Page>
       <Box mx={4} mb={4} mt={5}>
