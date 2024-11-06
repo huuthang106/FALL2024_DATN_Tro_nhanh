@@ -37,6 +37,7 @@
                                                 <option value="">Chọn loại gói tin...</option>
                                                 <option value="1">Nơi ở lý tưởng</option>
                                                 <option value="2">Được quan tâm nhiều nhất</option>
+                                                <option value="3">Phòng trọ nổi bật</option>
                                          
                                             </select>
                                             @error('type_vip')

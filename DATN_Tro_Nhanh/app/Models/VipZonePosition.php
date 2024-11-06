@@ -30,4 +30,9 @@ class VipZonePosition extends Model
     {
         return $this->belongsTo(Location::class);
     }
+    public function room()
+    {
+        return $this->belongsTo(Room::class, 'zone_id', 'zone_id');
+    }
+    
 }

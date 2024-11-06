@@ -34,6 +34,7 @@ class ZoneServices
     protected $client;
     protected $blogServices;
     private const status = 2;
+    private const phong_noi_bat = 3;
     public function __construct()
     {
         $this->client = new Client([
@@ -295,7 +296,7 @@ class ZoneServices
     // }
     public function getZoneVipPosition()
     {
-        $location = Location::where('type_vip', 4)->get();
+        $location = Location::where('type_vip', self::phong_noi_bat)->get();
         $data = VipZonePosition::whereIn('location_id', $location->pluck('id'))->get();
         return $data;
     }

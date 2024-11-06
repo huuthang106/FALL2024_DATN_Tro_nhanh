@@ -20,32 +20,33 @@
                         <div class="primary-sidebar-inner">
                             <div class="card mb-4">
                                 <!-- <div class="card-body px-6 py-4">
-                                                                                                                                                                                                                                                            <h4 class="card-title fs-16 lh-2 text-dark mb-3">Lọc</h4>
-                                                                                                                                                                                                                                                            <div class="form-group">
-                                                                                                                                                                                                                                                                <label for="category" class="sr-only">Loại phòng</label>
-                                                                                                                                                                                                                                                                <select class="form-control border-0 shadow-none form-control-lg" id="category"
-                                                                                                                                                                                                                                                                    title="Tất cả loại phòng" name="category" data-style="btn-lg py-2 h-52">
-                                                                                                                                                                                                                                                                    <option value='0'>Chọn loại phòng...</option>
-                                                                                                                                                                                                                                                                    @foreach ($categories as $category)
+                                                                                                                                                                                                                                                                                                                <h4 class="card-title fs-16 lh-2 text-dark mb-3">Lọc</h4>
+                                                                                                                                                                                                                                                                                                                <div class="form-group">
+                                                                                                                                                                                                                                                                                                                    <label for="category" class="sr-only">Loại phòng</label>
+                                                                                                                                                                                                                                                                                                                    <select class="form-control border-0 shadow-none form-control-lg" id="category"
+                                                                                                                                                                                                                                                                                                                        title="Tất cả loại phòng" name="category" data-style="btn-lg py-2 h-52">
+                                                                                                                                                                                                                                                                                                                        <option value='0'>Chọn loại phòng...</option>
+                                                                                                                                                                                                                                                                                                                        @foreach ($categories as $category)
     <option value='{{ $category->id }}'>
-                                                                                                                                                                                                                                                                            {{ $category->name }}
-                                                                                                                                                                                                                                                                        </option>
+                                                                                                                                                                                                                                                                                                                                {{ $category->name }}
+                                                                                                                                                                                                                                                                                                                            </option>
     @endforeach
-                                                                                                                                                                                                                                                                </select>
-                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                        </div> -->
+                                                                                                                                                                                                                                                                                                                    </select>
+                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                            </div> -->
                                 <div class="card-body px-6 py-4">
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Lọc theo loại phòng</h4>
                                     <div class="form-group">
                                         <label for="category" class="sr-only">Loại phòng</label>
                                         <form id="categoryForm" action="{{ route('client.room-listing') }}" method="GET">
-                                            <select class="form-control border-0 shadow-none form-control-lg mb-3" id="category"
-                                                    title="Tất cả loại phòng" name="category" data-style="btn-lg py-2 h-52"
-                                                    onchange="document.getElementById('categoryForm').submit();">
+                                            <select class="form-control border-0 shadow-none form-control-lg mb-3"
+                                                id="category" title="Tất cả loại phòng" name="category"
+                                                data-style="btn-lg py-2 h-52"
+                                                onchange="document.getElementById('categoryForm').submit();">
                                                 <option value='0'>Chọn loại phòng...</option>
                                                 @foreach ($categories as $category)
                                                     <option value='{{ $category->id }}'
-                                                            {{ request('category') == $category->id ? 'selected' : '' }}>
+                                                        {{ request('category') == $category->id ? 'selected' : '' }}>
                                                         {{ $category->name }}
                                                     </option>
                                                 @endforeach
@@ -209,20 +210,23 @@
                                                                 for="check4">Garage</label>
                                                         </div>
                                                     </li>
-                                                   
-                                                        <div class="custom-control custom-checkbox mb-3">
-                                                            <input type="checkbox" class="custom-control-input" id="checkFollow" onchange="toggleFollowFilter()">
-                                                            <label class="custom-control-label" for="checkFollow">Lọc theo danh sách theo dõi</label>
-                                                        </div>
-                                                        <input type="hidden" name="follow_filter" id="followFilter" value="">
-                                                        <script>
-                                                            function toggleFollowFilter() {
-                                                                const checkbox = document.getElementById('checkFollow');
-                                                                const followFilter = document.getElementById('followFilter');
-                                                                followFilter.value = checkbox.checked ? '1' : ''; // Set to '1' if checked, '' if unchecked
-                                                            }
-                                                        </script>
-                                                 {{-- <li class="list-group-item px-0 pt-0 pb-2">
+
+                                                    <div class="custom-control custom-checkbox mb-3">
+                                                        <input type="checkbox" class="custom-control-input"
+                                                            id="checkFollow" onchange="toggleFollowFilter()">
+                                                        <label class="custom-control-label" for="checkFollow">Lọc theo
+                                                            danh sách theo dõi</label>
+                                                    </div>
+                                                    <input type="hidden" name="follow_filter" id="followFilter"
+                                                        value="">
+                                                    <script>
+                                                        function toggleFollowFilter() {
+                                                            const checkbox = document.getElementById('checkFollow');
+                                                            const followFilter = document.getElementById('followFilter');
+                                                            followFilter.value = checkbox.checked ? '1' : ''; // Set to '1' if checked, '' if unchecked
+                                                        }
+                                                    </script>
+                                                    {{-- <li class="list-group-item px-0 pt-0 pb-2">
                                                         <div class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input" name="features[]"  id="check4">
                                                             <label class="custom-control-label" for="check4">Máy giặt</label>
@@ -237,87 +241,79 @@
                                     </form>
                                 </div>
                             </div>
+
                             <div class="card property-widget mb-4">
                                 <div class="card-body px-6 pt-5 pb-6">
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Phòng trọ nổi bật</h4>
                                     <div class="slick-slider mx-0"
                                         data-slick-options='{"slidesToShow": 1, "autoplay":true}'>
                                         @foreach ($roomVip as $room)
-                                            <div class="box px-0">
+                                            <div class="box px-0 slick-slide slick-current slick-active"
+                                                data-slick-index="1" aria-hidden="false" style="width: 309px;"
+                                                tabindex="0" role="tabpanel" id="slick-slide01"
+                                                aria-describedby="slick-slide-control01">
                                                 <div class="card border-0">
                                                     @php
-                                                        $image = $room->image ?? null;
+                                                        $image = $room->room->image ?? null;
                                                     @endphp
-                                                    @if ($image)
-                                                    {{-- <img src="https://drive.google.com/uc?export=view&id={{ $image }}" alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded" style="object-fit: cover;"> --}}
-                                                    <img src="https://drive.google.com/thumbnail?id={{ $image }}" alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded" style="object-fit: cover;" loading="lazy">
 
+                                                    @if ($image)
+                                                        <img src="https://drive.google.com/thumbnail?id={{ $image }}"
+                                                            alt="{{ $room->title }}"
+                                                            class="img-fluid rounded image-equal" loading="lazy"
+                                                            onload="this.style.opacity='1';"
+                                                            onerror="this.style.display='none';">
                                                     @else
                                                         <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                                            alt="{{ $room->title }}" class="img-fluid w-100 h-100 rounded"
-                                                            style="object-fit: cover;">
+                                                            alt="{{ $room->title }}"
+                                                            class="img-fluid rounded image-equal">
                                                     @endif
+
                                                     <div
                                                         class="card-img-overlay d-flex flex-column bg-gradient-3 rounded-lg">
-                                                        @if ($room->zone->expiration_date > now())
-                                                            <div class="d-flex mb-auto">
-                                                                <a href="#" class="mr-1 badge badge-danger">VIP</a>
+                                                        <div class="d-flex mb-auto">
+                                                            <div>
+                                                                <span
+                                                                    class="badge {{ $room->zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }} pos-fixed-top">
+                                                                    {{ $room->zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
+                                                                </span>
+                                                                @if ($room->zone->vipZonePosition && $room->zone->vipZonePosition->status == 1)
+                                                                    <span class="badge bg-danger text-white"
+                                                                        style="top: 1px; right: 1px;">
+                                                                        VIP
+                                                                    </span>
+                                                                @endif
                                                             </div>
-                                                        @endif
+                                                        </div>
                                                         <div class="px-2 pb-2">
                                                             <a href="{{ route('client.detail-zone', $room->zone->slug) }}"
                                                                 class="text-white">
-                                                                <h5 class="card-title text-white fs-16 lh-2 mb-0">
-                                                                    <small>{{ $room->zone->name }}</small>
-                                                                </h5>
-                                                            </a>
-                                                            <a href="{{ route('client.detail-zone', $room->zone->slug) }}"
-                                                            class="text-white">
-                                                            <p class="card-text text-white mb-0 font-weight-500">
-                                                                {{ $room->zone->address }}</p>
-                                                                </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                        @foreach ($popularZones as $zone)
-                                            <div class="box px-0">
-                                                <div class="card border-0">
-                                                    {{-- @if ($zone->images->isNotEmpty())
-                                                    @php
-                                                        $image = $zone->images->first();
-                                                    @endphp
-                                                    <img src="{{ asset('assets/images/' . $image->image) }}"
-                                                        alt="{{ $zone->title }}" class="property-image">
-                                                @else
-                                                    <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                                        alt="{{ $zone->title }}" class="property-image">
-                                                @endif --}}
-                                                    <div
-                                                        class="card-img-overlay d-flex flex-column bg-gradient-3 rounded-lg">
-                                                        
-                                                        @if ($zone->vipZonePosition && $zone->vipZonePosition->status == 1)
-                                                        <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
-                                                            VIP
-                                                        </span>
-                                                    @endif
-
-                                                        <div class="px-2 pb-2">
-                                                            {{-- <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}"
-                                                            class="text-white"> --}}
-                                                            <h5 class="card-title fs-16 lh-2 mb-0">
-                                                                <small>{{ Str::limit($zone->title, 50) }}</small>
-                                                            </h5>
+                                                                <h5 class="card-title fs-16 lh-2 mb-0">
+                                                                    {{ $room->zone->name }}</h5>
                                                             </a>
                                                             <p class="card-text text-gray-light mb-0 font-weight-500">
-                                                                {{ Str::limit($zone->address, 60) }}</p>
+                                                                {{ $room->zone->address }}</p>
                                                             <p class="text-white mb-0"><span
-                                                                    class="fs-17 font-weight-bold">{{ number_format($zone->price, 0, ',', '.') }}
-                                                                    VND</span>/tháng
-                                                            </p>
-                                                            <!-- Hiển thị tiện ích từ Zone -->
-
+                                                                    class="fs-17 font-weight-bold">
+                                                                    @if ($room->zone->rooms->isNotEmpty())
+                                                                        @php
+                                                                            $prices = $room->zone->rooms->pluck(
+                                                                                'price',
+                                                                            );
+                                                                            $minPrice = $prices->min();
+                                                                            $maxPrice = $prices->max();
+                                                                            $roomCount = $room->zone->rooms->count();
+                                                                        @endphp
+                                                                        @if ($roomCount === 1)
+                                                                            {{ number_format($minPrice, 0, ',', '.') }} VND
+                                                                        @else
+                                                                            {{ number_format($minPrice, 0, ',', '.') }} -
+                                                                            {{ number_format($maxPrice, 0, ',', '.') }} VND
+                                                                        @endif
+                                                                    @else
+                                                                        Giá không có sẵn
+                                                                    @endif
+                                                                </span></p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -326,6 +322,8 @@
                                     </div>
                                 </div>
                             </div>
+
+
                             {{-- <div class="card">
                                 <div class="card-body px-6 py-4">
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Bài viết mới nhất</h4>
@@ -593,6 +591,34 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <link rel="stylesheet" href="{{ asset('assets/css/css-nht.css') }}">
+    <style>
+        /* css cho slide phòng trọ nổi bậc */
+        .box {
+            height: 300px;
+            /* Hoặc chiều cao bạn muốn */
+            overflow: hidden;
+            /* Để ẩn phần hình ảnh vượt ra ngoài */
+        }
+
+        .image-equal {
+            height: 200px;
+            /* Chiều cao cố định cho tất cả hình ảnh */
+            width: 100%;
+            /* Đảm bảo chiều rộng 100% */
+            object-fit: cover;
+            /* Giữ tỷ lệ khung hình và cắt hình ảnh nếu cần */
+            display: block;
+            /* Đảm bảo hình ảnh được hiển thị như một khối */
+            margin: 0;
+            /* Loại bỏ khoảng cách */
+            padding: 0;
+            /* Loại bỏ đệm */
+        }
+
+        .slick-list {
+            height: 200px !important;
+        }
+    </style>
 @endpush
 @push('scriptUs')
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>

@@ -99,4 +99,5 @@ class Room extends Model
     {
         return $this->favourites()->where('user_id', $userId)->exists();
     }
+   
 }
