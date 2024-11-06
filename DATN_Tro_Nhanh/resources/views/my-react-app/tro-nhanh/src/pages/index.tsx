@@ -11,7 +11,7 @@ import {
 import {
   nearestRestaurantsState,
   popularRestaurantsState,
-  userState,
+ 
 } from "../state";
 
 const { Title, Header } = Text;
@@ -104,13 +104,13 @@ function Nearest() {
 }
 
 function Welcome() {
-  const user = useRecoilValue(userState);
+  // const user = useRecoilValue(userState);
   return (
     <>
-      <Avatar className="shadow align-middle mb-2" src={user.avatar}>
+      {/* <Avatar className="shadow align-middle mb-2" src={user.avatar}>
         Hi
-      </Avatar>
-      <Text size="small">{user.name ? <>Chào, {user.name}!</> : "..."}</Text>
+      </Avatar> */}
+      {/* <Text size="small">{user.name ? <>Chào, {user.name}!</> : "..."}</Text> */}
       <Text className="text-[20px] leading-[29px] font-bold " style={{ color: '#333333' }}> {/* Thêm lớp text-primary */}
       Trọ Nhanh - Xu hướng thời đại mới  
 </Text>

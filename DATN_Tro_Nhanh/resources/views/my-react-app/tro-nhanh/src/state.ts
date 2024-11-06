@@ -26,15 +26,15 @@ export const restaurantsDataState = atom<Restaurant[]>({
 });
 
 
-export const userState = selector({
-  key: "user",
-  get: async () => {
-    const { userInfo } = await getUserInfo({autoRequestPermission : true});
-    console.log('userInfo', userInfo);
+// export const userState = selector({
+//   key: "user",
+//   get: async () => {
+//     const { userInfo } = await getUserInfo({autoRequestPermission : true});
+//     console.log('userInfo', userInfo);
     
-    return userInfo;
-  },
-});
+//     return userInfo;
+//   },
+// });
 
 export const retryLocationState = atom({
   key: "retryLocation",
