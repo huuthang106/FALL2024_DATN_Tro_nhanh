@@ -23,24 +23,25 @@
                     <div class="col-lg-8 mb-6 mb-lg-0 pr-xl-6 pl-xl-0">
                         <div class="position-relative">
                             @if ($blog->image)
-                                <img class="rounded-lg d-block" src="{{ asset('assets/images/' . $blog->image) }}"
-                                    alt="{{ $blog->title }}">
+                                <img class="rounded-lg d-block"
+                                    src="https://drive.google.com/thumbnail?id={{ $blog->image }}"
+                                    alt="{{ $blog->title }}" loading="lazy"
+                                    onerror="this.onerror=null; this.src='{{ asset('assets/images/tro-moi.png') }}';">
                             @else
                                 <!-- Hiển thị một ảnh mặc định nếu không có ảnh nào được liên kết -->
-                                <img class="rounded-lg d-block" src="{{ asset('assets/images/default.jpg') }}"
+                                <img class="rounded-lg d-block" src="{{ asset('assets/images/tro-moi.png') }}"
                                     alt="Default Image">
                             @endif
                         </div>
                         <ul class="list-inline mt-4">
                             <li class="list-inline-item mr-4">
                                 @if ($blog->user->image)
-                                    <img class="mr-1" src="{{ asset('assets/images/', $blog->user->image) }}"
-                                        alt="  {{ $blog->user->name }}">
-                                    {{ $blog->user->name }}
+                                    <img class="mr-1" style="width: 32px; height: 32px; border-radius: 50%;"
+                                        src="{{ asset('assets/images/' . $blog->user->image) }}"
+                                        alt="{{ $blog->user->name }}">
                                 @else
-                                    <img class="mr-1" src="{{ asset('assets/images/author-01.jpg') }}"
-                                        alt="  {{ $blog->user->name }}">
-                                    {{ $blog->user->name }}
+                                    <img class="mr-1" style="width: 32px; height: 32px; border-radius: 50%;"
+                                        src="{{ asset('assets/images/agent-43.jpg') }}" alt="{{ $blog->user->name }}">
                                 @endif
                             </li>
                             <li class="list-inline-item mr-4">
@@ -205,7 +206,7 @@
                                                         <div class="position-relative mr-3">
                                                             <a href="{{ route('client.client-blog-detail', $featuredBlog->slug) }}"
                                                                 class="d-block w-100px rounded pt-11 bg-img-cover-center"
-                                                                style="background-image: url('{{ asset('assets/images/' . ($featuredBlog->image ?? 'default.jpg')) }}')">
+                                                                style="background-image: url('{{ $featuredBlog->image ? 'https://drive.google.com/thumbnail?id=' . $featuredBlog->image : asset('assets/images/default.jpg') }}')">
                                                             </a>
                                                             <a href="blog-grid-with-sidebar.html"
                                                                 class="badge text-white bg-dark-opacity-04 m-1 fs-13 font-weight-500 bg-hover-primary hover-white position-absolute pos-fixed-top">
@@ -341,48 +342,6 @@
 
 @endsection
 @push('styleUs')
-    {{-- <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Real Estate Html Template">
-    <meta name="author" content="">
-    <meta name="generator" content="Jekyll">
-    <title>Chi Tiết Blog | TRỌ NHANH</title>
-    <!-- Google fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/slick/slick.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/magnific-popup/magnific-popup.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/chartjs/Chart.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/dropzone/css/dropzone.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/animate.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
-    <!-- Themes core CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
-    <!-- Favicons -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/mh.css') }}">
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@">
-    <meta name="twitter:creator" content="@">
-    <meta name="twitter:title" content="Home 01">
-    <meta name="twitter:description" content="Real Estate Html Template">
-    <meta name="twitter:image" content="{{ asset('assets/images/tro-moi.png') }}">
-    <!-- Facebook -->
-    <meta property="og:url" content="home-01.html">
-    <meta property="og:title" content="Home 01">
-    <meta property="og:description" content="Real Estate Html Template">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="{{ asset('assets/images/tro-moi.png') }}">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630"> --}}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description"
@@ -413,28 +372,53 @@
     <!-- Favicons -->
     <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/mh.css') }}">
+    <!-- Share Meta Tags -->
+    @php
+        $imageUrl = '';
+        if ($blog->image) {
+            // Sử dụng URL trực tiếp từ Google Drive
+            // $imageUrl = 'https://drive.google.com/uc?export=view&id=' . $blog->image;
+            // Hoặc dùng thumbnail để tối ưu tốc độ
+            $imageUrl = 'https://drive.google.com/thumbnail?id=' . $blog->image;
+        } else {
+            $imageUrl = asset('assets/images/default-blog-image.jpg');
+        }
+        // Chuẩn hóa description
+        $description = Str::limit($blog->description, 200) ?? 'Bài viết blog trên Trọ Nhanh.';
+    @endphp
 
-    <!-- Twitter -->
-    <meta name="twitter:image" content="{{ asset('assets/images/tro-moi.png') }}">
+    <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@TroNhanh">
+    <meta name="twitter:creator" content="@TroNhanh">
     <meta name="twitter:title" content="{{ $blog->title }}">
-    <meta name="twitter:description"
-        content="{{ Str::limit($blog->description, 200) ?? 'Bài viết blog trên Trọ Nhanh.' }}">
-    <meta name="twitter:image" content="{{ asset('assets/images/' . ($blog->image ?? 'default-blog-image.jpg')) }}">
-    <meta name="twitter:site" content="@TronNhanh">
-    <meta name="twitter:creator" content="@TronNhanh">
+    <meta name="twitter:description" content="{{ $description }}">
+    <meta name="twitter:image" content="{{ $imageUrl }}">
+    <meta name="twitter:image:alt" content="{{ $blog->title }}">
 
-    <!-- Facebook -->
-    <meta property="og:title" content="{{ $blog->title }}">
-    <meta property="og:description"
-        content="{{ Str::limit($blog->description, 200) ?? 'Bài viết blog trên Trọ Nhanh.' }}">
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="{{ route('client.client-blog-detail', $blog->slug) }}">
-    <meta property="og:image" content="{{ asset('assets/images/' . ($blog->image ?? 'default-blog-image.jpg')) }}">
+    <!-- Facebook Open Graph Meta Tags -->
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:image:type" content="image/png">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{ $blog->title }}">
+    <meta property="og:description" content="{{ $description }}">
+    <meta property="og:image" content="{{ $imageUrl }}">
+    <meta property="og:image:secure_url" content="{{ $imageUrl }}">
+    <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Trọ Nhanh">
+    <meta property="og:locale" content="vi_VN">
+
+    <!-- Article Specific Meta Tags -->
+    <meta property="article:published_time" content="{{ $blog->created_at->toIso8601String() }}">
+    <meta property="article:modified_time" content="{{ $blog->updated_at->toIso8601String() }}">
+    <meta property="article:author" content="{{ $blog->user->name ?? 'Trọ Nhanh' }}">
+    <meta property="article:section" content="Blog">
+    @if ($blog->tags)
+        @foreach ($blog->tags as $tag)
+            <meta property="article:tag" content="{{ $tag }}">
+        @endforeach
+    @endif
 @endpush
 @push('scriptUs')
     <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>

@@ -15,6 +15,8 @@ use App\Http\Requests\CreateBlogRequest;
 use GuzzleHttp\Client;
 use App\Models\CommentBlogs;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Facades\Cookie;
+
 class BlogServices
 {
 
@@ -160,10 +162,10 @@ class BlogServices
         return $data['access_token']; // Trả về access token mới
     }
 
-public function uploadImageToGoogleDrive($image, $folderId, $filename)
-{
-    $client = new \GuzzleHttp\Client();
-    $accessToken = $this->getAccessToken(); // Lấy access token mới
+    public function uploadImageToGoogleDrive($image, $folderId, $filename)
+    {
+        $client = new \GuzzleHttp\Client();
+        $accessToken = $this->getAccessToken(); // Lấy access token mới
 
         $response = $client->post('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart', [
             'headers' => [
@@ -357,7 +359,7 @@ public function uploadImageToGoogleDrive($image, $folderId, $filename)
     {
         $client = new \GuzzleHttp\Client();
         $accessToken = $this->getAccessToken(); // Lấy access token mới
-    
+
         try {
             // Kiểm tra xem tệp có tồn tại không trước khi xóa
             $response = $client->get("https://www.googleapis.com/drive/v3/files/{$fileId}", [
@@ -365,7 +367,7 @@ public function uploadImageToGoogleDrive($image, $folderId, $filename)
                     'Authorization' => 'Bearer ' . $accessToken,
                 ],
             ]);
-    
+
             // Nếu tệp tồn tại, thực hiện xóa
             if ($response->getStatusCode() == 200) {
                 $client->delete("https://www.googleapis.com/drive/v3/files/{$fileId}", [
@@ -606,5 +608,19 @@ public function uploadImageToGoogleDrive($image, $folderId, $filename)
             ];
         }
     }
+    public function incrementViewCount($blogId)
+    {
+        if (!request()->cookie('viewed_blog_' . $blogId)) {
+            $blog = Blog::find($blogId);
+            if ($blog) {
+                if ($blog->view === null) {
+                    $blog->view = 0;
+                    $blog->save();
+                }
 
+                $blog->increment('view');
+                Cookie::queue('viewed_blog_' . $blogId, true, 120);
+            }
+        }
+    }
 }

@@ -98,7 +98,7 @@
                                         <label for="email" class="form-label">Email</label>
                                         <input type="email" class="form-control form-control-lg" id="email"
                                             name="email" value="{{ old('email', $request->email) }}"
-                                            placeholder="Email của bạn" required autofocus disabled>
+                                            placeholder="Email của bạn" required autofocus readonly="true">
                                         @error('email')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror

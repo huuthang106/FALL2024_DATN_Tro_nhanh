@@ -27,21 +27,35 @@
                                 <div class="card border-0 pb-6 mb-6 border-bottom">
 
                                     <div class="position-relative d-flex align-items-end card-img-top">
-                                        <a href="{{ route('client.client-blog-detail', $blog->slug) }}" class="hover-shine d-block">
-                                            <img src="{{ asset('assets/images/' . ($blog->image ? $blog->image : 'default.jpg')) }}"
-                                                 alt="{{ $blog->title }}" class="img-fluid">
+                                        <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
+                                            class="hover-shine d-block">
+                                            <img src="{{ $blog->image ? 'https://drive.google.com/thumbnail?id=' . $blog->image : asset('assets/images/default.jpg') }}"
+                                                alt="{{ $blog->title }}" loading="lazy"
+                                                onerror="this.onerror=null; this.src='{{ asset('assets/images/post-11.jpg') }}';">
                                         </a>
                                         <a href="#"
-                                           class="badge text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white position-absolute top-0 end-0 m-2">
+                                            class="badge text-white bg-dark-opacity-04 fs-13 font-weight-500 bg-hover-primary hover-white position-absolute top-0 end-0 m-2">
                                             Bài viết nổi bật
                                         </a>
                                     </div>
 
                                     <div class="card-body p-0">
                                         <ul class="list-inline mt-4">
-                                            <li class="list-inline-item mr-4"><img class="mr-1"
-                                                    src="{{ asset('assets/images/author-01.jpg') }}" alt="D. Warren">
-                                                {{ $blog->user->name }}
+                                            <li class="list-inline-item mr-4">
+                                                {{-- <img class="mr-1" src="{{ asset('assets/images/author-01.jpg') }}"
+                                                    alt="{{ $blog->user->name }}">
+                                                {{ $blog->user->name }} --}}
+                                                @if ($blog->user->image)
+                                                    <img class="mr-1"
+                                                        style="width: 32px; height: 32px; border-radius: 50%;"
+                                                        src="{{ asset('assets/images/' . $blog->user->image) }}"
+                                                        alt="{{ $blog->user->name }}">
+                                                @else
+                                                    <img class="mr-1"
+                                                        style="width: 32px; height: 32px; border-radius: 50%;"
+                                                        src="{{ asset('assets/images/agent-43.jpg') }}"
+                                                        alt="{{ $blog->user->name }}">
+                                                @endif
                                             </li>
                                             <li class="list-inline-item mr-4">
                                                 <i class="far fa-calendar mr-1"></i>
@@ -262,9 +276,9 @@
                                                     <div class="position-relative mr-3">
                                                         <a href="{{ route('client.client-blog-detail', $blog->slug) }}"
                                                             class="d-block w-100px rounded pt-11 bg-img-cover-center"
-                                                            style="background-image: url('{{ asset('assets/images/' . ($blog->image ?? 'default.jpg')) }}')">
-                                                         </a>
-                                                        <a href="blog-grid-with-sidebar.html"
+                                                            style="background-image: url('{{ $blog->image ? 'https://drive.google.com/thumbnail?id=' . $blog->image : asset('assets/images/default.jpg') }}')">
+                                                        </a>
+                                                        <a href="#"
                                                             class="badge text-white bg-dark-opacity-04 m-1 fs-13 font-weight-500 bg-hover-primary hover-white position-absolute pos-fixed-top">
                                                             Nổi Bật
                                                         </a>

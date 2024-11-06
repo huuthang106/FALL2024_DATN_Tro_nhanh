@@ -867,8 +867,8 @@
                                             nhập để gửi báo cáo</a>
                                     @endauth
                                     <!-- <a href="#"
-                                                                                                                                                                                                                class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Yêu
-                                                                                                                                                                                                                cầu thông tin</a> -->
+                                                                                                                                                                                                                            class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Yêu
+                                                                                                                                                                                                                            cầu thông tin</a> -->
 
                                     @if ($zone)
                                         <!-- Nút để mở modal -->
@@ -962,49 +962,6 @@
 @endsection
 
 @push('styleUs')
-    {{-- <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Real Estate Html Template">
-    <meta name="author" content="">
-    <meta name="generator" content="Jekyll">
-    <title>Chi Tiết Phòng Trọ | TRỌ NHANH</title>
-    <!-- Google fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
-        rel="stylesheet">
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/vendors/fontawesome-pro-5/css/all.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-select/css/bootstrap-select.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/slick/slick.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/magnific-popup/magnific-popup.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-ui/jquery-ui.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/chartjs/Chart.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/dropzone/css/dropzone.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/animate.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/bootstrap-timepicker.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/dataTables/jquery.dataTables.min.css') }}">
-    <!-- Themes core CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/themes.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/mh.css') }}">
-    <!-- Favicons -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@">
-    <meta name="twitter:creator" content="@">
-    <meta name="twitter:title" content="Single Property 6">
-    <meta name="twitter:description" content="Real Estate Html Template">
-    <meta name="twitter:image" content="images/tro-moi.png">
-    <!-- Facebook -->
-    <meta property="og:url" content="single-property-6.html">
-    <meta property="og:title" content="Single Property 6">
-    <meta property="og:description" content="Real Estate Html Template">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="images/tro-moi.png">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630"> --}}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description"
@@ -1036,24 +993,44 @@
     <link rel="stylesheet" href="{{ asset('assets/css/mh.css') }}">
     <!-- Favicons -->
     <link rel="shortcut icon" href="{{ asset('assets/images/logo-nav.png') }}" />
-    <!-- Twitter -->
+    <!-- Share Meta Tags -->
+    @php
+        $imageUrl = '';
+        if ($zone->rooms->isNotEmpty() && $zone->rooms->first()->image) {
+            $fileId = $zone->rooms->first()->image;
+            // Sử dụng URL trực tiếp từ Google Drive
+            $imageUrl = 'https://drive.google.com/uc?export=view&id=' . $fileId;
+        } else {
+            $imageUrl = asset('assets/images/properties-grid-04.jpg');
+        }
+    @endphp
+
+    <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@TroNanh">
-    <meta name="twitter:creator" content="@TroNanh">
+    <meta name="twitter:site" content="@TroNhanh">
+    <meta name="twitter:creator" content="@TroNhanh">
     <meta name="twitter:title" content="{{ $zone->name }}">
     <meta name="twitter:description" content="{{ $zone->description ?? 'Thông tin chi tiết về phòng trọ.' }}">
-    <meta name="twitter:image"
-        content="{{ asset('assets/images/' . ($zone->room && $zone->room->image ? $zone->room->image : 'properties-grid-04.jpg')) }}">
-    <!-- Facebook -->
+    <meta name="twitter:image" content="{{ $imageUrl }}">
+    <meta name="twitter:image:alt" content="{{ $zone->name }}">
+
+    <!-- Facebook Open Graph Meta Tags -->
     <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:type" content="website">
     <meta property="og:title" content="{{ $zone->name }}">
     <meta property="og:description" content="{{ $zone->description ?? 'Thông tin chi tiết về phòng trọ.' }}">
-    <meta property="og:type" content="website">
-    <meta name="twitter:image"
-        content="{{ asset('assets/images/' . ($zone->room && $zone->room->image ? $zone->room->image : 'properties-grid-04.jpg')) }}">
-    <meta property="og:image:type" content="image/png">
+    <meta property="og:image" content="{{ $imageUrl }}">
+    <meta property="og:image:secure_url" content="{{ $imageUrl }}">
+    <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Trọ Nhanh">
+    <meta property="og:locale" content="vi_VN">
+
+    <!-- Thêm thẻ meta cho rich preview -->
+    <meta property="article:published_time" content="{{ $zone->created_at->toIso8601String() }}">
+    <meta property="article:modified_time" content="{{ $zone->updated_at->toIso8601String() }}">
+    <meta property="article:author" content="{{ $zone->user->name ?? 'Trọ Nhanh' }}">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
