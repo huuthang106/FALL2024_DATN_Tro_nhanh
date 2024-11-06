@@ -825,21 +825,30 @@ class ZoneServices
             $customer->balance -= $cost;
             $customer->save();
 
-            $newExpiry = Carbon::now()->addDays((int) $validity); // Không cần cộng thêm 1 ngày
-            // Lưu vị trí vip cho zone
-            $vipZonePosition = VipZonePosition::firstOrNew(['zone_id' => $accommodation->id]);
-            // Cập nhật location_id và end_date
-            $vipZonePosition->location_id = $pricing->location_id;
+            $newExpiry = Carbon::now()->addDays((int) $validity);
 
-            if ($vipZonePosition->end_date && Carbon::parse($vipZonePosition->end_date)->isFuture()) {
-                // Nếu ngày kết thúc hiện tại là trong tương lai, gia hạn nó mà không trừ đi 1 ngày
-                $vipZonePosition->end_date = Carbon::parse($vipZonePosition->end_date)->addDays((int) $validity);
+            // Kiểm tra xem có VipZonePosition với cùng zone_id và location_id không
+            $vipZonePosition = VipZonePosition::where('zone_id', $accommodation->id)
+                ->where('location_id', $pricing->location_id)
+                ->first();
+
+            if ($vipZonePosition) {
+                // Nếu đã tồn tại, cập nhật end_date
+                if (Carbon::parse($vipZonePosition->end_date)->isFuture()) {
+                    $vipZonePosition->end_date = Carbon::parse($vipZonePosition->end_date)->addDays((int) $validity);
+                } else {
+                    $vipZonePosition->end_date = $newExpiry;
+                }
             } else {
-                // Nếu không, đặt ngày hết hạn mới từ bây giờ
+                // Nếu không tồn tại, tạo mới
+                $vipZonePosition = new VipZonePosition();
+                $vipZonePosition->zone_id = $accommodation->id;
+                $vipZonePosition->location_id = $pricing->location_id;
                 $vipZonePosition->end_date = $newExpiry;
             }
 
             $vipZonePosition->save();
+
             // Lưu lịch sử thanh toán
             $lichsu = new Transaction();
             $lichsu->type = $pricing->location->name;
