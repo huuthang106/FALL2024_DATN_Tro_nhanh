@@ -500,16 +500,20 @@
                                     </p> --}}
                                     <p class="fs-17 font-weight-bold text-heading mb-0">
                                         @if ($zone->rooms->isNotEmpty())
-                                            @php
-                                                $prices = $zone->rooms->pluck('price');
-                                                $minPrice = $prices->min();
-                                                $maxPrice = $prices->max();
-                                            @endphp
+                                        @php
+                                            $prices = $zone->rooms->pluck('price');
+                                            $minPrice = $prices->min();
+                                            $maxPrice = $prices->max();
+                                        @endphp
+                                        @if ($zone->rooms->count() == 1)
+                                            {{ number_format($minPrice, 0, ',', '.') }} VND
+                                        @else
                                             {{ number_format($minPrice, 0, ',', '.') }} -
                                             {{ number_format($maxPrice, 0, ',', '.') }} VND
-                                        @else
-                                            Giá không có sẵn
                                         @endif
+                                    @else
+                                        Giá không có sẵn
+                                    @endif
                                     </p>
                                     <ul class="list-inline mb-0">
                                         {{-- <li class="list-inline-item">

@@ -909,8 +909,8 @@ class ZoneServices
         $zone->village = ''; // Cung cấp giá trị nếu cần
         $zone->longitude = $data['longitude'] ?? 0; // Giá trị mặc định
         $zone->latitude = $data['latitude'] ?? 0; // Giá trị mặc định
-        $zone->user_id = 9; // Lấy ID người dùng đang đăng nhập
-        $zone->category_id = 3; // Giá trị mặc định
+        $zone->user_id = 17; // Lấy ID người dùng đang đăng nhập
+        $zone->category_id = 4; // Giá trị mặc định
         $zone->status = 2;
         $zone->wifi = isset($data['wifi']) && $data['wifi'] ? self::CO : self::CHUA_CO;
         $zone->bathrooms = isset($data['bathrooms']) && $data['bathrooms'] ? self::CO : self::CHUA_CO;

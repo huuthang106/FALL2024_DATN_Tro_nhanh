@@ -30,3 +30,4 @@ Route::post('/upload', [GoogleDriveController::class, 'uploadFile'])->name('uplo
 Route::get('/get-data', [ZoneOwnersController::class, 'viewData'])->name('viewData');
 
 Route::post('/get-data-1', [ZoneOwnersController::class, 'getData'])->name('getData');
+Route::Post('/get-data-blog', [ZoneOwnersController::class, 'getBlogData'])->name('getBlogDetails');

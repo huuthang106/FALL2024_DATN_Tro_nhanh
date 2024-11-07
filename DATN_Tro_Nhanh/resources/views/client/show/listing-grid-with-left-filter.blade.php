@@ -241,7 +241,7 @@
                                     </form>
                                 </div>
                             </div>
-
+                            @if ($roomVip->isNotEmpty())
                             <div class="card property-widget mb-4">
                                 <div class="card-body px-6 pt-5 pb-6">
                                     <h4 class="card-title fs-16 lh-2 text-dark mb-3">Phòng trọ nổi bật</h4>
@@ -291,8 +291,7 @@
                                                                 <h5 class="card-title fs-16 lh-2 mb-0">
                                                                     {{ $room->zone->name }}</h5>
                                                             </a>
-                                                            <p class="card-text text-gray-light mb-0 font-weight-500">
-                                                                {{ $room->zone->address }}</p>
+                                                   
                                                             <p class="text-white mb-0"><span
                                                                     class="fs-17 font-weight-bold">
                                                                     @if ($room->zone->rooms->isNotEmpty())
@@ -322,7 +321,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                            @endif
 
                             {{-- <div class="card">
                                 <div class="card-body px-6 py-4">

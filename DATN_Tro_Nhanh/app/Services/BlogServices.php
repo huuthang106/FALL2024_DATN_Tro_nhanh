@@ -284,61 +284,61 @@ class BlogServices
     public function updateBlog(Request $request, $id)
     {
         DB::beginTransaction();
-    
+
         try {
             $blog = Blog::findOrFail($id);
-    
+
             $data = $request->validate([
                 'title' => 'required|string|max:255',
                 'description' => 'required|string',
                 'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
-    
+
             // Cập nhật tiêu đề và mô tả
             $blog->title = $data['title'];
             $blog->description = $data['description'];
-    
+
             if ($blog->isDirty('title')) {
                 $blog->slug = $this->createSlug($data['title'], $blog->id); // Tạo slug mới nếu tiêu đề thay đổi
             }
-    
+
             // Xử lý hình ảnh mới
             $violentImages = [];
             $uploadedFileIds = []; // Mảng để lưu ID tệp đã tải lên
-    
+
             if ($request->hasFile('images')) {
                 // Xóa ảnh cũ trên Google Drive
                 $oldImageIds = explode(',', $blog->image); // Lấy ID tệp cũ
                 foreach ($oldImageIds as $oldImageId) {
                     $this->deleteFileFromGoogleDrive($oldImageId); // Gọi phương thức để xóa tệp
                 }
-    
+
                 // Xử lý ảnh mới
                 foreach ($request->file('images') as $image) {
                     // Kiểm tra ảnh bạo lực
                     $imageContent = base64_encode(file_get_contents($image->getRealPath()));
                     $violenceScore = $this->checkViolentContent($imageContent);
-    
+
                     if ($violenceScore > 0.5) {
                         $violentImages[] = $image->getClientOriginalName();
                     } else {
                         // Tạo tên file mới với title và id
                         $slugTitle = Str::slug($data['title'], '-');
                         $filename = $slugTitle . '-' . $blog->id . '-' . time() . '.' . $image->getClientOriginalExtension();
-    
+
                         // Tải lên hình ảnh vào Google Drive
                         $driveFileId = '1DNPZ0KBCiY27mvOZKFg8IyyarT7PIGVF'; // ID thư mục Google Drive
                         $uploadResult = $this->uploadImageToGoogleDrive($image, $driveFileId, $filename); // Gọi phương thức với tên đã tạo
-    
+
                         // Lưu ID tệp vào mảng
                         $uploadedFileIds[] = $uploadResult['id']; // Lưu ID tệp đã tải lên
                     }
                 }
-    
+
                 // Cập nhật cột image trong bảng blogs với ID tệp
                 $blog->image = implode(',', $uploadedFileIds); // Lưu chuỗi ID tệp phân tách bằng dấu phẩy
             }
-    
+
             if (!empty($violentImages)) {
                 DB::rollBack();
                 return [
@@ -346,7 +346,7 @@ class BlogServices
                     'message' => 'Phát hiện ảnh không phù hợp: ' . implode(', ', $violentImages) . '. Vui lòng kiểm tra lại ảnh của bạn.'
                 ];
             }
-    
+
             $blog->save(); // Lưu các thay đổi vào cơ sở dữ liệu
             DB::commit();
             return ['success' => true, 'message' => 'Blog đã được cập nhật thành công!'];
@@ -621,6 +621,86 @@ class BlogServices
                 $blog->increment('view');
                 Cookie::queue('viewed_blog_' . $blogId, true, 120);
             }
+        }
+    }
+
+    public function toolGetData($request)
+    {
+        DB::beginTransaction(); // Bắt đầu giao dịch
+    
+        try {
+            // Lấy dữ liệu từ request
+            $data = $request;
+    
+            // Xác thực người dùng
+           
+    
+            // Tạo blog mới để lấy ID
+            $blog = new Blog();
+            $blog->title = $data->title; // Sử dụng $data->title
+            $blog->description = $data->description; // Sử dụng $data->description
+            $blog->user_id = 9; // Sử dụng ID người dùng thực tế
+            $blog->status = 1;
+            $blog->save();
+    
+            // Kiểm tra và tải lên ảnh nếu có
+            if (isset($data->image)) {
+                $imageUrl = $data->image; // Đường dẫn hình ảnh
+                $imageContent = @file_get_contents($imageUrl);
+    
+                if ($imageContent !== false) {
+                    // Tạo một đối tượng UploadedFile giả để sử dụng hàm uploadImageToGoogleDrive
+                    $tempFilePath = tempnam(sys_get_temp_dir(), 'image');
+                    file_put_contents($tempFilePath, $imageContent);
+                    $uploadedFile = new \Illuminate\Http\UploadedFile(
+                        $tempFilePath,
+                        basename($imageUrl),
+                        mime_content_type($tempFilePath),
+                        null,
+                        true
+                    );
+    
+                    $folderId = env('GOOGLE_DRIVE_FOLDER_ID'); // Lấy ID thư mục từ .env
+                    $filename = time() . '_' . basename($imageUrl); // Tạo tên file mới
+    
+                    // Gọi hàm uploadImageToGoogleDrive
+                    $uploadResult = $this->uploadImageToGoogleDrive($uploadedFile, $folderId, $filename);
+    
+                    if (isset($uploadResult['id'])) {
+                        // Lưu ID của file trên Google Drive vào cơ sở dữ liệu
+                        $blog->image = $uploadResult['id'];
+                    } else {
+                        // Xử lý lỗi nếu không thể tải lên
+                        Log::error('Không thể tải lên hình ảnh: ' . json_encode($uploadResult));
+                        return response()->json([
+                            'status' => 'error',
+                            'message' => 'Không thể tải lên hình ảnh.'
+                        ]);
+                    }
+                } else {
+                    Log::error("Không thể tải hình ảnh từ URL: $imageUrl");
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => "Không thể tải hình ảnh từ URL: $imageUrl"
+                    ]);
+                }
+            }
+    
+            // Tạo slug cho blog và lưu vào cơ sở dữ liệu
+            $slug = $this->createSlug($data->title, $blog->id);
+            $blog->slug = $slug;
+            $blog->save();
+    
+            DB::commit(); // Commit transaction
+    
+            return true; // Trả về true nếu thành công
+        } catch (\Exception $e) {
+            DB::rollBack(); // Rollback transaction
+            Log::error('Lỗi khi xử lý tạo blog: ' . $e->getMessage());
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Có lỗi xảy ra khi tạo blog: ' . $e->getMessage()
+            ]);
         }
     }
 }

@@ -19,10 +19,12 @@ use App\Models\PriceList;
 use App\Models\Zone;
 use App\Http\Requests\RoomOwnersRequest;
 use App\Events\RoomCreated;
+use App\Services\BlogServices;
 use Illuminate\Support\Facades\Http; // Thêm dòng này để sử dụng Http
 use DOMDocument; // Thêm dòng này để sử dụng DOMDocument
 use DOMXPath;
 use App\Services\ZoneServices;
+
 class ZoneOwnersController extends Controller
 {
     protected $zoneServices;
@@ -31,13 +33,14 @@ class ZoneOwnersController extends Controller
     protected const show = 2;
     protected const user_is_in = 2;
     protected $roomOwnersService;
-
+    protected $blogServices;
     //
 
-    public function __construct(ZoneServices $zoneServices, RoomOwnersService $roomOwnersService)
+    public function __construct(ZoneServices $zoneServices, RoomOwnersService $roomOwnersService, BlogServices $blogServices)
     {
         $this->zoneServices = $zoneServices;
         $this->roomOwnersService = $roomOwnersService;
+        $this->blogServices = $blogServices;
     }
     public function index()
     {
@@ -79,7 +82,7 @@ class ZoneOwnersController extends Controller
     {
         // Lấy giá trị `amount` không dấu phẩy từ request
         $data = $request->validated();
-        
+
         $data['amount'] = intval(str_replace('.', '', $request['amount'])); // Loại bỏ dấu phẩy và chuyển đổi
         // return response()->json(['status' => 'success', 'message' => $data]); // Trả về JSON thông báo thành công
 
@@ -87,14 +90,14 @@ class ZoneOwnersController extends Controller
         // Gọi service để tạo hóa đơn với dữ liệu đã được xử lý
         $result = $this->zoneServices->createBill($data); // Lưu kết quả vào biến
         // dd($result);
-    
+
         if (!$result) { // Kiểm tra nếu không thành công
             return response()->json(['status' => 'error', 'message' => 'Tạo hóa đơn không thành công.']); // Trả về JSON thông báo lỗi
         }
-    
+
         return response()->json(['status' => 'success', 'message' => 'Hóa đơn đã được tạo thành công.']); // Trả về JSON thông báo thành công
     }
-    
+
 
     private function getRawValue($value)
     {
@@ -158,22 +161,22 @@ class ZoneOwnersController extends Controller
         }
     }
     public function update(ZoneRequest $request, $id)
-    {   
-        
+    {
+
         $result = $this->zoneServices->updateZone($request, $id);
-    
+
         if ($result['success']) {
             return response()->json(['success' => true, 'message' => 'Cập nhật thành công khu trọ.']);
         } else {
             return response()->json(['success' => false, 'message' => $result['message'] ?? 'Đã xảy ra lỗi khi cập nhật khu trọ.'], 400);
         }
     }
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
 
     public function destroy($id)
     {
@@ -182,7 +185,7 @@ class ZoneOwnersController extends Controller
         if ($result['status'] === 'error') {
             return response()->json(['status' => 'error', 'message' => $result['message']], 400);
         }
-    
+
         return response()->json(['status' => 'success', 'message' => $result['message']], 200);
     }
     // public function destroyy($id)
@@ -218,7 +221,7 @@ class ZoneOwnersController extends Controller
             // Nếu không thể xóa vĩnh viễn do có phòng hoạt động hoặc người ở, trả về JSON với thông báo lỗi
             return response()->json(['status' => 'error', 'message' => $result['message']], 400);
         }
-    
+
         // Nếu xóa vĩnh viễn thành công, trả về JSON với thông báo thành công
         return response()->json(['status' => 'success', 'message' => 'Khu trọ đã được xóa vĩnh viễn.'], 200);
     }
@@ -583,13 +586,117 @@ class ZoneOwnersController extends Controller
         // echo $data['phone'];
 
         // Giả định bạn có một dịch vụ để thêm dữ liệu vào cơ sở dữ liệu
-        $result = $this->zoneServices->createMultiple($data );
+        $result = $this->zoneServices->createMultiple($data);
 
         // Kiểm tra kết quả và in ra thông báo
         // if ($result) {
         //     echo "Thành công: Dữ liệu đã được thêm vào cơ sở dữ liệu.<br>";
         // } else {
         //     echo "Thất bại: Không thể thêm dữ liệu vào cơ sở dữ liệu.<br>";
+        // }
+    }
+
+
+
+  
+    public function getBlogData(request $item)
+    {
+        set_time_limit(0); // Không giới hạn thời gian thực thi
+
+        // Bước 1: Lấy nội dung từ trang blog
+        $baseUrl = $item['item']; // URL chính
+        $html = @file_get_contents($baseUrl); // Lấy nội dung HTML
+
+        if ($html === false) {
+            echo "Không thể lấy nội dung từ URL: $baseUrl";
+            return;
+        }
+
+        // Bước 2: Tạo đối tượng DOMDocument để phân tích cú pháp HTML
+        $dom = new DOMDocument();
+        @$dom->loadHTML($html); // Sử dụng @ để bỏ qua cảnh báo
+
+        // Bước 3: Tạo đối tượng DOMXPath để truy vấn
+        $xpath = new DOMXPath($dom);
+
+        // Lấy tất cả các thẻ <a> trong danh sách bài viết
+        $articleLinks = $xpath->query('//article//a[@href]');
+
+        // Mảng để theo dõi các link đã lấy
+        $seenLinks = [];
+
+        // Duyệt qua từng liên kết bài viết
+        foreach ($articleLinks as $link) {
+            $detailLink = $link->getAttribute('href');
+
+            // Kiểm tra nếu liên kết là đường dẫn tương đối
+            if (strpos($detailLink, 'http') !== 0) {
+                $detailLink = 'https://phongtro123.com' . $detailLink; // Thêm tiền tố URL gốc
+            }
+
+            // Chỉ in ra thông tin nếu có link và chưa được lấy
+            if ($detailLink && !in_array($detailLink, $seenLinks)) {
+                // Thêm link vào mảng đã thấy
+                $seenLinks[] = $detailLink;
+
+                // Gọi hàm để lấy thông tin chi tiết từ link
+                $this->getBlogDetails($detailLink);
+            }
+        }
+    }
+
+    private function getBlogDetails($url)
+    {
+        // Lấy nội dung từ link chi tiết
+        $html = @file_get_contents($url);
+        if ($html === false) {
+            echo "Không thể lấy nội dung từ URL: $url<br>";
+            return;
+        }
+
+        // Tạo đối tượng DOMDocument để phân tích cú pháp HTML
+        $dom = new DOMDocument();
+        @$dom->loadHTML($html);
+        $xpath = new DOMXPath($dom);
+
+        // Lấy tiêu đề bài viết
+        $titleElement = $xpath->query('//h1')->item(0);
+        $title = $titleElement ? $titleElement->textContent : 'Không có tiêu đề';
+
+        // Lấy hình ảnh đầu tiên từ thẻ <figure>
+        $imageElement = $xpath->query('//figure//img');
+        $imageSrc = $imageElement->length > 0 ? $imageElement[0]->getAttribute('src') : null;
+
+        if ($imageSrc === null) {
+            echo "Không có hình ảnh nào được tìm thấy trong phần 'figure'.<br>";
+        } else {
+            echo "Hình ảnh được tìm thấy: $imageSrc<br>";
+        }
+
+        // Lấy nội dung bài viết chỉ từ các thẻ <p>
+        $contentElements = $xpath->query('//div[@class="article-main-content"]//p');
+        $content = '';
+
+        foreach ($contentElements as $element) {
+            // Chỉ lấy văn bản mà không cần thẻ <p>
+            $content .= $element->textContent . ' '; // Nối các văn bản thành một chuỗi
+        }
+
+        // Tạo mảng dữ liệu
+        $data = [
+            'title' => $title,
+            'description' => trim($content), // Cập nhật mô tả mà không có thẻ <p>
+            'image' => $imageSrc, // Lưu URL hình ảnh
+        ];
+        // echo $data['image'];
+        // Gọi hàm toolGetData với mảng dữ liệu
+        $result = $this->blogServices->toolGetData((object)$data); // Truyền mảng dữ liệu vào hàm
+
+        // // Kiểm tra kết quả và in ra thông báo
+        // if ($result) {
+        //     echo "Đã thêm blog: " . $title . "<br>"; // In ra thông báo thành công cho từng blog
+        // } else {
+        //     echo "Có lỗi xảy ra khi tạo blog: " . $title . "<br>"; // Thông báo lỗi nếu không thành công
         // }
     }
 }

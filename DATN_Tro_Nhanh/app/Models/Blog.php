@@ -12,7 +12,7 @@ class Blog extends Model
     use HasFactory;
     use SoftDeletes;
     use Searchable;
-    protected $fillable = ['title', 'description', 'slug','image'];
+    protected $fillable = ['title', 'description', 'slug','image','user_id'];
     public function user()
     {
         return $this->belongsTo(User::class);
