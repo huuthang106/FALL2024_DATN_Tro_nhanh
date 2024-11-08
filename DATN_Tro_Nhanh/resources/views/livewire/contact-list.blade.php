@@ -2,7 +2,7 @@
     <div class="container-fluid py-5">
         <div class="row">
             <!-- Contact List -->
-            <div class="col-lg-4 p-2">
+            <div class="col-lg-4 p-2" wire:poll="pollContacts">
                 <div class="card h-100 shadow-sm" style="border-radius: 8px; min-height: 650px;">
                     <div class="card-header bg-white border-0 p-3">
                         <form class="position-relative">
@@ -61,7 +61,7 @@
                 </div>
             </div>
             <!-- Chat Box -->
-            <div class="col-lg-8 p-2">
+            <div class="col-lg-8 p-2" wire:poll="getmesseger" >
                 <div class="card h-100 shadow-sm" style="border-radius: 8px;  min-height: 650px;">
                     <div class="card-header d-flex justify-content-between align-items-center bg-white p-3">
                         @if ($sender)

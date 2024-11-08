@@ -13,7 +13,7 @@ class ResidentOwnersController extends Controller
     //
     protected const not_yet_approved = 1; // Hoặc giá trị status mà bạn muốn lọc
     protected const agree = 2; // Hoặc giá trị status mà bạn muốn lọc
-    protected const refuse = 4; // Hoặc giá trị status mà bạn muốn lọc
+    protected const refuse = 3; // Hoặc giá trị status mà bạn muốn lọc
     protected const not_yet = 1; // Hoặc giá trị status mà bạn muốn lọc
     protected $residentOwnersService;
     protected $roomOwnersService;

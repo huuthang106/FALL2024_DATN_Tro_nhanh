@@ -48,30 +48,39 @@ class CommentClientService
     {
         // Tìm khu trọ theo slug
         $zone = Zone::where('slug', $data['zone_slug'])->first();
-    
+
         if (!$zone) {
             return null;
         }
-    
+
         // Kiểm tra xem người dùng có phải là resident của phòng trong khu trọ không
-        $isResident = Resident::where('user_id', Auth::id())
-            ->where('status', '!=', 1)
+        // Tìm phòng theo user_id và kiểm tra xem phòng có thuộc zone hiện tại không
+        // Tìm room_id từ bảng Resident cho user hiện tại
+        $isResident = Resident::where('tenant_id', Auth::id())
+            ->whereIn('status', [2, 4]) // Chỉ cho phép status 2 và 4
             ->whereHas('room', function ($query) use ($zone) {
-                $query->where('zone_id', $zone->id);
+                $query->where('zone_id', $zone->id); // Kiểm tra xem room có thuộc zone này không
             })
             ->exists();
-    
+
         if (!$isResident) {
             return ['success' => false, 'message' => 'Bạn không có quyền đánh giá khu trọ này.']; // Trả về thông báo lỗi
         }
-    
+
+        $existingComment = CommentZones::where('user_id', Auth::id())
+            ->where('zone_id', $zone->id)
+            ->first();
+
+        if ($existingComment) {
+            return ['success' => false, 'message' => 'Bạn đã bình luận về khu trọ này rồi.']; // Trả về thông báo lỗi
+        }
         $review = new CommentZones();
         $review->rating = $data['rating'];
         $review->content = $data['content'];
         $review->user_id = Auth::id();
         $review->zone_id = $zone->id;
         $review->save();
-    
+
         return ['success' => true, 'review' => $review];
     }
     public function countTotalReviews()
@@ -121,21 +130,21 @@ class CommentClientService
         }
         return CommentBlogs::where('user_id', $userId)->where('blog_id', $blog->id)->exists();
     }
-    
+
     public function submitBlogs($data)
     {
         $blog = Blog::where('slug', $data['blog_slug'])->first();
-    
+
         if (!$blog) {
             return null;
         }
-    
+
         $comment = new CommentBlogs(); // Sử dụng model CommentBlogs
         $comment->content = $data['content'];
         $comment->user_id = Auth::id();
         $comment->blog_id = $blog->id;
         $comment->save();
-    
+
         return $comment;
     }
     // public function submitUsers($data)
@@ -343,7 +352,7 @@ class CommentClientService
             $ratingsDistribution = array_fill(1, 5, 0);
         }
 
-        $comments = CommentUsers    ::where('commented_user_id', $user->id)->orderBy('created_at', 'desc')->get();
+        $comments = CommentUsers::where('commented_user_id', $user->id)->orderBy('created_at', 'desc')->get();
 
         return [
             'user' => $user,

@@ -64,10 +64,10 @@ class PaymentService
                 throw new \Exception('Số dư không đủ để thực hiện giao dịch.');
             }
 
-            if ($data['amount'] <= 10000) {
+            if ($data['amount'] < 10000) {
                 return [
                     'success' => false,
-                    'message' => 'Số tiền rút phải lớn hơn 10,000 VND.'
+                    'message' => 'Rút tối thiểu 10,000 VND.'
                 ];
             }
 

@@ -56,7 +56,7 @@ class IdentityService
     {
         // dd($request->all()); 
         // session()->flush();
-        Log::info('Kết quả từ API:' . $request);
+        // Log::info('Kết quả từ API:' . $request);
 
         if ($request->hasFile('videoFile') && $request->hasFile('CCCDMT')) {
             // Lấy thông tin tệp video và hình ảnh
@@ -250,7 +250,9 @@ class IdentityService
                     return response()->json(['error' => 'Kiểm tra sự sống không thành công.'], 400); // Trả về JSON với mã lỗi 400
                 }
             case 303:
-                return response()->json(['error' => 'Khuôn mặt không khớp'], 400); // Trả về JSON với mã lỗi 400
+                return response()->json(['error' => 'Khuôn mặt không khớp'], 400);
+            case 407:
+                return response()->json(['error' => 'Không nhận dạng được khuôn mặt hoặc sai thứ tự căn cước.'], 400);
             case 429:
                 return response()->json(['error' => 'Quá tải hết key'], 400); // Trả về JSON với mã lỗi 400
             case 406:

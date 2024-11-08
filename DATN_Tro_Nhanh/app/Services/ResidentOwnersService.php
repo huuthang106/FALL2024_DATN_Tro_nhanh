@@ -107,7 +107,7 @@ class ResidentOwnersService
 
         // Xóa thay doi status cho resident
         $resident->status = self::delete;
-        $resident->delete();
+        $resident->save();
 
         return true; // Trả về true nếu xóa thành công
     }
