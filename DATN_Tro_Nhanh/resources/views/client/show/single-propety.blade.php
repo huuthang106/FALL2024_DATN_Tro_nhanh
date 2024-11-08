@@ -275,7 +275,7 @@
                         <section class="mt-2 pb-3 px-6 pt-5 bg-white rounded-lg">
                             <h4 class="fs-22 text-heading mb-6">Tiện ích phòng</h4>
                             <div class="row">
-                                <div class="col-lg-3 col-sm-4 mb-6">
+                                {{-- <div class="col-lg-3 col-sm-4 mb-6">
                                     <div class="media">
                                         <div class="p-2 shadow-xxs-1 rounded-lg mr-2">
                                             <svg class="icon icon-price fs-32 text-primary">
@@ -294,8 +294,8 @@
                                             </p>
                                         </div>
                                     </div>
-                                </div>
-                                @if ($zone->utility && $zone->utility->bathrooms == 1)
+                                </div> --}}
+                                @if ($zone->bathrooms == 1)
                                     <div class="col-lg-3 col-sm-4 mb-6">
                                         <div class="media align-items-center">
                                             <div class="p-2 shadow-xxs-1 rounded-lg mr-2">
@@ -312,7 +312,7 @@
                                         </div>
                                     </div>
                                 @endif
-                                @if ($zone->utility && $zone->utility->garage == 1)
+                                @if ($zone->garage == 1)
                                     <div class="col-lg-3 col-sm-4 mb-6">
                                         <div class="media align-items-center">
                                             <div class="p-2 shadow-xxs-1 rounded-lg mr-2">
@@ -330,7 +330,7 @@
                                         </div>
                                     </div>
                                 @endif
-                                @if ($zone->utility && $zone->utility->wifi == 1)
+                                @if ($zone->wifi == 1)
                                     <div class="col-lg-3 col-sm-4 mb-6">
                                         <div class="media align-items-center">
                                             <div class="p-2 shadow-xxs-1 rounded-lg mr-2">
@@ -479,20 +479,25 @@
                                         <div class="box">
                                             <div class="card shadow-hover-2 =">
                                                 <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top">
-                                                    {{-- <div class="image-wrapper"
+                                                    @php
+                                                        $image = $similarZone->rooms->first()->image ?? null;
+                                                    @endphp
+                                                    <div class="image-wrapper"
                                                         style="padding-top: 66.67%; position: relative; overflow: hidden;">
-                                                        @if ($similarZone->images->isNotEmpty())
-                                                            <img src="{{ asset('assets/images/' . $similarZone->images->first()->filename) }}"
+                                                        @if ($image)
+                                                            <img src="https://drive.google.com/thumbnail?id={{ $image }}"
                                                                 alt="{{ $similarZone->title }}"
                                                                 class="img-fluid rounded position-absolute"
-                                                                style="top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+                                                                style="top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                                                                loading="lazy">
                                                         @else
                                                             <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
                                                                 alt="{{ $similarZone->title }}"
                                                                 class="img-fluid rounded position-absolute"
                                                                 style="top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
                                                         @endif
-                                                    </div> --}}
+
+                                                    </div>
                                                     <div class="card-img-overlay p-2 d-flex flex-column">
 
                                                         @if ($similarZone->expiration_date > now())
@@ -529,22 +534,12 @@
                                                 <div class="card-body pt-3">
                                                     <h2 class="card-title fs-16 lh-2 mb-0"><a
                                                             href="{{ route('client.detail-zone', ['slug' => $similarZone->slug]) }}"
-                                                            class="text-dark hover-primary">{{ $similarZone->title }}</a>
+                                                            class="text-dark hover-primary">{{ $similarZone->name }}</a>
                                                     </h2>
                                                     <p class="card-text font-weight-500 text-gray-light mb-2">
                                                         {{ $similarZone->address }}</p>
                                                     <ul class="list-inline d-flex mb-0 flex-wrap mr-n4">
-                                                        <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-4"
-                                                            data-toggle="tooltip" title="Diện tích">
-                                                            <svg class="icon icon-square fs-18 text-primary mr-1">
-                                                                <use xlink:href="#icon-square"></use>
-                                                            </svg>
-                                                            @if ($similarZone->acreage)
-                                                                {{ $similarZone->acreage }}m²
-                                                            @else
-                                                                Chưa có thông tin
-                                                            @endif
-                                                        </li>
+
                                                         @if ($similarZone->utility && $similarZone->utility->bathrooms == 1)
                                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-4"
                                                                 data-toggle="tooltip" title="Phòng tắm">
@@ -554,7 +549,7 @@
                                                                 Phòng tắm
                                                             </li>
                                                         @endif
-                                                        @if ($similarZone->utility && $similarZone->utility->garage == 1)
+                                                        @if ($similarZone->garage == 1)
                                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-4"
                                                                 data-toggle="tooltip" title="Garage">
                                                                 <svg class="icon icon-Garage fs-18 text-primary mr-1">
@@ -563,7 +558,7 @@
                                                                 Ga-ra
                                                             </li>
                                                         @endif
-                                                        @if ($similarZone->utility && $similarZone->utility->wifi == 1)
+                                                        @if ($similarZone->wifi == 1)
                                                             <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-4"
                                                                 data-toggle="tooltip" title="WiFi">
                                                                 <svg class="icon fs-18 text-primary mr-1"
@@ -650,7 +645,22 @@
                                                 <div
                                                     class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
                                                     <p class="fs-17 font-weight-bold text-heading mb-0">
-                                                        {{ number_format($similarZone->price, 0, ',', '.') }} VND</p>
+                                                        @if ($similarZone->rooms->isNotEmpty())
+                                                            @php
+                                                                $prices = $similarZone->rooms->pluck('price');
+                                                                $minPrice = $prices->min();
+                                                                $maxPrice = $prices->max();
+                                                            @endphp
+                                                            @if ($similarZone->rooms->count() == 1)
+                                                                {{ number_format($minPrice, 0, ',', '.') }} VND
+                                                            @else
+                                                                {{ number_format($minPrice, 0, ',', '.') }} -
+                                                                {{ number_format($maxPrice, 0, ',', '.') }} VND
+                                                            @endif
+                                                        @else
+                                                            Giá không có sẵn
+                                                        @endif
+                                                    </p>
                                                     <ul class="list-inline mb-0">
                                                         <li class="list-inline-item mr-2">
                                                             <a href="#"
@@ -867,8 +877,8 @@
                                             nhập để gửi báo cáo</a>
                                     @endauth
                                     <!-- <a href="#"
-                                                                                                                                                                                                                            class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Yêu
-                                                                                                                                                                                                                            cầu thông tin</a> -->
+                                                                                                                                                                                                                                class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Yêu
+                                                                                                                                                                                                                                cầu thông tin</a> -->
 
                                     @if ($zone)
                                         <!-- Nút để mở modal -->

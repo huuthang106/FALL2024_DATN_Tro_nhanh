@@ -203,7 +203,7 @@ class ZoneClientController extends Controller
         // $identity = Identity::where('user_id', $userId)->first();
 
         $comments = $zoneDetails['comments']; // Giả sử bạn có mối quan hệ comments trong Zone
-        $utilities = $zone->utilities; // Giả sử bạn có mối quan hệ utilities trong Zone
+        // Giả sử bạn có mối quan hệ utilities trong Zone
         $province = $zone->province;
         $locations = $this->zoneServices->getUniqueLocations();
         $categories = $this->zoneServices->getCategories();
@@ -221,7 +221,7 @@ class ZoneClientController extends Controller
                 'averageRating' => $zoneDetails['averageRating'], // Giả sử bạn có phương thức này
                 'ratingsDistribution' => $zoneDetails['ratingsDistribution'], // Giả sử bạn có phương thức này
                 'user' => $user,
-                'utilities' => $utilities,
+                
                 'similarZones' => $similarZones,
                 'slug' => $slug
             ]);
@@ -236,7 +236,7 @@ class ZoneClientController extends Controller
             'comments' => $comments,
             'user' => $user,
             // 'identity' => $identity,
-            'utilities' => $utilities,
+           
             'similarZones' => $similarZones,
             'provinces' => $locations['provinces'],
             'province' => request()->input('province', '')

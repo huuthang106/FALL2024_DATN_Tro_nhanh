@@ -86,7 +86,7 @@
                                                                         <div class="text-danger">{{ $message }}</div>
                                                                     @enderror
                                                                 </div>
-                                                                <div class="form-group mt-1">
+                                                                {{-- <div class="form-group mt-1">
                                                                     <label for="acreages" class="text-heading">Diện tích
                                                                         m² <span class="text-muted">(Bắt
                                                                             buộc)</span></label>
@@ -97,7 +97,7 @@
                                                                     @error('acreage')
                                                                         <div class="text-danger">{{ $message }}</div>
                                                                     @enderror
-                                                                </div>
+                                                                </div> --}}
                                                                 <div class="form-group mt-1">
                                                                     <label for="category_id" class="text-heading">Loại
                                                                         phòng</label>

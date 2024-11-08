@@ -34,7 +34,7 @@ class ZoneRequest extends FormRequest
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'phone' => 'required|numeric|digits_between:10,11|regex:/^0[0-9]{9}$/',
-            'acreage' => 'required|numeric|min:1',
+            // 'acreage' => 'required|numeric|min:1',
             'price' => 'required|min:1',
             'image.*' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Bắt buộc cho mỗi hình ảnh
         ];
@@ -53,7 +53,7 @@ class ZoneRequest extends FormRequest
                 'latitude' => 'nullable|numeric',
                 'longitude' => 'nullable|numeric',
                 'phone' => 'required|numeric|digits_between:10,11|regex:/^0[0-9]{9}$/', // Đảm bảo rằng số điện thoại là bắt buộc
-                'acreage' => 'nullable|numeric|min:1',
+                // 'acreage' => 'nullable|numeric|min:1',
                 'price' => 'nullable|numeric|min:1',
                 'image.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Không bắt buộc cho mỗi hình ảnh
                
