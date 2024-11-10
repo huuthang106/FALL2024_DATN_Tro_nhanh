@@ -908,7 +908,7 @@
                                                     : asset('assets/images/our-team-04.jpg')) }}"
                                             alt="{{ $user->name }}">
                                     </div>
-                                    <ul class="list-inline text-gray-lighter position-absolute w-100 m-0 p-0 z-index-2">
+                                    {{-- <ul class="list-inline text-gray-lighter position-absolute w-100 m-0 p-0 z-index-2">
                                         <li class="list-inline-item m-0">
                                             <a href="#"
                                                 class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
@@ -929,11 +929,12 @@
                                                 class="w-32px h-32 rounded shadow-xxs-3 bg-hover-primary bg-white hover-white text-body d-flex align-items-center justify-content-center"><i
                                                     class="fab fa-linkedin-in"></i></a>
                                         </li>
-                                    </ul>
+                                    </ul> --}}
                                 </div>
                                 <div class="card-body pt-5">
                                     <h3 class="fs-22 text-heading lh-164 mb-0">
-                                        <a href="" class="text-heading hover-primary">{{ $user->name }}</a>
+                                        <a href="{{ route('client.client-agent-detail', ['slug' => $user->slug]) }}"
+                                            class="text-heading hover-primary">{{ $user->name }}</a>
                                     </h3>
                                     <p class="m-0">{{ $user->email }}</p>
                                 </div>

@@ -234,7 +234,7 @@
                                                                 data-caption="{{ $room->title }}"
                                                                 style="background-image:url('https://drive.google.com/thumbnail?id={{ $room->image }}')">
                                                             </a> --}}
-                                                            <iframe
+                                                            <iframe id="large-image"
                                                                 src="https://drive.google.com/file/d/{{ $room->image }}/preview"
                                                                 style="width: 100%; height: 480px; border: none;"></iframe>
                                                         </div>
@@ -256,7 +256,9 @@
                                                     <div class="item item-size-3-2">
                                                         <div class="card p-0 hover-change-image">
                                                             <a href="javascript:void(0);" class="card-img"
-                                                                style="background-image:url('https://drive.google.com/thumbnail?id={{ $room->image }}')">
+                                                                style="background-image:url('https://drive.google.com/thumbnail?id={{ $room->image }}')"
+                                                                onclick="changeImage('{{ $room->image }}')">
+                                                                <!-- Thêm onclick để gọi hàm -->
                                                             </a>
                                                         </div>
                                                     </div>
@@ -741,12 +743,14 @@
                                                         @foreach ($zone->rooms->filter(function ($room) {
             return $room->quantity > 0;
         }) as $index => $room)
-                                                            <a href="#" class="room-select "
+                                                            <a href="javascript:void(0);" class="room-select"
                                                                 data-room-title="{{ $room->title }}"
                                                                 data-room-id="{{ $room->id }}"
                                                                 data-room-image="{{ asset('assets/images/' . $room->image) }}"
                                                                 data-available-quantity="{{ $room->quantity }}"
-                                                                data-room-price="{{ $room->price }}">
+                                                                data-room-price="{{ $room->price }}"
+                                                                onclick="changeImage('{{ $room->image }}')">
+                                                                <!-- Thêm onclick để gọi hàm -->
                                                                 <div
                                                                     class="p-2 shadow-xxs-1 rounded-lg mr-3 mb-3 lh-1 border">
                                                                     <p class="mb-0 fs-13 text-dark">
@@ -761,6 +765,23 @@
                                                         phòng</p>
                                                 @endif
                                             </div>
+                                            <script>
+                                                function changeImage(imageId) {
+                                                    const iframe = document.getElementById('large-image');
+                                                    if (iframe) { // Kiểm tra xem iframe có tồn tại không
+                                                        iframe.src = `https://drive.google.com/file/d/${imageId}/preview`; // Cập nhật src của iframe
+                                                    } else {
+                                                        console.error("Iframe with ID 'large-image' not found.");
+                                                    }
+                                                }
+                                            </script>
+                                            <script>
+                                                function goToSlide(index, imageId) {
+                                                    // Chuyển đến slide tương ứng trong slider lớn
+                                                    $('#large-image-slider').slick('slickGoTo', index); // Chuyển đến slide tương ứng
+                                                 // Cập nhật iframe với hình ảnh tương ứng
+                                                }
+                                            </script>
                                         </div>
                                     </div>
                                     <div class="modal fade" id="bookingModal" tabindex="-1" role="dialog"
@@ -877,8 +898,8 @@
                                             nhập để gửi báo cáo</a>
                                     @endauth
                                     <!-- <a href="#"
-                                                                                                                                                                                                                                class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Yêu
-                                                                                                                                                                                                                                cầu thông tin</a> -->
+                                                                                                                                                                                                                                    class="btn btn-outline-primary btn-lg btn-block rounded border text-body border-hover-primary hover-white mt-4">Yêu
+                                                                                                                                                                                                                                    cầu thông tin</a> -->
 
                                     @if ($zone)
                                         <!-- Nút để mở modal -->

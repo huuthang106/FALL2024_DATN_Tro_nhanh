@@ -14,23 +14,37 @@
                         <div class="card border-0">
                             <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top"
                                 style="height: 200px; overflow: hidden;">
-                                @if ($zone->image)
+                                @php
+                                $image = $zone->rooms->first()->image ?? null;
+                            @endphp
+                            @if ($image)
+                                <img src="https://drive.google.com/thumbnail?id={{ $image }}"
+                                    alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                    style="object-fit: cover;" loading="lazy">
+                            @else
+                                <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                    alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                    style="object-fit: cover;">
+                            @endif
+                                {{-- @if ($zone->image)
                                     <img src="{{ asset('assets/images/' . $zone->image) }}" alt="{{ $zone->title }}">
                                 @else
                                     <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
                                         alt="{{ $zone->name }}">
-                                @endif
+                                @endif --}}
                                 <div class="card-img-overlay p-2 d-flex flex-column">
                                     <div>
-                                        @if ($zone->expiration_date > now())
-                                            <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
-                                                VIP
+                                        <div>
+                                            <span
+                                                class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }}  pos-fixed-top">
+                                                {{ $zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
                                             </span>
-                                        @endif
-                                        <span
-                                            class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }} position-absolute pos-fixed-top">
-                                            {{ $zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
-                                        </span>
+                                            @if ($zone->vipZonePosition && $zone->vipZonePosition->status == 1)
+                                                <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
+                                                    VIP
+                                                </span>
+                                            @endif
+                                        </div>
                                     </div>
                                     <ul class="list-inline mb-0 mt-auto hover-image">
                                         <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
