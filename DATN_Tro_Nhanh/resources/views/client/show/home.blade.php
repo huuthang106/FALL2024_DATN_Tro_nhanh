@@ -405,9 +405,10 @@
                                         $image = $zone->rooms->first()->image ?? null;
                                     @endphp
                                     @if ($image)
-                                    {{-- <img src="https://drive.google.com/uc?export=view&id={{ $image }}" alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded" style="object-fit: cover;"> --}}
-                                    <img src="https://drive.google.com/thumbnail?id={{ $image }}" alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded" style="object-fit: cover;" loading="lazy">
-
+                                        {{-- <img src="https://drive.google.com/uc?export=view&id={{ $image }}" alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded" style="object-fit: cover;"> --}}
+                                        <img src="https://drive.google.com/thumbnail?id={{ $image }}"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;" loading="lazy">
                                     @else
                                         <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
                                             alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
@@ -417,9 +418,9 @@
 
                                         <div>
                                             <span
-                                            class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }}  pos-fixed-top">
-                                            {{ $zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
-                                        </span>
+                                                class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }}  pos-fixed-top">
+                                                {{ $zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
+                                            </span>
                                             @if ($zone->vipZonePosition && $zone->vipZonePosition->status == 1)
                                                 <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
                                                     VIP
@@ -500,20 +501,20 @@
                                     </p> --}}
                                     <p class="fs-17 font-weight-bold text-heading mb-0">
                                         @if ($zone->rooms->isNotEmpty())
-                                        @php
-                                            $prices = $zone->rooms->pluck('price');
-                                            $minPrice = $prices->min();
-                                            $maxPrice = $prices->max();
-                                        @endphp
-                                        @if ($zone->rooms->count() == 1)
-                                            {{ number_format($minPrice, 0, ',', '.') }} VND
+                                            @php
+                                                $prices = $zone->rooms->pluck('price');
+                                                $minPrice = $prices->min();
+                                                $maxPrice = $prices->max();
+                                            @endphp
+                                            @if ($zone->rooms->count() == 1)
+                                                {{ number_format($minPrice, 0, ',', '.') }} VND
+                                            @else
+                                                {{ number_format($minPrice, 0, ',', '.') }} -
+                                                {{ number_format($maxPrice, 0, ',', '.') }} VND
+                                            @endif
                                         @else
-                                            {{ number_format($minPrice, 0, ',', '.') }} -
-                                            {{ number_format($maxPrice, 0, ',', '.') }} VND
+                                            Giá không có sẵn
                                         @endif
-                                    @else
-                                        Giá không có sẵn
-                                    @endif
                                     </p>
                                     <ul class="list-inline mb-0">
                                         {{-- <li class="list-inline-item">
@@ -680,8 +681,9 @@
                                         $image = $zone->rooms->first()->image ?? null;
                                     @endphp
                                     @if ($image)
-                                    <img src="https://drive.google.com/thumbnail?id={{ $image }}" alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded" style="object-fit: cover;" loading="lazy">
-
+                                        <img src="https://drive.google.com/thumbnail?id={{ $image }}"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;" loading="lazy">
                                     @else
                                         <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
                                             alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
@@ -690,16 +692,17 @@
                                     <div class="card-img-overlay p-2 d-flex flex-column">
 
                                         <div>
-                                            {{-- @if ($zone->residents->isNotEmpty())
-                                                <span class="badge badge-orange">Hết phòng</span>
-                                            @else
-                                                <span class="badge badge-primary">Còn phòng</span>
-                                            @endif --}}
-                                            @if ($zone->expiration_date > now())
-                                                <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
-                                                    VIP
+                                            <div>
+                                                <span
+                                                    class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }}  pos-fixed-top">
+                                                    {{ $zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
                                                 </span>
-                                            @endif
+                                                @if ($zone->vipZonePosition && $zone->vipZonePosition->status == 1)
+                                                    <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
+                                                        VIP
+                                                    </span>
+                                                @endif
+                                            </div>
                                         </div>
                                         {{-- <ul class="list-inline mb-0 mt-auto hover-image">
                                             <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
@@ -779,8 +782,12 @@
                                                 $minPrice = $prices->min();
                                                 $maxPrice = $prices->max();
                                             @endphp
-                                            {{ number_format($minPrice, 0, ',', '.') }} -
-                                            {{ number_format($maxPrice, 0, ',', '.') }} VND
+                                            @if ($zone->rooms->count() == 1)
+                                                {{ number_format($minPrice, 0, ',', '.') }} VND
+                                            @else
+                                                {{ number_format($minPrice, 0, ',', '.') }} -
+                                                {{ number_format($maxPrice, 0, ',', '.') }} VND
+                                            @endif
                                         @else
                                             Giá không có sẵn
                                         @endif

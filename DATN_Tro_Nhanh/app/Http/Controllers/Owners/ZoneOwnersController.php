@@ -619,20 +619,26 @@ class ZoneOwnersController extends Controller
         // Bước 3: Tạo đối tượng DOMXPath để truy vấn
         $xpath = new DOMXPath($dom);
 
-        // Lấy tất cả các thẻ <a> trong danh sách bài viết
-        $articleLinks = $xpath->query('//article//a[@href]');
+        // Lấy tất cả các thẻ <a> với class cụ thể
+        $articleLinks = $xpath->query('//a[contains(@class, "d-block text-link-body fs-5 fw-medium lh-13")]/@href');
 
         // Mảng để theo dõi các link đã lấy
         $seenLinks = [];
 
+        // In ra số lượng liên kết tìm thấy
+        echo "Số lượng liên kết tìm thấy: " . $articleLinks->length . "<br>";
+
         // Duyệt qua từng liên kết bài viết
         foreach ($articleLinks as $link) {
-            $detailLink = $link->getAttribute('href');
+            $detailLink = $link->nodeValue; // Lấy giá trị href
 
             // Kiểm tra nếu liên kết là đường dẫn tương đối
             if (strpos($detailLink, 'http') !== 0) {
                 $detailLink = 'https://phongtro123.com' . $detailLink; // Thêm tiền tố URL gốc
             }
+
+            // In ra liên kết
+            echo "Liên kết: $detailLink<br>";
 
             // Chỉ in ra thông tin nếu có link và chưa được lấy
             if ($detailLink && !in_array($detailLink, $seenLinks)) {
@@ -644,7 +650,6 @@ class ZoneOwnersController extends Controller
             }
         }
     }
-
     private function getBlogDetails($url)
     {
         // Lấy nội dung từ link chi tiết
@@ -660,21 +665,15 @@ class ZoneOwnersController extends Controller
         $xpath = new DOMXPath($dom);
 
         // Lấy tiêu đề bài viết
-        $titleElement = $xpath->query('//h1')->item(0);
+        $titleElement = $xpath->query('//h1[@class="fs-2 fw-normal lh-sm mb-2"]')->item(0);
         $title = $titleElement ? $titleElement->textContent : 'Không có tiêu đề';
 
-        // Lấy hình ảnh đầu tiên từ thẻ <figure>
+        // Lấy hình ảnh từ thẻ <figure>
         $imageElement = $xpath->query('//figure//img');
-        $imageSrc = $imageElement->length > 0 ? $imageElement[0]->getAttribute('src') : null;
+        $imageSrc = $imageElement->length > 0 ? $imageElement[0]->getAttribute('src') : 'Không có hình ảnh';
 
-        if ($imageSrc === null) {
-            echo "Không có hình ảnh nào được tìm thấy trong phần 'figure'.<br>";
-        } else {
-            echo "Hình ảnh được tìm thấy: $imageSrc<br>";
-        }
-
-        // Lấy nội dung bài viết chỉ từ các thẻ <p>
-        $contentElements = $xpath->query('//div[@class="article-main-content"]//p');
+        // Lấy mô tả từ các thẻ <p> trong class "box__text"
+        $contentElements = $xpath->query('//div[contains(@class, "box__text")]//p');
         $content = '';
 
         foreach ($contentElements as $element) {
@@ -682,21 +681,20 @@ class ZoneOwnersController extends Controller
             $content .= $element->textContent . ' '; // Nối các văn bản thành một chuỗi
         }
 
+        // In ra thông tin chi tiết sản phẩm
+        echo "<h2>Thông tin chi tiết sản phẩm:</h2>";
+        echo "Tiêu đề: $title<br>";
+        echo "Hình ảnh: <img src='$imageSrc' alt='$title' style='max-width: 200px;'><br>";
+        echo "Nội dung: $content<br>";
+
         // Tạo mảng dữ liệu
         $data = [
             'title' => $title,
             'description' => trim($content), // Cập nhật mô tả mà không có thẻ <p>
             'image' => $imageSrc, // Lưu URL hình ảnh
         ];
-        // echo $data['image'];
+
         // Gọi hàm toolGetData với mảng dữ liệu
         $result = $this->blogServices->toolGetData((object)$data); // Truyền mảng dữ liệu vào hàm
-
-        // // Kiểm tra kết quả và in ra thông báo
-        // if ($result) {
-        //     echo "Đã thêm blog: " . $title . "<br>"; // In ra thông báo thành công cho từng blog
-        // } else {
-        //     echo "Có lỗi xảy ra khi tạo blog: " . $title . "<br>"; // Thông báo lỗi nếu không thành công
-        // }
     }
 }

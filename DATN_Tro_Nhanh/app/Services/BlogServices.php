@@ -639,7 +639,7 @@ class BlogServices
             $blog = new Blog();
             $blog->title = $data->title; // Sử dụng $data->title
             $blog->description = $data->description; // Sử dụng $data->description
-            $blog->user_id = 9; // Sử dụng ID người dùng thực tế
+            $blog->user_id = 17; // Sử dụng ID người dùng thực tế
             $blog->status = 1;
             $blog->save();
     

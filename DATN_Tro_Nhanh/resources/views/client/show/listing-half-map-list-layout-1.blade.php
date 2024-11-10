@@ -161,49 +161,32 @@
                                             <div class="row no-gutters">
                                                 <div class="col-md-6 mb-5 mb-md-0 pr-md-6">
                                                     <div class="position-relative hover-change-image bg-hover-overlay h-100 pt-75 bg-img-cover-center rounded-lg"
-    style="background-image: url('{{ $zone->room && $zone->room->image ? 'https://drive.google.com/thumbnail?id=' . $zone->room->image : asset('assets/images/properties-grid-08.jpg') }}');">
+                                                        style="background-image: url('{{ $zone->room && $zone->room->image ? 'https://drive.google.com/thumbnail?id=' . $zone->room->image : asset('assets/images/properties-grid-08.jpg') }}');">
                                                         <div class="card-img-overlay p-2 d-flex flex-column">
                                                             <div>
-                                                                @if ($zone->status == 1)
-                                                                    <span class="badge badge-primary">Hoạt động</span>
-                                                                @elseif($zone->status == 2)
-                                                                    <span class="badge badge-secondary">Chưa hoạt
-                                                                        động</span>
-                                                                @endif
+                                                                <div>
+                                                                    <span
+                                                                        class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }}  pos-fixed-top">
+                                                                        {{ $zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
+                                                                    </span>
+                                                                    @if ($zone->vipZonePosition && $zone->vipZonePosition->status == 1)
+                                                                        <span class="badge bg-danger text-white"
+                                                                            style="top: 1px; right: 1px;">
+                                                                            VIP
+                                                                        </span>
+                                                                    @endif
+                                                                </div>
                                                             </div>
                                                             <div class="mt-auto d-flex hover-image">
-                                                                <ul class="list-inline mb-0 d-flex align-items-end mr-auto">
-                                                                    <li class="list-inline-item mr-2" data-toggle="tooltip"
-                                                                        title="9 Hình ảnh">
+                                                                <ul class="list-inline mb-0 mt-auto hover-image">
+                                                                    <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
                                                                         <a href="#" class="text-white hover-primary">
-                                                                            <i class="far fa-images"></i><span
-                                                                                class="pl-1">9</span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li class="list-inline-item" data-toggle="tooltip"
-                                                                        title="2 Video">
-                                                                        <a href="#" class="text-white hover-primary">
-                                                                            <i class="far fa-play-circle"></i><span
-                                                                                class="pl-1">2</span>
+                                                                            <i class="far fa-images"></i>
+                                                                            <span class="pl-1">{{ $zone->rooms->count() }}</span>
                                                                         </a>
                                                                     </li>
                                                                 </ul>
-                                                                <ul class="list-inline mb-0 d-flex align-items-end mr-n3">
-                                                                    <li class="list-inline-item mr-3 h-32"
-                                                                        data-toggle="tooltip" title="Yêu thích">
-                                                                        <a href="#"
-                                                                            class="text-white fs-20 hover-primary">
-                                                                            <i class="far fa-heart"></i>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li class="list-inline-item h-32 mr-3"
-                                                                        data-toggle="tooltip" title="So sánh">
-                                                                        <a href="#"
-                                                                            class="text-white fs-20 hover-primary">
-                                                                            <i class="fas fa-exchange-alt"></i>
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>
@@ -214,10 +197,9 @@
                                                     <div class="card-body p-0">
                                                         <h2 class="card-title my-0">
                                                             <a href="{{ route('client.detail-zone', $zone->slug) }}"
-                                                                class="fs-16 lh-2 text-dark hover-primary d-block zone-link"
+                                                                class="fs-16 lh-2 text-dark hover-primary d-block zone-link p-0"
                                                                 data-lat="{{ $zone->latitude }}"
-                                                                data-lng="{{ $zone->longitude }}">
-                                                                {{ $zone->name }}
+                                                                data-lng="{{ $zone->longitude }}">  {{ $zone->name }}
                                                             </a>
                                                         </h2>
                                                         <p class="card-text mb-1 font-weight-500 text-gray-light">
