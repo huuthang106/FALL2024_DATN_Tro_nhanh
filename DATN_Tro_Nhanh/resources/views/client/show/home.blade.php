@@ -691,7 +691,7 @@
                                     @endif
                                     <div class="card-img-overlay p-2 d-flex flex-column">
 
-                                        <div>
+                                     
                                             <div>
                                                 <span
                                                     class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }}  pos-fixed-top">
@@ -703,7 +703,7 @@
                                                     </span>
                                                 @endif
                                             </div>
-                                        </div>
+                                       
                                         {{-- <ul class="list-inline mb-0 mt-auto hover-image">
                                             <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
                                                 <a href="#" class="text-white hover-primary">

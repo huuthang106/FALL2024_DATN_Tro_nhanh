@@ -72,7 +72,15 @@
                                     </div>
                                     <div class="card-img-overlay p-2 d-flex flex-column">
                                         <div>
-                                            <span class="badge badge-danger">Yêu thích</span>
+                                            <span
+                                                class="badge {{ $favourite->zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }}  pos-fixed-top">
+                                                {{ $favourite->zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
+                                            </span>
+                                            @if ($favourite->zone->vipZonePosition && $favourite->zone->vipZonePosition->status == 1)
+                                                <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
+                                                    VIP
+                                                </span>
+                                            @endif
                                         </div>
                                         <div class="mt-auto hover-image">
                                             <ul class="list-inline mb-0 d-flex align-items-end">
@@ -150,16 +158,20 @@
                                         <span class="text-heading lh-15 font-weight-bold fs-17">
                                             {{-- ${{ number_format($favourite->room->price, 0, ',', '.') }} --}}
                                             @if ($favourite->zone->rooms->isNotEmpty())
-                                                @php
-                                                    $prices = $favourite->zone->rooms->pluck('price');
-                                                    $minPrice = $prices->min();
-                                                    $maxPrice = $prices->max();
-                                                @endphp
+                                            @php
+                                                $prices = $favourite->zone->rooms->pluck('price');
+                                                $minPrice = $prices->min();
+                                                $maxPrice = $prices->max();
+                                            @endphp
+                                            @if ($favourite->zone->rooms->count() == 1)
+                                                {{ number_format($minPrice, 0, ',', '.') }} VND
+                                            @else
                                                 {{ number_format($minPrice, 0, ',', '.') }} -
                                                 {{ number_format($maxPrice, 0, ',', '.') }} VND
-                                            @else
-                                                Giá không có sẵn
                                             @endif
+                                        @else
+                                            Giá không có sẵn
+                                        @endif
                                         </span>
                                     </div>
                                     <ul class="list-inline mb-0">
