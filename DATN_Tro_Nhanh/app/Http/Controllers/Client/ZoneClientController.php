@@ -174,10 +174,13 @@ class ZoneClientController extends Controller
             return response()->json([
                 'zones' => $zones->items(),
                 'totalZones' => $totalZones,
-                'pagination' => (string) $zones->links()
+                'pagination' => (string) $zones->links(),
+                'userLat' => $userLat,
+                'userLng' => $userLng
             ]);
         }
 
+        // dd($userLat,  $userLng);
         return view('client.show.listing-half-map-list-layout-1', [
             'zones' => $zones,
             'totalZones' => $totalZones,
@@ -186,7 +189,9 @@ class ZoneClientController extends Controller
             'latitude' => $latitude,
             'longitude' => $longitude,
             'userLat' => $request->input('user_lat'),
-            'userLng' => $request->input('user_lng'),
+            'userLng' => $request->input('  user_lng'),
+            'myLat' => $userLat,
+            'myLng' => $userLng,
             'showLocationAlert' => true,
             'provinces' => $provinces, // Truyền danh sách các mã tỉnh vào view
             'zoneServices' => $this->zoneServices

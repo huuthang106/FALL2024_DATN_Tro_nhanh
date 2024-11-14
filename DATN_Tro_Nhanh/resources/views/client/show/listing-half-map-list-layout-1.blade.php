@@ -179,14 +179,16 @@
                                                             </div>
                                                             <div class="mt-auto d-flex hover-image">
                                                                 <ul class="list-inline mb-0 mt-auto hover-image">
-                                                                    <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
+                                                                    <li class="list-inline-item mr-2" data-toggle="tooltip"
+                                                                        title="Ảnh">
                                                                         <a href="#" class="text-white hover-primary">
                                                                             <i class="far fa-images"></i>
-                                                                            <span class="pl-1">{{ $zone->rooms->count() }}</span>
+                                                                            <span
+                                                                                class="pl-1">{{ $zone->rooms->count() }}</span>
                                                                         </a>
                                                                     </li>
                                                                 </ul>
-                                                                
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -199,7 +201,7 @@
                                                             <a href="{{ route('client.detail-zone', $zone->slug) }}"
                                                                 class="fs-16 lh-2 text-dark hover-primary d-block zone-link p-0"
                                                                 data-lat="{{ $zone->latitude }}"
-                                                                data-lng="{{ $zone->longitude }}">  {{ $zone->name }}
+                                                                data-lng="{{ $zone->longitude }}"> {{ $zone->name }}
                                                             </a>
                                                         </h2>
                                                         <p class="card-text mb-1 font-weight-500 text-gray-light">
@@ -231,8 +233,7 @@
                                                             @if ($zone->garage)
                                                                 <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-2"
                                                                     data-toggle="tooltip" title="Ga-ra">
-                                                                    <i
-                                                                        class="fas fa-warehouse fs-10 text-primary mr-1"></i>
+                                                                    <i class="fas fa-warehouse fs-10 text-primary mr-1"></i>
                                                                     <!-- Icon Ga-ra -->
                                                                     Ga-ra
                                                                 </li>
@@ -715,6 +716,10 @@
             var userMarker;
             var userLat, userLng;
             var osmMarkers = [];
+            // Lấy vị trí người dùng từ session
+            var userLat = {{ $myLat ?? 'null' }}; // Truyền giá trị từ controller vào JavaScript
+            var userLng = {{ $myLng ?? 'null' }}; // Truyền giá trị từ controller vào JavaScript
+            console.log(userLat, userLng);
 
             var userIcon = L.icon({
                 iconUrl: '{{ asset('assets/images/101-1015767_map-marker-circle-png.png') }}', // Đường dẫn đến biểu tượng tùy chỉnh của bạn
@@ -975,6 +980,7 @@
                 });
             }
 
+      
             function setUserMarker(lat, lng) {
                 if (userMarker) {
                     map.removeLayer(userMarker);
@@ -1128,8 +1134,8 @@
                 }
 
                 if (localStorage.getItem('userLat') && localStorage.getItem('userLng')) {
-                    userLat = parseFloat(localStorage.getItem('userLat'));
-                    userLng = parseFloat(localStorage.getItem('userLng'));
+                    // userLat = parseFloat(localStorage.getItem('userLat'));
+                    // userLng = parseFloat(localStorage.getItem('userLng'));
 
                     setUserMarker(userLat, userLng);
 
@@ -1433,17 +1439,17 @@
                 }
             }
 
-            function setUserMarker(lat, lng) {
-                if (userMarker) {
-                    map.removeLayer(userMarker);
-                }
-                userMarker = L.marker([lat, lng], {
-                        icon: userIcon
-                    }).addTo(map)
-                    .bindPopup("Vị trí của bạn").openPopup();
-                map.setView([lat, lng], 13);
-                addOSMMarkers();
-            }
+            // function setUserMarker(lat, lng) {
+            //     if (userMarker) {
+            //         map.removeLayer(userMarker);
+            //     }
+            //     userMarker = L.marker([lat, lng], {
+            //             icon: userIcon
+            //         }).addTo(map)
+            //         .bindPopup("Vị trí của bạn").openPopup();
+            //     map.setView([lat, lng], 13);
+            //     addOSMMarkers();
+            // }
 
             map.on('zoomend', function() {
                 toggleOSMMarkers();
