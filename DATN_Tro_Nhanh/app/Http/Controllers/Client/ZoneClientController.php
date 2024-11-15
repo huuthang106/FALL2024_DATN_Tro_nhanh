@@ -152,6 +152,8 @@ class ZoneClientController extends Controller
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
         $category = $request->input('category');
+        $userLat = session('userLat');
+        $userLng = session('userLng');
         if ($latitude && $longitude) {
             $zones = $this->zoneServices->searchZonesWithinRadius($latitude, $longitude, 30);
         } elseif ($keyword || $province) {

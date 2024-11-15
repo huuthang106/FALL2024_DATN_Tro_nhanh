@@ -719,7 +719,7 @@
             // Lấy vị trí người dùng từ session
             var userLat = {{ $myLat ?? 'null' }}; // Truyền giá trị từ controller vào JavaScript
             var userLng = {{ $myLng ?? 'null' }}; // Truyền giá trị từ controller vào JavaScript
-            console.log(userLat, userLng);
+            // console.log(userLat, userLng);
 
             var userIcon = L.icon({
                 iconUrl: '{{ asset('assets/images/101-1015767_map-marker-circle-png.png') }}', // Đường dẫn đến biểu tượng tùy chỉnh của bạn
