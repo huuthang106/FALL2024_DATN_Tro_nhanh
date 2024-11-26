@@ -188,7 +188,7 @@ class AppServiceProvider extends ServiceProvider
 
             if ($userId) {
                 // Gọi hàm getRoomCount từ service để đếm tổng số lượng phòng
-                $roomCount = app(RoomOwnersService::class)->getRoomCount($userId);
+                $roomCount = app(RoomOwnersService::class)->getRoomCount();
 
                 // Truyền tổng số lượng phòng vào view
                 $view->with('roomCount', $roomCount);

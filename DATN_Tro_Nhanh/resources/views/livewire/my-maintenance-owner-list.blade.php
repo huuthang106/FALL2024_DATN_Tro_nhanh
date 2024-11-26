@@ -46,6 +46,9 @@
                                 <th class="py-6">Người Nhận</th>
                             @else --}}
                         <th class="py-6" style="white-space: nowrap;">Tên phòng </th>
+                        <th class="py-6" style="white-space: nowrap;">Tên khu trọ </th>
+                        <th class="py-6" style="white-space: nowrap;">Tên chủ trọ </th>
+
                         {{-- @endif --}}
                         <th class="py-6" style="white-space: nowrap;"q>Giá</th>
                         <th class="py-6" style="white-space: nowrap;">Ngày tham gia</th>
@@ -63,40 +66,42 @@
                         </tr>
                     @else
                         @foreach ($rooms as $item)
-                            <tr role="row">
-
-                                </td>
-                                <td class="align-middle p-4" style="white-space: nowrap;">
-                                    <small>{{ $item->room->title }}</small>
-                                </td>
-                                <td class="align-middle p-4" style="white-space: nowrap;">
-                                    <small>{{ number_format($item->room->price, 0, ',', '.') }}</small>
-                                </td>
-                                <td class="align-middle p-4" style="white-space: nowrap;">
-                                    {{ $item->updated_at }}
-                                </td>
-                                <td class="align-middle p-4" style="white-space: nowrap;">
-                                    <button data-toggle="modal" href="#maintenance"
-                                        class="badge badge-warning border-0"> <i class="fal fa-pencil-alt"></i>
-                                    </button>
-
-
-                                </td>
-                                <td class="align-middle p-4" style="white-space: nowrap;">
-                                    <form action="{{ route('owners.leave-the-room', $item->id) }}" method="POST"
-                                        class="d-inline-block mb-0 delete-form"
-                                        id="leave-room-form-{{ $item->id }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button"
-                                            class="badge badge-primary border-0 leave-room-btn delete-button"
-                                            data-id="{{ $item->id }}">
-                                            <i class="fal fa-sign-out-alt"></i>
-                                        </button>
-                                    </form>
-
-                                </td>
-                            </tr>
+                        <tr role="row">
+                        </td>
+                        <td class="align-middle p-4" style="white-space: normal; word-wrap: break-word;">
+                            <small>{{ $item->room->title }}</small>
+                        </td>
+                        <td class="align-middle p-4" style="white-space: normal; word-wrap: break-word;">
+                            <small>{{ $item->room->zone->name }}</small>
+                        </td>
+                        <td class="align-middle p-4" style="white-space: normal; word-wrap: break-word;">
+                            <small>{{ $item->room->zone->user->name }}</small>
+                        </td>
+                        <td class="align-middle p-4" style="white-space: normal; word-wrap: break-word;">
+                            <small>{{ number_format($item->room->price, 0, ',', '.') }}</small>
+                        </td>
+                        <td class="align-middle p-4" style="white-space: normal; word-wrap: break-word;">
+                            {{ $item->updated_at }}
+                        </td>
+                        <td class="align-middle p-4" style="white-space: nowrap;">
+                            <button data-toggle="modal" href="#maintenance"
+                                class="badge badge-warning border-0"> <i class="fal fa-pencil-alt"></i>
+                            </button>
+                        </td>
+                        <td class="align-middle p-4" style="white-space: nowrap;">
+                            <form action="{{ route('owners.leave-the-room', $item->id) }}" method="POST"
+                                class="d-inline-block mb-0 delete-form"
+                                id="leave-room-form-{{ $item->id }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button"
+                                    class="badge badge-primary border-0 leave-room-btn delete-button"
+                                    data-id="{{ $item->id }}">
+                                    <i class="fal fa-sign-out-alt"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
                             <div class="modal fade maintenance" id="maintenance" tabindex="-1" role="dialog"
                                 aria-labelledby="maintenance" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered mxw-571" role="document">

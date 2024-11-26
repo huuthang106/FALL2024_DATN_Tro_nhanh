@@ -223,7 +223,7 @@ class RoomOwnersService
     {
         try {
             // Đếm tổng số phòng
-            return Room::count();
+            return Zone::where('user_id', auth()->id())->count();
         } catch (\Exception $e) {
             // Ghi lại lỗi nếu có sự cố khi đếm số phòng
             Log::error('Error counting rooms: ' . $e->getMessage());

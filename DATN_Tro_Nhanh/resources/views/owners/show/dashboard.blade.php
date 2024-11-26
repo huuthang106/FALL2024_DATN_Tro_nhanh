@@ -39,7 +39,7 @@
                                         data-end="{{ $balance }}" data-decimals="0" data-duration="0"
                                         data-separator="."></p> VNĐ
                                 </div>
-                                <p>Số Dư</p>
+                                <p>Số dư</p>
                             </div>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                                 <p class="fs-22 lh-12 mb-0 counterup d-inline" data-start="0"
                                     data-end="{{ $roomCount }}" data-decimals="0" data-duration="0"
                                     data-separator="."></p>
-                                <p>Tổng Số Trọ</p>
+                                <p>Tổng số khu trọ</p>
                             </div>
                             
                         </div>
@@ -81,7 +81,7 @@
                                 <p class="fs-22 lh-12 mb-0 counterup d-inline" data-start="0"
                                     data-end="{{ $totalReviews }}" data-decimals="0" data-duration="0"
                                     data-separator="."></p>
-                                <p>Tổng Số Lượt Đánh Giá</p>
+                                <p>Tổng số lượt đánh giá</p>
                             </div>
                             
                         </div>
@@ -102,7 +102,7 @@
                                 <p class="fs-22 lh-12 mb-0 counterup d-inline" data-start="0"
                                     data-end="{{ $totalWatchLists }}" data-decimals="0" data-duration="0"
                                     data-separator="."></p>
-                                <p>Tổng Số Lượt Theo Dõi</p>
+                                <p>Tổng số lượt theo dõi</p>
                             </div>
                             
                         </div>
