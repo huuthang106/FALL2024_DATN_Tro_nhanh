@@ -43,6 +43,7 @@ class FavouritesList extends Component
             $startDate = $this->getStartDate($this->timeFilter);
             $query->whereDate('created_at', '<=', $startDate);
         }
+        $query->where('user_id', auth()->id()); // Thay 'user_id' bằng trường phù hợp trong bảng yêu thích
         // Sắp xếp theo thời gian tạo, mới nhất đứng đầu
         $query->orderBy('created_at', 'desc');
         return $query->paginate($this->perPage);

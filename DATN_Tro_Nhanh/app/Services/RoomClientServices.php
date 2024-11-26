@@ -895,8 +895,7 @@ class RoomClientServices
             //     ->select('zones.*')
             //     ->orderByDesc('zones.created_at');
             $query = Zone::with(['rooms' => function($query) {
-                $query->select('id', 'zone_id', 'image', 'price') // Chỉ lấy các trường cần thiết
-                      ->where('quantity', '>', 0); // Chỉ lấy các room có quantity lớn hơn 0
+                $query->select('id', 'zone_id', 'image', 'price'); // Lấy tất cả các trường cần thiết
             }])
             ->join('users', 'zones.user_id', '=', 'users.id')
             ->where('zones.status', self::status)

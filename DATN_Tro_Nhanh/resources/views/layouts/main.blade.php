@@ -4,6 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Tìm phòng trọ giá rẻ. Chúng tôi cung cấp danh sách phòng trọ an toàn, tiện nghi, gần trường học và chợ. Đặt phòng ngay hôm nay!">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('titleUs')</title>
 
