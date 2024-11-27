@@ -367,28 +367,28 @@
         </section>
         <section class="pt-lg-12 pb-lg-10 py-11">
             <div class="container container-xxl">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h2 class="text-heading">Nơi ở lý tưởng</h2>
-                        <span class="heading-divider"></span>
-                    </div>
-                    <div class="col-md-6 text-md-right">
-                        <a href="{{ route('client.room-listing') }}"
-                            class="btn fs-14 text-secondary btn-accent py-3 lh-15 px-7 mb-6 mb-lg-0">Xem tất cả
-                            <i class="far fa-long-arrow-right ml-1"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="slick-slider slick-dots-mt-0 custom-arrow-spacing-30"
-                    data-slick-options='{"slidesToShow": 4, "autoplay": true, "dots": true, "responsive": [
-        {"breakpoint": 1600, "settings": {"slidesToShow": 3, "arrows": false}},
-        {"breakpoint": 992, "settings": {"slidesToShow": 2, "arrows": false}},
-        {"breakpoint": 768, "settings": {"slidesToShow": 2, "arrows": false, "dots": true, "autoplay": true}},
-        {"breakpoint": 576, "settings": {"slidesToShow": 1, "arrows": false, "dots": true, "autoplay": true}}
-     ]}'>
-                    @foreach ($zones as $zone)
-                        <div class="box pb-7 pt-2">
-                            <div class="card shadow-hover-2 h-100" data-animate="zoomIn">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h2 class="text-heading">Nơi ở lý tưởng</h2>
+                                <span class="heading-divider"></span>
+                            </div>
+                            <div class="col-md-6 text-md-right">
+                                <a href="{{ route('client.room-listing') }}"
+                                    class="btn fs-14 text-secondary btn-accent py-3 lh-15 px-7 mb-6 mb-lg-0">Xem tất cả
+                                    <i class="far fa-long-arrow-right ml-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="slick-slider slick-dots-mt-0 custom-arrow-spacing-30"
+                            data-slick-options='{"slidesToShow": 4, "autoplay": true, "dots": true, "responsive": [
+                            {"breakpoint": 1600, "settings": {"slidesToShow": 3, "arrows": false}},
+                            {"breakpoint": 992, "settings": {"slidesToShow": 2, "arrows": false}},
+                            {"breakpoint": 768, "settings": {"slidesToShow": 2, "arrows": false, "dots": true, "autoplay": true}},
+                            {"breakpoint": 576, "settings": {"slidesToShow": 1, "arrows": false, "dots": true, "autoplay": true}}
+                            ]}'>
+                        @foreach ($zones as $zone)
+                            <div class="box pb-7 pt-2">
+                                <div class="card shadow-hover-2 h-100" data-animate="zoomIn">
 
                                 <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top"
                                     style="height: 200px; overflow: hidden;">
@@ -538,112 +538,6 @@
                     @endforeach
                 </div>
 
-        </section>
-
-        <section>
-            <div class="bg-gray-02 py-lg-13 pt-11 pb-6">
-                <div class="container container-xxl">
-                    <div class="row">
-                        <div class="col-lg-4 pr-xl-13" data-animate="fadeInLeft">
-                            <h2 class="text-heading lh-1625">Xem thêm <br> Phân loại</h2>
-                            <span class="heading-divider"></span>
-                            <form action="{{ route('client.room-listing') }}" method="GET">
-                                <div class="input-group input-group-lg ">
-                                    <input type="text"
-                                        class="form-control fs-13 font-weight-500 text-gray-light rounded-lg rounded-right-0 border-0 shadow-none h-52 bg-white"
-                                        name="type" placeholder="Nhập loại phòng">
-                                    <button type="submit"
-                                        class="btn btn-primary fs-18 rounded-left-0 rounded-lg px-6 border-0">
-                                        <i class="far fa-search"></i>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-lg-8" data-animate="fadeInRight">
-                            <div class="slick-slider arrow-haft-inner custom-arrow-xxl-hide mx-0"
-                                data-slick-options='{"slidesToShow": 4, "autoplay":true,"dots":false,"responsive":[{"breakpoint": 1200,"settings": {"slidesToShow":3,"arrows":false}},{"breakpoint": 992,"settings": {"slidesToShow":3,"arrows":false}},{"breakpoint": 768,"settings": {"slidesToShow": 3,"arrows":false,"autoplay":true}},{"breakpoint": 576,"settings": {"slidesToShow": 2,"arrows":false,"autoplay":true}}]}'>
-                                <div class="box px-0 py-6">
-                                    <a href="{{ route('client.room-listing', ['type' => 'Căn hộ']) }}"
-                                        class="card border-0 align-items-center justify-content-center pt-7 pb-5 px-3 shadow-hover-3 bg-transparent bg-hover-white text-decoration-none">
-                                        <img src="{{ asset('assets/images/verified.png') }}" class="card-img-top"
-                                            alt="Căn hộ">
-
-                                        <div class="card-body px-0 pt-5 pb-0">
-                                            <h4 class="card-title fs-16 lh-2 text-dark mb-0">Căn Hộ</h4>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="box px-0 py-6">
-                                    <a href="{{ route('client.room-listing', ['type' => 'Nhà']) }}"
-                                        class="card border-0 align-items-center justify-content-center pt-7 pb-5 px-3 shadow-hover-3 bg-transparent bg-hover-white text-decoration-none">
-                                        <img src="{{ asset('assets/images/sofa.png') }}" class="card-img-top"
-                                            alt="Nhà">
-
-                                        <div class="card-body px-0 pt-5 pb-0">
-                                            <h4 class="card-title fs-16 lh-2 text-dark mb-0">Nhà</h4>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="box px-0 py-6">
-                                    <a href="{{ route('client.room-listing', ['type' => 'Ký túc xá']) }}"
-                                        class="card border-0 align-items-center justify-content-center pt-7 pb-5 px-3 shadow-hover-3 bg-transparent bg-hover-white text-decoration-none">
-                                        <img src="{{ asset('assets/images/architecture-and-city.png') }}"
-                                            class="card-img-top" alt="Văn phòng">
-
-                                        <div class="card-body px-0 pt-5 pb-0">
-                                            <h4 class="card-title fs-16 lh-2 text-dark mb-0">Ký túc xá</h4>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="box px-0 py-6">
-                                    <a href="{{ route('client.room-listing', ['type' => 'Trọ']) }}"
-                                        class="card border-0 align-items-center justify-content-center pt-7 pb-5 px-3 shadow-hover-3 bg-transparent bg-hover-white text-decoration-none">
-                                        <img src="{{ asset('assets/images/eco-house.png') }}" class="card-img-top"
-                                            alt="Biệt thự">
-
-                                        <div class="card-body px-0 pt-5 pb-0">
-                                            <h4 class="card-title fs-16 lh-2 text-dark mb-0">Trọ</h4>
-                                        </div>
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </section>
-
-
-
-        <section>
-            <div class="bg-single-image pt-lg-13 pb-lg-12 py-11 bg-secondary">
-                <div class="container container-xxl">
-                    <div class="row align-items-center">
-                        <div class="col-lg-6 pr-xl-8 pb-lg-0 pb-6" data-animate="fadeInLeft">
-                            <a href="#" class="hover-shine d-block">
-                                <img src="{{ asset('assets/images/single-image-01.jpg') }}" class="rounded-lg w-100"
-                                    alt="Tìm khu phố của bạn">
-                            </a>
-                        </div>
-                        <div class="col-lg-6 pl-xl-8" data-animate="fadeInRight">
-                            <h2 class="text-white lh-1625">Tìm phòng trọ của bạn<br />
-                            </h2>
-                            <span class="heading-divider"></span>
-                            <form action="{{ route('client.room-listing') }}" method="GET">
-                                <div class="input-group input-group-lg pr-sm-17">
-                                    <input type="text"
-                                        class="form-control fs-13 font-weight-500 text-gray-light rounded-lg rounded-right-0 border-0 shadow-none h-52 bg-white"
-                                        name="search" placeholder="Nhập địa chỉ, khu phố">
-                                    <button type="submit"
-                                        class="btn btn-primary fs-18 rounded-left-0 rounded-lg px-6 border-0">
-                                        <i class="far fa-search"></i>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </section>
 
         <section class="pt-lg-12 pb-lg-11 py-11">
@@ -808,6 +702,764 @@
 
             </div>
         </section>
+
+        <!-- <section>
+            <div class="bg-gray-02 py-lg-13 pt-11 pb-6">
+                <div class="container container-xxl">
+                    <div class="row">
+                        <div class="col-lg-4 pr-xl-13" data-animate="fadeInLeft">
+                            <h2 class="text-heading lh-1625">Xem thêm <br> Phân loại</h2>
+                            <span class="heading-divider"></span>
+                            <form action="{{ route('client.room-listing') }}" method="GET">
+                                <div class="input-group input-group-lg ">
+                                    <input type="text"
+                                        class="form-control fs-13 font-weight-500 text-gray-light rounded-lg rounded-right-0 border-0 shadow-none h-52 bg-white"
+                                        name="type" placeholder="Nhập loại phòng">
+                                    <button type="submit"
+                                        class="btn btn-primary fs-18 rounded-left-0 rounded-lg px-6 border-0">
+                                        <i class="far fa-search"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-8" data-animate="fadeInRight">
+                            <div class="slick-slider arrow-haft-inner custom-arrow-xxl-hide mx-0"
+                                data-slick-options='{"slidesToShow": 4, "autoplay":true,"dots":false,"responsive":[{"breakpoint": 1200,"settings": {"slidesToShow":3,"arrows":false}},{"breakpoint": 992,"settings": {"slidesToShow":3,"arrows":false}},{"breakpoint": 768,"settings": {"slidesToShow": 3,"arrows":false,"autoplay":true}},{"breakpoint": 576,"settings": {"slidesToShow": 2,"arrows":false,"autoplay":true}}]}'>
+                                <div class="box px-0 py-6">
+                                    <a href="{{ route('client.room-listing', ['type' => 'Căn hộ']) }}"
+                                        class="card border-0 align-items-center justify-content-center pt-7 pb-5 px-3 shadow-hover-3 bg-transparent bg-hover-white text-decoration-none">
+                                        <img src="{{ asset('assets/images/verified.png') }}" class="card-img-top"
+                                            alt="Căn hộ">
+
+                                        <div class="card-body px-0 pt-5 pb-0">
+                                            <h4 class="card-title fs-16 lh-2 text-dark mb-0">Căn Hộ</h4>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="box px-0 py-6">
+                                    <a href="{{ route('client.room-listing', ['type' => 'Nhà']) }}"
+                                        class="card border-0 align-items-center justify-content-center pt-7 pb-5 px-3 shadow-hover-3 bg-transparent bg-hover-white text-decoration-none">
+                                        <img src="{{ asset('assets/images/sofa.png') }}" class="card-img-top"
+                                            alt="Nhà">
+
+                                        <div class="card-body px-0 pt-5 pb-0">
+                                            <h4 class="card-title fs-16 lh-2 text-dark mb-0">Nhà</h4>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="box px-0 py-6">
+                                    <a href="{{ route('client.room-listing', ['type' => 'Ký túc xá']) }}"
+                                        class="card border-0 align-items-center justify-content-center pt-7 pb-5 px-3 shadow-hover-3 bg-transparent bg-hover-white text-decoration-none">
+                                        <img src="{{ asset('assets/images/architecture-and-city.png') }}"
+                                            class="card-img-top" alt="Văn phòng">
+
+                                        <div class="card-body px-0 pt-5 pb-0">
+                                            <h4 class="card-title fs-16 lh-2 text-dark mb-0">Ký túc xá</h4>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="box px-0 py-6">
+                                    <a href="{{ route('client.room-listing', ['type' => 'Trọ']) }}"
+                                        class="card border-0 align-items-center justify-content-center pt-7 pb-5 px-3 shadow-hover-3 bg-transparent bg-hover-white text-decoration-none">
+                                        <img src="{{ asset('assets/images/eco-house.png') }}" class="card-img-top"
+                                            alt="Biệt thự">
+
+                                        <div class="card-body px-0 pt-5 pb-0">
+                                            <h4 class="card-title fs-16 lh-2 text-dark mb-0">Trọ</h4>
+                                        </div>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section> -->
+        
+
+        <section class="pt-lg-12 pb-lg-11 py-11">
+            <div class="container container-xxl">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2 class="text-heading">Khu Trọ Hà Nội</h2>
+                        <span class="heading-divider"></span>
+                    </div>
+                    <div class="col-md-6 text-md-right">
+                        <a href="{{ route('client.room-listing', ['province' => 01]) }}"
+                            class="btn fs-14 text-secondary btn-accent py-3 lh-15 px-7 mb-6 mb-lg-0">Xem tất cả
+                            <i class="far fa-long-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="slick-slider slick-dots-mt-0 custom-arrow-spacing-30"
+                    data-slick-options='{"slidesToShow": 4,"dots":true,"arrows":false,"responsive":[{"breakpoint": 1600,"settings": {"slidesToShow":3}},{"breakpoint": 992,"settings": {"slidesToShow":2,"arrows":false}},{"breakpoint": 768,"settings": {"slidesToShow": 2,"arrows":false,"dots":true,"autoplay":true}},{"breakpoint": 576,"settings": {"slidesToShow": 1,"arrows":false,"dots":true,"autoplay":true}}]}'>
+                    @foreach ($approvedRoomsInHanoi as $zone)
+                        <div class="box pb-7 pt-2">
+                            <div class="card shadow-hover-2 h-100" data-animate="zoomIn">
+                                <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top"
+                                    style="height: 200px; overflow: hidden;">
+                                    {{-- @if ($zone->images->isNotEmpty())
+                                        <img src="{{ asset('assets/images/' . $zone->images->first()->filename) }}"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;">
+                                    @else
+                                        <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;">
+                                    @endif --}}
+                                    @php
+                                        $image = $zone->rooms->first()->image ?? null;
+                                    @endphp
+                                    @if ($image)
+                                        <img src="https://drive.google.com/thumbnail?id={{ $image }}"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;" loading="lazy">
+                                    @else
+                                        <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;">
+                                    @endif
+                                    <div class="card-img-overlay p-2 d-flex flex-column">
+
+                                     
+                                            <div>
+                                                <span
+                                                    class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }}  pos-fixed-top">
+                                                    {{ $zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
+                                                </span>
+                                                @if ($zone->vipZonePosition && $zone->vipZonePosition->status == 1)
+                                                    <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
+                                                        VIP
+                                                    </span>
+                                                @endif
+                                            </div>
+                                       
+                                        {{-- <ul class="list-inline mb-0 mt-auto hover-image">
+                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
+                                                <a href="#" class="text-white hover-primary">
+                                                    <i class="far fa-images"></i><span
+                                                        class="pl-1">{{ $zone->images()->count() }}</span>
+                                                </a>
+                                            </li>
+                                        </ul> --}}
+                                        <ul class="list-inline mb-0 mt-auto hover-image">
+                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
+                                                <a href="#" class="text-white hover-primary">
+                                                    <i class="far fa-images"></i>
+                                                    <span class="pl-1">{{ $zone->rooms->count() }}</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body pt-3 d-flex flex-column">
+                                    <h2 class="card-title fs-16 lh-2 mb-0">
+                                        <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}"
+                                            class="text-dark hover-primary">{{ Str::limit($zone->name, 60) }}</a>
+                                    </h2>
+                                    <p class="card-text font-weight-500 text-gray-light mb-2">
+                                        <small> {{ Str::limit($zone->address, 100) }}</small>
+                                    </p>
+                                    <ul class="list-inline d-flex mb-0 flex-wrap mr-n5 mt-auto">
+                                        @if ($zone->bathrooms == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Phòng tắm">
+                                                <svg class="icon icon-shower fs-18 text-primary mr-1">
+                                                    <use xlink:href="#icon-shower"></use>
+                                                </svg>
+                                                Phòng tắm
+                                            </li>
+                                        @endif
+                                        {{-- @if ($zone->garage == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Wifi">
+                                                <svg class="icon icon-Garage fs-18 text-primary">
+                                                    <use xlink:href="#icon-Garage"></use>
+                                                </svg>
+                                                &nbsp;Ga-ra
+                                            </li>
+                                        @endif --}}
+                                        @if ($zone->wifi == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Wifi">
+                                                <svg class="icon fs-18 text-primary mr-1"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                                    <path fill="currentColor"
+                                                        d="M634.91 154.88C457.74-8.99 182.19-8.93 5.09 154.88c-6.66 6.16-6.79 16.59-.35 22.98l34.24 33.97c6.14 6.1 16.02 6.23 22.4.38 145.92-133.68 371.3-133.71 517.25 0 6.38 5.85 16.26 5.71 22.4-.38l34.24-33.97c6.43-6.39 6.3-16.82-.36-22.98zM320 352c-35.35 0-64 28.65-64 64s28.65 64 64 64 64-28.65 64-64-28.65-64-64-64zm202.67-83.59c-115.26-101.93-290.21-101.82-405.34 0-6.9 6.1-7.12 16.69-.57 23.15l34.44 33.99c6 5.92 15.66 6.32 22.05.8 83.95-72.57 209.74-72.41 293.49 0 6.39 5.52 16.05 5.13 22.05-.8l34.44-33.99c6.56-6.46 6.33-17.06-.56-23.15z" />
+                                                </svg>
+                                                Wifi
+                                            </li>
+                                        @endif
+                                        @if ($zone->air_conditioning == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Máy điều hòa">
+                                                <svg class="icon icon-heating fs-18 text-primary">
+                                                    <use xlink:href="#icon-heating"></use>
+                                                </svg>
+                                                &nbsp;Máy điều hòa
+                                            </li>
+                                        @endif
+                                    </ul>
+                                </div>
+                                <div
+                                    class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
+                                    {{-- <p class="fs-17 font-weight-bold text-heading mb-0">
+                                        {{ number_format($zone->price, 0, ',', '.') }} VND</p> --}}
+                                    <p class="fs-17 font-weight-bold text-heading mb-0">
+                                        @if ($zone->rooms->isNotEmpty())
+                                            @php
+                                                $prices = $zone->rooms->pluck('price');
+                                                $minPrice = $prices->min();
+                                                $maxPrice = $prices->max();
+                                            @endphp
+                                            @if ($zone->rooms->count() == 1)
+                                                {{ number_format($minPrice, 0, ',', '.') }} VND
+                                            @else
+                                                {{ number_format($minPrice, 0, ',', '.') }} -
+                                                {{ number_format($maxPrice, 0, ',', '.') }} VND
+                                            @endif
+                                        @else
+                                            Giá không có sẵn
+                                        @endif
+                                    </p>
+                                    <li class="list-inline mb-0">
+                                        <a href="#"
+                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center favorite-btn {{ $zone->isFavoritedByUser(auth()->id()) ? 'favorited' : '' }}"
+                                            data-zone-slug="{{ $zone->slug }}">
+                                            <!-- Thay đổi từ data-zone-id thành data-zone-slug -->
+                                            <i class="fas fa-heart"></i>
+                                        </a>
+                                    </li>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+            </div>
+        </section>
+
+        <section class="pt-lg-12 pb-lg-11 py-11">
+            <div class="container container-xxl">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2 class="text-heading">Khu Trọ Tp.Hồ Chí Minh</h2>
+                        <span class="heading-divider"></span>
+                    </div>
+                    <div class="col-md-6 text-md-right">
+                    <a href="{{ route('client.room-listing', ['province' => 79]) }}"
+                            class="btn fs-14 text-secondary btn-accent py-3 lh-15 px-7 mb-6 mb-lg-0">Xem tất cả
+                            <i class="far fa-long-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="slick-slider slick-dots-mt-0 custom-arrow-spacing-30"
+                    data-slick-options='{"slidesToShow": 4,"dots":true,"arrows":false,"responsive":[{"breakpoint": 1600,"settings": {"slidesToShow":3}},{"breakpoint": 992,"settings": {"slidesToShow":2,"arrows":false}},{"breakpoint": 768,"settings": {"slidesToShow": 2,"arrows":false,"dots":true,"autoplay":true}},{"breakpoint": 576,"settings": {"slidesToShow": 1,"arrows":false,"dots":true,"autoplay":true}}]}'>
+                    @foreach ($approvedRoomsInHCM as $zone)
+                        <div class="box pb-7 pt-2">
+                            <div class="card shadow-hover-2 h-100" data-animate="zoomIn">
+                                <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top"
+                                    style="height: 200px; overflow: hidden;">
+                                    {{-- @if ($zone->images->isNotEmpty())
+                                        <img src="{{ asset('assets/images/' . $zone->images->first()->filename) }}"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;">
+                                    @else
+                                        <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;">
+                                    @endif --}}
+                                    @php
+                                        $image = $zone->rooms->first()->image ?? null;
+                                    @endphp
+                                    @if ($image)
+                                        <img src="https://drive.google.com/thumbnail?id={{ $image }}"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;" loading="lazy">
+                                    @else
+                                        <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;">
+                                    @endif
+                                    <div class="card-img-overlay p-2 d-flex flex-column">
+
+                                     
+                                            <div>
+                                                <span
+                                                    class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }}  pos-fixed-top">
+                                                    {{ $zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
+                                                </span>
+                                                @if ($zone->vipZonePosition && $zone->vipZonePosition->status == 1)
+                                                    <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
+                                                        VIP
+                                                    </span>
+                                                @endif
+                                            </div>
+                                       
+                                        {{-- <ul class="list-inline mb-0 mt-auto hover-image">
+                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
+                                                <a href="#" class="text-white hover-primary">
+                                                    <i class="far fa-images"></i><span
+                                                        class="pl-1">{{ $zone->images()->count() }}</span>
+                                                </a>
+                                            </li>
+                                        </ul> --}}
+                                        <ul class="list-inline mb-0 mt-auto hover-image">
+                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
+                                                <a href="#" class="text-white hover-primary">
+                                                    <i class="far fa-images"></i>
+                                                    <span class="pl-1">{{ $zone->rooms->count() }}</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body pt-3 d-flex flex-column">
+                                    <h2 class="card-title fs-16 lh-2 mb-0">
+                                        <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}"
+                                            class="text-dark hover-primary">{{ Str::limit($zone->name, 60) }}</a>
+                                    </h2>
+                                    <p class="card-text font-weight-500 text-gray-light mb-2">
+                                        <small> {{ Str::limit($zone->address, 100) }}</small>
+                                    </p>
+                                    <ul class="list-inline d-flex mb-0 flex-wrap mr-n5 mt-auto">
+                                        @if ($zone->bathrooms == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Phòng tắm">
+                                                <svg class="icon icon-shower fs-18 text-primary mr-1">
+                                                    <use xlink:href="#icon-shower"></use>
+                                                </svg>
+                                                Phòng tắm
+                                            </li>
+                                        @endif
+                                        {{-- @if ($zone->garage == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Wifi">
+                                                <svg class="icon icon-Garage fs-18 text-primary">
+                                                    <use xlink:href="#icon-Garage"></use>
+                                                </svg>
+                                                &nbsp;Ga-ra
+                                            </li>
+                                        @endif --}}
+                                        @if ($zone->wifi == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Wifi">
+                                                <svg class="icon fs-18 text-primary mr-1"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                                    <path fill="currentColor"
+                                                        d="M634.91 154.88C457.74-8.99 182.19-8.93 5.09 154.88c-6.66 6.16-6.79 16.59-.35 22.98l34.24 33.97c6.14 6.1 16.02 6.23 22.4.38 145.92-133.68 371.3-133.71 517.25 0 6.38 5.85 16.26 5.71 22.4-.38l34.24-33.97c6.43-6.39 6.3-16.82-.36-22.98zM320 352c-35.35 0-64 28.65-64 64s28.65 64 64 64 64-28.65 64-64-28.65-64-64-64zm202.67-83.59c-115.26-101.93-290.21-101.82-405.34 0-6.9 6.1-7.12 16.69-.57 23.15l34.44 33.99c6 5.92 15.66 6.32 22.05.8 83.95-72.57 209.74-72.41 293.49 0 6.39 5.52 16.05 5.13 22.05-.8l34.44-33.99c6.56-6.46 6.33-17.06-.56-23.15z" />
+                                                </svg>
+                                                Wifi
+                                            </li>
+                                        @endif
+                                        @if ($zone->air_conditioning == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Máy điều hòa">
+                                                <svg class="icon icon-heating fs-18 text-primary">
+                                                    <use xlink:href="#icon-heating"></use>
+                                                </svg>
+                                                &nbsp;Máy điều hòa
+                                            </li>
+                                        @endif
+                                    </ul>
+                                </div>
+                                <div
+                                    class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
+                                    {{-- <p class="fs-17 font-weight-bold text-heading mb-0">
+                                        {{ number_format($zone->price, 0, ',', '.') }} VND</p> --}}
+                                    <p class="fs-17 font-weight-bold text-heading mb-0">
+                                        @if ($zone->rooms->isNotEmpty())
+                                            @php
+                                                $prices = $zone->rooms->pluck('price');
+                                                $minPrice = $prices->min();
+                                                $maxPrice = $prices->max();
+                                            @endphp
+                                            @if ($zone->rooms->count() == 1)
+                                                {{ number_format($minPrice, 0, ',', '.') }} VND
+                                            @else
+                                                {{ number_format($minPrice, 0, ',', '.') }} -
+                                                {{ number_format($maxPrice, 0, ',', '.') }} VND
+                                            @endif
+                                        @else
+                                            Giá không có sẵn
+                                        @endif
+                                    </p>
+                                    <li class="list-inline mb-0">
+                                        <a href="#"
+                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center favorite-btn {{ $zone->isFavoritedByUser(auth()->id()) ? 'favorited' : '' }}"
+                                            data-zone-slug="{{ $zone->slug }}">
+                                            <!-- Thay đổi từ data-zone-id thành data-zone-slug -->
+                                            <i class="fas fa-heart"></i>
+                                        </a>
+                                    </li>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+            </div>
+        </section>
+
+        <section class="pt-lg-12 pb-lg-11 py-11">
+            <div class="container container-xxl">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2 class="text-heading">Khu Trọ Cần Thơ</h2>
+                        <span class="heading-divider"></span>
+                    </div>
+                    <div class="col-md-6 text-md-right">
+                        <a href="{{ route('client.room-listing', ['province' => 92]) }}"
+                            class="btn fs-14 text-secondary btn-accent py-3 lh-15 px-7 mb-6 mb-lg-0">Xem tất cả
+                            <i class="far fa-long-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="slick-slider slick-dots-mt-0 custom-arrow-spacing-30"
+                    data-slick-options='{"slidesToShow": 4,"dots":true,"arrows":false,"responsive":[{"breakpoint": 1600,"settings": {"slidesToShow":3}},{"breakpoint": 992,"settings": {"slidesToShow":2,"arrows":false}},{"breakpoint": 768,"settings": {"slidesToShow": 2,"arrows":false,"dots":true,"autoplay":true}},{"breakpoint": 576,"settings": {"slidesToShow": 1,"arrows":false,"dots":true,"autoplay":true}}]}'>
+                    @foreach ($approvedRoomsInCanTho as $zone)
+                        <div class="box pb-7 pt-2">
+                            <div class="card shadow-hover-2 h-100" data-animate="zoomIn">
+                                <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top"
+                                    style="height: 200px; overflow: hidden;">
+                                    {{-- @if ($zone->images->isNotEmpty())
+                                        <img src="{{ asset('assets/images/' . $zone->images->first()->filename) }}"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;">
+                                    @else
+                                        <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;">
+                                    @endif --}}
+                                    @php
+                                        $image = $zone->rooms->first()->image ?? null;
+                                    @endphp
+                                    @if ($image)
+                                        <img src="https://drive.google.com/thumbnail?id={{ $image }}"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;" loading="lazy">
+                                    @else
+                                        <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;">
+                                    @endif
+                                    <div class="card-img-overlay p-2 d-flex flex-column">
+
+                                     
+                                            <div>
+                                                <span
+                                                    class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }}  pos-fixed-top">
+                                                    {{ $zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
+                                                </span>
+                                                @if ($zone->vipZonePosition && $zone->vipZonePosition->status == 1)
+                                                    <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
+                                                        VIP
+                                                    </span>
+                                                @endif
+                                            </div>
+                                       
+                                        {{-- <ul class="list-inline mb-0 mt-auto hover-image">
+                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
+                                                <a href="#" class="text-white hover-primary">
+                                                    <i class="far fa-images"></i><span
+                                                        class="pl-1">{{ $zone->images()->count() }}</span>
+                                                </a>
+                                            </li>
+                                        </ul> --}}
+                                        <ul class="list-inline mb-0 mt-auto hover-image">
+                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
+                                                <a href="#" class="text-white hover-primary">
+                                                    <i class="far fa-images"></i>
+                                                    <span class="pl-1">{{ $zone->rooms->count() }}</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body pt-3 d-flex flex-column">
+                                    <h2 class="card-title fs-16 lh-2 mb-0">
+                                        <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}"
+                                            class="text-dark hover-primary">{{ Str::limit($zone->name, 60) }}</a>
+                                    </h2>
+                                    <p class="card-text font-weight-500 text-gray-light mb-2">
+                                        <small> {{ Str::limit($zone->address, 100) }}</small>
+                                    </p>
+                                    <ul class="list-inline d-flex mb-0 flex-wrap mr-n5 mt-auto">
+                                        @if ($zone->bathrooms == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Phòng tắm">
+                                                <svg class="icon icon-shower fs-18 text-primary mr-1">
+                                                    <use xlink:href="#icon-shower"></use>
+                                                </svg>
+                                                Phòng tắm
+                                            </li>
+                                        @endif
+                                        {{-- @if ($zone->garage == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Wifi">
+                                                <svg class="icon icon-Garage fs-18 text-primary">
+                                                    <use xlink:href="#icon-Garage"></use>
+                                                </svg>
+                                                &nbsp;Ga-ra
+                                            </li>
+                                        @endif --}}
+                                        @if ($zone->wifi == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Wifi">
+                                                <svg class="icon fs-18 text-primary mr-1"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                                    <path fill="currentColor"
+                                                        d="M634.91 154.88C457.74-8.99 182.19-8.93 5.09 154.88c-6.66 6.16-6.79 16.59-.35 22.98l34.24 33.97c6.14 6.1 16.02 6.23 22.4.38 145.92-133.68 371.3-133.71 517.25 0 6.38 5.85 16.26 5.71 22.4-.38l34.24-33.97c6.43-6.39 6.3-16.82-.36-22.98zM320 352c-35.35 0-64 28.65-64 64s28.65 64 64 64 64-28.65 64-64-28.65-64-64-64zm202.67-83.59c-115.26-101.93-290.21-101.82-405.34 0-6.9 6.1-7.12 16.69-.57 23.15l34.44 33.99c6 5.92 15.66 6.32 22.05.8 83.95-72.57 209.74-72.41 293.49 0 6.39 5.52 16.05 5.13 22.05-.8l34.44-33.99c6.56-6.46 6.33-17.06-.56-23.15z" />
+                                                </svg>
+                                                Wifi
+                                            </li>
+                                        @endif
+                                        @if ($zone->air_conditioning == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Máy điều hòa">
+                                                <svg class="icon icon-heating fs-18 text-primary">
+                                                    <use xlink:href="#icon-heating"></use>
+                                                </svg>
+                                                &nbsp;Máy điều hòa
+                                            </li>
+                                        @endif
+                                    </ul>
+                                </div>
+                                <div
+                                    class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
+                                    {{-- <p class="fs-17 font-weight-bold text-heading mb-0">
+                                        {{ number_format($zone->price, 0, ',', '.') }} VND</p> --}}
+                                    <p class="fs-17 font-weight-bold text-heading mb-0">
+                                        @if ($zone->rooms->isNotEmpty())
+                                            @php
+                                                $prices = $zone->rooms->pluck('price');
+                                                $minPrice = $prices->min();
+                                                $maxPrice = $prices->max();
+                                            @endphp
+                                            @if ($zone->rooms->count() == 1)
+                                                {{ number_format($minPrice, 0, ',', '.') }} VND
+                                            @else
+                                                {{ number_format($minPrice, 0, ',', '.') }} -
+                                                {{ number_format($maxPrice, 0, ',', '.') }} VND
+                                            @endif
+                                        @else
+                                            Giá không có sẵn
+                                        @endif
+                                    </p>
+                                    <li class="list-inline mb-0">
+                                        <a href="#"
+                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center favorite-btn {{ $zone->isFavoritedByUser(auth()->id()) ? 'favorited' : '' }}"
+                                            data-zone-slug="{{ $zone->slug }}">
+                                            <!-- Thay đổi từ data-zone-id thành data-zone-slug -->
+                                            <i class="fas fa-heart"></i>
+                                        </a>
+                                    </li>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+            </div>
+        </section>
+        
+        
+        <section>
+            <div class="bg-single-image pt-lg-13 pb-lg-12 py-11 bg-secondary">
+                <div class="container container-xxl">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 pr-xl-8 pb-lg-0 pb-6" data-animate="fadeInLeft">
+                            <a href="#" class="hover-shine d-block">
+                                <img src="{{ asset('assets/images/single-image-01.jpg') }}" class="rounded-lg w-100"
+                                    alt="Tìm khu phố của bạn">
+                            </a>
+                        </div>
+                        <div class="col-lg-6 pl-xl-8" data-animate="fadeInRight">
+                            <h2 class="text-white lh-1625">Tìm phòng trọ của bạn<br />
+                            </h2>
+                            <span class="heading-divider"></span>
+                            <form action="{{ route('client.room-listing') }}" method="GET">
+                                <div class="input-group input-group-lg pr-sm-17">
+                                    <input type="text"
+                                        class="form-control fs-13 font-weight-500 text-gray-light rounded-lg rounded-right-0 border-0 shadow-none h-52 bg-white"
+                                        name="search" placeholder="Nhập địa chỉ, khu phố">
+                                    <button type="submit"
+                                        class="btn btn-primary fs-18 rounded-left-0 rounded-lg px-6 border-0">
+                                        <i class="far fa-search"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- <section class="pt-lg-12 pb-lg-11 py-11">
+            <div class="container container-xxl">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2 class="text-heading">Được quan tâm nhiều nhất</h2>
+                        <span class="heading-divider"></span>
+                    </div>
+                    <div class="col-md-6 text-md-right">
+                        <a href="{{ route('client.room-listing') }}"
+                            class="btn fs-14 text-secondary btn-accent py-3 lh-15 px-7 mb-6 mb-lg-0">Xem tất cả
+                            <i class="far fa-long-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="slick-slider slick-dots-mt-0 custom-arrow-spacing-30"
+                    data-slick-options='{"slidesToShow": 4,"dots":true,"arrows":false,"responsive":[{"breakpoint": 1600,"settings": {"slidesToShow":3}},{"breakpoint": 992,"settings": {"slidesToShow":2,"arrows":false}},{"breakpoint": 768,"settings": {"slidesToShow": 2,"arrows":false,"dots":true,"autoplay":true}},{"breakpoint": 576,"settings": {"slidesToShow": 1,"arrows":false,"dots":true,"autoplay":true}}]}'>
+                    @foreach ($zoneClient as $zone)
+                        <div class="box pb-7 pt-2">
+                            <div class="card shadow-hover-2 h-100" data-animate="zoomIn">
+                                <div class="hover-change-image bg-hover-overlay rounded-lg card-img-top"
+                                    style="height: 200px; overflow: hidden;">
+                                    {{-- @if ($zone->images->isNotEmpty())
+                                        <img src="{{ asset('assets/images/' . $zone->images->first()->filename) }}"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;">
+                                    @else
+                                        <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;">
+                                    @endif --}}
+                                    @php
+                                        $image = $zone->rooms->first()->image ?? null;
+                                    @endphp
+                                    @if ($image)
+                                        <img src="https://drive.google.com/thumbnail?id={{ $image }}"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;" loading="lazy">
+                                    @else
+                                        <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
+                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            style="object-fit: cover;">
+                                    @endif
+                                    <div class="card-img-overlay p-2 d-flex flex-column">
+
+                                     
+                                            <div>
+                                                <span
+                                                    class="badge {{ $zone->hasAvailableRooms() ? 'badge-indigo' : 'mr-2 badge-orange' }}  pos-fixed-top">
+                                                    {{ $zone->hasAvailableRooms() ? 'Còn phòng' : 'Hết phòng' }}
+                                                </span>
+                                                @if ($zone->vipZonePosition && $zone->vipZonePosition->status == 1)
+                                                    <span class="badge bg-danger text-white" style="top: 1px; right: 1px;">
+                                                        VIP
+                                                    </span>
+                                                @endif
+                                            </div>
+                                       
+                                        {{-- <ul class="list-inline mb-0 mt-auto hover-image">
+                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
+                                                <a href="#" class="text-white hover-primary">
+                                                    <i class="far fa-images"></i><span
+                                                        class="pl-1">{{ $zone->images()->count() }}</span>
+                                                </a>
+                                            </li>
+                                        </ul> --}}
+                                        <ul class="list-inline mb-0 mt-auto hover-image">
+                                            <li class="list-inline-item mr-2" data-toggle="tooltip" title="Ảnh">
+                                                <a href="#" class="text-white hover-primary">
+                                                    <i class="far fa-images"></i>
+                                                    <span class="pl-1">{{ $zone->rooms->count() }}</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body pt-3 d-flex flex-column">
+                                    <h2 class="card-title fs-16 lh-2 mb-0">
+                                        <a href="{{ route('client.detail-zone', ['slug' => $zone->slug]) }}"
+                                            class="text-dark hover-primary">{{ Str::limit($zone->name, 60) }}</a>
+                                    </h2>
+                                    <p class="card-text font-weight-500 text-gray-light mb-2">
+                                        <small> {{ Str::limit($zone->address, 100) }}</small>
+                                    </p>
+                                    <ul class="list-inline d-flex mb-0 flex-wrap mr-n5 mt-auto">
+                                        @if ($zone->bathrooms == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Phòng tắm">
+                                                <svg class="icon icon-shower fs-18 text-primary mr-1">
+                                                    <use xlink:href="#icon-shower"></use>
+                                                </svg>
+                                                Phòng tắm
+                                            </li>
+                                        @endif
+                                        {{-- @if ($zone->garage == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Wifi">
+                                                <svg class="icon icon-Garage fs-18 text-primary">
+                                                    <use xlink:href="#icon-Garage"></use>
+                                                </svg>
+                                                &nbsp;Ga-ra
+                                            </li>
+                                        @endif --}}
+                                        @if ($zone->wifi == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Wifi">
+                                                <svg class="icon fs-18 text-primary mr-1"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                                    <path fill="currentColor"
+                                                        d="M634.91 154.88C457.74-8.99 182.19-8.93 5.09 154.88c-6.66 6.16-6.79 16.59-.35 22.98l34.24 33.97c6.14 6.1 16.02 6.23 22.4.38 145.92-133.68 371.3-133.71 517.25 0 6.38 5.85 16.26 5.71 22.4-.38l34.24-33.97c6.43-6.39 6.3-16.82-.36-22.98zM320 352c-35.35 0-64 28.65-64 64s28.65 64 64 64 64-28.65 64-64-28.65-64-64-64zm202.67-83.59c-115.26-101.93-290.21-101.82-405.34 0-6.9 6.1-7.12 16.69-.57 23.15l34.44 33.99c6 5.92 15.66 6.32 22.05.8 83.95-72.57 209.74-72.41 293.49 0 6.39 5.52 16.05 5.13 22.05-.8l34.44-33.99c6.56-6.46 6.33-17.06-.56-23.15z" />
+                                                </svg>
+                                                Wifi
+                                            </li>
+                                        @endif
+                                        @if ($zone->air_conditioning == 1)
+                                            <li class="list-inline-item text-gray font-weight-500 fs-13 d-flex align-items-center mr-5"
+                                                data-toggle="tooltip" title="Máy điều hòa">
+                                                <svg class="icon icon-heating fs-18 text-primary">
+                                                    <use xlink:href="#icon-heating"></use>
+                                                </svg>
+                                                &nbsp;Máy điều hòa
+                                            </li>
+                                        @endif
+                                    </ul>
+                                </div>
+                                <div
+                                    class="card-footer bg-transparent d-flex justify-content-between align-items-center py-3">
+                                    {{-- <p class="fs-17 font-weight-bold text-heading mb-0">
+                                        {{ number_format($zone->price, 0, ',', '.') }} VND</p> --}}
+                                    <p class="fs-17 font-weight-bold text-heading mb-0">
+                                        @if ($zone->rooms->isNotEmpty())
+                                            @php
+                                                $prices = $zone->rooms->pluck('price');
+                                                $minPrice = $prices->min();
+                                                $maxPrice = $prices->max();
+                                            @endphp
+                                            @if ($zone->rooms->count() == 1)
+                                                {{ number_format($minPrice, 0, ',', '.') }} VND
+                                            @else
+                                                {{ number_format($minPrice, 0, ',', '.') }} -
+                                                {{ number_format($maxPrice, 0, ',', '.') }} VND
+                                            @endif
+                                        @else
+                                            Giá không có sẵn
+                                        @endif
+                                    </p>
+                                    <li class="list-inline mb-0">
+                                        <a href="#"
+                                            class="w-40px h-40 border rounded-circle d-inline-flex align-items-center justify-content-center favorite-btn {{ $zone->isFavoritedByUser(auth()->id()) ? 'favorited' : '' }}"
+                                            data-zone-slug="{{ $zone->slug }}">
+                                           
+                                            <i class="fas fa-heart"></i>
+                                        </a>
+                                    </li>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+            </div>
+        </section> -->
 
         <section class="bg-accent pt-10 pb-lg-11 pb-8 bg-patten-04">
             <div class="container container-xxl">

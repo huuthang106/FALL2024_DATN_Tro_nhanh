@@ -25,6 +25,8 @@ class RoomClientServices
     private const VI_TRI_GOI_KICH_HOAT = 1;
     private const TRANG_THAI_VIP_HIEN_THI = 1;
     private const SO_LUONG_HIEN_THI = 5;
+    private const KHU_TRO_HA_NOI = 'Thành phố Hà Nội';
+    private const KHU_TRO_CAN_THO = 'Thành phố Cần Thơ';
     // // ----------------------------------------------------------------Sắp Theo VIP
     // public function getAllRoom(int $perPage = 10, $type = null, $searchTerm = null, $province = null, $district = null, $village = null, $category = null, $features = null)
     // {
@@ -562,6 +564,88 @@ class RoomClientServices
 
         return $vipZones;
     }
+    //Khu tro Ha Noi
+    public function getApprovedZonesInHanoi()
+    {
+        $approvedZones = Zone::with('rooms')
+            ->where('status', self::HIEN_THI) // Ensure the zone status is 2 (approved)
+            ->where('address', 'like', '%Thành Phố Hà Nội%') // Address contains "Thành Phố Hà Nội"
+            ->orderBy('created_at', 'desc') // Order by the most recent
+            ->take(self::SO_LUONG_HIEN_THI) // Limit the number of results
+            ->get();
+    
+        if ($approvedZones->isEmpty()) {
+            // If no approved zones in HCM, return an empty collection or handle as needed
+            return collect();
+        }
+    
+        return $approvedZones;
+    }
+    //Khu tro Ho Chi Minh
+    public function getApprovedZonesInHCM()
+    {
+        $approvedZones = Zone::with('rooms')
+            ->where('status', self::HIEN_THI) // Ensure the zone status is 2 (approved)
+            ->where('address', 'like', '%Thành Phố Hồ Chí Minh%') // Address contains "Thành Phố Hồ Chí Minh"
+            ->orderBy('created_at', 'desc') // Order by the most recent
+            ->take(self::SO_LUONG_HIEN_THI) // Limit the number of results
+            ->get();
+    
+        if ($approvedZones->isEmpty()) {
+            // If no approved zones in HCM, return an empty collection or handle as needed
+            return collect();
+        }
+    
+        return $approvedZones;
+    }
+   
+    //Khu tro Can Tho
+    public function getApprovedZonesInCanTho()
+    {
+        $approvedZones = Zone::with('rooms')
+            ->where('status', self::HIEN_THI) // Ensure the zone status is 2 (approved)
+            ->where('address', 'like', '%Thành Phố Cần Thơ%') // Address contains "Thành Phố Cần Thơ"
+            ->orderBy('created_at', 'desc') // Order by the most recent
+            ->take(self::SO_LUONG_HIEN_THI) // Limit the number of results
+            ->get();
+    
+        if ($approvedZones->isEmpty()) {
+            // If no approved zones in HCM, return an empty collection or handle as needed
+            return collect();
+        }
+    
+        return $approvedZones;
+    }
+
+    public function RoomClient()
+    {
+        $currentDate = Carbon::now();
+
+        $vipZones = Zone::with(['rooms', 'vipZonePositions.location'])
+            ->join('users', 'zones.user_id', '=', 'users.id')
+            ->join('vip_zone_positions', 'zones.id', '=', 'vip_zone_positions.zone_id')
+            ->join('locations', 'vip_zone_positions.location_id', '=', 'locations.id')
+            ->where('zones.status', self::HIEN_THI)
+            ->where('locations.type_vip', self::DUOC_QUAN_TAM)  // Thay đổi type_vip thành DUOC_QUAN_TAM
+            ->where('locations.status', self::VI_TRI_GOI_KICH_HOAT)
+            ->where('vip_zone_positions.status', self::TRANG_THAI_VIP_HIEN_THI)
+            ->where('vip_zone_positions.end_date', '>', $currentDate)
+            ->select('zones.*', 'locations.name as location_name', 'vip_zone_positions.end_date')
+            ->orderBy('vip_zone_positions.created_at', 'desc')
+            ->take(5)
+            ->get();
+
+        if ($vipZones->isEmpty()) {
+            // Nếu không có zone VIP, lấy các zone có view cao nhất
+            return Zone::with('rooms')
+                ->where('status', self::HIEN_THI)
+                ->orderBy('view', 'desc')
+                ->take(self::SO_LUONG_HIEN_THI)
+                ->get();
+        }
+
+        return $vipZones;
+    }
     // public function getRoomWhere()
     // {
     //     $currentDate = Carbon::now();
@@ -629,35 +713,7 @@ class RoomClientServices
     //         ->take(5)
     //         ->get();
     // }
-    public function RoomClient()
-    {
-        $currentDate = Carbon::now();
-
-        $vipZones = Zone::with(['rooms', 'vipZonePositions.location'])
-            ->join('users', 'zones.user_id', '=', 'users.id')
-            ->join('vip_zone_positions', 'zones.id', '=', 'vip_zone_positions.zone_id')
-            ->join('locations', 'vip_zone_positions.location_id', '=', 'locations.id')
-            ->where('zones.status', self::HIEN_THI)
-            ->where('locations.type_vip', self::DUOC_QUAN_TAM)  // Thay đổi type_vip thành DUOC_QUAN_TAM
-            ->where('locations.status', self::VI_TRI_GOI_KICH_HOAT)
-            ->where('vip_zone_positions.status', self::TRANG_THAI_VIP_HIEN_THI)
-            ->where('vip_zone_positions.end_date', '>', $currentDate)
-            ->select('zones.*', 'locations.name as location_name', 'vip_zone_positions.end_date')
-            ->orderBy('vip_zone_positions.created_at', 'desc')
-            ->take(5)
-            ->get();
-
-        if ($vipZones->isEmpty()) {
-            // Nếu không có zone VIP, lấy các zone có view cao nhất
-            return Zone::with('rooms')
-                ->where('status', self::HIEN_THI)
-                ->orderBy('view', 'desc')
-                ->take(self::SO_LUONG_HIEN_THI)
-                ->get();
-        }
-
-        return $vipZones;
-    }
+   
     // public function RoomClient()
     // {
     //     $currentDate = Carbon::now();
@@ -977,4 +1033,5 @@ class RoomClientServices
             ->take($limit)
             ->get();
     }
+
 }

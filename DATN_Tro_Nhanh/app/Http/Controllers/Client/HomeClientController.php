@@ -64,6 +64,9 @@ class HomeClientController extends Controller
         $user = Auth::user();
         $zones = $this->roomClientService->getRoomWhere();
         $zoneClient = $this->roomClientService->RoomClient();
+        $approvedRoomsInHCM = $this->roomClientService->getApprovedZonesInHCM();
+        $approvedRoomsInHanoi = $this->roomClientService->getApprovedZonesInHanoi();
+        $approvedRoomsInCanTho = $this->roomClientService->getApprovedZonesInCanTho();
         $locations = $this->roomClientService->getUniqueLocations();
         $categories = $this->roomClientService->getCategories();
 
@@ -72,6 +75,9 @@ class HomeClientController extends Controller
                 'zoneClient' => $zoneClient,
                 'categories' => $categories,
                 'zones' => $zones,
+                'approvedRoomsInHCM' => $approvedRoomsInHCM,
+                'approvedRoomsInHanoi' => $approvedRoomsInHanoi,
+                'approvedRoomsInCanTho' => $approvedRoomsInCanTho,
                 'provinces' => $locations['provinces'],
                 'districts' => $locations['districts'],
                 'villages' => $locations['villages'],
@@ -85,6 +91,9 @@ class HomeClientController extends Controller
             'zoneClient' => $zoneClient,
             'categories' => $categories,
             'zones' => $zones,
+            'approvedRoomsInHCM' => $approvedRoomsInHCM,
+            'approvedRoomsInHanoi' => $approvedRoomsInHanoi,
+            'approvedRoomsInCanTho' => $approvedRoomsInCanTho,
             'provinces' => $locations['provinces'],
             'districts' => $locations['districts'],
             'villages' => $locations['villages'],
