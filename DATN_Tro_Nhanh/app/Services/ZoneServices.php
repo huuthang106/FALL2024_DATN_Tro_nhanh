@@ -240,9 +240,11 @@ class ZoneServices
     // }
     public function getMyZoneClient()
     {
-        $perPage = 5;
-        $zones = Zone::orderByDesc('created_at')->paginate($perPage);
-        return $zones;
+        $perPage = 5; // Số lượng khu vực trọ sẽ được hiển thị trên mỗi trang
+        $zones = Zone::where('status', self::status) // Chỉ lấy các khu vực có status = 2
+            ->orderByDesc('created_at') // Sắp xếp theo ngày tạo mới nhất
+            ->paginate($perPage); // Phân trang kết quả
+        return $zones; //
     }
     // Tổng só khu trọ Client
     public function getTotalZones()
@@ -369,14 +371,14 @@ class ZoneServices
     {
         $data['status'] = self::DA_TAO;
         $data['payment_date'] = now();
-    
+
         // Kiểm tra và thêm hạn thanh toán nếu có
         if (isset($data['payment_due_date'])) {
             $data['payment_due_date'] = $data['payment_due_date']; // Giữ nguyên giá trị từ form
         } else {
             $data['payment_due_date'] = now(); // Nếu không có, mặc định là hiện tại
         }
-    
+
         $bill = Bill::create($data);
         event(new BillCreated($bill, $data['payer_id']));
         return $bill;
@@ -431,12 +433,12 @@ class ZoneServices
     {
         // Tìm khu trọ theo ID
         $zone = Zone::find($zoneId);
-    
+
         // Kiểm tra xem khu trọ có tồn tại không
         if (!$zone) {
             return ['success' => false, 'message' => 'Không tìm thấy khu trọ.'];
         }
-    
+
         // Cập nhật các trường, giữ nguyên nếu không nhập giá trị mới
         $zone->name = $request->input('title') ?? $zone->name;
         $zone->description = $request->input('description') ?? $zone->description;
@@ -454,12 +456,12 @@ class ZoneServices
         $zone->bathrooms = $request->has('bathrooms') ? self::CO : $zone->bathrooms;
         $zone->air_conditioning = $request->has('air_conditioning') ? self::CO : $zone->air_conditioning;
         $zone->garage = $request->has('garage') ? self::CO : $zone->garage;
-    
+
         // Lưu thông tin khu trọ
         if ($zone->save()) {
             // Tạo slug mới
             $zone->slug = $this->createSlug($zone->name) . '-' . $zone->id;
-    
+
             // Cập nhật slug trong cơ sở dữ liệu
             if ($zone->save()) {
                 return ['success' => true, 'zone' => $zone];
@@ -473,7 +475,7 @@ class ZoneServices
             return ['success' => false, 'message' => 'Không thể lưu thông tin cập nhật khu trọ.'];
         }
     }
-    
+
 
 
 
@@ -586,7 +588,7 @@ class ZoneServices
     }
     public function searchZones($keyword, $province, $category)
     {
-        $query = Zone::query();
+        $query = Zone::where('status', self::status);
 
         if ($keyword) {
             $query->where(function ($q) use ($keyword) {
@@ -608,7 +610,8 @@ class ZoneServices
     }
     public function searchZonesWithinRadius($latitude = null, $longitude = null, $radius = 30, $perPage = 10)
     {
-        $query = Zone::query();
+        $query = Zone::where('status', self::status);
+
 
         if ($latitude && $longitude) {
             $haversine = "(6371 * acos(cos(radians($latitude)) * cos(radians(latitude)) * cos(radians(longitude) - radians($longitude)) + sin(radians($latitude)) * sin(radians(latitude))))";
@@ -645,9 +648,9 @@ class ZoneServices
         if (!auth()->check()) {
             return false;
         }
-    
+
         DB::beginTransaction(); // Bắt đầu giao dịch
-    
+
         try {
             $zone = new Zone();
             $user_id = auth()->id();
@@ -669,21 +672,21 @@ class ZoneServices
             $zone->bathrooms = $request->has('bathrooms') ? self::CO : self::CHUA_CO;
             $zone->air_conditioning = $request->has('air_conditioning') ? self::CO : self::CHUA_CO;
             $zone->garage = $request->has('garage') ? self::CO : self::CHUA_CO;
-    
+
             if (!$zone->save()) {
                 DB::rollBack();
                 return false;
             }
-    
+
             $zoneId = $zone->id;
             $slug = $this->createSlug($request->input('title')) . '-' . $zoneId;
             $zone->slug = $slug;
-    
+
             if (!$zone->save()) {
                 DB::rollBack();
                 return false;
             }
-    
+
             // Kiểm tra nếu người dùng chưa tải lên ảnh
             if (!$request->hasFile('image')) {
                 DB::rollBack();
@@ -692,22 +695,22 @@ class ZoneServices
                     'message' => 'Vui lòng tải lên ít nhất một hình ảnh.'
                 ]);
             }
-    
+
             // Tiếp tục xử lý ảnh nếu có
             $image = $request->file('image');
             $isValidImage = false;
             Log::info("Starting image processing...");
-    
+
             try {
                 $timestamp = now()->format('YmdHis');
                 $originalName = $image->getClientOriginalName();
                 $extension = $image->getClientOriginalExtension();
                 $filename = $timestamp . '_' . pathinfo($originalName, PATHINFO_FILENAME) . '.' . $extension;
-    
+
                 Log::info("Checking image with Clarifai: " . $filename);
-    
+
                 $imageContent = base64_encode(file_get_contents($image->getRealPath()));
-    
+
                 $response = $this->client->post('models/moderation-recognition/outputs', [
                     'json' => [
                         'inputs' => [
@@ -721,24 +724,24 @@ class ZoneServices
                         ]
                     ]
                 ]);
-    
+
                 $result = json_decode($response->getBody(), true);
                 Log::info("Clarifai response: " . json_encode($result));
-    
+
                 $concepts = $result['outputs'][0]['data']['concepts'] ?? [];
                 $violenceScore = 0;
-    
+
                 $inappropriateContent = ['gore', 'explicit', 'drug', 'suggestive', 'weapon'];
-    
+
                 foreach ($concepts as $concept) {
                     if (in_array($concept['name'], $inappropriateContent)) {
                         $violenceScore += $concept['value'];
                         Log::info("Inappropriate content detected: " . $concept['name'] . " with score: " . $concept['value']);
                     }
                 }
-    
+
                 Log::info("Total inappropriate content score for image: " . $filename . " is " . $violenceScore);
-    
+
                 if ($violenceScore <= 0.5) {
                     $isValidImage = true;
                 } else {
@@ -764,7 +767,7 @@ class ZoneServices
                     'message' => 'Có lỗi xảy ra khi xử lý ảnh: ' . $e->getMessage()
                 ]);
             }
-    
+
             if (!$isValidImage) {
                 DB::rollBack();
                 return response()->json([
@@ -772,7 +775,7 @@ class ZoneServices
                     'message' => 'Không có ảnh nào được tải lên. Vui lòng thử lại.'
                 ]);
             }
-    
+
             DB::commit(); // Commit transaction
             return $zoneId;
         } catch (\Exception $e) {
@@ -784,7 +787,7 @@ class ZoneServices
             ]);
         }
     }
-    
+
     public function getSlug($id)
     {
         $zone = Zone::find($id);
@@ -933,7 +936,7 @@ class ZoneServices
         if (isset($data['image'])) {
             $imageUrl = $data['image']; // Đường dẫn hình ảnh
             $imageContent = @file_get_contents($imageUrl);
-    
+
             if ($imageContent !== false) {
                 // Tạo một đối tượng UploadedFile giả để sử dụng hàm uploadImageToGoogleDrive
                 $tempFilePath = tempnam(sys_get_temp_dir(), 'image');
@@ -945,13 +948,13 @@ class ZoneServices
                     null,
                     true
                 );
-    
+
                 $folderId = env('GOOGLE_DRIVE_FOLDER_ID'); // Lấy ID thư mục từ .env
                 $filename = time() . '_' . basename($imageUrl); // Tạo tên file mới
-    
+
                 // Gọi hàm uploadImageToGoogleDrive
                 $uploadResult = $this->blogServices->uploadImageToGoogleDrive($uploadedFile, $folderId, $filename);
-    
+
                 if (isset($uploadResult['id'])) {
                     // Lưu ID của file trên Google Drive vào cơ sở dữ liệu
                     $room->image = $uploadResult['id'];

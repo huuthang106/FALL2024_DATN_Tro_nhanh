@@ -18,7 +18,7 @@ class ZoneClientController extends Controller
     protected $zoneServices;
     //
     protected $CommentClientService;
-    
+
     public function __construct(ZoneServices $zoneServices, CommentClientService $CommentClientService)
     {
         $this->zoneServices = $zoneServices;
@@ -91,8 +91,8 @@ class ZoneClientController extends Controller
         $features = $request->input('features');
         $type = $request->input('type');
         $filler_follow = $request->input('follow_filter');
-       
-            // Check if the follow filter is applied
+
+        // Check if the follow filter is applied
         if ($filler_follow == '1') {
             $followedUserIds = Watchlist::where('follower', auth()->id())->pluck('user_id')->toArray();
             $zones = Zone::whereIn('user_id', $followedUserIds)->paginate($perPage);
@@ -168,6 +168,15 @@ class ZoneClientController extends Controller
                 $zones = $this->zoneServices->getMyZoneClient();
             }
         }
+        // Thêm các tham số tìm kiếm vào các liên kết phân trang
+        $zones->appends([
+            'status' => $request->input('status'),
+            'province' => $province,
+            'keyword' => $keyword,
+            'latitude' => $latitude,
+            'longitude' => $longitude,
+            'zoom' => $request->input('zoom')
+        ]);
 
         $totalZones = $this->zoneServices->getTotalZones();
         $provinces = $this->zoneServices->getProvinces()->pluck('province')->toArray(); // Chuyển đổi Collection thành mảng
@@ -228,7 +237,7 @@ class ZoneClientController extends Controller
                 'averageRating' => $zoneDetails['averageRating'], // Giả sử bạn có phương thức này
                 'ratingsDistribution' => $zoneDetails['ratingsDistribution'], // Giả sử bạn có phương thức này
                 'user' => $user,
-                
+
                 'similarZones' => $similarZones,
                 'slug' => $slug
             ]);
@@ -243,7 +252,7 @@ class ZoneClientController extends Controller
             'comments' => $comments,
             'user' => $user,
             // 'identity' => $identity,
-           
+
             'similarZones' => $similarZones,
             'provinces' => $locations['provinces'],
             'province' => request()->input('province', '')
