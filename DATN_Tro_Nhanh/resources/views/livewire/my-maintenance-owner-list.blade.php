@@ -67,87 +67,41 @@
                     @else
                         @foreach ($rooms as $item)
                         <tr role="row">
-                        </td>
-                        <td class="align-middle p-4" style="white-space: normal; word-wrap: break-word;">
-                            <small>{{ $item->room->title }}</small>
-                        </td>
-                        <td class="align-middle p-4" style="white-space: normal; word-wrap: break-word;">
-                            <small>{{ $item->room->zone->name }}</small>
-                        </td>
-                        <td class="align-middle p-4" style="white-space: normal; word-wrap: break-word;">
-                            <small>{{ $item->room->zone->user->name }}</small>
-                        </td>
-                        <td class="align-middle p-4" style="white-space: normal; word-wrap: break-word;">
-                            <small>{{ number_format($item->room->price, 0, ',', '.') }}</small>
-                        </td>
-                        <td class="align-middle p-4" style="white-space: normal; word-wrap: break-word;">
-                            {{ $item->updated_at }}
-                        </td>
-                        <td class="align-middle p-4" style="white-space: nowrap;">
-                            <button data-toggle="modal" href="#maintenance"
-                                class="badge badge-warning border-0"> <i class="fal fa-pencil-alt"></i>
-                            </button>
-                        </td>
-                        <td class="align-middle p-4" style="white-space: nowrap;">
-                            <form action="{{ route('owners.leave-the-room', $item->id) }}" method="POST"
-                                class="d-inline-block mb-0 delete-form"
-                                id="leave-room-form-{{ $item->id }}">
-                                @csrf
-                                @method('DELETE')
-                                <button type="button"
-                                    class="badge badge-primary border-0 leave-room-btn delete-button"
-                                    data-id="{{ $item->id }}">
-                                    <i class="fal fa-sign-out-alt"></i>
+                            <td class="align-middle p-4" style="white-space: normal; word-wrap: break-word;">
+                                <small>{{ $item->room->title }}</small>
+                            </td>
+                            <td class="align-middle p-4" style="white-space: normal; word-wrap: break-word;">
+                                <small>{{ $item->room->zone->name }}</small>
+                            </td>
+                            <td class="align-middle p-4" style="white-space: normal; word-wrap: break-word;">
+                                <small>{{ $item->room->zone->user->name }}</small>
+                            </td>
+                            <td class="align-middle p-4" style="white-space: normal; word-wrap: break-word;">
+                                <small>{{ number_format($item->room->price, 0, ',', '.') }}</small>
+                            </td>
+                            <td class="align-middle p-4" style="white-space: normal; word-wrap: break-word;">
+                                {{ $item->updated_at }}
+                            </td>
+                            <td class="align-middle p-4" style="white-space: nowrap;">
+                                <button 
+                                    class="badge badge-warning border-0 open-maintenance-modal" 
+                                    data-toggle="modal" 
+                                    data-target="#maintenance" 
+                                    data-landlord="{{ $item->room->zone->user->name }}" 
+                                    data-room-id="{{ $item->room->id }}">
+                                    <i class="fal fa-pencil-alt"></i>
                                 </button>
-                            </form>
-                        </td>
-                    </tr>
-                            <div class="modal fade maintenance" id="maintenance" tabindex="-1" role="dialog"
-                                aria-labelledby="maintenance" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header border-0 p-4">
-                                            <h5 class="modal-title">Gửi yêu cầu </h5>
-                                            <button type="button" class="close fs-23" data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body p-4 py-sm-7 px-sm-8 text-center">
-                                            <h2 class="text-heading mb-3 fs-22 fs-md-32 lh-1-5">
-                                                Nội dung yêu cầu!
-                                            </h2>
-
-                                            <form id="maintenance-request-form" method="POST"
-                                                action="{{ route('owners.sent-for-maintenance') }}">
-                                                @csrf
-
-                                                <input type="hidden" name="room_id" id=""
-                                                    value="{{ $item->room->id }}">
-                                                <input type="text" class="form-control mb-3 border-0" name="title"
-                                                    id="title" placeholder="Nhập tiêu đề"
-                                                    value="{{ old('title') }}">
-                                                @error('title')
-                                                    <span id="title-error" class="text-danger">{{ $message }}</span>
-                                                @enderror
-                                                <div class="form-group mb-4">
-                                                    <textarea class="form-control border-0 " placeholder="Nội dung yêu cầu..." name="description" id="description"
-                                                        rows="5">{{ old('description') }}</textarea>
-                                                    @error('description')
-                                                        <span id="description-error"
-                                                            class="text-danger">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-
-                                                <button type="button" class="btn btn-lg btn-primary px-5"
-                                                    id="submit-maintenance-request">Gửi yêu
-                                                    cầu</button>
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </td>
+                            <td class="align-middle p-4" style="white-space: nowrap;">
+                                <form action="{{ route('owners.leave-the-room', $item->id) }}" method="POST" class="d-inline-block mb-0 delete-form" id="leave-room-form-{{ $item->id }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" class="badge badge-primary border-0 leave-room-btn delete-button" data-id="{{ $item->id }}">
+                                        <i class="fal fa-sign-out-alt"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
                         @endforeach
                     @endif
                 </tbody>
@@ -264,41 +218,86 @@
             });
         });
     </script>
+    {{-- yêu cầu bảo trì  --}}
+    <div class="modal fade maintenance" id="maintenance" tabindex="-1" role="dialog" aria-labelledby="maintenance" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mxw-571" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0 p-4">
+                    <h5 class="modal-title">Gửi yêu cầu</h5>
+                    <button type="button" class="close fs-23" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body p-4 py-sm-7 px-sm-8 text-center">
+                    <h2 class="text-heading mb-3 fs-22 fs-md-32 lh-1-5">Nội dung yêu cầu!</h2>
+                    <form id="maintenance-request-form" method="POST" action="{{ route('owners.sent-for-maintenance') }}">
+                        @csrf
+                        <input type="text" id="landlordName" class="form-control mb-3 border-0" readonly>
+                        <input type="hidden" name="room_id" id="roomId">
+                        <input type="text" class="form-control mb-3 border-0" name="title" id="title" placeholder="Nhập tiêu đề" value="{{ old('title') }}">
+                        @error('title')
+                            <span id="title-error" class="text-danger">{{ $message }}</span>
+                        @enderror
+                        <div class="form-group mb-4">
+                            <textarea class="form-control border-0" placeholder="Nội dung yêu cầu..." name="description" id="description" rows="5">{{ old('description') }}</textarea>
+                            @error('description')
+                                <span id="description-error" class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <button type="button" class="btn btn-lg btn-primary px-5" id="submit-maintenance-request">Gửi yêu cầu</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const openModalButtons = document.querySelectorAll('.open-maintenance-modal');
+    
+            openModalButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const landlordName = this.getAttribute('data-landlord');
+                    const roomId = this.getAttribute('data-room-id');
+    
+                    // Cập nhật thông tin trong modal
+                    document.getElementById('landlordName').value =`Gửi ${landlordName}`;
+                    document.getElementById('roomId').value = roomId;
+                });
+            });
+        });
+    </script>
     {{-- gui ajax --}}
     <script>
         document.getElementById('submit-maintenance-request').addEventListener('click', function() {
             const form = document.getElementById('maintenance-request-form');
             const formData = new FormData(form);
     
-              fetch(form.action, {
-       method: 'POST',
-       body: formData,
-       headers: {
-           'X-CSRF-TOKEN': '{{ csrf_token() }}',
-       }
-   })
-   .then(response => {
-       return response.text(); // Lấy nội dung phản hồi dưới dạng văn bản
-   })
-   .then(data => {
-       console.log(data); // Xem nội dung phản hồi
-       // Nếu bạn muốn xử lý JSON, hãy kiểm tra xem dữ liệu có phải là JSON không
-       try {
-           const jsonData = JSON.parse(data);
-           if (jsonData.success) {
-               Swal.fire('Thành công!', jsonData.message, 'success');
-               form.reset();
-           } else {
-               Swal.fire('Có lỗi xảy ra!', jsonData.error, 'error');
-           }
-       } catch (e) {
-           Swal.fire('Có lỗi xảy ra!', 'Không đưọc bỏ trống', 'error');
-       }
-   })
-   .catch(error => {
-       console.error('Lỗi:', error.message);
-       Swal.fire('Có lỗi xảy ra!', 'Vui lòng thử lại sau.', 'error');
-   });
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Lấy nội dung phản hồi dưới dạng JSON
+            })
+            .then(jsonData => {
+                if (jsonData.success) {
+                    Swal.fire('Thành công!', jsonData.message, 'success');
+                    form.reset(); // Đặt lại form
+                    $('#maintenance').modal('hide'); // Đóng modal
+                } else {
+                    Swal.fire('Có lỗi xảy ra!', jsonData.error, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi:', error.message);
+                Swal.fire('Có lỗi xảy ra!', 'Vui lòng thử lại sau.', 'error');
+            });
         });
     </script>
 </div>

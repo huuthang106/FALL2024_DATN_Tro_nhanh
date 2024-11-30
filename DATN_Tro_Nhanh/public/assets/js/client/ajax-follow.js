@@ -55,7 +55,12 @@ function handleFollowFormSubmit(event) {
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Có lỗi xảy ra, vui lòng thử lại.');
+        Swal.fire({
+            title: 'Bạn chưa đăng nhập!',
+            text: 'Vui lòng đăng nhập.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
     });
 }
 

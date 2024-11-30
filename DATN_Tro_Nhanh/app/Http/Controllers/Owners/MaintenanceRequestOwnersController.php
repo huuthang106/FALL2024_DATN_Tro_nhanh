@@ -73,7 +73,7 @@ class MaintenanceRequestOwnersController extends Controller
     }
     public function finish($id)
     {
-        $finish = 3;
+        $finish = 2;
         $result = $this->MaintenanceRequestsServices->editStatus($id, $finish);
         if ($result) {
             return back()->with('success', 'Hoàn thành.');

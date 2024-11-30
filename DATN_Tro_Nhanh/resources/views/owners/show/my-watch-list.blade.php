@@ -92,6 +92,13 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <style>.avatar {
+        width: 100px; /* Kích thước hình ảnh */
+        height: 100px; /* Kích thước hình ảnh */
+        border-radius: 50%; /* Tạo hình tròn */
+        object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
+        border: 2px solid #fff; /* Đường viền trắng (tùy chọn) */
+    }</style>
 @endpush
 
 @push('scriptOwners')

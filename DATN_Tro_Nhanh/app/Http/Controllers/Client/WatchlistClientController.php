@@ -24,11 +24,11 @@ class WatchlistClientController extends Controller
         // Trả về phản hồi từ phương thức follow
         return response()->json($response);
     } else {
-        dd('cc');
-        // return response()->json([
-        //     'success' => false,
-        //     'message' => 'User not authenticated.'
-        // ]);
+       
+        return response()->json([
+            'success' => false,
+            'message' => 'Bạn chưa đăng nhập.'
+        ]);
     }
 }
 

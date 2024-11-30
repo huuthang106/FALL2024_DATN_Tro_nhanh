@@ -57,17 +57,18 @@
                                 <td class="align-middle pt-6 pb-4 px-6" style="white-space: nowrap;">
                                     <div class="media d-flex align-items-center">
                                         <div class="w-120px mr-4 position-relative">
-                                            <a href="{{ route('owners.show-blog', $item->personBeingFollowed->slug) }}">
+                                            <a href="{{ route('client.client-agent-detail', $item->personBeingFollowed->slug) }}">
                                                 @if ($item->personBeingFollowed->image)
                                                     <img src="{{ asset('assets/images/' . $item->personBeingFollowed->image) }}"
                                                         alt="{{ $item->personBeingFollowed->image }}"
-                                                        class="img-fluid rounded-image">
+                                                        class="img-fluid rounded-image avatar ">
                                                 @else
                                                     <p>Chưa có ảnh</p>
                                                 @endif
                                             </a>
                                         </div>
                                     </div>
+                               
                                 </td>
                                 <td class="align-middle" style="white-space: nowrap;">
                                     {{ $item->personBeingFollowed->name }}
