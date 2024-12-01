@@ -394,24 +394,24 @@
                                     style="height: 200px; overflow: hidden;">
                                     {{-- @if ($zone->images->isNotEmpty())
                                         <img src="{{ asset('assets/images/' . $zone->images->first()->filename) }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @else
                                         <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @endif --}}
                                     @php
                                         $image = $zone->rooms->first()->image ?? null;
                                     @endphp
                                     @if ($image)
-                                        {{-- <img src="https://drive.google.com/uc?export=view&id={{ $image }}" alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded" style="object-fit: cover;"> --}}
+                                        {{-- <img src="https://drive.google.com/uc?export=view&id={{ $image }}" alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded" style="object-fit: cover;"> --}}
                                         <img src="https://drive.google.com/thumbnail?id={{ $image }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;" loading="lazy">
                                     @else
                                         <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @endif
                                     <div class="card-img-overlay p-2 d-flex flex-column">
@@ -564,11 +564,11 @@
                                     style="height: 200px; overflow: hidden;">
                                     {{-- @if ($zone->images->isNotEmpty())
                                         <img src="{{ asset('assets/images/' . $zone->images->first()->filename) }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @else
                                         <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @endif --}}
                                     @php
@@ -576,11 +576,11 @@
                                     @endphp
                                     @if ($image)
                                         <img src="https://drive.google.com/thumbnail?id={{ $image }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;" loading="lazy">
                                     @else
                                         <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @endif
                                     <div class="card-img-overlay p-2 d-flex flex-column">
@@ -801,11 +801,11 @@
                                     style="height: 200px; overflow: hidden;">
                                     {{-- @if ($zone->images->isNotEmpty())
                                         <img src="{{ asset('assets/images/' . $zone->images->first()->filename) }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @else
                                         <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @endif --}}
                                     @php
@@ -813,11 +813,11 @@
                                     @endphp
                                     @if ($image)
                                         <img src="https://drive.google.com/thumbnail?id={{ $image }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;" loading="lazy">
                                     @else
                                         <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @endif
                                     <div class="card-img-overlay p-2 d-flex flex-column">
@@ -964,11 +964,11 @@
                                     style="height: 200px; overflow: hidden;">
                                     {{-- @if ($zone->images->isNotEmpty())
                                         <img src="{{ asset('assets/images/' . $zone->images->first()->filename) }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @else
                                         <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @endif --}}
                                     @php
@@ -976,11 +976,11 @@
                                     @endphp
                                     @if ($image)
                                         <img src="https://drive.google.com/thumbnail?id={{ $image }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;" loading="lazy">
                                     @else
                                         <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @endif
                                     <div class="card-img-overlay p-2 d-flex flex-column">
@@ -1127,11 +1127,11 @@
                                     style="height: 200px; overflow: hidden;">
                                     {{-- @if ($zone->images->isNotEmpty())
                                         <img src="{{ asset('assets/images/' . $zone->images->first()->filename) }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @else
                                         <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @endif --}}
                                     @php
@@ -1139,11 +1139,11 @@
                                     @endphp
                                     @if ($image)
                                         <img src="https://drive.google.com/thumbnail?id={{ $image }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;" loading="lazy">
                                     @else
                                         <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @endif
                                     <div class="card-img-overlay p-2 d-flex flex-column">
@@ -1322,11 +1322,11 @@
                                     style="height: 200px; overflow: hidden;">
                                     {{-- @if ($zone->images->isNotEmpty())
                                         <img src="{{ asset('assets/images/' . $zone->images->first()->filename) }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @else
                                         <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @endif --}}
                                     @php
@@ -1334,11 +1334,11 @@
                                     @endphp
                                     @if ($image)
                                         <img src="https://drive.google.com/thumbnail?id={{ $image }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;" loading="lazy">
                                     @else
                                         <img src="{{ asset('assets/images/properties-grid-01.jpg') }}"
-                                            alt="{{ $zone->title }}" class="img-fluid w-100 h-100 rounded"
+                                            alt="{{ $zone->name }}" class="img-fluid w-100 h-100 rounded"
                                             style="object-fit: cover;">
                                     @endif
                                     <div class="card-img-overlay p-2 d-flex flex-column">

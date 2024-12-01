@@ -68,66 +68,53 @@
                                     </tr>
                                 @else
                                     @foreach ($reports as $report)
-                                        <tr>
-                                            <!--begin::Checkbox-->
+                                    <tr>
+                                        <!--begin::Checkbox-->
 
+                                        <td style="word-wrap: break-word;">
+                                            {{-- <small>{{ $report->description }}</small> --}}
+                                            <small>{{ Str::limit($report->description, 20, '...') }}</small>
+                                        </td>
 
-                                            <td>
-                                                {{-- <small>{{ $report->description }}</small> --}}
-                                                <small>{{ Str::limit($report->description, 20, '...') }}</small>
-                                            </td>
+                                        <td style="word-wrap: break-word;">
+                                            <small> {{ $report->user->name }}</small>
+                                        </td>
+                                        <td style="word-wrap: break-word;">
+                                            <small>{{ $report->zone ? $report->zone->name : 'Không có tiêu đề' }}</small>
+                                        </td>
 
-                                            <td>
-                                                <small> {{ $report->user->name }}</small>
-                                            </td>
-                                            <td>
-                                                <small>{{ $report->room ? $report->room->title : 'Không có tiêu đề' }}</small>
-                                            </td>
+                                        <td style="word-wrap: break-word;">
+                                            <small> {{ $report->created_at->format('d/m/Y') }}</small>
+                                        </td>
+                                        <td>
+                                            <div
+                                                class="badge {{ $report->status == 1 ? 'badge-light-warning' : ($report->status == 2 ? 'badge-light-success' : '') }}">
+                                                <small>{{ $report->status == 1 ? 'Chưa duyệt' : ($report->status == 2 ? 'Đã duyệt' : '') }}</small>
+                                            </div>
+                                        </td>
 
-                                            <td>
-                                                <small> {{ $report->created_at->format('d/m/Y') }}</small>
-                                            </td>
-                                            <td>
-                                                <div
-                                                    class="badge {{ $report->status == 1 ? 'badge-light-warning' : ($report->status == 2 ? 'badge-light-success' : '') }}">
-                                                    <small>{{ $report->status == 1 ? 'Chưa duyệt' : ($report->status == 2 ? 'Đã duyệt' : '') }}</small>
-                                                </div>
-
-                                            </td>
-
-                                            {{-- <td class="text-end text-nowrap">
-                                                <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
-                                                    data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
-                                                    style="line-height: 1;">
+                                        <td class="text-end">
+                                            <div class="dropdown">
+                                                <button
+                                                    class="btn btn-light btn-active-light-primary btn-sm dropdown-toggle"
+                                                    type="button" id="dropdownMenuButton-"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
                                                     Tác vụ
-                                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                                                    <span class="svg-icon svg-icon-5 m-0 ms-1">
-                                                        <!-- Thêm class ms-1 để tạo khoảng cách -->
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none">
-                                                            <path
-                                                                d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                                                fill="black" />
-                                                        </svg>
-                                                    </span>
-                                                    <!--end::Svg Icon-->
-                                                </a>
-                                                <!--begin::Menu-->
-                                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                                                    data-kt-menu="true">
-                                                    <!--begin::Menu item-->
-                                                    <div class="menu-item px-3">
-                                                        <a href="#" class="menu-link px-3 view-report-detail"
-                                                            data-report-id="{{ $report->id }}">
-                                                            Xem chi tiết
-                                                        </a>
-                                                    </div>
-                                                    <div class="menu-item px-3">
+                                                </button>
+                                                <ul class="dropdown-menu menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                                                    aria-labelledby="dropdownMenuButton-">
+                                                  
+                                                    <li class="menu-item px-3">
+                                                        <a href="#" data-report-id="{{ $report->id }}"
+                                                            class="dropdown-item menu-link px-3 border-0 bg-transparent text-start w-100 view-report-detail">Xem
+                                                            chi tiết</a>
+                                                    </li>
+                                                    <li class="menu-item px-3">
                                                         <a href="#"
                                                             wire:click.prevent="deleteReport({{ $report->id }})"
-                                                            class="menu-link px-3">Xóa</a>
-                                                    </div>
-                                                    <div class="menu-item px-3">
+                                                            class="dropdown-item menu-link px-3 border-0 bg-transparent text-start w-100">Xóa</a>
+                                                    </li>
+                                                    <li class="menu-item px-3">
                                                         @if ($report->status == 1)
                                                             <form
                                                                 action="{{ route('admin.approve-report', $report->id) }}"
@@ -139,75 +126,12 @@
                                                             </form>
                                                         @else
                                                         @endif
-                                                    </div>
-                                                </div>
-                                            </td> --}}
-                                            <td class="text-end">
-                                                <div class="dropdown">
-                                                    <button
-                                                        class="btn btn-light btn-active-light-primary btn-sm dropdown-toggle"
-                                                        type="button" id="dropdownMenuButton-"
-                                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                                        Tác vụ
-                                                        {{-- <span class="svg-icon svg-icon-5 m-0">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="26"
-                                                                height="24" viewBox="0 0 24 24" fill="none">
-                                                                <path
-                                                                    d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                                                    fill="black" />
-                                                            </svg>
-                                                        </span> --}}
-                                                    </button>
-                                                    <ul class="dropdown-menu menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                                                        aria-labelledby="dropdownMenuButton-">
-                                                        {{-- <li class="menu-item px-3">
-                                                            <a href="{{ route('admin.update-room-show', ['slug' => $room->slug]) }}"
-                                                                class="dropdown-item menu-link px-3">Chỉnh sửa</a>
-                                                        </li> --}}
-                                                        <li class="menu-item px-3">
-                                                            {{-- <form
-                                                                action="{{ route('admin.destroy-room', $room->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    class="dropdown-item menu-link px-3 border-0 bg-transparent text-start w-100">Xóa</button>
-                                                            </form> --}}
-                                                            <a href="#" data-report-id="{{ $report->id }}"
-                                                                class="dropdown-item menu-link px-3 border-0 bg-transparent text-start w-100 view-report-detail">Xem
-                                                                chi tiết</a>
-                                                        </li>
-                                                        <li class="menu-item px-3">
-                                                            {{-- <form
-                                                                action="{{ route('admin.destroy-room', $room->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    class="dropdown-item menu-link px-3 border-0 bg-transparent text-start w-100">Xóa</button>
-                                                            </form> --}}
-                                                            <a href="#"
-                                                                wire:click.prevent="deleteReport({{ $report->id }})"
-                                                                class="dropdown-item menu-link px-3 border-0 bg-transparent text-start w-100">Xóa</a>
-                                                        </li>
-                                                        <li class="menu-item px-3">
-                                                            @if ($report->status == 1)
-                                                                <form
-                                                                    action="{{ route('admin.approve-report', $report->id) }}"
-                                                                    method="POST">
-                                                                    @csrf
-                                                                    @method('PUT')
-                                                                    <button type="submit"
-                                                                        class="menu-link px-3 border-0 bg-transparent">Duyệt</button>
-                                                                </form>
-                                                            @else
-                                                            @endif
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                            <!--end::Action=-->
-                                        </tr>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <!--end::Action=-->
+                                    </tr>
                                     @endforeach
                                 @endif
                             </tbody>

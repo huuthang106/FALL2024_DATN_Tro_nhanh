@@ -565,9 +565,12 @@
                                                         href=" {{ route('client.detail-zone', ['slug' => $zone->slug]) }}">
 
                                                         <div class="symbol-label">
-                                                            @if (!empty($zone->image_filename))
-                                                                <img src="{{ asset('assets/images/' . $zone->image_filename) }}"
-                                                                    alt="{{ $zone->title }}">
+                                                            @php
+                                                            $image = $zone->rooms->first()->image ?? null;
+                                                        @endphp
+                                                          @if ($image)
+                                                                <img src="https://drive.google.com/thumbnail?id={{ $image }}"
+                                                                    alt="{{ $zone->name }}">
                                                             @else
                                                                 <img src="{{ asset('assets/images/blog-details.jpg') }}"
                                                                     alt="{{ $zone->name }}">
