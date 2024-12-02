@@ -51,7 +51,7 @@
 
                                     <th class="min-w-125px">Tiêu đề</th>
                                     <th class="min-w-125px">Người báo cáo</th>
-                                    <th class="min-w-125px">Tên phòng</th>
+                                    <th class="min-w-125px">Tên khu trọ</th>
                                     <th class="min-w-125px">Ngày báo cáo</th>
                                     <th class="min-w-125px">Trạng thái</th>
                                     <th class="text-end min-w-70px">Thao tác</th>

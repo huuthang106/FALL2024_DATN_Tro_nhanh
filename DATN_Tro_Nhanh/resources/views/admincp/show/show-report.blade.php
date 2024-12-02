@@ -119,7 +119,7 @@
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label fw-bold">Tiêu đề:</label>
-                                                <textarea class="form-control" rows="3" readonly>${data.description}</textarea>
+                                                <textarea class="form-control" rows="3" readonly>${data.zone ? data.zone.name : 'Không có tiêu đề'}</textarea>
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label fw-bold">Người báo cáo:</label>
@@ -128,8 +128,8 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
-                                                <label class="form-label fw-bold">Tên phòng:</label>
-                                                <input type="text" class="form-control" value="${data.room ? data.room.title : 'Không có tiêu đề'}" readonly>
+                                                <label class="form-label fw-bold">Số điện thoại chủ trọ:</label>
+                                                <input type="text" class="form-control" value="${data.zone ? data.zone.phone : 'Không có tiêu đề'}" readonly>
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label fw-bold">Ngày báo cáo:</label>
