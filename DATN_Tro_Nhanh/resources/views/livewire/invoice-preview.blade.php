@@ -147,15 +147,15 @@
                         <div class="card card-body p-6">
                             <div class="row">
                                 @if (Auth::user()->role == 1)
-                                    <div class="col-12 mb-3">
+                                    {{-- <div class="col-12 mb-3">
                                         <a href="javascript:void(0);" class="btn btn-success btn-download btn-block">Tải
                                             xuống</a>
-                                    </div>
+                                    </div> --}}
                                 @else
-                                    <div class="col-12 mb-3">
+                                    {{-- <div class="col-12 mb-3">
                                         <a href="javascript:void(0);" class="btn btn-success btn-download btn-block">Tải
                                             xuống</a>
-                                    </div>
+                                    </div> --}}
                                     @if ($status == 1 && $bill->creator_id == Auth::id())
                                         <div class="col-12 mb-3">
                                             <a href="javascript:void(0);" class="btn btn-dark btn-edit btn-block"
